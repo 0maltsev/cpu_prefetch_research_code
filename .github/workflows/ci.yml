@@ -33,6 +33,8 @@ jobs:
         run: cmake --build --preset dev-gcc --target schema-fixture-check
       - name: Canonical serialization check
         run: cmake --build --preset dev-gcc --target canonical-check
+      - name: Queue provenance check
+        run: cmake --build --preset dev-gcc --target queue-provenance-check
       - name: Documentation check
         run: cmake --build --preset dev-gcc --target document-check
       - name: Dependency inventory check
@@ -53,6 +55,8 @@ jobs:
         run: ctest --preset release-gcc
       - name: Reject native and unsafe flags
         run: cmake --build --preset release-gcc --target release-policy-check
+      - name: Queue generated-code check
+        run: cmake --build --preset release-gcc --target queue-codegen-check
       - name: Generate stand-foundation package
         run: cmake --build --preset release-gcc --target package
 

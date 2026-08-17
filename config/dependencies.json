@@ -39,7 +39,8 @@
       "source": "https://github.com/llvm/llvm-project",
       "license": "Apache-2.0 WITH LLVM-exception",
       "purpose": "Secondary C++20 compiler, clang-format, clang-tidy, and LLVM tooling",
-      "scope": "build-analysis"
+      "scope": "build-analysis",
+      "availability_notes": "clang, clang-format, and clang-tidy are provisioned; ADR-0016-required llvm-objdump is not provisioned and blocks Stage 5 closure"
     },
     {
       "id": "libcxx-libcxxabi",

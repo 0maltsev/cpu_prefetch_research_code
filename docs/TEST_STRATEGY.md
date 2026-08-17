@@ -2,11 +2,13 @@
 
 ## Purpose
 
-This is the verification plan for a future Stage A implementation. Stage 4 now
-provides the typed protocol/configuration model and validation layer; no queue
-or measurement production code exists. ADR-0009 through ADR-0011, ADR-0017,
-ADR-0022, and ADR-0023 fix the framework/toolchain/sanitizer/model baseline and
-documented commands. Tests establish software correctness, protocol
+This is the verification plan for a future Stage A implementation. Stage 4
+provides the typed protocol/configuration model and validation layer. Stage 5
+now provides independently authored ring and linked/recycler queue cores and
+correctness tests; no measurement production code exists. ADR-0009 through
+ADR-0011, ADR-0017, and ADR-0022 through ADR-0024 fix the
+framework/toolchain/sanitizer/model/queue baseline and documented commands.
+Tests establish software correctness, protocol
 conformance, reproducibility, and access integrity. Synthetic and
 development-machine tests do **not** establish queue performance, a prefetch
 benefit, a platform population effect, or any empirical paper claim.
@@ -106,6 +108,14 @@ Both queues require histories checked against an abstract bounded FIFO with sing
 
 The linked package additionally requires a written refinement argument and executable history checks for immediate full when the recycler is empty, exclusive node states, acyclic/reachable chain, no recycle while reachable, FIFO recycler transfer, and repeated `C+1` cycles. Suspension at relevant phases must not violate the stated wait-free/terminating try-operation boundary.
 
+Stage 5 status: implemented for both direct adapters. Deterministic tests cover
+empty/full/capacity/FIFO, 200,000 sequential ring reuse operations, exact
+linked `C+1` node cycles, 10,000-step abstract-model histories, generated
+RapidCheck histories, and suspension immediately before ring publication/reuse
+and linked publication/recycler return. The written memory-order,
+linearization, ownership, progress, and fixed-arena refinement argument is in
+`docs/QUEUE_CORRECTNESS.md`.
+
 ### 7. Concurrent stress tests
 
 - Long fixed-seed producer/consumer sequences with independent delay injection.
@@ -115,6 +125,15 @@ The linked package additionally requires a written refinement argument and execu
 - Stress both slow-producer and slow-consumer cases and abrupt controlled termination/failure recording.
 
 Acceptance durations, repetition counts, machines, and seeds are frozen before pilot. A retry after a flaky failure does not convert it to a pass.
+
+Stage 5 status: the repository stress target transfers fixed sequences under
+both slow-producer and slow-consumer yield patterns, validates exact pointer and
+payload order, and audits quiescent ring occupancy and linked node ownership.
+A separate history issues exactly one enqueue attempt per logical arrival,
+retains accepted/full outcomes, drains, and compares only the accepted
+sequence. Correctness-only complete-transfer loops may retry outside the
+adapter solely to force repeated slot/node reuse; no retry exists in an
+operation or production driver.
 
 ### 8. Sanitizers and language/runtime checks
 
@@ -127,6 +146,12 @@ Acceptance durations, repetition counts, machines, and seeds are frozen before p
 Acceptance is zero unresolved findings. A suppression is not a pass unless a named owner records the exact diagnostic, smallest scope, tool defect or deliberate mechanism, compensating evidence, and expiry/review gate. Unsupported TSan combinations are recorded as unavailable and require both supported-toolchain deterministic history/refinement evidence plus the approved compensating plan; they are never silently skipped.
 
 Sanitizer builds verify correctness only and are never used for performance claims.
+
+Stage 5 status: GCC/libstdc++ and Clang/libc++ queue unit/property/stress tests
+pass ASan/UBSan and TSan without queue suppression or finding. LeakSanitizer
+remains separately disabled by the accepted managed-ptrace limitation. The
+runtime pointer-atomic checks pass on the development host and must be repeated
+on the eligible stand.
 
 ### 9. Deterministic schedule golden tests
 
@@ -183,6 +208,14 @@ Verify that `FULL`, low `N_eff`, and extreme valid latency never authorize repla
 ### 18. Generated-code acceptance
 
 For each package/build, inspect and hash the generated boundaries for queue publication/observation, prefetch site/target/form/distance, wait relaxation, termination flag, immutable record loads, private checksum update, timestamp boundaries, static specialization, and absence of virtual dispatch, treatment branch, allocation, I/O, logging, or unexpected calls. Source, object, executable, compiler, flags, standard-library, linker, disassembler, rule-set, and report hashes travel together. The test must include negative fixtures or mutated builds proving the checks detect missing/moved operations.
+
+Stage 5 status: the GCC release operation probe has four direct adapter symbols.
+GNU objdump reports no call, `lock`, `xchg`, or `mfence` class in those bodies
+and the deliberate call mutant is rejected. LLVM 22 `llvm-objdump` is absent
+from the provisioned toolset, so the ADR-0016 dual-disassembler gate remains
+blocked. The partial report is retained; it is not described as a generated-code
+pass. Prefetch, relax, termination, record-load/mix, and clock boundaries do not
+exist yet and remain later generated-code obligations.
 
 ### 19. Clean-environment build and verification
 

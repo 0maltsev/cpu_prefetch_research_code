@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-This is the accepted architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0023 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, Stage 3 tooling, and Stage 4 protocol-model boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
+This is the accepted architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0024 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, Stage 3 tooling, Stage 4 protocol-model, and Stage 5 queue-representation boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
 
 The architecture has three planes:
 
@@ -18,7 +18,7 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 |---|---|---|---|---|
 | Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Queue, clock, prepared schedule, private sink; implementation blocked |
 | Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Queue, clock, record arena, private sink; implementation blocked |
-| Data | Queue adapter binding | Narrow operation/boundary seam while preserving ring or linked/recycler semantics | Required | Non-dispatch binding and independent mode accepted; exact proof/representation due Phase 5 |
+| Data | Queue adapter binding | Distinct direct ring and linked/recycler one-attempt operations preserving full/empty/invariant and linearization semantics | Required | Stage 5 source/proof/tests implemented under ADR-0024; dual-disassembler closure blocked by missing LLVM objdump |
 | Controller | Run-image builder | Parse and semantically validate config, allocate/touch/initialize arenas and buffers, derive schedules, bind identities and capacity proof | Forbidden | Prepared-run image interface; deterministic primitives blocked |
 | Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact publication | Outside horizon | One-process/two-worker topology accepted; implementation pending |
 | Controller | Platform-control adapter | Request affinity/NUMA/pages/frequency/HW-PF state, read back and probe, rollback | Forbidden | Linux interface accepted; exact target/authority evidence due Phase 9 |
@@ -41,7 +41,7 @@ An immutable, fully validated run image containing run identity, specialized pac
 
 ### `QueueAdapter`
 
-A package-bound seam providing one-attempt enqueue/dequeue outcomes and explicit protocol boundary hooks. It must expose, not hide, package-specific linearization, full, recycler, memory-order, prefetch, and progress semantics. API substitutability alone is not scientific equivalence. ADR-0012 requires compile/link-time, direct, or separate-binary binding with no measured-path virtual dispatch or treatment-selection branch.
+A package-bound seam providing one-attempt enqueue/dequeue outcomes while retaining package-specific linearization, full, recycler, memory-order, and progress semantics. Stage 5 implements separate final `RingQueueAdapter` and `LinkedQueueAdapter` types with no common virtual base or runtime family selector. Their `noexcept` operations are constant-step and contain no allocation, retry, wait, logging, exception control flow, or callback. Private phase hooks are accessible only to correctness tests and compile away from adapter code. API substitutability alone is not scientific equivalence. Prefetch package sites remain later platform/package work.
 
 ### `ClockSource`
 
@@ -68,7 +68,7 @@ Publishes immutable byte objects and append-only metadata with stable IDs, SHA-2
 
 ### `QueueProvenance`
 
-For each queue package, binds paper section/figure, official artifact search record, immutable artifact IDs/hashes if any, license, selected reuse/adaptation/independent mode, adaptation list, and refinement proof. Absence blocks queue source work.
+For each queue package, binds paper section/figure, official artifact search record, source hashes, license, independent mode, every adaptation, memory-order/atomic/layout map, claim boundary, refinement proof, tests, sanitizers, and generated-code status. Stage 5 records live under `config/queue-provenance/` and are fail-closed checked. Exact historical FastFlow artifact status remains unresolved but no source is reused. Missing dual-disassembler evidence blocks Stage 5 closure without changing the implementation mode.
 
 ## Timed-path contract
 
@@ -107,4 +107,4 @@ Readers fail closed on unknown protocol/schema, artifact-kind, physical-format, 
 
 ## Deferred decisions
 
-The owner selected no repository license grant in ADR-0021, Stage 3 pins the development/CI tool series in ADR-0022, and Stage 4 implements typed logical records in ADR-0023. Queue representation/proofs, exact measured-release pins, target stand/authority facts, clock, raw format, RNG/schedule/mixing/checksum details, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. None may be filled by a build or configuration default.
+The owner selected no repository license grant in ADR-0021, Stage 3 pins the development/CI tool series in ADR-0022, Stage 4 implements typed logical records in ADR-0023, and ADR-0024 fixes the queue representation/proof mapping. Phase 5 still needs the accepted LLVM disassembler evidence. Eligible-stand lock-free/layout repetition, prefetch sites, exact measured-release pins, target stand/authority facts, clock, raw format, RNG/schedule/mixing/checksum details, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. None may be filled by a build or configuration default.

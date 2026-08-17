@@ -26,6 +26,8 @@
 - Sanitizers: configure/build/test `asan-ubsan-gcc`, `tsan-gcc`, `asan-ubsan-clang-libcxx`, or `tsan-clang-libcxx`; ASan presets explicitly disable LeakSanitizer under the managed ptrace boundary.
 - Lint/format: `cmake --build --preset dev-gcc --target format-check static-analysis`
 - Schema validation: `cmake --build --preset dev-gcc --target protocol-check schema-fixture-check canonical-check`
+- Queue provenance: `cmake --build --preset dev-gcc --target queue-provenance-check`
+- Queue generated code: `cmake --build --preset release-gcc --target queue-codegen-check` (requires both GNU objdump and accepted LLVM 22 `llvm-objdump`; missing LLVM is a blocking failure)
 - Clean-room verification: use a recorded pre-provisioned dependency prefix, then run the documented configure/build/test/check/package commands in `README.md`; configure and build perform no network fetch.
 
 Replace a placeholder only through a recorded engineering decision and keep `README.md`, `STATUS.md`, and `PLAN.md` synchronized.

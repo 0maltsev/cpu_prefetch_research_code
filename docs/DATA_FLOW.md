@@ -28,6 +28,14 @@ carry category/path/rule identity and never repair input. Cross-record
 resolution is accepted only after the Phase 12/14 validators described in
 [`PROTOCOL_MODEL.md`](PROTOCOL_MODEL.md) exist.
 
+Stage 5 supplies only the queue-operation seam beneath a future prepared image.
+The producer can issue one direct nonblocking enqueue call and retain
+`accepted` or `full`; the consumer can issue one direct nonblocking dequeue
+poll and retain `item` or `empty`. Ring and linked/recycler adapters remain
+distinct, so linked recycler exhaustion/ownership and ring slot reuse are not
+normalized away. Stage 5 tests execute these operations with synthetic records
+but create no run identity, clock, observation row, manifest, or measurement.
+
 The producer and consumer receive disjoint mutable observation buffers. They record their own facts independently and in program order. The repeating record index is a validation field only; it is never an event ID. Accepted observations are reconciled later by run identity and accepted ordinal.
 
 ## Logical streams

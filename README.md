@@ -225,9 +225,8 @@ commands above and performs no dependency download; runner policy must disable
 dependency-network access after source checkout. Runner availability and
 provisioning are external platform operations.
 
-Stage 6 is complete. The D-027 recommendation is prepared in
-[`docs/STAGE7_DECISION_BUNDLE.md`](docs/STAGE7_DECISION_BUNDLE.md), with
-ADR-0029 still `PROPOSED`. The exact next safe activity is **owner acceptance
-or revision of Q6**. Until that explicit decision, Stage 7 implementation is
-blocked. Timing, measurement, pilot, and confirmatory behavior remain
+Stage 6 is complete. Q6 accepted the D-027 bundle in
+[`docs/STAGE7_DECISION_BUNDLE.md`](docs/STAGE7_DECISION_BUNDLE.md), and
+ADR-0029 is `ACCEPTED`. The exact next safe activity is **Stage 7 schedule
+implementation**. Timing, measurement, pilot, and confirmatory behavior remain
 prohibited until their later lifecycle gates.

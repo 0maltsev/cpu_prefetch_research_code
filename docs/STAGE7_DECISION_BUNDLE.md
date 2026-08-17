@@ -4,21 +4,22 @@ Protocol version: **`2.0.0-pre.1`**
 
 Decision ID: **D-027**  
 Approval question: **Q6**  
-State: **`RECOMMENDED_AWAITING_OWNER_APPROVAL`**
+State: **`ACCEPTED_BY_Q6`**
 
-This document is a recommendation, not an accepted decision. ADR-0029 remains
-`PROPOSED`, Stage 7 remains blocked, and no schedule implementation or
-experiment artifact has been created.
+The repository owner accepted this bundle exactly as written by answering
+`Q6 - accept the bundle` on 2026-08-17. ADR-0029 is `ACCEPTED`; Stage 7
+implementation may begin, but no schedule implementation or experiment
+artifact has yet been created.
 
 ## Decision record
 
-| Field | Proposed value |
+| Field | Accepted value |
 |---|---|
 | ID | D-027 |
 | Classification | Scientific/reproducibility mapping with engineering implementation consequences |
 | Owners | Repository owner; reproducibility owner; statistical owner; timing owner |
-| Deadline / gate | Must be accepted before any Stage 7 schedule-generation implementation |
-| Recommended suite ID | `POISSON-EXPONENTIAL-PHILOX-DECIMAL80-FLOOR-ABS-PS-v1` |
+| Deadline / gate | Accepted before Stage 7 schedule-generation implementation |
+| Selected suite ID | `POISSON-EXPONENTIAL-PHILOX-DECIMAL80-FLOOR-ABS-PS-v1` |
 | Supersession | New suite/version prospectively; existing schedules remain tied to their recorded suite and are never reinterpreted |
 
 ## Normative constraints preserved
@@ -30,7 +31,7 @@ namespace, RNG, time-unit, encoding, count, overflow, storage, and checksum
 identity; and matched-treatment schedule sharing. It deliberately does not
 select the transform, bit mapping, integer unit, rounding, or overflow rule.
 
-The proposal does not select any master seed, concrete namespace, rate,
+The decision does not select any master seed, concrete namespace, rate,
 horizon, platform, clock, experiment outcome, or performance parameter.
 
 ## Options considered
@@ -50,9 +51,9 @@ contract](https://docs.python.org/3.14/library/decimal.html), which specifies
 correctly rounded natural logarithms; and the imported protocol's exact
 schedule fields. [MPFR](https://www.mpfr.org/mpfr-current/) was evaluated as a
 fallback because it also specifies correctly rounded, architecture-independent
-operations; it is not needed by the recommendation.
+operations; it is not needed by the selected option.
 
-## Proposed exact algorithm
+## Accepted exact algorithm
 
 ### Stream and bit consumption
 
@@ -205,7 +206,7 @@ non-hash identity, avoiding recursion. This profile is selected by the exact
 `rng.algorithm`/`rng.version` binding above. Unknown suite/profile IDs fail
 closed.
 
-## Proposed golden vectors
+## Accepted golden vectors
 
 These values are synthetic correctness fixtures, not experiment seeds or
 performance data.
@@ -269,10 +270,10 @@ for generation, and any golden mismatch fails closed. The C++ prepared-run
 consumer receives only validated immutable unsigned deadlines and does not link
 or invoke Python.
 
-No new third-party dependency is proposed: Python 3.14 and its standard library
+No new third-party dependency is added: Python 3.14 and its standard library
 are already in the accepted dependency baseline. MPFR/GMP remain unselected.
 
-## Required Stage 7 verification after approval
+## Required Stage 7 verification after acceptance
 
 - direct and integrated golden vectors under the pinned Python release;
 - C `decimal` versus `_pydecimal` parity for transform fixtures;
@@ -285,11 +286,11 @@ are already in the accepted dependency baseline. MPFR/GMP remain unselected.
 - proof that generation, parsing, hashing, and allocation are outside the timed
   process path.
 
-## Approval choices
+## Approval record
 
-- **Q6 — accept the bundle:** accept D-027 and ADR-0029 exactly as proposed;
-  Stage 7 implementation may then begin.
-- Request a named change to one or more fields; ADR-0029 remains proposed and
-  Stage 7 stays blocked.
-- Select the MPFR fallback; dependency/license/version details must first be
-  added to the bundle and approved.
+The repository owner answered **`Q6 - accept the bundle`** on 2026-08-17.
+D-027 and ADR-0029 are therefore accepted exactly as recorded here. Stage 7
+implementation may begin. Any later change to a suite-defining field requires
+a superseding ADR, new suite/version, prospective artifact regeneration, and
+full requalification; selecting the MPFR fallback would additionally require
+approved dependency, license, and version records.

@@ -169,10 +169,8 @@ physical page-frame order, platform retaining read/write instructions or named
 read fallback, and calibrated per-context R2 distances. Those are external or
 later calibration records, not Stage 6 defaults.
 
-Stage 7 schedule implementation additionally requires owner acceptance of
-D-027. The exact transform, input-bit mapping, integer time unit, rounding,
-encoding, overflow, hashes, and goldens are now recommended in
-[`STAGE7_DECISION_BUNDLE.md`](STAGE7_DECISION_BUNDLE.md) and proposed ADR-0029,
-but remain unselected until Q6 is accepted. ADR-0025's general stream and
-derivation are ready for that prospective decision; Stage 6 does not generate
-a schedule.
+Q6 accepted D-027 for Stage 7 schedule implementation. The exact transform,
+input-bit mapping, integer time unit, rounding, encoding, overflow, hashes, and
+goldens are fixed in [`STAGE7_DECISION_BUNDLE.md`](STAGE7_DECISION_BUNDLE.md)
+and ADR-0029. ADR-0025's general stream and derivation are ready for that
+implementation; Stage 6 itself does not generate a schedule.

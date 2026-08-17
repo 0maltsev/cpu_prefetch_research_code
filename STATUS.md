@@ -4,19 +4,19 @@ Protocol snapshot: **`2.0.0-pre.1`**
 
 Repository state: **`STAGE_6_COMPLETE`**
 
-Readiness verdict: **`READY_FOR_D027_OWNER_APPROVAL_NOT_MEASUREMENT`**
+Readiness verdict: **`READY_FOR_STAGE7_IMPLEMENTATION_NOT_MEASUREMENT`**
 
 ## Readiness by area
 
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | The Stage 6 check freshly passed all 18 manifest sizes/SHA-256 values, exact inventory, four authoritative hashes, JSON parsing, and Draft 2020-12 meta-schema validation for all seven schemas. |
-| Stage 2 implementation-decision freeze | `COMPLETE`; later Q6 proposed | ADR-0001 through ADR-0028 are accepted. Q4 selected no license grant and Q5 selected the deterministic workload bundle. ADR-0029 is only a D-027 proposal awaiting Q6; later platform/pilot selections remain open at their recorded gates. |
+| Stage 2 implementation-decision freeze | `COMPLETE`; Q6 accepted post-Stage 6 | ADR-0001 through ADR-0029 are accepted. Q4 selected no license grant, Q5 selected the deterministic workload bundle, and Q6 selected the D-027 schedule suite. Later platform/pilot selections remain open at their recorded gates. |
 | Stage 3 build/CI foundation | `COMPLETE_LOCAL` | ADR-0022, constrained offline inputs, dual compiler/library presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations remain passing. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023, typed C++20 records for all seven schema families, strict loading, immutable configuration, record-local semantic rules, exact `JCS-I64-v1`, and explicit cross-record interfaces are implemented and pass the recorded matrix. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
 | Workload construction | `COMPLETE_LOCAL` | ADR-0025 through ADR-0028 fix the deterministic stream, unbiased permutations, payload/mixer/integrity grammars, event/node layouts, and five package mechanisms. Known-answer/property/corruption/no-allocation and dual-disassembler checks pass. |
-| Measurement system | `NOT_STARTED_BLOCKED_LATER_DECISIONS` | No clock, generated schedule, queue-driven timed loop, raw physical codec, controller, or platform mutation exists. Their scientific/platform selections remain unresolved at their assigned gates. |
+| Measurement system | `NOT_STARTED_BLOCKED_LATER_DECISIONS` | No clock, generated schedule, queue-driven timed loop, raw physical codec, controller, or platform mutation exists. The schedule mapping is accepted; remaining scientific/platform selections stay unresolved at their assigned gates. |
 | Pre-pilot validation | `NOT_STARTED` | Requires Stages 5–15 and fresh eligible-platform/custody evidence. |
 | Pilot | `PROHIBITED` | Stage 16 and explicit pilot authorization are absent; this one-NUMA-node development host is ineligible for near/far evidence. |
 | Confirmatory execution | `PROHIBITED` | Pilot outputs and later freeze records, budgets, authorities, and sealing proof are absent. |
@@ -144,9 +144,8 @@ mapping remains unresolved and no implementation text was used.
 
 ## Immediate gate
 
-Stage 6 is complete and the D-027 recommendation is prepared in
-[`docs/STAGE7_DECISION_BUNDLE.md`](docs/STAGE7_DECISION_BUNDLE.md). The exact
-next safe activity is **owner acceptance or revision of Q6**. ADR-0029 remains
-`PROPOSED`, so Stage 7 implementation is still blocked. Timing, measurement,
-pilot activity, and confirmatory execution remain blocked by their later
-lifecycle gates.
+Stage 6 is complete, and Q6 accepted D-027 exactly as recorded in
+[`docs/STAGE7_DECISION_BUNDLE.md`](docs/STAGE7_DECISION_BUNDLE.md). ADR-0029 is
+`ACCEPTED`; the exact next safe activity is **Stage 7 schedule implementation**.
+Timing, measurement, pilot activity, and confirmatory execution remain blocked
+by their later lifecycle gates.

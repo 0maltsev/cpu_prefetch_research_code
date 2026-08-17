@@ -1,0 +1,165 @@
+{
+  "manifest_version": 1,
+  "protocol_version": "2.0.0-pre.1",
+  "source_repository": {
+    "identity": "cpu_prefetch_research_paper",
+    "resolved_path_at_import": "/Users/olegmalcev/hft/cpu_prefetch_research_paper",
+    "git_commit": null,
+    "git_commit_status": "UNAVAILABLE_SOURCE_TREE_HAS_NO_GIT_METADATA"
+  },
+  "import_timestamp_utc": "2026-08-17T08:57:35Z",
+  "verification_result": "PASS",
+  "verification_scope": "SOURCE_COPY_SIZE_SHA256_AND_DECLARED_AUTHORITATIVE_HASHES",
+  "draft_2020_12_meta_schema_validation": "BLOCKED_NO_CONFORMING_VALIDATOR_INSTALLED_IN_IMPORT_ENVIRONMENT",
+  "compatibility_status": {
+    "current_protocol": "2.0.0-pre.1",
+    "status": "CURRENT",
+    "prior_1_x": "INCOMPATIBLE_WITHOUT_EXPLICIT_AUDITED_MIGRATION"
+  },
+  "artifacts": [
+    {
+      "original_relative_path": "paper/main.pdf",
+      "imported_relative_path": "protocol/2.0.0-pre.1/main.pdf",
+      "file_size_bytes": 511984,
+      "sha256": "f7dccf3db2a4809c8d703d294f1407f91322cbc918cb2083b689c1c755b8d60e",
+      "verification_result": "PASS_SOURCE_COPY_AND_DECLARED_HASH",
+      "compatibility_status": "CURRENT_2.0.0-pre.1"
+    },
+    {
+      "original_relative_path": "EXPERIMENT_IMPLEMENTATION_SPEC.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/EXPERIMENT_IMPLEMENTATION_SPEC.md",
+      "file_size_bytes": 76335,
+      "sha256": "3795f53cfd0b06d94c2fdafa90e71372fc4f0eccd09d084382668f74f2b715ca",
+      "verification_result": "PASS_SOURCE_COPY_AND_DECLARED_HASH",
+      "compatibility_status": "CURRENT_2.0.0-pre.1; INCOMPATIBLE_WITH_1.x_DATA_MODEL"
+    },
+    {
+      "original_relative_path": "PROTOCOL_FREEZE_CHECKLIST.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/PROTOCOL_FREEZE_CHECKLIST.md",
+      "file_size_bytes": 11956,
+      "sha256": "6eaa7eda33771ffa721439ee0b3273cf7cb2dabe3c5d4f46da8dec283e672867",
+      "verification_result": "PASS_SOURCE_COPY_AND_DECLARED_HASH",
+      "compatibility_status": "CURRENT_2.0.0-pre.1"
+    },
+    {
+      "original_relative_path": "AGENTS.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/PAPER_AGENTS.md",
+      "file_size_bytes": 9544,
+      "sha256": "6e6aac3ead33a604d515d583c018d7a6e74e5b68892ff221d0d48abce86efb8b",
+      "verification_result": "PASS_SOURCE_COPY_AND_DECLARED_HASH",
+      "compatibility_status": "CURRENT_2.0.0-pre.1; SOURCE_MATERIAL_ONLY"
+    },
+    {
+      "original_relative_path": "handoff/ACCESS_AND_SEALING_PROTOCOL.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/ACCESS_AND_SEALING_PROTOCOL.md",
+      "file_size_bytes": 5112,
+      "sha256": "3047d690e71526088973861a980011657b03726e58656a1ea8db25d8d96ac3a2",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "CURRENT_2.0.0-pre.1"
+    },
+    {
+      "original_relative_path": "handoff/AMENDMENTS.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/AMENDMENTS.md",
+      "file_size_bytes": 3360,
+      "sha256": "92d3386e5192cb430c085a63a8a6c3d6683841805ac1811379fa6c8080f35a8e",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "CURRENT_LINEAGE_INCLUDES_INCOMPATIBLE_1.x_HISTORY"
+    },
+    {
+      "original_relative_path": "handoff/DATA_DICTIONARY.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/DATA_DICTIONARY.md",
+      "file_size_bytes": 8550,
+      "sha256": "c0c29e44ebfa5d3a8628180e748a11ea6095c1167ef5301c6bedd9518b9fd9da",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "CURRENT_2.0.0-pre.1; INCOMPATIBLE_WITH_1.x_LOGICAL_MODEL"
+    },
+    {
+      "original_relative_path": "handoff/HANDOFF_READINESS_REPORT.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/HANDOFF_READINESS_REPORT.md",
+      "file_size_bytes": 8738,
+      "sha256": "21b81d13869fdf700783167942d38b3d3a5119d13c1239dd8837da83055f71c1",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "CURRENT_2.0.0-pre.1"
+    },
+    {
+      "original_relative_path": "handoff/IMPLEMENTATION_DECISIONS.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/IMPLEMENTATION_DECISIONS.md",
+      "file_size_bytes": 5310,
+      "sha256": "787090542fc911f5ec919ebb44db4773d694b438fe185f8677e87db77554bcbb",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "CURRENT_2.0.0-pre.1"
+    },
+    {
+      "original_relative_path": "handoff/PROTOCOL_VERSION.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/PROTOCOL_VERSION.md",
+      "file_size_bytes": 3221,
+      "sha256": "a276299504087421a596b61623ea5eae22c2acab7d2e1bd5bccc0dd96e8f26bc",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "AUTHORITATIVE_VERSION_AND_COMPATIBILITY_RECORD"
+    },
+    {
+      "original_relative_path": "handoff/README.md",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/README.md",
+      "file_size_bytes": 3091,
+      "sha256": "7aa9fb0a4c0471fd0340b98aaa339eab7c1593f421e70f592d9177d24877da96",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "CURRENT_2.0.0-pre.1"
+    },
+    {
+      "original_relative_path": "handoff/schemas/block-plan.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/schemas/block-plan.schema.json",
+      "file_size_bytes": 4542,
+      "sha256": "e9d91afefaeef73070a58dae21ec0e8d062ffee34590a3042a6a6aa84ea37666",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "DRAFT_2020-12_CURRENT_2.0.0-pre.1; INCOMPATIBLE_WITH_1.x"
+    },
+    {
+      "original_relative_path": "handoff/schemas/failure-record.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/schemas/failure-record.schema.json",
+      "file_size_bytes": 3635,
+      "sha256": "2b84e5643386ade428fc4060c45e784761ee4a51a04e748bd89b22ac901db1ab",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "DRAFT_2020-12_CURRENT_2.0.0-pre.1"
+    },
+    {
+      "original_relative_path": "handoff/schemas/freeze-record.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/schemas/freeze-record.schema.json",
+      "file_size_bytes": 11524,
+      "sha256": "ee8f923d951bf0be700e981837e53871cd31d321ca014803f20f0b2b3409d706",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "DRAFT_2020-12_CURRENT_2.0.0-pre.1; INCOMPATIBLE_WITH_1.x"
+    },
+    {
+      "original_relative_path": "handoff/schemas/platform.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/schemas/platform.schema.json",
+      "file_size_bytes": 4428,
+      "sha256": "894d8388b298e078856eac071ec515b10741ec0b75830ff64b9876ebd9cafe01",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "DRAFT_2020-12_CURRENT_2.0.0-pre.1"
+    },
+    {
+      "original_relative_path": "handoff/schemas/raw-observation.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/schemas/raw-observation.schema.json",
+      "file_size_bytes": 9452,
+      "sha256": "b7a86db58d2ffe54c63dd512668ed5bfb5723f313f2d3eeaf050fc54279cc87a",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "DRAFT_2020-12_CURRENT_2.0.0-pre.1; INCOMPATIBLE_WITH_1.x"
+    },
+    {
+      "original_relative_path": "handoff/schemas/run-manifest.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/schemas/run-manifest.schema.json",
+      "file_size_bytes": 13741,
+      "sha256": "ef460636ac56bdf32aa2bcde1bbdca3f64c5dc80d7258707ec7e1e8e51a078f2",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "DRAFT_2020-12_CURRENT_2.0.0-pre.1; INCOMPATIBLE_WITH_1.x"
+    },
+    {
+      "original_relative_path": "handoff/schemas/schedule.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.1/handoff/schemas/schedule.schema.json",
+      "file_size_bytes": 4593,
+      "sha256": "a7398a6989424ccf03edff4cbe429f1b7332dba5e4a2df38591ef51778f8cc8e",
+      "verification_result": "PASS_SOURCE_COPY; NO_INDIVIDUAL_DECLARED_HASH",
+      "compatibility_status": "DRAFT_2020-12_CURRENT_2.0.0-pre.1; INCOMPATIBLE_WITH_1.x"
+    }
+  ]
+}

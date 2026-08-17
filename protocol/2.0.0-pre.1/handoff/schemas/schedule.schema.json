@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/2.0.0-pre.1/schedule.schema.json",
+  "title": "Arrival schedule envelope",
+  "description": "After decoding, deadlines must be nondecreasing, decoded count must equal offered_count and storage row_count, and every included deadline must lie in [origin_ticks, origin_ticks+horizon_ticks). Those arithmetic and cross-item rules are mandatory semantic-validator checks.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "schedule_id", "schedule_kind",
+    "arrival_family", "namespace_id", "rng", "time_unit", "deadline_encoding",
+    "origin_ticks", "horizon_ticks", "inclusion_boundary", "offered_count",
+    "nominal_offered_rate", "overflow_rule_record_id", "immutable_ordering",
+    "deadline_storage", "decoded_deadlines_sha256", "schedule_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0-pre.1"},
+    "protocol_version": {"const": "2.0.0-pre.1"},
+    "schedule_id": {"type": "string", "minLength": 1},
+    "schedule_kind": {"enum": ["WARMUP", "CALIBRATION", "PILOT", "CONFIRMATORY", "DIAGNOSTIC", "STAGE_B", "STAGE_C"]},
+    "arrival_family": {"enum": ["POISSON_EXPONENTIAL", "CONTINUOUS_READY", "PREDECLARED_BURST", "PREDECLARED_OTHER"]},
+    "namespace_id": {"type": "string", "minLength": 1},
+    "rng": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "version", "seed_id", "derivation_record_id", "parent_namespace_id"],
+      "properties": {
+        "algorithm": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "seed_id": {"type": "string", "minLength": 1},
+        "derivation_record_id": {"type": "string", "minLength": 1},
+        "parent_namespace_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "time_unit": {"type": "string", "minLength": 1},
+    "deadline_encoding": {"enum": ["ABSOLUTE_INTEGER_TICKS", "DELTA_INTEGER_TICKS"]},
+    "origin_ticks": {"type": "integer", "minimum": 0},
+    "horizon_ticks": {"type": "integer", "minimum": 1},
+    "inclusion_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_inclusive", "end_exclusive"],
+      "properties": {
+        "start_inclusive": {"const": true},
+        "end_exclusive": {"const": true}
+      }
+    },
+    "offered_count": {"type": "integer", "minimum": 0},
+    "nominal_offered_rate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator_events", "denominator_ticks"],
+      "properties": {
+        "numerator_events": {"type": "integer", "minimum": 0},
+        "denominator_ticks": {"type": "integer", "minimum": 1}
+      },
+      "description": "Exact rational events per schedule time unit; no implicit binary floating-point rate."
+    },
+    "overflow_rule_record_id": {"type": "string", "minLength": 1},
+    "immutable_ordering": {"const": true},
+    "deadline_storage": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "artifact_id", "artifact_uri", "row_count", "byte_count", "artifact_sha256"],
+          "properties": {
+            "mode": {"const": "EXTERNAL_IMMUTABLE_ARTIFACT"},
+            "artifact_id": {"type": "string", "minLength": 1},
+            "artifact_uri": {"type": "string", "minLength": 1},
+            "row_count": {"type": "integer", "minimum": 0},
+            "byte_count": {"type": "integer", "minimum": 0},
+            "artifact_sha256": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "deadline_ticks"],
+          "properties": {
+            "mode": {"const": "INLINE_TEST_ONLY"},
+            "deadline_ticks": {"type": "array", "items": {"type": "integer", "minimum": 0}}
+          }
+        }
+      ]
+    },
+    "decoded_deadlines_sha256": {"$ref": "#/$defs/sha256"},
+    "schedule_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"schedule_kind": {"const": "CONFIRMATORY"}}, "required": ["schedule_kind"]},
+      "then": {"properties": {"arrival_family": {"const": "POISSON_EXPONENTIAL"}}}
+    },
+    {
+      "if": {"properties": {"schedule_kind": {"const": "WARMUP"}}, "required": ["schedule_kind"]},
+      "then": {"properties": {"namespace_id": {"pattern": "^.+$"}}}
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

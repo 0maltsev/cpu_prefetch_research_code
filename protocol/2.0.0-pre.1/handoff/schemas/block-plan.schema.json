@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/2.0.0-pre.1/block-plan.schema.json",
+  "title": "Complete Stage A block plan",
+  "description": "The schema fixes cardinalities and replacement field combinations. A semantic validator must additionally prove the exact 180-cell Cartesian product, unique complete cell ordinals, exactly one H0 and H1 whole plot, role-compatible seed references, distinct replacement identity/ordinal/subspace, and equality of original and replacement roles. uniqueItems alone is not that proof.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "block_id", "platform_id", "build_id",
+    "stage", "block_role", "block_ordinal", "seed_subspace_id", "replaces_block_id",
+    "replacement_authorization_id", "whole_plot_order", "cells", "access_state", "plan_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0-pre.1"},
+    "protocol_version": {"const": "2.0.0-pre.1"},
+    "block_id": {"type": "string", "minLength": 1},
+    "platform_id": {"type": "string", "minLength": 1},
+    "build_id": {"type": "string", "minLength": 1},
+    "stage": {"const": "STAGE_A"},
+    "block_role": {"enum": ["H3_TRAIN", "H3_VALIDATION", "H1H2_SUPPLEMENTAL"]},
+    "block_ordinal": {"type": "integer", "minimum": 0},
+    "seed_subspace_id": {"type": "string", "minLength": 1},
+    "replaces_block_id": {"type": ["string", "null"]},
+    "replacement_authorization_id": {"type": ["string", "null"]},
+    "replacement_lineage": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["replaced_block_ordinal", "replaced_block_role", "replaced_seed_subspace_id"],
+      "properties": {
+        "replaced_block_ordinal": {"type": "integer", "minimum": 0},
+        "replaced_block_role": {"enum": ["H3_TRAIN", "H3_VALIDATION", "H1H2_SUPPLEMENTAL"]},
+        "replaced_seed_subspace_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "whole_plot_order": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "prefixItems": [{"enum": ["H0", "H1"]}, {"enum": ["H0", "H1"]}],
+      "items": false
+    },
+    "cells": {
+      "type": "array",
+      "minItems": 180,
+      "maxItems": 180,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "cell_ordinal", "package", "requested_hardware_state", "placement",
+          "working_set_class", "load_level", "arrival_seed_ref", "node_seed_ref", "event_seed_ref"
+        ],
+        "properties": {
+          "cell_ordinal": {"type": "integer", "minimum": 0, "maximum": 179},
+          "package": {"enum": ["R0", "R1", "R2", "L0", "L1"]},
+          "requested_hardware_state": {"enum": ["H0", "H1"]},
+          "placement": {"enum": ["NEAR", "FAR"]},
+          "working_set_class": {"enum": ["L2_RESIDENT", "LLC_RESIDENT", "BEYOND_LLC"]},
+          "load_level": {"enum": ["L025", "L050", "L075"]},
+          "arrival_seed_ref": {"type": "string", "minLength": 1},
+          "node_seed_ref": {"type": ["string", "null"]},
+          "event_seed_ref": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "access_state": {"enum": ["PLANNED", "COLLECTED_SEALED", "TRAINING_OPEN", "SELECTION_FROZEN", "VALIDATION_UNSEALED", "H3_EVALUATED", "H1H2_RELEASED", "ARCHIVED"]},
+    "plan_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "replaces_block_id": {"const": null},
+        "replacement_authorization_id": {"const": null},
+        "replacement_lineage": {"type": "null"}
+      }
+    },
+    {
+      "required": ["replaces_block_id", "replacement_authorization_id", "replacement_lineage"],
+      "properties": {
+        "replaces_block_id": {"type": "string", "minLength": 1},
+        "replacement_authorization_id": {"type": "string", "minLength": 1},
+        "replacement_lineage": {"type": "object"}
+      }
+    }
+  ],
+  "allOf": [
+    {
+      "if": {
+        "required": ["replaces_block_id"],
+        "properties": {"replaces_block_id": {"type": "string"}}
+      },
+      "then": {
+        "required": ["replacement_authorization_id", "replacement_lineage"],
+        "properties": {
+          "replacement_authorization_id": {"type": "string", "minLength": 1},
+          "replacement_lineage": {"type": "object"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/2.0.0-pre.1/platform.schema.json",
+  "title": "Platform characterization record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "protocol_version", "platform_id", "cpu", "topology", "memory", "software", "clock", "hardware_prefetch_states", "record_sha256"],
+  "properties": {
+    "schema_version": {"const": "2.0.0-pre.1"},
+    "protocol_version": {"const": "2.0.0-pre.1"},
+    "platform_id": {"type": "string", "minLength": 1},
+    "cpu": {
+      "type": "object", "additionalProperties": false,
+      "required": ["vendor", "model", "stepping", "microcode", "cache_line_bytes", "atomic_width_bits", "atomic_alignment_bytes"],
+      "properties": {
+        "vendor": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "stepping": {"type": "string", "minLength": 1},
+        "microcode": {"type": "string", "minLength": 1},
+        "cache_line_bytes": {"type": "integer", "minimum": 1},
+        "atomic_width_bits": {"type": "integer", "minimum": 1},
+        "atomic_alignment_bytes": {"type": "integer", "minimum": 1}
+      }
+    },
+    "topology": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sockets", "numa_nodes", "physical_cores", "smt_enabled", "cache_domains", "near_core_pair", "far_core_pair"],
+      "properties": {
+        "sockets": {"type": "integer", "minimum": 1},
+        "numa_nodes": {"type": "integer", "minimum": 1},
+        "physical_cores": {"type": "integer", "minimum": 2},
+        "smt_enabled": {"type": "boolean"},
+        "cache_domains": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "near_core_pair": {"type": "array", "items": {"type": "integer", "minimum": 0}, "minItems": 2, "maxItems": 2},
+        "far_core_pair": {"type": "array", "items": {"type": "integer", "minimum": 0}, "minItems": 2, "maxItems": 2}
+      }
+    },
+    "memory": {
+      "type": "object", "additionalProperties": false,
+      "required": ["population", "base_page_bytes", "residency_verification_method"],
+      "properties": {
+        "population": {"type": "string", "minLength": 1},
+        "base_page_bytes": {"type": "integer", "minimum": 1},
+        "residency_verification_method": {"type": "string", "minLength": 1}
+      }
+    },
+    "software": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operating_system", "kernel", "compiler", "standard_library", "language_standard", "flags", "link_mode"],
+      "properties": {
+        "operating_system": {"type": "string", "minLength": 1},
+        "kernel": {"type": "string", "minLength": 1},
+        "compiler": {"type": "string", "minLength": 1},
+        "standard_library": {"type": "string", "minLength": 1},
+        "language_standard": {"type": "string", "minLength": 1},
+        "flags": {"type": "array", "items": {"type": "string"}},
+        "link_mode": {"type": "string", "minLength": 1}
+      }
+    },
+    "clock": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source", "time_unit", "conversion_record_id", "serialization_record_id", "acceptance_record_id"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "time_unit": {"type": "string", "minLength": 1},
+        "conversion_record_id": {"type": "string", "minLength": 1},
+        "serialization_record_id": {"type": "string", "minLength": 1},
+        "acceptance_record_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "hardware_prefetch_states": {
+      "type": "array", "minItems": 2,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["requested", "verified", "readback_artifact_id", "behavioral_probe_artifact_id", "privileged_authority_id"],
+        "properties": {
+          "requested": {"enum": ["H0", "H1"]},
+          "verified": {"enum": ["VERIFIED_DEFAULT", "VERIFIED_CHANGED", "VERIFICATION_FAILED", "UNKNOWN"]},
+          "readback_artifact_id": {"type": "string", "minLength": 1},
+          "behavioral_probe_artifact_id": {"type": "string", "minLength": 1},
+          "privileged_authority_id": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "record_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

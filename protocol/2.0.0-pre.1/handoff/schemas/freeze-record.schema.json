@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/2.0.0-pre.1/freeze-record.schema.json",
+  "title": "Protocol freeze, selection, access, replacement, or amendment record",
+  "description": "Record-kind conditionals enforce mandatory evidence and state transitions. A semantic validator must also verify referenced-record existence and hashes, chronological predecessor state, block roles, authority identity/segregation, budget availability, candidate membership, and append-only lineage.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "record_id", "record_kind", "decision_id",
+    "readiness_boundary", "status", "authorization_status", "created_at_utc",
+    "authority", "access_state_before", "access_state_after", "outcome_access_prohibited",
+    "input_artifacts", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0-pre.1"},
+    "protocol_version": {"const": "2.0.0-pre.1"},
+    "record_id": {"type": "string", "minLength": 1},
+    "record_kind": {"enum": ["PROTOCOL_FREEZE", "SELECTION_FREEZE", "VALIDATION_UNSEAL", "H3_EVALUATED", "H1H2_RELEASED", "REPLACEMENT_AUTHORIZATION", "AMENDMENT"]},
+    "decision_id": {"type": "string", "minLength": 1},
+    "readiness_boundary": {"enum": ["READY_FOR_IMPLEMENTATION", "BLOCKED_BEFORE_IMPLEMENTATION", "BLOCKED_BEFORE_PILOT", "BLOCKED_BEFORE_CONFIRMATORY_EXECUTION", "SUBMISSION_ONLY"]},
+    "status": {"enum": ["OPEN", "FROZEN", "AUTHORIZED", "REJECTED", "SUPERSEDED"]},
+    "authorization_status": {"enum": ["NOT_APPLICABLE", "PENDING", "AUTHORIZED", "REJECTED"]},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_id", "role", "attestation"],
+      "properties": {
+        "authority_id": {"type": "string", "minLength": 1},
+        "role": {"enum": ["PROTOCOL_OWNER", "FREEZE_AUTHORITY", "VALIDATION_CUSTODIAN", "CONFIRMATORY_ANALYST", "REPLACEMENT_AUTHORITY", "PLATFORM_OPERATOR", "AUTHOR"]},
+        "attestation": {"type": "string", "minLength": 1},
+        "signature_artifact_id": {"type": ["string", "null"]}
+      }
+    },
+    "decision_value": {"type": ["string", "number", "integer", "boolean", "object", "array", "null"]},
+    "rationale": {"type": "string"},
+    "access_state_before": {"$ref": "#/$defs/access_state"},
+    "access_state_after": {"$ref": "#/$defs/access_state"},
+    "affected_block_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "h3_selections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "NEAR_L2_L050", "NEAR_LLC_L050", "NEAR_BEYOND_LLC_L050",
+        "FAR_L2_L050", "FAR_LLC_L050", "FAR_BEYOND_LLC_L050"
+      ],
+      "properties": {
+        "NEAR_L2_L050": {"$ref": "#/$defs/candidate"},
+        "NEAR_LLC_L050": {"$ref": "#/$defs/candidate"},
+        "NEAR_BEYOND_LLC_L050": {"$ref": "#/$defs/candidate"},
+        "FAR_L2_L050": {"$ref": "#/$defs/candidate"},
+        "FAR_LLC_L050": {"$ref": "#/$defs/candidate"},
+        "FAR_BEYOND_LLC_L050": {"$ref": "#/$defs/candidate"}
+      }
+    },
+    "training_input_artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/artifact_ref"}
+    },
+    "selection_rule_version": {"type": "string", "minLength": 1},
+    "selection_record_checksum_sha256": {"$ref": "#/$defs/sha256"},
+    "selection_record_ref": {"$ref": "#/$defs/artifact_ref"},
+    "validation_namespace_id": {"type": "string", "minLength": 1},
+    "validation_artifact_ref": {"$ref": "#/$defs/artifact_ref"},
+    "validation_unseal_record_ref": {"$ref": "#/$defs/artifact_ref"},
+    "h3_evaluation_artifact_ref": {"$ref": "#/$defs/artifact_ref"},
+    "h3_access_record_ref": {"$ref": "#/$defs/artifact_ref"},
+    "replacement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["original_block_id", "replacement_block_id", "replacement_block_ordinal", "block_role", "replacement_seed_subspace_id", "failure_record_id", "replacement_budget_record_id"],
+      "properties": {
+        "original_block_id": {"type": "string", "minLength": 1},
+        "replacement_block_id": {"type": "string", "minLength": 1},
+        "replacement_block_ordinal": {"type": "integer", "minimum": 0},
+        "block_role": {"enum": ["H3_TRAIN", "H3_VALIDATION", "H1H2_SUPPLEMENTAL"]},
+        "replacement_seed_subspace_id": {"type": "string", "minLength": 1},
+        "failure_record_id": {"type": "string", "minLength": 1},
+        "replacement_budget_record_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "supersedes_id": {"type": ["string", "null"]},
+    "prior_protocol_version": {"type": ["string", "null"]},
+    "new_protocol_version": {"type": ["string", "null"]},
+    "affected_documents": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "affected_schema_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "affected_estimands": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "affected_contrast_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "pilot_record_disposition": {"type": "string", "minLength": 1},
+    "prior_authoritative_hashes": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/artifact_ref"}},
+    "outcome_access_prohibited": {"type": "boolean"},
+    "input_artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "sha256", "access_class"],
+        "properties": {
+          "artifact_id": {"type": "string", "minLength": 1},
+          "sha256": {"$ref": "#/$defs/sha256"},
+          "access_class": {"enum": ["TREATMENT_BLIND", "TRAINING_ONLY", "VALIDATION_SEALED", "VALIDATION_UNSEALED", "PUBLIC_PROTOCOL", "PLATFORM_EVIDENCE"]}
+        }
+      }
+    },
+    "record_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"record_kind": {"const": "SELECTION_FREEZE"}}, "required": ["record_kind"]},
+      "then": {
+        "required": ["affected_block_ids", "h3_selections", "training_input_artifacts", "selection_rule_version", "selection_record_checksum_sha256"],
+        "properties": {
+          "status": {"const": "FROZEN"},
+          "authorization_status": {"const": "AUTHORIZED"},
+          "authority": {"properties": {"role": {"const": "FREEZE_AUTHORITY"}}},
+          "access_state_before": {"const": "TRAINING_OPEN"},
+          "access_state_after": {"const": "SELECTION_FROZEN"},
+          "outcome_access_prohibited": {"const": true},
+          "affected_block_ids": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"record_kind": {"const": "VALIDATION_UNSEAL"}}, "required": ["record_kind"]},
+      "then": {
+        "required": ["affected_block_ids", "selection_record_ref", "validation_namespace_id", "validation_artifact_ref"],
+        "properties": {
+          "status": {"const": "AUTHORIZED"},
+          "authorization_status": {"const": "AUTHORIZED"},
+          "authority": {"properties": {"role": {"const": "VALIDATION_CUSTODIAN"}}},
+          "access_state_before": {"const": "SELECTION_FROZEN"},
+          "access_state_after": {"const": "VALIDATION_UNSEALED"},
+          "outcome_access_prohibited": {"const": false},
+          "affected_block_ids": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"record_kind": {"const": "H3_EVALUATED"}}, "required": ["record_kind"]},
+      "then": {
+        "required": ["affected_block_ids", "h3_evaluation_artifact_ref", "selection_record_ref", "validation_namespace_id", "validation_artifact_ref", "validation_unseal_record_ref"],
+        "properties": {
+          "status": {"const": "FROZEN"},
+          "authorization_status": {"const": "AUTHORIZED"},
+          "authority": {"properties": {"role": {"const": "CONFIRMATORY_ANALYST"}}},
+          "access_state_before": {"const": "VALIDATION_UNSEALED"},
+          "access_state_after": {"const": "H3_EVALUATED"},
+          "outcome_access_prohibited": {"const": false},
+          "affected_block_ids": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"record_kind": {"const": "H1H2_RELEASED"}}, "required": ["record_kind"]},
+      "then": {
+        "required": ["affected_block_ids", "h3_access_record_ref", "h3_evaluation_artifact_ref"],
+        "properties": {
+          "status": {"const": "AUTHORIZED"},
+          "authorization_status": {"const": "AUTHORIZED"},
+          "authority": {"properties": {"role": {"const": "VALIDATION_CUSTODIAN"}}},
+          "access_state_before": {"const": "H3_EVALUATED"},
+          "access_state_after": {"const": "H1H2_RELEASED"},
+          "outcome_access_prohibited": {"const": false},
+          "affected_block_ids": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"record_kind": {"const": "REPLACEMENT_AUTHORIZATION"}}, "required": ["record_kind"]},
+      "then": {
+        "required": ["affected_block_ids", "replacement"],
+        "properties": {
+          "status": {"const": "AUTHORIZED"},
+          "authorization_status": {"const": "AUTHORIZED"},
+          "authority": {"properties": {"role": {"const": "REPLACEMENT_AUTHORITY"}}},
+          "access_state_before": {"const": "PLANNED"},
+          "access_state_after": {"const": "PLANNED"},
+          "outcome_access_prohibited": {"const": true},
+          "affected_block_ids": {"minItems": 1, "maxItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"record_kind": {"const": "AMENDMENT"}}, "required": ["record_kind"]},
+      "then": {
+        "required": ["supersedes_id", "prior_protocol_version", "new_protocol_version", "rationale", "affected_documents", "affected_schema_ids", "affected_estimands", "affected_contrast_ids", "pilot_record_disposition", "prior_authoritative_hashes"],
+        "properties": {
+          "status": {"const": "FROZEN"},
+          "authorization_status": {"const": "AUTHORIZED"},
+          "authority": {"properties": {"role": {"const": "PROTOCOL_OWNER"}}},
+          "outcome_access_prohibited": {"const": true},
+          "supersedes_id": {"type": "string", "minLength": 1},
+          "prior_protocol_version": {"type": "string", "minLength": 1},
+          "new_protocol_version": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "access_state": {"enum": ["PLANNED", "COLLECTED_SEALED", "TRAINING_OPEN", "SELECTION_FROZEN", "VALIDATION_UNSEALED", "H3_EVALUATED", "H1H2_RELEASED", "ARCHIVED"]},
+    "artifact_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "sha256"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package", "requested_hardware_state"],
+      "properties": {
+        "package": {"enum": ["R0", "R1", "R2", "L0", "L1"]},
+        "requested_hardware_state": {"enum": ["H0", "H1"]}
+      }
+    }
+  }
+}

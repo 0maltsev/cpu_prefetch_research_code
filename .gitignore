@@ -1,0 +1,61 @@
+# Build trees and build-system intermediates
+build/
+build-*/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+.ninja_deps
+.ninja_log
+build.ninja
+
+# Compiler and linker outputs
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.dSYM/
+
+# Coverage and sanitizer output
+coverage/
+*.gcda
+*.gcno
+*.gcov
+*.profraw
+*.profdata
+sanitizer-output/
+
+# Experimental data (protocol snapshots and test fixtures are intentionally tracked)
+data/raw/
+data/derived/
+run-data/
+derived-data/
+tmp-manifests/
+*.manifest.tmp
+
+# Platform-local configuration
+config/local/
+*.local.json
+*.local.toml
+*.local.yaml
+*.local.yml
+.env
+.env.*
+
+# Editors and IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Operating-system metadata
+.DS_Store
+__MACOSX/
+._*

@@ -20,8 +20,8 @@
     "reused_code_license": "NOT_APPLICABLE_NO_CODE_REUSED",
     "repository_source_license": "NO-LICENSE-GRANT",
     "implementation_files": [
-      {"path": "include/cpu_prefetch/queue/common.hpp", "sha256": "fcb76dc49ca044e40004cf3ca686d8b07bfe9b49a530969263f796be21bac5b2"},
-      {"path": "include/cpu_prefetch/queue/ring_spsc.hpp", "sha256": "727de4e77b0ed329ab2a1f91b342537b291cc5659107536e517feb81ec8c946f"},
+      {"path": "include/cpu_prefetch/queue/common.hpp", "sha256": "a174a85cdcf722e39f4bc17ef7e8ff5d199693f900584f697ebf1ec2871a8bc4"},
+      {"path": "include/cpu_prefetch/queue/ring_spsc.hpp", "sha256": "49ffa965d77374883f350c7ecc54a5f1afbce121fc41dd01b86e79c7b59120e1"},
       {"path": "include/cpu_prefetch/queue/adapters.hpp", "sha256": "f6cc46a7a7af0e89d8e4ae6799b671e41277d8af9990199e98c9c304576d4c6f"},
       {"path": "src/queue/common.cpp", "sha256": "c3fd566fe9c4de12f2a2e06075e4fdd9e23e495ffbd3798d1e6648ddf7fbd524"},
       {"path": "src/queue/ring_spsc.cpp", "sha256": "facd59331c02beb2ca1d2e08ab90ee04f7bc4642d894ba6089cde432337573ec"}
@@ -31,7 +31,8 @@
     "Independent C++20 std::atomic pointer mapping of the protocol-fixed algorithm",
     "Cache-line separation takes an explicit verified runtime byte count instead of a compiled platform guess",
     "Null payload construction is rejected before queue operation",
-    "No software-prefetch package site is implemented in Stage 5"
+    "Stage 6 exposes owner-thread future-slot target addresses without changing queue publication, reuse, or one-attempt semantics",
+    "Platform software-prefetch instruction encoding remains outside the queue and unresolved"
   ],
   "memory_order_mapping": [
     "producer acquire-loads a slot before reuse and release-stores an accepted pointer",
@@ -49,7 +50,7 @@
     "linearizability": "bounded FIFO try operations for exactly one producer and one consumer",
     "wait_free": "each individual try operation under valid SPSC and lock-free pointer-atomic preconditions",
     "lock_free": "no claim beyond the same reviewed SPSC try-operation object",
-    "excluded": "MPSC, MPMC, nullable payloads, retries, waits, allocation, software-prefetch packages, measurement"
+    "excluded": "MPSC, MPMC, nullable payloads, retries, waits, allocation, platform prefetch instruction encoding, measurement"
   },
   "refinement_record": "docs/QUEUE_CORRECTNESS.md#bounded-ring-mapping",
   "correctness_evidence": {
@@ -66,17 +67,17 @@
     "llvm_objdump": "PASS_WITH_NEGATIVE_MUTANT",
     "human_review": "GNU_AND_LLVM_OPERATION_BODIES_REVIEWED",
     "evidence": {
-      "release_probe_sha256": "9aa8b340ffd492e2ee68d2c3af2505eb4f3a4a8ced3f902ac2f48474037169ff",
+      "release_probe_sha256": "adf2ff991edf3b4bfbb1aa9293366c2f7cde09d750e408a6c2cc80790cf30e05",
       "negative_mutant_sha256": "2e210b72aeb5ca46a3e6b6156361c309eaa94c4d38a9cf357366bf2bebbb1016",
-      "rule_set_sha256": "e56adbee94bf0308c75fe142a60d78c834b563fe3d80e3742b23bd9cc5288088",
+      "rule_set_sha256": "d3f1544d961baad6dbf8123dffe6713f4126079487e17777082e137166c3a100",
       "gnu_objdump_version": "GNU Binutils 2.46.0",
       "llvm_objdump_version": "LLVM 22.1.6",
       "gnu_try_enqueue_body_sha256": "33890ab3f849e29586803ed6b52832dcac79d2a8daba0d0733659ca6d3959e8c",
       "gnu_try_dequeue_body_sha256": "f40bba059e42f9ecde430506199e3707e7e22995c218492fd3fae3eeb8d3fcc3",
       "llvm_try_enqueue_body_sha256": "9135ef88a7ef355f7713bcc790f740ee0ce790407a72342e59043495a21a7c6c",
       "llvm_try_dequeue_body_sha256": "1dde557032d57a3a96a3f6653273bf56b3e752e0983f469741fcaa7e1a3c6992",
-      "gnu_full_disassembly_sha256": "53b633a4b10031eaa7bf320a81012771ff3fe2f9e805b09632f09b8ed9689d57",
-      "llvm_full_disassembly_sha256": "17a9d4d04734a14dd411d09afa3365310c8c3849dfe0bb6e0c9d897d36605e65"
+      "gnu_full_disassembly_sha256": "34d15eace98373743edd09c4ac6c2cc1e84eab41574d3669fc66f9e0978ef01e",
+      "llvm_full_disassembly_sha256": "7ac729146baffc057910550ad3d70c90e9aec5b47a8bbe6f5ef0e471b8306e36"
     },
     "build_report": "build/release-gcc/queue_codegen_report.json"
   }

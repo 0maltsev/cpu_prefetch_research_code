@@ -2,12 +2,13 @@
 
 Protocol version: **`2.0.0-pre.1`**
 
-Stage 2 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_ACCEPTED`**
+Stage 2/6 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_ACCEPTED`**
 
 The repository still contains no production benchmark or measurement code.
-Stage 5 contains queue correctness-only production cores. Q1 through Q4 were
+Stage 5 contains queue correctness-only production cores, and Stage 6 contains
+deterministic workload-construction components. Q1 through Q5 were
 accepted by the repository owner on 2026-08-17 and are recorded in ADR-0007
-through ADR-0021. Exact scientific/platform/pilot facts remain open until their
+through ADR-0028. Exact scientific/platform/pilot facts remain open until their
 listed phases; they were not replaced by Stage 3 or Stage 4 engineering
 defaults.
 
@@ -27,8 +28,9 @@ The repository owner selected **no license**. ADR-0021 records no license grant,
 | Q2 queue/process/atomic/integrity/correctness | One unprivileged process and two workers; non-dispatch binding; independent queues with no FastFlow source use; C++ atomic envelope; OpenSSL SHA/HMAC and `JCS-I64-v1`; generated-code and sanitizer policy | ADR-0012 through ADR-0017 | Exact atomic representation/proof Phase 5; exact consumer mixer Phase 6 |
 | Q3 platform/custody boundary | External authorized control; replaceable Linux request/readback/probe/rollback interface; separate platform and validation principals with technical sealing | ADR-0018 through ADR-0020 | Exact stand/operator/API/register facts Phase 9; custody principals/enforcement by Phase 16/final confirmation |
 | Q4 repository license | No repository license grant; no `LICENSE` file or repository SPDX claim | ADR-0021 | Any later license grant needs owner/legal/compatibility review |
+| Q5 deterministic workload bundle | Independent Philox4x32-10/HMAC-SHA-256 stream suite; unbiased Fisher-Yates; separated purpose domains; fixed consumer mixer and canonical content/order/delta inputs; explicit record/package representations | ADR-0025 through ADR-0028 | Concrete seeds, platform facts/capacities, page-frame qualification, retaining prefetch instructions, and calibrated per-context `d2` |
 
-## Stage 3 through Stage 5 engineering baselines
+## Stage 3 through Stage 6 engineering baselines
 
 ADR-0022 accepts the constrained compiler/build/test/dependency/CI baseline and
 records it as D-029. ADR-0023 accepts the dependency-free typed-model and
@@ -44,14 +46,19 @@ unit/property/stress and sanitizer evidence passes. GNU Binutils 2.46 and LLVM
 complete. Eligible-stand runtime layout/lock-free qualification remains later
 platform evidence rather than a Phase 6 blocker.
 
+Q5 and ADR-0025 through ADR-0028 accept D-011 through D-013 and D-033. Stage 6
+implements their deterministic primitives, immutable event arena, linked-node
+order, exact footprint arithmetic, five statically bound package mechanisms,
+no-allocation prepared path, integrity grammars, and generated-code checks.
+No development fixture is a qualified stand value or scientific outcome.
+
 ## Pre-pilot decisions that may remain open after Stage 2
 
 | Decision IDs | Required choice/evidence | Owner | Blocking gate |
 |---|---|---|---|
 | D-009 | Qualified clock source, conversion, serialization, skew/drift/read-cost bounds, and code evidence | Timing/platform owner | Select for Phase 8; pass by Phase 16 |
 | D-010, D-020 | Physical raw format, exact row/envelope sizes, endianness, codec, compression/copy policy, capacity and corruption evidence | Storage owner | Select for Phase 11; pass by Phase 16 |
-| D-011, D-012, D-027 | Exact RNG, derivation, unbiased permutation, exponential transform, tick rounding/overflow, and golden vectors | Reproducibility/statistical/timing owners | Select for Phases 6-7; pass by Phase 16 |
-| D-013 | Exact consumer mixing and rolling/content/index/delta checksum byte formulas plus vectors and generated code | Consumer/protocol/integrity owners | Select for Phase 6; pass by Phase 16 |
+| D-027 | Exact exponential transform, RNG-bit mapping, integer time unit, deadline rounding/overflow, and golden schedule vectors | Reproducibility/statistical/timing owners | Resolve before Phase 7 implementation; pass by Phase 16 |
 | D-008 | Queue pointer width/order/refinement is implemented; repeat runtime lock-free/layout probes on the eligible stand. Termination/control atomic width remains a later controller mapping. | Queue correctness/platform owners | Eligible stand/controller acceptance; queue core mapping accepted in ADR-0024 |
 | D-018 | Exact eligible-stand API mapping, processor-relax instruction, capability/readback/probe/rollback evidence | Platform owner | Select for Phase 9; pass by Phase 16 |
 | D-019 | Named operator/custodian, accounts/keys/storage, negative access, recovery, and audit retention | Security/custody owners | Operational proof by Phase 16; final authority before confirmation |
@@ -63,7 +70,7 @@ These choices must be treatment-blind. Clock, schedule, mixing, storage, and pla
 
 The protocol-defined open values listed at the end of
 `docs/IMPLEMENTATION_DECISIONS.md` remain later work. They do not invalidate the
-completed Stage 5 queue-only correctness evidence and must not be fabricated.
+completed Stage 5/6 correctness evidence and must not be fabricated.
 Submission identities, venue rules, accessibility, archive, and publication
 license remain submission-only.
 
@@ -72,5 +79,6 @@ license remain submission-only.
 Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
-versioned protocol amendment. Stage 5 is complete; the exact next safe activity
-is Phase 6 record and working-set construction within its frozen scope.
+versioned protocol amendment. Stage 6 is complete. The exact next safe activity
+is to resolve D-027 for Phase 7; schedule code must not be written until it is
+accepted.

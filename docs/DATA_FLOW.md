@@ -7,7 +7,7 @@ Protocol version: **`2.0.0-pre.1`**. This document preserves the imported logica
 | Phase | Inputs | Work | Append-only outputs | Timed? |
 |---|---|---|---|---|
 | Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON parse, Draft 2020-12 meta-schema, positive/negative fixture, and canonical-byte checks | Readiness evidence in repository status | No |
-| Experiment preparation | Protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, record-local semantic validation, then later derivation/allocation/capacity proof | Validated logical records; later prepared-run identity, schedule, provenance, and platform evidence references | No |
+| Experiment preparation | Protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, deterministic stream derivation, arena first touch, record/node permutation, footprint proof, and package binding | Validated logical records and prepared workload inputs; later schedule, run-image identity, and platform evidence references | No |
 | Platform preparation | Requested state and authorized adapter/operator | Affinity/NUMA/page/frequency/HW-PF actuation, independent readback/probes, rollback readiness | Requested-state and verified-state records, capability/failure evidence | No |
 | Run launch | Closed `PreparedRun` | Barrier/reset/warm-up/start transition | Lifecycle transition(s) | No; boundary reads only as fixed |
 | Measurement horizon | Pre-generated deadlines, fixed arenas, specialized queue, qualified clock | Producer and consumer execute fixed data-plane work | Thread-private producer and consumer observations in preallocated buffers | Yes |
@@ -28,7 +28,7 @@ carry category/path/rule identity and never repair input. Cross-record
 resolution is accepted only after the Phase 12/14 validators described in
 [`PROTOCOL_MODEL.md`](PROTOCOL_MODEL.md) exist.
 
-Stage 5 supplies only the queue-operation seam beneath a future prepared image.
+Stage 5 supplies the queue-operation seam beneath a future prepared image.
 The producer can issue one direct nonblocking enqueue call and retain
 `accepted` or `full`; the consumer can issue one direct nonblocking dequeue
 poll and retain `item` or `empty`. Ring and linked/recycler adapters remain
@@ -36,7 +36,17 @@ distinct, so linked recycler exhaustion/ownership and ring slot reuse are not
 normalized away. Stage 5 tests execute these operations with synthetic records
 but create no run identity, clock, observation row, manifest, or measurement.
 
-The producer and consumer receive disjoint mutable observation buffers. They record their own facts independently and in program order. The repeating record index is a validation field only; it is never an event ID. Accepted observations are reconciled later by run identity and accepted ordinal.
+Stage 6 supplies the preparation-side workload image. HMAC-derived,
+purpose-separated Philox streams initialize every payload and two independent
+permutations before worker release. The event arena is base-page aligned,
+fully first-touched, immutable through `const` access, and cyclically selected by
+logical sequence. The linked arena consumes the complete `C+1` node order.
+Content, ordered-index, and signed closure-delta SHA-256 inputs are derived from
+logical bytes and within-arena offsets, never absolute pointers. The five
+package policies bind exact hint targets without selecting a platform
+instruction or calibrated `d2`.
+
+The producer and consumer receive disjoint mutable observation buffers. They record their own facts independently and in program order. `LogicalSequence` selects a cyclic record pointer before enqueue; `AcceptedOrdinal` is assigned only to accepted arrivals. The repeating `RecordIndex` validates the demanded record and is never an event ID. Accepted observations are reconciled later by run identity and accepted ordinal. A process-local pointer is never durable identity.
 
 ## Logical streams
 

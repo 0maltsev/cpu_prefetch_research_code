@@ -12,6 +12,7 @@
 
 namespace {
 
+using cpu_prefetch::queue::ArenaAlignmentBytes;
 using cpu_prefetch::queue::CacheLineBytes;
 using cpu_prefetch::queue::DequeueStatus;
 using cpu_prefetch::queue::EnqueueResult;
@@ -23,6 +24,7 @@ using cpu_prefetch::queue::RingQueueAdapter;
 using cpu_prefetch::queue::RingSpscQueue;
 
 constexpr CacheLineBytes kSyntheticCacheLine{64U};
+constexpr ArenaAlignmentBytes kSyntheticPage{4096U};
 constexpr std::size_t kCapacity = 257U;
 constexpr std::size_t kTransfers = 200'000U;
 
@@ -178,7 +180,7 @@ bool stress_ring() {
 
 bool stress_linked() {
   const auto order = fixed_node_order();
-  LinkedSpscQueue queue(QueueCapacity{kCapacity}, kSyntheticCacheLine,
+  LinkedSpscQueue queue(QueueCapacity{kCapacity}, kSyntheticCacheLine, kSyntheticPage,
                         std::span<const std::size_t>(order));
   LinkedQueueAdapter adapter(queue);
   const bool transfers = run_complete_transfer(adapter, 0x3ffU, 0x1fU) &&

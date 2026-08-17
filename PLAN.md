@@ -81,9 +81,13 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Both packages use identical event arena/order; linked gates are reproducible; no measured-path allocation/permutation; exact footprint method is documented.
 - **Explicitly excluded:** Platform capacity selection from uncollected evidence, performance claims, Stage C mutable records.
 - **Rollback or failure behavior:** Pre-freeze seed failure advances only under the frozen treatment-blind stream; post-freeze mismatch invalidates affected run. Never reseed from treatment outcome.
-- **Status:** `PENDING`; Phase 5 is complete, so this is the exact next safe
-  implementation phase. Do not expand it into schedule generation, timing, or
-  measurement.
+- **Status:** `COMPLETE`. Q5 and ADR-0025 through ADR-0028 freeze the
+  deterministic suite, permutation/payload domains, mixer/integrity grammars,
+  records, and package representation. The event arena, node-order plan,
+  footprint selector, exact five static packages, no-allocation hook,
+  known-answer/property/corruption tests, and dual-disassembler workload audit
+  pass. Concrete seeds, cache/page facts, capacities, platform prefetch
+  encoding, and calibrated `d2` remain later evidence and were not invented.
 
 ## Phase 7 — Schedule generation
 
@@ -94,7 +98,11 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** All semantic schedule rules pass; no implementation-defined RNG behavior; schedule generation is absent from timed path.
 - **Explicitly excluded:** Concrete confirmatory rates/horizons/seeds and any tuning from outcomes.
 - **Rollback or failure behavior:** Algorithm/version change creates new records and invalidates dependent schedules; never silently regenerate a frozen schedule.
-- **Status:** `PENDING`.
+- **Status:** `BLOCKED` on D-027. ADR-0025 provides the accepted base stream,
+  but the exponential transform, input-bit consumption, integer time unit,
+  rounding, and overflow behavior require explicit acceptance before schedule
+  implementation. Resolving that smallest decision bundle is the exact next
+  safe activity.
 
 ## Phase 8 — Timing
 

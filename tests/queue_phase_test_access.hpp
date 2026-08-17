@@ -29,7 +29,10 @@ struct QueuePhaseTestAccess final {
   template <typename Observer>
   [[nodiscard]] static DequeueResult linked_dequeue(LinkedSpscQueue& queue,
                                                     Observer& observer) noexcept {
-    return queue.try_dequeue_observed(observer);
+    struct NoopSuccessorPrefetch final {
+      void successor_header(const void*) const noexcept {}
+    } prefetch;
+    return queue.try_dequeue_observed(observer, prefetch);
   }
 };
 

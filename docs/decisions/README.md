@@ -60,5 +60,9 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0022](0022-stage3-tooling-and-dependency-baseline.md) | `ACCEPTED` | Constrain the offline Stage 3 tool, dependency, test, CI, metadata, and package baseline. |
 | [ADR-0023](0023-stage4-typed-model-and-validation-boundary.md) | `ACCEPTED` | Use imported-schema structural validation plus a strict typed C++ model, record-local semantic rules, and shared `JCS-I64-v1` fixtures. |
 | [ADR-0024](0024-stage5-queue-representation-and-refinement.md) | `ACCEPTED` | Independently map the fixed ring and linked/recycler algorithms to direct C++20 adapters with exact release/acquire, layout, lock-free, and refinement boundaries. |
+| [ADR-0025](0025-philox-hmac-stream-suite.md) | `ACCEPTED` | Use independent Philox4x32-10 streams with length-prefixed OpenSSL HMAC-SHA-256 domain derivation. |
+| [ADR-0026](0026-unbiased-permutation-and-payload-domains.md) | `ACCEPTED` | Use descending Fisher-Yates with unbiased rejection and separate order, payload, and consumer-state domains. |
+| [ADR-0027](0027-consumer-mixer-and-canonical-integrity-inputs.md) | `ACCEPTED` | Freeze the branch-free 64-bit consumer mixer and domain-separated canonical SHA-256 inputs. |
+| [ADR-0028](0028-stage6-record-and-package-representation.md) | `ACCEPTED` | Use explicit line-strided immutable records and distinct statically bound Stage A package policies while leaving platform facts unresolved. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented.

@@ -16,6 +16,7 @@ include(VersionPolicy)
 include(Warnings)
 
 find_package(Git 2.54 REQUIRED)
+find_package(OpenSSL 3.0...<4.0 REQUIRED COMPONENTS Crypto)
 find_package(Python3 3.14 REQUIRED COMPONENTS Interpreter)
 
 option(CPU_PREFETCH_USE_LIBCXX "Pair Clang with libc++" OFF)
@@ -80,6 +81,23 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+add_library(
+  cpu_prefetch_workload STATIC
+  src/workload/deterministic.cpp
+  src/workload/packages.cpp
+  src/workload/records.cpp
+  src/workload/working_set.cpp)
+add_library(cpu_prefetch::workload ALIAS cpu_prefetch_workload)
+target_link_libraries(
+  cpu_prefetch_workload
+  PUBLIC cpu_prefetch::protocol cpu_prefetch::queue
+  PRIVATE cpu_prefetch_project_options OpenSSL::Crypto)
+target_include_directories(
+  cpu_prefetch_workload
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
 add_executable(cpu_prefetch_smoke tools/smoke_main.cpp)
 target_link_libraries(
   cpu_prefetch_smoke PRIVATE cpu_prefetch::foundation cpu_prefetch_project_options)
@@ -116,6 +134,26 @@ if(BUILD_TESTING)
   add_test(NAME queue.concurrent_stress COMMAND cpu_prefetch_queue_stress)
   set_tests_properties(queue.concurrent_stress PROPERTIES LABELS "queue;stress")
 
+  add_executable(cpu_prefetch_workload_tests tests/workload_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_workload_tests
+    PRIVATE cpu_prefetch::workload cpu_prefetch_project_options GTest::gtest_main)
+  gtest_discover_tests(cpu_prefetch_workload_tests PREFIX "workload.")
+
+  if(NOT (CPU_PREFETCH_SANITIZER STREQUAL "THREAD" AND
+          CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
+    add_executable(cpu_prefetch_workload_noalloc tests/workload_noalloc_test.cpp)
+    target_link_libraries(
+      cpu_prefetch_workload_noalloc
+      PRIVATE cpu_prefetch::workload cpu_prefetch_project_options GTest::gtest_main)
+    gtest_discover_tests(cpu_prefetch_workload_noalloc PREFIX "workload.noalloc.")
+  else()
+    message(
+      STATUS
+        "The global-operator-new no-allocation hook is excluded from TSan: "
+        "Clang TSan owns the same allocator interceptors; other matrices retain it")
+  endif()
+
   add_test(
     NAME schema.protocol_fixtures
     COMMAND "${Python3_EXECUTABLE}"
@@ -137,6 +175,7 @@ if(BUILD_TESTING)
       PRIVATE
         cpu_prefetch::protocol
         cpu_prefetch::queue
+        cpu_prefetch::workload
         cpu_prefetch_project_options
         RapidCheck::rapidcheck)
     add_test(NAME property.framework_smoke COMMAND cpu_prefetch_rapidcheck_smoke)
@@ -156,6 +195,18 @@ add_executable(
 target_link_libraries(
   cpu_prefetch_queue_codegen_mutant
   PRIVATE cpu_prefetch::queue cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_workload_codegen_probe EXCLUDE_FROM_ALL
+  tools/workload_codegen_probe.cpp)
+target_link_libraries(
+  cpu_prefetch_workload_codegen_probe
+  PRIVATE cpu_prefetch::workload cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_workload_codegen_mutant EXCLUDE_FROM_ALL
+  tools/workload_codegen_mutant.cpp)
+target_link_libraries(
+  cpu_prefetch_workload_codegen_mutant
+  PRIVATE cpu_prefetch::workload cpu_prefetch_project_options)
 
 find_program(CPU_PREFETCH_CLANG_FORMAT NAMES clang-format REQUIRED)
 find_program(CPU_PREFETCH_CLANG_TIDY NAMES clang-tidy REQUIRED)
@@ -172,6 +223,10 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/common.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/linked_spsc.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/ring_spsc.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/deterministic.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/packages.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/records.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/working_set.hpp"
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
@@ -181,14 +236,22 @@ set(
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
+  "${PROJECT_SOURCE_DIR}/src/workload/deterministic.cpp"
+  "${PROJECT_SOURCE_DIR}/src/workload/packages.cpp"
+  "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
+  "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_phase_test_access.hpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/workload_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/workload_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
 
 add_custom_target(
@@ -211,13 +274,21 @@ set(
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
+  "${PROJECT_SOURCE_DIR}/src/workload/deterministic.cpp"
+  "${PROJECT_SOURCE_DIR}/src/workload/packages.cpp"
+  "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
+  "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/workload_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/workload_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
 add_custom_target(
   static-analysis
@@ -278,6 +349,16 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking queue provenance, source hashes, mode, and license boundary")
 add_custom_target(
+  workload-codegen-check
+  COMMAND
+    "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_workload_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_workload_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_workload_codegen_mutant>"
+    --output "${PROJECT_BINARY_DIR}/workload_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS cpu_prefetch_workload_codegen_probe cpu_prefetch_workload_codegen_mutant
+  COMMENT "Requiring dual-disassembler Stage 6 generated-code evidence")
+add_custom_target(
   document-check
   COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_docs.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
@@ -306,6 +387,7 @@ install(
     cpu_prefetch_foundation
     cpu_prefetch_protocol
     cpu_prefetch_queue
+    cpu_prefetch_workload
     cpu_prefetch_smoke
   ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
@@ -321,6 +403,7 @@ install(
     "${PROJECT_SOURCE_DIR}/config/dependencies.json"
     "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/QUEUE_CORRECTNESS.md"
+    "${PROJECT_SOURCE_DIR}/docs/WORKLOAD_CONSTRUCTION.md"
     "${PROJECT_SOURCE_DIR}/docs/NO_LICENSE_GRANT.md"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation")
 install(
@@ -334,6 +417,6 @@ set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 5 queue correctness foundation")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 6 workload correctness foundation")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)

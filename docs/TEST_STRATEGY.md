@@ -2,12 +2,13 @@
 
 ## Purpose
 
-This is the verification plan for a future Stage A implementation. Stage 4
+This is the verification plan for a future complete Stage A implementation. Stage 4
 provides the typed protocol/configuration model and validation layer. Stage 5
 now provides independently authored ring and linked/recycler queue cores and
-correctness tests; no measurement production code exists. ADR-0009 through
-ADR-0011, ADR-0017, and ADR-0022 through ADR-0024 fix the
-framework/toolchain/sanitizer/model/queue baseline and documented commands.
+correctness tests. Stage 6 provides deterministic workload construction and the
+five package mechanisms; no measurement production code exists. ADR-0009
+through ADR-0011, ADR-0017, and ADR-0022 through ADR-0028 fix the
+framework/toolchain/sanitizer/model/queue/workload baseline and commands.
 Tests establish software correctness, protocol
 conformance, reproducibility, and access integrity. Synthetic and
 development-machine tests do **not** establish queue performance, a prefetch
@@ -88,6 +89,11 @@ Planned pure or bounded units include identity construction, checked integer/tic
 
 Boundary cases include zero offered rows where permitted, maximum representable tick/count, overflow rejection, `pN` at an integer boundary, repeated quantile values, `N_eff` exactly at each threshold, `d2` cap collapse, and replacement budget exhaustion.
 
+Stage 6 status: exact capacity inequalities, `d1`, externally supplied `d2`
+validation, cyclic lookup, strong identity types, record alignment, and
+content/order/delta SHA-256 inputs have unit coverage. Real cache facts,
+qualifying seeds, and calibrated `d2` remain external evidence.
+
 ### 5. Property tests
 
 Generate deterministic cases for:
@@ -101,6 +107,10 @@ Generate deterministic cases for:
 - serialization/codec round trip and cross-implementation checksum equality.
 
 All randomized tests record their generator version and seed. A failing seed becomes a permanent regression fixture.
+
+Stage 6 status: RapidCheck verifies deterministic event/node permutations are
+bijections for generated power-of-two capacities; known-answer fixtures pin the
+Philox/HMAC stream, Fisher-Yates order, mixer, and three checksum grammars.
 
 ### 6. Queue linearization and refinement tests
 
@@ -147,11 +157,15 @@ Acceptance is zero unresolved findings. A suppression is not a pass unless a nam
 
 Sanitizer builds verify correctness only and are never used for performance claims.
 
-Stage 5 status: GCC/libstdc++ and Clang/libc++ queue unit/property/stress tests
-pass ASan/UBSan and TSan without queue suppression or finding. LeakSanitizer
+Stage 6 status: GCC/libstdc++ and Clang/libc++ full unit/property/stress suites,
+including workload construction and package target tests, pass ASan/UBSan and
+TSan without suppression or finding. LeakSanitizer
 remains separately disabled by the accepted managed-ptrace limitation. The
 runtime pointer-atomic checks pass on the development host and must be repeated
-on the eligible stand.
+on the eligible stand. The single-thread global-`operator new` interception test
+is intentionally absent only from the Clang TSan build because that runtime
+defines the same allocator symbols; it runs in both development and ASan/UBSan
+matrices and under GCC TSan, while the remaining 51 tests run under Clang TSan.
 
 ### 9. Deterministic schedule golden tests
 
@@ -172,11 +186,14 @@ Golden vectors bind RNG version, master/derived seed IDs, namespace, exact ratio
 - Flip, truncate, duplicate, reorder, or replace rows/bytes and require the correct schema, semantic, join, or integrity failure.
 - Verify pre/post record-content equality and generated code containing expected loads/private update with no record write.
 
-Stage 4 canonicalization status: shared C++/Python `JCS-I64-v1` fixtures cover
+Stage 6 status: shared C++/Python `JCS-I64-v1` fixtures cover
 signed/unsigned limits, `2^53` boundaries, RFC 8785 binary64 examples, UTF-16
 ordering, escaping, Unicode, and negative zero. RapidCheck exercises generated
-`uint64_t` exact serialization. Mixing/rolling/data checksum algorithms remain
-unresolved and no placeholder primitive is implemented.
+`uint64_t` exact serialization. Workload tests pin the accepted consumer mixer,
+pre/post record content, ordered-index, and signed closure-delta SHA-256 inputs;
+flip/index/payload/padding and unexpected-pointer cases fail as required. A
+10,000-cycle allocation hook covers lookup, record action, and all five package
+operations after preparation.
 
 ### 12. Reconciliation fault injection
 
@@ -209,13 +226,13 @@ Verify that `FULL`, low `N_eff`, and extreme valid latency never authorize repla
 
 For each package/build, inspect and hash the generated boundaries for queue publication/observation, prefetch site/target/form/distance, wait relaxation, termination flag, immutable record loads, private checksum update, timestamp boundaries, static specialization, and absence of virtual dispatch, treatment branch, allocation, I/O, logging, or unexpected calls. Source, object, executable, compiler, flags, standard-library, linker, disassembler, rule-set, and report hashes travel together. The test must include negative fixtures or mutated builds proving the checks detect missing/moved operations.
 
-Stage 5 status: the GCC release operation probe has four direct adapter symbols.
-GNU Binutils 2.46 and LLVM 22.1.6 objdump report no call, `lock`, `xchg`, or
-`mfence` class in those bodies and both reject the deliberate call mutant.
-Both instruction views were reviewed; the binary, mutant, rule-set, operation,
-and full-disassembly hashes are retained in the report/provenance records.
-Prefetch, relax, termination, record-load/mix, and clock boundaries do not exist
-yet and remain later generated-code obligations.
+Stage 6 status: the queue probe still passes four direct adapter symbols. The
+workload probe adds the consumer action and R1/R2 producer/consumer plus L1
+consumer sites. GNU Binutils 2.46 and LLVM 22.1.6 show the two immutable record
+loads, fixed branch-free mixer, and exact target-before-demand ordering with no
+unexpected call, record store, `lock`, `xchg`, or `mfence`; both reject the
+deliberate call mutant. Platform prefetch instructions, relax, termination,
+timestamps, and the final combined worker remain later generated-code gates.
 
 ### 19. Clean-environment build and verification
 

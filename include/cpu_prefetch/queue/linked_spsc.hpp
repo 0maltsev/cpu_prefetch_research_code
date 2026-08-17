@@ -26,6 +26,7 @@ struct LinkedQuiescentAudit final {
 class LinkedSpscQueue final {
 public:
   LinkedSpscQueue(QueueCapacity capacity, CacheLineBytes cache_line_bytes,
+                  ArenaAlignmentBytes arena_alignment_bytes,
                   std::span<const std::size_t> node_order);
   ~LinkedSpscQueue();
 
@@ -45,12 +46,32 @@ public:
     struct NoopObserver final {
       void before_recycler_return() const noexcept {}
     } observer;
-    return try_dequeue_observed(observer);
+    struct NoopSuccessorPrefetch final {
+      void successor_header(const void*) const noexcept {}
+    } prefetch;
+    return try_dequeue_observed(observer, prefetch);
+  }
+
+  template <typename SuccessorPrefetch>
+  [[nodiscard]] DequeueResult
+  try_dequeue_with_successor_prefetch(SuccessorPrefetch& prefetch) noexcept {
+    static_assert(
+        noexcept(prefetch.successor_header(static_cast<const void*>(nullptr))));
+    struct NoopObserver final {
+      void before_recycler_return() const noexcept {}
+    } observer;
+    return try_dequeue_observed(observer, prefetch);
   }
 
   [[nodiscard]] std::size_t capacity() const noexcept { return capacity_; }
   [[nodiscard]] std::size_t node_stride_bytes() const noexcept {
     return node_stride_bytes_;
+  }
+  [[nodiscard]] std::size_t node_arena_alignment_bytes() const noexcept {
+    return node_arena_alignment_bytes_;
+  }
+  [[nodiscard]] const void* node_arena_base() const noexcept {
+    return node_storage_.data();
   }
   [[nodiscard]] AtomicLockFreeEvidence atomic_lock_free_evidence() const noexcept;
   [[nodiscard]] LayoutEvidence layout_evidence() const noexcept;
@@ -81,14 +102,19 @@ private:
     return EnqueueResult::accepted;
   }
 
-  template <typename Observer>
-  [[nodiscard]] DequeueResult try_dequeue_observed(Observer& observer) noexcept {
+  template <typename Observer, typename SuccessorPrefetch>
+  [[nodiscard]] DequeueResult
+  try_dequeue_observed(Observer& observer, SuccessorPrefetch& prefetch) noexcept {
     static_assert(noexcept(observer.before_recycler_return()));
+    static_assert(
+        noexcept(prefetch.successor_header(static_cast<const void*>(nullptr))));
     auto* old_sentinel = consumer_->head;
     auto* successor = old_sentinel->next.load(std::memory_order_acquire);
     if (successor == nullptr) {
       return {DequeueStatus::empty, nullptr};
     }
+
+    prefetch.successor_header(successor);
 
     const auto recycler_position = recycler_producer_->position;
     auto& recycler_slot = recycler_slots_[recycler_position].value;
@@ -139,6 +165,7 @@ private:
   std::size_t capacity_{0};
   std::size_t cache_line_bytes_{0};
   std::size_t node_stride_bytes_{0};
+  std::size_t node_arena_alignment_bytes_{0};
   detail::AlignedBlock node_storage_;
   detail::AlignedBlock recycler_storage_;
   detail::AlignedBlock ownership_storage_;

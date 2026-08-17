@@ -56,7 +56,7 @@ def disassemble(tool: str, binary: pathlib.Path) -> str:
         raise RuntimeError(
             f"{tool} failed for {binary}: {completed.stderr.strip()}"
         )
-    return completed.stdout
+    return completed.stdout.replace(str(binary), "<BINARY>")
 
 
 def tool_version(tool: str) -> str:

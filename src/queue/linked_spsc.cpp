@@ -8,8 +8,14 @@ namespace cpu_prefetch::queue {
 
 LinkedSpscQueue::LinkedSpscQueue(QueueCapacity capacity,
                                  CacheLineBytes cache_line_bytes,
+                                 ArenaAlignmentBytes arena_alignment_bytes,
                                  std::span<const std::size_t> node_order) {
   detail::validate_cache_line_bytes(cache_line_bytes.value);
+  detail::validate_cache_line_bytes(arena_alignment_bytes.value);
+  if (arena_alignment_bytes.value < cache_line_bytes.value) {
+    throw QueueSetupError(
+        "linked node-arena alignment must be at least the cache-line size");
+  }
   if (capacity.value == 0U) {
     throw QueueSetupError("linked capacity must be nonzero");
   }
@@ -28,9 +34,11 @@ LinkedSpscQueue::LinkedSpscQueue(QueueCapacity capacity,
 
   capacity_ = capacity.value;
   cache_line_bytes_ = cache_line_bytes.value;
+  node_arena_alignment_bytes_ = arena_alignment_bytes.value;
   node_stride_bytes_ = detail::round_up(sizeof(Node), cache_line_bytes_);
-  node_storage_ = detail::AlignedBlock(
-      detail::checked_multiply(node_count, node_stride_bytes_), cache_line_bytes_);
+  node_storage_ =
+      detail::AlignedBlock(detail::checked_multiply(node_count, node_stride_bytes_),
+                           node_arena_alignment_bytes_);
   recycler_storage_ = detail::AlignedBlock(
       detail::checked_multiply(capacity_, sizeof(RecyclerSlot)), cache_line_bytes_);
   ownership_storage_ = detail::AlignedBlock(

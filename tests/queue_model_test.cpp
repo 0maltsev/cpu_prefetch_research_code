@@ -16,6 +16,7 @@
 
 namespace {
 
+using cpu_prefetch::queue::ArenaAlignmentBytes;
 using cpu_prefetch::queue::CacheLineBytes;
 using cpu_prefetch::queue::DequeueStatus;
 using cpu_prefetch::queue::EnqueueResult;
@@ -28,6 +29,7 @@ using cpu_prefetch::queue::RingQueueAdapter;
 using cpu_prefetch::queue::RingSpscQueue;
 
 constexpr CacheLineBytes kSyntheticCacheLine{64U};
+constexpr ArenaAlignmentBytes kSyntheticPage{4096U};
 
 EventPointer event_pointer(const void* value) {
   const auto event = EventPointer::from(value);
@@ -140,7 +142,7 @@ TEST(RingSpsc, WrapAndRepeatedRecordIndicesDoNotUseMonotonicCounters) {
 
 TEST(LinkedSpsc, EmptyFullFifoAndExclusiveNodeOwnership) {
   const std::array<std::size_t, 4> order{2U, 0U, 3U, 1U};
-  LinkedSpscQueue queue(QueueCapacity{3U}, kSyntheticCacheLine, order);
+  LinkedSpscQueue queue(QueueCapacity{3U}, kSyntheticCacheLine, kSyntheticPage, order);
   LinkedQueueAdapter adapter(queue);
   std::array<std::uint64_t, 4> events{11U, 22U, 33U, 44U};
 
@@ -176,7 +178,7 @@ TEST(LinkedSpsc, EmptyFullFifoAndExclusiveNodeOwnership) {
 TEST(LinkedSpsc, FixedArenaRepeatsTheExactCapacityPlusOneNodeCycle) {
   const std::array<std::size_t, 4> order{2U, 0U, 3U, 1U};
   const std::array<std::size_t, 4> expected_cycle{0U, 3U, 1U, 2U};
-  LinkedSpscQueue queue(QueueCapacity{3U}, kSyntheticCacheLine, order);
+  LinkedSpscQueue queue(QueueCapacity{3U}, kSyntheticCacheLine, kSyntheticPage, order);
   LinkedQueueAdapter adapter(queue);
   std::uint64_t event = 9U;
 
@@ -207,7 +209,7 @@ TEST(QueueModel, DeterministicRandomHistoryRefinesBoundedFifo) {
   check_sequential_model(ring_adapter, ring.capacity(), actions);
 
   const std::array<std::size_t, 8> order{4U, 1U, 7U, 0U, 6U, 3U, 2U, 5U};
-  LinkedSpscQueue linked(QueueCapacity{7U}, kSyntheticCacheLine, order);
+  LinkedSpscQueue linked(QueueCapacity{7U}, kSyntheticCacheLine, kSyntheticPage, order);
   LinkedQueueAdapter linked_adapter(linked);
   check_sequential_model(linked_adapter, linked.capacity(), actions);
   EXPECT_TRUE(linked.audit_quiescent().every_node_owned_once);
@@ -288,7 +290,7 @@ TEST(QueueProgress, RingOtherWorkerMayBeSuspendedAtEachHandoffPhase) {
 
 TEST(QueueProgress, LinkedSuspensionCannotPrematurelyRecycleAReachableNode) {
   const std::array<std::size_t, 3> order{2U, 0U, 1U};
-  LinkedSpscQueue queue(QueueCapacity{2U}, kSyntheticCacheLine, order);
+  LinkedSpscQueue queue(QueueCapacity{2U}, kSyntheticCacheLine, kSyntheticPage, order);
   LinkedQueueAdapter adapter(queue);
   std::array<std::uint64_t, 3> events{};
   std::atomic<bool> phase_reached{false};
@@ -362,7 +364,7 @@ TEST(QueueLayout, RequiredPointerAtomicsAreLockFreeAndOwnershipIsSeparated) {
   EXPECT_TRUE(ring_layout.ownership_lines_separated);
 
   const std::array<std::size_t, 9> order{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
-  LinkedSpscQueue linked(QueueCapacity{8U}, kSyntheticCacheLine, order);
+  LinkedSpscQueue linked(QueueCapacity{8U}, kSyntheticCacheLine, kSyntheticPage, order);
   const auto linked_atomic = linked.atomic_lock_free_evidence();
   const auto linked_layout = linked.layout_evidence();
   EXPECT_EQ(linked_atomic.abi_pointer_width_bytes,
@@ -372,6 +374,10 @@ TEST(QueueLayout, RequiredPointerAtomicsAreLockFreeAndOwnershipIsSeparated) {
   EXPECT_TRUE(linked_layout.bases_aligned);
   EXPECT_TRUE(linked_layout.ownership_lines_separated);
   EXPECT_EQ(linked.node_stride_bytes() % kSyntheticCacheLine.value, 0U);
+  EXPECT_EQ(linked.node_arena_alignment_bytes(), kSyntheticPage.value);
+  EXPECT_EQ(reinterpret_cast<std::uintptr_t>(linked.node_arena_base()) %
+                kSyntheticPage.value,
+            0U);
 }
 
 TEST(QueueSetup, InvalidCapacityLineSizeAndNodeOrdersFailBeforeOperations) {
@@ -384,13 +390,20 @@ TEST(QueueSetup, InvalidCapacityLineSizeAndNodeOrdersFailBeforeOperations) {
                QueueSetupError);
 
   const std::array<std::size_t, 3> too_short{0U, 1U, 2U};
-  EXPECT_THROW((LinkedSpscQueue{QueueCapacity{3U}, kSyntheticCacheLine, too_short}),
+  EXPECT_THROW((LinkedSpscQueue{QueueCapacity{3U}, kSyntheticCacheLine, kSyntheticPage,
+                                too_short}),
                QueueSetupError);
   const std::array<std::size_t, 4> duplicate{0U, 1U, 1U, 3U};
-  EXPECT_THROW((LinkedSpscQueue{QueueCapacity{3U}, kSyntheticCacheLine, duplicate}),
+  EXPECT_THROW((LinkedSpscQueue{QueueCapacity{3U}, kSyntheticCacheLine, kSyntheticPage,
+                                duplicate}),
                QueueSetupError);
   const std::array<std::size_t, 4> out_of_range{0U, 1U, 2U, 4U};
-  EXPECT_THROW((LinkedSpscQueue{QueueCapacity{3U}, kSyntheticCacheLine, out_of_range}),
+  EXPECT_THROW((LinkedSpscQueue{QueueCapacity{3U}, kSyntheticCacheLine, kSyntheticPage,
+                                out_of_range}),
+               QueueSetupError);
+  const std::array<std::size_t, 4> valid{0U, 1U, 2U, 3U};
+  EXPECT_THROW((LinkedSpscQueue{QueueCapacity{3U}, kSyntheticCacheLine,
+                                ArenaAlignmentBytes{32U}, valid}),
                QueueSetupError);
 }
 

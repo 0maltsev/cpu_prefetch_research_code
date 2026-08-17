@@ -83,6 +83,42 @@
       "scope": "test-runtime"
     },
     {
+      "id": "openssl-libcrypto",
+      "version_rule": ">=3.0.0,<4.0.0",
+      "observed_version": "3.6.2-2 (library reports 3.6.2)",
+      "source": "https://www.openssl.org/",
+      "license": "Apache-2.0",
+      "purpose": "OpenSSL 3 HMAC-SHA-256 seed derivation and SHA-256 workload-integrity identities",
+      "scope": "build-runtime"
+    },
+    {
+      "id": "zlib",
+      "version_rule": ">=1.3.2,<1.4.0",
+      "observed_version": "1:1.3.2-3",
+      "source": "https://www.zlib.net/",
+      "license": "Zlib",
+      "purpose": "Provisioned libcrypto runtime dependency; not used as a Stage 6 codec",
+      "scope": "runtime-transitive"
+    },
+    {
+      "id": "brotli",
+      "version_rule": ">=1.2.0,<1.3.0",
+      "observed_version": "1.2.0-1",
+      "source": "https://github.com/google/brotli",
+      "license": "MIT",
+      "purpose": "Provisioned libcrypto runtime dependency; not used as a Stage 6 codec",
+      "scope": "runtime-transitive"
+    },
+    {
+      "id": "zstd",
+      "version_rule": ">=1.5.7,<1.6.0",
+      "observed_version": "1.5.7-3",
+      "source": "https://facebook.github.io/zstd/",
+      "license": "BSD-3-Clause AND GPL-2.0-only",
+      "purpose": "Provisioned libcrypto runtime dependency; not used as a Stage 6 codec",
+      "scope": "runtime-transitive"
+    },
+    {
       "id": "git",
       "version_rule": ">=2.54.0,<2.55.0",
       "observed_version": "2.54.0",

@@ -165,10 +165,14 @@ dual-disassembler gate passes.
 
 - The later eligible platform must supply and verify its actual cache-line size
   and repeat every runtime lock-free/alignment probe.
-- Stage 6 owns page-aligned persistent arenas, common immutable event records,
-  footprint accounting, NUMA first touch, and treatment-blind node permutation.
-- Ring `R1/R2` and linked `L1` prefetch sites remain blocked on their later
-  intrinsic, distance, platform, and generated-code evidence. Stage 5 does not
-  silently implement an off package as those treatments.
-- Termination control, schedule retries/polling, clocks, timestamps, checksum
-  mixing, observations, and measurement remain unimplemented.
+- Stage 6 now supplies base-page-aligned, fully first-touched immutable event
+  arenas, exact footprint arithmetic, deterministic event/node permutations,
+  and content/order/delta integrity inputs. NUMA placement/residency remains a
+  Phase 9 platform obligation.
+- Stage 6 binds ring `R1/R2` and linked `L1` target sites through a static
+  emitter and passes target-order generated-code checks. The platform retaining
+  instruction mapping and calibrated context-specific `d2` remain open; no
+  default instruction or distance is embedded.
+- Termination control, schedule polling, clocks, timestamps, observations, and
+  measurement remain unimplemented. The Stage 6 mixer exists only as a tested
+  record action pending its final worker/timestamp boundary.

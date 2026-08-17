@@ -57,6 +57,8 @@ jobs:
         run: cmake --build --preset release-gcc --target release-policy-check
       - name: Queue generated-code check
         run: cmake --build --preset release-gcc --target queue-codegen-check
+      - name: Workload generated-code check
+        run: cmake --build --preset release-gcc --target workload-codegen-check
       - name: Generate stand-foundation package
         run: cmake --build --preset release-gcc --target package
 

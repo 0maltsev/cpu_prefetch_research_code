@@ -15,6 +15,7 @@ REQUIRED_COMMANDS = (
     "cmake --build --preset dev-gcc --target schema-fixture-check",
     "cmake --build --preset dev-gcc --target canonical-check",
     "cmake --build --preset release-gcc --target queue-codegen-check",
+    "cmake --build --preset release-gcc --target workload-codegen-check",
     "cmake --build --preset dev-gcc --target queue-provenance-check",
     "cmake --preset dev-clang-libcxx",
     "cmake --build --preset release-gcc --target package",

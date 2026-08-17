@@ -43,6 +43,18 @@ public:
   [[nodiscard]] AtomicLockFreeEvidence atomic_lock_free_evidence() const noexcept;
   [[nodiscard]] LayoutEvidence layout_evidence() const noexcept;
   [[nodiscard]] RingQuiescentAudit audit_quiescent() const noexcept;
+  [[nodiscard]] const void*
+  producer_slot_target(std::size_t distance_slots) const noexcept {
+    return &slots_[position_at_distance(producer_->position,
+                                        SlotOffset{distance_slots})]
+                .value;
+  }
+  [[nodiscard]] const void*
+  consumer_slot_target(std::size_t distance_slots) const noexcept {
+    return &slots_[position_at_distance(consumer_->position,
+                                        SlotOffset{distance_slots})]
+                .value;
+  }
 
 private:
   friend struct testing::QueuePhaseTestAccess;
@@ -87,9 +99,23 @@ private:
     std::size_t position{0};
   };
 
+  struct SlotOffset final {
+    std::size_t value;
+  };
+
   [[nodiscard]] std::size_t next_position(std::size_t position) const noexcept {
     const auto next = position + 1U;
     return next == capacity_ ? 0U : next;
+  }
+
+  [[nodiscard]] std::size_t position_at_distance(std::size_t position,
+                                                 SlotOffset distance) const noexcept {
+    const auto reduced = distance.value % capacity_;
+    if (reduced == 0U) {
+      return position;
+    }
+    const auto until_wrap = capacity_ - position;
+    return reduced < until_wrap ? position + reduced : reduced - until_wrap;
   }
 
   std::size_t capacity_{0};

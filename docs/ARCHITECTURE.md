@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-This is the accepted architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0024 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, Stage 3 tooling, Stage 4 protocol-model, and Stage 5 queue-representation boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
+This is the accepted architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0028 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, Stage 3 tooling, Stage 4 protocol-model, Stage 5 queue-representation, and Stage 6 deterministic-workload boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
 
 The architecture has three planes:
 
@@ -17,9 +17,10 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 | Plane | Component | Responsibility | Timed-horizon status | Replaceable boundary / state |
 |---|---|---|---|---|
 | Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Queue, clock, prepared schedule, private sink; implementation blocked |
-| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Queue, clock, record arena, private sink; implementation blocked |
-| Data | Queue adapter binding | Distinct direct ring and linked/recycler one-attempt operations preserving full/empty/invariant and linearization semantics | Required | Stage 5 source/proof/tests and GNU+LLVM generated-code review pass under ADR-0024 |
-| Controller | Run-image builder | Parse and semantically validate config, allocate/touch/initialize arenas and buffers, derive schedules, bind identities and capacity proof | Forbidden | Prepared-run image interface; deterministic primitives blocked |
+| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 6 record action implemented; clock, rows, and combined worker remain blocked |
+| Data | Queue/package binding | Five concrete static policies preserve ring/linked semantics and exact treatment-specific hint targets | Required | Stage 5 queue cores plus Stage 6 target seams/codegen pass; platform hint instruction and `d2` evidence remain open |
+| Controller | Run-image builder | Parse and semantically validate config, allocate/touch/initialize arenas and buffers, derive schedules, bind identities and capacity proof | Forbidden | Stage 6 arena/order/footprint primitives implemented; schedules and real stand facts blocked |
+| Controller | Workload construction | Derive domain-separated streams, build event/node order, initialize records, retain integrity inputs, bind one package type | Forbidden | Stage 6 implemented; all values explicit and no worker mutation surface |
 | Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact publication | Outside horizon | One-process/two-worker topology accepted; implementation pending |
 | Controller | Platform-control adapter | Request affinity/NUMA/pages/frequency/HW-PF state, read back and probe, rollback | Forbidden | Linux interface accepted; exact target/authority evidence due Phase 9 |
 | Controller | Clock qualification | Qualify source, conversion, skew/drift/read cost and code boundaries | Reads only are timed | Clock interface; source blocked |
@@ -41,7 +42,17 @@ An immutable, fully validated run image containing run identity, specialized pac
 
 ### `QueueAdapter`
 
-A package-bound seam providing one-attempt enqueue/dequeue outcomes while retaining package-specific linearization, full, recycler, memory-order, and progress semantics. Stage 5 implements separate final `RingQueueAdapter` and `LinkedQueueAdapter` types with no common virtual base or runtime family selector. Their `noexcept` operations are constant-step and contain no allocation, retry, wait, logging, exception control flow, or callback. Private phase hooks are accessible only to correctness tests and compile away from adapter code. API substitutability alone is not scientific equivalence. Prefetch package sites remain later platform/package work.
+A package-bound seam providing one-attempt enqueue/dequeue outcomes while retaining package-specific linearization, full, recycler, memory-order, and progress semantics. Stage 5 implements separate final `RingQueueAdapter` and `LinkedQueueAdapter` types with no common virtual base or runtime family selector. Stage 6 adds concrete `R0`, `R1`, `R2`, `L0`, and `L1` policy types: their target sites are fixed and a statically bound emitter preserves the still-unselected platform encoding. Their `noexcept` operations are constant-step and contain no allocation, retry, wait, logging, exception control flow, or runtime package dispatch. API substitutability alone is not scientific equivalence.
+
+### `WorkloadConstruction`
+
+Consumes only explicit line/page/cache/capacity, seed, namespace, and accepted
+algorithm identifiers. It produces a base-page-aligned, fully touched immutable
+event arena, cyclic event order, `C+1` linked-node order, exact footprint
+results, content/order/delta integrity inputs, and one statically selected
+package. `RecordIndex`, `LogicalSequence`, and `AcceptedOrdinal` are distinct;
+no pointer is serialized. Platform residency and prefetch encoding remain
+outside this interface and cannot be inferred from allocation success.
 
 ### `ClockSource`
 
@@ -107,4 +118,4 @@ Readers fail closed on unknown protocol/schema, artifact-kind, physical-format, 
 
 ## Deferred decisions
 
-The owner selected no repository license grant in ADR-0021, Stage 3 pins the development/CI tool series in ADR-0022, Stage 4 implements typed logical records in ADR-0023, and ADR-0024 fixes the queue representation/proof mapping. Phase 5 still needs the accepted LLVM disassembler evidence. Eligible-stand lock-free/layout repetition, prefetch sites, exact measured-release pins, target stand/authority facts, clock, raw format, RNG/schedule/mixing/checksum details, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. None may be filled by a build or configuration default.
+The owner selected no repository license grant in ADR-0021, Stage 3 pins the development/CI tool series in ADR-0022, Stage 4 implements typed logical records in ADR-0023, ADR-0024 fixes queue representation/proof, and ADR-0025 through ADR-0028 fix Stage 6 deterministic construction. Eligible-stand lock-free/layout repetition, exact measured-release pins, target stand/authority facts, clock, raw format, schedule exponential/tick mapping, concrete seeds/capacities, node page-frame qualification, platform prefetch encoding, calibrated `d2`, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. None may be filled by a build or configuration default.

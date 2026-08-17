@@ -21,6 +21,10 @@ struct CacheLineBytes final {
   std::size_t value;
 };
 
+struct ArenaAlignmentBytes final {
+  std::size_t value;
+};
+
 class EventPointer final {
 public:
   [[nodiscard]] static std::optional<EventPointer> from(const void* value) noexcept;

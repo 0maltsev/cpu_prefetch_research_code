@@ -2,6 +2,7 @@
 
 #include "cpu_prefetch/protocol/json.hpp"
 #include "cpu_prefetch/queue/adapters.hpp"
+#include "cpu_prefetch/workload/deterministic.hpp"
 
 #include <algorithm>
 #include <array>
@@ -17,6 +18,7 @@
 namespace {
 
 constexpr cpu_prefetch::queue::CacheLineBytes kSyntheticCacheLine{64U};
+constexpr cpu_prefetch::queue::ArenaAlignmentBytes kSyntheticPage{4096U};
 
 cpu_prefetch::queue::EventPointer required_event_pointer(const void* pointer) {
   const auto event = cpu_prefetch::queue::EventPointer::from(pointer);
@@ -95,13 +97,32 @@ int main() {
             order[index] = order.size() - 1U - index;
           }
           cpu_prefetch::queue::LinkedSpscQueue queue(
-              cpu_prefetch::queue::QueueCapacity{capacity}, kSyntheticCacheLine, order);
+              cpu_prefetch::queue::QueueCapacity{capacity}, kSyntheticCacheLine,
+              kSyntheticPage, order);
           cpu_prefetch::queue::LinkedQueueAdapter adapter(queue);
           check_queue_model(adapter, capacity, actions);
           RC_ASSERT(queue.audit_quiescent().every_node_owned_once);
         });
+    const bool permutation_passed = rc::check(
+        "Philox rejection shuffle is a deterministic bijection",
+        [](std::uint8_t raw_exponent, std::uint64_t key_material) {
+          const auto exponent = static_cast<unsigned int>(raw_exponent % 9U);
+          const auto count = static_cast<std::size_t>(1U) << exponent;
+          const cpu_prefetch::workload::PhiloxKey key{
+              {static_cast<std::uint32_t>(key_material >> 32U),
+               static_cast<std::uint32_t>(key_material)}};
+          const cpu_prefetch::workload::DeterministicStream stream(key);
+          const auto first = cpu_prefetch::workload::make_permutation(count, stream);
+          const auto second = cpu_prefetch::workload::make_permutation(count, stream);
+          RC_ASSERT(first == second);
+          auto sorted = first;
+          std::ranges::sort(sorted);
+          for (std::size_t index = 0; index < sorted.size(); ++index) {
+            RC_ASSERT(sorted[index] == index);
+          }
+        });
     return framework_passed && exact_integer_passed && ring_model_passed &&
-                   linked_model_passed
+                   linked_model_passed && permutation_passed
                ? 0
                : 1;
   } catch (const std::exception& error) {

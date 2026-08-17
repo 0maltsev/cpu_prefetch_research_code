@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.1`**
 
-Stage 2/6 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_ACCEPTED`**
+Stage 2/6 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_ACCEPTED; Q6_PROPOSED`**
 
 The repository still contains no production benchmark or measurement code.
 Stage 5 contains queue correctness-only production cores, and Stage 6 contains
@@ -52,13 +52,30 @@ order, exact footprint arithmetic, five statically bound package mechanisms,
 no-allocation prepared path, integrity grammars, and generated-code checks.
 No development fixture is a qualified stand value or scientific outcome.
 
+## Q6 — Stage 7 deterministic schedule suite
+
+State: **`RECOMMENDED_AWAITING_OWNER_APPROVAL`**.
+
+[`docs/STAGE7_DECISION_BUNDLE.md`](STAGE7_DECISION_BUNDLE.md) and proposed
+[ADR-0029](decisions/0029-stage7-schedule-generation-suite.md) recommend the
+offline suite `POISSON-EXPONENTIAL-PHILOX-DECIMAL80-FLOOR-ABS-PS-v1`:
+midpoint mapping of one Philox draw per candidate, a fixed Python 3.14
+80-digit decimal inverse transform, cumulative-floor picosecond deadlines,
+absolute unsigned-64 big-endian storage, fail-closed overflow, and versioned
+artifact/decoded/envelope SHA-256 identities. It uses the already-approved
+Python standard library and adds no dependency.
+
+This is not a default. To resolve D-027 exactly as recommended, the repository
+owner must answer **`Q6 - accept the bundle`**. A requested change or MPFR
+fallback keeps Stage 7 blocked until the revised bundle is explicitly accepted.
+
 ## Pre-pilot decisions that may remain open after Stage 2
 
 | Decision IDs | Required choice/evidence | Owner | Blocking gate |
 |---|---|---|---|
 | D-009 | Qualified clock source, conversion, serialization, skew/drift/read-cost bounds, and code evidence | Timing/platform owner | Select for Phase 8; pass by Phase 16 |
 | D-010, D-020 | Physical raw format, exact row/envelope sizes, endianness, codec, compression/copy policy, capacity and corruption evidence | Storage owner | Select for Phase 11; pass by Phase 16 |
-| D-027 | Exact exponential transform, RNG-bit mapping, integer time unit, deadline rounding/overflow, and golden schedule vectors | Reproducibility/statistical/timing owners | Resolve before Phase 7 implementation; pass by Phase 16 |
+| D-027 | Q6 proposes an exact offline Python-decimal transform, midpoint RNG mapping, picosecond unit, cumulative-floor/absolute encoding, fail-closed overflow, hashes, and goldens; explicit owner acceptance is still missing | Repository/reproducibility/statistical/timing owners | Accept or revise Q6 before Phase 7 implementation; pass implementation evidence by Phase 7 closure and Phase 16 |
 | D-008 | Queue pointer width/order/refinement is implemented; repeat runtime lock-free/layout probes on the eligible stand. Termination/control atomic width remains a later controller mapping. | Queue correctness/platform owners | Eligible stand/controller acceptance; queue core mapping accepted in ADR-0024 |
 | D-018 | Exact eligible-stand API mapping, processor-relax instruction, capability/readback/probe/rollback evidence | Platform owner | Select for Phase 9; pass by Phase 16 |
 | D-019 | Named operator/custodian, accounts/keys/storage, negative access, recovery, and audit retention | Security/custody owners | Operational proof by Phase 16; final authority before confirmation |
@@ -80,5 +97,5 @@ Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
 versioned protocol amendment. Stage 6 is complete. The exact next safe activity
-is to resolve D-027 for Phase 7; schedule code must not be written until it is
-accepted.
+is owner review and acceptance/revision of Q6; schedule code must not be written
+while ADR-0029 is `PROPOSED`.

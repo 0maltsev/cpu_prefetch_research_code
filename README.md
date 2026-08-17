@@ -225,8 +225,9 @@ commands above and performs no dependency download; runner policy must disable
 dependency-network access after source checkout. Runner availability and
 provisioning are external platform operations.
 
-Stage 6 is complete. The exact next safe activity is **resolve D-027 for Stage
-7 schedule generation**. Until the exponential transform, bit mapping, integer
-time unit, rounding, and overflow rules are accepted, schedule implementation
-is blocked. Timing, measurement, pilot, and confirmatory behavior remain
+Stage 6 is complete. The D-027 recommendation is prepared in
+[`docs/STAGE7_DECISION_BUNDLE.md`](docs/STAGE7_DECISION_BUNDLE.md), with
+ADR-0029 still `PROPOSED`. The exact next safe activity is **owner acceptance
+or revision of Q6**. Until that explicit decision, Stage 7 implementation is
+blocked. Timing, measurement, pilot, and confirmatory behavior remain
 prohibited until their later lifecycle gates.

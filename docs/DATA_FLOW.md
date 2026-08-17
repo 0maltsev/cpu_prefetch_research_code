@@ -46,6 +46,11 @@ logical bytes and within-arena offsets, never absolute pointers. The five
 package policies bind exact hint targets without selecting a platform
 instruction or calibrated `d2`.
 
+Proposed ADR-0029 describes a possible offline Stage 7 schedule producer and
+integer artifact boundary. It is not part of this accepted flow until Q6 owner
+approval; no generator, decoder extension, or deadline artifact currently
+exists.
+
 The producer and consumer receive disjoint mutable observation buffers. They record their own facts independently and in program order. `LogicalSequence` selects a cyclic record pointer before enqueue; `AcceptedOrdinal` is assigned only to accepted arrivals. The repeating `RecordIndex` validates the demanded record and is never an event ID. Accepted observations are reconciled later by run identity and accepted ordinal. A process-local pointer is never durable identity.
 
 ## Logical streams

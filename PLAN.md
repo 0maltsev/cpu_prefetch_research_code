@@ -98,11 +98,11 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** All semantic schedule rules pass; no implementation-defined RNG behavior; schedule generation is absent from timed path.
 - **Explicitly excluded:** Concrete confirmatory rates/horizons/seeds and any tuning from outcomes.
 - **Rollback or failure behavior:** Algorithm/version change creates new records and invalidates dependent schedules; never silently regenerate a frozen schedule.
-- **Status:** `BLOCKED` on D-027. ADR-0025 provides the accepted base stream,
-  but the exponential transform, input-bit consumption, integer time unit,
-  rounding, and overflow behavior require explicit acceptance before schedule
-  implementation. Resolving that smallest decision bundle is the exact next
-  safe activity.
+- **Status:** `BLOCKED` on owner acceptance of Q6/D-027. ADR-0025 provides the
+  accepted base stream, and proposed ADR-0029 now specifies the recommended
+  transform, input-bit consumption, picosecond unit, cumulative-floor absolute
+  encoding, overflow, hashes, and goldens. It has no force while `PROPOSED`.
+  Owner acceptance or revision of Q6 is the exact next safe activity.
 
 ## Phase 8 — Timing
 

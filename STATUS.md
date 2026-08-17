@@ -4,14 +4,14 @@ Protocol snapshot: **`2.0.0-pre.1`**
 
 Repository state: **`STAGE_6_COMPLETE`**
 
-Readiness verdict: **`READY_FOR_STAGE_7_DECISION_NOT_MEASUREMENT`**
+Readiness verdict: **`READY_FOR_D027_OWNER_APPROVAL_NOT_MEASUREMENT`**
 
 ## Readiness by area
 
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | The Stage 6 check freshly passed all 18 manifest sizes/SHA-256 values, exact inventory, four authoritative hashes, JSON parsing, and Draft 2020-12 meta-schema validation for all seven schemas. |
-| Stage 2 implementation-decision freeze | `COMPLETE` | ADR-0001 through ADR-0028 are accepted. Q4 selected no license grant and Q5 selected the deterministic workload bundle; later platform/pilot selections remain open only at their recorded gates. |
+| Stage 2 implementation-decision freeze | `COMPLETE`; later Q6 proposed | ADR-0001 through ADR-0028 are accepted. Q4 selected no license grant and Q5 selected the deterministic workload bundle. ADR-0029 is only a D-027 proposal awaiting Q6; later platform/pilot selections remain open at their recorded gates. |
 | Stage 3 build/CI foundation | `COMPLETE_LOCAL` | ADR-0022, constrained offline inputs, dual compiler/library presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations remain passing. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023, typed C++20 records for all seven schema families, strict loading, immutable configuration, record-local semantic rules, exact `JCS-I64-v1`, and explicit cross-record interfaces are implemented and pass the recorded matrix. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
@@ -144,7 +144,9 @@ mapping remains unresolved and no implementation text was used.
 
 ## Immediate gate
 
-Stage 6 is complete. The exact next safe activity is **resolve D-027 for Stage
-7 schedule generation**. Schedule implementation is blocked until that
-scientific mapping is accepted. Timing, measurement, pilot activity, and
-confirmatory execution remain blocked by their later lifecycle gates.
+Stage 6 is complete and the D-027 recommendation is prepared in
+[`docs/STAGE7_DECISION_BUNDLE.md`](docs/STAGE7_DECISION_BUNDLE.md). The exact
+next safe activity is **owner acceptance or revision of Q6**. ADR-0029 remains
+`PROPOSED`, so Stage 7 implementation is still blocked. Timing, measurement,
+pilot activity, and confirmatory execution remain blocked by their later
+lifecycle gates.

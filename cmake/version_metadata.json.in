@@ -1,0 +1,15 @@
+{
+  "schema_version": "cpu-prefetch-build-metadata/1",
+  "protocol_version": "@CPU_PREFETCH_PROTOCOL_VERSION@",
+  "source_revision": "@CPU_PREFETCH_GIT_REVISION@",
+  "source_revision_short": "@CPU_PREFETCH_GIT_REVISION_SHORT@",
+  "source_dirty": @CPU_PREFETCH_GIT_DIRTY_JSON@,
+  "compiler": {
+    "id": "@CMAKE_CXX_COMPILER_ID@",
+    "version": "@CMAKE_CXX_COMPILER_VERSION@"
+  },
+  "standard_library": "@CPU_PREFETCH_STANDARD_LIBRARY@",
+  "language_standard": "C++20",
+  "generator": "@CMAKE_GENERATOR@",
+  "build_type": "@CMAKE_BUILD_TYPE@"
+}

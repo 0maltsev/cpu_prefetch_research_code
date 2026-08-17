@@ -11,18 +11,18 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Every required artifact is byte-identical and listed; all requested documents exist; all normative areas have owner/validator; no production code, result, or invented platform value exists.
 - **Explicitly excluded:** Benchmark, queues, controls, runner, analysis pipeline, calibration, pilot, confirmation.
 - **Rollback or failure behavior:** A declared-hash mismatch or normative contradiction stops bootstrap; do not repair imported bytes. Remove no source evidence; replace a bad import only from verified source and record a new timestamp/manifest.
-- **Status:** `COMPLETE`; fresh Draft 2020-12 meta-schema revalidation is explicitly tooling-blocked because no conforming validator is installed. JSON syntax and all other available Phase 1 checks pass.
+- **Status:** `COMPLETE_REVERIFIED`; Stage 3's pinned jsonschema 4.26.0 check reverified all 18 artifact hashes/sizes, the exact inventory, four current authoritative hashes, and all seven Draft 2020-12 schemas.
 
 ## Phase 2 — Implementation-decision freeze
 
 - **Objective:** Resolve the smallest engineering decisions needed to finalize production architecture without selecting pilot outputs.
 - **Inputs and prerequisite decisions:** Phase 1; queue provenance/license investigation; candidate language/atomic feasibility; storage/validator/sealing/platform capability evidence.
-- **Files/components:** ADR-0001 through ADR-0020 for accepted architecture, software, queue/process/atomic/integrity/correctness, and platform/custody boundaries; updated architecture, flow, status, risks, tests, traceability, and decision register; repository license ADR/file still required.
+- **Files/components:** ADR-0001 through ADR-0021 for accepted architecture, software, queue/process/atomic/integrity/correctness, platform/custody, and no-license boundaries; synchronized architecture, flow, status, risks, tests, traceability, and decision register.
 - **Tests:** License/provenance review; architectural scenario tests for early failure, immutable raw correction, sealing, and unavailable platform control; atomic/sanitizer/tool support matrix.
 - **Acceptance criteria:** Every pre-architecture row in `docs/IMPLEMENTATION_DECISIONS.md` has an accepted evidence-backed ADR; no scientific behavior changed; contradictions have amendments, not workarounds.
 - **Explicitly excluded:** Production source, concrete physical raw encoding, platform numerical values, pilot/confirmatory decisions.
 - **Rollback or failure behavior:** Reject or supersede an unsupported ADR before code depends on it. If no eligible artifact/platform architecture exists, record `BLOCKED_BEFORE_IMPLEMENTATION` and stop.
-- **Status:** `BLOCKED_LICENSE_IDENTIFIER_PENDING`. Q1-Q3 are explicitly accepted and recorded in ADR-0007 through ADR-0020. D-028, the owner-supplied repository SPDX license identifier (or explicit private/no-distribution record), is the sole remaining acceptance item. The exact next safe activity is Phase 2 license selection, not Phase 3.
+- **Status:** `COMPLETE`. Q1-Q3 are recorded in ADR-0007 through ADR-0020. The owner's Q4 answer, no license grant, is recorded as D-028/ADR-0021; no `LICENSE` file or SPDX grant was added.
 
 ## Phase 3 — Build and CI foundation
 
@@ -33,7 +33,7 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Documented commands work from a clean environment; versions and hashes are captured; failures are nonzero and artifacts retained; no platform-specific constant is embedded.
 - **Explicitly excluded:** Queue and measurement implementations, performance tests, pilot.
 - **Rollback or failure behavior:** Keep previous accepted tool record; supersede build ADR/tool versions rather than silently drifting; block Phase 4 if clean reproduction fails.
-- **Status:** `PENDING_BLOCKED_D028`, blocked only by the unresolved repository source-license record; after it is accepted, Phase 3 is the exact next implementation phase and still excludes benchmark behavior.
+- **Status:** `COMPLETE`. ADR-0022 and `config/dependencies.json` constrain the tool/dependency matrix. Clean GCC/libstdc++ and Clang/libc++ smoke builds/tests, both ASan/UBSan and TSan matrices, format/static checks, protocol/schema/document/dependency/CI checks, release-flag policy, metadata inspection, and package generation passed locally. LeakSanitizer is explicitly disabled under the managed ptrace boundary; external self-hosted CI execution and runner provisioning remain platform evidence, not a Phase 4 blocker. No benchmark behavior was added. The exact next safe phase is Phase 4.
 
 ## Phase 4 — Protocol/configuration model
 

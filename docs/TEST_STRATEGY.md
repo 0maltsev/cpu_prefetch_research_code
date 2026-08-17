@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This is the verification plan for a future Stage A implementation. No test harness or production code exists yet. ADR-0009 through ADR-0011 and ADR-0017 accept the named framework/toolchain/sanitizer matrix; Stage 3 must still pin versions and prove compatibility before commands become available. Tests establish software correctness, protocol conformance, reproducibility, and access integrity. Synthetic and development-machine tests do **not** establish queue performance, a prefetch benefit, a platform population effect, or any empirical paper claim.
+This is the verification plan for a future Stage A implementation. Stage 3 now provides only the smoke-level test/build foundation; no queue or measurement production code exists. ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 fix the framework/toolchain/sanitizer baseline and documented commands. Tests establish software correctness, protocol conformance, reproducibility, and access integrity. Synthetic and development-machine tests do **not** establish queue performance, a prefetch benefit, a platform population effect, or any empirical paper claim.
 
 Every behavior change must add or update targeted tests and rerun the relevant sanitizer/static/generated-code gates. A failed required gate blocks pilot; rerunning until a favorable performance result is never a testing strategy.
 
@@ -157,7 +157,7 @@ For each package/build, inspect and hash the generated boundaries for queue publ
 
 ### 19. Clean-environment build and verification
 
-From a documented clean environment with network access disabled, recreate dependencies, build artifacts, fixtures, validator outputs, and generated-code reports solely from tracked inputs and recorded versions. Compare source/build/protocol/dependency hashes and licenses and run the complete non-performance test suite. The exact command remains a placeholder until Stage 3 implements and verifies the accepted tooling.
+From a documented clean environment with network access disabled, recreate dependencies, build artifacts, fixtures, validator outputs, and generated-code reports solely from tracked inputs and recorded versions. Compare source/build/protocol/dependency hashes and licenses and run the complete non-performance test suite. Stage 3 provides the local/CI commands in `README.md`; later phases extend the same presets and checks rather than inventing separate entry points.
 
 ### 20. Synthetic end-to-end dry run
 

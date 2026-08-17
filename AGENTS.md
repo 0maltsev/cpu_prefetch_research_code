@@ -21,11 +21,11 @@
 
 ## Command status
 
-- Build: `[UNAVAILABLE: C++20/CMake/Ninja accepted; repository license and Stage 3 build foundation not implemented]`
-- Tests: `[UNAVAILABLE: GoogleTest/RapidCheck/CTest accepted; Stage 3 integration not implemented or probed]`
-- Sanitizers: `[UNAVAILABLE: GCC/Clang ASan/UBSan/TSan policy accepted; Stage 3 configurations/capability probes not implemented]`
-- Lint/format: `[UNAVAILABLE: C++20 accepted; exact Stage 3 lint/format tools not selected or implemented]`
-- Schema validation: `[UNAVAILABLE: Draft 2020-12 validator not selected for the implementation]`
-- Clean-room verification: `[UNAVAILABLE: build/CI foundation not implemented]`
+- Build: `cmake --preset dev-gcc && cmake --build --preset dev-gcc`
+- Tests: `ctest --preset dev-gcc`
+- Sanitizers: configure/build/test `asan-ubsan-gcc`, `tsan-gcc`, `asan-ubsan-clang-libcxx`, or `tsan-clang-libcxx`; ASan presets explicitly disable LeakSanitizer under the managed ptrace boundary.
+- Lint/format: `cmake --build --preset dev-gcc --target format-check static-analysis`
+- Schema validation: `cmake --build --preset dev-gcc --target protocol-check`
+- Clean-room verification: use a recorded pre-provisioned dependency prefix, then run the documented configure/build/test/check/package commands in `README.md`; configure and build perform no network fetch.
 
 Replace a placeholder only through a recorded engineering decision and keep `README.md`, `STATUS.md`, and `PLAN.md` synchronized.

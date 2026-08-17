@@ -56,5 +56,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0018](0018-unprivileged-measurement-and-control-boundary.md) | `ACCEPTED` | Keep measurement unprivileged and platform control externally authorized/audited. |
 | [ADR-0019](0019-linux-platform-control-interface.md) | `ACCEPTED` | Use a replaceable Linux request/readback/probe/rollback platform interface. |
 | [ADR-0020](0020-platform-and-validation-custody-separation.md) | `ACCEPTED` | Separate platform operation from technically enforced validation custody. |
+| [ADR-0021](0021-no-repository-license-grant.md) | `ACCEPTED` | Record the owner's no-license posture without adding a `LICENSE` or SPDX grant. |
+| [ADR-0022](0022-stage3-tooling-and-dependency-baseline.md) | `ACCEPTED` | Constrain the offline Stage 3 tool, dependency, test, CI, metadata, and package baseline. |
 
-Open later-gate decisions and the remaining repository-license question are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented.
+Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented.

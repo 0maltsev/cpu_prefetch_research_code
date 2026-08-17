@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-This is the accepted Stage 2 architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0020 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, and platform/custody boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
+This is the accepted Stage 2 architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0022 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, and Stage 3 tooling boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
 
 The architecture has three planes:
 
@@ -10,7 +10,7 @@ The architecture has three planes:
 2. **Experiment controller**: preparation, validation, lifecycle transitions, launch/drain, platform evidence, failure recording, and immutable handoff.
 3. **Offline validation and analysis**: reconciliation, gates, summaries, inference, sealing, and authorized access after immutable raw publication.
 
-ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0020 select the implementation architecture. The repository SPDX license remains the only Stage 2 owner decision; concrete codecs, exact compiler/dependency pins, platform facts, and pilot algorithms remain later evidence in the decision register.
+ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 select the implementation architecture and no-license posture. ADR-0022 fixes the Stage 3 build/CI baseline. Concrete codecs, platform facts, measured-release pins, and scientific/pilot algorithms remain later evidence in the decision register.
 
 ## Component map
 
@@ -26,7 +26,7 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0020 
 | Controller | Logical record model | Typed representation of imported schema/data-dictionary meanings | Private row construction only | Accepted stable boundary |
 | Controller | Physical codec | Encode/decode exact logical rows/envelopes | Private fixed-row write may be timed after format freeze; general codec outside | Replaceable; format blocked until pre-pilot |
 | Controller | Artifact store | Immutable content-addressed publication, lineage, access/failure records | Forbidden | Replaceable durable store and separated custody accepted; concrete enforcement later |
-| Offline | Structural validator | Draft 2020-12 validation against imported schemas | Forbidden | Validator product open |
+| Offline | Structural validator | Draft 2020-12 validation against imported schemas | Forbidden | jsonschema baseline accepted for repository checks; record validator implementation remains Phase 4 |
 | Offline | Semantic validator | Cross-record identity, arithmetic, lifecycle, schedule, namespace, timestamp, coverage, replacement, access checks | Forbidden | Versioned rules; implementation open |
 | Offline | Reconciler | Join producer/consumer by `(run_id, accepted_ordinal)`, validate record index, emit audit and optional derived join | Forbidden | Consumes immutable sources only |
 | Offline | Statistical analysis | Fixed quantiles, diagnostics, H1/H2 families, sealed H3 chronology | Forbidden | Deferred; cannot influence implementation choices |
@@ -100,4 +100,4 @@ Readers fail closed on unknown protocol/schema, artifact-kind, physical-format, 
 
 ## Deferred decisions
 
-The repository SPDX license is the sole remaining Stage 2 owner decision. Exact compiler/linker/flag/dependency pins, queue representation/proofs, target stand/authority facts, clock, raw format, RNG/schedule/mixing/checksum details, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. Production files must not start until the license decision is recorded.
+The owner selected no repository license grant in ADR-0021, and Stage 3 pins the development/CI tool series in ADR-0022. Queue representation/proofs, exact measured-release pins, target stand/authority facts, clock, raw format, RNG/schedule/mixing/checksum details, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. None may be filled by a Stage 3 build default.

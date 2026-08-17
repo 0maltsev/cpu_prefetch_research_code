@@ -1,0 +1,19 @@
+#ifndef CPU_PREFETCH_FOUNDATION_BUILD_METADATA_HPP
+#define CPU_PREFETCH_FOUNDATION_BUILD_METADATA_HPP
+
+#include <string_view>
+
+namespace cpu_prefetch::foundation::build_metadata {
+
+inline constexpr std::string_view protocol_version = "@CPU_PREFETCH_PROTOCOL_VERSION@";
+inline constexpr std::string_view source_revision = "@CPU_PREFETCH_GIT_REVISION@";
+inline constexpr std::string_view source_revision_short =
+    "@CPU_PREFETCH_GIT_REVISION_SHORT@";
+inline constexpr bool source_dirty = @CPU_PREFETCH_GIT_DIRTY_CPP@;
+inline constexpr std::string_view compiler = "@CPU_PREFETCH_COMPILER_DESCRIPTION@";
+inline constexpr std::string_view standard_library =
+    "@CPU_PREFETCH_STANDARD_LIBRARY@";
+
+} // namespace cpu_prefetch::foundation::build_metadata
+
+#endif

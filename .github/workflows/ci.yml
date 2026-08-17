@@ -1,0 +1,91 @@
+name: foundation-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: foundation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gcc-foundation:
+    runs-on: [self-hosted, linux, x64, cpu-prefetch-gcc16]
+    steps:
+      - name: Checkout pinned action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Configure
+        run: cmake --preset dev-gcc
+      - name: Build
+        run: cmake --build --preset dev-gcc
+      - name: Test
+        run: ctest --preset dev-gcc
+      - name: Format check
+        run: cmake --build --preset dev-gcc --target format-check
+      - name: Static analysis
+        run: cmake --build --preset dev-gcc --target static-analysis
+      - name: Protocol and schema check
+        run: cmake --build --preset dev-gcc --target protocol-check
+      - name: Documentation check
+        run: cmake --build --preset dev-gcc --target document-check
+      - name: Dependency inventory check
+        run: cmake --build --preset dev-gcc --target dependency-check
+      - name: CI policy check
+        run: cmake --build --preset dev-gcc --target ci-check
+
+  gcc-release-package:
+    runs-on: [self-hosted, linux, x64, cpu-prefetch-gcc16]
+    steps:
+      - name: Checkout pinned action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Configure release
+        run: cmake --preset release-gcc
+      - name: Build release
+        run: cmake --build --preset release-gcc
+      - name: Test release
+        run: ctest --preset release-gcc
+      - name: Reject native and unsafe flags
+        run: cmake --build --preset release-gcc --target release-policy-check
+      - name: Generate stand-foundation package
+        run: cmake --build --preset release-gcc --target package
+
+  clang-libcxx-foundation:
+    runs-on: [self-hosted, linux, x64, cpu-prefetch-clang22-libcxx]
+    steps:
+      - name: Checkout pinned action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Configure
+        run: cmake --preset dev-clang-libcxx
+      - name: Build
+        run: cmake --build --preset dev-clang-libcxx
+      - name: Test
+        run: ctest --preset dev-clang-libcxx
+      - name: Static analysis
+        run: cmake --build --preset dev-clang-libcxx --target static-analysis
+
+  sanitizers:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: cpu-prefetch-gcc16
+            preset: asan-ubsan-gcc
+          - runner: cpu-prefetch-gcc16
+            preset: tsan-gcc
+          - runner: cpu-prefetch-clang22-libcxx
+            preset: asan-ubsan-clang-libcxx
+          - runner: cpu-prefetch-clang22-libcxx
+            preset: tsan-clang-libcxx
+    runs-on: [self-hosted, linux, x64, "${{ matrix.runner }}"]
+    steps:
+      - name: Checkout pinned action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Configure
+        run: cmake --preset "${{ matrix.preset }}"
+      - name: Build
+        run: cmake --build --preset "${{ matrix.preset }}"
+      - name: Test
+        run: ctest --preset "${{ matrix.preset }}"

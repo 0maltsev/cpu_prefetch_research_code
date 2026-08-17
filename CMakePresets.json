@@ -1,0 +1,161 @@
+{
+  "version": 8,
+  "cmakeMinimumRequired": {
+    "major": 4,
+    "minor": 3,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "BUILD_TESTING": "ON",
+        "CPU_PREFETCH_ENABLE_PROPERTY_TESTS": "ON",
+        "CPU_PREFETCH_RAPIDCHECK_REVISION": "ff6af6f",
+        "CPU_PREFETCH_WARNINGS_AS_ERRORS": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "environment": {
+        "CMAKE_PREFIX_PATH": "$penv{CMAKE_PREFIX_PATH}:$env{CPU_PREFETCH_DEPS_ROOT}/usr"
+      }
+    },
+    {
+      "name": "gcc-base",
+      "hidden": true,
+      "inherits": "base",
+      "environment": {
+        "CC": "gcc",
+        "CXX": "g++"
+      }
+    },
+    {
+      "name": "clang-libcxx-base",
+      "hidden": true,
+      "inherits": "base",
+      "cacheVariables": {
+        "CPU_PREFETCH_USE_LIBCXX": "ON"
+      },
+      "environment": {
+        "CC": "clang",
+        "CXX": "clang++",
+        "CXXFLAGS": "$penv{CXXFLAGS} -isystem $env{CPU_PREFETCH_DEPS_ROOT}/usr/include/c++/v1",
+        "LDFLAGS": "$penv{LDFLAGS} -L$env{CPU_PREFETCH_DEPS_ROOT}/usr/lib -Wl,-rpath,$env{CPU_PREFETCH_DEPS_ROOT}/usr/lib"
+      }
+    },
+    {
+      "name": "dev-gcc",
+      "displayName": "Development GCC 16/libstdc++",
+      "inherits": "gcc-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release-gcc",
+      "displayName": "Release GCC 16/libstdc++",
+      "inherits": "gcc-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "asan-ubsan-gcc",
+      "displayName": "ASan+UBSan GCC 16/libstdc++",
+      "inherits": "gcc-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CPU_PREFETCH_SANITIZER": "ADDRESS_UNDEFINED"
+      },
+      "environment": {
+        "ASAN_OPTIONS": "detect_leaks=0"
+      }
+    },
+    {
+      "name": "tsan-gcc",
+      "displayName": "TSan GCC 16/libstdc++",
+      "inherits": "gcc-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CPU_PREFETCH_SANITIZER": "THREAD"
+      }
+    },
+    {
+      "name": "dev-clang-libcxx",
+      "displayName": "Development Clang 22/libc++",
+      "inherits": "clang-libcxx-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "asan-ubsan-clang-libcxx",
+      "displayName": "ASan+UBSan Clang 22/libc++",
+      "inherits": "clang-libcxx-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CPU_PREFETCH_SANITIZER": "ADDRESS_UNDEFINED"
+      },
+      "environment": {
+        "ASAN_OPTIONS": "detect_leaks=0"
+      }
+    },
+    {
+      "name": "tsan-clang-libcxx",
+      "displayName": "TSan Clang 22/libc++",
+      "inherits": "clang-libcxx-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CPU_PREFETCH_SANITIZER": "THREAD"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "dev-gcc", "configurePreset": "dev-gcc" },
+    { "name": "release-gcc", "configurePreset": "release-gcc" },
+    { "name": "asan-ubsan-gcc", "configurePreset": "asan-ubsan-gcc" },
+    { "name": "tsan-gcc", "configurePreset": "tsan-gcc" },
+    { "name": "dev-clang-libcxx", "configurePreset": "dev-clang-libcxx" },
+    { "name": "asan-ubsan-clang-libcxx", "configurePreset": "asan-ubsan-clang-libcxx" },
+    { "name": "tsan-clang-libcxx", "configurePreset": "tsan-clang-libcxx" }
+  ],
+  "testPresets": [
+    {
+      "name": "dev-gcc",
+      "configurePreset": "dev-gcc",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "release-gcc",
+      "configurePreset": "release-gcc",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "asan-ubsan-gcc",
+      "configurePreset": "asan-ubsan-gcc",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "tsan-gcc",
+      "configurePreset": "tsan-gcc",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "dev-clang-libcxx",
+      "configurePreset": "dev-clang-libcxx",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "asan-ubsan-clang-libcxx",
+      "configurePreset": "asan-ubsan-clang-libcxx",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "tsan-clang-libcxx",
+      "configurePreset": "tsan-clang-libcxx",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}

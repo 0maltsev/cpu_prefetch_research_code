@@ -6,7 +6,7 @@ Protocol version: **`2.0.0-pre.1`**. This document preserves the imported logica
 
 | Phase | Inputs | Work | Append-only outputs | Timed? |
 |---|---|---|---|---|
-| Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON/schema parse checks | Readiness evidence in repository status | No |
+| Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON parse, and Draft 2020-12 meta-schema checks | Readiness evidence in repository status | No |
 | Experiment preparation | Protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Structural/semantic validation, derivation, schedule/permutations, allocation, first touch, initialization, capacity proof | Prepared-run identity, schedule, provenance, platform request/evidence references | No |
 | Platform preparation | Requested state and authorized adapter/operator | Affinity/NUMA/page/frequency/HW-PF actuation, independent readback/probes, rollback readiness | Requested-state and verified-state records, capability/failure evidence | No |
 | Run launch | Closed `PreparedRun` | Barrier/reset/warm-up/start transition | Lifecycle transition(s) | No; boundary reads only as fixed |

@@ -1,0 +1,174 @@
+{
+  "schema_version": "cpu-prefetch-dependencies/1",
+  "recorded_at": "2026-08-17",
+  "protocol_version": "2.0.0-pre.1",
+  "repository_license": "NO-LICENSE-GRANT",
+  "policy": "Pre-provisioned inputs only; configure, build, test, and package perform no network fetch.",
+  "dependencies": [
+    {
+      "id": "cmake",
+      "version_rule": ">=4.3.0,<4.4.0",
+      "observed_version": "4.3.3",
+      "source": "https://cmake.org/",
+      "license": "BSD-3-Clause",
+      "purpose": "Configure, install, test orchestration, and package generation",
+      "scope": "build"
+    },
+    {
+      "id": "ninja",
+      "version_rule": ">=1.13.0,<1.14.0",
+      "observed_version": "1.13.2",
+      "source": "https://github.com/ninja-build/ninja",
+      "license": "Apache-2.0",
+      "purpose": "Deterministic local and CI build executor",
+      "scope": "build"
+    },
+    {
+      "id": "gcc-libstdcxx",
+      "version_rule": ">=16.1.0,<16.2.0",
+      "observed_version": "16.1.1+r12+g301eb08fa2c5",
+      "source": "https://gcc.gnu.org/",
+      "license": "GPL-3.0-or-later WITH GCC-exception-3.1",
+      "purpose": "Primary C++20 compiler and standard library",
+      "scope": "build-runtime"
+    },
+    {
+      "id": "clang-llvm",
+      "version_rule": ">=22.1.0,<22.2.0",
+      "observed_version": "22.1.6",
+      "source": "https://github.com/llvm/llvm-project",
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "purpose": "Secondary C++20 compiler, clang-format, clang-tidy, and LLVM tooling",
+      "scope": "build-analysis"
+    },
+    {
+      "id": "libcxx-libcxxabi",
+      "version_rule": "==22.1.6",
+      "observed_version": "22.1.6",
+      "source": "https://github.com/llvm/llvm-project",
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "purpose": "Secondary C++20 standard library and ABI runtime",
+      "scope": "build-runtime",
+      "staged_artifact_sha256": {
+        "libc++-22.1.6-1-x86_64.pkg.tar.zst": "07ae178a8991f22b955b6e8a5c047c4f75139e4878a133468f3a648fc443ede6",
+        "libc++abi-22.1.6-1-x86_64.pkg.tar.zst": "13d52d67ebb42e9e2bd3bbc2af966b3b4ecb60f901b19674070d52b992e977ae"
+      }
+    },
+    {
+      "id": "glibc",
+      "version_rule": ">=2.43,<2.44",
+      "observed_version": "2.43+r22+g8362e8ce10b2",
+      "source": "https://www.gnu.org/software/libc/",
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "purpose": "Linux C runtime, dynamic loader, threads, and math runtime",
+      "scope": "runtime"
+    },
+    {
+      "id": "compiler-rt",
+      "version_rule": ">=22.1.0,<22.2.0",
+      "observed_version": "22.1.6",
+      "source": "https://github.com/llvm/llvm-project/tree/llvmorg-22.1.6/compiler-rt",
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "purpose": "Clang AddressSanitizer, UndefinedBehaviorSanitizer, and ThreadSanitizer runtimes",
+      "scope": "test-runtime"
+    },
+    {
+      "id": "git",
+      "version_rule": ">=2.54.0,<2.55.0",
+      "observed_version": "2.54.0",
+      "source": "https://git-scm.com/",
+      "license": "GPL-2.0-only",
+      "purpose": "Reproducible source revision and dirty-state metadata",
+      "scope": "build"
+    },
+    {
+      "id": "python",
+      "version_rule": ">=3.14.0,<3.15.0",
+      "observed_version": "3.14.5",
+      "source": "https://www.python.org/",
+      "license": "PSF-2.0",
+      "purpose": "Repository verification scripts",
+      "scope": "build-test"
+    },
+    {
+      "id": "googletest",
+      "version_rule": "==1.17.0",
+      "observed_version": "1.17.0",
+      "source": "https://github.com/google/googletest/releases/tag/v1.17.0",
+      "license": "BSD-3-Clause",
+      "purpose": "Unit-test framework only",
+      "scope": "test",
+      "source_archive_sha256": "65fab701d9829d38cb77c14acdc431d2108bfdbf8979e40eb8ae567edf10b27c"
+    },
+    {
+      "id": "rapidcheck",
+      "version_rule": "git revision ff6af6f (r1056.ff6af6f)",
+      "observed_version": "r1056.ff6af6f",
+      "source": "https://github.com/emil-e/rapidcheck/tree/ff6af6f",
+      "license": "BSD-2-Clause",
+      "purpose": "Property-test framework only",
+      "scope": "test",
+      "source_archive_sha256": "7ae7a8d59560f94eb68ed09fda59abd9871fe3b0cfc5acc60506de506289aa24",
+      "staged_artifact_sha256": "ef14c1a777a5ad256df6a83693232d891a6e89be98c0db9ce9e7c72e5cbed8e6"
+    },
+    {
+      "id": "python-jsonschema",
+      "version_rule": ">=4.26.0,<4.27.0",
+      "observed_version": "4.26.0",
+      "source": "https://github.com/python-jsonschema/jsonschema/releases/tag/v4.26.0",
+      "license": "MIT",
+      "purpose": "Draft 2020-12 schema meta-validation",
+      "scope": "test",
+      "staged_artifact_sha256": "f41f47d9916ba1afdcb46dfe0788f8dd1b463230537b149927ff223d0c113af2"
+    },
+    {
+      "id": "python-attrs",
+      "version_rule": "==26.1.0",
+      "observed_version": "26.1.0",
+      "source": "https://github.com/python-attrs/attrs/releases/tag/26.1.0",
+      "license": "MIT",
+      "purpose": "jsonschema runtime dependency",
+      "scope": "test-transitive",
+      "staged_artifact_sha256": "197dc210fd563c3a721a7b4d0f19cb8bef6db7b3ca868d85571a2ecf6a3eaf50"
+    },
+    {
+      "id": "python-rpds-py",
+      "version_rule": "==2026.5.1",
+      "observed_version": "2026.5.1",
+      "source": "https://github.com/crate-py/rpds",
+      "license": "MIT",
+      "purpose": "jsonschema/referencing runtime dependency",
+      "scope": "test-transitive",
+      "staged_artifact_sha256": "e653f1e59319cdae065d3adbb66d0b2619aab7127a80e67e5d4f8dfbca39ed6c"
+    },
+    {
+      "id": "python-referencing",
+      "version_rule": "==0.37.0",
+      "observed_version": "0.37.0",
+      "source": "https://github.com/python-jsonschema/referencing/releases/tag/v0.37.0",
+      "license": "MIT",
+      "purpose": "jsonschema reference resolution",
+      "scope": "test-transitive",
+      "staged_artifact_sha256": "bb87cdd393dde3565952c859d6eab43d78c6b2b0d6d7f34604090d5a5f5ae9da"
+    },
+    {
+      "id": "python-jsonschema-specifications",
+      "version_rule": "==2025.9.1",
+      "observed_version": "2025.9.1",
+      "source": "https://github.com/python-jsonschema/jsonschema-specifications/releases/tag/v2025.9.1",
+      "license": "MIT",
+      "purpose": "Draft meta-schema and vocabulary registry",
+      "scope": "test-transitive",
+      "staged_artifact_sha256": "f523249021d380e0823b53b35b94a23de373255e3140288790e07dbe08cfd0f2"
+    },
+    {
+      "id": "actions-checkout",
+      "version_rule": "v4.2.2 commit 11bd71901bbe5b1630ceea73d27597364c9af683",
+      "observed_version": "v4.2.2",
+      "source": "https://github.com/actions/checkout/releases/tag/v4.2.2",
+      "license": "MIT",
+      "purpose": "Pinned CI source checkout action",
+      "scope": "ci"
+    }
+  ]
+}

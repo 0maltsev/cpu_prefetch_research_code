@@ -37,6 +37,7 @@ enum class StreamPurpose : std::uint8_t {
   node_order,
   event_payload,
   initial_consumer_state,
+  arrival_schedule,
 };
 
 [[nodiscard]] std::string_view purpose_label(StreamPurpose purpose) noexcept;

@@ -133,8 +133,8 @@
       "observed_version": "3.14.5",
       "source": "https://www.python.org/",
       "license": "PSF-2.0",
-      "purpose": "Repository verification scripts and independent canonical fixture checker",
-      "scope": "build-test"
+      "purpose": "Offline ADR-0029 schedule generation, repository verification scripts, and independent canonical fixture checking",
+      "scope": "build-test-tool"
     },
     {
       "id": "googletest",

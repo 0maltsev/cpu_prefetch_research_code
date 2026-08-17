@@ -2,11 +2,12 @@
 
 Protocol version: **`2.0.0-pre.1`**
 
-Stage 2/6 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_ACCEPTED`**
+Stage 2/7 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_ACCEPTED`**
 
 The repository still contains no production benchmark or measurement code.
-Stage 5 contains queue correctness-only production cores, and Stage 6 contains
-deterministic workload-construction components. Q1 through Q6 were
+Stage 5 contains queue correctness-only production cores, Stage 6 contains
+deterministic workload-construction components, and Stage 7 contains offline
+schedule generation/validation. Q1 through Q6 were
 accepted by the repository owner on 2026-08-17 and are recorded in ADR-0007
 through ADR-0029. Exact scientific/platform/pilot facts remain open until their
 listed phases; they were not replaced by Stage 3 or Stage 4 engineering
@@ -29,9 +30,9 @@ The repository owner selected **no license**. ADR-0021 records no license grant,
 | Q3 platform/custody boundary | External authorized control; replaceable Linux request/readback/probe/rollback interface; separate platform and validation principals with technical sealing | ADR-0018 through ADR-0020 | Exact stand/operator/API/register facts Phase 9; custody principals/enforcement by Phase 16/final confirmation |
 | Q4 repository license | No repository license grant; no `LICENSE` file or repository SPDX claim | ADR-0021 | Any later license grant needs owner/legal/compatibility review |
 | Q5 deterministic workload bundle | Independent Philox4x32-10/HMAC-SHA-256 stream suite; unbiased Fisher-Yates; separated purpose domains; fixed consumer mixer and canonical content/order/delta inputs; explicit record/package representations | ADR-0025 through ADR-0028 | Concrete seeds, platform facts/capacities, page-frame qualification, retaining prefetch instructions, and calibrated per-context `d2` |
-| Q6 deterministic schedule bundle | Offline Python Decimal80 exponential transform; exact midpoint Philox mapping; picosecond cumulative-floor absolute deadlines; fail-closed overflow; versioned artifact/decoded/envelope identities | ADR-0029 | Full Stage 7 implementation vectors/decoder evidence; concrete seed, namespace, rate, origin, and horizon values remain later lifecycle inputs |
+| Q6 deterministic schedule bundle | Offline Python Decimal80 exponential transform; exact midpoint Philox mapping; picosecond cumulative-floor absolute deadlines; fail-closed overflow; versioned artifact/decoded/envelope identities | ADR-0029 | Stage 7 implementation evidence passes; concrete seed, namespace, rate, origin, and horizon values remain later lifecycle inputs |
 
-## Stage 3 through Stage 6 engineering baselines
+## Stage 3 through Stage 7 engineering baselines
 
 ADR-0022 accepts the constrained compiler/build/test/dependency/CI baseline and
 records it as D-029. ADR-0023 accepts the dependency-free typed-model and
@@ -67,10 +68,10 @@ absolute unsigned-64 big-endian storage, fail-closed overflow, and versioned
 artifact/decoded/envelope SHA-256 identities. It uses the already-approved
 Python standard library and adds no dependency.
 
-The acceptance gate for Stage 7 implementation is satisfied. Full golden,
-decoder, semantic, corruption, and completion-independence evidence remains a
-Stage 7 closure requirement. The decision does not select concrete lifecycle
-inputs or authorize an experiment.
+The acceptance and implementation gates for Stage 7 are satisfied. Full
+golden, decoder, semantic, corruption, namespace/common-family, append-only
+publication, and completion-independence evidence passes. The decision does
+not select concrete lifecycle inputs or authorize an experiment.
 
 ## Pre-pilot decisions that may remain open after Stage 2
 
@@ -100,6 +101,7 @@ license remain submission-only.
 Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
-versioned protocol amendment. Stage 6 is complete, Q6 is accepted, and the
-exact next safe stage is Stage 7 schedule implementation. Measurement, pilot,
-and confirmatory execution remain prohibited.
+versioned protocol amendment. Stage 7 is complete and Q6 is accepted. D-009 is
+now the smallest blocking decision: prepare and approve the qualified clock
+bundle before Stage 8 code. Measurement, pilot, and confirmatory execution
+remain prohibited.

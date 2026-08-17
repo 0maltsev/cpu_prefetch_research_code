@@ -104,6 +104,8 @@ std::string_view purpose_label(StreamPurpose purpose) noexcept {
     return "event-payload";
   case StreamPurpose::initial_consumer_state:
     return "initial-consumer-state";
+  case StreamPurpose::arrival_schedule:
+    return "arrival-schedule";
   }
   return {};
 }

@@ -7,7 +7,7 @@ Protocol version: **`2.0.0-pre.1`**. This document preserves the imported logica
 | Phase | Inputs | Work | Append-only outputs | Timed? |
 |---|---|---|---|---|
 | Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON parse, Draft 2020-12 meta-schema, positive/negative fixture, and canonical-byte checks | Readiness evidence in repository status | No |
-| Experiment preparation | Protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, deterministic stream derivation, arena first touch, record/node permutation, footprint proof, and package binding | Validated logical records and prepared workload inputs; later schedule, run-image identity, and platform evidence references | No |
+| Experiment preparation | Protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, deterministic stream derivation, complete offline schedule generation/validation, arena first touch, record/node permutation, footprint proof, and package binding | Validated logical records, schedule artifact/envelope/derivation record, and prepared workload inputs; later run-image identity and platform evidence references | No |
 | Platform preparation | Requested state and authorized adapter/operator | Affinity/NUMA/page/frequency/HW-PF actuation, independent readback/probes, rollback readiness | Requested-state and verified-state records, capability/failure evidence | No |
 | Run launch | Closed `PreparedRun` | Barrier/reset/warm-up/start transition | Lifecycle transition(s) | No; boundary reads only as fixed |
 | Measurement horizon | Pre-generated deadlines, fixed arenas, specialized queue, qualified clock | Producer and consumer execute fixed data-plane work | Thread-private producer and consumer observations in preallocated buffers | Yes |
@@ -46,9 +46,14 @@ logical bytes and within-arena offsets, never absolute pointers. The five
 package policies bind exact hint targets without selecting a platform
 instruction or calibrated `d2`.
 
-Accepted ADR-0029 fixes the offline Stage 7 schedule producer contract and
-integer artifact boundary. It is now part of the accepted architecture, but no
-generator, decoder extension, or deadline artifact currently exists.
+Stage 7 implements ADR-0029 at the preparation boundary. The standalone Python
+tool writes complete absolute-u64be deadline bytes plus imported-schema and
+derivation envelopes before worker release. The C++ decoder verifies the
+suite/runtime/reference bindings, exact byte/count/order/horizon rules, and all
+four hashes before exposing an immutable deadline span. Generation has no
+queue, completion, outcome, clock, or worker input. Explicit namespace roles
+and common-family records are validated without parsing identifier text or
+paths.
 
 The producer and consumer receive disjoint mutable observation buffers. They record their own facts independently and in program order. `LogicalSequence` selects a cyclic record pointer before enqueue; `AcceptedOrdinal` is assigned only to accepted arrivals. The repeating `RecordIndex` validates the demanded record and is never an event ID. Accepted observations are reconciled later by run identity and accepted ordinal. A process-local pointer is never durable identity.
 
@@ -56,6 +61,7 @@ The producer and consumer receive disjoint mutable observation buffers. They rec
 
 | Stream | Principal producer | Identity/order | Required handling |
 |---|---|---|---|
+| Schedule | Offline generator, validated by controller | Schedule ID, seed/parent/child namespace, suite, exact rate/origin/horizon, immutable deadline order | Publish artifact/envelope/derivation together without overwrite; reject partial, mismatched, or outcome-derived schedules |
 | Producer raw | Producer worker, published by controller | `run_id`, attempt order, accepted ordinal where applicable | Preserve every attempt/outcome, exact integer ticks, and original order |
 | Consumer raw | Consumer worker, published by controller | `run_id`, dequeue/completion order and accepted ordinal | Preserve independent observations, record index/payload validation, exact ticks |
 | Join audit | Offline reconciler | Source artifact IDs/hashes and `run_id` | Record all reconciliation/count/timestamp checks whether pass or fail |

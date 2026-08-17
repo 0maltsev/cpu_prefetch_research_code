@@ -2,21 +2,22 @@
 
 Protocol snapshot: **`2.0.0-pre.1`**
 
-Repository state: **`STAGE_6_COMPLETE`**
+Repository state: **`STAGE_7_COMPLETE`**
 
-Readiness verdict: **`READY_FOR_STAGE7_IMPLEMENTATION_NOT_MEASUREMENT`**
+Readiness verdict: **`BLOCKED_ON_D009_BEFORE_STAGE8_NOT_MEASUREMENT`**
 
 ## Readiness by area
 
 | Area | State | Evidence or blocker |
 |---|---|---|
-| Stage 1 import/traceability | `COMPLETE_REVERIFIED` | The Stage 6 check freshly passed all 18 manifest sizes/SHA-256 values, exact inventory, four authoritative hashes, JSON parsing, and Draft 2020-12 meta-schema validation for all seven schemas. |
+| Stage 1 import/traceability | `COMPLETE_REVERIFIED` | The Stage 7 check freshly passed all 18 manifest sizes/SHA-256 values, exact inventory, four authoritative hashes, JSON parsing, and Draft 2020-12 meta-schema validation for all seven schemas. |
 | Stage 2 implementation-decision freeze | `COMPLETE`; Q6 accepted post-Stage 6 | ADR-0001 through ADR-0029 are accepted. Q4 selected no license grant, Q5 selected the deterministic workload bundle, and Q6 selected the D-027 schedule suite. Later platform/pilot selections remain open at their recorded gates. |
 | Stage 3 build/CI foundation | `COMPLETE_LOCAL` | ADR-0022, constrained offline inputs, dual compiler/library presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations remain passing. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023, typed C++20 records for all seven schema families, strict loading, immutable configuration, record-local semantic rules, exact `JCS-I64-v1`, and explicit cross-record interfaces are implemented and pass the recorded matrix. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
 | Workload construction | `COMPLETE_LOCAL` | ADR-0025 through ADR-0028 fix the deterministic stream, unbiased permutations, payload/mixer/integrity grammars, event/node layouts, and five package mechanisms. Known-answer/property/corruption/no-allocation and dual-disassembler checks pass. |
-| Measurement system | `NOT_STARTED_BLOCKED_LATER_DECISIONS` | No clock, generated schedule, queue-driven timed loop, raw physical codec, controller, or platform mutation exists. The schedule mapping is accepted; remaining scientific/platform selections stay unresolved at their assigned gates. |
+| Schedule generation | `COMPLETE_LOCAL` | ADR-0029's offline Decimal80/Philox suite, external u64be artifact, imported envelope, derivation record, immutable C++ decoder, namespace/common-family validation, and failure/golden/corruption matrices pass. |
+| Measurement system | `NOT_STARTED_BLOCKED_LATER_DECISIONS` | No clock, queue-driven timed loop, raw physical codec, controller, or platform mutation exists. D-009 blocks Stage 8; remaining scientific/platform selections stay unresolved at their assigned gates. |
 | Pre-pilot validation | `NOT_STARTED` | Requires Stages 5–15 and fresh eligible-platform/custody evidence. |
 | Pilot | `PROHIBITED` | Stage 16 and explicit pilot authorization are absent; this one-NUMA-node development host is ineligible for near/far evidence. |
 | Confirmatory execution | `PROHIBITED` | Pilot outputs and later freeze records, budgets, authorities, and sealing proof are absent. |
@@ -64,8 +65,9 @@ result is emitted.
 - ADR-0024 and the written happens-before/linearization/fixed-arena refinement
   record in `docs/QUEUE_CORRECTNESS.md`.
 
-No queue operation records time or rate. No schedule, measurement loop,
-platform control, platform prefetch instruction, or empirical output exists.
+No queue operation records time/rate or consumes a schedule. No measurement
+loop, platform control, platform prefetch instruction, or empirical output
+exists.
 
 ## Stage 6 products
 
@@ -85,33 +87,53 @@ platform control, platform prefetch instruction, or empirical output exists.
 - ADR-0025 through ADR-0028 and
   [`docs/WORKLOAD_CONSTRUCTION.md`](docs/WORKLOAD_CONSTRUCTION.md).
 
+## Stage 7 products
+
+- `tools/generate_schedule.py`, a standalone Python 3.14 generator for the
+  exact ADR-0029 Decimal80/Philox suite with no implicit scientific inputs;
+- append-only external `SCHEDULE-ABS-U64BE-v1` bytes, imported-schema schedule
+  envelope, and immutable implementation-owned derivation record;
+- `cpu_prefetch_schedule`, whose decoder validates the complete suite,
+  derivation/runtime binding, byte/count/order/horizon invariants, and all
+  artifact/decoded/envelope/derivation hashes before exposing immutable ticks;
+- explicit warm-up, calibration, pilot, H3 training, H3 validation, H1/H2
+  supplemental, and diagnostic roles with disjoint child namespaces and exact
+  common-schedule-family matching;
+- direct and integrated Philox/decimal goldens, C `decimal` versus `_pydecimal`
+  parity, byte-for-byte reproduction, schema/canonical round trips,
+  malformed/overflow/publication negatives, and an API-level outcome-
+  independence test;
+- [`docs/SCHEDULE_GENERATION.md`](docs/SCHEDULE_GENERATION.md) and the
+  implementation-owned derivation schema under `config/schemas/`.
+
 ## Fresh local verification
 
 | Check | Result |
 |---|---|
-| GCC 16.1.1/libstdc++ clean configure, build, 52 CTest tests | `PASS` |
-| Clang 22.1.6/libc++ 22.1.6 clean configure, build, 52 CTest tests | `PASS` |
+| GCC 16.1.1/libstdc++ clean configure, build, 60 CTest tests | `PASS` |
+| Clang 22.1.6/libc++ 22.1.6 clean configure, build, 60 CTest tests | `PASS` |
 | Imported Draft 2020-12 fixtures | `PASS`: 7 schemas, 17 positive, 15 negative |
 | C++ and independent Python canonical fixtures | `PASS`: 3 shared cases; exact round trip |
-| GCC and Clang ASan+UBSan matrices, 52 tests each | `PASS`; zero findings |
-| GCC TSan matrix, 52 tests | `PASS`; zero findings |
-| Clang TSan matrix, 51 tests | `PASS`; zero findings; only the global-allocator interception test is excluded because the Clang TSan runtime defines the same allocation symbols |
+| Schedule direct/integrated goldens, schema/codec, boundary, namespace, hash, publication, and outcome-independence checks | `PASS`: 8 focused CTest cases; 8 Python cases; C `decimal`/`_pydecimal`/C++ parity |
+| GCC and Clang ASan+UBSan matrices, 60 tests each | `PASS`; zero findings |
+| GCC TSan matrix, 60 tests | `PASS`; zero findings |
+| Clang TSan matrix, 59 tests | `PASS`; zero findings; only the global-allocator interception test is excluded because the Clang TSan runtime defines the same allocation symbols |
 | Queue-focused model/property/stress/phase tests | `PASS`; 14 focused checks plus full regression matrices |
 | Workload known-answer/property/boundary/corruption/package/no-allocation tests | `PASS`; 12 focused CTest cases plus full regression matrices |
-| clang-format and clang-tidy over 25 translation units | `PASS`; no user-code diagnostics |
+| clang-format and clang-tidy over 27 translation units | `PASS`; no user-code diagnostics |
 | Protocol/import integrity | `PASS`: 18 artifacts, 4 authoritative hashes, 7 schemas |
 | Documentation links, dependency/license inventory, and CI policy | `PASS` |
 | Queue provenance/source/license check | `PASS`: two independent no-source-reuse records |
 | GNU queue generated-code rules and negative mutant | `PASS`: Binutils 2.46; four operations and mutant reviewed |
 | LLVM queue generated-code rules and negative mutant | `PASS`: LLVM 22.1.6; four operations and mutant reviewed |
 | GNU and LLVM workload generated-code rules and negative mutant | `PASS`: six operations and mutant reviewed |
-| GCC Release build/tests, unsafe-flag check, metadata, and package generation | `PASS`; 52 tests, 25 compile commands, reproducible fields inspected, Stage 6 libraries/headers/docs present |
+| GCC Release build/tests, unsafe-flag check, metadata, and package generation | `PASS`; 60 tests, 27 compile commands, reproducible fields inspected, Stage 7 library/generator/schema/docs present |
 
 LeakSanitizer remains explicitly disabled in ASan presets because it cannot run
 under the managed ptrace boundary; AddressSanitizer and UndefinedBehaviorSanitizer
 remain enabled. Clang TSan's allocator-symbol collision is not treated as a
 pass for the omitted hook: that hook passes both normal/ASan matrices and GCC
-TSan, while all other tests pass Clang TSan. The external self-hosted CI
+TSan, while all other 59 tests pass Clang TSan. The external self-hosted CI
 workflow was inspected but cannot be executed from this workspace. Coverage
 remains unconfigured because no coverage gate was accepted. These
 development-machine checks establish software correctness only and are not
@@ -144,8 +166,8 @@ mapping remains unresolved and no implementation text was used.
 
 ## Immediate gate
 
-Stage 6 is complete, and Q6 accepted D-027 exactly as recorded in
-[`docs/STAGE7_DECISION_BUNDLE.md`](docs/STAGE7_DECISION_BUNDLE.md). ADR-0029 is
-`ACCEPTED`; the exact next safe activity is **Stage 7 schedule implementation**.
-Timing, measurement, pilot activity, and confirmatory execution remain blocked
-by their later lifecycle gates.
+Stage 7 is complete under accepted D-027/ADR-0029. D-009 remains unresolved;
+the exact next safe activity is **prepare and approve the Stage 8 clock
+decision with platform/manual evidence**. Stage 8 implementation, measurement,
+pilot activity, and confirmatory execution remain blocked by their later
+lifecycle gates.

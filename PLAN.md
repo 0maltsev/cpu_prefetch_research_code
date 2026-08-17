@@ -11,7 +11,7 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Every required artifact is byte-identical and listed; all requested documents exist; all normative areas have owner/validator; no production code, result, or invented platform value exists.
 - **Explicitly excluded:** Benchmark, queues, controls, runner, analysis pipeline, calibration, pilot, confirmation.
 - **Rollback or failure behavior:** A declared-hash mismatch or normative contradiction stops bootstrap; do not repair imported bytes. Remove no source evidence; replace a bad import only from verified source and record a new timestamp/manifest.
-- **Status:** `COMPLETE_REVERIFIED`; Stage 3's pinned jsonschema 4.26.0 check reverified all 18 artifact hashes/sizes, the exact inventory, four current authoritative hashes, and all seven Draft 2020-12 schemas.
+- **Status:** `COMPLETE_REVERIFIED`; the Stage 7 closure reran Stage 3's pinned jsonschema 4.26.0 check and reverified all 18 artifact hashes/sizes, the exact inventory, four current authoritative hashes, and all seven Draft 2020-12 schemas.
 
 ## Phase 2 — Implementation-decision freeze
 
@@ -98,11 +98,12 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** All semantic schedule rules pass; no implementation-defined RNG behavior; schedule generation is absent from timed path.
 - **Explicitly excluded:** Concrete confirmatory rates/horizons/seeds and any tuning from outcomes.
 - **Rollback or failure behavior:** Algorithm/version change creates new records and invalidates dependent schedules; never silently regenerate a frozen schedule.
-- **Status:** `READY_TO_START`. Q6 accepted D-027 and ADR-0029: ADR-0025
-  provides the accepted base stream, while ADR-0029 fixes the transform,
-  input-bit consumption, picosecond unit, cumulative-floor absolute encoding,
-  overflow, hashes, and goldens. Stage 7 implementation is the exact next safe
-  activity; it must not execute a performance experiment.
+- **Status:** `COMPLETE`. The offline Python 3.14 generator, external u64be
+  artifact, imported-schema envelope, implementation-owned derivation record,
+  C++ immutable decoder, namespace/common-family validator, append-only
+  publication, exact goldens, corruption/boundary/overflow tests, and full
+  compiler/sanitizer matrices pass. No queue outcome, clock, or performance
+  observation enters the implementation.
 
 ## Phase 8 — Timing
 
@@ -113,7 +114,11 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Every fixed logical boundary is representable exactly; clock passes on selected cores; corrected and uncorrected values retained; queue order is unchanged.
 - **Explicitly excluded:** Performance comparison and pilot until the full measurement system passes.
 - **Rollback or failure behavior:** Clock failure makes platform/build ineligible or run invalid as appropriate; no substitute source without new ADR/evidence.
-- **Status:** `PENDING`.
+- **Status:** `BLOCKED_BEFORE_IMPLEMENTATION` on D-009. A qualified clock
+  source, conversion, serialization, skew/drift/resolution/read-cost bounds,
+  and generated-code evidence have not been accepted. The exact next safe
+  activity is preparation and owner approval of that decision, not clock code
+  or measurement.
 
 ## Phase 9 — Platform control
 

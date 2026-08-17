@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-This is the accepted architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0028 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, Stage 3 tooling, Stage 4 protocol-model, Stage 5 queue-representation, and Stage 6 deterministic-workload boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
+This is the accepted architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0029 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, Stage 3 tooling, Stage 4 protocol-model, Stage 5 queue-representation, Stage 6 deterministic-workload, and Stage 7 deterministic-schedule boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
 
 The architecture has three planes:
 
@@ -16,10 +16,11 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 
 | Plane | Component | Responsibility | Timed-horizon status | Replaceable boundary / state |
 |---|---|---|---|---|
-| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Queue, clock, prepared schedule, private sink; implementation blocked |
+| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Queue and validated prepared schedule exist; clock, private sink, and combined worker remain blocked |
 | Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 6 record action implemented; clock, rows, and combined worker remain blocked |
 | Data | Queue/package binding | Five concrete static policies preserve ring/linked semantics and exact treatment-specific hint targets | Required | Stage 5 queue cores plus Stage 6 target seams/codegen pass; platform hint instruction and `d2` evidence remain open |
-| Controller | Run-image builder | Parse and semantically validate config, allocate/touch/initialize arenas and buffers, derive schedules, bind identities and capacity proof | Forbidden | Stage 6 arena/order/footprint primitives implemented; schedules and real stand facts blocked |
+| Controller | Run-image builder | Parse and semantically validate config, allocate/touch/initialize arenas and buffers, derive schedules, bind identities and capacity proof | Forbidden | Stage 6 arena/order/footprint and Stage 7 schedule primitives implemented; integration and real stand facts blocked |
+| Controller | Schedule preparation | Derive the purpose-separated stream, generate the complete open-loop schedule, publish artifact/envelopes, decode and validate immutable deadlines | Forbidden | Stage 7 implemented; all lifecycle values remain explicit and no outcome/clock input exists |
 | Controller | Workload construction | Derive domain-separated streams, build event/node order, initialize records, retain integrity inputs, bind one package type | Forbidden | Stage 6 implemented; all values explicit and no worker mutation surface |
 | Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact publication | Outside horizon | One-process/two-worker topology accepted; implementation pending |
 | Controller | Platform-control adapter | Request affinity/NUMA/pages/frequency/HW-PF state, read back and probe, rollback | Forbidden | Linux interface accepted; exact target/authority evidence due Phase 9 |
@@ -53,6 +54,19 @@ results, content/order/delta integrity inputs, and one statically selected
 package. `RecordIndex`, `LogicalSequence`, and `AcceptedOrdinal` are distinct;
 no pointer is serialized. Platform residency and prefetch encoding remain
 outside this interface and cannot be inferred from allocation success.
+
+### `SchedulePreparation`
+
+The standalone Python 3.14 producer consumes only explicit schedule identity,
+kind, master seed and seed identity, parent/child namespaces, origin, positive
+horizon, reduced rational rate, and output identities. It emits immutable
+absolute-u64be bytes, the imported logical envelope, and a self-hashed
+derivation record. The C++ decoder validates the accepted suite, exact
+derivation/runtime binding, artifact shape, half-open/nondecreasing/count rules,
+and all integrity identities before returning a `PreparedSchedule`. A separate
+validator receives explicit lifecycle roles and common-family membership; it
+never infers either from a path or name. Generation and validation cannot see
+queue completion, clock readings, or measured outcomes.
 
 ### `ClockSource`
 

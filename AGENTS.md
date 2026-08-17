@@ -26,6 +26,7 @@
 - Sanitizers: configure/build/test `asan-ubsan-gcc`, `tsan-gcc`, `asan-ubsan-clang-libcxx`, or `tsan-clang-libcxx`; ASan presets explicitly disable LeakSanitizer under the managed ptrace boundary.
 - Lint/format: `cmake --build --preset dev-gcc --target format-check static-analysis`
 - Schema validation: `cmake --build --preset dev-gcc --target protocol-check schema-fixture-check canonical-check`
+- Schedule validation: `cmake --build --preset dev-gcc --target schedule-check` and `ctest --preset dev-gcc -L schedule`
 - Queue provenance: `cmake --build --preset dev-gcc --target queue-provenance-check`
 - Queue generated code: `cmake --build --preset release-gcc --target queue-codegen-check` (requires both GNU objdump and accepted LLVM 22 `llvm-objdump`; missing LLVM is a blocking failure)
 - Workload generated code: `cmake --build --preset release-gcc --target workload-codegen-check` (same dual-disassembler blocking rule)

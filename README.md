@@ -1,12 +1,13 @@
 # CPU Prefetch Research Code
 
-This repository has completed the **Stage 6 deterministic-workload slice** for
+This repository has completed the **Stage 7 deterministic-schedule slice** for
 protocol **`2.0.0-pre.1`**. It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
 sanitizer, and dual-disassembler evidence. It also contains deterministic event
 records, working-set construction, integrity inputs, and exact `R0/R1/R2/L0/L1`
-package mechanisms. It contains no schedule generator, measurement loop,
+package mechanisms, plus the accepted offline deterministic schedule generator
+and fail-closed C++ decoder. It contains no measurement loop, clock,
 hardware-control implementation, raw-data writer, or scientific analysis.
 
 The repository owner selected **no license**. See
@@ -77,6 +78,7 @@ cmake --build --preset dev-gcc --target static-analysis
 cmake --build --preset dev-gcc --target protocol-check
 cmake --build --preset dev-gcc --target schema-fixture-check
 cmake --build --preset dev-gcc --target canonical-check
+cmake --build --preset dev-gcc --target schedule-check
 cmake --build --preset dev-gcc --target queue-provenance-check
 cmake --build --preset dev-gcc --target document-check
 cmake --build --preset dev-gcc --target dependency-check
@@ -116,7 +118,7 @@ claimed; a future eligible non-ptrace environment must add a separate leak gate
 if leak checking is adopted. The Clang TSan runtime defines the same global
 allocation symbols as the dedicated no-allocation hook, so that one test target
 is deliberately absent only from `tsan-clang-libcxx`; the hook remains covered
-by both development/ASan matrices and GCC TSan, and Clang TSan runs the other 51
+by both development/ASan matrices and GCC TSan, and Clang TSan runs the other 59
 tests.
 
 Release and future stand-foundation package:
@@ -139,9 +141,10 @@ dual-tool results close the gate.
 
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
-accepted. The package contains only the smoke binary, foundation and
-typed-protocol, queue, and workload libraries, headers, protocol/queue
-provenance records, Stage 6 construction documentation, build metadata,
+accepted. The package contains only the smoke binary, foundation,
+typed-protocol, queue, workload, and schedule libraries, the offline schedule
+generator, headers, protocol/queue provenance records, Stage 6/7 correctness
+documentation, implementation-owned derivation schema, build metadata,
 dependency inventory, and no-license notice.
 
 ## Created targets and metadata
@@ -154,6 +157,8 @@ dependency inventory, and no-license notice.
 - `cpu_prefetch_workload`: independent Philox/HMAC deterministic streams,
   aligned immutable event arenas, working-set/footprint construction,
   integrity byte grammars, and five static package policies;
+- `cpu_prefetch_schedule`: validated immutable schedule decoding, suite and
+  derivation binding, namespace-role separation, and common-family checks;
 - `cpu_prefetch_smoke`: prints protocol, Git, compiler, and standard-library
   identity;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
@@ -164,12 +169,15 @@ dependency inventory, and no-license notice.
 - `cpu_prefetch_queue_stress`: fixed-seed two-thread correctness stress only;
 - `cpu_prefetch_workload_tests` and `cpu_prefetch_workload_noalloc`: workload
   known-answer, boundary, corruption, package-target, and prepared-path tests;
+- `cpu_prefetch_schedule_tests` and `schedule.python_generator`: integrated
+  golden, decoder, hash, namespace, common-family, schema, boundary, overflow,
+  publication, and completion-independence tests;
 - `cpu_prefetch_rapidcheck_smoke`: fixed-seed framework and exact-uint64
   canonicalization properties;
 - `format-check`, `static-analysis`, `protocol-check`,
   `schema-fixture-check`, `canonical-check`, `queue-provenance-check`,
   `queue-codegen-audit`, strict `queue-codegen-check`, strict
-  `workload-codegen-check`, `document-check`,
+  `workload-codegen-check`, `schedule-check`, `document-check`,
   `dependency-check`, `ci-check`, and `release-policy-check`;
 - CMake `install` and CPack `package` targets.
 
@@ -217,6 +225,17 @@ unresolved platform/calibration inputs are documented in
 fixture seeds prove deterministic software behavior only; they are not eligible
 experiment inputs.
 
+## Schedule-generation boundary
+
+ADR-0029 fixes the offline
+`POISSON-EXPONENTIAL-PHILOX-DECIMAL80-FLOOR-ABS-PS-v1` suite. Python 3.14
+generates complete immutable schedules before measurement; C++ accepts only a
+fully decoded and validated deadline array. Exact numeric mapping, envelope and
+derivation bindings, hashes, namespace rules, failure behavior, and synthetic
+goldens are documented in
+[`docs/SCHEDULE_GENERATION.md`](docs/SCHEDULE_GENERATION.md). No queue result,
+clock reading, or treatment outcome can enter generation.
+
 ## CI boundary and next safe action
 
 [`ci.yml`](.github/workflows/ci.yml) uses only a full-commit-pinned checkout
@@ -225,8 +244,7 @@ commands above and performs no dependency download; runner policy must disable
 dependency-network access after source checkout. Runner availability and
 provisioning are external platform operations.
 
-Stage 6 is complete. Q6 accepted the D-027 bundle in
-[`docs/STAGE7_DECISION_BUNDLE.md`](docs/STAGE7_DECISION_BUNDLE.md), and
-ADR-0029 is `ACCEPTED`. The exact next safe activity is **Stage 7 schedule
-implementation**. Timing, measurement, pilot, and confirmatory behavior remain
-prohibited until their later lifecycle gates.
+Stage 7 is complete. The exact next safe activity is to resolve and accept
+**D-009 for Stage 8 timing** using platform/manual evidence; Stage 8 code must
+not start from a clock default. Measurement, pilot, and confirmatory behavior
+remain prohibited until their later lifecycle gates.

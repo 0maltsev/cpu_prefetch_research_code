@@ -169,8 +169,9 @@ physical page-frame order, platform retaining read/write instructions or named
 read fallback, and calibrated per-context R2 distances. Those are external or
 later calibration records, not Stage 6 defaults.
 
-Q6 accepted D-027 for Stage 7 schedule implementation. The exact transform,
-input-bit mapping, integer time unit, rounding, encoding, overflow, hashes, and
-goldens are fixed in [`STAGE7_DECISION_BUNDLE.md`](STAGE7_DECISION_BUNDLE.md)
-and ADR-0029. ADR-0025's general stream and derivation are ready for that
-implementation; Stage 6 itself does not generate a schedule.
+Q6 accepted D-027 and Stage 7 now implements its exact transform, input-bit
+mapping, integer time unit, rounding, encoding, overflow, hashes, goldens,
+generator, and decoder as documented in
+[`SCHEDULE_GENERATION.md`](SCHEDULE_GENERATION.md). `arrival-schedule` is a
+reserved stream purpose. Schedule construction remains outside every workload
+and future timed-worker operation.

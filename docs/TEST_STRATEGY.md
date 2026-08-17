@@ -6,9 +6,10 @@ This is the verification plan for a future complete Stage A implementation. Stag
 provides the typed protocol/configuration model and validation layer. Stage 5
 now provides independently authored ring and linked/recycler queue cores and
 correctness tests. Stage 6 provides deterministic workload construction and the
-five package mechanisms; no measurement production code exists. ADR-0009
-through ADR-0011, ADR-0017, and ADR-0022 through ADR-0028 fix the
-framework/toolchain/sanitizer/model/queue/workload baseline and commands.
+five package mechanisms. Stage 7 provides offline deterministic schedule
+generation and immutable decoding; no measurement production code exists.
+ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 through ADR-0029 fix the
+framework/toolchain/sanitizer/model/queue/workload/schedule baseline and commands.
 Tests establish software correctness, protocol
 conformance, reproducibility, and access integrity. Synthetic and
 development-machine tests do **not** establish queue performance, a prefetch
@@ -94,6 +95,11 @@ validation, cyclic lookup, strong identity types, record alignment, and
 content/order/delta SHA-256 inputs have unit coverage. Real cache facts,
 qualifying seeds, and calibrated `d2` remain external evidence.
 
+Stage 7 status: exact reduced rates, zero/minimal/boundary horizons, explicit
+origin, half-open exclusion, retained ties, unsigned overflow, draw exhaustion,
+malformed byte/count/order/unit/encoding/suite/hash cases, and append-only
+publication rollback have unit coverage.
+
 ### 5. Property tests
 
 Generate deterministic cases for:
@@ -111,6 +117,12 @@ All randomized tests record their generator version and seed. A failing seed bec
 Stage 6 status: RapidCheck verifies deterministic event/node permutations are
 bijections for generated power-of-two capacities; known-answer fixtures pin the
 Philox/HMAC stream, Fisher-Yates order, mixer, and three checksum grammars.
+
+Stage 7 status: a deterministic configuration matrix covers byte-for-byte
+reproduction, exact ordering/horizon properties, C `decimal` versus
+`_pydecimal` parity, imported and implementation-schema conformance, canonical
+round trips, role namespace separation, exact matched-family sharing, and an
+API test proving queue outcomes cannot enter generation.
 
 ### 6. Queue linearization and refinement tests
 
@@ -157,19 +169,26 @@ Acceptance is zero unresolved findings. A suppression is not a pass unless a nam
 
 Sanitizer builds verify correctness only and are never used for performance claims.
 
-Stage 6 status: GCC/libstdc++ and Clang/libc++ full unit/property/stress suites,
-including workload construction and package target tests, pass ASan/UBSan and
-TSan without suppression or finding. LeakSanitizer
+Stage 7 status: GCC/libstdc++ and Clang/libc++ full unit/property/stress suites,
+including workload construction, package target, and schedule tests, pass
+ASan/UBSan and TSan without suppression or finding. LeakSanitizer
 remains separately disabled by the accepted managed-ptrace limitation. The
 runtime pointer-atomic checks pass on the development host and must be repeated
 on the eligible stand. The single-thread global-`operator new` interception test
 is intentionally absent only from the Clang TSan build because that runtime
 defines the same allocator symbols; it runs in both development and ASan/UBSan
-matrices and under GCC TSan, while the remaining 51 tests run under Clang TSan.
+matrices and under GCC TSan, while the remaining 59 tests run under Clang TSan.
 
 ### 9. Deterministic schedule golden tests
 
 Golden vectors bind RNG version, master/derived seed IDs, namespace, exact rational rate, encoding, integer time unit, origin, horizon, overflow behavior, decoded deadlines, and checksums. Cross-build and cross-platform generation must be bit-identical for supported targets. Warm-up, pilot, calibration, confirmatory roles, diagnostics, and optional stages must never collide.
+
+Stage 7 status: the accepted direct six-draw vector and 104-row integrated
+vector pass under Python 3.14 C `decimal` and `_pydecimal`; C++ independently
+matches the Philox key/draws, external artifact, first/last deadlines, and
+artifact/decoded/envelope hashes. The derivation record binds and hashes the
+exact Python, decimal, and libmpdec versions. Concrete scientific seeds and
+namespace values remain later freeze inputs.
 
 ### 10. Timing tests
 

@@ -8,8 +8,8 @@ State: **`ACCEPTED_BY_Q6`**
 
 The repository owner accepted this bundle exactly as written by answering
 `Q6 - accept the bundle` on 2026-08-17. ADR-0029 is `ACCEPTED`; Stage 7
-implementation may begin, but no schedule implementation or experiment
-artifact has yet been created.
+has implemented and verified this decision. No experiment execution or
+scientific result is authorized by the decision or implementation.
 
 ## Decision record
 
@@ -273,24 +273,23 @@ or invoke Python.
 No new third-party dependency is added: Python 3.14 and its standard library
 are already in the accepted dependency baseline. MPFR/GMP remain unselected.
 
-## Required Stage 7 verification after acceptance
+## Stage 7 verification closure
 
-- direct and integrated golden vectors under the pinned Python release;
-- C `decimal` versus `_pydecimal` parity for transform fixtures;
-- GCC/libstdc++ and Clang/libc++ decoder/semantic-validator parity;
-- exact external/inline decode round trips and hash corruption negatives;
-- nondecreasing order, retained ties, exact count, and half-open membership;
-- rate canonicalization and every fail-closed overflow category;
-- completion-independence and no queue/outcome inputs;
-- namespace separation and exact matched-treatment sharing;
-- proof that generation, parsing, hashing, and allocation are outside the timed
-  process path.
+Stage 7 passes the required direct/integrated goldens under Python 3.14, C
+`decimal` versus `_pydecimal` parity, GCC/libstdc++ and Clang/libc++ decoder
+parity, external and inline-test decode paths, hash/corruption negatives,
+nondecreasing/tie/count/half-open rules, rate/overflow failures,
+completion-independence, namespace separation, exact matched-treatment
+sharing, and every supported sanitizer matrix. The standalone generator and
+`PreparedSchedule` boundary keep generation, parsing, hashing, publication,
+and allocation outside the future timed worker path. Full evidence and the
+exact contract are recorded in [`SCHEDULE_GENERATION.md`](SCHEDULE_GENERATION.md).
 
 ## Approval record
 
 The repository owner answered **`Q6 - accept the bundle`** on 2026-08-17.
-D-027 and ADR-0029 are therefore accepted exactly as recorded here. Stage 7
-implementation may begin. Any later change to a suite-defining field requires
+D-027 and ADR-0029 are therefore accepted and implemented exactly as recorded
+here. Any later change to a suite-defining field requires
 a superseding ADR, new suite/version, prospective artifact regeneration, and
 full requalification; selecting the MPFR fallback would additionally require
 approved dependency, license, and version records.

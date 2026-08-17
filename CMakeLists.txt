@@ -98,6 +98,18 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+add_library(cpu_prefetch_schedule STATIC src/schedule/schedule.cpp)
+add_library(cpu_prefetch::schedule ALIAS cpu_prefetch_schedule)
+target_link_libraries(
+  cpu_prefetch_schedule
+  PUBLIC cpu_prefetch::protocol
+  PRIVATE cpu_prefetch_project_options OpenSSL::Crypto)
+target_include_directories(
+  cpu_prefetch_schedule
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
 add_executable(cpu_prefetch_smoke tools/smoke_main.cpp)
 target_link_libraries(
   cpu_prefetch_smoke PRIVATE cpu_prefetch::foundation cpu_prefetch_project_options)
@@ -139,6 +151,85 @@ if(BUILD_TESTING)
     cpu_prefetch_workload_tests
     PRIVATE cpu_prefetch::workload cpu_prefetch_project_options GTest::gtest_main)
   gtest_discover_tests(cpu_prefetch_workload_tests PREFIX "workload.")
+
+  set(CPU_PREFETCH_STAGE7_FIXTURE_DIR
+      "${PROJECT_BINARY_DIR}/generated/stage7-fixture")
+  set(CPU_PREFETCH_STAGE7_GOLDEN_ARTIFACT
+      "${CPU_PREFETCH_STAGE7_FIXTURE_DIR}/stage7-golden.bin")
+  set(CPU_PREFETCH_STAGE7_GOLDEN_ENVELOPE
+      "${CPU_PREFETCH_STAGE7_FIXTURE_DIR}/stage7-golden.json")
+  set(CPU_PREFETCH_STAGE7_GOLDEN_DERIVATION
+      "${CPU_PREFETCH_STAGE7_FIXTURE_DIR}/stage7-golden-derivation.json")
+  add_custom_command(
+    OUTPUT
+      "${CPU_PREFETCH_STAGE7_GOLDEN_ARTIFACT}"
+      "${CPU_PREFETCH_STAGE7_GOLDEN_ENVELOPE}"
+      "${CPU_PREFETCH_STAGE7_GOLDEN_DERIVATION}"
+    COMMAND "${CMAKE_COMMAND}" -E make_directory "${CPU_PREFETCH_STAGE7_FIXTURE_DIR}"
+    COMMAND
+      "${CMAKE_COMMAND}" -E rm -f "${CPU_PREFETCH_STAGE7_GOLDEN_ARTIFACT}"
+      "${CPU_PREFETCH_STAGE7_GOLDEN_ENVELOPE}"
+      "${CPU_PREFETCH_STAGE7_GOLDEN_DERIVATION}"
+    COMMAND
+      "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/generate_schedule.py"
+      --schedule-id stage7-golden
+      --schedule-kind CONFIRMATORY
+      --namespace-id stage7-schedule-test
+      --parent-namespace-id stage-a-common
+      --seed-id stage7-test-seed
+      --derivation-record-id stage7-test-derivation
+      --master-seed-hex
+      000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f
+      --origin-ticks 0
+      --horizon-ticks 10000
+      --rate-numerator-events 1
+      --rate-denominator-ticks 100
+      --artifact-id stage7-golden-artifact
+      --artifact-uri stage7-golden.bin
+      --output-artifact "${CPU_PREFETCH_STAGE7_GOLDEN_ARTIFACT}"
+      --output-envelope "${CPU_PREFETCH_STAGE7_GOLDEN_ENVELOPE}"
+      --output-derivation-record "${CPU_PREFETCH_STAGE7_GOLDEN_DERIVATION}"
+    DEPENDS "${PROJECT_SOURCE_DIR}/tools/generate_schedule.py"
+    COMMENT "Generating the accepted synthetic Stage 7 golden schedule")
+  add_custom_target(
+    cpu_prefetch_stage7_golden_fixture
+    DEPENDS
+      "${CPU_PREFETCH_STAGE7_GOLDEN_ARTIFACT}"
+      "${CPU_PREFETCH_STAGE7_GOLDEN_ENVELOPE}"
+      "${CPU_PREFETCH_STAGE7_GOLDEN_DERIVATION}")
+
+  add_executable(cpu_prefetch_schedule_tests tests/schedule_model_test.cpp)
+  add_dependencies(cpu_prefetch_schedule_tests cpu_prefetch_stage7_golden_fixture)
+  target_link_libraries(
+    cpu_prefetch_schedule_tests
+    PRIVATE
+      cpu_prefetch::schedule
+      cpu_prefetch::workload
+      cpu_prefetch_project_options
+      GTest::gtest_main)
+  target_compile_definitions(
+    cpu_prefetch_schedule_tests
+    PRIVATE
+      CPU_PREFETCH_STAGE7_GOLDEN_ARTIFACT="${CPU_PREFETCH_STAGE7_GOLDEN_ARTIFACT}"
+      CPU_PREFETCH_STAGE7_GOLDEN_ENVELOPE="${CPU_PREFETCH_STAGE7_GOLDEN_ENVELOPE}"
+      CPU_PREFETCH_STAGE7_GOLDEN_DERIVATION="${CPU_PREFETCH_STAGE7_GOLDEN_DERIVATION}")
+  gtest_discover_tests(
+    cpu_prefetch_schedule_tests
+    PREFIX "schedule."
+    PROPERTIES LABELS "schedule")
+
+  add_test(
+    NAME schedule.python_generator
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tests/test_schedule_generator.py")
+  set_tests_properties(schedule.python_generator PROPERTIES LABELS "schedule;python")
+
+  add_custom_target(
+    schedule-check
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tests/test_schedule_generator.py"
+    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+    COMMENT "Checking deterministic Stage 7 schedule generation and schemas")
 
   if(NOT (CPU_PREFETCH_SANITIZER STREQUAL "THREAD" AND
           CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
@@ -223,6 +314,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/common.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/linked_spsc.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/ring_spsc.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/schedule/schedule.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/deterministic.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/packages.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/records.hpp"
@@ -236,6 +328,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
+  "${PROJECT_SOURCE_DIR}/src/schedule/schedule.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/deterministic.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/packages.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
@@ -246,6 +339,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_mutant.cpp"
@@ -274,6 +368,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
+  "${PROJECT_SOURCE_DIR}/src/schedule/schedule.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/deterministic.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/packages.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
@@ -283,6 +378,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_mutant.cpp"
@@ -387,11 +483,16 @@ install(
     cpu_prefetch_foundation
     cpu_prefetch_protocol
     cpu_prefetch_queue
+    cpu_prefetch_schedule
     cpu_prefetch_workload
     cpu_prefetch_smoke
   ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 install(DIRECTORY include/ DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+install(
+  PROGRAMS "${PROJECT_SOURCE_DIR}/tools/generate_schedule.py"
+  DESTINATION "${CMAKE_INSTALL_BINDIR}"
+  RENAME cpu-prefetch-generate-schedule)
 install(
   FILES
     "${PROJECT_BINARY_DIR}/generated/include/cpu_prefetch/foundation/build_metadata.hpp"
@@ -403,6 +504,7 @@ install(
     "${PROJECT_SOURCE_DIR}/config/dependencies.json"
     "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/QUEUE_CORRECTNESS.md"
+    "${PROJECT_SOURCE_DIR}/docs/SCHEDULE_GENERATION.md"
     "${PROJECT_SOURCE_DIR}/docs/WORKLOAD_CONSTRUCTION.md"
     "${PROJECT_SOURCE_DIR}/docs/NO_LICENSE_GRANT.md"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation")
@@ -411,12 +513,18 @@ install(
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation"
   FILES_MATCHING
   PATTERN "*.json")
+install(
+  DIRECTORY "${PROJECT_SOURCE_DIR}/config/schemas"
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation"
+  FILES_MATCHING
+  PATTERN "*.json"
+  PATTERN "*.md")
 
 set(CPACK_GENERATOR "TGZ")
 set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 6 workload correctness foundation")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 7 schedule correctness foundation")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)

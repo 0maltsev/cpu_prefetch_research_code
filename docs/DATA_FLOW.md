@@ -1,123 +1,61 @@
-# Data Flow
+# Data Flow and Artifact Lifecycle
 
-## Overview
+Protocol version: **`2.0.0-pre.1`**. This document preserves the imported logical model; it does not select a physical raw encoding.
 
-The planned flow preserves protocol/configuration evidence separately from timed observations and keeps producer and consumer data private until after the run.
+## End-to-end flow
 
-```text
-immutable protocol snapshot
-        |
-        v
-decision records + platform evidence + seed namespaces
-        |
-        v
-schema validation + semantic validation
-        |
-        v
-schedule / arena / block-plan preparation ----> pre-run checks
-        |                                           |
-        +---------------- validated run image <-----+
-                              |
-                  start barrier and frozen t0
-                              |
-             +----------------+----------------+
-             |                                 |
-      producer data plane                consumer data plane
-      private ordered rows               private ordered rows
-             |                                 |
-             +---------- drain/seal -----------+
-                              |
-                  accepted-ordinal join audit
-                    | pass              | fail
-                    v                   v
-             joined-derived rows    failure record only
-                    |
-          validity / zero-loss / effective-tail gates
-                    |
-       role-aware access control and offline analysis
-```
+| Phase | Inputs | Work | Append-only outputs | Timed? |
+|---|---|---|---|---|
+| Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON/schema parse checks | Readiness evidence in repository status | No |
+| Experiment preparation | Protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Structural/semantic validation, derivation, schedule/permutations, allocation, first touch, initialization, capacity proof | Prepared-run identity, schedule, provenance, platform request/evidence references | No |
+| Platform preparation | Requested state and authorized adapter/operator | Affinity/NUMA/page/frequency/HW-PF actuation, independent readback/probes, rollback readiness | Requested-state and verified-state records, capability/failure evidence | No |
+| Run launch | Closed `PreparedRun` | Barrier/reset/warm-up/start transition | Lifecycle transition(s) | No; boundary reads only as fixed |
+| Measurement horizon | Pre-generated deadlines, fixed arenas, specialized queue, qualified clock | Producer and consumer execute fixed data-plane work | Thread-private producer and consumer observations in preallocated buffers | Yes |
+| Drain/finalize | Worker state and private buffers | Protocol drain/termination, count capture, checksum finalization | Final worker counts/status; no artifact I/O yet | Fixed drain semantics; publication no |
+| Raw publication | Completed or partial buffers plus lifecycle state | Encode, hash, durably append, link failures | Immutable producer and/or consumer raw artifacts, manifests, failure records | No |
+| Reconciliation | Two immutable raw sources | Build accepted sequences, join by `(run_id, accepted_ordinal)`, validate record index/timestamps/counts | Immutable join audit; joined-derived artifact only on success | No |
+| Validation/gates | Immutable artifacts and platform evidence | Structural then semantic validation; correctness, measurement, zero-loss, tail gates | Versioned validation reports and eligibility states | No |
+| Analysis/sealing | Eligible immutable artifacts and authorized access state | Fixed summaries/inference; H3 training, seal, validation access | Derived results, source links, signatures/access records | No and custody-controlled |
 
-## Preparation flow
+## Preparation-to-worker boundary
 
-1. Resolve the imported protocol version and reject incompatible `1.x` records unless an explicit audited migration exists.
-2. Load only accepted ADRs and freeze records applicable to the requested lifecycle stage.
-3. Derive identities from explicit fields, never directory names: platform, build, block, role, run, factor cell, ordinal, schedule, namespaces, raw artifacts, and access records.
-4. Generate schedules, event order, node order, payloads, block order, and all checksums outside the measurement path.
-5. Allocate and first-touch persistent queue/event arenas and fixed-capacity worker-private buffers according to the verified placement record.
-6. Validate schema shape and all currently decidable semantic invariants. A failure stops before worker launch and creates a failure record without fabricated raw streams.
-7. Verify actual CPUs, cache ancestry, NUMA/page residency, persistent arena identity, requested versus verified HW-PF state, clock, schedule, build, and address-pattern evidence.
+The controller resolves every dynamic choice before release. The prepared image contains exact addresses and extents, pre-generated deadlines, package specialization, run and algorithm-suite IDs, clock identity, platform evidence references, and fixed buffer capacity. Allocation, schema/config parsing, seed derivation, RNG, permutation, compression, and analysis are absent from the worker call graph.
 
-Warm-up uses a disjoint namespace. It drains, reaches a barrier, restores the protocol-defined logical origin without remapping or broad payload retouch, then releases both workers from a start barrier using the frozen clock protocol. This is a controlled warm start, not a cold-cache start.
+The producer and consumer receive disjoint mutable observation buffers. They record their own facts independently and in program order. The repeating record index is a validation field only; it is never an event ID. Accepted observations are reconciled later by run identity and accepted ordinal.
 
-## Measurement flow
+## Logical streams
 
-### Producer stream
+| Stream | Principal producer | Identity/order | Required handling |
+|---|---|---|---|
+| Producer raw | Producer worker, published by controller | `run_id`, attempt order, accepted ordinal where applicable | Preserve every attempt/outcome, exact integer ticks, and original order |
+| Consumer raw | Consumer worker, published by controller | `run_id`, dequeue/completion order and accepted ordinal | Preserve independent observations, record index/payload validation, exact ticks |
+| Join audit | Offline reconciler | Source artifact IDs/hashes and `run_id` | Record all reconciliation/count/timestamp checks whether pass or fail |
+| Joined derived | Offline reconciler | `(run_id, accepted_ordinal)` | Create only after successful audit; raw sources stay authoritative |
+| Failure | Controller/validator/store | Failure-record ID, lifecycle state, related run/artifacts | Append actual evidence; never synthesize missing artifacts |
+| Platform | Platform adapter/operator | requested-state ID and verified-evidence ID | Keep request and observation separate; unavailable stays unavailable |
+| Access/sealing | Custody system | artifact/state/actor/time/authorization identity | Append chronology; never overwrite or backdate state |
 
-For every scheduled logical arrival, the producer retains `run_id`, logical sequence, record index, `scheduled_arrival`, `producer_handle_begin`, `record_lookup_completion`, `enqueue_invocation`, `enqueue_attempt_completion`, attempted status, and `ACCEPTED` or `FULL`. An accepted row also carries its queue-specific `enqueue_linearization` and accepted ordinal. A `FULL` row carries neither accepted ordinal nor enqueue linearization.
+Every physical artifact envelope declares artifact kind, protocol/schema version, physical-format version, algorithm-suite IDs, row and byte count, immutable ordering, integer time unit, endianness, compression/copy identity, producer identity, source lineage, URI/store identity, and SHA-256. Exact required fields remain governed by the imported schemas and semantic rules.
 
-The producer appends only to its preallocated private stream. One `FULL` is retained, counted, and never retried.
+## Partial-failure publication matrix
 
-### Consumer stream
+| Highest completed point | Producer raw | Consumer raw | Join audit | Joined derived | Failure/lifecycle record |
+|---|---:|---:|---:|---:|---:|
+| Before worker release | No | No | No | No | Yes |
+| Worker started but no valid raw buffer can be published | Only if actually recoverable | Only if actually recoverable | No | No | Yes |
+| One private stream publishes | If available | If available | No | No | Yes |
+| Both raw streams publish; reconciliation fails | Yes | Yes | Yes, failed | No | Yes |
+| Reconciliation succeeds; later gate fails | Yes | Yes | Yes, passed | Yes | Yes, with separate correctness/measurement/gate status |
+| Full success | Yes | Yes | Yes, passed | Yes | Lifecycle success record |
 
-For every successful dequeue, the consumer retains `run_id`, consumed ordinal, observed record index, `dequeue_invocation`, `dequeue_linearization`, `dequeue_completion`, and `consumer_action_completion`. The final boundary is taken only after immutable index/payload loads and the frozen private checksum update.
+`FULL` is a valid reconciled outcome and remains in data; it separately fails the zero-loss gate. Genuine low `N_eff` remains retained. Neither condition authorizes repetition. An invalid original block remains in the lineage; only a new complete role-compatible block may replace it under the frozen budget/authority.
 
-The consumer appends only to its preallocated private stream. It never writes producer observations or event records.
+## Codec and storage boundary
 
-### Termination and drain
+The timed writer eventually needs a frozen-size representation, but Stage 2 accepts only the interface. A physical-format ADR before pilot must establish exact row/envelope bytes, endianness, alignment, time unit, codec version, lossless round trip, truncation/trailing-byte behavior, corruption detection, compression timing, durable/temporary copy count, buffer and filesystem capacity, and two independent decoders or equivalent cross-tool evidence.
 
-After attempting the last scheduled arrival, the producer release-publishes `arrivals_finished` on an isolated control line. The consumer continues until it acquire-observes the flag and the queue is empty. Events accepted within the half-open arrival horizon remain in scope when their consumer action completes during drain.
+Raw source objects are immutable once published. Canonical metadata and content identities never depend on filesystem order, locale, floating-point formatting, or implementation-defined serialization. Unknown versions or algorithm identifiers fail closed.
 
-## Post-run reconciliation
+## Access and analysis boundary
 
-1. Seal the producer and consumer raw artifacts with their envelopes and integrity references.
-2. Prove `offered = attempted`, `attempted = accepted + full`, and after drain `accepted = consumed` with zero final occupancy.
-3. Filter producer rows to accepted logical-arrival order and join consumer row `k` to accepted producer row `k` by `(run_id, accepted_ordinal)`.
-4. Use record index only to validate the repeating frozen record sequence.
-5. Reject mismatched identity/count/pointer/index, duplicate, omission, forbidden reorder, timestamp-order error, or interval-equation error.
-6. Always emit a join audit. Emit joined-derived rows only when that audit passes.
-
-For an accepted event, derive exactly:
-
-```text
-producer_lateness              = b - a
-pointer_lookup_interval        = c - b
-enqueue_service_time           = re - u
-admission_delay                = p - a
-queue_residence                = q - p
-dequeue_service_time           = rd - v
-post_dequeue_delivery_interval = f - q
-consumer_action_interval       = f - rd
-end_to_end_latency             = f - a
-                               = admission_delay
-                               + queue_residence
-                               + post_dequeue_delivery_interval
-```
-
-The other intervals are nested or overlapping diagnostics and are never added to the final identity.
-
-## Status and gate flow
-
-Lifecycle, join status, run validity, count reconciliation, zero-loss, effective-tail status, confirmatory estimability, and block completeness are separate fields.
-
-- Correctly reconciled `full > 0`: run may remain `VALID`; zero-loss is `FAIL`; no replacement is authorized.
-- Genuine `N_eff < 200000`: run remains retained; effective-tail is `FAIL`; no repeat or extension is authorized.
-- Correctness/measurement failure: run is invalid and the original block becomes incomplete.
-- Failed join: failed audit and failure record exist; successful joined data do not.
-- Valid completed Stage A run: both raw streams, passed audit, joined rows, complete counts, provenance, and phase/integrity evidence are mandatory.
-
-## Block and access flow
-
-Every original complete Stage A block has exactly 180 cells and one immutable role: `H3_TRAIN`, `H3_VALIDATION`, or `H1H2_SUPPLEMENTAL`. An invalid cell never receives an in-block repair. A permitted replacement is a new complete role-compatible block with a new identity, ordinal, seed subspace, and randomization; all original records remain.
-
-Access progresses only through:
-
-```text
-PLANNED -> COLLECTED_SEALED -> TRAINING_OPEN -> SELECTION_FROZEN
-        -> VALIDATION_UNSEALED -> H3_EVALUATED -> H1H2_RELEASED -> ARCHIVED
-```
-
-Validation content, summaries, and treatment-dependent diagnostics remain inaccessible through training selection. H1/H2 cannot consume the common block pool until the source-hashed H3 evaluation/access record permits release.
-
-## Derived-data rule
-
-Histograms, quantiles, CCDFs, models, tables, and figures are derived artifacts. Each must name immutable input artifact IDs/hashes and analysis provenance. Corrections append a new derived record and never mutate raw producer or consumer streams.
+Offline analysis reads only immutable, passed artifacts through the access/sealing state machine. It cannot reach worker memory or control a running experiment. H3 validation data remain technically inaccessible until the imported state sequence authorizes access. Analysis output records every source artifact ID/hash and algorithm/version so results can be regenerated without modifying inputs.

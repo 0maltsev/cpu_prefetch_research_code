@@ -2,11 +2,26 @@
 
 ## Purpose
 
-This is the verification plan for a future Stage A implementation. No test harness or production code exists yet. Tests establish software correctness, protocol conformance, reproducibility, and access integrity. Synthetic and development-machine tests do **not** establish queue performance, a prefetch benefit, a platform population effect, or any empirical paper claim.
+This is the verification plan for a future Stage A implementation. No test harness or production code exists yet. The named framework/toolchain matrix below is `PROPOSED`, not executable, until the owner accepts D-001 through D-005 and D-017. Tests establish software correctness, protocol conformance, reproducibility, and access integrity. Synthetic and development-machine tests do **not** establish queue performance, a prefetch benefit, a platform population effect, or any empirical paper claim.
 
 Every behavior change must add or update targeted tests and rerun the relevant sanitizer/static/generated-code gates. A failed required gate blocks pilot; rerunning until a favorable performance result is never a testing strategy.
 
 ## Verification layers
+
+### Proposed execution matrix
+
+| Evidence class | Proposed mechanism | Acceptance boundary |
+|---|---|---|
+| Unit | GoogleTest under CTest | All supported compiler/library debug and release matrices |
+| Property | RapidCheck under CTest after a current-toolchain compatibility probe | Recorded generator version/seed; shrink result becomes regression fixture |
+| Deterministic concurrency/refinement | Repository-owned executable history checker/model oracle | Both queue packages, boundary suspension, full/empty/wrap/recycler cases |
+| Stress | Repository-owned fixed-seed and recorded-seed executables | Frozen durations/repetitions/machines before pilot; no retry-to-pass |
+| Memory/UB | ASan plus UBSan | Zero findings in both supported toolchain matrices |
+| Data race | TSan | Zero findings in each supported matrix where the toolchain/standard-library combination is demonstrated compatible |
+| Generated code | GNU objdump and llvm-objdump plus machine rules and human review | Every release package specialization; negative mutants caught |
+| Scientific harness timing | Repository-owned harness | Google Benchmark or another framework control loop is forbidden |
+
+Framework names are recommendations awaiting acceptance. The behavioral test obligations remain required even if different tools are selected.
 
 ### 1. Import and compatibility
 
@@ -86,6 +101,8 @@ Acceptance durations, repetition counts, machines, and seeds are frozen before p
 - Compiler/static diagnostics appropriate to the selected language at an accepted strictness level.
 - Runtime/compile-time proof that required atomics are lock-free on the eligible platform.
 
+Acceptance is zero unresolved findings. A suppression is not a pass unless a named owner records the exact diagnostic, smallest scope, tool defect or deliberate mechanism, compensating evidence, and expiry/review gate. Unsupported TSan combinations are recorded as unavailable and require both supported-toolchain deterministic history/refinement evidence plus the approved compensating plan; they are never silently skipped.
+
 Sanitizer builds verify correctness only and are never used for performance claims.
 
 ### 9. Deterministic schedule golden tests
@@ -136,19 +153,34 @@ Verify that `FULL`, low `N_eff`, and extreme valid latency never authorize repla
 
 ### 18. Generated-code acceptance
 
-For each package/build, inspect and hash the generated boundaries for queue publication/observation, prefetch site/target/form/distance, wait relaxation, termination flag, immutable record loads, private checksum update, timestamp boundaries, static specialization, and absence of virtual dispatch, treatment branch, allocation, I/O, logging, or unexpected calls. The test must include negative fixtures or mutated builds proving the checks detect missing/moved operations.
+For each package/build, inspect and hash the generated boundaries for queue publication/observation, prefetch site/target/form/distance, wait relaxation, termination flag, immutable record loads, private checksum update, timestamp boundaries, static specialization, and absence of virtual dispatch, treatment branch, allocation, I/O, logging, or unexpected calls. Source, object, executable, compiler, flags, standard-library, linker, disassembler, rule-set, and report hashes travel together. The test must include negative fixtures or mutated builds proving the checks detect missing/moved operations.
 
 ### 19. Clean-environment build and verification
 
-From a documented clean environment, recreate dependencies, build artifacts, fixtures, validator outputs, and generated-code reports solely from tracked inputs and recorded versions. Compare source/build/protocol hashes and run the complete non-performance test suite. The exact command remains a placeholder until Phase 3 selects tooling.
+From a documented clean environment with network access disabled, recreate dependencies, build artifacts, fixtures, validator outputs, and generated-code reports solely from tracked inputs and recorded versions. Compare source/build/protocol/dependency hashes and licenses and run the complete non-performance test suite. The exact command remains a placeholder until Stage 3 tooling is accepted.
 
 ### 20. Synthetic end-to-end dry run
 
 Use a small explicitly synthetic fixture namespace to exercise planning, schedules, lifecycle, private streams, sealing, join, manifests, failure injection, status gates, and derived provenance. It must not be called a pilot, use confirmatory namespaces, tune treatment parameters, or support a performance claim. Its acceptance is structural correctness only.
 
+### 21. Dependency and provenance tests
+
+- Fail configure/verification for an unrecorded dependency, missing immutable source hash, unknown license, network fetch, or incompatible license decision.
+- Bind queue implementation files to the accepted provenance/mode record and paper-to-source semantic map.
+- Verify that independent queue implementation imports no third-party queue source or mechanically derived code.
+- Verify every generated source/table has a tracked generator, inputs, version, deterministic regeneration command, output hash, review classification, and stale-output check.
+
+### 22. Plane and privilege isolation tests
+
+- Prove the worker call graph cannot reach config/schema parsers, general allocators, filesystem/network/console APIs, compression, reconciliation, or analysis.
+- Run negative mutants that add each prohibited call and require rejection.
+- Verify the measurement process has no platform-control or validation-custody privilege.
+- Exercise denied/partial platform operations, independent readback mismatch, rollback failure, inaccessible validation data, and crash/restart at every artifact handoff.
+- Confirm requested-state fields never populate verified-state fields without independent evidence.
+
 ## Evidence order
 
-Verification proceeds from schema/unit/property checks to queue/refinement/concurrency checks, then sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence and no unresolved correctness finding.
+Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.
 
 ## Software evidence versus scientific evidence
 

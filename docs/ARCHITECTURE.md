@@ -1,89 +1,103 @@
 # Architecture
 
-## Purpose and authority
+## Scope and authority
 
-This document designs component boundaries for Stage A protocol `2.0.0-pre.1`; it does not choose a language, toolchain, raw-data encoding, queue source, platform API, or executable layout. The imported protocol controls scientific behavior. Engineering choices may realize that behavior but may not reinterpret it.
+This is the accepted Stage 2 architecture for Stage A of protocol `2.0.0-pre.1`. It freezes boundaries, not the recommended C++/Linux/toolchain choices. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
 
-The design separates three concerns:
+The architecture has three planes:
 
-1. the benchmark data plane performs only predeclared measurement work;
-2. the controller and validation plane prepares, verifies, and records a run;
-3. the offline plane reconciles immutable streams, applies gates, and performs analysis under access control.
+1. **Benchmark data plane**: only protocol-declared producer/consumer work and thread-private observation appends.
+2. **Experiment controller**: preparation, validation, lifecycle transitions, launch/drain, platform evidence, failure recording, and immutable handoff.
+3. **Offline validation and analysis**: reconciliation, gates, summaries, inference, sealing, and authorized access after immutable raw publication.
 
-Any interface that cannot preserve a normative requirement is blocked pending an ADR or, for a scientific change, a protocol amendment.
+ADR-0001 through ADR-0006 accept these boundaries. Executable topology, language, toolchain, concrete codecs, platform adapters, and dependency implementations remain open in the decision register.
 
-## Planned components
+## Component map
 
-| Component | Responsibility | Principal inputs and outputs | Timed-path role | Current state |
+| Plane | Component | Responsibility | Timed-horizon status | Replaceable boundary / state |
 |---|---|---|---|---|
-| Benchmark data plane | Specialized producer/consumer execution, one-attempt arrivals, polling, termination, and private observation writes | Frozen run image; producer and consumer logical observations | Yes; smallest possible owner | Blocked on language, process/thread model, clock, and storage layout |
-| Experiment controller | Lifecycle state machine, preparation, barriers, run launch, drain, evidence collection, failure/sealing coordination | Validated run plan to append-only manifest/failure/artifact records | Control only; absent during measurement except prebuilt synchronization | Architecture planned |
-| Protocol/configuration validation | Draft 2020-12 structural validation plus cross-record semantic validation | Immutable config/records to typed validation reports | Forbidden | Validator architecture unresolved |
-| Schedule generation | Seed namespace derivation, pre-generated deadlines, exact rational rates, half-open horizons, encoding envelope, checksums | Frozen seed/config to immutable schedule artifact | Reads next prepared deadline only | Algorithms/encoding unresolved |
-| Queue adapters | One stable `try_enqueue`/`try_dequeue` seam while preserving package-specific linearization, memory order, progress, prefetch, and recycler semantics | Pointer plus package configuration; operation outcome/boundaries | Yes | Blocked on provenance/license/mode and atomic mapping |
-| Record and working-set generation | One-line immutable record arena, payload/index initialization, event permutation, linked-node permutation, footprint and address-pattern evidence | Frozen seeds/platform cache facts to persistent arenas and reports | Deterministic pointer lookup and immutable record loads only | Algorithms and platform facts unresolved |
-| Timing | Monotonic cross-core tick reads, boundaries, conversion record, overhead/skew/drift evidence | Platform clock record to integer timestamps | Yes, only frozen boundary reads | Platform mapping unresolved |
-| Affinity, NUMA, and hardware-state control | Core selection, first touch, page residency, requested HW-PF actuation, independent readback/probe, environmental checks | Platform/control authorization to requested and verified state records | Verification must not touch hot lines; no dynamic control in timed path | Platform and authority unresolved |
-| Raw-stream storage | Preallocated producer-private and consumer-private buffers; post-run immutable artifact sealing | Logical rows to external immutable streams/envelopes | Private fixed-capacity append only | Physical encoding deliberately unresolved |
-| Producer/consumer reconciliation | Accepted-sequence construction, ordinal join, record-index validation, timestamp/equation checks, joined stream and join audit | Two immutable raw streams to pass/fail audit and optional joined-derived artifact | Forbidden | Planned |
-| Manifest, integrity, failure, and sealing records | Append-only identity, lifecycle, count, checksum, provenance, access, and failure relationships | Component evidence to schemas and content hashes | Forbidden except final private checksum value accumulation defined by protocol | Sealing architecture unresolved |
-| Calibration | Treatment-blind service-rate, zero-loss feasibility, ring-distance, clock, horizon, and environment procedures | Valid calibration/pilot artifacts to frozen decision records | Separate run mode, never substituted for Stage A | Deferred and unauthorized |
-| Block planning and Stage A orchestration | Exact 180-cell factorials, whole plots, immutable roles, role-compatible namespaces, randomized order, complete-block replacement | Frozen decisions/seeds to block and run plans | Forbidden | Counts, algorithms, budget, and authorities unresolved |
-| Offline statistical analysis | Inverse-ECDF summaries, effective-tail diagnostics, model/contrasts, separate H1/H2 max-T, sealed H3 sequence, derived outputs | Passed immutable artifacts and authorized access state to source-linked results | Forbidden | Deferred; no result pipeline implemented |
+| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Queue, clock, prepared schedule, private sink; implementation blocked |
+| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Queue, clock, record arena, private sink; implementation blocked |
+| Data | Queue adapter binding | Narrow operation/boundary seam while preserving ring or linked/recycler semantics | Required | Binding mechanism, provenance, and atomic mapping blocked |
+| Controller | Run-image builder | Parse and semantically validate config, allocate/touch/initialize arenas and buffers, derive schedules, bind identities and capacity proof | Forbidden | Prepared-run image interface; deterministic primitives blocked |
+| Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact publication | Outside horizon | Process topology blocked |
+| Controller | Platform-control adapter | Request affinity/NUMA/pages/frequency/HW-PF state, read back and probe, rollback | Forbidden | Linux candidate only; target/authority blocked |
+| Controller | Clock qualification | Qualify source, conversion, skew/drift/read cost and code boundaries | Reads only are timed | Clock interface; source blocked |
+| Controller | Logical record model | Typed representation of imported schema/data-dictionary meanings | Private row construction only | Accepted stable boundary |
+| Controller | Physical codec | Encode/decode exact logical rows/envelopes | Private fixed-row write may be timed after format freeze; general codec outside | Replaceable; format blocked until pre-pilot |
+| Controller | Artifact store | Immutable content-addressed publication, lineage, access/failure records | Forbidden | Replaceable durable store; custody blocked |
+| Offline | Structural validator | Draft 2020-12 validation against imported schemas | Forbidden | Validator product open |
+| Offline | Semantic validator | Cross-record identity, arithmetic, lifecycle, schedule, namespace, timestamp, coverage, replacement, access checks | Forbidden | Versioned rules; implementation open |
+| Offline | Reconciler | Join producer/consumer by `(run_id, accepted_ordinal)`, validate record index, emit audit and optional derived join | Forbidden | Consumes immutable sources only |
+| Offline | Statistical analysis | Fixed quantiles, diagnostics, H1/H2 families, sealed H3 chronology | Forbidden | Deferred; cannot influence implementation choices |
 
-## Boundary rules
+## Stable interfaces
 
-### Data-plane input
+These are semantic interfaces; they do not prescribe source-language syntax.
 
-Before worker release, the controller must provide a closed, validated run image containing all addresses, queue/package specialization, schedule, seeds, preallocated capacities, timestamp conversion identity, requested and verified hardware state evidence, and immutable run identity. Workers do not parse manifests or choose behavior dynamically.
+### `PreparedRun`
 
-### Queue seam
+An immutable, fully validated run image containing run identity, specialized package identity, pre-generated integer deadlines, record/node arenas, thread-private buffer extents, exact capacity proof, clock/conversion identity, requested and verified platform evidence references, seeds/algorithm-suite IDs, and all worker addresses. Workers neither parse nor select configuration.
 
-The future queue seam is behavioral rather than a license to normalize algorithms. It must expose a one-attempt outcome and the protocol-defined invocation, queue-specific linearization, and response boundaries. Package-specific code remains statically specialized so the common driver does not introduce virtual dispatch or a treatment-dependent branch. The linked adapter includes the regular recycler path. A common facade must not erase different full semantics, memory orders, prefetch sites, or refinement obligations.
+### `QueueAdapter`
 
-### Storage interface
+A package-bound seam providing one-attempt enqueue/dequeue outcomes and explicit protocol boundary hooks. It must expose, not hide, package-specific linearization, full, recycler, memory-order, prefetch, and progress semantics. API substitutability alone is not scientific equivalence. Static templates, direct binding, and separate binaries remain candidates; Q2 recommends a binding with no measured-path dispatch or treatment-selection branch, but that recommendation is not accepted by this interface.
 
-No concrete binary or columnar encoding is selected. The future storage interface must:
+### `ClockSource`
 
-- accept fixed-capacity thread-private appends without allocation or blocking;
-- represent every normative logical field and exact integer tick;
-- distinguish producer, consumer, and joined-derived stream kinds;
-- bind every row and envelope to `run_id`;
-- expose row count, byte count, encoding, time unit, endianness, compression, immutable ordering, physical-format record ID, URI, integrity reference, and SHA-256;
-- decode exactly the declared count and validate decoded logical rows;
-- seal raw source streams immutably and create corrections only as new derived artifacts;
-- compress only after measurement with a frozen lossless method.
+A qualified integer-tick read plus immutable clock identity/conversion evidence. Qualification covers monotonicity, cross-core skew, drift, resolution, serialization, migration handling, read cost, overflow, and generated instructions. The run cannot switch source or conversion after preparation.
 
-Before pilot, an ADR and freeze record must select the physical format, row layouts/sizes/alignment, endianness, lossless compression, copy policy, canonical serialization, and capacity proof. Selecting those items now would invent evidence not present in the protocol.
+### `PlatformControl`
 
-### Validation interface
+Separate request, readback, behavioral-probe, and rollback operations for affinity, NUMA placement/residency, page mode, frequency, and documented HW-PF controls. Unsupported or unauthorized capability fails closed. Requested values are never copied into verified fields.
 
-Schema validation checks document shape. A separate semantic validator must check arithmetic, decoded schedules, namespaces, cross-record hashes, lifecycle chronology, count identities, timestamp equations, exact factorial coverage, replacement lineage/budget, access chronology, role membership, and authority segregation. Neither layer may silently repair an instance.
+### `LogicalModel` and `PhysicalCodec`
 
-### Failure and append-only behavior
+The logical model preserves every imported field, exact integer, relationship, row ordering, and stream kind. A versioned codec declares format, endianness, row/envelope size, alignment, time unit, compression, decoder identity, and corruption behavior. A codec selection cannot change logical meaning.
 
-The controller records the lifecycle reached and only artifacts that actually exist. Early failure never fabricates raw data. Failed reconciliation seals a failed join audit and forbids joined-derived data. Raw producer/consumer artifacts are never overwritten. A correctness or measurement failure leaves its original block incomplete; only an authorized new complete role-compatible block can replace it.
+### `ArtifactStore`
 
-## Timed-path allowlist and denylist
+Publishes immutable byte objects and append-only metadata with stable IDs, SHA-256, byte/row counts, origin, lifecycle state, lineage, access state, and compatibility identifiers. Corrections/conversions are new derived objects. A failed step publishes only evidence actually produced.
 
-Only these planned operations may occur in the Stage A measurement path:
+### `QueueProvenance`
 
-- poll a pre-generated deadline with the frozen clock read and processor-relax mapping;
-- handle overdue logical arrivals in original order;
-- deterministic record-index/pointer lookup;
-- one specialized queue `try_enqueue` attempt and its timestamps;
-- specialized repeated `try_dequeue`, empty polling, and timestamps;
-- the protocol-fixed ring or linked queue/recycler operations and prefetch hints;
-- immutable record index/payload loads and one fixed consumer-private checksum update;
-- fixed-capacity writes to the calling worker's private raw buffer;
-- release/acquire termination using an isolated control line.
+For each queue package, binds paper section/figure, official artifact search record, immutable artifact IDs/hashes if any, license, selected reuse/adaptation/independent mode, adaptation list, and refinement proof. Absence blocks queue source work.
 
-The measurement path forbids unplanned allocation/deallocation, buffer growth, locks, blocking I/O, file access, console logging, formatted output, dynamic configuration parsing, RNG use, permutation/sorting, manifest construction, checksum of whole artifacts, compression, reconciliation, quantile/histogram computation, statistical analysis, adaptive backoff, sleep/yield/scheduler calls, virtual dispatch, treatment-dependent driver branches, mutable event preparation, and platform-state changes.
+## Timed-path contract
 
-## Deployment and process boundary
+Allowed operations are limited to:
 
-The process/thread model is deliberately open. Any candidate must provide exactly one producer and one consumer for Stage A, isolate mutable ownership lines, support worker-local raw buffers and page placement, allow independent control/custody processes where sealing requires them, and leave no observer touching hot ownership lines. The selected model, crash behavior, privilege separation, and artifact handoff require an ADR before production architecture is finalized.
+- read a pre-generated deadline and qualified clock; relax-only polling;
+- process overdue logical arrivals in original order;
+- deterministic precomputed record-pointer lookup;
+- exactly one package-bound enqueue attempt with fixed timestamps;
+- package-bound dequeue polling and drain with fixed timestamps;
+- protocol-declared ring or linked/recycler operations and prefetch hints;
+- immutable record index/payload loads and one fixed private checksum update;
+- fixed-capacity append to the calling worker's private raw buffer;
+- isolated release/acquire termination.
 
-## Deferred scope
+Forbidden operations include allocation/deallocation, buffer growth, locks, blocking I/O, file access, console logging, formatting, dynamic parsing, RNG/permutation, manifest construction, whole-artifact hashing, compression, reconciliation, quantiles/histograms, analysis, adaptive backoff, sleep/yield, scheduler calls, mutable record preparation, and platform-state changes. The binding mechanism is still a Q2 decision; whichever mechanism is accepted must be frozen and included in generated-code and treatment-equivalence review.
 
-Stage B tagged-pointer MPSC and all Stage C ablations are outside this architecture. They may reuse stable infrastructure only after separate authorization; they cannot weaken or substitute any Stage A component or gate.
+Generated-code and call-graph acceptance must prove this contract for every package specialization. Overflow never triggers aggregation, allocation, or emergency I/O; it records a measurement failure after safely leaving the horizon.
+
+## Ownership and proposed deployment
+
+The accepted architecture requires exactly one producer and one consumer and exclusive mutable cache-line ownership. D-006 recommends one unprivileged measurement process with a quiescent controller main thread and two workers, while privileged platform control and validation custody remain out of process. This topology is not accepted until the owner chooses it. Whichever topology is accepted must prove:
+
+- worker-local raw buffers and mutable controls occupy separately evidenced cache lines/pages;
+- no observer touches hot ownership lines during the horizon;
+- affinity and page placement are commanded and independently verified;
+- crash/lifecycle states yield the exact append-only artifact set;
+- privileges are absent from the measurement process;
+- validation custody is technically separated from implementation/platform operation.
+
+## Failure and compatibility model
+
+Lifecycle transitions and partial failures are append-only. Early failure cannot fabricate raw artifacts. Producer and consumer sources remain independently immutable; failed reconciliation produces an audit and no joined-derived stream. A correction or format conversion creates a derived artifact. Replacement follows the complete-block protocol and never reuses run identity.
+
+Readers fail closed on unknown protocol/schema, artifact-kind, physical-format, clock, RNG, permutation, mixing, checksum, or canonicalization identifiers. Additive compatibility must be declared and tested; changed bytes always receive new content identity.
+
+## Deferred decisions
+
+The concrete language/toolchain/build/tests, target stand, queue implementation mode, atomics, clock, raw format, RNG/schedule/mixing/checksum suite, Linux API bindings, privilege/custody design, generated-code tools, sanitizer thresholds, compression/copies, and project license remain in `docs/DECISIONS_REQUIRED.md`. Production code must not start while their Stage 3 blockers remain open.

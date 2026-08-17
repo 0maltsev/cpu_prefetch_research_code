@@ -70,3 +70,23 @@ Protocol version: **`2.0.0-pre.1`**. Source abbreviations: **Spec** is `EXPERIME
 ## Coverage statement
 
 The matrix assigns an owner and verification method to protocol identity/amendments, queue semantics/provenance, workload construction, factor/capacity rules, schedules and namespaces, producer/consumer timing, lifecycle, private storage, reconciliation, checksums, hardware verification, calibration, roles, 180-cell completeness, replacement, quantiles, effective-tail and zero-loss gates, H1/H2/H3 analysis, access sealing, schemas, and reproducibility. Rows marked `PLANNED_BLOCKED` must not be implemented by inventing their blocking decision.
+
+## Stage 2 decision traceability
+
+| Decision IDs | Requirements constrained | Architecture/test evidence | ADR/status | Remaining gate |
+|---|---|---|---|---|
+| D-021 | DAT-002, PHS-001..004, REP-001 | Plane map, timed allowlist/denylist, call-graph/negative-mutant plan | ADR-0001 `ACCEPTED` | Executable topology/toolchain acceptance |
+| D-022 | DAT-001..007, LIF-001..003 | Logical/codec/store interfaces; round-trip/corruption/capacity plan | ADR-0002 `ACCEPTED` | Physical format before pilot |
+| D-023 | QUE-002..007, SCH-004, TIM-001..002 | Semantics-preserving queue seam; binding remains proposed; per-package refinement/generated-code plan | ADR-0003 `ACCEPTED` | Provenance/atomic/binding choices before queue source |
+| D-024 | GOV-003..004, DAT-003..007, REP-001 | Fail-closed version identifiers, converter lineage, golden/future fixtures | ADR-0004 `ACCEPTED` | Concrete algorithm/format IDs before producers |
+| D-025 | LIF-001..003, DAT-005..006, BLK-002..003, ACC-001..002 | Partial-failure matrix, append-only store/recovery/fault plan | ADR-0005 `ACCEPTED` | Durable store/custody implementation |
+| D-026 | GOV-004, DAT-005..006, LIF-001..003, BLK-001..003, ACC-001..002 | Two validation passes and schema-valid semantic-negative suite | ADR-0006 `ACCEPTED` | Draft 2020-12 product in Stage 3 |
+| D-001..005 | QUE/WRK/DAT implementation rows generally | Proposed C++20/Linux/toolchain/build/test matrix | `PROPOSED` | Q1 owner acceptance before Stage 3 |
+| D-006..008 | QUE-001..010, PHS-002..004, DAT-001..002 | Proposed process ownership, clean-room queue mode, C++ memory mapping/probes | `PROPOSED`; historical artifact status partly unresolved | Q2 owner acceptance/license before Stage 3 queue work |
+| D-014, D-016..017 | DAT-002..007, WRK-001..002, REP-001 | Proposed exact-integer canonical identity, dual-disassembly, sanitizer acceptance | `PROPOSED` | Q2 owner acceptance before dependent Stage 3/4 work |
+| D-015, D-018..019 | WRK-005, TIM-004, HWP-001..002, ACC-001..002 | Proposed unprivileged process, replaceable Linux controls, separate custody | `PROPOSED` / evidence open | Q3 interface acceptance; stand/custody proof before pilot |
+| D-009 | TIM-001..004 | Replaceable clock and qualification plan | `UNRESOLVED` | Clock ADR/evidence before pilot |
+| D-010, D-020 | DAT-001..004, DAT-006 | Replaceable codec accepted; format/compression/copies not selected | `UNRESOLVED` | Physical-format evidence before pilot |
+| D-011..013, D-027 | QUE-008, WRK-001..002, SCH-001..003, DAT-007 | Candidate Philox/HMAC/Fisher-Yates; mixer and exponential/tick mapping open | `PROPOSED` / `UNRESOLVED` | Exact algorithm suite and vectors before pilot |
+
+No accepted ADR changes a scientific requirement row. Each accepted ADR constrains how an implementation may satisfy the row; any conflict continues to resolve in favor of the imported snapshot and stops the affected work.

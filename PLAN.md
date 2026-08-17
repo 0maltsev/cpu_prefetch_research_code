@@ -17,12 +17,12 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 
 - **Objective:** Resolve the smallest engineering decisions needed to finalize production architecture without selecting pilot outputs.
 - **Inputs and prerequisite decisions:** Phase 1; queue provenance/license investigation; candidate language/atomic feasibility; storage/validator/sealing/platform capability evidence.
-- **Files/components:** Accepted ADRs for queue provenance/mode, language/standard/atomic envelope, storage/semantic-validator architecture, identity/SHA/canonical-record dependencies, sealing boundary, and credible target-platform control interface; updated status/commands.
+- **Files/components:** Six accepted boundary ADRs plus proposed ADR inputs for queue provenance/mode, language/standard/atomic envelope, identity/SHA/canonical-record dependencies, sealing boundary, and credible target-platform control interface; updated architecture, flow, status, risks, tests, traceability, and decision questions.
 - **Tests:** License/provenance review; architectural scenario tests for early failure, immutable raw correction, sealing, and unavailable platform control; atomic/sanitizer/tool support matrix.
 - **Acceptance criteria:** Every pre-architecture row in `docs/IMPLEMENTATION_DECISIONS.md` has an accepted evidence-backed ADR; no scientific behavior changed; contradictions have amendments, not workarounds.
 - **Explicitly excluded:** Production source, concrete physical raw encoding, platform numerical values, pilot/confirmatory decisions.
 - **Rollback or failure behavior:** Reject or supersede an unsupported ADR before code depends on it. If no eligible artifact/platform architecture exists, record `BLOCKED_BEFORE_IMPLEMENTATION` and stop.
-- **Status:** `BLOCKED` and the exact next safe phase; user decisions/evidence are required.
+- **Status:** `BLOCKED_PENDING_EXPLICIT_ACCEPTANCE`. ADR-0001 through ADR-0006 accept the user-mandated plane, logical/physical, queue-adapter, compatibility, append-only failure, and validation boundaries. Q1-Q3 in `docs/DECISIONS_REQUIRED.md` still block the production-architecture freeze. The exact next safe activity is Phase 2 decision review/acceptance, not Phase 3.
 
 ## Phase 3 — Build and CI foundation
 
@@ -33,7 +33,7 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Documented commands work from a clean environment; versions and hashes are captured; failures are nonzero and artifacts retained; no platform-specific constant is embedded.
 - **Explicitly excluded:** Queue and measurement implementations, performance tests, pilot.
 - **Rollback or failure behavior:** Keep previous accepted tool record; supersede build ADR/tool versions rather than silently drifting; block Phase 4 if clean reproduction fails.
-- **Status:** `PENDING`, blocked by Phase 2.
+- **Status:** `PENDING_BLOCKED`, blocked by unresolved Phase 2 Q1-Q3 and their accepted ADRs.
 
 ## Phase 4 — Protocol/configuration model
 

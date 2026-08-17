@@ -66,10 +66,23 @@
     "eligible_stand_runtime_lock_free_probe": "REQUIRED_LATER"
   },
   "generated_code_review": {
-    "status": "BLOCKED_MISSING_LLVM_OBJDUMP",
+    "status": "PASS",
     "gnu_objdump": "PASS_WITH_NEGATIVE_MUTANT",
-    "llvm_objdump": "UNAVAILABLE",
-    "human_review": "GNU_OPERATION_BODIES_REVIEWED",
+    "llvm_objdump": "PASS_WITH_NEGATIVE_MUTANT",
+    "human_review": "GNU_AND_LLVM_OPERATION_BODIES_REVIEWED",
+    "evidence": {
+      "release_probe_sha256": "9aa8b340ffd492e2ee68d2c3af2505eb4f3a4a8ced3f902ac2f48474037169ff",
+      "negative_mutant_sha256": "2e210b72aeb5ca46a3e6b6156361c309eaa94c4d38a9cf357366bf2bebbb1016",
+      "rule_set_sha256": "e56adbee94bf0308c75fe142a60d78c834b563fe3d80e3742b23bd9cc5288088",
+      "gnu_objdump_version": "GNU Binutils 2.46.0",
+      "llvm_objdump_version": "LLVM 22.1.6",
+      "gnu_try_enqueue_body_sha256": "49073fb170817e3d59ab116d4a894b9992cc2240ba3320fc4460e652f37f390c",
+      "gnu_try_dequeue_body_sha256": "df58a4e69418a280f836dd1a8ad0f96d925eeaad4ee9a0888b4e19349a7c508f",
+      "llvm_try_enqueue_body_sha256": "70b5838ac0e42acfe4ce26f62c541ee3c7d8388d889997018cd9866446cd9748",
+      "llvm_try_dequeue_body_sha256": "06e077eede0dd9d33acbe11dc2ef5094e0d4bfac4ea277f4e766c3117ee062aa",
+      "gnu_full_disassembly_sha256": "53b633a4b10031eaa7bf320a81012771ff3fe2f9e805b09632f09b8ed9689d57",
+      "llvm_full_disassembly_sha256": "17a9d4d04734a14dd411d09afa3365310c8c3849dfe0bb6e0c9d897d36605e65"
+    },
     "build_report": "build/release-gcc/queue_codegen_report.json"
   }
 }

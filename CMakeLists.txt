@@ -253,6 +253,8 @@ add_custom_target(
     --mutant "$<TARGET_FILE:cpu_prefetch_queue_codegen_mutant>"
     --output "${PROJECT_BINARY_DIR}/queue_codegen_report.json"
     --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+    --provenance "${PROJECT_SOURCE_DIR}/config/queue-provenance/ring-spsc.json"
+    --provenance "${PROJECT_SOURCE_DIR}/config/queue-provenance/linked-spsc.json"
     --allow-missing-secondary
   DEPENDS cpu_prefetch_queue_codegen_probe cpu_prefetch_queue_codegen_mutant
   COMMENT "Auditing queue code generation and retaining partial evidence")
@@ -264,6 +266,8 @@ add_custom_target(
     --mutant "$<TARGET_FILE:cpu_prefetch_queue_codegen_mutant>"
     --output "${PROJECT_BINARY_DIR}/queue_codegen_report.json"
     --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+    --provenance "${PROJECT_SOURCE_DIR}/config/queue-provenance/ring-spsc.json"
+    --provenance "${PROJECT_SOURCE_DIR}/config/queue-provenance/linked-spsc.json"
   DEPENDS cpu_prefetch_queue_codegen_probe cpu_prefetch_queue_codegen_mutant
   COMMENT "Requiring dual-disassembler queue generated-code evidence")
 add_custom_target(

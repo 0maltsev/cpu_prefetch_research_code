@@ -1,12 +1,12 @@
 # CPU Prefetch Research Code
 
-This repository has implemented the **Stage 5 queue-correctness slice** for
-protocol **`2.0.0-pre.1`**, but Stage 5 is not closed: the provisioned toolset
-lacks ADR-0016's required LLVM 22 `llvm-objdump`. It contains the Stage 3 build
-foundation, Stage 4 typed protocol model, and independently authored bounded
-SPSC ring and linked/recycler queue cores with provenance, refinement, model,
-stress, and sanitizer evidence. It contains no schedule generator, measurement
-loop, hardware-control implementation, raw-data writer, or scientific analysis.
+This repository has completed the **Stage 5 queue-correctness slice** for
+protocol **`2.0.0-pre.1`**. It contains the Stage 3 build foundation, Stage 4
+typed protocol model, and independently authored bounded SPSC ring and
+linked/recycler queue cores with provenance, refinement, model, stress,
+sanitizer, and dual-disassembler evidence. It contains no schedule generator,
+measurement loop, hardware-control implementation, raw-data writer, or
+scientific analysis.
 
 The repository owner selected **no license**. See
 [`docs/NO_LICENSE_GRANT.md`](docs/NO_LICENSE_GRANT.md) and ADR-0021. There is no
@@ -201,8 +201,7 @@ commands above and performs no dependency download; runner policy must disable
 dependency-network access after source checkout. Runner availability and
 provisioning are external platform operations.
 
-The exact next safe action is to provision the accepted LLVM 22
-`llvm-objdump`, rerun `queue-codegen-check`, review the second disassembly, and
-close Stage 5. Stage 6 must not start while that gate is missing. Schedule
-generation, timing, measurement, pilot, and confirmatory behavior remain
-prohibited until their later lifecycle gates.
+The exact next safe stage is **Stage 6, record and working-set construction**.
+That stage may implement only its frozen correctness scope; schedule generation,
+timing, measurement, pilot, and confirmatory behavior remain prohibited until
+their later lifecycle gates.

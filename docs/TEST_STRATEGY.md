@@ -210,12 +210,12 @@ Verify that `FULL`, low `N_eff`, and extreme valid latency never authorize repla
 For each package/build, inspect and hash the generated boundaries for queue publication/observation, prefetch site/target/form/distance, wait relaxation, termination flag, immutable record loads, private checksum update, timestamp boundaries, static specialization, and absence of virtual dispatch, treatment branch, allocation, I/O, logging, or unexpected calls. Source, object, executable, compiler, flags, standard-library, linker, disassembler, rule-set, and report hashes travel together. The test must include negative fixtures or mutated builds proving the checks detect missing/moved operations.
 
 Stage 5 status: the GCC release operation probe has four direct adapter symbols.
-GNU objdump reports no call, `lock`, `xchg`, or `mfence` class in those bodies
-and the deliberate call mutant is rejected. LLVM 22 `llvm-objdump` is absent
-from the provisioned toolset, so the ADR-0016 dual-disassembler gate remains
-blocked. The partial report is retained; it is not described as a generated-code
-pass. Prefetch, relax, termination, record-load/mix, and clock boundaries do not
-exist yet and remain later generated-code obligations.
+GNU Binutils 2.46 and LLVM 22.1.6 objdump report no call, `lock`, `xchg`, or
+`mfence` class in those bodies and both reject the deliberate call mutant.
+Both instruction views were reviewed; the binary, mutant, rule-set, operation,
+and full-disassembly hashes are retained in the report/provenance records.
+Prefetch, relax, termination, record-load/mix, and clock boundaries do not exist
+yet and remain later generated-code obligations.
 
 ### 19. Clean-environment build and verification
 

@@ -151,16 +151,15 @@ accepted sequence.
 
 ## Generated-code status
 
-GNU objdump on the GCC release probe passed all four adapter operations: no
-call, `lock`, `xchg`, or `mfence` instruction class appeared, and the deliberate
-call-injection mutant was rejected. The operation and disassembly hashes are in
-the build-local `queue_codegen_report.json`. LLVM objdump is not installed in
-the provisioned toolset, so ADR-0016's dual-disassembler gate is
-`BLOCKED_MISSING_TOOL`, not passed. Human review of the GNU bodies confirms
-direct static code, ordinary acquire/release x86-64 loads/stores, bounded
-branches, and no allocation, logging, wait, retry, or dispatch calls. Provision
-the accepted LLVM 22 `llvm-objdump`, rerun `queue-codegen-check`, and review the
-second report before Stage 5 can close.
+GNU Binutils 2.46 and LLVM 22.1.6 objdump on the GCC release probe passed all
+four adapter operations: no call, `lock`, `xchg`, or `mfence` instruction class
+appeared, and both tools rejected the deliberate call-injection mutant. Human
+review of both views confirms direct static code, ordinary acquire/release
+x86-64 loads/stores, bounded forward branches, and no allocation, logging,
+wait, retry, or dispatch calls. The binary, mutant, rule-set, operation, and
+full-disassembly hashes are in the build-local `queue_codegen_report.json` and
+bound into both queue provenance records. ADR-0016's Stage 5
+dual-disassembler gate passes.
 
 ## Residual boundaries
 

@@ -24,6 +24,15 @@
       "scope": "build"
     },
     {
+      "id": "gnu-binutils",
+      "version_rule": ">=2.46.0,<2.47.0",
+      "observed_version": "2.46+r70+g155188ea10a7-1 (objdump reports 2.46.0)",
+      "source": "https://www.gnu.org/software/binutils/",
+      "license": "GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND GFDL-1.3 AND FSFAP",
+      "purpose": "Primary generated-code disassembly and negative-mutant verification",
+      "scope": "build-analysis"
+    },
+    {
       "id": "gcc-libstdcxx",
       "version_rule": ">=16.1.0,<16.2.0",
       "observed_version": "16.1.1+r12+g301eb08fa2c5",
@@ -40,7 +49,7 @@
       "license": "Apache-2.0 WITH LLVM-exception",
       "purpose": "Secondary C++20 compiler, clang-format, clang-tidy, and LLVM tooling",
       "scope": "build-analysis",
-      "availability_notes": "clang, clang-format, and clang-tidy are provisioned; ADR-0016-required llvm-objdump is not provisioned and blocks Stage 5 closure"
+      "availability_notes": "clang, clang-format, clang-tidy, and ADR-0016-required llvm-objdump are provisioned"
     },
     {
       "id": "libcxx-libcxxabi",

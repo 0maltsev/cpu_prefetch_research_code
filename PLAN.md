@@ -63,14 +63,14 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Zero unresolved correctness/sanitizer findings; fixed-arena full refinement accepted; required atomics lock-free; no fallback allocation or silent source deviation.
 - **Explicitly excluded:** Prefetch-effect measurement, arrivals, timing, pilot.
 - **Rollback or failure behavior:** Retain failing artifact/test record; fix or supersede implementation under same proven semantics. A semantic change requires amendment.
-- **Status:** `IMPLEMENTED_BLOCKED_GENERATED_CODE_TOOL`. ADR-0024, two
+- **Status:** `COMPLETE`. ADR-0024, two
   source-hashed independent provenance records, direct adapters, exact
   release/acquire mappings, fixed-arena refinement, lock-free/layout probes,
   FIFO/model/phase-suspension/property/stress tests, and the dual-toolchain
-  sanitizer matrix are implemented. GNU objdump passes four release operation
-  bodies and rejects the call mutant. The provisioned environment lacks the
-  ADR-0016-required LLVM 22 `llvm-objdump`, so the dual-disassembler gate is
-  not passed and Phase 5 cannot close. No queue performance was observed.
+  sanitizer matrix pass. GNU Binutils 2.46 and LLVM 22.1.6 objdump pass four
+  release operation bodies and both reject the call mutant; both views were
+  reviewed and their hashes are bound into queue provenance. No queue
+  performance was observed.
 
 ## Phase 6 — Record and working-set construction
 
@@ -81,9 +81,9 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Both packages use identical event arena/order; linked gates are reproducible; no measured-path allocation/permutation; exact footprint method is documented.
 - **Explicitly excluded:** Platform capacity selection from uncollected evidence, performance claims, Stage C mutable records.
 - **Rollback or failure behavior:** Pre-freeze seed failure advances only under the frozen treatment-blind stream; post-freeze mismatch invalidates affected run. Never reseed from treatment outcome.
-- **Status:** `PENDING_BLOCKED_BY_PHASE_5`; do not start until the accepted
-  LLVM disassembler is provisioned and `queue-codegen-check` passes/review is
-  recorded.
+- **Status:** `PENDING`; Phase 5 is complete, so this is the exact next safe
+  implementation phase. Do not expand it into schedule generation, timing, or
+  measurement.
 
 ## Phase 7 — Schedule generation
 

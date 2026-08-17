@@ -6,7 +6,7 @@
 - Decision owners: Queue owner; correctness owner; provenance owner
 - Protocol version: `2.0.0-pre.1`
 - Supersedes: None
-- Lifecycle gate: Stage 5 implementation; dual-disassembler evidence remains a closure blocker
+- Lifecycle gate: Stage 5 implementation; passed
 
 ## Context and scientific constraints
 
@@ -57,8 +57,8 @@ linearization boundaries are recorded in `docs/QUEUE_CORRECTNESS.md`.
 - ADR-0003, ADR-0012 through ADR-0014, ADR-0016, ADR-0017, and ADR-0021.
 - Independent queue provenance records and Stage 5 unit/property/refinement,
   phase-suspension, stress, layout, and sanitizer results.
-- GNU generated-code report and negative mutant; LLVM objdump remains
-  unavailable and therefore blocks closure rather than changing the policy.
+- GNU Binutils 2.46 and LLVM 22.1.6 generated-code reports, reviewed operation
+  bodies, bound hashes, and independently detected negative mutant.
 
 ## Consequences and compatibility
 
@@ -75,8 +75,9 @@ Both compiler/library families must pass FIFO/model, capacity, wrap, repeated
 reuse, rollover-assumption, phase suspension, one-attempt, fault-detection,
 ownership, concurrent stress, ASan/UBSan, and TSan checks. Every required atomic
 must pass compile-time and runtime lock-free checks. ADR-0016 requires GNU and
-LLVM disassembly plus a detected negative mutant; Stage 5 remains incomplete
-until both tools pass and the report is reviewed.
+LLVM disassembly plus a detected negative mutant; both Stage 5 tool views pass
+and were reviewed. Changed source, flags, toolchain, or release boundaries must
+regenerate and requalify the evidence.
 
 ## Rollback or supersession
 

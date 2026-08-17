@@ -39,10 +39,10 @@ engineering decision.
 
 ADR-0024 accepts the exact independent queue representation, memory-order,
 layout-input, claim, and refinement boundary as D-032. Development-host
-unit/property/stress and sanitizer evidence passes. Phase 5 nevertheless
-remains open because the provisioned toolset lacks ADR-0016's accepted LLVM 22
-`llvm-objdump`; GNU evidence alone is retained as partial, not accepted as a
-substitute.
+unit/property/stress and sanitizer evidence passes. GNU Binutils 2.46 and LLVM
+22.1.6 generated-code checks, mutants, and human review pass, so Phase 5 is
+complete. Eligible-stand runtime layout/lock-free qualification remains later
+platform evidence rather than a Phase 6 blocker.
 
 ## Pre-pilot decisions that may remain open after Stage 2
 
@@ -62,16 +62,15 @@ These choices must be treatment-blind. Clock, schedule, mixing, storage, and pla
 ## Confirmatory and submission gates
 
 The protocol-defined open values listed at the end of
-`docs/IMPLEMENTATION_DECISIONS.md` remain later work. They do not block Stage 5
-queue-only correctness work where that phase can remain independent of them,
-and must not be fabricated. Submission identities, venue rules, accessibility,
-archive, and publication license remain submission-only.
+`docs/IMPLEMENTATION_DECISIONS.md` remain later work. They do not invalidate the
+completed Stage 5 queue-only correctness evidence and must not be fabricated.
+Submission identities, venue rules, accessibility, archive, and publication
+license remain submission-only.
 
 ## Supersession rule
 
 Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
-versioned protocol amendment. The exact next safe activity is to provision the
-accepted LLVM 22 `llvm-objdump`, rerun and review `queue-codegen-check`, and
-close Stage 5. Phase 6 must not start while that accepted gate is missing.
+versioned protocol amendment. Stage 5 is complete; the exact next safe activity
+is Phase 6 record and working-set construction within its frozen scope.

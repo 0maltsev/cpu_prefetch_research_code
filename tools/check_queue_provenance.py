@@ -148,6 +148,27 @@ def check_record(path: pathlib.Path) -> str:
             fail(f"{path.name}: GNU evidence missing from passing codegen record")
         if generated.get("llvm_objdump") != "PASS_WITH_NEGATIVE_MUTANT":
             fail(f"{path.name}: LLVM evidence missing from passing codegen record")
+        if generated.get("human_review") != "GNU_AND_LLVM_OPERATION_BODIES_REVIEWED":
+            fail(f"{path.name}: dual-disassembler human review is not recorded")
+        evidence = require_object(
+            generated.get("evidence"), "generated_code_review.evidence"
+        )
+        for field in (
+            "release_probe_sha256",
+            "negative_mutant_sha256",
+            "rule_set_sha256",
+            "gnu_try_enqueue_body_sha256",
+            "gnu_try_dequeue_body_sha256",
+            "llvm_try_enqueue_body_sha256",
+            "llvm_try_dequeue_body_sha256",
+            "gnu_full_disassembly_sha256",
+            "llvm_full_disassembly_sha256",
+        ):
+            value = require_nonempty(evidence.get(field), f"codegen.evidence.{field}")
+            if SHA256.fullmatch(value) is None:
+                fail(f"{path.name}: malformed generated-code SHA-256 for {field}")
+        for field in ("gnu_objdump_version", "llvm_objdump_version"):
+            require_nonempty(evidence.get(field), f"codegen.evidence.{field}")
     elif status == "BLOCKED_MISSING_LLVM_OBJDUMP":
         if generated.get("llvm_objdump") != "UNAVAILABLE":
             fail(f"{path.name}: blocked codegen state is inconsistent")

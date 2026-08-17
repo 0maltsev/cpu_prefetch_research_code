@@ -2,9 +2,9 @@
 
 Protocol snapshot: **`2.0.0-pre.1`**
 
-Repository state: **`STAGE_5_QUEUE_IMPLEMENTED_BLOCKED_GENERATED_CODE_TOOL`**
+Repository state: **`STAGE_5_COMPLETE`**
 
-Readiness verdict: **`NOT_READY_FOR_STAGE_6_OR_MEASUREMENT`**
+Readiness verdict: **`READY_FOR_STAGE_6_NOT_MEASUREMENT`**
 
 ## Readiness by area
 
@@ -14,7 +14,7 @@ Readiness verdict: **`NOT_READY_FOR_STAGE_6_OR_MEASUREMENT`**
 | Stage 2 implementation-decision freeze | `COMPLETE` | ADR-0001 through ADR-0021 are accepted. Q4 selected no license grant; scientific/platform selections remain open only at their recorded later gates. |
 | Stage 3 build/CI foundation | `COMPLETE_LOCAL` | ADR-0022, constrained offline inputs, dual compiler/library presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations remain passing. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023, typed C++20 records for all seven schema families, strict loading, immutable configuration, record-local semantic rules, exact `JCS-I64-v1`, and explicit cross-record interfaces are implemented and pass the recorded matrix. |
-| Queue implementation | `IMPLEMENTED_LOCAL_BLOCKED_CODEGEN` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU release disassembly/mutant passes; accepted LLVM 22 `llvm-objdump` is unavailable, so the mandatory dual-disassembler gate fails closed. |
+| Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
 | Measurement system | `NOT_STARTED_BLOCKED_LATER_DECISIONS` | No clock, generated schedule, queue-driven timed loop, raw physical codec, controller, or platform mutation exists. Their scientific/platform selections remain unresolved at their assigned gates. |
 | Pre-pilot validation | `NOT_STARTED` | Requires Stages 5–15 and fresh eligible-platform/custody evidence. |
 | Pilot | `PROHIBITED` | Stage 16 and explicit pilot authorization are absent; this one-NUMA-node development host is ineligible for near/far evidence. |
@@ -81,8 +81,8 @@ measurement loop, platform control, event mixer, or empirical output exists.
 | Protocol/import integrity | `PASS`: 18 artifacts, 4 authoritative hashes, 7 schemas |
 | Documentation links, dependency/license inventory, and CI policy | `PASS` |
 | Queue provenance/source/license check | `PASS`: two independent no-source-reuse records |
-| GNU queue generated-code rules and negative mutant | `PASS`: four operations; partial report retained |
-| LLVM queue generated-code rules | `BLOCKED`: accepted `llvm-objdump` unavailable |
+| GNU queue generated-code rules and negative mutant | `PASS`: Binutils 2.46; four operations and mutant reviewed |
+| LLVM queue generated-code rules and negative mutant | `PASS`: LLVM 22.1.6; four operations and mutant reviewed |
 | GCC Release build/tests, unsafe-flag check, and package generation | `PASS`; 40 tests, compile-command policy pass |
 
 LeakSanitizer remains explicitly disabled in ASan presets because it cannot run
@@ -108,17 +108,17 @@ record is not claimed to satisfy either later gate.
 ## License and dependency state
 
 ADR-0021 records no repository license grant. There is no `LICENSE` file. The
-package carries `docs/NO_LICENSE_GRANT.md`; all 17 third-party build/test inputs
+package carries `docs/NO_LICENSE_GRANT.md`; all 18 third-party build/test inputs
 retain their separately recorded sources, version rules, hashes where
-applicable, licenses, purposes, and scopes. Stage 5 added no dependency and no
-third-party queue source. The current FastFlow project is recorded only as an
-official-project search result; exact 2010 artifact/license mapping remains
-unresolved and no implementation text was used.
+applicable, licenses, purposes, and scopes. Stage 5 closure records GNU Binutils
+as the already-required primary disassembly tool; it added no queue runtime
+dependency and no third-party queue source. The current FastFlow project is
+recorded only as an official-project search result; exact 2010 artifact/license
+mapping remains unresolved and no implementation text was used.
 
 ## Immediate gate
 
-The exact next safe activity is **Stage 5 closure only**: provision the accepted
-LLVM 22 `llvm-objdump`, rerun strict `queue-codegen-check`, inspect the second
-disassembly/report, and update both provenance records from blocked to passing.
-Do not begin Stage 6, schedule generation, timing, measurement, pilot activity,
-or confirmatory execution while this blocker remains.
+Stage 5 is complete. The exact next safe activity is **Stage 6, record and
+working-set construction**, within its frozen scope. Schedule generation,
+timing, measurement, pilot activity, and confirmatory execution remain blocked
+by their later lifecycle gates.

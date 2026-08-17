@@ -44,18 +44,28 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Every imported schema has conformance coverage; semantic-invalid/schema-valid cases reject; validators never repair data; rule failures identify requirement IDs.
 - **Explicitly excluded:** Queue operations, platform mutation, raw physical codec, experiment execution.
 - **Rollback or failure behavior:** Preserve rejected fixtures and rule evidence; a schema/spec conflict stops implementation and requests amendment.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE`. ADR-0023 records the no-new-dependency typed-model
+  boundary. All seven imported schemas have Draft 2020-12 positive/negative
+  coverage; C++ types/loaders cover every stable Stage A record family;
+  record-local semantic rules, immutable configuration, exact-rate handling,
+  stable error paths/categories, `JCS-I64-v1` cross-language fixtures,
+  round-trip tests, and sanitizer/static checks pass. Store-dependent
+  cross-record checks remain explicitly assigned to Phases 12/14. D-031 leaves
+  simultaneous-blocker reason precedence open for Phase 12; neither item blocks
+  Phase 5 queue correctness work.
 
 ## Phase 5 — Queue provenance and correctness
 
 - **Objective:** Independently implement the exact ring and linked-plus-recycler packages behind the accepted non-distorting binding and prove their stated semantics.
-- **Inputs and prerequisite decisions:** Phase 4; ADR-0013 independent provenance/mode; repository license; exact atomic width/alignment/memory-order/layout decisions under ADR-0014.
+- **Inputs and prerequisite decisions:** Phase 4; ADR-0013 independent provenance/mode; ADR-0021 no-license posture; exact atomic width/alignment/memory-order/layout decisions under ADR-0014.
 - **Files/components:** Queue package sources, static adapters, provenance/refinement records, abstract FIFO/reference tests; no workload driver.
 - **Tests:** FIFO/boundary/wrap/reuse; linearization/refinement histories; delayed-worker progress; node ownership/recycler stress; lock-free atomic evidence; ASan/UBSan/TSan where compatible; generated queue-boundary inspection.
 - **Acceptance criteria:** Zero unresolved correctness/sanitizer findings; fixed-arena full refinement accepted; required atomics lock-free; no fallback allocation or silent source deviation.
 - **Explicitly excluded:** Prefetch-effect measurement, arrivals, timing, pilot.
 - **Rollback or failure behavior:** Retain failing artifact/test record; fix or supersede implementation under same proven semantics. A semantic change requires amendment.
-- **Status:** `PENDING`.
+- **Status:** `PENDING`; this is the exact next safe phase. It may implement
+  queue correctness/provenance only, not arrivals, timing, measurement, pilot,
+  or empirical behavior.
 
 ## Phase 6 — Record and working-set construction
 
@@ -126,7 +136,7 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 ## Phase 12 — Reconciliation and validity gates
 
 - **Objective:** Join private streams, derive exact intervals, classify statuses independently, and enforce manifest completeness.
-- **Inputs and prerequisite decisions:** Phases 4, 10, 11; frozen logical contracts and integrity algorithms.
+- **Inputs and prerequisite decisions:** Phases 4, 10, 11; frozen logical contracts and integrity algorithms; D-031 simultaneous-blocker representation/precedence.
 - **Files/components:** Join audit, accepted-sequence reconciler, joined-derived codec, status/gate evaluator, complete manifest assembler.
 - **Tests:** Count/pointer/index/identity/ordinal/loss/duplicate/reorder/timestamp/equation fault injection; failed-audit no-join; valid `FULL`; valid low `N_eff`; missing-artifact negatives.
 - **Acceptance criteria:** Latency exists only after passed audit; all equations exact; validity/zero-loss/effective-tail/block statuses remain independent; complete valid Stage A obligations enforced.

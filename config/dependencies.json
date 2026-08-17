@@ -87,7 +87,7 @@
       "observed_version": "3.14.5",
       "source": "https://www.python.org/",
       "license": "PSF-2.0",
-      "purpose": "Repository verification scripts",
+      "purpose": "Repository verification scripts and independent canonical fixture checker",
       "scope": "build-test"
     },
     {
@@ -117,7 +117,7 @@
       "observed_version": "4.26.0",
       "source": "https://github.com/python-jsonschema/jsonschema/releases/tag/v4.26.0",
       "license": "MIT",
-      "purpose": "Draft 2020-12 schema meta-validation",
+      "purpose": "Draft 2020-12 meta-validation and imported-schema fixture validation",
       "scope": "test",
       "staged_artifact_sha256": "f41f47d9916ba1afdcb46dfe0788f8dd1b463230537b149927ff223d0c113af2"
     },

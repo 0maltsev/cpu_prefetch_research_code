@@ -2,7 +2,14 @@
 
 ## Purpose
 
-This is the verification plan for a future Stage A implementation. Stage 3 now provides only the smoke-level test/build foundation; no queue or measurement production code exists. ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 fix the framework/toolchain/sanitizer baseline and documented commands. Tests establish software correctness, protocol conformance, reproducibility, and access integrity. Synthetic and development-machine tests do **not** establish queue performance, a prefetch benefit, a platform population effect, or any empirical paper claim.
+This is the verification plan for a future Stage A implementation. Stage 4 now
+provides the typed protocol/configuration model and validation layer; no queue
+or measurement production code exists. ADR-0009 through ADR-0011, ADR-0017,
+ADR-0022, and ADR-0023 fix the framework/toolchain/sanitizer/model baseline and
+documented commands. Tests establish software correctness, protocol
+conformance, reproducibility, and access integrity. Synthetic and
+development-machine tests do **not** establish queue performance, a prefetch
+benefit, a platform population effect, or any empirical paper claim.
 
 Every behavior change must add or update targeted tests and rerun the relevant sanitizer/static/generated-code gates. A failed required gate blocks pilot; rerunning until a favorable performance result is never a testing strategy.
 
@@ -41,6 +48,14 @@ Use a real Draft 2020-12 validator selected and pinned in Phase 3. For each of t
 
 JSON parsing alone is not schema validation.
 
+Stage 4 status: implemented by `tools/check_protocol_fixtures.py` with pinned
+jsonschema 4.26.x and a Draft 2020-12 format checker. All seven imported schemas
+are meta-validated and covered by 17 positive and 15 negative fixture cases,
+including every freeze record kind, both block lineages, honest partial
+failures, valid `FULL`/low-`N_eff`, accepted/`FULL` rows, exact H3 contexts,
+unseal hashes, empty affected blocks, versions, enums, hashes, IDs, units, and
+conditional combinations.
+
 ### 3. Semantic-validator tests
 
 Schema-valid but semantically invalid fixtures must be rejected for:
@@ -56,6 +71,14 @@ Schema-valid but semantically invalid fixtures must be rejected for:
 - storage decode count and logical-row conformance.
 
 Test each rule with one clear failing reason and an independently derived expected outcome.
+
+Stage 4 status: record-local rules are implemented with stable category, path,
+and rule IDs. Store-dependent reference/hash, cross-stream reconciliation,
+append-only ancestry, authority segregation, and budget proofs remain assigned
+to Phases 12/14 through the `CrossRecordSemanticValidator` interface; they are
+not reported as passing. Simultaneous failed gates accept either applicable
+singular blocker reason and reject `ESTIMABLE`; D-031 blocks Phase 12 from
+freezing a precedence that the imported protocol does not state.
 
 ### 4. Unit tests
 
@@ -123,6 +146,12 @@ Golden vectors bind RNG version, master/derived seed IDs, namespace, exact ratio
 - Known-answer tests for consumer mixing, rolling checksum, content checksum, index checksum, delta checksum, canonical serialization, and artifact SHA-256.
 - Flip, truncate, duplicate, reorder, or replace rows/bytes and require the correct schema, semantic, join, or integrity failure.
 - Verify pre/post record-content equality and generated code containing expected loads/private update with no record write.
+
+Stage 4 canonicalization status: shared C++/Python `JCS-I64-v1` fixtures cover
+signed/unsigned limits, `2^53` boundaries, RFC 8785 binary64 examples, UTF-16
+ordering, escaping, Unicode, and negative zero. RapidCheck exercises generated
+`uint64_t` exact serialization. Mixing/rolling/data checksum algorithms remain
+unresolved and no placeholder primitive is implemented.
 
 ### 12. Reconciliation fault injection
 

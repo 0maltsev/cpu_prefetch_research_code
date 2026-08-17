@@ -6,8 +6,8 @@ Protocol version: **`2.0.0-pre.1`**. This document preserves the imported logica
 
 | Phase | Inputs | Work | Append-only outputs | Timed? |
 |---|---|---|---|---|
-| Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON parse, and Draft 2020-12 meta-schema checks | Readiness evidence in repository status | No |
-| Experiment preparation | Protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Structural/semantic validation, derivation, schedule/permutations, allocation, first touch, initialization, capacity proof | Prepared-run identity, schedule, provenance, platform request/evidence references | No |
+| Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON parse, Draft 2020-12 meta-schema, positive/negative fixture, and canonical-byte checks | Readiness evidence in repository status | No |
+| Experiment preparation | Protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, record-local semantic validation, then later derivation/allocation/capacity proof | Validated logical records; later prepared-run identity, schedule, provenance, and platform evidence references | No |
 | Platform preparation | Requested state and authorized adapter/operator | Affinity/NUMA/page/frequency/HW-PF actuation, independent readback/probes, rollback readiness | Requested-state and verified-state records, capability/failure evidence | No |
 | Run launch | Closed `PreparedRun` | Barrier/reset/warm-up/start transition | Lifecycle transition(s) | No; boundary reads only as fixed |
 | Measurement horizon | Pre-generated deadlines, fixed arenas, specialized queue, qualified clock | Producer and consumer execute fixed data-plane work | Thread-private producer and consumer observations in preallocated buffers | Yes |
@@ -20,6 +20,13 @@ Protocol version: **`2.0.0-pre.1`**. This document preserves the imported logica
 ## Preparation-to-worker boundary
 
 The controller resolves every dynamic choice before release. The prepared image contains exact addresses and extents, pre-generated deadlines, package specialization, run and algorithm-suite IDs, clock identity, platform evidence references, and fixed buffer capacity. Allocation, schema/config parsing, seed derivation, RNG, permutation, compression, and analysis are absent from the worker call graph.
+
+Stage 4 supplies the pre-worker typed boundary but does not build a prepared
+image. Each input first passes its unmodified imported Draft 2020-12 schema,
+then immutable typed loading, then record-local semantic rules. Stable errors
+carry category/path/rule identity and never repair input. Cross-record
+resolution is accepted only after the Phase 12/14 validators described in
+[`PROTOCOL_MODEL.md`](PROTOCOL_MODEL.md) exist.
 
 The producer and consumer receive disjoint mutable observation buffers. They record their own facts independently and in program order. The repeating record index is a validation field only; it is never an event ID. Accepted observations are reconciled later by run identity and accepted ordinal.
 
@@ -54,7 +61,10 @@ Every physical artifact envelope declares artifact kind, protocol/schema version
 
 The timed writer eventually needs a frozen-size representation, but Stage 2 accepts only the interface. A physical-format ADR before pilot must establish exact row/envelope bytes, endianness, alignment, time unit, codec version, lossless round trip, truncation/trailing-byte behavior, corruption detection, compression timing, durable/temporary copy count, buffer and filesystem capacity, and two independent decoders or equivalent cross-tool evidence.
 
-Raw source objects are immutable once published. Canonical metadata and content identities never depend on filesystem order, locale, floating-point formatting, or implementation-defined serialization. Unknown versions or algorithm identifiers fail closed.
+Raw source objects are immutable once published. Canonical metadata uses the
+tested `JCS-I64-v1` exact-integer profile and never depends on filesystem order,
+locale, or implementation-defined serialization. Unknown versions or algorithm
+identifiers fail closed.
 
 ## Access and analysis boundary
 

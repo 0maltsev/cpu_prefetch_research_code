@@ -1,10 +1,11 @@
 # CPU Prefetch Research Code
 
-This repository is at **Stage 3: build and CI foundation complete** for protocol
-**`2.0.0-pre.1`**. It contains a C++20 foundation library, a build-identity smoke
-executable, verification scripts, and CI configuration. It contains no queue,
-schedule generator, measurement loop, hardware-control implementation, raw-data
-writer, or scientific analysis.
+This repository is at **Stage 4: typed protocol/configuration model complete**
+for protocol **`2.0.0-pre.1`**. It contains the Stage 3 build foundation plus a
+C++20 typed logical model, strict loaders, record-local semantic validation,
+Draft 2020-12 conformance fixtures, and deterministic canonical serialization.
+It contains no queue, schedule generator, measurement loop, hardware-control
+implementation, raw-data writer, or scientific analysis.
 
 The repository owner selected **no license**. See
 [`docs/NO_LICENSE_GRANT.md`](docs/NO_LICENSE_GRANT.md) and ADR-0021. There is no
@@ -71,6 +72,8 @@ Repository checks, after configuring `dev-gcc`:
 cmake --build --preset dev-gcc --target format-check
 cmake --build --preset dev-gcc --target static-analysis
 cmake --build --preset dev-gcc --target protocol-check
+cmake --build --preset dev-gcc --target schema-fixture-check
+cmake --build --preset dev-gcc --target canonical-check
 cmake --build --preset dev-gcc --target document-check
 cmake --build --preset dev-gcc --target dependency-check
 cmake --build --preset dev-gcc --target ci-check
@@ -120,17 +123,24 @@ cmake --build --preset release-gcc --target package
 
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
-accepted. The package contains only the smoke binary/library, headers, protocol
-version record, build metadata, dependency inventory, and no-license notice.
+accepted. The package contains only the smoke binary, foundation and
+typed-protocol libraries, headers, protocol model/version records, build
+metadata, dependency inventory, and no-license notice.
 
 ## Created targets and metadata
 
 - `cpu_prefetch_foundation`: minimal build/version identity library;
+- `cpu_prefetch_protocol`: typed records, exact-value JSON, strict loading, and
+  record-local semantic validation;
 - `cpu_prefetch_smoke`: prints protocol, Git, compiler, and standard-library
   identity;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
-- `cpu_prefetch_rapidcheck_smoke`: fixed-seed property-framework probe;
-- `format-check`, `static-analysis`, `protocol-check`, `document-check`,
+- `cpu_prefetch_protocol_tests`: typed loading, semantic, canonical, lifecycle,
+  block, access, and round-trip contracts;
+- `cpu_prefetch_rapidcheck_smoke`: fixed-seed framework and exact-uint64
+  canonicalization properties;
+- `format-check`, `static-analysis`, `protocol-check`,
+  `schema-fixture-check`, `canonical-check`, `document-check`,
   `dependency-check`, `ci-check`, and `release-policy-check`;
 - CMake `install` and CPack `package` targets.
 
@@ -140,6 +150,22 @@ library, C++ standard, generator, and build type. It intentionally contains no
 timestamp or absolute source/build directory. A package made from an uncommitted
 tree also carries `-dirty` in its filename.
 
+## Protocol model boundary
+
+The unmodified imported schemas are the normative structural contracts. The
+pinned Python validator checks those schemas and fixtures; the C++ loader then
+constructs immutable typed records and applies record-local rules. Errors carry
+stable categories, field paths, and rule IDs. Unknown versions, enum values,
+fields, missing normative values, malformed IDs/hashes/units, duplicate JSON
+keys, and unsupported numeric values fail closed.
+
+Canonical `JCS-I64-v1` serialization preserves signed and unsigned 64-bit
+integers exactly. The full type and deferral inventory is documented in
+[`docs/PROTOCOL_MODEL.md`](docs/PROTOCOL_MODEL.md). Cross-record artifact lookup,
+reconciliation, append-only lineage, and access chronology remain explicit
+Stage 12/14 obligations behind `CrossRecordSemanticValidator`; schema validity
+alone never claims those properties.
+
 ## CI boundary and next stage
 
 [`ci.yml`](.github/workflows/ci.yml) uses only a full-commit-pinned checkout
@@ -148,5 +174,7 @@ commands above and performs no dependency download; runner policy must disable
 dependency-network access after source checkout. Runner availability and
 provisioning are external platform operations.
 
-Stage 4 (logical contracts and validators) is the next safe stage. Queue and
-measurement behavior remain prohibited until their later lifecycle gates.
+Stage 5 (queue provenance and correctness) is the exact next safe stage. It may
+implement independently authored queue semantics and correctness evidence only.
+Schedule generation, timing, measurement, pilot, and confirmatory behavior
+remain prohibited until their later lifecycle gates.

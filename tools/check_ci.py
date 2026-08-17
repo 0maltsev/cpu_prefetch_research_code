@@ -12,6 +12,8 @@ REQUIRED_COMMANDS = (
     "cmake --preset dev-gcc",
     "cmake --build --preset dev-gcc",
     "ctest --preset dev-gcc",
+    "cmake --build --preset dev-gcc --target schema-fixture-check",
+    "cmake --build --preset dev-gcc --target canonical-check",
     "cmake --preset dev-clang-libcxx",
     "cmake --build --preset release-gcc --target package",
 )

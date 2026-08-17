@@ -4,7 +4,11 @@ Protocol version: **`2.0.0-pre.1`**
 
 Stage 2 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_ACCEPTED`**
 
-The repository still contains no production benchmark code. Q1 through Q4 were accepted by the repository owner on 2026-08-17 and are recorded in ADR-0007 through ADR-0021. Exact scientific/platform/pilot facts remain open until their listed phases; they were not replaced by Stage 3 engineering defaults.
+The repository still contains no production benchmark code. Q1 through Q4 were
+accepted by the repository owner on 2026-08-17 and are recorded in ADR-0007
+through ADR-0021. Exact scientific/platform/pilot facts remain open until their
+listed phases; they were not replaced by Stage 3 or Stage 4 engineering
+defaults.
 
 ## Resolved Stage 2 question
 
@@ -23,12 +27,14 @@ The repository owner selected **no license**. ADR-0021 records no license grant,
 | Q3 platform/custody boundary | External authorized control; replaceable Linux request/readback/probe/rollback interface; separate platform and validation principals with technical sealing | ADR-0018 through ADR-0020 | Exact stand/operator/API/register facts Phase 9; custody principals/enforcement by Phase 16/final confirmation |
 | Q4 repository license | No repository license grant; no `LICENSE` file or repository SPDX claim | ADR-0021 | Any later license grant needs owner/legal/compatibility review |
 
-## Stage 3 engineering baseline
+## Stage 3 and Stage 4 engineering baselines
 
 ADR-0022 accepts the constrained compiler/build/test/dependency/CI baseline and
-records it as D-029. It does not approve a scientific algorithm, a target stand,
-or an experiment. Coverage remains unselected because it is not required to
-start Stage 4; adding a coverage gate requires a later engineering decision.
+records it as D-029. ADR-0023 accepts the dependency-free typed-model and
+record-local validation implementation as D-030. Neither approves a scientific
+algorithm, a target stand, or an experiment. Coverage remains unselected because
+it is not required to start Stage 5; adding a coverage gate requires a later
+engineering decision.
 
 ## Pre-pilot decisions that may remain open after Stage 2
 
@@ -41,13 +47,22 @@ start Stage 4; adding a coverage gate requires a later engineering decision.
 | D-008 | Exact termination/control atomic width, complete happens-before/refinement proof, layout and lock-free platform evidence | Queue correctness/platform owners | Phase 5 queue acceptance |
 | D-018 | Exact eligible-stand API mapping, processor-relax instruction, capability/readback/probe/rollback evidence | Platform owner | Select for Phase 9; pass by Phase 16 |
 | D-019 | Named operator/custodian, accounts/keys/storage, negative access, recovery, and audit retention | Security/custody owners | Operational proof by Phase 16; final authority before confirmation |
+| D-031 | Protocol-authorized representation or precedence when two or more validity/zero-loss/effective-tail/completeness/access blockers coexist | Protocol/statistical owners | Resolve before Phase 12 final run-disposition validation |
 
 These choices must be treatment-blind. Clock, schedule, mixing, storage, and platform choices cannot be selected or revised because a performance result is convenient.
 
 ## Confirmatory and submission gates
 
-The protocol-defined open values listed at the end of `docs/IMPLEMENTATION_DECISIONS.md` remain later work. They do not block Stage 4 where Phase 4 can remain independent of them, and must not be fabricated. Submission identities, venue rules, accessibility, archive, and publication license remain submission-only.
+The protocol-defined open values listed at the end of
+`docs/IMPLEMENTATION_DECISIONS.md` remain later work. They do not block Stage 5
+queue-only correctness work where that phase can remain independent of them,
+and must not be fabricated. Submission identities, venue rules, accessibility,
+archive, and publication license remain submission-only.
 
 ## Supersession rule
 
-Accepted bundles can change only through new ADRs and full compatibility/requalification evidence. Any replacement that changes protocol-fixed scientific behavior stops the affected work and requires a versioned protocol amendment. The exact next safe activity is **Stage 4 logical contracts and validators**.
+Accepted bundles can change only through new ADRs and full
+compatibility/requalification evidence. Any replacement that changes
+protocol-fixed scientific behavior stops the affected work and requires a
+versioned protocol amendment. The exact next safe activity is **Stage 5 queue
+provenance and correctness**.

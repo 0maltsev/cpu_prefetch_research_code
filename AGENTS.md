@@ -25,7 +25,7 @@
 - Tests: `ctest --preset dev-gcc`
 - Sanitizers: configure/build/test `asan-ubsan-gcc`, `tsan-gcc`, `asan-ubsan-clang-libcxx`, or `tsan-clang-libcxx`; ASan presets explicitly disable LeakSanitizer under the managed ptrace boundary.
 - Lint/format: `cmake --build --preset dev-gcc --target format-check static-analysis`
-- Schema validation: `cmake --build --preset dev-gcc --target protocol-check`
+- Schema validation: `cmake --build --preset dev-gcc --target protocol-check schema-fixture-check canonical-check`
 - Clean-room verification: use a recorded pre-provisioned dependency prefix, then run the documented configure/build/test/check/package commands in `README.md`; configure and build perform no network fetch.
 
 Replace a placeholder only through a recorded engineering decision and keep `README.md`, `STATUS.md`, and `PLAN.md` synchronized.

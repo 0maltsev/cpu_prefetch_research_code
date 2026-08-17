@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 4.3)
 project(
   cpu_prefetch_foundation
   VERSION 2.0.0
-  DESCRIPTION "Build foundation for the CPU prefetch research protocol"
+  DESCRIPTION "Typed protocol foundation for the CPU prefetch research protocol"
   LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -52,6 +52,21 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/generated/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+add_library(
+  cpu_prefetch_protocol STATIC
+  src/protocol/json.cpp
+  src/protocol/load.cpp
+  src/protocol/model.cpp
+  src/protocol/semantic.cpp
+  src/protocol/validation.cpp)
+add_library(cpu_prefetch::protocol ALIAS cpu_prefetch_protocol)
+target_link_libraries(cpu_prefetch_protocol PRIVATE cpu_prefetch_project_options)
+target_include_directories(
+  cpu_prefetch_protocol
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
 add_executable(cpu_prefetch_smoke tools/smoke_main.cpp)
 target_link_libraries(
   cpu_prefetch_smoke PRIVATE cpu_prefetch::foundation cpu_prefetch_project_options)
@@ -66,6 +81,23 @@ if(BUILD_TESTING)
     PRIVATE cpu_prefetch::foundation cpu_prefetch_project_options GTest::gtest_main)
   gtest_discover_tests(cpu_prefetch_foundation_tests PREFIX "unit.")
 
+  add_executable(cpu_prefetch_protocol_tests tests/protocol_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_protocol_tests
+    PRIVATE cpu_prefetch::protocol cpu_prefetch_project_options GTest::gtest_main)
+  target_compile_definitions(
+    cpu_prefetch_protocol_tests
+    PRIVATE CPU_PREFETCH_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
+  gtest_discover_tests(cpu_prefetch_protocol_tests PREFIX "protocol.")
+
+  add_test(
+    NAME schema.protocol_fixtures
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_protocol_fixtures.py")
+  add_test(
+    NAME canonical.cross_language_fixtures
+    COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_canonical.py")
+
   add_test(NAME smoke.executable COMMAND cpu_prefetch_smoke)
   set_tests_properties(
     smoke.executable
@@ -76,7 +108,7 @@ if(BUILD_TESTING)
     add_executable(cpu_prefetch_rapidcheck_smoke tests/rapidcheck_smoke.cpp)
     target_link_libraries(
       cpu_prefetch_rapidcheck_smoke
-      PRIVATE cpu_prefetch_project_options RapidCheck::rapidcheck)
+      PRIVATE cpu_prefetch::protocol cpu_prefetch_project_options RapidCheck::rapidcheck)
     add_test(NAME property.framework_smoke COMMAND cpu_prefetch_rapidcheck_smoke)
     set_tests_properties(
       property.framework_smoke
@@ -91,8 +123,17 @@ cpu_prefetch_enforce_tool_versions()
 set(
   CPU_PREFETCH_FORMAT_FILES
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/json.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/model.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/validation.hpp"
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/semantic.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/validation.cpp"
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
 
@@ -108,7 +149,13 @@ add_custom_target(
 set(
   CPU_PREFETCH_ANALYSIS_FILES
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/semantic.cpp"
+  "${PROJECT_SOURCE_DIR}/src/protocol/validation.cpp"
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
 add_custom_target(
@@ -126,6 +173,17 @@ add_custom_target(
   COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_protocol.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking imported protocol integrity and schemas")
+add_custom_target(
+  schema-fixture-check
+  COMMAND "${Python3_EXECUTABLE}"
+          "${PROJECT_SOURCE_DIR}/tools/check_protocol_fixtures.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking positive and negative protocol schema fixtures")
+add_custom_target(
+  canonical-check
+  COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_canonical.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking shared JCS-I64-v1 cross-language fixtures")
 add_custom_target(
   document-check
   COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_docs.py"
@@ -151,7 +209,7 @@ add_custom_target(
   COMMENT "Rejecting unsafe or host-native release flags")
 
 install(
-  TARGETS cpu_prefetch_foundation cpu_prefetch_smoke
+  TARGETS cpu_prefetch_foundation cpu_prefetch_protocol cpu_prefetch_smoke
   ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 install(DIRECTORY include/ DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
@@ -164,6 +222,7 @@ install(
     "${PROJECT_BINARY_DIR}/generated/version_metadata.json"
     "${PROJECT_SOURCE_DIR}/protocol/2.0.0-pre.1/handoff/PROTOCOL_VERSION.md"
     "${PROJECT_SOURCE_DIR}/config/dependencies.json"
+    "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/NO_LICENSE_GRANT.md"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation")
 
@@ -172,6 +231,6 @@ set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-scientific Stage 3 stand foundation")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 4 typed protocol foundation")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)

@@ -2,15 +2,15 @@
 
 ## Purpose
 
-This is the verification plan for a future Stage A implementation. No test harness or production code exists yet. The named framework/toolchain matrix below is `PROPOSED`, not executable, until the owner accepts D-001 through D-005 and D-017. Tests establish software correctness, protocol conformance, reproducibility, and access integrity. Synthetic and development-machine tests do **not** establish queue performance, a prefetch benefit, a platform population effect, or any empirical paper claim.
+This is the verification plan for a future Stage A implementation. No test harness or production code exists yet. ADR-0009 through ADR-0011 and ADR-0017 accept the named framework/toolchain/sanitizer matrix; Stage 3 must still pin versions and prove compatibility before commands become available. Tests establish software correctness, protocol conformance, reproducibility, and access integrity. Synthetic and development-machine tests do **not** establish queue performance, a prefetch benefit, a platform population effect, or any empirical paper claim.
 
 Every behavior change must add or update targeted tests and rerun the relevant sanitizer/static/generated-code gates. A failed required gate blocks pilot; rerunning until a favorable performance result is never a testing strategy.
 
 ## Verification layers
 
-### Proposed execution matrix
+### Accepted execution matrix
 
-| Evidence class | Proposed mechanism | Acceptance boundary |
+| Evidence class | Accepted mechanism | Acceptance boundary |
 |---|---|---|
 | Unit | GoogleTest under CTest | All supported compiler/library debug and release matrices |
 | Property | RapidCheck under CTest after a current-toolchain compatibility probe | Recorded generator version/seed; shrink result becomes regression fixture |
@@ -21,7 +21,7 @@ Every behavior change must add or update targeted tests and rerun the relevant s
 | Generated code | GNU objdump and llvm-objdump plus machine rules and human review | Every release package specialization; negative mutants caught |
 | Scientific harness timing | Repository-owned harness | Google Benchmark or another framework control loop is forbidden |
 
-Framework names are recommendations awaiting acceptance. The behavioral test obligations remain required even if different tools are selected.
+Framework changes require a superseding ADR and equivalent behavioral evidence.
 
 ### 1. Import and compatibility
 
@@ -157,7 +157,7 @@ For each package/build, inspect and hash the generated boundaries for queue publ
 
 ### 19. Clean-environment build and verification
 
-From a documented clean environment with network access disabled, recreate dependencies, build artifacts, fixtures, validator outputs, and generated-code reports solely from tracked inputs and recorded versions. Compare source/build/protocol/dependency hashes and licenses and run the complete non-performance test suite. The exact command remains a placeholder until Stage 3 tooling is accepted.
+From a documented clean environment with network access disabled, recreate dependencies, build artifacts, fixtures, validator outputs, and generated-code reports solely from tracked inputs and recorded versions. Compare source/build/protocol/dependency hashes and licenses and run the complete non-performance test suite. The exact command remains a placeholder until Stage 3 implements and verifies the accepted tooling.
 
 ### 20. Synthetic end-to-end dry run
 

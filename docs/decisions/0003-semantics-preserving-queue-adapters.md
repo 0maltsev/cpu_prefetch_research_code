@@ -33,11 +33,11 @@ Scientific effect: preserves treatment identity and timestamp meaning. Compatibi
 
 ## Verification and acceptance tests
 
-Model/refinement tests, boundary timestamp tests, full/recycler-exhaustion tests, generated-code checks, and negative fixtures for semantic normalization are required before queue acceptance. The later binding ADR supplies any dispatch-specific checks.
+Model/refinement tests, boundary timestamp tests, full/recycler-exhaustion tests, generated-code checks, and negative fixtures for semantic normalization are required before queue acceptance. ADR-0012 supplies binding-specific checks.
 
 ## Rollback or supersession
 
-A later ADR may select and refine the binding mechanism. Any normalization of protocol-fixed queue behavior requires a protocol amendment.
+ADR-0012 selects the binding mechanism; a later superseding ADR may refine it. Any normalization of protocol-fixed queue behavior requires a protocol amendment.
 
 ## Protocol-amendment assessment
 

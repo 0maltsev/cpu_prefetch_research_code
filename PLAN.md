@@ -17,12 +17,12 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 
 - **Objective:** Resolve the smallest engineering decisions needed to finalize production architecture without selecting pilot outputs.
 - **Inputs and prerequisite decisions:** Phase 1; queue provenance/license investigation; candidate language/atomic feasibility; storage/validator/sealing/platform capability evidence.
-- **Files/components:** Six accepted boundary ADRs plus proposed ADR inputs for queue provenance/mode, language/standard/atomic envelope, identity/SHA/canonical-record dependencies, sealing boundary, and credible target-platform control interface; updated architecture, flow, status, risks, tests, traceability, and decision questions.
+- **Files/components:** ADR-0001 through ADR-0020 for accepted architecture, software, queue/process/atomic/integrity/correctness, and platform/custody boundaries; updated architecture, flow, status, risks, tests, traceability, and decision register; repository license ADR/file still required.
 - **Tests:** License/provenance review; architectural scenario tests for early failure, immutable raw correction, sealing, and unavailable platform control; atomic/sanitizer/tool support matrix.
 - **Acceptance criteria:** Every pre-architecture row in `docs/IMPLEMENTATION_DECISIONS.md` has an accepted evidence-backed ADR; no scientific behavior changed; contradictions have amendments, not workarounds.
 - **Explicitly excluded:** Production source, concrete physical raw encoding, platform numerical values, pilot/confirmatory decisions.
 - **Rollback or failure behavior:** Reject or supersede an unsupported ADR before code depends on it. If no eligible artifact/platform architecture exists, record `BLOCKED_BEFORE_IMPLEMENTATION` and stop.
-- **Status:** `BLOCKED_PENDING_EXPLICIT_ACCEPTANCE`. ADR-0001 through ADR-0006 accept the user-mandated plane, logical/physical, queue-adapter, compatibility, append-only failure, and validation boundaries. Q1-Q3 in `docs/DECISIONS_REQUIRED.md` still block the production-architecture freeze. The exact next safe activity is Phase 2 decision review/acceptance, not Phase 3.
+- **Status:** `BLOCKED_LICENSE_IDENTIFIER_PENDING`. Q1-Q3 are explicitly accepted and recorded in ADR-0007 through ADR-0020. D-028, the owner-supplied repository SPDX license identifier (or explicit private/no-distribution record), is the sole remaining acceptance item. The exact next safe activity is Phase 2 license selection, not Phase 3.
 
 ## Phase 3 — Build and CI foundation
 
@@ -33,7 +33,7 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Documented commands work from a clean environment; versions and hashes are captured; failures are nonzero and artifacts retained; no platform-specific constant is embedded.
 - **Explicitly excluded:** Queue and measurement implementations, performance tests, pilot.
 - **Rollback or failure behavior:** Keep previous accepted tool record; supersede build ADR/tool versions rather than silently drifting; block Phase 4 if clean reproduction fails.
-- **Status:** `PENDING_BLOCKED`, blocked by unresolved Phase 2 Q1-Q3 and their accepted ADRs.
+- **Status:** `PENDING_BLOCKED_D028`, blocked only by the unresolved repository source-license record; after it is accepted, Phase 3 is the exact next implementation phase and still excludes benchmark behavior.
 
 ## Phase 4 — Protocol/configuration model
 
@@ -48,8 +48,8 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 
 ## Phase 5 — Queue provenance and correctness
 
-- **Objective:** Implement or adapt the exact ring and linked-plus-recycler packages behind a non-distorting static seam and prove their stated semantics.
-- **Inputs and prerequisite decisions:** Phase 4; immutable queue provenance/licenses/modes; atomic width/alignment/memory-order/layout decisions.
+- **Objective:** Independently implement the exact ring and linked-plus-recycler packages behind the accepted non-distorting binding and prove their stated semantics.
+- **Inputs and prerequisite decisions:** Phase 4; ADR-0013 independent provenance/mode; repository license; exact atomic width/alignment/memory-order/layout decisions under ADR-0014.
 - **Files/components:** Queue package sources, static adapters, provenance/refinement records, abstract FIFO/reference tests; no workload driver.
 - **Tests:** FIFO/boundary/wrap/reuse; linearization/refinement histories; delayed-worker progress; node ownership/recycler stress; lock-free atomic evidence; ASan/UBSan/TSan where compatible; generated queue-boundary inspection.
 - **Acceptance criteria:** Zero unresolved correctness/sanitizer findings; fixed-arena full refinement accepted; required atomics lock-free; no fallback allocation or silent source deviation.

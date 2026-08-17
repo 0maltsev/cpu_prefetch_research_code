@@ -21,10 +21,10 @@
 
 ## Command status
 
-- Build: `[UNAVAILABLE: language and build system not selected]`
-- Tests: `[UNAVAILABLE: test framework not selected]`
-- Sanitizers: `[UNAVAILABLE: language, compiler, and sanitizer matrix not selected]`
-- Lint/format: `[UNAVAILABLE: language and tooling not selected]`
+- Build: `[UNAVAILABLE: C++20/CMake/Ninja accepted; repository license and Stage 3 build foundation not implemented]`
+- Tests: `[UNAVAILABLE: GoogleTest/RapidCheck/CTest accepted; Stage 3 integration not implemented or probed]`
+- Sanitizers: `[UNAVAILABLE: GCC/Clang ASan/UBSan/TSan policy accepted; Stage 3 configurations/capability probes not implemented]`
+- Lint/format: `[UNAVAILABLE: C++20 accepted; exact Stage 3 lint/format tools not selected or implemented]`
 - Schema validation: `[UNAVAILABLE: Draft 2020-12 validator not selected for the implementation]`
 - Clean-room verification: `[UNAVAILABLE: build/CI foundation not implemented]`
 

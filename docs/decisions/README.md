@@ -42,5 +42,19 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0004](0004-artifact-versioning-and-compatibility.md) | `ACCEPTED` | Version physical formats and reject unknown or incompatible artifacts. |
 | [ADR-0005](0005-append-only-partial-failure-lifecycle.md) | `ACCEPTED` | Make append-only artifacts and partial failures first-class. |
 | [ADR-0006](0006-structural-and-semantic-validation.md) | `ACCEPTED` | Separate Draft 2020-12 structural validation from cross-record semantic validation. |
+| [ADR-0007](0007-cpp20-implementation-language.md) | `ACCEPTED` | Use C++20 for the data plane and controller-facing core. |
+| [ADR-0008](0008-linux-x86-64-target-family.md) | `ACCEPTED` | Limit the initial Stage A target family to Linux x86-64. |
+| [ADR-0009](0009-primary-and-secondary-toolchains.md) | `ACCEPTED` | Use GCC/libstdc++ primary and Clang/libc++ secondary toolchain families. |
+| [ADR-0010](0010-cmake-ninja-and-offline-dependencies.md) | `ACCEPTED` | Use CMake/Ninja with offline, hash/license-locked dependencies and no generic framework scientific loop. |
+| [ADR-0011](0011-test-frameworks-and-scientific-harness-boundary.md) | `ACCEPTED` | Use GoogleTest, RapidCheck, CTest, and repository-owned concurrency/stress harnesses. |
+| [ADR-0012](0012-process-thread-and-queue-binding-model.md) | `ACCEPTED` | Use one unprivileged process, two workers, a quiescent controller, and non-dispatch queue binding. |
+| [ADR-0013](0013-independent-queue-implementation-and-provenance.md) | `ACCEPTED` | Independently implement both queues without importing/adapting FastFlow source. |
+| [ADR-0014](0014-cpp-atomic-and-memory-order-envelope.md) | `ACCEPTED` | Use the C++ release/acquire and lock-free/layout evidence envelope. |
+| [ADR-0015](0015-sha-hmac-and-exact-integer-canonicalization.md) | `ACCEPTED` | Use OpenSSL SHA/HMAC and exact-integer `JCS-I64-v1` canonicalization. |
+| [ADR-0016](0016-generated-code-evidence-policy.md) | `ACCEPTED` | Require dual-disassembler generated-code rules, review, hashes, and negative mutants. |
+| [ADR-0017](0017-sanitizer-and-correctness-acceptance.md) | `ACCEPTED` | Require zero unresolved sanitizer/correctness findings with controlled exceptions. |
+| [ADR-0018](0018-unprivileged-measurement-and-control-boundary.md) | `ACCEPTED` | Keep measurement unprivileged and platform control externally authorized/audited. |
+| [ADR-0019](0019-linux-platform-control-interface.md) | `ACCEPTED` | Use a replaceable Linux request/readback/probe/rollback platform interface. |
+| [ADR-0020](0020-platform-and-validation-custody-separation.md) | `ACCEPTED` | Separate platform operation from technically enforced validation custody. |
 
-Open recommendations are deliberately kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented.
+Open later-gate decisions and the remaining repository-license question are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented.

@@ -2,14 +2,14 @@
 
 This repository is the implementation-planning foundation for protocol **`2.0.0-pre.1`** of *Prefetching and Tail Latency in Lock-Free Inter-Core Queues: Effects of Access Pattern, Placement, and Offered Load*.
 
-The repository currently contains no benchmark, queue implementation, hardware-control program, experiment runner, or analysis pipeline. Stage 1 has been reverified and the Stage 2 architecture boundaries are documented, but the recommended implementation stack has not been accepted. Its state is:
+The repository currently contains no benchmark, queue implementation, hardware-control program, experiment runner, or analysis pipeline. Stage 1 is reverified and Q1-Q3 are accepted in ADR-0007 through ADR-0020. The repository SPDX license identifier required by Q2 is still missing. Its state is:
 
 ```text
-STAGE_2_DOCUMENTED_AWAITING_ACCEPTANCE
+STAGE_2_ACCEPTANCE_RECORDED_LICENSE_PENDING
 BLOCKED_BEFORE_IMPLEMENTATION
 ```
 
-The paper repository declares its structural handoff ready for implementation. This code repository is more conservative: initial coding remains blocked until Q1-Q3 in `docs/DECISIONS_REQUIRED.md` are explicitly accepted (or revised) and recorded as ADRs without inventing protocol behavior.
+Initial coding remains blocked only until D-028 in `docs/DECISIONS_REQUIRED.md` receives an owner-supplied SPDX identifier (or explicit private/no-distribution record) and corresponding license ADR/file.
 
 ## Source of truth
 
@@ -38,8 +38,8 @@ The immutable imported protocol is in [`protocol/2.0.0-pre.1/`](protocol/2.0.0-p
 
 ## Commands
 
-The C++20/CMake/Ninja/toolchain/test matrix is a recommendation awaiting acceptance, so build, test, sanitizer, lint, implementation schema-validation, and clean-room commands intentionally remain explicit placeholders in `AGENTS.md`. Protocol-import integrity can be checked today with standard SHA-256 and JSON tools, but those ad hoc bootstrap checks are not presented as the future implementation commands.
+The C++20/CMake/Ninja/toolchain/test matrix is accepted, but Stage 3 has not implemented or verified its build, test, sanitizer, lint, schema-validation, or clean-room entry points. `AGENTS.md` therefore keeps evidence-accurate unavailable placeholders. Protocol-import integrity can be checked today with standard SHA-256 and JSON tools, but those ad hoc checks are not future implementation commands.
 
 ## Scope boundary
 
-Stage A is the only planned implementation scope. Stage B and Stage C are deferred future work and cannot fill a Stage A cell. The exact next safe activity is Stage 2 decision acceptance; no pilot or confirmatory execution is authorized.
+Stage A is the only planned implementation scope. Stage B and Stage C are deferred future work and cannot fill a Stage A cell. The exact next safe activity is the Stage 2 repository-license choice; no pilot or confirmatory execution is authorized.

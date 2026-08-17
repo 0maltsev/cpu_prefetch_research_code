@@ -29,11 +29,11 @@ Adopt option 2. The data plane owns only the protocol-defined producer and consu
 
 ## Consequences and compatibility
 
-Scientific effect: preserves fixed event/timestamp semantics and reduces observer work in the measured path; it changes no treatment or estimand. Compatibility effect: future modules must exchange a versioned prepared run image and immutable artifacts instead of making in-loop service calls. The separate recommendation about whether a generic benchmark framework may own the scientific control loop remains D-004/Q1 and is not accepted here.
+Scientific effect: preserves fixed event/timestamp semantics and reduces observer work in the measured path; it changes no treatment or estimand. Compatibility effect: future modules must exchange a versioned prepared run image and immutable artifacts instead of making in-loop service calls. Generic benchmark-framework ownership was governed separately by D-004/Q1 and was later resolved by ADR-0010/0011.
 
 ## Verification and acceptance tests
 
-Call-graph and generated-code checks must prove the timed allowlist. Negative tests must detect allocation, I/O, logging, parsing, and analysis reachable from the timed entry points. Queue-binding dispatch is governed separately by D-023 and Q2.
+Call-graph and generated-code checks must prove the timed allowlist. Negative tests must detect allocation, I/O, logging, parsing, and analysis reachable from the timed entry points. Queue binding is governed separately by D-023 and ADR-0012.
 
 ## Rollback or supersession
 

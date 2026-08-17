@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-This is the accepted Stage 2 architecture for Stage A of protocol `2.0.0-pre.1`. It freezes boundaries, not the recommended C++/Linux/toolchain choices. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
+This is the accepted Stage 2 architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0020 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, and platform/custody boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
 
 The architecture has three planes:
 
@@ -10,7 +10,7 @@ The architecture has three planes:
 2. **Experiment controller**: preparation, validation, lifecycle transitions, launch/drain, platform evidence, failure recording, and immutable handoff.
 3. **Offline validation and analysis**: reconciliation, gates, summaries, inference, sealing, and authorized access after immutable raw publication.
 
-ADR-0001 through ADR-0006 accept these boundaries. Executable topology, language, toolchain, concrete codecs, platform adapters, and dependency implementations remain open in the decision register.
+ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0020 select the implementation architecture. The repository SPDX license remains the only Stage 2 owner decision; concrete codecs, exact compiler/dependency pins, platform facts, and pilot algorithms remain later evidence in the decision register.
 
 ## Component map
 
@@ -18,14 +18,14 @@ ADR-0001 through ADR-0006 accept these boundaries. Executable topology, language
 |---|---|---|---|---|
 | Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Queue, clock, prepared schedule, private sink; implementation blocked |
 | Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Queue, clock, record arena, private sink; implementation blocked |
-| Data | Queue adapter binding | Narrow operation/boundary seam while preserving ring or linked/recycler semantics | Required | Binding mechanism, provenance, and atomic mapping blocked |
+| Data | Queue adapter binding | Narrow operation/boundary seam while preserving ring or linked/recycler semantics | Required | Non-dispatch binding and independent mode accepted; exact proof/representation due Phase 5 |
 | Controller | Run-image builder | Parse and semantically validate config, allocate/touch/initialize arenas and buffers, derive schedules, bind identities and capacity proof | Forbidden | Prepared-run image interface; deterministic primitives blocked |
-| Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact publication | Outside horizon | Process topology blocked |
-| Controller | Platform-control adapter | Request affinity/NUMA/pages/frequency/HW-PF state, read back and probe, rollback | Forbidden | Linux candidate only; target/authority blocked |
+| Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact publication | Outside horizon | One-process/two-worker topology accepted; implementation pending |
+| Controller | Platform-control adapter | Request affinity/NUMA/pages/frequency/HW-PF state, read back and probe, rollback | Forbidden | Linux interface accepted; exact target/authority evidence due Phase 9 |
 | Controller | Clock qualification | Qualify source, conversion, skew/drift/read cost and code boundaries | Reads only are timed | Clock interface; source blocked |
 | Controller | Logical record model | Typed representation of imported schema/data-dictionary meanings | Private row construction only | Accepted stable boundary |
 | Controller | Physical codec | Encode/decode exact logical rows/envelopes | Private fixed-row write may be timed after format freeze; general codec outside | Replaceable; format blocked until pre-pilot |
-| Controller | Artifact store | Immutable content-addressed publication, lineage, access/failure records | Forbidden | Replaceable durable store; custody blocked |
+| Controller | Artifact store | Immutable content-addressed publication, lineage, access/failure records | Forbidden | Replaceable durable store and separated custody accepted; concrete enforcement later |
 | Offline | Structural validator | Draft 2020-12 validation against imported schemas | Forbidden | Validator product open |
 | Offline | Semantic validator | Cross-record identity, arithmetic, lifecycle, schedule, namespace, timestamp, coverage, replacement, access checks | Forbidden | Versioned rules; implementation open |
 | Offline | Reconciler | Join producer/consumer by `(run_id, accepted_ordinal)`, validate record index, emit audit and optional derived join | Forbidden | Consumes immutable sources only |
@@ -41,7 +41,7 @@ An immutable, fully validated run image containing run identity, specialized pac
 
 ### `QueueAdapter`
 
-A package-bound seam providing one-attempt enqueue/dequeue outcomes and explicit protocol boundary hooks. It must expose, not hide, package-specific linearization, full, recycler, memory-order, prefetch, and progress semantics. API substitutability alone is not scientific equivalence. Static templates, direct binding, and separate binaries remain candidates; Q2 recommends a binding with no measured-path dispatch or treatment-selection branch, but that recommendation is not accepted by this interface.
+A package-bound seam providing one-attempt enqueue/dequeue outcomes and explicit protocol boundary hooks. It must expose, not hide, package-specific linearization, full, recycler, memory-order, prefetch, and progress semantics. API substitutability alone is not scientific equivalence. ADR-0012 requires compile/link-time, direct, or separate-binary binding with no measured-path virtual dispatch or treatment-selection branch.
 
 ### `ClockSource`
 
@@ -77,13 +77,13 @@ Allowed operations are limited to:
 - fixed-capacity append to the calling worker's private raw buffer;
 - isolated release/acquire termination.
 
-Forbidden operations include allocation/deallocation, buffer growth, locks, blocking I/O, file access, console logging, formatting, dynamic parsing, RNG/permutation, manifest construction, whole-artifact hashing, compression, reconciliation, quantiles/histograms, analysis, adaptive backoff, sleep/yield, scheduler calls, mutable record preparation, and platform-state changes. The binding mechanism is still a Q2 decision; whichever mechanism is accepted must be frozen and included in generated-code and treatment-equivalence review.
+Forbidden operations include allocation/deallocation, buffer growth, locks, blocking I/O, file access, console logging, formatting, dynamic parsing, RNG/permutation, manifest construction, whole-artifact hashing, compression, reconciliation, quantiles/histograms, analysis, adaptive backoff, sleep/yield, scheduler calls, runtime queue dispatch/treatment selection, mutable record preparation, and platform-state changes.
 
 Generated-code and call-graph acceptance must prove this contract for every package specialization. Overflow never triggers aggregation, allocation, or emergency I/O; it records a measurement failure after safely leaving the horizon.
 
-## Ownership and proposed deployment
+## Ownership and accepted deployment
 
-The accepted architecture requires exactly one producer and one consumer and exclusive mutable cache-line ownership. D-006 recommends one unprivileged measurement process with a quiescent controller main thread and two workers, while privileged platform control and validation custody remain out of process. This topology is not accepted until the owner chooses it. Whichever topology is accepted must prove:
+ADR-0012 requires one unprivileged measurement process with a quiescent controller main thread, exactly one producer, exactly one consumer, and exclusive mutable cache-line ownership. ADR-0018 and ADR-0020 keep privileged platform control and validation custody out of process under separate principals. The implementation must prove:
 
 - worker-local raw buffers and mutable controls occupy separately evidenced cache lines/pages;
 - no observer touches hot ownership lines during the horizon;
@@ -100,4 +100,4 @@ Readers fail closed on unknown protocol/schema, artifact-kind, physical-format, 
 
 ## Deferred decisions
 
-The concrete language/toolchain/build/tests, target stand, queue implementation mode, atomics, clock, raw format, RNG/schedule/mixing/checksum suite, Linux API bindings, privilege/custody design, generated-code tools, sanitizer thresholds, compression/copies, and project license remain in `docs/DECISIONS_REQUIRED.md`. Production code must not start while their Stage 3 blockers remain open.
+The repository SPDX license is the sole remaining Stage 2 owner decision. Exact compiler/linker/flag/dependency pins, queue representation/proofs, target stand/authority facts, clock, raw format, RNG/schedule/mixing/checksum details, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. Production files must not start until the license decision is recorded.

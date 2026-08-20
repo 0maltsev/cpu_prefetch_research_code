@@ -244,7 +244,8 @@ commands above and performs no dependency download; runner policy must disable
 dependency-network access after source checkout. Runner availability and
 provisioning are external platform operations.
 
-Stage 7 is complete. The exact next safe activity is to resolve and accept
-**D-009 for Stage 8 timing** using platform/manual evidence; Stage 8 code must
-not start from a clock default. Measurement, pilot, and confirmatory behavior
-remain prohibited until their later lifecycle gates.
+Stage 7 is complete. Q7 accepted the final
+[`D-009 Stage 8 clock bundle`](docs/STAGE8_CLOCK_DECISION_BUNDLE.md) and
+ADR-0030 on 2026-08-20. Stage 8 implementation and software qualification are
+the exact next safe work. Measurement, pilot, and confirmatory behavior remain
+prohibited until their later lifecycle gates.

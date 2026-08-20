@@ -8,8 +8,10 @@ now provides independently authored ring and linked/recycler queue cores and
 correctness tests. Stage 6 provides deterministic workload construction and the
 five package mechanisms. Stage 7 provides offline deterministic schedule
 generation and immutable decoding; no measurement production code exists.
-ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 through ADR-0029 fix the
-framework/toolchain/sanitizer/model/queue/workload/schedule baseline and commands.
+ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 through ADR-0030 fix the
+framework/toolchain/sanitizer/model/queue/workload/schedule/clock baseline and
+commands. ADR-0030's clock implementation and qualification evidence remain
+Stage 8 work.
 Tests establish software correctness, protocol
 conformance, reproducibility, and access integrity. Synthetic and
 development-machine tests do **not** establish queue performance, a prefetch
@@ -192,11 +194,19 @@ namespace values remain later freeze inputs.
 
 ### 10. Timing tests
 
+- Implement the exact `CLOCK-QUAL-LMRV1` limits and failure rules from the
+  accepted D-009 bundle; no local threshold may replace them.
 - Tick reads never regress on either selected core.
 - Cross-core offset, drift, resolution, conversion, serialization, and exact boundary-read overhead meet frozen limits.
 - Compiler/generated-code inspection proves timestamp reads stay at defined boundaries without strengthening queue synchronization.
-- Conversion and overhead-correction fixtures retain both corrected and uncorrected values and reject negative corrected intervals.
+- Conversion fixtures prove exact nanosecond-to-picosecond arithmetic and
+  overflow rejection; raw timestamps are primary and any overhead correction
+  is rejected by the accepted no-correction policy.
 - Fault injection catches regression, excessive skew/drift, invalid conversion, and moved/missing boundaries.
+
+Stage 8 decision status: Q7 accepted D-009/ADR-0030. The reader, boundary
+instrumentation, generated-code checks, dynamic qualification, and explicit
+worker-pair evidence are not yet implemented or passed.
 
 ### 11. Record, checksum, and corruption tests
 

@@ -2,11 +2,11 @@
 
 Protocol version: **`2.0.0-pre.1`**
 
-Register date: **2026-08-17**
+Register date: **2026-08-20**
 
-Stage 2/6 state: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_ACCEPTED`**
+Stage 2/7 state: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_Q7_ACCEPTED`**
 
-Current implementation state: **`STAGE_6_WORKLOAD_CONSTRUCTION_COMPLETE_LOCAL`**
+Current implementation state: **`STAGE_7_COMPLETE; D009_ACCEPTED_STAGE8_READY`**
 
 `ACCEPTED` means an ADR freezes the choice. `PROPOSED` is a recommendation awaiting explicit owner acceptance. `UNRESOLVED` is not a default. `PROTOCOL_FIXED` restates source-of-truth behavior and is never an engineering choice. A selected implementation that changes scientific meaning requires a versioned protocol amendment, not merely an ADR.
 
@@ -23,6 +23,7 @@ Repository and environment evidence was supplemented by primary/official technic
 - **Build/test baseline:** official [CMake Ninja generator](https://cmake.org/cmake/help/latest/generator/Ninja.html), [GoogleTest CMake quickstart](https://google.github.io/googletest/quickstart-cmake.html), [RapidCheck](https://github.com/emil-e/rapidcheck), [AddressSanitizer](https://clang.llvm.org/docs/AddressSanitizer.html), and [ThreadSanitizer](https://clang.llvm.org/docs/ThreadSanitizer.html) documentation. ADR-0022 and `config/dependencies.json` now record the constrained versions, sources, hashes, licenses, and completed offline compatibility probes.
 - **Deterministic/integrity evidence:** the Random123 paper defines the Philox counter algorithm; no Random123 code or dependency is used. [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785.html) supplies JSON canonicalization rules but its I-JSON number model cannot be allowed to coerce the protocol's exact large integers; [OpenSSL EVP SHA-2](https://docs.openssl.org/3.5/man7/EVP_MD-SHA2/) supplies the accepted SHA-256/HMAC provider.
 - **Schedule-numeric evidence:** the [C++ draft distribution clause](https://eel.is/c++draft/rand.dist) makes standard distribution algorithms implementation-defined. [Python 3.14 `decimal`](https://docs.python.org/3.14/library/decimal.html) specifies correctly rounded `Decimal.ln()` results. Q6 accepted the D-027 bundle using the already-accepted offline Python toolchain; it adds no MPFR/GMP dependency.
+- **Clock evidence:** the [Linux `CLOCK_MONOTONIC_RAW` contract](https://man7.org/linux/man-pages/man3/clock_gettime.3.html), [x86-64 vDSO contract](https://man7.org/linux/man-pages/man7/vdso.7.html), [kernel clocksource documentation](https://www.kernel.org/doc/html/latest/timers/timekeeping.html), [x86 timekeeping cautions](https://www.kernel.org/doc/html/latest/virt/kvm/x86/timekeeping.html), [Intel architecture manuals](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html), and [C++ compiler-only fence semantics](https://eel.is/c++draft/atomics.fences) support accepted D-009/Q7. The verified stand archive supplies capability/configuration evidence only; dynamic limits and code gates remain unpassed.
 - **Linux platform candidates:** official/man-pages documentation for [`sched_setaffinity`](https://man7.org/linux/man-pages/man2/sched_setaffinity.2.html), [NUMA memory policy](https://www.kernel.org/doc/html/latest/mm/numa.html), [page migration/residency](https://www.kernel.org/doc/html/latest/mm/page_migration.html), [transparent huge pages](https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html), [CPU frequency control](https://www.kernel.org/doc/html/latest/admin-guide/pm/cpufreq.html), [kernel timekeeping](https://www.kernel.org/doc/html/latest/timers/timekeeping.html), and [`CLOCK_MONOTONIC_RAW`](https://man7.org/linux/man-pages/man3/clock_gettime.3.html). CPU-specific HW-PF fields still require the exact target vendor manual, authorization, readback, probes, and rollback evidence.
 
 The observed development environment (Linux 7.0.11 x86-64, GCC 16.1.1, Clang 22.1.6, CMake 4.3.3, Ninja 1.13.2, AMD Ryzen 5 5500U, one NUMA node) is capability evidence only. It is not an eligible near/far stand and supplies no empirical result.
@@ -69,7 +70,7 @@ The observed development environment (Linux 7.0.11 x86-64, GCC 16.1.1, Clang 22.
 
 | ID | Classification | Options considered | Selected option or unresolved state | Evidence | Scientific effect | Compatibility effect | Owner | Deadline / gate | Supersession rule |
 |---|---|---|---|---|---|---|---|---|---|
-| D-009 | Clock | Invariant TSC/RDTSCP; `CLOCK_MONOTONIC_RAW`; another proved clock | `UNRESOLVED`; candidate x86-64 abstraction reads integer ticks, with invariant TSC/RDTSCP as primary candidate and `CLOCK_MONOTONIC_RAW` as calibration/reference candidate | Kernel/CPU manuals plus stand-specific skew, drift, serialization, migration, resolution, cost, and generated-code evidence are absent | Clock validity controls every duration and boundary; no fallback may change mid-study | Format records clock/conversion identity; unsupported clock rejects run | Timing owner / platform owner | Select for Phase 8; pass by Phase 16 | Clock suite/version by ADR; changed source requires recalibration and new artifacts |
+| D-009 | Clock | Invariant TSC/RDTSCP; `CLOCK_MONOTONIC_RAW`; another proved clock | `ACCEPTED`: `LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1`, exact ns-to-ps conversion, bracketed publication/observation boundaries, no overhead correction, and exact qualification limits; [bundle](STAGE8_CLOCK_DECISION_BUNDLE.md), [ADR-0030](decisions/0030-stage8-clock-suite.md) | Imported clock contract; primary Linux/Intel/C++ documentation; verified stand capability archive; repository-owner Q7 acceptance on 2026-08-20; no queue outcome. Dynamic skew/drift/cost, explicit CPU-pair, and generated-code passes remain Stage 8/9 evidence | Prospectively fixes timestamp sampling granularity and boundary instrumentation while preserving logical equations and queue order; raw values remain primary | Linux x86-64 vDSO suite and identities; direct TSC, syscall fallback, source switch, correction, or changed limits are incompatible | Repository/timing/platform/queue-correctness/code-generation owners | Accepted before Phase 8 implementation; software/dynamic qualification in Phase 8; selected-pair/eligible-stand pass by Phase 9/16 | New suite/policy IDs and superseding ADR; immutable old artifacts; semantic conflict needs amendment |
 | D-010 | Physical raw encoding | Fixed binary rows; Arrow/Parquet; another columnar/binary envelope | `UNRESOLVED`; accepted replaceable interface only (D-022) | Protocol intentionally defers format until exact row sizes, corruption behavior, capacity, and cross-decoder evidence exist | Logical data must be unchanged; timed write cost/layout may affect measurement and must be frozen | Format/version/endianness/compression/copy count explicitly recorded | Storage owner | Select for Phase 11; pass by Phase 16 | New format version and converter; never rewrite source |
 | D-011 | RNG / seed derivation | Standard-library RNG; PCG; Philox; AES counter; Random123 reuse | `ACCEPTED`: independent `PHILOX4X32-10-HMAC-SHA256-v1`, 256-bit master seed, four big-endian length-prefixed UTF-8 derivation fields, fixed key/counter/output mapping, separate purpose labels, no Random123 code/dependency; [ADR-0025](decisions/0025-philox-hmac-stream-suite.md) | Q5 accepted; paper algorithm; OpenSSL 3; cross-tool known answers | Prospectively fixes Stage 6 random bits; no concrete seed or outcome enters selection | Field/word/label/draw mapping is suite identity | Reproducibility/integrity owners | Stage 6 implementation/vectors pass; master seed values remain pre-confirmatory inputs | New suite/version prospectively; existing artifacts immutable |
 | D-012 | Permutation / payload initialization | Biased modulo shuffle; sort-by-random-key; Fisher-Yates with rejection | `ACCEPTED`: descending Fisher-Yates with unsigned-64 rejection; separate event/node streams; payload of record `k` is payload draw `k`; initial consumer state has its own stream; [ADR-0026](decisions/0026-unbiased-permutation-and-payload-domains.md) | Q5 accepted; protocol deterministic unbiased/frozen requirements; golden/property vectors | Fixes order/payload construction before outcomes | Loop, rejection, draw consumption, and labels are suite identity | Reproducibility owner | Stage 6 implementation/vectors pass; qualifying seed values remain external freeze inputs | New version prospectively only; frozen mappings immutable |
@@ -88,11 +89,12 @@ Submission identity, venue, accessibility, archival license, and final metadata 
 
 ## Stage 2 disposition
 
-Q1 through Q6 were explicitly accepted by the repository owner on 2026-08-17
-and are recorded in ADR-0007 through ADR-0029. Q4 selected no license grant,
+Q1 through Q6 were explicitly accepted by the repository owner on 2026-08-17;
+Q7 was accepted on 2026-08-20. They are recorded in ADR-0007 through ADR-0030. Q4 selected no license grant,
 Q5 selected the Stage 6 deterministic suite and representation, and Q6 selected
 the D-027 Stage 7 schedule-generation suite. Later scientific/platform/pilot
 decisions remain open at their stated gates and were not defaulted. Stages 2
-through 7 are complete locally. D-009 clock decision preparation and owner
-approval is the exact next safe activity; Stage 8 implementation and experiment
-execution remain prohibited until their gates pass.
+through 7 are complete locally. The final D-009 decision is recorded in the Q7
+bundle and accepted ADR-0030. Stage 8 implementation and software qualification
+are the exact next safe activity; experiment execution remains prohibited until
+its later gates pass.

@@ -111,14 +111,15 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Inputs and prerequisite decisions:** Phases 5 and 7; target clock, integer conversion, serialization, overhead policy, acceptance limits.
 - **Files/components:** Tick reader/converter, boundary instrumentation, clock acceptance/calibration records, generated-code checks.
 - **Tests:** Monotonicity, skew/drift/resolution/read cost, conversion goldens, boundary ordering, regression/negative correction faults, disassembly for compiler motion and synchronization effects.
-- **Acceptance criteria:** Every fixed logical boundary is representable exactly; clock passes on selected cores; corrected and uncorrected values retained; queue order is unchanged.
+- **Acceptance criteria:** Every fixed logical boundary is representable exactly; clock passes on explicitly selected cores; raw values are retained without overhead correction; queue order is unchanged.
 - **Explicitly excluded:** Performance comparison and pilot until the full measurement system passes.
 - **Rollback or failure behavior:** Clock failure makes platform/build ineligible or run invalid as appropriate; no substitute source without new ADR/evidence.
-- **Status:** `BLOCKED_BEFORE_IMPLEMENTATION` on D-009. A qualified clock
-  source, conversion, serialization, skew/drift/resolution/read-cost bounds,
-  and generated-code evidence have not been accepted. The exact next safe
-  activity is preparation and owner approval of that decision, not clock code
-  or measurement.
+- **Status:** `READY_TO_START`; Q7 accepted D-009 and ADR-0030. The accepted
+  bundle specifies vDSO `CLOCK_MONOTONIC_RAW`, exact
+  ns-to-ps conversion, bracketed queue boundaries, no correction, numerical
+  qualification limits, identities, and failure rules. The exact next safe
+  activity is Stage 8 implementation and software qualification; measurement
+  remains prohibited until its later gates pass.
 
 ## Phase 9 — Platform control
 

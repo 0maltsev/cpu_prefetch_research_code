@@ -4,20 +4,20 @@ Protocol snapshot: **`2.0.0-pre.1`**
 
 Repository state: **`STAGE_7_COMPLETE`**
 
-Readiness verdict: **`BLOCKED_ON_D009_BEFORE_STAGE8_NOT_MEASUREMENT`**
+Readiness verdict: **`D009_Q7_ACCEPTED_STAGE8_READY_NOT_MEASUREMENT`**
 
 ## Readiness by area
 
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | The Stage 7 check freshly passed all 18 manifest sizes/SHA-256 values, exact inventory, four authoritative hashes, JSON parsing, and Draft 2020-12 meta-schema validation for all seven schemas. |
-| Stage 2 implementation-decision freeze | `COMPLETE`; Q6 accepted post-Stage 6 | ADR-0001 through ADR-0029 are accepted. Q4 selected no license grant, Q5 selected the deterministic workload bundle, and Q6 selected the D-027 schedule suite. Later platform/pilot selections remain open at their recorded gates. |
+| Stage 2 implementation-decision freeze | `COMPLETE`; Q7 accepted | ADR-0001 through ADR-0030 are accepted. Q7 freezes the final D-009 bundle. Later implementation evidence and platform/pilot selections remain open at their recorded gates. |
 | Stage 3 build/CI foundation | `COMPLETE_LOCAL` | ADR-0022, constrained offline inputs, dual compiler/library presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations remain passing. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023, typed C++20 records for all seven schema families, strict loading, immutable configuration, record-local semantic rules, exact `JCS-I64-v1`, and explicit cross-record interfaces are implemented and pass the recorded matrix. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
 | Workload construction | `COMPLETE_LOCAL` | ADR-0025 through ADR-0028 fix the deterministic stream, unbiased permutations, payload/mixer/integrity grammars, event/node layouts, and five package mechanisms. Known-answer/property/corruption/no-allocation and dual-disassembler checks pass. |
 | Schedule generation | `COMPLETE_LOCAL` | ADR-0029's offline Decimal80/Philox suite, external u64be artifact, imported envelope, derivation record, immutable C++ decoder, namespace/common-family validation, and failure/golden/corruption matrices pass. |
-| Measurement system | `NOT_STARTED_BLOCKED_LATER_DECISIONS` | No clock, queue-driven timed loop, raw physical codec, controller, or platform mutation exists. D-009 blocks Stage 8; remaining scientific/platform selections stay unresolved at their assigned gates. |
+| Measurement system | `NOT_STARTED_STAGE8_READY` | No clock, queue-driven timed loop, raw physical codec, controller, or platform mutation exists. Accepted D-009 permits only Stage 8 implementation and software qualification; dynamic and explicit-pair evidence plus remaining scientific/platform selections stay open at their assigned gates. |
 | Pre-pilot validation | `NOT_STARTED` | Requires Stages 5–15 and fresh eligible-platform/custody evidence. |
 | Pilot | `PROHIBITED` | Stage 16 and explicit pilot authorization are absent; this one-NUMA-node development host is ineligible for near/far evidence. |
 | Confirmatory execution | `PROHIBITED` | Pilot outputs and later freeze records, budgets, authorities, and sealing proof are absent. |
@@ -166,8 +166,8 @@ mapping remains unresolved and no implementation text was used.
 
 ## Immediate gate
 
-Stage 7 is complete under accepted D-027/ADR-0029. D-009 remains unresolved;
-the exact next safe activity is **prepare and approve the Stage 8 clock
-decision with platform/manual evidence**. Stage 8 implementation, measurement,
-pilot activity, and confirmatory execution remain blocked by their later
-lifecycle gates.
+Stage 7 is complete under accepted D-027/ADR-0029. Q7 accepted the final D-009
+bundle and ADR-0030 on 2026-08-20. The exact next safe activity is **Stage 8
+implementation and software qualification**. Measurement, pilot activity, and
+confirmatory execution remain prohibited until their applicable lifecycle
+gates pass; static stand inventory is not dynamic clock or worker-pair evidence.

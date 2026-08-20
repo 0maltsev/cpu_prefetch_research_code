@@ -55,6 +55,13 @@ queue, completion, outcome, clock, or worker input. Explicit namespace roles
 and common-family records are validated without parsing identifier text or
 paths.
 
+Q7/ADR-0030 fixes the Stage 8 clock seam as vDSO
+`clock_gettime(CLOCK_MONOTONIC_RAW)` with exact nanosecond-to-picosecond
+conversion, compiler-only read fences, bracketed publication/observation
+boundaries, and uncorrected raw timestamps. Stage 8 must still implement and
+qualify that seam. Static stand inventory supplies neither an eligible worker
+pair nor dynamic clock evidence, and no measurement path exists yet.
+
 The producer and consumer receive disjoint mutable observation buffers. They record their own facts independently and in program order. `LogicalSequence` selects a cyclic record pointer before enqueue; `AcceptedOrdinal` is assigned only to accepted arrivals. The repeating `RecordIndex` validates the demanded record and is never an event ID. Accepted observations are reconciled later by run identity and accepted ordinal. A process-local pointer is never durable identity.
 
 ## Logical streams

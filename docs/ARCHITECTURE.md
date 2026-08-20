@@ -16,15 +16,15 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 
 | Plane | Component | Responsibility | Timed-horizon status | Replaceable boundary / state |
 |---|---|---|---|---|
-| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Queue and validated prepared schedule exist; accepted clock mapping, private sink, and combined worker remain to implement |
-| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 6 record action implemented; accepted clock mapping, rows, and combined worker remain to implement |
+| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Queue, validated schedule, and Stage 8 boundary capture exist; private sink, termination, and combined worker remain to implement |
+| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 6 record action and Stage 8 boundary capture exist; private sink, termination/drain, and combined worker remain to implement |
 | Data | Queue/package binding | Five concrete static policies preserve ring/linked semantics and exact treatment-specific hint targets | Required | Stage 5 queue cores plus Stage 6 target seams/codegen pass; platform hint instruction and `d2` evidence remain open |
 | Controller | Run-image builder | Parse and semantically validate config, allocate/touch/initialize arenas and buffers, derive schedules, bind identities and capacity proof | Forbidden | Stage 6 arena/order/footprint and Stage 7 schedule primitives implemented; integration and real stand facts blocked |
 | Controller | Schedule preparation | Derive the purpose-separated stream, generate the complete open-loop schedule, publish artifact/envelopes, decode and validate immutable deadlines | Forbidden | Stage 7 implemented; all lifecycle values remain explicit and no outcome/clock input exists |
 | Controller | Workload construction | Derive domain-separated streams, build event/node order, initialize records, retain integrity inputs, bind one package type | Forbidden | Stage 6 implemented; all values explicit and no worker mutation surface |
 | Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact publication | Outside horizon | One-process/two-worker topology accepted; implementation pending |
 | Controller | Platform-control adapter | Request affinity/NUMA/pages/frequency/HW-PF state, read back and probe, rollback | Forbidden | Linux interface accepted; exact target/authority evidence due Phase 9 |
-| Controller | Clock qualification | Implement and qualify the accepted source, conversion, skew/drift/read cost and code boundaries | Reads only are timed | D-009/ADR-0030 accepted; implementation, generated-code, dynamic, and explicit-pair evidence pending |
+| Controller | Clock qualification | Evaluate the accepted source, conversion, skew/drift/read cost and code boundaries from explicit platform evidence | Reads only are timed | D-009 software/codegen implemented; dynamic explicit-pair and before-block evidence pending Phase 9/16 |
 | Controller | Logical record model | Typed representation of all seven imported schema families, exact values, lifecycle/gate states, and immutable configuration | Private row construction only | Stage 4 implemented; [model contract](PROTOCOL_MODEL.md) |
 | Controller | Physical codec | Encode/decode exact logical rows/envelopes | Private fixed-row write may be timed after format freeze; general codec outside | Replaceable; format blocked until pre-pilot |
 | Controller | Artifact store | Immutable content-addressed publication, lineage, access/failure records | Forbidden | Replaceable durable store and separated custody accepted; concrete enforcement later |
@@ -74,7 +74,10 @@ A qualified integer-picosecond read plus immutable clock identity/conversion
 evidence. D-009/ADR-0030 selects vDSO
 `clock_gettime(CLOCK_MONOTONIC_RAW)`, exact nanosecond-to-picosecond conversion,
 compiler-only read fences, bracketed queue boundaries, and uncorrected raw
-values. Qualification covers monotonicity, cross-core skew, drift, resolution,
+values. `cpu_prefetch_timing` implements the reader, raw absolute-nanosecond plus
+relative-picosecond sample, static producer/consumer boundary observers,
+offline interval equations, and fail-closed qualification evaluators.
+Qualification covers monotonicity, cross-core skew, drift, resolution,
 serialization, migration handling, read cost, overflow, syscall exclusion, and
 generated instructions. The run cannot switch source or conversion after
 preparation, and static inventory cannot substitute for explicit worker-pair
@@ -140,4 +143,4 @@ Readers fail closed on unknown protocol/schema, artifact-kind, physical-format, 
 
 ## Deferred decisions
 
-The owner selected no repository license grant in ADR-0021, Stage 3 pins the development/CI tool series in ADR-0022, Stage 4 implements typed logical records in ADR-0023, ADR-0024 fixes queue representation/proof, ADR-0025 through ADR-0028 fix Stage 6 deterministic construction, accepted ADR-0029 fixes the Stage 7 schedule mapping, and accepted ADR-0030 fixes the Stage 8 clock contract. Eligible-stand lock-free/layout repetition, exact measured-release pins, target stand/authority facts, clock implementation and dynamic/explicit-pair qualification, raw format, concrete seeds/capacities, node page-frame qualification, platform prefetch encoding, calibrated `d2`, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. None may be filled by a build or configuration default.
+The owner selected no repository license grant in ADR-0021, Stage 3 pins the development/CI tool series in ADR-0022, Stage 4 implements typed logical records in ADR-0023, ADR-0024 fixes queue representation/proof, ADR-0025 through ADR-0028 fix Stage 6 deterministic construction, accepted ADR-0029 fixes the Stage 7 schedule mapping, and accepted ADR-0030 fixes the now-implemented Stage 8 clock contract. Eligible-stand lock-free/layout repetition, exact measured-release pins, target stand/authority facts, dynamic/explicit-pair clock qualification, raw format, concrete seeds/capacities, node page-frame qualification, platform prefetch encoding, calibrated `d2`, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. None may be filled by a build or configuration default.

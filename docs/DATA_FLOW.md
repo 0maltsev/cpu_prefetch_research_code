@@ -58,9 +58,13 @@ paths.
 Q7/ADR-0030 fixes the Stage 8 clock seam as vDSO
 `clock_gettime(CLOCK_MONOTONIC_RAW)` with exact nanosecond-to-picosecond
 conversion, compiler-only read fences, bracketed publication/observation
-boundaries, and uncorrected raw timestamps. Stage 8 must still implement and
-qualify that seam. Static stand inventory supplies neither an eligible worker
-pair nor dynamic clock evidence, and no measurement path exists yet.
+boundaries, and uncorrected raw timestamps. Stage 8 now implements that seam:
+each in-memory observation retains absolute nanoseconds and exact relative
+picoseconds, and imported logical rows receive the relative fields without
+selecting D-010's durable encoding. Static/per-core/bidirectional qualification
+evaluators reject incomplete sample counts. Static stand inventory still
+supplies neither an eligible worker pair nor dynamic clock evidence, and no
+measurement path exists yet.
 
 The producer and consumer receive disjoint mutable observation buffers. They record their own facts independently and in program order. `LogicalSequence` selects a cyclic record pointer before enqueue; `AcceptedOrdinal` is assigned only to accepted arrivals. The repeating `RecordIndex` validates the demanded record and is never an event ID. Accepted observations are reconciled later by run identity and accepted ordinal. A process-local pointer is never durable identity.
 
@@ -78,6 +82,13 @@ The producer and consumer receive disjoint mutable observation buffers. They rec
 | Access/sealing | Custody system | artifact/state/actor/time/authorization identity | Append chronology; never overwrite or backdate state |
 
 Every physical artifact envelope declares artifact kind, protocol/schema version, physical-format version, algorithm-suite IDs, row and byte count, immutable ordering, integer time unit, endianness, compression/copy identity, producer identity, source lineage, URI/store identity, and SHA-256. Exact required fields remain governed by the imported schemas and semantic rules.
+
+Stage 8's post-run derivation computes only from complete logical producer and
+consumer rows. It validates the partial timestamp order and identity first,
+then proves `end_to_end = admission + residence + delivery`. Lateness, lookup,
+enqueue service, dequeue service, and consumer action are nested diagnostics;
+they are not added again. Artifact lookup, stream reconciliation, join-audit
+publication, and durable output remain Phase 12 responsibilities.
 
 ## Partial-failure publication matrix
 

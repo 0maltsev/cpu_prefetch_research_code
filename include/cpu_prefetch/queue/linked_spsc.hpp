@@ -63,6 +63,43 @@ public:
     return try_dequeue_observed(observer, prefetch);
   }
 
+  template <typename BoundaryObserver>
+  [[nodiscard]] BoundaryEnqueueResult
+  try_enqueue_with_boundary_observer(EventPointer event,
+                                     BoundaryObserver& observer) noexcept {
+    static_assert(noexcept(observer.before_enqueue_publication()));
+    struct NoopPhaseObserver final {
+      void after_recycler_obtain() const noexcept {}
+    } phase_observer;
+    return try_enqueue_observed(event, phase_observer, observer);
+  }
+
+  template <typename BoundaryObserver>
+  [[nodiscard]] BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer) noexcept {
+    static_assert(noexcept(observer.after_dequeue_observation()));
+    struct NoopPhaseObserver final {
+      void before_recycler_return() const noexcept {}
+    } phase_observer;
+    struct NoopSuccessorPrefetch final {
+      void successor_header(const void*) const noexcept {}
+    } prefetch;
+    return try_dequeue_observed(phase_observer, observer, prefetch);
+  }
+
+  template <typename BoundaryObserver, typename SuccessorPrefetch>
+  [[nodiscard]] BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer,
+                                     SuccessorPrefetch& prefetch) noexcept {
+    static_assert(noexcept(observer.after_dequeue_observation()));
+    static_assert(
+        noexcept(prefetch.successor_header(static_cast<const void*>(nullptr))));
+    struct NoopPhaseObserver final {
+      void before_recycler_return() const noexcept {}
+    } phase_observer;
+    return try_dequeue_observed(phase_observer, observer, prefetch);
+  }
+
   [[nodiscard]] std::size_t capacity() const noexcept { return capacity_; }
   [[nodiscard]] std::size_t node_stride_bytes() const noexcept {
     return node_stride_bytes_;
@@ -84,22 +121,38 @@ private:
   [[nodiscard]] EnqueueResult try_enqueue_observed(EventPointer event,
                                                    Observer& observer) noexcept {
     static_assert(noexcept(observer.after_recycler_obtain()));
+    struct NoopBoundaryObserver final {
+      [[nodiscard]] bool before_enqueue_publication() const noexcept { return true; }
+    } boundary_observer;
+    const auto result = try_enqueue_observed(event, observer, boundary_observer);
+    return result.result;
+  }
+
+  template <typename PhaseObserver, typename BoundaryObserver>
+  [[nodiscard]] BoundaryEnqueueResult
+  try_enqueue_observed(EventPointer event, PhaseObserver& phase_observer,
+                       BoundaryObserver& boundary_observer) noexcept {
+    static_assert(noexcept(phase_observer.after_recycler_obtain()));
+    static_assert(noexcept(boundary_observer.before_enqueue_publication()));
     const auto recycler_position = recycler_consumer_->position;
     auto& recycler_slot = recycler_slots_[recycler_position].value;
     auto* node = recycler_slot.load(std::memory_order_acquire);
     if (node == nullptr) {
-      return EnqueueResult::full;
+      return {BoundaryCaptureStatus::complete, EnqueueResult::full};
     }
 
     recycler_slot.store(nullptr, std::memory_order_release);
     recycler_consumer_->position = next_position(recycler_position);
 
-    observer.after_recycler_obtain();
+    phase_observer.after_recycler_obtain();
     node->event = event.get();
     node->next.store(nullptr, std::memory_order_relaxed);
+    if (!boundary_observer.before_enqueue_publication()) {
+      return {BoundaryCaptureStatus::capture_failed, EnqueueResult::full};
+    }
     producer_->tail->next.store(node, std::memory_order_release);
     producer_->tail = node;
-    return EnqueueResult::accepted;
+    return {BoundaryCaptureStatus::complete, EnqueueResult::accepted};
   }
 
   template <typename Observer, typename SuccessorPrefetch>
@@ -108,10 +161,32 @@ private:
     static_assert(noexcept(observer.before_recycler_return()));
     static_assert(
         noexcept(prefetch.successor_header(static_cast<const void*>(nullptr))));
+    struct NoopBoundaryObserver final {
+      [[nodiscard]] bool after_dequeue_observation() const noexcept { return true; }
+    } boundary_observer;
+    const auto result = try_dequeue_observed(observer, boundary_observer, prefetch);
+    return result.result;
+  }
+
+  template <typename PhaseObserver, typename BoundaryObserver,
+            typename SuccessorPrefetch>
+  [[nodiscard]] BoundaryDequeueResult
+  try_dequeue_observed(PhaseObserver& phase_observer,
+                       BoundaryObserver& boundary_observer,
+                       SuccessorPrefetch& prefetch) noexcept {
+    static_assert(noexcept(phase_observer.before_recycler_return()));
+    static_assert(noexcept(boundary_observer.after_dequeue_observation()));
+    static_assert(
+        noexcept(prefetch.successor_header(static_cast<const void*>(nullptr))));
     auto* old_sentinel = consumer_->head;
     auto* successor = old_sentinel->next.load(std::memory_order_acquire);
     if (successor == nullptr) {
-      return {DequeueStatus::empty, nullptr};
+      return {BoundaryCaptureStatus::complete,
+              DequeueResult{DequeueStatus::empty, nullptr}};
+    }
+    if (!boundary_observer.after_dequeue_observation()) {
+      return {BoundaryCaptureStatus::capture_failed,
+              DequeueResult{DequeueStatus::empty, nullptr}};
     }
 
     prefetch.successor_header(successor);
@@ -119,15 +194,16 @@ private:
     const auto recycler_position = recycler_producer_->position;
     auto& recycler_slot = recycler_slots_[recycler_position].value;
     if (recycler_slot.load(std::memory_order_acquire) != nullptr) {
-      return {DequeueStatus::recycler_invariant_failure, nullptr};
+      return {BoundaryCaptureStatus::complete,
+              DequeueResult{DequeueStatus::recycler_invariant_failure, nullptr}};
     }
 
     const auto* event = successor->event;
-    observer.before_recycler_return();
+    phase_observer.before_recycler_return();
     consumer_->head = successor;
     recycler_slot.store(old_sentinel, std::memory_order_release);
     recycler_producer_->position = next_position(recycler_position);
-    return {DequeueStatus::item, event};
+    return {BoundaryCaptureStatus::complete, DequeueResult{DequeueStatus::item, event}};
   }
   struct Node final {
     std::atomic<Node*> next{nullptr};

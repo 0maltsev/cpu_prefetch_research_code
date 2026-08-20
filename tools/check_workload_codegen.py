@@ -24,7 +24,7 @@ OPERATION_SYMBOLS: Final = (
 )
 MUTANT_SYMBOL: Final = "cpu_prefetch_consumer_record_action_mutant"
 FORBIDDEN_INSTRUCTION: Final = re.compile(
-    r"\b(?:callq?|lock|xchg|mfence)\b", re.IGNORECASE
+    r"\b(?:callq?|lock|mfence)\b|\bxchg\w*\s+[^\n]*\(", re.IGNORECASE
 )
 SYMBOL_LINE: Final = re.compile(r"^[0-9a-fA-F]+ <([^>]+)>:$")
 

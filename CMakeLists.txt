@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 4.3)
 project(
   cpu_prefetch_foundation
   VERSION 2.0.0
-  DESCRIPTION "Typed protocol and queue correctness foundation for the CPU prefetch research protocol"
+  DESCRIPTION "Typed protocol, queue, workload, schedule, and timing foundation for the CPU prefetch research protocol"
   LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -106,6 +106,23 @@ target_link_libraries(
   PRIVATE cpu_prefetch_project_options OpenSSL::Crypto)
 target_include_directories(
   cpu_prefetch_schedule
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+add_library(
+  cpu_prefetch_timing STATIC
+  src/timing/capture.cpp
+  src/timing/clock.cpp
+  src/timing/intervals.cpp
+  src/timing/qualification.cpp)
+add_library(cpu_prefetch::timing ALIAS cpu_prefetch_timing)
+target_link_libraries(
+  cpu_prefetch_timing
+  PUBLIC cpu_prefetch::protocol cpu_prefetch::workload
+  PRIVATE cpu_prefetch_project_options ${CMAKE_DL_LIBS})
+target_include_directories(
+  cpu_prefetch_timing
   PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
@@ -218,6 +235,18 @@ if(BUILD_TESTING)
     PREFIX "schedule."
     PROPERTIES LABELS "schedule")
 
+  add_executable(cpu_prefetch_timing_tests tests/timing_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_timing_tests
+    PRIVATE
+      cpu_prefetch::timing
+      cpu_prefetch_project_options
+      GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_timing_tests
+    PREFIX "timing."
+    PROPERTIES LABELS "timing")
+
   add_test(
     NAME schedule.python_generator
     COMMAND "${Python3_EXECUTABLE}"
@@ -298,6 +327,18 @@ add_executable(
 target_link_libraries(
   cpu_prefetch_workload_codegen_mutant
   PRIVATE cpu_prefetch::workload cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_timing_codegen_probe EXCLUDE_FROM_ALL
+  tools/timing_codegen_probe.cpp)
+target_link_libraries(
+  cpu_prefetch_timing_codegen_probe
+  PRIVATE cpu_prefetch::timing cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_timing_codegen_mutant EXCLUDE_FROM_ALL
+  tools/timing_codegen_mutant.cpp)
+target_link_libraries(
+  cpu_prefetch_timing_codegen_mutant
+  PRIVATE cpu_prefetch::timing cpu_prefetch_project_options)
 
 find_program(CPU_PREFETCH_CLANG_FORMAT NAMES clang-format REQUIRED)
 find_program(CPU_PREFETCH_CLANG_TIDY NAMES clang-tidy REQUIRED)
@@ -315,6 +356,10 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/linked_spsc.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/ring_spsc.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/schedule/schedule.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/capture.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/clock.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/intervals.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/qualification.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/deterministic.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/packages.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/records.hpp"
@@ -329,6 +374,10 @@ set(
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/schedule/schedule.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/clock.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/intervals.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/deterministic.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/packages.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
@@ -340,10 +389,13 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/timing_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/timing_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/timing_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -369,6 +421,10 @@ set(
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/schedule/schedule.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/clock.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/intervals.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/deterministic.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/packages.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
@@ -379,10 +435,13 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/timing_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/timing_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/timing_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -455,6 +514,29 @@ add_custom_target(
   DEPENDS cpu_prefetch_workload_codegen_probe cpu_prefetch_workload_codegen_mutant
   COMMENT "Requiring dual-disassembler Stage 6 generated-code evidence")
 add_custom_target(
+  timing-codegen-audit
+  COMMAND
+    "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_timing_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_timing_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_timing_codegen_mutant>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/timing_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+    --allow-missing-secondary
+  DEPENDS cpu_prefetch_timing_codegen_probe cpu_prefetch_timing_codegen_mutant
+  COMMENT "Auditing timestamp boundaries and retaining partial evidence")
+add_custom_target(
+  timing-codegen-check
+  COMMAND
+    "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_timing_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_timing_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_timing_codegen_mutant>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/timing_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS cpu_prefetch_timing_codegen_probe cpu_prefetch_timing_codegen_mutant
+  COMMENT "Requiring dual-disassembler Stage 8 timestamp evidence")
+add_custom_target(
   document-check
   COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_docs.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
@@ -484,6 +566,7 @@ install(
     cpu_prefetch_protocol
     cpu_prefetch_queue
     cpu_prefetch_schedule
+    cpu_prefetch_timing
     cpu_prefetch_workload
     cpu_prefetch_smoke
   ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
@@ -505,6 +588,7 @@ install(
     "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/QUEUE_CORRECTNESS.md"
     "${PROJECT_SOURCE_DIR}/docs/SCHEDULE_GENERATION.md"
+    "${PROJECT_SOURCE_DIR}/docs/TIMING.md"
     "${PROJECT_SOURCE_DIR}/docs/WORKLOAD_CONSTRUCTION.md"
     "${PROJECT_SOURCE_DIR}/docs/NO_LICENSE_GRANT.md"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation")
@@ -525,6 +609,6 @@ set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 7 schedule correctness foundation")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 8 timing correctness foundation")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)

@@ -20,9 +20,9 @@
     "reused_code_license": "NOT_APPLICABLE_NO_CODE_REUSED",
     "repository_source_license": "NO-LICENSE-GRANT",
     "implementation_files": [
-      {"path": "include/cpu_prefetch/queue/common.hpp", "sha256": "a174a85cdcf722e39f4bc17ef7e8ff5d199693f900584f697ebf1ec2871a8bc4"},
-      {"path": "include/cpu_prefetch/queue/linked_spsc.hpp", "sha256": "9f0a89862d2dba85201e0bb0547eb9b57438ed42b249caf71efce26ac36f317e"},
-      {"path": "include/cpu_prefetch/queue/adapters.hpp", "sha256": "f6cc46a7a7af0e89d8e4ae6799b671e41277d8af9990199e98c9c304576d4c6f"},
+      {"path": "include/cpu_prefetch/queue/common.hpp", "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7"},
+      {"path": "include/cpu_prefetch/queue/linked_spsc.hpp", "sha256": "e9ea56ba35c0e42544ef42adefb7212c76b6a845c448bcf6ed29ab9503af730e"},
+      {"path": "include/cpu_prefetch/queue/adapters.hpp", "sha256": "1a7a28562be0ab2ab7e8f608b52470702e038b8d79d1fa738e6a5dc28ae14e49"},
       {"path": "src/queue/common.cpp", "sha256": "c3fd566fe9c4de12f2a2e06075e4fdd9e23e495ffbd3798d1e6648ddf7fbd524"},
       {"path": "src/queue/linked_spsc.cpp", "sha256": "b71edd7a37a549c0effc84bb14826ce04b97e9d3e492f17a32e4ea764c416ba7"}
     ]
@@ -35,6 +35,7 @@
     "Recycler invariant failure is a correctness stop and never an EMPTY or FULL outcome",
     "Stage 6 makes the linked node arena use an explicit page/base alignment in addition to its explicit cache-line stride",
     "Stage 6 adds a statically bound successor-header policy seam immediately after the consumer acquire and before the successor event-field demand",
+    "Stage 8 adds statically specialized fail-closed observers at the accepted p-before-successor-release and q-after-successor-acquire-before-prefetch/recycler boundaries; a p capture failure is a terminal run failure and is never continued or retried",
     "The off package compiles the successor seam away; platform software-prefetch instruction encoding remains unresolved"
   ],
   "memory_order_mapping": [
@@ -56,12 +57,12 @@
     "linearizability": "fixed-arena bounded FIFO try operations for exactly one producer and one consumer",
     "wait_free": "each individual FIFO/recycler try operation under valid SPSC and lock-free pointer-atomic preconditions",
     "lock_free": "no reclamation or general linked-queue claim beyond the fixed Stage A SPSC object",
-    "excluded": "fallback allocation, hazard pointers, epochs, MPSC, MPMC, Stage B, platform prefetch instruction encoding, measurement"
+    "excluded": "fallback allocation, hazard pointers, epochs, MPSC, MPMC, continuation after timestamp-capture failure, the external clock implementation, Stage B, platform prefetch instruction encoding, measurement"
   },
   "refinement_record": "docs/QUEUE_CORRECTNESS.md#fixed-arena-refinement",
   "correctness_evidence": {
     "test_targets": ["cpu_prefetch_queue_tests", "cpu_prefetch_rapidcheck_smoke", "cpu_prefetch_queue_stress"],
-    "coverage": ["empty/full/FIFO/capacity", "exact C+1 cycle and repeated recycler reuse", "exclusive node ownership/acyclic/reachable tail", "one-attempt outcomes", "phase suspension", "abstract-model comparison", "duplicate/omission/corruption/reorder detection"],
+    "coverage": ["empty/full/FIFO/capacity", "exact C+1 cycle and repeated recycler reuse", "exclusive node ownership/acyclic/reachable tail", "one-attempt outcomes", "phase suspension", "abstract-model comparison", "duplicate/omission/corruption/reorder detection", "Stage 8 p-before-publication and q-before-L1-prefetch/reuse failure/order tests"],
     "gcc_libstdcxx": {"unit_property_stress": "PASS", "asan_ubsan": "PASS_ZERO_FINDINGS", "tsan": "PASS_ZERO_FINDINGS"},
     "clang_libcxx": {"unit_property_stress": "PASS", "asan_ubsan": "PASS_ZERO_FINDINGS", "tsan": "PASS_ZERO_FINDINGS"},
     "development_runtime_lock_free_probe": "PASS",
@@ -73,17 +74,17 @@
     "llvm_objdump": "PASS_WITH_NEGATIVE_MUTANT",
     "human_review": "GNU_AND_LLVM_OPERATION_BODIES_REVIEWED",
     "evidence": {
-      "release_probe_sha256": "adf2ff991edf3b4bfbb1aa9293366c2f7cde09d750e408a6c2cc80790cf30e05",
-      "negative_mutant_sha256": "2e210b72aeb5ca46a3e6b6156361c309eaa94c4d38a9cf357366bf2bebbb1016",
-      "rule_set_sha256": "d3f1544d961baad6dbf8123dffe6713f4126079487e17777082e137166c3a100",
+      "release_probe_sha256": "84551849f1244cd0c7e9d1b05fbb9f55e74e4ab6fa7d6058fdb6fa97baec840c",
+      "negative_mutant_sha256": "d123671a0218b1d1b23b6a4c2c79991794ecffed95a876d4aa06b966e14ac577",
+      "rule_set_sha256": "9661a970460ba4f0f04ee96cfde6f09b353e59beec44c9548c6e95a10d98aae6",
       "gnu_objdump_version": "GNU Binutils 2.46.0",
       "llvm_objdump_version": "LLVM 22.1.6",
-      "gnu_try_enqueue_body_sha256": "ea74a8d8c4c8cbae22dfa74c461f21a8103dc725e0b5027cb9254bce93cf45d9",
-      "gnu_try_dequeue_body_sha256": "527635f8620df2c1a78717a43b974687d3e3bd6f771ee73fb423fa16fc57e07f",
-      "llvm_try_enqueue_body_sha256": "ad2b4796c7e5149793366d8e699131594911bb27473d977cb5fbf30421f0c423",
-      "llvm_try_dequeue_body_sha256": "6a51a8e79d8fad8bcc6d5bf4ce92eca87e5c02dda59c76fa8816889f4a6bd0db",
-      "gnu_full_disassembly_sha256": "34d15eace98373743edd09c4ac6c2cc1e84eab41574d3669fc66f9e0978ef01e",
-      "llvm_full_disassembly_sha256": "7ac729146baffc057910550ad3d70c90e9aec5b47a8bbe6f5ef0e471b8306e36"
+      "gnu_try_enqueue_body_sha256": "fd3483b59f94601b91cfd41bb7013adae088664eceb5a2bc3e40c6a36c02032e",
+      "gnu_try_dequeue_body_sha256": "fd09475a01f1171b0926c3bde1bb1c8eff2c710850d4c868f9434c823ed07384",
+      "llvm_try_enqueue_body_sha256": "425d2676501ffa98fc2be8d49131f30c352e66eded60d75d49d5d87cb2787a93",
+      "llvm_try_dequeue_body_sha256": "c3de5a08448c114ddb9f5f6f9172df27b4c428695c3de550cc80cf9f37c2c079",
+      "gnu_full_disassembly_sha256": "114d10186188bf3774ba7dfcf56f1a60ca04fdad7d77216d4cb6e003826c8352",
+      "llvm_full_disassembly_sha256": "4cb1089a210fcc7d12b9089f0af27573c0bb0677693704a0ed300ac373d658cd"
     },
     "build_report": "build/release-gcc/queue_codegen_report.json"
   }

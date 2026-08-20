@@ -61,6 +61,8 @@ jobs:
         run: cmake --build --preset release-gcc --target queue-codegen-check
       - name: Workload generated-code check
         run: cmake --build --preset release-gcc --target workload-codegen-check
+      - name: Timing generated-code check
+        run: cmake --build --preset release-gcc --target timing-codegen-check
       - name: Generate stand-foundation package
         run: cmake --build --preset release-gcc --target package
 
@@ -77,6 +79,10 @@ jobs:
         run: ctest --preset dev-clang-libcxx
       - name: Static analysis
         run: cmake --build --preset dev-clang-libcxx --target static-analysis
+      - name: Configure release timing audit
+        run: cmake --preset release-clang-libcxx
+      - name: Clang timing generated-code check
+        run: cmake --build --preset release-clang-libcxx --target timing-codegen-check
 
   sanitizers:
     strategy:

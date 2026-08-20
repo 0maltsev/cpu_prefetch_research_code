@@ -17,8 +17,11 @@ REQUIRED_COMMANDS = (
     "cmake --build --preset dev-gcc --target schedule-check",
     "cmake --build --preset release-gcc --target queue-codegen-check",
     "cmake --build --preset release-gcc --target workload-codegen-check",
+    "cmake --build --preset release-gcc --target timing-codegen-check",
     "cmake --build --preset dev-gcc --target queue-provenance-check",
     "cmake --preset dev-clang-libcxx",
+    "cmake --preset release-clang-libcxx",
+    "cmake --build --preset release-clang-libcxx --target timing-codegen-check",
     "cmake --build --preset release-gcc --target package",
 )
 

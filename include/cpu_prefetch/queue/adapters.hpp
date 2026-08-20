@@ -24,6 +24,18 @@ public:
   }
   [[nodiscard]] DequeueResult try_dequeue() noexcept { return queue_.try_dequeue(); }
 
+  template <typename BoundaryObserver>
+  [[nodiscard]] BoundaryEnqueueResult
+  try_enqueue_with_boundary_observer(EventPointer event,
+                                     BoundaryObserver& observer) noexcept {
+    return queue_.try_enqueue_with_boundary_observer(event, observer);
+  }
+  template <typename BoundaryObserver>
+  [[nodiscard]] BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer) noexcept {
+    return queue_.try_dequeue_with_boundary_observer(observer);
+  }
+
   [[nodiscard]] RingSpscQueue& ring_queue() noexcept { return queue_; }
 
 private:
@@ -40,6 +52,18 @@ public:
     return queue_.try_enqueue(event);
   }
   [[nodiscard]] DequeueResult try_dequeue() noexcept { return queue_.try_dequeue(); }
+
+  template <typename BoundaryObserver>
+  [[nodiscard]] BoundaryEnqueueResult
+  try_enqueue_with_boundary_observer(EventPointer event,
+                                     BoundaryObserver& observer) noexcept {
+    return queue_.try_enqueue_with_boundary_observer(event, observer);
+  }
+  template <typename BoundaryObserver>
+  [[nodiscard]] BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer) noexcept {
+    return queue_.try_dequeue_with_boundary_observer(observer);
+  }
 
   [[nodiscard]] LinkedSpscQueue& linked_queue() noexcept { return queue_; }
 

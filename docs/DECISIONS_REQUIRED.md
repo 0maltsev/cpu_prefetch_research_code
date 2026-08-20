@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.1`**
 
-Stage 2/7 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_Q7_ACCEPTED`**
+Stage 2/8 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_Q7_ACCEPTED`**
 
 The repository still contains no production benchmark or measurement code.
 Stage 5 contains queue correctness-only production cores, Stage 6 contains
@@ -31,9 +31,9 @@ The repository owner selected **no license**. ADR-0021 records no license grant,
 | Q4 repository license | No repository license grant; no `LICENSE` file or repository SPDX claim | ADR-0021 | Any later license grant needs owner/legal/compatibility review |
 | Q5 deterministic workload bundle | Independent Philox4x32-10/HMAC-SHA-256 stream suite; unbiased Fisher-Yates; separated purpose domains; fixed consumer mixer and canonical content/order/delta inputs; explicit record/package representations | ADR-0025 through ADR-0028 | Concrete seeds, platform facts/capacities, page-frame qualification, retaining prefetch instructions, and calibrated per-context `d2` |
 | Q6 deterministic schedule bundle | Offline Python Decimal80 exponential transform; exact midpoint Philox mapping; picosecond cumulative-floor absolute deadlines; fail-closed overflow; versioned artifact/decoded/envelope identities | ADR-0029 | Stage 7 implementation evidence passes; concrete seed, namespace, rate, origin, and horizon values remain later lifecycle inputs |
-| Q7 Stage 8 clock bundle | vDSO `CLOCK_MONOTONIC_RAW`; exact nanosecond-to-picosecond conversion; compiler-only read boundaries; bracketed publication/observation; no correction; explicit qualification limits | ADR-0030 | Stage 8 implementation/generated-code/dynamic evidence and an explicit eligible worker pair remain required |
+| Q7 Stage 8 clock bundle | vDSO `CLOCK_MONOTONIC_RAW`; exact nanosecond-to-picosecond conversion; compiler-only read boundaries; bracketed publication/observation; no correction; explicit qualification limits | ADR-0030 | Stage 8 software/generated-code pass; dynamic traced-vDSO/full-count evidence and an explicit eligible worker pair remain required |
 
-## Stage 3 through Stage 7 engineering baselines
+## Stage 3 through Stage 8 engineering baselines
 
 ADR-0022 accepts the constrained compiler/build/test/dependency/CI baseline and
 records it as D-029. ADR-0023 accepts the dependency-free typed-model and
@@ -89,15 +89,17 @@ TSC remains diagnostic-only for v1 because the supplied stand is dual-socket
 and its CPUID ratio does not enumerate a crystal frequency.
 
 Q7 supplies no worker CPU pair and does not treat static inventory as clock
-qualification. It permits Stage 8 implementation; dynamic
-qualification, generated-code review, and explicit pair evidence still must
-pass before the applicable Stage 8/9/16 gates.
+qualification. Stage 8 implements the accepted reader, boundary map, exact
+equations, no-correction diagnostic interface, qualification evaluators, and
+dual-disassembler/source-mutant rules. Dynamic traced-vDSO, full-count,
+affinity/source, selected-pair, and before-block evidence still must pass at
+the applicable Phase 9/16 gates.
 
 ## Pre-pilot decisions that may remain open after Stage 2
 
 | Decision IDs | Required choice/evidence | Owner | Blocking gate |
 |---|---|---|---|
-| D-009 | Q7 accepts the complete source/conversion/serialization/boundary/overhead/limit contract; dynamic, generated-code, and explicit eligible-pair evidence remain required | Repository/timing/platform/queue-correctness/code-generation owners | Implement and pass the software slice in Phase 8; pass eligible-pair evidence by Phase 9/16 |
+| D-009 | Software/codegen slice passes; supply exact release/stand identities, explicit pair, 10-million-call traced vDSO evidence, per-core full-count streams, bidirectional three-window streams, and before-block repetition | Timing/platform/queue-correctness/code-generation owners | Phase 9 platform qualification; repeat and bind by Phase 16/every block |
 | D-010, D-020 | Physical raw format, exact row/envelope sizes, endianness, codec, compression/copy policy, capacity and corruption evidence | Storage owner | Select for Phase 11; pass by Phase 16 |
 | D-008 | Queue pointer width/order/refinement is implemented; repeat runtime lock-free/layout probes on the eligible stand. Termination/control atomic width remains a later controller mapping. | Queue correctness/platform owners | Eligible stand/controller acceptance; queue core mapping accepted in ADR-0024 |
 | D-018 | Exact eligible-stand API mapping, processor-relax instruction, capability/readback/probe/rollback evidence | Platform owner | Select for Phase 9; pass by Phase 16 |
@@ -121,6 +123,7 @@ license remain submission-only.
 Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
-versioned protocol amendment. Stage 7 is complete and Q7 has accepted D-009.
-The exact next safe stage is Stage 8 implementation and software qualification.
-Measurement, pilot, and confirmatory execution remain prohibited.
+versioned protocol amendment. Stage 8's software slice is complete under
+accepted D-009. The exact next safe stage is Phase 9 platform control and
+explicit selected-pair qualification. Measurement, pilot, and confirmatory
+execution remain prohibited.

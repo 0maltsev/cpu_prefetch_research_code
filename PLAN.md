@@ -11,7 +11,7 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Every required artifact is byte-identical and listed; all requested documents exist; all normative areas have owner/validator; no production code, result, or invented platform value exists.
 - **Explicitly excluded:** Benchmark, queues, controls, runner, analysis pipeline, calibration, pilot, confirmation.
 - **Rollback or failure behavior:** A declared-hash mismatch or normative contradiction stops bootstrap; do not repair imported bytes. Remove no source evidence; replace a bad import only from verified source and record a new timestamp/manifest.
-- **Status:** `COMPLETE_REVERIFIED`; the Stage 7 closure reran Stage 3's pinned jsonschema 4.26.0 check and reverified all 18 artifact hashes/sizes, the exact inventory, four current authoritative hashes, and all seven Draft 2020-12 schemas.
+- **Status:** `COMPLETE_REVERIFIED`; the Stage 8 closure reran Stage 3's pinned jsonschema 4.26.0 check and reverified all 18 artifact hashes/sizes, the exact inventory, four current authoritative hashes, and all seven Draft 2020-12 schemas.
 
 ## Phase 2 — Implementation-decision freeze
 
@@ -114,12 +114,17 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Every fixed logical boundary is representable exactly; clock passes on explicitly selected cores; raw values are retained without overhead correction; queue order is unchanged.
 - **Explicitly excluded:** Performance comparison and pilot until the full measurement system passes.
 - **Rollback or failure behavior:** Clock failure makes platform/build ineligible or run invalid as appropriate; no substitute source without new ADR/evidence.
-- **Status:** `READY_TO_START`; Q7 accepted D-009 and ADR-0030. The accepted
-  bundle specifies vDSO `CLOCK_MONOTONIC_RAW`, exact
-  ns-to-ps conversion, bracketed queue boundaries, no correction, numerical
-  qualification limits, identities, and failure rules. The exact next safe
-  activity is Stage 8 implementation and software qualification; measurement
-  remains prohibited until its later gates pass.
+- **Status:** `COMPLETE_SOFTWARE`; Q7 accepted D-009 and ADR-0030. The
+  `cpu_prefetch_timing` library now implements checked raw-nanosecond and exact
+  relative-picosecond reads, every fixed producer/consumer boundary, offline
+  exact interval equations, fail-closed static/per-core/bidirectional
+  qualification evaluators, uncorrected overhead diagnostics, and dual-tool
+  generated-code rules/mutants for all five packages. Fake-clock, real-clock
+  engineering-smoke, cross-thread, failure, overflow, equation, sanitizer, and
+  release assembly checks pass locally. No worker CPU pair is inferred; the
+  exact 10-million-read, traced vDSO, three-window bidirectional selected-pair,
+  affinity/source, and before-block evidence remains a Phase 9/16 platform
+  gate. Phase 9 is the next safe phase. Measurement remains prohibited.
 
 ## Phase 9 — Platform control
 

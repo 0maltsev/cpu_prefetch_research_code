@@ -53,6 +53,21 @@ struct DequeueResult final {
   const void* event;
 };
 
+enum class BoundaryCaptureStatus : std::uint8_t {
+  complete,
+  capture_failed,
+};
+
+struct BoundaryEnqueueResult final {
+  BoundaryCaptureStatus status;
+  EnqueueResult result;
+};
+
+struct BoundaryDequeueResult final {
+  BoundaryCaptureStatus status;
+  DequeueResult result;
+};
+
 struct AtomicLockFreeEvidence final {
   std::size_t abi_pointer_width_bytes;
   std::size_t atomic_pointer_width_bytes;

@@ -91,6 +91,14 @@
       }
     },
     {
+      "name": "release-clang-libcxx",
+      "displayName": "Release Clang 22/libc++",
+      "inherits": "clang-libcxx-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
       "name": "asan-ubsan-clang-libcxx",
       "displayName": "ASan+UBSan Clang 22/libc++",
       "inherits": "clang-libcxx-base",
@@ -118,6 +126,7 @@
     { "name": "asan-ubsan-gcc", "configurePreset": "asan-ubsan-gcc" },
     { "name": "tsan-gcc", "configurePreset": "tsan-gcc" },
     { "name": "dev-clang-libcxx", "configurePreset": "dev-clang-libcxx" },
+    { "name": "release-clang-libcxx", "configurePreset": "release-clang-libcxx" },
     { "name": "asan-ubsan-clang-libcxx", "configurePreset": "asan-ubsan-clang-libcxx" },
     { "name": "tsan-clang-libcxx", "configurePreset": "tsan-clang-libcxx" }
   ],
@@ -145,6 +154,11 @@
     {
       "name": "dev-clang-libcxx",
       "configurePreset": "dev-clang-libcxx",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "release-clang-libcxx",
+      "configurePreset": "release-clang-libcxx",
       "output": { "outputOnFailure": true }
     },
     {

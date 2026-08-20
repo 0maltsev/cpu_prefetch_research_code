@@ -74,6 +74,17 @@ public:
   [[nodiscard]] queue::DequeueResult try_dequeue() noexcept {
     return queue_.try_dequeue();
   }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryEnqueueResult
+  try_enqueue_with_boundary_observer(queue::EventPointer event,
+                                     BoundaryObserver& observer) noexcept {
+    return queue_.try_enqueue_with_boundary_observer(event, observer);
+  }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer) noexcept {
+    return queue_.try_dequeue_with_boundary_observer(observer);
+  }
 
 private:
   queue::RingSpscQueue& queue_;
@@ -98,6 +109,23 @@ public:
         static_cast<const void*>(nullptr))));
     emitter_.ring_consumer_read(queue_.consumer_slot_target(distance_.slots()));
     return queue_.try_dequeue();
+  }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryEnqueueResult
+  try_enqueue_with_boundary_observer(queue::EventPointer event,
+                                     BoundaryObserver& observer) noexcept {
+    static_assert(noexcept(std::declval<PrefetchEmitter&>().ring_producer_write(
+        static_cast<const void*>(nullptr))));
+    emitter_.ring_producer_write(queue_.producer_slot_target(distance_.slots()));
+    return queue_.try_enqueue_with_boundary_observer(event, observer);
+  }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer) noexcept {
+    static_assert(noexcept(std::declval<PrefetchEmitter&>().ring_consumer_read(
+        static_cast<const void*>(nullptr))));
+    emitter_.ring_consumer_read(queue_.consumer_slot_target(distance_.slots()));
+    return queue_.try_dequeue_with_boundary_observer(observer);
   }
 
 private:
@@ -126,6 +154,23 @@ public:
     emitter_.ring_consumer_read(queue_.consumer_slot_target(distance_.slots()));
     return queue_.try_dequeue();
   }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryEnqueueResult
+  try_enqueue_with_boundary_observer(queue::EventPointer event,
+                                     BoundaryObserver& observer) noexcept {
+    static_assert(noexcept(std::declval<PrefetchEmitter&>().ring_producer_write(
+        static_cast<const void*>(nullptr))));
+    emitter_.ring_producer_write(queue_.producer_slot_target(distance_.slots()));
+    return queue_.try_enqueue_with_boundary_observer(event, observer);
+  }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer) noexcept {
+    static_assert(noexcept(std::declval<PrefetchEmitter&>().ring_consumer_read(
+        static_cast<const void*>(nullptr))));
+    emitter_.ring_consumer_read(queue_.consumer_slot_target(distance_.slots()));
+    return queue_.try_dequeue_with_boundary_observer(observer);
+  }
 
 private:
   queue::RingSpscQueue& queue_;
@@ -144,6 +189,17 @@ public:
   [[nodiscard]] queue::DequeueResult try_dequeue() noexcept {
     return queue_.try_dequeue();
   }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryEnqueueResult
+  try_enqueue_with_boundary_observer(queue::EventPointer event,
+                                     BoundaryObserver& observer) noexcept {
+    return queue_.try_enqueue_with_boundary_observer(event, observer);
+  }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer) noexcept {
+    return queue_.try_dequeue_with_boundary_observer(observer);
+  }
 
 private:
   queue::LinkedSpscQueue& queue_;
@@ -160,6 +216,17 @@ public:
   }
   [[nodiscard]] queue::DequeueResult try_dequeue() noexcept {
     return queue_.try_dequeue_with_successor_prefetch(emitter_);
+  }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryEnqueueResult
+  try_enqueue_with_boundary_observer(queue::EventPointer event,
+                                     BoundaryObserver& observer) noexcept {
+    return queue_.try_enqueue_with_boundary_observer(event, observer);
+  }
+  template <typename BoundaryObserver>
+  [[nodiscard]] queue::BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer) noexcept {
+    return queue_.try_dequeue_with_boundary_observer(observer, emitter_);
   }
 
 private:

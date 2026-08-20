@@ -65,6 +65,9 @@ decision. No worker CPU placement is selected or inferred.
 - Repository-owner acceptance `Q7 - accept the bundle` on 2026-08-20.
 - Official Linux clock, vDSO, clocksource, and x86 timekeeping documentation;
   Intel architecture manuals; C++ compiler-only fence specification.
+- Stage 8 implementation evidence in [`docs/TIMING.md`](../TIMING.md): checked
+  conversion/boundary/equation/failure/qualification tests and strict
+  GCC/Clang release GNU+LLVM source/disassembly audits with required mutants.
 
 ## Consequences and compatibility
 
@@ -80,12 +83,16 @@ switch is incompatible and fails closed.
 
 ## Verification and acceptance tests
 
-Stage 8 must implement and pass every exact check in the bundle, including
+Stage 8 implements the software/evaluator portion of every exact check in the bundle, including
 same-core monotonicity/read-cost samples, three-window bidirectional offset and
 drift qualification, singleton-affinity/migration checks, conversion and
 overflow goldens, timestamp-order/equation tests, partial-failure handling,
 dual-disassembler rules and mutants, both accepted compiler/library matrices,
-and applicable sanitizers. Static capability evidence is not a pass.
+and applicable sanitizers. The software and generated-code checks pass locally.
+Static capability evidence, a short development smoke, or a synthetic
+qualification vector is not a platform pass; explicit selected-core,
+full-count, traced-vDSO, three-window, and before-block evidence remains
+mandatory at Phase 9/16.
 
 ## Rollback or supersession
 

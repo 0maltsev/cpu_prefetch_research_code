@@ -1,14 +1,16 @@
 # CPU Prefetch Research Code
 
-This repository has completed the **Stage 7 deterministic-schedule slice** for
+This repository has completed the **Stage 8 timing software slice** for
 protocol **`2.0.0-pre.1`**. It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
 sanitizer, and dual-disassembler evidence. It also contains deterministic event
 records, working-set construction, integrity inputs, and exact `R0/R1/R2/L0/L1`
-package mechanisms, plus the accepted offline deterministic schedule generator
-and fail-closed C++ decoder. It contains no measurement loop, clock,
-hardware-control implementation, raw-data writer, or scientific analysis.
+package mechanisms, the accepted offline deterministic schedule generator and
+fail-closed C++ decoder, and the D-009 clock reader, boundary-capture,
+qualification-evaluator, and offline interval components. It contains no
+measurement loop, eligible-pair qualification, hardware-control
+implementation, raw-data writer, or scientific analysis.
 
 The repository owner selected **no license**. See
 [`docs/NO_LICENSE_GRANT.md`](docs/NO_LICENSE_GRANT.md) and ADR-0021. There is no
@@ -79,6 +81,7 @@ cmake --build --preset dev-gcc --target protocol-check
 cmake --build --preset dev-gcc --target schema-fixture-check
 cmake --build --preset dev-gcc --target canonical-check
 cmake --build --preset dev-gcc --target schedule-check
+ctest --preset dev-gcc -L timing --output-on-failure
 cmake --build --preset dev-gcc --target queue-provenance-check
 cmake --build --preset dev-gcc --target document-check
 cmake --build --preset dev-gcc --target dependency-check
@@ -130,21 +133,27 @@ ctest --preset release-gcc
 cmake --build --preset release-gcc --target release-policy-check
 cmake --build --preset release-gcc --target queue-codegen-check
 cmake --build --preset release-gcc --target workload-codegen-check
+cmake --build --preset release-gcc --target timing-codegen-check
 cmake --build --preset release-gcc --target package
+
+cmake --preset release-clang-libcxx
+cmake --build --preset release-clang-libcxx --target timing-codegen-check
 ```
 
-The strict queue and workload code-generation targets require both GNU objdump
-and LLVM 22 `llvm-objdump`. The workload probe covers the consumer mixer and
+The strict queue, workload, and timing code-generation targets require both GNU
+objdump and LLVM 22 `llvm-objdump`. The workload probe covers the consumer mixer and
 R1/R2/L1 target sites; each target requires its call-injection negative mutant
-to be rejected. Audit targets may retain partial local reports, but only strict
+to be rejected. The timing probe covers the clock reader and enqueue/dequeue
+boundary specializations for all five packages, plus all six D-009 negative
+mutants. Audit targets may retain partial local reports, but only strict
 dual-tool results close the gate.
 
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
 accepted. The package contains only the smoke binary, foundation,
-typed-protocol, queue, workload, and schedule libraries, the offline schedule
+typed-protocol, queue, workload, schedule, and timing libraries, the offline schedule
 generator, headers, protocol/queue provenance records, Stage 6/7 correctness
-documentation, implementation-owned derivation schema, build metadata,
+and Stage 8 timing documentation, implementation-owned derivation schema, build metadata,
 dependency inventory, and no-license notice.
 
 ## Created targets and metadata
@@ -159,6 +168,9 @@ dependency inventory, and no-license notice.
   integrity byte grammars, and five static package policies;
 - `cpu_prefetch_schedule`: validated immutable schedule decoding, suite and
   derivation binding, namespace-role separation, and common-family checks;
+- `cpu_prefetch_timing`: compiler-fenced raw-clock reads, exact conversion,
+  producer/consumer capture, offline interval equations, and qualification
+  evaluators;
 - `cpu_prefetch_smoke`: prints protocol, Git, compiler, and standard-library
   identity;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
@@ -172,12 +184,15 @@ dependency inventory, and no-license notice.
 - `cpu_prefetch_schedule_tests` and `schedule.python_generator`: integrated
   golden, decoder, hash, namespace, common-family, schema, boundary, overflow,
   publication, and completion-independence tests;
+- `cpu_prefetch_timing_tests`: fake/real clock, boundary, cross-thread,
+  failure, overflow, equation, qualification-math, and queue-order tests;
 - `cpu_prefetch_rapidcheck_smoke`: fixed-seed framework and exact-uint64
   canonicalization properties;
 - `format-check`, `static-analysis`, `protocol-check`,
   `schema-fixture-check`, `canonical-check`, `queue-provenance-check`,
   `queue-codegen-audit`, strict `queue-codegen-check`, strict
-  `workload-codegen-check`, `schedule-check`, `document-check`,
+  `workload-codegen-check`, `timing-codegen-audit`, strict
+  `timing-codegen-check`, `schedule-check`, `document-check`,
   `dependency-check`, `ci-check`, and `release-policy-check`;
 - CMake `install` and CPack `package` targets.
 
@@ -236,6 +251,29 @@ goldens are documented in
 [`docs/SCHEDULE_GENERATION.md`](docs/SCHEDULE_GENERATION.md). No queue result,
 clock reading, or treatment outcome can enter generation.
 
+## Timing boundary
+
+ADR-0030 fixes and Stage 8 implements
+`LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1`: compiler-fenced
+`CLOCK_MONOTONIC_RAW` reads, checked absolute-nanosecond to exact
+relative-picosecond conversion, accepted-only `p`, successful-dequeue `q`, all
+other imported producer/consumer boundaries, and offline checked equations.
+Raw samples are never overhead-corrected. Qualification math rejects short
+diagnostic samples as ineligible, and the release codegen check covers all five
+packages and negative boundary/clock/fence/syscall mutants. The complete
+contract and limitations are in [`docs/TIMING.md`](docs/TIMING.md).
+
+Focused local commands are:
+
+```sh
+ctest --preset dev-gcc -L timing --output-on-failure
+cmake --build --preset release-gcc --target timing-codegen-check
+```
+
+The second command requires both accepted disassemblers. Neither command
+qualifies an experiment stand; Phase 9 must supply an explicit worker pair and
+the full traced/per-core/bidirectional evidence.
+
 ## CI boundary and next safe action
 
 [`ci.yml`](.github/workflows/ci.yml) uses only a full-commit-pinned checkout
@@ -244,8 +282,8 @@ commands above and performs no dependency download; runner policy must disable
 dependency-network access after source checkout. Runner availability and
 provisioning are external platform operations.
 
-Stage 7 is complete. Q7 accepted the final
-[`D-009 Stage 8 clock bundle`](docs/STAGE8_CLOCK_DECISION_BUNDLE.md) and
-ADR-0030 on 2026-08-20. Stage 8 implementation and software qualification are
-the exact next safe work. Measurement, pilot, and confirmatory behavior remain
-prohibited until their later lifecycle gates.
+Stage 8's software slice is complete under the accepted
+[`D-009 clock bundle`](docs/STAGE8_CLOCK_DECISION_BUNDLE.md) and ADR-0030.
+Phase 9 platform control and explicit selected-pair qualification are the exact
+next safe work. Measurement, pilot, and confirmatory behavior remain prohibited
+until their later lifecycle gates.

@@ -39,6 +39,27 @@ public:
     return try_dequeue_observed(observer);
   }
 
+  template <typename BoundaryObserver>
+  [[nodiscard]] BoundaryEnqueueResult
+  try_enqueue_with_boundary_observer(EventPointer event,
+                                     BoundaryObserver& observer) noexcept {
+    static_assert(noexcept(observer.before_enqueue_publication()));
+    struct NoopPhaseObserver final {
+      void before_slot_publication() const noexcept {}
+    } phase_observer;
+    return try_enqueue_observed(event, phase_observer, observer);
+  }
+
+  template <typename BoundaryObserver>
+  [[nodiscard]] BoundaryDequeueResult
+  try_dequeue_with_boundary_observer(BoundaryObserver& observer) noexcept {
+    static_assert(noexcept(observer.after_dequeue_observation()));
+    struct NoopPhaseObserver final {
+      void before_slot_reuse_release() const noexcept {}
+    } phase_observer;
+    return try_dequeue_observed(phase_observer, observer);
+  }
+
   [[nodiscard]] std::size_t capacity() const noexcept { return capacity_; }
   [[nodiscard]] AtomicLockFreeEvidence atomic_lock_free_evidence() const noexcept;
   [[nodiscard]] LayoutEvidence layout_evidence() const noexcept;
@@ -63,32 +84,66 @@ private:
   [[nodiscard]] EnqueueResult try_enqueue_observed(EventPointer event,
                                                    Observer& observer) noexcept {
     static_assert(noexcept(observer.before_slot_publication()));
+    struct NoopBoundaryObserver final {
+      [[nodiscard]] bool before_enqueue_publication() const noexcept { return true; }
+    } boundary_observer;
+    const auto result = try_enqueue_observed(event, observer, boundary_observer);
+    return result.result;
+  }
+
+  template <typename PhaseObserver, typename BoundaryObserver>
+  [[nodiscard]] BoundaryEnqueueResult
+  try_enqueue_observed(EventPointer event, PhaseObserver& phase_observer,
+                       BoundaryObserver& boundary_observer) noexcept {
+    static_assert(noexcept(phase_observer.before_slot_publication()));
+    static_assert(noexcept(boundary_observer.before_enqueue_publication()));
     const auto position = producer_->position;
     auto& slot = slots_[position].value;
     if (slot.load(std::memory_order_acquire) != nullptr) {
-      return EnqueueResult::full;
+      return {BoundaryCaptureStatus::complete, EnqueueResult::full};
     }
 
-    observer.before_slot_publication();
+    phase_observer.before_slot_publication();
+    if (!boundary_observer.before_enqueue_publication()) {
+      return {BoundaryCaptureStatus::capture_failed, EnqueueResult::full};
+    }
     slot.store(event.get(), std::memory_order_release);
     producer_->position = next_position(position);
-    return EnqueueResult::accepted;
+    return {BoundaryCaptureStatus::complete, EnqueueResult::accepted};
   }
 
   template <typename Observer>
   [[nodiscard]] DequeueResult try_dequeue_observed(Observer& observer) noexcept {
     static_assert(noexcept(observer.before_slot_reuse_release()));
+    struct NoopBoundaryObserver final {
+      [[nodiscard]] bool after_dequeue_observation() const noexcept { return true; }
+    } boundary_observer;
+    const auto result = try_dequeue_observed(observer, boundary_observer);
+    return result.result;
+  }
+
+  template <typename PhaseObserver, typename BoundaryObserver>
+  [[nodiscard]] BoundaryDequeueResult
+  try_dequeue_observed(PhaseObserver& phase_observer,
+                       BoundaryObserver& boundary_observer) noexcept {
+    static_assert(noexcept(phase_observer.before_slot_reuse_release()));
+    static_assert(noexcept(boundary_observer.after_dequeue_observation()));
     const auto position = consumer_->position;
     auto& slot = slots_[position].value;
     const auto* event = slot.load(std::memory_order_acquire);
     if (event == nullptr) {
-      return {DequeueStatus::empty, nullptr};
+      return {BoundaryCaptureStatus::complete,
+              DequeueResult{DequeueStatus::empty, nullptr}};
     }
 
-    observer.before_slot_reuse_release();
+    if (!boundary_observer.after_dequeue_observation()) {
+      return {BoundaryCaptureStatus::capture_failed,
+              DequeueResult{DequeueStatus::empty, nullptr}};
+    }
+    phase_observer.before_slot_reuse_release();
     slot.store(nullptr, std::memory_order_release);
     consumer_->position = next_position(position);
-    return {DequeueStatus::item, event};
+    return {BoundaryCaptureStatus::complete, DequeueResult{DequeueStatus::item, event}};
   }
   struct Slot final {
     std::atomic<const void*> value{nullptr};

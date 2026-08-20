@@ -4,9 +4,9 @@ Protocol version: **`2.0.0-pre.1`**
 
 Register date: **2026-08-20**
 
-Stage 2/7 state: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_Q7_ACCEPTED`**
+Stage 2/8 state: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_Q7_ACCEPTED`**
 
-Current implementation state: **`STAGE_7_COMPLETE; D009_ACCEPTED_STAGE8_READY`**
+Current implementation state: **`STAGE_8_SOFTWARE_COMPLETE; PHASE9_PLATFORM_EVIDENCE_NEXT`**
 
 `ACCEPTED` means an ADR freezes the choice. `PROPOSED` is a recommendation awaiting explicit owner acceptance. `UNRESOLVED` is not a default. `PROTOCOL_FIXED` restates source-of-truth behavior and is never an engineering choice. A selected implementation that changes scientific meaning requires a versioned protocol amendment, not merely an ADR.
 
@@ -70,7 +70,7 @@ The observed development environment (Linux 7.0.11 x86-64, GCC 16.1.1, Clang 22.
 
 | ID | Classification | Options considered | Selected option or unresolved state | Evidence | Scientific effect | Compatibility effect | Owner | Deadline / gate | Supersession rule |
 |---|---|---|---|---|---|---|---|---|---|
-| D-009 | Clock | Invariant TSC/RDTSCP; `CLOCK_MONOTONIC_RAW`; another proved clock | `ACCEPTED`: `LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1`, exact ns-to-ps conversion, bracketed publication/observation boundaries, no overhead correction, and exact qualification limits; [bundle](STAGE8_CLOCK_DECISION_BUNDLE.md), [ADR-0030](decisions/0030-stage8-clock-suite.md) | Imported clock contract; primary Linux/Intel/C++ documentation; verified stand capability archive; repository-owner Q7 acceptance on 2026-08-20; no queue outcome. Dynamic skew/drift/cost, explicit CPU-pair, and generated-code passes remain Stage 8/9 evidence | Prospectively fixes timestamp sampling granularity and boundary instrumentation while preserving logical equations and queue order; raw values remain primary | Linux x86-64 vDSO suite and identities; direct TSC, syscall fallback, source switch, correction, or changed limits are incompatible | Repository/timing/platform/queue-correctness/code-generation owners | Accepted before Phase 8 implementation; software/dynamic qualification in Phase 8; selected-pair/eligible-stand pass by Phase 9/16 | New suite/policy IDs and superseding ADR; immutable old artifacts; semantic conflict needs amendment |
+| D-009 | Clock | Invariant TSC/RDTSCP; `CLOCK_MONOTONIC_RAW`; another proved clock | `ACCEPTED_AND_IMPLEMENTED_SOFTWARE`: `LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1`, exact ns-to-ps conversion, bracketed publication/observation boundaries, no overhead correction, and exact qualification limits; [bundle](STAGE8_CLOCK_DECISION_BUNDLE.md), [ADR-0030](decisions/0030-stage8-clock-suite.md), [implementation](TIMING.md) | Imported clock contract; primary Linux/Intel/C++ documentation; verified capability archive; Q7; fake/real-reader, boundary, cross-thread, equation, failure, sanitizer, and GNU+LLVM codegen/mutant evidence. No queue outcome selected it. Full dynamic skew/drift/cost and explicit CPU-pair evidence remain Phase 9/16 gates | Prospectively fixes timestamp sampling granularity and boundary instrumentation while preserving logical equations and queue order; raw values remain primary and uncorrected | Linux x86-64 vDSO suite and identities; direct TSC, syscall fallback, source switch, correction, moved boundary, or changed limits are incompatible | Repository/timing/platform/queue-correctness/code-generation owners | Software slice passes Stage 8; selected-pair/traced-vDSO/full-count/before-block pass by Phase 9/16 | New suite/policy IDs and superseding ADR; immutable old artifacts; semantic conflict needs amendment |
 | D-010 | Physical raw encoding | Fixed binary rows; Arrow/Parquet; another columnar/binary envelope | `UNRESOLVED`; accepted replaceable interface only (D-022) | Protocol intentionally defers format until exact row sizes, corruption behavior, capacity, and cross-decoder evidence exist | Logical data must be unchanged; timed write cost/layout may affect measurement and must be frozen | Format/version/endianness/compression/copy count explicitly recorded | Storage owner | Select for Phase 11; pass by Phase 16 | New format version and converter; never rewrite source |
 | D-011 | RNG / seed derivation | Standard-library RNG; PCG; Philox; AES counter; Random123 reuse | `ACCEPTED`: independent `PHILOX4X32-10-HMAC-SHA256-v1`, 256-bit master seed, four big-endian length-prefixed UTF-8 derivation fields, fixed key/counter/output mapping, separate purpose labels, no Random123 code/dependency; [ADR-0025](decisions/0025-philox-hmac-stream-suite.md) | Q5 accepted; paper algorithm; OpenSSL 3; cross-tool known answers | Prospectively fixes Stage 6 random bits; no concrete seed or outcome enters selection | Field/word/label/draw mapping is suite identity | Reproducibility/integrity owners | Stage 6 implementation/vectors pass; master seed values remain pre-confirmatory inputs | New suite/version prospectively; existing artifacts immutable |
 | D-012 | Permutation / payload initialization | Biased modulo shuffle; sort-by-random-key; Fisher-Yates with rejection | `ACCEPTED`: descending Fisher-Yates with unsigned-64 rejection; separate event/node streams; payload of record `k` is payload draw `k`; initial consumer state has its own stream; [ADR-0026](decisions/0026-unbiased-permutation-and-payload-domains.md) | Q5 accepted; protocol deterministic unbiased/frozen requirements; golden/property vectors | Fixes order/payload construction before outcomes | Loop, rejection, draw consumption, and labels are suite identity | Reproducibility owner | Stage 6 implementation/vectors pass; qualifying seed values remain external freeze inputs | New version prospectively only; frozen mappings immutable |
@@ -94,7 +94,9 @@ Q7 was accepted on 2026-08-20. They are recorded in ADR-0007 through ADR-0030. Q
 Q5 selected the Stage 6 deterministic suite and representation, and Q6 selected
 the D-027 Stage 7 schedule-generation suite. Later scientific/platform/pilot
 decisions remain open at their stated gates and were not defaulted. Stages 2
-through 7 are complete locally. The final D-009 decision is recorded in the Q7
-bundle and accepted ADR-0030. Stage 8 implementation and software qualification
-are the exact next safe activity; experiment execution remains prohibited until
-its later gates pass.
+through 8 are complete locally at their software gates. The final D-009
+decision is recorded in the Q7 bundle and accepted ADR-0030; its reader,
+boundary, equation, qualification-evaluator, diagnostic, and code-generation
+software is implemented. Phase 9 platform control and explicit selected-pair
+qualification are the exact next safe activity; experiment execution remains
+prohibited until its later gates pass.

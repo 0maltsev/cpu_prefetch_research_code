@@ -7,11 +7,14 @@ provides the typed protocol/configuration model and validation layer. Stage 5
 now provides independently authored ring and linked/recycler queue cores and
 correctness tests. Stage 6 provides deterministic workload construction and the
 five package mechanisms. Stage 7 provides offline deterministic schedule
-generation and immutable decoding; no measurement production code exists.
+generation and immutable decoding. Stage 8 provides the accepted clock reader,
+timestamp boundaries, offline interval derivation, and qualification
+evaluators; no measurement loop or eligible-pair qualification exists.
 ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 through ADR-0030 fix the
 framework/toolchain/sanitizer/model/queue/workload/schedule/clock baseline and
-commands. ADR-0030's clock implementation and qualification evidence remain
-Stage 8 work.
+commands. ADR-0030's software and dual-tool generated-code slice passes;
+explicit selected-pair and stand qualification evidence remains Phase 9/16
+work.
 Tests establish software correctness, protocol
 conformance, reproducibility, and access integrity. Synthetic and
 development-machine tests do **not** establish queue performance, a prefetch
@@ -204,9 +207,16 @@ namespace values remain later freeze inputs.
   is rejected by the accepted no-correction policy.
 - Fault injection catches regression, excessive skew/drift, invalid conversion, and moved/missing boundaries.
 
-Stage 8 decision status: Q7 accepted D-009/ADR-0030. The reader, boundary
-instrumentation, generated-code checks, dynamic qualification, and explicit
-worker-pair evidence are not yet implemented or passed.
+Stage 8 software status: Q7 accepted D-009/ADR-0030. Checked conversion,
+absolute/raw sample retention, fake and real readers, every producer/consumer
+boundary, `FULL`/empty/failure handling, cross-thread publication, exact
+offline equations, static/per-core/bidirectional qualification math,
+uncorrected overhead diagnostics, and GNU+LLVM generated-code checks with all
+six required source mutants pass locally. Short synthetic inputs are marked
+ineligible by exact sample-count fields. The 10,000-read development smoke is
+engineering evidence only. An explicit pair, exact full-count traced vDSO and
+three-window evidence, affinity/source identity, and before-block repetition
+remain Phase 9/16 gates.
 
 ### 11. Record, checksum, and corruption tests
 

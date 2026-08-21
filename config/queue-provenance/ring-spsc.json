@@ -21,7 +21,7 @@
     "repository_source_license": "NO-LICENSE-GRANT",
     "implementation_files": [
       {"path": "include/cpu_prefetch/queue/common.hpp", "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7"},
-      {"path": "include/cpu_prefetch/queue/ring_spsc.hpp", "sha256": "cdbee5f417dfd6ceaab23ead2f561933554500c5e57678c03deaed91abfd4903"},
+      {"path": "include/cpu_prefetch/queue/ring_spsc.hpp", "sha256": "9003fdf08982bd0b1554dc5a4794743d4b5e8be687fe37306bbc6c3714d9998a"},
       {"path": "include/cpu_prefetch/queue/adapters.hpp", "sha256": "1a7a28562be0ab2ab7e8f608b52470702e038b8d79d1fa738e6a5dc28ae14e49"},
       {"path": "src/queue/common.cpp", "sha256": "c3fd566fe9c4de12f2a2e06075e4fdd9e23e495ffbd3798d1e6648ddf7fbd524"},
       {"path": "src/queue/ring_spsc.cpp", "sha256": "facd59331c02beb2ca1d2e08ab90ee04f7bc4642d894ba6089cde432337573ec"}
@@ -33,6 +33,7 @@
     "Null payload construction is rejected before queue operation",
     "Stage 6 exposes owner-thread future-slot target addresses without changing queue publication, reuse, or one-attempt semantics",
     "Stage 8 adds statically specialized fail-closed observers at the accepted p-before-release-publication and q-after-acquire-before-reuse boundaries; ordinary queue operations retain the original path and memory orders",
+    "Stage 13 adds a calibration-only observer immediately before and after the same acquire load that decides slot availability; ordinary operations use an inlined no-op observer and retain the algorithm and memory orders",
     "Platform software-prefetch instruction encoding remains outside the queue and unresolved"
   ],
   "memory_order_mapping": [
@@ -55,8 +56,8 @@
   },
   "refinement_record": "docs/QUEUE_CORRECTNESS.md#bounded-ring-mapping",
   "correctness_evidence": {
-    "test_targets": ["cpu_prefetch_queue_tests", "cpu_prefetch_rapidcheck_smoke", "cpu_prefetch_queue_stress"],
-    "coverage": ["empty/full/FIFO/capacity", "wrap and 200000 repeated reuses", "one-attempt outcomes", "phase suspension", "abstract-model comparison", "duplicate/omission/corruption/reorder detection", "Stage 8 p-before-publication and q-before-reuse failure/order tests"],
+    "test_targets": ["cpu_prefetch_queue_tests", "cpu_prefetch_rapidcheck_smoke", "cpu_prefetch_queue_stress", "cpu_prefetch_calibration_tests"],
+    "coverage": ["empty/full/FIFO/capacity", "wrap and 200000 repeated reuses", "one-attempt outcomes", "phase suspension", "abstract-model comparison", "duplicate/omission/corruption/reorder detection", "Stage 8 p-before-publication and q-before-reuse failure/order tests", "Stage 13 exact acquire bracketing, retained FULL/empty observations, advancing-only issue cadence, and explicit trace-capacity failure"],
     "gcc_libstdcxx": {"unit_property_stress": "PASS", "asan_ubsan": "PASS_ZERO_FINDINGS", "tsan": "PASS_ZERO_FINDINGS"},
     "clang_libcxx": {"unit_property_stress": "PASS", "asan_ubsan": "PASS_ZERO_FINDINGS", "tsan": "PASS_ZERO_FINDINGS"},
     "development_runtime_lock_free_probe": "PASS",

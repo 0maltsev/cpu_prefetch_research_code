@@ -4,7 +4,7 @@ Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
 Stage 2/13 disposition: **`COMPLETE; Q1_THROUGH_Q12_ACCEPTED`**
 
-Stage 13 disposition: **`DECISIONS_ACCEPTED; IMPLEMENTATION_PENDING`**
+Stage 13 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
 The repository still contains no authorized production benchmark or
 measurement runner. Stages 11 and 12 contain the accepted physical observation
@@ -13,7 +13,8 @@ Stage 5 contains queue correctness-only production cores, Stage 6 contains
 deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
 owner on 2026-08-17; Q7 was accepted on 2026-08-20; Q8 through Q12 were
-accepted on 2026-08-21. They are recorded through ADR-0038. Exact scientific,
+accepted on 2026-08-21. They are recorded through ADR-0038, with ADR-0039
+closing the delegated Stage 13 profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
 
@@ -52,7 +53,7 @@ The repository owner selected **no license**. ADR-0021 records no license grant,
 | Q7 Stage 8 clock bundle | vDSO `CLOCK_MONOTONIC_RAW`; exact nanosecond-to-picosecond conversion; compiler-only read boundaries; bracketed publication/observation; no correction; explicit qualification limits | ADR-0030 | Stage 8 software/generated-code pass; dynamic traced-vDSO/full-count evidence and an explicit eligible worker pair remain required |
 | Q9 Stage 11 storage bundle | Exact fixed u64le literal-run-ID rows; JCS envelope; no compression; one temporary and two verified durable copies in explicit distinct domains | ADR-0032/0033 | Stage 11 software passes; concrete run-plan capacity, worker-page residency, real domains/custody, and operational recovery remain Phase 16 evidence |
 | Q10/Q11 D-031 and Stage 12 | Exhaustive ordered blocker set; non-priority `BLOCKED_MULTIPLE`; immutable pre.2 import; exact run-level reconciliation/status implementation | ADR-0034 | Stage 12 software passes; Stage 14 still supplies authoritative block completeness and access chronology |
-| Q12 Stage 13 calibration methods | Nonparametric 95/95 service-rate lower limit; run-cluster Hoeffding matrix feasibility and global ladder; run-tail ring distance; versioned records/arithmetic/invalidation | ADR-0035 through ADR-0038 | Stage 13 software remains unimplemented; every exact stand/duration/count/seed/capacity/authority/budget and final exposure remains externally gated |
+| Q12 Stage 13 calibration methods | Nonparametric 95/95 service-rate lower limit; run-cluster Hoeffding matrix feasibility and global ladder; run-tail ring distance; versioned records/arithmetic/invalidation | ADR-0035 through ADR-0039 | Synthetic software/profile tests pass; every exact stand/duration/count/seed/capacity/authority/budget and final exposure remains externally gated |
 
 ## Stage 3 through Stage 8 engineering baselines
 
@@ -143,10 +144,9 @@ license remain submission-only.
 Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
-versioned protocol amendment. Stages 11 and 12 are complete locally under
-ADR-0032 through ADR-0034. Q12 accepted the Stage 13 decision/input bundle and
-ADR-0035 through ADR-0038 record it. The exact next safe action is Stage 13
-software implementation with fake and synthetic inputs only. Every external
+versioned protocol amendment. Stages 11 through 13 are complete locally under
+ADR-0032 through ADR-0039. The exact next safe action is Stage 14 block
+planning/orchestration software with fake and synthetic inputs only. Every external
 scientific or stand-dependent value remains blocked until its listed evidence
 gate. Measurement, calibration execution, pilot, and confirmatory execution
 remain prohibited.

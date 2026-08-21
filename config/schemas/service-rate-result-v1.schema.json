@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cpu-prefetch.invalid/schemas/service-rate-result-v1.schema.json",
+  "title": "Stage 13 service-rate result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "protocol_version", "record_id", "plan", "estimator_id", "state", "assumptions", "cells", "mu_ref", "candidate_loads", "record_sha256"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-service-rate-result/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "record_id": {"$ref": "#/$defs/id"},
+    "plan": {"$ref": "#/$defs/artifact"},
+    "estimator_id": {"const": "SERVICE-RATE-NP-LTL95C95-MIN-v1"},
+    "state": {"enum": ["NOT_EVALUATED", "RESOLVED"]},
+    "assumptions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "cells": {"type": "array", "minItems": 60, "maxItems": 60, "items": {"$ref": "#/$defs/cell"}},
+    "mu_ref": {"oneOf": [{"$ref": "#/$defs/rational"}, {"type": "null"}]},
+    "candidate_loads": {"type": "array", "maxItems": 3, "items": {"$ref": "#/$defs/rational"}},
+    "record_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {"if": {"properties": {"state": {"const": "RESOLVED"}}}, "then": {"properties": {"mu_ref": {"$ref": "#/$defs/rational"}, "candidate_loads": {"minItems": 3, "maxItems": 3}}}},
+    {"if": {"properties": {"state": {"const": "NOT_EVALUATED"}}}, "then": {"properties": {"mu_ref": {"type": "null"}, "candidate_loads": {"maxItems": 0}}}}
+  ],
+  "$defs": {
+    "id": {"type": "string", "minLength": 1, "pattern": "^[^/]+$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {"type": "object", "additionalProperties": false, "required": ["artifact_id", "sha256"], "properties": {"artifact_id": {"$ref": "#/$defs/id"}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "rational": {"type": "object", "additionalProperties": false, "required": ["numerator", "denominator"], "properties": {"numerator": {"type": "string", "pattern": "^(0|[1-9][0-9]*)$"}, "denominator": {"type": "string", "pattern": "^[1-9][0-9]*$"}}},
+    "nullable_artifact": {"oneOf": [{"$ref": "#/$defs/artifact"}, {"type": "null"}]},
+    "run_decision": {"type": "object", "additionalProperties": false, "required": ["run_id", "validity", "consumed_events", "interval_ticks", "ticks_per_second", "throughput", "raw_run_artifacts", "integrity_artifact", "failure_artifact"], "properties": {"run_id": {"$ref": "#/$defs/id"}, "validity": {"enum": ["VALID", "INVALID"]}, "consumed_events": {"type": "string", "pattern": "^(0|[1-9][0-9]*)$"}, "interval_ticks": {"type": "string", "pattern": "^[1-9][0-9]*$"}, "ticks_per_second": {"type": "string", "pattern": "^[1-9][0-9]*$"}, "throughput": {"oneOf": [{"$ref": "#/$defs/rational"}, {"type": "null"}]}, "raw_run_artifacts": {"type": "array", "items": {"$ref": "#/$defs/artifact"}}, "integrity_artifact": {"$ref": "#/$defs/nullable_artifact"}, "failure_artifact": {"$ref": "#/$defs/nullable_artifact"}}, "allOf": [{"if": {"properties": {"validity": {"const": "VALID"}}}, "then": {"properties": {"throughput": {"$ref": "#/$defs/rational"}, "raw_run_artifacts": {"minItems": 1}, "integrity_artifact": {"$ref": "#/$defs/artifact"}, "failure_artifact": {"type": "null"}}}}, {"if": {"properties": {"validity": {"const": "INVALID"}}}, "then": {"properties": {"throughput": {"type": "null"}, "failure_artifact": {"$ref": "#/$defs/artifact"}}}}]},
+    "cell": {"type": "object", "additionalProperties": false, "required": ["cell_id", "state", "planned_runs", "present_runs", "valid_runs", "run_decisions", "mu_cell", "blockers"], "properties": {"cell_id": {"$ref": "#/$defs/id"}, "state": {"enum": ["NOT_EVALUATED", "RESOLVED"]}, "planned_runs": {"type": "integer", "minimum": 0}, "present_runs": {"type": "integer", "minimum": 0}, "valid_runs": {"type": "integer", "minimum": 0}, "run_decisions": {"type": "array", "items": {"$ref": "#/$defs/run_decision"}}, "mu_cell": {"oneOf": [{"$ref": "#/$defs/rational"}, {"type": "null"}]}, "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}}, "allOf": [{"if": {"properties": {"state": {"const": "RESOLVED"}}}, "then": {"properties": {"planned_runs": {"minimum": 59}, "present_runs": {"minimum": 59}, "valid_runs": {"minimum": 59}, "run_decisions": {"minItems": 59}, "mu_cell": {"$ref": "#/$defs/rational"}, "blockers": {"maxItems": 0}}}}, {"if": {"properties": {"state": {"const": "NOT_EVALUATED"}}}, "then": {"properties": {"mu_cell": {"type": "null"}, "blockers": {"minItems": 1}}}}]}
+  }
+}

@@ -45,8 +45,10 @@ The immutable imported snapshot is in
 
 The accepted Stage 13 scientific-method and input boundary is collected in
 [`docs/STAGE13_CALIBRATION_DECISION_BUNDLE.md`](docs/STAGE13_CALIBRATION_DECISION_BUNDLE.md).
-Q12 and ADR-0035 through ADR-0038 authorize synthetic/fake Stage 13 software
-implementation only; they authorize no calibration or performance execution.
+Q12 and ADR-0035 through ADR-0039 now have a complete synthetic/fake Stage 13
+software implementation, documented in
+[`docs/CALIBRATION.md`](docs/CALIBRATION.md). They authorize no stand
+calibration or performance execution and produce no platform outputs.
 
 `protocol/2.0.0-pre.2/PAPER_AGENTS.md` is imported evidence, not a repository
 instruction file. Stage B and Stage C remain outside scope. Development and
@@ -109,6 +111,7 @@ ctest --preset dev-gcc -L storage --output-on-failure
 cmake --build --preset dev-gcc --target storage-format-check
 cmake --build --preset dev-gcc --target storage-schema-check
 cmake --build --preset dev-gcc --target reconciliation-check
+cmake --build --preset dev-gcc --target calibration-check
 cmake --build --preset dev-gcc --target queue-provenance-check
 cmake --build --preset dev-gcc --target document-check
 cmake --build --preset dev-gcc --target dependency-check
@@ -421,11 +424,11 @@ Stage 9's software slice is complete under ADR-0018 and ADR-0019; see
 [`docs/STAND_RUNBOOK.md`](docs/STAND_RUNBOOK.md). Exact stand actuator,
 authority, selected-pair/address readback, vendor-prefetch mapping/probes,
 restoration, and dynamic clock evidence remain mandatory operational gates.
-Stages 10 through 12 are complete locally under ADR-0031 through ADR-0034.
+Stages 10 through 13 are complete locally under ADR-0031 through ADR-0039.
 Q11 authorized and the repository hash-verifies immutable protocol
 `2.0.0-pre.2` beside unchanged `2.0.0-pre.1`; Stage 12 contains only synthetic
-post-run correctness infrastructure. Q12 accepted the Stage 13
-calibration decision/input bundle, recorded by ADR-0035 through ADR-0038. The
-exact next safe action is Stage 13 implementation using synthetic and fake
-inputs only. Calibration execution, measurement, pilot, and confirmatory
-behavior remain prohibited until their applicable later gates.
+post-run correctness infrastructure. Stage 13 implements the Q12 calibration
+bundle using synthetic and fake inputs only and creates no stand result. The
+exact next safe software action is Stage 14 block planning and orchestration
+with synthetic fixtures. Stand calibration, measurement, pilot, and
+confirmatory behavior remain prohibited until their applicable later gates.

@@ -74,6 +74,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0036](0036-stage13-matrix-zero-loss-feasibility.md) | `ACCEPTED` | Use simultaneous independent-run-cluster weighted Hoeffding bounds, `pi_matrix=0.95`, and the accepted five-scale global load action. |
 | [ADR-0037](0037-stage13-ring-distance-calibration.md) | `ACCEPTED` | Use ring-off advancing-slot p99.9/p0.1 run-tail calibration, conservative marginal H0/H1 merges, and exact line/minimum/cap rules. |
 | [ADR-0038](0038-stage13-calibration-records-arithmetic-and-invalidation.md) | `ACCEPTED` | Use versioned canonical calibration records, exact arithmetic plus outward-rounded Decimal margins, and append-only invalidation. |
+| [ADR-0039](0039-stage13-decimal-and-record-profile.md) | `ACCEPTED` | Freeze the concrete Decimal80/guard160 upward-enclosure profile and five Stage 13 record-schema identities. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
 Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,
@@ -89,6 +90,7 @@ access-history validation.
 Q12 accepted D-035 through D-038 on 2026-08-21. The exact Stage 13 calibration
 methods and record boundary are documented in
 `../STAGE13_CALIBRATION_DECISION_BUNDLE.md` and ADR-0035 through ADR-0038.
-Implementation may now use synthetic/fake inputs only. Q12 supplies no stand,
+ADR-0039 records the delegated concrete arithmetic/schema implementation
+profile, whose synthetic conformance suite passes. Q12 supplies no stand,
 duration, count, seed, capacity, authority, budget, `mu_ref`, `d2`, or final
 matrix exposure and authorizes no calibration or performance execution.

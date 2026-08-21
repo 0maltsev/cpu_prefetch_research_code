@@ -104,6 +104,43 @@ authority records, pre-state, apply audit, independent readback, behavioral
 probes, reverse restoration audit, and Stage 8 clock artifacts. Bind them by
 content hashes; never paste a requested value into a verified field.
 
+## Calibration preparation and authority
+
+Stage 13 software completion does not authorize calibration on a stand. Before
+an operator schedules any calibration interval, the calibration and platform
+owners must append and approve a prospective plan naming the exact stand/build,
+all service and ring contexts, verified H0/H1 mechanisms, line/slot geometry,
+logical capacities, fixed durations, complete run IDs and counts, minimum ring
+series counts, disjoint calibration/probe namespaces and seeds, raw/durable
+storage budget, schedule family, operator authority, and stand-hours. No value
+comes from a repository default or a development fixture.
+
+Service calibration must reproduce each corresponding Stage A queue, package,
+consumer action, placement, capacity, working set, hardware state, software
+policy, clock, reset, and drain; continuous-ready producer work is the sole
+workload difference. Ring calibration uses R0 with software prefetch absent,
+separate H0/H1 plans, preallocated acquire-demand traces, and no confirmatory
+access. Zero-loss feasibility is a separate open-loop exactly-one-attempt
+probe using predeclared schedule namespaces. Operators may not top up invalid
+runs, select a cell-specific rate, or inspect treatment/confirmatory outcomes.
+
+After immutable evidence exists, run only the offline evaluators and schema
+checks described in [`CALIBRATION.md`](CALIBRATION.md). A result remains
+`NOT_EVALUATED` if a planned run, required context, hash, final `Rtotal`, or
+schedule exposure is absent. An R2 cap collapse makes that context ineligible
+or requires a prospective capacity revision before freeze. The common scale
+ladder may move downward only before freeze and only for the complete matrix.
+
+For software verification without stand output:
+
+```sh
+cmake --build --preset dev-gcc --target calibration-check
+ctest --preset dev-gcc -L calibration --output-on-failure
+```
+
+These commands use synthetic/fake evidence. They are not calibration commands
+and must not be archived as platform results.
+
 ## Rollback and restoration
 
 Every authorized mutating control must have an independently observed pre-state

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 4.3)
 project(
   cpu_prefetch_foundation
   VERSION 2.0.0
-  DESCRIPTION "Typed protocol, deterministic lifecycle, storage, and reconciliation foundation for the CPU prefetch research protocol"
+  DESCRIPTION "Typed protocol, correctness, storage, reconciliation, and synthetic calibration foundation for the CPU prefetch research protocol"
   LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -193,6 +193,22 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+add_library(cpu_prefetch_calibration STATIC src/calibration/calibration.cpp)
+add_library(cpu_prefetch::calibration ALIAS cpu_prefetch_calibration)
+target_link_libraries(
+  cpu_prefetch_calibration
+  PUBLIC
+    cpu_prefetch::protocol
+    cpu_prefetch::queue
+    cpu_prefetch::timing
+    cpu_prefetch::workload
+  PRIVATE cpu_prefetch_project_options)
+target_include_directories(
+  cpu_prefetch_calibration
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
 add_executable(cpu_prefetch_smoke tools/smoke_main.cpp)
 target_link_libraries(
   cpu_prefetch_smoke PRIVATE cpu_prefetch::foundation cpu_prefetch_project_options)
@@ -372,6 +388,39 @@ if(BUILD_TESTING)
     cpu_prefetch_reconciliation_tests
     PREFIX "reconciliation."
     PROPERTIES LABELS "reconciliation")
+
+  add_executable(cpu_prefetch_calibration_tests tests/calibration_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_calibration_tests
+    PRIVATE cpu_prefetch::calibration cpu_prefetch_project_options
+            GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_calibration_tests
+    PREFIX "calibration."
+    PROPERTIES LABELS "calibration;synthetic")
+
+  add_test(
+    NAME calibration.python_statistics
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tests/test_calibration_statistics.py")
+  set_tests_properties(
+    calibration.python_statistics PROPERTIES LABELS "calibration;synthetic;python")
+
+  add_test(
+    NAME calibration.schema
+    COMMAND
+      "${Python3_EXECUTABLE}"
+      "${PROJECT_SOURCE_DIR}/tools/check_calibration_schemas.py"
+      --source-root "${PROJECT_SOURCE_DIR}")
+  set_tests_properties(
+    calibration.schema PROPERTIES LABELS "calibration;synthetic;schema")
+
+  add_custom_target(
+    calibration-check
+    COMMAND "${CMAKE_CTEST_COMMAND}" --test-dir "${PROJECT_BINARY_DIR}"
+            --output-on-failure -L calibration
+    DEPENDS cpu_prefetch_calibration_tests
+    COMMENT "Checking synthetic-only Stage 13 calibration contracts")
 
   add_executable(cpu_prefetch_storage_stress tests/storage_stress.cpp)
   target_link_libraries(
@@ -567,6 +616,7 @@ cpu_prefetch_enforce_tool_versions()
 
 set(
   CPU_PREFETCH_FORMAT_FILES
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/calibration.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/executor.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/runtime.hpp"
@@ -597,6 +647,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/records.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/working_set.hpp"
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
@@ -625,6 +676,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_phase_test_access.hpp"
@@ -665,6 +717,7 @@ add_custom_target(
 set(
   CPU_PREFETCH_ANALYSIS_FILES
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
@@ -693,6 +746,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"
@@ -859,6 +913,7 @@ add_custom_target(
 
 install(
   TARGETS
+    cpu_prefetch_calibration
     cpu_prefetch_foundation
     cpu_prefetch_lifecycle
     cpu_prefetch_platform
@@ -878,6 +933,10 @@ install(
   DESTINATION "${CMAKE_INSTALL_BINDIR}"
   RENAME cpu-prefetch-generate-schedule)
 install(
+  PROGRAMS "${PROJECT_SOURCE_DIR}/tools/calibration_statistics.py"
+  DESTINATION "${CMAKE_INSTALL_BINDIR}"
+  RENAME cpu-prefetch-calibration-statistics)
+install(
   FILES
     "${PROJECT_BINARY_DIR}/generated/include/cpu_prefetch/foundation/build_metadata.hpp"
   DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/cpu_prefetch/foundation")
@@ -887,6 +946,7 @@ install(
     "${PROJECT_SOURCE_DIR}/protocol/2.0.0-pre.2/handoff/PROTOCOL_VERSION.md"
     "${PROJECT_SOURCE_DIR}/config/dependencies.json"
     "${PROJECT_SOURCE_DIR}/docs/PLATFORM_CONTROL.md"
+    "${PROJECT_SOURCE_DIR}/docs/CALIBRATION.md"
     "${PROJECT_SOURCE_DIR}/docs/LIFECYCLE.md"
     "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/QUEUE_CORRECTNESS.md"
@@ -914,6 +974,6 @@ set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 11 raw-observation storage foundation")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Synthetic-only Stage 13 calibration framework")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)

@@ -39,6 +39,8 @@ jobs:
         run: cmake --build --preset dev-gcc --target storage-format-check
       - name: Raw-storage schema check
         run: cmake --build --preset dev-gcc --target storage-schema-check
+      - name: Synthetic calibration contract check
+        run: cmake --build --preset dev-gcc --target calibration-check
       - name: Queue provenance check
         run: cmake --build --preset dev-gcc --target queue-provenance-check
       - name: Documentation check

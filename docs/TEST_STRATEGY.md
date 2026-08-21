@@ -337,6 +337,34 @@ storage; input schedules and thread setup finish before the origin. Explicit
 test limits and host `yield` scheduling are fixture behavior, not production
 relax or watchdog selections. The same label must pass ASan/UBSan and TSan.
 
+### 13a. Calibration framework tests
+
+Stage 13 tests are synthetic/fake correctness evidence only. The C++ suite
+must cover exact rational reduction/comparison/overflow, the complete 60-cell
+service product, prospective plan completion, retained invalid runs, the
+58/59 validity boundary, no top-up, configuration equality, and exact
+`mu_cell`/`mu_ref`/candidate minima. Fake-clock ring tests bracket the exact
+slot acquire, retain FULL/empty demand observations, derive issue intervals
+only from advancing operations, and cover all six contexts, both hardware
+states/workers, inverse-ECDF ranks, conservative max/min, line rounding,
+quarter cap, common producer/consumer distance, cap collapse, H0/H1 context
+drift, trace overflow classification, and malformed-valid-series rejection.
+
+The offline suite must cover direct guard160 Decimal vectors, a precision-240
+reference pass, unequal weights, finite all-zero positive upper bounds,
+clamp-to-one, zero-offered rejection, exact 180-cell exposure, honest partial
+`NOT_EVALUATED` records, mandatory confidence/threshold/profile fields, the
+complete common scale ladder, and forbidden confirmatory outcome access. All
+five implementation schemas receive Draft 2020-12 positive/negative fixtures.
+Canonical round trip, UTF-16 property order, signed/unsigned 64-bit boundaries,
+zero-self SHA-256, attempted overwrite, and material-change invalidation are
+mandatory. No test fixture may be published as a platform calibration output.
+
+Stage 13 status: the `calibration` CTest label and `calibration-check` target
+implement this matrix. Applicable ASan/UBSan and TSan presets must pass the C++
+evaluator and acquire-observer tests; Python/schema checks run under the pinned
+offline Python/jsonschema prefix.
+
 ### 14. Manifest completeness tests
 
 For each stage/run mode, verify identity, provenance, schedules, seeds, treatments, platform state, counts, integrity, artifact relationships, hashes, failure references, and status consistency. Remove each conditionally mandatory artifact in turn and require rejection. Verify corrections append new derived records and never overwrite raw streams.

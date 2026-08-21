@@ -3,9 +3,9 @@
 ## Scope and authority
 
 This is the accepted architecture for Stage A of protocol `2.0.0-pre.2`, with
-immutable predecessor `2.0.0-pre.1`. ADR-0007 through ADR-0034 freeze the
-owner-approved software foundation through Stage 12 exact reconciliation and
-run gates. Exact eligible-stand mappings/evidence, authoritative Stage 14
+immutable predecessor `2.0.0-pre.1`. ADR-0007 through ADR-0039 freeze the
+owner-approved software foundation through Stage 13 synthetic calibration
+software. Exact eligible-stand mappings/evidence, authoritative Stage 14
 block/access evaluation, and later pilot outputs remain open. Imported
 snapshots remain authoritative under their versions; contradictions require a
 versioned protocol amendment. Stage B and Stage C are excluded.
@@ -37,6 +37,7 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 | Offline | Structural validator | Draft 2020-12 validation against unmodified imported schemas | Forbidden | Stage 4 implemented with pinned jsonschema and positive/negative fixtures |
 | Offline | Semantic validator | Record-local arithmetic/lifecycle plus run-level immutable hash/source/count/integrity/failure relationships; block/access chronology later | Forbidden | Stage 4 local and Stage 12 run-level rules implemented; Stage 14 owns block/access graphs |
 | Offline | Reconciler | Build accepted producer order; exact k-th join by `(run_id, accepted_ordinal)`; validate Stage 6 mapping/index; emit audit and conditional derived join | Forbidden | Stage 12 implemented; consumes immutable sources only and derives nothing on failed audit |
+| Offline | Calibration evaluator | Validate prospective service/ring/probe plans and immutable raw evidence; compute exact minima/tails/exposure bounds; emit append-only freeze candidates | Forbidden | Stage 13 implemented with synthetic/fake inputs; stand values and final exposure remain external gates |
 | Offline | Statistical analysis | Fixed quantiles, diagnostics, H1/H2 families, sealed H3 chronology | Forbidden | Deferred; cannot influence implementation choices |
 
 ## Stable interfaces
@@ -73,6 +74,23 @@ and all integrity identities before returning a `PreparedSchedule`. A separate
 validator receives explicit lifecycle roles and common-family membership; it
 never infers either from a path or name. Generation and validation cannot see
 queue completion, clock readings, or measured outcomes.
+
+### `CalibrationEvaluation`
+
+Consumes a complete prospective plan plus immutable raw calibration references.
+The C++ service evaluator requires the exact 60-cell Stage A context product
+and permits only the continuous-ready workload difference. Plans require
+owner, authority, and stand-budget evidence. The ring evaluator requires six
+contexts, separate H0/H1 R0 evidence, preallocated acquire-demand series, and
+advancement-only issue intervals. Both retain per-run status/source decisions
+and emit exact typed results or explicit unresolved/ineligible blockers;
+neither retries, tops up, reads confirmatory outcomes, or selects from treatment
+effects. The offline matrix interface requires an exact 180-cell result for
+each evaluated member of the predeclared five-candidate family, accepted
+confidence, threshold, descending-prefix stopping rule, and Decimal profile.
+Canonical plan/result/freeze records publish no-replace and bind a material
+invalidation fingerprint. This interface has no default duration, count,
+capacity, rate, distance, exposure, stand, or authority.
 
 ### `ClockSource`
 

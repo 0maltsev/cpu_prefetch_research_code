@@ -60,6 +60,39 @@ public:
     return try_dequeue_observed(phase_observer, observer);
   }
 
+  // Calibration-only seam around the exact acquire load which determines
+  // whether this operation can advance. The observer must not block, throw,
+  // allocate, or alter the queue's release/acquire algorithm.
+  template <typename DemandObserver>
+  [[nodiscard]] EnqueueResult
+  try_enqueue_with_slot_demand_observer(EventPointer event,
+                                        DemandObserver& observer) noexcept {
+    static_assert(noexcept(observer.before_slot_acquire()));
+    static_assert(noexcept(observer.after_slot_acquire()));
+    struct NoopPhaseObserver final {
+      void before_slot_publication() const noexcept {}
+    } phase_observer;
+    struct NoopBoundaryObserver final {
+      [[nodiscard]] bool before_enqueue_publication() const noexcept { return true; }
+    } boundary_observer;
+    return try_enqueue_observed(event, phase_observer, boundary_observer, observer)
+        .result;
+  }
+
+  template <typename DemandObserver>
+  [[nodiscard]] DequeueResult
+  try_dequeue_with_slot_demand_observer(DemandObserver& observer) noexcept {
+    static_assert(noexcept(observer.before_slot_acquire()));
+    static_assert(noexcept(observer.after_slot_acquire()));
+    struct NoopPhaseObserver final {
+      void before_slot_reuse_release() const noexcept {}
+    } phase_observer;
+    struct NoopBoundaryObserver final {
+      [[nodiscard]] bool after_dequeue_observation() const noexcept { return true; }
+    } boundary_observer;
+    return try_dequeue_observed(phase_observer, boundary_observer, observer).result;
+  }
+
   [[nodiscard]] std::size_t capacity() const noexcept { return capacity_; }
   [[nodiscard]] AtomicLockFreeEvidence atomic_lock_free_evidence() const noexcept;
   [[nodiscard]] LayoutEvidence layout_evidence() const noexcept;
@@ -95,11 +128,29 @@ private:
   [[nodiscard]] BoundaryEnqueueResult
   try_enqueue_observed(EventPointer event, PhaseObserver& phase_observer,
                        BoundaryObserver& boundary_observer) noexcept {
+    struct NoopDemandObserver final {
+      void before_slot_acquire() const noexcept {}
+      void after_slot_acquire() const noexcept {}
+    } demand_observer;
+    return try_enqueue_observed(event, phase_observer, boundary_observer,
+                                demand_observer);
+  }
+
+  template <typename PhaseObserver, typename BoundaryObserver, typename DemandObserver>
+  [[nodiscard]] BoundaryEnqueueResult
+  try_enqueue_observed(EventPointer event, PhaseObserver& phase_observer,
+                       BoundaryObserver& boundary_observer,
+                       DemandObserver& demand_observer) noexcept {
     static_assert(noexcept(phase_observer.before_slot_publication()));
     static_assert(noexcept(boundary_observer.before_enqueue_publication()));
+    static_assert(noexcept(demand_observer.before_slot_acquire()));
+    static_assert(noexcept(demand_observer.after_slot_acquire()));
     const auto position = producer_->position;
     auto& slot = slots_[position].value;
-    if (slot.load(std::memory_order_acquire) != nullptr) {
+    demand_observer.before_slot_acquire();
+    const auto* observed = slot.load(std::memory_order_acquire);
+    demand_observer.after_slot_acquire();
+    if (observed != nullptr) {
       return {BoundaryCaptureStatus::complete, EnqueueResult::full};
     }
 
@@ -126,11 +177,27 @@ private:
   [[nodiscard]] BoundaryDequeueResult
   try_dequeue_observed(PhaseObserver& phase_observer,
                        BoundaryObserver& boundary_observer) noexcept {
+    struct NoopDemandObserver final {
+      void before_slot_acquire() const noexcept {}
+      void after_slot_acquire() const noexcept {}
+    } demand_observer;
+    return try_dequeue_observed(phase_observer, boundary_observer, demand_observer);
+  }
+
+  template <typename PhaseObserver, typename BoundaryObserver, typename DemandObserver>
+  [[nodiscard]] BoundaryDequeueResult
+  try_dequeue_observed(PhaseObserver& phase_observer,
+                       BoundaryObserver& boundary_observer,
+                       DemandObserver& demand_observer) noexcept {
     static_assert(noexcept(phase_observer.before_slot_reuse_release()));
     static_assert(noexcept(boundary_observer.after_dequeue_observation()));
+    static_assert(noexcept(demand_observer.before_slot_acquire()));
+    static_assert(noexcept(demand_observer.after_slot_acquire()));
     const auto position = consumer_->position;
     auto& slot = slots_[position].value;
+    demand_observer.before_slot_acquire();
     const auto* event = slot.load(std::memory_order_acquire);
+    demand_observer.after_slot_acquire();
     if (event == nullptr) {
       return {BoundaryCaptureStatus::complete,
               DequeueResult{DequeueStatus::empty, nullptr}};

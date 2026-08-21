@@ -29,3 +29,27 @@ a failed audit has at least one stable failure issue and must not reference a
 joined artifact. The C++ cross-record validator checks its exact sources,
 counts, status, identity, and zero-self canonical SHA-256 against the imported
 run manifest and raw streams.
+
+The five Stage 13 schemas implement ADR-0038/0039 without changing an imported
+contract:
+
+- `calibration-plan-v1.schema.json` records a prospectively enumerated plan and
+  distinguishes provided from unresolved external inputs;
+- `service-rate-result-v1.schema.json` records all 60 service cells, every
+  present run's status/raw/integrity/failure sources, exact throughput,
+  valid-count decisions, rational minima, and candidate loads;
+- `ring-distance-result-v1.schema.json` records all six contexts, per-run
+  H-state validity/source/tail decisions, conservative demand/issue quantities,
+  common producer/consumer distance, and ineligibility;
+- `zero-loss-feasibility-result-v1.schema.json` records all 180 evaluated cells
+  (or an honest blocked partial set), every probe decision, planned simultaneous
+  exposure, the accepted estimator/profile/confidence/threshold/candidate
+  binding, and matrix lower bound; and
+- `calibration-freeze-v1.schema.json` records proposed/frozen/unresolved/
+  invalidated states, source graph, material fingerprint, and supersession.
+
+They use exact decimal strings for unsigned values that may exceed the
+`JCS-I64-v1` numeric domain. C++ and Python semantic evaluators enforce cell
+products, prospective run identity, exact methods, source hashes, arithmetic,
+and append-only behavior which Draft 2020-12 alone cannot express. Synthetic
+schema fixtures are not platform calibration evidence.

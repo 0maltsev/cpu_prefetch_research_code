@@ -232,12 +232,22 @@ authorization/amendment.
 - **Acceptance criteria:** Procedures are frozen before applicable results; outputs source-link valid evidence; no confirmatory outcome or cell-specific favorable adjustment enters decisions.
 - **Explicitly excluded:** Pilot/confirmatory collection in this implementation phase and empirical recommendation.
 - **Rollback or failure behavior:** Material build/platform/action/capacity change invalidates calibration freeze and requires new calibration; infeasible matrix stops confirmation.
-- **Status:** `DECISIONS_ACCEPTED_IMPLEMENTATION_PENDING`. Q12 accepted D-035
-  through D-038, recorded in ADR-0035 through ADR-0038 and
-  `docs/STAGE13_CALIBRATION_DECISION_BUNDLE.md`. Synthetic/fake Stage 13
-  software implementation may begin. Exact stand, duration, run-count, sample,
-  seed, capacity, exposure, authority, and budget inputs remain unresolved;
-  calibration execution remains unauthorized.
+- **Status:** `COMPLETE_LOCAL_SYNTHETIC`. Q12 accepted D-035 through D-038;
+  ADR-0039 freezes the delegated Decimal/schema profile. The
+  `cpu_prefetch_calibration` library implements the exact 60-cell service
+  evaluator, prospective plan/no-top-up/context gates, owner/authority/budget
+  evidence, exact rational minima, and per-run status/source decisions;
+  preallocated ring acquire traces, advancing-only issue intervals, exact
+  run-tail/H0/H1/worker merge, and distance cap/collapse handling. The offline
+  Python layer implements the `180*5` run-cluster Hoeffding profile, prospective
+  probe decisions, mandatory candidate/exposure/threshold/global-ladder
+  validation, canonical hashing, append-only publication, and material
+  invalidation. Five Draft 2020-12 schemas and C++/Python synthetic conformance
+  tests pass. No platform
+  calibration output was created. Exact stand, duration, prospective count,
+  per-run sample minimum, seed, capacity, exposure, authority, and budget
+  inputs remain unresolved; calibration execution remains unauthorized. The
+  exact next safe software phase is Phase 14.
 
 ## Phase 14 — Stage A block planning and orchestration
 

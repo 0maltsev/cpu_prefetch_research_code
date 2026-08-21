@@ -96,6 +96,7 @@ input or experiment is authorized by that acceptance.
 | D-036 | Matrix zero-loss inference and action | Event-binomial exact limits; event/bootstrap methods; whole-run cluster bootstrap; bounded run-cluster concentration | `ACCEPTED`: `MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1`, independent-run-cluster weighted bounds, prospective Bonferroni over `180*5`, simultaneous confidence 0.95, `pi_matrix=0.95`, and common scale ladder `1,0.9,0.8,0.7,0.6`; [ADR-0036](decisions/0036-stage13-matrix-zero-loss-feasibility.md) | Protocol §5.3 fixes union bound but leaves estimator/confidence/dependence/threshold/action open; Hoeffding bounded-variable inequality; Q12 | Avoids event-independence and zero-bound claims but may make the design infeasible; no cell-specific favorable rate | Cluster unit, weighting, confidence allocation, Decimal profile, threshold, ladder, and selection are suite identity | Protocol/statistical/block-planning owners | Stage 13 software authorized; probe plan and final `Rtotal`/schedules before final freeze | New policy ID, superseding ADR, and full feasibility recalculation |
 | D-037 | Ring `d2` calibration | Raw extremes; central summaries/fitted tails; exact per-run tail summaries plus run-level tolerance extremes | `ACCEPTED`: `RING-D2-RUNTAIL-LTL95C95-v1`, ring-off advancing-slot demand/issue boundaries, exact p99.9/p0.1 per-run summaries, at least 59 valid results from prospectively enumerated runs per hardware-state/context, conservative marginal 95%/95% cross-worker/state merge, exact line/minimum/cap formula; [ADR-0037](decisions/0037-stage13-ring-distance-calibration.md) | Protocol §4.2 and Stage 6 external-distance seam; inverse-ECDF rule; no confirmatory outcomes; Q12 | Prospectively fixes the latency-matched R2 distance and may make a context ineligible; no 95% joint demand/issue confidence is claimed | Boundary, eligible operations, quantiles, tolerance construction, context key, marginal confidence, merge, and rounding are suite identity | Protocol/statistical/queue/timing owners | Stage 13 software authorized; platform/capacity/duration/count evidence before R2/service calibration | New method ID, superseding ADR, and complete context recalibration |
 | D-038 | Calibration artifact/arithmetic/lifecycle policy | Unversioned reports; third-party statistics dependency; versioned local exact/offline records | `ACCEPTED`: versioned JCS plan/service/d2/feasibility/freeze records, exact rationals, outward-rounded Python Decimal only for Hoeffding, append-only failures, no hidden top-up, material-change invalidation; [ADR-0038](decisions/0038-stage13-calibration-records-arithmetic-and-invalidation.md) | ADR-0001/0004/0005/0006/0015/0022/0034; imported lifecycle/integrity rules; Q12 | Enforces prospective selection and prevents favorable completion/repair; statistical procedures remain offline | Schema, arithmetic, canonicalization, source graph, and invalidation fingerprints are compatibility fields | Repository/validation/calibration/data-integrity owners | Stage 13 software authorized; concrete schema/arithmetic profile and tests close its software gate | New schema/suite IDs and converters; immutable records remain version-bound |
+| D-039 | Concrete Stage 13 arithmetic and record profile | Binary64; new arbitrary-precision dependency; guarded standard-library Decimal | `ACCEPTED`: `HOEFFDING-DECIMAL80-GUARD160-UP-v1`, precision-160 upper enclosure, precision-80 boundary, precision-240 reference pass, and five versioned schemas; [ADR-0039](decisions/0039-stage13-decimal-and-record-profile.md) | ADR-0038 delegation; Python 3.14 Decimal contract; direct/reference vectors; schema/canonical/overwrite tests | Rounding can only make the accepted matrix bound more conservative at the serialized boundary | Precision/order/rounding/profile/schema/hash/fingerprint grammars are compatibility identity | Repository/calibration/validation owners | Stage 13 software complete; repeat on every runtime/profile change | New profile/schema versions and superseding ADR; old records remain immutable |
 
 ## Later protocol-defined decisions with open values
 
@@ -107,7 +108,8 @@ Submission identity, venue, accessibility, archival license, and final metadata 
 
 Q1 through Q6 were explicitly accepted by the repository owner on 2026-08-17;
 Q7 was accepted on 2026-08-20, and Q8 through Q12 were accepted on
-2026-08-21. They are recorded through ADR-0038. Q4 selected no license grant,
+2026-08-21. They are recorded through ADR-0038; ADR-0039 closes the delegated
+concrete Stage 13 profile. Q4 selected no license grant,
 Q5 selected the Stage 6 deterministic suite and representation, and Q6 selected
 the D-027 Stage 7 schedule-generation suite. Later scientific/platform/pilot
 decisions remain open at their stated gates and were not defaulted. Stages 2
@@ -124,7 +126,9 @@ statistical owner accepted D-031/Q10, and Q11 authorized the versioned
 `2.0.0-pre.2` import and Stage 12 implementation on 2026-08-21. ADR-0034 and
 the run-level reconciliation/gate validator are complete; final block/access
 evidence remains Stage 14. Q12 accepts the Stage 13 methods but supplies no
-external calibration input or execution authority. Experiment execution
+external calibration input or execution authority. The synthetic Stage 13
+framework and conformance suite are complete; Stage 14 is the next safe
+software stage. Experiment execution
 remains prohibited until exact
 stand authority, mappings, selected-pair/address state,
 vendor-prefetch probes, restoration, clock, and later lifecycle gates pass.

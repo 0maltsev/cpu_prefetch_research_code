@@ -56,6 +56,16 @@ preconditions, each try operation executes a bounded number of steps without a
 loop: the reviewed claim is wait-free completion and linearizable bounded-FIFO
 try semantics. It is not a multi-producer/multi-consumer or general queue claim.
 
+Stage 13 adds a calibration-only observer immediately before and after the
+same acquire load described above. The observer does not move the
+linearization point, add a retry, or change either memory order. Ordinary
+operations instantiate an inlined no-op observer; the accepted release probe
+still emits the same four queue bodies under both disassemblers. Fake-clock
+tests prove that every FULL/empty acquire remains in the demand series while
+only accepted/successful operations advance the issue-interval sequence. The
+trace is explicitly preallocated and a capacity overrun fails calibration
+capture rather than growing storage.
+
 ## Linked FIFO plus recycler mapping
 
 The implementation maps Torquati's dSPSC FIFO and bounded SPSC node cache,

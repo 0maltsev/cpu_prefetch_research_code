@@ -19,6 +19,8 @@ joined-row construction offline.
 | Raw publication | Sealed complete or partial private buffers plus lifecycle state | Hash, no-replace publish, sync, independent readback, second-domain replication, envelope/ledger emission | Immutable producer and/or consumer raw artifacts, raw envelopes, phase/integrity report, copy ledgers, partial-failure evidence | No |
 | Reconciliation | Two immutable raw sources | Build accepted sequences, join by `(run_id, accepted_ordinal)`, validate record index/timestamps/counts | Immutable join audit; joined-derived artifact only on success | No |
 | Validation/gates | Immutable artifacts and platform evidence | Structural then semantic validation; correctness, measurement, zero-loss, tail gates | Versioned validation reports and eligibility states | No |
+| Calibration capture | Prospective calibration plan, matching prepared context, preallocated trace | Continuous-ready service transfer; separate open-loop FULL probe; ring-off acquire-demand capture | Independent raw calibration run artifacts and explicit failure evidence | Only the frozen calibration interval; no statistics, serialization, I/O, or growth |
+| Calibration evaluation/freeze | Immutable raw calibration references, exact planned exposures, method/profile IDs | Exact service minima and loads; ring-tail merge/distance; offline run-cluster matrix bound; source/fingerprint validation | Append-only plan, service, ring, feasibility, and freeze records, including `NOT_EVALUATED`/`INELIGIBLE` | No |
 | Analysis/sealing | Eligible immutable artifacts and authorized access state | Fixed summaries/inference; H3 training, seal, validation access | Derived results, source links, signatures/access records | No and custody-controlled |
 
 ## Preparation-to-worker boundary
@@ -133,6 +135,23 @@ allocation is controller-side, while the already-affined owner explicitly
 initializes and first-touches every reserved byte before the barrier. Overflow
 becomes a measurement failure. Platform page binding/residency and the final
 package-specialized worker audit remain Phase 16 evidence.
+
+Stage 13 adds calibration-specific flows without connecting generation to
+outcomes. A complete prospective plan names every service or ring run before
+raw value access and binds owner, authority, and stand-budget evidence. Service
+evidence is accepted only when all Stage A context
+identities match and the workload is explicitly continuous-ready. The ring R0
+path uses a preallocated observer around the existing acquire load; statistics
+consume the immutable series later. A separate offline process consumes
+open-loop feasibility counts, exact planned exposures, and the accepted
+profile to emit a complete 180-cell candidate result. Plan, result, failure,
+and freeze records are append-only, source-hashed, and material-fingerprint
+bound. Result records retain each present run/probe validity decision and its
+actual raw/integrity/failure sources; invalid or missing planned runs cannot be
+hidden by a smaller estimator set. Missing stand inputs flow to
+`NOT_EVALUATED`; cap collapse flows to
+`INELIGIBLE`. Synthetic fixtures never flow into a platform freeze. See
+[`CALIBRATION.md`](CALIBRATION.md).
 
 ## Partial-failure publication matrix
 

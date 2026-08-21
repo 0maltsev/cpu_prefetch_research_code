@@ -66,5 +66,11 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0028](0028-stage6-record-and-package-representation.md) | `ACCEPTED` | Use explicit line-strided immutable records and distinct statically bound Stage A package policies while leaving platform facts unresolved. |
 | [ADR-0029](0029-stage7-schedule-generation-suite.md) | `ACCEPTED` | Use an offline Python-decimal exponential schedule suite with exact Philox mapping, picosecond cumulative-floor deadlines, absolute encoding, and fail-closed identities. |
 | [ADR-0030](0030-stage8-clock-suite.md) | `ACCEPTED` | Use qualified vDSO `CLOCK_MONOTONIC_RAW`, exact nanosecond-to-picosecond conversion, bracketed queue boundaries, no correction, and explicit clock acceptance limits. |
+| [ADR-0031](0031-stage10-lifecycle-and-termination-mapping.md) | `ACCEPTED` | Project explicit controller phases onto the unchanged imported lifecycle enum and use a dedicated lock-free u32 release/acquire termination word. |
+| [ADR-0032](0032-stage11-physical-raw-observation-format.md) | `ACCEPTED` | Use exact little-endian physical rows with literal length-prefixed run IDs, raw/relative clock pairs, and a JCS external-artifact envelope. |
+| [ADR-0033](0033-stage11-compression-copy-and-durability-policy.md) | `ACCEPTED` | Use no compression, one temporary raw work image, and two byte-identical verified durable instances in distinct explicit domains. |
 
-Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates.
+Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
+Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21; Stage 11 implementation,
+capacity, corruption, code-generation, and operational durability evidence
+remain later gates.

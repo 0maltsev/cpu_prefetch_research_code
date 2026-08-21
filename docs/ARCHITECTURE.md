@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-This is the accepted architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0030 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, Stage 3 tooling, Stage 4 protocol-model, Stage 5 queue-representation, Stage 6 deterministic-workload, Stage 7 deterministic-schedule, and Stage 8 clock-contract boundaries. Exact later platform/pilot evidence remains open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
+This is the accepted architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0031 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, Stage 3 tooling, Stage 4 protocol-model, Stage 5 queue-representation, Stage 6 deterministic-workload, Stage 7 deterministic-schedule, Stage 8 clock-contract, Stage 9 platform-control, and Stage 10 lifecycle/termination boundaries. Exact eligible-stand mappings/evidence and later pilot outputs remain open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
 
 The architecture has three planes:
 
@@ -16,14 +16,14 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 
 | Plane | Component | Responsibility | Timed-horizon status | Replaceable boundary / state |
 |---|---|---|---|---|
-| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Queue, validated schedule, and Stage 8 boundary capture exist; private sink, termination, and combined worker remain to implement |
-| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 6 record action and Stage 8 boundary capture exist; private sink, termination/drain, and combined worker remain to implement |
+| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Stage 10 generic compile-time executor implements schedule wait, one-attempt counts, and termination; Stage 11 must bind a preallocated physical sink and final package specialization |
+| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 10 generic executor implements polling, acquire observation, drain, and watchdog failure; Stage 11 must bind a preallocated physical sink and final package specialization |
 | Data | Queue/package binding | Five concrete static policies preserve ring/linked semantics and exact treatment-specific hint targets | Required | Stage 5 queue cores plus Stage 6 target seams/codegen pass; platform hint instruction and `d2` evidence remain open |
 | Controller | Run-image builder | Parse and semantically validate config, allocate/touch/initialize arenas and buffers, derive schedules, bind identities and capacity proof | Forbidden | Stage 6 arena/order/footprint and Stage 7 schedule primitives implemented; integration and real stand facts blocked |
 | Controller | Schedule preparation | Derive the purpose-separated stream, generate the complete open-loop schedule, publish artifact/envelopes, decode and validate immutable deadlines | Forbidden | Stage 7 implemented; all lifecycle values remain explicit and no outcome/clock input exists |
 | Controller | Workload construction | Derive domain-separated streams, build event/node order, initialize records, retain integrity inputs, bind one package type | Forbidden | Stage 6 implemented; all values explicit and no worker mutation surface |
-| Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact publication | Outside horizon | One-process/two-worker topology accepted; implementation pending |
-| Controller | Platform-control adapter | Request affinity/NUMA/pages/frequency/HW-PF state, read back and probe, rollback | Forbidden | Linux interface accepted; exact target/authority evidence due Phase 9 |
+| Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact consequences | Outside horizon | Stage 10 state graph/projection, preparation/warm-up/reset evidence, start barrier, termination/drain, partial failure, and recovery records implemented; durable publication remains Stage 11 |
+| Controller | Platform-control adapter | Inventory/capabilities, explicit affinity/NUMA/pages/environment/HW-PF request, separate apply/readback/probe, reverse rollback, manifests | Forbidden | Stage 9 read-only Linux inventory, dry-run, strict validation, injected actuator/verifier, restoration, and manifests implemented; exact stand actuator/authority and dynamic address evidence remain external gates |
 | Controller | Clock qualification | Evaluate the accepted source, conversion, skew/drift/read cost and code boundaries from explicit platform evidence | Reads only are timed | D-009 software/codegen implemented; dynamic explicit-pair and before-block evidence pending Phase 9/16 |
 | Controller | Logical record model | Typed representation of all seven imported schema families, exact values, lifecycle/gate states, and immutable configuration | Private row construction only | Stage 4 implemented; [model contract](PROTOCOL_MODEL.md) |
 | Controller | Physical codec | Encode/decode exact logical rows/envelopes | Private fixed-row write may be timed after format freeze; general codec outside | Replaceable; format blocked until pre-pilot |
@@ -85,7 +85,28 @@ and dynamic qualification evidence.
 
 ### `PlatformControl`
 
-Separate request, readback, behavioral-probe, and rollback operations for affinity, NUMA placement/residency, page mode, frequency, and documented HW-PF controls. Unsupported or unauthorized capability fails closed. Requested values are never copied into verified fields.
+`cpu_prefetch_platform` separates inventory, capability detection, requested-state validation, apply, independent verification, restoration, and manifest emission. The real Linux provider is read-only and records CPU/core/package/NUMA/cache/PCI topology, page and environment observations, and software/hardware provenance without choosing a stand or pair. Stage A validation requires explicit non-SMT near/far CPUs, producer-home shared memory, worker-local private buffers, and the inventoried base-page policy; Stage C alternatives reject.
+
+Every control names an exact target/value, authority, actuation mechanism, verification mechanism, snapshot, and state epoch. Dry-run never calls an actuator. Successful apply is only an apply fact; fresh exact readback through the verifier is required separately. Partial apply restores recorded pre-state in reverse order and retains any restoration failure. Rich canonical evidence preserves partial failure, while a separate emitter produces only the immutable imported platform-schema shape. Unsupported/unauthorized/missing/stale capability fails closed. The repository does not ship a mutating stand backend: exact stand mappings, vendor HW-prefetch fields, behavioral probes, privileges, and rollback remain required evidence under [the Stage 9 contract](PLATFORM_CONTROL.md).
+
+### `RunLifecycle`
+
+`cpu_prefetch_lifecycle` owns an explicit controller phase graph whose values
+project onto, but never extend, the imported stable lifecycle enum. Each
+transition records time, actor, reason, and append/retain/absence consequences.
+Preparation and warm-up evidence require distinct schedule namespaces,
+deterministic preallocation, stopped/drained warm arrivals, and no ambiguous
+continuation. A replaceable reset interface verifies exact ring or linked
+origin while preserving allocation/mapping/data-home/permutation/payload
+identity.
+
+The start barrier release-publishes one explicit measurement origin. A generic
+compile-time executor consumes only an immutable deadline span, issues exactly
+one producer backend call per due arrival, polls the consumer, and uses a
+dedicated lock-free u32 release/acquire termination word before drain-to-empty.
+It supplies no clock, relax instruction, watchdog value, queue family, physical
+sink, or platform default. Full semantics and later gates are recorded in
+[`LIFECYCLE.md`](LIFECYCLE.md).
 
 ### `LogicalModel` and `PhysicalCodec`
 
@@ -96,7 +117,9 @@ surface after load. Structural validation and record-local semantic validation
 are separate, and `JCS-I64-v1` supplies deterministic canonical bytes. A
 versioned codec declares format, endianness, row/envelope size, alignment, time
 unit, compression, decoder identity, and corruption behavior. A codec selection
-cannot change logical meaning.
+cannot change logical meaning. Q9/ADR-0032 now freezes
+`RAW-OBS-U64LE-LP-RUNID-v1`; Stage 11 must implement it behind this seam and
+cannot replace the logical model with its byte layout.
 
 ### `ArtifactStore`
 
@@ -141,6 +164,19 @@ Lifecycle transitions and partial failures are append-only. Early failure cannot
 
 Readers fail closed on unknown protocol/schema, artifact-kind, physical-format, clock, RNG, permutation, mixing, checksum, or canonicalization identifiers. The current implementation accepts only internally consistent `2.0.0-pre.1` records; it provides no 1.x migration or future-enum pass-through. Additive compatibility must be declared and tested; changed bytes always receive new content identity.
 
-## Deferred decisions
+## Accepted baselines and deferred evidence
 
-The owner selected no repository license grant in ADR-0021, Stage 3 pins the development/CI tool series in ADR-0022, Stage 4 implements typed logical records in ADR-0023, ADR-0024 fixes queue representation/proof, ADR-0025 through ADR-0028 fix Stage 6 deterministic construction, accepted ADR-0029 fixes the Stage 7 schedule mapping, and accepted ADR-0030 fixes the now-implemented Stage 8 clock contract. Eligible-stand lock-free/layout repetition, exact measured-release pins, target stand/authority facts, dynamic/explicit-pair clock qualification, raw format, concrete seeds/capacities, node page-frame qualification, platform prefetch encoding, calibrated `d2`, Linux target mappings, custody enforcement, and compression/copies remain at their documented later gates. None may be filled by a build or configuration default.
+The owner selected no repository license grant in ADR-0021. ADR-0022 through
+ADR-0028 fix the development toolchain, typed model, queues, and Stage 6
+construction; ADR-0029 fixes the schedule; ADR-0030 fixes the implemented clock
+contract; and ADR-0031 fixes the Stage 10 lifecycle/termination mapping. Stage
+9 implements the accepted ADR-0018/0019 software boundary without selecting
+target facts.
+
+Q9/ADR-0032/0033 additionally freeze the raw format and no-compression/
+one-temporary/two-durable-domain policy. Their Stage 11 implementation,
+cross-decoder/corruption/capacity/code-generation evidence, and Phase 16 real
+domain/custody/recovery proof remain open. Concrete seeds/capacities, node
+page-frame qualification, vendor prefetch encoding/probes, calibrated `d2`,
+eligible-stand facts, and other later inputs remain unresolved and cannot be
+filled by a build or configuration default.

@@ -1,6 +1,123 @@
 # Stage A Stand Runbook
 
-Status: **planning document only**. This runbook does not authorize calibration, pilot, or confirmatory execution and intentionally contains no machine commands or platform values. It becomes usable only after the corresponding `PLAN.md` gates and accepted records are complete.
+Status: **planning and read-only inventory document only**. This runbook does
+not authorize a platform mutation, calibration, pilot, or confirmatory
+execution. Commands in the read-only section only observe state and do not make
+the current machine an eligible stand. It becomes operational only after the
+corresponding `PLAN.md` gates, authority records, exact mappings, and accepted
+platform records are complete.
+
+## Safe software prerequisites
+
+Use the accepted, pre-provisioned Linux x86-64 toolchain and dependencies from
+`README.md`; stand configure/build/test must not fetch from the network. For
+inventory, the base OS must expose procfs and sysfs. `lscpu`, `getconf`,
+`findmnt`, `taskset`, and `sha256sum` are expected from Ubuntu's standard
+util-linux/coreutils packages. `numactl`, `cpupower`, `lstopo-no-graphics`, and
+`dmidecode` are optional read-only cross-checks, not substitutes for the typed
+collector or independent run-address verification.
+
+Before any actuation adapter is accepted, record the exact stand identity,
+kernel and firmware, CPU vendor/model/stepping/microcode, selected core pairs,
+NUMA/cache ancestry, measurement build and dependencies, approved platform
+operator, allowed targets/values, verification mechanisms, and rollback tests.
+Missing evidence remains missing; it is not replaced by a package default.
+
+## Privilege model
+
+The measurement process remains unprivileged and receives no `sudo`, Linux
+capabilities, writable sysfs, `/dev/cpu/*/msr`, service-management, boot-loader,
+or validation-custody access. A separate named platform operator or narrow
+audited service may act only before or after the timed horizon and only after
+its whitelist, authority, readback, probes, and restoration procedure are
+approved.
+
+Inventory and independent readback should normally run without privilege.
+Firmware or kernel-log evidence that the OS restricts may be collected by the
+platform operator as a separate artifact; granting broader access to the
+measurement process is not an acceptable workaround. Successful exit status
+from an operator command proves only that the command returned successfully.
+
+## Safe read-only verification commands
+
+The following commands do not request a state change. Review their output and
+retain it as development/stand inventory evidence with command, UTC time, exit
+status, and SHA-256. Do not prefix the whole list with `sudo`.
+
+```sh
+uname -a
+cat /etc/os-release
+lscpu --json
+lscpu --extended=CPU,NODE,SOCKET,CORE,ONLINE,MAXMHZ,MINMHZ
+getconf PAGE_SIZE
+numactl --hardware
+lstopo-no-graphics
+taskset -pc $$
+cat /proc/self/status
+cat /sys/devices/system/cpu/online
+cat /sys/devices/system/cpu/isolated
+cat /sys/devices/system/cpu/nohz_full
+cat /sys/devices/system/cpu/smt/active
+cat /sys/devices/system/cpu/smt/control
+cat /sys/devices/system/clocksource/clocksource0/current_clocksource
+cat /sys/devices/system/cpu/cpuidle/current_driver
+cat /sys/devices/system/cpu/cpuidle/current_governor_ro
+cat /sys/kernel/mm/transparent_hugepage/enabled
+cat /proc/irq/default_smp_affinity
+cpupower frequency-info
+findmnt -no TARGET,SOURCE,FSTYPE,OPTIONS /
+```
+
+Some files or optional tools may be absent. Record that fact and let capability
+detection fail closed where the evidence is mandatory. Do not use `taskset -p`,
+`numactl` launch options, `cpupower frequency-set`, writes to sysfs, `wrmsr`,
+service stops, CPU offlining, IRQ rewrites, or boot-parameter changes in this
+read-only step.
+
+## Platform evidence collection
+
+Create a new session directory rather than overwriting an earlier collection.
+One safe shell pattern for a small human-readable inventory is:
+
+```sh
+stage9_evidence_dir="evidence/stage9/SESSION_ID"
+mkdir -p -- "$stage9_evidence_dir"
+date -u +%Y-%m-%dT%H:%M:%SZ > "$stage9_evidence_dir/captured_at_utc.txt"
+uname -a > "$stage9_evidence_dir/uname.txt"
+lscpu --json > "$stage9_evidence_dir/lscpu.json"
+lscpu --extended=CPU,NODE,SOCKET,CORE,ONLINE > "$stage9_evidence_dir/cpu-map.txt"
+getconf PAGE_SIZE > "$stage9_evidence_dir/base-page-bytes.txt"
+cat /sys/devices/system/clocksource/clocksource0/current_clocksource > "$stage9_evidence_dir/clocksource.txt"
+sha256sum "$stage9_evidence_dir"/* > "$stage9_evidence_dir/SHA256SUMS"
+```
+
+Replace `SESSION_ID` with a new externally assigned identifier before running;
+do not derive scientific identity from the directory name. The typed
+`LinuxInventoryProvider` additionally reads per-CPU cache/core/package/NUMA and
+PCI locality files. Its development-host smoke test is
+`ctest --preset dev-gcc -L platform --output-on-failure`; a successful smoke
+test is not a platform record or qualification.
+
+For a candidate stand, retain the rich Stage 9 evidence manifest, the exact
+imported-schema platform record, command transcripts, binary/dependency hashes,
+authority records, pre-state, apply audit, independent readback, behavioral
+probes, reverse restoration audit, and Stage 8 clock artifacts. Bind them by
+content hashes; never paste a requested value into a verified field.
+
+## Rollback and restoration
+
+Every authorized mutating control must have an independently observed pre-state
+and an exact inverse operation before the first apply. Apply one whitelisted
+control at a time. On partial failure, stop, restore successfully applied
+controls in reverse order, independently read back every restored value, and
+retain both the apply and restoration failures. If restoration cannot be
+proved, quarantine the stand from measurement and escalate to the platform
+owner; do not proceed with a presumed default.
+
+Persistent changes to services, boot parameters, firmware, CPU online state, or
+system-wide policy are outside any automatic repository path. This runbook does
+not provide mutation commands because their exact targets, values, and inverse
+operations are stand-specific evidence still awaiting approval.
 
 ## 1. Roles and separation
 

@@ -11,7 +11,7 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Every required artifact is byte-identical and listed; all requested documents exist; all normative areas have owner/validator; no production code, result, or invented platform value exists.
 - **Explicitly excluded:** Benchmark, queues, controls, runner, analysis pipeline, calibration, pilot, confirmation.
 - **Rollback or failure behavior:** A declared-hash mismatch or normative contradiction stops bootstrap; do not repair imported bytes. Remove no source evidence; replace a bad import only from verified source and record a new timestamp/manifest.
-- **Status:** `COMPLETE_REVERIFIED`; the Stage 8 closure reran Stage 3's pinned jsonschema 4.26.0 check and reverified all 18 artifact hashes/sizes, the exact inventory, four current authoritative hashes, and all seven Draft 2020-12 schemas.
+- **Status:** `COMPLETE_REVERIFIED`; the Stage 9 closure reran Stage 3's pinned jsonschema 4.26.0 check and reverified all 18 artifact hashes/sizes, the exact inventory, four current authoritative hashes, and all seven Draft 2020-12 schemas.
 
 ## Phase 2 — Implementation-decision freeze
 
@@ -123,8 +123,10 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
   engineering-smoke, cross-thread, failure, overflow, equation, sanitizer, and
   release assembly checks pass locally. No worker CPU pair is inferred; the
   exact 10-million-read, traced vDSO, three-window bidirectional selected-pair,
-  affinity/source, and before-block evidence remains a Phase 9/16 platform
-  gate. Phase 9 is the next safe phase. Measurement remains prohibited.
+  affinity/source, and before-block evidence remains an open Stage 9
+  operational/Phase 16 platform gate. Stage 9 software preserves that blocker,
+  and Stage 10 subsequently completed without using it as experimental
+  evidence. Measurement remains prohibited.
 
 ## Phase 9 — Platform control
 
@@ -135,7 +137,21 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Required controls are both requested and independently verified; no generic “disabled/local” claim; loss of verification stops the run; privileges are scoped/audited.
 - **Explicitly excluded:** Invented commands/values and confirmatory state changes before authorization.
 - **Rollback or failure behavior:** Restore authorized default safely, retain audit/failure evidence, and mark platform ineligible if mandatory control cannot be proved.
-- **Status:** `PENDING`, platform evidence required.
+- **Status:** `COMPLETE_SOFTWARE_PLATFORM_GATE_OPEN`. `cpu_prefetch_platform`
+  implements read-only Linux CPU/core/package/NUMA/cache/PCI/environment
+  inventory, capability states, exact Stage A near/far and producer-home/
+  worker-local/base-page validation, dry-run, injected external actuation,
+  independently identified fresh readback, reverse restoration, canonical rich
+  evidence, and exact imported-platform-schema emission. Topology, sibling,
+  NUMA/policy, unsupported/authority, partial apply, disagreement, stale state,
+  restoration, manifest, safe-host, sanitizer, format, static, schema/import,
+  and package checks pass locally. No host state was changed. The exact stand
+  actuator/authority/whitelist, selected pair and thread/address readback,
+  before/during/after residency, vendor HW-prefetch mapping and probes,
+  successful restoration exercise, full clock qualification, and processor
+  relax/prefetch instruction mappings remain mandatory before measurement and
+  by Phase 16. Phase 10 used only fake/dry-run platform inputs and passed its
+  software gate; measurement remains prohibited.
 
 ## Phase 10 — Run state machine
 
@@ -146,7 +162,16 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Hot path obeys allowlist; lifecycle evidence is complete; warm-up cannot leak; drain/count rules hold; generated code has no dynamic treatment dispatch.
 - **Explicitly excluded:** Real pilot/confirmation and offline analysis.
 - **Rollback or failure behavior:** Seal actual partial artifacts and failure; never resume the same run identity or synthesize missing output.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_LOCAL`; `cpu_prefetch_lifecycle` implements the exact
+  imported-enum projection, append-only transition metadata/consequences,
+  deterministic preparation/warm-up/reset evidence, one-origin start barrier,
+  one-attempt producer, polling consumer, dedicated u32 release/acquire
+  termination, drain/watchdog/failure, no-retry outcomes, and recovery records.
+  Twenty-four focused tests plus full regression/static/sanitizer checks pass.
+  Fake storage/queue/clock/platform evidence is software-only. Final
+  preallocated Stage 11 sinks, concrete reset/package bindings, platform relax,
+  watchdog values, stand probes, and measured-release codegen remain later
+  pre-pilot gates and do not authorize a run.
 
 ## Phase 11 — Raw storage and integrity
 
@@ -157,7 +182,13 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Longest planned horizon fits without overflow/I/O; decoded rows conform logically; raw sources cannot be overwritten; compression is lossless/post-run only.
 - **Explicitly excluded:** Quantiles/models and pilot until integration acceptance.
 - **Rollback or failure behavior:** Any overflow/corruption is a measurement failure; append corrected derived/envelope records, never mutate raw bytes.
-- **Status:** `PENDING`, physical format deliberately unresolved.
+- **Status:** `READY_TO_IMPLEMENT`; Q9 accepted the exact D-010/D-020 format,
+  row/envelope, compression/copy, capacity, corruption, and compatibility
+  contract in
+  [`docs/STAGE11_STORAGE_DECISION_BUNDLE.md`](docs/STAGE11_STORAGE_DECISION_BUNDLE.md).
+  ADR-0032 and ADR-0033 freeze those choices. Stage 11 implementation may
+  begin; all listed Stage 11 verification and Phase 16 operational evidence
+  remain open.
 
 ## Phase 12 — Reconciliation and validity gates
 

@@ -1,6 +1,6 @@
 # CPU Prefetch Research Code
 
-This repository has completed the **Stage 8 timing software slice** for
+This repository has completed the **Stage 10 deterministic lifecycle software slice** for
 protocol **`2.0.0-pre.1`**. It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
@@ -8,9 +8,20 @@ sanitizer, and dual-disassembler evidence. It also contains deterministic event
 records, working-set construction, integrity inputs, and exact `R0/R1/R2/L0/L1`
 package mechanisms, the accepted offline deterministic schedule generator and
 fail-closed C++ decoder, and the D-009 clock reader, boundary-capture,
-qualification-evaluator, and offline interval components. It contains no
-measurement loop, eligible-pair qualification, hardware-control
-implementation, raw-data writer, or scientific analysis.
+qualification-evaluator, and offline interval components. Stage 9 adds typed
+Linux inventory/capability/placement/control evidence, dry-run planning,
+independent readback, restoration, and canonical platform manifests. Stage 10
+adds an explicit lifecycle projection, preparation/warm-up/reset evidence,
+two-worker start barrier, one-attempt fake-backed open-loop executor,
+release/acquire termination, drain/watchdog paths, and partial-failure
+consequences. It contains no eligible-pair qualification, production
+state-changing stand adapter, physical raw-data writer, authorized scientific
+run, or scientific analysis.
+
+The exact D-010/D-020 physical-storage contract is documented in
+[`docs/STAGE11_STORAGE_DECISION_BUNDLE.md`](docs/STAGE11_STORAGE_DECISION_BUNDLE.md).
+Q9 accepted it as ADR-0032 and ADR-0033. Stage 11 implementation may now begin;
+its tests and operational evidence have not yet passed.
 
 The repository owner selected **no license**. See
 [`docs/NO_LICENSE_GRANT.md`](docs/NO_LICENSE_GRANT.md) and ADR-0021. There is no
@@ -82,6 +93,8 @@ cmake --build --preset dev-gcc --target schema-fixture-check
 cmake --build --preset dev-gcc --target canonical-check
 cmake --build --preset dev-gcc --target schedule-check
 ctest --preset dev-gcc -L timing --output-on-failure
+ctest --preset dev-gcc -L platform --output-on-failure
+ctest --preset dev-gcc -L lifecycle --output-on-failure
 cmake --build --preset dev-gcc --target queue-provenance-check
 cmake --build --preset dev-gcc --target document-check
 cmake --build --preset dev-gcc --target dependency-check
@@ -151,10 +164,11 @@ dual-tool results close the gate.
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
 accepted. The package contains only the smoke binary, foundation,
-typed-protocol, queue, workload, schedule, and timing libraries, the offline schedule
-generator, headers, protocol/queue provenance records, Stage 6/7 correctness
-and Stage 8 timing documentation, implementation-owned derivation schema, build metadata,
-dependency inventory, and no-license notice.
+typed-protocol, queue, workload, schedule, timing, platform, and lifecycle libraries, the
+offline schedule generator, headers, protocol/queue provenance records, Stage
+6/7 correctness, Stage 8 timing, Stage 9 platform-control, and Stage 10 lifecycle documentation,
+implementation-owned derivation schema, build metadata, dependency inventory,
+and no-license notice.
 
 ## Created targets and metadata
 
@@ -171,6 +185,13 @@ dependency inventory, and no-license notice.
 - `cpu_prefetch_timing`: compiler-fenced raw-clock reads, exact conversion,
   producer/consumer capture, offline interval equations, and qualification
   evaluators;
+- `cpu_prefetch_platform`: read-only Linux topology/environment inventory,
+  capability and exact Stage A placement validation, dry-run/injected apply,
+  independent readback, reverse restoration, and rich/imported-schema manifest
+  emission;
+- `cpu_prefetch_lifecycle`: fail-closed internal state graph and imported-enum
+  projection, preparation/warm-up/reset evidence, dedicated termination word,
+  start barrier, and compile-time open-loop worker executor;
 - `cpu_prefetch_smoke`: prints protocol, Git, compiler, and standard-library
   identity;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
@@ -186,6 +207,11 @@ dependency inventory, and no-license notice.
   publication, and completion-independence tests;
 - `cpu_prefetch_timing_tests`: fake/real clock, boundary, cross-thread,
   failure, overflow, equation, qualification-math, and queue-order tests;
+- `cpu_prefetch_platform_tests`: topology/placement, capability/authority,
+  dry-run/apply/readback/restoration fault, stale-state, and manifest tests;
+- `cpu_prefetch_lifecycle_tests`: exhaustive transitions, partial artifacts,
+  warm-start reset, start/publication races, exactly-one-attempt, cancellation,
+  drain, watchdog, and deterministic concurrency tests;
 - `cpu_prefetch_rapidcheck_smoke`: fixed-seed framework and exact-uint64
   canonicalization properties;
 - `format-check`, `static-analysis`, `protocol-check`,
@@ -271,8 +297,34 @@ cmake --build --preset release-gcc --target timing-codegen-check
 ```
 
 The second command requires both accepted disassemblers. Neither command
-qualifies an experiment stand; Phase 9 must supply an explicit worker pair and
-the full traced/per-core/bidirectional evidence.
+qualifies an experiment stand; the open Stage 9 operational/Phase 16 gate must
+supply an explicit worker pair and the full traced/per-core/bidirectional
+evidence.
+
+## Lifecycle boundary
+
+ADR-0031 implements Stage 10 without extending the imported lifecycle enum.
+Every internal transition has a timestamp, actor, reason, and explicit
+artifact consequences. Warm-up and measurement namespaces remain distinct;
+logical reset preserves warm mappings/content and rejects allocation, remap,
+retouch, or schedule regeneration. The producer performs one backend attempt
+per due deadline; `FULL` is retained without retry. A dedicated lock-free u32
+word release-publishes producer completion and the consumer acquire-observes it
+before drain-to-empty. Recovery is explicit and only after finalization.
+
+The exact graph, failure/artifact matrix, fake evidence, and unresolved
+production bindings are in [`docs/LIFECYCLE.md`](docs/LIFECYCLE.md). Focused
+software verification is:
+
+```sh
+ctest --preset dev-gcc -L lifecycle --output-on-failure
+ctest --preset asan-ubsan-gcc -L lifecycle --output-on-failure
+ctest --preset tsan-gcc -L lifecycle --output-on-failure
+```
+
+These runs are correctness evidence only. The Stage 11 physical sink and the
+final package/platform specialization still require measured-release
+generated-code review before pilot readiness.
 
 ## CI boundary and next safe action
 
@@ -282,8 +334,13 @@ commands above and performs no dependency download; runner policy must disable
 dependency-network access after source checkout. Runner availability and
 provisioning are external platform operations.
 
-Stage 8's software slice is complete under the accepted
-[`D-009 clock bundle`](docs/STAGE8_CLOCK_DECISION_BUNDLE.md) and ADR-0030.
-Phase 9 platform control and explicit selected-pair qualification are the exact
-next safe work. Measurement, pilot, and confirmatory behavior remain prohibited
-until their later lifecycle gates.
+Stage 9's software slice is complete under ADR-0018 and ADR-0019; see
+[`docs/PLATFORM_CONTROL.md`](docs/PLATFORM_CONTROL.md) and the read-only
+[`docs/STAND_RUNBOOK.md`](docs/STAND_RUNBOOK.md). Exact stand actuator,
+authority, selected-pair/address readback, vendor-prefetch mapping/probes,
+restoration, and dynamic clock evidence remain mandatory operational gates.
+Stage 10's fake-backed lifecycle slice is complete under ADR-0031. Stage 11
+implementation is the exact next safe work under accepted ADR-0032/0033.
+Acceptance does not satisfy codec, corruption, capacity, generated-code, real
+durability-domain, or recovery evidence. Measurement, pilot, and confirmatory
+behavior remain prohibited until their later lifecycle gates.

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 4.3)
 project(
   cpu_prefetch_foundation
   VERSION 2.0.0
-  DESCRIPTION "Typed protocol, queue, workload, schedule, and timing foundation for the CPU prefetch research protocol"
+  DESCRIPTION "Typed protocol and deterministic lifecycle foundation for the CPU prefetch research protocol"
   LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -18,6 +18,7 @@ include(Warnings)
 find_package(Git 2.54 REQUIRED)
 find_package(OpenSSL 3.0...<4.0 REQUIRED COMPONENTS Crypto)
 find_package(Python3 3.14 REQUIRED COMPONENTS Interpreter)
+find_package(Threads REQUIRED)
 
 option(CPU_PREFETCH_USE_LIBCXX "Pair Clang with libc++" OFF)
 option(CPU_PREFETCH_WARNINGS_AS_ERRORS "Treat project warnings as errors" ON)
@@ -123,6 +124,36 @@ target_link_libraries(
   PRIVATE cpu_prefetch_project_options ${CMAKE_DL_LIBS})
 target_include_directories(
   cpu_prefetch_timing
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+add_library(
+  cpu_prefetch_platform STATIC
+  src/platform/linux_inventory.cpp
+  src/platform/platform.cpp)
+add_library(cpu_prefetch::platform ALIAS cpu_prefetch_platform)
+target_link_libraries(
+  cpu_prefetch_platform
+  PUBLIC cpu_prefetch::protocol cpu_prefetch::workload
+  PRIVATE cpu_prefetch_project_options)
+target_include_directories(
+  cpu_prefetch_platform
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+add_library(
+  cpu_prefetch_lifecycle STATIC
+  src/lifecycle/runtime.cpp
+  src/lifecycle/state_machine.cpp)
+add_library(cpu_prefetch::lifecycle ALIAS cpu_prefetch_lifecycle)
+target_link_libraries(
+  cpu_prefetch_lifecycle
+  PUBLIC cpu_prefetch::protocol cpu_prefetch::queue Threads::Threads
+  PRIVATE cpu_prefetch_project_options)
+target_include_directories(
+  cpu_prefetch_lifecycle
   PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
@@ -247,6 +278,33 @@ if(BUILD_TESTING)
     PREFIX "timing."
     PROPERTIES LABELS "timing")
 
+  add_executable(cpu_prefetch_platform_tests tests/platform_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_platform_tests
+    PRIVATE
+      cpu_prefetch::platform
+      cpu_prefetch_project_options
+      GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_platform_tests
+    PREFIX "platform."
+    PROPERTIES LABELS "platform")
+
+  add_executable(
+    cpu_prefetch_lifecycle_tests
+    tests/lifecycle_concurrency_test.cpp
+    tests/lifecycle_state_machine_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_lifecycle_tests
+    PRIVATE
+      cpu_prefetch::lifecycle
+      cpu_prefetch_project_options
+      GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_lifecycle_tests
+    PREFIX "lifecycle."
+    PROPERTIES LABELS "lifecycle")
+
   add_test(
     NAME schedule.python_generator
     COMMAND "${Python3_EXECUTABLE}"
@@ -348,6 +406,11 @@ cpu_prefetch_enforce_tool_versions()
 set(
   CPU_PREFETCH_FORMAT_FILES
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/executor.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/runtime.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/state_machine.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/linux_inventory.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/platform.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/json.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/model.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/validation.hpp"
@@ -365,6 +428,10 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/records.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/working_set.hpp"
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
+  "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/platform.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
@@ -383,10 +450,13 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_phase_test_access.hpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/timing_model_test.cpp"
@@ -412,6 +482,10 @@ add_custom_target(
 set(
   CPU_PREFETCH_ANALYSIS_FILES
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
+  "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/platform.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
@@ -430,9 +504,12 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/timing_model_test.cpp"
@@ -563,6 +640,8 @@ add_custom_target(
 install(
   TARGETS
     cpu_prefetch_foundation
+    cpu_prefetch_lifecycle
+    cpu_prefetch_platform
     cpu_prefetch_protocol
     cpu_prefetch_queue
     cpu_prefetch_schedule
@@ -585,6 +664,8 @@ install(
     "${PROJECT_BINARY_DIR}/generated/version_metadata.json"
     "${PROJECT_SOURCE_DIR}/protocol/2.0.0-pre.1/handoff/PROTOCOL_VERSION.md"
     "${PROJECT_SOURCE_DIR}/config/dependencies.json"
+    "${PROJECT_SOURCE_DIR}/docs/PLATFORM_CONTROL.md"
+    "${PROJECT_SOURCE_DIR}/docs/LIFECYCLE.md"
     "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/QUEUE_CORRECTNESS.md"
     "${PROJECT_SOURCE_DIR}/docs/SCHEDULE_GENERATION.md"
@@ -609,6 +690,6 @@ set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 8 timing correctness foundation")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 10 deterministic lifecycle foundation")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)

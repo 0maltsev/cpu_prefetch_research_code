@@ -2,23 +2,25 @@
 
 Protocol snapshot: **`2.0.0-pre.1`**
 
-Repository state: **`STAGE_8_SOFTWARE_COMPLETE`**
+Repository state: **`STAGE_10_SOFTWARE_COMPLETE_STAGE11_STORAGE_DECISIONS_ACCEPTED`**
 
-Readiness verdict: **`STAGE9_READY_MEASUREMENT_PROHIBITED_CLOCK_PAIR_PENDING`**
+Readiness verdict: **`STAGE11_IMPLEMENTATION_MAY_START_MEASUREMENT_PROHIBITED`**
 
 ## Readiness by area
 
 | Area | State | Evidence or blocker |
 |---|---|---|
-| Stage 1 import/traceability | `COMPLETE_REVERIFIED` | The Stage 8 closure freshly passed all 18 manifest sizes/SHA-256 values, exact inventory, four authoritative hashes, JSON parsing, and Draft 2020-12 meta-schema validation for all seven schemas. |
-| Stage 2 implementation-decision freeze | `COMPLETE`; Q7 accepted | ADR-0001 through ADR-0030 are accepted. Q7 freezes the final D-009 bundle. Later implementation evidence and platform/pilot selections remain open at their recorded gates. |
+| Stage 1 import/traceability | `COMPLETE_REVERIFIED` | The Stage 10 closure freshly passed all 18 manifest sizes/SHA-256 values, exact inventory, four authoritative hashes, JSON parsing, and Draft 2020-12 meta-schema validation for all seven schemas. |
+| Stage 2 implementation-decision freeze | `COMPLETE`; Q9 accepted | ADR-0001 through ADR-0033 are accepted. ADR-0032/0033 freeze the Stage 11 physical-row and no-compression/two-domain policies; their implementation and operational evidence remain open. |
 | Stage 3 build/CI foundation | `COMPLETE_LOCAL` | ADR-0022, constrained offline inputs, dual compiler/library presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations remain passing. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023, typed C++20 records for all seven schema families, strict loading, immutable configuration, record-local semantic rules, exact `JCS-I64-v1`, and explicit cross-record interfaces are implemented and pass the recorded matrix. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
 | Workload construction | `COMPLETE_LOCAL` | ADR-0025 through ADR-0028 fix the deterministic stream, unbiased permutations, payload/mixer/integrity grammars, event/node layouts, and five package mechanisms. Known-answer/property/corruption/no-allocation and dual-disassembler checks pass. |
 | Schedule generation | `COMPLETE_LOCAL` | ADR-0029's offline Decimal80/Philox suite, external u64be artifact, imported envelope, derivation record, immutable C++ decoder, namespace/common-family validation, and failure/golden/corruption matrices pass. |
 | Timing system | `COMPLETE_SOFTWARE`; platform gate open | `cpu_prefetch_timing` implements D-009's selected reader, exact conversion, producer/consumer boundary capture, offline equations, qualification evaluators, no-correction diagnostics, and dual-disassembler/mutant audit. Development-host evidence is engineering-only. No explicit eligible pair, full dynamic qualification, or before-block evidence exists. |
-| Measurement system | `NOT_IMPLEMENTED` | No queue-driven experiment loop, raw physical codec, controller, or platform mutation exists. Stage 8 components do not authorize timing comparisons; remaining scientific/platform selections stay open at their assigned gates. |
+| Platform layer | `COMPLETE_SOFTWARE`; operational stand gate open | `cpu_prefetch_platform` implements read-only Linux CPU/core/package/NUMA/cache/PCI/environment inventory, capability states, strict Stage A placement/memory/page validation, dry-run/injected apply, separate fresh readback, reverse restoration, rich canonical evidence, and exact imported-schema platform records. No production mutating backend, authority/whitelist, selected pair/address proof, vendor HW-PF mapping/probes, restoration exercise, or dynamic clock qualification exists. |
+| Lifecycle/controller | `COMPLETE_SOFTWARE`; integration gates open | `cpu_prefetch_lifecycle` implements the exact internal graph/imported projection, transition evidence, preparation/warm-up/reset validation, start barrier, one-attempt fake-backed producer, polling consumer, u32 release/acquire termination, drain/watchdog, partial failure, and no-retry outcomes. Physical sinks, concrete queue-reset/package binding, platform relax/watchdog values, and final codegen remain later gates. |
+| Measurement system | `NOT_AUTHORIZED` | The generic Stage 10 executor is synthetic correctness infrastructure, not a stand runner. No physical raw codec/preallocated sink, eligible-pair qualification, production platform mutation, or scientific run exists. |
 | Pre-pilot validation | `NOT_STARTED` | Requires Stages 5–15 and fresh eligible-platform/custody evidence. |
 | Pilot | `PROHIBITED` | Stage 16 and explicit pilot authorization are absent; this one-NUMA-node development host is ineligible for near/far evidence. |
 | Confirmatory execution | `PROHIBITED` | Pilot outputs and later freeze records, budgets, authorities, and sealing proof are absent. |
@@ -129,12 +131,78 @@ exists.
 - [`docs/TIMING.md`](docs/TIMING.md), which records exact semantics and the
   remaining explicit-pair/platform gate.
 
+## Stage 9 products
+
+- `cpu_prefetch_platform`, with separate inventory, capability, request
+  validation, apply, independent verify, restoration, and manifest operations;
+- a Linux read-only provider for logical CPU/core/package/SMT/NUMA/cache and PCI
+  locality plus CPU, page, kernel, microcode, firmware, power/environment,
+  compiler, and standard-library observations;
+- strict explicit `NEAR`/`FAR` non-SMT pair validation, producer-home shared
+  storage, worker-local private buffers, and exact base-page rules, with Stage C
+  placement/page choices rejected;
+- typed requested controls for affinity/actual CPU, memory/residency/pages,
+  governor/frequency/turbo/C-state/SMT/interrupt/isolation, HW prefetch,
+  clocksource, and build/platform provenance;
+- dry-run that never invokes an actuator, injected external actuation only,
+  mandatory pre-state, fresh independently identified exact readback, stale
+  snapshot/epoch rejection, and reverse-order restoration with retained partial
+  failures;
+- deterministic `LINUX-PLATFORM-EVIDENCE-v1` rich manifests and a separate
+  exact `platform.schema.json` projection, both with explicit content identity;
+- 12 platform tests covering topology, placement, sibling/NUMA/policy faults,
+  capability/authority, dry-run/apply/readback disagreement, stale evidence,
+  partial restoration, manifest completeness/partial failure/schema loading,
+  and safe development-host inventory;
+- [`docs/PLATFORM_CONTROL.md`](docs/PLATFORM_CONTROL.md) and an expanded
+  read-only [`docs/STAND_RUNBOOK.md`](docs/STAND_RUNBOOK.md).
+
+No privileged command, MSR access, service change, boot change, affinity
+change, NUMA binding, governor/frequency change, or hardware-prefetch change
+was executed on the current host.
+
+## Stage 10 products
+
+- `cpu_prefetch_lifecycle`, with a 16-phase internal graph projected onto the
+  unchanged eight-value imported lifecycle enum and an exhaustive legal-edge
+  table;
+- transition records carrying monotonic sequence/time, actor, reason, exact
+  protocol projection, and explicit append/retain/absence consequences;
+- deterministic preparation and warm-up evidence with distinct typed schedule
+  and namespace IDs, complete preallocation/verification, stopped arrivals,
+  drain, barrier, and no ambiguous continuation;
+- a replaceable logical-reset backend plus exact ring/linked reset verifier
+  that preserves allocation, mapping, data home, permutation, and payload;
+- a two-worker start barrier publishing one explicit origin, checked deadline
+  arithmetic, exactly one producer backend attempt per due arrival, continuous
+  consumer polling, and no outcome-derived schedule/retry path;
+- `ARRIVALS-FINISHED-U32-RELEASE-ACQUIRE-v1`, with explicit cache-line input,
+  compile/runtime lock-free evidence, producer release publication, consumer
+  acquire observation, and drain-to-empty;
+- explicit start/measurement/drain watchdog and cancellation failures with
+  actual partial counts, plus recovery records only after finalization;
+- 24 focused tests covering all state pairs/failure phases, early/partial
+  artifacts, warm-start faults, empty/`FULL`/partial execution, start and
+  publication races, backlog drain, causal failure attribution, watchdogs, and
+  100 deterministic varied-scheduling histories; and
+- [ADR-0031](docs/decisions/0031-stage10-lifecycle-and-termination-mapping.md)
+  plus [`docs/LIFECYCLE.md`](docs/LIFECYCLE.md).
+
+No scientific queue run, latency/throughput comparison, platform mutation, or
+pilot was performed. Fake schedules, clocks, queues, storage, and scheduling
+are software-correctness evidence only.
+
 ## Fresh local verification
 
 | Check | Result |
 |---|---|
-| GCC 16.1.1/libstdc++ clean configure, build, 72 CTest tests | `PASS`; exact approved RapidCheck revision and Draft validator prefix used |
-| Clang 22.1.6/libc++ 22.1.6 clean configure, build, 72 CTest tests | `PASS`; ABI-compatible approved GoogleTest/RapidCheck prefix used |
+| GCC 16.1.1/libstdc++ configure, full build, 108 CTest tests | `PASS`; exact approved RapidCheck revision and Draft validator prefix used |
+| Clang 22.1.6/libc++ 22.1.6 Stage 10 compile and 24 focused lifecycle tests | `PASS`; ABI-compatible approved GoogleTest/RapidCheck prefixes used |
+| GCC and Clang Stage 10 ASan+UBSan lifecycle matrices | `PASS`: 24 focused tests each; zero findings; LeakSanitizer disabled under managed ptrace |
+| GCC and Clang Stage 10 TSan lifecycle matrices | `PASS`: 24 focused tests each; zero findings |
+| GCC Release Stage 10 fake-specialization source/symbol/disassembly audit | `PASS_LIMITED`: concrete backend has no vtable; termination access is inline; worker bodies have no allocation/I/O/logging/sleep; injected fixture `sched_yield` remains visible and is not a production relax mapping |
+| GCC and Clang Stage 9 ASan+UBSan platform matrices | `PASS`: 12 focused tests each; zero findings; LeakSanitizer disabled under managed ptrace |
+| GCC and Clang Stage 9 TSan platform matrices | `PASS`: 12 focused tests each; zero findings |
 | Imported Draft 2020-12 fixtures | `PASS`: 7 schemas, 17 positive, 15 negative |
 | C++ and independent Python canonical fixtures | `PASS`: 3 shared cases; exact round trip |
 | Schedule direct/integrated goldens, schema/codec, boundary, namespace, hash, publication, and outcome-independence checks | `PASS`: 8 focused CTest cases; 8 Python cases; C `decimal`/`_pydecimal`/C++ parity |
@@ -142,7 +210,8 @@ exists.
 | GCC and Clang TSan Stage 8 timing matrices | `PASS`: 12 focused tests each; zero findings |
 | Queue-focused model/property/stress/phase tests | `PASS`; 14 focused checks plus full regression matrices |
 | Workload known-answer/property/boundary/corruption/package/no-allocation tests | `PASS`; 12 focused CTest cases plus full regression matrices |
-| clang-format and clang-tidy over 34 translation units | `PASS`; no user-code diagnostics |
+| clang-format over the full C++ inventory | `PASS` |
+| clang-tidy over all 41 configured repository translation units | `PASS`; no user-code diagnostics |
 | Protocol/import integrity | `PASS`: 18 artifacts, 4 authoritative hashes, 7 schemas |
 | Documentation links, dependency/license inventory, and CI policy | `PASS` |
 | Queue provenance/source/license check | `PASS`: two independent no-source-reuse records |
@@ -150,11 +219,12 @@ exists.
 | LLVM queue generated-code rules and negative mutant | `PASS`: LLVM 22.1.6; four operations and mutant reviewed |
 | GNU and LLVM workload generated-code rules and negative mutant | `PASS`: six operations and mutant reviewed |
 | GNU and LLVM timing generated-code rules and negative mutants under GCC and Clang release builds | `PASS`: reader plus ten package operations; six source and three machine mutants rejected |
-| GCC Release unsafe-flag check, metadata, and package generation | `PASS`; 25 compile commands, reproducible dirty-tree fields inspected, Stage 8 timing library/headers/docs present |
+| GCC Release unsafe-flag check, metadata, and package generation | `PASS`; 41 compile commands, reproducible dirty-tree fields inspected, Stage 10 lifecycle library/headers/docs present |
 
 LeakSanitizer remains explicitly disabled in ASan presets because it cannot run
 under the managed ptrace boundary; AddressSanitizer and UndefinedBehaviorSanitizer
-remain enabled. All 12 Stage 8 timing tests pass both GCC and Clang TSan. The
+remain enabled. All 24 Stage 10 lifecycle tests, all 12 Stage 9 platform tests,
+and all 12 Stage 8 timing tests pass both GCC and Clang TSan. The
 pre-existing Clang-TSan/global-allocation-hook collision remains a precisely
 documented limitation of the separate Stage 6 no-allocation target and is not
 reclassified by this focused run. The external self-hosted CI workflow was
@@ -190,9 +260,13 @@ mapping remains unresolved and no implementation text was used.
 
 ## Immediate gate
 
-Stage 8's software and generated-code slice is complete under accepted
-D-009/ADR-0030. The exact next safe activity is **Stage 9 platform control and
-explicit selected-pair qualification**. Measurement, pilot activity, and
-confirmatory execution remain prohibited until their applicable lifecycle
-gates pass; static stand inventory and development-host smoke results are not
-dynamic clock or worker-pair evidence.
+Stage 10's software slice is complete under accepted ADR-0031. The repository
+owner accepted the exact
+[Stage 11 storage decision bundle](docs/STAGE11_STORAGE_DECISION_BUNDLE.md) with
+`Q9 - accept the bundle`. D-010/ADR-0032 and D-020/ADR-0033 are frozen; their
+implementation and evidence are not yet complete. **Stage 11 raw-storage and
+integrity implementation is the exact next safe stage.**
+Measurement, pilot activity, and confirmatory execution remain prohibited.
+Static inventory and development-host smoke are not selected-pair, address
+residency, hardware-state, restoration, or dynamic clock evidence; those exact
+stand gates remain open through Phase 16.

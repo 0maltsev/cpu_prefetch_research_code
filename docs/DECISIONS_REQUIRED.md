@@ -2,14 +2,15 @@
 
 Protocol version: **`2.0.0-pre.1`**
 
-Stage 2/8 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_Q7_ACCEPTED`**
+Stage 2/10 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_Q7_ACCEPTED`**
 
-The repository still contains no production benchmark or measurement code.
+The repository still contains no authorized production benchmark or physical
+measurement writer.
 Stage 5 contains queue correctness-only production cores, Stage 6 contains
 deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
 owner on 2026-08-17; Q7 was accepted on 2026-08-20. They are recorded in
-ADR-0007 through ADR-0030. Exact scientific/platform/pilot facts remain open until their
+ADR-0007 through ADR-0031. Exact scientific/platform/pilot facts remain open until their
 listed phases; they were not replaced by Stage 3 or Stage 4 engineering
 defaults.
 
@@ -100,9 +101,9 @@ the applicable Phase 9/16 gates.
 | Decision IDs | Required choice/evidence | Owner | Blocking gate |
 |---|---|---|---|
 | D-009 | Software/codegen slice passes; supply exact release/stand identities, explicit pair, 10-million-call traced vDSO evidence, per-core full-count streams, bidirectional three-window streams, and before-block repetition | Timing/platform/queue-correctness/code-generation owners | Phase 9 platform qualification; repeat and bind by Phase 16/every block |
-| D-010, D-020 | Physical raw format, exact row/envelope sizes, endianness, codec, compression/copy policy, capacity and corruption evidence | Storage owner | Select for Phase 11; pass by Phase 16 |
-| D-008 | Queue pointer width/order/refinement is implemented; repeat runtime lock-free/layout probes on the eligible stand. Termination/control atomic width remains a later controller mapping. | Queue correctness/platform owners | Eligible stand/controller acceptance; queue core mapping accepted in ADR-0024 |
-| D-018 | Exact eligible-stand API mapping, processor-relax instruction, capability/readback/probe/rollback evidence | Platform owner | Select for Phase 9; pass by Phase 16 |
+| D-010, D-020 | Decisions are accepted by Q9/ADR-0032/0033; remaining inputs are Stage 11 implementation, corruption/cross-decoder/capacity/codegen evidence, and real two-domain durability proof | Storage/data-integrity/custody owners | Implement and pass software in Phase 11; operational capacity/domain/recovery proof by Phase 16 |
+| D-008 | Queue pointer width/order/refinement and u32 release/acquire termination mapping are implemented; repeat runtime lock-free/layout probes and integrated generated-code checks on the eligible measured release. | Queue correctness/controller/platform owners | Controller mapping accepted in ADR-0031; stand/release evidence by Phase 16 |
+| D-018 | Exact eligible-stand API mapping, processor-relax instruction, watchdog/failure bounds, capability/readback/probe/rollback evidence | Platform/controller owners | Supply treatment-blind operational evidence by Phase 16 |
 | D-019 | Named operator/custodian, accounts/keys/storage, negative access, recovery, and audit retention | Security/custody owners | Operational proof by Phase 16; final authority before confirmation |
 | D-031 | Protocol-authorized representation or precedence when two or more validity/zero-loss/effective-tail/completeness/access blockers coexist | Protocol/statistical owners | Resolve before Phase 12 final run-disposition validation |
 

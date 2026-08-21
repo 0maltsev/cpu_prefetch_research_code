@@ -73,8 +73,9 @@ fail-closed rule and is not a retry path.
 
 In-memory `ProducerObservation` and `ConsumerObservation` retain absolute raw
 nanoseconds and converted picoseconds. Conversion to the imported logical row
-types preserves the picosecond fields. D-010 remains open, so these in-memory
-types do not silently select a durable physical codec.
+types preserves the picosecond fields. Stage 8 did not select a durable codec.
+Q9 later accepted D-010/ADR-0032, which Stage 11 must still implement and bind
+without changing these timestamp meanings.
 
 ## Post-run equations
 

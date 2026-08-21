@@ -9,11 +9,18 @@ correctness tests. Stage 6 provides deterministic workload construction and the
 five package mechanisms. Stage 7 provides offline deterministic schedule
 generation and immutable decoding. Stage 8 provides the accepted clock reader,
 timestamp boundaries, offline interval derivation, and qualification
-evaluators; no measurement loop or eligible-pair qualification exists.
-ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 through ADR-0030 fix the
-framework/toolchain/sanitizer/model/queue/workload/schedule/clock baseline and
-commands. ADR-0030's software and dual-tool generated-code slice passes;
-explicit selected-pair and stand qualification evidence remains Phase 9/16
+evaluators. Stage 9 provides read-only Linux inventory, typed platform
+request/capability/control evidence, dry-run, independent verification,
+failure-safe restoration, and platform manifests. Stage 10 provides the
+fake-backed lifecycle graph, reset evidence, start/termination/drain
+concurrency, and partial-failure rules; no authorized scientific run, physical
+raw writer, privileged stand actuator, or eligible-pair qualification exists.
+ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 through ADR-0033 fix the
+framework/toolchain/sanitizer/model/queue/workload/schedule/clock/lifecycle/
+storage-decision baseline and commands. ADR-0030's software and dual-tool
+generated-code slice and ADR-0031's lifecycle/concurrency slice pass;
+ADR-0032/0033 are accepted contracts whose Stage 11 tests have not run.
+Explicit selected-pair and stand qualification evidence remains Phase 9/16
 work.
 Tests establish software correctness, protocol
 conformance, reproducibility, and access integrity. Synthetic and
@@ -218,6 +225,33 @@ engineering evidence only. An explicit pair, exact full-count traced vDSO and
 three-window evidence, affinity/source identity, and before-block repetition
 remain Phase 9/16 gates.
 
+### 10a. Platform inventory and control tests
+
+- Parse CPU lists and CPU/core/package/SMT/NUMA/cache/PCI topology with missing,
+  malformed, duplicate, and inconsistent evidence negatives.
+- Accept only explicit Stage A near/far non-SMT placement, producer-home shared
+  data, worker-local private buffers, and the inventoried base-page size.
+- Reject unavailable/mapping-unresolved controls, missing authority,
+  actuation-as-readback, impossible/offline CPUs, sibling/core confusion, NUMA
+  mismatch, interleave/consumer-local/replicated/migrated placement, and huge
+  page treatments.
+- Prove dry-run invokes no actuator. Inject partial apply, missing pre-state,
+  permission failure, reverse restoration, and restoration failure.
+- Make apply/readback disagree; remove mandatory readback; change snapshot or
+  epoch; change verification mechanism; require ineligibility with exact error
+  evidence.
+- Emit deterministic canonical complete and partial manifests, validate binary
+  and library provenance completeness, and load the exact projection through
+  the imported platform model/schema contract.
+
+Stage 9 software status: the platform-labelled GCC tests cover these paths and
+a safe read-only development-host inventory smoke. ASan/UBSan and TSan must run
+the same test set. None establishes stand eligibility. The exact selected
+pairs, thread/address-specific before/during/after residency, approved actuator
+and authority, vendor HW-prefetch mapping/readback/probes, successful
+restoration exercise, and full Stage 8 selected-pair qualification remain
+stand/Phase 16 blockers for measurement.
+
 ### 11. Record, checksum, and corruption tests
 
 - Assert one measured-line record size, payload alignment, immutable fields, and package-independent arena/order.
@@ -241,6 +275,24 @@ Start from independently built producer and consumer streams, then inject count 
 ### 13. Lifecycle transition tests
 
 Cover every lifecycle state and independent join status. Verify early failure without fabricated artifacts, partial measurement/drain artifacts, failed join with audit only, complete valid Stage A obligations, valid `FULL` plus zero-loss failure, valid low `N_eff` plus effective-tail failure, invalid run plus failure record, and block-incomplete consequences.
+
+Stage 10 status: the pure transition graph enumerates all 256 internal
+state-pairs and tests every accepted edge and phase-specific failure
+projection. Transition metadata, nondecreasing timestamps, actual/absent
+artifact consequences, immutable failure, recovery-outside-measurement, and
+`FULL`/low-`N_eff` non-failure behavior fail closed. Preparation/warm-up tests
+require separate namespaces, complete preallocation/verification, no ambiguous
+continuation, and stop/drain/barrier evidence. Ring and linked reset fixtures
+cover exact origin plus every remap/retouch/allocation/count/checksum fault.
+
+Concurrency tests exercise delayed start, one published origin, u32
+release/acquire payload visibility, producer completion before backlog drain,
+empty schedules, exactly one call for every `FULL`, partial producer failure,
+deadline watchdog, start-clock cancellation, drain poll failure/watchdog, and
+100 deterministic varied-scheduling histories. The fake backend uses fixed
+storage; input schedules and thread setup finish before the origin. Explicit
+test limits and host `yield` scheduling are fixture behavior, not production
+relax or watchdog selections. The same label must pass ASan/UBSan and TSan.
 
 ### 14. Manifest completeness tests
 
@@ -270,8 +322,11 @@ workload probe adds the consumer action and R1/R2 producer/consumer plus L1
 consumer sites. GNU Binutils 2.46 and LLVM 22.1.6 show the two immutable record
 loads, fixed branch-free mixer, and exact target-before-demand ordering with no
 unexpected call, record store, `lock`, `xchg`, or `mfence`; both reject the
-deliberate call mutant. Platform prefetch instructions, relax, termination,
-timestamps, and the final combined worker remain later generated-code gates.
+deliberate call mutant. Platform prefetch instructions, relax, the final Stage
+11 physical sink, and the package-specific combined worker remain later
+generated-code gates. Stage 10 source/static analysis fixes u32
+release/acquire termination and compile-time backend binding but does not
+mistake a fake specialization for the measured-release audit.
 
 ### 19. Clean-environment build and verification
 

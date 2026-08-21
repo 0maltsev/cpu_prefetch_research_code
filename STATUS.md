@@ -3,16 +3,16 @@
 Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
 **`2.0.0-pre.1`** retained
 
-Repository state: **`STAGE_14_SOFTWARE_COMPLETE_SYNTHETIC_ONLY`**
+Repository state: **`STAGE_15_SOFTWARE_COMPLETE_SYNTHETIC_ONLY`**
 
-Readiness verdict: **`STAGE15_SOFTWARE_MAY_START_MEASUREMENT_PROHIBITED`**
+Readiness verdict: **`STAGE16_PRE_PILOT_VERIFICATION_MAY_START_MEASUREMENT_PROHIBITED`**
 
 ## Readiness by area
 
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/14 implementation-decision freeze | `COMPLETE`; Q12 accepted | ADR-0001 through ADR-0040 are accepted. ADR-0034 records the D-031 amendment/version boundary; ADR-0035 through ADR-0039 freeze/implement Stage 13 methods; ADR-0040 closes only the Stage 14 implementation profile and supplies no external freeze inputs. |
+| Stage 2/15 implementation-decision freeze | `COMPLETE`; Q12 accepted | ADR-0001 through ADR-0041 are accepted. ADR-0034 records the D-031 amendment/version boundary; ADR-0035 through ADR-0039 freeze/implement Stage 13 methods; ADR-0040 closes Stage 14 orchestration; ADR-0041 closes the synthetic-only Stage 15 analysis profile without supplying external freeze inputs. |
 | Stage 3 build/CI foundation | `COMPLETE_LOCAL` | ADR-0022, constrained offline inputs, dual compiler/library presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations remain passing. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
@@ -25,8 +25,9 @@ Readiness verdict: **`STAGE15_SOFTWARE_MAY_START_MEASUREMENT_PROHIBITED`**
 | Reconciliation/run gates | `COMPLETE_LOCAL`; concrete evidence open | `cpu_prefetch_reconciliation` performs exact run-level reconciliation/gates, while `Stage14CrossRecordSemanticValidator` resolves seed catalogs, active complete-block pool, precision counts, access chronology, replacement lineage, and budget. Final acceptance still requires concrete frozen inputs and both passes. |
 | Stage 13 calibration framework | `COMPLETE_LOCAL_SYNTHETIC`; stand gate open | Exact service/ring evaluators, preallocated acquire tracing, the guarded offline matrix estimator, five schemas, append-only records, invalidation, and synthetic C++/Python/schema tests pass. No duration, run plan, capacity, seed, exposure, stand evidence, authority, `mu_ref`, load, `d2`, feasibility freeze, or platform output was supplied or invented. |
 | Stage 14 block/access orchestration | `COMPLETE_LOCAL_SYNTHETIC`; freeze/custody inputs open | `cpu_prefetch_orchestration` proves/generates exact 180-cell blocks and pools, pins 7/20/270/540/54 families and count equations, validates role-aware sealing/amendments, and authorizes only full role-preserving replacements within budget. No final count, seed, namespace, authority, budget, stand plan, access, or outcome was created. |
+| Stage 15 offline analysis | `COMPLETE_LOCAL_SYNTHETIC`; production adapter/evidence open | `cpu_prefetch_analysis` admits only validated immutable synthetic-profile artifacts, independently verifies reconciliation and gates, forms complete blocks, implements exact inverse-ECDF estimands and separate complete-block max-T families, enforces H3 access chronology, and emits zero-self-hashed canonical plus human reports marked `SYNTHETIC_KNOWN_ANSWER_ONLY` and explicitly containing no empirical findings. No production input or empirical outcome was consumed. |
 | Measurement system | `NOT_AUTHORIZED` | Stages 10–12 are synthetic correctness infrastructure, not a stand runner. No eligible-pair qualification, production platform mutation, concrete run plan, calibration, or scientific run exists. |
-| Pre-pilot validation | `NOT_STARTED` | Requires Stages 5–15 and fresh eligible-platform/custody evidence. |
+| Pre-pilot validation | `READY_TO_START` | Stages 5–15 software are complete. Stage 16 must integrate the exact release and obtain fresh eligible-platform, storage-domain, custody, capacity/residency, timing, and freeze evidence before any pilot authorization. |
 | Pilot | `PROHIBITED` | Stage 16 and explicit pilot authorization are absent; this one-NUMA-node development host is ineligible for near/far evidence. |
 | Confirmatory execution | `PROHIBITED` | Pilot outputs and later freeze records, budgets, authorities, and sealing proof are absent. |
 
@@ -301,12 +302,43 @@ All fixtures are synthetic and produce no empirical performance claim.
 - synthetic deterministic/property/fault/schema tests. No block was executed,
   no sealed artifact was opened, and no final freeze input was invented.
 
+## Stage 15 products
+
+- `cpu_prefetch_analysis`, with immutable artifact/config hashing, strict
+  protocol/schema/format admission, exact or previously proven Stage 12
+  reconciliation, independent validity/zero-loss/tail gates, and a deliberate
+  synthetic-only Stage 15 input profile;
+- exact weighted inverse-ECDF p50/p90/p99/p999 and conditional p9999
+  estimands, run diagnostics, the 40-column balanced Stage A model, and direct
+  algebraically equivalent forms of all registered H1/H2/H3 contrasts;
+- complete-temporal-block Philox bootstrap with sample covariance,
+  studentization, separate two-sided H1 seven-contrast and H2 twenty-contrast
+  max-T families, and one-sided H3 validation over the pre-sized 540 family;
+- deterministic H3 selection over all 270 training differences in six stable
+  contexts, fixed tie order, immutable zero-self-hashed selection freeze, and
+  exactly 54 reported selected-minus-alternative validation comparisons after
+  an authorized Stage 14 unseal;
+- strict rejection of mixed versions, bad hashes, invalid joins, incomplete
+  evidence, incomplete active blocks, cell repair, undocumented filtering,
+  unauthorized outcomes, and over-budget replacement graphs; valid `FULL` and
+  genuine low-tail runs are retained as blocked rather than invalidated;
+- canonical machine and human reports containing software/config/source/output
+  identities, binary64 bit encodings, versioned 14-stage receipts, the machine
+  label `SYNTHETIC_KNOWN_ANSWER_ONLY`, and explicit human no-empirical-findings
+  language; and
+- ADR-0041 and [`docs/ANALYSIS.md`](docs/ANALYSIS.md). Synthetic fixtures are
+  correctness evidence only. Stage 15 created no calibration, pilot,
+  confirmatory, or empirical artifact.
+
 ## Fresh local verification
 
 | Check | Result |
 |---|---|
-| GCC 16.1.1/libstdc++ configure, full build, 173 CTest tests | `PASS`; exact approved RapidCheck revision and Draft validator prefix used |
-| Clang 22.1.6/libc++ 22.1.6 configure, full build, 173 CTest tests | `PASS`; ABI-compatible approved GoogleTest/RapidCheck prefixes used |
+| GCC 16.1.1/libstdc++ configure, full build, 186 CTest tests | `PASS`; exact approved RapidCheck revision and Draft validator prefix used |
+| Clang 22.1.6/libc++ 22.1.6 configure, full build, 186 CTest tests | `PASS`; ABI-compatible approved GoogleTest/RapidCheck prefixes used |
+| Stage 15 estimand/bootstrap/access/report suite | `PASS`: 13 C++ known-answer/property/end-to-end/prohibited-input tests; 20 active synthetic blocks, 3,600 active runs, and replacement fixtures; no empirical input |
+| GCC and Clang Stage 15 ASan+UBSan analysis matrices | `PASS`: all 13 analysis-label tests on each toolchain, followed by the final replacement-source provenance retest on each; zero findings; LeakSanitizer disabled under managed ptrace |
+| GCC and Clang Stage 15 TSan analysis matrices | `PASS`: all 13 analysis-label tests on each toolchain, followed by the final replacement-source provenance retest on each; zero findings |
 | Stage 14 factorial/precision/access/replacement suite | `PASS`: 13 C++ unit/property/integration tests plus 9 positive/10 negative imported-schema fixtures; synthetic inputs only |
 | GCC and Clang Stage 14 ASan+UBSan orchestration matrices | `PASS`: all 14 orchestration-label tests on each toolchain; zero findings; LeakSanitizer disabled under managed ptrace |
 | GCC and Clang Stage 14 TSan orchestration matrices | `PASS`: all 14 orchestration-label tests on each toolchain; zero findings |
@@ -334,7 +366,7 @@ All fixtures are synthetic and produce no empirical performance claim.
 | Queue-focused model/property/stress/phase tests | `PASS`; 14 focused checks plus full regression matrices |
 | Workload known-answer/property/boundary/corruption/package/no-allocation tests | `PASS`; 12 focused CTest cases plus full regression matrices |
 | clang-format over the full C++ inventory | `PASS` |
-| clang-tidy over all four Stage 14 C++/test translation units | `PASS`; no user-code diagnostics; prior Stage 12 full-inventory pass remains recorded |
+| clang-tidy over all 63 repository C++/test/tool translation units plus final changed analysis units | `PASS`; no user-code diagnostics; whole-tree run suppressed 3,012 dependency/system warnings and two documented intentional parameter-order annotations |
 | Protocol/import integrity | `PASS`: 2 immutable snapshots, 36 artifacts, 8 authoritative hashes, 14 imported and 9 implementation Draft 2020-12 schemas |
 | Documentation links, dependency/license inventory, and CI policy | `PASS` |
 | Queue provenance/source/license check | `PASS`: two independent no-source-reuse records |
@@ -343,7 +375,7 @@ All fixtures are synthetic and produce no empirical performance claim.
 | GNU and LLVM workload generated-code rules and negative mutant | `PASS`: six operations and mutant reviewed |
 | GNU and LLVM timing generated-code rules and negative mutants under GCC and Clang release builds | `PASS`: reader plus ten package operations; six source and three machine mutants rejected |
 | GNU and LLVM storage generated-code rules under GCC and Clang release builds | `PASS`: source/binary/rules/disassembly hashes bound; both private append bodies accepted and deliberate call mutant rejected |
-| GCC Release unsafe-flag check, metadata, and package generation | `PASS`; 61 compile commands, reproducible dirty-tree fields inspected, Stage 14 library/headers/docs and prior components present |
+| GCC Release unsafe-flag check, metadata, and package generation | `PASS`; 63 compile commands, reproducible dirty-tree fields inspected, Stage 15 library/header/`ANALYSIS.md` and prior components present; package SHA-256 `220ebdff2899c79f905bedbd9a41fb8257756a0c7296c00415de6818a0080fa3` |
 
 LeakSanitizer remains explicitly disabled in ASan presets because it cannot run
 under the managed ptrace boundary; AddressSanitizer and UndefinedBehaviorSanitizer
@@ -352,6 +384,7 @@ lifecycle tests, all 12 Stage 9 platform tests, and all 12 Stage 8 timing tests
 pass both GCC and Clang TSan. All 12 Stage 13 calibration-label tests pass the
 GCC/Clang ASan+UBSan and TSan matrices. All 14 Stage 14
 orchestration-label tests pass the same four sanitizer matrices. The
+13 Stage 15 analysis-label tests pass all four sanitizer matrices as well. The
 pre-existing Clang-TSan/global-allocation-hook collision remains a precisely
 documented limitation of the separate Stage 6 no-allocation target and is not
 reclassified by this focused run. The external self-hosted CI workflow was
@@ -372,6 +405,13 @@ authorities, budget, invalid-run evidence, or custody enforcement. A synthetic
 or structurally valid graph is not a final freeze, and the applicable Stage
 12 and Stage 14 cross-record validators must both pass concrete evidence.
 
+Stage 15 integrates those software gates for its deliberately synthetic input
+profile and proves deterministic analysis/report behavior. It does not create
+the production artifact adapter or supply concrete blocks, calibration,
+precision, access, stand, storage-domain, custody, or release evidence. Stage
+16 must requalify the exact production adapter and invoke every applicable
+Stage 12/14/15 gate over immutable concrete evidence before pilot readiness.
+
 ## License and dependency state
 
 ADR-0021 records no repository license grant. There is no `LICENSE` file. The
@@ -386,12 +426,13 @@ mapping remains unresolved and no implementation text was used.
 
 ## Immediate gate
 
-Stage 14's local synthetic software slice is complete under ADR-0040. **The
-exact next safe software stage is Stage 15 offline analysis using synthetic
-fixtures. It must not fill external `delta_star`, bootstrap/count inputs,
-seeds, schedules, stand evidence, authority, access, or budget with defaults.**
-Measurement, stand calibration
-execution, pilot activity, and confirmatory execution remain prohibited.
+Stage 15's local synthetic software slice is complete under ADR-0041. **The
+exact next safe stage is Stage 16 pre-pilot verification and production-path
+integration. It must bind, rather than invent, external `delta_star`,
+bootstrap/count inputs, seeds, schedules, stand evidence, authority, access,
+capacity, residency, durable domains, and budget.** Measurement, stand
+calibration execution outside an authorized treatment-blind plan, pilot
+activity, and confirmatory execution remain prohibited.
 Static inventory and development-host smoke are not selected-pair, address
 residency, hardware-state, restoration, or dynamic clock evidence; those exact
 stand gates remain open through Phase 16.

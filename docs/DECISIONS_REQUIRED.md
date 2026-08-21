@@ -2,9 +2,9 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/14 disposition: **`COMPLETE; Q1_THROUGH_Q12_ACCEPTED`**
+Stage 2/15 disposition: **`COMPLETE; Q1_THROUGH_Q12_ACCEPTED`**
 
-Stage 14 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
+Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
 The repository still contains no authorized production benchmark or
 measurement runner. Stages 11 and 12 contain the accepted physical observation
@@ -14,8 +14,9 @@ deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
 owner on 2026-08-17; Q7 was accepted on 2026-08-20; Q8 through Q12 were
 accepted on 2026-08-21. They are recorded through ADR-0038, with ADR-0039
-closing the delegated Stage 13 profile and ADR-0040 closing the Stage 14
-implementation-owned planning/access profile. Exact scientific,
+closing the delegated Stage 13 profile, ADR-0040 closing the Stage 14
+implementation-owned planning/access profile, and ADR-0041 closing the
+synthetic-only Stage 15 analysis profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
 
@@ -56,6 +57,7 @@ The repository owner selected **no license**. ADR-0021 records no license grant,
 | Q10/Q11 D-031 and Stage 12 | Exhaustive ordered blocker set; non-priority `BLOCKED_MULTIPLE`; immutable pre.2 import; exact run-level reconciliation/status implementation | ADR-0034 | Stage 12 software passes; Stage 14 still supplies authoritative block completeness and access chronology |
 | Q12 Stage 13 calibration methods | Nonparametric 95/95 service-rate lower limit; run-cluster Hoeffding matrix feasibility and global ladder; run-tail ring distance; versioned records/arithmetic/invalidation | ADR-0035 through ADR-0039 | Synthetic software/profile tests pass; every exact stand/duration/count/seed/capacity/authority/budget and final exposure remains externally gated |
 | Stage 14 engineering closure | Exact typed product proof, explicit-key deterministic ordering, fixed precision registries, access chronology/segregation, and full-block replacement enforcement | ADR-0040 | Concrete precision counts, namespace/seed catalogs, platform/build, authorities/custody, replacement budget, and final block records remain externally gated |
+| Stage 15 engineering closure | Exact inverse-ECDF estimands; complete-block Philox bootstrap; separate 7/20 max-T families; 270/540/54 H3 ordering; strict artifact/access/replacement admission; byte-stable synthetic reports | ADR-0041 | Production artifact adapter, exact release, concrete precision/count/seed/block/access/stand/storage/custody evidence, and every empirical output remain externally gated |
 
 ## Stage 3 through Stage 8 engineering baselines
 
@@ -147,9 +149,9 @@ license remain submission-only.
 Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
-versioned protocol amendment. Stages 11 through 14 are complete locally under
-ADR-0032 through ADR-0040. The exact next safe action is Stage 15 offline
-analysis software with fake and synthetic inputs only. Every external
+versioned protocol amendment. Stages 11 through 15 are complete locally under
+ADR-0032 through ADR-0041. The exact next safe action is Stage 16 pre-pilot
+verification and production-path integration. Every external
 scientific or stand-dependent value remains blocked until its listed evidence
 gate. Measurement, calibration execution, pilot, and confirmatory execution
 remain prohibited.

@@ -129,6 +129,8 @@ struct RunEvidence final {
 class Stage12CrossRecordSemanticValidator final
     : public protocol::CrossRecordSemanticValidator {
 public:
+  // The element types distinguish the immutable byte inventory from run evidence.
+  // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
   Stage12CrossRecordSemanticValidator(std::span<const ArtifactBytes> artifacts,
                                       std::span<const RunEvidence> evidence)
       : artifacts_(artifacts), evidence_(evidence) {}

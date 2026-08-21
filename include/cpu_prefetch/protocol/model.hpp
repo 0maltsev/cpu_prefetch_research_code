@@ -26,6 +26,8 @@ enum class ProtocolVersion : std::uint8_t { v2_0_0_pre_1, v2_0_0_pre_2 };
 
 template <typename Tag> class Identifier {
 public:
+  // Value and diagnostic path are deliberately adjacent parts of the parsing API.
+  // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
   [[nodiscard]] static auto parse(std::string value, std::string path)
       -> Result<Identifier> {
     if (value.empty()) {

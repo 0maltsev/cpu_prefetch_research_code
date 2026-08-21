@@ -5,7 +5,7 @@
 This is the accepted architecture for Stage A of protocol `2.0.0-pre.2`, with
 immutable predecessor `2.0.0-pre.1`. ADR-0007 through ADR-0040 freeze the
 owner-approved software foundation through Stage 14 synthetic orchestration
-software. Exact eligible-stand mappings/evidence, concrete Stage A freeze
+software and ADR-0041 closes the Stage 15 synthetic analysis profile. Exact eligible-stand mappings/evidence, concrete Stage A freeze
 inputs, and later pilot outputs remain open. Imported
 snapshots remain authoritative under their versions; contradictions require a
 versioned protocol amendment. Stage B and Stage C are excluded.
@@ -40,7 +40,7 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 | Offline | Reconciler | Build accepted producer order; exact k-th join by `(run_id, accepted_ordinal)`; validate Stage 6 mapping/index; emit audit and conditional derived join | Forbidden | Stage 12 implemented; consumes immutable sources only and derives nothing on failed audit |
 | Offline | Calibration evaluator | Validate prospective service/ring/probe plans and immutable raw evidence; compute exact minima/tails/exposure bounds; emit append-only freeze candidates | Forbidden | Stage 13 implemented with synthetic/fake inputs; stand values and final exposure remain external gates |
 | Offline | Access/replacement orchestrator | Enforce sealing chronology, authority segregation, immutable amendment lineage, and complete-block-only replacement | Forbidden | Stage 14 implemented with synthetic records; real principals/custody/budget remain Phase 16/18 evidence |
-| Offline | Statistical analysis | Fixed quantiles, diagnostics, H1/H2 families, sealed H3 chronology | Forbidden | Deferred; cannot influence implementation choices |
+| Offline | Statistical analysis | Fixed quantiles/diagnostics, complete-block H1/H2 families, sealed H3 chronology, source-linked reports | Forbidden | Stage 15 synthetic implementation passes; concrete authorized inputs remain Phase 16/18 evidence |
 
 ## Stable interfaces
 
@@ -105,6 +105,19 @@ role-preserving replacements. Missing inputs remain unresolved. The interface
 has no filesystem identity inference, outcome input to generation/resizing,
 artifact-reader capability, cell-repair method, or execution method. See
 [`ORCHESTRATION.md`](ORCHESTRATION.md).
+
+### `OfflineAnalysis`
+
+Consumes one explicit platform/build graph only after immutable artifact
+checks, Stage 12 reconciliation evidence, exact Stage 14 block/replacement
+proof, and role-appropriate access grants. It derives non-interpolated run
+quantiles and diagnostics, verifies the 40-column full-rank balanced design,
+constructs no block from filtered cells, and resamples complete temporal blocks
+only. Separate seven/twenty H1/H2 max-T families and the H3
+training-selection-unseal-54-comparison sequence are versioned by ADR-0041.
+Every numerical freeze input remains explicit. Canonical reports bind software,
+configuration, sources, and output hashes and label synthetic evidence so it
+cannot be confused with empirical results. See [`ANALYSIS.md`](ANALYSIS.md).
 
 ### `ClockSource`
 

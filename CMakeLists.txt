@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 4.3)
 project(
   cpu_prefetch_foundation
   VERSION 2.0.0
-  DESCRIPTION "Typed protocol, correctness, storage, reconciliation, calibration, and synthetic orchestration foundation for the CPU prefetch research protocol"
+  DESCRIPTION "Typed protocol, correctness, storage, reconciliation, calibration, orchestration, and synthetic offline-analysis foundation for the CPU prefetch research protocol"
   LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -221,6 +221,20 @@ target_link_libraries(
   PRIVATE cpu_prefetch_project_options)
 target_include_directories(
   cpu_prefetch_orchestration
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+add_library(cpu_prefetch_analysis STATIC src/analysis/analysis.cpp)
+add_library(cpu_prefetch::analysis ALIAS cpu_prefetch_analysis)
+target_link_libraries(
+  cpu_prefetch_analysis
+  PUBLIC
+    cpu_prefetch::orchestration
+    cpu_prefetch::reconciliation
+  PRIVATE cpu_prefetch_project_options)
+target_include_directories(
+  cpu_prefetch_analysis
   PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
@@ -465,6 +479,22 @@ if(BUILD_TESTING)
     DEPENDS cpu_prefetch_orchestration_tests
     COMMENT "Checking synthetic-only Stage 14 orchestration contracts")
 
+  add_executable(cpu_prefetch_analysis_tests tests/analysis_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_analysis_tests
+    PRIVATE cpu_prefetch::analysis cpu_prefetch_project_options GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_analysis_tests
+    PREFIX "analysis."
+    PROPERTIES LABELS "analysis;synthetic")
+
+  add_custom_target(
+    analysis-check
+    COMMAND "${CMAKE_CTEST_COMMAND}" --test-dir "${PROJECT_BINARY_DIR}"
+            --output-on-failure -L analysis
+    DEPENDS cpu_prefetch_analysis_tests
+    COMMENT "Checking synthetic-only Stage 15 offline analysis")
+
   add_executable(cpu_prefetch_storage_stress tests/storage_stress.cpp)
   target_link_libraries(
     cpu_prefetch_storage_stress
@@ -659,6 +689,7 @@ cpu_prefetch_enforce_tool_versions()
 
 set(
   CPU_PREFETCH_FORMAT_FILES
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/analysis/analysis.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/access.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/block_planning.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/precision.hpp"
@@ -693,6 +724,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/records.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/working_set.hpp"
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/analysis/analysis.cpp"
   "${PROJECT_SOURCE_DIR}/src/orchestration/access.cpp"
   "${PROJECT_SOURCE_DIR}/src/orchestration/block_planning.cpp"
   "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
@@ -725,6 +757,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/analysis_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
@@ -767,6 +800,7 @@ add_custom_target(
 set(
   CPU_PREFETCH_ANALYSIS_FILES
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/analysis/analysis.cpp"
   "${PROJECT_SOURCE_DIR}/src/orchestration/access.cpp"
   "${PROJECT_SOURCE_DIR}/src/orchestration/block_planning.cpp"
   "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
@@ -799,6 +833,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/analysis_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
@@ -967,6 +1002,7 @@ add_custom_target(
 
 install(
   TARGETS
+    cpu_prefetch_analysis
     cpu_prefetch_calibration
     cpu_prefetch_orchestration
     cpu_prefetch_foundation
@@ -1001,6 +1037,7 @@ install(
     "${PROJECT_SOURCE_DIR}/protocol/2.0.0-pre.2/handoff/PROTOCOL_VERSION.md"
     "${PROJECT_SOURCE_DIR}/config/dependencies.json"
     "${PROJECT_SOURCE_DIR}/docs/PLATFORM_CONTROL.md"
+    "${PROJECT_SOURCE_DIR}/docs/ANALYSIS.md"
     "${PROJECT_SOURCE_DIR}/docs/CALIBRATION.md"
     "${PROJECT_SOURCE_DIR}/docs/LIFECYCLE.md"
     "${PROJECT_SOURCE_DIR}/docs/ORCHESTRATION.md"
@@ -1030,6 +1067,6 @@ set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Synthetic-only Stage 14 orchestration foundation")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Synthetic-only Stage 15 offline-analysis foundation")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)

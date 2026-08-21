@@ -405,7 +405,41 @@ block/freeze shapes; path-shaped identity remains an intentional semantic
 negative. The same C++ label must pass GCC/Clang ASan/UBSan and TSan presets.
 No fixture is an authorized block or scientific outcome.
 
-### 18. Generated-code acceptance
+### 18. Offline-analysis contract tests
+
+The `analysis` CTest label and `analysis-check` target exercise the accepted
+synthetic-only Stage 15 profile. Tests independently pin the inverse-ECDF rank
+rule, p50/p90/p99/p999 and conditional p9999 behavior, the 40-column balanced
+Stage A model, all seven H1 and twenty H2 contrasts, all 270 H3 training and
+540 pre-selection validation comparisons, and the reported 54
+selected-minus-alternative comparisons. Known-null and constructively shifted
+complete-block fixtures verify sidedness, sample covariance, block resampling,
+studentization, empirical 95th max-T critical values, and the fixed H3 tie
+order. The prospective-precision test consumes exact frozen family-width
+curves and rejects malformed or outcome-derived substitutes.
+
+The complete synthetic end-to-end fixture contains 12 training and 8
+validation blocks, exactly 180 cells per active block, immutable content
+hashes, Stage 12 reconciliation evidence, and Stage 14 access grants. Its
+expected H1/H2 signs, six H3 selections, 54 validation contrasts, diagnostic
+separation, and canonical report hash are asserted. A same-seed rerun must be
+byte-identical. Additional fixtures exercise ties, low-tail censoring, valid
+`FULL`, an incomplete active block, a retained invalid original plus complete
+replacement, replacement-budget exhaustion, sealed validation, mixed
+protocol versions, bad hashes, invalid joins, missing cells, and attempted
+cell repair. Blocked validity gates are retained as non-inferential outputs;
+prohibited or malformed evidence is rejected rather than filtered.
+
+Only `STAGE-A-OFFLINE-ANALYSIS-SYNTHETIC-v1` input is admitted in Stage 15.
+Every generated machine report must say `SYNTHETIC_KNOWN_ANSWER_ONLY`; the
+human report must say `SYNTHETIC FIXTURE ONLY` and that it contains no
+empirical findings. Both list software/config/input/output identities and preserve primary versus
+sensitivity separation. The production artifact adapter, custody exercise,
+and exact measured-release requalification remain Stage 16 work. The analysis
+label must pass both supported compiler/library matrices and every applicable
+ASan/UBSan and TSan preset.
+
+### 19. Generated-code acceptance
 
 For each package/build, inspect and hash the generated boundaries for queue publication/observation, prefetch site/target/form/distance, wait relaxation, termination flag, immutable record loads, private checksum update, timestamp boundaries, static specialization, and absence of virtual dispatch, treatment branch, allocation, I/O, logging, or unexpected calls. Source, object, executable, compiler, flags, standard-library, linker, disassembler, rule-set, and report hashes travel together. The test must include negative fixtures or mutated builds proving the checks detect missing/moved operations.
 
@@ -422,22 +456,22 @@ deliberate storage call mutant. Stage 10 source/static analysis fixes u32
 release/acquire termination and compile-time backend binding but does not
 mistake a fake specialization for the measured-release audit.
 
-### 19. Clean-environment build and verification
+### 20. Clean-environment build and verification
 
 From a documented clean environment with network access disabled, recreate dependencies, build artifacts, fixtures, validator outputs, and generated-code reports solely from tracked inputs and recorded versions. Compare source/build/protocol/dependency hashes and licenses and run the complete non-performance test suite. Stage 3 provides the local/CI commands in `README.md`; later phases extend the same presets and checks rather than inventing separate entry points.
 
-### 20. Synthetic end-to-end dry run
+### 21. Synthetic end-to-end dry run
 
 Use a small explicitly synthetic fixture namespace to exercise planning, schedules, lifecycle, private streams, sealing, join, manifests, failure injection, status gates, and derived provenance. It must not be called a pilot, use confirmatory namespaces, tune treatment parameters, or support a performance claim. Its acceptance is structural correctness only.
 
-### 21. Dependency and provenance tests
+### 22. Dependency and provenance tests
 
 - Fail configure/verification for an unrecorded dependency, missing immutable source hash, unknown license, network fetch, or incompatible license decision.
 - Bind queue implementation files to the accepted provenance/mode record and paper-to-source semantic map.
 - Verify that independent queue implementation imports no third-party queue source or mechanically derived code.
 - Verify every generated source/table has a tracked generator, inputs, version, deterministic regeneration command, output hash, review classification, and stale-output check.
 
-### 22. Plane and privilege isolation tests
+### 23. Plane and privilege isolation tests
 
 - Prove the worker call graph cannot reach config/schema parsers, general allocators, filesystem/network/console APIs, compression, reconciliation, or analysis.
 - Run negative mutants that add each prohibited call and require rejection.

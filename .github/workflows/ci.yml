@@ -43,6 +43,8 @@ jobs:
         run: cmake --build --preset dev-gcc --target calibration-check
       - name: Synthetic orchestration contract check
         run: cmake --build --preset dev-gcc --target orchestration-check
+      - name: Synthetic offline-analysis contract check
+        run: cmake --build --preset dev-gcc --target analysis-check
       - name: Queue provenance check
         run: cmake --build --preset dev-gcc --target queue-provenance-check
       - name: Documentation check

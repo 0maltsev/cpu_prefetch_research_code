@@ -425,9 +425,15 @@ auto evaluate_service_rate(const ServiceRatePlan& plan,
       result.blockers.push_back("unresolved service cell " +
                                 service_key_name(required_key));
     } else {
+      if (!minimum.has_value()) {
+        return fail<ServiceRateResult>(
+            protocol::ErrorCategory::cross_field, "$/service_runs",
+            "CAL-SERVICE-MINIMUM-MISSING",
+            "a resolved service cell must contain a valid throughput minimum");
+      }
       cell_result.mu_cell = minimum;
       const auto is_global_minimum = result.mu_ref.has_value()
-                                         ? compare(*minimum, *result.mu_ref)
+                                         ? compare(minimum.value(), *result.mu_ref)
                                          : protocol::Result<int>::success(-1);
       if (!is_global_minimum) {
         return protocol::Result<ServiceRateResult>::failure(is_global_minimum.errors());

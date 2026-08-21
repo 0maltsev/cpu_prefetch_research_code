@@ -30,6 +30,8 @@ cpu_prefetch::queue::EventPointer required_event_pointer(const void* pointer) {
 }
 
 template <typename Adapter>
+// Capacity and action history are intentionally adjacent model inputs.
+// NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
 void check_queue_model(Adapter& adapter, std::size_t capacity,
                        const std::vector<std::uint8_t>& actions) {
   std::vector<std::uint64_t> events(actions.size() + 1U);

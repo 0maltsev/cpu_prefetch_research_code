@@ -19,6 +19,7 @@ REQUIRED_COMMANDS = (
     "cmake --build --preset dev-gcc --target storage-schema-check",
     "cmake --build --preset dev-gcc --target calibration-check",
     "cmake --build --preset dev-gcc --target orchestration-check",
+    "cmake --build --preset dev-gcc --target analysis-check",
     "cmake --build --preset release-gcc --target queue-codegen-check",
     "cmake --build --preset release-gcc --target workload-codegen-check",
     "cmake --build --preset release-gcc --target timing-codegen-check",

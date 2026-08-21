@@ -22,7 +22,7 @@ joined-row construction offline.
 | Calibration capture | Prospective calibration plan, matching prepared context, preallocated trace | Continuous-ready service transfer; separate open-loop FULL probe; ring-off acquire-demand capture | Independent raw calibration run artifacts and explicit failure evidence | Only the frozen calibration interval; no statistics, serialization, I/O, or growth |
 | Calibration evaluation/freeze | Immutable raw calibration references, exact planned exposures, method/profile IDs | Exact service minima and loads; ring-tail merge/distance; offline run-cluster matrix bound; source/fingerprint validation | Append-only plan, service, ring, feasibility, and freeze records, including `NOT_EVALUATED`/`INELIGIBLE` | No |
 | Block planning/orchestration | Prospective precision evidence, explicit platform/build, role namespaces, pre-derived keys/seed catalogs, authorities, and budget | Prove the exact product/pool, generate deterministic whole/cell orders, validate sealing and replacement lineage | Imported block plans, access/freeze/amendment records, or explicit unresolved blockers | No |
-| Analysis/sealing | Eligible immutable artifacts and authorized access state | Fixed summaries/inference; H3 training, seal, validation access | Derived results, source links, signatures/access records | No and custody-controlled |
+| Analysis/sealing | Eligible immutable artifacts, exact Stage 12/14 proofs, explicit prospective configuration, authorized access state | Exact run summaries/diagnostics; complete blocks; H3 training/freeze/unseal/validation; separate H1/H2 max-T | Canonical synthetic or later authorized derived reports, selection records, source/config/output hashes | No and custody-controlled |
 
 ## Preparation-to-worker boundary
 
@@ -167,6 +167,18 @@ one new complete block only when an invalid required run, failure,
 authorization, lineage, and budget all resolve. `FULL`, low effective tail,
 or cap exhaustion emit no replacement. Concrete seed/count/authority/budget
 inputs remain outside the repository until their prospective freeze gate.
+
+Stage 15 consumes that graph in access order. It verifies immutable metadata,
+versions, hashes, reconciliation/interval evidence, counts, and independent
+gates before reading a run response. Exact inverse-ECDF summaries flow into
+180-cell active complete blocks only; retained inactive originals remain
+diagnostic lineage. Training blocks produce a source-hashed six-context
+selection record before validation evaluation, and H1/H2 wait for release of
+the full active pool. Complete-block Philox resampling produces separate
+7/20 two-sided and 54 one-sided outputs. Machine reports retain every input,
+configuration, software, stage, selection, and output identity. Synthetic RLE
+fixtures and reports are permanently labeled and cannot flow into empirical
+freeze or publication claims. See [`ANALYSIS.md`](ANALYSIS.md).
 
 ## Partial-failure publication matrix
 

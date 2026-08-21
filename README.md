@@ -1,6 +1,6 @@
 # CPU Prefetch Research Code
 
-This repository has completed the **Stage 12 reconciliation software slice** for
+This repository has completed the **Stage 15 synthetic offline-analysis software slice** for
 protocol **`2.0.0-pre.2`**. It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
@@ -18,9 +18,13 @@ consequences. Stage 11 adds exact fixed physical rows, preallocated independent
 observation streams, integrity/envelope records, checked storage budgets, and a
 crash-aware append-only two-copy local backend. Stage 12 adds exact offline
 producer/consumer reconciliation, conditional interval derivation, immutable
-join audits, run-level semantic validation, and independent status gates. It
+join audits, run-level semantic validation, and independent status gates.
+Stages 13 and 14 add synthetic calibration and exact block/access/replacement
+orchestration. Stage 15 adds the source-linked synthetic-only analysis pipeline,
+registered complete-block estimands and multiplicity families, sealed H3
+chronology, and reproducible reports explicitly marked as non-empirical. It
 contains no eligible-pair qualification, production state-changing stand
-adapter, authorized scientific run, or scientific analysis.
+adapter, production analysis adapter, or authorized scientific run.
 
 The exact D-010/D-020 physical-storage contract is documented in
 [`docs/STAGE11_STORAGE_DECISION_BUNDLE.md`](docs/STAGE11_STORAGE_DECISION_BUNDLE.md).
@@ -185,11 +189,11 @@ The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
 accepted. The package contains only the smoke binary, foundation,
 typed-protocol, queue, workload, schedule, timing, platform, lifecycle, storage,
-reconciliation, calibration, and orchestration libraries, the
+reconciliation, calibration, orchestration, and analysis libraries, the
 offline schedule generator, headers, protocol/queue provenance records, Stage
 6/7 correctness, Stage 8 timing, Stage 9 platform-control, Stage 10 lifecycle,
-Stage 11 storage, Stage 12 reconciliation, Stage 13 calibration, and Stage 14
-orchestration documentation,
+Stage 11 storage, Stage 12 reconciliation, Stage 13 calibration, Stage 14
+orchestration, and Stage 15 analysis documentation,
 implementation-owned derivation schema, build metadata, dependency inventory,
 and no-license notice.
 
@@ -225,6 +229,9 @@ and no-license notice.
 - `cpu_prefetch_orchestration`: deterministic exact Stage A block/pool
   planning, fixed precision families, access/sealing validation, and
   complete-block replacement authorization;
+- `cpu_prefetch_analysis`: synthetic-only immutable-artifact validation,
+  exact run summaries/diagnostics, complete-block construction, separate
+  H1/H2 max-T, access-aware H3 selection/validation, and canonical reports;
 - `cpu_prefetch_smoke`: prints protocol, Git, compiler, and standard-library
   identity;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
@@ -252,6 +259,8 @@ and no-license notice.
 - `cpu_prefetch_orchestration_tests` and `orchestration.schema`: exact
   factorial/property, precision-family, sealing/access, amendment,
   replacement, and imported-schema fixtures;
+- `cpu_prefetch_analysis_tests`: known-null/shift/tie and complete synthetic
+  end-to-end analysis plus version/hash/join/access/block/replacement faults;
 - `cpu_prefetch_rapidcheck_smoke`: fixed-seed framework and exact-uint64
   canonicalization properties;
 - `format-check`, `static-analysis`, `protocol-check`,
@@ -260,7 +269,7 @@ and no-license notice.
   `workload-codegen-check`, `timing-codegen-audit`, strict
   `timing-codegen-check`, `storage-format-check`, `storage-schema-check`, strict
   `storage-codegen-check`, `schedule-check`, `calibration-check`,
-  `orchestration-check`, `document-check`,
+  `orchestration-check`, `analysis-check`, `document-check`,
   `dependency-check`, `ci-check`, and `release-policy-check`;
 - CMake `install` and CPack `package` targets.
 
@@ -450,6 +459,28 @@ These commands create no block execution or performance observation. Concrete
 precision counts, seed values, namespaces, platform/build, authorities,
 custody, replacement budget, and final plans remain external freeze inputs.
 
+## Offline analysis boundary
+
+ADR-0041 and [`docs/ANALYSIS.md`](docs/ANALYSIS.md) define the synthetic-only
+Stage 15 pipeline. `cpu_prefetch_analysis` validates immutable source hashes
+and Stage 12/14 gates, computes exact inverse-ECDF run summaries, proves the
+40-column design rank, constructs only complete active blocks, keeps H1 and H2
+as separate seven/twenty max-T families, and enforces training-selection-
+unseal-validation-release chronology for H3. Its compact RLE input is explicitly
+fixture-only; every report states that it contains no empirical findings.
+
+Focused software verification is:
+
+```sh
+cmake --build --preset dev-gcc --target analysis-check
+ctest --preset dev-gcc -L analysis --output-on-failure
+ctest --preset asan-ubsan-gcc -L analysis --output-on-failure
+ctest --preset tsan-gcc -L analysis --output-on-failure
+```
+
+The pipeline has no default practical bound, bootstrap budget/seed, precision
+count, platform, authority, or outcome. Those remain external inputs.
+
 ## CI boundary and next safe action
 
 [`ci.yml`](.github/workflows/ci.yml) uses only a full-commit-pinned checkout
@@ -463,12 +494,14 @@ Stage 9's software slice is complete under ADR-0018 and ADR-0019; see
 [`docs/STAND_RUNBOOK.md`](docs/STAND_RUNBOOK.md). Exact stand actuator,
 authority, selected-pair/address readback, vendor-prefetch mapping/probes,
 restoration, and dynamic clock evidence remain mandatory operational gates.
-Stages 10 through 14 are complete locally under ADR-0031 through ADR-0040.
+Stages 10 through 15 are complete locally under ADR-0031 through ADR-0041.
 Q11 authorized and the repository hash-verifies immutable protocol
 `2.0.0-pre.2` beside unchanged `2.0.0-pre.1`; Stage 12 contains only synthetic
 post-run correctness infrastructure. Stage 13 implements the Q12 calibration
 bundle using synthetic and fake inputs only and creates no stand result. The
 Stage 14 planner likewise creates no final block, access grant, or execution.
-The exact next safe software action is Stage 15 offline analysis with
-synthetic fixtures. Stand calibration, measurement, pilot, and
-confirmatory behavior remain prohibited until their applicable later gates.
+Stage 15 consumes only synthetic known-answer fixtures and produces no
+empirical claim. The exact next safe stage is Stage 16 pre-pilot verification;
+it remains non-measuring until every listed pre-pilot input and authority is
+supplied. Stand calibration, measurement, pilot, and confirmatory behavior
+remain prohibited until their applicable later gates.

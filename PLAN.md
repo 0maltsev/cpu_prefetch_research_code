@@ -282,7 +282,19 @@ authorization/amendment.
 - **Acceptance criteria:** Outputs reproduce from named immutable inputs; no event pseudo-replication; no family mixing; access chronology enforced; blocked estimands reported, not imputed.
 - **Explicitly excluded:** Empirical Results/Discussion/recommendation before valid authorized confirmation.
 - **Rollback or failure behavior:** Append corrected derived artifact linked to unchanged raw sources; access leakage is a stop/audit condition, not a rerun opportunity.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_LOCAL_SYNTHETIC`. ADR-0041 records the versioned
+  platform-conditioned analysis profile. `cpu_prefetch_analysis` validates
+  immutable version/hash/source evidence; verifies or performs exact Stage 12
+  reconciliation; derives registered inverse-ECDF summaries and diagnostics;
+  proves the full-rank 40-column balanced design; constructs only exact active
+  complete blocks; implements separate seven/twenty two-sided complete-block
+  max-T families; performs six-context training selection, immutable selection
+  hashing, authorized unseal, and 54-comparison one-sided validation; and emits
+  byte-stable canonical machine plus explicitly synthetic human reports.
+  Known-answer/fault tests use only compact synthetic distributions. No
+  empirical artifact, finding, recommendation, pilot value, or authority was
+  created. The exact next safe stage is Phase 16 pre-pilot verification without
+  measurement.
 
 ## Phase 16 — Pre-pilot verification
 

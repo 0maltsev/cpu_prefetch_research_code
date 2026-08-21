@@ -13,13 +13,15 @@ evaluators. Stage 9 provides read-only Linux inventory, typed platform
 request/capability/control evidence, dry-run, independent verification,
 failure-safe restoration, and platform manifests. Stage 10 provides the
 fake-backed lifecycle graph, reset evidence, start/termination/drain
-concurrency, and partial-failure rules; no authorized scientific run, physical
-raw writer, privileged stand actuator, or eligible-pair qualification exists.
+concurrency, and partial-failure rules. Stage 11 provides bounded private raw
+writers, the accepted codec, storage/integrity records, checked budgets, and a
+local crash-aware append-only store; no authorized scientific run,
+reconciliation, privileged stand actuator, or eligible-pair qualification exists.
 ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 through ADR-0033 fix the
 framework/toolchain/sanitizer/model/queue/workload/schedule/clock/lifecycle/
 storage-decision baseline and commands. ADR-0030's software and dual-tool
 generated-code slice and ADR-0031's lifecycle/concurrency slice pass;
-ADR-0032/0033 are accepted contracts whose Stage 11 tests have not run.
+ADR-0032/0033 are accepted contracts whose Stage 11 local software tests pass.
 Explicit selected-pair and stand qualification evidence remains Phase 9/16
 work.
 Tests establish software correctness, protocol
@@ -112,6 +114,11 @@ origin, half-open exclusion, retained ties, unsigned overflow, draw exhaustion,
 malformed byte/count/order/unit/encoding/suite/hash cases, and append-only
 publication rollback have unit coverage.
 
+Stage 11 status: zero-row, minimal and exact-full streams, sticky overflow,
+checked arithmetic overflow, `N_acc<=N_sched`, `N_eff<=N_acc`, tail
+thresholds, page rounding, metadata/reserve, byte/row counts, duplicate IDs,
+partial writes, readback mismatches, and recovery-only state have unit coverage.
+
 ### 5. Property tests
 
 Generate deterministic cases for:
@@ -135,6 +142,11 @@ reproduction, exact ordering/horizon properties, C `decimal` versus
 `_pydecimal` parity, imported and implementation-schema conformance, canonical
 round trips, role namespace separation, exact matched-family sharing, and an
 API test proving queue outcomes cannot enter generation.
+
+Stage 11 status: exact producer/consumer/compatibility-only joined goldens are
+checked independently by C++ and Python; strict decoding maps bytes back to
+logical rows without loss and rejects reorder, prefix/padding/flag, version,
+endianness, timestamp, count, size, and checksum corruption.
 
 ### 6. Queue linearization and refinement tests
 
@@ -181,6 +193,13 @@ Acceptance is zero unresolved findings. A suppression is not a pass unless a nam
 
 Sanitizer builds verify correctness only and are never used for performance claims.
 
+Stage 11 status: the storage-labelled matrix passes GCC and Clang ASan/UBSan
+and TSan without a storage suppression or finding. The dedicated hot-writer
+allocation hook remains intentionally unavailable only in the pre-existing
+Clang-TSan/global-allocator collision; it runs under development, both
+ASan/UBSan matrices, and GCC TSan. The fixed two-writer concurrency and large
+synthetic storage tests run in all applicable matrices.
+
 Stage 7 status: GCC/libstdc++ and Clang/libc++ full unit/property/stress suites,
 including workload construction, package target, and schedule tests, pass
 ASan/UBSan and TSan without suppression or finding. LeakSanitizer
@@ -189,7 +208,8 @@ runtime pointer-atomic checks pass on the development host and must be repeated
 on the eligible stand. The single-thread global-`operator new` interception test
 is intentionally absent only from the Clang TSan build because that runtime
 defines the same allocator symbols; it runs in both development and ASan/UBSan
-matrices and under GCC TSan, while the remaining 59 tests run under Clang TSan.
+matrices and under GCC TSan, while every other configured test runs under Clang
+TSan.
 
 ### 9. Deterministic schedule golden tests
 
@@ -268,6 +288,13 @@ flip/index/payload/padding and unexpected-pointer cases fail as required. A
 10,000-cycle allocation hook covers lookup, record action, and all five package
 operations after preparation.
 
+Stage 11 status: accepted producer/consumer/joined SHA-256 goldens, physical
+round trips, final rolling/pre/post/order/delta algorithm identities, imported
+raw envelopes, copy ledgers, and phase/integrity canonical documents are
+covered. Fault tests flip bytes, alter counts/hashes/ordering, inject partial
+writes and finalization failure, restart in recovery-only mode, attempt
+overwrite/duplicate IDs, and prove missing streams are not fabricated.
+
 ### 12. Reconciliation fault injection
 
 Start from independently built producer and consumer streams, then inject count mismatch, wrong `run_id`, wrong ordinal, unexpected pointer/index, duplicate, loss, reorder, invalid timestamp, broken equation, row/envelope disagreement, wrong source hash, and partial/truncated artifact. Every attempted join emits an audit. No failure may emit successful joined data or latency.
@@ -322,9 +349,11 @@ workload probe adds the consumer action and R1/R2 producer/consumer plus L1
 consumer sites. GNU Binutils 2.46 and LLVM 22.1.6 show the two immutable record
 loads, fixed branch-free mixer, and exact target-before-demand ordering with no
 unexpected call, record store, `lock`, `xchg`, or `mfence`; both reject the
-deliberate call mutant. Platform prefetch instructions, relax, the final Stage
-11 physical sink, and the package-specific combined worker remain later
-generated-code gates. Stage 10 source/static analysis fixes u32
+deliberate call mutant. Platform prefetch instructions, relax, and the
+package-specific combined worker remain later generated-code gates. Stage 11
+adds two fixed append bodies: GNU Binutils 2.46 and LLVM 22.1.6 both verify no
+unexpected call, lock, memory exchange/fence, or syscall and both reject the
+deliberate storage call mutant. Stage 10 source/static analysis fixes u32
 release/acquire termination and compile-time backend binding but does not
 mistake a fake specialization for the measured-release audit.
 

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/implementation/phase-integrity-report-v1.schema.json",
+  "title": "Implementation-owned Stage 11 phase/integrity report artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "record_kind", "artifact_id", "run_id",
+    "final_consumer_rolling_checksum", "event_records_pre_checksum",
+    "event_records_post_checksum", "ordered_index_checksum",
+    "address_delta_checksum", "content_checksum_match"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-phase-integrity-report/1"},
+    "protocol_version": {"const": "2.0.0-pre.1"},
+    "record_kind": {"const": "PHASE_INTEGRITY_REPORT"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "final_consumer_rolling_checksum": {"$ref": "#/$defs/mixChecksum"},
+    "event_records_pre_checksum": {"$ref": "#/$defs/sha256Checksum"},
+    "event_records_post_checksum": {"$ref": "#/$defs/sha256Checksum"},
+    "ordered_index_checksum": {"$ref": "#/$defs/sha256Checksum"},
+    "address_delta_checksum": {"$ref": "#/$defs/sha256Checksum"},
+    "content_checksum_match": {"type": "boolean"}
+  },
+  "$defs": {
+    "checksum": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm_record_id", "algorithm_version", "value_hex"],
+      "properties": {
+        "algorithm_record_id": {"type": "string", "minLength": 1},
+        "algorithm_version": {"const": "1"},
+        "value_hex": {"type": "string", "pattern": "^[0-9a-f]+$"}
+      }
+    },
+    "mixChecksum": {
+      "allOf": [
+        {"$ref": "#/$defs/checksum"},
+        {"properties": {
+          "algorithm_record_id": {"const": "cpu-prefetch/consumer-mix64-adr0027/v1"},
+          "value_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"}
+        }}
+      ]
+    },
+    "sha256Checksum": {
+      "allOf": [
+        {"$ref": "#/$defs/checksum"},
+        {"properties": {
+          "value_hex": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }}
+      ]
+    }
+  }
+}

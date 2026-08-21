@@ -1,6 +1,6 @@
 # CPU Prefetch Research Code
 
-This repository has completed the **Stage 10 deterministic lifecycle software slice** for
+This repository has completed the **Stage 11 raw-storage software slice** for
 protocol **`2.0.0-pre.1`**. It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
@@ -14,14 +14,17 @@ independent readback, restoration, and canonical platform manifests. Stage 10
 adds an explicit lifecycle projection, preparation/warm-up/reset evidence,
 two-worker start barrier, one-attempt fake-backed open-loop executor,
 release/acquire termination, drain/watchdog paths, and partial-failure
-consequences. It contains no eligible-pair qualification, production
-state-changing stand adapter, physical raw-data writer, authorized scientific
-run, or scientific analysis.
+consequences. Stage 11 adds exact fixed physical rows, preallocated independent
+observation streams, integrity/envelope records, checked storage budgets, and a
+crash-aware append-only two-copy local backend. It contains no eligible-pair
+qualification, production state-changing stand adapter, reconciliation,
+authorized scientific run, or scientific analysis.
 
 The exact D-010/D-020 physical-storage contract is documented in
 [`docs/STAGE11_STORAGE_DECISION_BUNDLE.md`](docs/STAGE11_STORAGE_DECISION_BUNDLE.md).
-Q9 accepted it as ADR-0032 and ADR-0033. Stage 11 implementation may now begin;
-its tests and operational evidence have not yet passed.
+Q9 accepted it as ADR-0032 and ADR-0033. The local implementation and software
+verification pass. Concrete stand capacity, page residency, real independent
+failure domains/custody, and operational recovery remain Phase 16 evidence.
 
 The repository owner selected **no license**. See
 [`docs/NO_LICENSE_GRANT.md`](docs/NO_LICENSE_GRANT.md) and ADR-0021. There is no
@@ -95,6 +98,9 @@ cmake --build --preset dev-gcc --target schedule-check
 ctest --preset dev-gcc -L timing --output-on-failure
 ctest --preset dev-gcc -L platform --output-on-failure
 ctest --preset dev-gcc -L lifecycle --output-on-failure
+ctest --preset dev-gcc -L storage --output-on-failure
+cmake --build --preset dev-gcc --target storage-format-check
+cmake --build --preset dev-gcc --target storage-schema-check
 cmake --build --preset dev-gcc --target queue-provenance-check
 cmake --build --preset dev-gcc --target document-check
 cmake --build --preset dev-gcc --target dependency-check
@@ -134,8 +140,8 @@ claimed; a future eligible non-ptrace environment must add a separate leak gate
 if leak checking is adopted. The Clang TSan runtime defines the same global
 allocation symbols as the dedicated no-allocation hook, so that one test target
 is deliberately absent only from `tsan-clang-libcxx`; the hook remains covered
-by both development/ASan matrices and GCC TSan, and Clang TSan runs the other 59
-tests.
+by both development/ASan matrices and GCC TSan, and Clang TSan runs every other
+configured test.
 
 Release and future stand-foundation package:
 
@@ -147,13 +153,15 @@ cmake --build --preset release-gcc --target release-policy-check
 cmake --build --preset release-gcc --target queue-codegen-check
 cmake --build --preset release-gcc --target workload-codegen-check
 cmake --build --preset release-gcc --target timing-codegen-check
+cmake --build --preset release-gcc --target storage-codegen-check
 cmake --build --preset release-gcc --target package
 
 cmake --preset release-clang-libcxx
 cmake --build --preset release-clang-libcxx --target timing-codegen-check
+cmake --build --preset release-clang-libcxx --target storage-codegen-check
 ```
 
-The strict queue, workload, and timing code-generation targets require both GNU
+The strict queue, workload, timing, and storage code-generation targets require both GNU
 objdump and LLVM 22 `llvm-objdump`. The workload probe covers the consumer mixer and
 R1/R2/L1 target sites; each target requires its call-injection negative mutant
 to be rejected. The timing probe covers the clock reader and enqueue/dequeue
@@ -164,9 +172,10 @@ dual-tool results close the gate.
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
 accepted. The package contains only the smoke binary, foundation,
-typed-protocol, queue, workload, schedule, timing, platform, and lifecycle libraries, the
+typed-protocol, queue, workload, schedule, timing, platform, lifecycle, and storage libraries, the
 offline schedule generator, headers, protocol/queue provenance records, Stage
-6/7 correctness, Stage 8 timing, Stage 9 platform-control, and Stage 10 lifecycle documentation,
+6/7 correctness, Stage 8 timing, Stage 9 platform-control, Stage 10 lifecycle,
+and Stage 11 storage documentation,
 implementation-owned derivation schema, build metadata, dependency inventory,
 and no-license notice.
 
@@ -192,6 +201,9 @@ and no-license notice.
 - `cpu_prefetch_lifecycle`: fail-closed internal state graph and imported-enum
   projection, preparation/warm-up/reset evidence, dedicated termination word,
   start barrier, and compile-time open-loop worker executor;
+- `cpu_prefetch_storage`: bounded private observation streams, exact v1 raw
+  codec/decoder, Stage 8/10 capture binding, integrity/envelope/ledger records,
+  checked budgets, and append-only crash-aware local publication;
 - `cpu_prefetch_smoke`: prints protocol, Git, compiler, and standard-library
   identity;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
@@ -212,13 +224,18 @@ and no-license notice.
 - `cpu_prefetch_lifecycle_tests`: exhaustive transitions, partial artifacts,
   warm-start reset, start/publication races, exactly-one-attempt, cancellation,
   drain, watchdog, and deterministic concurrency tests;
+- `cpu_prefetch_storage_tests`, `cpu_prefetch_storage_noalloc`, and
+  `cpu_prefetch_storage_stress`: codec goldens/corruption, capacity and budget,
+  immutable publication/recovery/finalization, hot-writer allocation, and
+  independent-stream concurrency tests;
 - `cpu_prefetch_rapidcheck_smoke`: fixed-seed framework and exact-uint64
   canonicalization properties;
 - `format-check`, `static-analysis`, `protocol-check`,
   `schema-fixture-check`, `canonical-check`, `queue-provenance-check`,
   `queue-codegen-audit`, strict `queue-codegen-check`, strict
   `workload-codegen-check`, `timing-codegen-audit`, strict
-  `timing-codegen-check`, `schedule-check`, `document-check`,
+  `timing-codegen-check`, `storage-format-check`, `storage-schema-check`, strict
+  `storage-codegen-check`, `schedule-check`, `document-check`,
   `dependency-check`, `ci-check`, and `release-policy-check`;
 - CMake `install` and CPack `package` targets.
 
@@ -322,9 +339,41 @@ ctest --preset asan-ubsan-gcc -L lifecycle --output-on-failure
 ctest --preset tsan-gcc -L lifecycle --output-on-failure
 ```
 
-These runs are correctness evidence only. The Stage 11 physical sink and the
-final package/platform specialization still require measured-release
+These runs are correctness evidence only. Stage 11 supplies the physical sink;
+the final package/platform specialization still requires measured-release
 generated-code review before pilot readiness.
+
+## Raw-storage boundary
+
+ADR-0032/0033 fix and Stage 11 implements
+`RAW-OBS-U64LE-LP-RUNID-v1` and `RAW-OBS-NONE-TMP1-DUR2-v1`. Producer and
+consumer workers append independently to fixed, explicitly prepared,
+64-byte-aligned buffers. The append bodies write only precomputed row prefixes
+and fixed little-endian words; they perform no allocation, filesystem I/O,
+formatting, compression, locking, or dynamic growth. Overflow is sticky and
+invalidating, never truncation presented as complete data.
+
+Post-run code validates/decodes logical rows, emits canonical integrity and raw
+envelopes, computes checked capacity proofs, and publishes immutable objects to
+two explicit domains with independent reread SHA-256 evidence. A fresh process
+can reopen an exact run in recovery-only mode and may promote only a staging
+object whose expected size and hash match; it cannot publish a new object.
+Partial finalization preserves only evidence that exists and never emits a
+joined stream. The full mapping and remaining operational limits are in
+[`docs/STORAGE.md`](docs/STORAGE.md).
+
+Focused software verification is:
+
+```sh
+ctest --preset dev-gcc -L storage --output-on-failure
+cmake --build --preset dev-gcc --target storage-format-check
+cmake --build --preset dev-gcc --target storage-schema-check
+cmake --build --preset release-gcc --target storage-codegen-check
+```
+
+The large synthetic storage check is correctness-only and reports no rate or
+latency. Two local directories do not establish independent stand failure
+domains, custody, or planned-run capacity.
 
 ## CI boundary and next safe action
 
@@ -339,8 +388,11 @@ Stage 9's software slice is complete under ADR-0018 and ADR-0019; see
 [`docs/STAND_RUNBOOK.md`](docs/STAND_RUNBOOK.md). Exact stand actuator,
 authority, selected-pair/address readback, vendor-prefetch mapping/probes,
 restoration, and dynamic clock evidence remain mandatory operational gates.
-Stage 10's fake-backed lifecycle slice is complete under ADR-0031. Stage 11
-implementation is the exact next safe work under accepted ADR-0032/0033.
-Acceptance does not satisfy codec, corruption, capacity, generated-code, real
-durability-domain, or recovery evidence. Measurement, pilot, and confirmatory
-behavior remain prohibited until their later lifecycle gates.
+Stage 10's lifecycle and Stage 11's local storage slices are complete under
+ADR-0031 through ADR-0033. The protocol and statistical owner accepted the
+[`D-031/Q10` decision bundle](docs/STAGE12_D031_DECISION_BUNDLE.md), selecting
+a versioned exhaustive blocker set with a non-priority multiple summary. Stage
+12 remains blocked until that amended protocol snapshot is published or
+supplied, imported alongside `2.0.0-pre.1`, and hash-verified. Measurement,
+pilot, and confirmatory behavior remain prohibited until their later lifecycle
+gates.

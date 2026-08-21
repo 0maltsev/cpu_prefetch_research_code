@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/implementation/copy-ledger-record-v1.schema.json",
+  "title": "Implementation-owned Stage 11 append-only copy-ledger record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "ledger_record_id", "run_id",
+    "policy_id", "object_id", "object_role", "artifact_id", "byte_count",
+    "sha256", "compression", "temporary_copy_count",
+    "required_durable_copy_count", "stream_completeness", "finalization_state",
+    "copies", "failures"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-copy-ledger-record/1"},
+    "protocol_version": {"const": "2.0.0-pre.1"},
+    "ledger_record_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "policy_id": {"const": "RAW-OBS-NONE-TMP1-DUR2-v1"},
+    "object_id": {"type": "string", "minLength": 1},
+    "object_role": {"type": "string", "minLength": 1},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "byte_count": {"type": "integer", "minimum": 0},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "compression": {"const": "NONE"},
+    "temporary_copy_count": {"const": 1},
+    "required_durable_copy_count": {"const": 2},
+    "stream_completeness": {"enum": ["SEALED_COMPLETE", "SEALED_INCOMPLETE"]},
+    "finalization_state": {"enum": ["SEALED_COMPLETE", "INCOMPLETE"]},
+    "copies": {"type": "array", "maxItems": 2, "items": {"$ref": "#/$defs/copy"}},
+    "failures": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "copy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "storage_domain_id", "artifact_uri", "observed_byte_count",
+        "observed_sha256", "verified_at", "independently_read_back",
+        "verification_result"
+      ],
+      "properties": {
+        "storage_domain_id": {"type": "string", "minLength": 1},
+        "artifact_uri": {"type": "string", "minLength": 1},
+        "observed_byte_count": {"type": "integer", "minimum": 0},
+        "observed_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "verified_at": {"type": "string", "minLength": 1},
+        "independently_read_back": {"type": "boolean"},
+        "verification_result": {"enum": ["PASS", "FAIL"]}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"finalization_state": {"const": "SEALED_COMPLETE"}},
+        "required": ["finalization_state"]
+      },
+      "then": {
+        "properties": {
+          "stream_completeness": {"const": "SEALED_COMPLETE"},
+          "copies": {
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "allOf": [
+                {"$ref": "#/$defs/copy"},
+                {
+                  "properties": {
+                    "independently_read_back": {"const": true},
+                    "verification_result": {"const": "PASS"}
+                  }
+                }
+              ]
+            }
+          },
+          "failures": {"maxItems": 0}
+        }
+      }
+    }
+  ]
+}

@@ -158,9 +158,41 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+add_library(
+  cpu_prefetch_storage STATIC
+  src/storage/artifact_store.cpp
+  src/storage/artifacts.cpp
+  src/storage/budget.cpp
+  src/storage/finalization.cpp
+  src/storage/raw_observations.cpp)
+add_library(cpu_prefetch::storage ALIAS cpu_prefetch_storage)
+target_link_libraries(
+  cpu_prefetch_storage
+  PUBLIC
+    cpu_prefetch::lifecycle
+    cpu_prefetch::protocol
+    cpu_prefetch::timing
+    cpu_prefetch::workload
+  PRIVATE cpu_prefetch_project_options OpenSSL::Crypto)
+target_include_directories(
+  cpu_prefetch_storage
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
 add_executable(cpu_prefetch_smoke tools/smoke_main.cpp)
 target_link_libraries(
   cpu_prefetch_smoke PRIVATE cpu_prefetch::foundation cpu_prefetch_project_options)
+
+add_executable(cpu_prefetch_storage_fixture tools/storage_fixture_main.cpp)
+target_link_libraries(
+  cpu_prefetch_storage_fixture
+  PRIVATE cpu_prefetch::storage cpu_prefetch_project_options)
+
+add_executable(cpu_prefetch_storage_large_smoke tools/storage_large_smoke.cpp)
+target_link_libraries(
+  cpu_prefetch_storage_large_smoke
+  PRIVATE cpu_prefetch::storage cpu_prefetch_project_options)
 
 if(BUILD_TESTING)
   find_package(GTest 1.17.0 EXACT CONFIG REQUIRED)
@@ -305,11 +337,55 @@ if(BUILD_TESTING)
     PREFIX "lifecycle."
     PROPERTIES LABELS "lifecycle")
 
+  add_executable(cpu_prefetch_storage_tests tests/storage_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_storage_tests
+    PRIVATE
+      cpu_prefetch::storage
+      cpu_prefetch_project_options
+      GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_storage_tests
+    PREFIX "storage."
+    PROPERTIES LABELS "storage")
+
+  add_executable(cpu_prefetch_storage_stress tests/storage_stress.cpp)
+  target_link_libraries(
+    cpu_prefetch_storage_stress
+    PRIVATE cpu_prefetch::storage cpu_prefetch_project_options Threads::Threads)
+  add_test(NAME storage.concurrent_private_streams COMMAND cpu_prefetch_storage_stress)
+  set_tests_properties(
+    storage.concurrent_private_streams PROPERTIES LABELS "storage;stress")
+
   add_test(
     NAME schedule.python_generator
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tests/test_schedule_generator.py")
   set_tests_properties(schedule.python_generator PROPERTIES LABELS "schedule;python")
+
+  add_test(
+    NAME storage.format_compatibility
+    COMMAND
+      "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_storage_format.py"
+      --fixture-generator "$<TARGET_FILE:cpu_prefetch_storage_fixture>")
+  set_tests_properties(
+    storage.format_compatibility PROPERTIES LABELS "storage;python;format")
+
+  add_test(
+    NAME storage.schema_compatibility
+    COMMAND
+      "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_storage_schemas.py"
+      --fixture-generator "$<TARGET_FILE:cpu_prefetch_storage_fixture>"
+      --source-root "${PROJECT_SOURCE_DIR}")
+  set_tests_properties(
+    storage.schema_compatibility PROPERTIES LABELS "storage;python;schema")
+
+  add_test(NAME storage.large_synthetic COMMAND cpu_prefetch_storage_large_smoke)
+  set_tests_properties(
+    storage.large_synthetic
+    PROPERTIES
+      LABELS "storage;stress"
+      PASS_REGULAR_EXPRESSION "correctness-only-no-performance-claim")
 
   add_custom_target(
     schedule-check
@@ -318,6 +394,24 @@ if(BUILD_TESTING)
     WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
     COMMENT "Checking deterministic Stage 7 schedule generation and schemas")
 
+  add_custom_target(
+    storage-format-check
+    COMMAND
+      "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_storage_format.py"
+      --fixture-generator "$<TARGET_FILE:cpu_prefetch_storage_fixture>"
+    DEPENDS cpu_prefetch_storage_fixture
+    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+    COMMENT "Checking Stage 11 C++/Python physical-format compatibility")
+
+  add_custom_target(
+    storage-schema-check
+    COMMAND
+      "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_storage_schemas.py"
+      --fixture-generator "$<TARGET_FILE:cpu_prefetch_storage_fixture>"
+      --source-root "${PROJECT_SOURCE_DIR}"
+    DEPENDS cpu_prefetch_storage_fixture
+    COMMENT "Checking Stage 11 implementation-owned Draft 2020-12 records")
+
   if(NOT (CPU_PREFETCH_SANITIZER STREQUAL "THREAD" AND
           CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
     add_executable(cpu_prefetch_workload_noalloc tests/workload_noalloc_test.cpp)
@@ -325,6 +419,15 @@ if(BUILD_TESTING)
       cpu_prefetch_workload_noalloc
       PRIVATE cpu_prefetch::workload cpu_prefetch_project_options GTest::gtest_main)
     gtest_discover_tests(cpu_prefetch_workload_noalloc PREFIX "workload.noalloc.")
+
+    add_executable(cpu_prefetch_storage_noalloc tests/storage_noalloc_test.cpp)
+    target_link_libraries(
+      cpu_prefetch_storage_noalloc
+      PRIVATE cpu_prefetch::storage cpu_prefetch_project_options GTest::gtest_main)
+    gtest_discover_tests(
+      cpu_prefetch_storage_noalloc
+      PREFIX "storage.noalloc."
+      PROPERTIES LABELS "storage;noalloc")
   else()
     message(
       STATUS
@@ -397,6 +500,18 @@ add_executable(
 target_link_libraries(
   cpu_prefetch_timing_codegen_mutant
   PRIVATE cpu_prefetch::timing cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_storage_codegen_probe EXCLUDE_FROM_ALL
+  tools/storage_codegen_probe.cpp)
+target_link_libraries(
+  cpu_prefetch_storage_codegen_probe
+  PRIVATE cpu_prefetch::storage cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_storage_codegen_mutant EXCLUDE_FROM_ALL
+  tools/storage_codegen_mutant.cpp)
+target_link_libraries(
+  cpu_prefetch_storage_codegen_mutant
+  PRIVATE cpu_prefetch::storage cpu_prefetch_project_options)
 
 find_program(CPU_PREFETCH_CLANG_FORMAT NAMES clang-format REQUIRED)
 find_program(CPU_PREFETCH_CLANG_TIDY NAMES clang-tidy REQUIRED)
@@ -419,6 +534,12 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/linked_spsc.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/ring_spsc.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/schedule/schedule.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/artifact_store.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/artifacts.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/budget.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/capture_backend.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/finalization.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/raw_observations.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/capture.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/clock.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/intervals.hpp"
@@ -441,6 +562,11 @@ set(
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/schedule/schedule.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/artifact_store.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/artifacts.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/budget.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/finalization.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/raw_observations.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/clock.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/intervals.cpp"
@@ -459,6 +585,9 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/storage_stress.cpp"
   "${PROJECT_SOURCE_DIR}/tests/timing_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_noalloc_test.cpp"
@@ -466,6 +595,10 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/timing_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/timing_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/storage_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/storage_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/storage_fixture_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/storage_large_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -495,6 +628,11 @@ set(
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/schedule/schedule.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/artifact_store.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/artifacts.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/budget.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/finalization.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/raw_observations.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/clock.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/intervals.cpp"
@@ -512,6 +650,9 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/storage_stress.cpp"
   "${PROJECT_SOURCE_DIR}/tests/timing_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/workload_noalloc_test.cpp"
@@ -519,6 +660,10 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/queue_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/timing_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/timing_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/storage_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/storage_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/storage_fixture_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/storage_large_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -614,6 +759,29 @@ add_custom_target(
   DEPENDS cpu_prefetch_timing_codegen_probe cpu_prefetch_timing_codegen_mutant
   COMMENT "Requiring dual-disassembler Stage 8 timestamp evidence")
 add_custom_target(
+  storage-codegen-audit
+  COMMAND
+    "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_storage_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_storage_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_storage_codegen_mutant>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/storage_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+    --allow-missing-secondary
+  DEPENDS cpu_prefetch_storage_codegen_probe cpu_prefetch_storage_codegen_mutant
+  COMMENT "Auditing Stage 11 bounded writer code generation")
+add_custom_target(
+  storage-codegen-check
+  COMMAND
+    "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_storage_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_storage_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_storage_codegen_mutant>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/storage_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS cpu_prefetch_storage_codegen_probe cpu_prefetch_storage_codegen_mutant
+  COMMENT "Requiring dual-disassembler Stage 11 bounded-writer evidence")
+add_custom_target(
   document-check
   COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_docs.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
@@ -645,6 +813,7 @@ install(
     cpu_prefetch_protocol
     cpu_prefetch_queue
     cpu_prefetch_schedule
+    cpu_prefetch_storage
     cpu_prefetch_timing
     cpu_prefetch_workload
     cpu_prefetch_smoke
@@ -669,6 +838,7 @@ install(
     "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/QUEUE_CORRECTNESS.md"
     "${PROJECT_SOURCE_DIR}/docs/SCHEDULE_GENERATION.md"
+    "${PROJECT_SOURCE_DIR}/docs/STORAGE.md"
     "${PROJECT_SOURCE_DIR}/docs/TIMING.md"
     "${PROJECT_SOURCE_DIR}/docs/WORKLOAD_CONSTRUCTION.md"
     "${PROJECT_SOURCE_DIR}/docs/NO_LICENSE_GRANT.md"
@@ -690,6 +860,6 @@ set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 10 deterministic lifecycle foundation")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Non-measuring Stage 11 raw-observation storage foundation")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)

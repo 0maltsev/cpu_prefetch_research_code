@@ -71,6 +71,8 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0033](0033-stage11-compression-copy-and-durability-policy.md) | `ACCEPTED` | Use no compression, one temporary raw work image, and two byte-identical verified durable instances in distinct explicit domains. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
-Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21; Stage 11 implementation,
-capacity, corruption, code-generation, and operational durability evidence
-remain later gates.
+Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,
+checked-budget, no-allocation, sanitizer, code-generation, append-only store,
+and local crash-recovery evidence passes. Concrete run-plan capacity, page
+residency, real independent durability domains/custody, and exact-release
+operational recovery remain Phase 16 gates.

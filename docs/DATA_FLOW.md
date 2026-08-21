@@ -2,7 +2,8 @@
 
 Protocol version: **`2.0.0-pre.1`**. This document preserves the imported
 logical model. Q9/ADR-0032/0033 select the physical raw encoding and copy policy
-without making them logical fields; Stage 11 has not implemented them yet.
+without making them logical fields. Stage 11 implements those contracts while
+leaving reconciliation and joined-row construction to Stage 12.
 
 ## End-to-end flow
 
@@ -14,7 +15,7 @@ without making them logical fields; Stage 11 has not implemented them yet.
 | Run launch | Closed `PreparedRun` | Preparation evidence, warm-up, drain/barrier, logical reset, two-worker start, one clock-derived origin | Append-only lifecycle transition candidates and reset evidence | No; the fixed origin read is the boundary |
 | Measurement horizon | Pre-generated deadlines, fixed arenas, specialized queue, qualified clock | Producer and consumer execute fixed data-plane work | Thread-private producer and consumer observations in preallocated buffers | Yes |
 | Drain/finalize | Worker state and private buffers | Producer release publication, consumer acquire observation and drain-to-empty, count capture, checksum finalization | Final/partial worker counts, lifecycle and failure consequences; no artifact I/O yet | Drain queue polls are fixed data-plane work; artifact publication no |
-| Raw publication | Completed or partial buffers plus lifecycle state | Encode, hash, durably append, link failures | Immutable producer and/or consumer raw artifacts, manifests, failure records | No |
+| Raw publication | Sealed complete or partial private buffers plus lifecycle state | Hash, no-replace publish, sync, independent readback, second-domain replication, envelope/ledger emission | Immutable producer and/or consumer raw artifacts, raw envelopes, phase/integrity report, copy ledgers, partial-failure evidence | No |
 | Reconciliation | Two immutable raw sources | Build accepted sequences, join by `(run_id, accepted_ordinal)`, validate record index/timestamps/counts | Immutable join audit; joined-derived artifact only on success | No |
 | Validation/gates | Immutable artifacts and platform evidence | Structural then semantic validation; correctness, measurement, zero-loss, tail gates | Versioned validation reports and eligibility states | No |
 | Analysis/sealing | Eligible immutable artifacts and authorized access state | Fixed summaries/inference; H3 training, seal, validation access | Derived results, source links, signatures/access records | No and custody-controlled |
@@ -64,8 +65,9 @@ boundaries, and uncorrected raw timestamps. Stage 8 now implements that seam:
 each in-memory observation retains absolute nanoseconds and exact relative
 picoseconds, and imported logical rows receive the relative fields without
 having selected D-010 during Stage 8. Q9 has since accepted D-010/ADR-0032's
-durable representation; Stage 11 has not implemented it. Static/per-core/
-bidirectional qualification evaluators reject incomplete sample counts. Static stand inventory still
+durable representation, which Stage 11 now implements. Static/per-core/
+bidirectional qualification evaluators reject incomplete sample counts. Stage
+11 now preserves both representations in every physical boundary pair. Static stand inventory still
 supplies neither an eligible worker pair nor dynamic clock evidence, and no
 measurement path exists yet.
 
@@ -84,14 +86,20 @@ The producer and consumer receive disjoint mutable observation buffers. They rec
 | Platform | Read-only inventory, external platform operator, independent verifier | inventory snapshot, requested-state ID/epoch, apply audit, verified-evidence ID, restoration audit | Dry-run cannot actuate; apply is never verification; stale/missing mandatory readback fails closed; partial failure remains append-only |
 | Access/sealing | Custody system | artifact/state/actor/time/authorization identity | Append chronology; never overwrite or backdate state |
 
-Every physical artifact envelope declares artifact kind, protocol/schema version, physical-format version, algorithm-suite IDs, row and byte count, immutable ordering, integer time unit, endianness, compression/copy identity, producer identity, source lineage, URI/store identity, and SHA-256. Exact required fields remain governed by the imported schemas and semantic rules.
+Every raw artifact envelope declares artifact kind, protocol/schema version,
+physical-format version, row and byte count, immutable ordering, integer time
+unit, endianness, compression, run identity, source lineage where applicable,
+external URI, integrity reference, and SHA-256. ADR-0033 copy policy, domain
+IDs, readback results, timestamps, completeness, and locations are held in the
+separate append-only copy ledger rather than extending the imported schema.
 
 Stage 8's post-run derivation computes only from complete logical producer and
 consumer rows. It validates the partial timestamp order and identity first,
 then proves `end_to_end = admission + residence + delivery`. Lateness, lookup,
 enqueue service, dequeue service, and consumer action are nested diagnostics;
-they are not added again. Artifact lookup, stream reconciliation, join-audit
-publication, and durable output remain Phase 12 responsibilities.
+they are not added again. Artifact lookup, cross-stream reconciliation,
+join-audit publication, and conditional joined output remain Phase 12
+responsibilities.
 
 Stage 9 adds no data-plane edge. Before worker release, the controller consumes
 one explicit inventory snapshot, detects capability without upgrading unknown
@@ -117,9 +125,13 @@ with checked arithmetic, performs one backend attempt, and records `FULL`
 without retry. It then release-publishes a dedicated u32 finished word. The
 consumer acquire-observes it and continues polling through backlog to empty.
 Failures append actual/absent consequences; no path resumes the run identity.
-The Stage 10 backend is compile-time and fake-backed in tests. Stage 11 must
-supply preallocated physical producer/consumer sinks before final combined
-worker code-generation acceptance.
+Stage 11 supplies a compile-time `CapturingObservationBackend` that joins the
+Stage 8 capture seam to separate fixed producer/consumer streams and reports a
+backend call complete only after a complete physical row commits. Buffer
+allocation is controller-side, while the already-affined owner explicitly
+initializes and first-touches every reserved byte before the barrier. Overflow
+becomes a measurement failure. Platform page binding/residency and the final
+package-specialized worker audit remain Phase 16 evidence.
 
 ## Partial-failure publication matrix
 
@@ -139,10 +151,13 @@ worker code-generation acceptance.
 Q9/ADR-0032 freezes `RAW-OBS-U64LE-LP-RUNID-v1` with exact literal-ID
 prefixes, row bodies/sizes, little-endian words, raw/relative clock pairs, and
 the JCS external envelope. ADR-0033 freezes `compression=NONE`, `m_tmp=1`, and
-`m_dur=2` in distinct verified domains. Stage 11 must still establish exact
-round trips, independent decoding, truncation/trailing/corruption rejection,
-prepared private-buffer behavior, filesystem publication/recovery, and checked
-capacity. Phase 16 must supply the real domains and operational evidence.
+`m_dur=2` in distinct verified domains. Stage 11 implements the exact fixed
+writers/decoder, C++/Python goldens, corruption rejection, first-touch API,
+checked budget model, JCS phase/envelope/ledger documents, unique local
+no-replace publication, streaming readback SHA-256, two-copy sequencing, and
+exact-candidate recovery. See [`STORAGE.md`](STORAGE.md). Phase 16 must still
+supply the concrete run plan, real failure domains, available capacity,
+permissions/custody, page residency, and operational recovery evidence.
 
 Raw source objects are immutable once published. Canonical metadata uses the
 tested `JCS-I64-v1` exact-integer profile and never depends on filesystem order,

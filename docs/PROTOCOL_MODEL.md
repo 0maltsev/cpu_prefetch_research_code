@@ -2,11 +2,13 @@
 
 ## Scope
 
-Stage 4 implements the stable logical concepts of protocol `2.0.0-pre.1`. It
-does not implement a queue, raw physical format, clock reader, platform
+Stage 4 implemented the stable logical concepts of protocol `2.0.0-pre.1`. Its
+scope did not implement a queue, raw physical format, clock reader, platform
 mutation, run controller, reconciliation pipeline, or performance measurement.
 The imported schemas remain authoritative and unmodified. No compatibility
-schema was added under `config/schemas/`.
+schema was added under `config/schemas/`; later implementation-owned schedule,
+platform, phase-integrity, and copy-ledger schemas are explicitly subordinate
+contracts and cannot extend imported logical records.
 
 ## Validation boundary
 
@@ -56,7 +58,9 @@ after measurement begins.
 The logical source document is retained with each typed record. Canonical
 round-trip tests demonstrate that serialization does not discard fields or
 exact integers. Physical encodings remain behind the interface accepted in
-ADR-0002.
+ADR-0002. Stage 11 implements accepted `RAW-OBS-U64LE-LP-RUNID-v1` behind that
+interface; strict decoding reconstructs these logical row types and applies
+record-local validation before returning them.
 
 ## Record-local semantic rules implemented
 
@@ -73,7 +77,9 @@ Stage 4 checks:
   final occupancy, and independent validity/zero-loss/effective-tail/
   estimability states; a selected blocker must apply and `ESTIMABLE` cannot
   coexist with a failed local gate, while D-031 deliberately leaves precedence
-  among simultaneous blockers unresolved;
+  among simultaneous blockers unresolved under `2.0.0-pre.1`; the accepted
+  [Q10 bundle](STAGE12_D031_DECISION_BUNDLE.md) selects a versioned
+  multi-reason amendment, but code must wait for its normative snapshot;
 - exactly 180 Stage A factor tuples and ordinals `0..179`, H0/H1 whole plots,
   ring/linked node-seed nullability, and self-contained replacement
   identity/ordinal/role/subspace rules;
@@ -99,8 +105,9 @@ Stage 12 owns:
 - proving external decode counts, envelope/row identities, cross-stream
   timestamps, count identities from actual artifacts, and absence of joined
   data after a failed audit;
-- comparing pre/post content and algorithm-identified integrity evidence.
-- resolving D-031 before final manifests choose one summary reason when several
+- comparing pre/post content and algorithm-identified integrity evidence;
+- implementing D-031 only after import of the Q10-authorized amended protocol;
+  until then, final manifests cannot choose one summary reason when several
   independent confirmation blockers apply.
 
 Stage 14 owns:

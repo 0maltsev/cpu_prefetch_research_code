@@ -2,10 +2,11 @@
 
 Protocol version: **`2.0.0-pre.1`**
 
-Stage 2/10 disposition: **`COMPLETE; Q1_Q2_Q3_Q4_Q5_Q6_Q7_ACCEPTED`**
+Stage 2/11 disposition: **`COMPLETE; Q1_THROUGH_Q9_ACCEPTED`**
 
-The repository still contains no authorized production benchmark or physical
-measurement writer.
+The repository still contains no authorized production benchmark or
+measurement runner. Stage 11 contains the accepted physical observation
+writer and post-run storage boundary, not an authorized scientific run path.
 Stage 5 contains queue correctness-only production cores, Stage 6 contains
 deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
@@ -33,6 +34,7 @@ The repository owner selected **no license**. ADR-0021 records no license grant,
 | Q5 deterministic workload bundle | Independent Philox4x32-10/HMAC-SHA-256 stream suite; unbiased Fisher-Yates; separated purpose domains; fixed consumer mixer and canonical content/order/delta inputs; explicit record/package representations | ADR-0025 through ADR-0028 | Concrete seeds, platform facts/capacities, page-frame qualification, retaining prefetch instructions, and calibrated per-context `d2` |
 | Q6 deterministic schedule bundle | Offline Python Decimal80 exponential transform; exact midpoint Philox mapping; picosecond cumulative-floor absolute deadlines; fail-closed overflow; versioned artifact/decoded/envelope identities | ADR-0029 | Stage 7 implementation evidence passes; concrete seed, namespace, rate, origin, and horizon values remain later lifecycle inputs |
 | Q7 Stage 8 clock bundle | vDSO `CLOCK_MONOTONIC_RAW`; exact nanosecond-to-picosecond conversion; compiler-only read boundaries; bracketed publication/observation; no correction; explicit qualification limits | ADR-0030 | Stage 8 software/generated-code pass; dynamic traced-vDSO/full-count evidence and an explicit eligible worker pair remain required |
+| Q9 Stage 11 storage bundle | Exact fixed u64le literal-run-ID rows; JCS envelope; no compression; one temporary and two verified durable copies in explicit distinct domains | ADR-0032/0033 | Stage 11 software passes; concrete run-plan capacity, worker-page residency, real domains/custody, and operational recovery remain Phase 16 evidence |
 
 ## Stage 3 through Stage 8 engineering baselines
 
@@ -101,11 +103,11 @@ the applicable Phase 9/16 gates.
 | Decision IDs | Required choice/evidence | Owner | Blocking gate |
 |---|---|---|---|
 | D-009 | Software/codegen slice passes; supply exact release/stand identities, explicit pair, 10-million-call traced vDSO evidence, per-core full-count streams, bidirectional three-window streams, and before-block repetition | Timing/platform/queue-correctness/code-generation owners | Phase 9 platform qualification; repeat and bind by Phase 16/every block |
-| D-010, D-020 | Decisions are accepted by Q9/ADR-0032/0033; remaining inputs are Stage 11 implementation, corruption/cross-decoder/capacity/codegen evidence, and real two-domain durability proof | Storage/data-integrity/custody owners | Implement and pass software in Phase 11; operational capacity/domain/recovery proof by Phase 16 |
+| D-010, D-020 | Decisions and Stage 11 software pass under Q9/ADR-0032/0033; remaining inputs are the concrete run plan, available bytes/reserve, actual worker-page residency, real two-domain durability/custody, and exact-release recovery proof | Storage/data-integrity/custody owners | Operational capacity/domain/residency/recovery proof by Phase 16 |
 | D-008 | Queue pointer width/order/refinement and u32 release/acquire termination mapping are implemented; repeat runtime lock-free/layout probes and integrated generated-code checks on the eligible measured release. | Queue correctness/controller/platform owners | Controller mapping accepted in ADR-0031; stand/release evidence by Phase 16 |
 | D-018 | Exact eligible-stand API mapping, processor-relax instruction, watchdog/failure bounds, capability/readback/probe/rollback evidence | Platform/controller owners | Supply treatment-blind operational evidence by Phase 16 |
 | D-019 | Named operator/custodian, accounts/keys/storage, negative access, recovery, and audit retention | Security/custody owners | Operational proof by Phase 16; final authority before confirmation |
-| D-031 | Protocol-authorized representation or precedence when two or more validity/zero-loss/effective-tail/completeness/access blockers coexist | Protocol/statistical owners | Resolve before Phase 12 final run-disposition validation |
+| D-031 | Q10 accepted the [Stage 12 decision bundle](STAGE12_D031_DECISION_BUNDLE.md); publish/supply the versioned protocol amendment containing the exhaustive blocker array and non-priority `BLOCKED_MULTIPLE` summary, then import and hash-verify it without modifying `2.0.0-pre.1` | Protocol/statistical owners for publication; repository owner for import | Amended snapshot import and traceability before Phase 12 final run-disposition validation |
 
 These choices must be treatment-blind. Clock, remaining schedule inputs,
 mixing, storage, and platform choices cannot be selected or revised because a
@@ -124,7 +126,9 @@ license remain submission-only.
 Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
-versioned protocol amendment. Stage 8's software slice is complete under
-accepted D-009. The exact next safe stage is Phase 9 platform control and
-explicit selected-pair qualification. Measurement, pilot, and confirmatory
+versioned protocol amendment. Stage 11's software slice is complete under
+accepted D-010/D-020. The protocol and statistical owner accepted the
+D-031/Q10 bundle on 2026-08-21. The exact next safe action is to publish or
+supply the versioned amended protocol snapshot, then import and hash-verify it
+before Stage 12 final-disposition work. Measurement, pilot, and confirmatory
 execution remain prohibited.

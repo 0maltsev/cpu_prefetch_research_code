@@ -35,6 +35,10 @@ jobs:
         run: cmake --build --preset dev-gcc --target canonical-check
       - name: Deterministic schedule check
         run: cmake --build --preset dev-gcc --target schedule-check
+      - name: Raw-storage format check
+        run: cmake --build --preset dev-gcc --target storage-format-check
+      - name: Raw-storage schema check
+        run: cmake --build --preset dev-gcc --target storage-schema-check
       - name: Queue provenance check
         run: cmake --build --preset dev-gcc --target queue-provenance-check
       - name: Documentation check
@@ -63,6 +67,8 @@ jobs:
         run: cmake --build --preset release-gcc --target workload-codegen-check
       - name: Timing generated-code check
         run: cmake --build --preset release-gcc --target timing-codegen-check
+      - name: Storage generated-code check
+        run: cmake --build --preset release-gcc --target storage-codegen-check
       - name: Generate stand-foundation package
         run: cmake --build --preset release-gcc --target package
 
@@ -83,6 +89,8 @@ jobs:
         run: cmake --preset release-clang-libcxx
       - name: Clang timing generated-code check
         run: cmake --build --preset release-clang-libcxx --target timing-codegen-check
+      - name: Clang storage generated-code check
+        run: cmake --build --preset release-clang-libcxx --target storage-codegen-check
 
   sanitizers:
     strategy:

@@ -50,9 +50,11 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
   record-local semantic rules, immutable configuration, exact-rate handling,
   stable error paths/categories, `JCS-I64-v1` cross-language fixtures,
   round-trip tests, and sanitizer/static checks pass. Store-dependent
-  cross-record checks remain explicitly assigned to Phases 12/14. D-031 leaves
-  simultaneous-blocker reason precedence open for Phase 12; neither item blocks
-  Phase 5 queue correctness work.
+  cross-record checks remain explicitly assigned to Phases 12/14. The D-031
+  [Q10 bundle](docs/STAGE12_D031_DECISION_BUNDLE.md) now accepts a versioned
+  multi-reason representation; the amended normative snapshot is not yet
+  imported. This did not block Phase 5 queue correctness work and now blocks
+  Phase 12 final dispositions.
 
 ## Phase 5 — Queue provenance and correctness
 
@@ -168,8 +170,8 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
   one-attempt producer, polling consumer, dedicated u32 release/acquire
   termination, drain/watchdog/failure, no-retry outcomes, and recovery records.
   Twenty-four focused tests plus full regression/static/sanitizer checks pass.
-  Fake storage/queue/clock/platform evidence is software-only. Final
-  preallocated Stage 11 sinks, concrete reset/package bindings, platform relax,
+  Fake queue/clock/platform evidence is software-only. Stage 11 now supplies
+  the preallocated observation sinks; concrete reset/package bindings, platform relax,
   watchdog values, stand probes, and measured-release codegen remain later
   pre-pilot gates and do not authorize a run.
 
@@ -182,13 +184,17 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Longest planned horizon fits without overflow/I/O; decoded rows conform logically; raw sources cannot be overwritten; compression is lossless/post-run only.
 - **Explicitly excluded:** Quantiles/models and pilot until integration acceptance.
 - **Rollback or failure behavior:** Any overflow/corruption is a measurement failure; append corrected derived/envelope records, never mutate raw bytes.
-- **Status:** `READY_TO_IMPLEMENT`; Q9 accepted the exact D-010/D-020 format,
-  row/envelope, compression/copy, capacity, corruption, and compatibility
-  contract in
-  [`docs/STAGE11_STORAGE_DECISION_BUNDLE.md`](docs/STAGE11_STORAGE_DECISION_BUNDLE.md).
-  ADR-0032 and ADR-0033 freeze those choices. Stage 11 implementation may
-  begin; all listed Stage 11 verification and Phase 16 operational evidence
-  remain open.
+- **Status:** `COMPLETE_LOCAL`; Q9/ADR-0032/0033 freeze the exact contract.
+  `cpu_prefetch_storage` implements independently owned preallocated streams,
+  the literal-run-ID fixed codec/decoder, capture binding, integrity and
+  imported-envelope documents, checked plan/run budgets, append-only two-copy
+  publication, copy ledgers, recovery-only crash reopening, and honest partial
+  finalization. Golden C++/Python, corruption, boundary/overflow, no-allocation,
+  concurrency, crash/recovery, large synthetic, sanitizer, static, and
+  dual-disassembler checks pass. The joined codec is compatibility-only; Stage
+  11 does not reconcile. Exact operational run-plan capacity, page residency,
+  real distinct failure domains/custody, and recovery exercise remain Phase 16
+  evidence and measurement remains prohibited.
 
 ## Phase 12 — Reconciliation and validity gates
 
@@ -199,7 +205,13 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Latency exists only after passed audit; all equations exact; validity/zero-loss/effective-tail/block statuses remain independent; complete valid Stage A obligations enforced.
 - **Explicitly excluded:** Replacement decisions based on FULL/low count and scientific effect analysis.
 - **Rollback or failure behavior:** Seal failed audit and retain raw sources; invalid run makes original block incomplete; no in-place repair.
-- **Status:** `PENDING`.
+- **Status:** `BLOCKED_PROTOCOL_IMPORT`; Stage 11 raw inputs are ready and the
+  protocol/statistical owner accepted the
+  [D-031/Q10 bundle](docs/STAGE12_D031_DECISION_BUNDLE.md) on 2026-08-21. The
+  versioned amended protocol snapshot must now be published or supplied,
+  imported alongside `2.0.0-pre.1`, hash-verified, and traced before Stage 12
+  freezes final run dispositions. No precedence or multi-reason representation
+  is inferred by existing code.
 
 ## Phase 13 — Service-rate, zero-loss, and ring-distance calibration
 

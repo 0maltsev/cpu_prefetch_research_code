@@ -108,9 +108,19 @@ def main() -> int:
             fail(f"{schema_path.name} does not declare Draft 2020-12")
         Draft202012Validator.check_schema(schema)
 
+    implementation_schemas = sorted(
+        (root / "config" / "schemas").glob("*.schema.json")
+    )
+    for schema_path in implementation_schemas:
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        if schema.get("$schema") != "https://json-schema.org/draft/2020-12/schema":
+            fail(f"{schema_path.name} does not declare Draft 2020-12")
+        Draft202012Validator.check_schema(schema)
+
     print(
         f"protocol-check: PASS ({len(declared_paths)} artifacts, "
-        f"4 authoritative hashes, {len(schemas)} Draft 2020-12 schemas)"
+        f"4 authoritative hashes, {len(schemas)} imported and "
+        f"{len(implementation_schemas)} implementation Draft 2020-12 schemas)"
     )
     return 0
 

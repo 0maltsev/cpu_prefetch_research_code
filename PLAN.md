@@ -258,7 +258,20 @@ authorization/amendment.
 - **Acceptance criteria:** Every final block is exact and immutable; all counts are evidence-derived; validation roles technically sealed; replacement workflow stops at budget.
 - **Explicitly excluded:** Executing Stage A during planner implementation; Stage B/C blocks.
 - **Rollback or failure behavior:** Discard only an unexecuted invalid plan by superseding it; executed/failed plans remain append-only. Any missing count/role/seed keeps confirmation blocked.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_LOCAL_SYNTHETIC`. ADR-0040 records the
+  implementation-owned compatibility profile. `cpu_prefetch_orchestration`
+  generates and proves the exact 180-cell/two-whole-plot structure from
+  explicit pre-derived keys and role seed catalogs; validates active-pool
+  counts/namespaces/counterbalance; pins the separate 7/20/270/540/54
+  precision registries and checked count equations; enforces exact
+  access/sealing/amendment chronology, complete role block sets, a hashed
+  precision-input/count binding at `TRAINING_OPEN`, and authority segregation;
+  and permits only new complete role-preserving replacements from exact retained
+  invalid-run/failure/authorization/budget evidence. Unit/property/schema and
+  sanitizer tests use synthetic inputs only. Concrete counts, seed values,
+  platform/build, authorities/custody, budget, and final plans remain later
+  freeze inputs. No block was executed. The exact next safe software phase is
+  Phase 15.
 
 ## Phase 15 — Offline analysis
 

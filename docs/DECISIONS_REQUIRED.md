@@ -2,9 +2,9 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/13 disposition: **`COMPLETE; Q1_THROUGH_Q12_ACCEPTED`**
+Stage 2/14 disposition: **`COMPLETE; Q1_THROUGH_Q12_ACCEPTED`**
 
-Stage 13 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
+Stage 14 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
 The repository still contains no authorized production benchmark or
 measurement runner. Stages 11 and 12 contain the accepted physical observation
@@ -14,7 +14,8 @@ deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
 owner on 2026-08-17; Q7 was accepted on 2026-08-20; Q8 through Q12 were
 accepted on 2026-08-21. They are recorded through ADR-0038, with ADR-0039
-closing the delegated Stage 13 profile. Exact scientific,
+closing the delegated Stage 13 profile and ADR-0040 closing the Stage 14
+implementation-owned planning/access profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
 
@@ -54,6 +55,7 @@ The repository owner selected **no license**. ADR-0021 records no license grant,
 | Q9 Stage 11 storage bundle | Exact fixed u64le literal-run-ID rows; JCS envelope; no compression; one temporary and two verified durable copies in explicit distinct domains | ADR-0032/0033 | Stage 11 software passes; concrete run-plan capacity, worker-page residency, real domains/custody, and operational recovery remain Phase 16 evidence |
 | Q10/Q11 D-031 and Stage 12 | Exhaustive ordered blocker set; non-priority `BLOCKED_MULTIPLE`; immutable pre.2 import; exact run-level reconciliation/status implementation | ADR-0034 | Stage 12 software passes; Stage 14 still supplies authoritative block completeness and access chronology |
 | Q12 Stage 13 calibration methods | Nonparametric 95/95 service-rate lower limit; run-cluster Hoeffding matrix feasibility and global ladder; run-tail ring distance; versioned records/arithmetic/invalidation | ADR-0035 through ADR-0039 | Synthetic software/profile tests pass; every exact stand/duration/count/seed/capacity/authority/budget and final exposure remains externally gated |
+| Stage 14 engineering closure | Exact typed product proof, explicit-key deterministic ordering, fixed precision registries, access chronology/segregation, and full-block replacement enforcement | ADR-0040 | Concrete precision counts, namespace/seed catalogs, platform/build, authorities/custody, replacement budget, and final block records remain externally gated |
 
 ## Stage 3 through Stage 8 engineering baselines
 
@@ -126,6 +128,7 @@ the applicable Phase 9/16 gates.
 | D-008 | Queue pointer width/order/refinement and u32 release/acquire termination mapping are implemented; repeat runtime lock-free/layout probes and integrated generated-code checks on the eligible measured release. | Queue correctness/controller/platform owners | Controller mapping accepted in ADR-0031; stand/release evidence by Phase 16 |
 | D-018 | Exact eligible-stand API mapping, processor-relax instruction, watchdog/failure bounds, capability/readback/probe/rollback evidence | Platform/controller owners | Supply treatment-blind operational evidence by Phase 16 |
 | D-019 | Named operator/custodian, accounts/keys/storage, negative access, recovery, and audit retention | Security/custody owners | Operational proof by Phase 16; final authority before confirmation |
+| D-040 and protocol freeze inputs | Supply prospective precision results, exact role/common namespaces, master/derived seed catalogs and derivation evidence, platform/build identity, segregated access principals/enforcement, `R_replacement_max`, budget evidence, and final block-plan/access records | Protocol/statistical/block-planning/security/custody owners | Treatment-blind pilot/freeze evidence before final Phase 16 readiness and Phase 18 execution |
 
 These choices must be treatment-blind. Clock, remaining schedule inputs,
 mixing, storage, and platform choices cannot be selected or revised because a
@@ -144,9 +147,9 @@ license remain submission-only.
 Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
-versioned protocol amendment. Stages 11 through 13 are complete locally under
-ADR-0032 through ADR-0039. The exact next safe action is Stage 14 block
-planning/orchestration software with fake and synthetic inputs only. Every external
+versioned protocol amendment. Stages 11 through 14 are complete locally under
+ADR-0032 through ADR-0040. The exact next safe action is Stage 15 offline
+analysis software with fake and synthetic inputs only. Every external
 scientific or stand-dependent value remains blocked until its listed evidence
 gate. Measurement, calibration execution, pilot, and confirmatory execution
 remain prohibited.

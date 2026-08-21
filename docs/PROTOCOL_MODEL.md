@@ -109,7 +109,7 @@ Stage 12 implements:
   D-031 estimability independently, with an invalidating failure record
   required for `INVALID` and no retry/replacement inference.
 
-Stage 14 owns:
+Stage 14 implements:
 
 - comparing original/replacement records for distinct identity, ordinal, and
   seed subspace, equal immutable role, named failure/authority, and available
@@ -120,10 +120,14 @@ Stage 14 owns:
   membership, authority segregation, and the selection/unseal/evaluation/
   release chain used by orchestration.
 
-The Stage 14 items are explicit blockers for that stage, not defaults or waived
-checks. Stage 12 leaves final estimability `NOT_EVALUATED` until authoritative
-block/access results are injected. No layer accepts an artifact as globally
-valid merely because its individual JSON document is valid.
+`Stage14CrossRecordSemanticValidator` performs those checks when supplied the
+explicit seed catalogs, prospective precision result, artifact access catalog,
+authority policy, and replacement budget. Missing concrete freeze inputs still
+block final acceptance and are never defaulted. Stage 12 leaves final
+estimability `NOT_EVALUATED` until authoritative block/access results are
+injected. No layer accepts an artifact as globally valid merely because its
+individual JSON document or a synthetic Stage 14 graph is valid. See
+[`ORCHESTRATION.md`](ORCHESTRATION.md).
 
 ## Canonical serialization
 

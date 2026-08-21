@@ -21,6 +21,7 @@ joined-row construction offline.
 | Validation/gates | Immutable artifacts and platform evidence | Structural then semantic validation; correctness, measurement, zero-loss, tail gates | Versioned validation reports and eligibility states | No |
 | Calibration capture | Prospective calibration plan, matching prepared context, preallocated trace | Continuous-ready service transfer; separate open-loop FULL probe; ring-off acquire-demand capture | Independent raw calibration run artifacts and explicit failure evidence | Only the frozen calibration interval; no statistics, serialization, I/O, or growth |
 | Calibration evaluation/freeze | Immutable raw calibration references, exact planned exposures, method/profile IDs | Exact service minima and loads; ring-tail merge/distance; offline run-cluster matrix bound; source/fingerprint validation | Append-only plan, service, ring, feasibility, and freeze records, including `NOT_EVALUATED`/`INELIGIBLE` | No |
+| Block planning/orchestration | Prospective precision evidence, explicit platform/build, role namespaces, pre-derived keys/seed catalogs, authorities, and budget | Prove the exact product/pool, generate deterministic whole/cell orders, validate sealing and replacement lineage | Imported block plans, access/freeze/amendment records, or explicit unresolved blockers | No |
 | Analysis/sealing | Eligible immutable artifacts and authorized access state | Fixed summaries/inference; H3 training, seal, validation access | Derived results, source links, signatures/access records | No and custody-controlled |
 
 ## Preparation-to-worker boundary
@@ -31,9 +32,11 @@ Stage 4 supplies the pre-worker typed boundary but does not build a prepared
 image. Each input first passes its unmodified imported Draft 2020-12 schema,
 then immutable typed loading, then record-local semantic rules. Stable errors
 carry category/path/rule identity and never repair input. Run-level
-cross-record resolution is implemented in Phase 12. Block, replacement,
-access, and custody graph acceptance still requires the Phase 14 validator
-described in [`PROTOCOL_MODEL.md`](PROTOCOL_MODEL.md).
+cross-record resolution is implemented in Phase 12. Stage 14 adds the block,
+replacement, and access graph validator; final acceptance still requires
+concrete pilot/freeze evidence and technically enforced custody. See
+[`PROTOCOL_MODEL.md`](PROTOCOL_MODEL.md) and
+[`ORCHESTRATION.md`](ORCHESTRATION.md).
 
 Stage 5 supplies the queue-operation seam beneath a future prepared image.
 The producer can issue one direct nonblocking enqueue call and retain
@@ -153,6 +156,18 @@ hidden by a smaller estimator set. Missing stand inputs flow to
 `INELIGIBLE`. Synthetic fixtures never flow into a platform freeze. See
 [`CALIBRATION.md`](CALIBRATION.md).
 
+Stage 14 adds only offline prospective orchestration. A role namespace
+registry and per-block seed catalog enter the deterministic planner; outcomes
+do not. The planner emits a complete imported block document whose 180 cells,
+two whole plots, ordinal coverage, seed sharing, ID, and hash are independently
+validated. Precision evidence enters a separate fixed-family/count evaluator;
+training or validation outcomes are rejected as sizing inputs. Access records
+then flow through an append-only predecessor-hash ledger. Replacement can emit
+one new complete block only when an invalid required run, failure,
+authorization, lineage, and budget all resolve. `FULL`, low effective tail,
+or cap exhaustion emit no replacement. Concrete seed/count/authority/budget
+inputs remain outside the repository until their prospective freeze gate.
+
 ## Partial-failure publication matrix
 
 | Highest completed point | Producer raw | Consumer raw | Join audit | Joined derived | Failure/lifecycle record |
@@ -186,4 +201,12 @@ identifiers fail closed.
 
 ## Access and analysis boundary
 
-Offline analysis reads only immutable, passed artifacts through the access/sealing state machine. It cannot reach worker memory or control a running experiment. H3 validation data remain technically inaccessible until the imported state sequence authorizes access. Analysis output records every source artifact ID/hash and algorithm/version so results can be regenerated without modifying inputs.
+Offline analysis reads only immutable, passed artifacts through the
+access/sealing state machine. Stage 14 validates record authority, chronology,
+predecessor hashes, block role, and namespace, then returns a fail-closed access
+decision; it has no artifact-opening capability. Storage/custody must enforce
+that decision and prove negative access operationally. Analysis cannot reach
+worker memory or control a running experiment. H3 validation data remain
+technically inaccessible until the imported state sequence authorizes access.
+Analysis output records every source artifact ID/hash and algorithm/version so
+results can be regenerated without modifying inputs.

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 4.3)
 project(
   cpu_prefetch_foundation
   VERSION 2.0.0
-  DESCRIPTION "Typed protocol, correctness, storage, reconciliation, and synthetic calibration foundation for the CPU prefetch research protocol"
+  DESCRIPTION "Typed protocol, correctness, storage, reconciliation, calibration, and synthetic orchestration foundation for the CPU prefetch research protocol"
   LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -205,6 +205,22 @@ target_link_libraries(
   PRIVATE cpu_prefetch_project_options)
 target_include_directories(
   cpu_prefetch_calibration
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+add_library(
+  cpu_prefetch_orchestration STATIC
+  src/orchestration/access.cpp
+  src/orchestration/block_planning.cpp
+  src/orchestration/precision.cpp)
+add_library(cpu_prefetch::orchestration ALIAS cpu_prefetch_orchestration)
+target_link_libraries(
+  cpu_prefetch_orchestration
+  PUBLIC cpu_prefetch::protocol cpu_prefetch::workload
+  PRIVATE cpu_prefetch_project_options)
+target_include_directories(
+  cpu_prefetch_orchestration
   PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
@@ -422,6 +438,33 @@ if(BUILD_TESTING)
     DEPENDS cpu_prefetch_calibration_tests
     COMMENT "Checking synthetic-only Stage 13 calibration contracts")
 
+  add_executable(cpu_prefetch_orchestration_tests
+                 tests/orchestration_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_orchestration_tests
+    PRIVATE cpu_prefetch::orchestration cpu_prefetch_project_options
+            GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_orchestration_tests
+    PREFIX "orchestration."
+    PROPERTIES LABELS "orchestration;synthetic")
+
+  add_test(
+    NAME orchestration.schema
+    COMMAND
+      "${Python3_EXECUTABLE}"
+      "${PROJECT_SOURCE_DIR}/tools/check_orchestration_schemas.py"
+      --source-root "${PROJECT_SOURCE_DIR}")
+  set_tests_properties(
+    orchestration.schema PROPERTIES LABELS "orchestration;synthetic;schema")
+
+  add_custom_target(
+    orchestration-check
+    COMMAND "${CMAKE_CTEST_COMMAND}" --test-dir "${PROJECT_BINARY_DIR}"
+            --output-on-failure -L orchestration
+    DEPENDS cpu_prefetch_orchestration_tests
+    COMMENT "Checking synthetic-only Stage 14 orchestration contracts")
+
   add_executable(cpu_prefetch_storage_stress tests/storage_stress.cpp)
   target_link_libraries(
     cpu_prefetch_storage_stress
@@ -616,6 +659,9 @@ cpu_prefetch_enforce_tool_versions()
 
 set(
   CPU_PREFETCH_FORMAT_FILES
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/access.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/block_planning.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/precision.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/calibration.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/executor.hpp"
@@ -647,6 +693,9 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/records.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/working_set.hpp"
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/orchestration/access.cpp"
+  "${PROJECT_SOURCE_DIR}/src/orchestration/block_planning.cpp"
+  "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
@@ -676,6 +725,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
@@ -717,6 +767,9 @@ add_custom_target(
 set(
   CPU_PREFETCH_ANALYSIS_FILES
   "${PROJECT_SOURCE_DIR}/src/repository_info.cpp"
+  "${PROJECT_SOURCE_DIR}/src/orchestration/access.cpp"
+  "${PROJECT_SOURCE_DIR}/src/orchestration/block_planning.cpp"
+  "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
@@ -746,6 +799,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
@@ -914,6 +968,7 @@ add_custom_target(
 install(
   TARGETS
     cpu_prefetch_calibration
+    cpu_prefetch_orchestration
     cpu_prefetch_foundation
     cpu_prefetch_lifecycle
     cpu_prefetch_platform
@@ -948,6 +1003,7 @@ install(
     "${PROJECT_SOURCE_DIR}/docs/PLATFORM_CONTROL.md"
     "${PROJECT_SOURCE_DIR}/docs/CALIBRATION.md"
     "${PROJECT_SOURCE_DIR}/docs/LIFECYCLE.md"
+    "${PROJECT_SOURCE_DIR}/docs/ORCHESTRATION.md"
     "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/QUEUE_CORRECTNESS.md"
     "${PROJECT_SOURCE_DIR}/docs/RECONCILIATION.md"
@@ -974,6 +1030,6 @@ set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Synthetic-only Stage 13 calibration framework")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Synthetic-only Stage 14 orchestration foundation")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)

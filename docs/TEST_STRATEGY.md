@@ -384,6 +384,27 @@ Construct the independent expected product of five packages, two requested hardw
 
 Verify that `FULL`, low `N_eff`, and extreme valid latency never authorize replacement. For genuine invalidity, retain the original and require a new 180-cell block with new identity, ordinal, role-compatible seed subspace, randomization, same immutable role, authority, failure record, and available budget. Reject cell repair, seed/ID reuse, role change, absent lineage, and collection past `R_replacement_max`.
 
+Stage 14 status: the `orchestration` CTest label and `orchestration-check`
+target implement Sections 15 through 17 with synthetic inputs only. Exact
+factor/ordinal/whole-plot and seed-sharing mutations fail; a 32-key property
+sweep and pool test cover deterministic reproduction, unique role subspaces,
+and H0/H1-first counterbalance. Fixed-family tests pin 7 H1, 20 H2, 270
+training, 540 pre-selection validation, and 54 post-selection comparisons,
+including formula/minimum/ceiling and outcome-input rejection. Access tests
+cover exact chronology and affected block sets, six contexts, the complete
+`TRAINING_OPEN` family/count/input freeze, independent precision-count binding,
+role/namespace boundaries, predecessor hashes, authority
+segregation/approved overlap, early/wrong-role access, append-only amendments,
+selection-payload/input-hash corruption, outcome-leak rejection, and branched
+lineage.
+Replacement tests require retained invalid-run/failure/authorization/budget
+links, new complete role-preserving plans, reject valid `FULL` and low-tail
+runs, reject role/cell/branch repair, and return unresolved at budget
+exhaustion. Imported Draft 2020-12 fixtures add nine positive and ten negative
+block/freeze shapes; path-shaped identity remains an intentional semantic
+negative. The same C++ label must pass GCC/Clang ASan/UBSan and TSan presets.
+No fixture is an authorized block or scientific outcome.
+
 ### 18. Generated-code acceptance
 
 For each package/build, inspect and hash the generated boundaries for queue publication/observation, prefetch site/target/form/distance, wait relaxation, termination flag, immutable record loads, private checksum update, timestamp boundaries, static specialization, and absence of virtual dispatch, treatment branch, allocation, I/O, logging, or unexpected calls. Source, object, executable, compiler, flags, standard-library, linker, disassembler, rule-set, and report hashes travel together. The test must include negative fixtures or mutated builds proving the checks detect missing/moved operations.

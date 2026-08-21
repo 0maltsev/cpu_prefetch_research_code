@@ -112,6 +112,7 @@ cmake --build --preset dev-gcc --target storage-format-check
 cmake --build --preset dev-gcc --target storage-schema-check
 cmake --build --preset dev-gcc --target reconciliation-check
 cmake --build --preset dev-gcc --target calibration-check
+cmake --build --preset dev-gcc --target orchestration-check
 cmake --build --preset dev-gcc --target queue-provenance-check
 cmake --build --preset dev-gcc --target document-check
 cmake --build --preset dev-gcc --target dependency-check
@@ -183,10 +184,12 @@ dual-tool results close the gate.
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
 accepted. The package contains only the smoke binary, foundation,
-typed-protocol, queue, workload, schedule, timing, platform, lifecycle, and storage libraries, the
+typed-protocol, queue, workload, schedule, timing, platform, lifecycle, storage,
+reconciliation, calibration, and orchestration libraries, the
 offline schedule generator, headers, protocol/queue provenance records, Stage
 6/7 correctness, Stage 8 timing, Stage 9 platform-control, Stage 10 lifecycle,
-and Stage 11 storage documentation,
+Stage 11 storage, Stage 12 reconciliation, Stage 13 calibration, and Stage 14
+orchestration documentation,
 implementation-owned derivation schema, build metadata, dependency inventory,
 and no-license notice.
 
@@ -215,6 +218,13 @@ and no-license notice.
 - `cpu_prefetch_storage`: bounded private observation streams, exact v1 raw
   codec/decoder, Stage 8/10 capture binding, integrity/envelope/ledger records,
   checked budgets, and append-only crash-aware local publication;
+- `cpu_prefetch_reconciliation`: exact accepted-ordinal joins, conditional
+  derived intervals, immutable audits, and independent run gates;
+- `cpu_prefetch_calibration`: prospective service/ring/matrix contracts and
+  synthetic-only exact/conservative evaluators;
+- `cpu_prefetch_orchestration`: deterministic exact Stage A block/pool
+  planning, fixed precision families, access/sealing validation, and
+  complete-block replacement authorization;
 - `cpu_prefetch_smoke`: prints protocol, Git, compiler, and standard-library
   identity;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
@@ -239,6 +249,9 @@ and no-license notice.
   `cpu_prefetch_storage_stress`: codec goldens/corruption, capacity and budget,
   immutable publication/recovery/finalization, hot-writer allocation, and
   independent-stream concurrency tests;
+- `cpu_prefetch_orchestration_tests` and `orchestration.schema`: exact
+  factorial/property, precision-family, sealing/access, amendment,
+  replacement, and imported-schema fixtures;
 - `cpu_prefetch_rapidcheck_smoke`: fixed-seed framework and exact-uint64
   canonicalization properties;
 - `format-check`, `static-analysis`, `protocol-check`,
@@ -246,7 +259,8 @@ and no-license notice.
   `queue-codegen-audit`, strict `queue-codegen-check`, strict
   `workload-codegen-check`, `timing-codegen-audit`, strict
   `timing-codegen-check`, `storage-format-check`, `storage-schema-check`, strict
-  `storage-codegen-check`, `schedule-check`, `document-check`,
+  `storage-codegen-check`, `schedule-check`, `calibration-check`,
+  `orchestration-check`, `document-check`,
   `dependency-check`, `ci-check`, and `release-policy-check`;
 - CMake `install` and CPack `package` targets.
 
@@ -269,9 +283,10 @@ Canonical `JCS-I64-v1` serialization preserves signed and unsigned 64-bit
 integers exactly. The full type and deferral inventory is documented in
 [`docs/PROTOCOL_MODEL.md`](docs/PROTOCOL_MODEL.md). Stage 12 now implements
 run-level artifact lookup, exact reconciliation, and independent status gates
-behind `CrossRecordSemanticValidator`. Block/replacement lineage and access
-chronology remain explicit Stage 14 obligations; schema validity alone never
-claims either layer.
+behind `CrossRecordSemanticValidator`. Stage 14 adds a separate validator for
+the active block pool, precision counts, seed catalogs, replacement lineage,
+budget, and access chronology. Final acceptance requires both graph passes and
+concrete frozen evidence; schema validity alone never claims either layer.
 
 ## Queue correctness boundary
 
@@ -411,6 +426,30 @@ ctest --preset asan-ubsan-gcc -L reconciliation --output-on-failure
 ctest --preset tsan-gcc -L reconciliation --output-on-failure
 ```
 
+## Block orchestration boundary
+
+ADR-0040 and [`docs/ORCHESTRATION.md`](docs/ORCHESTRATION.md) define the
+synthetic-only Stage 14 layer. `cpu_prefetch_orchestration` constructs and
+proves the exact 180-cell/two-whole-plot block from explicit role namespaces,
+pre-derived Philox keys, and nonoverlapping seed catalogs. It separately pins
+the 7/20/270/540/54 precision families and checked count equations, validates
+the imported access/sealing chronology and authority segregation, and permits
+only a new complete role-preserving block when invalid-run, failure,
+authorization, and frozen budget evidence agree.
+
+Focused software verification is:
+
+```sh
+cmake --build --preset dev-gcc --target orchestration-check
+ctest --preset dev-gcc -L orchestration --output-on-failure
+ctest --preset asan-ubsan-gcc -L orchestration --output-on-failure
+ctest --preset tsan-gcc -L orchestration --output-on-failure
+```
+
+These commands create no block execution or performance observation. Concrete
+precision counts, seed values, namespaces, platform/build, authorities,
+custody, replacement budget, and final plans remain external freeze inputs.
+
 ## CI boundary and next safe action
 
 [`ci.yml`](.github/workflows/ci.yml) uses only a full-commit-pinned checkout
@@ -424,11 +463,12 @@ Stage 9's software slice is complete under ADR-0018 and ADR-0019; see
 [`docs/STAND_RUNBOOK.md`](docs/STAND_RUNBOOK.md). Exact stand actuator,
 authority, selected-pair/address readback, vendor-prefetch mapping/probes,
 restoration, and dynamic clock evidence remain mandatory operational gates.
-Stages 10 through 13 are complete locally under ADR-0031 through ADR-0039.
+Stages 10 through 14 are complete locally under ADR-0031 through ADR-0040.
 Q11 authorized and the repository hash-verifies immutable protocol
 `2.0.0-pre.2` beside unchanged `2.0.0-pre.1`; Stage 12 contains only synthetic
 post-run correctness infrastructure. Stage 13 implements the Q12 calibration
 bundle using synthetic and fake inputs only and creates no stand result. The
-exact next safe software action is Stage 14 block planning and orchestration
-with synthetic fixtures. Stand calibration, measurement, pilot, and
+Stage 14 planner likewise creates no final block, access grant, or execution.
+The exact next safe software action is Stage 15 offline analysis with
+synthetic fixtures. Stand calibration, measurement, pilot, and
 confirmatory behavior remain prohibited until their applicable later gates.

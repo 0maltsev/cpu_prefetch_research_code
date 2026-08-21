@@ -114,7 +114,9 @@ even while independent run-level gate facts remain visible.
 
 Stage 12 does not calculate the exact 180-cell block product, original/
 replacement completeness across runs, selection/unseal chronology, custody, or
-access leakage. Stage 14 must compute and inject those authoritative gate
-results and verify complete-block and access/freeze relationships across the
-record set. Stage 16 still owns real-stand storage, custody, and operational
-evidence. No scientific run is authorized by this implementation.
+access leakage. Stage 14 now supplies the separate exact-product and
+block/access/freeze cross-record validator, but it does not fabricate
+authoritative counts, seeds, budgets, principals, or custody evidence. Stage 15
+must integrate the passed gate outputs into analysis records, and Stage 16
+still owns real-stand storage, custody, and operational evidence. No scientific
+run is authorized by either implementation.

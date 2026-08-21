@@ -3,10 +3,10 @@
 ## Scope and authority
 
 This is the accepted architecture for Stage A of protocol `2.0.0-pre.2`, with
-immutable predecessor `2.0.0-pre.1`. ADR-0007 through ADR-0039 freeze the
-owner-approved software foundation through Stage 13 synthetic calibration
-software. Exact eligible-stand mappings/evidence, authoritative Stage 14
-block/access evaluation, and later pilot outputs remain open. Imported
+immutable predecessor `2.0.0-pre.1`. ADR-0007 through ADR-0040 freeze the
+owner-approved software foundation through Stage 14 synthetic orchestration
+software. Exact eligible-stand mappings/evidence, concrete Stage A freeze
+inputs, and later pilot outputs remain open. Imported
 snapshots remain authoritative under their versions; contradictions require a
 versioned protocol amendment. Stage B and Stage C are excluded.
 
@@ -29,15 +29,17 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 | Controller | Schedule preparation | Derive the purpose-separated stream, generate the complete open-loop schedule, publish artifact/envelopes, decode and validate immutable deadlines | Forbidden | Stage 7 implemented; all lifecycle values remain explicit and no outcome/clock input exists |
 | Controller | Workload construction | Derive domain-separated streams, build event/node order, initialize records, retain integrity inputs, bind one package type | Forbidden | Stage 6 implemented; all values explicit and no worker mutation surface |
 | Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact consequences | Outside horizon | Stage 10 lifecycle is implemented; Stage 11 adds partial-stream finalization and immutable publication without reconciliation |
+| Controller | Block planner | Prove/generate the exact Stage A product from explicit frozen roles, namespaces, keys, seed catalogs, counts, and identities | Forbidden | Stage 14 deterministic generator/pool validator implemented; concrete pilot-derived inputs remain external |
 | Controller | Platform-control adapter | Inventory/capabilities, explicit affinity/NUMA/pages/environment/HW-PF request, separate apply/readback/probe, reverse rollback, manifests | Forbidden | Stage 9 read-only Linux inventory, dry-run, strict validation, injected actuator/verifier, restoration, and manifests implemented; exact stand actuator/authority and dynamic address evidence remain external gates |
 | Controller | Clock qualification | Evaluate the accepted source, conversion, skew/drift/read cost and code boundaries from explicit platform evidence | Reads only are timed | D-009 software/codegen implemented; dynamic explicit-pair and before-block evidence pending Phase 9/16 |
 | Controller | Logical record model | Typed representation of all seven imported schema families, exact values, lifecycle/gate states, and immutable configuration | Private row construction only | Stage 4 implemented; [model contract](PROTOCOL_MODEL.md) |
 | Controller | Physical codec | Encode/decode exact logical rows/envelopes | Private fixed-row write is timed; decoding/envelopes are outside | `RAW-OBS-U64LE-LP-RUNID-v1` implemented; new formats remain replaceable under a new ID |
 | Controller | Artifact store | Immutable content-addressed publication, copy evidence, partial finalization | Forbidden | Stage 11 local no-replace/two-copy backend implemented; real failure domains and separated custody remain Phase 16 evidence |
 | Offline | Structural validator | Draft 2020-12 validation against unmodified imported schemas | Forbidden | Stage 4 implemented with pinned jsonschema and positive/negative fixtures |
-| Offline | Semantic validator | Record-local arithmetic/lifecycle plus run-level immutable hash/source/count/integrity/failure relationships; block/access chronology later | Forbidden | Stage 4 local and Stage 12 run-level rules implemented; Stage 14 owns block/access graphs |
+| Offline | Semantic validator | Record-local arithmetic/lifecycle, run-level immutable relationships, and block/replacement/access graph validation | Forbidden | Stage 4 local, Stage 12 run-level, and Stage 14 block/access layers implemented; final acceptance still requires concrete frozen evidence |
 | Offline | Reconciler | Build accepted producer order; exact k-th join by `(run_id, accepted_ordinal)`; validate Stage 6 mapping/index; emit audit and conditional derived join | Forbidden | Stage 12 implemented; consumes immutable sources only and derives nothing on failed audit |
 | Offline | Calibration evaluator | Validate prospective service/ring/probe plans and immutable raw evidence; compute exact minima/tails/exposure bounds; emit append-only freeze candidates | Forbidden | Stage 13 implemented with synthetic/fake inputs; stand values and final exposure remain external gates |
+| Offline | Access/replacement orchestrator | Enforce sealing chronology, authority segregation, immutable amendment lineage, and complete-block-only replacement | Forbidden | Stage 14 implemented with synthetic records; real principals/custody/budget remain Phase 16/18 evidence |
 | Offline | Statistical analysis | Fixed quantiles, diagnostics, H1/H2 families, sealed H3 chronology | Forbidden | Deferred; cannot influence implementation choices |
 
 ## Stable interfaces
@@ -91,6 +93,18 @@ confidence, threshold, descending-prefix stopping rule, and Decimal profile.
 Canonical plan/result/freeze records publish no-replace and bind a material
 invalidation fingerprint. This interface has no default duration, count,
 capacity, rate, distance, exposure, stand, or authority.
+
+### `BlockOrchestration`
+
+Consumes explicit prospective precision evidence, platform/build identity,
+role namespaces, block seed catalogs, pre-derived Philox keys, authority
+assignments, immutable artifacts, and replacement budget. It proves the exact
+180-cell product and pool role counts, emits a deterministic imported block
+document, evaluates sealing/access chronology, and authorizes only complete
+role-preserving replacements. Missing inputs remain unresolved. The interface
+has no filesystem identity inference, outcome input to generation/resizing,
+artifact-reader capability, cell-repair method, or execution method. See
+[`ORCHESTRATION.md`](ORCHESTRATION.md).
 
 ### `ClockSource`
 

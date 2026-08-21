@@ -1,6 +1,6 @@
 # Stage 8 Timing Model
 
-Protocol version: **`2.0.0-pre.1`**
+Protocol version: **`2.0.0-pre.2`**; clock suite unchanged from pre.1
 
 This document describes the non-measuring Stage 8 implementation of accepted
 D-009/ADR-0030. The implementation does not select worker CPUs, qualify an

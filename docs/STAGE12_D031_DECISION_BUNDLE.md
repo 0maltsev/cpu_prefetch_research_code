@@ -1,13 +1,15 @@
 # D-031 Stage 12 simultaneous-blocker decision bundle
 
-- **Protocol source reviewed:** immutable `protocol/2.0.0-pre.1/`
+- **Protocol source reviewed:** immutable `protocol/2.0.0-pre.1/`; accepted
+  amendment imported as immutable `protocol/2.0.0-pre.2/`
 - **Decision:** D-031, confirmatory-estimability representation when independent
   blockers coexist
 - **Classification:** scientific representation and protocol compatibility
-- **Approval question:** Q10
-- **State:** `ACCEPTED_Q10_PENDING_VERSIONED_PROTOCOL_AMENDMENT_IMPORT`
-- **Implementation state:** no Stage 12 implementation is authorized by this
-  bundle
+- **Approval questions:** Q10 (scientific representation) and Q11 (versioned
+  import, implementation ADR, and Stage 12 only)
+- **State:** `ACCEPTED_Q10_Q11_IMPLEMENTED_STAGE12`
+- **Implementation state:** Q11 authorized and ADR-0034 records the completed
+  Stage 12 implementation; measurement remains prohibited
 
 ## Decision record
 
@@ -17,7 +19,7 @@
 | Classification | Scientific representation; logical schema and compatibility |
 | Options considered | Fixed singular priority; any applicable singular reason; versioned multi-reason extension; legacy field plus non-normative sidecar |
 | Recommended option | Versioned multi-reason protocol extension with a deterministic, non-priority summary |
-| Current state | Q10 accepted the recommended option on 2026-08-21; the versioned protocol amendment/import remains a blocking prerequisite |
+| Current state | Q10 accepted the recommended option and Q11 authorized/imported `2.0.0-pre.2`, ADR-0034, and Stage 12 on 2026-08-21 |
 | Evidence | Protocol requires independent disposition fields, but `2.0.0-pre.1` exposes one singular estimability enum and specifies no precedence |
 | Scientific effect | Preserves every independently material reason that blocks dependent confirmation; does not alter validity, zero-loss, effective-tail, completeness, access, replacement, or rerun rules |
 | Compatibility effect | Requires a new normative protocol/schema version; `2.0.0-pre.1` remains immutable and readable but cannot represent the new final disposition |
@@ -204,8 +206,8 @@ contain `confirmatory_blockers` or `BLOCKED_MULTIPLE`. Consequently, this
 contract cannot be introduced as an implementation-only extension to
 `2.0.0-pre.1`.
 
-After Q10, protocol/statistical authority must publish a new versioned protocol
-snapshot containing at least:
+The Q10 acceptance required protocol/statistical authority to publish a new
+versioned protocol snapshot containing at least:
 
 1. the amended data dictionary and normative run-manifest schema;
 2. the exact multi-reason semantic rules above;
@@ -224,13 +226,13 @@ Repository import and implementation then follow these rules:
   IDs/hashes and converter version; never overwrite or reinterpret the source;
 - fail closed on unknown summary tokens or malformed blocker sets.
 
-The amendment owner assigns the final protocol version. This bundle does not
-silently claim that `2.0.0-pre.2` exists.
+Q11 assigned `2.0.0-pre.2`; its import manifest and authoritative hashes now
+satisfy this boundary. The pre.1 snapshot remains unchanged.
 
 ## Required Stage 12 verification after amendment import
 
-Stage 12 is not part of this bundle. When authorized later, it must add at
-least:
+Q11 separately authorized Stage 12 only. Its implementation and ADR-0034 add
+at least:
 
 - exhaustive truth-table tests over validity, zero loss, effective tail,
   completeness, access, applicability, and evaluation completeness;
@@ -274,18 +276,18 @@ and statistical owner:
 Q10 - accept the D-031 bundle as protocol and statistical owner
 ```
 
-This acceptance selects Option C and authorizes the versioned multi-reason
-amendment path. It does
-not authorize editing the immutable `2.0.0-pre.1` snapshot, implementing Stage
-12, or running pilot/confirmatory measurements.
+Q10 selected Option C and authorized the versioned multi-reason amendment path.
+Q11 then authorized creation/import of immutable `2.0.0-pre.2`, ADR-0034, and
+Stage 12 only. Neither approval authorizes editing immutable `2.0.0-pre.1` or
+running calibration, pilot, or confirmatory measurements.
 
-No implementation ADR is created until the required amended protocol snapshot
-has been imported and verified. Options A, B, and D remain unselected.
+ADR-0034 was created after the amended snapshot was imported and verified.
+Options A, B, and D remain unselected.
 
 ## Gate after approval
 
-Even after Q10 acceptance, Stage 12 remains blocked until the versioned amended
-protocol snapshot is supplied or created under protocol authority, imported
-alongside `2.0.0-pre.1`, hash-verified, and traced. The exact next safe action
-after that import is to record the accepted implementation ADR and begin Stage
-12 reconciliation/validity implementation. Measurement remains prohibited.
+Q11 closed this gate: the amended snapshot is imported beside unchanged pre.1,
+hash-verified, traced, and implemented under ADR-0034. The exact next safe
+action is preparation and approval of the Stage 13 calibration decision/input
+bundle. Calibration execution and all performance measurement remain
+prohibited.

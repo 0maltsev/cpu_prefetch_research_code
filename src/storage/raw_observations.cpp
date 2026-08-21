@@ -480,10 +480,11 @@ auto decode_external_raw(const protocol::RawObservationEnvelope& envelope,
         protocol::ErrorCategory::unsupported_version, "$out", "RAW-FORMAT-SUITE",
         "raw envelope does not select the accepted Stage 11 format suite");
   }
-  if (envelope.logical_row_schema_version != protocol::ProtocolVersion::v2_0_0_pre_1) {
+  if (envelope.logical_row_schema_version != envelope.protocol_version) {
     return decode_failure<DecodedRawStream>(
         protocol::ErrorCategory::unsupported_version, "$out/logical_row_schema_version",
-        "RAW-LOGICAL-VERSION", "unsupported logical row schema version");
+        "RAW-LOGICAL-VERSION",
+        "logical row schema and envelope protocol versions must match");
   }
   if (envelope.stream_kind != protocol::StreamKind::joined_derived &&
       !envelope.source_artifacts.empty()) {

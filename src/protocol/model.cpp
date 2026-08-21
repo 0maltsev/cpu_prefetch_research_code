@@ -73,13 +73,16 @@ auto Sha256::hex() const -> std::string {
 
 auto parse_protocol_version(std::string_view text, std::string path)
     -> Result<ProtocolVersion> {
-  if (text == kProtocolVersion) {
+  if (text == kPreviousProtocolVersion) {
     return Result<ProtocolVersion>::success(ProtocolVersion::v2_0_0_pre_1);
+  }
+  if (text == kProtocolVersion) {
+    return Result<ProtocolVersion>::success(ProtocolVersion::v2_0_0_pre_2);
   }
   return Result<ProtocolVersion>::failure(
       {ErrorCategory::unsupported_version, std::move(path), "GOV-004",
-       "only protocol/schema version 2.0.0-pre.1 is supported; no implicit migration "
-       "exists"});
+       "only protocol/schema versions 2.0.0-pre.1 and 2.0.0-pre.2 are readable; "
+       "no implicit migration exists"});
 }
 
 #define CPU_PREFETCH_DEFINE_ENUM_PARSER(function_name, type_name, rule, ...)           \
@@ -181,7 +184,16 @@ CPU_PREFETCH_DEFINE_ENUM_PARSER(
               ConfirmatoryEstimability::blocked_incomplete_block},
     std::pair{"BLOCKED_ACCESS_LEAKAGE"sv,
               ConfirmatoryEstimability::blocked_access_leakage},
+    std::pair{"BLOCKED_MULTIPLE"sv, ConfirmatoryEstimability::blocked_multiple},
     std::pair{"NOT_APPLICABLE"sv, ConfirmatoryEstimability::not_applicable});
+CPU_PREFETCH_DEFINE_ENUM_PARSER(
+    confirmatory_blocker, ConfirmatoryBlocker, "LIF-CONFIRMATORY-BLOCKER",
+    std::pair{"BLOCKED_ACCESS_LEAKAGE"sv, ConfirmatoryBlocker::blocked_access_leakage},
+    std::pair{"BLOCKED_EFFECTIVE_TAIL"sv, ConfirmatoryBlocker::blocked_effective_tail},
+    std::pair{"BLOCKED_INCOMPLETE_BLOCK"sv,
+              ConfirmatoryBlocker::blocked_incomplete_block},
+    std::pair{"BLOCKED_INVALID_RUN"sv, ConfirmatoryBlocker::blocked_invalid_run},
+    std::pair{"BLOCKED_ZERO_LOSS"sv, ConfirmatoryBlocker::blocked_zero_loss});
 CPU_PREFETCH_DEFINE_ENUM_PARSER(
     block_completeness, BlockCompleteness, "BLK-COMPLETENESS",
     std::pair{"NOT_EVALUATED"sv, BlockCompleteness::not_evaluated},

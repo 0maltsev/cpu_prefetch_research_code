@@ -1,9 +1,10 @@
 # Data Flow and Artifact Lifecycle
 
-Protocol version: **`2.0.0-pre.1`**. This document preserves the imported
-logical model. Q9/ADR-0032/0033 select the physical raw encoding and copy policy
-without making them logical fields. Stage 11 implements those contracts while
-leaving reconciliation and joined-row construction to Stage 12.
+Protocol version: **`2.0.0-pre.2`**; immutable predecessor `2.0.0-pre.1` is
+retained. This document preserves the imported logical model. Q9/ADR-0032/0033
+select the physical raw encoding/copy policy, and Q10/Q11/ADR-0034 select only
+the versioned blocker representation. Stage 12 implements reconciliation and
+joined-row construction offline.
 
 ## End-to-end flow
 
@@ -27,9 +28,10 @@ The controller resolves every dynamic choice before release. The prepared image 
 Stage 4 supplies the pre-worker typed boundary but does not build a prepared
 image. Each input first passes its unmodified imported Draft 2020-12 schema,
 then immutable typed loading, then record-local semantic rules. Stable errors
-carry category/path/rule identity and never repair input. Cross-record
-resolution is accepted only after the Phase 12/14 validators described in
-[`PROTOCOL_MODEL.md`](PROTOCOL_MODEL.md) exist.
+carry category/path/rule identity and never repair input. Run-level
+cross-record resolution is implemented in Phase 12. Block, replacement,
+access, and custody graph acceptance still requires the Phase 14 validator
+described in [`PROTOCOL_MODEL.md`](PROTOCOL_MODEL.md).
 
 Stage 5 supplies the queue-operation seam beneath a future prepared image.
 The producer can issue one direct nonblocking enqueue call and retain
@@ -93,13 +95,12 @@ external URI, integrity reference, and SHA-256. ADR-0033 copy policy, domain
 IDs, readback results, timestamps, completeness, and locations are held in the
 separate append-only copy ledger rather than extending the imported schema.
 
-Stage 8's post-run derivation computes only from complete logical producer and
-consumer rows. It validates the partial timestamp order and identity first,
-then proves `end_to_end = admission + residence + delivery`. Lateness, lookup,
-enqueue service, dequeue service, and consumer action are nested diagnostics;
-they are not added again. Artifact lookup, cross-stream reconciliation,
-join-audit publication, and conditional joined output remain Phase 12
-responsibilities.
+Stage 12 invokes Stage 8's post-run derivation only after every producer/
+consumer identity, ordinal, Stage 6 mapping, count, and k-th record-index check
+passes. It then proves `end_to_end = admission + residence + delivery`.
+Lateness, lookup, enqueue service, dequeue service, and consumer action are
+nested diagnostics and are not added again. Failed audits retain classified
+faults and publish no joined rows. See [`RECONCILIATION.md`](RECONCILIATION.md).
 
 Stage 9 adds no data-plane edge. Before worker release, the controller consumes
 one explicit inventory snapshot, detects capability without upgrading unknown

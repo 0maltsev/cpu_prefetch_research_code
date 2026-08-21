@@ -69,6 +69,11 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0031](0031-stage10-lifecycle-and-termination-mapping.md) | `ACCEPTED` | Project explicit controller phases onto the unchanged imported lifecycle enum and use a dedicated lock-free u32 release/acquire termination word. |
 | [ADR-0032](0032-stage11-physical-raw-observation-format.md) | `ACCEPTED` | Use exact little-endian physical rows with literal length-prefixed run IDs, raw/relative clock pairs, and a JCS external-artifact envelope. |
 | [ADR-0033](0033-stage11-compression-copy-and-durability-policy.md) | `ACCEPTED` | Use no compression, one temporary raw work image, and two byte-identical verified durable instances in distinct explicit domains. |
+| [ADR-0034](0034-stage12-d031-amendment-and-exact-reconciliation.md) | `ACCEPTED` | Import D-031 as protocol 2.0.0-pre.2, preserve frozen derivation domains, and implement exact ordered reconciliation plus exhaustive independent run gates. |
+| [ADR-0035](0035-stage13-service-rate-lower-limit.md) | `ACCEPTED` | Use a distribution-free 95%/95% sample-minimum lower tolerance limit over prospectively enumerated independent service-calibration runs. |
+| [ADR-0036](0036-stage13-matrix-zero-loss-feasibility.md) | `ACCEPTED` | Use simultaneous independent-run-cluster weighted Hoeffding bounds, `pi_matrix=0.95`, and the accepted five-scale global load action. |
+| [ADR-0037](0037-stage13-ring-distance-calibration.md) | `ACCEPTED` | Use ring-off advancing-slot p99.9/p0.1 run-tail calibration, conservative marginal H0/H1 merges, and exact line/minimum/cap rules. |
+| [ADR-0038](0038-stage13-calibration-records-arithmetic-and-invalidation.md) | `ACCEPTED` | Use versioned canonical calibration records, exact arithmetic plus outward-rounded Decimal margins, and append-only invalidation. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
 Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,
@@ -76,3 +81,14 @@ checked-budget, no-allocation, sanitizer, code-generation, append-only store,
 and local crash-recovery evidence passes. Concrete run-plan capacity, page
 residency, real independent durability domains/custody, and exact-release
 operational recovery remain Phase 16 gates.
+Q10 and Q11 accepted D-031 and authorized the immutable `2.0.0-pre.2`
+snapshot plus Stage 12 implementation. ADR-0034 records the version boundary,
+exact join, and non-priority blocker semantics; Stage 14 still owns block and
+access-history validation.
+
+Q12 accepted D-035 through D-038 on 2026-08-21. The exact Stage 13 calibration
+methods and record boundary are documented in
+`../STAGE13_CALIBRATION_DECISION_BUNDLE.md` and ADR-0035 through ADR-0038.
+Implementation may now use synthetic/fake inputs only. Q12 supplies no stand,
+duration, count, seed, capacity, authority, budget, `mu_ref`, `d2`, or final
+matrix exposure and authorizes no calibration or performance execution.

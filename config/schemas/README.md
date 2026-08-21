@@ -1,7 +1,8 @@
 # Implementation-owned schemas
 
 These schemas supplement but never modify or replace the immutable logical
-contracts under `protocol/2.0.0-pre.1/handoff/schemas/`.
+contracts under the current `protocol/2.0.0-pre.2/handoff/schemas/` (with the
+immutable pre.1 predecessor retained separately).
 
 `schedule-derivation-v1.schema.json` validates the ADR-0029 record referenced
 by the imported schedule envelope's `rng.derivation_record_id`. It binds the
@@ -21,3 +22,10 @@ no-compression, one-temporary/two-durable-copy policy and supports explicit
 incomplete records. Distinct domain IDs, exact expected/observed identity, and
 sealed-state implications are also checked by the C++ semantic builder because
 JSON Schema cannot express all of those relationships.
+
+`join-audit-v1.schema.json` fixes the implementation-owned Stage 12 audit
+envelope. A passed audit has no issues and must reference the joined artifact;
+a failed audit has at least one stable failure issue and must not reference a
+joined artifact. The C++ cross-record validator checks its exact sources,
+counts, status, identity, and zero-self canonical SHA-256 against the imported
+run manifest and raw streams.

@@ -1,6 +1,6 @@
 # Deterministic Run Lifecycle
 
-Protocol version: **`2.0.0-pre.1`**. This is a non-measuring Stage 10 software
+Protocol version: **`2.0.0-pre.2`**. This is a non-measuring Stage 10 software
 contract. Synthetic/fake execution is correctness evidence only.
 
 ## State model

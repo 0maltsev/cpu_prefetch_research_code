@@ -1,7 +1,8 @@
 # Stage 7 Deterministic Schedule Generation
 
-This document records the implemented correctness boundary for ADR-0029 and
-protocol `2.0.0-pre.1`. It describes an offline preparation tool and a C++
+This document records the implemented correctness boundary for ADR-0029 under
+current protocol `2.0.0-pre.2`. The frozen deterministic preimage retains its
+ADR-0029 `2.0.0-pre.1` domain label. It describes an offline tool and a C++
 decoder/validator. It does not authorize a pilot, execute a queue, read a
 clock, or report performance.
 
@@ -89,8 +90,8 @@ The accepted synthetic seed and namespace produce Philox key words
 `18f1da603f3d4383bb08410ffb0e41a8c4df336871765e633b4f116f1b22e81c`,
 decoded SHA-256
 `a07a349e5e95ff170036ffb21361d4d85dc9073177de7687c263ff254517a441`,
-and envelope SHA-256
-`bbb0976de5320bdf1c56b39c2f9dbe29d5381d524e19f145fe42129e9b67b1a3`.
+and `2.0.0-pre.2` envelope SHA-256
+`df42859564d5075cca591b663e9db8a34da1e8a6ee4d81983d797db2bc6944f9`.
 CPython C `decimal`, `_pydecimal`, and the C++ decoder agree. These are
 software-correctness fixtures, not experiment inputs or empirical evidence.
 

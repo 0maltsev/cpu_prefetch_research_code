@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <fstream>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -149,6 +150,45 @@ auto manifest_json(bool early_failure, std::uint64_t full, std::uint64_t n_eff,
   }
   output << R"(],"manifest_sha256":")" << kHash << R"("})";
   return output.str();
+}
+
+auto pre2_manifest_json(bool early_failure, std::uint64_t full, std::uint64_t n_eff)
+    -> std::string {
+  auto result = manifest_json(early_failure, full, n_eff);
+  for (std::size_t position = 0U;
+       (position = result.find("2.0.0-pre.1", position)) != std::string::npos;) {
+    result.replace(position, std::string_view("2.0.0-pre.1").size(), "2.0.0-pre.2");
+    position += std::string_view("2.0.0-pre.2").size();
+  }
+  std::string summary = early_failure     ? "BLOCKED_INVALID_RUN"
+                        : full != 0       ? "BLOCKED_ZERO_LOSS"
+                        : n_eff >= 200000 ? "ESTIMABLE"
+                                          : "BLOCKED_EFFECTIVE_TAIL";
+  std::string blockers = "[]";
+  if (early_failure) {
+    summary = "NOT_EVALUATED";
+  } else if (full != 0U && n_eff < 200000U) {
+    summary = "BLOCKED_MULTIPLE";
+    blockers = R"(["BLOCKED_EFFECTIVE_TAIL","BLOCKED_ZERO_LOSS"])";
+  } else if (full != 0U) {
+    blockers = R"(["BLOCKED_ZERO_LOSS"])";
+  } else if (n_eff < 200000U) {
+    blockers = R"(["BLOCKED_EFFECTIVE_TAIL"])";
+  }
+  const auto old_field = std::string(R"("confirmatory_estimability":")") +
+                         (early_failure     ? "BLOCKED_INVALID_RUN"
+                          : full != 0       ? "BLOCKED_ZERO_LOSS"
+                          : n_eff >= 200000 ? "ESTIMABLE"
+                                            : "BLOCKED_EFFECTIVE_TAIL") +
+                         '"';
+  const auto position = result.find(old_field);
+  if (position == std::string::npos) {
+    throw std::logic_error("pre2 manifest fixture could not locate estimability");
+  }
+  result.replace(position, old_field.size(),
+                 std::string(R"("confirmatory_estimability":")") + summary +
+                     R"(","confirmatory_blockers":)" + blockers);
+  return result;
 }
 
 auto block_json(bool replacement, bool duplicate_cell = false, bool bad_lineage = false)
@@ -510,6 +550,48 @@ TEST(ManifestSemantics, SimultaneousGateFailuresDoNotInventReasonPrecedence) {
   ASSERT_TRUE(loaded);
   EXPECT_TRUE(
       has_rule(validate_semantics(loaded.value()), "LIF-ESTIMABILITY-APPLICABILITY"));
+}
+
+TEST(ManifestSemantics, Pre2RequiresExhaustiveCanonicalBlockers) {
+  auto fixture = pre2_manifest_json(false, 1U, 199999U);
+  auto loaded =
+      cpu_prefetch::protocol::load_document(DocumentKind::run_manifest, fixture);
+  ASSERT_TRUE(loaded) << loaded.errors().front().message;
+  EXPECT_TRUE(validate_semantics(loaded.value()).empty());
+  const auto& manifest = std::get<cpu_prefetch::protocol::RunManifest>(loaded.value());
+  EXPECT_EQ(manifest.confirmatory_estimability,
+            cpu_prefetch::protocol::ConfirmatoryEstimability::blocked_multiple);
+  ASSERT_EQ(manifest.confirmatory_blockers.size(), 2U);
+
+  const auto ordered = R"(["BLOCKED_EFFECTIVE_TAIL","BLOCKED_ZERO_LOSS"])";
+  const auto unordered = R"(["BLOCKED_ZERO_LOSS","BLOCKED_EFFECTIVE_TAIL"])";
+  const auto blocker_position = fixture.find(ordered);
+  ASSERT_NE(blocker_position, std::string::npos);
+  fixture.replace(blocker_position, std::string_view(ordered).size(), unordered);
+  loaded = cpu_prefetch::protocol::load_document(DocumentKind::run_manifest, fixture);
+  ASSERT_TRUE(loaded);
+  EXPECT_TRUE(
+      has_rule(validate_semantics(loaded.value()), "LIF-BLOCKER-CANONICAL-ORDER"));
+}
+
+TEST(ManifestSemantics, Pre2MissingBlockersAndLegacyExtraBlockersFailClosed) {
+  auto pre2 = pre2_manifest_json(false, 0U, 200000U);
+  const auto field = R"(,"confirmatory_blockers":[])";
+  const auto position = pre2.find(field);
+  ASSERT_NE(position, std::string::npos);
+  pre2.erase(position, std::string_view(field).size());
+  auto loaded = cpu_prefetch::protocol::load_document(DocumentKind::run_manifest, pre2);
+  ASSERT_FALSE(loaded);
+  EXPECT_EQ(loaded.errors().front().path, "$out/confirmatory_blockers");
+
+  auto legacy = manifest_json(false, 0U, 200000U);
+  const auto legacy_position = legacy.find(R"(,"block_completeness")");
+  ASSERT_NE(legacy_position, std::string::npos);
+  legacy.insert(legacy_position, R"(,"confirmatory_blockers":[])");
+  loaded = cpu_prefetch::protocol::load_document(DocumentKind::run_manifest, legacy);
+  ASSERT_FALSE(loaded);
+  EXPECT_EQ(loaded.errors().front().category,
+            cpu_prefetch::protocol::ErrorCategory::unknown_field);
 }
 
 TEST(ManifestSemantics, CompletedValidRunMissingEvidenceRejects) {

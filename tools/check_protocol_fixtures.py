@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Draft 2020-12 conformance fixtures for protocol 2.0.0-pre.1."""
+"""Draft 2020-12 conformance fixtures for every imported protocol snapshot."""
 
 from __future__ import annotations
 
@@ -11,7 +11,8 @@ from typing import Any, Callable
 
 from jsonschema import Draft202012Validator, FormatChecker
 
-VERSION = "2.0.0-pre.1"
+VERSIONS = ("2.0.0-pre.1", "2.0.0-pre.2")
+VERSION = VERSIONS[0]
 HASH = "0" * 64
 
 
@@ -153,6 +154,22 @@ def manifest(
         "artifact_refs": [],
         "manifest_sha256": HASH,
     }
+    if VERSION == "2.0.0-pre.2":
+        blockers: list[str] = []
+        if not early_failure:
+            if n_eff < 200_000:
+                blockers.append("BLOCKED_EFFECTIVE_TAIL")
+            if full:
+                blockers.append("BLOCKED_ZERO_LOSS")
+        result["confirmatory_blockers"] = blockers
+        if early_failure:
+            result["confirmatory_estimability"] = "NOT_EVALUATED"
+        elif len(blockers) > 1:
+            result["confirmatory_estimability"] = "BLOCKED_MULTIPLE"
+        elif blockers:
+            result["confirmatory_estimability"] = blockers[0]
+        else:
+            result["confirmatory_estimability"] = "ESTIMABLE"
     if not early_failure:
         accepted = 10 - full
         result["counts"] = {
@@ -376,7 +393,7 @@ def freeze_record(kind: str) -> dict[str, Any]:
                 for context in CONTEXTS
             },
             training_input_artifacts=[artifact("training-input")],
-            selection_rule_version="2.0.0-pre.1",
+            selection_rule_version=VERSION,
             selection_record_checksum_sha256=HASH,
         )
     elif kind == "VALIDATION_UNSEAL":
@@ -470,7 +487,9 @@ def mutate(value: dict[str, Any], action: Callable[[dict[str, Any]], None]) -> d
     return result
 
 
-def main() -> int:
+def run_version(version: str) -> tuple[int, int, int]:
+    global VERSION
+    VERSION = version
     root = Path(__file__).resolve().parents[1]
     schema_dir = root / "protocol" / VERSION / "handoff" / "schemas"
     schemas = {
@@ -496,6 +515,14 @@ def main() -> int:
         ("block-plan.schema.json", block_plan(True), "replacement block"),
         ("failure-record.schema.json", failure_record(), "failure"),
     ]
+    if VERSION == "2.0.0-pre.2":
+        positives.append(
+            (
+                "run-manifest.schema.json",
+                manifest(full=1, n_eff=199_999),
+                "valid exhaustive simultaneous blockers",
+            )
+        )
     positives.extend(
         ("freeze-record.schema.json", freeze_record(kind), f"freeze {kind}")
         for kind in (
@@ -564,12 +591,35 @@ def main() -> int:
     malformed_replacement = block_plan(True)
     malformed_replacement["replacement_authorization_id"] = None
     negatives.append(("block-plan.schema.json", malformed_replacement, "replacement combination"))
+    if VERSION == "2.0.0-pre.2":
+        missing_blockers = manifest()
+        del missing_blockers["confirmatory_blockers"]
+        negatives.append(
+            ("run-manifest.schema.json", missing_blockers, "missing blocker array")
+        )
+        duplicate_blockers = manifest(full=1, n_eff=199_999)
+        duplicate_blockers["confirmatory_blockers"] = [
+            "BLOCKED_ZERO_LOSS",
+            "BLOCKED_ZERO_LOSS",
+        ]
+        negatives.append(
+            ("run-manifest.schema.json", duplicate_blockers, "duplicate blockers")
+        )
     for schema_name, instance, name in negatives:
         expect_invalid(validators[schema_name], instance, name)
 
+    return len(validators), len(positives), len(negatives)
+
+
+def main() -> int:
+    totals = [0, 0, 0]
+    for version in VERSIONS:
+        counts = run_version(version)
+        totals = [left + right for left, right in zip(totals, counts)]
     print(
         "protocol-fixtures: PASS "
-        f"({len(validators)} schemas, {len(positives)} positive, {len(negatives)} negative)"
+        f"({len(VERSIONS)} snapshots, {totals[0]} schemas, "
+        f"{totals[1]} positive, {totals[2]} negative)"
     )
     return 0
 

@@ -89,7 +89,7 @@ auto decoded_hash(const protocol::ScheduleRecord& record,
     preimage.reserve(field_count * 16U);
   }
   append_string_field(preimage, "cpu-prefetch/decoded-deadlines-sha256/v1");
-  append_string_field(preimage, protocol::kProtocolVersion);
+  append_string_field(preimage, kDerivationDomainProtocolVersion);
   append_string_field(preimage, kScheduleSuite);
   append_string_field(preimage, kScheduleTimeUnit);
   append_integer_field(preimage, record.origin_ticks);

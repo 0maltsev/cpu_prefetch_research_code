@@ -2,6 +2,7 @@
 
 #include "cpu_prefetch/protocol/json.hpp"
 #include "cpu_prefetch/queue/adapters.hpp"
+#include "cpu_prefetch/reconciliation/reconciliation.hpp"
 #include "cpu_prefetch/workload/deterministic.hpp"
 
 #include <algorithm>
@@ -121,8 +122,55 @@ int main() {
             RC_ASSERT(sorted[index] == index);
           }
         });
+    const bool reconciliation_passed = rc::check(
+        "exact accepted-ordinal reconciliation refines generated producer histories",
+        [](const std::vector<std::uint8_t>& generated) {
+          const auto parsed =
+              cpu_prefetch::protocol::RunId::parse("property-run", "$property/run_id");
+          RC_ASSERT(parsed.has_value());
+          const auto& id = parsed.value();
+          const auto count = std::min<std::size_t>(generated.size(), 128U);
+          std::vector<std::uint64_t> mapping;
+          std::vector<cpu_prefetch::protocol::ProducerRecord> producers;
+          std::vector<cpu_prefetch::protocol::ConsumerRecord> consumers;
+          mapping.reserve(count);
+          producers.reserve(count);
+          consumers.reserve(count);
+          std::uint64_t accepted_ordinal = 0U;
+          for (std::size_t index = 0U; index < count; ++index) {
+            const auto logical = static_cast<std::uint64_t>(index);
+            const auto record_index = static_cast<std::uint64_t>(generated[index] % 8U);
+            const auto base = 1000U + logical * 100U;
+            const bool accepted = (generated[index] & 1U) == 0U;
+            mapping.push_back(record_index);
+            producers.push_back(
+                {id, logical, record_index, base, base + 1U, base + 2U, base + 3U,
+                 accepted ? std::optional<std::uint64_t>(base + 4U) : std::nullopt,
+                 base + 5U,
+                 accepted ? cpu_prefetch::protocol::ProducerOutcome::accepted
+                          : cpu_prefetch::protocol::ProducerOutcome::full,
+                 accepted ? std::optional<std::uint64_t>(accepted_ordinal)
+                          : std::nullopt});
+            if (accepted) {
+              consumers.push_back({id, accepted_ordinal, record_index, base + 6U,
+                                   base + 7U, base + 8U, base + 9U});
+              ++accepted_ordinal;
+            }
+          }
+          const auto joined = cpu_prefetch::reconciliation::reconcile(
+              id, producers, consumers, mapping);
+          RC_ASSERT(joined.status == cpu_prefetch::protocol::JoinStatus::passed);
+          RC_ASSERT(joined.joined_rows.size() == consumers.size());
+          if (!consumers.empty()) {
+            consumers.back().consumed_ordinal = accepted_ordinal;
+            const auto corrupted = cpu_prefetch::reconciliation::reconcile(
+                id, producers, consumers, mapping);
+            RC_ASSERT(corrupted.status == cpu_prefetch::protocol::JoinStatus::failed);
+            RC_ASSERT(corrupted.joined_rows.empty());
+          }
+        });
     return framework_passed && exact_integer_passed && ring_model_passed &&
-                   linked_model_passed && permutation_passed
+                   linked_model_passed && permutation_passed && reconciliation_passed
                ? 0
                : 1;
   } catch (const std::exception& error) {

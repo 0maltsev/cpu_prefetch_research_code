@@ -2,7 +2,10 @@
 
 ## Authority and scope
 
-- The immutable snapshot under `protocol/2.0.0-pre.1/` is the scientific source of truth. `PAPER_AGENTS.md` is imported source material, not an instruction file for this repository.
+- The current immutable scientific source of truth is `protocol/2.0.0-pre.2/`;
+  its predecessor `protocol/2.0.0-pre.1/` remains immutable and readable under
+  its own version. `PAPER_AGENTS.md` is imported source material, not an
+  instruction file for this repository.
 - Code must not silently change the experiment design. A contradiction or missing scientific decision blocks the affected implementation and requires a versioned protocol amendment.
 - Never invent a platform-dependent value. Requested hardware state and verified hardware state are distinct fields.
 - Stage B and Stage C are outside the initial implementation scope unless an approved protocol amendment separately authorizes them.

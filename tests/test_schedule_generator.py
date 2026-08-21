@@ -97,7 +97,7 @@ class ScheduleGeneratorTests(unittest.TestCase):
         )
         self.assertEqual(
             generated.schedule_sha256,
-            "bbb0976de5320bdf1c56b39c2f9dbe29d5381d524e19f145fe42129e9b67b1a3",
+            "df42859564d5075cca591b663e9db8a34da1e8a6ee4d81983d797db2bc6944f9",
         )
 
     def test_same_input_reproduces_all_bytes(self) -> None:
@@ -111,7 +111,7 @@ class ScheduleGeneratorTests(unittest.TestCase):
         schema = json.loads(
             (
                 ROOT
-                / "protocol/2.0.0-pre.1/handoff/schemas/schedule.schema.json"
+                / "protocol/2.0.0-pre.2/handoff/schemas/schedule.schema.json"
             ).read_text(encoding="utf-8")
         )
         Draft202012Validator(schema).validate(envelope)

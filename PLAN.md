@@ -1,17 +1,26 @@
 # Stage A Implementation Plan
 
-Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `PENDING`, and `PROHIBITED`. The phases are dependency ordered; a later phase may be explored only where it cannot force an unresolved earlier choice. Stage B and Stage C are deferred future work outside this plan and require separate authorization/amendment.
+Protocol version: **`2.0.0-pre.2`** (with immutable predecessor
+`2.0.0-pre.1`). Status values are `COMPLETE`, `BLOCKED`, `PENDING`, and
+`PROHIBITED`. The phases are dependency ordered; a later phase may be explored
+only where it cannot force an unresolved earlier choice. Stage B and Stage C
+are deferred future work outside this plan and require separate
+authorization/amendment.
 
 ## Phase 1 — Protocol import and traceability
 
 - **Objective:** Freeze an exact authoritative snapshot and map normative requirements to future owners and gates.
 - **Inputs and prerequisite decisions:** Paper repository at the supplied sibling path; actual version and declared hashes established from repository evidence.
-- **Files/components:** `protocol/2.0.0-pre.1/`, import manifest, root governance/status/readme, all `docs/` planning records.
+- **Files/components:** immutable versioned `protocol/` snapshots and manifests, root governance/status/readme, all `docs/` planning records.
 - **Tests:** Source/import size and SHA-256 equality; declared-hash verification; JSON/schema validation; link/version/scope/file audits.
 - **Acceptance criteria:** Every required artifact is byte-identical and listed; all requested documents exist; all normative areas have owner/validator; no production code, result, or invented platform value exists.
 - **Explicitly excluded:** Benchmark, queues, controls, runner, analysis pipeline, calibration, pilot, confirmation.
 - **Rollback or failure behavior:** A declared-hash mismatch or normative contradiction stops bootstrap; do not repair imported bytes. Remove no source evidence; replace a bad import only from verified source and record a new timestamp/manifest.
-- **Status:** `COMPLETE_REVERIFIED`; the Stage 9 closure reran Stage 3's pinned jsonschema 4.26.0 check and reverified all 18 artifact hashes/sizes, the exact inventory, four current authoritative hashes, and all seven Draft 2020-12 schemas.
+- **Status:** `COMPLETE_REVERIFIED`; Q11 preserved the original 18-artifact
+  pre.1 snapshot and added the authorized 18-artifact pre.2 snapshot. The
+  pinned jsonschema 4.26.0 check verifies all 36 sizes/hashes, both exact
+  inventories, eight authoritative hashes, and all 14 imported Draft 2020-12
+  schemas.
 
 ## Phase 2 — Implementation-decision freeze
 
@@ -37,7 +46,7 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 
 ## Phase 4 — Protocol/configuration model
 
-- **Objective:** Implement `2.0.0-pre.1` record types, Draft schema validation, checked identities/arithmetic, and cross-record semantic validation framework.
+- **Objective:** Implement versioned protocol record types, Draft schema validation, checked identities/arithmetic, and cross-record semantic validation framework.
 - **Inputs and prerequisite decisions:** Phase 3; storage/identity architecture; canonical serialization policy; compatibility rule.
 - **Files/components:** Protocol/config model, schema loader, semantic-validator rule registry, typed lifecycle/status/identity records, test fixtures.
 - **Tests:** Positive/negative tests for all seven schemas; `1.x` rejection; arithmetic, referenced-hash, namespace, chronology, factorial, and lifecycle semantic fixtures.
@@ -49,12 +58,10 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
   coverage; C++ types/loaders cover every stable Stage A record family;
   record-local semantic rules, immutable configuration, exact-rate handling,
   stable error paths/categories, `JCS-I64-v1` cross-language fixtures,
-  round-trip tests, and sanitizer/static checks pass. Store-dependent
-  cross-record checks remain explicitly assigned to Phases 12/14. The D-031
-  [Q10 bundle](docs/STAGE12_D031_DECISION_BUNDLE.md) now accepts a versioned
-  multi-reason representation; the amended normative snapshot is not yet
-  imported. This did not block Phase 5 queue correctness work and now blocks
-  Phase 12 final dispositions.
+  round-trip tests, and sanitizer/static checks pass. Phase 12 now implements
+  run-level cross-record checks; Phase 14 retains block/access chronology. Q10
+  and Q11 imported D-031 as `2.0.0-pre.2` without changing the immutable
+  predecessor.
 
 ## Phase 5 — Queue provenance and correctness
 
@@ -205,13 +212,16 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Latency exists only after passed audit; all equations exact; validity/zero-loss/effective-tail/block statuses remain independent; complete valid Stage A obligations enforced.
 - **Explicitly excluded:** Replacement decisions based on FULL/low count and scientific effect analysis.
 - **Rollback or failure behavior:** Seal failed audit and retain raw sources; invalid run makes original block incomplete; no in-place repair.
-- **Status:** `BLOCKED_PROTOCOL_IMPORT`; Stage 11 raw inputs are ready and the
-  protocol/statistical owner accepted the
-  [D-031/Q10 bundle](docs/STAGE12_D031_DECISION_BUNDLE.md) on 2026-08-21. The
-  versioned amended protocol snapshot must now be published or supplied,
-  imported alongside `2.0.0-pre.1`, hash-verified, and traced before Stage 12
-  freezes final run dispositions. No precedence or multi-reason representation
-  is inferred by existing code.
+- **Status:** `COMPLETE_LOCAL`. Q10/Q11 authorize D-031 and immutable protocol
+  `2.0.0-pre.2`; both snapshots pass inventory/hash/schema checks. ADR-0034
+  records the compatibility boundary. `cpu_prefetch_reconciliation` implements
+  exact accepted-sequence/k-th joins, conditional interval derivation,
+  classified and independently regenerated audits, immutable source/hash/count/
+  integrity/failure-evidence relationships, honest partial failures, and
+  separate lifecycle/validity/join/count/zero-loss/tail/estimability states.
+  Unit, fault-injection, generated property, round-trip/schema, and sanitizer
+  checks use synthetic data only. Final estimability remains `NOT_EVALUATED`
+  until Phase 14 injects authoritative block-completeness and access evidence.
 
 ## Phase 13 — Service-rate, zero-loss, and ring-distance calibration
 
@@ -222,7 +232,12 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Procedures are frozen before applicable results; outputs source-link valid evidence; no confirmatory outcome or cell-specific favorable adjustment enters decisions.
 - **Explicitly excluded:** Pilot/confirmatory collection in this implementation phase and empirical recommendation.
 - **Rollback or failure behavior:** Material build/platform/action/capacity change invalidates calibration freeze and requires new calibration; infeasible matrix stops confirmation.
-- **Status:** `PENDING`, numerical inputs and execution unauthorized.
+- **Status:** `DECISIONS_ACCEPTED_IMPLEMENTATION_PENDING`. Q12 accepted D-035
+  through D-038, recorded in ADR-0035 through ADR-0038 and
+  `docs/STAGE13_CALIBRATION_DECISION_BUNDLE.md`. Synthetic/fake Stage 13
+  software implementation may begin. Exact stand, duration, run-count, sample,
+  seed, capacity, exposure, authority, and budget inputs remain unresolved;
+  calibration execution remains unauthorized.
 
 ## Phase 14 — Stage A block planning and orchestration
 

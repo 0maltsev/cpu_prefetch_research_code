@@ -1,7 +1,7 @@
 # CPU Prefetch Research Code
 
-This repository has completed the **Stage 11 raw-storage software slice** for
-protocol **`2.0.0-pre.1`**. It contains the Stage 3 build foundation, Stage 4
+This repository has completed the **Stage 12 reconciliation software slice** for
+protocol **`2.0.0-pre.2`**. It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
 sanitizer, and dual-disassembler evidence. It also contains deterministic event
@@ -16,9 +16,11 @@ two-worker start barrier, one-attempt fake-backed open-loop executor,
 release/acquire termination, drain/watchdog paths, and partial-failure
 consequences. Stage 11 adds exact fixed physical rows, preallocated independent
 observation streams, integrity/envelope records, checked storage budgets, and a
-crash-aware append-only two-copy local backend. It contains no eligible-pair
-qualification, production state-changing stand adapter, reconciliation,
-authorized scientific run, or scientific analysis.
+crash-aware append-only two-copy local backend. Stage 12 adds exact offline
+producer/consumer reconciliation, conditional interval derivation, immutable
+join audits, run-level semantic validation, and independent status gates. It
+contains no eligible-pair qualification, production state-changing stand
+adapter, authorized scientific run, or scientific analysis.
 
 The exact D-010/D-020 physical-storage contract is documented in
 [`docs/STAGE11_STORAGE_DECISION_BUNDLE.md`](docs/STAGE11_STORAGE_DECISION_BUNDLE.md).
@@ -34,14 +36,19 @@ repository-authored material.
 ## Scientific source of truth
 
 The immutable imported snapshot is in
-[`protocol/2.0.0-pre.1/`](protocol/2.0.0-pre.1/). Start with:
+[`protocol/2.0.0-pre.2/`](protocol/2.0.0-pre.2/). Start with:
 
-1. [`EXPERIMENT_IMPLEMENTATION_SPEC.md`](protocol/2.0.0-pre.1/EXPERIMENT_IMPLEMENTATION_SPEC.md);
-2. [`PROTOCOL_FREEZE_CHECKLIST.md`](protocol/2.0.0-pre.1/PROTOCOL_FREEZE_CHECKLIST.md);
-3. [`handoff/README.md`](protocol/2.0.0-pre.1/handoff/README.md);
+1. [`EXPERIMENT_IMPLEMENTATION_SPEC.md`](protocol/2.0.0-pre.2/EXPERIMENT_IMPLEMENTATION_SPEC.md);
+2. [`PROTOCOL_FREEZE_CHECKLIST.md`](protocol/2.0.0-pre.2/PROTOCOL_FREEZE_CHECKLIST.md);
+3. [`handoff/README.md`](protocol/2.0.0-pre.2/handoff/README.md);
 4. [`docs/TRACEABILITY_MATRIX.md`](docs/TRACEABILITY_MATRIX.md).
 
-`protocol/2.0.0-pre.1/PAPER_AGENTS.md` is imported evidence, not a repository
+The accepted Stage 13 scientific-method and input boundary is collected in
+[`docs/STAGE13_CALIBRATION_DECISION_BUNDLE.md`](docs/STAGE13_CALIBRATION_DECISION_BUNDLE.md).
+Q12 and ADR-0035 through ADR-0038 authorize synthetic/fake Stage 13 software
+implementation only; they authorize no calibration or performance execution.
+
+`protocol/2.0.0-pre.2/PAPER_AGENTS.md` is imported evidence, not a repository
 instruction file. Stage B and Stage C remain outside scope. Development and
 synthetic checks support software correctness only and never empirical claims.
 
@@ -101,6 +108,7 @@ ctest --preset dev-gcc -L lifecycle --output-on-failure
 ctest --preset dev-gcc -L storage --output-on-failure
 cmake --build --preset dev-gcc --target storage-format-check
 cmake --build --preset dev-gcc --target storage-schema-check
+cmake --build --preset dev-gcc --target reconciliation-check
 cmake --build --preset dev-gcc --target queue-provenance-check
 cmake --build --preset dev-gcc --target document-check
 cmake --build --preset dev-gcc --target dependency-check
@@ -256,10 +264,11 @@ keys, and unsupported numeric values fail closed.
 
 Canonical `JCS-I64-v1` serialization preserves signed and unsigned 64-bit
 integers exactly. The full type and deferral inventory is documented in
-[`docs/PROTOCOL_MODEL.md`](docs/PROTOCOL_MODEL.md). Cross-record artifact lookup,
-reconciliation, append-only lineage, and access chronology remain explicit
-Stage 12/14 obligations behind `CrossRecordSemanticValidator`; schema validity
-alone never claims those properties.
+[`docs/PROTOCOL_MODEL.md`](docs/PROTOCOL_MODEL.md). Stage 12 now implements
+run-level artifact lookup, exact reconciliation, and independent status gates
+behind `CrossRecordSemanticValidator`. Block/replacement lineage and access
+chronology remain explicit Stage 14 obligations; schema validity alone never
+claims either layer.
 
 ## Queue correctness boundary
 
@@ -375,6 +384,30 @@ The large synthetic storage check is correctness-only and reports no rate or
 latency. Two local directories do not establish independent stand failure
 domains, custody, or planned-run capacity.
 
+## Reconciliation boundary
+
+ADR-0034 imports the Q10/Q11 D-031 amendment as immutable protocol
+`2.0.0-pre.2` while preserving `2.0.0-pre.1`. `cpu_prefetch_reconciliation`
+builds the producer-accepted sequence in logical order, performs the exact
+k-th accepted-ordinal join, validates repeating record indices against the
+Stage 6 mapping, and calls the Stage 8 interval equations only after the whole
+join passes. A failed audit has classified faults and no joined rows.
+
+Run validity, join, count reconciliation, zero loss, effective tail, block
+completeness, and estimability remain independent. The exhaustive blocker
+array uses `BLOCKED_MULTIPLE` without priority. Final estimability remains
+`NOT_EVALUATED` until Stage 14 supplies authoritative block and access gates.
+See [`docs/RECONCILIATION.md`](docs/RECONCILIATION.md).
+
+Focused software verification is:
+
+```sh
+cmake --build --preset dev-gcc --target reconciliation-check
+ctest --preset dev-gcc -L reconciliation --output-on-failure
+ctest --preset asan-ubsan-gcc -L reconciliation --output-on-failure
+ctest --preset tsan-gcc -L reconciliation --output-on-failure
+```
+
 ## CI boundary and next safe action
 
 [`ci.yml`](.github/workflows/ci.yml) uses only a full-commit-pinned checkout
@@ -388,11 +421,11 @@ Stage 9's software slice is complete under ADR-0018 and ADR-0019; see
 [`docs/STAND_RUNBOOK.md`](docs/STAND_RUNBOOK.md). Exact stand actuator,
 authority, selected-pair/address readback, vendor-prefetch mapping/probes,
 restoration, and dynamic clock evidence remain mandatory operational gates.
-Stage 10's lifecycle and Stage 11's local storage slices are complete under
-ADR-0031 through ADR-0033. The protocol and statistical owner accepted the
-[`D-031/Q10` decision bundle](docs/STAGE12_D031_DECISION_BUNDLE.md), selecting
-a versioned exhaustive blocker set with a non-priority multiple summary. Stage
-12 remains blocked until that amended protocol snapshot is published or
-supplied, imported alongside `2.0.0-pre.1`, and hash-verified. Measurement,
-pilot, and confirmatory behavior remain prohibited until their later lifecycle
-gates.
+Stages 10 through 12 are complete locally under ADR-0031 through ADR-0034.
+Q11 authorized and the repository hash-verifies immutable protocol
+`2.0.0-pre.2` beside unchanged `2.0.0-pre.1`; Stage 12 contains only synthetic
+post-run correctness infrastructure. Q12 accepted the Stage 13
+calibration decision/input bundle, recorded by ADR-0035 through ADR-0038. The
+exact next safe action is Stage 13 implementation using synthetic and fake
+inputs only. Calibration execution, measurement, pilot, and confirmatory
+behavior remain prohibited until their applicable later gates.

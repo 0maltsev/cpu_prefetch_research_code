@@ -1,11 +1,12 @@
 # Stage 11 Raw-Observation Storage
 
-Protocol version: **`2.0.0-pre.1`**
+Protocol version: **`2.0.0-pre.2`**; physical format v1 is unchanged
 
 Scope: bounded producer/consumer capture, the accepted physical codec,
 immutable envelopes and integrity records, checked storage budgets, and
 crash-aware local publication. Reconciliation, join audits, joined-row
-construction, latency derivation, and run disposition remain Stage 12 work.
+construction, latency derivation, and run disposition are implemented by the
+separate Stage 12 offline reconciliation layer.
 
 ## Frozen identities
 
@@ -17,7 +18,7 @@ construction, latency derivation, and run disposition remain Stage 12 work.
 | Endianness | `LITTLE_ENDIAN` |
 | Compression | `NONE` |
 | Durability policy | `RAW-OBS-NONE-TMP1-DUR2-v1` |
-| Logical/envelope schema version | `2.0.0-pre.1` |
+| Logical/envelope schema version | Matches its immutable protocol graph (`2.0.0-pre.1` historical or current `2.0.0-pre.2`); no mixed envelope/row graph |
 | Canonical JSON | `JCS-I64-v1`, UTF-8, no BOM or trailing newline |
 
 These values implement ADR-0032 and ADR-0033. Unknown or mixed identifiers,
@@ -208,10 +209,10 @@ elapsed time, latency, throughput, treatment comparison, or result artifact.
 
 ## Later gates
 
-Stage 12 must resolve immutable references/hashes, prove raw absolute/relative
-clock-origin relationships, reconcile only by `(run_id, accepted_ordinal)`,
-emit a join audit for every attempt, and create joined rows only after a passed
-audit. Phase 16 must supply the exact run plan, page residency, available hot
+Stage 12 resolves immutable references/hashes, proves raw absolute/relative
+clock-origin relationships, reconciles only by `(run_id, accepted_ordinal)`,
+emits a join audit for every attempt, and creates joined rows only after a
+passed audit. Phase 16 must supply the exact run plan, page residency, available hot
 and durable capacity plus reserve, two real independent storage domains,
 permissions/custody, and an exact-release crash/recovery exercise. Until those
 gates pass, pilot and performance measurement remain prohibited.

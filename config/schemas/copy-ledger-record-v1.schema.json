@@ -13,7 +13,7 @@
   ],
   "properties": {
     "schema_version": {"const": "cpu-prefetch-copy-ledger-record/1"},
-    "protocol_version": {"const": "2.0.0-pre.1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
     "ledger_record_id": {"type": "string", "minLength": 1},
     "run_id": {"type": "string", "minLength": 1},
     "policy_id": {"const": "RAW-OBS-NONE-TMP1-DUR2-v1"},

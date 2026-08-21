@@ -19,7 +19,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-PROTOCOL_VERSION = "2.0.0-pre.1"
+PROTOCOL_VERSION = "2.0.0-pre.2"
+# ADR-0025/0029 froze this label into deterministic hash/key preimages.
+DERIVATION_DOMAIN_PROTOCOL_VERSION = "2.0.0-pre.1"
 BASE_RNG_SUITE = "PHILOX4X32-10-HMAC-SHA256-v1"
 SCHEDULE_ALGORITHM = "POISSON-EXPONENTIAL-PHILOX-DECIMAL80-FLOOR-ABS-PS"
 SCHEDULE_VERSION = "1"
@@ -158,7 +160,12 @@ def _append_field(output: bytearray, value: bytes) -> None:
 
 def _derive_key(master_seed: bytes, namespace_id: str) -> tuple[int, int]:
     message = bytearray()
-    for value in (PROTOCOL_VERSION, BASE_RNG_SUITE, namespace_id, PURPOSE):
+    for value in (
+        DERIVATION_DOMAIN_PROTOCOL_VERSION,
+        BASE_RNG_SUITE,
+        namespace_id,
+        PURPOSE,
+    ):
         _append_field(message, value.encode("utf-8"))
     digest = hmac.new(master_seed, message, hashlib.sha256).digest()
     return struct.unpack(">II", digest[:8])
@@ -407,7 +414,7 @@ def _decoded_hash(spec: ScheduleSpec, deadlines: tuple[int, ...]) -> str:
     preimage = bytearray()
     for value in (
         b"cpu-prefetch/decoded-deadlines-sha256/v1",
-        PROTOCOL_VERSION.encode(),
+        DERIVATION_DOMAIN_PROTOCOL_VERSION.encode(),
         SCHEDULE_SUITE.encode(),
         TIME_UNIT.encode(),
         struct.pack(">Q", spec.origin_ticks),

@@ -2,7 +2,13 @@
 
 ## Scope and authority
 
-This is the accepted architecture for Stage A of protocol `2.0.0-pre.1`. ADR-0007 through ADR-0033 additionally freeze the owner-approved C++20/Linux/toolchain/build/test, process/queue/atomic/integrity/correctness, platform/custody, licensing, Stage 3 tooling, Stage 4 protocol-model, Stage 5 queue-representation, Stage 6 deterministic-workload, Stage 7 deterministic-schedule, Stage 8 clock-contract, Stage 9 platform-control, Stage 10 lifecycle/termination, and Stage 11 physical-storage boundaries. Exact eligible-stand mappings/evidence and later pilot outputs remain open. The imported snapshot remains authoritative; contradictions require a versioned protocol amendment. Stage B and Stage C are excluded.
+This is the accepted architecture for Stage A of protocol `2.0.0-pre.2`, with
+immutable predecessor `2.0.0-pre.1`. ADR-0007 through ADR-0034 freeze the
+owner-approved software foundation through Stage 12 exact reconciliation and
+run gates. Exact eligible-stand mappings/evidence, authoritative Stage 14
+block/access evaluation, and later pilot outputs remain open. Imported
+snapshots remain authoritative under their versions; contradictions require a
+versioned protocol amendment. Stage B and Stage C are excluded.
 
 The architecture has three planes:
 
@@ -29,8 +35,8 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 | Controller | Physical codec | Encode/decode exact logical rows/envelopes | Private fixed-row write is timed; decoding/envelopes are outside | `RAW-OBS-U64LE-LP-RUNID-v1` implemented; new formats remain replaceable under a new ID |
 | Controller | Artifact store | Immutable content-addressed publication, copy evidence, partial finalization | Forbidden | Stage 11 local no-replace/two-copy backend implemented; real failure domains and separated custody remain Phase 16 evidence |
 | Offline | Structural validator | Draft 2020-12 validation against unmodified imported schemas | Forbidden | Stage 4 implemented with pinned jsonschema and positive/negative fixtures |
-| Offline | Semantic validator | Record-local arithmetic, lifecycle, schedule, timestamp, coverage, replacement, and access checks; later cross-record seam | Forbidden | Stage 4 local rules implemented; store-dependent rules explicitly deferred to Phases 12/14 |
-| Offline | Reconciler | Join producer/consumer by `(run_id, accepted_ordinal)`, validate record index, emit audit and optional derived join | Forbidden | Consumes immutable sources only |
+| Offline | Semantic validator | Record-local arithmetic/lifecycle plus run-level immutable hash/source/count/integrity/failure relationships; block/access chronology later | Forbidden | Stage 4 local and Stage 12 run-level rules implemented; Stage 14 owns block/access graphs |
+| Offline | Reconciler | Build accepted producer order; exact k-th join by `(run_id, accepted_ordinal)`; validate Stage 6 mapping/index; emit audit and conditional derived join | Forbidden | Stage 12 implemented; consumes immutable sources only and derives nothing on failed audit |
 | Offline | Statistical analysis | Fixed quantiles, diagnostics, H1/H2 families, sealed H3 chronology | Forbidden | Deferred; cannot influence implementation choices |
 
 ## Stable interfaces
@@ -170,7 +176,13 @@ ADR-0012 requires one unprivileged measurement process with a quiescent controll
 
 Lifecycle transitions and partial failures are append-only. Early failure cannot fabricate raw artifacts. Producer and consumer sources remain independently immutable; failed reconciliation produces an audit and no joined-derived stream. A correction or format conversion creates a derived artifact. Replacement follows the complete-block protocol and never reuses run identity.
 
-Readers fail closed on unknown protocol/schema, artifact-kind, physical-format, clock, RNG, permutation, mixing, checksum, or canonicalization identifiers. The current implementation accepts only internally consistent `2.0.0-pre.1` records; it provides no 1.x migration or future-enum pass-through. Additive compatibility must be declared and tested; changed bytes always receive new content identity.
+Readers fail closed on unknown protocol/schema, artifact-kind, physical-format,
+clock, RNG, permutation, mixing, checksum, or canonicalization identifiers.
+The loader reads pre.1 and pre.2 under distinct contracts; new output is pre.2
+and Stage 12 rejects mixed graphs. There is no implicit migration, repair, or
+future-enum pass-through. Frozen ADR-0025/0029 pre.1 derivation-domain labels
+remain suite identity. Additive compatibility must be declared and tested;
+changed bytes always receive new content identity.
 
 ## Accepted baselines and deferred evidence
 

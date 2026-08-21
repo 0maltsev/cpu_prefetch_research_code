@@ -15,9 +15,11 @@ failure-safe restoration, and platform manifests. Stage 10 provides the
 fake-backed lifecycle graph, reset evidence, start/termination/drain
 concurrency, and partial-failure rules. Stage 11 provides bounded private raw
 writers, the accepted codec, storage/integrity records, checked budgets, and a
-local crash-aware append-only store; no authorized scientific run,
-reconciliation, privileged stand actuator, or eligible-pair qualification exists.
-ADR-0009 through ADR-0011, ADR-0017, and ADR-0022 through ADR-0033 fix the
+local crash-aware append-only store. Stage 12 provides exact offline
+reconciliation, run-level semantic relationships, and independent D-031 gate
+evaluation; no authorized scientific run, privileged stand actuator, or
+eligible-pair qualification exists. ADR-0009 through ADR-0011, ADR-0017, and
+ADR-0022 through ADR-0034 fix the
 framework/toolchain/sanitizer/model/queue/workload/schedule/clock/lifecycle/
 storage-decision baseline and commands. ADR-0030's software and dual-tool
 generated-code slice and ADR-0031's lifecycle/concurrency slice pass;
@@ -91,12 +93,11 @@ Schema-valid but semantically invalid fixtures must be rejected for:
 Test each rule with one clear failing reason and an independently derived expected outcome.
 
 Stage 4 status: record-local rules are implemented with stable category, path,
-and rule IDs. Store-dependent reference/hash, cross-stream reconciliation,
-append-only ancestry, authority segregation, and budget proofs remain assigned
-to Phases 12/14 through the `CrossRecordSemanticValidator` interface; they are
-not reported as passing. Simultaneous failed gates accept either applicable
-singular blocker reason and reject `ESTIMABLE`; D-031 blocks Phase 12 from
-freezing a precedence that the imported protocol does not state.
+and rule IDs. Stage 12 implements immutable run-level reference/hash, exact
+cross-stream reconciliation, and D-031 exhaustive blocker rules. Append-only
+block/replacement ancestry, authority segregation, access chronology, and
+block budget proofs remain Phase 14 responsibilities and are not reported as
+passing.
 
 ### 4. Unit tests
 
@@ -298,6 +299,21 @@ overwrite/duplicate IDs, and prove missing streams are not fabricated.
 ### 12. Reconciliation fault injection
 
 Start from independently built producer and consumer streams, then inject count mismatch, wrong `run_id`, wrong ordinal, unexpected pointer/index, duplicate, loss, reorder, invalid timestamp, broken equation, row/envelope disagreement, wrong source hash, and partial/truncated artifact. Every attempted join emits an audit. No failure may emit successful joined data or latency.
+
+Stage 12 status: deterministic unit and RapidCheck-generated histories cover
+empty and repeating-index success, first/internal/last loss, duplicate,
+reorder, malformed producer/consumer ordinals, unexpected Stage 6 mapping and
+consumer index, run identity, count, and timestamp corruption. Every failed
+result has classified issues and an empty joined vector. Audit tests enforce
+passed-with-joined versus failed-without-joined and exact regenerated audit
+bytes. The cross-record integration fixture rejects missing typed envelopes,
+duplicate identities, mixed versions, wrong immutable hashes/source lineage,
+and accepts a pre-run failure with schedules and failure evidence but no
+fabricated raw or joined streams. Status tests cover exact count identities,
+invalid-without-failure rejection, valid `FULL`, valid low `N_eff`, pending
+Stage 14 evidence, and all five simultaneous blockers in canonical order. The
+same label is required under development, ASan/UBSan, and TSan presets; all
+inputs are synthetic.
 
 ### 13. Lifecycle transition tests
 

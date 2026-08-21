@@ -24,7 +24,7 @@
   ],
   "properties": {
     "record_schema": {"const": "cpu-prefetch-schedule-derivation-v1"},
-    "protocol_version": {"const": "2.0.0-pre.1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
     "record_id": {"type": "string", "minLength": 1},
     "schedule_suite": {"const": "POISSON-EXPONENTIAL-PHILOX-DECIMAL80-FLOOR-ABS-PS-v1"},
     "base_rng_suite": {"const": "PHILOX4X32-10-HMAC-SHA256-v1"},

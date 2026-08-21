@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 4.3)
 project(
   cpu_prefetch_foundation
   VERSION 2.0.0
-  DESCRIPTION "Typed protocol and deterministic lifecycle foundation for the CPU prefetch research protocol"
+  DESCRIPTION "Typed protocol, deterministic lifecycle, storage, and reconciliation foundation for the CPU prefetch research protocol"
   LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -180,6 +180,19 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+add_library(cpu_prefetch_reconciliation STATIC
+            src/reconciliation/reconciliation.cpp)
+add_library(cpu_prefetch::reconciliation ALIAS cpu_prefetch_reconciliation)
+target_link_libraries(
+  cpu_prefetch_reconciliation
+  PUBLIC cpu_prefetch::protocol cpu_prefetch::storage cpu_prefetch::timing
+  PRIVATE cpu_prefetch_project_options cpu_prefetch::workload)
+target_include_directories(
+  cpu_prefetch_reconciliation
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
 add_executable(cpu_prefetch_smoke tools/smoke_main.cpp)
 target_link_libraries(
   cpu_prefetch_smoke PRIVATE cpu_prefetch::foundation cpu_prefetch_project_options)
@@ -349,6 +362,17 @@ if(BUILD_TESTING)
     PREFIX "storage."
     PROPERTIES LABELS "storage")
 
+  add_executable(cpu_prefetch_reconciliation_tests
+                 tests/reconciliation_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_reconciliation_tests
+    PRIVATE cpu_prefetch::reconciliation cpu_prefetch_project_options
+            GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_reconciliation_tests
+    PREFIX "reconciliation."
+    PROPERTIES LABELS "reconciliation")
+
   add_executable(cpu_prefetch_storage_stress tests/storage_stress.cpp)
   target_link_libraries(
     cpu_prefetch_storage_stress
@@ -379,6 +403,15 @@ if(BUILD_TESTING)
       --source-root "${PROJECT_SOURCE_DIR}")
   set_tests_properties(
     storage.schema_compatibility PROPERTIES LABELS "storage;python;schema")
+
+  add_test(
+    NAME reconciliation.schema
+    COMMAND
+      "${Python3_EXECUTABLE}"
+      "${PROJECT_SOURCE_DIR}/tools/check_reconciliation_schema.py"
+      --source-root "${PROJECT_SOURCE_DIR}")
+  set_tests_properties(
+    reconciliation.schema PROPERTIES LABELS "reconciliation;python;schema")
 
   add_test(NAME storage.large_synthetic COMMAND cpu_prefetch_storage_large_smoke)
   set_tests_properties(
@@ -446,8 +479,10 @@ if(BUILD_TESTING)
   add_test(NAME smoke.executable COMMAND cpu_prefetch_smoke)
   set_tests_properties(
     smoke.executable
-    PROPERTIES PASS_REGULAR_EXPRESSION "protocol=2.0.0-pre.1")
+    PROPERTIES PASS_REGULAR_EXPRESSION "protocol=2.0.0-pre.2")
 
+  set(CPU_PREFETCH_RECONCILIATION_CHECK_DEPENDS
+      cpu_prefetch_reconciliation_tests)
   if(CPU_PREFETCH_ENABLE_PROPERTY_TESTS)
     find_package(RapidCheck REQUIRED)
     add_executable(cpu_prefetch_rapidcheck_smoke tests/rapidcheck_smoke.cpp)
@@ -456,14 +491,26 @@ if(BUILD_TESTING)
       PRIVATE
         cpu_prefetch::protocol
         cpu_prefetch::queue
+        cpu_prefetch::reconciliation
         cpu_prefetch::workload
         cpu_prefetch_project_options
         RapidCheck::rapidcheck)
     add_test(NAME property.framework_smoke COMMAND cpu_prefetch_rapidcheck_smoke)
     set_tests_properties(
       property.framework_smoke
-      PROPERTIES ENVIRONMENT "RC_PARAMS=seed=20260817")
+      PROPERTIES
+        ENVIRONMENT "RC_PARAMS=seed=20260817"
+        LABELS "property;reconciliation")
+    list(APPEND CPU_PREFETCH_RECONCILIATION_CHECK_DEPENDS
+         cpu_prefetch_rapidcheck_smoke)
   endif()
+
+  add_custom_target(
+    reconciliation-check
+    COMMAND "${CMAKE_CTEST_COMMAND}" --test-dir "${PROJECT_BINARY_DIR}"
+            --output-on-failure -L reconciliation
+    DEPENDS ${CPU_PREFETCH_RECONCILIATION_CHECK_DEPENDS}
+    COMMENT "Checking exact Stage 12 reconciliation and independent run gates")
 endif()
 
 add_executable(
@@ -529,6 +576,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/json.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/model.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/validation.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/reconciliation/reconciliation.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/adapters.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/common.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/linked_spsc.hpp"
@@ -558,6 +606,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/semantic.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/validation.cpp"
+  "${PROJECT_SOURCE_DIR}/src/reconciliation/reconciliation.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -584,6 +633,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
@@ -624,6 +674,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/semantic.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/validation.cpp"
+  "${PROJECT_SOURCE_DIR}/src/reconciliation/reconciliation.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -649,6 +700,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
@@ -812,6 +864,7 @@ install(
     cpu_prefetch_platform
     cpu_prefetch_protocol
     cpu_prefetch_queue
+    cpu_prefetch_reconciliation
     cpu_prefetch_schedule
     cpu_prefetch_storage
     cpu_prefetch_timing
@@ -831,12 +884,13 @@ install(
 install(
   FILES
     "${PROJECT_BINARY_DIR}/generated/version_metadata.json"
-    "${PROJECT_SOURCE_DIR}/protocol/2.0.0-pre.1/handoff/PROTOCOL_VERSION.md"
+    "${PROJECT_SOURCE_DIR}/protocol/2.0.0-pre.2/handoff/PROTOCOL_VERSION.md"
     "${PROJECT_SOURCE_DIR}/config/dependencies.json"
     "${PROJECT_SOURCE_DIR}/docs/PLATFORM_CONTROL.md"
     "${PROJECT_SOURCE_DIR}/docs/LIFECYCLE.md"
     "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/QUEUE_CORRECTNESS.md"
+    "${PROJECT_SOURCE_DIR}/docs/RECONCILIATION.md"
     "${PROJECT_SOURCE_DIR}/docs/SCHEDULE_GENERATION.md"
     "${PROJECT_SOURCE_DIR}/docs/STORAGE.md"
     "${PROJECT_SOURCE_DIR}/docs/TIMING.md"

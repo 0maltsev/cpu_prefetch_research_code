@@ -13,7 +13,9 @@
 namespace cpu_prefetch::workload {
 
 inline constexpr std::string_view kDeterministicSuite = "PHILOX4X32-10-HMAC-SHA256-v1";
-inline constexpr std::string_view kProtocolVersion = "2.0.0-pre.1";
+// ADR-0025 froze this literal into HMAC derivation preimages. It is a suite
+// domain label, not the version of documents emitted by the implementation.
+inline constexpr std::string_view kDerivationDomainProtocolVersion = "2.0.0-pre.1";
 
 class WorkloadSetupError final : public std::invalid_argument {
 public:

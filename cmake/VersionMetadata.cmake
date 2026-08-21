@@ -1,5 +1,5 @@
 function(cpu_prefetch_configure_version_metadata)
-  set(CPU_PREFETCH_PROTOCOL_VERSION "2.0.0-pre.1" PARENT_SCOPE)
+  set(CPU_PREFETCH_PROTOCOL_VERSION "2.0.0-pre.2" PARENT_SCOPE)
 
   if(DEFINED CPU_PREFETCH_SOURCE_REVISION)
     set(_revision "${CPU_PREFETCH_SOURCE_REVISION}")
@@ -41,7 +41,7 @@ function(cpu_prefetch_configure_version_metadata)
     set(_source_state_suffix "")
   endif()
 
-  set(CPU_PREFETCH_PROTOCOL_VERSION "2.0.0-pre.1")
+  set(CPU_PREFETCH_PROTOCOL_VERSION "2.0.0-pre.2")
   set(CPU_PREFETCH_GIT_REVISION "${_revision}")
   set(CPU_PREFETCH_GIT_REVISION_SHORT "${_revision_short}")
   set(CPU_PREFETCH_GIT_DIRTY_CPP "${_dirty_cpp}")

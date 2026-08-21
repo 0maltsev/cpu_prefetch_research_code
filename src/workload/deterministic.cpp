@@ -120,9 +120,10 @@ PhiloxKey derive_stream_key(const MasterSeed& master_seed, std::string_view name
     throw WorkloadSetupError("deterministic stream purpose is unknown");
   }
   std::vector<std::byte> message;
-  message.reserve((4U * sizeof(std::uint64_t)) + kProtocolVersion.size() +
-                  kDeterministicSuite.size() + name_space.size() + purpose_text.size());
-  append_field(message, kProtocolVersion);
+  message.reserve((4U * sizeof(std::uint64_t)) +
+                  kDerivationDomainProtocolVersion.size() + kDeterministicSuite.size() +
+                  name_space.size() + purpose_text.size());
+  append_field(message, kDerivationDomainProtocolVersion);
   append_field(message, kDeterministicSuite);
   append_field(message, name_space);
   append_field(message, purpose_text);

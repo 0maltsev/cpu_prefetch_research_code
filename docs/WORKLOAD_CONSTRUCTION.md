@@ -1,6 +1,6 @@
 # Stage 6 Workload Construction
 
-Protocol version: **`2.0.0-pre.1`**
+Protocol version: **`2.0.0-pre.2`**; ADR-0025 derivation domain remains pre.1
 
 Scope: deterministic record and node working sets plus the five Stage A package
 mechanisms. This code performs no scheduling, clock read, performance

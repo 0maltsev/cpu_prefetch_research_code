@@ -262,6 +262,82 @@ auto validate_raw(const RawObservationEnvelope& envelope)
 
 auto validate_manifest(const RunManifest& manifest) -> std::vector<ValidationError> {
   std::vector<ValidationError> errors;
+  if (manifest.protocol_version == ProtocolVersion::v2_0_0_pre_2) {
+    const auto& blockers = manifest.confirmatory_blockers;
+    if (!std::ranges::is_sorted(blockers) ||
+        std::ranges::adjacent_find(blockers) != blockers.end()) {
+      add(errors, ErrorCategory::duplicate_value, "$out/confirmatory_blockers",
+          "LIF-BLOCKER-CANONICAL-ORDER",
+          "confirmatory blockers must be unique and in ascending UTF-8 token order");
+    }
+
+    const bool evidence_pending =
+        manifest.validity == RunValidity::not_evaluated ||
+        manifest.zero_loss_status == GateStatus::not_evaluated ||
+        manifest.effective_tail_status == GateStatus::not_evaluated ||
+        manifest.block_completeness == BlockCompleteness::not_evaluated;
+    if (evidence_pending && (manifest.confirmatory_estimability !=
+                                 ConfirmatoryEstimability::not_evaluated ||
+                             !blockers.empty())) {
+      add(errors, ErrorCategory::cross_field, "$out/confirmatory_estimability",
+          "LIF-BLOCKER-EVIDENCE-COMPLETE",
+          "final estimability and blocker values require authoritative evidence for "
+          "every applicable gate");
+    }
+
+    const auto contains = [&](ConfirmatoryBlocker blocker) {
+      return std::ranges::find(blockers, blocker) != blockers.end();
+    };
+    if (!evidence_pending) {
+      const bool local_mismatch =
+          contains(ConfirmatoryBlocker::blocked_zero_loss) !=
+              (manifest.zero_loss_status == GateStatus::fail) ||
+          contains(ConfirmatoryBlocker::blocked_effective_tail) !=
+              (manifest.effective_tail_status == GateStatus::fail) ||
+          contains(ConfirmatoryBlocker::blocked_invalid_run) !=
+              (manifest.validity == RunValidity::invalid) ||
+          contains(ConfirmatoryBlocker::blocked_incomplete_block) !=
+              (manifest.block_completeness == BlockCompleteness::incomplete);
+      if (local_mismatch) {
+        add(errors, ErrorCategory::cross_field, "$out/confirmatory_blockers",
+            "LIF-BLOCKER-EXHAUSTIVE-LOCAL",
+            "the blocker array must exactly reflect every locally represented "
+            "failed gate");
+      }
+    }
+
+    ConfirmatoryEstimability expected_summary = ConfirmatoryEstimability::not_evaluated;
+    if (!evidence_pending) {
+      if (blockers.empty()) {
+        expected_summary = ConfirmatoryEstimability::estimable;
+      } else if (blockers.size() > 1U) {
+        expected_summary = ConfirmatoryEstimability::blocked_multiple;
+      } else {
+        switch (blockers.front()) {
+        case ConfirmatoryBlocker::blocked_access_leakage:
+          expected_summary = ConfirmatoryEstimability::blocked_access_leakage;
+          break;
+        case ConfirmatoryBlocker::blocked_effective_tail:
+          expected_summary = ConfirmatoryEstimability::blocked_effective_tail;
+          break;
+        case ConfirmatoryBlocker::blocked_incomplete_block:
+          expected_summary = ConfirmatoryEstimability::blocked_incomplete_block;
+          break;
+        case ConfirmatoryBlocker::blocked_invalid_run:
+          expected_summary = ConfirmatoryEstimability::blocked_invalid_run;
+          break;
+        case ConfirmatoryBlocker::blocked_zero_loss:
+          expected_summary = ConfirmatoryEstimability::blocked_zero_loss;
+          break;
+        }
+      }
+    }
+    if (manifest.confirmatory_estimability != expected_summary) {
+      add(errors, ErrorCategory::cross_field, "$out/confirmatory_estimability",
+          "LIF-BLOCKER-SUMMARY",
+          "estimability summary does not match the exhaustive blocker array");
+    }
+  }
   if (manifest.stage == Stage::stage_a &&
       (manifest.run_mode != RunMode::latency ||
        manifest.block_role == BlockRole::not_applicable ||
@@ -396,7 +472,8 @@ auto validate_manifest(const RunManifest& manifest) -> std::vector<ValidationErr
        manifest.validity != RunValidity::invalid) ||
       (estimability == ConfirmatoryEstimability::blocked_incomplete_block &&
        manifest.block_completeness != BlockCompleteness::incomplete);
-  if (incorrectly_estimable || selected_reason_does_not_apply) {
+  if (manifest.protocol_version == ProtocolVersion::v2_0_0_pre_1 &&
+      (incorrectly_estimable || selected_reason_does_not_apply)) {
     add(errors, ErrorCategory::cross_field, "$out/confirmatory_estimability",
         "LIF-ESTIMABILITY-APPLICABILITY",
         "estimability must remain blocked when a local gate fails and any selected "

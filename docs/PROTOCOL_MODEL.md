@@ -2,12 +2,13 @@
 
 ## Scope
 
-Stage 4 implemented the stable logical concepts of protocol `2.0.0-pre.1`. Its
+Stage 4 implemented the stable logical concepts now shared by immutable
+protocols `2.0.0-pre.1` and `2.0.0-pre.2`. Its
 scope did not implement a queue, raw physical format, clock reader, platform
 mutation, run controller, reconciliation pipeline, or performance measurement.
 The imported schemas remain authoritative and unmodified. No compatibility
-schema was added under `config/schemas/`; later implementation-owned schedule,
-platform, phase-integrity, and copy-ledger schemas are explicitly subordinate
+schema replaces an imported schema; implementation-owned schedule, platform,
+phase-integrity, copy-ledger, and join-audit schemas are explicitly subordinate
 contracts and cannot extend imported logical records.
 
 ## Validation boundary
@@ -75,11 +76,9 @@ Stage 4 checks:
 - lifecycle/failure evidence, early-failure non-fabrication, failed-join
   artifact shape, completed-valid Stage A evidence, count identities, zero
   final occupancy, and independent validity/zero-loss/effective-tail/
-  estimability states; a selected blocker must apply and `ESTIMABLE` cannot
-  coexist with a failed local gate, while D-031 deliberately leaves precedence
-  among simultaneous blockers unresolved under `2.0.0-pre.1`; the accepted
-  [Q10 bundle](STAGE12_D031_DECISION_BUNDLE.md) selects a versioned
-  multi-reason amendment, but code must wait for its normative snapshot;
+  estimability states; pre.1 retains its historical applicability-only
+  singular contract, while pre.2 requires the D-031 exhaustive, unique,
+  UTF-8-ordered blocker array and exact singular/multiple summary mapping;
 - exactly 180 Stage A factor tuples and ordinals `0..179`, H0/H1 whole plots,
   ring/linked node-seed nullability, and self-contained replacement
   identity/ordinal/role/subspace rules;
@@ -90,12 +89,12 @@ Stage 4 checks:
   and amendment fields;
 - explicit H0/H1 platform requests and separate verification records.
 
-## Cross-record rules deliberately deferred
+## Cross-record rules
 
 `CrossRecordSemanticValidator` is the implementation seam for rules that
 cannot be honestly proved without later immutable stores and orchestration.
 
-Stage 12 owns:
+Stage 12 implements:
 
 - resolving manifest, raw, join-audit, integrity, provenance, schedule, and
   failure references to immutable bytes and matching SHA-256 values;
@@ -106,9 +105,9 @@ Stage 12 owns:
   timestamps, count identities from actual artifacts, and absence of joined
   data after a failed audit;
 - comparing pre/post content and algorithm-identified integrity evidence;
-- implementing D-031 only after import of the Q10-authorized amended protocol;
-  until then, final manifests cannot choose one summary reason when several
-  independent confirmation blockers apply.
+- evaluating lifecycle completion, validity, join, count, zero-loss, tail, and
+  D-031 estimability independently, with an invalidating failure record
+  required for `INVALID` and no retry/replacement inference.
 
 Stage 14 owns:
 
@@ -121,9 +120,10 @@ Stage 14 owns:
   membership, authority segregation, and the selection/unseal/evaluation/
   release chain used by orchestration.
 
-These are explicit blockers for their owning stages, not defaults or waived
-checks. Stage 4 accepts no artifact as cross-record valid merely because its
-individual JSON document is valid.
+The Stage 14 items are explicit blockers for that stage, not defaults or waived
+checks. Stage 12 leaves final estimability `NOT_EVALUATED` until authoritative
+block/access results are injected. No layer accepts an artifact as globally
+valid merely because its individual JSON document is valid.
 
 ## Canonical serialization
 
@@ -138,8 +138,10 @@ examples, negative zero, UTF-16 property order, Unicode, and escaping.
 
 ## Compatibility
 
-The only accepted compatibility row is `2.0.0-pre.1` input to
-`2.0.0-pre.1` types and rules. Current `1.x`, unknown future versions, unknown
-enums, unknown algorithm IDs where interpreted, and mixed logical-row/envelope
-versions fail. A migration must be append-only, versioned, provenance-bearing,
-and authorized by a later ADR or protocol amendment as applicable.
+Accepted compatibility rows are pre.1 input under pre.1 rules and pre.2 input
+under pre.2 rules. New documents use pre.2; a Stage 12 record graph must be
+entirely pre.2. `1.x`, unknown future versions/enums/algorithm IDs, and mixed
+graphs or logical-row/envelope versions fail. ADR-0025/0029 pre.1 derivation
+labels remain frozen suite-domain bytes. A migration must be append-only,
+versioned, provenance-bearing, and authorized by a later ADR or protocol
+amendment as applicable.

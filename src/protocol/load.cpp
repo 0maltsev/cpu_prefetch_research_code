@@ -769,6 +769,7 @@ auto load_manifest(const json::Value& document) -> RunManifest {
                   "zero_loss_status",
                   "effective_tail_status",
                   "confirmatory_estimability",
+                  "confirmatory_blockers",
                   "block_completeness",
                   "join_status",
                   "counts",
@@ -777,6 +778,13 @@ auto load_manifest(const json::Value& document) -> RunManifest {
                   "artifact_refs",
                   "manifest_sha256"},
                  "$out");
+
+  const auto schema_version = version_field(object, "schema_version", "$out");
+  const auto protocol_version = version_field(object, "protocol_version", "$out");
+  if (schema_version != protocol_version) {
+    fail(ErrorCategory::unsupported_version, "$out/protocol_version", "GOV-004",
+         "schema_version and protocol_version must identify the same snapshot");
+  }
 
   const auto stage =
       take(parse_stage(string_field(object, "stage", "$out"), "$out/stage"));
@@ -813,6 +821,25 @@ auto load_manifest(const json::Value& document) -> RunManifest {
   const auto estimability = take(parse_confirmatory_estimability(
       string_field(object, "confirmatory_estimability", "$out"),
       "$out/confirmatory_estimability"));
+  std::vector<ConfirmatoryBlocker> confirmatory_blockers;
+  const auto* blocker_value = optional(object, "confirmatory_blockers");
+  if (protocol_version == ProtocolVersion::v2_0_0_pre_2) {
+    if (blocker_value == nullptr) {
+      fail(ErrorCategory::missing_field, "$out/confirmatory_blockers",
+           "SCHEMA-REQUIRED",
+           "2.0.0-pre.2 requires the exhaustive confirmatory blocker array");
+    }
+    const auto& blocker_array = array_of(*blocker_value, "$out/confirmatory_blockers");
+    confirmatory_blockers.reserve(blocker_array.size());
+    for (std::size_t index = 0; index < blocker_array.size(); ++index) {
+      const auto path = "$out/confirmatory_blockers/" + std::to_string(index);
+      confirmatory_blockers.push_back(take(
+          parse_confirmatory_blocker(string_of(blocker_array[index], path), path)));
+    }
+  } else if (blocker_value != nullptr) {
+    fail(ErrorCategory::unknown_field, "$out/confirmatory_blockers",
+         "SCHEMA-ADDITIONAL", "2.0.0-pre.1 does not contain confirmatory_blockers");
+  }
   const auto completeness = take(parse_block_completeness(
       string_field(object, "block_completeness", "$out"), "$out/block_completeness"));
   const auto join = take(parse_join_status(string_field(object, "join_status", "$out"),
@@ -844,8 +871,8 @@ auto load_manifest(const json::Value& document) -> RunManifest {
                                        "$out/artifact_refs/" + std::to_string(index)));
   }
   const std::string time_unit = unit_field(object, "time_unit", "$out");
-  return {version_field(object, "schema_version", "$out"),
-          version_field(object, "protocol_version", "$out"),
+  return {schema_version,
+          protocol_version,
           id_field<RunIdTag>(object, "run_id", "$out"),
           id_field<PlatformIdTag>(object, "platform_id", "$out"),
           id_field<BuildIdTag>(object, "build_id", "$out"),
@@ -873,6 +900,7 @@ auto load_manifest(const json::Value& document) -> RunManifest {
           zero_loss,
           effective_tail,
           estimability,
+          std::move(confirmatory_blockers),
           completeness,
           join,
           std::move(counts),

@@ -17,11 +17,12 @@
 
 namespace cpu_prefetch::protocol {
 
-inline constexpr std::string_view kProtocolVersion = "2.0.0-pre.1";
-inline constexpr std::string_view kLogicalRowSchemaVersion = "2.0.0-pre.1";
+inline constexpr std::string_view kProtocolVersion = "2.0.0-pre.2";
+inline constexpr std::string_view kPreviousProtocolVersion = "2.0.0-pre.1";
+inline constexpr std::string_view kLogicalRowSchemaVersion = "2.0.0-pre.2";
 inline constexpr std::string_view kCanonicalizationSuite = "JCS-I64-v1";
 
-enum class ProtocolVersion : std::uint8_t { v2_0_0_pre_1 };
+enum class ProtocolVersion : std::uint8_t { v2_0_0_pre_1, v2_0_0_pre_2 };
 
 template <typename Tag> class Identifier {
 public:
@@ -151,7 +152,16 @@ enum class ConfirmatoryEstimability : std::uint8_t {
   blocked_invalid_run,
   blocked_incomplete_block,
   blocked_access_leakage,
+  blocked_multiple,
   not_applicable,
+};
+// Declaration order is the required ascending UTF-8 token-byte order.
+enum class ConfirmatoryBlocker : std::uint8_t {
+  blocked_access_leakage,
+  blocked_effective_tail,
+  blocked_incomplete_block,
+  blocked_invalid_run,
+  blocked_zero_loss,
 };
 enum class BlockCompleteness : std::uint8_t {
   not_evaluated,
@@ -330,6 +340,7 @@ CPU_PREFETCH_DECLARE_ENUM_PARSER(load_level, LoadLevel);
 CPU_PREFETCH_DECLARE_ENUM_PARSER(run_validity, RunValidity);
 CPU_PREFETCH_DECLARE_ENUM_PARSER(gate_status, GateStatus);
 CPU_PREFETCH_DECLARE_ENUM_PARSER(confirmatory_estimability, ConfirmatoryEstimability);
+CPU_PREFETCH_DECLARE_ENUM_PARSER(confirmatory_blocker, ConfirmatoryBlocker);
 CPU_PREFETCH_DECLARE_ENUM_PARSER(block_completeness, BlockCompleteness);
 CPU_PREFETCH_DECLARE_ENUM_PARSER(access_state, AccessState);
 
@@ -559,6 +570,7 @@ struct RunManifest {
   GateStatus zero_loss_status;
   GateStatus effective_tail_status;
   ConfirmatoryEstimability confirmatory_estimability;
+  std::vector<ConfirmatoryBlocker> confirmatory_blockers;
   BlockCompleteness block_completeness;
   JoinStatus join_status;
   std::optional<RunCounts> counts;

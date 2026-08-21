@@ -67,10 +67,10 @@ def verify_envelope(path: pathlib.Path, kind: str, rows: int, byte_count: int,
     expected_kind = {"producer": "PRODUCER", "consumer": "CONSUMER",
                      "joined": "JOINED_DERIVED"}[kind]
     exact = {
-        "schema_version": "2.0.0-pre.1",
-        "protocol_version": "2.0.0-pre.1",
+        "schema_version": "2.0.0-pre.2",
+        "protocol_version": "2.0.0-pre.2",
         "stream_kind": expected_kind,
-        "logical_row_schema_version": "2.0.0-pre.1",
+        "logical_row_schema_version": "2.0.0-pre.2",
         "physical_format_record_id": FORMAT_ID,
         "encoding": ENCODING,
         "time_unit": "PICOSECONDS",

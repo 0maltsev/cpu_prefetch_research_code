@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/2.0.0-pre.2/raw-observation.schema.json",
+  "title": "Ordered raw-observation stream envelope",
+  "description": "Normative logical rows are independent of the later-frozen physical encoding. Every logical row carries run_id. Production envelopes reference an external immutable artifact; inline rows are test/example only. Timestamp ordering and derived-interval arithmetic are semantic-validator obligations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "artifact_id", "run_id", "stream_kind",
+    "logical_row_schema_version", "physical_format_record_id", "encoding", "time_unit",
+    "endianness", "compression", "row_count", "byte_count", "immutable_ordering",
+    "storage", "integrity_artifact_ref", "artifact_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0-pre.2"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "stream_kind": {"enum": ["PRODUCER", "CONSUMER", "JOINED_DERIVED"]},
+    "logical_row_schema_version": {"const": "2.0.0-pre.2"},
+    "physical_format_record_id": {"type": "string", "minLength": 1},
+    "encoding": {"type": "string", "minLength": 1},
+    "time_unit": {"type": "string", "minLength": 1},
+    "endianness": {"enum": ["LITTLE_ENDIAN", "BIG_ENDIAN", "NOT_APPLICABLE"]},
+    "compression": {"type": "string", "minLength": 1},
+    "row_count": {"type": "integer", "minimum": 0},
+    "byte_count": {"type": "integer", "minimum": 0},
+    "immutable_ordering": {"const": true},
+    "storage": {
+      "oneOf": [
+        {"$ref": "#/$defs/external_storage"},
+        {"$ref": "#/$defs/inline_test_storage"}
+      ]
+    },
+    "source_artifacts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/artifact_ref"}
+    },
+    "integrity_artifact_ref": {"$ref": "#/$defs/artifact_ref"},
+    "artifact_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"stream_kind": {"const": "PRODUCER"}}, "required": ["stream_kind"]},
+      "then": {
+        "properties": {
+          "storage": {
+            "oneOf": [
+              {"$ref": "#/$defs/external_storage"},
+              {
+                "allOf": [
+                  {"$ref": "#/$defs/inline_test_storage"},
+                  {"properties": {"inline_rows": {"items": {"$ref": "#/$defs/producer_row"}}}}
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"stream_kind": {"const": "CONSUMER"}}, "required": ["stream_kind"]},
+      "then": {
+        "properties": {
+          "storage": {
+            "oneOf": [
+              {"$ref": "#/$defs/external_storage"},
+              {
+                "allOf": [
+                  {"$ref": "#/$defs/inline_test_storage"},
+                  {"properties": {"inline_rows": {"items": {"$ref": "#/$defs/consumer_row"}}}}
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"stream_kind": {"const": "JOINED_DERIVED"}}, "required": ["stream_kind"]},
+      "then": {
+        "required": ["source_artifacts"],
+        "properties": {
+          "source_artifacts": {"minItems": 2},
+          "storage": {
+            "oneOf": [
+              {"$ref": "#/$defs/external_storage"},
+              {
+                "allOf": [
+                  {"$ref": "#/$defs/inline_test_storage"},
+                  {"properties": {"inline_rows": {"items": {"$ref": "#/$defs/joined_row"}}}}
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "sha256"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "external_storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "artifact_uri"],
+      "properties": {
+        "mode": {"const": "EXTERNAL_IMMUTABLE_ARTIFACT"},
+        "artifact_uri": {"type": "string", "minLength": 1}
+      }
+    },
+    "inline_test_storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "inline_rows"],
+      "properties": {
+        "mode": {"const": "INLINE_TEST_ONLY"},
+        "inline_rows": {"type": "array"}
+      }
+    },
+    "producer_row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id", "logical_sequence", "record_index", "scheduled_arrival",
+        "producer_handle_begin", "record_lookup_completion", "enqueue_invocation",
+        "enqueue_attempt_completion", "attempted", "outcome"
+      ],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "logical_sequence": {"type": "integer", "minimum": 0},
+        "record_index": {"type": "integer", "minimum": 0},
+        "scheduled_arrival": {"type": "integer", "minimum": 0},
+        "producer_handle_begin": {"type": "integer", "minimum": 0},
+        "record_lookup_completion": {"type": "integer", "minimum": 0},
+        "enqueue_invocation": {"type": "integer", "minimum": 0},
+        "enqueue_linearization": {"type": "integer", "minimum": 0},
+        "enqueue_attempt_completion": {"type": "integer", "minimum": 0},
+        "attempted": {"const": true},
+        "outcome": {"enum": ["ACCEPTED", "FULL"]},
+        "accepted_ordinal": {"type": "integer", "minimum": 0}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"outcome": {"const": "ACCEPTED"}}, "required": ["outcome"]},
+          "then": {"required": ["accepted_ordinal", "enqueue_linearization"]}
+        },
+        {
+          "if": {"properties": {"outcome": {"const": "FULL"}}, "required": ["outcome"]},
+          "then": {"not": {"anyOf": [{"required": ["accepted_ordinal"]}, {"required": ["enqueue_linearization"]}]}}
+        }
+      ]
+    },
+    "consumer_row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id", "consumed_ordinal", "observed_record_index", "dequeue_invocation",
+        "dequeue_linearization", "dequeue_completion", "consumer_action_completion"
+      ],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "consumed_ordinal": {"type": "integer", "minimum": 0},
+        "observed_record_index": {"type": "integer", "minimum": 0},
+        "dequeue_invocation": {"type": "integer", "minimum": 0},
+        "dequeue_linearization": {"type": "integer", "minimum": 0},
+        "dequeue_completion": {"type": "integer", "minimum": 0},
+        "consumer_action_completion": {"type": "integer", "minimum": 0}
+      }
+    },
+    "joined_row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id", "accepted_ordinal", "logical_sequence", "record_index",
+        "producer_row_ordinal", "consumer_row_ordinal", "scheduled_arrival",
+        "producer_handle_begin", "record_lookup_completion", "enqueue_invocation",
+        "enqueue_linearization", "enqueue_attempt_completion", "dequeue_invocation",
+        "dequeue_linearization", "dequeue_completion",
+        "consumer_action_completion", "producer_lateness", "pointer_lookup_interval",
+        "enqueue_service_time", "admission_delay", "queue_residence",
+        "dequeue_service_time", "post_dequeue_delivery_interval", "consumer_action_interval", "end_to_end_latency"
+      ],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "accepted_ordinal": {"type": "integer", "minimum": 0},
+        "logical_sequence": {"type": "integer", "minimum": 0},
+        "record_index": {"type": "integer", "minimum": 0},
+        "producer_row_ordinal": {"type": "integer", "minimum": 0},
+        "consumer_row_ordinal": {"type": "integer", "minimum": 0},
+        "scheduled_arrival": {"type": "integer", "minimum": 0},
+        "producer_handle_begin": {"type": "integer", "minimum": 0},
+        "record_lookup_completion": {"type": "integer", "minimum": 0},
+        "enqueue_invocation": {"type": "integer", "minimum": 0},
+        "enqueue_linearization": {"type": "integer", "minimum": 0},
+        "enqueue_attempt_completion": {"type": "integer", "minimum": 0},
+        "dequeue_invocation": {"type": "integer", "minimum": 0},
+        "dequeue_linearization": {"type": "integer", "minimum": 0},
+        "dequeue_completion": {"type": "integer", "minimum": 0},
+        "consumer_action_completion": {"type": "integer", "minimum": 0},
+        "producer_lateness": {"type": "integer", "minimum": 0},
+        "pointer_lookup_interval": {"type": "integer", "minimum": 0},
+        "enqueue_service_time": {"type": "integer", "minimum": 0},
+        "admission_delay": {"type": "integer", "minimum": 0},
+        "queue_residence": {"type": "integer", "minimum": 0},
+        "dequeue_service_time": {"type": "integer", "minimum": 0},
+        "post_dequeue_delivery_interval": {"type": "integer", "minimum": 0},
+        "consumer_action_interval": {"type": "integer", "minimum": 0},
+        "end_to_end_latency": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

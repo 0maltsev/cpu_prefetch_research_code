@@ -479,6 +479,39 @@ Use a small explicitly synthetic fixture namespace to exercise planning, schedul
 - Exercise denied/partial platform operations, independent readback mismatch, rollback failure, inaccessible validation data, and crash/restart at every artifact handoff.
 - Confirm requested-state fields never populate verified-state fields without independent evidence.
 
+### 24. Stage 16 independent verification and bundle proof
+
+Stage 16 starts from clean preset build directories and a recorded
+pre-provisioned dependency prefix. GCC/libstdc++ and Clang/libc++ must each
+configure, build, and pass the complete development and release CTest inventory.
+Both ASan/UBSan and both applicable TSan matrices must pass; the established
+managed-ptrace LeakSanitizer limitation and Clang TSan allocation-interceptor
+collision are reported, never relabelled as coverage.
+
+Run the protocol/schema/canonical, schedule golden, queue provenance/stress,
+storage format/schema/large-stream, calibration, reconciliation, orchestration,
+analysis, formatting, static-analysis, dependency/license, pinned-CI, and
+release-policy checks. The focused synthetic disposition set must include
+success, valid `FULL`, low `N_eff`, partial lifecycle and storage failure,
+failed exact join, exact 180-cell generation, seal chronology, and complete
+replacement/budget refusal. None is empirical evidence.
+
+Review queue, workload, timestamp, and bounded-writer component bodies in
+source and with both accepted disassemblers. Each strict checker must reject
+its deliberate mutant. A missing production executable or final combined
+worker is recorded as a pilot blocker; component results cannot be promoted to
+an integrated-worker pass.
+
+Build `STAGE16-STAND-BUNDLE-v1` twice into distinct append-only output
+directories and require identical outer SHA-256 values. Verify the external
+sidecar, extract into a new directory, run the internal complete-file inventory
+and hash verifier, then run `cpu_prefetch_smoke` and
+`cpu_prefetch_preflight --self-test`. Inspect the manifest, source archive,
+version metadata, compile commands, runtime dependency record, schemas,
+protocol, null-valued example, no-license notice, dependency inventory, SPDX
+SBOM, validators, readiness report, and runbook. The bundle must explicitly
+deny pilot and confirmatory authority and contain no frozen platform value.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

@@ -243,6 +243,14 @@ add_executable(cpu_prefetch_smoke tools/smoke_main.cpp)
 target_link_libraries(
   cpu_prefetch_smoke PRIVATE cpu_prefetch::foundation cpu_prefetch_project_options)
 
+add_executable(cpu_prefetch_preflight tools/stand_preflight_main.cpp)
+target_link_libraries(
+  cpu_prefetch_preflight
+  PRIVATE
+    cpu_prefetch::foundation
+    cpu_prefetch::platform
+    cpu_prefetch_project_options)
+
 add_executable(cpu_prefetch_storage_fixture tools/storage_fixture_main.cpp)
 target_link_libraries(
   cpu_prefetch_storage_fixture
@@ -603,6 +611,13 @@ if(BUILD_TESTING)
     smoke.executable
     PROPERTIES PASS_REGULAR_EXPRESSION "protocol=2.0.0-pre.2")
 
+  add_test(NAME preflight.self_test COMMAND cpu_prefetch_preflight --self-test)
+  set_tests_properties(
+    preflight.self_test
+    PROPERTIES
+      LABELS "preflight;stand-bundle"
+      PASS_REGULAR_EXPRESSION "qualification=INVENTORY_ONLY_NOT_QUALIFIED")
+
   set(CPU_PREFETCH_RECONCILIATION_CHECK_DEPENDS
       cpu_prefetch_reconciliation_tests)
   if(CPU_PREFETCH_ENABLE_PROPERTY_TESTS)
@@ -784,6 +799,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/storage_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/storage_fixture_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/storage_large_smoke.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stand_preflight_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -859,6 +875,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/storage_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/storage_fixture_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/storage_large_smoke.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stand_preflight_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -869,7 +886,7 @@ add_custom_target(
     --clang-tidy "${CPU_PREFETCH_CLANG_TIDY}"
     --build-directory "${PROJECT_BINARY_DIR}"
     ${CPU_PREFETCH_ANALYSIS_FILES}
-  DEPENDS cpu_prefetch_smoke
+  DEPENDS cpu_prefetch_preflight cpu_prefetch_smoke
   COMMENT "Running clang-tidy over repository C++ targets")
 
 add_custom_target(
@@ -1015,6 +1032,7 @@ install(
     cpu_prefetch_storage
     cpu_prefetch_timing
     cpu_prefetch_workload
+    cpu_prefetch_preflight
     cpu_prefetch_smoke
   ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
@@ -1051,6 +1069,12 @@ install(
     "${PROJECT_SOURCE_DIR}/docs/NO_LICENSE_GRANT.md"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation")
 install(
+  FILES
+    "${PROJECT_SOURCE_DIR}/docs/PRE_PILOT_READINESS_REPORT.md"
+    "${PROJECT_SOURCE_DIR}/docs/STAND_BUNDLE.md"
+    "${PROJECT_SOURCE_DIR}/docs/STAND_RUNBOOK.md"
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation")
+install(
   DIRECTORY "${PROJECT_SOURCE_DIR}/config/queue-provenance"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation"
   FILES_MATCHING
@@ -1067,6 +1091,31 @@ set(CPACK_PACKAGE_NAME "cpu-prefetch-stand-foundation")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CPU_PREFETCH_GIT_REVISION_SHORT}${CPU_PREFETCH_SOURCE_STATE_SUFFIX}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Synthetic-only Stage 15 offline-analysis foundation")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Stage 16 verified stand-preflight foundation")
 set(CPACK_PACKAGE_VENDOR "Private repository; no license grant")
 include(CPack)
+
+add_custom_target(
+  stand-bundle
+  COMMAND
+    "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/create_stand_bundle.py"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --build-dir "${PROJECT_BINARY_DIR}"
+    --output-dir "${PROJECT_BINARY_DIR}/stand-bundle"
+  DEPENDS
+    cpu_prefetch_analysis
+    cpu_prefetch_calibration
+    cpu_prefetch_foundation
+    cpu_prefetch_lifecycle
+    cpu_prefetch_orchestration
+    cpu_prefetch_platform
+    cpu_prefetch_preflight
+    cpu_prefetch_protocol
+    cpu_prefetch_queue
+    cpu_prefetch_reconciliation
+    cpu_prefetch_schedule
+    cpu_prefetch_smoke
+    cpu_prefetch_storage
+    cpu_prefetch_timing
+    cpu_prefetch_workload
+  COMMENT "Creating the append-only Stage 16 stand-preflight bundle")

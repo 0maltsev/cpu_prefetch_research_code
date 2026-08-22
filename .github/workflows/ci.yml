@@ -77,6 +77,8 @@ jobs:
         run: cmake --build --preset release-gcc --target storage-codegen-check
       - name: Generate stand-foundation package
         run: cmake --build --preset release-gcc --target package
+      - name: Generate deterministic Stage 16 stand bundle
+        run: cmake --build --preset release-gcc --target stand-bundle
 
   clang-libcxx-foundation:
     runs-on: [self-hosted, linux, x64, cpu-prefetch-clang22-libcxx]

@@ -2,13 +2,16 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/15 disposition: **`COMPLETE; Q1_THROUGH_Q12_ACCEPTED`**
+Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_INVENTORY_COMPLETE; Q1_THROUGH_Q12_ACCEPTED`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
 The repository still contains no authorized production benchmark or
 measurement runner. Stages 11 and 12 contain the accepted physical observation
 boundary and synthetic post-run reconciliation, not an authorized scientific run path.
+Stage 16 now also retains a verified nonprivileged candidate-stand snapshot
+with two packages and two NUMA nodes, but it intentionally supplies no explicit
+worker pair or dynamic qualification.
 Stage 5 contains queue correctness-only production cores, Stage 6 contains
 deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
@@ -150,8 +153,11 @@ Accepted bundles can change only through new ADRs and full
 compatibility/requalification evidence. Any replacement that changes
 protocol-fixed scientific behavior stops the affected work and requires a
 versioned protocol amendment. Stages 11 through 15 are complete locally under
-ADR-0032 through ADR-0041. The exact next safe action is Stage 16 pre-pilot
-verification and production-path integration. Every external
+ADR-0032 through ADR-0041, and ADR-0042 plus snapshot
+`STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` close the Stage 16
+software/bundle/count-level inventory slice. The exact next safe actions are
+clean-release sealing, detailed read-only topology, explicit worker-pair
+proposal, and decision-complete production-path integration. Every external
 scientific or stand-dependent value remains blocked until its listed evidence
 gate. Measurement, calibration execution, pilot, and confirmatory execution
 remain prohibited.

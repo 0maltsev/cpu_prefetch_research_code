@@ -1,7 +1,11 @@
 # CPU Prefetch Research Code
 
-This repository has completed the **Stage 15 synthetic offline-analysis software slice** for
-protocol **`2.0.0-pre.2`**. It contains the Stage 3 build foundation, Stage 4
+This repository has completed the **Stage 16 independent pre-pilot software
+verification slice** for protocol **`2.0.0-pre.2`**. Its current disposition is
+`READY_FOR_STAND_PREFLIGHT`, while pilot and confirmatory execution remain
+blocked on stand evidence and frozen inputs recorded in
+[`docs/PRE_PILOT_READINESS_REPORT.md`](docs/PRE_PILOT_READINESS_REPORT.md).
+It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
 sanitizer, and dual-disassembler evidence. It also contains deterministic event
@@ -24,7 +28,11 @@ orchestration. Stage 15 adds the source-linked synthetic-only analysis pipeline,
 registered complete-block estimands and multiplicity families, sealed H3
 chronology, and reproducible reports explicitly marked as non-empirical. It
 contains no eligible-pair qualification, production state-changing stand
-adapter, production analysis adapter, or authorized scientific run.
+adapter, production analysis adapter, production measurement executable, or
+authorized scientific run. Stage 16 adds a read-only stand-preflight tool,
+requirement-by-requirement verification evidence, and a deterministic
+append-only stand bundle; it does not freeze platform values or authorize a
+pilot.
 
 The exact D-010/D-020 physical-storage contract is documented in
 [`docs/STAGE11_STORAGE_DECISION_BUNDLE.md`](docs/STAGE11_STORAGE_DECISION_BUNDLE.md).
@@ -171,6 +179,7 @@ cmake --build --preset release-gcc --target workload-codegen-check
 cmake --build --preset release-gcc --target timing-codegen-check
 cmake --build --preset release-gcc --target storage-codegen-check
 cmake --build --preset release-gcc --target package
+cmake --build --preset release-gcc --target stand-bundle
 
 cmake --preset release-clang-libcxx
 cmake --build --preset release-clang-libcxx --target timing-codegen-check
@@ -187,15 +196,34 @@ dual-tool results close the gate.
 
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
-accepted. The package contains only the smoke binary, foundation,
+accepted. The CPack package contains only the smoke and read-only preflight
+binaries, foundation,
 typed-protocol, queue, workload, schedule, timing, platform, lifecycle, storage,
 reconciliation, calibration, orchestration, and analysis libraries, the
 offline schedule generator, headers, protocol/queue provenance records, Stage
 6/7 correctness, Stage 8 timing, Stage 9 platform-control, Stage 10 lifecycle,
 Stage 11 storage, Stage 12 reconciliation, Stage 13 calibration, Stage 14
-orchestration, and Stage 15 analysis documentation,
+orchestration, Stage 15 analysis documentation, and Stage 16 readiness/runbook
+documentation,
 implementation-owned derivation schema, build metadata, dependency inventory,
 and no-license notice.
+
+`stand-bundle` is the Stage 16 transfer artifact and is deliberately distinct
+from the CPack development package. It includes the exact source archive,
+release binaries and static libraries, unstripped-symbol strategy, schemas,
+protocol snapshot, safe preflight tool, dependency/license inventory and SPDX
+SBOM, checksums, validators, nonauthoritative null-valued example inputs, and
+the exact stand runbook. Build and verify it with:
+
+```sh
+cmake --build --preset release-gcc --target stand-bundle
+sha256sum -c build/release-gcc/stand-bundle/*.tar.gz.sha256
+```
+
+The internal verifier runs against the single top-level directory after clean
+extraction; it uses only the Python standard library. See
+[`docs/STAND_BUNDLE.md`](docs/STAND_BUNDLE.md) for the exact extraction,
+verification, and nonprivileged self-test commands.
 
 ## Created targets and metadata
 
@@ -234,6 +262,8 @@ and no-license notice.
   H1/H2 max-T, access-aware H3 selection/validation, and canonical reports;
 - `cpu_prefetch_smoke`: prints protocol, Git, compiler, and standard-library
   identity;
+- `cpu_prefetch_preflight`: read-only self-test and nonprivileged Linux
+  inventory/capability snapshot; it cannot apply controls or qualify a stand;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
 - `cpu_prefetch_protocol_tests`: typed loading, semantic, canonical, lifecycle,
   block, access, and round-trip contracts;

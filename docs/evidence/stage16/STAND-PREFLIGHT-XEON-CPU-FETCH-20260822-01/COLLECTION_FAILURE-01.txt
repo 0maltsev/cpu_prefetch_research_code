@@ -1,0 +1,6 @@
+stage=sidecar_publication
+inventory=STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01.json
+failed_artifact=STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01.json.sha256
+failure=sha256sum invoked from the wrong working directory after inventory collection
+recovery=STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01.json.sha256.recovered-01
+collector_rerun=false

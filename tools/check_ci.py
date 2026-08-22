@@ -30,6 +30,7 @@ REQUIRED_COMMANDS = (
     "cmake --build --preset release-clang-libcxx --target timing-codegen-check",
     "cmake --build --preset release-clang-libcxx --target storage-codegen-check",
     "cmake --build --preset release-gcc --target package",
+    "cmake --build --preset release-gcc --target stand-bundle",
 )
 
 

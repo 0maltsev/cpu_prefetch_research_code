@@ -7,6 +7,68 @@ the current machine an eligible stand. It becomes operational only after the
 corresponding `PLAN.md` gates, authority records, exact mappings, and accepted
 platform records are complete.
 
+## Stage 16 operational phase map
+
+The versioned stand bundle deliberately separates these six activities. A pass
+in an earlier activity does not imply authority for a later one.
+
+### 1. Install/build verification
+
+Verify the outer archive sidecar before extraction. Extract into a new empty
+directory, run the internal verifier, `cpu_prefetch_smoke`, and the preflight
+self-test exactly as documented in [`STAND_BUNDLE.md`](STAND_BUNDLE.md). If a
+source rebuild is required, extract the bundled source archive and use the
+recorded offline dependency prefixes and README commands. Do not substitute a
+different compiler, dependency, schema, protocol snapshot, or build flag.
+
+### 2. Nonprivileged inventory
+
+Assign a new evidence ID and UTC timestamp outside the filesystem name, then
+run the bundle's read-only collector as an unprivileged account:
+
+```sh
+release/bin/cpu_prefetch_preflight \
+  --snapshot-id ASSIGNED_EVIDENCE_ID \
+  --captured-at-utc YYYY-MM-DDTHH:MM:SSZ > preflight-inventory.json
+sha256sum preflight-inventory.json > preflight-inventory.json.sha256
+```
+
+Replace both uppercase tokens explicitly. The output is always inventory-only
+and does not qualify the stand. No scientific run identity is parsed from its
+filename.
+
+### 3. Privileged capability verification
+
+A separately named platform operator reviews the read-only inventory and
+creates the prospective authority/whitelist/readback/probe/restoration plan.
+There is no automatic privileged path in the bundle. Do not use `sudo`, write
+sysfs/MSRs, stop services, change boot state, or apply a control until the exact
+target/value/inverse and independent verification have been approved.
+
+### 4. Safe restoration
+
+Before the first authorized apply, capture the exact pre-state and test the
+inverse operation. Apply one whitelisted control at a time, restore successful
+steps in reverse order on failure, independently reread every restored value,
+and retain both success and failure artifacts. Quarantine the stand if
+restoration cannot be proved.
+
+### 5. Calibration/pilot preparation
+
+Only after the readiness report's `BLOCKED_BEFORE_PILOT` items are closed may
+owners create an explicit calibration/pilot plan and request separate
+authorization. Bundle verification and inventory do not authorize calibration
+or pilot. Confirmatory namespaces and outcomes remain inaccessible.
+
+### 6. Artifact transfer to the development repository
+
+End the session, restore authorized controls, seal actual artifacts, and create
+a manifest plus SHA-256 inventory. Transfer a byte-identical copy through the
+approved custody channel into a new append-only evidence location. Verify the
+hashes independently before any repository-side schema or semantic validator
+opens the artifacts. Never overwrite an earlier collection or infer identity
+from the transfer directory.
+
 ## Safe software prerequisites
 
 Use the accepted, pre-provisioned Linux x86-64 toolchain and dependencies from

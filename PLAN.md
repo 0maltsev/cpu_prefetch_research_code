@@ -305,7 +305,23 @@ authorization/amendment.
 - **Acceptance criteria:** Every applicable check freshly passes; no unresolved correctness issue; clean build reproducible; storage/control/custody proven; synthetic results clearly non-empirical.
 - **Explicitly excluded:** Pilot execution until a separate authorization decision after readiness review.
 - **Rollback or failure behavior:** Classify and fix software/test/environment failures; supersede build and rerun affected then broad checks. Never waive a failed gate to collect data.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_SOFTWARE_READY_FOR_STAND_PREFLIGHT`. ADR-0042 and the
+  readiness report record fresh clean GCC/libstdc++ and Clang/libc++
+  development/release matrices, all applicable ASan/UBSan and TSan matrices,
+  protocol/schema/golden/provenance/static/generated-code and focused synthetic
+  disposition evidence. A deterministic append-only stand-preflight bundle
+  passes repeat-build identity, external/internal hashes, clean extraction, and
+  nonprivileged smoke/preflight self-tests. Component timed bodies pass source
+  and dual-disassembler audits. The production measurement executable and
+  combined-worker audit, eligible-stand platform/control/clock/residency/storage
+  evidence, and prospective calibration/pilot inputs remain explicit
+  `BLOCKED_BEFORE_PILOT` gates; no platform value or scientific outcome was
+  created. The nonprivileged bundle/internal/self-test and inventory pass now
+  exists as `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01`, observes a
+  two-package/two-NUMA candidate, and remains explicitly not qualified. The
+  exact next safe actions are a clean source/bundle seal and detailed read-only
+  sibling/cache topology for an explicit worker-pair proposal, not Phase 17
+  execution.
 
 ## Phase 17 — Pilot execution
 
@@ -316,7 +332,8 @@ authorization/amendment.
 - **Acceptance criteria:** Evidence is complete and treatment-blind for each required freeze; no failed correctness gate; all confirmatory decisions can be justified or the study is declared infeasible/unresolved.
 - **Explicitly excluded:** Confirmatory outcomes, result-bearing claims, treatment-driven tuning, pilot substitution for Stage A.
 - **Rollback or failure behavior:** Preserve all pilot artifacts/failures. Material implementation/platform change invalidates dependent pilot evidence. Do not cherry-pick or repeat for favorable effects.
-- **Status:** `PROHIBITED` until Phase 16 and explicit authorization.
+- **Status:** `PROHIBITED`; Stage 16 software verification is complete, but its
+  stand/pilot blockers and separate pilot authorization remain unresolved.
 
 ## Phase 18 — Confirmatory execution
 

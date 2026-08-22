@@ -105,3 +105,8 @@ ADR-0041 implements the Stage 15 synthetic analysis profile without supplying
 `delta_star`, bootstrap/count/seed values, authorities, platform evidence, or
 outcomes. Its compact fixtures and reports are not empirical artifacts and
 grant no pilot or confirmatory authority.
+
+ADR-0042 records the deterministic Stage 16 verification and stand-preflight
+bundle profile. It packages source, release foundations, protocol, schemas,
+validators, provenance, SBOM/licenses, checksums, and the runbook while
+explicitly granting no platform mutation, pilot, or confirmatory authority.

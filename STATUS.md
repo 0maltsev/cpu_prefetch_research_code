@@ -3,17 +3,18 @@
 Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
 **`2.0.0-pre.1`** retained
 
-Repository state: **`STAGE_15_SOFTWARE_COMPLETE_SYNTHETIC_ONLY`**
+Repository state: **`STAGE_16_COMPLETE_READY_FOR_STAND_PREFLIGHT`**
 
-Readiness verdict: **`STAGE16_PRE_PILOT_VERIFICATION_MAY_START_MEASUREMENT_PROHIBITED`**
+Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
+**`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**
 
 ## Readiness by area
 
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/15 implementation-decision freeze | `COMPLETE`; Q12 accepted | ADR-0001 through ADR-0041 are accepted. ADR-0034 records the D-031 amendment/version boundary; ADR-0035 through ADR-0039 freeze/implement Stage 13 methods; ADR-0040 closes Stage 14 orchestration; ADR-0041 closes the synthetic-only Stage 15 analysis profile without supplying external freeze inputs. |
-| Stage 3 build/CI foundation | `COMPLETE_LOCAL` | ADR-0022, constrained offline inputs, dual compiler/library presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations remain passing. |
+| Stage 2/16 implementation-decision record | `COMPLETE`; Q12 and Stage 16 task authority recorded | ADR-0001 through ADR-0042 are accepted. ADR-0034 records the D-031 amendment/version boundary; ADR-0035 through ADR-0039 freeze/implement Stage 13 methods; ADR-0040 closes Stage 14 orchestration; ADR-0041 closes the synthetic-only Stage 15 analysis profile; ADR-0042 records the preflight-only verification/bundle profile without supplying platform or scientific freeze inputs. |
+| Stage 3 build/CI foundation | `COMPLETE_REVERIFIED` | ADR-0022, constrained offline inputs, dual compiler/library development/release presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations freshly pass Stage 16. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
 | Workload construction | `COMPLETE_LOCAL` | ADR-0025 through ADR-0028 fix the deterministic stream, unbiased permutations, payload/mixer/integrity grammars, event/node layouts, and five package mechanisms. Known-answer/property/corruption/no-allocation and dual-disassembler checks pass. |
@@ -26,9 +27,10 @@ Readiness verdict: **`STAGE16_PRE_PILOT_VERIFICATION_MAY_START_MEASUREMENT_PROHI
 | Stage 13 calibration framework | `COMPLETE_LOCAL_SYNTHETIC`; stand gate open | Exact service/ring evaluators, preallocated acquire tracing, the guarded offline matrix estimator, five schemas, append-only records, invalidation, and synthetic C++/Python/schema tests pass. No duration, run plan, capacity, seed, exposure, stand evidence, authority, `mu_ref`, load, `d2`, feasibility freeze, or platform output was supplied or invented. |
 | Stage 14 block/access orchestration | `COMPLETE_LOCAL_SYNTHETIC`; freeze/custody inputs open | `cpu_prefetch_orchestration` proves/generates exact 180-cell blocks and pools, pins 7/20/270/540/54 families and count equations, validates role-aware sealing/amendments, and authorizes only full role-preserving replacements within budget. No final count, seed, namespace, authority, budget, stand plan, access, or outcome was created. |
 | Stage 15 offline analysis | `COMPLETE_LOCAL_SYNTHETIC`; production adapter/evidence open | `cpu_prefetch_analysis` admits only validated immutable synthetic-profile artifacts, independently verifies reconciliation and gates, forms complete blocks, implements exact inverse-ECDF estimands and separate complete-block max-T families, enforces H3 access chronology, and emits zero-self-hashed canonical plus human reports marked `SYNTHETIC_KNOWN_ANSWER_ONLY` and explicitly containing no empirical findings. No production input or empirical outcome was consumed. |
-| Measurement system | `NOT_AUTHORIZED` | Stages 10–12 are synthetic correctness infrastructure, not a stand runner. No eligible-pair qualification, production platform mutation, concrete run plan, calibration, or scientific run exists. |
-| Pre-pilot validation | `READY_TO_START` | Stages 5–15 software are complete. Stage 16 must integrate the exact release and obtain fresh eligible-platform, storage-domain, custody, capacity/residency, timing, and freeze evidence before any pilot authorization. |
-| Pilot | `PROHIBITED` | Stage 16 and explicit pilot authorization are absent; this one-NUMA-node development host is ineligible for near/far evidence. |
+| Measurement system | `NOT_AUTHORIZED` | The repository still has no production measurement executable. The stand bundle contains foundation smoke and read-only preflight binaries only. No eligible-pair qualification, platform mutation, concrete run plan, calibration, or scientific run exists. |
+| Stage 16 software verification | `COMPLETE` | Both compiler/library development and release matrices pass 187/187; sanitizer matrices pass 187/187, 187/187, 187/187, and applicable 185/185; strict component codegen, static/format/schema/provenance/dependency/CI checks, synthetic dispositions, reproducible bundle, clean extraction, and nonprivileged self-tests pass. ADR-0042 and the readiness report bind the evidence boundary. |
+| Stand preflight | `COMPLETE_INVENTORY_ONLY_NOT_QUALIFIED` | The exact bundle and 72-file internal inventory passed on `xeon-cpu-fetch`; smoke, self-test, and the collector ran as `nobody:nogroup`. Snapshot `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` observes two packages/two NUMA nodes and retains seven blockers. Inventory SHA-256 is `f3bb301c77918c0287c8a287e3915f5d68929684eece660464c69f62770ac94b`; the sidecar-publication failure and recovered checksum are preserved. |
+| Pilot | `BLOCKED` | Production measurement executable/final worker audit, eligible pair, runtime layout/atomic checks, control authority/readback/restoration, clock/residency/storage evidence, and authorized calibration/pilot inputs are absent. |
 | Confirmatory execution | `PROHIBITED` | Pilot outputs and later freeze records, budgets, authorities, and sealing proof are absent. |
 
 ## Stage 4 products
@@ -424,15 +426,58 @@ and no third-party queue source. The current FastFlow project is
 recorded only as an official-project search result; exact 2010 artifact/license
 mapping remains unresolved and no implementation text was used.
 
+## Stage 16 products
+
+- [ADR-0042](docs/decisions/0042-stage16-verification-and-stand-bundle-profile.md)
+  and [`docs/PRE_PILOT_READINESS_REPORT.md`](docs/PRE_PILOT_READINESS_REPORT.md),
+  with a requirement-by-requirement fresh-evidence matrix and explicit
+  `READY_FOR_STAND_PREFLIGHT`, `BLOCKED_BEFORE_PILOT`, and
+  `BLOCKED_BEFORE_CONFIRMATORY_EXECUTION` states;
+- clean GCC 16/libstdc++ and Clang 22/libc++ development and release builds,
+  each passing 187/187 tests, plus GCC/Clang ASan/UBSan and TSan matrices with
+  no sanitizer findings in their applicable 187/187, 187/187, 187/187, and
+  185/185 test sets;
+- fresh protocol/schema/canonical, format/static-analysis, dependency/license,
+  pinned-CI, schedule golden, queue provenance/stress, storage large-stream,
+  calibration, reconciliation, orchestration, analysis, release-policy, and
+  dual-disassembler queue/workload/timing/storage evidence;
+- focused synthetic success, valid `FULL`, low-`N_eff`, partial failure,
+  invalid join, 180-cell plan/sealing, and complete-block replacement flows;
+- the read-only `cpu_prefetch_preflight` executable, whose self-test and
+  inventory document always retain the inventory-only/not-qualified boundary;
+- a deterministic append-only `STAGE16-STAND-BUNDLE-v1` generator and internal
+  verifier, exact source archive, release smoke/preflight binaries and static
+  libraries, protocol/schemas, null-valued nonauthoritative input example,
+  build provenance, licenses/dependency inventory, SPDX 2.3 SBOM, hashes,
+  validators, runbook, and readiness report; and
+- clean-extraction checksum verification plus nonprivileged smoke/preflight
+  self-tests. Three implementation defects found by the independent pass were
+  fixed: JSON string/bool construction, fail-closed preflight exception
+  handling, and nondeterministic loader addresses in bundle provenance.
+- returned read-only stand snapshot
+  [`STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01`](docs/evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01/README.md),
+  whose bundle/internal/self-test gates pass and whose two-package/two-NUMA
+  topology remains inventory-only pending exact worker-pair qualification.
+
+This does not close the timed-path gate for a production run. All implemented
+component bodies pass their source and GNU/LLVM assembly audits, but the final
+combined measurement worker and production executable do not yet exist. No
+platform value was frozen and no stand, calibration, pilot, or confirmatory
+execution occurred.
+
 ## Immediate gate
 
-Stage 15's local synthetic software slice is complete under ADR-0041. **The
-exact next safe stage is Stage 16 pre-pilot verification and production-path
-integration. It must bind, rather than invent, external `delta_star`,
-bootstrap/count inputs, seeds, schedules, stand evidence, authority, access,
-capacity, residency, durable domains, and budget.** Measurement, stand
-calibration execution outside an authorized treatment-blind plan, pilot
-activity, and confirmatory execution remain prohibited.
-Static inventory and development-host smoke are not selected-pair, address
-residency, hardware-state, restoration, or dynamic clock evidence; those exact
-stand gates remain open through Phase 16.
+Stage 16 software verification, stand-bundle creation, and nonprivileged
+inventory are complete under ADR-0042. **The exact next safe action is to seal
+this repository state as a clean source revision, rebuild the bundle against
+that revision, and collect the detailed read-only CPU/core/package/NUMA/cache
+and sibling topology needed to propose—without yet qualifying—explicit
+`NEAR`/`FAR` non-SMT worker pairs.** Do not run privileged controls,
+calibration, pilot, or confirmatory work yet.
+
+Pilot remains blocked until a separately reviewed production measurement
+executable and complete combined-worker audit exist and the eligible stand,
+pair/layout/atomic, requested-versus-verified controls/restoration, clock,
+address residency, durable storage/custody/capacity, and prospective
+calibration/pilot inputs are proven. Confirmatory execution additionally
+requires every pilot-derived and owner-supplied freeze record.

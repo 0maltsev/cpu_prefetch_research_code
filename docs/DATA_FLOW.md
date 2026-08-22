@@ -5,16 +5,20 @@ retained. This document preserves the imported logical model. Q9/ADR-0032/0033
 select the physical raw encoding/copy policy, and Q10/Q11/ADR-0034 select only
 the versioned blocker representation. Stage 12 implements reconciliation and
 joined-row construction offline.
-Q13/ADR-0043 adds a pre-preparation runner-admission edge without authorizing
-execution.
+Q13/ADR-0043 adds the pair/relax identity. Q14/ADR-0044 through ADR-0046 add a
+v2 pre-preparation admission/qualification/authority edge, and D-047 adds the
+exact software-prefetch mapping and per-owner PRFCHW gate, without authorizing
+stand access or execution.
 
 ## End-to-end flow
 
 | Phase | Inputs | Work | Append-only outputs | Timed? |
 |---|---|---|---|---|
 | Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON parse, Draft 2020-12 meta-schema, positive/negative fixture, and canonical-byte checks | Readiness evidence in repository status | No |
-| Runner admission | Current source/binary/stand/binding trust anchor and explicit eligibility artifacts | Strict typed validation, exact required-kind proof, non-symlink file reads, and SHA-256 verification | In-memory admission ticket only after all checks; no scientific artifact or authority inferred | No |
-| Experiment preparation | Admission ticket, protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, deterministic stream derivation, complete offline schedule generation/validation, arena first touch, record/node permutation, footprint proof, and static package binding | Validated logical records, schedule artifact/envelope/derivation record, and prepared workload inputs | No |
+| Runner admission | Current source/binary/stand/binding trust anchor and 21 explicit eligibility artifacts | Strict typed validation, exact required-kind proof, non-symlink file reads, and SHA-256 verification | In-memory admission ticket only after all checks; no scientific artifact or authority inferred | No |
+| Qualification/authority validation | Supplied observation records or a future exact Q15/Q16 envelope | Derive qualification eligibility; validate schema, scope, identities, limits, custody, predecessors, expiry, and prohibitions | Canonical qualification evidence or validation result only; no collection, control, or authority issuance | No |
+| Experiment preparation | Admission ticket, protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, deterministic stream derivation, complete offline schedule generation/validation, arena allocation, record/node permutation, footprint proof, and static package binding | Validated logical records, schedule artifact/envelope/derivation record, and prepared workload inputs | No |
+| Owner-thread preparation | Prepared private streams, selected pair, and accepted D-047 mapping | Bind current thread, independently read singleton affinity and actual CPU, verify PRFCHW on that CPU, then first-touch only that owner's private stream | In-memory affinity/capability evidence; pre-run failure on any mismatch | No; before start barrier |
 | Platform preparation | Requested state and authorized adapter/operator | Affinity/NUMA/page/frequency/HW-PF actuation, independent readback/probes, rollback readiness | Requested-state and verified-state records, capability/failure evidence | No |
 | Run launch | Closed `PreparedRun` | Preparation evidence, warm-up, drain/barrier, logical reset, two-worker start, one clock-derived origin | Append-only lifecycle transition candidates and reset evidence | No; the fixed origin read is the boundary |
 | Measurement horizon | Pre-generated deadlines, fixed arenas, specialized queue, qualified clock | Producer and consumer execute fixed data-plane work | Thread-private producer and consumer observations in preallocated buffers | Yes |
@@ -31,13 +35,15 @@ execution.
 
 The controller resolves every dynamic choice before release. The prepared image contains exact addresses and extents, pre-generated deadlines, package specialization, run and algorithm-suite IDs, clock identity, platform evidence references, and fixed buffer capacity. Allocation, schema/config parsing, seed derivation, RNG, permutation, compression, and analysis are absent from the worker call graph.
 
-Q13 makes admission explicitly fail closed before that boundary. A field-only
+Q14 makes v2 admission explicitly fail closed before that boundary. A field-only
 diagnostic cannot construct an `AdmissionTicket`; admission also verifies every
 referenced artifact byte hash against the current source/binary/stand/binding
 trust anchor. The controller-side package switch selects one compile-time
-specialization and never flows into the measured executor. The admission CLI
-has no execution command. Missing external facts therefore produce no worker,
-raw row, or fabricated failure stream.
+specialization and never flows into the measured executor. Each worker then
+verifies affinity/readback/actual CPU and first-touches its own private stream
+before it enters the barrier. The admission and qualification CLIs expose no
+execution, collection, or control command. Missing external facts therefore
+produce no measurement attempt, raw row, or fabricated failure stream.
 
 Stage 4 supplies the pre-worker typed boundary but does not build a prepared
 image. Each input first passes its unmodified imported Draft 2020-12 schema,

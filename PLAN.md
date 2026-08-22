@@ -333,7 +333,8 @@ authorization/amendment.
 
 - **Objective:** Collect treatment-blind evidence needed to freeze platform-dependent capacities, calibration outputs, horizons, environment, precision, and feasibility.
 - **Inputs and prerequisite decisions:** Phase 16 accepted; D-044 through D-046
-  governance accepted; local D-044 release closure complete; exact Q15
+  governance accepted; D-047 physical mapping implemented and strict combined
+  audit passed; clean exact no-authority candidate release evidence; exact Q15
   release/stand qualification authorized and passed; then separate
   dependency-ready Q16a D2, Q16b service-rate, Q16c feasibility, and Q16d
   blinded pilot/freeze-input authorizations with exact namespaces, plans,
@@ -344,10 +345,11 @@ authorization/amendment.
 - **Acceptance criteria:** Evidence is complete and treatment-blind for each required freeze; no failed correctness gate; all confirmatory decisions can be justified or the study is declared infeasible/unresolved.
 - **Explicitly excluded:** Confirmatory outcomes, result-bearing claims, treatment-driven tuning, pilot substitution for Stage A.
 - **Rollback or failure behavior:** Preserve all pilot artifacts/failures. Material implementation/platform change invalidates dependent pilot evidence. Do not cherry-pick or repeat for favorable effects.
-- **Status:** `PROHIBITED`; the D-044 through D-046 bundle is prepared but Q14
-  is not accepted. Even after Q14, local implementation, a separate exact Q15
-  qualification, and separate dependency-ready Q16 phase approvals remain
-  mandatory. No omnibus Stage 17 authorization is valid.
+- **Status:** `PROHIBITED`; Q14 accepts D-044 through D-046, D-047 closes the
+  physical emitter and strict combined audit, and the permitted repository-
+  local framework is implemented. A separate exact Q15 qualification and separate
+  dependency-ready Q16 phase approvals remain mandatory. No omnibus Stage 17
+  authorization is valid.
 
 ## Phase 18 — Confirmatory execution
 

@@ -535,6 +535,39 @@ requires exactly one `PAUSE`, forbids calls/fences/syscalls in the relax body,
 and proves rejection with a two-`PAUSE`/scheduler-call mutant. This is not the
 still-required full affined combined-worker audit.
 
+### 26. Q14 local release, qualification, and authority checks
+
+Owner-preparation tests require each bind/readback/actual-CPU check to run once
+on its worker before the barrier and before private-stream first touch. Any
+producer or consumer mismatch must cancel the barrier, report a pre-run worker-
+preparation failure, make zero attempts, and retain partial evidence. Fakes are
+mandatory for repository verification; no test may change host affinity.
+
+Qualification builders use synthetic inputs with exact clock sample/window/
+exchange counts, atomic widths/alignment/lock-free flags, actual CPU/migration
+counts, and three-region before/during/after residency evidence. Positive
+artifacts must be canonical and byte-stable. Short counts, syscalls,
+migrations, wrong/unavailable pages, binding mismatch, malformed hashes, or
+missing sources must remain invalid or ineligible.
+
+The future authorization schema must accept only exact stand qualification or
+one of four dependency-ready phases. Negatives cover omnibus/wildcard/latest/
+unresolved targets, overlapping authority roles, invalid expiry, identical
+durability domains, scientific inputs in Q15, missing predecessors, run-count
+drift, confirmatory namespaces, and enabled confirmatory/retry/top-up/repair
+permissions. Passing the validator never issues an authority.
+
+Both accepted disassemblers recursively inspect all ten static producer and
+consumer operation shapes. D-047 requires exact empty, `PREFETCHW`, or
+`PREFETCHT0` vectors by package/role and rejects wrong-write, wrong-read,
+duplicate-read, and allocation/scheduler mutants. Source checks bind the ring
+slot target calculations and the linked acquire/prefetch/event-demand order.
+Only a strict `PASS` report carrying
+`X86-64-PREFETCHW-PREFETCHT0-v1` can pass the candidate gate. The candidate
+creator separately rejects dirty source, missing/non-PASS reports, overwrite,
+authority-bearing manifests, or omitted runner/qualification artifacts. No
+pilot candidate is eligible until all checks pass from a clean exact revision.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

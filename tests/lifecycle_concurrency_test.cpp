@@ -184,6 +184,46 @@ auto limits() -> ExecutionLimits {
   return {10'000'000U, 10'000'000U, 10'000U, 10'000'000U, 10'000U};
 }
 
+class FakeWorkerPreparation final {
+public:
+  bool producer_result{true};
+  bool consumer_result{true};
+
+  [[nodiscard]] auto prepare_producer() noexcept -> bool {
+    producer_calls.fetch_add(1U, std::memory_order_relaxed);
+    return producer_result;
+  }
+  [[nodiscard]] auto prepare_consumer() noexcept -> bool {
+    consumer_calls.fetch_add(1U, std::memory_order_relaxed);
+    return consumer_result;
+  }
+
+  std::atomic<std::uint64_t> producer_calls{0U};
+  std::atomic<std::uint64_t> consumer_calls{0U};
+};
+
+TEST(LifecycleConcurrency, OwnerPreparationRunsOnceBeforeBarrierAndFailsClosed) {
+  constexpr std::array<std::uint64_t, 1U> deadlines{0U};
+  TerminationControl termination(kFixtureCacheLine);
+  FixedFakeBackend backend({1U, deadlines.size(), false});
+  AtomicStepClock clock;
+  YieldRelax relax;
+  auto test_limits = limits();
+  FakeWorkerPreparation preparation;
+  preparation.producer_result = false;
+
+  const auto report = cpu_prefetch::lifecycle::execute_measurement_with_preparation(
+      PreparedScheduleView{deadlines, 0U, 1U}, clock, backend, termination, test_limits,
+      relax, preparation);
+
+  EXPECT_EQ(report.failure_phase, ExecutionFailurePhase::pre_run);
+  EXPECT_EQ(report.failure_reason, ExecutionFailureReason::worker_preparation);
+  EXPECT_EQ(preparation.producer_calls.load(std::memory_order_relaxed), 1U);
+  EXPECT_EQ(preparation.consumer_calls.load(std::memory_order_relaxed), 1U);
+  EXPECT_EQ(backend.producer_calls(), 0U);
+  EXPECT_TRUE(report.cancellation_requested);
+}
+
 TEST(LifecycleConcurrency, TerminationPublicationIsReleaseAcquireAndDedicated) {
   TerminationControl termination(kFixtureCacheLine);
   const auto evidence = termination.evidence();

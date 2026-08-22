@@ -36,7 +36,7 @@
     "Stage 6 makes the linked node arena use an explicit page/base alignment in addition to its explicit cache-line stride",
     "Stage 6 adds a statically bound successor-header policy seam immediately after the consumer acquire and before the successor event-field demand",
     "Stage 8 adds statically specialized fail-closed observers at the accepted p-before-successor-release and q-after-successor-acquire-before-prefetch/recycler boundaries; a p capture failure is a terminal run failure and is never continued or retried",
-    "The off package compiles the successor seam away; platform software-prefetch instruction encoding remains unresolved"
+    "The off package compiles the successor seam away; platform software-prefetch instruction encoding remains outside the queue and is later bound by D-047"
   ],
   "memory_order_mapping": [
     "producer acquire-removes a recycler node and release-clears the recycler slot",

@@ -1,0 +1,297 @@
+#!/usr/bin/env python3
+"""Validate Q14 authorization envelopes without granting or executing authority."""
+
+from __future__ import annotations
+
+import argparse
+import copy
+import datetime as dt
+import json
+import pathlib
+import sys
+from typing import Any
+
+from jsonschema import Draft202012Validator
+
+
+FORBIDDEN_EXACT_TOKENS = {"*", "latest", "current", "unresolved", "tbd"}
+EXECUTION_PHASES = (
+    "D2_CALIBRATION",
+    "SERVICE_RATE_CALIBRATION",
+    "ZERO_LOSS_FEASIBILITY",
+    "BLINDED_PILOT_FREEZE_INPUT",
+)
+
+
+def artifact(identity: str) -> dict[str, object]:
+    return {"artifact_id": identity, "sha256": "0" * 64}
+
+
+def base(phase: str) -> dict[str, Any]:
+    phase_inputs: dict[str, Any] | None = None
+    if phase != "STAND_QUALIFICATION":
+        phase_inputs = {
+            "qualification_artifact": artifact("SYNTHETIC-QUALIFICATION"),
+            "run_plan": artifact("SYNTHETIC-RUN-PLAN"),
+            "configurations": [artifact("SYNTHETIC-CONFIG")],
+            "schedules": [artifact("SYNTHETIC-SCHEDULE")],
+            "namespaces": [f"SYNTHETIC-{phase}-NAMESPACE"],
+            "seeds": [artifact("SYNTHETIC-SEED")],
+            "predecessor_artifacts": (
+                [] if phase == "D2_CALIBRATION" else [artifact("SYNTHETIC-PREDECESSOR")]
+            ),
+            "permitted_run_ids": ["SYNTHETIC-RUN-0001"],
+            "permitted_run_count": 1,
+            "hardware_states": ["H0", "H1"],
+        }
+    return {
+        "schema_version": "cpu-prefetch-stage17-authorization/1",
+        "protocol_version": "2.0.0-pre.2",
+        "authorization_id": f"SYNTHETIC-{phase}-AUTHORIZATION",
+        "authorization_version": "SYNTHETIC-v1",
+        "phase": phase,
+        "status": "AUTHORIZED",
+        "issued_at_utc": "2026-08-22T00:00:00Z",
+        "expires_at_utc": "2026-08-23T00:00:00Z",
+        "stand_id": "SYNTHETIC-STAND",
+        "binding_id": "SYNTHETIC-BINDING",
+        "source_revision": "0123456789abcdef",
+        "binary_sha256": "0" * 64,
+        "runner_profile_id": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v2",
+        "cpu_pair_selection_id": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",
+        "relax_mapping_id": "X86-PAUSE-ONE-PER-RELAX-SITE-v1",
+        "prerequisite_artifacts": [artifact("SYNTHETIC-PREREQUISITE")],
+        "authorities": {
+            "operator": "SYNTHETIC-OPERATOR",
+            "controller": "SYNTHETIC-CONTROLLER",
+            "custodian": "SYNTHETIC-CUSTODIAN",
+            "auditor": "SYNTHETIC-AUDITOR",
+        },
+        "permitted_commands": [
+            {
+                "command_id": "SYNTHETIC-COMMAND",
+                "executable_sha256": "0" * 64,
+                "argv": ["/synthetic/bin/tool", "--exact-value", "SYNTHETIC-VALUE"],
+                "privilege": "NONPRIVILEGED",
+                "exact_target": "SYNTHETIC-TARGET",
+                "inverse_argv": ["/synthetic/bin/tool", "--restore", "SYNTHETIC-PRESTATE"],
+                "independent_readback_argv": ["/synthetic/bin/readback", "SYNTHETIC-TARGET"],
+                "probe_argv": ["/synthetic/bin/probe", "SYNTHETIC-TARGET"],
+                "output_artifact_id": "SYNTHETIC-COMMAND-OUTPUT",
+            }
+        ],
+        "limits": {
+            "max_wall_seconds": 1,
+            "max_output_bytes": 1,
+            "max_artifact_count": 1,
+            "max_cpu_seconds": 1,
+        },
+        "storage_custody": {
+            "primary_domain_id": "SYNTHETIC-PRIMARY",
+            "secondary_domain_id": "SYNTHETIC-SECONDARY",
+            "output_root": "/synthetic/exact/output",
+            "append_only_policy_id": "SYNTHETIC-APPEND-ONLY",
+            "transfer_policy_id": "SYNTHETIC-TRANSFER",
+            "partial_artifact_policy_id": "SYNTHETIC-PARTIAL",
+        },
+        "stop_conditions": ["SYNTHETIC-STOP-ON-FIRST-MISMATCH"],
+        "phase_inputs": phase_inputs,
+        "prohibitions": {
+            "confirmatory_execution": False,
+            "later_phase_execution": False,
+            "outcome_driven_tuning": False,
+            "top_up": False,
+            "cell_repair": False,
+            "hidden_retry": False,
+            "unlisted_privilege": False,
+        },
+        "detached_signature": {
+            "scheme": "SYNTHETIC-SCHEME",
+            "signer_id": "SYNTHETIC-SIGNER",
+            "artifact_id": "SYNTHETIC-SIGNATURE",
+            "sha256": "0" * 64,
+        },
+    }
+
+
+def parse_utc(value: str) -> dt.datetime:
+    return dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def collect_strings(value: object) -> list[str]:
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, list):
+        return [item for child in value for item in collect_strings(child)]
+    if isinstance(value, dict):
+        return [item for child in value.values() for item in collect_strings(child)]
+    return []
+
+
+def duplicates(values: list[str]) -> bool:
+    return len(values) != len(set(values))
+
+
+def semantic_errors(document: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    try:
+        if parse_utc(document["expires_at_utc"]) <= parse_utc(document["issued_at_utc"]):
+            errors.append("authorization expiry must follow issuance")
+    except (KeyError, TypeError, ValueError):
+        errors.append("authorization timestamps must be parseable UTC values")
+
+    authorities = list(document.get("authorities", {}).values())
+    if duplicates(authorities):
+        errors.append("operator/controller/custodian/auditor identities must be distinct")
+
+    primary = document.get("storage_custody", {}).get("primary_domain_id")
+    secondary = document.get("storage_custody", {}).get("secondary_domain_id")
+    if primary == secondary:
+        errors.append("durable domains must be distinct")
+
+    commands = document.get("permitted_commands", [])
+    command_ids = [command.get("command_id", "") for command in commands]
+    output_ids = [command.get("output_artifact_id", "") for command in commands]
+    if duplicates(command_ids) or duplicates(output_ids):
+        errors.append("command and output artifact IDs must be unique")
+
+    prerequisite_ids = [
+        item.get("artifact_id", "") for item in document.get("prerequisite_artifacts", [])
+    ]
+    if duplicates(prerequisite_ids):
+        errors.append("prerequisite artifact IDs must be unique")
+
+    for value in collect_strings(document):
+        if value.casefold() in FORBIDDEN_EXACT_TOKENS:
+            errors.append("wildcard/latest/current/unresolved/TBD tokens are forbidden")
+            break
+
+    if document.get("storage_custody", {}).get("output_root") == "/":
+        errors.append("filesystem root cannot be the output root")
+
+    phase = document.get("phase")
+    phase_inputs = document.get("phase_inputs")
+    if phase == "STAND_QUALIFICATION" and phase_inputs is not None:
+        errors.append("stand qualification cannot contain scientific phase inputs")
+    if phase in EXECUTION_PHASES:
+        if not isinstance(phase_inputs, dict):
+            errors.append("execution phase requires exact phase inputs")
+        else:
+            run_ids = phase_inputs.get("permitted_run_ids", [])
+            if len(run_ids) != phase_inputs.get("permitted_run_count"):
+                errors.append("permitted run count must equal exact run-ID count")
+            if duplicates(run_ids):
+                errors.append("permitted run IDs must be unique")
+            if duplicates(phase_inputs.get("namespaces", [])):
+                errors.append("seed namespaces must be unique")
+            if any("confirmatory" in item.casefold() for item in phase_inputs.get("namespaces", [])):
+                errors.append("confirmatory namespaces are forbidden")
+            if phase != "D2_CALIBRATION" and not phase_inputs.get("predecessor_artifacts"):
+                errors.append("dependent phase requires predecessor artifacts")
+
+    return errors
+
+
+def validation_errors(
+    validator: Draft202012Validator, document: dict[str, Any]
+) -> list[str]:
+    errors = [
+        f"$/{'/'.join(str(item) for item in error.absolute_path)}: {error.message}"
+        for error in sorted(validator.iter_errors(document), key=lambda item: list(item.path))
+    ]
+    errors.extend(f"semantic: {message}" for message in semantic_errors(document))
+    return errors
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--document",
+        type=pathlib.Path,
+        help="validate one exact prospective authorization; never issues authority",
+    )
+    args = parser.parse_args()
+    root = pathlib.Path(__file__).resolve().parents[1]
+    schema = json.loads(
+        (root / "config/schemas/stage17-authorization-v1.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    Draft202012Validator.check_schema(schema)
+    validator = Draft202012Validator(schema)
+    if args.document is not None:
+        try:
+            document = json.loads(args.document.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            print(f"stage17-authorization-check: FAIL: {error}", file=sys.stderr)
+            return 1
+        if not isinstance(document, dict):
+            print(
+                "stage17-authorization-check: FAIL: document root must be an object",
+                file=sys.stderr,
+            )
+            return 1
+        errors = validation_errors(validator, document)
+        if errors:
+            for error in errors:
+                print(f"stage17-authorization-check: FAIL: {error}", file=sys.stderr)
+            return 1
+        print(
+            "stage17-authorization-check: PASS "
+            f"phase={document['phase']} authority=VALIDATED_NOT_ISSUED"
+        )
+        return 0
+
+    positives = [base("STAND_QUALIFICATION"), *(base(phase) for phase in EXECUTION_PHASES)]
+    for document in positives:
+        validator.validate(document)
+        if errors := semantic_errors(document):
+            print(f"stage17-authorization-check: FAIL: positive: {errors}", file=sys.stderr)
+            return 1
+
+    negatives: list[dict[str, Any]] = []
+    omnibus = copy.deepcopy(positives[0])
+    omnibus["phase"] = "ALL_STAGE17"
+    negatives.append(omnibus)
+    wildcard = copy.deepcopy(positives[0])
+    wildcard["permitted_commands"][0]["exact_target"] = "*"
+    negatives.append(wildcard)
+    overlap = copy.deepcopy(positives[0])
+    overlap["authorities"]["auditor"] = overlap["authorities"]["operator"]
+    negatives.append(overlap)
+    inverted_time = copy.deepcopy(positives[0])
+    inverted_time["expires_at_utc"] = inverted_time["issued_at_utc"]
+    negatives.append(inverted_time)
+    scientific_q15 = copy.deepcopy(positives[1])
+    scientific_q15["phase"] = "STAND_QUALIFICATION"
+    negatives.append(scientific_q15)
+    missing_predecessor = copy.deepcopy(positives[2])
+    missing_predecessor["phase_inputs"]["predecessor_artifacts"] = []
+    negatives.append(missing_predecessor)
+    wrong_count = copy.deepcopy(positives[3])
+    wrong_count["phase_inputs"]["permitted_run_count"] = 2
+    negatives.append(wrong_count)
+    confirmatory = copy.deepcopy(positives[4])
+    confirmatory["phase_inputs"]["namespaces"] = ["confirmatory-forbidden"]
+    negatives.append(confirmatory)
+    authority = copy.deepcopy(positives[1])
+    authority["prohibitions"]["confirmatory_execution"] = True
+    negatives.append(authority)
+
+    for index, document in enumerate(negatives):
+        schema_errors = list(validator.iter_errors(document))
+        if not schema_errors and not semantic_errors(document):
+            print(
+                f"stage17-authorization-check: FAIL: negative fixture {index} passed",
+                file=sys.stderr,
+            )
+            return 1
+    print(
+        "stage17-authorization-check: PASS "
+        "(5 synthetic positive, 9 negative, no authority issued)"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

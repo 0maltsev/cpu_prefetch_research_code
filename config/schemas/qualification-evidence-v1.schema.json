@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:qualification-evidence:v1",
+  "title": "Q14 qualification-only evidence envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_version",
+    "artifact_id",
+    "kind",
+    "stand_id",
+    "binding_id",
+    "source_revision",
+    "binary_sha256",
+    "captured_at_utc",
+    "producer_cpu",
+    "consumer_cpu",
+    "sources",
+    "eligible",
+    "details"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-qualification-evidence/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "artifact_id": {"$ref": "#/$defs/nonempty"},
+    "kind": {
+      "enum": [
+        "SELECTED_PAIR_CLOCK",
+        "RUNTIME_ATOMIC_LAYOUT",
+        "ACTUAL_CPU_MIGRATION",
+        "ADDRESS_RESIDENCY",
+        "SOFTWARE_PREFETCH_MAPPING"
+      ]
+    },
+    "stand_id": {"$ref": "#/$defs/nonempty"},
+    "binding_id": {"$ref": "#/$defs/nonempty"},
+    "source_revision": {"$ref": "#/$defs/nonempty"},
+    "binary_sha256": {"$ref": "#/$defs/sha256"},
+    "captured_at_utc": {"$ref": "#/$defs/nonempty"},
+    "producer_cpu": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "consumer_cpu": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "sha256"],
+        "properties": {
+          "artifact_id": {"$ref": "#/$defs/nonempty"},
+          "sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    "eligible": {"type": "boolean"},
+    "details": {"type": "object"}
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "kind": {"const": "SELECTED_PAIR_CLOCK"},
+        "details": {"$ref": "#/$defs/clock_details"}
+      }
+    },
+    {
+      "properties": {
+        "kind": {"const": "RUNTIME_ATOMIC_LAYOUT"},
+        "details": {"$ref": "#/$defs/atomic_details"}
+      }
+    },
+    {
+      "properties": {
+        "kind": {"const": "ACTUAL_CPU_MIGRATION"},
+        "details": {"$ref": "#/$defs/cpu_details"}
+      }
+    },
+    {
+      "properties": {
+        "kind": {"const": "ADDRESS_RESIDENCY"},
+        "details": {"$ref": "#/$defs/residency_details"}
+      }
+    },
+    {
+      "properties": {
+        "kind": {"const": "SOFTWARE_PREFETCH_MAPPING"},
+        "details": {"$ref": "#/$defs/software_prefetch_mapping_details"}
+      }
+    }
+  ],
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "u64": {"type": "integer", "minimum": 0, "maximum": 18446744073709551615},
+    "clock_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_prime_read_count",
+        "consumer_prime_read_count",
+        "producer_delta_count",
+        "consumer_delta_count",
+        "traced_call_count",
+        "traced_syscall_count",
+        "producer_to_consumer_window_count",
+        "consumer_to_producer_window_count",
+        "exchanges_per_window",
+        "per_core_evaluator_passed",
+        "cross_core_evaluator_passed",
+        "before_block_repeat"
+      ],
+      "properties": {
+        "producer_prime_read_count": {"$ref": "#/$defs/u64"},
+        "consumer_prime_read_count": {"$ref": "#/$defs/u64"},
+        "producer_delta_count": {"$ref": "#/$defs/u64"},
+        "consumer_delta_count": {"$ref": "#/$defs/u64"},
+        "traced_call_count": {"$ref": "#/$defs/u64"},
+        "traced_syscall_count": {"$ref": "#/$defs/u64"},
+        "producer_to_consumer_window_count": {"$ref": "#/$defs/u64"},
+        "consumer_to_producer_window_count": {"$ref": "#/$defs/u64"},
+        "exchanges_per_window": {"$ref": "#/$defs/u64"},
+        "per_core_evaluator_passed": {"type": "boolean"},
+        "cross_core_evaluator_passed": {"type": "boolean"},
+        "before_block_repeat": {"type": "boolean"}
+      }
+    },
+    "atomic_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pointer_atomic_width_bytes",
+        "pointer_atomic_alignment_bytes",
+        "termination_atomic_width_bytes",
+        "termination_atomic_alignment_bytes",
+        "cache_line_bytes",
+        "pointer_atomic_runtime_lock_free",
+        "termination_atomic_runtime_lock_free",
+        "queue_layout_passed",
+        "ownership_lines_separated",
+        "termination_dedicated_line"
+      ],
+      "properties": {
+        "pointer_atomic_width_bytes": {"$ref": "#/$defs/u64"},
+        "pointer_atomic_alignment_bytes": {"$ref": "#/$defs/u64"},
+        "termination_atomic_width_bytes": {"$ref": "#/$defs/u64"},
+        "termination_atomic_alignment_bytes": {"$ref": "#/$defs/u64"},
+        "cache_line_bytes": {"$ref": "#/$defs/u64"},
+        "pointer_atomic_runtime_lock_free": {"type": "boolean"},
+        "termination_atomic_runtime_lock_free": {"type": "boolean"},
+        "queue_layout_passed": {"type": "boolean"},
+        "ownership_lines_separated": {"type": "boolean"},
+        "termination_dedicated_line": {"type": "boolean"}
+      }
+    },
+    "cpu_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_sample_count",
+        "consumer_sample_count",
+        "producer_first_cpu",
+        "producer_last_cpu",
+        "consumer_first_cpu",
+        "consumer_last_cpu",
+        "producer_migration_count",
+        "consumer_migration_count",
+        "producer_singleton_affinity",
+        "consumer_singleton_affinity"
+      ],
+      "properties": {
+        "producer_sample_count": {"$ref": "#/$defs/u64"},
+        "consumer_sample_count": {"$ref": "#/$defs/u64"},
+        "producer_first_cpu": {"$ref": "#/$defs/u64"},
+        "producer_last_cpu": {"$ref": "#/$defs/u64"},
+        "consumer_first_cpu": {"$ref": "#/$defs/u64"},
+        "consumer_last_cpu": {"$ref": "#/$defs/u64"},
+        "producer_migration_count": {"$ref": "#/$defs/u64"},
+        "consumer_migration_count": {"$ref": "#/$defs/u64"},
+        "producer_singleton_affinity": {"type": "boolean"},
+        "consumer_singleton_affinity": {"type": "boolean"}
+      }
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "region",
+        "expected_node",
+        "before_page_count",
+        "during_page_count",
+        "after_page_count",
+        "unavailable_page_count",
+        "wrong_node_page_count",
+        "migrated_page_count"
+      ],
+      "properties": {
+        "region": {"$ref": "#/$defs/nonempty"},
+        "expected_node": {"$ref": "#/$defs/u64"},
+        "before_page_count": {"$ref": "#/$defs/u64"},
+        "during_page_count": {"$ref": "#/$defs/u64"},
+        "after_page_count": {"$ref": "#/$defs/u64"},
+        "unavailable_page_count": {"$ref": "#/$defs/u64"},
+        "wrong_node_page_count": {"$ref": "#/$defs/u64"},
+        "migrated_page_count": {"$ref": "#/$defs/u64"}
+      }
+    },
+    "residency_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mechanism_id",
+        "shared_event_and_queue_pages",
+        "producer_private_pages",
+        "consumer_private_pages"
+      ],
+      "properties": {
+        "mechanism_id": {"$ref": "#/$defs/nonempty"},
+        "shared_event_and_queue_pages": {"$ref": "#/$defs/region"},
+        "producer_private_pages": {"$ref": "#/$defs/region"},
+        "consumer_private_pages": {"$ref": "#/$defs/region"}
+      }
+    },
+    "software_prefetch_mapping_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mapping_id",
+        "producer_maximum_extended_leaf",
+        "producer_extended_leaf_ecx",
+        "producer_prfchw_supported",
+        "consumer_maximum_extended_leaf",
+        "consumer_extended_leaf_ecx",
+        "consumer_prfchw_supported",
+        "ring_producer_instruction",
+        "ring_consumer_instruction",
+        "linked_consumer_instruction",
+        "gcc_codegen_passed",
+        "clang_codegen_passed",
+        "gnu_objdump_passed",
+        "llvm_objdump_passed"
+      ],
+      "properties": {
+        "mapping_id": {"const": "X86-64-PREFETCHW-PREFETCHT0-v1"},
+        "producer_maximum_extended_leaf": {"$ref": "#/$defs/u64"},
+        "producer_extended_leaf_ecx": {"$ref": "#/$defs/u64"},
+        "producer_prfchw_supported": {"type": "boolean"},
+        "consumer_maximum_extended_leaf": {"$ref": "#/$defs/u64"},
+        "consumer_extended_leaf_ecx": {"$ref": "#/$defs/u64"},
+        "consumer_prfchw_supported": {"type": "boolean"},
+        "ring_producer_instruction": {"const": "PREFETCHW"},
+        "ring_consumer_instruction": {"const": "PREFETCHT0"},
+        "linked_consumer_instruction": {"const": "PREFETCHT0"},
+        "gcc_codegen_passed": {"type": "boolean"},
+        "clang_codegen_passed": {"type": "boolean"},
+        "gnu_objdump_passed": {"type": "boolean"},
+        "llvm_objdump_passed": {"type": "boolean"}
+      }
+    }
+  }
+}

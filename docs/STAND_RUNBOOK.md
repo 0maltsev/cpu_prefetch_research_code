@@ -49,17 +49,22 @@ implementation only in the
 [Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md); it grants no stand
 control or execution authority.
 
-The proposed
+The accepted
 [pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
-defines three non-collapsible gates: Q14 may authorize repository-local
-closure only, a later complete Q15 may authorize exact stand qualification,
-and later dependency-ready Q16a through Q16d records may authorize individual
-Stage 17 phases. While Q14 is pending, none of those actions is authorized.
+defines three non-collapsible gates: Q14 authorizes repository-local closure
+only, a later complete Q15 may authorize exact stand qualification, and later
+dependency-ready Q16a through Q16d records may authorize individual Stage 17
+phases. Q14 is accepted, but its physical-emitter/strict-release gate remains
+open. No stand action is authorized.
 
 ### 3. Privileged capability verification
 
 A separately named platform operator reviews the read-only inventory and
 creates the prospective authority/whitelist/readback/probe/restoration plan.
+Its future envelope must conform to
+[`stage17-authorization-v1.schema.json`](../config/schemas/stage17-authorization-v1.schema.json)
+and the semantic validator before owner review; schema conformance does not
+grant authority.
 There is no automatic privileged path in the bundle. Do not use `sudo`, write
 sysfs/MSRs, stop services, change boot state, or apply a control until the exact
 target/value/inverse and independent verification have been approved.
@@ -105,6 +110,12 @@ kernel and firmware, CPU vendor/model/stepping/microcode, selected core pairs,
 NUMA/cache ancestry, measurement build and dependencies, approved platform
 operator, allowed targets/values, verification mechanisms, and rollback tests.
 Missing evidence remains missing; it is not replaced by a package default.
+
+D-047 fixes `X86-64-PREFETCHW-PREFETCHT0-v1`. Under a future exact Q15, each
+already-affined selected worker must independently retain its maximum extended
+CPUID leaf and `CPUID.80000001H:ECX`; bit 8 must be set before private-stream
+first touch. Inventory CPUID bytes support planning but do not replace this
+release-bound dynamic record. No fallback instruction is permitted.
 
 ## Privilege model
 
@@ -287,7 +298,7 @@ Verify `Rtotal = max(max(R_H1,R_H2), Rtrain + Rval)` and `Nruns = 180*Rtotal` wi
 For each authorized session:
 
 1. Verify protocol/import, implementation revision, build artifact, dependencies, and accepted ADR/freeze hashes.
-2. Verify the machine identity matches the platform record, including CPU, stepping, microcode, topology, cache line, memory, kernel/OS, firmware/power, and SMT state.
+2. Verify the machine identity matches the platform record, including CPU, stepping, microcode, topology, cache line, memory, kernel/OS, firmware/power, SMT state, and the D-047 PRFCHW requirement on both selected workers.
 3. Verify authorized storage locations, free capacity, custody/access controls, append-only behavior, clock source, and rollback/recovery readiness.
 4. Verify role-specific namespaces and block plans have not been used, mutated, unsealed, or branched.
 5. Record the session admission decision. On mismatch, create a pre-run/platform/protocol failure record and do not launch workers.

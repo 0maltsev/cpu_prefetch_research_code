@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the implementation-owned Q13 admission schema and fixtures."""
+"""Validate the implementation-owned Q13 and Q14 admission schemas."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import sys
 from jsonschema import Draft202012Validator
 
 
-KINDS = [
+V1_KINDS = [
     "PROTOCOL_SNAPSHOT",
     "SOURCE_RELEASE",
     "RUN_PLAN",
@@ -33,14 +33,21 @@ KINDS = [
     "AUTHORITY_CUSTODY",
     "PILOT_EXECUTION_AUTHORIZATION",
 ]
+V2_KINDS = [
+    *V1_KINDS[:10],
+    "SOFTWARE_PREFETCH_MAPPING",
+    *V1_KINDS[10:-1],
+    "PHASE_EXECUTION_AUTHORIZATION",
+]
 
 
-def fixture() -> dict[str, object]:
+def fixture(version: int) -> dict[str, object]:
     zero_hash = "0" * 64
+    kinds = V1_KINDS if version == 1 else V2_KINDS
     return {
-        "schema_version": "cpu-prefetch-runner-admission/1",
+        "schema_version": f"cpu-prefetch-runner-admission/{version}",
         "protocol_version": "2.0.0-pre.2",
-        "runner_profile_id": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v1",
+        "runner_profile_id": f"STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v{version}",
         "cpu_pair_selection_id": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",
         "relax_mapping_id": "X86-PAUSE-ONE-PER-RELAX-SITE-v1",
         "source_revision": "SYNTHETIC",
@@ -68,19 +75,25 @@ def fixture() -> dict[str, object]:
                 "immutable": True,
                 "eligible": True,
             }
-            for index, kind in enumerate(KINDS)
+            for index, kind in enumerate(kinds)
         ],
     }
 
 
 def main() -> int:
     root = pathlib.Path(__file__).resolve().parents[1]
-    schema_path = root / "config" / "schemas" / "runner-admission-v1.schema.json"
-    schema = json.loads(schema_path.read_text(encoding="utf-8"))
-    Draft202012Validator.check_schema(schema)
-    validator = Draft202012Validator(schema)
-    valid = fixture()
-    validator.validate(valid)
+    validators: dict[int, Draft202012Validator] = {}
+    for version in (1, 2):
+        schema_path = (
+            root / "config" / "schemas" / f"runner-admission-v{version}.schema.json"
+        )
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        Draft202012Validator.check_schema(schema)
+        validators[version] = Draft202012Validator(schema)
+        validators[version].validate(fixture(version))
+
+    validator = validators[2]
+    valid = fixture(2)
 
     invalids: list[dict[str, object]] = []
     wrong_pair = copy.deepcopy(valid)
@@ -95,11 +108,13 @@ def main() -> int:
     unknown = copy.deepcopy(valid)
     unknown["extra"] = True
     invalids.append(unknown)
+    legacy_under_v2 = fixture(1)
+    invalids.append(legacy_under_v2)
     for index, document in enumerate(invalids):
         if not list(validator.iter_errors(document)):
             print(f"runner-schema-check: FAIL: invalid fixture {index} passed", file=sys.stderr)
             return 1
-    print("runner-schema-check: PASS (Draft 2020-12; 1 positive, 4 negative)")
+    print("runner-schema-check: PASS (Draft 2020-12; 2 positive, 5 negative)")
     return 0
 
 

@@ -34,8 +34,10 @@
 - Queue provenance: `cmake --build --preset dev-gcc --target queue-provenance-check`
 - Queue generated code: `cmake --build --preset release-gcc --target queue-codegen-check` (requires both GNU objdump and accepted LLVM 22 `llvm-objdump`; missing LLVM is a blocking failure)
 - Workload generated code: `cmake --build --preset release-gcc --target workload-codegen-check` (same dual-disassembler blocking rule)
-- Runner admission: `ctest --preset dev-gcc -L runner` and `cmake --build --preset dev-gcc --target runner-schema-check`
+- Runner admission/qualification: `ctest --preset dev-gcc -L runner` and `cmake --build --preset dev-gcc --target runner-schema-check qualification-schema-check`
 - Runner relax generated code: `cmake --build --preset release-gcc --target runner-relax-codegen-check` (same dual-disassembler blocking rule)
+- Runner combined generated code: `cmake --build --preset release-gcc --target runner-combined-codegen-check`; D-047 requires exact `PREFETCHW`/`PREFETCHT0` vectors under both disassemblers and rejects wrong-intent, duplicate, and forbidden-work mutants.
+- Pilot candidate: `cmake --build --preset release-gcc --target pilot-candidate-bundle`; it requires a clean revision and every strict codegen report and grants no execution authority.
 - Clean-room verification: use a recorded pre-provisioned dependency prefix, then run the documented configure/build/test/check/package commands in `README.md`; configure and build perform no network fetch.
 
 Replace a placeholder only through a recorded engineering decision and keep `README.md`, `STATUS.md`, and `PLAN.md` synchronized.

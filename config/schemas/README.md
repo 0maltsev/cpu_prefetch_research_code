@@ -61,3 +61,24 @@ validator additionally proves exact evidence-kind coverage and uniqueness,
 current trust-anchor binding, regular non-symlink files, and actual SHA-256
 agreement before it can construct an admission ticket. It is not an imported
 scientific schema and cannot authorize execution by itself.
+
+`runner-admission-v2.schema.json` is ADR-0044's incompatible phase-gated
+successor. It preserves the selected pairs and relax mapping, adds a mandatory
+`SOFTWARE_PREFETCH_MAPPING` distinct from H0/H1 control evidence, and replaces
+the generic pilot authorization with an exact `PHASE_EXECUTION_AUTHORIZATION`.
+The v1 schema remains unchanged and readable but cannot arm the v2 runner.
+
+`qualification-evidence-v1.schema.json` includes the D-047
+`SOFTWARE_PREFETCH_MAPPING` detail variant. It fixes
+`X86-64-PREFETCHW-PREFETCHT0-v1`, the exact instruction roles, both owner-CPU
+CPUID observations, and both compiler/disassembler results. Structural schema
+validity does not imply eligibility; the typed builder requires every
+capability and codegen gate to pass.
+
+`stage17-authorization-v1.schema.json` is the implementation-owned Q14
+envelope for future Q15 stand-qualification and Q16a--Q16d phase-scoped
+authorizations. It does not instantiate or grant authority. Its semantic
+check rejects omnibus phases, wildcard/latest/unresolved targets, overlapping
+authority roles, non-forward validity intervals, same-domain custody, missing
+predecessor evidence, run-count drift, confirmatory namespaces, and permission
+bits that would enable a prohibited action.

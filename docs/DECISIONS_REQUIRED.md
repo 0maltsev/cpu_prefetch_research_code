@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_INVENTORY_COMPLETE; Q1_THROUGH_Q13_ACCEPTED; Q14_AWAITING`**
+Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_INVENTORY_COMPLETE; Q1_THROUGH_Q14_AND_D047_ACCEPTED; CLEAN_CANDIDATE_SEALING_READY`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
@@ -13,37 +13,42 @@ boundary and synthetic post-run reconciliation, not an authorized scientific run
 Stage 16 now also retains a verified nonprivileged candidate-stand snapshot
 with two packages and two NUMA nodes. Q13 selects explicit static worker pairs
 from later hashed topology evidence but supplies no dynamic qualification.
-Stage 5 contains queue correctness-only production cores, Stage 6 contains
+ADR-0047 now fixes the physical software-prefetch mapping and its strict
+dual-compiler/disassembler software gate. Stage 5 contains queue
+correctness-only production cores, Stage 6 contains
 deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
 owner on 2026-08-17; Q7 was accepted on 2026-08-20; Q8 through Q12 were
-accepted on 2026-08-21; Q13 was accepted for implementation only on
-2026-08-22. They are recorded through ADR-0043, with ADR-0039
+accepted on 2026-08-21; Q13 and Q14 were accepted for implementation/policy
+only on 2026-08-22. They are recorded through ADR-0046, with ADR-0039
 closing the delegated Stage 13 profile, ADR-0040 closing the Stage 14
 implementation-owned planning/access profile, and ADR-0041 closing the
 synthetic-only Stage 15 analysis profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
 
-## Pending Q14 pre-Stage-17 governance bundle
+## Accepted Q14 governance and D-047 mapping; next qualification inputs required
 
 The
 [`pre-Stage-17 blocker-closure and pilot-authorization decision bundle`](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
-proposes D-044 through D-046. Q14 would authorize repository-local completion
-of the fail-closed static production runner, qualification-only tools, combined
-codegen audit, and a new pilot-candidate bundle. It would also accept the rule
-that later stand qualification and Stage 17 work require separate exact,
-hash-bound Q15 and phase-scoped Q16 records.
+is accepted as Q14/ADR-0044 through ADR-0046. The permitted repository-local
+runner, qualification-record, authorization-schema, combined-audit, and
+candidate-builder work is implemented.
 
-Q14 does **not** authorize SSH/stand access, dynamic qualification, privilege,
-calibration, pilot, or confirmatory execution. No ADR exists for D-044 through
-D-046 while Q14 is pending. Q15 and Q16a through Q16d remain blocked because
+Q14 and D-047 do **not** authorize SSH/stand access, dynamic qualification, privilege,
+calibration, pilot, or confirmatory execution. Q15 and Q16a through Q16d remain blocked because
 their exact release, authority, commands, limits, predecessor artifacts,
 plans, namespaces, seeds, budgets, storage domains, and hashes do not yet
 exist.
 
-The only approval-ready text is the Q14 text printed in the bundle. A generic
-approval for Stage 17 is invalid.
+D-047/ADR-0047 selects `X86-64-PREFETCHW-PREFETCHT0-v1`: producer ring sites
+use `PREFETCHW`, consumer ring and linked-successor sites use `PREFETCHT0`, and
+each owner must pass the PRFCHW capability gate before first touch. GCC and
+Clang pass the strict dual-disassembler ten-operation audit and four negative
+mutants. A clean exact no-authority candidate may therefore be sealed, but Q15
+still requires every exact release, command, limit, authority, control,
+storage, and custody input listed in the accepted bundle. A generic Stage 17
+approval remains invalid.
 
 ## Accepted Stage 13 bundle
 
@@ -178,9 +183,13 @@ versioned protocol amendment. Stages 11 through 15 are complete locally under
 ADR-0032 through ADR-0041, and ADR-0042 plus snapshot
 `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` close the Stage 16
 software/bundle/count-level inventory slice. Q13/ADR-0043 then closes only the
-runner-entry implementation choices. The exact next safe actions are to finish
-the Q14 review and, only if accepted, implement the repository-local D-044
-closure. Stand-side qualification remains a later exact Q15 request, and every
+runner-entry implementation choices. Q14/ADR-0044 through ADR-0046 accept the
+local closure and future authority policies. D-047/ADR-0047 accepts and
+implements the physical software-prefetch mapping and closes the strict
+combined audit. The exact next safe action is to seal and verify the clean
+no-authority candidate, then prepare the complete hash-bound Q15 request from
+the remaining exact inputs. Stand-side qualification remains a later exact
+Q15 authorization, and every
 Stage 17 phase remains a later dependency-ready Q16 request. Every external
 scientific or stand-dependent value remains blocked until its listed evidence
 gate. Measurement, calibration execution, pilot, and confirmatory execution

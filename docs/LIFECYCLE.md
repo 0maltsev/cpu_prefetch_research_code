@@ -159,9 +159,14 @@ The executor performs no schema parsing, RNG, allocation, I/O, logging,
 compression, reconciliation, or analysis after the measurement origin. Its
 backend contract requires preallocated observation retention; the Stage 11
 physical storage decision and implementation must provide and prove that
-backend. Final package-specific code generation, production reset bindings,
-real prefetch mapping, explicit watchdog values, selected-pair qualification,
-affinity/residency, and clock qualification remain pre-pilot evidence. Q13's
-static runner entry is documented in [`PRODUCTION_RUNNER.md`](PRODUCTION_RUNNER.md).
+backend. Q14's preparation extension binds and verifies each owner thread,
+then first-touches only its private stream before it arrives at the start
+barrier. D-047 adds per-owner PRFCHW observation at that same boundary before
+first touch. Failure is `PRE_RUN/worker_preparation`, makes zero attempts,
+cancels the peer, and never becomes an implicit retry. The exact emitter-bound
+package code generation passes locally; production reset bindings, explicit
+watchdog values, selected-pair dynamic qualification, residency, and clock
+qualification remain pre-pilot evidence. The static runner entry is documented
+in [`PRODUCTION_RUNNER.md`](PRODUCTION_RUNNER.md).
 Development-host and
 fake results are never latency or throughput evidence.

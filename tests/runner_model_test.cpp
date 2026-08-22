@@ -1,14 +1,19 @@
+#include "cpu_prefetch/protocol/json.hpp"
+#include "cpu_prefetch/runner/qualification.hpp"
 #include "cpu_prefetch/runner/runner.hpp"
 
 #include <gtest/gtest.h>
 
 #include <array>
+#include <atomic>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <limits>
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <thread>
 #include <vector>
 
 namespace {
@@ -55,9 +60,9 @@ constexpr std::string_view kZeroHash =
 
 [[nodiscard]] auto complete_admission_json() -> std::string {
   std::ostringstream output;
-  output << R"({"schema_version":"cpu-prefetch-runner-admission/1",)"
+  output << R"({"schema_version":"cpu-prefetch-runner-admission/2",)"
          << R"("protocol_version":"2.0.0-pre.2",)"
-         << R"("runner_profile_id":"STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v1",)"
+         << R"("runner_profile_id":"STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v2",)"
          << R"("cpu_pair_selection_id":"XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",)"
          << R"("relax_mapping_id":"X86-PAUSE-ONE-PER-RELAX-SITE-v1",)"
          << R"("source_revision":"synthetic-revision",)"
@@ -116,6 +121,58 @@ struct DispatchRecorder final {
   template <QueuePackage Package> void operator()() { observed->push_back(Package); }
 };
 
+class FakeBindingBackend final
+    : public cpu_prefetch::runner::CurrentThreadBindingBackend {
+public:
+  std::uint32_t failed_cpu{std::numeric_limits<std::uint32_t>::max()};
+
+  [[nodiscard]] auto bind_and_verify(std::uint32_t requested_cpu) noexcept
+      -> cpu_prefetch::runner::ThreadBindingObservation override {
+    const bool passes = requested_cpu != failed_cpu;
+    return {requested_cpu, passes ? requested_cpu : requested_cpu + 1U, passes, passes,
+            passes};
+  }
+};
+
+class FakeSoftwarePrefetchCapabilityBackend final
+    : public cpu_prefetch::runner::CurrentCpuSoftwarePrefetchCapabilityBackend {
+public:
+  bool supported{true};
+
+  [[nodiscard]] auto observe() noexcept
+      -> cpu_prefetch::runner::SoftwarePrefetchCapabilityObservation override {
+    return {cpu_prefetch::runner::kPrfchwExtendedLeaf,
+            supported ? cpu_prefetch::runner::kPrfchwEcxMask : 0U, supported};
+  }
+};
+
+class RunnerStepClock final {
+public:
+  [[nodiscard]] auto read_ticks() noexcept -> cpu_prefetch::lifecycle::TickRead {
+    return {true, ticks_.fetch_add(1U, std::memory_order_relaxed)};
+  }
+
+private:
+  std::atomic<std::uint64_t> ticks_{1U};
+};
+
+class EmptyR0Backend final {
+public:
+  static constexpr auto package_kind = QueuePackage::r0;
+
+  [[nodiscard]] auto
+  try_producer_attempt(cpu_prefetch::lifecycle::ProducerAttempt) noexcept
+      -> cpu_prefetch::lifecycle::ProducerAttemptResult {
+    return {cpu_prefetch::lifecycle::AttemptStatus::failure,
+            cpu_prefetch::queue::EnqueueResult::full};
+  }
+
+  [[nodiscard]] auto try_consumer_poll(std::uint64_t) noexcept
+      -> cpu_prefetch::lifecycle::ConsumerPollResult {
+    return {cpu_prefetch::lifecycle::ConsumerPollStatus::empty};
+  }
+};
+
 TEST(RunnerQ13Policy, ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen) {
   EXPECT_EQ(cpu_prefetch::runner::selected_worker_pair(Placement::near),
             cpu_prefetch::runner::kNearWorkerPair);
@@ -126,13 +183,240 @@ TEST(RunnerQ13Policy, ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen) {
   EXPECT_EQ(cpu_prefetch::runner::kFarWorkerPair,
             (cpu_prefetch::runner::WorkerPair{0U, 26U}));
   EXPECT_EQ(cpu_prefetch::runner::kRelaxMappingId, "X86-PAUSE-ONE-PER-RELAX-SITE-v1");
+  EXPECT_EQ(cpu_prefetch::runner::kSoftwarePrefetchMappingId,
+            "X86-64-PREFETCHW-PREFETCHT0-v1");
   cpu_prefetch::runner::X86PauseRelax{}.relax();
+  alignas(64) std::array<char, 64U> target{};
+  const cpu_prefetch::runner::X86RetainingPrefetchEmitter emitter;
+  emitter.ring_producer_write(target.data());
+  emitter.ring_consumer_read(target.data());
+  emitter.successor_header(target.data());
 }
 
 TEST(RunnerAdmission, CompleteSyntheticFixturePassesFieldValidation) {
   const auto admission = complete_admission();
   EXPECT_TRUE(cpu_prefetch::runner::validate_admission_fields(admission, trust_anchor())
                   .empty());
+}
+
+TEST(RunnerPreparation, AffinityReadbackPrecedesOwnerPrivateFirstTouch) {
+  const auto run_id =
+      cpu_prefetch::protocol::RunId::parse("runner-preparation", "$/run_id");
+  ASSERT_TRUE(run_id.has_value());
+  cpu_prefetch::storage::ProducerObservationStream producer(run_id.value(), 2U);
+  cpu_prefetch::storage::ConsumerObservationStream consumer(run_id.value(), 2U);
+  FakeBindingBackend binding;
+  FakeSoftwarePrefetchCapabilityBackend capability;
+  cpu_prefetch::runner::AffinedObservationPreparation preparation(
+      binding, capability, cpu_prefetch::runner::kNearWorkerPair, producer, consumer);
+
+  bool producer_ready = false;
+  bool consumer_ready = false;
+  std::thread producer_thread([&] { producer_ready = preparation.prepare_producer(); });
+  std::thread consumer_thread([&] { consumer_ready = preparation.prepare_consumer(); });
+  producer_thread.join();
+  consumer_thread.join();
+
+  EXPECT_TRUE(producer_ready);
+  EXPECT_TRUE(consumer_ready);
+  EXPECT_TRUE(preparation.evidence().passes());
+  EXPECT_EQ(producer.snapshot().completeness,
+            cpu_prefetch::storage::StreamCompleteness::writing);
+  EXPECT_EQ(consumer.snapshot().completeness,
+            cpu_prefetch::storage::StreamCompleteness::writing);
+}
+
+TEST(RunnerPreparation, AffinityMismatchFailsBeforePrivateFirstTouch) {
+  const auto run_id =
+      cpu_prefetch::protocol::RunId::parse("runner-affinity-fail", "$/run_id");
+  ASSERT_TRUE(run_id.has_value());
+  cpu_prefetch::storage::ProducerObservationStream producer(run_id.value(), 1U);
+  cpu_prefetch::storage::ConsumerObservationStream consumer(run_id.value(), 1U);
+  FakeBindingBackend binding;
+  FakeSoftwarePrefetchCapabilityBackend capability;
+  binding.failed_cpu = cpu_prefetch::runner::kNearWorkerPair.producer_cpu;
+  cpu_prefetch::runner::AffinedObservationPreparation preparation(
+      binding, capability, cpu_prefetch::runner::kNearWorkerPair, producer, consumer);
+
+  EXPECT_FALSE(preparation.prepare_producer());
+  EXPECT_EQ(producer.append({}),
+            cpu_prefetch::storage::AppendStatus::stream_unprepared);
+  EXPECT_FALSE(preparation.evidence().passes());
+}
+
+TEST(RunnerPreparation, MissingPrfchwFailsBeforePrivateFirstTouch) {
+  const auto run_id =
+      cpu_prefetch::protocol::RunId::parse("runner-prfchw-fail", "$/run_id");
+  ASSERT_TRUE(run_id.has_value());
+  cpu_prefetch::storage::ProducerObservationStream producer(run_id.value(), 1U);
+  cpu_prefetch::storage::ConsumerObservationStream consumer(run_id.value(), 1U);
+  FakeBindingBackend binding;
+  FakeSoftwarePrefetchCapabilityBackend capability;
+  capability.supported = false;
+  cpu_prefetch::runner::AffinedObservationPreparation preparation(
+      binding, capability, cpu_prefetch::runner::kNearWorkerPair, producer, consumer);
+
+  EXPECT_FALSE(preparation.prepare_producer());
+  EXPECT_EQ(producer.append({}),
+            cpu_prefetch::storage::AppendStatus::stream_unprepared);
+  const auto evidence = preparation.evidence();
+  EXPECT_TRUE(evidence.producer_binding.passes());
+  EXPECT_FALSE(evidence.producer_software_prefetch_capability.passes());
+  EXPECT_FALSE(evidence.passes());
+}
+
+TEST(RunnerPreparation, AdmittedStaticPathUsesAffinedPreparationBeforeEmptyRun) {
+  const auto directory = test_directory("prepared-static-test");
+  const auto artifact = directory / "artifact.bin";
+  {
+    std::ofstream output(artifact, std::ios::binary | std::ios::trunc);
+    output << "synthetic-prepared-static-evidence";
+  }
+  const auto digest = cpu_prefetch::runner::sha256_file(artifact);
+  ASSERT_TRUE(digest.has_value());
+  auto admission = complete_admission();
+  admission.execution_limits = {1'000'000U, 1'000'000U, 1U, 1'000'000U, 1'000'000U};
+  for (auto& reference : admission.evidence) {
+    reference.path = artifact.filename();
+    reference.sha256 = digest.value();
+  }
+  const auto ticket =
+      cpu_prefetch::runner::admit_runner(admission, trust_anchor(), directory);
+  ASSERT_TRUE(ticket.has_value());
+
+  const auto run_id =
+      cpu_prefetch::protocol::RunId::parse("runner-prepared-static", "$/run_id");
+  ASSERT_TRUE(run_id.has_value());
+  cpu_prefetch::storage::ProducerObservationStream producer(run_id.value(), 0U);
+  cpu_prefetch::storage::ConsumerObservationStream consumer(run_id.value(), 0U);
+  FakeBindingBackend binding;
+  FakeSoftwarePrefetchCapabilityBackend capability;
+  cpu_prefetch::runner::AffinedObservationPreparation preparation(
+      binding, capability, cpu_prefetch::runner::kNearWorkerPair, producer, consumer);
+  RunnerStepClock clock;
+  EmptyR0Backend backend;
+  cpu_prefetch::lifecycle::TerminationControl termination(
+      cpu_prefetch::queue::CacheLineBytes{64U});
+  constexpr std::array<std::uint64_t, 0U> deadlines{};
+
+  const auto report =
+      cpu_prefetch::runner::execute_static_prepared_measurement<QueuePackage::r0>(
+          ticket.value(), {deadlines, 0U, 1U}, clock, backend, termination,
+          preparation);
+  EXPECT_EQ(report.failure_phase, cpu_prefetch::lifecycle::ExecutionFailurePhase::none);
+  EXPECT_EQ(report.attempted, 0U);
+  EXPECT_TRUE(report.producer_completed);
+  EXPECT_TRUE(report.consumer_drained);
+  EXPECT_TRUE(preparation.evidence().passes());
+  std::filesystem::remove_all(directory);
+}
+
+[[nodiscard]] auto qualification_identity()
+    -> cpu_prefetch::runner::QualificationIdentity {
+  return {"synthetic-qualification",
+          "SYNTHETIC-NOT-A-STAND",
+          "synthetic-binding",
+          "synthetic-revision",
+          std::string(kZeroHash),
+          "2026-08-22T00:00:00Z",
+          cpu_prefetch::runner::kNearWorkerPair,
+          {{"synthetic-source", std::string(kZeroHash)}}};
+}
+
+TEST(RunnerQualification, TypedArtifactProducersDeriveEligibilityAndCanonicalBytes) {
+  using namespace cpu_prefetch::runner;
+  const auto identity = qualification_identity();
+  const auto clock =
+      make_selected_pair_clock_evidence(identity, {{100'000U, 100'000U},
+                                                   {10'000'000U, 10'000'000U},
+                                                   10'000'000U,
+                                                   0U,
+                                                   3U,
+                                                   3U,
+                                                   100'000U,
+                                                   true,
+                                                   true,
+                                                   true});
+  ASSERT_TRUE(clock.has_value());
+  EXPECT_TRUE(clock.value().eligible);
+
+  const auto atomics = make_runtime_atomic_layout_evidence(
+      identity, {sizeof(void*), alignof(void*), sizeof(std::uint32_t),
+                 alignof(std::uint32_t), 64U, true, true, true, true, true});
+  ASSERT_TRUE(atomics.has_value());
+  EXPECT_TRUE(atomics.value().eligible);
+
+  const auto migration = make_actual_cpu_migration_evidence(
+      identity, {2U, 2U, 0U, 0U, 1U, 1U, 0U, 0U, true, true});
+  ASSERT_TRUE(migration.has_value());
+  EXPECT_TRUE(migration.value().eligible);
+
+  const RegionResidencyInput shared{
+      "SHARED_EVENT_AND_QUEUE", 0U, 4U, 4U, 4U, 0U, 0U, 0U};
+  const RegionResidencyInput producer{"PRODUCER_PRIVATE", 0U, 2U, 2U, 2U, 0U, 0U, 0U};
+  const RegionResidencyInput consumer{"CONSUMER_PRIVATE", 0U, 2U, 2U, 2U, 0U, 0U, 0U};
+  const auto residency = make_address_residency_evidence(
+      identity, {"SYNTHETIC-RESIDENCY-MECHANISM", shared, producer, consumer});
+  ASSERT_TRUE(residency.has_value());
+  EXPECT_TRUE(residency.value().eligible);
+
+  const SoftwarePrefetchCapabilityObservation prefetch_capability{0x80000008U, 0x121U,
+                                                                  true};
+  const auto software_prefetch = make_software_prefetch_mapping_evidence(
+      identity, {std::string(kSoftwarePrefetchMappingId), prefetch_capability,
+                 prefetch_capability, true, true, true, true});
+  ASSERT_TRUE(software_prefetch.has_value());
+  EXPECT_TRUE(software_prefetch.value().eligible);
+
+  for (const auto* document :
+       {&clock.value().canonical_json, &atomics.value().canonical_json,
+        &migration.value().canonical_json, &residency.value().canonical_json,
+        &software_prefetch.value().canonical_json}) {
+    const auto parsed = cpu_prefetch::protocol::json::parse(*document);
+    ASSERT_TRUE(parsed.has_value());
+    const auto canonical = cpu_prefetch::protocol::json::canonicalize(parsed.value());
+    ASSERT_TRUE(canonical.has_value());
+    EXPECT_EQ(canonical.value(), *document);
+  }
+}
+
+TEST(RunnerQualification, MissingCountsMigrationsAndUnavailablePagesStayIneligible) {
+  using namespace cpu_prefetch::runner;
+  const auto identity = qualification_identity();
+  auto clock_input = SelectedPairClockInput{{100'000U, 100'000U},
+                                            {10'000'000U, 9'999'999U},
+                                            10'000'000U,
+                                            1U,
+                                            3U,
+                                            3U,
+                                            100'000U,
+                                            true,
+                                            true,
+                                            true};
+  const auto clock = make_selected_pair_clock_evidence(identity, clock_input);
+  ASSERT_TRUE(clock.has_value());
+  EXPECT_FALSE(clock.value().eligible);
+
+  const auto migration = make_actual_cpu_migration_evidence(
+      identity, {2U, 2U, 0U, 0U, 1U, 26U, 0U, 1U, true, true});
+  ASSERT_TRUE(migration.has_value());
+  EXPECT_FALSE(migration.value().eligible);
+
+  const RegionResidencyInput unavailable{
+      "SHARED_EVENT_AND_QUEUE", 0U, 4U, 4U, 4U, 1U, 0U, 0U};
+  const auto residency = make_address_residency_evidence(
+      identity,
+      {"SYNTHETIC-RESIDENCY-MECHANISM", unavailable, unavailable, unavailable});
+  ASSERT_TRUE(residency.has_value());
+  EXPECT_FALSE(residency.value().eligible);
+
+  const SoftwarePrefetchCapabilityObservation supported{0x80000008U, 0x121U, true};
+  const SoftwarePrefetchCapabilityObservation unsupported{0x80000008U, 0x21U, false};
+  const auto software_prefetch = make_software_prefetch_mapping_evidence(
+      identity, {std::string(kSoftwarePrefetchMappingId), supported, unsupported, true,
+                 true, true, true});
+  ASSERT_TRUE(software_prefetch.has_value());
+  EXPECT_FALSE(software_prefetch.value().eligible);
 }
 
 TEST(RunnerAdmission, EveryEvidenceKindIsMandatoryAndUnique) {

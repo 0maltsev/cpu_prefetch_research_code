@@ -58,6 +58,7 @@ enum class ExecutionFailureReason : std::uint8_t {
   none,
   invalid_schedule,
   invalid_limits,
+  worker_preparation,
   termination_reset,
   start_watchdog,
   clock_read,
@@ -147,11 +148,18 @@ struct ConsumerWorkerState final {
 // their implementations must preserve that SPSC/thread-safe contract.
 // The production Relax mapping remains a platform-qualified input; this
 // generic controller never chooses an instruction or scheduler operation.
-template <typename Clock, typename Backend, typename Relax>
-[[nodiscard]] auto execute_measurement(PreparedScheduleView schedule, Clock& clock,
-                                       Backend& backend,
-                                       TerminationControl& termination,
-                                       const ExecutionLimits& limits, Relax& relax)
+// Contract for Preparation:
+//   prepare_producer() noexcept -> bool
+//   prepare_consumer() noexcept -> bool
+// Both calls execute in their owner worker before that worker arrives at the
+// start barrier. They may bind/read back affinity and first-touch private
+// storage, but they cannot begin measurement or fabricate qualification.
+template <typename Clock, typename Backend, typename Relax, typename Preparation>
+[[nodiscard]] auto
+execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock,
+                                     Backend& backend, TerminationControl& termination,
+                                     const ExecutionLimits& limits, Relax& relax,
+                                     Preparation& preparation)
     -> MeasurementExecutionReport {
   const auto schedule_errors = validate_prepared_schedule(schedule);
   if (!schedule_errors.empty()) {
@@ -177,6 +185,7 @@ template <typename Clock, typename Backend, typename Relax>
   WorkerStartBarrier barrier;
   std::atomic<bool> cancellation{false};
   std::atomic<bool> producer_failed{false};
+  std::atomic<bool> preparation_failed{false};
 
   MeasurementExecutionReport report{
       ExecutionFailurePhase::none,
@@ -206,6 +215,16 @@ template <typename Clock, typename Backend, typename Relax>
   std::thread producer([&] {
     producer_state = [&]() noexcept {
       detail::ProducerWorkerState local;
+      if (!preparation.prepare_producer()) {
+        local.failure = ExecutionFailureReason::worker_preparation;
+        producer_failed.store(true, std::memory_order_release);
+        preparation_failed.store(true, std::memory_order_release);
+        cancellation.store(true, std::memory_order_release);
+        barrier.cancel();
+        termination.publish_arrivals_finished();
+        local.arrivals_finished_published = true;
+        return local;
+      }
       if (barrier.arrive(WorkerRole::producer) != StartBarrierStatus::ready) {
         local.failure = ExecutionFailureReason::cancelled;
         producer_failed.store(true, std::memory_order_release);
@@ -294,6 +313,14 @@ template <typename Clock, typename Backend, typename Relax>
   std::thread consumer([&] {
     consumer_state = [&]() noexcept {
       detail::ConsumerWorkerState local;
+      if (!preparation.prepare_consumer()) {
+        local.failure = ExecutionFailureReason::worker_preparation;
+        local.failure_phase = ExecutionFailurePhase::pre_run;
+        preparation_failed.store(true, std::memory_order_release);
+        cancellation.store(true, std::memory_order_release);
+        barrier.cancel();
+        return local;
+      }
       if (barrier.arrive(WorkerRole::consumer) != StartBarrierStatus::ready) {
         local.failure = ExecutionFailureReason::cancelled;
         local.failure_phase = ExecutionFailurePhase::start_barrier;
@@ -367,8 +394,12 @@ template <typename Clock, typename Backend, typename Relax>
     barrier.cancel();
     producer.join();
     consumer.join();
-    report.failure_phase = ExecutionFailurePhase::start_barrier;
-    report.failure_reason = ExecutionFailureReason::start_watchdog;
+    const bool failed_preparation = preparation_failed.load(std::memory_order_acquire);
+    report.failure_phase = failed_preparation ? ExecutionFailurePhase::pre_run
+                                              : ExecutionFailurePhase::start_barrier;
+    report.failure_reason = failed_preparation
+                                ? ExecutionFailureReason::worker_preparation
+                                : ExecutionFailureReason::start_watchdog;
     report.cancellation_requested = true;
     return report;
   }
@@ -414,6 +445,23 @@ template <typename Clock, typename Backend, typename Relax>
     report.failure_reason = consumer_state.failure;
   }
   return report;
+}
+
+class NoopWorkerPreparation final {
+public:
+  [[nodiscard]] auto prepare_producer() const noexcept -> bool { return true; }
+  [[nodiscard]] auto prepare_consumer() const noexcept -> bool { return true; }
+};
+
+template <typename Clock, typename Backend, typename Relax>
+[[nodiscard]] auto execute_measurement(PreparedScheduleView schedule, Clock& clock,
+                                       Backend& backend,
+                                       TerminationControl& termination,
+                                       const ExecutionLimits& limits, Relax& relax)
+    -> MeasurementExecutionReport {
+  NoopWorkerPreparation preparation;
+  return execute_measurement_with_preparation(schedule, clock, backend, termination,
+                                              limits, relax, preparation);
 }
 
 } // namespace cpu_prefetch::lifecycle

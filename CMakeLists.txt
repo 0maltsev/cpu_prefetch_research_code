@@ -158,7 +158,10 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
-add_library(cpu_prefetch_runner_core STATIC src/runner/runner.cpp)
+add_library(
+  cpu_prefetch_runner_core STATIC
+  src/runner/qualification.cpp
+  src/runner/runner.cpp)
 add_library(cpu_prefetch::runner ALIAS cpu_prefetch_runner_core)
 target_link_libraries(
   cpu_prefetch_runner_core
@@ -191,6 +194,11 @@ target_include_directories(
   PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+# ADR-0044's owner-thread preparation uses the already-allocated Stage 11
+# private streams. The dependency is declared only after the storage target is
+# available; storage itself has no runner dependency.
+target_link_libraries(cpu_prefetch_runner_core PUBLIC cpu_prefetch::storage)
 
 add_library(cpu_prefetch_reconciliation STATIC
             src/reconciliation/reconciliation.cpp)
@@ -266,6 +274,14 @@ target_link_libraries(
 add_executable(cpu_prefetch_runner tools/runner_main.cpp)
 target_link_libraries(
   cpu_prefetch_runner
+  PRIVATE
+    cpu_prefetch::foundation
+    cpu_prefetch::runner
+    cpu_prefetch_project_options)
+
+add_executable(cpu_prefetch_qualification tools/qualification_main.cpp)
+target_link_libraries(
+  cpu_prefetch_qualification
   PRIVATE
     cpu_prefetch::foundation
     cpu_prefetch::runner
@@ -432,6 +448,31 @@ if(BUILD_TESTING)
     cpu_prefetch_runner_tests
     PREFIX "runner."
     PROPERTIES LABELS "runner;pre-pilot;synthetic")
+
+  add_test(NAME runner.qualification_self_test COMMAND cpu_prefetch_qualification
+                                                       --self-test)
+  set_tests_properties(
+    runner.qualification_self_test
+    PROPERTIES
+      LABELS "runner;qualification;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "qualification-self-test: PASS.*stand=NOT_ACCESSED.*authority=Q15_REQUIRED")
+
+  add_test(
+    NAME runner.qualification_schema
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_qualification_schema.py")
+  set_tests_properties(
+    runner.qualification_schema
+    PROPERTIES LABELS "runner;qualification;schema;pre-pilot;synthetic")
+
+  add_test(
+    NAME runner.stage17_authorization_schema
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_authorization_schema.py")
+  set_tests_properties(
+    runner.stage17_authorization_schema
+    PROPERTIES LABELS "runner;authorization;schema;pre-pilot;synthetic")
 
   add_executable(cpu_prefetch_storage_tests tests/storage_model_test.cpp)
   target_link_libraries(
@@ -749,6 +790,17 @@ add_executable(
   tools/runner_codegen_mutant.cpp)
 target_link_libraries(
   cpu_prefetch_runner_codegen_mutant PRIVATE cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_runner_combined_codegen_probe EXCLUDE_FROM_ALL
+  tools/runner_combined_codegen_probe.cpp)
+target_link_libraries(
+  cpu_prefetch_runner_combined_codegen_probe
+  PRIVATE cpu_prefetch::runner cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_runner_combined_codegen_mutant EXCLUDE_FROM_ALL
+  tools/runner_combined_codegen_mutant.cpp)
+target_link_libraries(
+  cpu_prefetch_runner_combined_codegen_mutant PRIVATE cpu_prefetch_project_options)
 
 find_program(CPU_PREFETCH_CLANG_FORMAT NAMES clang-format REQUIRED)
 find_program(CPU_PREFETCH_CLANG_TIDY NAMES clang-tidy REQUIRED)
@@ -761,6 +813,9 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/access.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/block_planning.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/precision.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/qualification.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/runner.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/software_prefetch.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/calibration.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/executor.hpp"
@@ -772,7 +827,6 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/model.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/validation.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/reconciliation/reconciliation.hpp"
-  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/runner.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/adapters.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/common.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/linked_spsc.hpp"
@@ -808,6 +862,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/protocol/semantic.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/validation.cpp"
   "${PROJECT_SOURCE_DIR}/src/reconciliation/reconciliation.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/runner.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
@@ -858,7 +913,10 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/stand_preflight_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -890,6 +948,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/protocol/semantic.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/validation.cpp"
   "${PROJECT_SOURCE_DIR}/src/reconciliation/reconciliation.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/runner.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
@@ -939,7 +998,10 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/stand_preflight_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -950,7 +1012,11 @@ add_custom_target(
     --clang-tidy "${CPU_PREFETCH_CLANG_TIDY}"
     --build-directory "${PROJECT_BINARY_DIR}"
     ${CPU_PREFETCH_ANALYSIS_FILES}
-  DEPENDS cpu_prefetch_preflight cpu_prefetch_runner cpu_prefetch_smoke
+  DEPENDS
+    cpu_prefetch_preflight
+    cpu_prefetch_qualification
+    cpu_prefetch_runner
+    cpu_prefetch_smoke
   COMMENT "Running clang-tidy over repository C++ targets")
 
 add_custom_target(
@@ -1068,11 +1134,49 @@ add_custom_target(
   DEPENDS cpu_prefetch_runner_codegen_probe cpu_prefetch_runner_codegen_mutant
   COMMENT "Requiring dual-disassembler Q13 one-PAUSE relax evidence")
 add_custom_target(
+  runner-combined-codegen-audit
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_runner_combined_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_runner_combined_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_runner_combined_codegen_mutant>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/runner_combined_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS
+    cpu_prefetch_runner_combined_codegen_probe
+    cpu_prefetch_runner_combined_codegen_mutant
+  COMMENT "Auditing the resolved D-047 combined-operation mapping")
+add_custom_target(
+  runner-combined-codegen-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_runner_combined_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_runner_combined_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_runner_combined_codegen_mutant>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/runner_combined_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS
+    cpu_prefetch_runner_combined_codegen_probe
+    cpu_prefetch_runner_combined_codegen_mutant
+  COMMENT "Requiring resolved Q14 combined-operation generated code")
+add_custom_target(
   runner-schema-check
   COMMAND "${Python3_EXECUTABLE}"
           "${PROJECT_SOURCE_DIR}/tools/check_runner_schema.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking the Q13 Draft 2020-12 runner-admission schema")
+  COMMENT "Checking the v1 and Q14 v2 Draft 2020-12 runner-admission schemas")
+add_custom_target(
+  qualification-schema-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_qualification_schema.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_authorization_schema.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking Q14 qualification-only evidence schemas")
 add_custom_target(
   document-check
   COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_docs.py"
@@ -1108,11 +1212,14 @@ install(
     cpu_prefetch_protocol
     cpu_prefetch_queue
     cpu_prefetch_reconciliation
+    cpu_prefetch_runner_core
     cpu_prefetch_schedule
     cpu_prefetch_storage
     cpu_prefetch_timing
     cpu_prefetch_workload
     cpu_prefetch_preflight
+    cpu_prefetch_qualification
+    cpu_prefetch_runner
     cpu_prefetch_smoke
   ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
@@ -1142,6 +1249,7 @@ install(
     "${PROJECT_SOURCE_DIR}/docs/PROTOCOL_MODEL.md"
     "${PROJECT_SOURCE_DIR}/docs/QUEUE_CORRECTNESS.md"
     "${PROJECT_SOURCE_DIR}/docs/RECONCILIATION.md"
+    "${PROJECT_SOURCE_DIR}/docs/PRODUCTION_RUNNER.md"
     "${PROJECT_SOURCE_DIR}/docs/SCHEDULE_GENERATION.md"
     "${PROJECT_SOURCE_DIR}/docs/STORAGE.md"
     "${PROJECT_SOURCE_DIR}/docs/TIMING.md"
@@ -1151,6 +1259,7 @@ install(
 install(
   FILES
     "${PROJECT_SOURCE_DIR}/docs/PRE_PILOT_READINESS_REPORT.md"
+    "${PROJECT_SOURCE_DIR}/docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md"
     "${PROJECT_SOURCE_DIR}/docs/STAND_BUNDLE.md"
     "${PROJECT_SOURCE_DIR}/docs/STAND_RUNBOOK.md"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation")
@@ -1182,6 +1291,7 @@ add_custom_target(
     --source-root "${PROJECT_SOURCE_DIR}"
     --build-dir "${PROJECT_BINARY_DIR}"
     --output-dir "${PROJECT_BINARY_DIR}/stand-bundle"
+    --profile stage16-preflight
   DEPENDS
     cpu_prefetch_analysis
     cpu_prefetch_calibration
@@ -1199,3 +1309,38 @@ add_custom_target(
     cpu_prefetch_timing
     cpu_prefetch_workload
   COMMENT "Creating the append-only Stage 16 stand-preflight bundle")
+
+add_custom_target(
+  pilot-candidate-bundle
+  COMMAND
+    "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/create_stand_bundle.py"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --build-dir "${PROJECT_BINARY_DIR}"
+    --output-dir "${PROJECT_BINARY_DIR}/pilot-candidate-bundle"
+    --profile stage17-pilot-candidate
+  DEPENDS
+    cpu_prefetch_analysis
+    cpu_prefetch_calibration
+    cpu_prefetch_foundation
+    cpu_prefetch_lifecycle
+    cpu_prefetch_orchestration
+    cpu_prefetch_platform
+    cpu_prefetch_preflight
+    cpu_prefetch_protocol
+    cpu_prefetch_qualification
+    cpu_prefetch_queue
+    cpu_prefetch_reconciliation
+    cpu_prefetch_runner
+    cpu_prefetch_schedule
+    cpu_prefetch_smoke
+    cpu_prefetch_storage
+    cpu_prefetch_timing
+    cpu_prefetch_workload
+    queue-codegen-check
+    runner-combined-codegen-check
+    runner-relax-codegen-check
+    storage-codegen-check
+    timing-codegen-check
+    workload-codegen-check
+  COMMENT
+    "Creating the clean, no-authority Stage 17 pilot-candidate bundle; all strict codegen gates must pass")

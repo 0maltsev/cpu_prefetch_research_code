@@ -16,7 +16,8 @@ void usage(std::ostream& output) {
          << "  cpu_prefetch_runner --self-test\n"
          << "  cpu_prefetch_runner --validate-admission FILE --stand-id ID "
             "--binding-id ID\n\n"
-         << "Q13 authorizes implementation and validation only. This executable "
+         << "Q14 authorizes repository-local implementation and validation only. "
+            "This executable "
             "does not expose a measurement, calibration, pilot, or confirmatory "
             "execution command.\n";
 }
@@ -51,13 +52,16 @@ int run(int argc, char** argv) {
             cpu_prefetch::runner::kNearWorkerPair ||
         cpu_prefetch::runner::selected_worker_pair(
             cpu_prefetch::protocol::Placement::far) !=
-            cpu_prefetch::runner::kFarWorkerPair) {
-      std::cerr << "runner-self-test: FAIL: build or Q13 policy mismatch\n";
+            cpu_prefetch::runner::kFarWorkerPair ||
+        cpu_prefetch::runner::kSoftwarePrefetchMappingId !=
+            "X86-64-PREFETCHW-PREFETCHT0-v1") {
+      std::cerr << "runner-self-test: FAIL: build or accepted policy mismatch\n";
       return 1;
     }
     cpu_prefetch::runner::X86PauseRelax{}.relax();
     std::cout << "runner-self-test: PASS profile="
-              << cpu_prefetch::runner::kRunnerProfileId
+              << cpu_prefetch::runner::kRunnerProfileId << " software_prefetch_mapping="
+              << cpu_prefetch::runner::kSoftwarePrefetchMappingId
               << " execution=NOT_AUTHORIZED\n";
     return 0;
   }

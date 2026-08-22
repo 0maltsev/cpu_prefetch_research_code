@@ -17,6 +17,23 @@ candidate stand. It does not authorize privileged mutation, calibration,
 pilot, or confirmatory execution. Development-host and synthetic evidence are
 correctness evidence only.
 
+## Q14 addendum
+
+Q14/ADR-0044 through ADR-0046 do not change the Stage 16 verdict or its sealed
+bundle. The current repository adds v2 affined preparation, qualification and
+authority validation, combined-operation codegen evidence, and a separate
+pilot-candidate profile. Fresh local Q14 GCC 207/207 and complete Clang
+development tests passed; the 44 then-affected runner/lifecycle tests passed
+under both compilers' ASan/UBSan and TSan presets. D-047 subsequently fixes the
+physical mapping, adds per-owner PRFCHW gating, and passes the strict GCC/Clang
+plus GNU/LLVM ten-operation audit and four mutants. The fresh post-D-047 pass
+completes 208/208 development tests under each compiler, 208/208 in both
+ASan/UBSan matrices, 208/208 under GCC TSan, the applicable 206/206 under
+Clang/libc++ TSan, and all 45 runner/lifecycle tests in every sanitizer preset.
+The separately sealed pilot-candidate release remains no-authority input to
+Q15 preparation. Pilot and confirmatory states remain blocked on operational
+and frozen evidence.
+
 ## Requirement-by-requirement verification matrix
 
 | Requirement | Verification seam | Fresh Stage 16 evidence | State |
@@ -27,7 +44,7 @@ correctness evidence only.
 | Schedule determinism | Accepted direct/integrated goldens and namespace rules | `schedule-check` passes eight Python tests; schedule-labelled CTest and all four recorded hashes pass | `PASS` |
 | Queue correctness | FIFO/refinement/model/phase/stress/provenance | Full suites, direct stress, two provenance records, and four-operation dual-disassembler/mutant audit pass | `PASS` |
 | Timing boundaries | Fake-clock equations, real-reader smoke and release assembly rules | Full timing suite and 11-operation/six-source-mutant/three-machine-mutant dual-disassembler audit pass | `PASS_SOFTWARE`; stand qualification open |
-| Workload/package operations | Layout/checksum/target/no-allocation and release assembly | Full suite and six-operation dual-disassembler/mutant audit pass | `PASS_SOFTWARE`; platform encodings open |
+| Workload/package operations | Layout/checksum/target/no-allocation and release assembly | Full suite and six-operation component audit pass; D-047 strict combined audit fixes exact `PREFETCHW`/`PREFETCHT0` vectors under both compilers/disassemblers | `PASS_SOFTWARE`; dynamic stand capability open |
 | Platform software | Inventory/capability/request/apply/readback/restoration fakes | Full platform suite passes; candidate-stand bundle/internal/self-tests and nonprivileged inventory pass, observing two packages/two NUMA nodes | `PASS_SOFTWARE_AND_INVENTORY`; `BLOCKED_BEFORE_PILOT` on pair/control qualification |
 | Lifecycle | Every legal/illegal transition, failure phase and concurrency path | Full suite and focused partial-failure/no-retry flow pass in normal and sanitizer matrices | `PASS_SOFTWARE` |
 | Storage | Codec/boundary/overflow/crash/recovery/no-allocation/large stream | Full suites, two-append-body dual-disassembler audit, and 200,000-row synthetic smoke pass | `PASS_SOFTWARE`; operational domains/capacity open |
@@ -38,7 +55,7 @@ correctness evidence only.
 | Synthetic end-to-end dispositions | success, valid `FULL`, low `N_eff`, partial failure, invalid join, replacement | Focused lifecycle/storage/reconciliation/analysis flows all pass | `PASS` |
 | Sanitizers | ASan/UBSan and applicable TSan in both toolchain matrices | GCC ASan/UBSan 187/187, GCC TSan 187/187, Clang ASan/UBSan 187/187, Clang TSan 185/185 | `PASS`; documented two-test Clang TSan exclusion remains |
 | Formatting/static analysis | Full repository C++ inventory | `format-check` and full `static-analysis` pass after the preflight defects below were fixed | `PASS` |
-| Timed-path allowlist | Source review plus queue/workload/timing/storage generated code | All four GNU/LLVM reports and negative mutants pass; no integrated production worker exists | `PASS_COMPONENTS`; `BLOCKED_BEFORE_PILOT` for final worker audit |
+| Timed-path allowlist | Source review plus queue/workload/timing/storage and combined-runner generated code | Component reports pass; D-047's ten-shape combined report passes exact source/site/count and GNU/LLVM instruction-vector checks plus four mutants | `PASS_SOFTWARE`; dynamic stand qualification remains `BLOCKED_BEFORE_PILOT` |
 | Release/bundle reproducibility | Release policy, metadata, SBOM, internal/external hashes | Unsafe/native flags rejected; CPack, two identical bundle builds, clean extraction, internal verification, smoke and preflight self-tests pass | `PASS` |
 
 ## Fresh build and test record
@@ -75,10 +92,12 @@ GNU Binutils 2.46 and LLVM 22.1.6 independently pass the queue, workload,
 timing, and storage reports. Those reports cover four queue operations, six
 package/workload operations, 11 timestamp operations, and two private append
 bodies, and reject their deliberate call/syscall/fence/clock/boundary mutants.
-This evidence is component-level. Q13 later adds a non-executing admission
-executable and static runner core, but there is still no final affined combined
-worker call graph or assembly to approve; that
-is a mandatory pilot blocker rather than an inferred pass.
+Q14 later adds affined owner preparation and a ten-shape combined operation
+call-graph audit. D-047 replaces the unresolved marker with the exact physical
+emitter. Both accepted compilers and disassemblers require the registered
+empty/`PREFETCHW`/`PREFETCHT0` vectors and reject wrong-write, wrong-read,
+duplicate-read, and forbidden-work mutants. This is instruction-presence and
+ordering evidence only, not platform-performance evidence.
 
 ## Defects fixed during independent verification
 
@@ -100,12 +119,13 @@ is a mandatory pilot blocker rather than an inferred pass.
 The repository has no authorized production measurement execution command. The
 generic lifecycle, statically bound capture backend, queues, workload packages,
 timing boundaries, and bounded storage are independently implemented and
-tested. Q13/ADR-0043 later selects one `PAUSE`, static pair/profile identities,
-and a ticket-gated five-specialization entry seam. The real prefetch mapping,
-affinity/readback, concrete reset/preparation adapter, watchdog values, and
-combined-worker generated code do not exist as a frozen release. The immutable
-Stage 16 bundle therefore still contains only smoke and read-only preflight
-executables.
+tested. Q13/ADR-0043 selects one `PAUSE`, static pair/profile identities, and a
+ticket-gated five-specialization entry seam. Q14 adds fake-tested affinity/
+readback, owner first touch, qualification records, and combined generated
+code. D-047 fixes and strictly audits the physical mapping. Exact watchdog
+values and dynamic stand evidence do not exist. The immutable Stage 16 bundle
+still contains only smoke and read-only preflight executables; the separate
+candidate profile carries no execution authority.
 
 ## Candidate-stand inventory evidence
 
@@ -149,13 +169,14 @@ members are not separate artifact-copy domains under D-020. The
 [Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md) is accepted for
 implementation only and grants no execution authority.
 
-The proposed
+The accepted
 [pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
-records the exact authorization order without closing any blocker: Q14 is
-repository-local policy/implementation authority only; a future exact Q15 is
-required for stand qualification; and future dependency-ready Q16a through
-Q16d records are required for individual Stage 17 phases. Q14 is awaiting
-owner review, and Q15/Q16 are not approval-ready.
+records the exact authorization order. Q14 is repository-local policy and
+implementation authority only; its local framework passes, but D-044 release
+closure remains blocked by the physical software-prefetch mapping, strict
+combined audit, and clean candidate archive. A future exact Q15 is required
+for stand qualification, and future dependency-ready Q16a through Q16d records
+are required for individual Stage 17 phases. Q15/Q16 are not approval-ready.
 
 ## Mandatory evidence remaining before pilot
 
@@ -163,16 +184,17 @@ owner review, and Q15/Q16 are not approval-ready.
 - runtime atomic/layout probes on the selected release and pairs;
 - named least-privilege platform authority, exact whitelist, independent
   readback/probes, and successful restoration exercise;
-- release-generated-code-qualified Q13 processor relax plus an independently
-  documented hardware-prefetch instruction/control mapping;
+- release-generated-code-qualified processor relax, accepted physical software-
+  prefetch mapping with strict combined audit, and independently documented
+  H0/H1 hardware-prefetch control mapping;
 - full selected-pair clock qualification and before-block repetition;
 - producer-home/worker-local before/during/after address-residency proof;
 - a second real independent durable storage domain, permissions/custody, exact
   capacity/reserve proof, and crash/recovery/readback exercise;
 - authorized prospective calibration/pilot plans, durations, counts,
   namespaces, seeds, budgets, environmental limits, and stand-hours; and
-- the affined production preparation/execution adapter and complete
-  release-specific combined-worker source/assembly audit.
+- a clean exact `STAGE17-PILOT-CANDIDATE-BUNDLE-v1` whose strict reports all
+  pass and whose manifest still grants no authority.
 
 ## Additional evidence remaining before confirmatory execution
 

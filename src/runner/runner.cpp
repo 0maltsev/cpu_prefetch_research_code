@@ -6,9 +6,11 @@
 
 #include <algorithm>
 #include <array>
+#include <cpuid.h>
 #include <fstream>
 #include <limits>
 #include <memory>
+#include <sched.h>
 #include <set>
 #include <system_error>
 
@@ -141,6 +143,89 @@ auto selected_worker_pair(protocol::Placement placement) noexcept -> WorkerPair 
           std::numeric_limits<std::uint32_t>::max()};
 }
 
+auto LinuxCurrentThreadBindingBackend::bind_and_verify(
+    std::uint32_t requested_cpu) noexcept -> ThreadBindingObservation {
+  ThreadBindingObservation observation{
+      requested_cpu, std::numeric_limits<std::uint32_t>::max(), false, false, false};
+  if (requested_cpu >= CPU_SETSIZE) {
+    return observation;
+  }
+  cpu_set_t requested_set;
+  CPU_ZERO(&requested_set);
+  CPU_SET(requested_cpu, &requested_set);
+  observation.affinity_applied =
+      ::sched_setaffinity(0, sizeof(requested_set), &requested_set) == 0;
+  if (!observation.affinity_applied) {
+    return observation;
+  }
+
+  cpu_set_t observed_set;
+  CPU_ZERO(&observed_set);
+  if (::sched_getaffinity(0, sizeof(observed_set), &observed_set) == 0) {
+    observation.singleton_readback =
+        CPU_COUNT(&observed_set) == 1 && CPU_ISSET(requested_cpu, &observed_set);
+  }
+  const auto actual = ::sched_getcpu();
+  if (actual >= 0) {
+    observation.actual_cpu = static_cast<std::uint32_t>(actual);
+    observation.actual_cpu_matches = observation.actual_cpu == requested_cpu;
+  }
+  return observation;
+}
+
+auto X86CurrentCpuSoftwarePrefetchCapabilityBackend::observe() noexcept
+    -> SoftwarePrefetchCapabilityObservation {
+  unsigned int vendor_signature = 0U;
+  const auto maximum_extended_leaf = __get_cpuid_max(0x80000000U, &vendor_signature);
+  if (maximum_extended_leaf < kPrfchwExtendedLeaf) {
+    return {maximum_extended_leaf, 0U, false};
+  }
+  unsigned int eax = 0U;
+  unsigned int ebx = 0U;
+  unsigned int ecx = 0U;
+  unsigned int edx = 0U;
+  if (__get_cpuid(kPrfchwExtendedLeaf, &eax, &ebx, &ecx, &edx) == 0) {
+    return {maximum_extended_leaf, 0U, false};
+  }
+  return {maximum_extended_leaf, ecx, (ecx & kPrfchwEcxMask) != 0U};
+}
+
+auto AffinedObservationPreparation::prepare_producer() noexcept -> bool {
+  producer_result_.binding = binding_backend_.bind_and_verify(workers_.producer_cpu);
+  if (!producer_result_.binding.passes()) {
+    return false;
+  }
+  producer_result_.software_prefetch_capability = capability_backend_.observe();
+  if (!producer_result_.software_prefetch_capability.passes()) {
+    return false;
+  }
+  producer_result_.private_stream_prepared = producer_stream_.prepare_for_owner();
+  return producer_result_.private_stream_prepared;
+}
+
+auto AffinedObservationPreparation::prepare_consumer() noexcept -> bool {
+  consumer_result_.binding = binding_backend_.bind_and_verify(workers_.consumer_cpu);
+  if (!consumer_result_.binding.passes()) {
+    return false;
+  }
+  consumer_result_.software_prefetch_capability = capability_backend_.observe();
+  if (!consumer_result_.software_prefetch_capability.passes()) {
+    return false;
+  }
+  consumer_result_.private_stream_prepared = consumer_stream_.prepare_for_owner();
+  return consumer_result_.private_stream_prepared;
+}
+
+auto AffinedObservationPreparation::evidence() const noexcept
+    -> AffinedPreparationEvidence {
+  return {producer_result_.binding,
+          consumer_result_.binding,
+          producer_result_.software_prefetch_capability,
+          consumer_result_.software_prefetch_capability,
+          producer_result_.private_stream_prepared,
+          consumer_result_.private_stream_prepared};
+}
+
 auto to_string(EvidenceKind kind) noexcept -> std::string_view {
   switch (kind) {
   case EvidenceKind::protocol_snapshot:
@@ -163,6 +248,8 @@ auto to_string(EvidenceKind kind) noexcept -> std::string_view {
     return "PLATFORM_VERIFICATION";
   case EvidenceKind::hardware_prefetch_mapping:
     return "HARDWARE_PREFETCH_MAPPING";
+  case EvidenceKind::software_prefetch_mapping:
+    return "SOFTWARE_PREFETCH_MAPPING";
   case EvidenceKind::clock_qualification:
     return "CLOCK_QUALIFICATION";
   case EvidenceKind::queue_provenance:
@@ -181,8 +268,8 @@ auto to_string(EvidenceKind kind) noexcept -> std::string_view {
     return "EXECUTION_LIMITS";
   case EvidenceKind::authority_custody:
     return "AUTHORITY_CUSTODY";
-  case EvidenceKind::pilot_execution_authorization:
-    return "PILOT_EXECUTION_AUTHORIZATION";
+  case EvidenceKind::phase_execution_authorization:
+    return "PHASE_EXECUTION_AUTHORIZATION";
   }
   return "UNKNOWN";
 }

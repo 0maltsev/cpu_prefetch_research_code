@@ -34,7 +34,7 @@
     "Stage 6 exposes owner-thread future-slot target addresses without changing queue publication, reuse, or one-attempt semantics",
     "Stage 8 adds statically specialized fail-closed observers at the accepted p-before-release-publication and q-after-acquire-before-reuse boundaries; ordinary queue operations retain the original path and memory orders",
     "Stage 13 adds a calibration-only observer immediately before and after the same acquire load that decides slot availability; ordinary operations use an inlined no-op observer and retain the algorithm and memory orders",
-    "Platform software-prefetch instruction encoding remains outside the queue and unresolved"
+    "Platform software-prefetch instruction encoding remains outside the queue; D-047 later binds the runner emitter without changing this queue"
   ],
   "memory_order_mapping": [
     "producer acquire-loads a slot before reuse and release-stores an accepted pointer",

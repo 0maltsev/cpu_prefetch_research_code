@@ -79,6 +79,10 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0041](0041-stage15-offline-analysis-profile.md) | `ACCEPTED` | Freeze the synthetic offline-analysis execution, complete-block max-T, H3 chronology, and canonical-report compatibility profile. |
 | [ADR-0042](0042-stage16-verification-and-stand-bundle-profile.md) | `ACCEPTED` | Freeze the deterministic preflight-only source/release/protocol/schema/SBOM/provenance/checksum bundle and read-only inventory boundary. |
 | [ADR-0043](0043-stage17-entry-runner-pair-and-relax-profile.md) | `ACCEPTED` | Select CPUs 0/1 and 0/26, one x86 `PAUSE` per relax site, and a fail-closed five-specialization runner entry profile without granting execution authority. |
+| [ADR-0044](0044-stage17-pilot-candidate-release-closure.md) | `ACCEPTED` | Complete a v2 affined, phase-gated static runner and clean pilot-candidate bundle while keeping the software-prefetch mapping unresolved and mandatory. |
+| [ADR-0045](0045-stage17-stand-qualification-authority.md) | `ACCEPTED` | Require a separate exact hash-bound Q15 for nonprivileged qualification and one-control-at-a-time privileged rehearsal. |
+| [ADR-0046](0046-stage17-phase-scoped-execution-authority.md) | `ACCEPTED` | Require separate dependency-ready Q16 authorizations for every Stage 17 execution phase. |
+| [ADR-0047](0047-stage17-software-prefetch-mapping.md) | `ACCEPTED_AND_IMPLEMENTED_SOFTWARE` | Map ring-producer write intent to `PREFETCHW` and ring/linked retaining reads to `PREFETCHT0`, with per-owner PRFCHW and strict dual-compiler/disassembler gates. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
 Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,
@@ -115,6 +119,18 @@ explicitly granting no platform mutation, pilot, or confirmatory authority.
 
 Q13 accepted ADR-0043 on 2026-08-22. It selects static candidate pairs and the
 relax/runner implementation profile only. The admission core and relax probe
-exist, but exact limits, prefetch mapping, dynamic qualification, combined
-worker audit, storage/custody, calibration/freeze inputs, and a separate pilot
-authorization remain blockers.
+exist. D-047 later closes the software-prefetch mapping and combined worker
+audit; exact limits, dynamic qualification, storage/custody,
+calibration/freeze inputs, and a separate pilot authorization remain blockers.
+
+Q14 accepted ADR-0044 through ADR-0046 on 2026-08-22. It authorizes only
+repository-local v2 runner, qualification-tool, combined-audit, and candidate-
+bundle work. It does not authorize stand access, dynamic qualification,
+privileged control, calibration, pilot, confirmation, or creation of missing
+platform/scientific values. Q15 and Q16 remain separate future approvals.
+
+The owner subsequently accepted ADR-0047 and its repository-local application
+on 2026-08-22. The physical mapping is now exact and both release compilers pass
+the strict dual-disassembler audit. Per-release stand capability evidence and
+the hash-bound Q15 authorization remain separate; no stand command or
+scientific execution was authorized.

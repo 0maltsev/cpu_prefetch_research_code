@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create the deterministic Stage 16 source/release stand-preflight bundle."""
+"""Create deterministic Stage 16 preflight or Q14 pilot-candidate bundles."""
 
 from __future__ import annotations
 
@@ -18,7 +18,34 @@ import tempfile
 from typing import Any
 
 
-PROFILE = "STAGE16-STAND-BUNDLE-v1"
+STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"
+STAGE17_CODEGEN_INPUTS = {
+    "queue_codegen_report.json": (
+        "cpu_prefetch_queue_codegen_probe",
+        "check_queue_codegen.py",
+    ),
+    "workload_codegen_report.json": (
+        "cpu_prefetch_workload_codegen_probe",
+        "check_workload_codegen.py",
+    ),
+    "timing_codegen_report.json": (
+        "cpu_prefetch_timing_codegen_probe",
+        "check_timing_codegen.py",
+    ),
+    "storage_codegen_report.json": (
+        "cpu_prefetch_storage_codegen_probe",
+        "check_storage_codegen.py",
+    ),
+    "runner_relax_codegen_report.json": (
+        "cpu_prefetch_runner_codegen_probe",
+        "check_runner_codegen.py",
+    ),
+    "runner_combined_codegen_report.json": (
+        "cpu_prefetch_runner_combined_codegen_probe",
+        "check_runner_combined_codegen.py",
+    ),
+}
 
 
 def sha256(path: pathlib.Path) -> str:
@@ -84,12 +111,62 @@ def write_json(path: pathlib.Path, value: Any) -> None:
     )
 
 
+def normalize_report_paths(value: Any, root: pathlib.Path, build: pathlib.Path) -> Any:
+    if isinstance(value, str):
+        return value.replace(str(build), "<BUILD_DIR>").replace(
+            str(root), "<SOURCE_ROOT>"
+        )
+    if isinstance(value, list):
+        return [normalize_report_paths(item, root, build) for item in value]
+    if isinstance(value, dict):
+        return {
+            normalize_report_paths(key, root, build): normalize_report_paths(
+                item, root, build
+            )
+            for key, item in value.items()
+        }
+    return value
+
+
 def normalized_ldd_output(output: str) -> str:
     """Remove per-process loader addresses while retaining resolved identities."""
     return re.sub(r"[ \t]+\(0x[0-9A-Fa-f]+\)(?=\n|$)", "", output)
 
 
-def make_sbom(root: pathlib.Path, dependencies: dict[str, Any], revision: str) -> dict[str, Any]:
+def verify_codegen_report(
+    root: pathlib.Path,
+    build: pathlib.Path,
+    report_path: pathlib.Path,
+    probe_name: str,
+    rule_name: str,
+) -> dict[str, Any]:
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    if report.get("status") != "PASS":
+        raise ValueError(
+            f"pilot-candidate codegen report is not PASS: "
+            f"{report_path.name}={report.get('status')}"
+        )
+    if report.get("missing_tools") != []:
+        raise ValueError(f"pilot-candidate codegen tools incomplete: {report_path.name}")
+    probe = build / probe_name
+    if not probe.is_file():
+        raise ValueError(f"pilot-candidate codegen probe is missing: {probe_name}")
+    binary_hash = report.get("binary_sha256")
+    if binary_hash is None:
+        binary_hash = report.get("binary", {}).get("sha256")
+    if binary_hash != sha256(probe):
+        raise ValueError(f"pilot-candidate codegen binary drift: {report_path.name}")
+    rule_hash = report.get("rule_set_sha256")
+    if rule_hash is None:
+        rule_hash = report.get("rule_set", {}).get("sha256")
+    if rule_hash != sha256(root / "tools" / rule_name):
+        raise ValueError(f"pilot-candidate codegen rule drift: {report_path.name}")
+    return report
+
+
+def make_sbom(
+    root: pathlib.Path, dependencies: dict[str, Any], revision: str, profile: str
+) -> dict[str, Any]:
     packages: list[dict[str, Any]] = [
         {
             "SPDXID": "SPDXRef-Repository",
@@ -135,7 +212,11 @@ def make_sbom(root: pathlib.Path, dependencies: dict[str, Any], revision: str) -
         },
         "dataLicense": "CC0-1.0",
         "documentNamespace": f"https://example.invalid/cpu-prefetch/sbom/{revision}",
-        "name": "cpu-prefetch-stage16-stand-bundle",
+        "name": (
+            "cpu-prefetch-stage17-pilot-candidate"
+            if profile == STAGE17_PROFILE
+            else "cpu-prefetch-stage16-stand-bundle"
+        ),
         "packages": packages,
         "relationships": relationships,
         "spdxVersion": "SPDX-2.3",
@@ -147,6 +228,10 @@ def main() -> int:
     parser.add_argument("--source-root", type=pathlib.Path, required=True)
     parser.add_argument("--build-dir", type=pathlib.Path, required=True)
     parser.add_argument("--output-dir", type=pathlib.Path, required=True)
+    parser.add_argument(
+        "--profile", choices=("stage16-preflight", "stage17-pilot-candidate"),
+        default="stage16-preflight",
+    )
     args = parser.parse_args()
     root = args.source_root.resolve()
     build = args.build_dir.resolve()
@@ -157,6 +242,12 @@ def main() -> int:
     revision_short = revision[:7]
     dirty = bool(git(root, "status", "--porcelain=v1"))
     source_state = "dirty" if dirty else "clean"
+    stage17 = args.profile == "stage17-pilot-candidate"
+    profile = STAGE17_PROFILE if stage17 else STAGE16_PROFILE
+    if stage17 and dirty:
+        raise ValueError(
+            "STAGE17-PILOT-CANDIDATE-BUNDLE-v1 requires a clean exact source revision"
+        )
     version_metadata = json.loads(
         (build / "generated" / "version_metadata.json").read_text(encoding="utf-8")
     )
@@ -166,14 +257,33 @@ def main() -> int:
         raise ValueError("release metadata revision differs from the source tree")
 
     required_binaries = ["cpu_prefetch_smoke", "cpu_prefetch_preflight"]
-    required_libraries = sorted(build.glob("libcpu_prefetch_*.a"))
+    if stage17:
+        required_binaries.extend(
+            ["cpu_prefetch_runner", "cpu_prefetch_qualification"]
+        )
+    required_libraries = sorted(
+        library
+        for library in build.glob("libcpu_prefetch_*.a")
+        if stage17 or library.name != "libcpu_prefetch_runner_core.a"
+    )
     for name in required_binaries:
         if not (build / name).is_file():
             raise ValueError(f"missing release binary: {name}")
     if not required_libraries:
         raise ValueError("release libraries are absent")
 
-    with tempfile.TemporaryDirectory(prefix="cpu-prefetch-stage16-") as temporary:
+    codegen_reports: list[pathlib.Path] = []
+    if stage17:
+        for name, (probe_name, rule_name) in STAGE17_CODEGEN_INPUTS.items():
+            path = build / name
+            if not path.is_file():
+                raise ValueError(f"missing pilot-candidate codegen report: {name}")
+            verify_codegen_report(root, build, path, probe_name, rule_name)
+            codegen_reports.append(path)
+
+    with tempfile.TemporaryDirectory(
+        prefix="cpu-prefetch-stage17-" if stage17 else "cpu-prefetch-stage16-"
+    ) as temporary:
         staging = pathlib.Path(temporary) / "bundle"
         staging.mkdir()
         source_archive = staging / "source" / f"cpu-prefetch-source-{revision_short}-{source_state}.tar.gz"
@@ -197,6 +307,13 @@ def main() -> int:
         provenance.mkdir()
         shutil.copyfile(build / "generated" / "version_metadata.json", provenance / "version_metadata.json")
         shutil.copyfile(build / "compile_commands.json", provenance / "compile_commands.json")
+        for report in codegen_reports:
+            write_json(
+                provenance / report.name,
+                normalize_report_paths(
+                    json.loads(report.read_text(encoding="utf-8")), root, build
+                ),
+            )
         runtime_lines: list[str] = []
         for name in required_binaries:
             completed = subprocess.run(
@@ -218,16 +335,24 @@ def main() -> int:
         licenses.mkdir()
         shutil.copyfile(root / "config" / "dependencies.json", licenses / "dependencies.json")
         shutil.copyfile(root / "docs" / "NO_LICENSE_GRANT.md", licenses / "NO_LICENSE_GRANT.md")
-        for document in (
+        documents = [
             "PRE_PILOT_READINESS_REPORT.md",
             "STAND_BUNDLE.md",
             "STAND_RUNBOOK.md",
-        ):
+        ]
+        if stage17:
+            documents.extend(
+                [
+                    "PRODUCTION_RUNNER.md",
+                    "STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md",
+                ]
+            )
+        for document in documents:
             target = staging / "docs" / document
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(root / "docs" / document, target)
 
-        validator_names = (
+        validator_names = [
             "check_calibration_schemas.py",
             "check_canonical.py",
             "check_orchestration_schemas.py",
@@ -236,7 +361,15 @@ def main() -> int:
             "check_reconciliation_schema.py",
             "check_storage_schemas.py",
             "verify_stand_bundle.py",
-        )
+        ]
+        if stage17:
+            validator_names.extend(
+                [
+                    "check_qualification_schema.py",
+                    "check_runner_schema.py",
+                    "check_stage17_authorization_schema.py",
+                ]
+            )
         validators = staging / "validators"
         validators.mkdir()
         for name in validator_names:
@@ -247,7 +380,10 @@ def main() -> int:
         dependencies = json.loads(
             (root / "config" / "dependencies.json").read_text(encoding="utf-8")
         )
-        write_json(staging / "SBOM.spdx.json", make_sbom(root, dependencies, revision))
+        write_json(
+            staging / "SBOM.spdx.json",
+            make_sbom(root, dependencies, revision, profile),
+        )
 
         release_artifacts = []
         for path in sorted((staging / "release").rglob("*")):
@@ -260,31 +396,56 @@ def main() -> int:
                     }
                 )
         manifest = {
-            "bundle_profile": PROFILE,
+            "bundle_profile": profile,
             "confirmatory_authorized": False,
+            "debug_symbol_strategy":
+                "UNSTRIPPED_RELEASE_BINARIES_WITH_EXACT_BUILD_PROVENANCE",
+            "dynamic_qualification_authorized": False,
+            "measurement_execution_command_present": False,
             "pilot_authorized": False,
             "protocol_import_manifest_sha256": sha256(
                 root / "protocol" / "2.0.0-pre.2" / "IMPORT_MANIFEST.json"
             ),
             "protocol_version": "2.0.0-pre.2",
-            "readiness_state": "READY_FOR_STAND_PREFLIGHT",
+            "readiness_state": (
+                "RELEASE_INPUT_READY_FOR_Q15_PREPARATION"
+                if stage17
+                else "READY_FOR_STAND_PREFLIGHT"
+            ),
             "release_artifacts": release_artifacts,
             "repository_license": "NO-LICENSE-GRANT",
-            "schema_version": "cpu-prefetch-stand-bundle/1",
+            "schema_version": (
+                "cpu-prefetch-pilot-candidate-bundle/1"
+                if stage17
+                else "cpu-prefetch-stand-bundle/1"
+            ),
             "source_archive": {
                 "path": source_archive.relative_to(staging).as_posix(),
                 "sha256": sha256(source_archive),
                 "source_dirty": dirty,
                 "source_revision": revision,
             },
-            "unresolved_before_pilot": [
-                "production measurement executable and final integrated worker codegen",
-                "eligible stand, selected worker pairs, and runtime atomic checks",
-                "privileged authority, exact controls, independent readback, probes, and restoration",
-                "clock, address residency, storage domains/capacity/custody, and recovery evidence",
-                "prospective calibration and pilot inputs and authorization",
-            ],
+            "unresolved_before_pilot": (
+                [
+                    "exact Q15 stand-qualification authorization and evidence",
+                    "five exact watchdog limits and every platform/control/restoration record",
+                    "clock, atomic/layout, actual-CPU/migration, address-residency, and storage/custody evidence",
+                    "separate dependency-ready Q16 phase inputs and authorization",
+                ]
+                if stage17
+                else [
+                    "production measurement executable and final integrated worker codegen",
+                    "eligible stand, selected worker pairs, and runtime atomic checks",
+                    "privileged authority, exact controls, independent readback, probes, and restoration",
+                    "clock, address residency, storage domains/capacity/custody, and recovery evidence",
+                    "prospective calibration and pilot inputs and authorization",
+                ]
+            ),
         }
+        if stage17:
+            manifest["software_prefetch_mapping_id"] = (
+                "X86-64-PREFETCHW-PREFETCHT0-v1"
+            )
         write_json(staging / "BUNDLE_MANIFEST.json", manifest)
 
         checksum_files = sorted(
@@ -299,8 +460,13 @@ def main() -> int:
         )
 
         source_hash_short = sha256(source_archive)[:12]
+        bundle_prefix = (
+            "cpu-prefetch-pilot-candidate"
+            if stage17
+            else "cpu-prefetch-stand-bundle"
+        )
         bundle_name = (
-            f"cpu-prefetch-stand-bundle-2.0.0-{revision_short}-{source_state}-"
+            f"{bundle_prefix}-2.0.0-{revision_short}-{source_state}-"
             f"{source_hash_short}.tar.gz"
         )
         output = output_dir / bundle_name
@@ -315,7 +481,10 @@ def main() -> int:
         output.with_suffix(output.suffix + ".sha256").write_text(
             f"{outer_hash}  {output.name}\n", encoding="utf-8"
         )
-        print(f"stand-bundle: PASS path={output} sha256={outer_hash}")
+        print(
+            f"{'pilot-candidate-bundle' if stage17 else 'stand-bundle'}: "
+            f"PASS path={output} sha256={outer_hash} authority=NONE"
+        )
     return 0
 
 

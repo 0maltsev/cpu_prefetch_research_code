@@ -6,8 +6,9 @@ This is the accepted architecture for Stage A of protocol `2.0.0-pre.2`, with
 immutable predecessor `2.0.0-pre.1`. ADR-0007 through ADR-0040 freeze the
 owner-approved software foundation through Stage 14 synthetic orchestration
 software and ADR-0041 closes the Stage 15 synthetic analysis profile.
-ADR-0043 accepts the Q13 pair, relax, and fail-closed static runner entry
-profile without execution authority. Exact eligible-stand mappings/evidence,
+ADR-0043 accepts the Q13 pair and relax choices; ADR-0044 through ADR-0046
+accept the Q14 v2 runner/candidate and future authority policies without
+execution authority. Exact eligible-stand mappings/evidence,
 concrete Stage A freeze
 inputs, and later pilot outputs remain open. Imported
 snapshots remain authoritative under their versions; contradictions require a
@@ -25,10 +26,10 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 
 | Plane | Component | Responsibility | Timed-horizon status | Replaceable boundary / state |
 |---|---|---|---|---|
-| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Stage 10 implements the generic executor; Stage 11 statically binds exact capture; Q13 adds ticket-gated five-package static execution and one `PAUSE`, while the final affined combined worker remains blocked |
-| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 10 implements polling/drain; Stage 11 statically binds exact capture; Q13 adds ticket-gated static execution without exposing an execution CLI; final prefetch/platform specialization remains blocked |
+| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Stage 10 implements the generic executor; Stage 11 binds exact capture; Q14 adds ticket-gated static execution and owner-affined preparation; D-047 binds exact software-prefetch instructions with a pre-barrier capability gate |
+| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 10 implements polling/drain; Stage 11 binds exact capture; Q14 adds owner-affined preparation without an execution CLI; physical prefetch/platform specialization remains blocked |
 | Data | Queue/package binding | Five concrete static policies preserve ring/linked semantics and exact treatment-specific hint targets | Required | Stage 5 queue cores plus Stage 6 target seams/codegen pass; platform hint instruction and `d2` evidence remain open |
-| Controller | Runner admission / run-image builder | Parse and semantically validate config, hash every current eligibility input, allocate/touch/initialize arenas and buffers, bind identities and capacity proof | Forbidden | Q13 implements strict admission/ticket and static dispatch; final preparation adapter and every real stand/freeze record remain blocked |
+| Controller | Runner admission / run-image builder | Parse and semantically validate config, hash every current eligibility input, allocate/touch/initialize arenas and buffers, bind identities and capacity proof | Forbidden | Q14 implements 21-kind v2 admission/ticket, static dispatch, affined private-stream first touch, qualification-only records, and future authority envelopes; every real stand/freeze record remains blocked |
 | Controller | Schedule preparation | Derive the purpose-separated stream, generate the complete open-loop schedule, publish artifact/envelopes, decode and validate immutable deadlines | Forbidden | Stage 7 implemented; all lifecycle values remain explicit and no outcome/clock input exists |
 | Controller | Workload construction | Derive domain-separated streams, build event/node order, initialize records, retain integrity inputs, bind one package type | Forbidden | Stage 6 implemented; all values explicit and no worker mutation surface |
 | Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact consequences | Outside horizon | Stage 10 lifecycle is implemented; Stage 11 adds partial-stream finalization and immutable publication without reconciliation |
@@ -160,10 +161,12 @@ one producer backend call per due arrival, polls the consumer, and uses a
 dedicated lock-free u32 release/acquire termination word before drain-to-empty.
 It supplies no clock, watchdog value, queue family, or platform default. Stage
 11 supplies a statically bound physical capture backend. Q13 selects one x86
-`PAUSE` and the exact candidate pairs, then adds a controller-side five-way
-static dispatch whose measured executor never reads the package enum. Exact
-watchdogs, real prefetch mapping, affinity/qualification, and the combined
-worker remain external gates. Full semantics and later gates are recorded in
+`PAUSE` and the exact candidate pairs. Q14 adds a controller-side five-way
+static dispatch, owner-thread affinity/readback/actual-CPU preparation, and
+private-stream first touch before the barrier. The measured executor never
+reads the package enum. Exact watchdogs, the physical prefetch mapping, dynamic
+qualification, and the strict emitter-bound combined release remain external
+gates. Full semantics and later gates are recorded in
 [`LIFECYCLE.md`](LIFECYCLE.md).
 
 ### `LogicalModel` and `PhysicalCodec`

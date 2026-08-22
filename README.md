@@ -28,19 +28,26 @@ orchestration. Stage 15 adds the source-linked synthetic-only analysis pipeline,
 registered complete-block estimands and multiplicity families, sealed H3
 chronology, and reproducible reports explicitly marked as non-empirical. It
 contains no eligible-pair qualification, production state-changing stand
-adapter, production analysis adapter, affined combined measurement worker, or
-authorized scientific run. Q13/ADR-0043 adds a fail-closed runner admission
-core, exact static pair/profile/relax identities, and five controller-side
-static specialization branches; its CLI has no execution command. Stage 16 adds a read-only stand-preflight tool,
+adapter, production analysis adapter, or authorized scientific run.
+Q13/ADR-0043 adds exact static pair/relax identities.
+Q14/ADR-0044 through ADR-0046 add a v2 fail-closed runner admission core,
+owner-thread affined preparation, five controller-side static specialization
+branches, qualification-only artifact builders, exact future authority
+envelopes, and a gated pilot-candidate bundle profile. D-047/ADR-0047 adds the
+exact `PREFETCHW` producer and `PREFETCHT0` consumer/successor mapping, per-owner
+PRFCHW preparation gate, and strict generated-code evidence. Neither CLI has an
+execution or dynamic-collection command. Stage 16 adds a read-only stand-preflight tool,
 requirement-by-requirement verification evidence, and a deterministic
 append-only stand bundle; it does not freeze platform values or authorize a
 pilot.
 
-The proposed
+The accepted
 [`pre-Stage-17 blocker-closure and pilot-authorization bundle`](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
-is awaiting Q14. It grants nothing while pending. If accepted, Q14 permits
-repository-local closure work only; exact stand qualification and every Stage
-17 execution phase still require later Q15 and Q16 authorizations.
+records Q14's repository-local authority only. The local framework and D-047
+mapping are implemented, and both release compilers pass the strict combined
+audit. The candidate target still requires a clean exact revision; its output
+grants no authority. Exact stand qualification and every Stage 17 execution
+phase still require later Q15 and Q16 authorizations.
 
 The exact D-010/D-020 physical-storage contract is documented in
 [`docs/STAGE11_STORAGE_DECISION_BUNDLE.md`](docs/STAGE11_STORAGE_DECISION_BUNDLE.md).
@@ -187,6 +194,7 @@ cmake --build --preset release-gcc --target workload-codegen-check
 cmake --build --preset release-gcc --target timing-codegen-check
 cmake --build --preset release-gcc --target storage-codegen-check
 cmake --build --preset release-gcc --target runner-relax-codegen-check
+cmake --build --preset release-gcc --target runner-combined-codegen-check
 cmake --build --preset release-gcc --target package
 cmake --build --preset release-gcc --target stand-bundle
 
@@ -194,9 +202,11 @@ cmake --preset release-clang-libcxx
 cmake --build --preset release-clang-libcxx --target timing-codegen-check
 cmake --build --preset release-clang-libcxx --target storage-codegen-check
 cmake --build --preset release-clang-libcxx --target runner-relax-codegen-check
+cmake --build --preset release-clang-libcxx --target runner-combined-codegen-check
 ```
 
-The strict queue, workload, timing, storage, and runner-relax code-generation targets require both GNU
+The strict queue, workload, timing, storage, runner-relax, and runner-combined
+code-generation targets require both GNU
 objdump and LLVM 22 `llvm-objdump`. The workload probe covers the consumer mixer and
 R1/R2/L1 target sites; each target requires its call-injection negative mutant
 to be rejected. The timing probe covers the clock reader and enqueue/dequeue
@@ -210,16 +220,20 @@ Runner-entry checks are software-only:
 cmake --build --preset dev-gcc --target cpu_prefetch_runner cpu_prefetch_runner_tests
 ctest --preset dev-gcc --output-on-failure -L runner
 cmake --build --preset dev-gcc --target runner-schema-check
+cmake --build --preset dev-gcc --target qualification-schema-check
 build/dev-gcc/cpu_prefetch_runner --self-test
+build/dev-gcc/cpu_prefetch_qualification --self-test
 ```
 
 `cpu_prefetch_runner` can validate a future explicit admission record but has
-no measurement command. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
+no measurement command. `cpu_prefetch_qualification` has no dynamic collector
+or control command. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
 
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
-accepted. The CPack package contains only the smoke and read-only preflight
-binaries, foundation,
+accepted. The CPack development package contains the smoke, read-only
+preflight, non-executing admission, and qualification self-test binaries,
+foundation,
 typed-protocol, queue, workload, schedule, timing, platform, lifecycle, storage,
 reconciliation, calibration, orchestration, and analysis libraries, the
 offline schedule generator, headers, protocol/queue provenance records, Stage
@@ -246,6 +260,14 @@ The internal verifier runs against the single top-level directory after clean
 extraction; it uses only the Python standard library. See
 [`docs/STAND_BUNDLE.md`](docs/STAND_BUNDLE.md) for the exact extraction,
 verification, and nonprivileged self-test commands.
+
+`pilot-candidate-bundle` is a distinct Q14 target. It requires a clean exact
+revision and `PASS` reports from every strict component and combined codegen
+gate, includes the runner and qualification-only binary, and records
+`pilot_authorized=false`, `confirmatory_authorized=false`, and no measurement
+command. D-047 closes the mapping input and the strict combined audit passes;
+the target still rejects dirty source, missing reports, hash drift, overwrite,
+or any authority-bearing manifest.
 
 ## Created targets and metadata
 
@@ -286,9 +308,12 @@ verification, and nonprivileged self-test commands.
   identity;
 - `cpu_prefetch_preflight`: read-only self-test and nonprivileged Linux
   inventory/capability snapshot; it cannot apply controls or qualify a stand;
-- `cpu_prefetch_runner_core`: Q13 strict admission, inaccessible ticket,
-  controller-side five-package static dispatch, and one-`PAUSE` execution seam;
+- `cpu_prefetch_runner_core`: Q14 v2 strict admission, inaccessible ticket,
+  affined owner preparation, qualification record builders, controller-side
+  five-package static dispatch, and one-`PAUSE` execution seam;
 - `cpu_prefetch_runner`: self-test and fail-closed admission validation only;
+- `cpu_prefetch_qualification`: schema/profile self-test only, with no dynamic
+  collection or platform-control command;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
 - `cpu_prefetch_protocol_tests`: typed loading, semantic, canonical, lifecycle,
   block, access, and round-trip contracts;
@@ -323,11 +348,14 @@ verification, and nonprivileged self-test commands.
   `queue-codegen-audit`, strict `queue-codegen-check`, strict
   `workload-codegen-check`, `timing-codegen-audit`, strict
   `timing-codegen-check`, `storage-format-check`, `storage-schema-check`, strict
-  `storage-codegen-check`, `runner-relax-codegen-check`, `runner-schema-check`,
+  `storage-codegen-check`, `runner-relax-codegen-check`, strict
+  `runner-combined-codegen-audit`, strict `runner-combined-codegen-check`,
+  `runner-schema-check`, `qualification-schema-check`,
   `schedule-check`, `calibration-check`,
   `orchestration-check`, `analysis-check`, `document-check`,
   `dependency-check`, `ci-check`, and `release-policy-check`;
-- CMake `install` and CPack `package` targets.
+- CMake `install`, CPack `package`, immutable `stand-bundle`, and fail-closed
+  `pilot-candidate-bundle` targets.
 
 Generated `version_metadata.json` contains the protocol version, full Git
 revision, dirty state (including untracked source), exact compiler, standard
@@ -565,9 +593,13 @@ while storage discovery exposes only one suitable mounted durable namespace.
 Q13 accepts the
 [`Stage 17 entry implementation bundle`](docs/STAGE17_ENTRY_DECISION_BUNDLE.md)
 for implementation only. The pair/relax/admission/static-dispatch slice is
-implemented, while stand controls, dynamic qualification, final combined
-worker integration, calibration, measurement, pilot, and confirmatory behavior
-remain prohibited until their applicable later gates. The next decision is the
-Q14 governance/local-closure recommendation in the
-[`pre-Stage-17 bundle`](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md);
-Q15 and Q16 are not yet approval-ready.
+implemented. Q14 accepts the
+[`pre-Stage-17 bundle`](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
+and the repository now contains its affined owner preparation, qualification-
+only records, v2 admission/authority schemas, combined-operation audit, and
+pilot-candidate builder. D-047 fixes the physical software-prefetch mapping and
+both accepted release compilers pass its strict dual-disassembler audit. The
+builder remains fail-closed until invoked from a clean exact release. Stand
+controls, dynamic qualification, calibration,
+measurement, pilot, and confirmatory behavior remain prohibited. Q15 and Q16
+are not approval-ready.

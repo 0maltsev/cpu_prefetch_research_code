@@ -75,8 +75,9 @@ GNU Binutils 2.46 and LLVM 22.1.6 independently pass the queue, workload,
 timing, and storage reports. Those reports cover four queue operations, six
 package/workload operations, 11 timestamp operations, and two private append
 bodies, and reject their deliberate call/syscall/fence/clock/boundary mutants.
-This evidence is component-level. The absent production measurement executable
-means there is no final combined worker call graph or assembly to approve; that
+This evidence is component-level. Q13 later adds a non-executing admission
+executable and static runner core, but there is still no final affined combined
+worker call graph or assembly to approve; that
 is a mandatory pilot blocker rather than an inferred pass.
 
 ## Defects fixed during independent verification
@@ -96,13 +97,15 @@ is a mandatory pilot blocker rather than an inferred pass.
 
 ## Known preflight-versus-pilot boundary
 
-The repository has no authorized production measurement executable. The
+The repository has no authorized production measurement execution command. The
 generic lifecycle, statically bound capture backend, queues, workload packages,
 timing boundaries, and bounded storage are independently implemented and
-tested, but final platform relax/prefetch mappings, concrete reset/package
-specializations, watchdog values, and combined-worker generated code do not
-exist as a frozen release. The bundle therefore contains only smoke and
-read-only preflight executables.
+tested. Q13/ADR-0043 later selects one `PAUSE`, static pair/profile identities,
+and a ticket-gated five-specialization entry seam. The real prefetch mapping,
+affinity/readback, concrete reset/preparation adapter, watchdog values, and
+combined-worker generated code do not exist as a frozen release. The immutable
+Stage 16 bundle therefore still contains only smoke and read-only preflight
+executables.
 
 ## Candidate-stand inventory evidence
 
@@ -138,22 +141,29 @@ binds the same count-level candidate facts to that revision.
 The separate hashed
 [topology set](evidence/stage16/STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/README.md)
 proves that `(0,1)` is a statically eligible near candidate and `(0,26)` is a
-statically eligible far candidate; neither is selected or dynamically
-qualified. The hashed
+statically eligible far candidate. Q13 later selects them, but neither is
+dynamically qualified. The hashed
 [storage set](evidence/stage16/STAND-STORAGE-XEON-CPU-FETCH-20260822-01/README.md)
 observes only one suitable mounted durable namespace, `/dev/md3`. Its RAID1
 members are not separate artifact-copy domains under D-020. The
-[Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md) awaits Q13 review and
-grants no execution authority.
+[Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md) is accepted for
+implementation only and grants no execution authority.
+
+The proposed
+[pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
+records the exact authorization order without closing any blocker: Q14 is
+repository-local policy/implementation authority only; a future exact Q15 is
+required for stand qualification; and future dependency-ready Q16a through
+Q16d records are required for individual Stage 17 phases. Q14 is awaiting
+owner review, and Q15/Q16 are not approval-ready.
 
 ## Mandatory evidence remaining before pilot
 
-- owner acceptance and dynamic qualification of the proposed near/far non-SMT
-  CPU pairs;
+- dynamic qualification of the Q13-selected near/far non-SMT CPU pairs;
 - runtime atomic/layout probes on the selected release and pairs;
 - named least-privilege platform authority, exact whitelist, independent
   readback/probes, and successful restoration exercise;
-- accepted/generated-code-qualified processor relax plus an independently
+- release-generated-code-qualified Q13 processor relax plus an independently
   documented hardware-prefetch instruction/control mapping;
 - full selected-pair clock qualification and before-block repetition;
 - producer-home/worker-local before/during/after address-residency proof;
@@ -161,8 +171,8 @@ grants no execution authority.
   capacity/reserve proof, and crash/recovery/readback exercise;
 - authorized prospective calibration/pilot plans, durations, counts,
   namespaces, seeds, budgets, environmental limits, and stand-hours; and
-- the production measurement executable and complete release-specific
-  combined-worker source/assembly audit.
+- the affined production preparation/execution adapter and complete
+  release-specific combined-worker source/assembly audit.
 
 ## Additional evidence remaining before confirmatory execution
 

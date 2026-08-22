@@ -2,11 +2,11 @@
 
 Protocol version: **`2.0.0-pre.2`**; immutable predecessor `2.0.0-pre.1`
 
-Register date: **2026-08-21**
+Register date: **2026-08-22**
 
-Stage 2/14 decision state: **`COMPLETE; Q1_THROUGH_Q12_ACCEPTED`**
+Stage 2/16 decision state: **`COMPLETE; Q1_THROUGH_Q13_ACCEPTED; Q14_AWAITING`**
 
-Current implementation state: **`STAGE_14_SOFTWARE_COMPLETE_SYNTHETIC_ONLY`**
+Current implementation state: **`STAGE16_COMPLETE; Q13_RUNNER_ENTRY_IMPLEMENTED; D044_D046_PROPOSED; PILOT_BLOCKED`**
 
 `ACCEPTED` means an ADR freezes the choice. `PROPOSED` is a recommendation awaiting explicit owner acceptance. `UNRESOLVED` is not a default. `PROTOCOL_FIXED` restates source-of-truth behavior and is never an engineering choice. A selected implementation that changes scientific meaning requires a versioned protocol amendment, not merely an ADR.
 
@@ -99,7 +99,22 @@ input or experiment is authorized by that acceptance.
 | D-039 | Concrete Stage 13 arithmetic and record profile | Binary64; new arbitrary-precision dependency; guarded standard-library Decimal | `ACCEPTED`: `HOEFFDING-DECIMAL80-GUARD160-UP-v1`, precision-160 upper enclosure, precision-80 boundary, precision-240 reference pass, and five versioned schemas; [ADR-0039](decisions/0039-stage13-decimal-and-record-profile.md) | ADR-0038 delegation; Python 3.14 Decimal contract; direct/reference vectors; schema/canonical/overwrite tests | Rounding can only make the accepted matrix bound more conservative at the serialized boundary | Precision/order/rounding/profile/schema/hash/fingerprint grammars are compatibility identity | Repository/calibration/validation owners | Stage 13 software complete; repeat on every runtime/profile change | New profile/schema versions and superseding ADR; old records remain immutable |
 | D-040 | Stage 14 planning/access/replacement implementation profile | Generic schema-only lists; path/name inference; typed exact product and graph | `ACCEPTED`: explicit pre-derived Philox keys and role seed catalogs, deterministic whole/cell permutations, explicit-field block IDs, zero-self plan hashes, fixed 7/20/270/540/54 registries, fail-closed access ledger, and full-block-only replacement; [ADR-0040](decisions/0040-stage14-planning-access-and-replacement-profile.md), [implementation](ORCHESTRATION.md) | Imported block/access/replacement contracts; ADR-0005/0006/0025/0026/0034; Stage 14 unit/property/schema/sanitizer evidence | Proves frozen scientific structure and chronology without selecting counts, seeds, authorities, budget, or outcomes | Key roles, seed-sharing map, ID/hash preimage, family registries, access roles, and lineage checks are compatibility identity | Repository/protocol/validation/block/access owners | Stage 14 software complete; concrete final inputs and custody proof before Phase 16/18 | New profile/suite and superseding ADR; scientific change needs versioned amendment |
 | D-041 | Stage 15 offline analysis execution/profile | General statistics framework defaults; event/cell resampling; direct registered complete-block profile | `ACCEPTED`: one-platform/build `STAGE-A-OFFLINE-ANALYSIS-SYNTHETIC-v1`, exact 40-column rank proof, direct balanced contrast weights, complete-block Philox bootstrap, inverse-ECDF empirical critical, separate 7/20 and post-selection 54 families, exact source/config/output hashes, and fixture-only compact input; [ADR-0041](decisions/0041-stage15-offline-analysis-profile.md), [implementation](ANALYSIS.md) | Imported Sections 8/10/13; ADR-0001/0004/0006/0025/0034/0040; Stage 15 known-answer/prohibited-input/sanitizer evidence | Executes fixed estimands without pooling events, mixing families, resizing from outcomes, opening sealed data, or admitting incomplete blocks | Design/weights/unit/RNG draws/covariance divisor/critical rank/family/float/hash grammar are profile identity | Repository/protocol/statistical/analysis owners | Stage 15 synthetic software complete; concrete bound/count/seed/access/stand evidence before empirical use | New profile and superseding ADR; scientific changes require protocol review/amendment |
-| D-042 | Stage 16 verification and stand-preflight bundle profile | Generic package; unrecorded transfer; deterministic preflight-only archive | `ACCEPTED`: `STAGE16-STAND-BUNDLE-v1` with exact source/release/protocol/schema/SBOM/provenance/checksum content, external and complete internal hashes, deterministic repeat-build identity, and read-only inventory-only preflight; [ADR-0042](decisions/0042-stage16-verification-and-stand-bundle-profile.md), [readiness report](PRE_PILOT_READINESS_REPORT.md) | Stage 16 authorization; full clean build/test/sanitizer/static/codegen/synthetic matrix; clean extraction; nonprivileged stand verification and inventory | Packages correctness and discovery evidence only; supplies no platform value, outcome, calibration, or execution authority | Profile/layout/manifest/source/build/dependency/validator hashes are version identity; production runner is intentionally absent | Repository/build/verification/platform owners | Stage 16 software/bundle gate complete; Q13 and all stand/pilot gates remain later | New profile and superseding ADR with full clean requalification; scientific authority cannot be added by an engineering supersession |
+| D-042 | Stage 16 verification and stand-preflight bundle profile | Generic package; unrecorded transfer; deterministic preflight-only archive | `ACCEPTED`: `STAGE16-STAND-BUNDLE-v1` with exact source/release/protocol/schema/SBOM/provenance/checksum content, external and complete internal hashes, deterministic repeat-build identity, and read-only inventory-only preflight; [ADR-0042](decisions/0042-stage16-verification-and-stand-bundle-profile.md), [readiness report](PRE_PILOT_READINESS_REPORT.md) | Stage 16 authorization; full clean build/test/sanitizer/static/codegen/synthetic matrix; clean extraction; nonprivileged stand verification and inventory | Packages correctness and discovery evidence only; supplies no platform value, outcome, calibration, or execution authority | Profile/layout/manifest/source/build/dependency/validator hashes are version identity; production runner is intentionally absent | Repository/build/verification/platform owners | Stage 16 software/bundle gate complete; Q13 was later accepted without changing this bundle; stand/pilot gates remain later | New profile and superseding ADR with full clean requalification; scientific authority cannot be added by an engineering supersession |
+| D-043 | Stage 17 runner entry / placement / relax | Runtime measured-loop dispatch; per-package executables; five static specializations; no hint; `PAUSE`; yield/adaptive wait; candidate pairs or unresolved | `ACCEPTED_FOR_IMPLEMENTATION_ONLY`: producer CPU 0 with consumer 1 for `NEAR` and 26 for `FAR`; one x86 `PAUSE` per relax site; fail-closed controller-side five-specialization profile; [bundle](STAGE17_ENTRY_DECISION_BUNDLE.md), [ADR-0043](decisions/0043-stage17-entry-runner-pair-and-relax-profile.md), [implementation](PRODUCTION_RUNNER.md) | Q13; hashed read-only topology; imported tight-poll/static-binding contract; admission/hash/dispatch tests and required dual-disassembler relax mutant | Fixes the physical candidate contexts and finite relax hint prospectively; changes no queue attempt, timestamp, memory order, outcome, or analysis | Pair/profile/relax/admission/binary hashes are identity; any CPU, relax count/instruction, dispatch boundary, or evidence set change is incompatible | Repository/platform/controller/timing/queue/storage/security/custody owners | Entry implementation allowed; dynamic qualification, full combined worker, every admission record, and separate pilot authority before execution | New prospective identities and superseding ADR with complete pair/runner requalification; scientific semantic change needs amendment |
+
+## Proposed pre-Stage-17 governance decisions
+
+These recommendations are collected in the
+[pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md).
+They are not accepted decisions, create no ADR, and grant no stand or execution
+authority unless and until the owners explicitly accept Q14. Q15 and Q16a
+through Q16d are intentionally not approval-ready.
+
+| ID | Classification | Options considered | Selected option or unresolved state | Evidence | Scientific effect | Compatibility effect | Owner | Deadline / gate | Supersession rule |
+|---|---|---|---|---|---|---|---|---|---|
+| D-044 | Pre-pilot production-release closure | Treat component seams as a runner; add generic runtime dispatch; finish the accepted static profile and issue a new fail-closed bundle; postpone | `PROPOSED`: finish the affined static preparation/execution adapter and complete combined-worker audit, then issue a new `STAGE17-PILOT-CANDIDATE-BUNDLE-v1` with execution disabled without exact authorization | Q13/ADR-0043; Stage 16 component-only audit; missing combined worker | No scientific operation changes; the accepted operation graph becomes auditable as one release | Source/build/runner/specialization/codegen/schema/admission/bundle hashes become release identity | Repository/build/controller/queue/timing/storage owners | Q14 before remaining local implementation; completion before release-bound stand qualification | New profile and ADR; rerun clean build, sanitizers, codegen, bundle, and qualification |
+| D-045 | Stand qualification and privilege authority | Reuse inventory; omnibus root; one broad authorization; separate hash-bound nonprivileged qualification and exact-whitelist privileged rehearsal | `PROPOSED`: qualify only an exact release/stand under a future Q15 record, separating dynamic nonprivileged evidence from one-control-at-a-time apply/readback/probe/restoration | ADR-0018 through ADR-0020; inventory-only evidence; Q13 pair inputs | Produces eligibility evidence only; no calibration or treatment outcome | Stand/release/pair/control/authority/readback/probe/restoration hashes are qualification identity | Platform/timing/queue/security/custody/audit owners | Policy at Q14; no stand action before a complete explicit Q15 | New qualification record; repeat after every material dependency change |
+| D-046 | Stage 17 calibration/pilot execution authority | Omnibus Stage 17 approval; SSH-derived authority; conditional approval of dependent phases; immutable phase-scoped authorizations | `PROPOSED`: separately authorize dependency-ready D2 calibration, service calibration, feasibility probes, and blinded pilot/freeze collection under future Q16a through Q16d records | Imported dependency graph; D-035 through D-039; lifecycle, failure, and custody rules | Prevents later inputs from being chosen before predecessor evidence; changes no estimator | Exact authorization, phase, plan/config/schedule/namespace/seed/budget/stand/build/qualification/storage/authority hashes are identity | Protocol/statistical/calibration/platform/controller/security/custody owners | Policy at Q14; each execution phase needs later explicit approval | New prospective authorization; immutable prior evidence retained and dependent phases invalidated on material change |
 
 ## Later protocol-defined decisions with open values
 
@@ -110,8 +125,9 @@ Submission identity, venue, accessibility, archival license, and final metadata 
 ## Stage 2 disposition
 
 Q1 through Q6 were explicitly accepted by the repository owner on 2026-08-17;
-Q7 was accepted on 2026-08-20, and Q8 through Q12 were accepted on
-2026-08-21. They are recorded through ADR-0038; ADR-0039 closes the delegated
+Q7 was accepted on 2026-08-20, Q8 through Q12 were accepted on 2026-08-21,
+and Q13 was accepted for implementation only on 2026-08-22. They are recorded
+through ADR-0043; ADR-0039 closes the delegated
 concrete Stage 13 profile. Q4 selected no license grant,
 Q5 selected the Stage 6 deterministic suite and representation, and Q6 selected
 the D-027 Stage 7 schedule-generation suite. Later scientific/platform/pilot
@@ -135,8 +151,12 @@ synthetic orchestration and offline-analysis software. ADR-0042 and D-042 now
 record the completed Stage 16 software/bundle profile. Clean revision `1b0a7f5`
 and its reproducible bundle pass stand-side hashes and nonprivileged self-tests;
 separate read-only topology/storage discovery supplies static pair candidates
-but no qualification. Q13 in the Stage 17 entry implementation bundle remains
-unaccepted. Experiment execution remains prohibited until the production
-runner, exact stand authority/mappings/watchdogs, selected-pair/address state,
+but no qualification. Q13/ADR-0043 now selects the static pairs, one-`PAUSE`
+mapping, and fail-closed runner entry profile. Its admission core and static
+dispatch seam do not expose an execution command. D-044 through D-046 are now
+documented recommendations awaiting Q14; they have no ADR or authority.
+Experiment execution remains
+prohibited until the complete affined combined runner, exact stand
+authority/mappings/watchdogs, selected-pair/address state,
 vendor-prefetch probes, restoration, clock, independent storage/custody, and
 pilot-plan gates pass.

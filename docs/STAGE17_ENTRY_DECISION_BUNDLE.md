@@ -1,6 +1,6 @@
 # Stage 17 entry implementation decision bundle
 
-Status: **AWAITING Q13 OWNER ACCEPTANCE; PILOT PROHIBITED**
+Status: **Q13 ACCEPTED FOR IMPLEMENTATION ONLY; PILOT PROHIBITED**
 
 Date: 2026-08-22
 
@@ -11,8 +11,8 @@ Affected decisions: D-006, D-008, D-009, D-015, D-018, D-019, D-020, D-034
 Owners: repository, platform, controller, timing, queue-correctness, storage,
 security, and custody owners
 
-This bundle proposes only the smallest choices needed to continue production
-path implementation. Acceptance would not authorize privileged controls,
+This bundle records only the smallest accepted choices needed to continue
+production-path implementation. Q13 does not authorize privileged controls,
 calibration, Stage 17 pilot execution, or confirmatory work. Items in the
 unresolved section cannot be accepted by approving this bundle.
 
@@ -104,15 +104,15 @@ bundle does not fill them:
    budgets, environmental limits, access plan, and explicit Stage 17 execution
    authorization remain absent.
 
-## Acceptance meaning and exact reply
+## Acceptance record and implementation boundary
 
-If the three recommendations are acceptable, reply exactly:
-
-```text
 Q13 - accept the Stage 17 entry implementation bundle: select near producer/consumer CPUs 0/1 and far CPUs 0/26, select one x86 PAUSE per relax site, and authorize implementation of the fail-closed statically specialized production runner only. This does not authorize privileged controls, calibration, pilot, or confirmatory execution.
-```
 
-After Q13, the next safe implementation work is the runner, relax generated-code
-probe, selected-pair qualification tooling, and exact input validators. Stage
-17 remains prohibited until every unresolved item above has its own accepted,
-hashed evidence and a separate pilot authorization.
+The repository owner supplied that exact acceptance on 2026-08-22. ADR-0043
+records the pair, relax mapping, and runner profile. The fail-closed admission
+core, five-way static dispatch seam, non-executing admission CLI, tests, and
+relax generated-code probe are implemented in
+[`PRODUCTION_RUNNER.md`](PRODUCTION_RUNNER.md). Q13 does not accept any item in
+the unresolved section. Stage 17 remains prohibited until every unresolved
+item has accepted hashed evidence, the combined production worker is fully
+qualified, and a separate pilot authorization is supplied.

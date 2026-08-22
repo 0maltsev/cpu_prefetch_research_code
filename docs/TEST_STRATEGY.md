@@ -448,8 +448,10 @@ workload probe adds the consumer action and R1/R2 producer/consumer plus L1
 consumer sites. GNU Binutils 2.46 and LLVM 22.1.6 show the two immutable record
 loads, fixed branch-free mixer, and exact target-before-demand ordering with no
 unexpected call, record store, `lock`, `xchg`, or `mfence`; both reject the
-deliberate call mutant. Platform prefetch instructions, relax, and the
-package-specific combined worker remain later generated-code gates. Stage 11
+deliberate call mutant. Q13 now fixes one x86 `PAUSE`; its release probe must
+show exactly one instruction in GNU and LLVM views and reject the two-PAUSE/
+`sched_yield` mutant. Platform prefetch instructions and the package-specific
+combined worker remain later generated-code gates. Stage 11
 adds two fixed append bodies: GNU Binutils 2.46 and LLVM 22.1.6 both verify no
 unexpected call, lock, memory exchange/fence, or syscall and both reject the
 deliberate storage call mutant. Stage 10 source/static analysis fixes u32
@@ -511,6 +513,27 @@ version metadata, compile commands, runtime dependency record, schemas,
 protocol, null-valued example, no-license notice, dependency inventory, SPDX
 SBOM, validators, readiness report, and runbook. The bundle must explicitly
 deny pilot and confirmatory authority and contain no frozen platform value.
+
+### 25. Q13 runner-entry admission and relax checks
+
+The runner suite must prove exact `(0,1)` near and `(0,26)` far mapping, all
+five and only five static packages, and one controller-side dispatch before
+the generic measurement executor. The capture backend package and template
+package must agree at compile time. There is no runtime package selection in a
+worker operation.
+
+Admission negatives cover every missing evidence kind, duplicate kind and
+artifact ID, unknown field/enum, unaccepted profile/relax/pair/package,
+source/binary/stand/binding drift, dirty source, zero limit, stale binding,
+mutable/ineligible evidence, absent/non-regular/symlink input, and byte/hash
+disagreement. Only the combined trust-anchor plus file-hash path may construct
+the ticket; field validation alone never arms a runner. The CLI self-test must
+state `execution=NOT_AUTHORIZED` and expose no run command.
+
+The release `runner-relax-codegen-check` uses both accepted disassemblers,
+requires exactly one `PAUSE`, forbids calls/fences/syscalls in the relax body,
+and proves rejection with a two-`PAUSE`/scheduler-call mutant. This is not the
+still-required full affined combined-worker audit.
 
 ## Evidence order
 

@@ -160,7 +160,7 @@ works and returns nondecreasing exactly converted values here. It is not the
 accepted 10,000,000-read per-core probe, a syscall trace, cross-core
 qualification, exact-boundary cost artifact, or experiment-platform evidence.
 
-No worker pair is selected. Phase 9 may now implement platform controls and
-provide explicit placement inputs. Measurement remains prohibited until the
-exact release, stand, pair, before-block checks, raw storage, controller, and
+Q13 selects CPUs `(0,1)` and `(0,26)` as the near/far pair inputs, but it does
+not dynamically qualify them. Measurement remains prohibited until the exact
+release, stand, pair-specific dynamic/before-block checks, raw storage, controller, and
 later readiness gates all pass.

@@ -2,26 +2,48 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_INVENTORY_COMPLETE; Q1_THROUGH_Q12_ACCEPTED`**
+Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_INVENTORY_COMPLETE; Q1_THROUGH_Q13_ACCEPTED; Q14_AWAITING`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
-The repository still contains no authorized production benchmark or
-measurement runner. Stages 11 and 12 contain the accepted physical observation
+The repository still contains no authorized production benchmark execution.
+Q13 adds a fail-closed runner admission/static-dispatch core whose CLI cannot
+start measurement. Stages 11 and 12 contain the accepted physical observation
 boundary and synthetic post-run reconciliation, not an authorized scientific run path.
 Stage 16 now also retains a verified nonprivileged candidate-stand snapshot
-with two packages and two NUMA nodes, but it intentionally supplies no explicit
-worker pair or dynamic qualification.
+with two packages and two NUMA nodes. Q13 selects explicit static worker pairs
+from later hashed topology evidence but supplies no dynamic qualification.
 Stage 5 contains queue correctness-only production cores, Stage 6 contains
 deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
 owner on 2026-08-17; Q7 was accepted on 2026-08-20; Q8 through Q12 were
-accepted on 2026-08-21. They are recorded through ADR-0038, with ADR-0039
+accepted on 2026-08-21; Q13 was accepted for implementation only on
+2026-08-22. They are recorded through ADR-0043, with ADR-0039
 closing the delegated Stage 13 profile, ADR-0040 closing the Stage 14
 implementation-owned planning/access profile, and ADR-0041 closing the
 synthetic-only Stage 15 analysis profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
+
+## Pending Q14 pre-Stage-17 governance bundle
+
+The
+[`pre-Stage-17 blocker-closure and pilot-authorization decision bundle`](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
+proposes D-044 through D-046. Q14 would authorize repository-local completion
+of the fail-closed static production runner, qualification-only tools, combined
+codegen audit, and a new pilot-candidate bundle. It would also accept the rule
+that later stand qualification and Stage 17 work require separate exact,
+hash-bound Q15 and phase-scoped Q16 records.
+
+Q14 does **not** authorize SSH/stand access, dynamic qualification, privilege,
+calibration, pilot, or confirmatory execution. No ADR exists for D-044 through
+D-046 while Q14 is pending. Q15 and Q16a through Q16d remain blocked because
+their exact release, authority, commands, limits, predecessor artifacts,
+plans, namespaces, seeds, budgets, storage domains, and hashes do not yet
+exist.
+
+The only approval-ready text is the Q14 text printed in the bundle. A generic
+approval for Stage 17 is invalid.
 
 ## Accepted Stage 13 bundle
 
@@ -128,10 +150,10 @@ the applicable Phase 9/16 gates.
 
 | Decision IDs | Required choice/evidence | Owner | Blocking gate |
 |---|---|---|---|
-| D-009 | Software/codegen slice passes; clean release/stand identities exist and Q13 proposes explicit `(0,1)`/`(0,26)` pairs; accept the pair, then supply 10-million-call traced vDSO evidence, per-core full-count streams, bidirectional three-window streams, and before-block repetition | Timing/platform/queue-correctness/code-generation owners | Phase 9 platform qualification; repeat and bind by Phase 16/every block |
+| D-009 | Software/codegen slice passes and Q13 selects explicit `(0,1)`/`(0,26)` pairs; still supply 10-million-call traced vDSO evidence, per-core full-count streams, bidirectional three-window streams, and before-block repetition | Timing/platform/queue-correctness/code-generation owners | Pre-pilot platform qualification; repeat and bind every block |
 | D-010, D-020 | Decisions and Stage 11 software pass under Q9/ADR-0032/0033; read-only storage discovery observes one mounted durable data namespace; remaining inputs are the concrete run plan, available bytes/reserve, actual worker-page residency, a second real durable domain/custody boundary, and exact-release recovery proof | Storage/data-integrity/custody owners | Operational capacity/domain/residency/recovery proof by Phase 16 |
 | D-008 | Queue pointer width/order/refinement and u32 release/acquire termination mapping are implemented; repeat runtime lock-free/layout probes and integrated generated-code checks on the eligible measured release. | Queue correctness/controller/platform owners | Controller mapping accepted in ADR-0031; stand/release evidence by Phase 16 |
-| D-018 | Q13 proposes static near/far pairs and one x86 `PAUSE`; accept those recommendations, then supply exact watchdog/failure bounds, eligible-stand API/control mapping, capability/readback/probe/rollback evidence, and final generated code | Platform/controller owners | Q13 before production integration; operational evidence before pilot |
+| D-018 | Q13 accepts static near/far pairs and one x86 `PAUSE`; still supply exact watchdog/failure bounds, eligible-stand API/control mapping, capability/readback/probe/rollback evidence, real prefetch mapping, and final combined generated code | Platform/controller owners | Operational evidence before pilot |
 | D-019 | Named operator/custodian, accounts/keys/storage, negative access, recovery, and audit retention | Security/custody owners | Operational proof by Phase 16; final authority before confirmation |
 | D-040 and protocol freeze inputs | Supply prospective precision results, exact role/common namespaces, master/derived seed catalogs and derivation evidence, platform/build identity, segregated access principals/enforcement, `R_replacement_max`, budget evidence, and final block-plan/access records | Protocol/statistical/block-planning/security/custody owners | Treatment-blind pilot/freeze evidence before final Phase 16 readiness and Phase 18 execution |
 
@@ -155,9 +177,11 @@ protocol-fixed scientific behavior stops the affected work and requires a
 versioned protocol amendment. Stages 11 through 15 are complete locally under
 ADR-0032 through ADR-0041, and ADR-0042 plus snapshot
 `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` close the Stage 16
-software/bundle/count-level inventory slice. The exact next safe actions are
-clean-release sealing, detailed read-only topology, explicit worker-pair
-proposal, and decision-complete production-path integration. Every external
+software/bundle/count-level inventory slice. Q13/ADR-0043 then closes only the
+runner-entry implementation choices. The exact next safe actions are to finish
+the Q14 review and, only if accepted, implement the repository-local D-044
+closure. Stand-side qualification remains a later exact Q15 request, and every
+Stage 17 phase remains a later dependency-ready Q16 request. Every external
 scientific or stand-dependent value remains blocked until its listed evidence
 gate. Measurement, calibration execution, pilot, and confirmatory execution
 remain prohibited.

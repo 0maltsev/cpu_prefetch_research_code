@@ -29,6 +29,8 @@ jobs:
         run: cmake --build --preset dev-gcc --target static-analysis
       - name: Protocol and schema check
         run: cmake --build --preset dev-gcc --target protocol-check
+      - name: Runner admission schema check
+        run: cmake --build --preset dev-gcc --target runner-schema-check
       - name: Imported-schema fixture check
         run: cmake --build --preset dev-gcc --target schema-fixture-check
       - name: Canonical serialization check
@@ -75,6 +77,8 @@ jobs:
         run: cmake --build --preset release-gcc --target timing-codegen-check
       - name: Storage generated-code check
         run: cmake --build --preset release-gcc --target storage-codegen-check
+      - name: Runner relax generated-code check
+        run: cmake --build --preset release-gcc --target runner-relax-codegen-check
       - name: Generate stand-foundation package
         run: cmake --build --preset release-gcc --target package
       - name: Generate deterministic Stage 16 stand bundle
@@ -99,6 +103,8 @@ jobs:
         run: cmake --build --preset release-clang-libcxx --target timing-codegen-check
       - name: Clang storage generated-code check
         run: cmake --build --preset release-clang-libcxx --target storage-codegen-check
+      - name: Clang runner relax generated-code check
+        run: cmake --build --preset release-clang-libcxx --target runner-relax-codegen-check
 
   sanitizers:
     strategy:

@@ -44,9 +44,17 @@ Separate hashed
 and
 [storage](evidence/stage16/STAND-STORAGE-XEON-CPU-FETCH-20260822-01/README.md)
 sets support candidate selection and blocker discovery only. They do not
-qualify a pair or domain. The proposed pair/relax/runner choices remain
-unaccepted in the
-[Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md).
+qualify a pair or domain. Q13 accepts the pair/relax/runner entry choices for
+implementation only in the
+[Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md); it grants no stand
+control or execution authority.
+
+The proposed
+[pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
+defines three non-collapsible gates: Q14 may authorize repository-local
+closure only, a later complete Q15 may authorize exact stand qualification,
+and later dependency-ready Q16a through Q16d records may authorize individual
+Stage 17 phases. While Q14 is pending, none of those actions is authorized.
 
 ### 3. Privileged capability verification
 
@@ -66,10 +74,12 @@ restoration cannot be proved.
 
 ### 5. Calibration/pilot preparation
 
-Only after the readiness report's `BLOCKED_BEFORE_PILOT` items are closed may
-owners create an explicit calibration/pilot plan and request separate
-authorization. Bundle verification and inventory do not authorize calibration
-or pilot. Confirmatory namespaces and outcomes remain inaccessible.
+Only after the readiness report's `BLOCKED_BEFORE_PILOT` items are closed and
+the exact Q15 qualification has passed may owners create an explicit
+dependency-ready calibration/pilot plan and request the applicable Q16 phase
+authorization. Bundle verification, inventory, Q14, and Q15 do not authorize
+calibration or pilot. Confirmatory namespaces and outcomes remain
+inaccessible.
 
 ### 6. Artifact transfer to the development repository
 

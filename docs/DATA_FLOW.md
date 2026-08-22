@@ -5,13 +5,16 @@ retained. This document preserves the imported logical model. Q9/ADR-0032/0033
 select the physical raw encoding/copy policy, and Q10/Q11/ADR-0034 select only
 the versioned blocker representation. Stage 12 implements reconciliation and
 joined-row construction offline.
+Q13/ADR-0043 adds a pre-preparation runner-admission edge without authorizing
+execution.
 
 ## End-to-end flow
 
 | Phase | Inputs | Work | Append-only outputs | Timed? |
 |---|---|---|---|---|
 | Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON parse, Draft 2020-12 meta-schema, positive/negative fixture, and canonical-byte checks | Readiness evidence in repository status | No |
-| Experiment preparation | Protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, deterministic stream derivation, complete offline schedule generation/validation, arena first touch, record/node permutation, footprint proof, and package binding | Validated logical records, schedule artifact/envelope/derivation record, and prepared workload inputs; later run-image identity and platform evidence references | No |
+| Runner admission | Current source/binary/stand/binding trust anchor and explicit eligibility artifacts | Strict typed validation, exact required-kind proof, non-symlink file reads, and SHA-256 verification | In-memory admission ticket only after all checks; no scientific artifact or authority inferred | No |
+| Experiment preparation | Admission ticket, protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, deterministic stream derivation, complete offline schedule generation/validation, arena first touch, record/node permutation, footprint proof, and static package binding | Validated logical records, schedule artifact/envelope/derivation record, and prepared workload inputs | No |
 | Platform preparation | Requested state and authorized adapter/operator | Affinity/NUMA/page/frequency/HW-PF actuation, independent readback/probes, rollback readiness | Requested-state and verified-state records, capability/failure evidence | No |
 | Run launch | Closed `PreparedRun` | Preparation evidence, warm-up, drain/barrier, logical reset, two-worker start, one clock-derived origin | Append-only lifecycle transition candidates and reset evidence | No; the fixed origin read is the boundary |
 | Measurement horizon | Pre-generated deadlines, fixed arenas, specialized queue, qualified clock | Producer and consumer execute fixed data-plane work | Thread-private producer and consumer observations in preallocated buffers | Yes |
@@ -27,6 +30,14 @@ joined-row construction offline.
 ## Preparation-to-worker boundary
 
 The controller resolves every dynamic choice before release. The prepared image contains exact addresses and extents, pre-generated deadlines, package specialization, run and algorithm-suite IDs, clock identity, platform evidence references, and fixed buffer capacity. Allocation, schema/config parsing, seed derivation, RNG, permutation, compression, and analysis are absent from the worker call graph.
+
+Q13 makes admission explicitly fail closed before that boundary. A field-only
+diagnostic cannot construct an `AdmissionTicket`; admission also verifies every
+referenced artifact byte hash against the current source/binary/stand/binding
+trust anchor. The controller-side package switch selects one compile-time
+specialization and never flows into the measured executor. The admission CLI
+has no execution command. Missing external facts therefore produce no worker,
+raw row, or fabricated failure stream.
 
 Stage 4 supplies the pre-worker typed boundary but does not build a prepared
 image. Each input first passes its unmodified imported Draft 2020-12 schema,

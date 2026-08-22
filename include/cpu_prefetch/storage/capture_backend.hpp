@@ -14,6 +14,8 @@ namespace cpu_prefetch::storage {
 template <typename CaptureClock, typename Package>
 class CapturingObservationBackend final {
 public:
+  static constexpr protocol::QueuePackage package_kind = Package::package;
+
   CapturingObservationBackend(CaptureClock& clock, const workload::EventArena& arena,
                               Package& package, workload::ConsumerState& consumer_state,
                               ProducerObservationStream& producer_stream,

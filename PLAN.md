@@ -321,22 +321,33 @@ authorization/amendment.
   its stand-side outer/internal/self-test gates and inventory pass. Detailed
   read-only topology proves `(0,1)` and `(0,26)` as static near/far candidates,
   while storage discovery finds only one mounted durable data namespace. The
-  Stage 17 entry bundle proposes the pair, `PAUSE`, and fail-closed runner
-  profile for Q13 review. Q13, production integration, dynamic qualification,
-  second storage domain, named authority/custody, exact limits, and pilot plan
-  remain unresolved; Phase 17 execution is prohibited.
+  Q13/ADR-0043 now accepts the evidenced `(0,1)`/`(0,26)` pair, one `PAUSE`,
+  and fail-closed static runner entry profile for implementation only. The
+  strict admission/ticket/static-dispatch core, non-executing CLI, tests, and
+  relax probe are added after the sealed Stage 16 bundle. Final affined
+  production integration, dynamic qualification, second storage domain,
+  named authority/custody, exact limits, and pilot plan remain unresolved;
+  Phase 17 execution is prohibited.
 
 ## Phase 17 — Pilot execution
 
 - **Objective:** Collect treatment-blind evidence needed to freeze platform-dependent capacities, calibration outputs, horizons, environment, precision, and feasibility.
-- **Inputs and prerequisite decisions:** Phase 16 accepted; pilot authority, namespaces, plan, durations/repetitions, controls, custody, storage, stand budget.
+- **Inputs and prerequisite decisions:** Phase 16 accepted; D-044 through D-046
+  governance accepted; local D-044 release closure complete; exact Q15
+  release/stand qualification authorized and passed; then separate
+  dependency-ready Q16a D2, Q16b service-rate, Q16c feasibility, and Q16d
+  blinded pilot/freeze-input authorizations with exact namespaces, plans,
+  durations/repetitions, controls, custody, storage, and stand budget. See the
+  [pre-Stage-17 bundle](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md).
 - **Files/components:** Immutable pilot/calibration run artifacts, failure records, blinded summaries, freeze-decision inputs; no confirmatory namespace.
 - **Tests:** Per-run runbook gates, manifest completeness, join/integrity, blinded covariance/tail/recovery/environment procedures, no-access and namespace audits.
 - **Acceptance criteria:** Evidence is complete and treatment-blind for each required freeze; no failed correctness gate; all confirmatory decisions can be justified or the study is declared infeasible/unresolved.
 - **Explicitly excluded:** Confirmatory outcomes, result-bearing claims, treatment-driven tuning, pilot substitution for Stage A.
 - **Rollback or failure behavior:** Preserve all pilot artifacts/failures. Material implementation/platform change invalidates dependent pilot evidence. Do not cherry-pick or repeat for favorable effects.
-- **Status:** `PROHIBITED`; Stage 16 software verification is complete, but its
-  stand/pilot blockers and separate pilot authorization remain unresolved.
+- **Status:** `PROHIBITED`; the D-044 through D-046 bundle is prepared but Q14
+  is not accepted. Even after Q14, local implementation, a separate exact Q15
+  qualification, and separate dependency-ready Q16 phase approvals remain
+  mandatory. No omnibus Stage 17 authorization is valid.
 
 ## Phase 18 — Confirmatory execution
 

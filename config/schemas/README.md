@@ -53,3 +53,11 @@ They use exact decimal strings for unsigned values that may exceed the
 products, prospective run identity, exact methods, source hashes, arithmetic,
 and append-only behavior which Draft 2020-12 alone cannot express. Synthetic
 schema fixtures are not platform calibration evidence.
+
+`runner-admission-v1.schema.json` is the implementation-owned Q13 admission
+shape. It fixes the accepted pair/profile/relax identities, exact five-package
+domain, nonzero limit fields, and immutable/eligible hash references. The C++
+validator additionally proves exact evidence-kind coverage and uniqueness,
+current trust-anchor binding, regular non-symlink files, and actual SHA-256
+agreement before it can construct an admission ticket. It is not an imported
+scientific schema and cannot authorize execution by itself.

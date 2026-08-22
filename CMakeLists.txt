@@ -158,6 +158,18 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+add_library(cpu_prefetch_runner_core STATIC src/runner/runner.cpp)
+add_library(cpu_prefetch::runner ALIAS cpu_prefetch_runner_core)
+target_link_libraries(
+  cpu_prefetch_runner_core
+  PUBLIC cpu_prefetch::lifecycle cpu_prefetch::protocol
+  PRIVATE cpu_prefetch_project_options OpenSSL::Crypto)
+target_include_directories(
+  cpu_prefetch_runner_core
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
 add_library(
   cpu_prefetch_storage STATIC
   src/storage/artifact_store.cpp
@@ -249,6 +261,14 @@ target_link_libraries(
   PRIVATE
     cpu_prefetch::foundation
     cpu_prefetch::platform
+    cpu_prefetch_project_options)
+
+add_executable(cpu_prefetch_runner tools/runner_main.cpp)
+target_link_libraries(
+  cpu_prefetch_runner
+  PRIVATE
+    cpu_prefetch::foundation
+    cpu_prefetch::runner
     cpu_prefetch_project_options)
 
 add_executable(cpu_prefetch_storage_fixture tools/storage_fixture_main.cpp)
@@ -403,6 +423,15 @@ if(BUILD_TESTING)
     cpu_prefetch_lifecycle_tests
     PREFIX "lifecycle."
     PROPERTIES LABELS "lifecycle")
+
+  add_executable(cpu_prefetch_runner_tests tests/runner_model_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_runner_tests
+    PRIVATE cpu_prefetch::runner cpu_prefetch_project_options GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_runner_tests
+    PREFIX "runner."
+    PROPERTIES LABELS "runner;pre-pilot;synthetic")
 
   add_executable(cpu_prefetch_storage_tests tests/storage_model_test.cpp)
   target_link_libraries(
@@ -618,6 +647,19 @@ if(BUILD_TESTING)
       LABELS "preflight;stand-bundle"
       PASS_REGULAR_EXPRESSION "qualification=INVENTORY_ONLY_NOT_QUALIFIED")
 
+  add_test(NAME runner.self_test COMMAND cpu_prefetch_runner --self-test)
+  set_tests_properties(
+    runner.self_test
+    PROPERTIES
+      LABELS "runner;pre-pilot"
+      PASS_REGULAR_EXPRESSION "execution=NOT_AUTHORIZED")
+
+  add_test(
+    NAME runner.schema
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_runner_schema.py")
+  set_tests_properties(runner.schema PROPERTIES LABELS "runner;schema;pre-pilot")
+
   set(CPU_PREFETCH_RECONCILIATION_CHECK_DEPENDS
       cpu_prefetch_reconciliation_tests)
   if(CPU_PREFETCH_ENABLE_PROPERTY_TESTS)
@@ -696,6 +738,17 @@ add_executable(
 target_link_libraries(
   cpu_prefetch_storage_codegen_mutant
   PRIVATE cpu_prefetch::storage cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_runner_codegen_probe EXCLUDE_FROM_ALL
+  tools/runner_codegen_probe.cpp)
+target_link_libraries(
+  cpu_prefetch_runner_codegen_probe
+  PRIVATE cpu_prefetch::runner cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_runner_codegen_mutant EXCLUDE_FROM_ALL
+  tools/runner_codegen_mutant.cpp)
+target_link_libraries(
+  cpu_prefetch_runner_codegen_mutant PRIVATE cpu_prefetch_project_options)
 
 find_program(CPU_PREFETCH_CLANG_FORMAT NAMES clang-format REQUIRED)
 find_program(CPU_PREFETCH_CLANG_TIDY NAMES clang-tidy REQUIRED)
@@ -719,6 +772,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/model.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/validation.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/reconciliation/reconciliation.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/runner.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/adapters.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/common.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/queue/linked_spsc.hpp"
@@ -754,6 +808,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/protocol/semantic.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/validation.cpp"
   "${PROJECT_SOURCE_DIR}/src/reconciliation/reconciliation.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/runner.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -784,6 +839,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/runner_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
@@ -800,6 +856,9 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/storage_fixture_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/storage_large_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stand_preflight_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -831,6 +890,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/protocol/semantic.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/validation.cpp"
   "${PROJECT_SOURCE_DIR}/src/reconciliation/reconciliation.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/runner.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -860,6 +920,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/runner_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
@@ -876,6 +937,9 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/storage_fixture_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/storage_large_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stand_preflight_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -886,7 +950,7 @@ add_custom_target(
     --clang-tidy "${CPU_PREFETCH_CLANG_TIDY}"
     --build-directory "${PROJECT_BINARY_DIR}"
     ${CPU_PREFETCH_ANALYSIS_FILES}
-  DEPENDS cpu_prefetch_preflight cpu_prefetch_smoke
+  DEPENDS cpu_prefetch_preflight cpu_prefetch_runner cpu_prefetch_smoke
   COMMENT "Running clang-tidy over repository C++ targets")
 
 add_custom_target(
@@ -993,6 +1057,22 @@ add_custom_target(
     --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
   DEPENDS cpu_prefetch_storage_codegen_probe cpu_prefetch_storage_codegen_mutant
   COMMENT "Requiring dual-disassembler Stage 11 bounded-writer evidence")
+add_custom_target(
+  runner-relax-codegen-check
+  COMMAND
+    "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_runner_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_runner_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_runner_codegen_mutant>"
+    --output "${PROJECT_BINARY_DIR}/runner_relax_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS cpu_prefetch_runner_codegen_probe cpu_prefetch_runner_codegen_mutant
+  COMMENT "Requiring dual-disassembler Q13 one-PAUSE relax evidence")
+add_custom_target(
+  runner-schema-check
+  COMMAND "${Python3_EXECUTABLE}"
+          "${PROJECT_SOURCE_DIR}/tools/check_runner_schema.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the Q13 Draft 2020-12 runner-admission schema")
 add_custom_target(
   document-check
   COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_docs.py"

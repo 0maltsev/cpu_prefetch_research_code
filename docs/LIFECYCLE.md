@@ -104,14 +104,15 @@ lock-free. This is only the termination-publication claim; it does not broaden
 the queue lock-free/wait-free claim boundary. Cache-line size is mandatory
 input, never a platform default.
 
-`Clock`, capture backend, relax operation, schedule, and safety bounds are
-injected at compile time. The controller selects no sleep, yield, scheduler
-call, adaptive backoff, queue family, treatment, platform instruction, or
-watchdog value. Producer and consumer execution counters remain stack-local
+`Clock`, capture backend, schedule, and safety bounds are injected at compile
+time. Q13 selects the stateless `X86PauseRelax`, exactly one `PAUSE` per relax
+site and no sleep, yield, scheduler call, adaptive backoff, queue-family, or
+treatment selection in the executor. Watchdog values remain external.
+Producer and consumer execution counters remain stack-local
 during their loops and are transferred to controller-owned result slots only
 when each worker exits; the hot loops do not update one shared report object.
-Test fakes may yield solely to vary host scheduling. The final platform relax
-instruction and watchdog/failure bounds remain explicit pre-pilot evidence.
+Test fakes may yield solely to vary host scheduling. Release-specific relax
+generated code and exact watchdog/failure bounds remain pre-pilot evidence.
 
 ## Failure and artifact matrix
 
@@ -159,6 +160,8 @@ compression, reconciliation, or analysis after the measurement origin. Its
 backend contract requires preallocated observation retention; the Stage 11
 physical storage decision and implementation must provide and prove that
 backend. Final package-specific code generation, production reset bindings,
-platform relax mapping, explicit watchdog values, selected stand state, and
-clock qualification remain pre-pilot/Phase 16 evidence. Development-host and
+real prefetch mapping, explicit watchdog values, selected-pair qualification,
+affinity/residency, and clock qualification remain pre-pilot evidence. Q13's
+static runner entry is documented in [`PRODUCTION_RUNNER.md`](PRODUCTION_RUNNER.md).
+Development-host and
 fake results are never latency or throughput evidence.

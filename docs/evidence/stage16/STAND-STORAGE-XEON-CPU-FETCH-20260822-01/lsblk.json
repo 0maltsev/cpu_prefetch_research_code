@@ -1,0 +1,249 @@
+{
+   "blockdevices": [
+      {
+         "name": "sda",
+         "kname": "sda",
+         "type": "disk",
+         "size": 900185481216,
+         "fstype": null,
+         "mountpoints": [],
+         "model": "SAMSUNG MZ7GE900",
+         "serial": "S1W4NEAG301870",
+         "wwn": "0x50025388501532ad",
+         "rota": false,
+         "tran": "sata",
+         "pkname": null,
+         "children": [
+            {
+               "name": "sda1",
+               "kname": "sda1",
+               "type": "part",
+               "size": 313524224,
+               "fstype": null,
+               "mountpoints": [],
+               "model": null,
+               "serial": null,
+               "wwn": "0x50025388501532ad",
+               "rota": false,
+               "tran": null,
+               "pkname": "sda"
+            },{
+               "name": "sda2",
+               "kname": "sda2",
+               "type": "part",
+               "size": 9999220736,
+               "fstype": "linux_raid_member",
+               "mountpoints": [],
+               "model": null,
+               "serial": null,
+               "wwn": "0x50025388501532ad",
+               "rota": false,
+               "tran": null,
+               "pkname": "sda",
+               "children": [
+                  {
+                     "name": "md1",
+                     "kname": "md1",
+                     "type": "raid1",
+                     "size": 9989783552,
+                     "fstype": "ext3",
+                     "mountpoints": [
+                         "/boot"
+                     ],
+                     "model": null,
+                     "serial": null,
+                     "wwn": null,
+                     "rota": false,
+                     "tran": null,
+                     "pkname": "sda2"
+                  }
+               ]
+            },{
+               "name": "sda3",
+               "kname": "sda3",
+               "type": "part",
+               "size": 4999610368,
+               "fstype": "linux_raid_member",
+               "mountpoints": [],
+               "model": null,
+               "serial": null,
+               "wwn": "0x50025388501532ad",
+               "rota": false,
+               "tran": null,
+               "pkname": "sda",
+               "children": [
+                  {
+                     "name": "md2",
+                     "kname": "md2",
+                     "type": "raid1",
+                     "size": 4994367488,
+                     "fstype": "swap",
+                     "mountpoints": [
+                         "[SWAP]"
+                     ],
+                     "model": null,
+                     "serial": null,
+                     "wwn": null,
+                     "rota": false,
+                     "tran": null,
+                     "pkname": "sda3"
+                  }
+               ]
+            },{
+               "name": "sda4",
+               "kname": "sda4",
+               "type": "part",
+               "size": 883797524480,
+               "fstype": "linux_raid_member",
+               "mountpoints": [],
+               "model": null,
+               "serial": null,
+               "wwn": "0x50025388501532ad",
+               "rota": false,
+               "tran": null,
+               "pkname": "sda",
+               "children": [
+                  {
+                     "name": "md3",
+                     "kname": "md3",
+                     "type": "raid1",
+                     "size": 883662258176,
+                     "fstype": "ext4",
+                     "mountpoints": [
+                         "/"
+                     ],
+                     "model": null,
+                     "serial": null,
+                     "wwn": null,
+                     "rota": false,
+                     "tran": null,
+                     "pkname": "sda4"
+                  }
+               ]
+            }
+         ]
+      },{
+         "name": "sdb",
+         "kname": "sdb",
+         "type": "disk",
+         "size": 900185481216,
+         "fstype": null,
+         "mountpoints": [],
+         "model": "SAMSUNG MZ7GE900",
+         "serial": "S1W4NYAFC01180",
+         "wwn": "0x50025388003c6731",
+         "rota": false,
+         "tran": "sata",
+         "pkname": null,
+         "children": [
+            {
+               "name": "sdb1",
+               "kname": "sdb1",
+               "type": "part",
+               "size": 313524224,
+               "fstype": null,
+               "mountpoints": [],
+               "model": null,
+               "serial": null,
+               "wwn": "0x50025388003c6731",
+               "rota": false,
+               "tran": null,
+               "pkname": "sdb"
+            },{
+               "name": "sdb2",
+               "kname": "sdb2",
+               "type": "part",
+               "size": 9999220736,
+               "fstype": "linux_raid_member",
+               "mountpoints": [],
+               "model": null,
+               "serial": null,
+               "wwn": "0x50025388003c6731",
+               "rota": false,
+               "tran": null,
+               "pkname": "sdb",
+               "children": [
+                  {
+                     "name": "md1",
+                     "kname": "md1",
+                     "type": "raid1",
+                     "size": 9989783552,
+                     "fstype": "ext3",
+                     "mountpoints": [
+                         "/boot"
+                     ],
+                     "model": null,
+                     "serial": null,
+                     "wwn": null,
+                     "rota": false,
+                     "tran": null,
+                     "pkname": "sdb2"
+                  }
+               ]
+            },{
+               "name": "sdb3",
+               "kname": "sdb3",
+               "type": "part",
+               "size": 4999610368,
+               "fstype": "linux_raid_member",
+               "mountpoints": [],
+               "model": null,
+               "serial": null,
+               "wwn": "0x50025388003c6731",
+               "rota": false,
+               "tran": null,
+               "pkname": "sdb",
+               "children": [
+                  {
+                     "name": "md2",
+                     "kname": "md2",
+                     "type": "raid1",
+                     "size": 4994367488,
+                     "fstype": "swap",
+                     "mountpoints": [
+                         "[SWAP]"
+                     ],
+                     "model": null,
+                     "serial": null,
+                     "wwn": null,
+                     "rota": false,
+                     "tran": null,
+                     "pkname": "sdb3"
+                  }
+               ]
+            },{
+               "name": "sdb4",
+               "kname": "sdb4",
+               "type": "part",
+               "size": 883797524480,
+               "fstype": "linux_raid_member",
+               "mountpoints": [],
+               "model": null,
+               "serial": null,
+               "wwn": "0x50025388003c6731",
+               "rota": false,
+               "tran": null,
+               "pkname": "sdb",
+               "children": [
+                  {
+                     "name": "md3",
+                     "kname": "md3",
+                     "type": "raid1",
+                     "size": 883662258176,
+                     "fstype": "ext4",
+                     "mountpoints": [
+                         "/"
+                     ],
+                     "model": null,
+                     "serial": null,
+                     "wwn": null,
+                     "rota": false,
+                     "tran": null,
+                     "pkname": "sdb4"
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}

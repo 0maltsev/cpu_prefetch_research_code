@@ -37,6 +37,17 @@ Replace both uppercase tokens explicitly. The output is always inventory-only
 and does not qualify the stand. No scientific run identity is parsed from its
 filename.
 
+The current clean-release example is append-only inventory
+[`STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02`](evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/README.md).
+Separate hashed
+[topology](evidence/stage16/STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/README.md)
+and
+[storage](evidence/stage16/STAND-STORAGE-XEON-CPU-FETCH-20260822-01/README.md)
+sets support candidate selection and blocker discovery only. They do not
+qualify a pair or domain. The proposed pair/relax/runner choices remain
+unaccepted in the
+[Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md).
+
 ### 3. Privileged capability verification
 
 A separately named platform operator reviews the read-only inventory and

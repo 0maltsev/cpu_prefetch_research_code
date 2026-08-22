@@ -531,7 +531,12 @@ post-run correctness infrastructure. Stage 13 implements the Q12 calibration
 bundle using synthetic and fake inputs only and creates no stand result. The
 Stage 14 planner likewise creates no final block, access grant, or execution.
 Stage 15 consumes only synthetic known-answer fixtures and produces no
-empirical claim. The exact next safe stage is Stage 16 pre-pilot verification;
-it remains non-measuring until every listed pre-pilot input and authority is
-supplied. Stand calibration, measurement, pilot, and confirmatory behavior
-remain prohibited until their applicable later gates.
+empirical claim. Stage 16 is complete at its software/bundle boundary under
+ADR-0042. Clean revision `1b0a7f5` has a byte-reproducible bundle whose
+external/internal hashes and nonprivileged self-tests pass on the candidate
+stand. Read-only topology establishes explicit static near/far candidates,
+while storage discovery exposes only one suitable mounted durable namespace.
+The exact next safe action is owner review of
+[`docs/STAGE17_ENTRY_DECISION_BUNDLE.md`](docs/STAGE17_ENTRY_DECISION_BUNDLE.md).
+Q13 is not accepted, and stand controls, calibration, measurement, pilot, and
+confirmatory behavior remain prohibited until their applicable later gates.

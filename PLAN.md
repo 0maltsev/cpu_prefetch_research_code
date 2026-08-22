@@ -316,12 +316,15 @@ authorization/amendment.
   combined-worker audit, eligible-stand platform/control/clock/residency/storage
   evidence, and prospective calibration/pilot inputs remain explicit
   `BLOCKED_BEFORE_PILOT` gates; no platform value or scientific outcome was
-  created. The nonprivileged bundle/internal/self-test and inventory pass now
-  exists as `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01`, observes a
-  two-package/two-NUMA candidate, and remains explicitly not qualified. The
-  exact next safe actions are a clean source/bundle seal and detailed read-only
-  sibling/cache topology for an explicit worker-pair proposal, not Phase 17
-  execution.
+  created. Clean revision `1b0a7f5` now has a byte-reproducible bundle with
+  SHA-256 `e8eb9150d252d38f72b56884b0bcb5026480aee00b969c736fdc124783cb6eac`;
+  its stand-side outer/internal/self-test gates and inventory pass. Detailed
+  read-only topology proves `(0,1)` and `(0,26)` as static near/far candidates,
+  while storage discovery finds only one mounted durable data namespace. The
+  Stage 17 entry bundle proposes the pair, `PAUSE`, and fail-closed runner
+  profile for Q13 review. Q13, production integration, dynamic qualification,
+  second storage domain, named authority/custody, exact limits, and pilot plan
+  remain unresolved; Phase 17 execution is prohibited.
 
 ## Phase 17 — Pilot execution
 

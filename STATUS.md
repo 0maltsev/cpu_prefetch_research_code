@@ -458,6 +458,20 @@ mapping remains unresolved and no implementation text was used.
   [`STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01`](docs/evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01/README.md),
   whose bundle/internal/self-test gates pass and whose two-package/two-NUMA
   topology remains inventory-only pending exact worker-pair qualification.
+- clean revision `1b0a7f54db7e1ff699331e9ae05a97f409f01ad4` and its
+  byte-reproducible stand bundle, whose outer SHA-256 is
+  `e8eb9150d252d38f72b56884b0bcb5026480aee00b969c736fdc124783cb6eac`;
+- returned clean-release inventory
+  [`STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02`](docs/evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/README.md),
+  which again passes the inventory-only boundary and binds the observed stand
+  to the clean revision; and
+- hashed read-only
+  [topology](docs/evidence/stage16/STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/README.md)
+  and
+  [storage](docs/evidence/stage16/STAND-STORAGE-XEON-CPU-FETCH-20260822-01/README.md)
+  discovery. The former proves `(0,1)` as a static `NEAR` candidate and
+  `(0,26)` as a static `FAR` candidate without selecting them. The latter
+  observes only one mounted durable data namespace, so D-020 remains blocked.
 
 This does not close the timed-path gate for a production run. All implemented
 component bodies pass their source and GNU/LLVM assembly audits, but the final
@@ -467,17 +481,20 @@ execution occurred.
 
 ## Immediate gate
 
-Stage 16 software verification, stand-bundle creation, and nonprivileged
-inventory are complete under ADR-0042. **The exact next safe action is to seal
-this repository state as a clean source revision, rebuild the bundle against
-that revision, and collect the detailed read-only CPU/core/package/NUMA/cache
-and sibling topology needed to propose—without yet qualifying—explicit
-`NEAR`/`FAR` non-SMT worker pairs.** Do not run privileged controls,
-calibration, pilot, or confirmatory work yet.
+Stage 16 software verification, clean source/bundle sealing, repeated
+nonprivileged inventory, and detailed read-only topology/storage discovery are
+complete under ADR-0042. The
+[Stage 17 entry implementation bundle](docs/STAGE17_ENTRY_DECISION_BUNDLE.md)
+now proposes explicit `(0,1)` `NEAR` and `(0,26)` `FAR` candidates, one x86
+`PAUSE` per relax site, and the fail-closed statically specialized runner
+profile. **The exact next safe action is Q13 owner review; none of those
+recommendations is accepted yet.** Do not run privileged controls,
+calibration, pilot, or confirmatory work.
 
-Pilot remains blocked until a separately reviewed production measurement
-executable and complete combined-worker audit exist and the eligible stand,
-pair/layout/atomic, requested-versus-verified controls/restoration, clock,
-address residency, durable storage/custody/capacity, and prospective
-calibration/pilot inputs are proven. Confirmatory execution additionally
-requires every pilot-derived and owner-supplied freeze record.
+Pilot remains blocked until Q13 is accepted, a production measurement
+executable and complete combined-worker audit exist, and the selected
+pair/layout/atomic, requested-versus-verified controls/restoration, exact
+watchdogs, clock, address residency, second durable storage domain/custody/
+capacity, and prospective calibration/pilot inputs are proven. Confirmatory
+execution additionally requires every pilot-derived and owner-supplied freeze
+record.

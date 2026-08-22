@@ -127,16 +127,37 @@ rerun or changed. The empty sidecar and failure record are retained, while the
 separately named recovered sidecar verifies locally and remotely. See the
 [evidence record](evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01/README.md).
 
+Clean revision `1b0a7f54db7e1ff699331e9ae05a97f409f01ad4` was then rebuilt
+and independently reproduced. Its clean bundle has SHA-256
+`e8eb9150d252d38f72b56884b0bcb5026480aee00b969c736fdc124783cb6eac`.
+The stand verified its external and internal hashes and ran both
+nonprivileged self-tests. Clean inventory
+[`STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02`](evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/README.md)
+binds the same count-level candidate facts to that revision.
+
+The separate hashed
+[topology set](evidence/stage16/STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/README.md)
+proves that `(0,1)` is a statically eligible near candidate and `(0,26)` is a
+statically eligible far candidate; neither is selected or dynamically
+qualified. The hashed
+[storage set](evidence/stage16/STAND-STORAGE-XEON-CPU-FETCH-20260822-01/README.md)
+observes only one suitable mounted durable namespace, `/dev/md3`. Its RAID1
+members are not separate artifact-copy domains under D-020. The
+[Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md) awaits Q13 review and
+grants no execution authority.
+
 ## Mandatory evidence remaining before pilot
 
-- eligible bare-metal stand identity and explicit near/far non-SMT CPU pairs;
+- owner acceptance and dynamic qualification of the proposed near/far non-SMT
+  CPU pairs;
 - runtime atomic/layout probes on the selected release and pairs;
 - named least-privilege platform authority, exact whitelist, independent
   readback/probes, and successful restoration exercise;
-- qualified processor-relax and hardware-prefetch instruction/control mappings;
+- accepted/generated-code-qualified processor relax plus an independently
+  documented hardware-prefetch instruction/control mapping;
 - full selected-pair clock qualification and before-block repetition;
 - producer-home/worker-local before/during/after address-residency proof;
-- two real independent durable storage domains, permissions/custody, exact
+- a second real independent durable storage domain, permissions/custody, exact
   capacity/reserve proof, and crash/recovery/readback exercise;
 - authorized prospective calibration/pilot plans, durations, counts,
   namespaces, seeds, budgets, environmental limits, and stand-hours; and

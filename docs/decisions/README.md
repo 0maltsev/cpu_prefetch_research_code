@@ -77,6 +77,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0039](0039-stage13-decimal-and-record-profile.md) | `ACCEPTED` | Freeze the concrete Decimal80/guard160 upward-enclosure profile and five Stage 13 record-schema identities. |
 | [ADR-0040](0040-stage14-planning-access-and-replacement-profile.md) | `ACCEPTED` | Freeze the deterministic full-factorial planning, precision registry, access-ledger, and complete-block replacement compatibility profile. |
 | [ADR-0041](0041-stage15-offline-analysis-profile.md) | `ACCEPTED` | Freeze the synthetic offline-analysis execution, complete-block max-T, H3 chronology, and canonical-report compatibility profile. |
+| [ADR-0042](0042-stage16-verification-and-stand-bundle-profile.md) | `ACCEPTED` | Freeze the deterministic preflight-only source/release/protocol/schema/SBOM/provenance/checksum bundle and read-only inventory boundary. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
 Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,

@@ -1,0 +1,12 @@
+Filesystem     Type     1B-blocks       Used        Avail Use% Mounted on
+tmpfs          tmpfs  26470707200    3805184  26466902016   1% /run
+/dev/md3       ext4  868639145984 7305064448 817134194688   1% /
+tmpfs          tmpfs  66176765952          0  66176765952   0% /dev/shm
+/dev/md1       ext3    9743687680  190853120   9053347840   3% /boot
+tmpfs          tmpfs  66176765952    9203712  66167562240   1% /tmp
+none           tmpfs      1048576          0      1048576   0% /run/credentials/serial-getty@ttyS1.service
+none           tmpfs      1048576          0      1048576   0% /run/credentials/getty@tty1.service
+none           tmpfs      1048576          0      1048576   0% /run/credentials/systemd-journald.service
+none           tmpfs      1048576          0      1048576   0% /run/credentials/systemd-resolved.service
+none           tmpfs      1048576          0      1048576   0% /run/credentials/systemd-networkd.service
+tmpfs          tmpfs  13235351552       4096  13235347456   1% /run/user/0

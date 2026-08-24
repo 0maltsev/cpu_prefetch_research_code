@@ -250,9 +250,12 @@ build/dev-gcc/cpu_prefetch_runner --self-test
 build/dev-gcc/cpu_prefetch_qualification --self-test
 build/dev-gcc/cpu_prefetch_q15_tool --self-test
 build/dev-gcc/cpu_prefetch_q15_tool --describe-fixed-scope
+build/dev-gcc/cpu_prefetch_q15_tool --describe-dynamic-scope
 cmake --build --preset dev-gcc --target q15-probe-collector-contract-check
 cmake --build --preset dev-gcc --target q15-probe-implementation-check
+cmake --build --preset dev-gcc --target q15-dynamic-implementation-check
 cmake --build --preset release-gcc --target q15-probe-codegen-check
+cmake --build --preset release-gcc --target q15-runtime-codegen-check
 ctest --preset dev-gcc -L q15 --output-on-failure
 ```
 
@@ -261,9 +264,11 @@ no measurement command. `cpu_prefetch_qualification` has no dynamic collector
 or control command. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
 
 `cpu_prefetch_q15_tool` is a separate no-measurement qualification executable.
-Its self-test and scope-description commands are safe locally. Do not run a
-dynamic option without a separately signed exact Q15-R or Q15-W record; the
-binary and bundle themselves grant no authority.
+Its self-test and two scope-description commands are safe locally. Q15-S3 links
+the exact same-buffer session, fixed Linux acquisition seams, and seven
+collector components, but exposes no unauthenticated session/collector launch
+command. Do not run any device/control option without a separately signed exact
+Q15-R or Q15-W record; the binary and bundle themselves grant no authority.
 
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
@@ -314,9 +319,10 @@ authority. It requires a clean exact revision and append-only output. The
 exact probe/collector definitions are frozen and hash-bound as
 `Q15-PROBE-COLLECTOR-CONTRACT-v1`. D-053's deterministic pointer-construction,
 integrity, pure classification, and counted-load codegen slice is implemented;
-the dynamic PMU path, seven collector executables and their clean release hashes,
-exact prospective commands, roles, limits, custody, signatures, and dynamic
-evidence still block Q15 issuance.
+D-054 through D-056 add the repository-local same-buffer session, fakeable
+fixed Linux acquisition path, and seven distinct collectors. Their clean
+release hashes, exact prospective commands, roles, limits, custody, signatures,
+and dynamic evidence still block Q15 issuance.
 
 ## Created targets and metadata
 

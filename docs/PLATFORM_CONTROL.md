@@ -106,11 +106,14 @@ restoration. Q15-S1/ADR-0051 adds a separate fixed-path MSR backend and
 qualification executable for only that mapping. It is excluded from the sealed
 measurement candidate, its presence grants no authority, and local tests use a
 fake file-operation boundary. D-052/ADR-0052 freezes the exact raw-PMU regular/
-pointer probe and seven-collector contract; their future implementations must
-match its hash-bound semantics and cannot substitute a timing threshold.
-Q15-S2/ADR-0053 locally implements the exact master-seed-derived pointer cycle,
-full-buffer integrity, pure classification, and regular/pointer counted bodies,
-but intentionally exposes no dynamic PMU command or collector executable.
+pointer probe and seven-collector contract. Q15-S2/ADR-0053 locally implements
+the exact master-seed-derived pointer cycle, full-buffer integrity, pure
+classification, and regular/pointer counted bodies. Q15-S3/ADR-0054 through
+ADR-0056 implement the phase-spanning same-buffer session, exact fixed Linux
+PMU/affinity/NUMA/residency/fault/clock seams, and all seven separate canonical
+collector components behind fakeable interfaces. Only description/self-test
+CLI paths are safe without authority; exact dynamic controller argv remains a
+clean-release/Q15-R input.
 Dynamic capability remains ineligible until
 separately authorized Q15-R/Q15-W evidence passes. A generic MSR
 or “disable all prefetchers” implementation remains forbidden.
@@ -170,6 +173,12 @@ The D-053 suite pins the derived key/order/full-buffer hash, cycle corruption,
 integrity and H0/H1 classification, rejects ten profile mutations, and requires
 one demanded load per counted body under GNU and LLVM disassembly plus negative
 extra-load/prefetch mutants. It likewise executes no PMU or stand operation.
+The Q15-S3 suite additionally tests exact perf fields/lifecycle, no retry,
+mapping/first-touch order, page/fault/CPU evidence, same-buffer state and
+disconnect failures, all seven collector gates, bounded canonical framing, and
+zero allocations in the PMU-enabled region. A second strict GNU/LLVM gate
+requires exactly indirect enable, one accepted traversal call, and indirect
+disable, and rejects duplicate-traversal and software-prefetch mutants.
 
 Run them with:
 

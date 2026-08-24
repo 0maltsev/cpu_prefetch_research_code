@@ -37,6 +37,16 @@ static demand-load instruction in each counted traversal, no call/prefetch/
 fence/system instruction, and expected rejection of extra-load/prefetch
 mutants. Neither tool accesses a stand or PMU.
 
+Q15-S3 adds `check_q15_dynamic_implementation.py` and
+`check_q15_runtime_codegen.py`. The first binds D-054 through D-056, their
+no-authority profile, the phase-spanning state machine, exact Linux seams, and
+the seven-component registry. The second requires GNU and LLVM disassembly to
+show indirect enable, exactly one accepted traversal call, and indirect
+disable in each counted region; it rejects duplicate-traversal and software-
+prefetch mutants. Repository tests use fake operations and an allocation hook.
+Neither checker starts a Q15 session, opens a counter/device, changes affinity
+or NUMA policy, or accesses a stand.
+
 ## Stage 8 clock-decision evidence collector
 
 `collect_stage8_clock_evidence.sh` gathers read-only host, topology, clocksource,

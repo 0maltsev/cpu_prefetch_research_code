@@ -132,8 +132,10 @@ add_library(
   cpu_prefetch_platform STATIC
   src/platform/linux_inventory.cpp
   src/platform/platform.cpp
+  src/platform/q15_counted_region.cpp
   src/platform/q15_probe.cpp
-  src/platform/q15_msr.cpp)
+  src/platform/q15_msr.cpp
+  src/platform/q15_runtime.cpp)
 add_library(cpu_prefetch::platform ALIAS cpu_prefetch_platform)
 target_link_libraries(
   cpu_prefetch_platform
@@ -171,6 +173,25 @@ target_link_libraries(
   PRIVATE cpu_prefetch_project_options OpenSSL::Crypto)
 target_include_directories(
   cpu_prefetch_runner_core
+  PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+add_library(
+  cpu_prefetch_q15_qualification STATIC
+  src/qualification/q15_collectors.cpp)
+add_library(cpu_prefetch::q15_qualification ALIAS cpu_prefetch_q15_qualification)
+target_link_libraries(
+  cpu_prefetch_q15_qualification
+  PUBLIC
+    cpu_prefetch::lifecycle
+    cpu_prefetch::platform
+    cpu_prefetch::queue
+    cpu_prefetch::runner
+    cpu_prefetch::timing
+  PRIVATE cpu_prefetch_project_options)
+target_include_directories(
+  cpu_prefetch_q15_qualification
   PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
@@ -296,6 +317,7 @@ target_link_libraries(
   PRIVATE
     cpu_prefetch::foundation
     cpu_prefetch::platform
+    cpu_prefetch::q15_qualification
     cpu_prefetch_project_options)
 
 add_executable(cpu_prefetch_storage_fixture tools/storage_fixture_main.cpp)
@@ -448,7 +470,10 @@ if(BUILD_TESTING)
     PREFIX "q15."
     PROPERTIES LABELS "q15;qualification;platform;synthetic")
 
-  add_executable(cpu_prefetch_q15_probe_tests tests/q15_probe_test.cpp)
+  add_executable(
+    cpu_prefetch_q15_probe_tests
+    tests/q15_probe_test.cpp
+    tests/q15_runtime_test.cpp)
   target_link_libraries(
     cpu_prefetch_q15_probe_tests
     PRIVATE
@@ -459,6 +484,32 @@ if(BUILD_TESTING)
     cpu_prefetch_q15_probe_tests
     PREFIX "q15.probe."
     PROPERTIES LABELS "q15;qualification;platform;synthetic")
+
+  add_executable(cpu_prefetch_q15_collector_tests tests/q15_collectors_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_q15_collector_tests
+    PRIVATE
+      cpu_prefetch::q15_qualification
+      cpu_prefetch_project_options
+      GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_q15_collector_tests
+    PREFIX "q15.collector."
+    PROPERTIES LABELS "q15;qualification;platform;synthetic")
+
+  add_executable(
+    cpu_prefetch_q15_runtime_noalloc_tests
+    tests/q15_runtime_noalloc_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_q15_runtime_noalloc_tests
+    PRIVATE
+      cpu_prefetch::platform
+      cpu_prefetch_project_options
+      GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_q15_runtime_noalloc_tests
+    PREFIX "q15.runtime.noalloc."
+    PROPERTIES LABELS "q15;qualification;platform;synthetic;noalloc")
 
   add_executable(
     cpu_prefetch_lifecycle_tests
@@ -506,6 +557,14 @@ if(BUILD_TESTING)
       LABELS "q15;qualification;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
         "family=06 model=55 msr=000001a4.*cpus=0,1,26.*measurement=false.*authority=NONE")
+  add_test(NAME q15.tool_dynamic_scope
+           COMMAND cpu_prefetch_q15_tool --describe-dynamic-scope)
+  set_tests_properties(
+    q15.tool_dynamic_scope
+    PROPERTIES
+      LABELS "q15;qualification;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1.*cpus=0,1,26.*collectors=7.*real_pmu=false.*authority=NONE")
   add_test(NAME q15.tool_rejects_missing_authority_hash
            COMMAND cpu_prefetch_q15_tool --read-fixed-values invalid)
   set_tests_properties(
@@ -573,6 +632,14 @@ if(BUILD_TESTING)
             "${PROJECT_SOURCE_DIR}/tools/check_q15_probe_implementation.py")
   set_tests_properties(
     q15.probe_implementation_profile
+    PROPERTIES LABELS "q15;qualification;contract;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.dynamic_implementation_profile
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_dynamic_implementation.py"
+            --source-root "${PROJECT_SOURCE_DIR}")
+  set_tests_properties(
+    q15.dynamic_implementation_profile
     PROPERTIES LABELS "q15;qualification;contract;schema;pre-pilot;synthetic")
 
   add_executable(cpu_prefetch_storage_tests tests/storage_model_test.cpp)
@@ -913,6 +980,18 @@ add_executable(
   tools/q15_probe_codegen_mutant.cpp)
 target_link_libraries(
   cpu_prefetch_q15_probe_codegen_mutant PRIVATE cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_q15_runtime_codegen_probe EXCLUDE_FROM_ALL
+  tools/q15_runtime_codegen_probe.cpp)
+target_link_libraries(
+  cpu_prefetch_q15_runtime_codegen_probe
+  PRIVATE cpu_prefetch::platform cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_q15_runtime_codegen_mutant EXCLUDE_FROM_ALL
+  tools/q15_runtime_codegen_mutant.cpp)
+target_link_libraries(
+  cpu_prefetch_q15_runtime_codegen_mutant
+  PRIVATE cpu_prefetch::platform cpu_prefetch_project_options)
 
 find_program(CPU_PREFETCH_CLANG_FORMAT NAMES clang-format REQUIRED)
 find_program(CPU_PREFETCH_CLANG_TIDY NAMES clang-tidy REQUIRED)
@@ -937,6 +1016,8 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/platform.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_probe.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_msr.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_runtime.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_collectors.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/json.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/model.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/validation.hpp"
@@ -970,8 +1051,11 @@ set(
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/platform.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/q15_counted_region.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_probe.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
@@ -1009,6 +1093,9 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_runtime_noalloc_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_collectors_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_msr_tool_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
@@ -1037,6 +1124,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_runtime_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_runtime_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_qualification_tool_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
@@ -1063,8 +1152,11 @@ set(
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/platform.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/q15_counted_region.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_probe.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
@@ -1101,6 +1193,9 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_runtime_noalloc_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_collectors_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_msr_tool_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
@@ -1129,6 +1224,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_runtime_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_runtime_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_qualification_tool_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
@@ -1304,6 +1401,19 @@ add_custom_target(
     cpu_prefetch_q15_probe_codegen_mutant
   COMMENT "Requiring dual-disassembler D-052/D-053 counted-traversal evidence")
 add_custom_target(
+  q15-runtime-codegen-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_runtime_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_q15_runtime_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_q15_runtime_codegen_mutant>"
+    --output "${PROJECT_BINARY_DIR}/q15_runtime_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS
+    cpu_prefetch_q15_runtime_codegen_probe
+    cpu_prefetch_q15_runtime_codegen_mutant
+  COMMENT "Requiring dual-disassembler D-055 enable/traversal/disable evidence")
+add_custom_target(
   runner-schema-check
   COMMAND "${Python3_EXECUTABLE}"
           "${PROJECT_SOURCE_DIR}/tools/check_runner_schema.py"
@@ -1329,6 +1439,10 @@ add_custom_target(
   COMMAND
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_probe_implementation.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_dynamic_implementation.py"
+    --source-root "${PROJECT_SOURCE_DIR}"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking Q14, Q15-P0, split Q15-R/Q15-W, and Q15 probe contracts")
 add_custom_target(
@@ -1345,6 +1459,14 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_probe_implementation.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking the accepted no-authority D-053 implementation profile")
+add_custom_target(
+  q15-dynamic-implementation-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_dynamic_implementation.py"
+    --source-root "${PROJECT_SOURCE_DIR}"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking accepted no-authority D-054 through D-056 implementation")
 add_custom_target(
   q15-bundle-profile-check
   COMMAND
@@ -1384,6 +1506,7 @@ install(
     cpu_prefetch_foundation
     cpu_prefetch_lifecycle
     cpu_prefetch_platform
+    cpu_prefetch_q15_qualification
     cpu_prefetch_protocol
     cpu_prefetch_queue
     cpu_prefetch_reconciliation
@@ -1483,6 +1606,7 @@ add_custom_target(
     cpu_prefetch_lifecycle
     cpu_prefetch_orchestration
     cpu_prefetch_platform
+    cpu_prefetch_q15_qualification
     cpu_prefetch_preflight
     cpu_prefetch_protocol
     cpu_prefetch_queue
@@ -1509,6 +1633,7 @@ add_custom_target(
     cpu_prefetch_lifecycle
     cpu_prefetch_orchestration
     cpu_prefetch_platform
+    cpu_prefetch_q15_qualification
     cpu_prefetch_preflight
     cpu_prefetch_protocol
     cpu_prefetch_qualification
@@ -1548,8 +1673,10 @@ add_custom_target(
     cpu_prefetch_workload
     q15-bundle-profile-check
     q15-probe-codegen-check
+    q15-runtime-codegen-check
     q15-probe-collector-contract-check
     q15-probe-implementation-check
+    q15-dynamic-implementation-check
     qualification-schema-check
   COMMENT
     "Creating the clean, separate, no-authority Q15 qualification-tool bundle")

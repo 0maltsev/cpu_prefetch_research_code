@@ -234,6 +234,25 @@ every write has a separately executed auditor readback and inverse. The local
 fixed adapter has no arbitrary path/address/mask/CPU-list interface, but code
 presence never substitutes for signed phase authority or OS role enforcement.
 
+ADR-0054 adds a qualification-only session object for one private anonymous
+probe mapping across those two graphs. The mapping is prepared once, remains
+byte- and address-identical through H0, the sealed wait, H1, and restoration
+readback, and is released only after completion/failure. The state machine
+binds exact profile hashes, verified LLC/page inputs, CPU/node, distinct peer
+credentials, authorization/evidence hashes, complete H0/H1 values, and an
+explicit expiry. It retains partial transitions and a terminal failure; it
+never edits sealed Q15-R evidence.
+
+ADR-0055 keeps real Linux acquisition behind narrow fixed interfaces: raw PMU,
+singleton CPU, private target-node memory, exhaustive page residency,
+per-thread faults, and raw diagnostic time. The only PMU-enabled functions are
+allocation-free enable → one accepted traversal → disable regions. ADR-0056
+places seven separate observation-derived collectors in a qualification-only
+library linked into `cpu_prefetch_q15_tool`. Canonical evidence crosses the
+controller boundary as one bounded U32BE-length-prefixed JCS-I64 frame; durable
+append-only custody remains external. None of these components is linked into
+or authorizes the scientific measurement runner.
+
 ## Failure and compatibility model
 
 Lifecycle transitions and partial failures are append-only. Early failure cannot fabricate raw artifacts. Producer and consumer sources remain independently immutable; failed reconciliation produces an audit and no joined-derived stream. A correction or format conversion creates a derived artifact. Replacement follows the complete-block protocol and never reuses run identity.

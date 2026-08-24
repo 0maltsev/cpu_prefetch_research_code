@@ -260,9 +260,19 @@ flow. The separate D-053 profile turns the frozen master seed into one exact
 node-order cycle before any possible counted traversal; complete-buffer SHA-256
 is computed before/after and never flows through the counted loop. This local
 path terminates at synthetic tests/codegen reports and cannot reach PMU or
-authority edges. Q15-R binds future collector executable hashes and exact commands to its
-clock/layout/CPU/residency/software-prefetch/MSR-prestate contracts. Q15-W
-binds the same contract plus future regular/pointer probe and independent-
-readback executable hashes. Raw counter/timestamp/integrity observations flow
-only into append-only qualification evidence. Contract bytes or a no-authority
+authority edges. D-054 extends the software graph with one private mapping:
+authorized Q15-R H0 regular/pointer observations flow to a sealed evidence-set
+hash, the session waits without remapping/mutating, and only a later exact Q15-W
+peer plus H1 readback may continue on that same address and content. H1 and
+restoration evidence are new artifacts referencing the sealed Q15-R hash.
+
+Q15-R binds the clean collector executable/profile/report hashes and exact
+commands to its clock/layout/CPU/residency/software-prefetch/MSR-prestate
+contracts. Q15-W binds the same identities plus regular/pointer probe and
+independent-readback commands. The seven D-056 components derive distinct
+canonical evidence kinds from raw samples/backends; incomplete inputs produce
+incomplete, ineligible evidence. One bounded U32BE-length-prefixed JCS-I64
+frame flows to an external authorization-bound custodian. Raw counter,
+timestamp, CPU/page, integrity, layout, codegen, and MSR observations flow only
+into append-only qualification evidence. Contract bytes or a no-authority
 bundle cannot flow into an authorization decision as if execution had passed.

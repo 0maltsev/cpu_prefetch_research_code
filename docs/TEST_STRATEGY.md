@@ -609,6 +609,37 @@ creator separately rejects dirty source, missing/non-PASS reports, overwrite,
 authority-bearing manifests, or omitted runner/qualification artifacts. No
 pilot candidate is eligible until all checks pass from a clean exact revision.
 
+### 27. Q15-S3 dynamic-component software checks
+
+All Q15-S3 verification is repository-local. Platform and perf fakes must
+prove the exact raw request, one reset/enable/traversal/disable/read/close
+lifecycle, no retry/fallback, mapping → bind → no-THP → affinity/readback →
+first-touch order, exhaustive residency snapshots, conservative thread-fault
+bracketing, raw clock ordering, and every partial failure. A global allocation
+hook must show zero allocation in both counter-enabled region variants.
+
+Session tests cover the only legal H0 → seal → H1 → restore → finalize order,
+literal pointer and content identity, complete source/profile/platform hashes,
+distinct peer credentials, sealed-Q15-R and later-Q15-W binding, exact complete
+values, expiry, disconnect, content mutation, illegal transitions, immutable
+completion, and retention of partial transitions plus the first terminal
+failure. Frame tests cover exact U32BE length, canonical JCS-I64 bytes, bounds,
+truncation, malformed JSON, and length mismatch.
+
+Collector tests derive eligibility from raw evaluator/sample/backend results;
+no API accepts a generic `passed=true`. They cover the seven exact IDs,
+actual queue/termination types, full clock sample counts and ordering, CPU
+migration, all-page three-point residency, all three PRFCHW CPUs and distinct
+GCC/Clang dual-disassembler reports, complete three-CPU prestates, independent
+writer/auditor readback, and incomplete evidence that cannot be eligible.
+
+The existing traversal codegen gate remains mandatory. The additional runtime
+gate uses GNU Binutils and accepted LLVM objdump to require exactly indirect
+enable → one accepted traversal call → indirect disable. Duplicate traversal
+and software-prefetch mutants must be rejected. Sanitizer runs may execute only
+the fake/synthetic label; real PMU, affinity, NUMA, MSR, stand, qualification,
+calibration, pilot, measurement, and confirmatory paths are prohibited.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

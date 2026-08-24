@@ -1,0 +1,155 @@
+{
+  "$id": "urn:cpu-prefetch:q15-dynamic-implementation-profile:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "authorized_operations": {
+          "const": [
+            "REPOSITORY_LOCAL_IMPLEMENTATION",
+            "FAKE_BACKEND_TESTS",
+            "SANITIZERS",
+            "DUAL_DISASSEMBLER_AUDIT"
+          ]
+        },
+        "calibration_authorized": {"const": false},
+        "confirmatory_authorized": {"const": false},
+        "dynamic_qualification_authorized": {"const": false},
+        "msr_access_authorized": {"const": false},
+        "pilot_authorized": {"const": false},
+        "q15_r_authorized": {"const": false},
+        "q15_w_authorized": {"const": false},
+        "real_affinity_numa_authorized": {"const": false},
+        "real_pmu_authorized": {"const": false},
+        "stand_access_authorized": {"const": false}
+      },
+      "required": [
+        "authorized_operations", "calibration_authorized",
+        "confirmatory_authorized", "dynamic_qualification_authorized",
+        "msr_access_authorized", "pilot_authorized", "q15_r_authorized",
+        "q15_w_authorized", "real_affinity_numa_authorized",
+        "real_pmu_authorized", "stand_access_authorized"
+      ],
+      "type": "object"
+    },
+    "collector_profile": {
+      "additionalProperties": false,
+      "properties": {
+        "canonicalization": {"const": "JCS-I64-v1"},
+        "collector_ids": {
+          "const": [
+            "Q15-CLOCK-COLLECTOR-v1",
+            "Q15-ATOMIC-LAYOUT-COLLECTOR-v1",
+            "Q15-ACTUAL-CPU-MIGRATION-COLLECTOR-v1",
+            "Q15-ADDRESS-RESIDENCY-COLLECTOR-v1",
+            "Q15-SOFTWARE-PREFETCH-COLLECTOR-v1",
+            "Q15-MSR-PRESTATE-COLLECTOR-v1",
+            "Q15-MSR-READBACK-COLLECTOR-v1"
+          ]
+        },
+        "eligibility_source": {
+          "const": "OBSERVATION_DERIVED_NOT_CALLER_ASSERTED"
+        },
+        "evidence_framing": {
+          "const": "Q15-CANONICAL-U32BE-LENGTH-PREFIXED-FRAME-v1"
+        },
+        "partial_failure": {"const": "RETAIN_INCOMPLETE_NEVER_PROMOTE"},
+        "tool_profile_id": {"const": "Q15-FIXED-QUALIFICATION-TOOL-v1"}
+      },
+      "required": [
+        "canonicalization", "collector_ids", "eligibility_source",
+        "evidence_framing", "partial_failure", "tool_profile_id"
+      ],
+      "type": "object"
+    },
+    "decision_ids": {"const": ["D-054", "D-055", "D-056"]},
+    "linux_acquisition": {
+      "additionalProperties": false,
+      "properties": {
+        "affinity": {
+          "const": "SCHED_SETAFFINITY_GETAFFINITY_GETCPU_SINGLETON-v1"
+        },
+        "clock": {
+          "const": "CLOCK_MONOTONIC_RAW_DIAGNOSTIC_NO_CORRECTION-v1"
+        },
+        "faults": {
+          "const": "GETRUSAGE-RUSAGE_THREAD-CONSERVATIVE-BRACKET-v1"
+        },
+        "memory": {
+          "const": "MMAP-PRIVATE-ANONYMOUS-MBIND-BIND-MADV-NOHUGEPAGE-v1"
+        },
+        "new_runtime_dependency": {"const": false},
+        "perf": {
+          "const": "PERF_EVENT_OPEN-RAW-F824-PER_THREAD-PINNED-USER_ONLY-v1"
+        },
+        "residency": {
+          "const": "MOVE_PAGES-ALL-PAGES-BEFORE-DURING-AFTER-v1"
+        },
+        "retry_or_fallback": {"const": false}
+      },
+      "required": [
+        "affinity", "clock", "faults", "memory", "new_runtime_dependency",
+        "perf", "residency", "retry_or_fallback"
+      ],
+      "type": "object"
+    },
+    "profile_id": {"const": "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "schema_version": {
+      "const": "cpu-prefetch-q15-dynamic-implementation-profile/1"
+    },
+    "session_profile": {
+      "additionalProperties": false,
+      "properties": {
+        "buffer_lifetime": {
+          "const": "ONE_PRIVATE_ANONYMOUS_MAPPING_H0_THROUGH_RESTORE_READBACK"
+        },
+        "control_transport": {
+          "const": "VERSIONED_LOCAL_UNIX_DOMAIN_PEERCRED-v1"
+        },
+        "default_duration": {"const": false},
+        "network_listener": {"const": false},
+        "peer_credentials_required": {"const": true},
+        "sealed_q15_r_mutation": {"const": false},
+        "state_sequence": {
+          "const": [
+            "CREATED", "H0_REGULAR_COMPLETE", "H0_POINTER_COMPLETE",
+            "H0_SEALED_WAITING_FOR_Q15_W", "H1_READBACK_VERIFIED",
+            "H1_REGULAR_COMPLETE", "H1_POINTER_COMPLETE",
+            "RESTORATION_READBACK_VERIFIED", "COMPLETED"
+          ]
+        }
+      },
+      "required": [
+        "buffer_lifetime", "control_transport", "default_duration",
+        "network_listener", "peer_credentials_required",
+        "sealed_q15_r_mutation", "state_sequence"
+      ],
+      "type": "object"
+    },
+    "source_profiles": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        },
+        "required": ["id", "path", "sha256"],
+        "type": "object"
+      },
+      "maxItems": 2,
+      "minItems": 2,
+      "type": "array"
+    }
+  },
+  "required": [
+    "authority_boundary", "collector_profile", "decision_ids",
+    "linux_acquisition", "profile_id", "protocol_version", "schema_version",
+    "session_profile", "source_profiles"
+  ],
+  "title": "D-054 through D-056 Q15 dynamic implementation profile",
+  "type": "object"
+}

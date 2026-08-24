@@ -1,5 +1,7 @@
 #include "cpu_prefetch/foundation/repository_info.hpp"
 #include "cpu_prefetch/platform/q15_msr.hpp"
+#include "cpu_prefetch/platform/q15_runtime.hpp"
+#include "cpu_prefetch/qualification/q15_collectors.hpp"
 
 #include <algorithm>
 #include <array>
@@ -18,6 +20,7 @@ void usage(std::ostream& output) {
   output << "Usage:\n"
          << "  cpu_prefetch_q15_tool --self-test\n"
          << "  cpu_prefetch_q15_tool --describe-fixed-scope\n"
+         << "  cpu_prefetch_q15_tool --describe-dynamic-scope\n"
          << "  cpu_prefetch_q15_tool --read-fixed-values AUTHORIZATION_SHA256\n"
          << "  cpu_prefetch_q15_tool --read-fixed-cpu AUTHORIZATION_SHA256 CPU\n"
          << "  cpu_prefetch_q15_tool --apply-h1-cpu AUTHORIZATION_SHA256 CPU "
@@ -184,13 +187,20 @@ auto run(int argc, char** argv) -> int {
   using namespace cpu_prefetch::platform;
   if (argc == 2 && std::string_view(argv[1]) == "--self-test") {
     const auto repository = cpu_prefetch::foundation::repository_info();
+    const auto collectors = cpu_prefetch::qualification::q15_collector_registry();
     if (repository.protocol_version != cpu_prefetch::protocol::kProtocolVersion ||
         kQ15QualificationToolProfileId != "Q15-FIXED-QUALIFICATION-TOOL-v1" ||
-        kHardwarePrefetchMappingId != "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1") {
+        kHardwarePrefetchMappingId != "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1" ||
+        cpu_prefetch::platform::kQ15DynamicImplementationProfileId !=
+            "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1" ||
+        !cpu_prefetch::platform::is_exact_q15_perf_event_request(
+            cpu_prefetch::platform::q15_perf_event_request()) ||
+        collectors.size() != 7U) {
       std::cerr << "q15-tool-self-test: FAIL profile mismatch\n";
       return 1;
     }
     std::cout << "q15-tool-self-test: PASS device=NOT_OPENED msr=NOT_ACCESSED "
+                 "perf=NOT_OPENED socket=NOT_OPENED collectors=7 "
                  "stand=NOT_ACCESSED authority=NONE\n";
     return 0;
   }
@@ -200,6 +210,17 @@ auto run(int argc, char** argv) -> int {
               << " family=06 model=55 msr=000001a4 mask=000000000000000f "
                  "cpus=0,1,26 measurement=false calibration=false pilot=false "
                  "confirmatory=false authority=NONE\n";
+    return 0;
+  }
+  if (argc == 2 && std::string_view(argv[1]) == "--describe-dynamic-scope") {
+    std::cout
+        << "profile=" << cpu_prefetch::platform::kQ15DynamicImplementationProfileId
+        << " session=" << cpu_prefetch::platform::kQ15SessionProtocolId
+        << " frame=" << cpu_prefetch::platform::kQ15EvidenceFrameId
+        << " perf_config=000000000000f824 cpus=0,1,26 collectors=7 "
+           "stand_access=false real_pmu=false real_affinity=false real_numa=false "
+           "msr=false qualification=false calibration=false pilot=false "
+           "measurement=false confirmatory=false authority=NONE\n";
     return 0;
   }
   if (argc >= 2 && std::string_view(argv[1]) == "--read-fixed-values") {

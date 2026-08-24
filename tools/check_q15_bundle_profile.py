@@ -26,6 +26,7 @@ REQUIRED_PATHS = {
     "release/lib/libcpu_prefetch_foundation.a",
     "release/lib/libcpu_prefetch_platform.a",
     "release/lib/libcpu_prefetch_protocol.a",
+    "release/lib/libcpu_prefetch_q15_qualification.a",
     "release/lib/libcpu_prefetch_workload.a",
 }
 
@@ -44,6 +45,11 @@ def base_manifest() -> dict[str, object]:
         "probe_implementation_profile": {
             "profile_id": "Q15-PROBE-IMPLEMENTATION-PROFILE-v1",
             "path": "config/q15/q15-probe-implementation-profile-v1.json",
+            "sha256": "0" * 64,
+        },
+        "dynamic_implementation_profile": {
+            "profile_id": "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1",
+            "path": "config/q15/q15-dynamic-implementation-profile-v1.json",
             "sha256": "0" * 64,
         },
         "source_archive": {"source_dirty": False},
@@ -105,6 +111,21 @@ def main() -> int:
     missing_profile = copy.deepcopy(positive)
     del missing_profile["probe_implementation_profile"]
     require_rejected(missing_profile, set(REQUIRED_PATHS), "missing probe profile")
+    negative_count += 1
+
+    for key, value in (
+        ("profile_id", "UNREGISTERED"),
+        ("path", "../outside.json"),
+        ("sha256", "not-a-sha256"),
+    ):
+        mutated = copy.deepcopy(positive)
+        mutated["dynamic_implementation_profile"][key] = value
+        require_rejected(mutated, set(REQUIRED_PATHS), f"dynamic profile {key}")
+        negative_count += 1
+
+    missing_dynamic = copy.deepcopy(positive)
+    del missing_dynamic["dynamic_implementation_profile"]
+    require_rejected(missing_dynamic, set(REQUIRED_PATHS), "missing dynamic profile")
     negative_count += 1
 
     dirty = copy.deepcopy(positive)

@@ -1,0 +1,81 @@
+{
+  "authority_boundary": {
+    "authorized_operations": [
+      "REPOSITORY_LOCAL_IMPLEMENTATION",
+      "FAKE_BACKEND_TESTS",
+      "SANITIZERS",
+      "DUAL_DISASSEMBLER_AUDIT"
+    ],
+    "calibration_authorized": false,
+    "confirmatory_authorized": false,
+    "dynamic_qualification_authorized": false,
+    "msr_access_authorized": false,
+    "pilot_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "real_affinity_numa_authorized": false,
+    "real_pmu_authorized": false,
+    "stand_access_authorized": false
+  },
+  "collector_profile": {
+    "canonicalization": "JCS-I64-v1",
+    "collector_ids": [
+      "Q15-CLOCK-COLLECTOR-v1",
+      "Q15-ATOMIC-LAYOUT-COLLECTOR-v1",
+      "Q15-ACTUAL-CPU-MIGRATION-COLLECTOR-v1",
+      "Q15-ADDRESS-RESIDENCY-COLLECTOR-v1",
+      "Q15-SOFTWARE-PREFETCH-COLLECTOR-v1",
+      "Q15-MSR-PRESTATE-COLLECTOR-v1",
+      "Q15-MSR-READBACK-COLLECTOR-v1"
+    ],
+    "eligibility_source": "OBSERVATION_DERIVED_NOT_CALLER_ASSERTED",
+    "evidence_framing": "Q15-CANONICAL-U32BE-LENGTH-PREFIXED-FRAME-v1",
+    "partial_failure": "RETAIN_INCOMPLETE_NEVER_PROMOTE",
+    "tool_profile_id": "Q15-FIXED-QUALIFICATION-TOOL-v1"
+  },
+  "decision_ids": ["D-054", "D-055", "D-056"],
+  "linux_acquisition": {
+    "affinity": "SCHED_SETAFFINITY_GETAFFINITY_GETCPU_SINGLETON-v1",
+    "clock": "CLOCK_MONOTONIC_RAW_DIAGNOSTIC_NO_CORRECTION-v1",
+    "faults": "GETRUSAGE-RUSAGE_THREAD-CONSERVATIVE-BRACKET-v1",
+    "memory": "MMAP-PRIVATE-ANONYMOUS-MBIND-BIND-MADV-NOHUGEPAGE-v1",
+    "new_runtime_dependency": false,
+    "perf": "PERF_EVENT_OPEN-RAW-F824-PER_THREAD-PINNED-USER_ONLY-v1",
+    "residency": "MOVE_PAGES-ALL-PAGES-BEFORE-DURING-AFTER-v1",
+    "retry_or_fallback": false
+  },
+  "profile_id": "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "schema_version": "cpu-prefetch-q15-dynamic-implementation-profile/1",
+  "session_profile": {
+    "buffer_lifetime": "ONE_PRIVATE_ANONYMOUS_MAPPING_H0_THROUGH_RESTORE_READBACK",
+    "control_transport": "VERSIONED_LOCAL_UNIX_DOMAIN_PEERCRED-v1",
+    "default_duration": false,
+    "network_listener": false,
+    "peer_credentials_required": true,
+    "sealed_q15_r_mutation": false,
+    "state_sequence": [
+      "CREATED",
+      "H0_REGULAR_COMPLETE",
+      "H0_POINTER_COMPLETE",
+      "H0_SEALED_WAITING_FOR_Q15_W",
+      "H1_READBACK_VERIFIED",
+      "H1_REGULAR_COMPLETE",
+      "H1_POINTER_COMPLETE",
+      "RESTORATION_READBACK_VERIFIED",
+      "COMPLETED"
+    ]
+  },
+  "source_profiles": [
+    {
+      "id": "Q15-PROBE-COLLECTOR-CONTRACT-v1",
+      "path": "config/q15/q15-probe-collector-contract-v1.json",
+      "sha256": "c5a13646ea5e413239337e1b83b3162578c35591a54d6002f656a78acfd3d531"
+    },
+    {
+      "id": "Q15-PROBE-IMPLEMENTATION-PROFILE-v1",
+      "path": "config/q15/q15-probe-implementation-profile-v1.json",
+      "sha256": "52765fbb98f57e72de246306710ce4b9063e7ff8ef0d7f66b318b01eaa8b83de"
+    }
+  ]
+}

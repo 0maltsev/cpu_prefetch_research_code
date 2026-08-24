@@ -65,6 +65,18 @@ def q15_profile_errors(
         )
     ):
         failures.append("Q15 probe implementation profile binding is invalid")
+    dynamic = manifest.get("dynamic_implementation_profile")
+    if not isinstance(dynamic, dict):
+        failures.append("Q15 dynamic implementation profile binding is absent")
+    elif (
+        dynamic.get("profile_id") != "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1"
+        or dynamic.get("path")
+        != "config/q15/q15-dynamic-implementation-profile-v1.json"
+        or not isinstance(dynamic.get("sha256"), str)
+        or len(dynamic.get("sha256", "")) != 64
+        or any(character not in "0123456789abcdef" for character in dynamic["sha256"])
+    ):
+        failures.append("Q15 dynamic implementation profile binding is invalid")
     for field in (
         "dynamic_qualification_authorized",
         "msr_read_authorized",
@@ -84,6 +96,7 @@ def q15_profile_errors(
         "release/lib/libcpu_prefetch_foundation.a",
         "release/lib/libcpu_prefetch_platform.a",
         "release/lib/libcpu_prefetch_protocol.a",
+        "release/lib/libcpu_prefetch_q15_qualification.a",
         "release/lib/libcpu_prefetch_workload.a",
     ):
         if required not in release_paths:
@@ -275,21 +288,41 @@ def main() -> int:
                 failures.append(
                     f"Q15 probe/collector contract misses source evidence {required_evidence}"
                 )
-        contract = manifest.get("probe_collector_contract", {})
-        contract_text = contract.get("path") if isinstance(contract, dict) else None
-        if not isinstance(contract_text, str):
-            failures.append("Q15 probe/collector contract path is absent")
-        else:
-            contract_relative = pathlib.Path(contract_text)
-            if contract_relative.is_absolute() or ".." in contract_relative.parts:
-                failures.append("unsafe Q15 probe/collector contract path")
-            else:
-                contract_path = root / contract_relative
-                if (
-                    not contract_path.is_file()
-                    or sha256(contract_path) != contract.get("sha256")
-                ):
-                    failures.append("Q15 probe/collector contract path/hash mismatch")
+        for binding_name in (
+            "probe_collector_contract",
+            "probe_implementation_profile",
+            "dynamic_implementation_profile",
+        ):
+            binding = manifest.get(binding_name, {})
+            binding_text = binding.get("path") if isinstance(binding, dict) else None
+            if not isinstance(binding_text, str):
+                failures.append(f"Q15 {binding_name} path is absent")
+                continue
+            binding_relative = pathlib.Path(binding_text)
+            if binding_relative.is_absolute() or ".." in binding_relative.parts:
+                failures.append(f"unsafe Q15 {binding_name} path")
+                continue
+            binding_path = root / binding_relative
+            if (
+                not binding_path.is_file()
+                or sha256(binding_path) != binding.get("sha256")
+            ):
+                failures.append(f"Q15 {binding_name} path/hash mismatch")
+        for report in (
+            "q15_probe_codegen_report.json",
+            "q15_runtime_codegen_report.json",
+        ):
+            report_relative = pathlib.Path("build-provenance") / report
+            if report_relative not in declared:
+                failures.append(f"Q15 qualification-tool misses codegen report {report}")
+                continue
+            report_document = json.loads(
+                (root / report_relative).read_text(encoding="utf-8")
+            )
+            if report_document.get("status") != "PASS" or report_document.get(
+                "missing_tools"
+            ) != []:
+                failures.append(f"Q15 codegen report is not strict: {report}")
 
     example = json.loads(
         (root / "config" / "examples" / "stage16-stand-inputs.example.json").read_text(

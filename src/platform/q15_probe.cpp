@@ -48,34 +48,48 @@ auto Q15ProbeIntegrityEvidence::passes_pointer_cycle(
 
 Q15PointerProbeBuffer::Q15PointerProbeBuffer(std::size_t line_count)
     : line_count_(line_count), byte_count_(checked_buffer_bytes(line_count)) {
-  const auto seed = workload::MasterSeed::from_hex(kQ15PointerProbeSeedHex);
-  const workload::DeterministicStream stream(workload::derive_stream_key(
-      seed, kQ15PointerProbeNamespace, workload::StreamPurpose::node_order));
-  order_ = workload::make_permutation(line_count_, stream);
   storage_ = static_cast<std::byte*>(
       ::operator new(byte_count_, std::align_val_t(kQ15ProbeBasePageBytes)));
-  std::memset(storage_, 0, byte_count_);
-  start_index_ = static_cast<std::uint32_t>(order_.front());
-
-  for (std::size_t position = 0U; position < order_.size(); ++position) {
-    const auto line_index = order_[position];
-    const auto next_position = position + 1U == order_.size() ? 0U : position + 1U;
-    const auto next_index = static_cast<std::uint32_t>(order_[next_position]);
-    std::memcpy(storage_ + (line_index * kQ15ProbeCacheLineBytes), &next_index,
-                sizeof(next_index));
-  }
-
   try {
-    if (!validate_q15_pointer_cycle(bytes(), line_count_, start_index_)) {
-      throw workload::WorkloadSetupError(
-          "Q15 pointer probe construction did not form one exact cycle");
-    }
-    prepared_sha256_ = workload::sha256(bytes());
+    auto preparation =
+        prepare_q15_pointer_probe_buffer({storage_, byte_count_}, line_count_);
+    start_index_ = preparation.start_index;
+    order_ = std::move(preparation.order);
+    prepared_sha256_ = preparation.prepared_sha256;
   } catch (...) {
     ::operator delete(storage_, std::align_val_t(kQ15ProbeBasePageBytes));
     storage_ = nullptr;
     throw;
   }
+}
+
+auto prepare_q15_pointer_probe_buffer(std::span<std::byte> buffer,
+                                      std::size_t line_count)
+    -> Q15PointerProbePreparation {
+  const auto byte_count = checked_buffer_bytes(line_count);
+  if (buffer.size() != byte_count) {
+    throw workload::WorkloadSetupError(
+        "Q15 external probe buffer size must equal line_count times 64 bytes");
+  }
+  const auto seed = workload::MasterSeed::from_hex(kQ15PointerProbeSeedHex);
+  const workload::DeterministicStream stream(workload::derive_stream_key(
+      seed, kQ15PointerProbeNamespace, workload::StreamPurpose::node_order));
+  auto order = workload::make_permutation(line_count, stream);
+  std::memset(buffer.data(), 0, buffer.size());
+  const auto start_index = static_cast<std::uint32_t>(order.front());
+
+  for (std::size_t position = 0U; position < order.size(); ++position) {
+    const auto line_index = order[position];
+    const auto next_position = position + 1U == order.size() ? 0U : position + 1U;
+    const auto next_index = static_cast<std::uint32_t>(order[next_position]);
+    std::memcpy(buffer.data() + (line_index * kQ15ProbeCacheLineBytes), &next_index,
+                sizeof(next_index));
+  }
+  if (!validate_q15_pointer_cycle(buffer, line_count, start_index)) {
+    throw workload::WorkloadSetupError(
+        "Q15 pointer probe construction did not form one exact cycle");
+  }
+  return {start_index, std::move(order), workload::sha256(buffer)};
 }
 
 Q15PointerProbeBuffer::~Q15PointerProbeBuffer() {

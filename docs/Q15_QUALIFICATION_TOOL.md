@@ -1,10 +1,10 @@
 # Q15 qualification-tool boundary
 
-Status: **`D053_POINTER_SLICE_RELEASED_NO_AUTHORITY; CLEAN_BUNDLE_HANDOFF_COMPLETE`**
+Status: **`D054_D056_COMPONENTS_IMPLEMENTED_LOCAL_UNCOMMITTED; PRIOR_D053_CLEAN_BUNDLE_RETAINED; NO_AUTHORITY`**
 
 Protocol: `2.0.0-pre.2`
 
-Decision: Q15-S1 / ADR-0051
+Decisions: Q15-S1/Q15-S3; ADR-0051 and ADR-0054 through ADR-0056
 
 ## Purpose and non-authority boundary
 
@@ -15,12 +15,19 @@ access a stand or MSR device.
 
 The local implementation exposes only:
 
-- a pure self-test and fixed-scope description;
+- a pure self-test plus fixed and dynamic-scope descriptions;
 - complete-value reads from MSR `0x1A4` on CPUs `0`, `1`, and `26`, after an
   exact CPUID family-06/model-55H gate;
 - one-CPU H1 application from a complete three-CPU prestate using only
   `prestate | 0x0f`; and
 - one-CPU complete H0 restoration, with an exact-current-value precondition.
+
+The Q15-S3 build also links fixed components for the exact raw-PMU pass,
+literal same-buffer phase-spanning session, and seven registered collector
+kinds. Their production Linux calls remain behind fakeable seams. No
+no-authority CLI command starts a session or collector; exact controller argv,
+endpoint, release hashes, roles, limits, and custody are deliberately deferred
+to the later clean release and Q15-R/Q15-W records.
 
 There is no path, MSR-address, mask, CPU-list, schedule, namespace, queue,
 calibration, pilot, measurement, or confirmatory selector. There is no retry or
@@ -52,6 +59,9 @@ cmake --build --preset dev-gcc --target cpu_prefetch_q15_tool \
 ctest --preset dev-gcc -L q15 --output-on-failure
 build/dev-gcc/cpu_prefetch_q15_tool --self-test
 build/dev-gcc/cpu_prefetch_q15_tool --describe-fixed-scope
+build/dev-gcc/cpu_prefetch_q15_tool --describe-dynamic-scope
+cmake --build --preset dev-gcc --target q15-dynamic-implementation-check
+cmake --build --preset release-gcc --target q15-runtime-codegen-check
 ```
 
 Do not run a dynamic option from this document. Exact dynamic argv may appear
@@ -65,7 +75,12 @@ The file-operation boundary tests use in-memory fake state. They prove fixed
 paths `/dev/cpu/{0,1,26}/msr`, fixed offset `0x1A4`, read-only write rejection,
 CPUID decoding, exact complete-value application/restoration, stale-state
 rejection, wrong-CPU rejection, broad-plan rejection, and open/read/write/close
-failure handling. CLI self-tests and schema tests use no device operation.
+failure handling. Q15-S3 fakes additionally prove the exact counter request and
+single lifecycle, allocation-free counted region, affinity/NUMA/memory-policy
+ordering, exhaustive residency/fault boundaries, same-buffer state/peer/hash/
+expiry/disconnect rules, bounded canonical frames, and all seven
+observation-derived collectors. CLI self-tests and schema tests use no device
+operation.
 
 ## Bundle profile
 
@@ -73,7 +88,8 @@ The `q15-qualification-tool-bundle` target is distinct from
 `pilot-candidate-bundle`. Its manifest:
 
 - contains no `cpu_prefetch_runner` measurement executable;
-- binds the qualification-tool profile and hardware-prefetch mapping;
+- binds the qualification-tool, D-053 probe, D-054..D-056 dynamic profiles and
+  hardware-prefetch mapping;
 - sets dynamic qualification, MSR read, MSR write, scientific-schedule access,
   measurement command, pilot, and confirmatory authority to `false`;
 - includes source/build provenance, schemas, blocked Q15-R/Q15-W preparation
@@ -88,10 +104,14 @@ sidecar carry the exact revision and hashes. ADR-0052 freezes the exact
 regular-stream, pointer-dependent, and seven-collector contract in
 `config/q15/q15-probe-collector-contract-v1.json`. The bundle carries and
 hash-binds that contract. D-053 additionally binds the implementation profile
-and strict counted-traversal codegen report, but the bundle
-still carries no dynamic PMU/probe or seven-collector executables and grants no
-dynamic authority. Those remaining implementations, clean hashes, and exact
-prospective commands remain later Q15-R/Q15-W inputs.
+and strict counted-traversal codegen report. That prior clean D-053 bundle is
+unchanged and still contains no Q15-S3 components.
+
+The bundle builder is now prepared to include the Q15-S3 dynamic profile,
+collector library/schema, and strict caller-boundary codegen report, while
+keeping every authority field false. No Q15-S3 commit or clean replacement
+bundle was authorized in this step, so exact clean hashes and prospective
+commands remain later release and Q15-R/Q15-W inputs.
 
 ## Split authorization records
 

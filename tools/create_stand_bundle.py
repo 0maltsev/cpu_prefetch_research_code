@@ -52,6 +52,10 @@ Q15_CODEGEN_INPUTS = {
         "cpu_prefetch_q15_probe_codegen_probe",
         "check_q15_probe_codegen.py",
     ),
+    "q15_runtime_codegen_report.json": (
+        "cpu_prefetch_q15_runtime_codegen_probe",
+        "check_q15_runtime_codegen.py",
+    ),
 }
 
 
@@ -285,6 +289,7 @@ def main() -> int:
             "libcpu_prefetch_foundation.a",
             "libcpu_prefetch_platform.a",
             "libcpu_prefetch_protocol.a",
+            "libcpu_prefetch_q15_qualification.a",
             "libcpu_prefetch_workload.a",
         }
         required_libraries = sorted(
@@ -410,6 +415,7 @@ def main() -> int:
             documents.extend(
                 [
                     "PLATFORM_CONTROL.md",
+                    "Q15_DYNAMIC_IMPLEMENTATION_DECISION_BUNDLE.md",
                     "Q15_PREREQUISITE_CLOSURE.md",
                     "Q15_QUALIFICATION_CONTRACT.md",
                     "Q15_QUALIFICATION_TOOL.md",
@@ -445,6 +451,7 @@ def main() -> int:
                 [
                     "check_hardware_prefetch_schema.py",
                     "check_q15_authorization_schema.py",
+                    "check_q15_dynamic_implementation.py",
                     "check_q15_probe_collector_contract.py",
                     "check_q15_probe_implementation.py",
                     "check_qualification_schema.py",
@@ -520,7 +527,7 @@ def main() -> int:
                 if stage17
                 else [
                     "separately signed exact Q15-R authorization before any dynamic read or collection",
-                    "dynamic PMU/probe and seven-collector executable implementations, clean hashes, and exact authorized argv implementing Q15-PROBE-COLLECTOR-CONTRACT-v1",
+                    "clean release hashes and exact authorized Q15-R/Q15-W argv binding the implemented dynamic probe and seven collectors",
                     "sealed Q15-R evidence and complete CPU 0/1/26 prestates before Q15-W",
                     "separately signed exact Q15-W authorization before any MSR write",
                     "four effective roles, negative access evidence, exact limits, custody, and restoration policy",
@@ -546,8 +553,16 @@ def main() -> int:
             probe_profile_path = (
                 root / "config" / "q15" / "q15-probe-implementation-profile-v1.json"
             )
+            dynamic_profile_path = (
+                root / "config" / "q15" / "q15-dynamic-implementation-profile-v1.json"
+            )
             manifest.update(
                 {
+                    "dynamic_implementation_profile": {
+                        "profile_id": "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1",
+                        "path": "config/q15/q15-dynamic-implementation-profile-v1.json",
+                        "sha256": sha256(dynamic_profile_path),
+                    },
                     "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
                     "msr_read_authorized": False,
                     "msr_write_authorized": False,

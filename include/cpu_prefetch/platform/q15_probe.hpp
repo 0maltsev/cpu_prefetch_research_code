@@ -65,6 +65,20 @@ struct Q15ProbePairAssessment final {
   bool distinguished;
 };
 
+struct Q15PointerProbePreparation final {
+  std::uint32_t start_index;
+  std::vector<std::size_t> order;
+  workload::Sha256Digest prepared_sha256;
+};
+
+// Initialize an already allocated, page-policy-qualified buffer. This is the
+// production-session seam used by ADR-0054/0055 so the private anonymous
+// mapping can outlive both Q15 phases. It performs all generation and hashing
+// before a counted traversal.
+[[nodiscard]] auto prepare_q15_pointer_probe_buffer(std::span<std::byte> buffer,
+                                                    std::size_t line_count)
+    -> Q15PointerProbePreparation;
+
 // Setup-only storage for the D-053 deterministic single-cycle probe. Allocation,
 // initialization, permutation generation, and SHA-256 all happen outside the
 // counted traversal.

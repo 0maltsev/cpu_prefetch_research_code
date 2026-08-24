@@ -1,6 +1,6 @@
 # Q15 probe and collector contract
 
-Status: **`FROZEN_CONTRACT; D053_POINTER_SLICE_IMPLEMENTED_LOCAL; DYNAMIC_IMPLEMENTATION_REQUIRED; NO_AUTHORITY`**
+Status: **`FROZEN_CONTRACT; D053_D056_IMPLEMENTED_REPOSITORY_LOCAL; CLEAN_RELEASE_AND_DYNAMIC_EVIDENCE_REQUIRED; NO_AUTHORITY`**
 
 Protocol: `2.0.0-pre.2`
 
@@ -13,13 +13,15 @@ Contract ID: `Q15-PROBE-COLLECTOR-CONTRACT-v1`
 
 ## Boundary
 
-This contract fixes what a future qualification implementation must collect
-and how its probe result is classified. D-053 now supplies the deterministic
-pointer-buffer constructor, exact counted traversal bodies, pure classification
-logic, and a strict local code-generation gate. It does not provide a dynamic
-PMU command or the seven collector executables, authorize stand access, open a
-performance counter, read or write an MSR, apply a hardware state, run
-calibration, or execute pilot or confirmatory work. The immutable D-052
+This contract fixes what qualification must collect and how its probe result is
+classified. D-053 supplies the deterministic pointer-buffer constructor, exact
+counted traversal bodies, pure classification logic, and a strict local
+code-generation gate. D-054 through D-056 add the phase-spanning same-buffer
+state machine, exact fakeable Linux acquisition mechanisms, and seven distinct
+canonical collector components linked into the separate Q15 tool. They do not
+authorize stand access, open a real performance counter, read or write an MSR,
+apply a hardware state, run calibration, or execute pilot or confirmatory work.
+The immutable D-052
 `unimplemented_boundary` remains the freeze-time record of those absent
 executables/authorities; the separate D-053 profile records the implemented
 local slice without rewriting D-052.
@@ -92,13 +94,16 @@ With the recorded Python dependency environment:
 python3 tools/check_q15_probe_collector_contract.py
 cmake --build --preset dev-gcc --target q15-probe-collector-contract-check
 cmake --build --preset dev-gcc --target q15-probe-implementation-check
+cmake --build --preset dev-gcc --target q15-dynamic-implementation-check
 cmake --build --preset release-gcc --target q15-probe-codegen-check
+cmake --build --preset release-gcc --target q15-runtime-codegen-check
 ctest --preset dev-gcc -L q15 --output-on-failure
 ```
 
 These checks validate contract/profile bytes, deterministic golden vectors,
-pure traversal/classification behavior, and generated code. They do not open a
-PMU or execute a dynamic probe/collector. Before Q15-R, the remaining collector
-and dynamic-probe implementation, exact source/binary/report hashes, commands,
-roles, limits, storage/custody, signatures, and a clean no-authority release
-binding are still required.
+session/collector behavior, allocation absence, and generated traversal plus
+counter boundaries. They use fake backends and do not open a PMU or execute a
+dynamic probe/collector. Before Q15-R, exact clean source/binary/report/bundle
+hashes, authorized commands/controller endpoint, roles, limits,
+storage/custody, signatures, and a clean no-authority release binding are still
+required.

@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_INVENTORY_COMPLETE; Q1_THROUGH_Q14_AND_D047_ACCEPTED; CLEAN_CANDIDATE_SEALING_READY`**
+Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_INVENTORY_COMPLETE; Q1_THROUGH_Q15_P0_ACCEPTED; V3_FULL_VERIFICATION_AND_SEALING_PENDING`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
@@ -26,6 +26,23 @@ implementation-owned planning/access profile, and ADR-0041 closing the
 synthetic-only Stage 15 analysis profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
+
+## Accepted Q15-P0 prerequisite closure; exact Q15 inputs still required
+
+Q15-P0 accepts D-048 through D-050 for repository-local implementation only.
+ADR-0048 removes in-measurement poll-count expiry and introduces admission/
+runner v3. ADR-0049 fixes the narrow Intel 06_55H MSR-0x1A4 H0/H1 mapping and
+fake-tested transaction/evidence contracts. ADR-0050 fixes four distinct roles
+and candidate-to-development two-domain custody policy. See
+[`Q15_PREREQUISITE_CLOSURE.md`](Q15_PREREQUISITE_CLOSURE.md).
+
+Still unresolved before exact Q15 approval: a clean fully verified v3 candidate
+and hashes; two start-barrier values and an external process-watchdog bound;
+actual accounts/person/key/capability mappings plus negative OS tests; exact
+command argv/hashes/limits/paths/signature; fresh complete MSR prestate and
+dynamic H0/H1 readback/probes/restoration; pair clock, atomics/layout,
+actual-CPU/migration, residency, storage/custody, and recovery evidence. Q15-P0
+does not authorize stand access or any dynamic/privileged action.
 
 ## Accepted Q14 governance and D-047 mapping; next qualification inputs required
 

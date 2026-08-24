@@ -360,20 +360,12 @@ auto load_admission(std::string_view document) -> protocol::Result<RunnerAdmissi
       constexpr std::array limit_fields{
           "controller_start_poll_limit"sv,
           "worker_start_poll_limit"sv,
-          "producer_due_poll_limit_per_arrival"sv,
-          "consumer_empty_poll_limit_before_finish"sv,
-          "drain_poll_limit"sv,
       };
       reject_unknown(*limits, limit_fields, "$/execution_limits", errors);
       admission.execution_limits = {
           uint_field(*limits, "controller_start_poll_limit", "$/execution_limits",
                      errors),
           uint_field(*limits, "worker_start_poll_limit", "$/execution_limits", errors),
-          uint_field(*limits, "producer_due_poll_limit_per_arrival",
-                     "$/execution_limits", errors),
-          uint_field(*limits, "consumer_empty_poll_limit_before_finish",
-                     "$/execution_limits", errors),
-          uint_field(*limits, "drain_poll_limit", "$/execution_limits", errors),
       };
     }
   }
@@ -482,13 +474,11 @@ auto validate_admission_fields(const RunnerAdmission& admission,
 
   const auto& limits = admission.execution_limits;
   if (limits.controller_start_poll_limit == 0U ||
-      limits.worker_start_poll_limit == 0U ||
-      limits.producer_due_poll_limit_per_arrival == 0U ||
-      limits.consumer_empty_poll_limit_before_finish == 0U ||
-      limits.drain_poll_limit == 0U) {
+      limits.worker_start_poll_limit == 0U) {
     errors.push_back(error(ErrorCategory::missing_evidence, "$/execution_limits",
                            "RUN-LIMITS",
-                           "all five prospectively accepted limits must be nonzero"));
+                           "both prospectively accepted start-barrier limits must be "
+                           "nonzero"));
   }
 
   std::set<EvidenceKind> observed_kinds;

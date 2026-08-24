@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the implementation-owned Q13 and Q14 admission schemas."""
+"""Validate all implementation-owned runner admission schema generations."""
 
 from __future__ import annotations
 
@@ -44,6 +44,18 @@ V2_KINDS = [
 def fixture(version: int) -> dict[str, object]:
     zero_hash = "0" * 64
     kinds = V1_KINDS if version == 1 else V2_KINDS
+    limits = {
+        "controller_start_poll_limit": 1,
+        "worker_start_poll_limit": 1,
+    }
+    if version < 3:
+        limits.update(
+            {
+                "producer_due_poll_limit_per_arrival": 1,
+                "consumer_empty_poll_limit_before_finish": 1,
+                "drain_poll_limit": 1,
+            }
+        )
     return {
         "schema_version": f"cpu-prefetch-runner-admission/{version}",
         "protocol_version": "2.0.0-pre.2",
@@ -58,13 +70,7 @@ def fixture(version: int) -> dict[str, object]:
         "placement": "NEAR",
         "producer_cpu": 0,
         "consumer_cpu": 1,
-        "execution_limits": {
-            "controller_start_poll_limit": 1,
-            "worker_start_poll_limit": 1,
-            "producer_due_poll_limit_per_arrival": 1,
-            "consumer_empty_poll_limit_before_finish": 1,
-            "drain_poll_limit": 1,
-        },
+        "execution_limits": limits,
         "evidence": [
             {
                 "kind": kind,
@@ -83,7 +89,7 @@ def fixture(version: int) -> dict[str, object]:
 def main() -> int:
     root = pathlib.Path(__file__).resolve().parents[1]
     validators: dict[int, Draft202012Validator] = {}
-    for version in (1, 2):
+    for version in (1, 2, 3):
         schema_path = (
             root / "config" / "schemas" / f"runner-admission-v{version}.schema.json"
         )
@@ -92,8 +98,8 @@ def main() -> int:
         validators[version] = Draft202012Validator(schema)
         validators[version].validate(fixture(version))
 
-    validator = validators[2]
-    valid = fixture(2)
+    validator = validators[3]
+    valid = fixture(3)
 
     invalids: list[dict[str, object]] = []
     wrong_pair = copy.deepcopy(valid)
@@ -108,13 +114,16 @@ def main() -> int:
     unknown = copy.deepcopy(valid)
     unknown["extra"] = True
     invalids.append(unknown)
-    legacy_under_v2 = fixture(1)
-    invalids.append(legacy_under_v2)
+    legacy_under_v3 = fixture(2)
+    invalids.append(legacy_under_v3)
+    legacy_limits = copy.deepcopy(valid)
+    legacy_limits["execution_limits"]["drain_poll_limit"] = 1  # type: ignore[index]
+    invalids.append(legacy_limits)
     for index, document in enumerate(invalids):
         if not list(validator.iter_errors(document)):
             print(f"runner-schema-check: FAIL: invalid fixture {index} passed", file=sys.stderr)
             return 1
-    print("runner-schema-check: PASS (Draft 2020-12; 2 positive, 5 negative)")
+    print("runner-schema-check: PASS (Draft 2020-12; 3 positive, 6 negative)")
     return 0
 
 

@@ -54,20 +54,28 @@ The accepted
 defines three non-collapsible gates: Q14 authorizes repository-local closure
 only, a later complete Q15 may authorize exact stand qualification, and later
 dependency-ready Q16a through Q16d records may authorize individual Stage 17
-phases. Q14 is accepted, but its physical-emitter/strict-release gate remains
-open. No stand action is authorized.
+phases. Q15-P0 subsequently accepts repository-local D-048 through D-050 only.
+It closes no dynamic gate and authorizes no stand action.
 
 ### 3. Privileged capability verification
 
 A separately named platform operator reviews the read-only inventory and
 creates the prospective authority/whitelist/readback/probe/restoration plan.
-Its future envelope must conform to
-[`stage17-authorization-v1.schema.json`](../config/schemas/stage17-authorization-v1.schema.json)
+Its future envelope must conform to the current
+[`stage17-authorization-v2.schema.json`](../config/schemas/stage17-authorization-v2.schema.json)
 and the semantic validator before owner review; schema conformance does not
 grant authority.
 There is no automatic privileged path in the bundle. Do not use `sudo`, write
 sysfs/MSRs, stop services, change boot state, or apply a control until the exact
 target/value/inverse and independent verification have been approved.
+
+ADR-0050 requires four distinct operational identities: operator, controller,
+custodian, and auditor. The proposed primary qualification-output domain is
+the candidate stand filesystem on `/dev/md3`; the proposed secondary custody
+domain is the development repository on the separate development machine.
+This is a setup proposal, not completed evidence. Do not create accounts,
+install keys/capabilities, or create output paths until a separate exact
+authorization covers those changes and the negative access matrix.
 
 ### 4. Safe restoration
 
@@ -76,6 +84,13 @@ inverse operation. Apply one whitelisted control at a time, restore successful
 steps in reverse order on failure, independently reread every restored value,
 and retain both success and failure artifacts. Quarantine the stand if
 restoration cannot be proved.
+
+For ADR-0049, the only accepted hardware-prefetch mapping is family 06 model
+55H, MSR 0x1A4, CPUs 0/1/26, H0 complete unmodified prestate, and H1
+`prestate|0x0f`. Preserve bits 63:4, independently read the complete value, run
+both regular and pointer-stream probes, restore the complete prestate in
+reverse order, and independently reread it. The repository currently has no
+production MSR adapter, so these steps cannot be run from the Q15-P0 bundle.
 
 ### 5. Calibration/pilot preparation
 

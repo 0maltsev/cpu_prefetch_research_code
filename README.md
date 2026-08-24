@@ -41,6 +41,13 @@ requirement-by-requirement verification evidence, and a deterministic
 append-only stand bundle; it does not freeze platform values or authorize a
 pilot.
 
+Q15-P0/ADR-0048 through ADR-0050 subsequently correct the worker watchdog
+boundary, advance the current admission/runner identity to v3, fix the narrow
+Intel 06_55H MSR-0x1A4 H0/H1 mapping in software, and fix the four-role/two-
+domain prerequisite policy. The qualification CLI adds only a pure mapping
+plan check. It still has no MSR read/write, dynamic collection, or control
+command, and Q15-P0 grants no stand or execution authority.
+
 The accepted
 [`pre-Stage-17 blocker-closure and pilot-authorization bundle`](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
 records Q14's repository-local authority only. The local framework and D-047
@@ -261,11 +268,12 @@ extraction; it uses only the Python standard library. See
 [`docs/STAND_BUNDLE.md`](docs/STAND_BUNDLE.md) for the exact extraction,
 verification, and nonprivileged self-test commands.
 
-`pilot-candidate-bundle` is a distinct Q14 target. It requires a clean exact
+`pilot-candidate-bundle` is a distinct no-authority target. It requires a clean exact
 revision and `PASS` reports from every strict component and combined codegen
 gate, includes the runner and qualification-only binary, and records
 `pilot_authorized=false`, `confirmatory_authorized=false`, and no measurement
-command. D-047 closes the mapping input and the strict combined audit passes;
+command. The v3 Q15-P0 source must repeat the strict combined audit before a
+new candidate can be sealed;
 the target still rejects dirty source, missing reports, hash drift, overwrite,
 or any authority-bearing manifest.
 
@@ -308,12 +316,13 @@ or any authority-bearing manifest.
   identity;
 - `cpu_prefetch_preflight`: read-only self-test and nonprivileged Linux
   inventory/capability snapshot; it cannot apply controls or qualify a stand;
-- `cpu_prefetch_runner_core`: Q14 v2 strict admission, inaccessible ticket,
+- `cpu_prefetch_runner_core`: Q15-P0 v3 strict admission, inaccessible ticket,
   affined owner preparation, qualification record builders, controller-side
   five-package static dispatch, and one-`PAUSE` execution seam;
 - `cpu_prefetch_runner`: self-test and fail-closed admission validation only;
-- `cpu_prefetch_qualification`: schema/profile self-test only, with no dynamic
-  collection or platform-control command;
+- `cpu_prefetch_qualification`: schema/profile self-test and pure Intel
+  complete-value plan check only, with no dynamic collection, MSR access, or
+  platform-control command;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
 - `cpu_prefetch_protocol_tests`: typed loading, semantic, canonical, lifecycle,
   block, access, and round-trip contracts;
@@ -596,10 +605,12 @@ for implementation only. The pair/relax/admission/static-dispatch slice is
 implemented. Q14 accepts the
 [`pre-Stage-17 bundle`](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
 and the repository now contains its affined owner preparation, qualification-
-only records, v2 admission/authority schemas, combined-operation audit, and
+only records, versioned admission/authority schemas, combined-operation audit, and
 pilot-candidate builder. D-047 fixes the physical software-prefetch mapping and
 both accepted release compilers pass its strict dual-disassembler audit. The
-builder remains fail-closed until invoked from a clean exact release. Stand
+Q15-P0 then accepts the v3 watchdog correction, candidate Intel hardware-
+prefetch mapping, and role/custody prerequisite policy for local implementation
+only. The builder remains fail-closed until invoked from a clean exact release. Stand
 controls, dynamic qualification, calibration,
 measurement, pilot, and confirmatory behavior remain prohibited. Q15 and Q16
 are not approval-ready.

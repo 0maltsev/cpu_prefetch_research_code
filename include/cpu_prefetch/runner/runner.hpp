@@ -24,9 +24,9 @@
 namespace cpu_prefetch::runner {
 
 inline constexpr std::string_view kAdmissionSchemaVersion =
-    "cpu-prefetch-runner-admission/2";
+    "cpu-prefetch-runner-admission/3";
 inline constexpr std::string_view kRunnerProfileId =
-    "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v2";
+    "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3";
 inline constexpr std::string_view kCpuPairSelectionId =
     "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1";
 inline constexpr std::string_view kRelaxMappingId = "X86-PAUSE-ONE-PER-RELAX-SITE-v1";

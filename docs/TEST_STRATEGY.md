@@ -331,11 +331,20 @@ cover exact origin plus every remap/retouch/allocation/count/checksum fault.
 Concurrency tests exercise delayed start, one published origin, u32
 release/acquire payload visibility, producer completion before backlog drain,
 empty schedules, exactly one call for every `FULL`, partial producer failure,
-deadline watchdog, start-clock cancellation, drain poll failure/watchdog, and
-100 deterministic varied-scheduling histories. The fake backend uses fixed
+long legitimate deadline gaps, start-clock cancellation, drain backend
+failure, backlog drain beyond the former cap, and 100 deterministic varied-
+scheduling histories. The fake backend uses fixed
 storage; input schedules and thread setup finish before the origin. Explicit
 test limits and host `yield` scheduling are fixture behavior, not production
-relax or watchdog selections. The same label must pass ASan/UBSan and TSan.
+relax or start/external-watchdog selections. ADR-0048 prohibits worker-loop
+poll-count expiry. The same label must pass ASan/UBSan and TSan.
+
+Q15-P0 hardware-prefetch tests cover exact family/model/CPU/MSR/mask mapping,
+H0 preservation, H1 unknown-bit preservation, H0/H1 collapse, complete-value
+independent readback, regular/pointer probes, reverse exact restoration,
+partial apply, restoration quarantine, and independent-backend enforcement.
+All use fake state. The schema suite adds two positive and six negative
+synthetic evidence records and performs no MSR access.
 
 ### 13a. Calibration framework tests
 
@@ -535,7 +544,7 @@ requires exactly one `PAUSE`, forbids calls/fences/syscalls in the relax body,
 and proves rejection with a two-`PAUSE`/scheduler-call mutant. This is not the
 still-required full affined combined-worker audit.
 
-### 26. Q14 local release, qualification, and authority checks
+### 26. Q14/Q15-P0 local release, qualification, and authority checks
 
 Owner-preparation tests require each bind/readback/actual-CPU check to run once
 on its worker before the barrier and before private-stream first touch. Any
@@ -556,6 +565,12 @@ unresolved targets, overlapping authority roles, invalid expiry, identical
 durability domains, scientific inputs in Q15, missing predecessors, run-count
 drift, confirmatory namespaces, and enabled confirmatory/retry/top-up/repair
 permissions. Passing the validator never issues an authority.
+
+Q15-P0 adds runner/admission v3 regression tests proving that legitimate idle
+and drain work cannot expire by poll count. It also adds the model-restricted
+hardware-prefetch plan/transaction and evidence-schema tests described above.
+No test opens `/dev/cpu/*/msr`, changes affinity, accesses the candidate stand,
+or performs dynamic qualification.
 
 Both accepted disassemblers recursively inspect all ten static producer and
 consumer operation shapes. D-047 requires exact empty, `PREFETCHW`, or

@@ -41,9 +41,6 @@ struct ConsumerPollResult final {
 struct ExecutionLimits final {
   std::uint64_t controller_start_poll_limit;
   std::uint64_t worker_start_poll_limit;
-  std::uint64_t producer_due_poll_limit_per_arrival;
-  std::uint64_t consumer_empty_poll_limit_before_finish;
-  std::uint64_t drain_poll_limit;
 };
 
 enum class ExecutionFailurePhase : std::uint8_t {
@@ -63,11 +60,8 @@ enum class ExecutionFailureReason : std::uint8_t {
   start_watchdog,
   clock_read,
   deadline_overflow,
-  producer_wait_watchdog,
   producer_attempt,
   consumer_poll,
-  consumer_wait_watchdog,
-  drain_watchdog,
   cancelled,
 };
 
@@ -168,10 +162,7 @@ execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock
                                   schedule.deadline_ticks.size());
   }
   if (limits.controller_start_poll_limit == 0U ||
-      limits.worker_start_poll_limit == 0U ||
-      limits.producer_due_poll_limit_per_arrival == 0U ||
-      limits.consumer_empty_poll_limit_before_finish == 0U ||
-      limits.drain_poll_limit == 0U) {
+      limits.worker_start_poll_limit == 0U) {
     return detail::failure_report(ExecutionFailurePhase::pre_run,
                                   ExecutionFailureReason::invalid_limits,
                                   schedule.deadline_ticks.size());
@@ -253,9 +244,12 @@ execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock
           break;
         }
 
-        bool due = false;
-        for (std::uint64_t poll = 0U; poll < limits.producer_due_poll_limit_per_arrival;
-             ++poll) {
+        // The imported protocol requires a tight wait until the frozen
+        // deadline. A poll-count cap is not a liveness bound: its elapsed time
+        // depends on the processor and it can expire during a legitimate
+        // open-loop gap. Process-level hang containment is controller-owned,
+        // outside this data-plane loop, and is separately authorized.
+        while (true) {
           if (cancellation.load(std::memory_order_acquire)) {
             local.failure = ExecutionFailureReason::cancelled;
             break;
@@ -266,17 +260,12 @@ execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock
             break;
           }
           if (reading.ticks >= target) {
-            due = true;
             break;
           }
           ++local.wait_polls;
           relax.relax();
         }
         if (local.failure != ExecutionFailureReason::none) {
-          break;
-        }
-        if (!due) {
-          local.failure = ExecutionFailureReason::producer_wait_watchdog;
           break;
         }
 
@@ -336,7 +325,6 @@ execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock
       }
 
       std::uint64_t candidate_consumed_ordinal = 0U;
-      std::uint64_t empty_before_finish = 0U;
       while (true) {
         const bool finished = termination.arrivals_finished();
         if (finished && producer_failed.load(std::memory_order_acquire)) {
@@ -345,17 +333,10 @@ execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock
         const auto poll = backend.try_consumer_poll(candidate_consumed_ordinal);
         if (finished) {
           ++local.drain_polls;
-          if (local.drain_polls > limits.drain_poll_limit) {
-            local.failure = ExecutionFailureReason::drain_watchdog;
-            local.failure_phase = ExecutionFailurePhase::drain;
-            cancellation.store(true, std::memory_order_release);
-            break;
-          }
         }
         if (poll.status == ConsumerPollStatus::item) {
           ++local.consumed;
           ++candidate_consumed_ordinal;
-          empty_before_finish = 0U;
           continue;
         }
         if (poll.status == ConsumerPollStatus::failure) {
@@ -373,14 +354,7 @@ execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock
           local.drained = true;
           break;
         }
-        ++empty_before_finish;
         ++local.empty_polls;
-        if (empty_before_finish >= limits.consumer_empty_poll_limit_before_finish) {
-          local.failure = ExecutionFailureReason::consumer_wait_watchdog;
-          local.failure_phase = ExecutionFailurePhase::measurement;
-          cancellation.store(true, std::memory_order_release);
-          break;
-        }
         relax.relax();
       }
       return local;

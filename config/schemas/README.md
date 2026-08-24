@@ -68,6 +68,11 @@ successor. It preserves the selected pairs and relax mapping, adds a mandatory
 the generic pilot authorization with an exact `PHASE_EXECUTION_AUTHORIZATION`.
 The v1 schema remains unchanged and readable but cannot arm the v2 runner.
 
+`runner-admission-v3.schema.json` is ADR-0048's incompatible correction. It
+retains only the two pre-measurement start-barrier bounds and removes producer-
+idle, consumer-empty, and drain poll caps that could expire on valid protocol
+behavior. V1/v2 remain unchanged and cannot arm the v3 runner.
+
 `qualification-evidence-v1.schema.json` includes the D-047
 `SOFTWARE_PREFETCH_MAPPING` detail variant. It fixes
 `X86-64-PREFETCHW-PREFETCHT0-v1`, the exact instruction roles, both owner-CPU
@@ -82,3 +87,13 @@ check rejects omnibus phases, wildcard/latest/unresolved targets, overlapping
 authority roles, non-forward validity intervals, same-domain custody, missing
 predecessor evidence, run-count drift, confirmatory namespaces, and permission
 bits that would enable a prohibited action.
+
+`stage17-authorization-v2.schema.json` preserves that exact authority/custody
+shape while binding the ADR-0048 v3 runner. It validates prospective authority
+only and does not issue or execute it.
+
+`hardware-prefetch-qualification-v1.schema.json` is ADR-0049's exact Intel
+family-06 model-55H, MSR-0x1A4, CPUs-0/1/26 H0/H1 evidence envelope. Its
+semantic validator proves complete-value mapping/readback/restoration, unknown-
+bit preservation, unique CPU coverage, both probe gates, eligibility, and
+quarantine. Synthetic fixtures perform no MSR access.

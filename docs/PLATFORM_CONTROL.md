@@ -98,10 +98,13 @@ The repository provides:
 It intentionally provides no production state-changing Linux actuator in this
 stage. Exact affinity/NUMA/page/frequency/turbo/C-state/IRQ/isolation mappings
 still need the selected stand, approved authority, target-specific readback,
-and rollback evidence. Hardware-prefetch capability is always
-`MAPPING_UNRESOLVED` until the exact CPU manual, fields, engines, authority,
-readback, regular/pointer probes, and rollback are accepted. A generic MSR or
-“disable all prefetchers” implementation is forbidden.
+and rollback evidence. Q15-P0/ADR-0049 resolves the candidate's software-side
+hardware-prefetch mapping as `INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1`: H0
+preserves the complete prestate; H1 sets only bits 0:3 on CPUs 0/1/26; both
+require complete independent readback, regular/pointer probes, and exact
+restoration. The repository exposes no production MSR backend. Dynamic
+capability remains ineligible until exact Q15 evidence passes. A generic MSR
+or “disable all prefetchers” implementation remains forbidden.
 
 `AUTHORIZED_APPLY` therefore becomes usable only with an injected approved
 adapter. `DRY_RUN` never calls an actuator. An applied step is not verified.

@@ -34,6 +34,27 @@ The separately sealed pilot-candidate release remains no-authority input to
 Q15 preparation. Pilot and confirmatory states remain blocked on operational
 and frozen evidence.
 
+## Q15-P0 addendum
+
+Q15-P0 was accepted on 2026-08-24 for repository-local prerequisite closure
+only. ADR-0048 removes in-measurement poll-count expiry that could invalidate a
+legitimate open-loop gap or drain backlog and moves hang containment to a
+future exact external process watchdog. ADR-0049 fixes the Intel family-06
+model-55H MSR 0x1A4 H0/H1 mapping in a narrow fake-tested transaction engine.
+ADR-0050 fixes the four-role/two-domain authority policy. The complete local
+Q15-P0 verification passes 216/216 tests in both development and release
+compiler/library matrices, 216/216 in both ASan/UBSan matrices and GCC TSan,
+and 214/214 applicable tests in Clang/libc++ TSan. Formatting, full 73-file
+static analysis, schemas, protocol hashes, repository policy checks, and every
+dual-disassembler generated-code gate pass. Admission/profile v3 and the new
+qualification schemas are verified locally but are not yet a clean sealed
+release.
+
+The readiness states remain `READY_FOR_STAND_PREFLIGHT`,
+`BLOCKED_BEFORE_PILOT`, and `BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`. Q15-P0 did
+not authorize stand access, MSR operations, dynamic qualification, accounts,
+privilege, calibration, pilot, or confirmation.
+
 ## Requirement-by-requirement verification matrix
 
 | Requirement | Verification seam | Fresh Stage 16 evidence | State |

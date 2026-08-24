@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:hardware-prefetch-qualification:v1",
+  "title": "Q15 Intel 06_55H hardware-prefetch qualification evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "mapping_id", "artifact_id",
+    "stand_id", "binding_id", "source_revision", "command_sha256",
+    "captured_at_utc", "execution_state", "requested_state", "cpu_family_hex",
+    "cpu_model_hex", "msr_hex", "disable_mask_hex", "cpu_values",
+    "regular_probe", "pointer_probe", "applied", "verified", "restored",
+    "quarantined", "eligible"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-hardware-prefetch-qualification/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"},
+    "artifact_id": {"$ref": "#/$defs/nonempty"},
+    "stand_id": {"$ref": "#/$defs/nonempty"},
+    "binding_id": {"$ref": "#/$defs/nonempty"},
+    "source_revision": {"$ref": "#/$defs/nonempty"},
+    "command_sha256": {"$ref": "#/$defs/sha256"},
+    "captured_at_utc": {"type": "string", "format": "date-time"},
+    "execution_state": {"enum": ["PREPARED_NOT_EXECUTED", "COMPLETE", "PARTIAL_FAILED"]},
+    "requested_state": {"enum": ["H0", "H1"]},
+    "cpu_family_hex": {"const": "06"},
+    "cpu_model_hex": {"const": "55"},
+    "msr_hex": {"const": "000001a4"},
+    "disable_mask_hex": {"const": "000000000000000f"},
+    "cpu_values": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "cpu", "prestate_hex", "requested_hex", "apply_readback_hex",
+          "restore_readback_hex"
+        ],
+        "properties": {
+          "cpu": {"enum": [0, 1, 26]},
+          "prestate_hex": {"$ref": "#/$defs/u64hex"},
+          "requested_hex": {"$ref": "#/$defs/u64hex"},
+          "apply_readback_hex": {"$ref": "#/$defs/u64hex"},
+          "restore_readback_hex": {"$ref": "#/$defs/u64hex"}
+        }
+      }
+    },
+    "regular_probe": {"$ref": "#/$defs/probe"},
+    "pointer_probe": {"$ref": "#/$defs/probe"},
+    "applied": {"type": "boolean"},
+    "verified": {"type": "boolean"},
+    "restored": {"type": "boolean"},
+    "quarantined": {"type": "boolean"},
+    "eligible": {"type": "boolean"}
+  },
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "u64hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
+    "probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "sha256", "passed"],
+      "properties": {
+        "artifact_id": {"$ref": "#/$defs/nonempty"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "passed": {"type": "boolean"}
+      }
+    }
+  }
+}

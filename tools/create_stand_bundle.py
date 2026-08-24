@@ -366,6 +366,7 @@ def main() -> int:
             validator_names.extend(
                 [
                     "check_qualification_schema.py",
+                    "check_hardware_prefetch_schema.py",
                     "check_runner_schema.py",
                     "check_stage17_authorization_schema.py",
                 ]
@@ -428,7 +429,7 @@ def main() -> int:
             "unresolved_before_pilot": (
                 [
                     "exact Q15 stand-qualification authorization and evidence",
-                    "five exact watchdog limits and every platform/control/restoration record",
+                    "two exact start-barrier limits, an external process-watchdog record, and every platform/control/restoration record",
                     "clock, atomic/layout, actual-CPU/migration, address-residency, and storage/custody evidence",
                     "separate dependency-ready Q16 phase inputs and authorization",
                 ]

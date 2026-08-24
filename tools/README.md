@@ -7,6 +7,13 @@ preparation tool; it generates a complete immutable schedule and envelopes
 before measurement and cannot observe a queue, clock, or outcome. No tool in
 this directory is a benchmark or produces scientific results.
 
+`cpu_prefetch_qualification --hardware-prefetch-plan` is a Q15-P0 pure mapping
+check over three caller-supplied complete hexadecimal prestates. It accepts
+only H0/H1 and the fixed CPUs-0/1/26 Intel 06_55H MSR-0x1A4 mapping. It has no
+MSR reader/writer, does not collect stand facts, and cannot apply or authorize
+a control. `check_hardware_prefetch_schema.py` validates only synthetic or
+already-collected immutable evidence.
+
 ## Stage 8 clock-decision evidence collector
 
 `collect_stage8_clock_evidence.sh` gathers read-only host, topology, clocksource,

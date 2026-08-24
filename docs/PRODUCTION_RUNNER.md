@@ -11,7 +11,7 @@ calibration, pilot execution, or confirmatory execution. The immutable Stage
 
 The implementation supplies `cpu_prefetch_runner_core`, the
 `cpu_prefetch_runner` admission executable, and the non-collecting
-`cpu_prefetch_qualification` schema/profile self-test. The runner has only
+`cpu_prefetch_qualification` schema/profile and pure-plan tool. The runner has only
 `--self-test`, `--help`, and `--validate-admission`; it exposes no execution
 command. The library supplies the ticket-gated static execution seam needed by
 a later, separately authorized controller. This is production-path software,
@@ -26,7 +26,7 @@ requires a clean exact revision and produces no execution authority.
 | CPU-pair selection | `XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1` |
 | `NEAR` | producer CPU 0, consumer CPU 1 |
 | `FAR` | producer CPU 0, consumer CPU 26 |
-| Runner | `STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v2` |
+| Runner | `STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3` |
 | Relax | `X86-PAUSE-ONE-PER-RELAX-SITE-v1` |
 | Software prefetch | `X86-64-PREFETCHW-PREFETCHT0-v1` |
 
@@ -40,11 +40,14 @@ find exactly one `PAUSE` and to reject a two-`PAUSE`/`sched_yield` mutant.
 ## Fail-closed admission
 
 The implementation-owned current Draft 2020-12 shape is
-[`runner-admission-v2.schema.json`](../config/schemas/runner-admission-v2.schema.json).
-The v1 schema remains readable but cannot arm the v2 profile.
+[`runner-admission-v3.schema.json`](../config/schemas/runner-admission-v3.schema.json).
+The v1/v2 schemas remain readable but cannot arm the v3 profile. V3 removes the
+three scientifically unsafe in-measurement poll-count fields; only the two
+pre-start barrier bounds remain inline. Exact process hang containment is a
+separate prospective external-controller evidence/authorization value.
 The C++ loader additionally rejects unknown fields/enums, duplicate evidence
 kinds or artifact IDs, unsupported packages/placements, an unaccepted pair or
-relax/profile identity, zero watchdog values, build/binary/stand/binding drift,
+relax/profile identity, zero start-barrier values, build/binary/stand/binding drift,
 a dirty source build, mutable or ineligible evidence, missing files, symlinks,
 and SHA-256 disagreement.
 
@@ -121,8 +124,9 @@ exact D-047 mapping plus both per-worker PRFCHW observations and codegen gates.
 They derive `eligible` from supplied observations and bind stand, pair,
 revision, binary, source artifacts, and canonical bytes. They collect nothing.
 
-[`stage17-authorization-v1.schema.json`](../config/schemas/stage17-authorization-v1.schema.json)
-defines future Q15 and Q16 envelopes without issuing one. Its semantic check
+[`stage17-authorization-v2.schema.json`](../config/schemas/stage17-authorization-v2.schema.json)
+binds the current v3 runner and defines future Q15 and Q16 envelopes without
+issuing one. V1 remains the unchanged v2-runner predecessor. The semantic check
 rejects omnibus/wildcard/latest/unresolved scope, overlapping authority,
 invalid expiry, same-domain custody, missing predecessors, run-count drift,
 confirmatory namespaces, and enabled prohibited actions.
@@ -132,6 +136,16 @@ An exact future record is checked, but never issued or executed, with:
 ```sh
 python3 tools/check_stage17_authorization_schema.py --document AUTHORIZATION.json
 ```
+
+Q15-P0 also adds a pure, non-collecting mapping check:
+
+```sh
+cpu_prefetch_qualification --hardware-prefetch-plan H1 \
+  CPU0_COMPLETE_HEX CPU1_COMPLETE_HEX CPU26_COMPLETE_HEX
+```
+
+It validates only supplied values against the exact 06_55H/0x1A4 mapping. It
+cannot read or write an MSR, collect stand evidence, or grant authority.
 
 ## Commands
 

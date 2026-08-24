@@ -91,7 +91,7 @@ bundle remains immutable. A profile change requires a superseding engineering
 ADR and complete clean verification; a scientific change additionally follows
 the protocol amendment rule.
 
-## Q14 pilot-candidate profile
+## Q14/Q15-P0 pilot-candidate profile
 
 `STAGE17-PILOT-CANDIDATE-BUNDLE-v1` is a separate append-only profile and does
 not modify this Stage 16 bundle. Its target is:
@@ -103,7 +103,7 @@ cmake --build --preset release-gcc --target pilot-candidate-bundle
 The target first requires strict `PASS` reports for queue, workload, timing,
 storage, one-`PAUSE`, and all ten combined runner operation shapes. It then
 requires a clean exact Git revision. The archive adds the non-executing runner,
-qualification-only tool, v2 admission and future authorization schemas,
+qualification-only tool, versioned admission and future authorization schemas,
 codegen reports, and production-runner documentation. Release binaries remain
 unstripped and are bound to exact compile/build provenance.
 
@@ -118,3 +118,9 @@ accepted compilers pass the strict two-disassembler combined audit. The
 manifest and combined report must carry that exact identity. The creator still
 rejects dirty source trees, non-`PASS` or drifted reports, overwrite, and any
 authority-bearing output.
+
+Q15-P0 advances the current admission/runner identity to v3 and adds the pure
+Intel 06_55H mapping plan plus evidence validators. A new archive must be made
+only after the complete compiler/sanitizer/codegen matrix passes at one clean
+exact revision. The earlier v2 archive remains immutable and cannot qualify
+the v3 runner.

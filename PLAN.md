@@ -346,10 +346,13 @@ authorization/amendment.
 - **Explicitly excluded:** Confirmatory outcomes, result-bearing claims, treatment-driven tuning, pilot substitution for Stage A.
 - **Rollback or failure behavior:** Preserve all pilot artifacts/failures. Material implementation/platform change invalidates dependent pilot evidence. Do not cherry-pick or repeat for favorable effects.
 - **Status:** `PROHIBITED`; Q14 accepts D-044 through D-046, D-047 closes the
-  physical emitter and strict combined audit, and the permitted repository-
-  local framework is implemented. A separate exact Q15 qualification and separate
-  dependency-ready Q16 phase approvals remain mandatory. No omnibus Stage 17
-  authorization is valid.
+  physical emitter and strict combined audit, and Q15-P0/ADR-0048 through
+  ADR-0050 accept the repository-local prerequisite correction/mapping/policy.
+  The v3 implementation passes the complete local compiler, sanitizer, schema,
+  static-analysis, and generated-code matrix. It remains pending an exact clean
+  revision and no-authority candidate sealing. Exact Q15 dynamic qualification
+  and separate dependency-ready Q16 phase approvals remain mandatory. No
+  omnibus Stage 17 authorization is valid.
 
 ## Phase 18 — Confirmatory execution
 

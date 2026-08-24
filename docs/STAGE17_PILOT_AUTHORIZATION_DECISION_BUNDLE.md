@@ -1,6 +1,6 @@
 # Pre-Stage-17 blocker-closure and pilot-authorization decision bundle
 
-Status: **`Q14_AND_D047_ACCEPTED; LOCAL_FRAMEWORK_IMPLEMENTED; STRICT_MAPPING_AUDIT_PASS; CLEAN_CANDIDATE_SEALING_READY; NO_STAND_OR_EXECUTION_AUTHORITY`**
+Status: **`Q15_P0_ACCEPTED; V3_LOCAL_PREREQUISITES_IMPLEMENTED_AND_VERIFIED; CLEAN_SEALING_PENDING; NO_STAND_OR_EXECUTION_AUTHORITY`**
 
 Date prepared: 2026-08-22
 
@@ -21,6 +21,18 @@ outcome, or authorize confirmatory Stage A.
 The current Stage 16 bundle remains an immutable preflight-only artifact. A
 later pilot candidate must be a new clean release with a new profile and
 hashes; it must not overwrite or silently extend that bundle.
+
+### Q15-P0 addendum
+
+On 2026-08-24 the owner accepted only the recommended pre-Q15 prerequisite
+closure. D-048 through D-050 and ADR-0048 through ADR-0050 now correct the
+worker-watchdog boundary, fix the candidate Intel 06_55H H0/H1 mapping in
+software, and fix the four-role/two-domain prerequisite policy. The current
+runner/admission identity is v3. No stand access, dynamic collection, account
+or privilege change, MSR operation, calibration, pilot, or confirmation was
+authorized. The complete local compiler, sanitizer, static-analysis, schema,
+protocol-integrity, and dual-disassembler verification matrix passes; the
+uncommitted source still cannot be sealed as an exact clean candidate.
 
 ## Current evidence boundary
 
@@ -125,9 +137,9 @@ Every row remains unresolved until its exact evidence exists.
 | Required input | Exact evidence needed | Owner | Current state |
 |---|---|---|---|
 | Clean pilot-candidate release | Source revision, clean-state proof, compiler/library/link flags, binary and specialization hashes, complete combined codegen report, bundle manifest and SHA-256 | Build/repository owners | `READY_FOR_SEALING`: D-047 mapping and strict combined `PASS` exist; seal from one clean exact revision and retain the archive/hash as Q15 input |
-| Five watchdog limits | Exact values for controller start, worker start, producer due poll, consumer empty poll, and drain; prospective rationale and failure mapping | Controller/platform owners | `BLOCKED`: no values; no default permitted |
-| Hardware-prefetch H0/H1 | Vendor/model-specific engines, exact mechanism, scope, whitelist, requested values, independent readback, regular/pointer probes, pre-state, inverse, and failure behavior | Platform/protocol owners | `BLOCKED`: no accepted model-specific mapping |
-| Named authority | Named least-privilege operator, controller, custodian, auditor, permitted combinations, credentials/capabilities, negative-access evidence, validity interval | Security/custody owners | `BLOCKED`: root SSH is not the authority model |
+| Start/external watchdog bounds | Exact controller/worker barrier values plus external process wall-clock bound; prospective rationale and failure mapping | Controller/platform owners | `BLOCKED`: ADR-0048 removes unsafe worker-loop caps; remaining exact values have no defaults |
+| Hardware-prefetch H0/H1 dynamic evidence | ADR-0049 mapping plus exact prestate, authorized adapter/command, full readback, regular/pointer probes, inverse/restoration and quarantine evidence | Platform/protocol owners | `SOFTWARE_MAPPING_ACCEPTED; DYNAMIC_BLOCKED`: no MSR access occurred |
+| Named authority | Four distinct least-privilege operator, controller, custodian, auditor identities; credentials/capabilities, negative-access evidence, validity interval | Security/custody owners | `POLICY_ACCEPTED; OPERATIONS_BLOCKED`: no accounts/keys were created |
 | Pair/clock qualification plan | Exact release and pairs, 10,000,000-call traced-vDSO plan, per-core full-count streams, bidirectional three-window plan, thresholds, artifacts, and before-block repetition | Timing/platform owners | `BLOCKED`: software evaluator only |
 | Runtime queue/platform proof | Pointer/u32 lock-free and alignment probes, cache-line layout, actual CPU and migration evidence, topology binding | Queue/platform owners | `BLOCKED` on exact release/stand execution |
 | Address residency | Producer-home shared pages, worker-local private pages, before/during/after mechanism, migration threshold, unavailable-page-frame treatment | Platform/storage owners | `BLOCKED` |

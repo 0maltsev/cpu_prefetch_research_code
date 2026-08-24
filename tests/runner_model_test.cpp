@@ -48,7 +48,7 @@ constexpr std::string_view kZeroHash =
       QueuePackage::r0,
       Placement::near,
       cpu_prefetch::runner::kNearWorkerPair,
-      {1U, 2U, 3U, 4U, 5U},
+      {1U, 2U},
       std::move(evidence),
   };
 }
@@ -60,9 +60,9 @@ constexpr std::string_view kZeroHash =
 
 [[nodiscard]] auto complete_admission_json() -> std::string {
   std::ostringstream output;
-  output << R"({"schema_version":"cpu-prefetch-runner-admission/2",)"
+  output << R"({"schema_version":"cpu-prefetch-runner-admission/3",)"
          << R"("protocol_version":"2.0.0-pre.2",)"
-         << R"("runner_profile_id":"STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v2",)"
+         << R"("runner_profile_id":"STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3",)"
          << R"("cpu_pair_selection_id":"XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",)"
          << R"("relax_mapping_id":"X86-PAUSE-ONE-PER-RELAX-SITE-v1",)"
          << R"("source_revision":"synthetic-revision",)"
@@ -71,10 +71,7 @@ constexpr std::string_view kZeroHash =
          << R"("binding_id":"synthetic-binding","package":"R0",)"
          << R"("placement":"NEAR","producer_cpu":0,"consumer_cpu":1,)"
          << R"("execution_limits":{"controller_start_poll_limit":1,)"
-         << R"("worker_start_poll_limit":2,)"
-         << R"("producer_due_poll_limit_per_arrival":3,)"
-         << R"("consumer_empty_poll_limit_before_finish":4,)"
-         << R"("drain_poll_limit":5},"evidence":[)";
+         << R"("worker_start_poll_limit":2},"evidence":[)";
   for (std::size_t index = 0U;
        index < cpu_prefetch::runner::kRequiredEvidenceKinds.size(); ++index) {
     if (index != 0U) {
@@ -275,7 +272,7 @@ TEST(RunnerPreparation, AdmittedStaticPathUsesAffinedPreparationBeforeEmptyRun) 
   const auto digest = cpu_prefetch::runner::sha256_file(artifact);
   ASSERT_TRUE(digest.has_value());
   auto admission = complete_admission();
-  admission.execution_limits = {1'000'000U, 1'000'000U, 1U, 1'000'000U, 1'000'000U};
+  admission.execution_limits = {1'000'000U, 1'000'000U};
   for (auto& reference : admission.evidence) {
     reference.path = artifact.filename();
     reference.sha256 = digest.value();
@@ -439,7 +436,7 @@ TEST(RunnerAdmission, EveryEvidenceKindIsMandatoryAndUnique) {
 
 TEST(RunnerAdmission, MissingStaleMutableOrIneligibleInputsFailClosed) {
   auto admission = complete_admission();
-  admission.execution_limits.drain_poll_limit = 0U;
+  admission.execution_limits.worker_start_poll_limit = 0U;
   admission.evidence[0].binding_id = "stale-binding";
   admission.evidence[1].immutable = false;
   admission.evidence[2].eligible = false;

@@ -284,6 +284,7 @@ target_link_libraries(
   cpu_prefetch_qualification
   PRIVATE
     cpu_prefetch::foundation
+    cpu_prefetch::platform
     cpu_prefetch::runner
     cpu_prefetch_project_options)
 
@@ -450,13 +451,23 @@ if(BUILD_TESTING)
     PROPERTIES LABELS "runner;pre-pilot;synthetic")
 
   add_test(NAME runner.qualification_self_test COMMAND cpu_prefetch_qualification
-                                                       --self-test)
+                 --self-test)
   set_tests_properties(
     runner.qualification_self_test
     PROPERTIES
       LABELS "runner;qualification;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
         "qualification-self-test: PASS.*stand=NOT_ACCESSED.*authority=Q15_REQUIRED")
+  add_test(
+    NAME runner.hardware_prefetch_plan_self_test
+    COMMAND cpu_prefetch_qualification --hardware-prefetch-plan H1
+            123456789abcdef0 fedcba9876543210 0f0f0f0f0f0f0f00)
+  set_tests_properties(
+    runner.hardware_prefetch_plan_self_test
+    PROPERTIES
+      LABELS "runner;qualification;platform;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "hardware-prefetch-plan: PASS.*dynamic=NOT_EXECUTED")
 
   add_test(
     NAME runner.qualification_schema
@@ -465,6 +476,13 @@ if(BUILD_TESTING)
   set_tests_properties(
     runner.qualification_schema
     PROPERTIES LABELS "runner;qualification;schema;pre-pilot;synthetic")
+  add_test(
+    NAME platform.hardware_prefetch_qualification_schema
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_hardware_prefetch_schema.py")
+  set_tests_properties(
+    platform.hardware_prefetch_qualification_schema
+    PROPERTIES LABELS "platform;qualification;schema;pre-pilot;synthetic")
 
   add_test(
     NAME runner.stage17_authorization_schema
@@ -1166,9 +1184,12 @@ add_custom_target(
   COMMAND "${Python3_EXECUTABLE}"
           "${PROJECT_SOURCE_DIR}/tools/check_runner_schema.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking the v1 and Q14 v2 Draft 2020-12 runner-admission schemas")
+  COMMENT "Checking the v1, Q14 v2, and Q15-P0 v3 runner-admission schemas")
 add_custom_target(
   qualification-schema-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_hardware_prefetch_schema.py"
   COMMAND
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_qualification_schema.py"
@@ -1176,7 +1197,7 @@ add_custom_target(
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_authorization_schema.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking Q14 qualification-only evidence schemas")
+  COMMENT "Checking Q14 and Q15-P0 qualification-only evidence schemas")
 add_custom_target(
   document-check
   COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/check_docs.py"

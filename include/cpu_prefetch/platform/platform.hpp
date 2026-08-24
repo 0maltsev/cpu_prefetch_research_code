@@ -20,6 +20,17 @@ namespace cpu_prefetch::platform {
 inline constexpr std::string_view kPlatformEvidenceVersion =
     "LINUX-PLATFORM-EVIDENCE-v1";
 
+// Q15-P0 fixes only this candidate-stand mapping. The interface deliberately
+// has no arbitrary MSR address or mask parameter.
+inline constexpr std::string_view kHardwarePrefetchMappingId =
+    "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1";
+inline constexpr std::uint32_t kIntelFamily6 = 0x06U;
+inline constexpr std::uint32_t kIntelModel55 = 0x55U;
+inline constexpr std::uint32_t kHardwarePrefetchMsr = 0x1A4U;
+inline constexpr std::uint64_t kHardwarePrefetchDisableMask = 0x0fU;
+inline constexpr std::array<std::uint32_t, 3U> kHardwarePrefetchControlCpus{0U, 1U,
+                                                                            26U};
+
 enum class ErrorCategory : std::uint8_t {
   parse_error,
   missing_evidence,
@@ -276,6 +287,72 @@ struct RequestedState final {
 
   auto operator==(const RequestedState&) const -> bool = default;
 };
+
+struct CpuFamilyModel final {
+  std::uint32_t family;
+  std::uint32_t model;
+
+  auto operator==(const CpuFamilyModel&) const -> bool = default;
+};
+
+struct HardwarePrefetchMsrValue final {
+  std::uint32_t cpu;
+  std::uint64_t value;
+
+  auto operator==(const HardwarePrefetchMsrValue&) const -> bool = default;
+};
+
+struct HardwarePrefetchPlan final {
+  protocol::RequestedHardwareState requested_state;
+  std::vector<HardwarePrefetchMsrValue> prestate;
+  std::vector<HardwarePrefetchMsrValue> requested;
+  bool mutating;
+};
+
+struct BackendResult;
+
+// Plan construction accepts only the selected model, selected CPUs and H0/H1.
+// H0 preserves the observed default exactly. H1 preserves bits 63:4 and sets
+// documented disable bits 3:0. A prestate with every disable bit already set
+// is rejected because H0/H1 would collapse on that owner CPU.
+[[nodiscard]] auto make_hardware_prefetch_plan(
+    CpuFamilyModel identity, protocol::RequestedHardwareState requested_state,
+    std::span<const HardwarePrefetchMsrValue> prestate) -> Result<HardwarePrefetchPlan>;
+
+class HardwarePrefetchMsrBackend {
+public:
+  virtual ~HardwarePrefetchMsrBackend() = default;
+  [[nodiscard]] virtual auto backend_id() const -> std::string_view = 0;
+  [[nodiscard]] virtual auto read(std::uint32_t cpu) -> Result<std::uint64_t> = 0;
+  [[nodiscard]] virtual auto write(std::uint32_t cpu, std::uint64_t value)
+      -> BackendResult = 0;
+};
+
+struct HardwarePrefetchProbeInput final {
+  bool regular_stream_passed;
+  bool pointer_stream_passed;
+};
+
+struct HardwarePrefetchTransactionReport final {
+  bool applied;
+  bool verified;
+  bool probes_passed;
+  bool restored;
+  bool quarantined;
+  std::vector<HardwarePrefetchMsrValue> apply_readback;
+  std::vector<HardwarePrefetchMsrValue> restore_readback;
+  std::vector<Error> errors;
+};
+
+// The writer and verifier must be independent backends. Every H1 transaction
+// restores the complete 64-bit prestate and verifies restoration, including
+// after an apply/readback/probe failure. No caller can supply an MSR number or
+// mask. This function is exercised with fake backends until an exact Q15
+// authorizes a hash-bound privileged adapter on the candidate stand.
+[[nodiscard]] auto qualify_hardware_prefetch_plan(
+    const HardwarePrefetchPlan& plan, HardwarePrefetchMsrBackend& writer,
+    HardwarePrefetchMsrBackend& independent_verifier, HardwarePrefetchProbeInput probes)
+    -> HardwarePrefetchTransactionReport;
 
 [[nodiscard]] auto detect_capabilities(const PlatformInventory& inventory)
     -> std::vector<Capability>;

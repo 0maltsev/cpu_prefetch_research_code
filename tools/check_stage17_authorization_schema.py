@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Q14 authorization envelopes without granting or executing authority."""
+"""Validate Q14/Q15-P0 authorization envelopes without granting authority."""
 
 from __future__ import annotations
 
@@ -45,7 +45,7 @@ def base(phase: str) -> dict[str, Any]:
             "hardware_states": ["H0", "H1"],
         }
     return {
-        "schema_version": "cpu-prefetch-stage17-authorization/1",
+        "schema_version": "cpu-prefetch-stage17-authorization/2",
         "protocol_version": "2.0.0-pre.2",
         "authorization_id": f"SYNTHETIC-{phase}-AUTHORIZATION",
         "authorization_version": "SYNTHETIC-v1",
@@ -57,7 +57,7 @@ def base(phase: str) -> dict[str, Any]:
         "binding_id": "SYNTHETIC-BINDING",
         "source_revision": "0123456789abcdef",
         "binary_sha256": "0" * 64,
-        "runner_profile_id": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v2",
+        "runner_profile_id": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3",
         "cpu_pair_selection_id": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",
         "relax_mapping_id": "X86-PAUSE-ONE-PER-RELAX-SITE-v1",
         "prerequisite_artifacts": [artifact("SYNTHETIC-PREREQUISITE")],
@@ -212,13 +212,20 @@ def main() -> int:
     )
     args = parser.parse_args()
     root = pathlib.Path(__file__).resolve().parents[1]
-    schema = json.loads(
-        (root / "config/schemas/stage17-authorization-v1.schema.json").read_text(
-            encoding="utf-8"
+    schemas = {
+        version: json.loads(
+            (root / f"config/schemas/stage17-authorization-v{version}.schema.json").read_text(
+                encoding="utf-8"
+            )
         )
-    )
-    Draft202012Validator.check_schema(schema)
-    validator = Draft202012Validator(schema)
+        for version in (1, 2)
+    }
+    for schema in schemas.values():
+        Draft202012Validator.check_schema(schema)
+    validators = {
+        version: Draft202012Validator(schema) for version, schema in schemas.items()
+    }
+    validator = validators[2]
     if args.document is not None:
         try:
             document = json.loads(args.document.read_text(encoding="utf-8"))
@@ -231,7 +238,13 @@ def main() -> int:
                 file=sys.stderr,
             )
             return 1
-        errors = validation_errors(validator, document)
+        schema_version = document.get("schema_version")
+        selected = {
+            "cpu-prefetch-stage17-authorization/1": validators[1],
+            "cpu-prefetch-stage17-authorization/2": validators[2],
+        }.get(schema_version)
+        errors = (["unsupported authorization schema version"] if selected is None else
+                  validation_errors(selected, document))
         if errors:
             for error in errors:
                 print(f"stage17-authorization-check: FAIL: {error}", file=sys.stderr)
@@ -242,6 +255,10 @@ def main() -> int:
         )
         return 0
 
+    legacy = base("STAND_QUALIFICATION")
+    legacy["schema_version"] = "cpu-prefetch-stage17-authorization/1"
+    legacy["runner_profile_id"] = "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v2"
+    validators[1].validate(legacy)
     positives = [base("STAND_QUALIFICATION"), *(base(phase) for phase in EXECUTION_PHASES)]
     for document in positives:
         validator.validate(document)
@@ -288,7 +305,7 @@ def main() -> int:
             return 1
     print(
         "stage17-authorization-check: PASS "
-        "(5 synthetic positive, 9 negative, no authority issued)"
+        "(1 legacy + 5 current synthetic positive, 9 negative, no authority issued)"
     )
     return 0
 

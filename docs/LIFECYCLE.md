@@ -112,7 +112,9 @@ Producer and consumer execution counters remain stack-local
 during their loops and are transferred to controller-owned result slots only
 when each worker exits; the hot loops do not update one shared report object.
 Test fakes may yield solely to vary host scheduling. Release-specific relax
-generated code and exact watchdog/failure bounds remain pre-pilot evidence.
+generated code and exact pre-start/external-watchdog bounds remain pre-pilot
+evidence. ADR-0048 forbids producer-idle, consumer-empty, and drain poll-count
+expiry because those limits can expire during valid protocol behavior.
 
 ## Failure and artifact matrix
 
@@ -122,11 +124,13 @@ generated code and exact watchdog/failure bounds remain pre-pilot evidence.
 | Warm-up | `WARMUP_FAILURE` | Warm-up evidence and failure/journal | Measurement rows or continuation under same run ID |
 | Logical reset | `RESET_FAILURE` | Reset/identity evidence and failure/journal | New allocation/remap/retouch or measurement start |
 | Barrier/origin/producer/consumer before producer completion | `MEASUREMENT_FAILURE` after start, otherwise pre-run/reset phase as applicable | Actual partial producer/consumer rows, partial counts, failure/journal | Filling missing rows, retrying a logical arrival, resuming run |
-| Post-publication drain/watchdog | `DRAIN_FAILURE` | Complete producer stream, actual partial consumer stream/counts, failure/journal | Treating backlog as consumed or fabricating an empty observation |
+| Post-publication drain/backend or external-process failure | `DRAIN_FAILURE` | Complete producer stream, actual partial consumer stream/counts, failure/journal | Treating backlog as consumed, fabricating an empty observation, or expiring on a poll count |
 | Completed execution | `COMPLETED` | Candidate complete streams/counts/integrity | Declaring validity before Stage 12 reconciliation |
 
-Watchdog/cancellation exits are failures with retained partial counts; they do
-not restart a run. Recovery is recorded only after finalization with explicit
+Pre-start/external-watchdog or cancellation exits are failures with retained
+partial counts; they do not restart a run. The external process watchdog is
+controller-owned and cannot alter the worker wait/drain condition. Recovery is
+recorded only after finalization with explicit
 policy ID, positive duration, start/end timestamps, actor, reason, and evidence
 artifact. Its value remains treatment-blind and externally frozen. The
 controller has no automatic recovery default or run-retry API.
@@ -144,7 +148,8 @@ schedule check, and compile-time fake-backed producer/consumer executor. Unit
 tests enumerate every state-pair, every failure phase, early/partial artifact
 rules, deterministic ring/linked reset evidence, empty and `FULL` schedules,
 partial producer failure, barrier and publication races, drain failures,
-watchdogs, backlog drain, and 100 deterministic varied-scheduling histories.
+pre-start watchdogs, a 50,000-tick legitimate idle gap, backlog drain beyond
+the former cap, and 100 deterministic varied-scheduling histories.
 
 The GCC release fake specialization was inspected after inlining the
 termination accessors. Its producer/consumer bodies have direct atomic
@@ -165,7 +170,8 @@ barrier. D-047 adds per-owner PRFCHW observation at that same boundary before
 first touch. Failure is `PRE_RUN/worker_preparation`, makes zero attempts,
 cancels the peer, and never becomes an implicit retry. The exact emitter-bound
 package code generation passes locally; production reset bindings, explicit
-watchdog values, selected-pair dynamic qualification, residency, and clock
+start-barrier/external-watchdog values, selected-pair dynamic qualification,
+residency, and clock
 qualification remain pre-pilot evidence. The static runner entry is documented
 in [`PRODUCTION_RUNNER.md`](PRODUCTION_RUNNER.md).
 Development-host and

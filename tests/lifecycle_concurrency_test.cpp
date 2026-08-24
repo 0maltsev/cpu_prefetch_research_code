@@ -114,10 +114,6 @@ public:
     if (fail_when_finished_ != nullptr && fail_when_finished_->arrivals_finished()) {
       return {ConsumerPollStatus::failure};
     }
-    if (always_item_when_finished_ != nullptr &&
-        always_item_when_finished_->arrivals_finished()) {
-      return {ConsumerPollStatus::item};
-    }
     if (consumer_calls_.load(std::memory_order_relaxed) == fail_consumer_call_) {
       return {ConsumerPollStatus::failure};
     }
@@ -144,9 +140,6 @@ public:
   void fail_consumer_at(std::uint64_t call) noexcept { fail_consumer_call_ = call; }
   void fail_after_termination(const TerminationControl& termination) noexcept {
     fail_when_finished_ = &termination;
-  }
-  void return_items_after_termination(const TerminationControl& termination) noexcept {
-    always_item_when_finished_ = &termination;
   }
 
   [[nodiscard]] auto producer_calls() const noexcept -> std::uint64_t {
@@ -176,12 +169,11 @@ private:
   std::uint64_t fail_producer_call_{kNever};
   std::uint64_t fail_consumer_call_{kNever};
   const TerminationControl* fail_when_finished_{nullptr};
-  const TerminationControl* always_item_when_finished_{nullptr};
 };
 
 auto limits() -> ExecutionLimits {
   // Explicit test-fixture limits only. They are not platform defaults.
-  return {10'000'000U, 10'000'000U, 10'000U, 10'000'000U, 10'000U};
+  return {10'000'000U, 10'000'000U};
 }
 
 class FakeWorkerPreparation final {
@@ -365,21 +357,20 @@ TEST(LifecycleConcurrency, ProducerFailurePreservesPartialCountsWithoutRetry) {
   EXPECT_TRUE(report.cancellation_requested);
 }
 
-TEST(LifecycleConcurrency, ProducerWaitWatchdogCancelsWithoutAnAttempt) {
-  constexpr std::array<std::uint64_t, 1U> deadlines{5U};
+TEST(LifecycleConcurrency, LegitimateLongProducerIdleGapCannotBecomeFailure) {
+  constexpr std::array<std::uint64_t, 1U> deadlines{50'000U};
   TerminationControl termination(kFixtureCacheLine);
   FixedFakeBackend backend({1U, deadlines.size()});
-  AtomicStepClock clock({.step = 0U});
+  AtomicStepClock clock;
   YieldRelax relax;
-  auto test_limits = limits();
-  test_limits.producer_due_poll_limit_per_arrival = 8U;
   const auto report = cpu_prefetch::lifecycle::execute_measurement(
-      PreparedScheduleView{deadlines, 0U, 6U}, clock, backend, termination, test_limits,
-      relax);
-  EXPECT_EQ(report.failure_phase, ExecutionFailurePhase::measurement);
-  EXPECT_EQ(report.failure_reason, ExecutionFailureReason::producer_wait_watchdog);
-  EXPECT_EQ(report.attempted, 0U);
-  EXPECT_EQ(backend.producer_calls(), 0U);
+      PreparedScheduleView{deadlines, 0U, 50'001U}, clock, backend, termination,
+      limits(), relax);
+  EXPECT_EQ(report.failure_phase, ExecutionFailurePhase::none);
+  EXPECT_EQ(report.failure_reason, ExecutionFailureReason::none);
+  EXPECT_EQ(report.attempted, 1U);
+  EXPECT_EQ(backend.producer_calls(), 1U);
+  EXPECT_GT(report.producer_wait_polls, 10'000U);
 }
 
 TEST(LifecycleConcurrency, InvalidPreparedInputFailsBeforeWorkersStart) {
@@ -397,7 +388,7 @@ TEST(LifecycleConcurrency, InvalidPreparedInputFailsBeforeWorkersStart) {
 
   const std::array<std::uint64_t, 0U> empty{};
   auto invalid_limits = limits();
-  invalid_limits.drain_poll_limit = 0U;
+  invalid_limits.worker_start_poll_limit = 0U;
   report = cpu_prefetch::lifecycle::execute_measurement(
       PreparedScheduleView{empty, 0U, 1U}, clock, backend, termination, invalid_limits,
       relax);
@@ -421,7 +412,7 @@ TEST(LifecycleConcurrency, ConsumerFailureRemainsPrimaryWhenProducerIsCancelled)
   EXPECT_EQ(backend.producer_calls(), 0U);
 }
 
-TEST(LifecycleConcurrency, DrainFailureAndWatchdogAreDistinctFromMeasurement) {
+TEST(LifecycleConcurrency, DrainFailureIsDistinctFromMeasurement) {
   {
     constexpr std::array<std::uint64_t, 1U> deadlines{0U};
     TerminationControl termination(kFixtureCacheLine);
@@ -435,22 +426,23 @@ TEST(LifecycleConcurrency, DrainFailureAndWatchdogAreDistinctFromMeasurement) {
     EXPECT_EQ(report.failure_phase, ExecutionFailurePhase::drain);
     EXPECT_EQ(report.failure_reason, ExecutionFailureReason::consumer_poll);
   }
-  {
-    const std::array<std::uint64_t, 0U> deadlines{};
-    TerminationControl termination(kFixtureCacheLine);
-    FixedFakeBackend backend({1U, 0U});
-    backend.return_items_after_termination(termination);
-    AtomicStepClock clock;
-    YieldRelax relax;
-    auto test_limits = limits();
-    test_limits.drain_poll_limit = 5U;
-    const auto report = cpu_prefetch::lifecycle::execute_measurement(
-        PreparedScheduleView{deadlines, 0U, 1U}, clock, backend, termination,
-        test_limits, relax);
-    EXPECT_EQ(report.failure_phase, ExecutionFailurePhase::drain);
-    EXPECT_EQ(report.failure_reason, ExecutionFailureReason::drain_watchdog);
-    EXPECT_EQ(report.drain_polls, 6U);
-  }
+}
+
+TEST(LifecycleConcurrency, LegitimateBacklogDrainsPastFormerPollCap) {
+  constexpr std::size_t kBacklog = 64U;
+  std::array<std::uint64_t, kBacklog> deadlines{};
+  TerminationControl termination(kFixtureCacheLine);
+  FixedFakeBackend backend({kBacklog, deadlines.size(), true});
+  AtomicStepClock clock;
+  YieldRelax relax;
+  const auto report = cpu_prefetch::lifecycle::execute_measurement(
+      PreparedScheduleView{deadlines, 0U, 1U}, clock, backend, termination, limits(),
+      relax);
+  EXPECT_EQ(report.failure_phase, ExecutionFailurePhase::none);
+  EXPECT_EQ(report.accepted, kBacklog);
+  EXPECT_EQ(report.consumed, kBacklog);
+  EXPECT_TRUE(report.consumer_drained);
+  EXPECT_GT(report.drain_polls, 5U);
 }
 
 TEST(LifecycleConcurrency, StartClockFailureCancelsBothWorkers) {

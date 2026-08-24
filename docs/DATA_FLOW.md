@@ -6,9 +6,10 @@ select the physical raw encoding/copy policy, and Q10/Q11/ADR-0034 select only
 the versioned blocker representation. Stage 12 implements reconciliation and
 joined-row construction offline.
 Q13/ADR-0043 adds the pair/relax identity. Q14/ADR-0044 through ADR-0046 add a
-v2 pre-preparation admission/qualification/authority edge, and D-047 adds the
+pre-preparation admission/qualification/authority edge, D-047 adds the
 exact software-prefetch mapping and per-owner PRFCHW gate, without authorizing
-stand access or execution.
+stand access or execution. Q15-P0 advances admission to v3, corrects worker
+watchdog semantics, and adds only pure/fake Intel H0/H1 mapping evidence paths.
 
 ## End-to-end flow
 
@@ -35,7 +36,7 @@ stand access or execution.
 
 The controller resolves every dynamic choice before release. The prepared image contains exact addresses and extents, pre-generated deadlines, package specialization, run and algorithm-suite IDs, clock identity, platform evidence references, and fixed buffer capacity. Allocation, schema/config parsing, seed derivation, RNG, permutation, compression, and analysis are absent from the worker call graph.
 
-Q14 makes v2 admission explicitly fail closed before that boundary. A field-only
+Q15-P0 makes v3 admission explicitly fail closed before that boundary. A field-only
 diagnostic cannot construct an `AdmissionTicket`; admission also verifies every
 referenced artifact byte hash against the current source/binary/stand/binding
 trust anchor. The controller-side package switch selects one compile-time

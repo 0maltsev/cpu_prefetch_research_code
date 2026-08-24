@@ -83,6 +83,9 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0045](0045-stage17-stand-qualification-authority.md) | `ACCEPTED` | Require a separate exact hash-bound Q15 for nonprivileged qualification and one-control-at-a-time privileged rehearsal. |
 | [ADR-0046](0046-stage17-phase-scoped-execution-authority.md) | `ACCEPTED` | Require separate dependency-ready Q16 authorizations for every Stage 17 execution phase. |
 | [ADR-0047](0047-stage17-software-prefetch-mapping.md) | `ACCEPTED_AND_IMPLEMENTED_SOFTWARE` | Map ring-producer write intent to `PREFETCHW` and ring/linked retaining reads to `PREFETCHT0`, with per-owner PRFCHW and strict dual-compiler/disassembler gates. |
+| [ADR-0048](0048-stage17-watchdog-boundary-correction.md) | `ACCEPTED_AND_IMPLEMENTED_SOFTWARE` | Remove scientifically unsafe worker-loop poll-count expiry and place hang containment at the external process boundary. |
+| [ADR-0049](0049-stage17-intel-hardware-prefetch-control.md) | `ACCEPTED_AND_IMPLEMENTED_SOFTWARE_ONLY` | Fix the candidate Intel 06_55H MSR-0x1A4 H0/H1 complete-value mapping, readback/probe/restore gates, and narrow interface. |
+| [ADR-0050](0050-stage17-qualification-custody-prerequisites.md) | `ACCEPTED_POLICY_IMPLEMENTED_LOCALLY` | Require four distinct least-privilege qualification roles and two-domain custody before exact Q15. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
 Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,

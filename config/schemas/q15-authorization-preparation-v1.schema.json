@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-authorization-preparation:v1",
+  "title": "Non-authorizing Q15-R/Q15-W preparation record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "preparation_id", "phase", "status",
+    "measurement_candidate", "qualification_tool", "known_inputs",
+    "unresolved_inputs", "authority_issued", "stand_access_authorized",
+    "dynamic_qualification_authorized", "msr_read_authorized",
+    "msr_write_authorized", "measurement_execution_authorized",
+    "calibration_authorized", "pilot_authorized",
+    "confirmatory_authorized"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-authorization-preparation/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "preparation_id": {"type": "string", "minLength": 1},
+    "phase": {"enum": ["Q15_R_READ_ONLY", "Q15_W_APPLY_PROBE_RESTORE"]},
+    "status": {"const": "BLOCKED_INPUTS_REQUIRED"},
+    "measurement_candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_revision", "bundle_profile", "archive_sha256", "runner_sha256"],
+      "properties": {
+        "source_revision": {"const": "693f00b3878ed027dc09aea7916f149874fb12a1"},
+        "bundle_profile": {"const": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"},
+        "archive_sha256": {"const": "f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1"},
+        "runner_sha256": {"const": "8bf2577750872a7595e62797e6ef278607f3bd5308820e2c21cc957ff192c2c7"}
+      }
+    },
+    "qualification_tool": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tool_profile_id", "bundle_profile", "source_revision", "bundle_sha256", "binary_sha256", "release_state"],
+      "properties": {
+        "tool_profile_id": {"const": "Q15-FIXED-QUALIFICATION-TOOL-v1"},
+        "bundle_profile": {"const": "Q15-QUALIFICATION-TOOL-BUNDLE-v1"},
+        "source_revision": {"type": "null"},
+        "bundle_sha256": {"type": "null"},
+        "binary_sha256": {"type": "null"},
+        "release_state": {"const": "NOT_SEALED"}
+      }
+    },
+    "known_inputs": {"type": "object"},
+    "unresolved_inputs": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "authority_issued": {"const": false},
+    "stand_access_authorized": {"const": false},
+    "dynamic_qualification_authorized": {"const": false},
+    "msr_read_authorized": {"const": false},
+    "msr_write_authorized": {"const": false},
+    "measurement_execution_authorized": {"const": false},
+    "calibration_authorized": {"const": false},
+    "pilot_authorized": {"const": false},
+    "confirmatory_authorized": {"const": false}
+  }
+}

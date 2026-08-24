@@ -349,10 +349,16 @@ authorization/amendment.
   physical emitter and strict combined audit, and Q15-P0/ADR-0048 through
   ADR-0050 accept the repository-local prerequisite correction/mapping/policy.
   The v3 implementation passes the complete local compiler, sanitizer, schema,
-  static-analysis, and generated-code matrix. It remains pending an exact clean
-  revision and no-authority candidate sealing. Exact Q15 dynamic qualification
-  and separate dependency-ready Q16 phase approvals remain mandatory. No
-  omnibus Stage 17 authorization is valid.
+  static-analysis, and generated-code matrix. Clean revision `693f00b` seals
+  the no-authority candidate with outer SHA-256 `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`.
+  The exact Q15 input bundle is prepared but cannot authorize activity until
+  every exact tool-release, probe/collector implementation and hash, command,
+  role, limit, custody, prestate, and signature input is resolved.
+  D-052/ADR-0052 freezes the probe/collector contract only. Q15-S1/ADR-0051 accepts and
+  locally implements the separate tool plus Q15-R/Q15-W split; neither
+  preparation record is authority. Separate
+  dependency-ready Q16 phase approvals remain mandatory. No omnibus Stage 17
+  authorization is valid.
 
 ## Phase 18 — Confirmatory execution
 

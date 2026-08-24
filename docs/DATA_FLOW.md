@@ -240,3 +240,25 @@ worker memory or control a running experiment. H3 validation data remain
 technically inaccessible until the imported state sequence authorizes access.
 Analysis output records every source artifact ID/hash and algorithm/version so
 results can be regenerated without modifying inputs.
+
+## Q15 split qualification flow
+
+The sealed measurement candidate and separate qualification-tool bundle never
+merge. A prospective signed Q15-R record binds both hashes, the exact stand,
+read-only commands, four role identities, limits, and custody. Its actual raw
+inventory/MSR/clock/layout/CPU/residency/storage/probe evidence is sealed and
+transferred before any Q15-W record can be constructed. Q15-W then binds the
+Q15-R authorization/evidence hashes, the three complete prestates, exact apply
+order, inverse/readback/probe commands, reverse restore order, and quarantine
+policy. Partial evidence flows to append-only failure/restoration records, not
+to missing or fabricated successful evidence. Neither flow can reach a
+scientific schedule, measurement admission, calibration, pilot, analysis, or
+confirmatory artifact.
+
+`Q15-PROBE-COLLECTOR-CONTRACT-v1` is an immutable input to both sides of this
+flow. Q15-R binds future collector executable hashes and exact commands to its
+clock/layout/CPU/residency/software-prefetch/MSR-prestate contracts. Q15-W
+binds the same contract plus future regular/pointer probe and independent-
+readback executable hashes. Raw counter/timestamp/integrity observations flow
+only into append-only qualification evidence. Contract bytes or a no-authority
+bundle cannot flow into an authorization decision as if execution had passed.

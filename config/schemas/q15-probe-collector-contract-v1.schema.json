@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-probe-collector-contract:v1",
+  "title": "Frozen Q15 probe and collector contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "contract_id",
+    "hardware_prefetch_mapping_id", "source_evidence", "candidate_scope",
+    "counter_contract", "probe_common", "regular_probe", "pointer_probe",
+    "collector_contracts", "artifact_policy", "unimplemented_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-probe-collector-contract/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "contract_id": {"const": "Q15-PROBE-COLLECTOR-CONTRACT-v1"},
+    "hardware_prefetch_mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"},
+    "source_evidence": {
+      "type": "array", "minItems": 4, "maxItems": 4,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["artifact_id", "locator", "role", "sha256"],
+        "properties": {
+          "artifact_id": {"type": "string", "minLength": 1},
+          "locator": {"type": "string", "minLength": 1},
+          "role": {"type": "string", "minLength": 1},
+          "sha256": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/sha256"}]}
+        }
+      }
+    },
+    "candidate_scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cpu_family_hex", "cpu_model_hex", "cpu_order", "near_pair", "far_pair", "cache_line_bytes", "base_page_bytes"],
+      "properties": {
+        "cpu_family_hex": {"const": "06"},
+        "cpu_model_hex": {"const": "55"},
+        "cpu_order": {"const": [0, 1, 26]},
+        "near_pair": {"const": [0, 1]},
+        "far_pair": {"const": [0, 26]},
+        "cache_line_bytes": {"const": 64},
+        "base_page_bytes": {"const": 4096}
+      }
+    },
+    "counter_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["counter_name", "linux_interface", "type", "event_select_hex", "umask_hex", "config_hex", "scope", "exclude_user", "exclude_kernel", "exclude_hypervisor", "exclude_guest", "inherit", "pinned", "read_format"],
+      "properties": {
+        "counter_name": {"const": "L2_RQSTS.ALL_PF"},
+        "linux_interface": {"const": "perf_event_open"},
+        "type": {"const": "PERF_TYPE_RAW"},
+        "event_select_hex": {"const": "24"},
+        "umask_hex": {"const": "f8"},
+        "config_hex": {"const": "000000000000f824"},
+        "scope": {"const": "PER_THREAD_ON_SINGLETON_AFFINITY"},
+        "exclude_user": {"const": false},
+        "exclude_kernel": {"const": true},
+        "exclude_hypervisor": {"const": true},
+        "exclude_guest": {"const": true},
+        "inherit": {"const": false},
+        "pinned": {"const": true},
+        "read_format": {"const": "TOTAL_TIME_ENABLED|TOTAL_TIME_RUNNING"}
+      }
+    },
+    "probe_common": {"type": "object"},
+    "regular_probe": {"type": "object"},
+    "pointer_probe": {"type": "object"},
+    "collector_contracts": {
+      "type": "array", "minItems": 7, "maxItems": 7,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["collector_id", "evidence_kind", "phase", "acceptance"],
+        "properties": {
+          "collector_id": {"type": "string", "minLength": 1},
+          "evidence_kind": {"type": "string", "minLength": 1},
+          "phase": {"enum": ["Q15_R_READ_ONLY", "Q15_W_APPLY_PROBE_RESTORE", "Q15_R_AND_Q15_W"]},
+          "acceptance": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "artifact_policy": {"type": "object"},
+    "unimplemented_boundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["collector_executables_present", "probe_executable_present", "dynamic_execution_authorized", "q15_r_authorization_present", "q15_w_authorization_present"],
+      "properties": {
+        "collector_executables_present": {"const": false},
+        "probe_executable_present": {"const": false},
+        "dynamic_execution_authorized": {"const": false},
+        "q15_r_authorization_present": {"const": false},
+        "q15_w_authorization_present": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

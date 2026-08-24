@@ -1,0 +1,52 @@
+{
+  "authority_issued": false,
+  "calibration_authorized": false,
+  "confirmatory_authorized": false,
+  "dynamic_qualification_authorized": false,
+  "known_inputs": {
+    "cpu_pair_selection_id": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",
+    "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+    "probe_collector_contract_id": "Q15-PROBE-COLLECTOR-CONTRACT-v1",
+    "probe_collector_contract_sha256": "c5a13646ea5e413239337e1b83b3162578c35591a54d6002f656a78acfd3d531",
+    "protocol_import_manifest_sha256": "e06ac6bdc4f4d6b47a6f3c0d548f2b3b0f1088684a77cae08cbf7167800a1d76",
+    "relax_mapping_id": "X86-PAUSE-ONE-PER-RELAX-SITE-v1",
+    "runner_profile_id": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3",
+    "software_prefetch_mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1"
+  },
+  "measurement_candidate": {
+    "archive_sha256": "f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1",
+    "bundle_profile": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1",
+    "runner_sha256": "8bf2577750872a7595e62797e6ef278607f3bd5308820e2c21cc957ff192c2c7",
+    "source_revision": "693f00b3878ed027dc09aea7916f149874fb12a1"
+  },
+  "measurement_execution_authorized": false,
+  "msr_read_authorized": false,
+  "msr_write_authorized": false,
+  "phase": "Q15_R_READ_ONLY",
+  "pilot_authorized": false,
+  "preparation_id": "Q15-R-PREPARATION-20260824-01",
+  "protocol_version": "2.0.0-pre.2",
+  "qualification_tool": {
+    "binary_sha256": null,
+    "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v1",
+    "bundle_sha256": null,
+    "release_state": "NOT_SEALED",
+    "source_revision": null,
+    "tool_profile_id": "Q15-FIXED-QUALIFICATION-TOOL-v1"
+  },
+  "schema_version": "cpu-prefetch-q15-authorization-preparation/1",
+  "stand_access_authorized": false,
+  "status": "BLOCKED_INPUTS_REQUIRED",
+  "unresolved_inputs": [
+    "clean qualification-tool source revision, bundle SHA-256, and binary SHA-256",
+    "exact stand and current inventory/topology artifact identities and hashes",
+    "four distinct role identities plus account, key, group, and capability mapping",
+    "negative OS access evidence for every forbidden role/action pair",
+    "exact read-only command argv, executable hashes, targets, roles, and output artifact IDs",
+    "collector and probe executable implementations, generated-code evidence, hashes, and exact authorized argv implementing Q15-PROBE-COLLECTOR-CONTRACT-v1",
+    "exact custody domains, output root, policies, quota, and transfer receipt contract",
+    "exact issue and expiry UTC, detached-signature scheme, signer, artifact, and hash",
+    "exact wall, CPU, byte, artifact, start-barrier, and external-watchdog limits",
+    "exact stop conditions"
+  ]
+}

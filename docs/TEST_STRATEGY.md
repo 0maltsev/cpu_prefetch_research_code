@@ -346,6 +346,21 @@ partial apply, restoration quarantine, and independent-backend enforcement.
 All use fake state. The schema suite adds two positive and six negative
 synthetic evidence records and performs no MSR access.
 
+Q15-S1 adds fixed Linux-adapter tests behind a fake file-operation boundary.
+They require only `/dev/cpu/{0,1,26}/msr`, offset 0x1A4, exact access flags and
+64-bit transfers; reject every other CPU, stale/broad transitions, H0/H1
+collapse, and open/read/write/close faults; and prove one transition has no
+hidden retry or self-readback. CLI tests execute only self-test, scope, and an
+invalid-authorization negative. Split-schema tests cover 2 prospective
+positive shapes, 10 authority negatives, and two blocked preparation records.
+The pure bundle-profile checker covers one accepted no-authority shape and 24
+negative mutations spanning every authority flag, clean-source identity,
+required/forbidden binaries and libraries, mapping/tool identity, and exact
+probe-contract ID/path/hash binding. The D-052 contract checker validates one
+frozen document and rejects 18 scope, PMU, privilege, multiplexing, traversal,
+classification, collector, artifact, and authority mutations. No test
+opens an MSR device, seals a release bundle, or accesses the stand.
+
 ### 13a. Calibration framework tests
 
 Stage 13 tests are synthetic/fake correctness evidence only. The C++ suite

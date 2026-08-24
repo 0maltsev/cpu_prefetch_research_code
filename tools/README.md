@@ -14,6 +14,21 @@ MSR reader/writer, does not collect stand facts, and cannot apply or authorize
 a control. `check_hardware_prefetch_schema.py` validates only synthetic or
 already-collected immutable evidence.
 
+Q15-S1/ADR-0051 adds `cpu_prefetch_q15_tool` as a separate qualification-only
+executable. Its pure self-test/scope commands never open a device. Its dynamic
+surface is fixed to CPUID family 06/model 55H, MSR 0x1A4, CPUs 0/1/26, and
+complete H1/H0 values derived from the accepted 0x0f mask; it has no arbitrary
+path/address/mask/CPU-list or scientific-run option. Presence of the executable
+grants no authority. Dynamic options require a later exact signed Q15-R or
+Q15-W record and effective OS role controls. Repository tests exercise only a
+fake file-operation boundary and never open `/dev/cpu/*/msr`. See
+`docs/Q15_QUALIFICATION_TOOL.md`.
+
+D-052 adds `check_q15_probe_collector_contract.py`. It validates the frozen
+raw-PMU probe/seven-collector contract and negative mutations without opening a
+counter, device, or stand connection. It is a definition check, not a probe or
+collector implementation and not authority.
+
 ## Stage 8 clock-decision evidence collector
 
 `collect_stage8_clock_evidence.sh` gathers read-only host, topology, clocksource,

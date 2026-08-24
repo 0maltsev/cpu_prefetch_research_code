@@ -46,15 +46,31 @@ boundary, advance the current admission/runner identity to v3, fix the narrow
 Intel 06_55H MSR-0x1A4 H0/H1 mapping in software, and fix the four-role/two-
 domain prerequisite policy. The qualification CLI adds only a pure mapping
 plan check. It still has no MSR read/write, dynamic collection, or control
-command, and Q15-P0 grants no stand or execution authority.
+command. Q15-S1 later adds a separate fixed-scope qualification tool without
+changing that sealed candidate or granting stand or execution authority.
+D-052/ADR-0052 freezes the exact PMU-backed regular/pointer probe and seven-
+collector contract; it supplies neither their executables nor dynamic
+authority.
 
 The accepted
 [`pre-Stage-17 blocker-closure and pilot-authorization bundle`](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
 records Q14's repository-local authority only. The local framework and D-047
 mapping are implemented, and both release compilers pass the strict combined
-audit. The candidate target still requires a clean exact revision; its output
-grants no authority. Exact stand qualification and every Stage 17 execution
-phase still require later Q15 and Q16 authorizations.
+audit. Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1`
+produced the verified no-authority candidate with outer SHA-256
+`f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`.
+The [Q15 input bundle](docs/Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)
+binds that release. Q15-S1/ADR-0051 accepts the separate qualification-tool,
+read-only Q15-R, and prestate-bound Q15-W split. The repository now has the
+fixed-path adapter, separate tool/bundle profile, split authority schema, and
+non-authorizing preparation records described in
+[`docs/Q15_QUALIFICATION_TOOL.md`](docs/Q15_QUALIFICATION_TOOL.md). No clean
+tool bundle, stand access, dynamic qualification, or execution authority had
+been produced when these preparation records were written. The frozen
+contract is documented in
+[`docs/Q15_QUALIFICATION_CONTRACT.md`](docs/Q15_QUALIFICATION_CONTRACT.md).
+Its implementations, executable hashes, exact authorized argv, and live
+evidence still require later complete Q15-R/Q15-W and Q16 authorizations.
 
 The exact D-010/D-020 physical-storage contract is documented in
 [`docs/STAGE11_STORAGE_DECISION_BUNDLE.md`](docs/STAGE11_STORAGE_DECISION_BUNDLE.md).
@@ -230,11 +246,20 @@ cmake --build --preset dev-gcc --target runner-schema-check
 cmake --build --preset dev-gcc --target qualification-schema-check
 build/dev-gcc/cpu_prefetch_runner --self-test
 build/dev-gcc/cpu_prefetch_qualification --self-test
+build/dev-gcc/cpu_prefetch_q15_tool --self-test
+build/dev-gcc/cpu_prefetch_q15_tool --describe-fixed-scope
+cmake --build --preset dev-gcc --target q15-probe-collector-contract-check
+ctest --preset dev-gcc -L q15 --output-on-failure
 ```
 
 `cpu_prefetch_runner` can validate a future explicit admission record but has
 no measurement command. `cpu_prefetch_qualification` has no dynamic collector
 or control command. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
+
+`cpu_prefetch_q15_tool` is a separate no-measurement qualification executable.
+Its self-test and scope-description commands are safe locally. Do not run a
+dynamic option without a separately signed exact Q15-R or Q15-W record; the
+binary and bundle themselves grant no authority.
 
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
@@ -276,6 +301,16 @@ command. The v3 Q15-P0 source must repeat the strict combined audit before a
 new candidate can be sealed;
 the target still rejects dirty source, missing reports, hash drift, overwrite,
 or any authority-bearing manifest.
+
+`q15-qualification-tool-bundle` is a third, separate no-authority profile. It
+contains no measurement runner and fixes the qualification tool to the accepted
+06_55H/0x1A4/CPUs-0,1,26 mapping. Its manifest denies dynamic qualification,
+MSR read/write, scientific-schedule, measurement, pilot, and confirmatory
+authority. It requires a clean exact revision and append-only output. The
+exact probe/collector definitions are frozen and hash-bound as
+`Q15-PROBE-COLLECTOR-CONTRACT-v1`. The future collector/probe implementations,
+generated-code evidence, executable hashes, exact prospective commands, roles,
+limits, custody, signatures, and dynamic evidence still block Q15 issuance.
 
 ## Created targets and metadata
 
@@ -323,6 +358,11 @@ or any authority-bearing manifest.
 - `cpu_prefetch_qualification`: schema/profile self-test and pure Intel
   complete-value plan check only, with no dynamic collection, MSR access, or
   platform-control command;
+- `cpu_prefetch_q15_tool`: separate ADR-0051 fixed-model/fixed-CPU/fixed-MSR
+  qualification reader and one-control complete-value transition tool; its
+  presence grants no authority and local tests use only fake device I/O;
+- `cpu_prefetch_q15_tool_tests`: fixed-path/offset, CPUID, exact-transition,
+  stale/broad input, and I/O-failure tests without MSR access;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
 - `cpu_prefetch_protocol_tests`: typed loading, semantic, canonical, lifecycle,
   block, access, and round-trip contracts;
@@ -363,8 +403,9 @@ or any authority-bearing manifest.
   `schedule-check`, `calibration-check`,
   `orchestration-check`, `analysis-check`, `document-check`,
   `dependency-check`, `ci-check`, and `release-policy-check`;
-- CMake `install`, CPack `package`, immutable `stand-bundle`, and fail-closed
-  `pilot-candidate-bundle` targets.
+- CMake `install`, CPack `package`, immutable `stand-bundle`, fail-closed
+  `pilot-candidate-bundle`, and separate no-authority
+  `q15-qualification-tool-bundle` targets.
 
 Generated `version_metadata.json` contains the protocol version, full Git
 revision, dirty state (including untracked source), exact compiler, standard
@@ -610,7 +651,7 @@ pilot-candidate builder. D-047 fixes the physical software-prefetch mapping and
 both accepted release compilers pass its strict dual-disassembler audit. The
 Q15-P0 then accepts the v3 watchdog correction, candidate Intel hardware-
 prefetch mapping, and role/custody prerequisite policy for local implementation
-only. The builder remains fail-closed until invoked from a clean exact release. Stand
+only. The clean `693f00b` no-authority candidate is sealed and verified. Stand
 controls, dynamic qualification, calibration,
 measurement, pilot, and confirmatory behavior remain prohibited. Q15 and Q16
 are not approval-ready.

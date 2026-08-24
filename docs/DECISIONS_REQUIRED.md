@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_INVENTORY_COMPLETE; Q1_THROUGH_Q15_P0_ACCEPTED; V3_FULL_VERIFICATION_AND_SEALING_PENDING`**
+Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_COMPLETE; D052_CONTRACT_FROZEN; CLEAN_Q15_TOOL_AND_OPERATIONAL_INPUTS_OPEN`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
@@ -20,7 +20,8 @@ deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
 owner on 2026-08-17; Q7 was accepted on 2026-08-20; Q8 through Q12 were
 accepted on 2026-08-21; Q13 and Q14 were accepted for implementation/policy
-only on 2026-08-22. They are recorded through ADR-0046, with ADR-0039
+only on 2026-08-22. Q15-P0 and Q15-S1 were accepted on 2026-08-24 and are
+recorded through ADR-0052. Earlier decisions are recorded through ADR-0046, with ADR-0039
 closing the delegated Stage 13 profile, ADR-0040 closing the Stage 14
 implementation-owned planning/access profile, and ADR-0041 closing the
 synthetic-only Stage 15 analysis profile. Exact scientific,
@@ -36,13 +37,31 @@ fake-tested transaction/evidence contracts. ADR-0050 fixes four distinct roles
 and candidate-to-development two-domain custody policy. See
 [`Q15_PREREQUISITE_CLOSURE.md`](Q15_PREREQUISITE_CLOSURE.md).
 
-Still unresolved before exact Q15 approval: a clean fully verified v3 candidate
-and hashes; two start-barrier values and an external process-watchdog bound;
+Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` and the sealed
+no-authority archive SHA-256
+`f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`
+close the release prerequisite. Still unresolved before exact Q15 approval:
+two start-barrier values and an external process-watchdog bound;
 actual accounts/person/key/capability mappings plus negative OS tests; exact
 command argv/hashes/limits/paths/signature; fresh complete MSR prestate and
 dynamic H0/H1 readback/probes/restoration; pair clock, atomics/layout,
 actual-CPU/migration, residency, storage/custody, and recovery evidence. Q15-P0
 does not authorize stand access or any dynamic/privileged action.
+
+D-052/ADR-0052 now freezes `Q15-PROBE-COLLECTOR-CONTRACT-v1`: exact raw PMU
+programming, regular and pointer-dependent traversals/classification, and seven
+collector acceptance boundaries. This closes only the definition question.
+Collector/probe implementations, generated-code evidence, executable hashes,
+prospective argv, roles, limits, custody, signatures, and dynamic evidence are
+still missing and must not be filled from defaults.
+
+The prepared
+[`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)
+records D-051 as accepted by Q15-S1/ADR-0051. The fixed adapter, separate tool
+and bundle profile, split authority schema, and blocked preparation records are
+implemented locally. The clean no-authority bundle build is separately
+authorized, but no Q15 authorization may be emitted while implementation,
+role, command, limit, custody, signature, and predecessor fields are missing.
 
 ## Accepted Q14 governance and D-047 mapping; next qualification inputs required
 
@@ -52,20 +71,20 @@ is accepted as Q14/ADR-0044 through ADR-0046. The permitted repository-local
 runner, qualification-record, authorization-schema, combined-audit, and
 candidate-builder work is implemented.
 
-Q14 and D-047 do **not** authorize SSH/stand access, dynamic qualification, privilege,
-calibration, pilot, or confirmatory execution. Q15 and Q16a through Q16d remain blocked because
-their exact release, authority, commands, limits, predecessor artifacts,
-plans, namespaces, seeds, budgets, storage domains, and hashes do not yet
-exist.
+Q14 and D-047 do **not** authorize SSH/stand access, dynamic qualification,
+privilege, calibration, pilot, or confirmatory execution. The exact release now
+exists, but Q15 and Q16a through Q16d remain blocked because their authority,
+commands, limits, predecessor artifacts, plans, namespaces, seeds, budgets,
+storage domains, and required hashes do not yet exist.
 
 D-047/ADR-0047 selects `X86-64-PREFETCHW-PREFETCHT0-v1`: producer ring sites
 use `PREFETCHW`, consumer ring and linked-successor sites use `PREFETCHT0`, and
 each owner must pass the PRFCHW capability gate before first touch. GCC and
 Clang pass the strict dual-disassembler ten-operation audit and four negative
-mutants. A clean exact no-authority candidate may therefore be sealed, but Q15
-still requires every exact release, command, limit, authority, control,
-storage, and custody input listed in the accepted bundle. A generic Stage 17
-approval remains invalid.
+mutants. The clean exact no-authority candidate is sealed and verified, but
+Q15 still requires every exact command, limit, authority, control, storage,
+and custody input listed in the accepted bundle. A generic Stage 17 approval
+remains invalid.
 
 ## Accepted Stage 13 bundle
 
@@ -203,10 +222,11 @@ software/bundle/count-level inventory slice. Q13/ADR-0043 then closes only the
 runner-entry implementation choices. Q14/ADR-0044 through ADR-0046 accept the
 local closure and future authority policies. D-047/ADR-0047 accepts and
 implements the physical software-prefetch mapping and closes the strict
-combined audit. The exact next safe action is to seal and verify the clean
-no-authority candidate, then prepare the complete hash-bound Q15 request from
-the remaining exact inputs. Stand-side qualification remains a later exact
-Q15 authorization, and every
+combined audit. The clean no-authority candidate is sealed and verified; the
+exact next safe action is implementation and audit of the frozen probe/
+collector contract, followed by completion and separate approval of Q15-R.
+Stand-side qualification remains a later exact
+Q15-R/Q15-W authorization, and every
 Stage 17 phase remains a later dependency-ready Q16 request. Every external
 scientific or stand-dependent value remains blocked until its listed evidence
 gate. Measurement, calibration execution, pilot, and confirmatory execution

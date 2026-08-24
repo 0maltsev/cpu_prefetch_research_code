@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create deterministic Stage 16 preflight or Q14 pilot-candidate bundles."""
+"""Create deterministic preflight, pilot-candidate, or Q15 tool bundles."""
 
 from __future__ import annotations
 
@@ -20,6 +20,7 @@ from typing import Any
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
 STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"
+Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v1"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
         "cpu_prefetch_queue_codegen_probe",
@@ -212,11 +213,10 @@ def make_sbom(
         },
         "dataLicense": "CC0-1.0",
         "documentNamespace": f"https://example.invalid/cpu-prefetch/sbom/{revision}",
-        "name": (
-            "cpu-prefetch-stage17-pilot-candidate"
-            if profile == STAGE17_PROFILE
-            else "cpu-prefetch-stage16-stand-bundle"
-        ),
+        "name": {
+            STAGE17_PROFILE: "cpu-prefetch-stage17-pilot-candidate",
+            Q15_TOOL_PROFILE: "cpu-prefetch-q15-qualification-tool",
+        }.get(profile, "cpu-prefetch-stage16-stand-bundle"),
         "packages": packages,
         "relationships": relationships,
         "spdxVersion": "SPDX-2.3",
@@ -229,7 +229,12 @@ def main() -> int:
     parser.add_argument("--build-dir", type=pathlib.Path, required=True)
     parser.add_argument("--output-dir", type=pathlib.Path, required=True)
     parser.add_argument(
-        "--profile", choices=("stage16-preflight", "stage17-pilot-candidate"),
+        "--profile",
+        choices=(
+            "stage16-preflight",
+            "stage17-pilot-candidate",
+            "q15-qualification-tool",
+        ),
         default="stage16-preflight",
     )
     args = parser.parse_args()
@@ -243,10 +248,15 @@ def main() -> int:
     dirty = bool(git(root, "status", "--porcelain=v1"))
     source_state = "dirty" if dirty else "clean"
     stage17 = args.profile == "stage17-pilot-candidate"
-    profile = STAGE17_PROFILE if stage17 else STAGE16_PROFILE
-    if stage17 and dirty:
+    q15_tool = args.profile == "q15-qualification-tool"
+    profile = (
+        STAGE17_PROFILE
+        if stage17
+        else Q15_TOOL_PROFILE if q15_tool else STAGE16_PROFILE
+    )
+    if (stage17 or q15_tool) and dirty:
         raise ValueError(
-            "STAGE17-PILOT-CANDIDATE-BUNDLE-v1 requires a clean exact source revision"
+            f"{profile} requires a clean exact source revision"
         )
     version_metadata = json.loads(
         (build / "generated" / "version_metadata.json").read_text(encoding="utf-8")
@@ -261,11 +271,27 @@ def main() -> int:
         required_binaries.extend(
             ["cpu_prefetch_runner", "cpu_prefetch_qualification"]
         )
-    required_libraries = sorted(
-        library
-        for library in build.glob("libcpu_prefetch_*.a")
-        if stage17 or library.name != "libcpu_prefetch_runner_core.a"
-    )
+    if q15_tool:
+        required_binaries.extend(
+            ["cpu_prefetch_qualification", "cpu_prefetch_q15_tool"]
+        )
+        q15_library_names = {
+            "libcpu_prefetch_foundation.a",
+            "libcpu_prefetch_platform.a",
+            "libcpu_prefetch_protocol.a",
+            "libcpu_prefetch_workload.a",
+        }
+        required_libraries = sorted(
+            library
+            for library in build.glob("libcpu_prefetch_*.a")
+            if library.name in q15_library_names
+        )
+    else:
+        required_libraries = sorted(
+            library
+            for library in build.glob("libcpu_prefetch_*.a")
+            if stage17 or library.name != "libcpu_prefetch_runner_core.a"
+        )
     for name in required_binaries:
         if not (build / name).is_file():
             raise ValueError(f"missing release binary: {name}")
@@ -282,7 +308,11 @@ def main() -> int:
             codegen_reports.append(path)
 
     with tempfile.TemporaryDirectory(
-        prefix="cpu-prefetch-stage17-" if stage17 else "cpu-prefetch-stage16-"
+        prefix=(
+            "cpu-prefetch-stage17-"
+            if stage17
+            else "cpu-prefetch-q15-tool-" if q15_tool else "cpu-prefetch-stage16-"
+        )
     ) as temporary:
         staging = pathlib.Path(temporary) / "bundle"
         staging.mkdir()
@@ -331,6 +361,22 @@ def main() -> int:
             staging / "config" / "schemas" / "imported",
         )
         copy_tree_files(root / "config" / "examples", staging / "config" / "examples")
+        if q15_tool:
+            copy_tree_files(root / "config" / "q15", staging / "config" / "q15")
+            for relative in (
+                pathlib.Path(
+                    "docs/evidence/stage16/"
+                    "STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/"
+                    "STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02.json"
+                ),
+                pathlib.Path(
+                    "docs/evidence/stage16/"
+                    "STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/SHA256SUMS"
+                ),
+            ):
+                target = staging / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(root / relative, target)
         licenses = staging / "licenses"
         licenses.mkdir()
         shutil.copyfile(root / "config" / "dependencies.json", licenses / "dependencies.json")
@@ -345,6 +391,16 @@ def main() -> int:
                 [
                     "PRODUCTION_RUNNER.md",
                     "STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md",
+                ]
+            )
+        if q15_tool:
+            documents.extend(
+                [
+                    "PLATFORM_CONTROL.md",
+                    "Q15_PREREQUISITE_CLOSURE.md",
+                    "Q15_QUALIFICATION_CONTRACT.md",
+                    "Q15_QUALIFICATION_TOOL.md",
+                    "Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md",
                 ]
             )
         for document in documents:
@@ -368,6 +424,16 @@ def main() -> int:
                     "check_qualification_schema.py",
                     "check_hardware_prefetch_schema.py",
                     "check_runner_schema.py",
+                    "check_stage17_authorization_schema.py",
+                ]
+            )
+        if q15_tool:
+            validator_names.extend(
+                [
+                    "check_hardware_prefetch_schema.py",
+                    "check_q15_authorization_schema.py",
+                    "check_q15_probe_collector_contract.py",
+                    "check_qualification_schema.py",
                     "check_stage17_authorization_schema.py",
                 ]
             )
@@ -411,6 +477,8 @@ def main() -> int:
             "readiness_state": (
                 "RELEASE_INPUT_READY_FOR_Q15_PREPARATION"
                 if stage17
+                else "Q15_TOOL_RELEASE_NO_AUTHORITY"
+                if q15_tool
                 else "READY_FOR_STAND_PREFLIGHT"
             ),
             "release_artifacts": release_artifacts,
@@ -418,6 +486,8 @@ def main() -> int:
             "schema_version": (
                 "cpu-prefetch-pilot-candidate-bundle/1"
                 if stage17
+                else "cpu-prefetch-q15-qualification-tool-bundle/1"
+                if q15_tool
                 else "cpu-prefetch-stand-bundle/1"
             ),
             "source_archive": {
@@ -435,6 +505,14 @@ def main() -> int:
                 ]
                 if stage17
                 else [
+                    "separately signed exact Q15-R authorization before any dynamic read or collection",
+                    "collector and probe executable implementations, generated-code evidence, hashes, and exact authorized argv implementing Q15-PROBE-COLLECTOR-CONTRACT-v1",
+                    "sealed Q15-R evidence and complete CPU 0/1/26 prestates before Q15-W",
+                    "separately signed exact Q15-W authorization before any MSR write",
+                    "four effective roles, negative access evidence, exact limits, custody, and restoration policy",
+                ]
+                if q15_tool
+                else [
                     "production measurement executable and final integrated worker codegen",
                     "eligible stand, selected worker pairs, and runtime atomic checks",
                     "privileged authority, exact controls, independent readback, probes, and restoration",
@@ -447,10 +525,30 @@ def main() -> int:
             manifest["software_prefetch_mapping_id"] = (
                 "X86-64-PREFETCHW-PREFETCHT0-v1"
             )
+        if q15_tool:
+            probe_contract_path = (
+                root / "config" / "q15" / "q15-probe-collector-contract-v1.json"
+            )
+            manifest.update(
+                {
+                    "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+                    "msr_read_authorized": False,
+                    "msr_write_authorized": False,
+                    "probe_collector_contract": {
+                        "contract_id": "Q15-PROBE-COLLECTOR-CONTRACT-v1",
+                        "path": "config/q15/q15-probe-collector-contract-v1.json",
+                        "sha256": sha256(probe_contract_path),
+                    },
+                    "qualification_tool_profile_id": "Q15-FIXED-QUALIFICATION-TOOL-v1",
+                    "scientific_schedule_access_authorized": False,
+                }
+            )
         write_json(staging / "BUNDLE_MANIFEST.json", manifest)
 
         checksum_files = sorted(
-            path for path in staging.rglob("*") if path.is_file() and path.name != "SHA256SUMS"
+            path
+            for path in staging.rglob("*")
+            if path.is_file() and path != staging / "SHA256SUMS"
         )
         (staging / "SHA256SUMS").write_text(
             "".join(
@@ -464,6 +562,8 @@ def main() -> int:
         bundle_prefix = (
             "cpu-prefetch-pilot-candidate"
             if stage17
+            else "cpu-prefetch-q15-qualification-tool"
+            if q15_tool
             else "cpu-prefetch-stand-bundle"
         )
         bundle_name = (
@@ -483,7 +583,7 @@ def main() -> int:
             f"{outer_hash}  {output.name}\n", encoding="utf-8"
         )
         print(
-            f"{'pilot-candidate-bundle' if stage17 else 'stand-bundle'}: "
+            f"{'pilot-candidate-bundle' if stage17 else 'q15-tool-bundle' if q15_tool else 'stand-bundle'}: "
             f"PASS path={output} sha256={outer_hash} authority=NONE"
         )
     return 0

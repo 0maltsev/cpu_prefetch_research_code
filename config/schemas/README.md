@@ -97,3 +97,27 @@ family-06 model-55H, MSR-0x1A4, CPUs-0/1/26 H0/H1 evidence envelope. Its
 semantic validator proves complete-value mapping/readback/restoration, unknown-
 bit preservation, unique CPU coverage, both probe gates, eligibility, and
 quarantine. Synthetic fixtures perform no MSR access.
+
+`q15-qualification-authorization-v1.schema.json` implements ADR-0051's split
+authority boundary. It admits only a read-only `Q15_R_READ_ONLY` record or a
+prestate-bound `Q15_W_APPLY_PROBE_RESTORE` record and binds the immutable
+measurement candidate, separate qualification-tool bundle, four roles, exact
+commands/targets/limits/custody, required predecessor evidence, inverse and
+independent-readback relationships, prohibitions, and detached signature. Its
+semantic checker rejects Q15-R mutation, incomplete CPU/prestate/order coverage,
+self-readback, missing probe families, wildcard values, and role/domain overlap.
+
+`q15-authorization-preparation-v1.schema.json` is deliberately not an authority
+schema. It records the exact known candidate binding and unresolved Q15-R/Q15-W
+inputs with `BLOCKED_INPUTS_REQUIRED`, null unsealed tool hashes, and every
+authority flag false. Preparation records cannot validate under the authority
+schema.
+
+`q15-probe-collector-contract-v1.schema.json` fixes ADR-0052's no-execution
+qualification contract: candidate scope, raw `L2_RQSTS.ALL_PF` programming,
+working-set derivation, exact regular/dependent probe definitions and binary
+classification, seven collector identities, append-only evidence policy, and
+an explicitly false implementation/authority boundary. The semantic checker
+also verifies local source hashes and rejects drift that structural JSON Schema
+cannot express. Validation does not open a PMU/device or claim that an
+executable or authorization exists.

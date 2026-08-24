@@ -171,6 +171,11 @@ def semantic_errors(document: dict[str, Any]) -> list[str]:
 
     phase = document.get("phase")
     phase_inputs = document.get("phase_inputs")
+    if (
+        document.get("schema_version") == "cpu-prefetch-stage17-authorization/2"
+        and phase == "STAND_QUALIFICATION"
+    ):
+        errors.append("ADR-0051 supersedes new omnibus Q15 requests")
     if phase == "STAND_QUALIFICATION" and phase_inputs is not None:
         errors.append("stand qualification cannot contain scientific phase inputs")
     if phase in EXECUTION_PHASES:
@@ -239,6 +244,16 @@ def main() -> int:
             )
             return 1
         schema_version = document.get("schema_version")
+        if (
+            schema_version == "cpu-prefetch-stage17-authorization/2"
+            and document.get("phase") == "STAND_QUALIFICATION"
+        ):
+            print(
+                "stage17-authorization-check: FAIL: ADR-0051 supersedes new omnibus "
+                "Q15 requests; use split Q15-R/Q15-W records",
+                file=sys.stderr,
+            )
+            return 1
         selected = {
             "cpu-prefetch-stage17-authorization/1": validators[1],
             "cpu-prefetch-stage17-authorization/2": validators[2],
@@ -259,7 +274,15 @@ def main() -> int:
     legacy["schema_version"] = "cpu-prefetch-stage17-authorization/1"
     legacy["runner_profile_id"] = "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v2"
     validators[1].validate(legacy)
-    positives = [base("STAND_QUALIFICATION"), *(base(phase) for phase in EXECUTION_PHASES)]
+    superseded_q15 = base("STAND_QUALIFICATION")
+    validator.validate(superseded_q15)
+    if not semantic_errors(superseded_q15):
+        print(
+            "stage17-authorization-check: FAIL: omnibus v2 Q15 was not superseded",
+            file=sys.stderr,
+        )
+        return 1
+    positives = [base(phase) for phase in EXECUTION_PHASES]
     for document in positives:
         validator.validate(document)
         if errors := semantic_errors(document):
@@ -267,31 +290,31 @@ def main() -> int:
             return 1
 
     negatives: list[dict[str, Any]] = []
-    omnibus = copy.deepcopy(positives[0])
+    omnibus = copy.deepcopy(superseded_q15)
     omnibus["phase"] = "ALL_STAGE17"
     negatives.append(omnibus)
-    wildcard = copy.deepcopy(positives[0])
+    wildcard = copy.deepcopy(superseded_q15)
     wildcard["permitted_commands"][0]["exact_target"] = "*"
     negatives.append(wildcard)
-    overlap = copy.deepcopy(positives[0])
+    overlap = copy.deepcopy(superseded_q15)
     overlap["authorities"]["auditor"] = overlap["authorities"]["operator"]
     negatives.append(overlap)
-    inverted_time = copy.deepcopy(positives[0])
+    inverted_time = copy.deepcopy(superseded_q15)
     inverted_time["expires_at_utc"] = inverted_time["issued_at_utc"]
     negatives.append(inverted_time)
-    scientific_q15 = copy.deepcopy(positives[1])
+    scientific_q15 = copy.deepcopy(positives[0])
     scientific_q15["phase"] = "STAND_QUALIFICATION"
     negatives.append(scientific_q15)
-    missing_predecessor = copy.deepcopy(positives[2])
+    missing_predecessor = copy.deepcopy(positives[1])
     missing_predecessor["phase_inputs"]["predecessor_artifacts"] = []
     negatives.append(missing_predecessor)
-    wrong_count = copy.deepcopy(positives[3])
+    wrong_count = copy.deepcopy(positives[2])
     wrong_count["phase_inputs"]["permitted_run_count"] = 2
     negatives.append(wrong_count)
-    confirmatory = copy.deepcopy(positives[4])
+    confirmatory = copy.deepcopy(positives[3])
     confirmatory["phase_inputs"]["namespaces"] = ["confirmatory-forbidden"]
     negatives.append(confirmatory)
-    authority = copy.deepcopy(positives[1])
+    authority = copy.deepcopy(positives[0])
     authority["prohibitions"]["confirmatory_execution"] = True
     negatives.append(authority)
 
@@ -305,7 +328,7 @@ def main() -> int:
             return 1
     print(
         "stage17-authorization-check: PASS "
-        "(1 legacy + 5 current synthetic positive, 9 negative, no authority issued)"
+        "(1 legacy + 4 current execution positive, 1 superseded Q15, 9 negative, no authority issued)"
     )
     return 0
 

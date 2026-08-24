@@ -1,6 +1,6 @@
 # Q15 prerequisite-closure record
 
-Status: **`Q15_P0_ACCEPTED_LOCAL_IMPLEMENTATION_AND_VERIFICATION_COMPLETE_CLEAN_SEALING_PENDING`**
+Status: **`Q15_P0_ACCEPTED_LOCAL_CLOSURE_COMPLETE; CLEAN_NO_AUTHORITY_CANDIDATE_SEALED`**
 
 Date: 2026-08-24
 
@@ -61,27 +61,34 @@ The accepted Q15-P0 source state passes the following repository-local checks:
   release generated-code gates pass both accepted disassemblers and all
   registered negative mutants.
 
-These results are synthetic/software evidence only. The working tree remains
-uncommitted, so the strict candidate builder correctly refuses to claim a clean
-source identity. Q15-P0 did not authorize a commit, stand operation, or
-candidate execution.
+These results are synthetic/software evidence only. The owner later authorized
+one exact commit and clean no-authority sealing. Revision
+`693f00b3878ed027dc09aea7916f149874fb12a1` produced archive SHA-256
+`f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`;
+outer/internal hashes, clean extraction, and both nonprivileged self-tests
+pass. The manifest grants no dynamic, pilot, confirmatory, or measurement
+execution authority.
 
 ## Remaining exact Q15 blockers
 
-1. Authorize and create one exact clean v3 source revision, then seal the
-   no-authority candidate and record every release/tool/schema hash.
-2. Establish the four distinct principals, credentials/capabilities, negative
+1. Establish the four distinct principals, credentials/capabilities, negative
    access evidence, validity interval, and detached approval/signature.
-3. Bind exact nonprivileged and privileged command argv, inverse, independent
+2. Bind exact nonprivileged and privileged command argv, inverse, independent
    readback, probes, output artifacts, byte/CPU/wall limits, and stop rules.
-4. Supply the exact two barrier bounds and external process-watchdog bound
+3. Supply the exact two barrier bounds and external process-watchdog bound
    prospectively; none may depend on treatment outcomes.
-5. Supply fresh exact-model/prestate evidence and complete H0/H1 apply,
+4. Supply fresh exact-model/prestate evidence and complete H0/H1 apply,
    readback, regular/pointer probe, restoration, and quarantine plan.
-6. Prove selected-pair clock, runtime atomics/layout, actual CPU/migration,
+5. Prove selected-pair clock, runtime atomics/layout, actual CPU/migration,
    address residency, storage capacity, two-domain custody, and transfer/recovery
    prerequisites for the exact candidate.
 
-Only after every item exists with immutable hashes can an exact Q15
-authorization be prepared for separate owner approval. Q15 would authorize
-qualification only, never calibration or pilot work.
+The
+[`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)
+now records Q15-S1/ADR-0051 acceptance of a separate qualification-only tool
+and split Q15-R/Q15-W authority. The local fixed adapter, schemas, and blocked
+preparation records grant neither stand access nor execution authority.
+
+Only after every item exists with immutable hashes can exact Q15-R and later
+prestate-bound Q15-W authorizations be prepared for separate owner approval.
+They would authorize qualification only, never calibration or pilot work.

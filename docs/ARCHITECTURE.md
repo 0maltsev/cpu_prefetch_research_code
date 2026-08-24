@@ -142,7 +142,7 @@ and dynamic qualification evidence.
 
 `cpu_prefetch_platform` separates inventory, capability detection, requested-state validation, apply, independent verification, restoration, and manifest emission. The real Linux provider is read-only and records CPU/core/package/NUMA/cache/PCI topology, page and environment observations, and software/hardware provenance without choosing a stand or pair. Stage A validation requires explicit non-SMT near/far CPUs, producer-home shared memory, worker-local private buffers, and the inventoried base-page policy; Stage C alternatives reject.
 
-Every control names an exact target/value, authority, actuation mechanism, verification mechanism, snapshot, and state epoch. Dry-run never calls an actuator. Successful apply is only an apply fact; fresh exact readback through the verifier is required separately. Partial apply restores recorded pre-state in reverse order and retains any restoration failure. Rich canonical evidence preserves partial failure, while a separate emitter produces only the immutable imported platform-schema shape. Unsupported/unauthorized/missing/stale capability fails closed. Q15-P0 adds a narrow candidate-only Intel 06_55H H0/H1 transaction model with no arbitrary MSR input or production backend. Exact prestate, command authority, behavioral probes, privileges, and rollback remain required dynamic evidence under [the Stage 9 contract](PLATFORM_CONTROL.md).
+Every control names an exact target/value, authority, actuation mechanism, verification mechanism, snapshot, and state epoch. Dry-run never calls an actuator. Successful apply is only an apply fact; fresh exact readback through the verifier is required separately. Partial apply restores recorded pre-state in reverse order and retains any restoration failure. Rich canonical evidence preserves partial failure, while a separate emitter produces only the immutable imported platform-schema shape. Unsupported/unauthorized/missing/stale capability fails closed. Q15-P0 adds a narrow candidate-only Intel 06_55H H0/H1 transaction model with no arbitrary MSR input. Q15-S1 adds a separate fixed-path production backend and no-authority CLI outside the sealed measurement candidate; its tests use fake file operations and no dynamic invocation has occurred. D-052 freezes a separate raw-PMU probe and seven-collector contract but intentionally provides no implementations or authority. Exact executable hashes, prestate, command authority, independent readback, behavioral evidence, privileges, and rollback remain required dynamic evidence under [the Stage 9 contract](PLATFORM_CONTROL.md).
 
 ### `RunLifecycle`
 
@@ -225,6 +225,14 @@ ADR-0012 requires one unprivileged measurement process with a quiescent controll
 - crash/lifecycle states yield the exact append-only artifact set;
 - privileges are absent from the measurement process;
 - validation custody is technically separated from implementation/platform operation.
+
+ADR-0051 keeps the qualification tool in a fourth operational boundary outside
+the measurement process and sealed measurement bundle. Q15-R is a read-only
+controller/auditor acquisition graph. Q15-W is a later operator mutation graph
+whose immutable inputs include the sealed Q15-R evidence and complete prestates;
+every write has a separately executed auditor readback and inverse. The local
+fixed adapter has no arbitrary path/address/mask/CPU-list interface, but code
+presence never substitutes for signed phase authority or OS role enforcement.
 
 ## Failure and compatibility model
 

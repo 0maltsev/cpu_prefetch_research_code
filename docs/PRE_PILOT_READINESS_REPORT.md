@@ -46,9 +46,12 @@ Q15-P0 verification passes 216/216 tests in both development and release
 compiler/library matrices, 216/216 in both ASan/UBSan matrices and GCC TSan,
 and 214/214 applicable tests in Clang/libc++ TSan. Formatting, full 73-file
 static analysis, schemas, protocol hashes, repository policy checks, and every
-dual-disassembler generated-code gate pass. Admission/profile v3 and the new
-qualification schemas are verified locally but are not yet a clean sealed
-release.
+dual-disassembler generated-code gate pass. Clean revision
+`693f00b3878ed027dc09aea7916f149874fb12a1` is now sealed as the
+no-authority candidate; archive SHA-256 is
+`f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`,
+and its 94-file clean extraction and two nonprivileged self-tests pass. Exact
+Q15 tool/authority/command/limit/custody inputs remain open.
 
 The readiness states remain `READY_FOR_STAND_PREFLIGHT`,
 `BLOCKED_BEFORE_PILOT`, and `BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`. Q15-P0 did
@@ -193,11 +196,15 @@ implementation only and grants no execution authority.
 The accepted
 [pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
 records the exact authorization order. Q14 is repository-local policy and
-implementation authority only; its local framework passes, but D-044 release
-closure remains blocked by the physical software-prefetch mapping, strict
-combined audit, and clean candidate archive. A future exact Q15 is required
-for stand qualification, and future dependency-ready Q16a through Q16d records
-are required for individual Stage 17 phases. Q15/Q16 are not approval-ready.
+implementation authority only; its local framework and D-044 clean
+no-authority release closure pass at `693f00b`. Q15-S1/ADR-0051 accepts and
+locally implements the separate qualification tool plus Q15-R/Q15-W authority
+split without touching that release. Clean tool/probe/collector hashes and the
+remaining exact operational inputs are absent. D-052/ADR-0052 freezes the
+probe/collector contract, but no collector/probe implementation or dynamic
+evidence exists. Future exact Q15-R/Q15-W is required for
+stand qualification, and future dependency-ready Q16a through Q16d records are
+required for individual Stage 17 phases. Q15/Q16 are not approval-ready.
 
 ## Mandatory evidence remaining before pilot
 

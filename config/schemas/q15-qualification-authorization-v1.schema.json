@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-qualification-authorization:v1",
+  "title": "Split Q15-R/Q15-W qualification authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "authorization_id",
+    "authorization_version", "phase", "status", "issued_at_utc",
+    "expires_at_utc", "stand_id", "binding_id", "measurement_candidate",
+    "qualification_tool", "prerequisite_artifacts", "authorities",
+    "permitted_commands", "limits", "storage_custody", "stop_conditions",
+    "phase_inputs", "prohibitions", "detached_signature"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-qualification-authorization/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "authorization_id": {"$ref": "#/$defs/nonempty"},
+    "authorization_version": {"$ref": "#/$defs/nonempty"},
+    "phase": {"enum": ["Q15_R_READ_ONLY", "Q15_W_APPLY_PROBE_RESTORE"]},
+    "status": {"const": "AUTHORIZED"},
+    "issued_at_utc": {"type": "string", "format": "date-time"},
+    "expires_at_utc": {"type": "string", "format": "date-time"},
+    "stand_id": {"$ref": "#/$defs/nonempty"},
+    "binding_id": {"$ref": "#/$defs/nonempty"},
+    "measurement_candidate": {"$ref": "#/$defs/measurement_candidate"},
+    "qualification_tool": {"$ref": "#/$defs/qualification_tool"},
+    "prerequisite_artifacts": {
+      "type": "array", "minItems": 1, "items": {"$ref": "#/$defs/artifact"}
+    },
+    "authorities": {"$ref": "#/$defs/authorities"},
+    "permitted_commands": {
+      "type": "array", "minItems": 1, "items": {"$ref": "#/$defs/command"}
+    },
+    "limits": {"$ref": "#/$defs/limits"},
+    "storage_custody": {"$ref": "#/$defs/storage_custody"},
+    "stop_conditions": {
+      "type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nonempty"}
+    },
+    "phase_inputs": {"oneOf": [{"$ref": "#/$defs/q15_r_inputs"}, {"$ref": "#/$defs/q15_w_inputs"}]},
+    "prohibitions": {"$ref": "#/$defs/prohibitions"},
+    "detached_signature": {"$ref": "#/$defs/signature"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"phase": {"const": "Q15_R_READ_ONLY"}}},
+      "then": {"properties": {"phase_inputs": {"$ref": "#/$defs/q15_r_inputs"}}},
+      "else": {"properties": {"phase_inputs": {"$ref": "#/$defs/q15_w_inputs"}}}
+    }
+  ],
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "u64hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
+    "positive_u64": {"type": "integer", "minimum": 1, "maximum": 18446744073709551615},
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact_id", "sha256"],
+      "properties": {
+        "artifact_id": {"$ref": "#/$defs/nonempty"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "measurement_candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["bundle_profile", "archive_sha256", "source_revision", "runner_sha256", "runner_profile_id", "cpu_pair_selection_id", "relax_mapping_id", "software_prefetch_mapping_id", "hardware_prefetch_mapping_id"],
+      "properties": {
+        "bundle_profile": {"const": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"},
+        "archive_sha256": {"$ref": "#/$defs/sha256"},
+        "source_revision": {"$ref": "#/$defs/nonempty"},
+        "runner_sha256": {"$ref": "#/$defs/sha256"},
+        "runner_profile_id": {"const": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3"},
+        "cpu_pair_selection_id": {"const": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1"},
+        "relax_mapping_id": {"const": "X86-PAUSE-ONE-PER-RELAX-SITE-v1"},
+        "software_prefetch_mapping_id": {"const": "X86-64-PREFETCHW-PREFETCHT0-v1"},
+        "hardware_prefetch_mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"}
+      }
+    },
+    "qualification_tool": {
+      "type": "object", "additionalProperties": false,
+      "required": ["bundle_profile", "bundle_sha256", "source_revision", "binary_sha256", "tool_profile_id"],
+      "properties": {
+        "bundle_profile": {"const": "Q15-QUALIFICATION-TOOL-BUNDLE-v1"},
+        "bundle_sha256": {"$ref": "#/$defs/sha256"},
+        "source_revision": {"$ref": "#/$defs/nonempty"},
+        "binary_sha256": {"$ref": "#/$defs/sha256"},
+        "tool_profile_id": {"const": "Q15-FIXED-QUALIFICATION-TOOL-v1"}
+      }
+    },
+    "authorities": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operator", "controller", "custodian", "auditor"],
+      "properties": {
+        "operator": {"$ref": "#/$defs/nonempty"},
+        "controller": {"$ref": "#/$defs/nonempty"},
+        "custodian": {"$ref": "#/$defs/nonempty"},
+        "auditor": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "argv": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "command": {
+      "type": "object", "additionalProperties": false,
+      "required": ["command_id", "kind", "executable_sha256", "argv", "role", "privilege", "exact_target", "mutating", "inverse_command_id", "independent_readback_command_id", "output_artifact_id"],
+      "properties": {
+        "command_id": {"$ref": "#/$defs/nonempty"},
+        "kind": {"enum": [
+          "READ_FIXED_MSR_VALUES", "COLLECT_CLOCK", "COLLECT_ATOMIC_LAYOUT",
+          "COLLECT_ACTUAL_CPU_MIGRATION", "COLLECT_ADDRESS_RESIDENCY",
+          "COLLECT_SOFTWARE_PREFETCH_CAPABILITY", "COLLECT_STORAGE_CUSTODY",
+          "NEGATIVE_ACCESS_CHECK", "APPLY_H1_CPU", "INDEPENDENT_READBACK_H1_CPU",
+          "REGULAR_STREAM_PROBE", "POINTER_STREAM_PROBE", "RESTORE_H0_CPU",
+          "INDEPENDENT_RESTORE_READBACK_CPU"
+        ]},
+        "executable_sha256": {"$ref": "#/$defs/sha256"},
+        "argv": {"$ref": "#/$defs/argv"},
+        "role": {"enum": ["OPERATOR", "CONTROLLER", "CUSTODIAN", "AUDITOR"]},
+        "privilege": {"enum": ["NONPRIVILEGED", "READ_ONLY_PRIVILEGED", "WRITE_PRIVILEGED"]},
+        "exact_target": {"$ref": "#/$defs/nonempty"},
+        "mutating": {"type": "boolean"},
+        "inverse_command_id": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/nonempty"}]},
+        "independent_readback_command_id": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/nonempty"}]},
+        "output_artifact_id": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_wall_seconds", "max_output_bytes", "max_artifact_count", "max_cpu_seconds"],
+      "properties": {
+        "max_wall_seconds": {"$ref": "#/$defs/positive_u64"},
+        "max_output_bytes": {"$ref": "#/$defs/positive_u64"},
+        "max_artifact_count": {"$ref": "#/$defs/positive_u64"},
+        "max_cpu_seconds": {"$ref": "#/$defs/positive_u64"}
+      }
+    },
+    "storage_custody": {
+      "type": "object", "additionalProperties": false,
+      "required": ["primary_domain_id", "secondary_domain_id", "output_root", "append_only_policy_id", "transfer_policy_id", "partial_artifact_policy_id", "recovery_policy_id", "quota_bytes"],
+      "properties": {
+        "primary_domain_id": {"$ref": "#/$defs/nonempty"},
+        "secondary_domain_id": {"$ref": "#/$defs/nonempty"},
+        "output_root": {"$ref": "#/$defs/nonempty"},
+        "append_only_policy_id": {"$ref": "#/$defs/nonempty"},
+        "transfer_policy_id": {"$ref": "#/$defs/nonempty"},
+        "partial_artifact_policy_id": {"$ref": "#/$defs/nonempty"},
+        "recovery_policy_id": {"$ref": "#/$defs/nonempty"},
+        "quota_bytes": {"$ref": "#/$defs/positive_u64"}
+      }
+    },
+    "q15_r_inputs": {
+      "type": "object", "additionalProperties": false,
+      "required": ["input_kind", "inventory_artifact", "topology_artifact", "access_matrix_artifact", "start_barrier_policy_artifact", "external_watchdog_policy_artifact"],
+      "properties": {
+        "input_kind": {"const": "Q15_R_INPUTS"},
+        "inventory_artifact": {"$ref": "#/$defs/artifact"},
+        "topology_artifact": {"$ref": "#/$defs/artifact"},
+        "access_matrix_artifact": {"$ref": "#/$defs/artifact"},
+        "start_barrier_policy_artifact": {"$ref": "#/$defs/artifact"},
+        "external_watchdog_policy_artifact": {"$ref": "#/$defs/artifact"}
+      }
+    },
+    "cpu_prestate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cpu", "prestate_hex", "h1_requested_hex"],
+      "properties": {
+        "cpu": {"enum": [0, 1, 26]},
+        "prestate_hex": {"$ref": "#/$defs/u64hex"},
+        "h1_requested_hex": {"$ref": "#/$defs/u64hex"}
+      }
+    },
+    "q15_w_inputs": {
+      "type": "object", "additionalProperties": false,
+      "required": ["input_kind", "q15_r_authorization", "q15_r_evidence_set", "prestates", "regular_probe_definition", "pointer_probe_definition", "apply_order", "restore_order", "quarantine_policy_id"],
+      "properties": {
+        "input_kind": {"const": "Q15_W_INPUTS"},
+        "q15_r_authorization": {"$ref": "#/$defs/artifact"},
+        "q15_r_evidence_set": {"$ref": "#/$defs/artifact"},
+        "prestates": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/cpu_prestate"}},
+        "regular_probe_definition": {"$ref": "#/$defs/artifact"},
+        "pointer_probe_definition": {"$ref": "#/$defs/artifact"},
+        "apply_order": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"enum": [0, 1, 26]}},
+        "restore_order": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"enum": [0, 1, 26]}},
+        "quarantine_policy_id": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "prohibitions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["measurement_execution", "calibration_execution", "pilot_execution", "confirmatory_execution", "scientific_schedule_access", "scientific_namespace_access", "outcome_access", "outcome_driven_tuning", "top_up", "cell_repair", "hidden_retry", "later_phase_execution", "unlisted_target", "unlisted_privilege"],
+      "properties": {
+        "measurement_execution": {"const": false},
+        "calibration_execution": {"const": false},
+        "pilot_execution": {"const": false},
+        "confirmatory_execution": {"const": false},
+        "scientific_schedule_access": {"const": false},
+        "scientific_namespace_access": {"const": false},
+        "outcome_access": {"const": false},
+        "outcome_driven_tuning": {"const": false},
+        "top_up": {"const": false},
+        "cell_repair": {"const": false},
+        "hidden_retry": {"const": false},
+        "later_phase_execution": {"const": false},
+        "unlisted_target": {"const": false},
+        "unlisted_privilege": {"const": false}
+      }
+    },
+    "signature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scheme", "signer_id", "artifact_id", "sha256"],
+      "properties": {
+        "scheme": {"$ref": "#/$defs/nonempty"},
+        "signer_id": {"$ref": "#/$defs/nonempty"},
+        "artifact_id": {"$ref": "#/$defs/nonempty"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

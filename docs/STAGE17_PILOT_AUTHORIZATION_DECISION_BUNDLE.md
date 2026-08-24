@@ -1,6 +1,6 @@
 # Pre-Stage-17 blocker-closure and pilot-authorization decision bundle
 
-Status: **`Q15_P0_ACCEPTED; V3_LOCAL_PREREQUISITES_IMPLEMENTED_AND_VERIFIED; CLEAN_SEALING_PENDING; NO_STAND_OR_EXECUTION_AUTHORITY`**
+Status: **`Q15_S1_ACCEPTED_LOCAL; CLEAN_V3_CANDIDATE_SEALED; SPLIT_Q15_INPUTS_OPEN; NO_STAND_OR_EXECUTION_AUTHORITY`**
 
 Date prepared: 2026-08-22
 
@@ -31,8 +31,29 @@ software, and fix the four-role/two-domain prerequisite policy. The current
 runner/admission identity is v3. No stand access, dynamic collection, account
 or privilege change, MSR operation, calibration, pilot, or confirmation was
 authorized. The complete local compiler, sanitizer, static-analysis, schema,
-protocol-integrity, and dual-disassembler verification matrix passes; the
-uncommitted source still cannot be sealed as an exact clean candidate.
+protocol-integrity, and dual-disassembler verification matrix passes. Clean
+revision `693f00b3878ed027dc09aea7916f149874fb12a1` is sealed as a
+no-authority candidate with outer SHA-256
+`f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`.
+
+### Q15-S1 addendum
+
+On 2026-08-24 the owner accepted D-051/ADR-0051 for repository-local work
+only. The immutable measurement candidate is preserved; a separate
+no-measurement qualification-tool profile and distinct Q15-R read-only and
+Q15-W prestate-bound authorization contracts are implemented. The preparation
+records are blocked and non-authorizing. No clean qualification-tool release,
+stand action, dynamic evidence, MSR access, calibration, pilot, or
+confirmatory authority was created.
+
+### D-052 contract-freeze addendum
+
+On 2026-08-24 the owner also authorized one Q15-S1 commit and clean no-
+authority bundle build after freezing the exact probe/collector contract.
+ADR-0052 binds raw `L2_RQSTS.ALL_PF`, the deterministic regular and pointer-
+dependent probes, diagnostic-only timing, and seven collector acceptance
+boundaries. This closes a definition blocker only. It does not implement the
+collectors/probes, authorize a stand action, or make Q15-R/Q15-W approval-ready.
 
 ## Current evidence boundary
 
@@ -136,7 +157,7 @@ Every row remains unresolved until its exact evidence exists.
 
 | Required input | Exact evidence needed | Owner | Current state |
 |---|---|---|---|
-| Clean pilot-candidate release | Source revision, clean-state proof, compiler/library/link flags, binary and specialization hashes, complete combined codegen report, bundle manifest and SHA-256 | Build/repository owners | `READY_FOR_SEALING`: D-047 mapping and strict combined `PASS` exist; seal from one clean exact revision and retain the archive/hash as Q15 input |
+| Clean pilot-candidate release | Source revision, clean-state proof, compiler/library/link flags, binary and specialization hashes, complete combined codegen report, bundle manifest and SHA-256 | Build/repository owners | `PASS`: clean `693f00b3878ed027dc09aea7916f149874fb12a1`; archive SHA-256 `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`; 94-file clean extraction and self-tests pass; authority `NONE` |
 | Start/external watchdog bounds | Exact controller/worker barrier values plus external process wall-clock bound; prospective rationale and failure mapping | Controller/platform owners | `BLOCKED`: ADR-0048 removes unsafe worker-loop caps; remaining exact values have no defaults |
 | Hardware-prefetch H0/H1 dynamic evidence | ADR-0049 mapping plus exact prestate, authorized adapter/command, full readback, regular/pointer probes, inverse/restoration and quarantine evidence | Platform/protocol owners | `SOFTWARE_MAPPING_ACCEPTED; DYNAMIC_BLOCKED`: no MSR access occurred |
 | Named authority | Four distinct least-privilege operator, controller, custodian, auditor identities; credentials/capabilities, negative-access evidence, validity interval | Security/custody owners | `POLICY_ACCEPTED; OPERATIONS_BLOCKED`: no accounts/keys were created |

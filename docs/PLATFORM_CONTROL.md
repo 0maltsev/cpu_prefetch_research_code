@@ -95,15 +95,21 @@ The repository provides:
 - injected actuator/verifier interfaces and scripted fake implementations in
   tests.
 
-It intentionally provides no production state-changing Linux actuator in this
-stage. Exact affinity/NUMA/page/frequency/turbo/C-state/IRQ/isolation mappings
+It intentionally provides no general production state-changing Linux actuator.
+Exact affinity/NUMA/page/frequency/turbo/C-state/IRQ/isolation mappings
 still need the selected stand, approved authority, target-specific readback,
 and rollback evidence. Q15-P0/ADR-0049 resolves the candidate's software-side
 hardware-prefetch mapping as `INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1`: H0
 preserves the complete prestate; H1 sets only bits 0:3 on CPUs 0/1/26; both
 require complete independent readback, regular/pointer probes, and exact
-restoration. The repository exposes no production MSR backend. Dynamic
-capability remains ineligible until exact Q15 evidence passes. A generic MSR
+restoration. Q15-S1/ADR-0051 adds a separate fixed-path MSR backend and
+qualification executable for only that mapping. It is excluded from the sealed
+measurement candidate, its presence grants no authority, and local tests use a
+fake file-operation boundary. D-052/ADR-0052 freezes the exact raw-PMU regular/
+pointer probe and seven-collector contract; their future implementations must
+match its hash-bound semantics and cannot substitute a timing threshold.
+Dynamic capability remains ineligible until
+separately authorized Q15-R/Q15-W evidence passes. A generic MSR
 or “disable all prefetchers” implementation remains forbidden.
 
 `AUTHORIZED_APPLY` therefore becomes usable only with an injected approved
@@ -148,6 +154,15 @@ missing authority, dry-run non-mutation, partial apply, reverse restoration,
 restoration failure, apply/readback disagreement, stale/non-independent
 readback, complete and partial canonical manifests, imported-schema loading,
 and a read-only development-host smoke inventory.
+
+Q15-S1 adds fixed-adapter tests for the exact device paths, offset, access mode,
+CPUID decoding, complete-value precondition/application/restoration, stale or
+broad input rejection, and every file-I/O failure boundary. Split authorization
+tests cover Q15-R non-mutation, Q15-W predecessor/prestate/order/readback/probe
+requirements, role/custody separation, prohibitions, and non-authorizing
+preparations. None of these checks opens an MSR device.
+The D-052 schema/semantic suite separately checks the exact frozen contract and
+18 negative mutations without executing a counter, probe, or collector.
 
 Run them with:
 

@@ -90,7 +90,13 @@ For ADR-0049, the only accepted hardware-prefetch mapping is family 06 model
 `prestate|0x0f`. Preserve bits 63:4, independently read the complete value, run
 both regular and pointer-stream probes, restore the complete prestate in
 reverse order, and independently reread it. The repository currently has no
-production MSR adapter, so these steps cannot be run from the Q15-P0 bundle.
+production MSR adapter, so these steps cannot be run from the Q15-P0 measurement
+candidate. Q15-S1 adds a separate fixed-scope tool, but this runbook does not
+authorize its dynamic options. Those require a clean hash-bound tool bundle,
+exact signed Q15-R and later Q15-W records, and effective role separation.
+D-052 freezes `Q15-PROBE-COLLECTOR-CONTRACT-v1`; the bundle's contract and
+validator are documentation/self-test inputs only. There is not yet an
+authorized probe/collector command, and the runbook must not improvise one.
 
 ### 5. Calibration/pilot preparation
 

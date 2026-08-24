@@ -18,6 +18,70 @@ def sha256(path: pathlib.Path) -> str:
     return digest.hexdigest()
 
 
+def q15_profile_errors(
+    manifest: dict[str, object], release_paths: set[str | None]
+) -> list[str]:
+    failures: list[str] = []
+    source_archive = manifest.get("source_archive")
+    source_dirty = (
+        source_archive.get("source_dirty")
+        if isinstance(source_archive, dict)
+        else None
+    )
+    if source_dirty is not False:
+        failures.append("Q15 qualification-tool source must be clean")
+    if manifest.get("qualification_tool_profile_id") != (
+        "Q15-FIXED-QUALIFICATION-TOOL-v1"
+    ):
+        failures.append("Q15 qualification-tool profile is absent")
+    if manifest.get("hardware_prefetch_mapping_id") != (
+        "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"
+    ):
+        failures.append("Q15 qualification-tool mapping is absent")
+    contract = manifest.get("probe_collector_contract")
+    if not isinstance(contract, dict):
+        failures.append("Q15 probe/collector contract binding is absent")
+    elif (
+        contract.get("contract_id") != "Q15-PROBE-COLLECTOR-CONTRACT-v1"
+        or contract.get("path")
+        != "config/q15/q15-probe-collector-contract-v1.json"
+        or not isinstance(contract.get("sha256"), str)
+        or len(contract.get("sha256", "")) != 64
+        or any(character not in "0123456789abcdef" for character in contract["sha256"])
+    ):
+        failures.append("Q15 probe/collector contract binding is invalid")
+    for field in (
+        "dynamic_qualification_authorized",
+        "msr_read_authorized",
+        "msr_write_authorized",
+        "scientific_schedule_access_authorized",
+        "measurement_execution_command_present",
+        "pilot_authorized",
+        "confirmatory_authorized",
+    ):
+        if manifest.get(field) is not False:
+            failures.append(f"Q15 qualification-tool must deny {field}")
+    for required in (
+        "release/bin/cpu_prefetch_smoke",
+        "release/bin/cpu_prefetch_preflight",
+        "release/bin/cpu_prefetch_qualification",
+        "release/bin/cpu_prefetch_q15_tool",
+        "release/lib/libcpu_prefetch_foundation.a",
+        "release/lib/libcpu_prefetch_platform.a",
+        "release/lib/libcpu_prefetch_protocol.a",
+        "release/lib/libcpu_prefetch_workload.a",
+    ):
+        if required not in release_paths:
+            failures.append(f"Q15 qualification-tool misses {required}")
+    for forbidden in (
+        "release/bin/cpu_prefetch_runner",
+        "release/lib/libcpu_prefetch_runner_core.a",
+    ):
+        if forbidden in release_paths:
+            failures.append(f"Q15 qualification-tool contains forbidden {forbidden}")
+    return failures
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=pathlib.Path, default=pathlib.Path.cwd())
@@ -62,6 +126,10 @@ def main() -> int:
         "STAGE17-PILOT-CANDIDATE-BUNDLE-v1": (
             "cpu-prefetch-pilot-candidate-bundle/1",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
+        "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
+            "cpu-prefetch-q15-qualification-tool-bundle/1",
+            "Q15_TOOL_RELEASE_NO_AUTHORITY",
         ),
     }
     if profile not in expected:
@@ -174,6 +242,39 @@ def main() -> int:
                 != "X86-64-PREFETCHW-PREFETCHT0-v1"
             ):
                 failures.append("pilot candidate combined report lacks D-047 identity")
+
+    if profile == "Q15-QUALIFICATION-TOOL-BUNDLE-v1":
+        failures.extend(q15_profile_errors(manifest, release_paths))
+        for required_evidence in (
+            pathlib.Path(
+                "docs/evidence/stage16/"
+                "STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/"
+                "STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02.json"
+            ),
+            pathlib.Path(
+                "docs/evidence/stage16/"
+                "STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/SHA256SUMS"
+            ),
+        ):
+            if required_evidence not in declared:
+                failures.append(
+                    f"Q15 probe/collector contract misses source evidence {required_evidence}"
+                )
+        contract = manifest.get("probe_collector_contract", {})
+        contract_text = contract.get("path") if isinstance(contract, dict) else None
+        if not isinstance(contract_text, str):
+            failures.append("Q15 probe/collector contract path is absent")
+        else:
+            contract_relative = pathlib.Path(contract_text)
+            if contract_relative.is_absolute() or ".." in contract_relative.parts:
+                failures.append("unsafe Q15 probe/collector contract path")
+            else:
+                contract_path = root / contract_relative
+                if (
+                    not contract_path.is_file()
+                    or sha256(contract_path) != contract.get("sha256")
+                ):
+                    failures.append("Q15 probe/collector contract path/hash mismatch")
 
     example = json.loads(
         (root / "config" / "examples" / "stage16-stand-inputs.example.json").read_text(

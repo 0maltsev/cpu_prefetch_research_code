@@ -86,6 +86,8 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0048](0048-stage17-watchdog-boundary-correction.md) | `ACCEPTED_AND_IMPLEMENTED_SOFTWARE` | Remove scientifically unsafe worker-loop poll-count expiry and place hang containment at the external process boundary. |
 | [ADR-0049](0049-stage17-intel-hardware-prefetch-control.md) | `ACCEPTED_AND_IMPLEMENTED_SOFTWARE_ONLY` | Fix the candidate Intel 06_55H MSR-0x1A4 H0/H1 complete-value mapping, readback/probe/restore gates, and narrow interface. |
 | [ADR-0050](0050-stage17-qualification-custody-prerequisites.md) | `ACCEPTED_POLICY_IMPLEMENTED_LOCALLY` | Require four distinct least-privilege qualification roles and two-domain custody before exact Q15. |
+| [ADR-0051](0051-q15-split-qualification-tool-boundary.md) | `ACCEPTED` | Preserve the sealed measurement candidate and split Q15 into a separate no-authority qualification tool, read-only Q15-R, and prestate-bound Q15-W. |
+| [ADR-0052](0052-q15-probe-and-collector-contract.md) | `ACCEPTED` | Freeze the exact no-execution raw-PMU regular/pointer probe and seven-collector Q15 contract while retaining all implementation and authority blockers. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
 Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,

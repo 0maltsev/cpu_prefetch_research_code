@@ -1,0 +1,53 @@
+{
+  "authority_issued": false,
+  "calibration_authorized": false,
+  "confirmatory_authorized": false,
+  "dynamic_qualification_authorized": false,
+  "known_inputs": {
+    "cpu_order_domain": [0, 1, 26],
+    "cpu_pair_selection_id": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",
+    "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+    "probe_collector_contract_id": "Q15-PROBE-COLLECTOR-CONTRACT-v1",
+    "probe_collector_contract_sha256": "c5a13646ea5e413239337e1b83b3162578c35591a54d6002f656a78acfd3d531",
+    "h1_rule": "requested=prestate|000000000000000f; preserve bits 63:4",
+    "msr_hex": "000001a4",
+    "restore_rule": "reverse successful apply order; complete-value independent readback; quarantine on uncertainty"
+  },
+  "measurement_candidate": {
+    "archive_sha256": "f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1",
+    "bundle_profile": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1",
+    "runner_sha256": "8bf2577750872a7595e62797e6ef278607f3bd5308820e2c21cc957ff192c2c7",
+    "source_revision": "693f00b3878ed027dc09aea7916f149874fb12a1"
+  },
+  "measurement_execution_authorized": false,
+  "msr_read_authorized": false,
+  "msr_write_authorized": false,
+  "phase": "Q15_W_APPLY_PROBE_RESTORE",
+  "pilot_authorized": false,
+  "preparation_id": "Q15-W-PREPARATION-20260824-01",
+  "protocol_version": "2.0.0-pre.2",
+  "qualification_tool": {
+    "binary_sha256": null,
+    "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v1",
+    "bundle_sha256": null,
+    "release_state": "NOT_SEALED",
+    "source_revision": null,
+    "tool_profile_id": "Q15-FIXED-QUALIFICATION-TOOL-v1"
+  },
+  "schema_version": "cpu-prefetch-q15-authorization-preparation/1",
+  "stand_access_authorized": false,
+  "status": "BLOCKED_INPUTS_REQUIRED",
+  "unresolved_inputs": [
+    "sealed and independently verified Q15-R authorization and evidence-set hashes",
+    "complete immutable CPU 0, 1, and 26 prestates from Q15-R",
+    "clean qualification-tool source revision, bundle SHA-256, and binary SHA-256",
+    "collector and probe executable implementations, generated-code evidence, hashes, and exact authorized argv implementing Q15-PROBE-COLLECTOR-CONTRACT-v1",
+    "exact apply, inverse, independent readback, probe, and restoration argv and executable hashes",
+    "exact one-control apply order and reverse restoration order",
+    "four distinct effective identities and negative access evidence",
+    "exact custody, quota, partial-artifact, transfer, recovery, and quarantine policies",
+    "exact issue and expiry UTC, detached-signature scheme, signer, artifact, and hash",
+    "exact wall, CPU, byte, artifact, and external-watchdog limits",
+    "exact stop conditions"
+  ]
+}

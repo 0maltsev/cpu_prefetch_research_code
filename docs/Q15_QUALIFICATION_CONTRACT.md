@@ -1,10 +1,10 @@
 # Q15 probe and collector contract
 
-Status: **`FROZEN_CONTRACT; IMPLEMENTATION_REQUIRED; NO_AUTHORITY`**
+Status: **`FROZEN_CONTRACT; D053_POINTER_SLICE_IMPLEMENTED_LOCAL; DYNAMIC_IMPLEMENTATION_REQUIRED; NO_AUTHORITY`**
 
 Protocol: `2.0.0-pre.2`
 
-Decision: D-052 / ADR-0052
+Decisions: D-052 / ADR-0052 and D-053 / ADR-0053
 
 Normative implementation contract:
 `config/q15/q15-probe-collector-contract-v1.json`
@@ -14,11 +14,15 @@ Contract ID: `Q15-PROBE-COLLECTOR-CONTRACT-v1`
 ## Boundary
 
 This contract fixes what a future qualification implementation must collect
-and how its probe result is classified. It does not provide probe/collector
-executables, authorize stand access, open a performance counter, read or write
-an MSR, apply a hardware state, run calibration, or execute pilot or
-confirmatory work. The machine-readable `unimplemented_boundary` records each
-of those absent authority/implementation facts fail-closed.
+and how its probe result is classified. D-053 now supplies the deterministic
+pointer-buffer constructor, exact counted traversal bodies, pure classification
+logic, and a strict local code-generation gate. It does not provide a dynamic
+PMU command or the seven collector executables, authorize stand access, open a
+performance counter, read or write an MSR, apply a hardware state, run
+calibration, or execute pilot or confirmatory work. The immutable D-052
+`unimplemented_boundary` remains the freeze-time record of those absent
+executables/authorities; the separate D-053 profile records the implemented
+local slice without rewriting D-052.
 
 ## Counter and probe contract
 
@@ -43,10 +47,14 @@ in ascending address order. It passes only if integrity passes, the H0 count is
 strictly positive, and the H1 count is exactly zero.
 
 The pointer-dependent probe makes one dependent volatile 32-bit next-index
-load per line over one cycle containing every line. Its permutation is
-`FISHER-YATES-PHILOX4X32-10-v1`, derived from SHA-256 of the UTF-8 literal
-`Q15-POINTER-PROBE-PERMUTATION-v1`; the resulting seed is frozen in the JSON
-contract. Integrity and H1 zero are mandatory. H0 positive is
+load per line over one cycle containing every line. D-053 resolves the frozen
+`seed_hex` as ADR-0025's 256-bit master seed. The exact ADR-0025 namespace is
+`Q15-POINTER-PROBE-PERMUTATION-v1`, the purpose is `node-order`, the derived
+Philox key is `2a805cfaa4038e43`, and ADR-0026's descending unbiased
+Fisher-Yates produces the order. Integrity is complete-buffer SHA-256 before
+and after traversal plus exact closure after `line_count` dependent loads;
+there is no checksum operation inside the counted traversal. Integrity and H1
+zero are mandatory. H0 positive is
 `DISTINGUISHED`; H0 zero is
 `NOT_DISTINGUISHABLE_WHERE_NOT_POSSIBLE`. The latter does not qualify the
 pointer probe as distinguished and does not invalidate an otherwise valid
@@ -83,10 +91,14 @@ With the recorded Python dependency environment:
 ```sh
 python3 tools/check_q15_probe_collector_contract.py
 cmake --build --preset dev-gcc --target q15-probe-collector-contract-check
+cmake --build --preset dev-gcc --target q15-probe-implementation-check
+cmake --build --preset release-gcc --target q15-probe-codegen-check
 ctest --preset dev-gcc -L q15 --output-on-failure
 ```
 
-These checks validate only contract bytes and negative mutations. They do not
-execute a probe or collector. Before Q15-R, the future implementation still
-needs exact source/binary hashes, generated-code evidence, commands, roles,
-limits, storage/custody, signatures, and a clean no-authority release binding.
+These checks validate contract/profile bytes, deterministic golden vectors,
+pure traversal/classification behavior, and generated code. They do not open a
+PMU or execute a dynamic probe/collector. Before Q15-R, the remaining collector
+and dynamic-probe implementation, exact source/binary/report hashes, commands,
+roles, limits, storage/custody, signatures, and a clean no-authority release
+binding are still required.

@@ -47,6 +47,12 @@ STAGE17_CODEGEN_INPUTS = {
         "check_runner_combined_codegen.py",
     ),
 }
+Q15_CODEGEN_INPUTS = {
+    "q15_probe_codegen_report.json": (
+        "cpu_prefetch_q15_probe_codegen_probe",
+        "check_q15_probe_codegen.py",
+    ),
+}
 
 
 def sha256(path: pathlib.Path) -> str:
@@ -306,6 +312,13 @@ def main() -> int:
                 raise ValueError(f"missing pilot-candidate codegen report: {name}")
             verify_codegen_report(root, build, path, probe_name, rule_name)
             codegen_reports.append(path)
+    if q15_tool:
+        for name, (probe_name, rule_name) in Q15_CODEGEN_INPUTS.items():
+            path = build / name
+            if not path.is_file():
+                raise ValueError(f"missing Q15 codegen report: {name}")
+            verify_codegen_report(root, build, path, probe_name, rule_name)
+            codegen_reports.append(path)
 
     with tempfile.TemporaryDirectory(
         prefix=(
@@ -433,6 +446,7 @@ def main() -> int:
                     "check_hardware_prefetch_schema.py",
                     "check_q15_authorization_schema.py",
                     "check_q15_probe_collector_contract.py",
+                    "check_q15_probe_implementation.py",
                     "check_qualification_schema.py",
                     "check_stage17_authorization_schema.py",
                 ]
@@ -506,7 +520,7 @@ def main() -> int:
                 if stage17
                 else [
                     "separately signed exact Q15-R authorization before any dynamic read or collection",
-                    "collector and probe executable implementations, generated-code evidence, hashes, and exact authorized argv implementing Q15-PROBE-COLLECTOR-CONTRACT-v1",
+                    "dynamic PMU/probe and seven-collector executable implementations, clean hashes, and exact authorized argv implementing Q15-PROBE-COLLECTOR-CONTRACT-v1",
                     "sealed Q15-R evidence and complete CPU 0/1/26 prestates before Q15-W",
                     "separately signed exact Q15-W authorization before any MSR write",
                     "four effective roles, negative access evidence, exact limits, custody, and restoration policy",
@@ -529,6 +543,9 @@ def main() -> int:
             probe_contract_path = (
                 root / "config" / "q15" / "q15-probe-collector-contract-v1.json"
             )
+            probe_profile_path = (
+                root / "config" / "q15" / "q15-probe-implementation-profile-v1.json"
+            )
             manifest.update(
                 {
                     "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
@@ -538,6 +555,11 @@ def main() -> int:
                         "contract_id": "Q15-PROBE-COLLECTOR-CONTRACT-v1",
                         "path": "config/q15/q15-probe-collector-contract-v1.json",
                         "sha256": sha256(probe_contract_path),
+                    },
+                    "probe_implementation_profile": {
+                        "profile_id": "Q15-PROBE-IMPLEMENTATION-PROFILE-v1",
+                        "path": "config/q15/q15-probe-implementation-profile-v1.json",
+                        "sha256": sha256(probe_profile_path),
                     },
                     "qualification_tool_profile_id": "Q15-FIXED-QUALIFICATION-TOOL-v1",
                     "scientific_schedule_access_authorized": False,

@@ -1,0 +1,49 @@
+{
+  "authority_boundary": {
+    "authorized_operations": [
+      "REPOSITORY_LOCAL_IMPLEMENTATION",
+      "SYNTHETIC_TESTS",
+      "SANITIZERS",
+      "DUAL_DISASSEMBLER_AUDIT"
+    ],
+    "calibration_authorized": false,
+    "confirmatory_authorized": false,
+    "dynamic_pmu_execution_authorized": false,
+    "pilot_authorized": false,
+    "privileged_controls_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "stand_access_authorized": false
+  },
+  "decision_id": "D-053",
+  "integrity_profile": {
+    "counted_traversal_checksum_operations": 0,
+    "dependent_load_count": "EXACT_LINE_COUNT",
+    "post_traversal": "SHA256_COMPLETE_BUFFER",
+    "pre_traversal": "SHA256_COMPLETE_BUFFER",
+    "required_closure": "FINAL_INDEX_EQUALS_START_INDEX_AFTER_EXACT_LINE_COUNT_LOADS"
+  },
+  "pointer_buffer_profile": {
+    "cache_line_bytes": 64,
+    "line_encoding": "NATIVE_X86_64_LITTLE_ENDIAN_U32_NEXT_INDEX_AT_OFFSET_0_ZERO_REMAINDER",
+    "page_alignment_bytes": 4096,
+    "start_index": "PERMUTATION_ELEMENT_0"
+  },
+  "profile_id": "Q15-PROBE-IMPLEMENTATION-PROFILE-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "schema_version": "cpu-prefetch-q15-probe-implementation-profile/1",
+  "seed_profile": {
+    "derived_key_hex": "2a805cfaa4038e43",
+    "derivation_domain_protocol_version": "2.0.0-pre.1",
+    "master_seed_hex": "b7ad8c3db8469f8b60ec679eb68b10b040a4b509438882732854257d582aff9b",
+    "namespace": "Q15-POINTER-PROBE-PERMUTATION-v1",
+    "permutation_algorithm": "DESCENDING_UNBIASED_FISHER_YATES-v1",
+    "purpose": "node-order",
+    "suite_id": "PHILOX4X32-10-HMAC-SHA256-v1"
+  },
+  "source_contract": {
+    "contract_id": "Q15-PROBE-COLLECTOR-CONTRACT-v1",
+    "path": "config/q15/q15-probe-collector-contract-v1.json",
+    "sha256": "c5a13646ea5e413239337e1b83b3162578c35591a54d6002f656a78acfd3d531"
+  }
+}

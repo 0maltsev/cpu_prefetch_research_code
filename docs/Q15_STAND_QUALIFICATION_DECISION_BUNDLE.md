@@ -1,6 +1,6 @@
 # Q15 stand-qualification decision/input bundle
 
-Status: **`D052_CONTRACT_FROZEN; NOT_AUTHORIZATION_READY; NO_STAND_AUTHORITY`**
+Status: **`D053_POINTER_SLICE_RELEASED_NO_AUTHORITY; NOT_AUTHORIZATION_READY; NO_STAND_AUTHORITY`**
 
 Date prepared: 2026-08-24
 
@@ -15,9 +15,11 @@ platform mutation, calibration, pilot work, measurement, or confirmation.
 The clean measurement-release prerequisite is closed and hash-bound below.
 Q15-S1 accepts D-051 and implements a separate fixed-scope qualification tool,
 bundle profile, split authority schema, and blocked preparation records. Exact
-ADR-0052 now freezes the exact probe/collector definitions. Q15 authorization
-remains blocked because the clean tool-release hashes, collector/probe
-implementations and hashes, authority, command, numerical-limit, prestate, and
+ADR-0052 now freezes the exact probe/collector definitions. Q15-S2/ADR-0053
+resolves and locally implements the pointer permutation, integrity, pure
+classification, and counted traversal/codegen slice. Q15 authorization remains
+blocked because clean tool-release/report hashes, the dynamic probe path,
+seven collector executables, authority, command, numerical-limit, prestate, and
 custody fields required by ADR-0045 and ADR-0049 through ADR-0052 do not exist.
 
 An authorization document cannot be emitted with placeholders. The split
@@ -127,8 +129,8 @@ enumerate missing inputs, but cannot validate as authority. See
 
 - clean source and release hashes for the locally implemented fixed-address
   family-06/model-55H, MSR-0x1A4, CPUs-0/1/26 adapter;
-- exact implementations and generated-code evidence for the frozen regular-
-  stream, pointer-dependent, and seven-collector contract;
+- exact dynamic implementation and generated-code/release evidence for the
+  frozen regular-stream, pointer-dependent, and seven-collector contract;
 - exact independent readback executable/identity, not merely a second call
   through the writer identity;
 - negative tests proving no measurement, calibration, pilot, wildcard target,
@@ -184,13 +186,15 @@ restoration, and quarantine the stand if restoration is uncertain.
 
 ## Approval readiness
 
-The exact sealed measurement-candidate portion and D-052 contract are
+The exact sealed measurement-candidate portion, D-052 contract, and D-053
+local implementation decision are
 approval-ready evidence. Q15-S1 is accepted and locally implemented, but Q15-R and Q15-W are not
 approval-ready because their mandatory artifacts and values above are absent.
 A generic reply such as `approve Q15`, prior SSH permission, root access, or
 approval of this prepared document cannot authorize stand activity.
 
-The exact next safe work is to implement and audit the frozen probe/collector
-contract, then supply the remaining Q15-R executable/command, role, limit,
-custody, and validity values. Q15-R may only then be prepared for separate
-approval. Q15-W can be prepared only after Q15-R evidence exists.
+The exact next safe work is to implement and audit the remaining dynamic PMU
+path and seven collectors, then produce a clean no-authority tool release and
+supply the remaining Q15-R executable/command, role, limit, custody, and
+validity values. Q15-R may only then be prepared for separate approval. Q15-W
+can be prepared only after Q15-R evidence exists.

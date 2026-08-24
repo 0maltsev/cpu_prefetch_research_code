@@ -199,10 +199,12 @@ records the exact authorization order. Q14 is repository-local policy and
 implementation authority only; its local framework and D-044 clean
 no-authority release closure pass at `693f00b`. Q15-S1/ADR-0051 accepts and
 locally implements the separate qualification tool plus Q15-R/Q15-W authority
-split without touching that release. Clean tool/probe/collector hashes and the
-remaining exact operational inputs are absent. D-052/ADR-0052 freezes the
-probe/collector contract, but no collector/probe implementation or dynamic
-evidence exists. Future exact Q15-R/Q15-W is required for
+split without touching that release. D-052/ADR-0052 freezes the probe/collector
+contract. Q15-S2/ADR-0053 implements and releases only the deterministic
+pointer cycle, integrity/classification, and counted traversal/codegen slice
+in a clean no-authority bundle. The dynamic PMU path, seven collectors, their
+clean executable hashes, remaining exact operational inputs, and all dynamic
+evidence remain absent. Future exact Q15-R/Q15-W is required for
 stand qualification, and future dependency-ready Q16a through Q16d records are
 required for individual Stage 17 phases. Q15/Q16 are not approval-ready.
 

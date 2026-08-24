@@ -108,6 +108,9 @@ measurement candidate, its presence grants no authority, and local tests use a
 fake file-operation boundary. D-052/ADR-0052 freezes the exact raw-PMU regular/
 pointer probe and seven-collector contract; their future implementations must
 match its hash-bound semantics and cannot substitute a timing threshold.
+Q15-S2/ADR-0053 locally implements the exact master-seed-derived pointer cycle,
+full-buffer integrity, pure classification, and regular/pointer counted bodies,
+but intentionally exposes no dynamic PMU command or collector executable.
 Dynamic capability remains ineligible until
 separately authorized Q15-R/Q15-W evidence passes. A generic MSR
 or “disable all prefetchers” implementation remains forbidden.
@@ -163,6 +166,10 @@ requirements, role/custody separation, prohibitions, and non-authorizing
 preparations. None of these checks opens an MSR device.
 The D-052 schema/semantic suite separately checks the exact frozen contract and
 18 negative mutations without executing a counter, probe, or collector.
+The D-053 suite pins the derived key/order/full-buffer hash, cycle corruption,
+integrity and H0/H1 classification, rejects ten profile mutations, and requires
+one demanded load per counted body under GNU and LLVM disassembly plus negative
+extra-load/prefetch mutants. It likewise executes no PMU or stand operation.
 
 Run them with:
 

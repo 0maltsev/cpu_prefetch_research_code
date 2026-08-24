@@ -49,8 +49,10 @@ plan check. It still has no MSR read/write, dynamic collection, or control
 command. Q15-S1 later adds a separate fixed-scope qualification tool without
 changing that sealed candidate or granting stand or execution authority.
 D-052/ADR-0052 freezes the exact PMU-backed regular/pointer probe and seven-
-collector contract; it supplies neither their executables nor dynamic
-authority.
+collector contract. Q15-S2/ADR-0053 implements the exact master-seed-derived
+pointer cycle, full-buffer integrity checks, counted traversal bodies, and
+strict generated-code audit locally. It supplies no dynamic PMU command,
+collector executable, stand access, or execution authority.
 
 The accepted
 [`pre-Stage-17 blocker-closure and pilot-authorization bundle`](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
@@ -249,6 +251,8 @@ build/dev-gcc/cpu_prefetch_qualification --self-test
 build/dev-gcc/cpu_prefetch_q15_tool --self-test
 build/dev-gcc/cpu_prefetch_q15_tool --describe-fixed-scope
 cmake --build --preset dev-gcc --target q15-probe-collector-contract-check
+cmake --build --preset dev-gcc --target q15-probe-implementation-check
+cmake --build --preset release-gcc --target q15-probe-codegen-check
 ctest --preset dev-gcc -L q15 --output-on-failure
 ```
 
@@ -308,9 +312,11 @@ contains no measurement runner and fixes the qualification tool to the accepted
 MSR read/write, scientific-schedule, measurement, pilot, and confirmatory
 authority. It requires a clean exact revision and append-only output. The
 exact probe/collector definitions are frozen and hash-bound as
-`Q15-PROBE-COLLECTOR-CONTRACT-v1`. The future collector/probe implementations,
-generated-code evidence, executable hashes, exact prospective commands, roles,
-limits, custody, signatures, and dynamic evidence still block Q15 issuance.
+`Q15-PROBE-COLLECTOR-CONTRACT-v1`. D-053's deterministic pointer-construction,
+integrity, pure classification, and counted-load codegen slice is implemented;
+the dynamic PMU path, seven collector executables and their clean release hashes,
+exact prospective commands, roles, limits, custody, signatures, and dynamic
+evidence still block Q15 issuance.
 
 ## Created targets and metadata
 
@@ -652,6 +658,9 @@ both accepted release compilers pass its strict dual-disassembler audit. The
 Q15-P0 then accepts the v3 watchdog correction, candidate Intel hardware-
 prefetch mapping, and role/custody prerequisite policy for local implementation
 only. The clean `693f00b` no-authority candidate is sealed and verified. Stand
-controls, dynamic qualification, calibration,
+only. D-053 later closes the local pointer-cycle/integrity/counting-body
+implementation ambiguity without creating a stand command. The clean
+`693f00b` no-authority candidate remains sealed and unchanged. Stand controls,
+dynamic qualification, calibration,
 measurement, pilot, and confirmatory behavior remain prohibited. Q15 and Q16
 are not approval-ready.

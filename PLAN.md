@@ -352,9 +352,12 @@ authorization/amendment.
   static-analysis, and generated-code matrix. Clean revision `693f00b` seals
   the no-authority candidate with outer SHA-256 `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`.
   The exact Q15 input bundle is prepared but cannot authorize activity until
-  every exact tool-release, probe/collector implementation and hash, command,
+  every exact tool-release, remaining dynamic probe/collector implementation and hash, command,
   role, limit, custody, prestate, and signature input is resolved.
-  D-052/ADR-0052 freezes the probe/collector contract only. Q15-S1/ADR-0051 accepts and
+  D-052/ADR-0052 freezes the probe/collector contract. Q15-S2/ADR-0053
+  implements, audits, and releases only the pointer-order/integrity and
+  counted-traversal slice in a clean no-authority bundle; no dynamic PMU
+  command or collector executable is present. Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate
   dependency-ready Q16 phase approvals remain mandatory. No omnibus Stage 17

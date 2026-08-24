@@ -121,3 +121,10 @@ an explicitly false implementation/authority boundary. The semantic checker
 also verifies local source hashes and rejects drift that structural JSON Schema
 cannot express. Validation does not open a PMU/device or claim that an
 executable or authorization exists.
+
+`q15-probe-implementation-profile-v1.schema.json` fixes ADR-0053's companion
+interpretation without rewriting D-052: the recorded 256-bit value is the
+ADR-0025 master seed, its namespace/purpose and derived key are exact,
+ADR-0026 supplies the shuffle, and complete-buffer pre/post SHA-256 plus exact
+cycle closure stay outside the counted traversal. Every stand, PMU, privileged,
+Q15-R/Q15-W, calibration, pilot, and confirmatory authority field is false.

@@ -1,6 +1,6 @@
 # Q15 qualification-tool boundary
 
-Status: **`D052_CONTRACT_FROZEN; CLEAN_NO_AUTHORITY_RELEASE_SEAL_AUTHORIZED`**
+Status: **`D053_POINTER_SLICE_RELEASED_NO_AUTHORITY; CLEAN_BUNDLE_HANDOFF_COMPLETE`**
 
 Protocol: `2.0.0-pre.2`
 
@@ -81,13 +81,17 @@ The `q15-qualification-tool-bundle` target is distinct from
   sidecar; and
 - refuses dirty source and append-only overwrite.
 
-A clean archive is sealable only from the single authorized D-052/Q15-S1
-revision after all repository checks pass. ADR-0052 freezes the exact regular-
-stream, pointer-dependent, and seven-collector contract in
+A clean D-052/Q15-S1 archive was sealed from its separately authorized
+revision. The separately authorized D-053 handoff adds one clean exact commit
+and a clean no-authority qualification-tool bundle; its manifest and outer
+sidecar carry the exact revision and hashes. ADR-0052 freezes the exact
+regular-stream, pointer-dependent, and seven-collector contract in
 `config/q15/q15-probe-collector-contract-v1.json`. The bundle carries and
-hash-binds that contract, but it does not carry collector/probe executables and
-grants no dynamic authority. Those implementations, generated-code evidence,
-hashes, and exact prospective commands remain later Q15-R/Q15-W inputs.
+hash-binds that contract. D-053 additionally binds the implementation profile
+and strict counted-traversal codegen report, but the bundle
+still carries no dynamic PMU/probe or seven-collector executables and grants no
+dynamic authority. Those remaining implementations, clean hashes, and exact
+prospective commands remain later Q15-R/Q15-W inputs.
 
 ## Split authorization records
 

@@ -50,6 +50,21 @@ def q15_profile_errors(
         or any(character not in "0123456789abcdef" for character in contract["sha256"])
     ):
         failures.append("Q15 probe/collector contract binding is invalid")
+    implementation = manifest.get("probe_implementation_profile")
+    if not isinstance(implementation, dict):
+        failures.append("Q15 probe implementation profile binding is absent")
+    elif (
+        implementation.get("profile_id") != "Q15-PROBE-IMPLEMENTATION-PROFILE-v1"
+        or implementation.get("path")
+        != "config/q15/q15-probe-implementation-profile-v1.json"
+        or not isinstance(implementation.get("sha256"), str)
+        or len(implementation.get("sha256", "")) != 64
+        or any(
+            character not in "0123456789abcdef"
+            for character in implementation["sha256"]
+        )
+    ):
+        failures.append("Q15 probe implementation profile binding is invalid")
     for field in (
         "dynamic_qualification_authorized",
         "msr_read_authorized",

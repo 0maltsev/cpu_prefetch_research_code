@@ -29,6 +29,14 @@ raw-PMU probe/seven-collector contract and negative mutations without opening a
 counter, device, or stand connection. It is a definition check, not a probe or
 collector implementation and not authority.
 
+D-053 adds `check_q15_probe_implementation.py` and
+`check_q15_probe_codegen.py`. The first validates the exact master-seed,
+namespace/purpose, derived-key, buffer-integrity, and no-authority profile with
+negative mutations. The second requires GNU and LLVM disassembly to show one
+static demand-load instruction in each counted traversal, no call/prefetch/
+fence/system instruction, and expected rejection of extra-load/prefetch
+mutants. Neither tool accesses a stand or PMU.
+
 ## Stage 8 clock-decision evidence collector
 
 `collect_stage8_clock_evidence.sh` gathers read-only host, topology, clocksource,

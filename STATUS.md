@@ -3,7 +3,7 @@
 Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
 **`2.0.0-pre.1`** retained
 
-Repository state: **`Q15_S1_LOCAL_TOOL_AND_SPLIT_RECORDS_IMPLEMENTED; D052_CONTRACT_FROZEN; CLEAN_NO_AUTHORITY_TOOL_RELEASE_AUTHORIZED`**
+Repository state: **`Q15_S2_D053_POINTER_SLICE_RELEASED_NO_AUTHORITY; D052_CONTRACT_FROZEN; NO_DYNAMIC_AUTHORITY`**
 
 Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 **`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**
@@ -13,14 +13,14 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/16 implementation-decision record | `COMPLETE`; Q1 through Q14, D-047, Q15-P0, Q15-S1, and D-052 recorded | ADR-0001 through ADR-0052 are accepted. D-052 freezes the exact no-execution Q15 probe/collector contract. No acceptance grants stand, dynamic qualification, privileged, calibration, pilot, or confirmatory authority. |
+| Stage 2/16 implementation-decision record | `COMPLETE`; Q1 through Q14, D-047, Q15-P0, Q15-S1/S2, and D-052/D-053 recorded | ADR-0001 through ADR-0053 are accepted. D-052 freezes the exact no-execution Q15 probe/collector contract; D-053 freezes and locally implements only its pointer-order/integrity slice. No acceptance grants stand, PMU, dynamic qualification, privileged, calibration, pilot, or confirmatory authority. |
 | Stage 3 build/CI foundation | `COMPLETE_REVERIFIED` | ADR-0022, constrained offline inputs, dual compiler/library development/release presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations freshly pass Stage 16. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
 | Workload construction | `COMPLETE_LOCAL` | ADR-0025 through ADR-0028 fix the deterministic stream, unbiased permutations, payload/mixer/integrity grammars, event/node layouts, and five package mechanisms. Known-answer/property/corruption/no-allocation and dual-disassembler checks pass. |
 | Schedule generation | `COMPLETE_LOCAL` | ADR-0029's offline Decimal80/Philox suite, external u64be artifact, imported envelope, derivation record, immutable C++ decoder, namespace/common-family validation, and failure/golden/corruption matrices pass. |
 | Timing system | `COMPLETE_SOFTWARE`; platform gate open | `cpu_prefetch_timing` implements D-009's selected reader, exact conversion, producer/consumer boundary capture, offline equations, qualification evaluators, no-correction diagnostics, and dual-disassembler/mutant audit. Q13 selects pair inputs, but no full pair-specific dynamic qualification or before-block evidence exists. |
-| Platform layer | `COMPLETE_SOFTWARE_MAPPING_AND_FROZEN_QUALIFICATION_CONTRACT`; operational stand gate open | Q15-P0/ADR-0049 adds the exact model-06_55H, CPUs-0/1/26, MSR-0x1A4 H0/H1 plan/transaction mapping. Q15-S1 adds a separate fixed-path adapter behind a no-authority CLI. D-052 freezes the raw-PMU probes and seven collector contracts. Their executable implementations/hashes, prestate, command authority, dynamic readback/probe evidence, and restoration remain absent. |
+| Platform layer | `D053_POINTER_SLICE_COMPLETE_LOCAL`; operational stand gate open | Q15-P0/ADR-0049 adds the exact model-06_55H, CPUs-0/1/26, MSR-0x1A4 H0/H1 plan/transaction mapping. Q15-S1 adds a separate fixed-path adapter behind a no-authority CLI. D-052 freezes the raw-PMU probes and seven collector contracts. D-053 implements the master-seed-derived single-cycle buffer, complete-buffer integrity, pure H0/H1 classification, and exact regular/pointer counted bodies. Dynamic PMU/counter plumbing, collector executables/hashes, prestate, command authority, dynamic readback/probe evidence, and restoration remain absent. |
 | Lifecycle/controller | `CORRECTED_SOFTWARE`; operational gate open | Q15-P0/ADR-0048 removes scientifically unsafe producer-idle, consumer-empty, and drain poll caps. Exact registered wait/drain behavior now continues until due/empty or a real failure; targeted long-gap/backlog tests pass. Admission/profile v3 retains only two pre-start barrier limits; their exact values and a separately authorized external process watchdog remain unresolved. |
 | Raw storage/integrity | `COMPLETE_LOCAL`; operational gate open | `cpu_prefetch_storage` implements the accepted codec, bounded private streams, immutable envelopes/integrity records, checked budgeting, no-replace two-copy local publication, recovery-only reopening, and partial finalization. Real domains/custody, run-plan capacity, residency, and recovery evidence remain Phase 16 gates. |
 | Reconciliation/run gates | `COMPLETE_LOCAL`; concrete evidence open | `cpu_prefetch_reconciliation` performs exact run-level reconciliation/gates, while `Stage14CrossRecordSemanticValidator` resolves seed catalogs, active complete-block pool, precision counts, access chronology, replacement lineage, and budget. Final acceptance still requires concrete frozen inputs and both passes. |
@@ -30,7 +30,7 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Measurement system | `V3_LOCAL_NOT_EXECUTION_AUTHORIZED` | `cpu_prefetch_runner_core` implements strict 21-kind v3 admission and corrected wait/drain semantics. The sealed measurement candidate remains immutable and unprivileged. Q15-S1 adds only a separate fixed-scope qualification executable; it is not in the candidate and grants no authority. |
 | Q15-P0 local verification | `COMPLETE` | GCC and Clang/libc++ development and release matrices pass 216/216 each; both ASan/UBSan matrices and GCC TSan pass 216/216; Clang/libc++ TSan passes its applicable 214/214. Full 73-file static analysis, formatting, schemas, immutable protocol hashes, release policy, dependency/license, CI, and all dual-disassembler generated-code gates pass. No stand or MSR operation occurred. |
 | Q15-P0 candidate release | `COMPLETE_NO_AUTHORITY` | Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` produced `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; archive SHA-256 is `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`. Outer/internal hashes, 94-file clean extraction, and both nonprivileged self-tests pass. Its manifest denies dynamic, pilot, confirmatory, and measurement execution authority. |
-| Exact Q15 preparation | `D052_CONTRACT_FROZEN; NOT_AUTHORIZATION_READY` | ADR-0051 accepts the separate tool plus Q15-R/Q15-W split; ADR-0052 freezes `Q15-PROBE-COLLECTOR-CONTRACT-v1`. Its schema/semantic suite rejects 18 mutations and binds both blocked preparation records. A clean no-authority tool-bundle build is authorized, but collector/probe executables, exact roles/commands/limits/custody/signature, and dynamic evidence remain absent; no stand command is authorized. |
+| Exact Q15 preparation | `D053_POINTER_SLICE_RELEASED_NO_AUTHORITY; NOT_AUTHORIZATION_READY` | ADR-0051 accepts the separate tool plus Q15-R/Q15-W split; ADR-0052 freezes `Q15-PROBE-COLLECTOR-CONTRACT-v1`; ADR-0053 adds the separately validated no-authority implementation profile, golden/codegen slice, and clean hash-bound qualification-tool bundle. The immutable D-052 implementation flags remain false. Dynamic PMU/probe and collector executables, their clean hashes, exact roles/commands/limits/custody/signature, and dynamic evidence remain absent; no stand command is authorized. |
 | Stage 16 software verification | `COMPLETE` | Both compiler/library development and release matrices pass 187/187; sanitizer matrices pass 187/187, 187/187, 187/187, and applicable 185/185; strict component codegen, static/format/schema/provenance/dependency/CI checks, synthetic dispositions, reproducible bundle, clean extraction, and nonprivileged self-tests pass. ADR-0042 and the readiness report bind the evidence boundary. |
 | Stand preflight | `COMPLETE_INVENTORY_ONLY_NOT_QUALIFIED` | The exact bundle and 72-file internal inventory passed on `xeon-cpu-fetch`; smoke, self-test, and the collector ran as `nobody:nogroup`. Snapshot `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` observes two packages/two NUMA nodes and retains seven blockers. Inventory SHA-256 is `f3bb301c77918c0287c8a287e3915f5d68929684eece660464c69f62770ac94b`; the sidecar-publication failure and recovered checksum are preserved. |
 | Pilot | `BLOCKED` | Exact two barrier limits and external process watchdog, four operational identities, qualification-tool/command hashes, dynamic H0/H1/clock/layout/CPU/residency/storage evidence, calibration inputs, and separate Q16 authority are absent. |
@@ -367,6 +367,22 @@ result.
 This verification used fake file operations and pure self-tests only. It made no
 stand connection, device open, MSR read/write, dynamic qualification,
 calibration, pilot, or confirmatory observation.
+
+## Q15-S2 fresh local verification
+
+| Check | Result |
+|---|---|
+| GCC development integration | `PASS`: 235/235 tests |
+| Q15 focused matrix | `PASS`: 19/19 under GCC/libstdc++ and Clang/libc++ development, both ASan/UBSan presets, and both TSan presets; zero findings |
+| D-053 deterministic/integrity tests | `PASS`: seven C++ tests pin key `2a805cfaa4038e43`, eight-line order, 512-byte buffer SHA-256, exact cycle/closure, corruption rejection, and H0/H1/fault/multiplex classification |
+| Contract/profile policy | `PASS`: D-052 remains one positive/18 negative; D-053 is one positive/10 negative; no authority flag is enabled; the future no-authority bundle profile is one positive/28 negative |
+| Release generated code | `PASS`: GCC and Clang each pass GNU Binutils 2.46 and LLVM 22.1.6; each accepted counted body has one static demand-load site and no call/prefetch/fence/system operation; extra-load and prefetch mutants are detected |
+| Protocol/schema/document/format/static checks | `PASS`: immutable snapshots remain 36/36 artifacts with eight authoritative hashes; 14 imported plus 20 implementation schemas; 123 Markdown files/248 local links; full C++ formatting and static-analysis inventories pass |
+| Release/bundle/authority | `COMPLETE_NO_AUTHORITY`: one clean exact D-053 commit and a clean Q15 qualification-tool bundle are the local handoff; the bundle manifest and sidecar bind their exact identities. No executable command authorization, Q15-R/Q15-W, stand access, or dynamic evidence was created. |
+
+All Q15-S2 tests are local/synthetic correctness evidence. No stand connection,
+PMU/perf event, MSR read/write, privileged control, calibration, pilot, or
+confirmatory operation occurred.
 
 ## Fresh local verification through Stage 16
 

@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_COMPLETE; D052_CONTRACT_FROZEN; CLEAN_Q15_TOOL_AND_OPERATIONAL_INPUTS_OPEN`**
+Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_COMPLETE; D053_POINTER_SLICE_LOCAL; CLEAN_Q15_TOOL_AND_OPERATIONAL_INPUTS_OPEN`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
@@ -20,8 +20,8 @@ deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
 owner on 2026-08-17; Q7 was accepted on 2026-08-20; Q8 through Q12 were
 accepted on 2026-08-21; Q13 and Q14 were accepted for implementation/policy
-only on 2026-08-22. Q15-P0 and Q15-S1 were accepted on 2026-08-24 and are
-recorded through ADR-0052. Earlier decisions are recorded through ADR-0046, with ADR-0039
+only on 2026-08-22. Q15-P0, Q15-S1, and Q15-S2 were accepted on 2026-08-24 and are
+recorded through ADR-0053. Earlier decisions are recorded through ADR-0046, with ADR-0039
 closing the delegated Stage 13 profile, ADR-0040 closing the Stage 14
 implementation-owned planning/access profile, and ADR-0041 closing the
 synthetic-only Stage 15 analysis profile. Exact scientific,
@@ -50,10 +50,12 @@ does not authorize stand access or any dynamic/privileged action.
 
 D-052/ADR-0052 now freezes `Q15-PROBE-COLLECTOR-CONTRACT-v1`: exact raw PMU
 programming, regular and pointer-dependent traversals/classification, and seven
-collector acceptance boundaries. This closes only the definition question.
-Collector/probe implementations, generated-code evidence, executable hashes,
-prospective argv, roles, limits, custody, signatures, and dynamic evidence are
-still missing and must not be filled from defaults.
+collector acceptance boundaries. Q15-S2/ADR-0053 resolves the frozen seed as
+the ADR-0025 master seed and locally implements the exact pointer cycle,
+complete-buffer integrity, pure classification, and counted traversal bodies.
+The dynamic PMU path, seven collector executables, clean generated-code/release
+hashes, prospective argv, roles, limits, custody, signatures, and dynamic
+evidence are still missing and must not be filled from defaults.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)
@@ -222,9 +224,12 @@ software/bundle/count-level inventory slice. Q13/ADR-0043 then closes only the
 runner-entry implementation choices. Q14/ADR-0044 through ADR-0046 accept the
 local closure and future authority policies. D-047/ADR-0047 accepts and
 implements the physical software-prefetch mapping and closes the strict
-combined audit. The clean no-authority candidate is sealed and verified; the
-exact next safe action is implementation and audit of the frozen probe/
-collector contract, followed by completion and separate approval of Q15-R.
+combined audit. The clean no-authority candidate is sealed and verified.
+D-053's deterministic pointer/counting slice is implemented, committed, and
+carried by a separate clean no-authority qualification-tool bundle. The exact
+next safe action is implementation and audit of the
+remaining dynamic probe and seven collectors, followed by a clean no-authority
+tool release and separate approval of Q15-R.
 Stand-side qualification remains a later exact
 Q15-R/Q15-W authorization, and every
 Stage 17 phase remains a later dependency-ready Q16 request. Every external

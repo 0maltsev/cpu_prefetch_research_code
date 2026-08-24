@@ -361,6 +361,17 @@ frozen document and rejects 18 scope, PMU, privilege, multiplexing, traversal,
 classification, collector, artifact, and authority mutations. No test
 opens an MSR device, seals a release bundle, or accesses the stand.
 
+Q15-S2 adds seven D-053 C++ tests that independently pin the HMAC-derived
+Philox key, eight-line order, complete-buffer SHA-256, alignment/zero-fill,
+single-cycle bijection/closure, malformed/corrupt cycles, exact counted loads,
+pre/post integrity, multiplex/fault/H1 failure, and both pointer-H0
+classifications. The machine-readable profile checker rejects ten seed,
+integrity, encoding, source-hash, and authority mutations. The release checker
+requires both GNU and accepted LLVM disassembly to expose one static demand
+load and no call/prefetch/fence/system instruction in each counted body; an
+extra-load mutant and a prefetch mutant must remain detectable. Applicable
+tests run under ASan/UBSan and TSan. No test opens a PMU or accesses the stand.
+
 ### 13a. Calibration framework tests
 
 Stage 13 tests are synthetic/fake correctness evidence only. The C++ suite

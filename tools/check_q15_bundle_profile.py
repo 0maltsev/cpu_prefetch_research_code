@@ -41,6 +41,11 @@ def base_manifest() -> dict[str, object]:
             "path": "config/q15/q15-probe-collector-contract-v1.json",
             "sha256": "0" * 64,
         },
+        "probe_implementation_profile": {
+            "profile_id": "Q15-PROBE-IMPLEMENTATION-PROFILE-v1",
+            "path": "config/q15/q15-probe-implementation-profile-v1.json",
+            "sha256": "0" * 64,
+        },
         "source_archive": {"source_dirty": False},
     }
     document.update({field: False for field in DENIED_FIELDS})
@@ -85,6 +90,21 @@ def main() -> int:
     missing_contract = copy.deepcopy(positive)
     del missing_contract["probe_collector_contract"]
     require_rejected(missing_contract, set(REQUIRED_PATHS), "missing probe contract")
+    negative_count += 1
+
+    for key, value in (
+        ("profile_id", "UNREGISTERED"),
+        ("path", "../outside.json"),
+        ("sha256", "not-a-sha256"),
+    ):
+        mutated = copy.deepcopy(positive)
+        mutated["probe_implementation_profile"][key] = value
+        require_rejected(mutated, set(REQUIRED_PATHS), f"probe profile {key}")
+        negative_count += 1
+
+    missing_profile = copy.deepcopy(positive)
+    del missing_profile["probe_implementation_profile"]
+    require_rejected(missing_profile, set(REQUIRED_PATHS), "missing probe profile")
     negative_count += 1
 
     dirty = copy.deepcopy(positive)

@@ -256,7 +256,11 @@ scientific schedule, measurement admission, calibration, pilot, analysis, or
 confirmatory artifact.
 
 `Q15-PROBE-COLLECTOR-CONTRACT-v1` is an immutable input to both sides of this
-flow. Q15-R binds future collector executable hashes and exact commands to its
+flow. The separate D-053 profile turns the frozen master seed into one exact
+node-order cycle before any possible counted traversal; complete-buffer SHA-256
+is computed before/after and never flows through the counted loop. This local
+path terminates at synthetic tests/codegen reports and cannot reach PMU or
+authority edges. Q15-R binds future collector executable hashes and exact commands to its
 clock/layout/CPU/residency/software-prefetch/MSR-prestate contracts. Q15-W
 binds the same contract plus future regular/pointer probe and independent-
 readback executable hashes. Raw counter/timestamp/integrity observations flow

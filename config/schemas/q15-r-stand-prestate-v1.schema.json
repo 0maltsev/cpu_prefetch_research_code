@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-stand-prestate:v1",
+  "title": "Q15-R read-only stand-prestate artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact_hash_profile", "artifact_sha256", "authorization_sha256", "canonicalization", "capture_id", "collector_binary_sha256", "collector_contract_id", "collector_contract_sha256", "completion_state", "failed_command_id", "failure_category", "observations", "protocol_version", "schema_version", "selected_release_archive_sha256", "source_revision", "stand_id"],
+  "properties": {
+    "artifact_hash_profile": {"const": "Q15-R-PRESTATE-JCS-I64-ZEROSELF-SHA256-v1"},
+    "artifact_sha256": {"$ref": "#/$defs/sha256"},
+    "authorization_sha256": {"$ref": "#/$defs/sha256"},
+    "canonicalization": {"const": "JCS-I64-v1"},
+    "capture_id": {"pattern": "^[A-Za-z0-9_.-]{1,128}$"},
+    "collector_binary_sha256": {"$ref": "#/$defs/sha256"},
+    "collector_contract_id": {"const": "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1"},
+    "collector_contract_sha256": {"$ref": "#/$defs/sha256"},
+    "completion_state": {"enum": ["COMPLETE", "PARTIAL_FAILED"]},
+    "failed_command_id": {"type": ["string", "null"]},
+    "failure_category": {"type": ["string", "null"]},
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 25,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["accepted", "argv", "command_id", "ended_at_utc", "exit_code", "launched", "observation_kind", "output_limit_exceeded", "spawn_error", "started_at_utc", "stderr_hex", "stdout_hex", "terminating_signal", "timed_out"],
+        "properties": {
+          "accepted": {"type": "boolean"},
+          "argv": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "command_id": {"pattern": "^P4R-0(0[1-9]|1[0-9]|2[0-5])$"},
+          "ended_at_utc": {"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{9}Z$"},
+          "exit_code": {"type": ["integer", "null"], "minimum": 0, "maximum": 255},
+          "launched": {"type": "boolean"},
+          "observation_kind": {"pattern": "^[A-Z][A-Z0-9_]+$"},
+          "output_limit_exceeded": {"type": "boolean"},
+          "spawn_error": {"type": "integer", "minimum": 0},
+          "started_at_utc": {"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{9}Z$"},
+          "stderr_hex": {"pattern": "^(?:[0-9a-f]{2})*$"},
+          "stdout_hex": {"pattern": "^(?:[0-9a-f]{2})*$"},
+          "terminating_signal": {"type": ["integer", "null"], "minimum": 1},
+          "timed_out": {"type": "boolean"}
+        }
+      }
+    },
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "schema_version": {"const": "cpu-prefetch-q15-r-stand-prestate/1"},
+    "selected_release_archive_sha256": {"$ref": "#/$defs/sha256"},
+    "source_revision": {"pattern": "^[0-9a-f]{40}$"},
+    "stand_id": {"const": "XEON-CPU-FETCH"}
+  },
+  "$defs": {"sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}}
+}

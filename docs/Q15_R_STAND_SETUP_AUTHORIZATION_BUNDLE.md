@@ -41,6 +41,14 @@ and resolves only item 1. The five external path, custody, prestate, and
 signer/trust inputs remain blocked, and every future authorization field is
 still null.
 
+The accepted-method
+[`Q15-R-P4 external-input acquisition decision bundle`](Q15_R_EXTERNAL_INPUT_ACQUISITION_DECISION_BUNDLE.md)
+defines how those five inputs must be collected and verified. ADR-0066 through
+ADR-0070 accept the methods, and the fixed no-authority collector is implemented
+locally. All five literal values remain null; Q15-R-P4-R and Q15-R-P4-K are
+blocked preparations, not issued authority. Stand setup cannot proceed from
+method acceptance, collector bytes, or generic acceptance.
+
 The future authorization must contain only literal argv; no `@...@` token may
 remain. It must preserve setup order, stop on the first mismatch, require all
 24 access results including 18 denials, retain partial evidence, and apply only
@@ -52,4 +60,6 @@ Repository-local check:
 ```sh
 cmake --build --preset dev-gcc --target q15-r-stand-setup-preparation-check
 cmake --build --preset dev-gcc --target q15-r-stand-setup-preparation-v2-check
+cmake --build --preset dev-gcc --target q15-r-external-input-acquisition-check
+cmake --build --preset dev-gcc --target q15-r-p4-d-implementation-check
 ```

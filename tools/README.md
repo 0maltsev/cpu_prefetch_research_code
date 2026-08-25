@@ -29,6 +29,17 @@ raw-PMU probe/seven-collector contract and negative mutations without opening a
 counter, device, or stand connection. It is a definition check, not a probe or
 collector implementation and not authority.
 
+`check_q15_r_external_input_acquisition.py` preserves the hash-bound proposal.
+`check_q15_r_p4_d_implementation.py` validates Q15-R-P4-D acceptance,
+ADR-0066 through ADR-0070, the exact 25-command collector contract, schemas,
+complete/partial synthetic artifacts, and blocked unissued P4-R/P4-K
+preparations. `cpu_prefetch_q15_prestate_collector --self-test` and
+`--describe-contract` are no-execution checks; its `--collect` entry requires a
+separate exact Q15-R-P4-R and is not run by repository verification.
+`validate_q15_r_prestate.py` is the offline artifact validator: it enforces
+unique/canonical JSON, Draft 2020-12, the exact contract prefix and process
+state, finite bounds, stop-first failure, and zero-self SHA-256.
+
 D-053 adds `check_q15_probe_implementation.py` and
 `check_q15_probe_codegen.py`. The first validates the exact master-seed,
 namespace/purpose, derived-key, buffer-integrity, and no-authority profile with

@@ -20,7 +20,7 @@ from typing import Any
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
 STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"
-Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v2"
+Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
         "cpu_prefetch_queue_codegen_probe",
@@ -290,6 +290,7 @@ def main() -> int:
             [
                 "cpu_prefetch_qualification",
                 "cpu_prefetch_q15_controller",
+                "cpu_prefetch_q15_prestate_collector",
                 "cpu_prefetch_q15_tool",
             ]
         )
@@ -433,9 +434,11 @@ def main() -> int:
                     "Q15_QUALIFICATION_TOOL.md",
                     "Q15_R_CONTROLLER.md",
                     "Q15_R_DECISION_INPUT_BUNDLE.md",
+                    "Q15_R_EXTERNAL_INPUT_ACQUISITION_DECISION_BUNDLE.md",
                     "Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md",
                     "Q15_R_ROLE_CUSTODY_SETUP_PLAN.md",
                     "Q15_R_STAND_SETUP_AUTHORIZATION_BUNDLE.md",
+                    "Q15_R_PRESTATE_COLLECTOR.md",
                     "Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md",
                 ]
             )
@@ -474,6 +477,7 @@ def main() -> int:
                     "check_q15_r_decision_input.py",
                     "check_q15_r_operational_prerequisite.py",
                     "check_q15_r_p2_acceptance.py",
+                    "validate_q15_r_prestate.py",
                     "check_q15_r_stand_setup_authorization_preparation.py",
                     "check_q15_trust_anchor_adapter_profile.py",
                     "check_q15_dynamic_implementation.py",
@@ -532,7 +536,7 @@ def main() -> int:
             "schema_version": (
                 "cpu-prefetch-pilot-candidate-bundle/1"
                 if stage17
-                else "cpu-prefetch-q15-qualification-tool-bundle/2"
+                else "cpu-prefetch-q15-qualification-tool-bundle/3"
                 if q15_tool
                 else "cpu-prefetch-stand-bundle/1"
             ),
@@ -611,6 +615,21 @@ def main() -> int:
                 / "q15"
                 / "q15-r-stand-setup-authorization.preparation.json"
             )
+            prestate_contract_path = (
+                root
+                / "config"
+                / "q15"
+                / "q15-r-stand-prestate-collector-contract-v1.json"
+            )
+            p4_d_acceptance_path = (
+                root / "config" / "q15" / "q15-r-p4-d-acceptance-v1.json"
+            )
+            p4_r_preparation_path = (
+                root / "config" / "q15" / "q15-r-p4-r.preparation.json"
+            )
+            p4_k_preparation_path = (
+                root / "config" / "q15" / "q15-r-p4-k.preparation.json"
+            )
             manifest.update(
                 {
                     "account_or_key_changes_authorized": False,
@@ -666,6 +685,46 @@ def main() -> int:
                         "authority": "REPOSITORY_LOCAL_ONLY",
                         "path": "config/q15/q15-r-p2-acceptance-v1.json",
                         "sha256": sha256(p2_acceptance_path),
+                    },
+                    "q15_r_p4_d_acceptance": {
+                        "acceptance_id": "Q15-R-P4-D-ACCEPTANCE-20260825-01",
+                        "authority": "REPOSITORY_LOCAL_ONLY",
+                        "path": "config/q15/q15-r-p4-d-acceptance-v1.json",
+                        "sha256": sha256(p4_d_acceptance_path),
+                    },
+                    "q15_r_p4_k_preparation": {
+                        "path": "config/q15/q15-r-p4-k.preparation.json",
+                        "preparation_id": "Q15-R-P4-K-PREPARATION-20260825-01",
+                        "sha256": sha256(p4_k_preparation_path),
+                        "status": (
+                            "BLOCKED_OWNER_KEY_SOURCE_CUSTODY_AND_EXACT_AUTHORITY_REQUIRED"
+                        ),
+                    },
+                    "q15_r_p4_r_preparation": {
+                        "path": "config/q15/q15-r-p4-r.preparation.json",
+                        "preparation_id": "Q15-R-P4-R-PREPARATION-20260825-01",
+                        "sha256": sha256(p4_r_preparation_path),
+                        "status": (
+                            "BLOCKED_CLEAN_COLLECTOR_RELEASE_AND_EXACT_AUTHORITY_REQUIRED"
+                        ),
+                    },
+                    "q15_r_prestate_collector_contract": {
+                        "contract_id": "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1",
+                        "path": (
+                            "config/q15/"
+                            "q15-r-stand-prestate-collector-contract-v1.json"
+                        ),
+                        "sha256": sha256(prestate_contract_path),
+                        "status": (
+                            "ACCEPTED_IMPLEMENTED_REPOSITORY_LOCAL_NO_EXECUTION_AUTHORITY"
+                        ),
+                    },
+                    "q15_r_prestate_artifact_validator": {
+                        "path": "validators/validate_q15_r_prestate.py",
+                        "sha256": sha256(
+                            root / "tools" / "validate_q15_r_prestate.py"
+                        ),
+                        "state": "OFFLINE_READ_ONLY_VALIDATOR",
                     },
                     "stand_setup_authorization_preparation": {
                         "path": (

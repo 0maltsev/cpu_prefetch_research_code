@@ -90,7 +90,12 @@ with authority `NONE`. Q15-R-P3/ADR-0065
 [selects those exact bytes](docs/Q15_R_OPERATIONAL_RELEASE_DECISION_BUNDLE.md)
 as later setup evidence only; successor preparation v2 resolves no other
 input. No signer/trust anchor, actual credentials/custody, stand setup, or Q15-R
-authority has been created. The frozen
+authority has been created. Q15-R-P4-D accepts D-066 through D-070 as
+acquisition methods only. The fixed, bounded, no-retry prestate collector is
+[implemented locally](docs/Q15_R_PRESTATE_COLLECTOR.md), while every literal
+external value remains null. The prepared Q15-R-P4-R and Q15-R-P4-K records are
+unissued and blocked. This acceptance authorizes no collector execution, key
+action, literal path, stand operation, setup, or Q15 phase. The frozen
 contract is documented in
 [`docs/Q15_QUALIFICATION_CONTRACT.md`](docs/Q15_QUALIFICATION_CONTRACT.md).
 Its implementations, executable hashes, exact authorized argv, and live
@@ -345,9 +350,10 @@ the target still rejects dirty source, missing reports, hash drift, overwrite,
 or any authority-bearing manifest.
 
 `q15-qualification-tool-bundle` is a third, separate no-authority profile. Its
-current controller-bearing form is `Q15-QUALIFICATION-TOOL-BUNDLE-v2`; the
-prior verified Q15-S3 v1 bundle remains unchanged and readable. The v2 profile
-contains no measurement runner and fixes the qualification tool to the accepted
+new collector-bearing form is `Q15-QUALIFICATION-TOOL-BUNDLE-v3`; the verified
+Q15-S3 v1 and controller-bearing v2 bundles remain unchanged and readable. The
+v3 profile adds only the Q15-R-P4-D prestate collector, offline validator, and
+blocked records to the v2 contents. It contains no measurement runner and fixes the qualification tool to the accepted
 06_55H/0x1A4/CPUs-0,1,26 mapping. Its manifest denies dynamic qualification,
 MSR read/write, scientific-schedule, measurement, pilot, and confirmatory
 authority. It requires a clean exact revision and append-only output. The
@@ -464,7 +470,9 @@ Q15 issuance.
   `q15-trust-anchor-adapter-profile-check`,
   `q15-r-stand-setup-preparation-check`,
   `q15-r-operational-release-decision-check`, `q15-r-p3-acceptance-check`,
-  `q15-r-stand-setup-preparation-v2-check`, `q15-authorization-v2-check`,
+  `q15-r-stand-setup-preparation-v2-check`,
+  `q15-r-external-input-acquisition-check`,
+  `q15-r-p4-d-implementation-check`, `q15-authorization-v2-check`,
   `q15-controller-profile-check`, strict
   `q15-controller-codegen-check`,
   `schedule-check`, `calibration-check`,

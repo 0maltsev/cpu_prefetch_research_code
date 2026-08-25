@@ -32,6 +32,7 @@ REQUIRED_PATHS = {
     "release/bin/cpu_prefetch_preflight",
     "release/bin/cpu_prefetch_qualification",
     "release/bin/cpu_prefetch_q15_controller",
+    "release/bin/cpu_prefetch_q15_prestate_collector",
     "release/bin/cpu_prefetch_q15_tool",
     "release/lib/libcpu_prefetch_foundation.a",
     "release/lib/libcpu_prefetch_platform.a",
@@ -87,6 +88,35 @@ def base_manifest() -> dict[str, object]:
             "path": "config/q15/q15-r-p2-acceptance-v1.json",
             "sha256": "0" * 64,
         },
+        "q15_r_p4_d_acceptance": {
+            "acceptance_id": "Q15-R-P4-D-ACCEPTANCE-20260825-01",
+            "authority": "REPOSITORY_LOCAL_ONLY",
+            "path": "config/q15/q15-r-p4-d-acceptance-v1.json",
+            "sha256": "0" * 64,
+        },
+        "q15_r_p4_r_preparation": {
+            "path": "config/q15/q15-r-p4-r.preparation.json",
+            "preparation_id": "Q15-R-P4-R-PREPARATION-20260825-01",
+            "sha256": "0" * 64,
+            "status": "BLOCKED_CLEAN_COLLECTOR_RELEASE_AND_EXACT_AUTHORITY_REQUIRED",
+        },
+        "q15_r_p4_k_preparation": {
+            "path": "config/q15/q15-r-p4-k.preparation.json",
+            "preparation_id": "Q15-R-P4-K-PREPARATION-20260825-01",
+            "sha256": "0" * 64,
+            "status": "BLOCKED_OWNER_KEY_SOURCE_CUSTODY_AND_EXACT_AUTHORITY_REQUIRED",
+        },
+        "q15_r_prestate_collector_contract": {
+            "contract_id": "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1",
+            "path": "config/q15/q15-r-stand-prestate-collector-contract-v1.json",
+            "sha256": "0" * 64,
+            "status": "ACCEPTED_IMPLEMENTED_REPOSITORY_LOCAL_NO_EXECUTION_AUTHORITY",
+        },
+        "q15_r_prestate_artifact_validator": {
+            "path": "validators/validate_q15_r_prestate.py",
+            "sha256": "0" * 64,
+            "state": "OFFLINE_READ_ONLY_VALIDATOR",
+        },
         "stand_setup_authorization_preparation": {
             "path": "config/q15/q15-r-stand-setup-authorization.preparation.json",
             "preparation_id": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01",
@@ -108,14 +138,42 @@ def base_manifest() -> dict[str, object]:
 def require_rejected(
     document: dict[str, object], paths: set[str | None], description: str
 ) -> None:
-    if not q15_profile_errors(document, paths, controller_v2=True):
+    if not q15_profile_errors(
+        document, paths, controller_v2=True, prestate_v3=True
+    ):
         raise AssertionError(f"Q15 bundle-profile negative accepted: {description}")
 
 
 def main() -> int:
     positive = base_manifest()
-    if q15_profile_errors(positive, set(REQUIRED_PATHS), controller_v2=True):
+    if q15_profile_errors(
+        positive, set(REQUIRED_PATHS), controller_v2=True, prestate_v3=True
+    ):
         raise AssertionError("valid no-authority Q15 bundle profile was rejected")
+
+    legacy_v2 = copy.deepcopy(positive)
+    for name in (
+        "q15_r_p4_d_acceptance",
+        "q15_r_p4_r_preparation",
+        "q15_r_p4_k_preparation",
+        "q15_r_prestate_collector_contract",
+        "q15_r_prestate_artifact_validator",
+    ):
+        del legacy_v2[name]
+    legacy_paths = set(REQUIRED_PATHS) - {
+        "release/bin/cpu_prefetch_q15_prestate_collector"
+    }
+    if q15_profile_errors(
+        legacy_v2, legacy_paths, controller_v2=True, prestate_v3=False
+    ):
+        raise AssertionError("historical controller-bearing v2 profile regressed")
+    legacy_v1_paths = legacy_paths - {
+        "release/bin/cpu_prefetch_q15_controller"
+    }
+    if q15_profile_errors(
+        legacy_v2, legacy_v1_paths, controller_v2=False, prestate_v3=False
+    ):
+        raise AssertionError("historical qualification-tool v1 profile regressed")
 
     negative_count = 0
     for field in DENIED_FIELDS:
@@ -178,6 +236,11 @@ def main() -> int:
     for name in (
         "trust_anchor_adapter_profile",
         "q15_r_p2_acceptance",
+        "q15_r_p4_d_acceptance",
+        "q15_r_p4_r_preparation",
+        "q15_r_p4_k_preparation",
+        "q15_r_prestate_collector_contract",
+        "q15_r_prestate_artifact_validator",
         "stand_setup_authorization_preparation",
     ):
         mutated = copy.deepcopy(positive)
@@ -203,7 +266,8 @@ def main() -> int:
 
     print(
         "q15-bundle-profile-check: PASS "
-        f"(1 synthetic positive, {negative_count} negative, no bundle sealed)"
+        f"(3 synthetic positive including v1/v2 compatibility, "
+        f"{negative_count} negative, no bundle sealed)"
     )
     return 0
 

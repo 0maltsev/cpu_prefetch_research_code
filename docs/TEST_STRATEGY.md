@@ -683,6 +683,32 @@ groups, preserves 20/24/10 transaction identity, and rejects lineage drift,
 transaction loss, or silent issuance. No stand operation, transfer, install,
 probe, Q15 phase, calibration, pilot, or measurement is executed.
 
+### 30. Q15-R-P4 external-input acquisition and local collector
+
+The Draft 2020-12 and semantic checker binds the accepted P3 record and
+successor-preparation hashes; requires exact ordered D-066 through D-070 and
+their one-to-one five-input mapping; keeps every selected option and value null;
+and preserves separate unopened P4-D, P4-R, P4-K, P5, Q15-R, and Q15-W gates.
+Nine negative mutations cover stand-authority widening, premature selection,
+invented path, missing input, decision reordering, claimed collector
+implementation, mutation permission, silent issuance, and lineage drift.
+
+The accepted implementation checker additionally binds ADR-0066 through
+ADR-0070, the 25 exact absolute-argv commands, contract and acceptance hashes,
+all-false external authority, and the two exact unissued P4-R/P4-K
+preparations. Twelve negative mutations cover command/limit/hash/authority/
+lineage and silent-issuance drift.
+
+The C++ suite uses only fake executors and clocks. It covers complete and
+partial canonical artifacts, deterministic reproduction, zero-self SHA-256,
+byte-for-byte compiled-command agreement with accepted JSON, accepted absence
+exit codes, stop-first unexpected exit, spawn/timeout/signal/
+output-limit categories, pre-execution context rejection, and command/hash
+corruption. Sanitizer tests invoke no system executor. The real `--collect`
+entry is excluded until a clean release and separate exact Q15-R-P4-R exist.
+No repository test performs stand, network, key, filesystem mutation, PMU/MSR,
+affinity/NUMA, calibration, pilot, measurement, or confirmatory work.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

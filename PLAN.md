@@ -376,8 +376,13 @@ authorization/amendment.
   adapter-bearing no-authority operational-release candidate. Q15-R-P3 accepts
   D-065 and selects its exact bytes without stand or execution authority;
   versioned successor preparation v2 resolves only the release
-  evidence group and keeps five external inputs unresolved. No stand was
-  accessed. A fully resolved and separately authorized four-role/custody setup,
+  evidence group and keeps five external inputs unresolved. Q15-R-P4-D accepts
+  D-066 through D-070 as acquisition methods, implements the fixed no-authority
+  prestate collector behind a fakeable executor, and prepares exact but
+  unissued Q15-R-P4-R/Q15-R-P4-K records. Every literal value remains null and
+  no stand was accessed. The next safe repository action is a separately
+  authorized commit and clean no-authority collector-bearing v3 bundle. A fully resolved and
+  separately authorized four-role/custody setup,
   the five external trust/path/prestate inputs, exact signed Q15-R argv, and
   dynamic authority remain required.
   Q15-S1/ADR-0051 accepts and

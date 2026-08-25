@@ -1,0 +1,269 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-external-input-acquisition-decision-input/1",
+  "bundle_id": "Q15-R-EXTERNAL-INPUT-ACQUISITION-DECISION-INPUT-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "stand_id": "XEON-CPU-FETCH",
+  "status": "PROPOSED_OPEN_BEFORE_Q15_R_P4_NO_AUTHORITY",
+  "lineage": {
+    "accepted_decision": "D-065",
+    "acceptance_id": "Q15-R-P3-ACCEPTANCE-20260825-01",
+    "acceptance_path": "config/q15/q15-r-p3-acceptance-v1.json",
+    "acceptance_sha256": "8b90ed2e6bf865b7df2b05aef7e18a8c7aeacac953b79baa7fb2ed7ea03dd167",
+    "successor_preparation_id": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-02",
+    "successor_preparation_path": "config/q15/q15-r-stand-setup-authorization.preparation-v2.json",
+    "successor_preparation_sha256": "25ab86661f2a0ea1c92237aea06585e585bea9303f9309678e110978c7bd5338",
+    "selected_release_commit": "c8b69abf0c6aec7b740efe78d998a93545302a94",
+    "selected_release_archive_sha256": "8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01"
+  },
+  "decisions": [
+    {
+      "decision_id": "D-066",
+      "classification": "SECURITY_CUSTODY_ENGINEERING",
+      "subject": "allowed-signers source and offline public-key custody",
+      "options_considered": [
+        "owner-supplied existing offline Ed25519 public key with independently verified custody evidence",
+        "new Ed25519 key generated offline under a separately authorized custody ceremony",
+        "stand-local key generation or stand-resident private key",
+        "remain blocked"
+      ],
+      "recommended_option": "use an owner-selected offline Ed25519 public key; never create or store its private key on the stand",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_EXPLICIT_SECURITY_AND_CUSTODY_OWNER_ACCEPTANCE",
+      "evidence": [
+        "ADR-0062 trust-anchor adapter",
+        "accepted OpenSSH SSHSIG Ed25519/SHA-512 policy",
+        "q15-r-stand-setup-authorization.preparation-v2.json unresolved @ALLOWED_SIGNERS_SOURCE@"
+      ],
+      "scientific_effect": "none; this authenticates qualification authority and does not alter the experiment",
+      "compatibility_effect": "public-key bytes, SSHSIG principal/namespace, fingerprint, allowed-signers bytes, and custody identity become authorization identity",
+      "owner": "security and custody owners",
+      "deadline_gate": "before allowed-signers artifact construction or stand setup",
+      "supersession_rule": "new ADR, new artifact identities, independent review, and prospective acceptance; old evidence remains immutable"
+    },
+    {
+      "decision_id": "D-067",
+      "classification": "PLATFORM_RELEASE_ENGINEERING",
+      "subject": "literal operational release root",
+      "options_considered": [
+        "owner-selected absolute content-addressed stand path verified against fresh prestate",
+        "mutable non-content-addressed path",
+        "infer a path from repository or runbook examples",
+        "remain blocked"
+      ],
+      "recommended_option": "select one absolute content-addressed stand path only after read-only prestate proves its parent, permissions, filesystem, and collision state",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_EXPLICIT_PLATFORM_AND_RELEASE_OWNER_ACCEPTANCE",
+      "evidence": [
+        "D-065 exact clean release identity",
+        "q15-r-stand-setup-authorization.preparation-v2.json unresolved @OPERATIONAL_RELEASE_ROOT@",
+        "accepted no-overwrite and immutable-release boundaries"
+      ],
+      "scientific_effect": "none unless the selected bytes differ, which is forbidden",
+      "compatibility_effect": "the literal root and every resolved controller/library path become setup and authorization identity",
+      "owner": "platform, release, and controller owners",
+      "deadline_gate": "before transfer/install or stand setup authorization",
+      "supersession_rule": "new clean release/path decision and full prospective verification; never retarget an issued authorization"
+    },
+    {
+      "decision_id": "D-068",
+      "classification": "CUSTODY_STORAGE_ENGINEERING",
+      "subject": "literal secondary custody root",
+      "options_considered": [
+        "owner-selected absolute root in a separately controlled non-stand custody domain",
+        "stand-local directory under the primary custody domain",
+        "infer the development repository or a temporary directory",
+        "remain blocked"
+      ],
+      "recommended_option": "select an absolute non-stand root controlled independently from the primary stand custody domain, with append-only receipt handling",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_EXPLICIT_CUSTODY_AND_AUDIT_OWNER_ACCEPTANCE",
+      "evidence": [
+        "ADR-0056 partial-safe external custody requirement",
+        "ADR-0063 four-role setup",
+        "q15-r-stand-setup-authorization.preparation-v2.json unresolved @SECONDARY_CUSTODY_ROOT@"
+      ],
+      "scientific_effect": "none; it protects qualification evidence availability and independence",
+      "compatibility_effect": "literal custody root, controlling principal, transfer mechanism, and receipts become evidence identity",
+      "owner": "custody and audit owners",
+      "deadline_gate": "before stand setup or any qualification artifact transfer",
+      "supersession_rule": "new custody decision plus prospective access/receipt verification; prior artifacts and receipts remain immutable"
+    },
+    {
+      "decision_id": "D-069",
+      "classification": "PLATFORM_EVIDENCE_ENGINEERING",
+      "subject": "fresh read-only stand-prestate collection",
+      "options_considered": [
+        "fixed argv-only read-only collector with canonical envelope, exit codes, stdout/stderr, and SHA-256",
+        "manual unstructured shell transcript",
+        "collector that creates, installs, fixes, or probes access",
+        "remain blocked"
+      ],
+      "recommended_option": "freeze and implement a fixed no-mutation collector, then authorize one exact read-only stand execution separately",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_EXPLICIT_PLATFORM_SECURITY_AND_AUDIT_OWNER_ACCEPTANCE",
+      "evidence": [
+        "accepted requested-versus-verified-state boundary",
+        "ADR-0064 fail-closed access and quarantine boundary",
+        "successor preparation requires CURRENT_STAND_PRESTATE_ARTIFACT_ID_AND_SHA256"
+      ],
+      "scientific_effect": "none; collected state is eligibility evidence and cannot fill scientific freeze values",
+      "compatibility_effect": "collector version, exact argv, stand identity, UTC window, raw outputs, exit codes, and envelope hash become setup evidence",
+      "owner": "platform, security, and audit owners",
+      "deadline_gate": "before literal path selection and stand setup authorization",
+      "supersession_rule": "new collector contract and fresh prospectively authorized evidence; stale evidence remains retained but ineligible"
+    },
+    {
+      "decision_id": "D-070",
+      "classification": "SECURITY_INTEGRITY_ENGINEERING",
+      "subject": "actual allowed-signers artifact, hash, and Ed25519 fingerprint binding",
+      "options_considered": [
+        "canonical artifact derived from the accepted offline public key and independently hash/fingerprint verified",
+        "accept a user-written fingerprint or unverified allowed-signers file",
+        "derive identity after installation on the stand",
+        "remain blocked"
+      ],
+      "recommended_option": "construct canonical allowed-signers bytes off-stand, record artifact ID and SHA-256, derive the Ed25519 fingerprint independently, and require byte equality after install",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_EXPLICIT_SECURITY_CUSTODY_AND_AUDIT_OWNER_ACCEPTANCE",
+      "evidence": [
+        "ADR-0061 OpenSSH SSHSIG policy",
+        "ADR-0062 fixed-FD trust-anchor adapter",
+        "successor preparation requires ACTUAL_ALLOWED_SIGNERS_ARTIFACT_ID_SHA256_AND_ED25519_FINGERPRINT"
+      ],
+      "scientific_effect": "none; it binds authorization authenticity without changing measurement behavior",
+      "compatibility_effect": "canonical file bytes, artifact ID, SHA-256, key fingerprint, principal, namespace, and verification tool become authorization identity",
+      "owner": "security, custody, and audit owners",
+      "deadline_gate": "before trust-anchor installation or signed Q15-R preparation",
+      "supersession_rule": "key rotation requires a new ADR, new artifact/hash/fingerprint, new signatures, and prospective acceptance"
+    }
+  ],
+  "external_input_contracts": [
+    {
+      "name": "@ALLOWED_SIGNERS_SOURCE@",
+      "decision_id": "D-066",
+      "state": "UNRESOLVED",
+      "value": null,
+      "required_evidence": ["offline public-key artifact ID", "public-key SHA-256", "custody-domain ID", "independent review artifact ID and SHA-256"]
+    },
+    {
+      "name": "@OPERATIONAL_RELEASE_ROOT@",
+      "decision_id": "D-067",
+      "state": "UNRESOLVED",
+      "value": null,
+      "required_evidence": ["absolute path", "parent prestate", "filesystem identity", "owner/group/mode", "collision check", "selected release hash binding"]
+    },
+    {
+      "name": "@SECONDARY_CUSTODY_ROOT@",
+      "decision_id": "D-068",
+      "state": "UNRESOLVED",
+      "value": null,
+      "required_evidence": ["absolute path", "custody-domain ID distinct from the stand", "controlling principal", "append-only policy", "receipt mechanism", "access verification"]
+    },
+    {
+      "name": "CURRENT_STAND_PRESTATE_ARTIFACT_ID_AND_SHA256",
+      "decision_id": "D-069",
+      "state": "UNRESOLVED",
+      "value": null,
+      "required_evidence": ["collector contract ID and SHA-256", "authorization ID and SHA-256", "stand ID", "collection UTC window", "canonical artifact ID and SHA-256", "independent review"]
+    },
+    {
+      "name": "ACTUAL_ALLOWED_SIGNERS_ARTIFACT_ID_SHA256_AND_ED25519_FINGERPRINT",
+      "decision_id": "D-070",
+      "state": "UNRESOLVED",
+      "value": null,
+      "required_evidence": ["canonical allowed-signers artifact ID", "artifact SHA-256", "Ed25519 SHA256 fingerprint", "SSHSIG principal", "SSHSIG namespace", "independent verification artifact ID and SHA-256"]
+    }
+  ],
+  "proposed_prestate_collector_contract": {
+    "contract_id": "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1-PROPOSED",
+    "implementation_state": "NOT_IMPLEMENTED",
+    "execution_authorized": false,
+    "transport_authorized": false,
+    "mutation_allowed": false,
+    "network_access_allowed": false,
+    "privileged_control_allowed": false,
+    "shell_interpretation_allowed": false,
+    "required_observations": [
+      "kernel and host identity",
+      "four principal and common-group existence and numeric IDs",
+      "accepted primary paths and trust-anchor destination lstat metadata without following symlinks",
+      "candidate parent filesystem and mount identity without selecting an operational release root",
+      "required literal executable presence and version where already installed",
+      "free-space observation only, not a capacity approval",
+      "absence/presence and collision state",
+      "raw stdout, stderr, and exit status for every fixed argv"
+    ],
+    "forbidden_operations": [
+      "account or group creation",
+      "key creation, import, copy, or fingerprint invention",
+      "file or directory creation",
+      "permission or ownership change",
+      "bundle transfer or extraction",
+      "access probe execution",
+      "PMU or MSR access",
+      "affinity or NUMA control",
+      "service or boot modification",
+      "calibration, pilot, measurement, or confirmatory execution"
+    ],
+    "artifact_requirements": [
+      "canonical JSON envelope",
+      "collector source and executable SHA-256",
+      "exact ordered argv vector",
+      "per-command start/end UTC, stdout, stderr, and exit code",
+      "stand and selected-release lineage",
+      "overall SHA-256 sidecar",
+      "no inferred or defaulted values"
+    ]
+  },
+  "authority_boundary": {
+    "repository_local_decision_bundle_preparation_authorized": true,
+    "collector_implementation_authorized": false,
+    "stand_access_authorized": false,
+    "read_only_prestate_collection_authorized": false,
+    "account_or_group_changes_authorized": false,
+    "key_generation_import_or_copy_authorized": false,
+    "literal_path_selection_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "filesystem_or_permission_changes_authorized": false,
+    "access_probe_execution_authorized": false,
+    "q15_r_issue_sign_or_execute_authorized": false,
+    "q15_w_prepare_or_execute_authorized": false,
+    "real_pmu_msr_affinity_or_numa_authorized": false,
+    "calibration_authorized": false,
+    "pilot_authorized": false,
+    "measurement_authorized": false,
+    "confirmatory_authorized": false
+  },
+  "future_gates": [
+    {
+      "gate": "Q15-R-P4-D",
+      "state": "NOT_ACCEPTED",
+      "scope": "accept D-066 through D-070 acquisition methods and authorize repository-local collector/validator implementation only"
+    },
+    {
+      "gate": "Q15-R-P4-R",
+      "state": "NOT_ISSUED",
+      "scope": "one exact read-only stand-prestate collection after clean release and explicit authorization"
+    },
+    {
+      "gate": "Q15-R-P4-K",
+      "state": "NOT_ISSUED",
+      "scope": "owner-selected offline signer/key and allowed-signers artifact custody action"
+    },
+    {
+      "gate": "Q15-R-P5",
+      "state": "NOT_ISSUED",
+      "scope": "exact stand role/custody/path/trust setup transaction"
+    },
+    {
+      "gate": "Q15-R",
+      "state": "NOT_ISSUED",
+      "scope": "exact signed read-only dynamic qualification"
+    },
+    {
+      "gate": "Q15-W",
+      "state": "NOT_ISSUED",
+      "scope": "separate exact prestate-bound write/apply/probe/restore transaction"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-preparation:v1",
+  "title": "Unissued Q15-R-P4-R read-only stand-prestate authorization preparation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "preparation_id", "protocol_version", "stand_id", "status", "acceptance_binding", "collector_contract_binding", "selected_release_lineage", "exact_invocation_template", "internal_command_ids", "limits", "unresolved_inputs", "future_authorization", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-preparation/1"},
+    "preparation_id": {"const": "Q15-R-P4-R-PREPARATION-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "BLOCKED_CLEAN_COLLECTOR_RELEASE_AND_EXACT_AUTHORITY_REQUIRED"},
+    "acceptance_binding": {"type": "object"},
+    "collector_contract_binding": {"type": "object"},
+    "selected_release_lineage": {"type": "object"},
+    "exact_invocation_template": {"type": "object"},
+    "internal_command_ids": {"type": "array", "minItems": 25, "maxItems": 25, "uniqueItems": true},
+    "limits": {"type": "object"},
+    "unresolved_inputs": {"type": "array", "minItems": 8, "maxItems": 8},
+    "future_authorization": {"type": "object"},
+    "authority_boundary": {"type": "object"}
+  }
+}

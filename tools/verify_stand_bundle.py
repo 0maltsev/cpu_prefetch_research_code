@@ -19,7 +19,11 @@ def sha256(path: pathlib.Path) -> str:
 
 
 def q15_profile_errors(
-    manifest: dict[str, object], release_paths: set[str | None], *, controller_v2: bool
+    manifest: dict[str, object],
+    release_paths: set[str | None],
+    *,
+    controller_v2: bool,
+    prestate_v3: bool = False,
 ) -> list[str]:
     failures: list[str] = []
     source_archive = manifest.get("source_archive")
@@ -117,8 +121,11 @@ def q15_profile_errors(
         if required not in release_paths:
             failures.append(f"Q15 qualification-tool misses {required}")
     if controller_v2:
-        if "release/bin/cpu_prefetch_q15_controller" not in release_paths:
-            failures.append("Q15 controller bundle misses controller executable")
+        for required_binary in ("release/bin/cpu_prefetch_q15_controller",):
+            if required_binary not in release_paths:
+                failures.append(
+                    f"Q15 controller bundle misses {required_binary}"
+                )
         for name, expected_id, expected_path in (
             (
                 "controller_profile",
@@ -165,7 +172,7 @@ def q15_profile_errors(
             )
         ):
             failures.append("Q15 controller bundle has invalid authorization-v2 binding")
-        for name, expected_id_key, expected_id, expected_path, expected_state_key, expected_state in (
+        binding_specs = [
             (
                 "trust_anchor_adapter_profile",
                 "profile_id",
@@ -190,7 +197,64 @@ def q15_profile_errors(
                 "status",
                 "BLOCKED_INPUTS_REQUIRED_NO_AUTHORITY",
             ),
-        ):
+        ]
+        if prestate_v3:
+            if "release/bin/cpu_prefetch_q15_prestate_collector" not in release_paths:
+                failures.append(
+                    "Q15 prestate bundle misses prestate collector executable"
+                )
+            binding_specs.extend(
+                [
+                    (
+                        "q15_r_p4_d_acceptance",
+                        "acceptance_id",
+                        "Q15-R-P4-D-ACCEPTANCE-20260825-01",
+                        "config/q15/q15-r-p4-d-acceptance-v1.json",
+                        "authority",
+                        "REPOSITORY_LOCAL_ONLY",
+                    ),
+                    (
+                        "q15_r_p4_r_preparation",
+                        "preparation_id",
+                        "Q15-R-P4-R-PREPARATION-20260825-01",
+                        "config/q15/q15-r-p4-r.preparation.json",
+                        "status",
+                        "BLOCKED_CLEAN_COLLECTOR_RELEASE_AND_EXACT_AUTHORITY_REQUIRED",
+                    ),
+                    (
+                        "q15_r_p4_k_preparation",
+                        "preparation_id",
+                        "Q15-R-P4-K-PREPARATION-20260825-01",
+                        "config/q15/q15-r-p4-k.preparation.json",
+                        "status",
+                        "BLOCKED_OWNER_KEY_SOURCE_CUSTODY_AND_EXACT_AUTHORITY_REQUIRED",
+                    ),
+                    (
+                        "q15_r_prestate_collector_contract",
+                        "contract_id",
+                        "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1",
+                        "config/q15/q15-r-stand-prestate-collector-contract-v1.json",
+                        "status",
+                        "ACCEPTED_IMPLEMENTED_REPOSITORY_LOCAL_NO_EXECUTION_AUTHORITY",
+                    ),
+                    (
+                        "q15_r_prestate_artifact_validator",
+                        "state",
+                        "OFFLINE_READ_ONLY_VALIDATOR",
+                        "validators/validate_q15_r_prestate.py",
+                        "state",
+                        "OFFLINE_READ_ONLY_VALIDATOR",
+                    ),
+                ]
+            )
+        for (
+            name,
+            expected_id_key,
+            expected_id,
+            expected_path,
+            expected_state_key,
+            expected_state,
+        ) in binding_specs:
             binding = manifest.get(name)
             if not isinstance(binding, dict) or (
                 binding.get(expected_id_key) != expected_id
@@ -264,6 +328,10 @@ def main() -> int:
         ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v2": (
             "cpu-prefetch-q15-qualification-tool-bundle/2",
+            "Q15_TOOL_RELEASE_NO_AUTHORITY",
+        ),
+        "Q15-QUALIFICATION-TOOL-BUNDLE-v3": (
+            "cpu-prefetch-q15-qualification-tool-bundle/3",
             "Q15_TOOL_RELEASE_NO_AUTHORITY",
         ),
     }
@@ -381,10 +449,20 @@ def main() -> int:
     if profile in (
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1",
         "Q15-QUALIFICATION-TOOL-BUNDLE-v2",
+        "Q15-QUALIFICATION-TOOL-BUNDLE-v3",
     ):
-        controller_v2 = profile == "Q15-QUALIFICATION-TOOL-BUNDLE-v2"
+        controller_v2 = profile in (
+            "Q15-QUALIFICATION-TOOL-BUNDLE-v2",
+            "Q15-QUALIFICATION-TOOL-BUNDLE-v3",
+        )
+        prestate_v3 = profile == "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
         failures.extend(
-            q15_profile_errors(manifest, release_paths, controller_v2=controller_v2)
+            q15_profile_errors(
+                manifest,
+                release_paths,
+                controller_v2=controller_v2,
+                prestate_v3=prestate_v3,
+            )
         )
         for required_evidence in (
             pathlib.Path(
@@ -445,6 +523,38 @@ def main() -> int:
                     or sha256(authorization_path) != authorization.get("sha256")
                 ):
                     failures.append("Q15 authorization-v2 path/hash mismatch")
+            controller_binding_names = [
+                "trust_anchor_adapter_profile",
+                "q15_r_p2_acceptance",
+                "stand_setup_authorization_preparation",
+            ]
+            if prestate_v3:
+                controller_binding_names.extend(
+                    [
+                        "q15_r_p4_d_acceptance",
+                        "q15_r_p4_r_preparation",
+                        "q15_r_p4_k_preparation",
+                        "q15_r_prestate_collector_contract",
+                        "q15_r_prestate_artifact_validator",
+                    ]
+                )
+            for binding_name in controller_binding_names:
+                binding = manifest.get(binding_name, {})
+                binding_text = (
+                    binding.get("path") if isinstance(binding, dict) else None
+                )
+                if not isinstance(binding_text, str):
+                    failures.append(f"Q15 {binding_name} path is absent")
+                    continue
+                binding_relative = pathlib.Path(binding_text)
+                binding_path = root / binding_relative
+                if (
+                    binding_relative.is_absolute()
+                    or ".." in binding_relative.parts
+                    or not binding_path.is_file()
+                    or sha256(binding_path) != binding.get("sha256")
+                ):
+                    failures.append(f"Q15 {binding_name} path/hash mismatch")
         reports = [
             "q15_probe_codegen_report.json",
             "q15_runtime_codegen_report.json",

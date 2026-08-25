@@ -87,6 +87,14 @@ v2. Only the clean-release evidence group is resolved. The predecessor remains
 byte-preserved; all five external setup groups and every authority field remain
 unresolved or false.
 
+The [Q15-R-P4 external-input acquisition bundle](Q15_R_EXTERNAL_INPUT_ACQUISITION_DECISION_BUNDLE.md)
+records the accepted D-066 through D-070 acquisition methods: an offline signer boundary, a
+fresh-prestate-selected content-addressed operational root, an independently
+controlled non-stand custody root, a fixed read-only prestate collector, and a
+canonical independently verified allowed-signers binding. ADR-0066 through
+ADR-0070 record the decisions. They fill no literal value and grant
+repository-local collector implementation only.
+
 Clean commit `c8b69abf0c6aec7b740efe78d998a93545302a94` produced and
 verified an adapter-bearing no-authority release with archive SHA-256
 `8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01`.
@@ -100,6 +108,13 @@ evidence IDs/hashes, signature, and independent review also remain mandatory
 for the later exact authorization. A generic approval, SSH
 permission, or root access cannot substitute; setup would still not authorize
 Q15-R.
+
+The fixed collector and validator are implemented with fake evidence. Exact
+Q15-R-P4-R and Q15-R-P4-K preparations remain unissued and retain eight null
+inputs each. The smallest next repository-local authorization is one commit
+and a clean no-authority collector-bearing qualification-tool bundle. Separate
+future Q15-R-P4-R, Q15-R-P4-K, Q15-R-P5, Q15-R, and Q15-W gates remain
+mandatory and unopened.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)

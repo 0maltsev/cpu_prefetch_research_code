@@ -1,0 +1,245 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-a-operational-input-decision/1",
+  "bundle_id": "Q15-R-P4-K-A-OPERATIONAL-INPUT-DECISION-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "PROPOSED_D080_D085_OWNER_SECURITY_CUSTODY_AUDIT_INPUTS_REQUIRED_NO_KEY_OR_EXECUTION_AUTHORITY",
+  "lineage": {
+    "p4_k_d_acceptance_path": "config/q15/q15-r-p4-k-d-acceptance-v1.json",
+    "p4_k_d_acceptance_sha256": "11b9c357468515145bc5e7b2b477515c814d31ec97603245eff378d0259e6be7",
+    "p4_k_a_template_path": "config/q15/q15-r-p4-k-a.authorization-template-v1.json",
+    "p4_k_a_template_sha256": "7669a2f693a7ffca3fa583ec3ed7a45e1ea130a51ee009ac33a77b936409ccb5",
+    "p4_k_r_template_path": "config/q15/q15-r-p4-k-r.authorization-template-v1.json",
+    "p4_k_r_template_sha256": "ae71ce73cf0636294995c0ca3311d4ccf6f857916c07fe9df67bb9682d20efcf",
+    "adr_bindings": [
+      {"decision_id": "D-076", "path": "docs/decisions/0076-q15-r-p4-k-new-offline-key-ceremony.md", "sha256": "449113f623f1c5b9dd221c579545d9fce980cfc1bad26eed95331c5eddd247fa"},
+      {"decision_id": "D-077", "path": "docs/decisions/0077-q15-r-p4-k-custody-identifiers.md", "sha256": "97b3815229e700869b56133d4a83626a5015710f902440a76ea1de86507198b1"},
+      {"decision_id": "D-078", "path": "docs/decisions/0078-q15-r-p4-k-split-acquisition-review.md", "sha256": "984e1ddc95021cfe3f22d0696f907c10de2fd45f5fcf6a0f6f3dcbc4fae10ac5"},
+      {"decision_id": "D-079", "path": "docs/decisions/0079-q15-r-p4-k-authority-validity.md", "sha256": "90dd4dd47ed5e49b10fdf923bd0b32b099dd5fea22ea9152c908d16e07313fd0"}
+    ]
+  },
+  "fixed_nonnegotiable_contract": {
+    "target_key_type": "ED25519",
+    "target_key_source_mode": "NEW_OFFLINE_ED25519_KEY_CEREMONY_UNDER_LATER_SEPARATE_EXACT_AUTHORIZATION",
+    "target_private_key_location": "OFF_STAND_OUTSIDE_REPOSITORY",
+    "target_private_key_path_bytes_passphrase_or_seed_may_be_recorded": false,
+    "target_key_may_authorize_its_own_creation": false,
+    "logical_custody_domain_id": "OWNER-OFFLINE-Q15-KEY-CUSTODY",
+    "custodian_principal_id": "cpu-prefetch-q15-custodian",
+    "named_authority_principal": "cpu-prefetch-q15-operator",
+    "independent_review_principal": "cpu-prefetch-q15-auditor",
+    "canonicalization": "JCS-I64-v1",
+    "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+    "signature_principal_and_namespace": "cpu-prefetch-q15-authorization",
+    "exact_validity_seconds": 1800,
+    "action_attempt_count": 1,
+    "retry_repair_overwrite_or_cleanup_count": 0,
+    "mandatory_stop_before_p4_k_r": true,
+    "automatic_continuation_to_installation_p4_r_q15_or_experiment": false
+  },
+  "decisions": [
+    {
+      "decision_id": "D-080",
+      "classification": "SECURITY_OFFLINE_ENVIRONMENT_AND_TOOLCHAIN",
+      "subject": "offline ceremony environment and exact cryptographic toolchain provenance",
+      "options_considered": [
+        "DEDICATED_OWNER_CONTROLLED_OFFLINE_LINUX_OPENSSH_TOOLCHAIN_WITH_EXACT_INVENTORY_HASHES_AND_NETWORK_UNAVAILABLE_DURING_ACTION",
+        "OWNER_SUPPLIED_ALTERNATIVE_EXACT_ED25519_OPENSSH_COMPATIBLE_OFFLINE_TOOLCHAIN_WITH_INDEPENDENT_COMPATIBILITY_EVIDENCE",
+        "UNINVENTORIED_ONLINE_OR_STAND_TOOLCHAIN",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "use a dedicated owner-controlled offline Linux environment with a pre-provisioned OpenSSH ssh-keygen-compatible Ed25519 toolchain; before authorization record the non-secret environment ID, OS and tool versions, binary/library SHA-256 values, and evidence that network interfaces are unavailable during the one action",
+      "selected_option": null,
+      "state": "PROPOSED_REQUIRES_SECURITY_CUSTODY_AND_RELEASE_OWNER_ACCEPTANCE_AND_EXTERNAL_EVIDENCE",
+      "evidence": [
+        "ADR-0076 selects a new offline Ed25519 ceremony but supplies no environment or tool bytes.",
+        "The P4-K-A template leaves exact tool IDs, versions, hashes, and fixed argv null.",
+        "No current repository or stand inventory is evidence for an owner-controlled offline ceremony environment."
+      ],
+      "scientific_effect": "none; the environment creates authorization-key evidence and cannot access experiment treatments or outcomes",
+      "compatibility_effect": "environment identity, OS/tool versions, executable/library hashes, network-isolation evidence, and output-format compatibility become ceremony identity",
+      "owner": ["security owner", "custody owner", "release owner", "audit owner"],
+      "deadline_gate": "before repository-local controller specialization and before any P4-K-A issuance",
+      "supersession_rule": "any environment, executable, library, version, network state, or output-format change requires a new clean inventory, review, and prospective decision"
+    },
+    {
+      "decision_id": "D-081",
+      "classification": "SECURITY_PRIVATE_KEY_PROTECTION_AND_CUSTODY_EVIDENCE",
+      "subject": "private-key protection, interactive secret boundary, and operational custody evidence",
+      "options_considered": [
+        "ENCRYPTED_OPENSSH_ED25519_PRIVATE_KEY_WITH_INTERACTIVE_UNRECORDED_SECRET_AND_HASH_BOUND_NONSECRET_CUSTODY_RECEIPT",
+        "OWNER_SUPPLIED_ALTERNATIVE_NONEXPORTING_ED25519_CUSTODY_WITH_OPENSSH_SSHSIG_COMPATIBILITY_PROOF",
+        "UNENCRYPTED_EXPORTABLE_PRIVATE_KEY_OR_RECORDED_SECRET_PATH_OR_PASSPHRASE",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "require an encrypted OpenSSH Ed25519 private key, an owner-selected exact KDF-work value, interactive passphrase entry excluded from argv/environment/stdin capture and every artifact, and a non-secret custody receipt that records controls and recovery policy without a private path, private bytes, seed, or passphrase",
+      "selected_option": null,
+      "state": "PROPOSED_REQUIRES_SECURITY_AND_CUSTODY_OWNER_ACCEPTANCE_AND_LITERAL_KDF_AND_EVIDENCE_INPUTS",
+      "evidence": [
+        "ADR-0066 and ADR-0077 prohibit repository/stand private-key custody and serialize only logical custody identity.",
+        "The accepted P4-K-A template requires operational custody evidence without private paths or bytes.",
+        "No encryption/KDF work value, access-control evidence, backup, recovery, retention, or destruction policy is currently frozen."
+      ],
+      "scientific_effect": "none; protection controls only authorization-key custody",
+      "compatibility_effect": "private-key encoding, KDF and exact work value, secret-input boundary, custodian controls, recovery/retention policy, and non-secret receipt hash become custody identity",
+      "owner": ["security owner", "custody owner", "audit owner"],
+      "deadline_gate": "before controller contract freeze or P4-K-A issuance",
+      "supersession_rule": "any key encoding, KDF/work value, secret-input, custodian, access, backup, recovery, retention, or destruction change requires prospective acceptance and new evidence"
+    },
+    {
+      "decision_id": "D-082",
+      "classification": "CUSTODY_PUBLIC_ARTIFACT_IDENTITY_AND_PATH",
+      "subject": "create-exclusive public export identity, paths, and custody boundary",
+      "options_considered": [
+        "UNIQUE_CREATE_EXCLUSIVE_PUBLIC_EXPORT_ROOT_OUTSIDE_REPOSITORY_AND_STAND_WITH_FIXED_ARTIFACT_IDS_AND_NO_PRIVATE_PATH_SERIALIZATION",
+        "OWNER_SUPPLIED_EQUIVALENT_INDEPENDENT_PUBLIC_EXPORT_DOMAIN_WITH_EXACT_PATH_AND_ACCESS_EVIDENCE",
+        "REPOSITORY_STAND_TEMPORARY_OR_REUSED_PUBLIC_PATH",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "select one unused action ID and an absolute create-exclusive public export root in the owner-controlled offline domain; freeze public-key, allowed-signers, receipt, inventory, and sidecar basenames while keeping the private-key path secret and absent from every record",
+      "selected_option": null,
+      "state": "PROPOSED_REQUIRES_CUSTODY_AND_AUDIT_OWNER_LITERAL_NONSECRET_PATH_INPUTS",
+      "evidence": [
+        "ADR-0077 leaves the absolute public allowed-signers source path unresolved.",
+        "ADR-0078 requires append-only complete or partial public evidence and forbids overwrite or cleanup.",
+        "Neither repository nor stand paths may be inferred as the offline public export root."
+      ],
+      "scientific_effect": "none; public paths identify authorization evidence only",
+      "compatibility_effect": "action ID, public root, artifact basenames, owner/mode/access contract, create-exclusive policy, and receipt/sidecar hashes become evidence identity",
+      "owner": ["custody owner", "security owner", "audit owner"],
+      "deadline_gate": "before controller specialization, artifact construction, or P4-K-A issuance",
+      "supersession_rule": "any root, path, artifact ID, basename, owner/mode/access, collision, or retention change requires a new unused action identity and prospective decision"
+    },
+    {
+      "decision_id": "D-083",
+      "classification": "SECURITY_BOOTSTRAP_AUTHORIZATION_TRUST",
+      "subject": "independent bootstrap signer and trust anchor for authorizing target-key creation",
+      "options_considered": [
+        "EXISTING_DISTINCT_OWNER_CONTROLLED_OFFLINE_ED25519_GOVERNANCE_SIGNER_WITH_HASH_BOUND_PUBLIC_TRUST_AND_CUSTODY_EVIDENCE",
+        "SEPARATELY_ESTABLISH_A_BOOTSTRAP_GOVERNANCE_ROOT_BEFORE_RETURNING_TO_P4_K_A",
+        "TARGET_P4_K_SELF_AUTHORIZES_ITS_CREATION_OR_ROOT_SSH_CHAT_IS_TREATED_AS_SIGNATURE",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "require an already established signer distinct from the target P4-K key, custodian, and auditor, with non-secret Ed25519 public fingerprint, canonical allowed-signers/trust bytes, artifact SHA-256, custody evidence, signature principal/namespace compatibility, and independent review; if that evidence does not exist, stop and establish a bootstrap governance root under a separate process before P4-K-A",
+      "selected_option": null,
+      "state": "PROPOSED_CRITICAL_EXTERNAL_TRUST_INPUT_UNRESOLVED",
+      "evidence": [
+        "ADR-0079 explicitly prohibits the nonexistent target key from authorizing its own creation.",
+        "The accepted P4-K-A template leaves bootstrap signer fingerprint and trust-evidence SHA-256 null.",
+        "Repository messages, SSH reachability, and root access are not OpenSSH SSHSIG evidence."
+      ],
+      "scientific_effect": "none; the bootstrap signer authorizes one custody action and cannot change experiment semantics",
+      "compatibility_effect": "bootstrap public key/fingerprint, trust bytes/hash, custody lineage, principal/namespace, signature algorithm, and reviewer receipt become authorization identity",
+      "owner": ["security owner", "protocol owner", "custody owner", "audit owner"],
+      "deadline_gate": "blocking before any P4-K-A authorization can be signed or issued",
+      "supersession_rule": "any signer, public key, fingerprint, trust artifact, custody, principal, namespace, algorithm, or reviewer change requires new unsigned authorization bytes and prospective acceptance"
+    },
+    {
+      "decision_id": "D-084",
+      "classification": "SECURITY_FIXED_CEREMONY_CONTROLLER_AND_ACTION_GRAPH",
+      "subject": "repository-owned no-authority controller contract and exact one-shot action graph",
+      "options_considered": [
+        "HASH_BOUND_NO_SHELL_FIXED_CONTROLLER_WITH_PREOPENED_SECRET_TTY_BOUNDARY_O_EXCL_PUBLIC_OUTPUTS_ONE_ATTEMPT_AND_ZERO_RETRY",
+        "DIRECT_OWNER_REVIEWED_FIXED_ARGV_WITH_EQUIVALENT_PROCESS_FD_AND_OUTPUT_EVIDENCE",
+        "AD_HOC_SHELL_INTERACTIVE_SCRIPT_RETRY_REPAIR_OR_UNBOUNDED_ENVIRONMENT",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "after separate acceptance implement a repository-owned controller that has no key-action mode without a later signed authorization, executes only an accepted absolute tool path with fixed argv and environment, accepts the passphrase only through an uncaptured controlling TTY or dedicated non-recorded descriptor, uses create-exclusive public outputs, captures bounded non-secret stdout/stderr/exit evidence, attempts once, retries zero times, and stops before P4-K-R",
+      "selected_option": null,
+      "state": "PROPOSED_REPOSITORY_LOCAL_IMPLEMENTATION_REQUIRES_SEPARATE_ACCEPTANCE_NO_ACTION_AUTHORITY",
+      "evidence": [
+        "ADR-0078 freezes one attempt, zero retry, and the mandatory stop before P4-K-R.",
+        "The current P4-K-A template is a record only and contains no executable controller or exact command.",
+        "The existing Q15-R fixed-controller pattern demonstrates a no-authority CLI and hash-bound direct-argv boundary without authorizing reuse for P4-K-A."
+      ],
+      "scientific_effect": "none; controller implementation is outside the experiment process and cannot access outcomes",
+      "compatibility_effect": "controller source/binary hash, process/FD/TTY contract, exact argv/environment, output bounds, action order, attempt count, and failure receipt become transaction identity",
+      "owner": ["security owner", "repository owner", "custody owner", "audit owner"],
+      "deadline_gate": "acceptance before repository-local implementation; clean release and exact inputs before issuance",
+      "supersession_rule": "any controller byte, tool path, argv, environment, descriptor, secret-input, output, order, bound, retry, or failure-policy change requires a new clean release and prospective acceptance"
+    },
+    {
+      "decision_id": "D-085",
+      "classification": "SECURITY_ISSUANCE_REVIEW_AND_PARTIAL_EVIDENCE_GOVERNANCE",
+      "subject": "pre-execution authorization review, UTC issuance, partial evidence, and mandatory post-action stop",
+      "options_considered": [
+        "DISTINCT_AUDITOR_PRE_EXECUTION_REVIEW_EXACT_1800S_UTC_SSHSIG_ONE_ACTION_APPEND_ONLY_PARTIAL_EVIDENCE_AND_STOP_FOR_P4_K_R",
+        "OWNER_SUPPLIED_STRONGER_EXACT_REVIEW_AND_CUSTODY_POLICY_WITH_SAME_NONRENEWABLE_AND_SPLIT_GATES",
+        "UNSIGNED_RENEWABLE_SELF_REVIEWED_AUTOMATIC_CONTINUATION_OR_DELETE_ON_FAILURE",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "require canonical unsigned authorization bytes bound to every environment/tool/controller/path/custody/bootstrap input, a distinct auditor pre-execution review, literal issue and expiry instants exactly 1800 seconds apart, SSHSIG signature and hash verification, first-failure stop, append-only complete or partial public receipts, no delete/cleanup/retry, and mandatory stop for separately authorized P4-K-R",
+      "selected_option": null,
+      "state": "PROPOSED_REQUIRES_PROTOCOL_SECURITY_CUSTODY_AND_AUDIT_OWNER_ACCEPTANCE",
+      "evidence": [
+        "ADR-0079 freezes the authority, 1800-second, JCS-I64, SSHSIG, and distinct-review policy without supplying literal evidence.",
+        "ADR-0078 requires a mandatory stop between P4-K-A and P4-K-R.",
+        "The P4-K-A template leaves UTC, authorization, signature, and auditor review fields null."
+      ],
+      "scientific_effect": "none; issuance governs a single offline key-custody action",
+      "compatibility_effect": "canonical authorization bytes/hash, exact UTC instants, signer fingerprint, detached signature hash, pre-review hash, complete/partial receipt, and stop disposition become action identity",
+      "owner": ["protocol owner", "security owner", "custody owner", "audit owner"],
+      "deadline_gate": "policy acceptance before template specialization; literal evidence immediately before P4-K-A issuance",
+      "supersession_rule": "any authority, duration, canonicalization, signer, review, failure, retention, retry, cleanup, or continuation change requires new authorization bytes and prospective acceptance"
+    }
+  ],
+  "external_input_mapping": [
+    {"name": "EXACT_OFFLINE_CEREMONY_AND_PUBLIC_EXTRACTION_TOOL_IDS_VERSIONS_SHA256_AND_FIXED_ARGV", "decision_ids": ["D-080", "D-084"], "state": "UNRESOLVED_EXTERNAL_EVIDENCE_REQUIRED", "value": null},
+    {"name": "CREATE_EXCLUSIVE_PUBLIC_ARTIFACT_IDS_AND_ABSOLUTE_SOURCE_PATHS", "decision_ids": ["D-082"], "state": "UNRESOLVED_OWNER_LITERAL_REQUIRED", "value": null},
+    {"name": "OFFLINE_CUSTODY_CONTROL_AND_CEREMONY_ENVIRONMENT_EVIDENCE_ID_AND_SHA256", "decision_ids": ["D-080", "D-081"], "state": "UNRESOLVED_EXTERNAL_EVIDENCE_REQUIRED", "value": null},
+    {"name": "BOOTSTRAP_AUTHORIZATION_SIGNER_FINGERPRINT_AND_TRUST_EVIDENCE_SHA256", "decision_ids": ["D-083"], "state": "UNRESOLVED_CRITICAL_EXTERNAL_TRUST_REQUIRED", "value": null},
+    {"name": "LITERAL_ISSUE_AND_EXPIRY_UTC_INSTANTS", "decision_ids": ["D-085"], "state": "UNRESOLVED_AT_FUTURE_ISSUANCE", "value": null},
+    {"name": "CANONICAL_AUTHORIZATION_SHA256_AND_DETACHED_SIGNATURE_SHA256", "decision_ids": ["D-083", "D-085"], "state": "UNRESOLVED_AT_FUTURE_ISSUANCE", "value": null},
+    {"name": "DISTINCT_AUDITOR_PRE_EXECUTION_REVIEW_ARTIFACT_ID_AND_SHA256", "decision_ids": ["D-085"], "state": "UNRESOLVED_EXTERNAL_REVIEW_REQUIRED", "value": null}
+  ],
+  "minimum_owner_inputs_before_policy_acceptance": [
+    {
+      "question_id": "P4KA-Q1",
+      "question": "Accept or revise the recommended D-080 dedicated offline Linux/OpenSSH environment and exact toolchain-provenance contract.",
+      "allowed_answers": ["ACCEPT_D080_RECOMMENDATION", "REVISE", "REMAIN_BLOCKED"],
+      "answer": null
+    },
+    {
+      "question_id": "P4KA-Q2",
+      "question": "Accept or revise D-081 encrypted private-key, interactive uncaptured secret, exact future KDF-work input, and non-secret custody-receipt contract.",
+      "allowed_answers": ["ACCEPT_D081_RECOMMENDATION", "REVISE", "REMAIN_BLOCKED"],
+      "answer": null
+    },
+    {
+      "question_id": "P4KA-Q3",
+      "question": "Accept or revise D-082 create-exclusive public export identity/path contract; actual absolute path remains a later owner input.",
+      "allowed_answers": ["ACCEPT_D082_RECOMMENDATION", "REVISE", "REMAIN_BLOCKED"],
+      "answer": null
+    },
+    {
+      "question_id": "P4KA-Q4",
+      "question": "State whether a qualifying existing distinct bootstrap Ed25519 governance signer and reviewed public trust evidence exist; never provide private material.",
+      "allowed_answers": ["QUALIFYING_BOOTSTRAP_SIGNER_EVIDENCE_EXISTS_TO_BE_SUPPLIED_LATER", "NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED"],
+      "answer": null
+    },
+    {
+      "question_id": "P4KA-Q5",
+      "question": "Accept or revise D-084/D-085 fixed no-authority controller, issuance, review, partial-evidence, and mandatory-stop recommendations.",
+      "allowed_answers": ["ACCEPT_D084_D085_RECOMMENDATIONS", "REVISE", "REMAIN_BLOCKED"],
+      "answer": null
+    }
+  ],
+  "authority_boundary": {
+    "repository_local_decision_bundle_preparation_authorized": true,
+    "repository_local_acceptance_adr_controller_schema_or_template_implementation_authorized": false,
+    "offline_environment_access_or_inventory_authorized": false,
+    "key_read_generation_import_copy_fingerprint_or_use_authorized": false,
+    "public_key_or_allowed_signers_artifact_creation_authorized": false,
+    "private_key_path_bytes_passphrase_or_seed_collection_authorized": false,
+    "custody_or_public_artifact_path_creation_authorized": false,
+    "bootstrap_signer_or_trust_artifact_access_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "p4_k_a_authorized": false,
+    "p4_k_r_authorized": false,
+    "stand_access_authorized": false,
+    "p4_r_i_or_p4_r_c_authorized": false,
+    "transfer_install_or_setup_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

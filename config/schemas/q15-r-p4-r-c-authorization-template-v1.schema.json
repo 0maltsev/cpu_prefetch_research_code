@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-c-authorization-template:v1",
+  "title": "Still-unissued Q15-R-P4-R-C one-shot staging and collection authorization template",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "unresolved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "value"],
+      "properties": {"name": {"type": "string", "minLength": 1}, "value": {"type": "null"}}
+    }
+  },
+  "required": ["schema_version", "template_id", "protocol_version", "stand_id", "status", "lineage", "gate", "release", "paths", "staging_and_invocation", "ordered_actions", "limits", "rollback", "stop_conditions", "unresolved_inputs", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-c-authorization-template/1"},
+    "template_id": {"const": "Q15-R-P4-R-C-AUTHORIZATION-TEMPLATE-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "STILL_UNISSUED_BLOCKED_P4_R_I_P4_K_EXTERNAL_INPUTS_AND_SEPARATE_EXACT_APPROVAL_REQUIRED"},
+    "lineage": {"type": "object", "minProperties": 11},
+    "gate": {"type": "object", "minProperties": 23},
+    "release": {"type": "object", "minProperties": 7},
+    "paths": {"type": "object", "minProperties": 16},
+    "staging_and_invocation": {"type": "object", "minProperties": 13},
+    "ordered_actions": {"type": "array", "minItems": 13, "maxItems": 13, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "limits": {
+      "const": {
+        "per_command_timeout_seconds": 30,
+        "external_total_watchdog_seconds": 900,
+        "maximum_stdout_bytes_per_command": 1048576,
+        "maximum_stderr_bytes_per_command": 1048576,
+        "maximum_total_captured_bytes": 16777216,
+        "maximum_artifact_bytes": 67108864,
+        "partial_preservation_required": true
+      }
+    },
+    "rollback": {
+      "const": {
+        "profile": "Q15-R-P4-R-STOP-RETAIN-NO-DELETE-v1",
+        "on_pre_mutation_failure": "STOP_WITH_NO_STAND_CHANGE",
+        "on_post_mutation_failure": "STOP_RETAIN_EXACT_PARTIAL_STAGING_AND_CUSTODY_BYTES",
+        "delete_authorized": false,
+        "overwrite_authorized": false,
+        "rename_or_reuse_authorized": false,
+        "automatic_cleanup_authorized": false,
+        "operational_release_or_setup_touched": false,
+        "future_cleanup_requires_separate_exact_authorization": true,
+        "restoration_claim": "NONE_NEEDED_BECAUSE_NO_ACTIVATION_OR_EXISTING_OPERATIONAL_PATH_MUTATION_IS_AUTHORIZED"
+      }
+    },
+    "stop_conditions": {"type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "unresolved_inputs": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/unresolved"}},
+    "authority_boundary": {
+      "const": {
+        "repository_local_unissued_template_creation_authorized": true,
+        "stand_access_authorized": false,
+        "stand_or_custody_path_creation_authorized": false,
+        "bundle_transfer_or_extraction_authorized": false,
+        "collector_self_test_on_stand_authorized": false,
+        "collector_execution_authorized": false,
+        "key_creation_import_copy_or_use_authorized": false,
+        "signing_or_issuance_authorized": false,
+        "p4_r_i_authorized": false,
+        "p4_r_c_authorized": false,
+        "p4_k_authorized": false,
+        "q15_r_authorized": false,
+        "q15_w_authorized": false,
+        "platform_controls_authorized": false,
+        "calibration_authorized": false,
+        "pilot_authorized": false,
+        "measurement_authorized": false,
+        "confirmatory_authorized": false
+      }
+    }
+  }
+}

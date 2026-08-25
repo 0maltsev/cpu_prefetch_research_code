@@ -1,0 +1,103 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-a-d-acceptance/1",
+  "acceptance_id": "Q15-R-P4-K-A-D-ACCEPTANCE-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "decision_input_binding": {
+    "bundle_id": "Q15-R-P4-K-A-OPERATIONAL-INPUT-DECISION-20260825-01",
+    "path": "config/q15/q15-r-p4-k-a-operational-input-decision-v1.json",
+    "sha256": "8acfebfb22ba7449233b5c4c5b2a7ecf9c9a48323b1d79b45b42d26867199777"
+  },
+  "accepted_decisions": [
+    {
+      "decision_id": "D-080",
+      "selected_option": "DEDICATED_OWNER_CONTROLLED_OFFLINE_LINUX_OPENSSH_TOOLCHAIN_WITH_EXACT_INVENTORY_HASHES_AND_NETWORK_UNAVAILABLE_DURING_ACTION",
+      "state": "ACCEPTED_POLICY_EXTERNAL_EVIDENCE_REQUIRED_NO_ENVIRONMENT_ACCESS_AUTHORITY"
+    },
+    {
+      "decision_id": "D-081",
+      "selected_option": "ENCRYPTED_OPENSSH_ED25519_PRIVATE_KEY_WITH_INTERACTIVE_UNRECORDED_SECRET_AND_HASH_BOUND_NONSECRET_CUSTODY_RECEIPT",
+      "state": "ACCEPTED_POLICY_LITERAL_KDF_AND_EXTERNAL_CUSTODY_EVIDENCE_REQUIRED"
+    },
+    {
+      "decision_id": "D-082",
+      "selected_option": "UNIQUE_CREATE_EXCLUSIVE_PUBLIC_EXPORT_ROOT_OUTSIDE_REPOSITORY_AND_STAND_WITH_FIXED_ARTIFACT_IDS_AND_NO_PRIVATE_PATH_SERIALIZATION",
+      "state": "ACCEPTED_POLICY_LITERAL_PUBLIC_PATH_AND_IDENTITY_REQUIRED"
+    },
+    {
+      "decision_id": "D-083",
+      "selected_option": "SEPARATELY_ESTABLISH_A_BOOTSTRAP_GOVERNANCE_ROOT_BEFORE_RETURNING_TO_P4_K_A",
+      "state": "ACCEPTED_POLICY_BLOCKED_NO_QUALIFYING_BOOTSTRAP_SIGNER"
+    },
+    {
+      "decision_id": "D-084",
+      "selected_option": "HASH_BOUND_NO_SHELL_FIXED_CONTROLLER_WITH_PREOPENED_SECRET_TTY_BOUNDARY_O_EXCL_PUBLIC_OUTPUTS_ONE_ATTEMPT_AND_ZERO_RETRY",
+      "state": "ACCEPTED_POLICY_IMPLEMENTATION_REQUIRES_SEPARATE_EXPLICIT_AUTHORITY"
+    },
+    {
+      "decision_id": "D-085",
+      "selected_option": "DISTINCT_AUDITOR_PRE_EXECUTION_REVIEW_EXACT_1800S_UTC_SSHSIG_ONE_ACTION_APPEND_ONLY_PARTIAL_EVIDENCE_AND_STOP_FOR_P4_K_R",
+      "state": "ACCEPTED_POLICY_LITERAL_ISSUANCE_AND_REVIEW_EVIDENCE_REQUIRED"
+    }
+  ],
+  "bootstrap_trust_disposition": {
+    "owner_response": "NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED",
+    "qualifying_bootstrap_signer_evidence_exists": false,
+    "bootstrap_signer_or_trust_evidence_supplied": false,
+    "target_key_may_self_authorize": false,
+    "required_next_governance_gate": "SEPARATELY_ESTABLISH_BOOTSTRAP_GOVERNANCE_ROOT",
+    "p4_k_a_issuance_state": "BLOCKED"
+  },
+  "selection_effect": {
+    "offline_environment_and_toolchain_contract_frozen": true,
+    "private_key_protection_and_custody_contract_frozen": true,
+    "public_export_identity_and_path_contract_frozen": true,
+    "bootstrap_governance_root_requirement_frozen": true,
+    "fixed_controller_contract_frozen_as_policy": true,
+    "issuance_review_partial_evidence_and_stop_contract_frozen": true,
+    "repository_local_acceptance_and_adr_creation_authorized": true,
+    "repository_local_controller_schema_or_template_implementation_authorized": false,
+    "external_input_value_selected_or_inferred": false,
+    "bootstrap_signer_or_trust_evidence_claimed": false,
+    "key_public_artifact_path_signature_or_issuance_created": false
+  },
+  "predecessor_preservation": {
+    "proposal_remains_unmodified": true,
+    "proposal_owner_answers_remain_null_in_immutable_proposal": true,
+    "proposal_external_input_count": 7,
+    "proposal_external_inputs_remain_null": true,
+    "p4_k_a_template_path": "config/q15/q15-r-p4-k-a.authorization-template-v1.json",
+    "p4_k_a_template_sha256": "7669a2f693a7ffca3fa583ec3ed7a45e1ea130a51ee009ac33a77b936409ccb5",
+    "p4_k_a_template_state": "UNCHANGED_STILL_UNISSUED",
+    "p4_k_r_template_path": "config/q15/q15-r-p4-k-r.authorization-template-v1.json",
+    "p4_k_r_template_sha256": "ae71ce73cf0636294995c0ca3311d4ccf6f857916c07fe9df67bb9682d20efcf",
+    "p4_k_r_template_state": "UNCHANGED_STILL_UNISSUED"
+  },
+  "authority_boundary": {
+    "repository_local_acceptance_and_adr_creation_authorized": true,
+    "repository_local_controller_schema_or_template_implementation_authorized": false,
+    "offline_environment_access_or_inventory_authorized": false,
+    "key_read_generation_import_copy_fingerprint_or_use_authorized": false,
+    "public_key_or_allowed_signers_artifact_creation_authorized": false,
+    "private_key_path_bytes_passphrase_or_seed_collection_authorized": false,
+    "custody_or_public_artifact_path_creation_authorized": false,
+    "bootstrap_governance_root_establishment_authorized": false,
+    "bootstrap_signer_or_trust_artifact_access_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "p4_k_a_authorized": false,
+    "p4_k_r_authorized": false,
+    "stand_access_authorized": false,
+    "p4_r_i_or_p4_r_c_authorized": false,
+    "transfer_install_or_setup_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  },
+  "user_responses": [
+    "P4KA-Q1=ACCEPT_D080_RECOMMENDATION",
+    "P4KA-Q2=ACCEPT_D081_RECOMMENDATION",
+    "P4KA-Q3=ACCEPT_D082_RECOMMENDATION",
+    "P4KA-Q4=NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED",
+    "P4KA-Q5=ACCEPT_D084_D085_RECOMMENDATIONS"
+  ],
+  "bounded_interpretation": "Accept the D-080 through D-085 policy recommendations and record their ADRs. The explicit Q4 response is negative evidence only: no qualifying bootstrap signer exists, no signer or trust artifact is inferred, and P4-K-A remains blocked. Because the response grants no broader action scope, controller/schema/template implementation and every external, key, trust, path, signature, issuance, stand, Q15, calibration, pilot, measurement, and confirmatory action remain unauthorized."
+}

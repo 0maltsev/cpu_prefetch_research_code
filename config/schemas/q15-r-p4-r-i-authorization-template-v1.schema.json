@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-i-authorization-template:v1",
+  "title": "Still-unissued Q15-R-P4-R-I read-only identity authorization template",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "sha256OrNull": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^[0-9a-f]{64}$"}]},
+    "unresolved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "value"],
+      "properties": {"name": {"type": "string", "minLength": 1}, "value": {"type": "null"}}
+    }
+  },
+  "required": ["schema_version", "template_id", "protocol_version", "stand_id", "status", "lineage", "gate", "fixed_read_only_observations", "capture_contract", "unresolved_inputs", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-i-authorization-template/1"},
+    "template_id": {"const": "Q15-R-P4-R-I-AUTHORIZATION-TEMPLATE-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "STILL_UNISSUED_BLOCKED_EXTERNAL_INPUTS_AND_SEPARATE_EXACT_APPROVAL_REQUIRED"},
+    "lineage": {"type": "object", "minProperties": 9},
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_id", "purpose", "host", "bootstrap_transport_account", "bootstrap_transport_is_authority", "named_authority_principal", "custody_principal", "independent_review_principal", "ssh_host_key_fingerprint", "authorization_id", "authorization_sha256", "issued_at_utc", "expires_at_utc", "exact_validity_seconds", "renewal_allowed", "reuse_allowed", "canonicalization", "signature_scheme", "signature_principal", "signature_namespace", "signer_key_fingerprint", "detached_signature_sha256", "independent_review_sha256"],
+      "properties": {
+        "gate_id": {"const": "Q15-R-P4-R-I"},
+        "purpose": {"const": "FRESH_READ_ONLY_STAND_IDENTITY_ONLY"},
+        "host": {"const": "185.184.131.153"},
+        "bootstrap_transport_account": {"const": "root"},
+        "bootstrap_transport_is_authority": {"const": false},
+        "named_authority_principal": {"const": "cpu-prefetch-q15-operator"},
+        "custody_principal": {"const": "cpu-prefetch-q15-custodian"},
+        "independent_review_principal": {"const": "cpu-prefetch-q15-auditor"},
+        "ssh_host_key_fingerprint": {"type": "null"},
+        "authorization_id": {"type": "null"},
+        "authorization_sha256": {"type": "null"},
+        "issued_at_utc": {"type": "null"},
+        "expires_at_utc": {"type": "null"},
+        "exact_validity_seconds": {"const": 1800},
+        "renewal_allowed": {"const": false},
+        "reuse_allowed": {"const": false},
+        "canonicalization": {"const": "JCS-I64-v1"},
+        "signature_scheme": {"const": "OPENSSH-SSHSIG-ED25519-SHA512-v1"},
+        "signature_principal": {"const": "cpu-prefetch-q15-authorization"},
+        "signature_namespace": {"const": "cpu-prefetch-q15-authorization"},
+        "signer_key_fingerprint": {"type": "null"},
+        "detached_signature_sha256": {"type": "null"},
+        "independent_review_sha256": {"type": "null"}
+      }
+    },
+    "fixed_read_only_observations": {"type": "array", "minItems": 4, "maxItems": 4},
+    "capture_contract": {"type": "object", "minProperties": 11},
+    "unresolved_inputs": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/unresolved"}},
+    "authority_boundary": {
+      "const": {
+        "repository_local_unissued_template_creation_authorized": true,
+        "stand_access_authorized": false,
+        "identity_commands_authorized": false,
+        "filesystem_mutation_authorized": false,
+        "transfer_or_extraction_authorized": false,
+        "collector_self_test_authorized": false,
+        "collector_execution_authorized": false,
+        "key_creation_import_copy_or_use_authorized": false,
+        "signing_or_issuance_authorized": false,
+        "p4_r_i_authorized": false,
+        "p4_r_c_authorized": false,
+        "p4_k_authorized": false,
+        "q15_r_or_q15_w_authorized": false,
+        "platform_controls_authorized": false,
+        "calibration_pilot_measurement_or_confirmatory_authorized": false
+      }
+    }
+  }
+}

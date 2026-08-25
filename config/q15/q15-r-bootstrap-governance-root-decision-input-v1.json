@@ -1,0 +1,163 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-bootstrap-governance-root-decision-input/1",
+  "bundle_id": "Q15-R-BOOTSTRAP-GOVERNANCE-ROOT-DECISION-INPUT-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "PROPOSED_D087_D092_EXTERNAL_GENESIS_IDENTITY_AND_OFFLINE_CUSTODY_EVIDENCE_REQUIRED_NO_KEY_OR_EXECUTION_AUTHORITY",
+  "lineage": {
+    "p4_k_a_policy_acceptance_path": "config/q15/q15-r-p4-k-a-d-acceptance-v1.json",
+    "p4_k_a_policy_acceptance_sha256": "c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf",
+    "bootstrap_blocking_adr_path": "docs/decisions/0083-q15-r-p4-k-a-bootstrap-governance-root.md",
+    "bootstrap_blocking_adr_sha256": "fd608cabbf9a9bf01cc70c6f991a2c19564548ddf2baa45d017b31f7a505cfe5",
+    "generic_controller_profile_path": "config/q15/q15-r-p4-k-a-controller-profile-v1.json",
+    "generic_controller_profile_sha256": "0ceafd80200ba62584532e035a4c2a21015c2b56f75d0ebbfdffbd7f3b945875"
+  },
+  "decisions": [
+    {
+      "decision_id": "D-087",
+      "classification": "SECURITY_GENESIS_AUTHORITY_AND_NONSELF_AUTHORIZATION",
+      "subject": "external genesis authority and independently witnessed establishment",
+      "options_considered": [
+        "EXISTING_OWNER_EXTERNAL_IDENTITY_WITH_VERIFIABLE_SIGNED_GENESIS_ATTESTATION_AND_DISTINCT_AUDITOR_REVIEW",
+        "IN_PERSON_DUAL_CONTROL_GENESIS_CEREMONY_WITH_HASH_BOUND_SIGNED_RECEIPT",
+        "TARGET_OR_BOOTSTRAP_KEY_SELF_AUTHORIZATION_OR_CHAT_ROOT_SSH_AS_SIGNATURE",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "use an already verifiable owner external identity plus a distinct auditor if such evidence exists; otherwise use an in-person dual-control genesis ceremony with a hash-bound signed receipt; never let the new root authorize its own establishment",
+      "selected_option": null,
+      "state": "UNRESOLVED_EXTERNAL_IDENTITY_CAPABILITY_EVIDENCE_REQUIRED",
+      "scientific_effect": "none",
+      "compatibility_effect": "genesis identity mechanism, attestation bytes/hash, witnesses, review, and transaction ID become root provenance",
+      "owner": ["protocol owner", "security owner", "audit owner"],
+      "deadline_gate": "before any bootstrap-root key action",
+      "supersession_rule": "any identity, witness, attestation, review, or transaction change requires a new prospective genesis record"
+    },
+    {
+      "decision_id": "D-088",
+      "classification": "SECURITY_BOOTSTRAP_ROLE_AND_CUSTODY_SEPARATION",
+      "subject": "distinct genesis operator, signer custodian, and auditor roles and custody domains",
+      "options_considered": [
+        "THREE_DISTINCT_NAMED_ROLES_WITH_OWNER_OFFLINE_PRIMARY_AND_INDEPENDENT_RECOVERY_CUSTODY",
+        "OWNER_SUPPLIED_STRONGER_MULTI_PERSON_OR_HARDWARE_CUSTODY",
+        "ROOT_SHARED_STAND_REPOSITORY_OR_ROLE_COLLAPSE",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "freeze three distinct named principals and owner-controlled offline primary custody with a separately controlled recovery domain; serialize logical public identifiers only and never a private path",
+      "selected_option": null,
+      "state": "UNRESOLVED_LITERAL_PRINCIPAL_AND_CUSTODY_EVIDENCE_REQUIRED",
+      "scientific_effect": "none",
+      "compatibility_effect": "principal IDs, custody-domain IDs, access controls, recovery and destruction policy, and receipts become root identity",
+      "owner": ["security owner", "custody owner", "audit owner"],
+      "deadline_gate": "before controller specialization or key action",
+      "supersession_rule": "any role, domain, access, recovery, retention, or destruction change requires prospective review and new evidence"
+    },
+    {
+      "decision_id": "D-089",
+      "classification": "SECURITY_BOOTSTRAP_OFFLINE_ENVIRONMENT_AND_TOOLCHAIN",
+      "subject": "dedicated offline root-ceremony environment and exact tools",
+      "options_considered": [
+        "DEDICATED_OWNER_CONTROLLED_OFFLINE_LINUX_OPENSSH_TOOLCHAIN_WITH_EXACT_HASHED_INVENTORY_AND_NETWORK_UNAVAILABLE",
+        "OWNER_SUPPLIED_COMPATIBLE_OFFLINE_ED25519_TOOLCHAIN_WITH_INDEPENDENT_EVIDENCE",
+        "CURRENT_REPOSITORY_HOST_OR_EXPERIMENT_STAND_OR_UNINVENTORIED_TOOL",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "use a dedicated owner-controlled offline Linux/OpenSSH environment and bind OS, executable, library, version, argv, output-format, and network-unavailable evidence",
+      "selected_option": null,
+      "state": "UNRESOLVED_EXTERNAL_ENVIRONMENT_EVIDENCE_REQUIRED",
+      "scientific_effect": "none",
+      "compatibility_effect": "environment and tool bytes, versions, fixed argv, dependencies, network state, and output format become ceremony identity",
+      "owner": ["security owner", "custody owner", "release owner", "audit owner"],
+      "deadline_gate": "before any root controller specialization or action",
+      "supersession_rule": "any environment, tool, version, dependency, argv, network, or format change requires a new inventory and review"
+    },
+    {
+      "decision_id": "D-090",
+      "classification": "SECURITY_BOOTSTRAP_PRIVATE_KEY_PROTECTION_AND_RECOVERY",
+      "subject": "encrypted root key, secret-input boundary, KDF work, backup, recovery, rotation, and destruction",
+      "options_considered": [
+        "ENCRYPTED_OPENSSH_ED25519_WITH_UNCAPTURED_INTERACTIVE_SECRET_EXACT_KDF_AND_DUAL_CONTROL_RECOVERY",
+        "OWNER_SUPPLIED_NONEXPORTING_ED25519_CUSTODY_WITH_SSHSIG_COMPATIBILITY_PROOF",
+        "UNENCRYPTED_RECORDED_SECRET_OR_UNREVIEWED_BACKUP",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "require an encrypted Ed25519 root key, uncaptured interactive secret, exact later KDF work input, separately controlled encrypted recovery, and non-secret access/backup/recovery/rotation/destruction receipts",
+      "selected_option": null,
+      "state": "UNRESOLVED_KDF_RECOVERY_AND_CUSTODY_EVIDENCE_REQUIRED",
+      "scientific_effect": "none",
+      "compatibility_effect": "encoding, KDF/work value, secret boundary, access, backup, recovery, rotation, destruction, and receipt hashes become custody identity",
+      "owner": ["security owner", "custody owner", "audit owner"],
+      "deadline_gate": "before controller specialization or key action",
+      "supersession_rule": "any protection, secret, KDF, backup, recovery, rotation, or destruction change requires prospective acceptance"
+    },
+    {
+      "decision_id": "D-091",
+      "classification": "SECURITY_BOOTSTRAP_PUBLIC_TRUST_ARTIFACT",
+      "subject": "canonical public key, fingerprint, allowed-signers bytes, scope, and export identity",
+      "options_considered": [
+        "CREATE_EXCLUSIVE_PUBLIC_ROOT_WITH_SINGLE_ED25519_ALLOWED_SIGNERS_ENTRY_SCOPED_TO_Q15_AUTHORIZATION",
+        "OWNER_SUPPLIED_STRONGER_CANONICAL_PUBLIC_TRUST_FORMAT_WITH_OPENSSH_COMPATIBILITY",
+        "MUTABLE_SHARED_TRUST_FILE_OR_UNSCOPED_SIGNER",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "construct create-exclusive public-key, SHA256 fingerprint, canonical single-entry allowed-signers, receipt, and sidecar artifacts scoped only to principal and namespace cpu-prefetch-q15-authorization",
+      "selected_option": null,
+      "state": "UNRESOLVED_LITERAL_PUBLIC_EXPORT_AND_TRUST_BYTES_REQUIRED",
+      "scientific_effect": "none",
+      "compatibility_effect": "root public bytes/fingerprint, principal, namespace, artifact IDs, paths, canonical trust bytes/hash, and receipt become authorization identity",
+      "owner": ["security owner", "custody owner", "audit owner", "repository owner"],
+      "deadline_gate": "before root acceptance or P4-K-A signing",
+      "supersession_rule": "any public key, scope, path, format, canonical bytes, or artifact identity change requires a new root version and review"
+    },
+    {
+      "decision_id": "D-092",
+      "classification": "SECURITY_BOOTSTRAP_LIFECYCLE_REVOCATION_AND_COMPROMISE",
+      "subject": "append-only root status, activation, rotation, revocation, compromise, and recovery governance",
+      "options_considered": [
+        "APPEND_ONLY_VERSIONED_ROOT_LEDGER_WITH_EXPLICIT_ACTIVATION_ROTATION_REVOCATION_AND_COMPROMISE_STOP",
+        "OWNER_SUPPLIED_STRONGER_TRANSPARENCY_OR_THRESHOLD_GOVERNANCE",
+        "IN_PLACE_KEY_OR_TRUST_MUTATION_SILENT_ROTATION_OR_CONTINUED_USE_AFTER_COMPROMISE",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "use an append-only versioned ledger; require distinct reviewed records for activation, rotation, revocation, and recovery; stop every dependent authorization on suspected compromise; never edit or reuse prior root artifacts",
+      "selected_option": null,
+      "state": "UNRESOLVED_OWNER_SECURITY_AUDIT_POLICY_ACCEPTANCE_REQUIRED",
+      "scientific_effect": "none",
+      "compatibility_effect": "root version, status lineage, activation/revocation instants, authority, reviews, and dependent-authorization invalidation become governance identity",
+      "owner": ["protocol owner", "security owner", "custody owner", "audit owner"],
+      "deadline_gate": "before root activation",
+      "supersession_rule": "lifecycle policy changes require a new prospective ADR; append-only prior status and artifacts are retained"
+    }
+  ],
+  "external_inputs": [
+    {"name": "GENESIS_AUTHORITY_IDENTITY_METHOD_ATTESTATION_ARTIFACT_AND_SHA256", "value": null},
+    {"name": "DISTINCT_GENESIS_OPERATOR_CUSTODIAN_AUDITOR_IDENTITIES_AND_EVIDENCE", "value": null},
+    {"name": "PRIMARY_AND_RECOVERY_OFFLINE_CUSTODY_DOMAIN_EVIDENCE_IDS_AND_SHA256", "value": null},
+    {"name": "OFFLINE_ENVIRONMENT_OS_TOOL_LIBRARY_VERSION_ARGV_HASHES_AND_NETWORK_EVIDENCE", "value": null},
+    {"name": "EXACT_KEY_ENCODING_KDF_WORK_SECRET_BOUNDARY_RECOVERY_ROTATION_AND_DESTRUCTION_POLICY", "value": null},
+    {"name": "CREATE_EXCLUSIVE_PUBLIC_EXPORT_TRANSACTION_ID_ABSOLUTE_PATHS_AND_ARTIFACT_IDS", "value": null},
+    {"name": "ROOT_PUBLIC_KEY_FINGERPRINT_CANONICAL_ALLOWED_SIGNERS_BYTES_AND_SHA256", "value": null},
+    {"name": "DISTINCT_AUDITOR_GENESIS_AND_PUBLIC_TRUST_REVIEW_ARTIFACT_AND_SHA256", "value": null}
+  ],
+  "owner_questions": [
+    {"question_id": "BGR-Q1", "decision_id": "D-087", "answer": null},
+    {"question_id": "BGR-Q2", "decision_id": "D-088", "answer": null},
+    {"question_id": "BGR-Q3", "decision_id": "D-089", "answer": null},
+    {"question_id": "BGR-Q4", "decision_id": "D-090", "answer": null},
+    {"question_id": "BGR-Q5", "decision_id": "D-091", "answer": null},
+    {"question_id": "BGR-Q6", "decision_id": "D-092", "answer": null}
+  ],
+  "authority_boundary": {
+    "repository_local_decision_bundle_preparation_authorized": true,
+    "repository_local_acceptance_adr_controller_schema_or_template_implementation_authorized": false,
+    "genesis_identity_or_witness_action_authorized": false,
+    "offline_environment_access_or_inventory_authorized": false,
+    "bootstrap_key_generation_import_copy_fingerprint_or_use_authorized": false,
+    "private_key_path_bytes_passphrase_or_seed_collection_authorized": false,
+    "custody_or_public_export_path_creation_authorized": false,
+    "public_trust_artifact_creation_authorized": false,
+    "signing_activation_rotation_revocation_or_recovery_authorized": false,
+    "p4_k_a_or_p4_k_r_authorized": false,
+    "stand_access_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

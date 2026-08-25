@@ -48,6 +48,71 @@ release verification and never execute the collector.
 authorized no-authority successor hash. `check_q15_r_p4_r_preparation_v2.py`
 enforces one resolved release group, seven null P4-R inputs, unchanged P4-K,
 all 25 commands/limits, `NOT_ISSUED`, and eight negative mutations.
+`check_q15_r_p4_r_staging_authorization_decision.py` validates proposed D-072
+through D-075, exact `f30036e`/v3 lineage and literal candidates, named-role and
+1,800-second SSHSIG policy, separate unissued P4-R-I/P4-R-C gates, one-shot
+verification/rollback rules, seven unresolved groups, and fifteen negative
+mutations. Its optional archive mode reads and hashes the local v3 archive and
+rejects unsafe members; it never transfers, extracts, signs, accesses the
+stand, or executes the collector.
+`check_q15_r_p4_f_acceptance.py` binds the exact accepted statement and
+proposal/predecessor hashes, freezes only repository-local template values,
+and rejects seven authority/lineage/value mutations.
+`check_q15_r_p4_r_successor_templates.py` validates separate still-unissued
+P4-R-I and P4-R-C schemas, exact ADR/acceptance/release/path/command/limit/
+rollback bindings, six null external-input groups per template, unchanged
+P4-R/P4-K predecessors, and twelve negative mutations. Neither checker issues
+an authorization or performs filesystem, network, key, stand, or collector
+work.
+`check_q15_r_p4_k_decision_input.py` validates the proposed D-076 through
+D-079 owner-choice bundle, four null selections, eight null P4-K external
+inputs, immutable predecessor hashes, three explicit owner questions, split
+future gates, all-false authority, and twelve negative mutations. It never
+reads, generates, imports, copies, or uses key material and never accesses a
+stand, signs, issues, installs, calibrates, pilots, or measures.
+`check_q15_r_p4_k_d_acceptance.py` binds the delegated recommended choices,
+logical-only custody identifiers, exact predecessor hashes, bounded owner
+messages, all-false action authority, and ten negative mutations.
+`check_q15_r_p4_k_successor_templates.py` validates separate still-unissued
+P4-K-A/P4-K-R schemas, acceptance/ADR hashes, 13/9 null fields, the bootstrap-
+signer boundary, one-attempt/zero-retry acquisition, distinct public review,
+and fourteen negative mutations. Neither checker discovers, generates,
+fingerprints, imports, copies, or uses a key; creates public artifacts or
+paths; accesses a stand; signs/issues; installs; or executes any Q15 or
+experiment phase.
+`check_q15_r_p4_k_a_operational_input_decision.py` validates the proposed
+D-080 through D-085 offline-environment, custody, public-export, bootstrap-
+trust, fixed-controller, and issuance/review contracts. It binds exact
+acceptance/template/ADR hashes, keeps six selections, seven external values,
+and five owner answers null, and rejects fifteen authority/evidence/self-
+authorization/retry/scope mutations. It does not inspect an offline host,
+access a key/trust artifact, collect secrets, create a path/public artifact,
+implement or execute a controller, access the stand, sign, issue, or run any
+Q15 or experiment phase.
+
+`check_q15_r_p4_k_a_d_acceptance.py` validates the separate policy acceptance,
+exact six selections and five responses, seven null external inputs,
+ADR-0080..0085 hashes, immutable templates, and the fail-closed absence of a
+qualifying bootstrap signer. Nineteen mutations reject controller
+implementation authority, external evidence, target-key self-authorization,
+premature P4-K-A unblocking, and all operational scopes. It does not implement
+or execute a controller or perform any offline, key, trust, path, signature,
+stand, Q15, or experiment action.
+
+`check_q15_r_p4_k_a_controller_profile.py` validates ADR-0086's generic
+no-authority implementation profile, exact controller/test source hashes, the
+fixed ten-step graph, the immutable absent-bootstrap disposition, strict
+profile/admission schemas, seven null external inputs, and the lack of any OS
+or file backend. It exercises fourteen profile and six admission mutations;
+its synthetic complete admission is not an authorization or external-evidence
+fixture.
+
+`check_q15_r_bootstrap_governance_root_decision.py` validates the proposed
+D-087 through D-092 governance-root decision/input record, exact immutable
+lineage, eight null external inputs, six unanswered owner questions, and
+fourteen fail-closed mutations. It neither selects a real-world identity or
+custody mechanism nor creates, reads, imports, copies, fingerprints, signs, or
+uses any key or trust artifact.
 
 D-053 adds `check_q15_probe_implementation.py` and
 `check_q15_probe_codegen.py`. The first validates the exact master-seed,

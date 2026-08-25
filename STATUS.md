@@ -3,7 +3,7 @@
 Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
 **`2.0.0-pre.1`** retained
 
-Repository state: **`Q15_R_P4_D_METHODS_ACCEPTED_COLLECTOR_IMPLEMENTED_LOCAL_NO_AUTHORITY`**
+Repository state: **`Q15_R_P4_K_A_CONTROLLER_LOCAL; BOOTSTRAP_ROOT_INPUTS_PROPOSED_BLOCKED_NO_AUTHORITY`**
 
 Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 **`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**
@@ -13,7 +13,7 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/16 implementation-decision record | `COMPLETE`; Q1 through Q15-R-P4-E recorded | ADR-0001 through ADR-0071 are accepted. D-066 through D-070 accept acquisition methods; D-071 selects exact clean collector-release bytes only. Every external value remains null. No acceptance grants stand, PMU/MSR, dynamic qualification, privileged control, calibration, pilot, measurement, or confirmatory authority. |
+| Stage 2/16 implementation-decision record | `COMPLETE`; Q1 through delegated D-086 implementation recorded | ADR-0001 through ADR-0086 are accepted. D-080 through D-085 freeze P4-K-A policy with no bootstrap signer; D-086 implements only the generic no-authority controller. Proposed D-087 through D-092 expose the external bootstrap-root gate. Every external value remains null. No acceptance grants stand, PMU/MSR, dynamic qualification, key/trust action, privileged control, calibration, pilot, measurement, or confirmatory authority. |
 | Stage 3 build/CI foundation | `COMPLETE_REVERIFIED` | ADR-0022, constrained offline inputs, dual compiler/library development/release presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations freshly pass Stage 16. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
@@ -30,7 +30,7 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Measurement system | `V3_LOCAL_NOT_EXECUTION_AUTHORIZED` | `cpu_prefetch_runner_core` implements strict 21-kind v3 admission and corrected wait/drain semantics. The sealed measurement candidate remains immutable and unprivileged. Q15-S1 adds only a separate fixed-scope qualification executable; it is not in the candidate and grants no authority. |
 | Q15-P0 local verification | `COMPLETE` | GCC and Clang/libc++ development and release matrices pass 216/216 each; both ASan/UBSan matrices and GCC TSan pass 216/216; Clang/libc++ TSan passes its applicable 214/214. Full 73-file static analysis, formatting, schemas, immutable protocol hashes, release policy, dependency/license, CI, and all dual-disassembler generated-code gates pass. No stand or MSR operation occurred. |
 | Q15-P0 candidate release | `COMPLETE_NO_AUTHORITY` | Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` produced `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; archive SHA-256 is `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`. Outer/internal hashes, 94-file clean extraction, and both nonprivileged self-tests pass. Its manifest denies dynamic, pilot, confirmatory, and measurement execution authority. |
-| Exact Q15 preparation | `Q15_R_P4_E_ACCEPTED; P4_R_V2_RELEASE_ONLY; P4_R_P4_K_UNISSUED; NO_AUTHORITY` | ADR-0061 through ADR-0071 are accepted. The fixed collector is sealed in clean v3 release `34da95d`/`f45d25f4...`; D-071 selects only those bytes. Versioned P4-R preparation v2 resolves one clean-release group and retains seven null external inputs. P4-K remains byte-preserved with eight null inputs. No collector execution, credentials/custody/signer/trust/prestate evidence, literal path, setup authority, signed Q15-R, Q15-W, or execution authority exists. |
+| Exact Q15 preparation | `Q15_R_P4_K_A_GENERIC_CONTROLLER_IMPLEMENTED; NO_BOOTSTRAP_SIGNER; BLOCKED_NO_OPERATIONAL_AUTHORITY` | ADR-0061 through ADR-0086 are accepted. D-072 through D-075 freeze still-unissued P4-R-I/P4-R-C templates; D-076 through D-079 freeze split P4-K policy/templates; D-080 through D-085 freeze P4-K-A operational contracts as policy; D-086 implements only the generic no-OS-backend controller. The owner reports no qualifying bootstrap signer, all seven P4-K-A inputs remain null, and no stand/path/collector/key/trust/public-artifact/signature/issuance/Q15 or execution authority exists. |
 | Stage 16 software verification | `COMPLETE` | Both compiler/library development and release matrices pass 187/187; sanitizer matrices pass 187/187, 187/187, 187/187, and applicable 185/185; strict component codegen, static/format/schema/provenance/dependency/CI checks, synthetic dispositions, reproducible bundle, clean extraction, and nonprivileged self-tests pass. ADR-0042 and the readiness report bind the evidence boundary. |
 | Stand preflight | `COMPLETE_INVENTORY_ONLY_NOT_QUALIFIED` | The exact bundle and 72-file internal inventory passed on `xeon-cpu-fetch`; smoke, self-test, and the collector ran as `nobody:nogroup`. Snapshot `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` observes two packages/two NUMA nodes and retains seven blockers. Inventory SHA-256 is `f3bb301c77918c0287c8a287e3915f5d68929684eece660464c69f62770ac94b`; the sidecar-publication failure and recovered checksum are preserved. |
 | Pilot | `BLOCKED` | The exact clean adapter-bearing release is selected as evidence only. Authorized/verified four-role/custody/trust setup, a separately approved signed Q15-R and later Q15-W, dynamic H0/H1/clock/layout/CPU/residency/storage evidence, calibration inputs, and separate Q16 authority are absent. |
@@ -486,6 +486,48 @@ Q15-R approval remain separate gates. Q15-R is unauthorized.
 | Lineage | Predecessor P4-R SHA-256 `1925d9e8...` and P4-K SHA-256 `c56ae3dc...` remain immutable, unissued, and byte-preserved |
 | Authority | `NONE`: D-071/Q15-R-P4-E authorizes no stand/path/transfer/install/collector/key/signature/Q15/platform/calibration/pilot/measurement action |
 
+## Accepted D-072 through D-075 P4-R template contract
+
+| Check | Result |
+|---|---|
+| Decision state | `ACCEPTED_REPOSITORY_LOCAL_TEMPLATE_FREEZE_NO_STAND_AUTHORITY`: immutable proposal SHA-256 `18c29f6f3710b061bcf593ad6615589a6b50c4bf28ebceb4bee3714702389604`; Q15-R-P4-F acceptance SHA-256 `ae879bd113939ee06fd3673c0f14d054d92d6c30c0162ffa6727d2a42973cb8c`; ADR-0072 through ADR-0075 accepted |
+| Binding | Governance commit `f30036e31acc8ae036f2f31086d493eeb30db9d7`; immutable v3 archive SHA-256 `f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a`; P4-E/P4-R-v2/P4-K and reference inventory hashes preserved |
+| Frozen literals | One create-exclusive non-operational stand staging tree; fixed capture ID; exact stdout/stderr/sidecar/receipt/review paths in `DEVELOPMENT-REPOSITORY-Q15-CUSTODY`; selected for unissued templates only and no path is created |
+| Authority policy | Named operator, distinct custodian/auditor, root as bootstrap transport only, nonrenewable 1,800-second UTC window, accepted SSHSIG profile; all actual instants/key/fingerprint/signature/review hashes remain null |
+| Execution graph | `Q15-R-P4-R-I` fresh read-only identity and mandatory stop/review, then later separate `Q15-R-P4-R-C` create-exclusive staging and one collector attempt; both templates are unissued and hash-bound (`38223ea7...`, `22d4aa6f...`) |
+| Failure behavior | Zero retry; 13 ordered transfer/verification actions; eleven stop groups; preserve complete/partial bytes; no delete, overwrite, reuse, cleanup, activation, or operational-root mutation |
+| Verification | Proposal: Draft schema plus 15 negative mutations and optional local archive audit. Acceptance: 7 negative mutations. Split successor templates: Draft schemas, immutable hash/ADR bindings, exact commands/paths/graph/limits/rollback, and 12 negative mutations |
+| Remaining inputs | P4-R-I retains six null groups; P4-R-C retains six null groups including accepted fresh identity/review hashes; P4-K retains eight null inputs; actual UTC/signature/review/transport evidence is absent |
+| Authority | `NONE`: no stand access, path creation, transfer/extraction, stand self-test, collector execution, key/signature/issuance, P4-R/P4-K/Q15-R/Q15-W, platform control, calibration, pilot, measurement, or confirmatory action |
+
+## Accepted Q15-R-P4-K-D policy and unissued templates
+
+| Check | Result |
+|---|---|
+| Decision state | `ACCEPTED_REPOSITORY_LOCAL_POLICY_AND_UNISSUED_TEMPLATE_PREPARATION_ONLY`; D-076 through D-079 are recorded by ADR-0076 through ADR-0079 |
+| Immutable lineage | Proposal SHA-256 `cf05bbfd...`; acceptance SHA-256 `11b9c357...`; predecessor P4-K SHA-256 `c56ae3dc...` remains unchanged with eight null inputs |
+| Selected policy | New offline Ed25519 ceremony under later exact authority; logical domain `OWNER-OFFLINE-Q15-KEY-CUSTODY`; custodian `cpu-prefetch-q15-custodian`; split one-shot P4-K-A then independent P4-K-R; operator/1,800-second/JCS-I64/SSHSIG/distinct-auditor profile |
+| Evidence boundary | The domain and custodian are logical identities only. Operational existence/control, ceremony tools/argv, custody evidence, bootstrap signer/trust, public paths/bytes/hashes/fingerprint, UTC instants, signatures, and reviews remain absent |
+| Unissued templates | P4-K-A SHA-256 `7669a2f6...` retains 13 null input/output fields; P4-K-R SHA-256 `ae71ce73...` retains 9; neither is signed, issued, executable, or self-authorizing |
+| Verification contract | Proposal 12 negatives; acceptance 10 negatives; successor templates 14 negatives; exact hashes, roles, split gates, one attempt/zero retry, bootstrap boundary, all-false operational authority |
+| Fresh local verification | Focused targets and 2 CTests pass; aggregate qualification, 51 implementation-schema, 14 imported-schema/36-artifact protocol-integrity, 35-positive/32-negative fixture, canonical, 161-file/357-link document, and formatting checks pass; full development regression passes 302/302 |
+| Authority | `NONE`: preparation does not authorize key/artifact/path/stand/signature/issuance/setup/Q15/calibration/pilot/measurement/confirmatory work |
+
+## Accepted Q15-R-P4-K-A policy; bootstrap trust blocked
+
+| Check | Result |
+|---|---|
+| Decision state | `ACCEPTED_POLICY_BLOCKED_NO_QUALIFYING_BOOTSTRAP_SIGNER`; ADR-0080 through ADR-0085 record the selected recommendations and fail-closed Q4 disposition |
+| Immutable records | Proposal SHA-256 `8acfebfb...`; acceptance `config/q15/q15-r-p4-k-a-d-acceptance-v1.json` SHA-256 `c68e1b94...`; P4-K-A/P4-K-R templates remain byte-preserved and unissued |
+| Accepted contracts | Dedicated exact offline environment/toolchain; encrypted OpenSSH key with uncaptured interactive secret; unique public export root; separate bootstrap governance root; fixed no-authority controller policy; exact 1,800-second issuance/review/partial-evidence stop policy |
+| Critical blocker | `P4KA-Q4=NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED`; establish a bootstrap governance root under a separate prospective bundle before returning to P4-K-A |
+| Preserved absence | Seven external inputs remain null; no environment, KDF, custody evidence, public path, signer/trust, UTC, authorization, signature, or review value is inferred |
+| Verification contract | Draft 2020-12 acceptance schema; exact proposal/template/ADR hashes; exact six selections and five responses; 19 negative implementation/authority/evidence/self-authorization/unblock/scope mutations |
+| Generic controller | ADR-0086/profile `0ceafd80...` implements a ten-step typed admission state machine with direct-process/secret boundaries, active 1,800-second authorization, explicit limits, one attempt, zero retry, partial retention, and mandatory P4-K-R stop; it has no OS backend |
+| Next governance input | D-087 through D-092 proposal SHA-256 `065d8a6d...` retains eight null external inputs and six open questions for genesis identity, roles/custody, offline environment, protection/recovery, public trust, and lifecycle governance |
+| Fresh local verification | `PASS`: final focused controller/profile/governance suite 7/7; full development regression 311/311; GCC and Clang/libc++ ASan+UBSan and TSan controller matrices 5/5 each; 99-file warnings-as-errors clang-tidy, formatting, 56 implementation-schema/14 imported-schema protocol integrity, 35-positive/32-negative fixtures, canonicalization, 170-file/380-link documentation, and all aggregate qualification checks pass. Static analysis prompted and verified an explicit fail-closed expiry guard plus removal of unnecessary test copies. |
+| Authority | Repository-local generic controller/schema/test/documentation only. Every genesis/offline/key/trust/path/signature/issuance/stand/Q15/experiment action remains inadmissible until exact external evidence and later signed authorization exist |
+
 ## Fresh local verification through Stage 16
 
 | Check | Result |
@@ -727,10 +769,23 @@ SSH access, or root access.
 
 Q15-R-P4-E/ADR-0071 separately selects the exact clean collector-bearing v3
 release as P4-R evidence only. P4-R preparation v2 resolves only that release
-group; seven P4-R and eight P4-K external inputs remain null. The next P4
-actions require owner/platform evidence and separate explicit authorization.
-The release selection cannot authorize stand access, transfer/install,
-collector execution, keys, signatures, or any Q15 phase.
+group; seven P4-R inputs remain null. Q15-R-P4-F/
+ADR-0072 through ADR-0075 now freeze the exact staging/capture/custody literals,
+roles/validity/signature policy, and split P4-R-I/P4-R-C graph in separate
+still-unissued templates. Each successor retains six null prerequisite groups.
+Q15-R-P4-K-D/ADR-0076 through ADR-0079 separately freeze the new-offline-
+ceremony source mode, logical custody identities, split P4-K-A/P4-K-R graph,
+and authority policy. The original P4-K remains unchanged with eight nulls;
+the separate unissued templates retain 13/9 null fields. Q15-R-P4-K-A-D/
+ADR-0080 through ADR-0085 accepts the exact P4-K-A operational contracts as
+policy while retaining all seven external values null. The owner reports no
+qualifying bootstrap signer, so a separately governed bootstrap root is now a
+hard P4-K-A blocker. Controller implementation remains a separate explicit
+gate. A separately signed/approved read-only P4-R-I is also still unopened.
+P4-K-A/P4-K-R and P4-R-C remain blocked on their exact external predecessors.
+These decisions cannot authorize offline/key/
+trust access, stand access, path/public-artifact action, transfer/extraction,
+collector execution, signatures, issuance, or any Q15 phase.
 
 Pilot remains blocked on the selected pair/layout/atomic,
 requested-versus-verified controls/restoration, exact

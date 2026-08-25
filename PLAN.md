@@ -387,10 +387,41 @@ authorization/amendment.
   collector-release evidence only. Versioned successor P4-R preparation v2
   resolves only the clean collector-release group. Seven P4-R and eight P4-K
   inputs remain null, all execution authority remains false, and the collector
-  has not run. A fully resolved and
+  has not run. Q15-R-P4-F accepts D-072 through D-075/ADR-0072 through
+  ADR-0075, bound to governance commit `f30036e` and the immutable v3 archive.
+  It freezes exact create-exclusive staging/capture/custody paths, named
+  principals, a 1,800-second SSHSIG window, and split P4-R-I identity then
+  P4-R-C one-shot collection with non-deleting partial retention. The two
+  successor templates remain unissued and retain six null external-input
+  groups each. P4-R v2 and P4-K remain byte-preserved with seven and eight null
+  inputs respectively. Q15-R-P4-K-D accepts D-076 through D-079/ADR-0076
+  through ADR-0079 for repository-local policy and template preparation only.
+  It selects a later separately authorized new offline ceremony, logical
+  custody domain `OWNER-OFFLINE-Q15-KEY-CUSTODY`, custodian
+  `cpu-prefetch-q15-custodian`, split P4-K-A/P4-K-R, and the accepted
+  operator/1,800-second/JCS-I64/SSHSIG/distinct-auditor profile. The original
+  P4-K preparation remains unchanged with eight null inputs. Separate P4-K-A
+  and P4-K-R templates are unissued with 13 and 9 null fields; the logical
+  domain is not operational evidence. No key or public artifact is read,
+  generated, copied, fingerprinted, created, signed, issued, or installed. A
+  fully resolved and
   separately authorized four-role/custody setup,
   the five external trust/path/prestate inputs, exact signed Q15-R argv, and
   dynamic authority remain required.
+  Q15-R-P4-K-A-D accepts D-080 through D-085/ADR-0080 through ADR-0085 as
+  policy only. It freezes the exact offline environment/toolchain,
+  encrypted-key custody, public export, bootstrap-root, fixed-controller, and
+  issuance/review contracts while retaining all seven P4-K-A external inputs
+  as null. The owner explicitly reports no qualifying bootstrap signer, so a
+  separately governed bootstrap root is the blocking next trust gate.
+  The later owner delegation authorizes repository-local work, and ADR-0086
+  implements a generic no-authority controller admission/state-machine with no
+  OS backend. It requires every future external hash, active signature,
+  independent review, explicit bound, and direct process contract before it
+  can mint a ticket. D-087 through D-092 are prepared as the next bootstrap-
+  governance-root decision/input bundle; eight external inputs and six owner
+  questions remain null. No environment/key/trust/path/artifact/signature/
+  issuance or external action has occurred.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

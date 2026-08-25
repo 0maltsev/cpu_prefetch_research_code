@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`Q15_R_P2_ACCEPTED_ADAPTER_LOCAL; STAND_SETUP_BLOCKED_INPUTS_REQUIRED`**
+Stage 2/16 disposition: **`P4_K_A_GENERIC_CONTROLLER_IMPLEMENTED; BOOTSTRAP_ROOT_EXTERNAL_INPUTS_REQUIRED_NO_AUTHORITY`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
@@ -28,6 +28,10 @@ implementation-owned planning/access profile, and ADR-0041 closing the
 synthetic-only Stage 15 analysis profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
+
+Q15-R-P4-F was accepted on 2026-08-25 and is recorded in ADR-0072 through
+ADR-0075. It freezes repository-local literals and still-unissued templates
+only; it supplies no operational evidence or execution authority.
 
 ## Accepted Q15-P0 prerequisite closure; exact Q15 inputs still required
 
@@ -123,6 +127,98 @@ gates require owner/platform evidence for those external values and separate
 exact authorization; no value may be inferred. Separate
 future Q15-R-P4-R, Q15-R-P4-K, Q15-R-P5, Q15-R, and Q15-W gates remain
 mandatory and unopened.
+
+The [exact Q15-R-P4-R staging/authorization bundle](Q15_R_P4_R_STAGING_AUTHORIZATION_DECISION_BUNDLE.md)
+records the immutable D-072 through D-075 proposal at machine-record SHA-256
+`18c29f6f3710b061bcf593ad6615589a6b50c4bf28ebceb4bee3714702389604`.
+Q15-R-P4-F accepts one create-exclusive staging tree, fixed capture and
+development-custody paths, named operator/auditor/custodian roles, a
+nonrenewable 1,800-second UTC policy, the accepted SSHSIG profile, and a split
+read-only identity then one-shot collection graph. Acceptance SHA-256 is
+`ae879bd113939ee06fd3673c0f14d054d92d6c30c0162ffa6727d2a42973cb8c`;
+ADR-0072 through ADR-0075 record the choices. The P4-R-I and P4-R-C successor
+templates remain unissued with six null external-input groups each. The
+smallest next gates are exact P4-K-A ceremony/custody/bootstrap-signing inputs
+or a later exact signed P4-R-I authorization; P4-R-C may be prepared for
+issuance only after accepted fresh identity and review hashes exist. No gate
+auto-continues.
+
+The repository-local
+[`Q15-R-P4-K decision/input bundle`](Q15_R_P4_K_DECISION_INPUT_BUNDLE.md)
+is accepted by Q15-R-P4-K-D/ADR-0076 through ADR-0079. Acceptance SHA-256 is
+`11b9c357468515145bc5e7b2b477515c814d31ec97603245eff378d0259e6be7`.
+It selects the new-offline-ceremony source mode, logical custody domain
+`OWNER-OFFLINE-Q15-KEY-CUSTODY`, custodian
+`cpu-prefetch-q15-custodian`, split one-shot P4-K-A then independent P4-K-R,
+and the accepted operator/1,800-second/JCS-I64/SSHSIG/distinct-auditor profile.
+
+The logical identifiers are not operational evidence. The immutable original
+P4-K preparation retains all eight null external inputs. The separate P4-K-A
+and P4-K-R templates remain unissued with 13 and 9 null input/output fields.
+Before P4-K-A can be prepared for exact issuance, the owners must supply:
+
+1. exact offline ceremony/public-extraction tools, versions, SHA-256 values,
+   and fixed argv;
+2. create-exclusive public artifact IDs and absolute public source paths;
+3. operational offline custody-control and ceremony-environment evidence ID
+   and SHA-256, without private-key paths or bytes;
+4. bootstrap authorization signer fingerprint and trust-evidence SHA-256—the
+   nonexistent target key cannot authorize its own creation;
+5. literal issue/expiry UTC instants and canonical authorization/signature
+   hashes; and
+6. distinct auditor pre-execution review evidence.
+
+P4-K-R remains blocked until a complete accepted P4-K-A action receipt and all
+exact public/custody evidence exist. Private key bytes, passphrases, seeds, or
+secret paths must never be submitted. P4-K-A, P4-K-R, P5, P4-R-I/P4-R-C, and
+every Q15 or experiment phase still require separate exact approval.
+
+The repository-local
+[`Q15-R-P4-K-A operational-input decision bundle`](Q15_R_P4_K_A_OPERATIONAL_INPUT_DECISION_BUNDLE.md),
+machine-record SHA-256
+`8acfebfb22ba7449233b5c4c5b2a7ecf9c9a48323b1d79b45b42d26867199777`,
+is accepted as policy by Q15-R-P4-K-A-D/ADR-0080 through ADR-0085. Acceptance
+SHA-256 is
+`c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf`.
+It maps all seven still-null P4-K-A inputs to exact environment/toolchain,
+encrypted-key custody, public export, bootstrap-root, fixed-controller, and
+issuance/review contracts.
+
+The owner selected
+`P4KA-Q4=NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED`. The smallest blocking
+governance decision is therefore a separate prospective bootstrap-root
+establishment bundle. It must define its own distinct signer/custodian/auditor
+roles, trust-anchor construction/review contract, exact non-secret evidence,
+authority boundary, and rollback without using the nonexistent target P4-K key
+to authorize itself.
+
+After that root exists, the remaining P4-K-A inputs are still required:
+
+1. exact offline ceremony/public-extraction tools, versions, hashes, fixed
+   argv, environment inventory, and network-unavailable evidence;
+2. literal KDF work value and non-secret operational custody evidence;
+3. an unused action ID plus exact create-exclusive public export paths and
+   artifact identities;
+4. bootstrap signer fingerprint and reviewed public trust-evidence hash;
+5. literal issue/expiry UTC instants and canonical authorization/signature
+   hashes; and
+6. distinct auditor pre-execution review evidence.
+
+ADR-0086 now implements the generic repository-local controller, admission
+schema, fake tests, and profile under the later owner delegation. It has no OS
+backend and cannot mint a ticket while bootstrap, environment, toolchain,
+custody, path, issuance, and review evidence are absent.
+
+The next prepared gate is the
+[`Q15-R bootstrap governance-root decision/input bundle`](Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
+SHA-256
+`065d8a6d5f882bff84ee9bdbe27eb0e0c9e2bfea56c58cbe2b9bfc61cab3a4b7`.
+D-087 through D-092 remain proposed because selection depends on real external
+identity and custody capabilities. Eight external inputs and six owner answers
+remain null. The repository host and experiment stand are not silently treated
+as the owner-controlled offline environment. Private key bytes, paths,
+passphrases, seeds, and credentials must never enter a response or repository
+record.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)

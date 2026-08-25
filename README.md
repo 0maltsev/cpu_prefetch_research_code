@@ -105,6 +105,44 @@ Versioned successor P4-R preparation v2 resolves only that evidence group;
 seven P4-R inputs and all eight P4-K inputs remain null. This acceptance
 authorizes no collector execution, key
 action, literal path, stand operation, setup, or Q15 phase. The frozen
+staging/authority choices are recorded in the
+[`D-072 through D-075 decision bundle`](docs/Q15_R_P4_R_STAGING_AUTHORIZATION_DECISION_BUNDLE.md).
+Q15-R-P4-F accepts their exact create-exclusive staging/capture/custody paths,
+named roles, single-use UTC/SSHSIG policy, and separate fresh-identity and
+one-shot collection gates as repository-local template values. ADR-0072
+through ADR-0075 and the still-unissued P4-R-I/P4-R-C templates record the
+freeze. All external evidence remains null; neither template is an
+authorization, and no stand, path, transfer, collector, key, signature,
+platform-control, calibration, pilot, measurement, or confirmatory action is
+authorized.
+The
+[`D-076 through D-079 decision/input bundle`](docs/Q15_R_P4_K_DECISION_INPUT_BUNDLE.md)
+is accepted by Q15-R-P4-K-D/ADR-0076 through ADR-0079 for repository-local
+policy and still-unissued template preparation only. It selects a new offline
+Ed25519 ceremony under later separate exact authority, logical custody domain
+`OWNER-OFFLINE-Q15-KEY-CUSTODY`, accepted custodian role
+`cpu-prefetch-q15-custodian`, split P4-K-A then P4-K-R, and the existing
+operator/1,800-second/JCS-I64/SSHSIG/distinct-auditor policy. The logical domain
+is not operational evidence. P4-K-A and P4-K-R remain unissued with 13 and 9
+null input/output fields respectively. No key, public artifact, custody path,
+stand action, signature, issuance, setup, Q15, calibration, pilot, measurement,
+or confirmatory action is authorized.
+The no-authority P4-K-A choices in the
+[`D-080 through D-085 operational-input decision bundle`](docs/Q15_R_P4_K_A_OPERATIONAL_INPUT_DECISION_BUNDLE.md)
+are accepted as policy by Q15-R-P4-K-A-D/ADR-0080 through ADR-0085.
+Acceptance SHA-256 is `c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf`.
+The owner states that no qualifying bootstrap signer exists, so P4-K-A remains
+blocked until a separately governed bootstrap root is established. All seven
+P4-K-A external inputs remain null. The later owner delegation authorizes and
+ADR-0086 implements a generic no-authority controller policy engine; it has no
+OS backend and cannot admit without complete signed external evidence. The
+next decision/input bundle is
+[`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
+SHA-256 `065d8a6d5f882bff84ee9bdbe27eb0e0c9e2bfea56c58cbe2b9bfc61cab3a4b7`.
+Its eight external inputs and six owner questions remain null. No offline/key/
+trust/path activity, signature, issuance, stand, Q15, calibration, pilot,
+measurement, or confirmatory work occurred or is admissible yet.
+The frozen
 contract is documented in
 [`docs/Q15_QUALIFICATION_CONTRACT.md`](docs/Q15_QUALIFICATION_CONTRACT.md).
 Its implementations, executable hashes, exact authorized argv, and live

@@ -1,0 +1,356 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-r-staging-authorization-decision-input/1",
+  "bundle_id": "Q15-R-P4-R-STAGING-AUTHORIZATION-DECISION-INPUT-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "stand_id": "XEON-CPU-FETCH",
+  "prepared_at_utc": "2026-08-25T11:25:57Z",
+  "status": "PROPOSED_EXACT_CANDIDATES_AWAITING_OWNER_ACCEPTANCE_NO_AUTHORITY",
+  "lineage": {
+    "repository_commit": "f30036e31acc8ae036f2f31086d493eeb30db9d7",
+    "repository_commit_subject": "phase 17",
+    "p4_e_acceptance_path": "config/q15/q15-r-p4-e-acceptance-v1.json",
+    "p4_e_acceptance_sha256": "b4eec39ab9a5e760cf011ad79b5c2e416755ba40f2af1769033852e735dfd1f0",
+    "p4_r_preparation_path": "config/q15/q15-r-p4-r.preparation-v2.json",
+    "p4_r_preparation_sha256": "f8c63d1f95d69c6a9562cfec6d2635757c9dbba80137d68fdedf56bd189b6ba4",
+    "p4_k_preparation_path": "config/q15/q15-r-p4-k.preparation.json",
+    "p4_k_preparation_sha256": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f",
+    "collector_release_source_commit": "34da95d002e912069c959bfef8e88a23b4880cea",
+    "collector_release_archive_name": "cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz",
+    "collector_release_archive_bytes": 4642298,
+    "collector_release_archive_sha256": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a",
+    "collector_binary_sha256": "4716e1dfc2e65fd61dce1ea54a70fd876a0b4322b69d9ad1fde5c67a65c48a57",
+    "collector_contract_sha256": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87",
+    "reference_inventory_path": "docs/evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02.json",
+    "reference_inventory_sha256": "f8c6adbac92a9b163c45f71138946f3672eab7391fa27800fd909e028bc73087",
+    "reference_inventory_role": "STALE_REFERENCE_ONLY_NOT_FRESH_EXECUTION_AUTHORITY"
+  },
+  "decisions": [
+    {
+      "decision_id": "D-072",
+      "classification": "PLATFORM_RELEASE_STAGING_ENGINEERING",
+      "subject": "literal create-exclusive collector staging and release paths",
+      "options_considered": [
+        "the exact unique root-owned transaction tree proposed by this bundle with no activation path and fail-on-existence",
+        "a mutable latest/current symlink or reusable directory",
+        "the future operational release root under /var/lib/cpu-prefetch/q15-r before fresh prestate",
+        "remain blocked"
+      ],
+      "recommended_option": "use only the exact /root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01 transaction tree proposed here; create every component once, reject any pre-existing component, and do not create an activation link",
+      "selected_option_if_accepted": "EXACT_CREATE_EXCLUSIVE_NO_ACTIVATION_STAGING_TREE_v1",
+      "state": "PROPOSED_AWAITING_EXPLICIT_PLATFORM_RELEASE_AND_SECURITY_OWNER_ACCEPTANCE",
+      "evidence": [
+        "D-067 requires a fresh-prestate-selected operational release root and forbids inferred paths.",
+        "D-071 binds the exact collector-bearing v3 bytes but grants no transfer or installation authority.",
+        "The selected staging tree is outside the future /var/lib/cpu-prefetch/q15-r operational and custody roots."
+      ],
+      "scientific_effect": "none; this is a bootstrap evidence path and cannot select a treatment, platform freeze value, calibration input, or measurement configuration",
+      "compatibility_effect": "the exact endpoint, archive path, extraction root, collector executable path, create-exclusive policy, and absence of an activation path become transaction identity",
+      "owner": ["platform owner", "release owner", "security owner", "audit owner"],
+      "deadline_gate": "before any v3 archive transfer, directory creation, extraction, or collector self-test on the stand",
+      "supersession_rule": "any endpoint, path, archive byte, extraction layout, owner/mode, or collision-policy change requires a new prospective decision bundle and authorization; no issued record may be retargeted"
+    },
+    {
+      "decision_id": "D-073",
+      "classification": "EVIDENCE_CUSTODY_ENGINEERING",
+      "subject": "fixed capture identity and literal stdout, stderr, sidecar, receipt, and review custody paths",
+      "options_considered": [
+        "the exact capture ID and development-repository custody paths proposed by this bundle with fail-on-existence and raw-byte preservation",
+        "terminal-only output or copied-and-pasted evidence",
+        "temporary or inferred output names",
+        "remain blocked"
+      ],
+      "recommended_option": "reserve Q15-R-P4-R-XEON-CPU-FETCH-20260825-01 once and capture raw stdout and stderr directly into the exact off-stand paths proposed here; create the SHA-256 sidecar, transfer receipt, and independent-review record without rewriting source bytes",
+      "selected_option_if_accepted": "EXACT_CAPTURE_AND_DEVELOPMENT_CUSTODY_PATHS_v1",
+      "state": "PROPOSED_AWAITING_EXPLICIT_CUSTODY_AUDIT_AND_REPOSITORY_OWNER_ACCEPTANCE",
+      "evidence": [
+        "The collector writes canonical artifact bytes only to stdout and diagnostic bytes only to stderr.",
+        "The accepted collector contract requires a detached sidecar and preservation of complete or partial output.",
+        "DEVELOPMENT-REPOSITORY-Q15-CUSTODY is the accepted non-stand custody-domain identity, but its literal root was previously unresolved."
+      ],
+      "scientific_effect": "none; custody preserves eligibility evidence and does not generate or expose treatment outcomes",
+      "compatibility_effect": "capture ID, artifact basenames, absolute custody paths, raw-byte rule, sidecar name, receipt name, and review name become immutable evidence identity",
+      "owner": ["custody owner", "audit owner", "repository owner", "platform owner"],
+      "deadline_gate": "before collector execution or creation of any capture, sidecar, receipt, or review artifact",
+      "supersession_rule": "a changed capture ID, path, custody domain, filename, or byte-handling rule requires a new unused capture identity and prospective authorization; existing files are never overwritten"
+    },
+    {
+      "decision_id": "D-074",
+      "classification": "AUTHORITY_SIGNATURE_AND_VALIDITY_ENGINEERING",
+      "subject": "named principals, UTC window, canonical authorization, detached SSHSIG, and independent review",
+      "options_considered": [
+        "cpu-prefetch-q15-operator as named authority, a single nonrenewable 1800-second UTC window, OpenSSH SSHSIG Ed25519/SHA-512, and a distinct cpu-prefetch-q15-auditor review",
+        "root login or SSH reachability as authority",
+        "unsigned approval, indefinite validity, or reviewer/issuer role collapse",
+        "remain blocked"
+      ],
+      "recommended_option": "bind the future canonical authorization to cpu-prefetch-q15-operator, require issue and expiry instants exactly 1800 seconds apart, sign the exact JCS-I64-v1 authorization bytes under the accepted cpu-prefetch-q15-authorization SSHSIG namespace/principal, and require a distinct cpu-prefetch-q15-auditor verification receipt before stand access",
+      "selected_option_if_accepted": "NAMED_OPERATOR_1800S_SSHSIG_AND_DISTINCT_AUDITOR_v1",
+      "state": "PROPOSED_AWAITING_EXPLICIT_PROTOCOL_PLATFORM_SECURITY_CUSTODY_AND_AUDIT_OWNER_ACCEPTANCE",
+      "evidence": [
+        "ADR-0058 freezes the four logical role IDs and forbids role collapse.",
+        "ADR-0060 freezes the canonical authorization and OpenSSH SSHSIG issuance boundary.",
+        "P4-K still has eight unresolved key, fingerprint, custody, and review inputs; no signature can be fabricated by this proposal."
+      ],
+      "scientific_effect": "none; this limits who may authorize one evidence action and when, without authorizing calibration, pilot, measurement, or confirmatory execution",
+      "compatibility_effect": "authority principal, signature principal/namespace/scheme, canonicalization, exact 1800-second interval, single-use rule, signer fingerprint, authorization hash, detached-signature hash, and review hash become authorization identity",
+      "owner": ["protocol owner", "platform owner", "security owner", "custody owner", "audit owner"],
+      "deadline_gate": "before either fresh identity acquisition or staging/collection authorization is issued",
+      "supersession_rule": "any principal, scheme, namespace, canonicalization, validity duration, signer key, receipt profile, or role-separation change requires a new ADR, key/custody evidence as applicable, and new unsigned authorization bytes"
+    },
+    {
+      "decision_id": "D-075",
+      "classification": "FAIL_CLOSED_OPERATIONAL_GOVERNANCE",
+      "subject": "two-authorization identity/staging graph, exact verification, stop, and non-deleting rollback policy",
+      "options_considered": [
+        "first authorize one fresh read-only identity capture and stop for review, then separately authorize create-exclusive staging and one collector attempt bound to that fresh hash",
+        "use the 2026-08-22 inventory as current authority",
+        "combine identity, transfer, collection, repair, retry, or cleanup into one omnibus approval",
+        "remain blocked"
+      ],
+      "recommended_option": "require two non-collapsible signed future authorizations: P4-R-I collects fresh identity only and stops; P4-R-C may then stage exact v3 bytes and invoke the collector once only if independently reviewed identity, signature, path, archive, internal-hash, self-test, time, and custody gates all pass; failure retains partial bytes and permits no retry or deletion",
+      "selected_option_if_accepted": "SPLIT_IDENTITY_THEN_ONE_SHOT_COLLECTION_FAIL_CLOSED_v1",
+      "state": "PROPOSED_AWAITING_EXPLICIT_PROTOCOL_PLATFORM_SECURITY_RELEASE_CUSTODY_AND_AUDIT_OWNER_ACCEPTANCE",
+      "evidence": [
+        "The current clean inventory is reference evidence only and is not fresh P4-R execution authority.",
+        "The accepted P4-R limits require 25 commands, zero retries, a 30-second command limit, a 900-second external watchdog, stop-first failure, and partial preservation.",
+        "The staging tree has no activation path, so safe rollback is stop-and-retain rather than deletion or mutation of an operational installation."
+      ],
+      "scientific_effect": "none; the graph produces platform eligibility evidence only and forbids access to scientific schedules, outcomes, calibration, pilot, or measurement code",
+      "compatibility_effect": "authorization split, predecessor identity hash, exact action order, verification gates, one-attempt rule, failure categories, retained-partial policy, and no-delete rollback become transaction semantics",
+      "owner": ["protocol owner", "platform owner", "security owner", "release owner", "custody owner", "audit owner"],
+      "deadline_gate": "before a fresh identity command, stand path mutation, transfer, extraction, or collector execution",
+      "supersession_rule": "any graph, action-order, retry, timeout, verification, rollback, retention, or stop-condition change requires prospective supersession; failures and abandoned staging bytes remain append-only evidence"
+    }
+  ],
+  "candidate_transaction": {
+    "transaction_id": "Q15-R-P4-R-TRANSACTION-XEON-CPU-FETCH-20260825-01",
+    "capture_id": "Q15-R-P4-R-XEON-CPU-FETCH-20260825-01",
+    "state": "PROPOSED_NOT_AUTHORIZED_NOT_ISSUED",
+    "stand_endpoint": {
+      "host": "185.184.131.153",
+      "ssh_account": "root",
+      "stand_id": "XEON-CPU-FETCH",
+      "transport_role": "BOOTSTRAP_TRANSPORT_ONLY_NOT_AUTHORITY_OR_CUSTODY",
+      "host_key_fingerprint": null,
+      "host_key_state": "UNRESOLVED_MANDATORY_BEFORE_FIRST_STAND_ACCESS"
+    },
+    "proposed_paths": {
+      "state": "PROPOSED_NOT_SELECTED_OR_CREATED",
+      "local_archive_source": "/home/omaltsev/research/cpu_prefetch_research_code/build/release-gcc/q15-qualification-tool-bundle/cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz",
+      "local_sidecar_source": "/home/omaltsev/research/cpu_prefetch_research_code/build/release-gcc/q15-qualification-tool-bundle/cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz.sha256",
+      "stand_transaction_root": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01",
+      "stand_incoming_root": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/incoming",
+      "stand_archive": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/incoming/cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz",
+      "stand_sidecar": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/incoming/cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz.sha256",
+      "stand_extraction_parent": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/release",
+      "collector_release_root": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/release/cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1",
+      "collector_executable": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/release/cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1/release/bin/cpu_prefetch_q15_prestate_collector",
+      "custody_root": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01",
+      "identity_artifact": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01.json",
+      "identity_sidecar": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01.json.sha256",
+      "collector_stdout": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01.json",
+      "collector_stderr": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01.stderr.bin",
+      "collector_sidecar": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01.json.sha256",
+      "transfer_receipt": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01.transfer-receipt.json",
+      "independent_review": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01.independent-review.json",
+      "authorization_record": "/home/omaltsev/research/cpu_prefetch_research_code/config/q15/q15-r-p4-r-authorization-20260825-01.json",
+      "detached_signature": "/home/omaltsev/research/cpu_prefetch_research_code/config/q15/q15-r-p4-r-authorization-20260825-01.json.sshsig"
+    },
+    "principal_contract": {
+      "named_authority_principal": "cpu-prefetch-q15-operator",
+      "authorization_signature_principal": "cpu-prefetch-q15-authorization",
+      "authorization_signature_namespace": "cpu-prefetch-q15-authorization",
+      "executor_transport_account": "root",
+      "custody_principal": "cpu-prefetch-q15-custodian",
+      "independent_review_principal": "cpu-prefetch-q15-auditor",
+      "all_roles_distinct_required": true,
+      "actual_identity_and_access_evidence_state": "UNRESOLVED",
+      "root_or_ssh_access_is_authority": false
+    },
+    "validity_policy": {
+      "profile": "Q15-R-P4-R-SINGLE-USE-UTC-1800S-v1",
+      "clock": "UTC",
+      "issued_at_utc": null,
+      "expires_at_utc": null,
+      "exact_validity_seconds": 1800,
+      "external_collector_watchdog_seconds": 900,
+      "issued_and_expiry_instants_required_before_signature": true,
+      "collection_must_start_and_finish_within_window": true,
+      "renewal_allowed": false,
+      "reuse_allowed": false,
+      "expiry_action": "STOP_RETAIN_PARTIAL_NO_RETRY"
+    },
+    "signature_and_review_contract": {
+      "canonicalization": "JCS-I64-v1",
+      "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+      "signature_namespace": "cpu-prefetch-q15-authorization",
+      "signature_principal": "cpu-prefetch-q15-authorization",
+      "private_key_location": "OFF_STAND_ONLY",
+      "authorization_sha256": null,
+      "signer_key_fingerprint": null,
+      "detached_signature_sha256": null,
+      "independent_review_sha256": null,
+      "p4_k_dependency_state": "UNRESOLVED_BLOCKS_SIGNATURE_AND_ISSUANCE",
+      "independent_review_requirements": [
+        "recompute canonical authorization SHA-256 independently",
+        "verify detached SSHSIG against the accepted allowed-signers bytes, principal, namespace, and fingerprint",
+        "verify exact f30036e governance lineage and exact f45d25f4 archive identity",
+        "verify fresh identity predecessor hash, endpoint, all literal paths, command order, limits, authority, and stop rules",
+        "verify issuer, reviewer, custodian, and transport identities are not collapsed",
+        "emit a canonical review receipt with its own SHA-256 before stand access"
+      ]
+    },
+    "fresh_identity_authorization": {
+      "gate_id": "Q15-R-P4-R-I",
+      "state": "NOT_ISSUED_SEPARATE_EXPLICIT_APPROVAL_REQUIRED",
+      "mutation_authorized": false,
+      "transfer_authorized": false,
+      "collector_execution_authorized": false,
+      "required_fixed_observations": [
+        {"id": "P4RI-001", "argv": ["/usr/bin/hostname"]},
+        {"id": "P4RI-002", "argv": ["/usr/bin/uname", "--kernel-name", "--kernel-release", "--machine"]},
+        {"id": "P4RI-003", "argv": ["/usr/bin/stat", "--format=%n|%F|%a|%u|%g|%s|%d|%i", "--", "/", "/root", "/dev/md3"]},
+        {"id": "P4RI-004", "argv": ["/usr/bin/findmnt", "--json", "--target", "/", "--output", "TARGET,SOURCE,FSTYPE,OPTIONS,PROPAGATION"]}
+      ],
+      "required_output": {
+        "artifact_id": "Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01",
+        "artifact_sha256": null,
+        "ssh_host_key_fingerprint": null,
+        "independent_review_sha256": null,
+        "status": "UNRESOLVED_MUST_BE_ACCEPTED_BEFORE_Q15_R_P4_R_C"
+      },
+      "stop_after_identity_capture": true,
+      "automatic_continuation_to_staging": false
+    },
+    "staging_collection_authorization": {
+      "gate_id": "Q15-R-P4-R-C",
+      "state": "NOT_ISSUED_SEPARATE_EXPLICIT_APPROVAL_REQUIRED",
+      "required_identity_predecessor_sha256": null,
+      "create_exclusive": true,
+      "overwrite_allowed": false,
+      "symlink_allowed": false,
+      "activation_link_allowed": false,
+      "archive_transfer_count": 1,
+      "collector_attempt_count": 1,
+      "retry_count": 0,
+      "collector_invocation": {
+        "argv": [
+          "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/release/cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1/release/bin/cpu_prefetch_q15_prestate_collector",
+          "--collect",
+          "@AUTHORIZATION_SHA256_FROM_ISSUED_Q15_R_P4_R_C@",
+          "4716e1dfc2e65fd61dce1ea54a70fd876a0b4322b69d9ad1fde5c67a65c48a57",
+          "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87",
+          "Q15-R-P4-R-XEON-CPU-FETCH-20260825-01"
+        ],
+        "fixed_environment": ["LANG=C", "LC_ALL=C", "TZ=UTC0"],
+        "shell": false,
+        "glob": false,
+        "inherited_environment": false,
+        "stdout_destination": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01.json",
+        "stderr_destination": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01.stderr.bin",
+        "direct_fixed_argv_transport_evidence_required": true,
+        "transport_evidence_state": "UNRESOLVED_BLOCKS_EXECUTION"
+      }
+    },
+    "transfer_and_verification_contract": {
+      "transport_profile": "OPENSSH_PINNED_HOST_CREATE_EXCLUSIVE_FIXED_PATH_v1",
+      "archive_transfer_source_sha256": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a",
+      "archive_transfer_bytes": 4642298,
+      "ordered_actions": [
+        "validate unexpired signed Q15-R-P4-R-C and independent review before opening the transport",
+        "verify pinned SSH host key and accepted fresh Q15-R-P4-R-I predecessor hash",
+        "reject any existing transaction, incoming, extraction, custody, or artifact path and any symlink component",
+        "create only the exact stand transaction, incoming, and extraction-parent directories with mode 0700",
+        "transfer the exact archive and sidecar once into their exact create-exclusive paths",
+        "recompute remote archive byte count and SHA-256 and compare the literal sidecar line",
+        "verify the frozen archive member inventory contains one accepted top-level directory and no absolute, parent-traversal, device, FIFO, hard-link, or symbolic-link member",
+        "extract once under the exact empty extraction parent without preserving archive owner or permissions",
+        "run the bundle internal SHA256SUMS check and verify the collector, contract, validator, manifest, SBOM, and code-generation hashes",
+        "run collector --self-test and --describe-contract only and compare their exact accepted identities",
+        "invoke --collect exactly once through a direct fixed-argv transport and capture complete stdout and stderr bytes off-stand",
+        "validate canonical output, zero-self artifact SHA-256, command prefix, limits, completion or partial state, and detached sidecar",
+        "emit an append-only transfer receipt and independent review; do not promote the staging tree into an operational release root"
+      ],
+      "per_command_timeout_seconds": 30,
+      "external_total_watchdog_seconds": 900,
+      "maximum_stdout_bytes_per_command": 1048576,
+      "maximum_stderr_bytes_per_command": 1048576,
+      "maximum_total_captured_bytes": 16777216,
+      "maximum_artifact_bytes": 67108864,
+      "partial_preservation_required": true,
+      "promotion_or_activation_authorized": false
+    },
+    "rollback_contract": {
+      "profile": "Q15-R-P4-R-STOP-RETAIN-NO-DELETE-v1",
+      "on_pre_mutation_failure": "STOP_WITH_NO_STAND_CHANGE",
+      "on_post_mutation_failure": "STOP_RETAIN_EXACT_PARTIAL_STAGING_AND_CUSTODY_BYTES",
+      "delete_authorized": false,
+      "overwrite_authorized": false,
+      "rename_or_reuse_authorized": false,
+      "automatic_cleanup_authorized": false,
+      "operational_release_or_setup_touched": false,
+      "future_cleanup_requires_separate_exact_authorization": true,
+      "restoration_claim": "NONE_NEEDED_BECAUSE_NO_ACTIVATION_OR_EXISTING_OPERATIONAL_PATH_MUTATION_IS_AUTHORIZED"
+    },
+    "stop_conditions": [
+      "missing, rejected, expired, reused, noncanonical, unsigned, or independently unreviewed authorization",
+      "missing P4-K signer/fingerprint/custody evidence or any private key on the stand",
+      "SSH host-key, stand ID, fresh identity predecessor, endpoint, or transport-identity mismatch",
+      "issuer, transport, custodian, or reviewer role collapse",
+      "any proposed literal path not explicitly accepted, any existing destination, symlink component, collision, overwrite, or activation attempt",
+      "archive name, size, SHA-256, sidecar, member inventory, extraction root, internal checksum, manifest, SBOM, collector, contract, validator, or code-generation mismatch",
+      "collector self-test or contract-description mismatch",
+      "failure to prove direct fixed-argv no-shell collector launch and exact fixed environment",
+      "authorization-window or watchdog expiry, command timeout, signal, spawn failure, output bound, network loss, or unexpected command",
+      "collector completion failure, partial failure, canonical/schema/hash validation failure, custody write failure, receipt mismatch, or independent-review failure",
+      "any request for retry, alternate path, repair, deletion, key action, setup, access probe, Q15-R/Q15-W, PMU/MSR, affinity/NUMA, calibration, pilot, measurement, or confirmatory work"
+    ]
+  },
+  "unresolved_inputs": [
+    {"name": "EXPLICIT_D072_D075_OWNER_ACCEPTANCE", "state": "UNRESOLVED", "value": null},
+    {"name": "PINNED_SSH_HOST_KEY_AND_BOOTSTRAP_TRANSPORT_CREDENTIAL_EVIDENCE", "state": "UNRESOLVED", "value": null},
+    {"name": "P4_K_ALLOWED_SIGNERS_FINGERPRINT_AND_OFF_STAND_CUSTODY_EVIDENCE", "state": "UNRESOLVED", "value": null},
+    {"name": "LITERAL_ISSUE_AND_EXPIRY_UTC_INSTANTS", "state": "UNRESOLVED", "value": null},
+    {"name": "CANONICAL_AUTHORIZATION_SHA256_AND_DETACHED_SIGNATURE_SHA256", "state": "UNRESOLVED", "value": null},
+    {"name": "FRESH_Q15_R_P4_R_I_IDENTITY_ARTIFACT_AND_REVIEW_HASHES", "state": "UNRESOLVED", "value": null},
+    {"name": "DIRECT_FIXED_ARGV_TRANSPORT_AND_INDEPENDENT_REVIEW_EVIDENCE", "state": "UNRESOLVED", "value": null}
+  ],
+  "acceptance_effect": {
+    "acceptance_id_if_accepted": "Q15-R-P4-F-ACCEPTANCE-20260825-01",
+    "accepted_decisions_if_accepted": ["D-072", "D-073", "D-074", "D-075"],
+    "literal_candidate_paths_selected_if_accepted": true,
+    "repository_local_successor_templates_authorized_if_accepted": true,
+    "p4_r_i_authorized_if_accepted": false,
+    "p4_r_c_authorized_if_accepted": false,
+    "stand_access_authorized_if_accepted": false,
+    "transfer_or_extraction_authorized_if_accepted": false,
+    "collector_execution_authorized_if_accepted": false,
+    "signature_or_key_action_authorized_if_accepted": false,
+    "q15_r_or_q15_w_authorized_if_accepted": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized_if_accepted": false
+  },
+  "authority_boundary": {
+    "repository_local_decision_bundle_preparation_authorized": true,
+    "repository_local_acceptance_or_authorization_record_creation_authorized": false,
+    "stand_access_authorized": false,
+    "literal_path_selection_authorized": false,
+    "filesystem_mutation_authorized": false,
+    "bundle_transfer_or_extraction_authorized": false,
+    "collector_self_test_on_stand_authorized": false,
+    "collector_execution_authorized": false,
+    "key_creation_import_copy_or_use_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "p4_r_i_authorized": false,
+    "p4_r_c_authorized": false,
+    "p4_k_authorized": false,
+    "stand_setup_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "pmu_msr_affinity_numa_authorized": false,
+    "calibration_authorized": false,
+    "pilot_authorized": false,
+    "measurement_authorized": false,
+    "confirmatory_authorized": false
+  },
+  "exact_acceptance_statement": "Q15-R-P4-F — accept D-072 through D-075 in the exact Q15-R-P4-R staging and read-only stand-prestate authorization decision bundle, bound to governance commit f30036e31acc8ae036f2f31086d493eeb30db9d7 and immutable v3 archive SHA-256 f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a. Accept the exact create-exclusive stand staging tree, fixed capture and development-custody paths, cpu-prefetch-q15-operator named authority, nonrenewable 1800-second UTC policy, accepted OpenSSH SSHSIG profile with distinct auditor review, and split P4-R-I identity then P4-R-C one-shot staging/collection graph with stop-retain-no-delete rollback. Authorize repository-local creation and verification of acceptance, ADR, and still-unissued successor authorization templates only. Do not access or modify the stand, create paths, transfer or extract artifacts, execute self-tests or the collector on the stand, create/import/copy/use keys, sign or issue P4-R-I/P4-R-C/P4-K/Q15-R/Q15-W, perform platform controls, calibrate, pilot, measure, or perform confirmatory work. Every external-input, signature, and execution phase requires a later separate exact approval."
+}

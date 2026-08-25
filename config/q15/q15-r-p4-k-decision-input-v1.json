@@ -1,0 +1,203 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-decision-input/1",
+  "bundle_id": "Q15-R-P4-K-DECISION-INPUT-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "stand_id": "XEON-CPU-FETCH",
+  "status": "PROPOSED_OWNER_SELECTION_AND_EXTERNAL_INPUTS_REQUIRED_NO_KEY_OR_EXECUTION_AUTHORITY",
+  "lineage": {
+    "p4_k_preparation_path": "config/q15/q15-r-p4-k.preparation.json",
+    "p4_k_preparation_sha256": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f",
+    "p4_d_acceptance_path": "config/q15/q15-r-p4-d-acceptance-v1.json",
+    "p4_d_acceptance_sha256": "1645c2a7fb356272afbf9377b99784e307f54f8a7df5fbb09f46d70edae3c521",
+    "p4_f_acceptance_path": "config/q15/q15-r-p4-f-acceptance-v1.json",
+    "p4_f_acceptance_sha256": "ae879bd113939ee06fd3673c0f14d054d92d6c30c0162ffa6727d2a42973cb8c",
+    "adr_0066_path": "docs/decisions/0066-q15-r-offline-signer-custody.md",
+    "adr_0066_sha256": "3177e68ae602d6bc81693c11985a0c5dae239e35a8080ff2dd13efd89a5174cc",
+    "adr_0070_path": "docs/decisions/0070-q15-r-allowed-signers-binding.md",
+    "adr_0070_sha256": "544e300d04b7bdfb721f8dd10c314977befc2d6d448a84324182349c08e5d6ed"
+  },
+  "decisions": [
+    {
+      "decision_id": "D-076",
+      "classification": "SECURITY_KEY_SOURCE_ENGINEERING",
+      "subject": "offline Ed25519 key source mode",
+      "options_considered": [
+        "EXISTING_OWNER_CONTROLLED_OFFLINE_ED25519_WITH_COMPLETE_CUSTODY_EVIDENCE",
+        "NEW_OFFLINE_ED25519_KEY_CEREMONY_UNDER_LATER_SEPARATE_EXACT_AUTHORIZATION",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "prefer an existing qualifying owner-controlled offline Ed25519 key when complete provenance, custody, rotation, and public-key evidence can be supplied; otherwise select a new offline ceremony that requires its own later exact authorization",
+      "selected_option": null,
+      "state": "PROPOSED_REQUIRES_SECURITY_AND_CUSTODY_OWNER_SELECTION",
+      "evidence": [
+        "ADR-0066 permits only an owner-selected existing offline key or a separately authorized new offline ceremony.",
+        "The private key is prohibited from the stand and repository under every option.",
+        "The current P4-K preparation leaves the source mode null."
+      ],
+      "scientific_effect": "none; the signer authenticates authorization artifacts and cannot select treatments, platform freeze values, calibration inputs, or outcomes",
+      "compatibility_effect": "the selected public-key bytes, SHA-256 fingerprint, custody lineage, and rotation identity become authorization compatibility identity",
+      "owner": ["security owner", "custody owner"],
+      "deadline_gate": "before any key read, generation, import, copy, fingerprint calculation, public-key artifact construction, or signing action",
+      "supersession_rule": "a source-mode, private-key, public-key, custody, or rotation change requires new prospective acceptance, new evidence, and new signatures; prior artifacts remain immutable"
+    },
+    {
+      "decision_id": "D-077",
+      "classification": "SECURITY_CUSTODY_INPUT_BOUNDARY",
+      "subject": "literal offline custody domain, custodian, and later public-artifact source path",
+      "options_considered": [
+        "OWNER_SUPPLIED_NON_STAND_CUSTODY_DOMAIN_DISTINCT_CUSTODIAN_AND_CREATE_EXCLUSIVE_PUBLIC_ARTIFACT_PATH",
+        "REPOSITORY_OR_STAND_PRIVATE_KEY_CUSTODY_OR_INFERRED_PATH",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "require the owner to supply a literal non-stand custody-domain ID and custodian-principal ID before any key action; select the create-exclusive absolute public allowed-signers source path only after the public artifact is authorized and constructed",
+      "selected_option": null,
+      "state": "PROPOSED_REQUIRES_SECURITY_AND_CUSTODY_OWNER_ACCEPTANCE_LITERAL_VALUES_REMAIN_NULL",
+      "evidence": [
+        "ADR-0066 requires an owner-selected off-stand custody domain and custodian.",
+        "ADR-0070 requires off-stand canonical construction and independent review.",
+        "No repository or stand path may be inferred as private-key custody."
+      ],
+      "scientific_effect": "none; custody preserves signing authority and evidence separation only",
+      "compatibility_effect": "custody-domain ID, custodian ID, public-artifact path, create-exclusive policy, and custody receipts become evidence identity",
+      "owner": ["security owner", "custody owner", "audit owner"],
+      "deadline_gate": "before P4-K acquisition authorization or public allowed-signers artifact creation",
+      "supersession_rule": "any domain, custodian, path, access, retention, backup, or recovery-policy change requires prospective supersession and a new unused artifact identity"
+    },
+    {
+      "decision_id": "D-078",
+      "classification": "FAIL_CLOSED_KEY_ARTIFACT_GOVERNANCE",
+      "subject": "split P4-K acquisition/construction from independent review and later installation",
+      "options_considered": [
+        "P4_K_A_ONE_SHOT_OFFLINE_ACQUISITION_AND_PUBLIC_ARTIFACT_CONSTRUCTION_THEN_STOP_FOR_P4_K_R_INDEPENDENT_REVIEW",
+        "COMBINE_KEY_ACTION_REVIEW_INSTALLATION_AND_SIGNING",
+        "RETRY_OR_REPAIR_IN_PLACE",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "use one source-mode-specific P4-K-A authorization for exactly one offline acquisition/construction attempt, stop with append-only evidence, then require a distinct P4-K-R review before any setup, installation, authorization signing, or Q15 action",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_SECURITY_CUSTODY_AND_AUDIT_OWNER_ACCEPTANCE",
+      "evidence": [
+        "ADR-0070 requires independent SHA-256 and fingerprint verification.",
+        "The current P4-K preparation has no commands, key bytes, hashes, or authorization.",
+        "Splitting acquisition from review prevents self-attested trust-anchor evidence."
+      ],
+      "scientific_effect": "none; the graph creates and reviews public authorization evidence only",
+      "compatibility_effect": "gate split, source-mode-specific commands, one-attempt rule, artifact IDs, raw public bytes, canonical allowed-signers bytes, hashes, fingerprint, and review receipt become transaction identity",
+      "owner": ["security owner", "custody owner", "audit owner"],
+      "deadline_gate": "before any P4-K-A or P4-K-R authorization template can be issued",
+      "supersession_rule": "any graph, command, tool, retry, canonicalization, review, or retention change requires a new decision and prospective authorization; partial artifacts are retained"
+    },
+    {
+      "decision_id": "D-079",
+      "classification": "AUTHORITY_VALIDITY_ENGINEERING",
+      "subject": "P4-K named authority, validity, signature, and distinct-review policy",
+      "options_considered": [
+        "CPU_PREFETCH_Q15_OPERATOR_NONRENEWABLE_1800S_JCS_I64_SSHSIG_WITH_DISTINCT_AUDITOR",
+        "A_DIFFERENT_OWNER_SUPPLIED_NAMED_AUTHORITY_OR_VALIDITY_POLICY",
+        "ROOT_OR_SSH_REACHABILITY_AS_AUTHORITY",
+        "UNSIGNED_RENEWABLE_OR_SELF_REVIEWED_ACTION",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "extend the accepted Q15-R governance profile to P4-K: cpu-prefetch-q15-operator, exact nonrenewable 1800-second UTC window, JCS-I64-v1, OpenSSH SSHSIG Ed25519/SHA-512, and a distinct cpu-prefetch-q15-auditor review; actual UTC instants and hashes remain later evidence",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_PROTOCOL_SECURITY_CUSTODY_AND_AUDIT_OWNER_ACCEPTANCE",
+      "evidence": [
+        "ADR-0058 freezes the four logical role IDs and forbids role collapse.",
+        "ADR-0060 freezes the canonical SSHSIG issuance boundary.",
+        "ADR-0074 accepts this profile for P4-R-I/P4-R-C but does not silently extend it to P4-K."
+      ],
+      "scientific_effect": "none; this constrains who may authorize one offline evidence action and for how long",
+      "compatibility_effect": "authority principal, canonicalization, signature profile, validity duration, issued/expiry instants, authorization hash, detached-signature hash, and independent-review hash become transaction identity",
+      "owner": ["protocol owner", "security owner", "custody owner", "audit owner"],
+      "deadline_gate": "before signing or issuing a future P4-K-A or P4-K-R authorization",
+      "supersession_rule": "any principal, duration, canonicalization, scheme, signer, or review-policy change requires a new decision, new unsigned authorization bytes, and prospective acceptance"
+    }
+  ],
+  "owner_input_contract": [
+    {"name": "OWNER_KEY_SOURCE_MODE_EXISTING_OR_NEW_OFFLINE", "decision_id": "D-076", "state": "UNRESOLVED", "value": null},
+    {"name": "OFFLINE_PRIVATE_KEY_CUSTODY_DOMAIN_AND_CUSTODIAN", "decision_id": "D-077", "state": "UNRESOLVED", "value": null},
+    {"name": "ED25519_PUBLIC_KEY_ARTIFACT_ID_BYTES_AND_SHA256", "decision_id": "D-078", "state": "UNRESOLVED", "value": null},
+    {"name": "ED25519_SHA256_FINGERPRINT", "decision_id": "D-078", "state": "UNRESOLVED", "value": null},
+    {"name": "CANONICAL_ALLOWED_SIGNERS_ARTIFACT_ID_BYTES_AND_SHA256", "decision_id": "D-078", "state": "UNRESOLVED", "value": null},
+    {"name": "ALLOWED_SIGNERS_SOURCE_ABSOLUTE_PATH_FOR_LATER_SETUP", "decision_id": "D-077", "state": "UNRESOLVED", "value": null},
+    {"name": "INDEPENDENT_REVIEW_ARTIFACT_ID_AND_SHA256", "decision_id": "D-078", "state": "UNRESOLVED", "value": null},
+    {"name": "NAMED_AUTHORITY_PRINCIPAL_ISSUE_AND_EXPIRY_UTC", "decision_id": "D-079", "state": "UNRESOLVED", "value": null}
+  ],
+  "fixed_accepted_policy": {
+    "key_type": "ED25519",
+    "private_key_location": "OFF_STAND_ONLY",
+    "private_key_in_repository_allowed": false,
+    "stand_private_key_prohibited": true,
+    "stand_private_key_allowed": false,
+    "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+    "signature_principal": "cpu-prefetch-q15-authorization",
+    "signature_namespace": "cpu-prefetch-q15-authorization",
+    "allowed_signers_destination": "/etc/cpu-prefetch/q15/allowed_signers",
+    "allowed_signers_owner": "root",
+    "allowed_signers_group": "cpu-prefetch-q15-auditor",
+    "allowed_signers_mode": "0640",
+    "canonical_artifact_profile": "OPENSSH-ALLOWED-SIGNERS-SINGLE-ED25519-v1",
+    "independent_sha256_and_fingerprint_verification_required": true
+  },
+  "proposed_gate_graph": [
+    {
+      "gate_id": "Q15-R-P4-K-D",
+      "state": "PROPOSED_CURRENT_REPOSITORY_LOCAL_DECISION_INPUT_ONLY",
+      "scope": "select D-076 through D-079 and authorize only acceptance, ADR, and still-unissued successor-template preparation"
+    },
+    {
+      "gate_id": "Q15-R-P4-K-A",
+      "state": "NOT_PREPARED_NOT_ISSUED_SOURCE_MODE_AND_LITERAL_INPUTS_REQUIRED",
+      "scope": "one future source-mode-specific offline key/public-artifact acquisition and canonical allowed-signers construction action"
+    },
+    {
+      "gate_id": "Q15-R-P4-K-R",
+      "state": "NOT_PREPARED_NOT_ISSUED_P4_K_A_ARTIFACTS_REQUIRED",
+      "scope": "future distinct independent verification of exact public bytes, SHA-256 values, fingerprint, custody, and canonical allowed-signers artifact"
+    },
+    {
+      "gate_id": "Q15-R-P5",
+      "state": "NOT_PREPARED_NOT_ISSUED",
+      "scope": "later stand setup and allowed-signers installation after accepted P4-K review evidence"
+    }
+  ],
+  "minimum_owner_inputs_before_exact_acceptance": [
+    {
+      "question_id": "P4K-Q1",
+      "question": "Select the D-076 key source mode.",
+      "allowed_answers": [
+        "EXISTING_OWNER_CONTROLLED_OFFLINE_ED25519_WITH_COMPLETE_CUSTODY_EVIDENCE",
+        "NEW_OFFLINE_ED25519_KEY_CEREMONY_UNDER_LATER_SEPARATE_EXACT_AUTHORIZATION"
+      ],
+      "answer": null
+    },
+    {
+      "question_id": "P4K-Q2",
+      "question": "Provide the literal non-stand custody-domain ID and custodian-principal ID; do not provide private-key bytes or secrets.",
+      "allowed_answers": [],
+      "answer": null
+    },
+    {
+      "question_id": "P4K-Q3",
+      "question": "Accept or revise the recommended D-078 split acquisition/review graph and D-079 authority/validity profile.",
+      "allowed_answers": ["ACCEPT_D078_D079_RECOMMENDATIONS", "REVISE"],
+      "answer": null
+    }
+  ],
+  "authority_boundary": {
+    "repository_local_decision_input_bundle_preparation_authorized": true,
+    "repository_local_acceptance_adr_or_successor_template_creation_authorized": false,
+    "stand_access_authorized": false,
+    "key_read_generation_import_copy_fingerprint_or_use_authorized": false,
+    "public_key_or_allowed_signers_artifact_creation_authorized": false,
+    "private_key_in_repository_or_on_stand_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "p4_k_a_authorized": false,
+    "p4_k_r_authorized": false,
+    "transfer_install_setup_or_path_creation_authorized": false,
+    "p4_r_i_or_p4_r_c_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

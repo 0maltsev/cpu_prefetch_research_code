@@ -179,6 +179,7 @@ target_include_directories(
 
 add_library(
   cpu_prefetch_q15_qualification STATIC
+  src/qualification/p4_k_a_controller.cpp
   src/qualification/q15_controller.cpp
   src/qualification/q15_collectors.cpp
   src/qualification/q15_prestate.cpp
@@ -517,7 +518,10 @@ if(BUILD_TESTING)
     PREFIX "q15.collector."
     PROPERTIES LABELS "q15;qualification;platform;synthetic")
 
-  add_executable(cpu_prefetch_q15_controller_tests tests/q15_controller_test.cpp)
+  add_executable(
+    cpu_prefetch_q15_controller_tests
+    tests/p4_k_a_controller_test.cpp
+    tests/q15_controller_test.cpp)
   target_link_libraries(
     cpu_prefetch_q15_controller_tests
     PRIVATE
@@ -790,6 +794,76 @@ if(BUILD_TESTING)
   set_tests_properties(
     q15.r_p4_r_preparation_v2
     PROPERTIES LABELS "q15;qualification;prestate;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_r_staging_authorization_decision
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_staging_authorization_decision.py")
+  set_tests_properties(
+    q15.r_p4_r_staging_authorization_decision
+    PROPERTIES LABELS "q15;qualification;prestate;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_f_acceptance
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_f_acceptance.py")
+  set_tests_properties(
+    q15.r_p4_f_acceptance
+    PROPERTIES LABELS "q15;qualification;prestate;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_r_successor_templates
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_successor_templates.py")
+  set_tests_properties(
+    q15.r_p4_r_successor_templates
+    PROPERTIES LABELS "q15;qualification;prestate;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_k_decision_input
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_decision_input.py")
+  set_tests_properties(
+    q15.r_p4_k_decision_input
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_k_d_acceptance
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_d_acceptance.py")
+  set_tests_properties(
+    q15.r_p4_k_d_acceptance
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_k_successor_templates
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_successor_templates.py")
+  set_tests_properties(
+    q15.r_p4_k_successor_templates
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_k_a_operational_input_decision
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_a_operational_input_decision.py")
+  set_tests_properties(
+    q15.r_p4_k_a_operational_input_decision
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_k_a_d_acceptance
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_a_d_acceptance.py")
+  set_tests_properties(
+    q15.r_p4_k_a_d_acceptance
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_k_a_controller_profile
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_a_controller_profile.py")
+  set_tests_properties(
+    q15.r_p4_k_a_controller_profile
+    PROPERTIES LABELS "q15;qualification;security;custody;controller;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_bootstrap_governance_root_decision
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_bootstrap_governance_root_decision.py")
+  set_tests_properties(
+    q15.r_bootstrap_governance_root_decision
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
   add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"
@@ -1221,6 +1295,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_probe.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_msr.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_runtime.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/p4_k_a_controller.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_collectors.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_controller.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_prestate.hpp"
@@ -1262,6 +1337,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_probe.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_prestate.cpp"
@@ -1302,6 +1378,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/p4_k_a_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_noalloc_test.cpp"
@@ -1372,6 +1449,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_probe.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_prestate.cpp"
@@ -1411,6 +1489,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/p4_k_a_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_noalloc_test.cpp"
@@ -1715,6 +1794,36 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_preparation_v2.py"
   COMMAND
     "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_staging_authorization_decision.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_f_acceptance.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_successor_templates.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_decision_input.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_d_acceptance.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_successor_templates.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_a_operational_input_decision.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_a_d_acceptance.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_a_controller_profile.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_bootstrap_governance_root_decision.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py"
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -1822,6 +1931,76 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_preparation_v2.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking the versioned P4-R successor with release evidence only")
+add_custom_target(
+  q15-r-p4-r-staging-authorization-decision-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_staging_authorization_decision.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking proposed D-072 through D-075 without stand or execution authority")
+add_custom_target(
+  q15-r-p4-f-acceptance-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_f_acceptance.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking accepted D-072 through D-075 without operational authority")
+add_custom_target(
+  q15-r-p4-r-successor-templates-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_successor_templates.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking still-unissued split P4-R-I and P4-R-C templates")
+add_custom_target(
+  q15-r-p4-k-decision-input-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_decision_input.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking proposed P4-K owner inputs without key or stand authority")
+add_custom_target(
+  q15-r-p4-k-d-acceptance-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_d_acceptance.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking accepted P4-K owner choices without key or stand authority")
+add_custom_target(
+  q15-r-p4-k-successor-templates-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_successor_templates.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking still-unissued split P4-K-A and P4-K-R templates")
+add_custom_target(
+  q15-r-p4-k-a-operational-input-decision-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_a_operational_input_decision.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking proposed P4-K-A operational inputs without key authority")
+add_custom_target(
+  q15-r-p4-k-a-d-acceptance-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_a_d_acceptance.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking accepted P4-K-A policy and absent-bootstrap fail-closed state")
+add_custom_target(
+  q15-r-p4-k-a-controller-profile-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_k_a_controller_profile.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the generic no-authority P4-K-A controller profile")
+add_custom_target(
+  q15-r-bootstrap-governance-root-decision-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_bootstrap_governance_root_decision.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking proposed bootstrap governance-root inputs without key authority")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND

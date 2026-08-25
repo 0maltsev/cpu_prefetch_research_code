@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-k-r-authorization-template:v1",
+  "title": "Still-unissued independent Q15-R-P4-K-R public-evidence review template",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "template_id", "protocol_version", "status", "lineage", "gate", "fixed_review_contract", "required_evidence", "prospective_outputs", "rollback", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-k-r-authorization-template/1"},
+    "template_id": {"const": "Q15-R-P4-K-R-AUTHORIZATION-TEMPLATE-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "STILL_UNISSUED_BLOCKED_COMPLETE_P4_K_A_PUBLIC_CUSTODY_AUTHORIZATION_AND_REVIEW_INPUTS_REQUIRED"},
+    "lineage": {"type": "object", "additionalProperties": false, "required": ["decision_input_path", "decision_input_sha256", "acceptance_path", "acceptance_sha256", "p4_k_a_template_path", "p4_k_a_template_sha256", "adr_bindings"], "properties": {
+      "decision_input_path": {"const": "config/q15/q15-r-p4-k-decision-input-v1.json"},
+      "decision_input_sha256": {"const": "cf05bbfdfeb92e9f4de438beac7a05f9f77bfc316c8dc3793e76cf2a47f52ff5"},
+      "acceptance_path": {"const": "config/q15/q15-r-p4-k-d-acceptance-v1.json"},
+      "acceptance_sha256": {"const": "11b9c357468515145bc5e7b2b477515c814d31ec97603245eff378d0259e6be7"},
+      "p4_k_a_template_path": {"const": "config/q15/q15-r-p4-k-a.authorization-template-v1.json"},
+      "p4_k_a_template_sha256": {"const": "7669a2f693a7ffca3fa583ec3ed7a45e1ea130a51ee009ac33a77b936409ccb5"},
+      "adr_bindings": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/adr"}}
+    }},
+    "gate": {"type": "object", "additionalProperties": false, "required": ["gate_id", "purpose", "source_mode", "custody_domain_id", "custodian_principal_id", "named_authority_principal", "independent_review_principal", "required_complete_p4_k_a_receipt_sha256", "authorization_id", "authorization_sha256", "issued_at_utc", "expires_at_utc", "exact_validity_seconds", "renewal_allowed", "reuse_allowed", "canonicalization", "signature_scheme", "signature_principal", "signature_namespace", "bootstrap_authorization_signer_fingerprint", "bootstrap_authorization_trust_evidence_sha256", "detached_signature_sha256", "pre_execution_independent_review_sha256"], "properties": {
+      "gate_id": {"const": "Q15-R-P4-K-R"}, "purpose": {"const": "INDEPENDENT_READ_ONLY_PUBLIC_KEY_ALLOWED_SIGNERS_CUSTODY_AND_LINEAGE_REVIEW"},
+      "source_mode": {"const": "NEW_OFFLINE_ED25519_KEY_CEREMONY_UNDER_LATER_SEPARATE_EXACT_AUTHORIZATION"},
+      "custody_domain_id": {"const": "OWNER-OFFLINE-Q15-KEY-CUSTODY"}, "custodian_principal_id": {"const": "cpu-prefetch-q15-custodian"},
+      "named_authority_principal": {"const": "cpu-prefetch-q15-operator"}, "independent_review_principal": {"const": "cpu-prefetch-q15-auditor"},
+      "required_complete_p4_k_a_receipt_sha256": {"type": "null"}, "authorization_id": {"type": "null"}, "authorization_sha256": {"type": "null"}, "issued_at_utc": {"type": "null"}, "expires_at_utc": {"type": "null"},
+      "exact_validity_seconds": {"const": 1800}, "renewal_allowed": {"const": false}, "reuse_allowed": {"const": false},
+      "canonicalization": {"const": "JCS-I64-v1"}, "signature_scheme": {"const": "OPENSSH-SSHSIG-ED25519-SHA512-v1"}, "signature_principal": {"const": "cpu-prefetch-q15-authorization"}, "signature_namespace": {"const": "cpu-prefetch-q15-authorization"},
+      "bootstrap_authorization_signer_fingerprint": {"type": "null"}, "bootstrap_authorization_trust_evidence_sha256": {"type": "null"}, "detached_signature_sha256": {"type": "null"}, "pre_execution_independent_review_sha256": {"type": "null"}
+    }},
+    "fixed_review_contract": {"const": {
+      "reviewer_must_differ_from_authority_and_custodian": true,
+      "private_key_read_or_presence_allowed": false,
+      "review_scope_public_evidence_only": true,
+      "recompute_public_artifact_sha256": true,
+      "recompute_ed25519_sha256_fingerprint": true,
+      "verify_single_ed25519_allowed_signers_profile": "OPENSSH-ALLOWED-SIGNERS-SINGLE-ED25519-v1",
+      "verify_principal_and_public_key_byte_equality": true,
+      "verify_custody_receipt_without_private_path_or_bytes": true,
+      "review_attempt_count": 1,
+      "retry_count": 0,
+      "mutation_installation_or_signing_allowed": false,
+      "stop_after_append_only_review_receipt": true,
+      "automatic_continuation_to_p5_p4_r_or_q15": false
+    }},
+    "required_evidence": {"type": "array", "minItems": 7, "maxItems": 7, "items": {"$ref": "#/$defs/nullInput"}},
+    "prospective_outputs": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/nullInput"}},
+    "rollback": {"const": {
+      "profile": "Q15-R-P4-K-R-READ-ONLY-STOP-RETAIN-REVIEW-EVIDENCE-v1",
+      "on_failure": "STOP_RETAIN_COMPLETE_OR_PARTIAL_REVIEW_RECEIPT_WITHOUT_MUTATING_SOURCE_EVIDENCE",
+      "delete_overwrite_retry_repair_or_cleanup_authorized": false,
+      "installation_or_trust_anchor_activation_authorized": false,
+      "future_action_requires_separate_exact_authorization": true
+    }},
+    "authority_boundary": {"const": {
+      "repository_local_unissued_template_creation_authorized": true,
+      "key_read_generation_import_copy_or_private_use_authorized": false,
+      "public_fingerprint_or_review_execution_authorized": false,
+      "public_key_or_allowed_signers_artifact_creation_authorized": false,
+      "private_key_in_repository_or_on_stand_authorized": false,
+      "custody_or_public_artifact_path_creation_authorized": false,
+      "signing_or_issuance_authorized": false,
+      "p4_k_a_authorized": false,
+      "p4_k_r_authorized": false,
+      "stand_access_authorized": false,
+      "transfer_install_or_setup_authorized": false,
+      "p4_r_i_or_p4_r_c_authorized": false,
+      "q15_r_or_q15_w_authorized": false,
+      "platform_controls_authorized": false,
+      "calibration_pilot_measurement_or_confirmatory_authorized": false
+    }}
+  },
+  "$defs": {
+    "adr": {"type": "object", "additionalProperties": false, "required": ["decision_id", "path", "sha256"], "properties": {"decision_id": {"pattern": "^D-0(76|77|78|79)$"}, "path": {"type": "string", "minLength": 1}, "sha256": {"pattern": "^[0-9a-f]{64}$"}}},
+    "nullInput": {"type": "object", "additionalProperties": false, "required": ["name", "value"], "properties": {"name": {"type": "string", "minLength": 1}, "value": {"type": "null"}}}
+  }
+}

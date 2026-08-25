@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-k-a-authorization-template:v1",
+  "title": "Still-unissued one-shot Q15-R-P4-K-A new-offline-ceremony template",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "template_id", "protocol_version", "status", "lineage", "gate", "fixed_action_contract", "prospective_outputs", "unresolved_inputs", "rollback", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-k-a-authorization-template/1"},
+    "template_id": {"const": "Q15-R-P4-K-A-AUTHORIZATION-TEMPLATE-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "STILL_UNISSUED_BLOCKED_EXACT_CEREMONY_CUSTODY_PUBLIC_PATH_BOOTSTRAP_SIGNER_AND_REVIEW_INPUTS_REQUIRED"},
+    "lineage": {"type": "object", "additionalProperties": false, "required": ["decision_input_path", "decision_input_sha256", "acceptance_path", "acceptance_sha256", "adr_bindings", "predecessor_p4_k_path", "predecessor_p4_k_sha256", "predecessor_p4_k_state"], "properties": {
+      "decision_input_path": {"const": "config/q15/q15-r-p4-k-decision-input-v1.json"},
+      "decision_input_sha256": {"const": "cf05bbfdfeb92e9f4de438beac7a05f9f77bfc316c8dc3793e76cf2a47f52ff5"},
+      "acceptance_path": {"const": "config/q15/q15-r-p4-k-d-acceptance-v1.json"},
+      "acceptance_sha256": {"const": "11b9c357468515145bc5e7b2b477515c814d31ec97603245eff378d0259e6be7"},
+      "adr_bindings": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/adr"}},
+      "predecessor_p4_k_path": {"const": "config/q15/q15-r-p4-k.preparation.json"},
+      "predecessor_p4_k_sha256": {"const": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f"},
+      "predecessor_p4_k_state": {"const": "UNCHANGED_EIGHT_EXTERNAL_INPUTS_UNRESOLVED_NOT_ISSUED"}
+    }},
+    "gate": {"type": "object", "additionalProperties": false, "required": ["gate_id", "purpose", "source_mode", "custody_domain_id", "custodian_principal_id", "named_authority_principal", "independent_review_principal", "authorization_id", "authorization_sha256", "issued_at_utc", "expires_at_utc", "exact_validity_seconds", "renewal_allowed", "reuse_allowed", "canonicalization", "signature_scheme", "signature_principal", "signature_namespace", "bootstrap_authorization_signer_fingerprint", "bootstrap_authorization_trust_evidence_sha256", "detached_signature_sha256", "pre_execution_independent_review_sha256"], "properties": {
+      "gate_id": {"const": "Q15-R-P4-K-A"},
+      "purpose": {"const": "ONE_SHOT_NEW_OFFLINE_ED25519_CEREMONY_AND_PUBLIC_ARTIFACT_CONSTRUCTION"},
+      "source_mode": {"const": "NEW_OFFLINE_ED25519_KEY_CEREMONY_UNDER_LATER_SEPARATE_EXACT_AUTHORIZATION"},
+      "custody_domain_id": {"const": "OWNER-OFFLINE-Q15-KEY-CUSTODY"},
+      "custodian_principal_id": {"const": "cpu-prefetch-q15-custodian"},
+      "named_authority_principal": {"const": "cpu-prefetch-q15-operator"},
+      "independent_review_principal": {"const": "cpu-prefetch-q15-auditor"},
+      "authorization_id": {"type": "null"}, "authorization_sha256": {"type": "null"}, "issued_at_utc": {"type": "null"}, "expires_at_utc": {"type": "null"},
+      "exact_validity_seconds": {"const": 1800}, "renewal_allowed": {"const": false}, "reuse_allowed": {"const": false},
+      "canonicalization": {"const": "JCS-I64-v1"}, "signature_scheme": {"const": "OPENSSH-SSHSIG-ED25519-SHA512-v1"},
+      "signature_principal": {"const": "cpu-prefetch-q15-authorization"}, "signature_namespace": {"const": "cpu-prefetch-q15-authorization"},
+      "bootstrap_authorization_signer_fingerprint": {"type": "null"}, "bootstrap_authorization_trust_evidence_sha256": {"type": "null"}, "detached_signature_sha256": {"type": "null"}, "pre_execution_independent_review_sha256": {"type": "null"}
+    }},
+    "fixed_action_contract": {"const": {
+      "key_type": "ED25519",
+      "private_key_location": "OFF_STAND_OUTSIDE_REPOSITORY",
+      "private_key_path_or_bytes_serialized": false,
+      "target_key_may_authorize_its_own_creation": false,
+      "action_attempt_count": 1,
+      "retry_count": 0,
+      "repair_in_place_allowed": false,
+      "create_exclusive_public_artifacts_required": true,
+      "overwrite_allowed": false,
+      "canonical_allowed_signers_profile": "OPENSSH-ALLOWED-SIGNERS-SINGLE-ED25519-v1",
+      "allowed_signers_principal": "cpu-prefetch-q15-authorization",
+      "allowed_signers_destination_for_later_setup": "/etc/cpu-prefetch/q15/allowed_signers",
+      "independent_sha256_and_fingerprint_verification_required_later": true,
+      "stop_after_public_evidence_capture": true,
+      "automatic_continuation_to_p4_k_r": false,
+      "installation_or_q15_signing_allowed": false
+    }},
+    "prospective_outputs": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/nullInput"}},
+    "unresolved_inputs": {"type": "array", "minItems": 7, "maxItems": 7, "items": {"$ref": "#/$defs/nullInput"}},
+    "rollback": {"const": {
+      "profile": "Q15-R-P4-K-A-STOP-RETAIN-PUBLIC-EVIDENCE-NO-DELETE-v1",
+      "on_pre_action_failure": "STOP_WITH_NO_KEY_OR_ARTIFACT_ACTION",
+      "on_post_action_failure": "STOP_RETAIN_COMPLETE_OR_PARTIAL_PUBLIC_EVIDENCE_AND_CUSTODY_RECEIPTS",
+      "private_key_material_must_remain_only_in_accepted_offline_custody": true,
+      "delete_overwrite_retry_repair_or_cleanup_authorized": false,
+      "future_action_requires_separate_exact_authorization": true
+    }},
+    "authority_boundary": {"const": {
+      "repository_local_unissued_template_creation_authorized": true,
+      "key_read_generation_import_copy_fingerprint_or_use_authorized": false,
+      "public_key_or_allowed_signers_artifact_creation_authorized": false,
+      "private_key_in_repository_or_on_stand_authorized": false,
+      "custody_or_public_artifact_path_creation_authorized": false,
+      "signing_or_issuance_authorized": false,
+      "p4_k_a_authorized": false,
+      "p4_k_r_authorized": false,
+      "stand_access_authorized": false,
+      "transfer_install_or_setup_authorized": false,
+      "p4_r_i_or_p4_r_c_authorized": false,
+      "q15_r_or_q15_w_authorized": false,
+      "platform_controls_authorized": false,
+      "calibration_pilot_measurement_or_confirmatory_authorized": false
+    }}
+  },
+  "$defs": {
+    "adr": {"type": "object", "additionalProperties": false, "required": ["decision_id", "path", "sha256"], "properties": {"decision_id": {"pattern": "^D-0(76|77|78|79)$"}, "path": {"type": "string", "minLength": 1}, "sha256": {"pattern": "^[0-9a-f]{64}$"}}},
+    "nullInput": {"type": "object", "additionalProperties": false, "required": ["name", "value"], "properties": {"name": {"type": "string", "minLength": 1}, "value": {"type": "null"}}}
+  }
+}

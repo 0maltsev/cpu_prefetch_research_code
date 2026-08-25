@@ -1,0 +1,72 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-f-acceptance/1",
+  "acceptance_id": "Q15-R-P4-F-ACCEPTANCE-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "decision_input_binding": {
+    "bundle_id": "Q15-R-P4-R-STAGING-AUTHORIZATION-DECISION-INPUT-20260825-01",
+    "path": "config/q15/q15-r-p4-r-staging-authorization-decision-input-v1.json",
+    "sha256": "18c29f6f3710b061bcf593ad6615589a6b50c4bf28ebceb4bee3714702389604",
+    "governance_commit": "f30036e31acc8ae036f2f31086d493eeb30db9d7",
+    "immutable_v3_archive_sha256": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a"
+  },
+  "accepted_decisions": [
+    {
+      "decision_id": "D-072",
+      "selected_option": "EXACT_CREATE_EXCLUSIVE_NO_ACTIVATION_STAGING_TREE_v1",
+      "state": "ACCEPTED_REPOSITORY_LOCAL_TEMPLATE_FREEZE_NO_STAND_AUTHORITY"
+    },
+    {
+      "decision_id": "D-073",
+      "selected_option": "EXACT_CAPTURE_AND_DEVELOPMENT_CUSTODY_PATHS_v1",
+      "state": "ACCEPTED_REPOSITORY_LOCAL_TEMPLATE_FREEZE_NO_STAND_AUTHORITY"
+    },
+    {
+      "decision_id": "D-074",
+      "selected_option": "NAMED_OPERATOR_1800S_SSHSIG_AND_DISTINCT_AUDITOR_v1",
+      "state": "ACCEPTED_REPOSITORY_LOCAL_TEMPLATE_FREEZE_NO_STAND_AUTHORITY"
+    },
+    {
+      "decision_id": "D-075",
+      "selected_option": "SPLIT_IDENTITY_THEN_ONE_SHOT_COLLECTION_FAIL_CLOSED_v1",
+      "state": "ACCEPTED_REPOSITORY_LOCAL_TEMPLATE_FREEZE_NO_STAND_AUTHORITY"
+    }
+  ],
+  "selection_effect": {
+    "literal_candidate_paths_frozen": true,
+    "capture_identity_frozen": true,
+    "principal_validity_signature_and_review_policy_frozen": true,
+    "split_identity_then_collection_graph_frozen": true,
+    "repository_local_acceptance_adr_and_unissued_template_creation_authorized": true,
+    "stand_path_or_custody_artifact_created": false,
+    "authorization_issued": false
+  },
+  "predecessor_preservation": {
+    "p4_r_preparation_path": "config/q15/q15-r-p4-r.preparation-v2.json",
+    "p4_r_preparation_sha256": "f8c63d1f95d69c6a9562cfec6d2635757c9dbba80137d68fdedf56bd189b6ba4",
+    "p4_r_state": "UNCHANGED_SEVEN_EXTERNAL_INPUTS_UNRESOLVED_NOT_ISSUED",
+    "p4_k_preparation_path": "config/q15/q15-r-p4-k.preparation.json",
+    "p4_k_preparation_sha256": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f",
+    "p4_k_state": "UNCHANGED_EIGHT_EXTERNAL_INPUTS_UNRESOLVED_NOT_ISSUED"
+  },
+  "authority_boundary": {
+    "repository_local_acceptance_adr_and_unissued_template_creation_authorized": true,
+    "stand_access_authorized": false,
+    "stand_or_custody_path_creation_authorized": false,
+    "bundle_transfer_or_extraction_authorized": false,
+    "collector_self_test_on_stand_authorized": false,
+    "collector_execution_authorized": false,
+    "key_creation_import_copy_or_use_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "p4_r_i_authorized": false,
+    "p4_r_c_authorized": false,
+    "p4_k_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "calibration_authorized": false,
+    "pilot_authorized": false,
+    "measurement_authorized": false,
+    "confirmatory_authorized": false
+  },
+  "user_acceptance": "Q15-R-P4-F — accept D-072 through D-075 in the exact Q15-R-P4-R staging and read-only stand-prestate authorization decision bundle, bound to governance commit f30036e31acc8ae036f2f31086d493eeb30db9d7 and immutable v3 archive SHA-256 f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a. Accept the exact create-exclusive stand staging tree, fixed capture and development-custody paths, cpu-prefetch-q15-operator named authority, nonrenewable 1800-second UTC policy, accepted OpenSSH SSHSIG profile with distinct auditor review, and split P4-R-I identity then P4-R-C one-shot staging/collection graph with stop-retain-no-delete rollback. Authorize repository-local creation and verification of acceptance, ADR, and still-unissued successor authorization templates only. Do not access or modify the stand, create paths, transfer or extract artifacts, execute self-tests or the collector on the stand, create/import/copy/use keys, sign or issue P4-R-I/P4-R-C/P4-K/Q15-R/Q15-W, perform platform controls, calibrate, pilot, measure, or perform confirmatory work. Every external-input, signature, and execution phase requires a later separate exact approval."
+}

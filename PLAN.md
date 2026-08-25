@@ -380,8 +380,14 @@ authorization/amendment.
   D-066 through D-070 as acquisition methods, implements the fixed no-authority
   prestate collector behind a fakeable executor, and prepares exact but
   unissued Q15-R-P4-R/Q15-R-P4-K records. Every literal value remains null and
-  no stand was accessed. The next safe repository action is a separately
-  authorized commit and clean no-authority collector-bearing v3 bundle. A fully resolved and
+  no stand was accessed. Clean commit `34da95d` now produces and verifies the
+  no-authority collector-bearing v3 bundle at archive SHA-256
+  `f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a`.
+  Q15-R-P4-E accepts D-071/ADR-0071 and selects those exact bytes as
+  collector-release evidence only. Versioned successor P4-R preparation v2
+  resolves only the clean collector-release group. Seven P4-R and eight P4-K
+  inputs remain null, all execution authority remains false, and the collector
+  has not run. A fully resolved and
   separately authorized four-role/custody setup,
   the five external trust/path/prestate inputs, exact signed Q15-R argv, and
   dynamic authority remain required.

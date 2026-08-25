@@ -1,0 +1,116 @@
+{
+  "authority_boundary": {
+    "account_or_key_changes_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "calibration_authorized": false,
+    "collector_execution_authorized": false,
+    "confirmatory_authorized": false,
+    "dynamic_qualification_authorized": false,
+    "filesystem_or_permission_changes_authorized": false,
+    "literal_path_selection_authorized": false,
+    "measurement_authorized": false,
+    "msr_read_authorized": false,
+    "msr_write_authorized": false,
+    "pilot_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "real_affinity_numa_authorized": false,
+    "real_pmu_authorized": false,
+    "repository_local_decision_bundle_preparation_authorized": true,
+    "repository_local_successor_preparation_authorized": false,
+    "signing_or_key_operation_authorized": false,
+    "stand_access_authorized": false,
+    "stand_setup_authorized": false
+  },
+  "bundle_id": "Q15-R-P4-R-COLLECTOR-RELEASE-DECISION-INPUT-20260825-01",
+  "collector_release_evidence": {
+    "archive_bytes": 4642298,
+    "archive_name": "cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz",
+    "archive_sha256": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a",
+    "bundle_manifest_sha256": "84338ec24a1af44468c5a37d5c8aeedec126abc8fdc5ec846d15685aca178f20",
+    "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v3",
+    "collector_binary_sha256": "4716e1dfc2e65fd61dce1ea54a70fd876a0b4322b69d9ad1fde5c67a65c48a57",
+    "collector_contract_sha256": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87",
+    "controller_binary_sha256": "1b23a743de084449cb622f14b1301b37af1c59878c6ca70abce1bb875a853f45",
+    "controller_codegen_report_sha256": "7fc0d36b0e095df9a5e4563dd48d02c7a3acf4718f8816a87f2e137af43942ca",
+    "internal_file_count": 154,
+    "internal_sha256s_sha256": "6880faa79b0b7a9faaabe788b01dd2cd7d441d8646efd31d8929acba63f8f525",
+    "p4_d_acceptance_sha256": "1645c2a7fb356272afbf9377b99784e307f54f8a7df5fbb09f46d70edae3c521",
+    "prestate_validator_sha256": "6f8ee09975a3c610f57b16117e6906f26af9482a5b750d30e2bdfa2c9552f247",
+    "probe_codegen_report_sha256": "cb3368f851c5c5ac8e2c5ef5747ecf53f27e586b4b756798daa8386a1266f4aa",
+    "q15_qualification_library_sha256": "c8364af26d355bd736e557058db77274a3fab6d539b8622c4f0905d1be470bad",
+    "q15_tool_binary_sha256": "10386c653fe33c9d8ac60b205962fed12a5240ccd354ba82ae30533f01c0d217",
+    "repository_license": "NO-LICENSE-GRANT",
+    "runtime_codegen_report_sha256": "e3c09d4fcbb759b0008c728d563f984d38bdb93e269ac70f3ebd6a1d99ab7014",
+    "sbom_sha256": "a9bc3b59726c54171b0510c964d1ac05ece652593b33abc8238083ff14ed8e93",
+    "sidecar_sha256": "f2bf9e3f2ed97541905b7e0fbc24dfa15d3b5c3096bd7e9ab0d23dcdbe0fffd4",
+    "source_archive_name": "cpu-prefetch-source-34da95d-clean.tar.gz",
+    "source_archive_sha256": "5fc75063e1d1d0a1602beec4e10c11080d8b02511755951210009bcc2586625c",
+    "source_dirty": false,
+    "source_revision": "34da95d002e912069c959bfef8e88a23b4880cea",
+    "version_metadata_sha256": "7d9df7638e30dafdd1c0d52abdcff9ff8511ed0a98e33c4119ddcdfaa500ea49"
+  },
+  "decision": {
+    "classification": "Q15-R-P4-R no-authority collector-release identity",
+    "compatibility_effect": "The exact v3 source revision, archive, sidecar, source archive, manifest, SBOM, collector, validator, contract, binaries, library, checksum inventory, version metadata, and code-generation reports become immutable collector-release input identity only if explicitly accepted.",
+    "deadline_gate": "Before selecting a literal collector release root, transferring or installing collector bytes, issuing Q15-R-P4-R, or collecting stand prestate.",
+    "decision_id": "D-071",
+    "evidence": [
+      "Q15-R-P4-D accepted D-066 through D-070 and implemented the fixed 25-command collector without execution authority.",
+      "Clean revision 34da95d002e912069c959bfef8e88a23b4880cea produced the exact no-authority Q15 qualification-tool v3 archive bound below.",
+      "The outer sidecar, 154-file clean extraction, complete internal checksum inventory, smoke and nonprivileged preflight self-tests, and internal verifier passed.",
+      "Full static analysis covered all 97 registered C++ translation units, and strict probe/runtime/controller dual-disassembler reports passed.",
+      "The v3 manifest denies stand access, transfer/install, collector execution, Q15-R, Q15-W, PMU/MSR, affinity/NUMA, calibration, pilot, measurement, and confirmatory authority."
+    ],
+    "options_considered": [
+      "Select the exact 34da95d clean no-authority v3 bundle as collector-release evidence for a later separately authorized Q15-R-P4-R transaction.",
+      "Retain the c8b69ab v2 operational release, which lacks the accepted prestate collector and is ineligible for P4-R collection.",
+      "Build and verify a different clean no-authority collector release under a new prospective identity.",
+      "Stop and leave Q15-R-P4-R blocked."
+    ],
+    "owner": [
+      "repository owner",
+      "build owner",
+      "platform owner",
+      "security owner",
+      "audit owner"
+    ],
+    "recommended_option": "Select only the exact 34da95d v3 archive and bound artifacts as no-authority collector-release evidence; fail closed on any mismatch and keep every external input and execution authority unresolved.",
+    "scientific_effect": "None. This proposal selects no platform value, schedule, run, outcome, estimator, calibration, pilot, measurement, or confirmatory input and authorizes no collector execution.",
+    "selected_option_if_accepted": "SELECT_34DA95D_NO_AUTHORITY_COLLECTOR_RELEASE_EVIDENCE_ONLY",
+    "state": "PROPOSED_AWAITING_EXPLICIT_OWNER_ACCEPTANCE_NO_AUTHORITY",
+    "supersession_rule": "Any byte, source revision, bundle profile, authority field, collector contract, dependency, toolchain, validator, or verification-report change requires a new clean release identity, complete verification, and prospective owner acceptance. Existing release evidence remains immutable."
+  },
+  "p4_k_preparation": {
+    "path": "config/q15/q15-r-p4-k.preparation.json",
+    "preparation_id": "Q15-R-P4-K-PREPARATION-20260825-01",
+    "sha256": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f",
+    "state": "UNCHANGED_EIGHT_INPUTS_UNRESOLVED_NOT_ISSUED"
+  },
+  "prepared_at_utc": "2026-08-25T10:50:58Z",
+  "predecessor_p4_r_preparation": {
+    "path": "config/q15/q15-r-p4-r.preparation.json",
+    "preparation_id": "Q15-R-P4-R-PREPARATION-20260825-01",
+    "sha256": "1925d9e8d23e42df5feef4bb900de3010a7a612724417f446f8df5d42aa11d9e",
+    "state": "IMMUTABLE_PREDECESSOR_EIGHT_INPUTS_UNRESOLVED_NOT_ISSUED"
+  },
+  "proposed_successor_p4_r_state": {
+    "remaining_input_count": 7,
+    "release_selection_state": "AWAITING_D071_ACCEPTANCE",
+    "resolve_only_input_group": "CLEAN_COLLECTOR_SOURCE_COMMIT_ARCHIVE_MANIFEST_SBOM_BINARY_AND_CONTRACT_HASHES",
+    "status": "BLOCKED_EXTERNAL_INPUTS_AND_EXACT_AUTHORITY_NO_AUTHORITY",
+    "successor_record_creation_state": "NOT_AUTHORIZED_UNTIL_EXPLICIT_D071_ACCEPTANCE"
+  },
+  "protocol_version": "2.0.0-pre.2",
+  "remaining_required_inputs": [
+    {"name": "COLLECTOR_RELEASE_ROOT", "state": "UNRESOLVED", "value": null},
+    {"name": "AUTHORIZATION_ID_CANONICAL_BYTES_AND_SHA256", "state": "UNRESOLVED", "value": null},
+    {"name": "NAMED_AUTHORITY_PRINCIPAL_ISSUE_AND_EXPIRY_UTC", "state": "UNRESOLVED", "value": null},
+    {"name": "CAPTURE_ID", "state": "UNRESOLVED", "value": null},
+    {"name": "OUTPUT_STDOUT_STDERR_AND_SIDECAR_CUSTODY_DESTINATIONS", "state": "UNRESOLVED", "value": null},
+    {"name": "DETACHED_SIGNATURE_AND_INDEPENDENT_REVIEW_ARTIFACTS", "state": "UNRESOLVED", "value": null},
+    {"name": "FRESH_PRE_EXECUTION_STAND_IDENTITY_BINDING", "state": "UNRESOLVED", "value": null}
+  ],
+  "schema_version": "cpu-prefetch-q15-r-p4-r-collector-release-decision-input/1",
+  "status": "PROPOSED_OPEN_BEFORE_Q15_R_P4_R_RELEASE_SELECTION_NO_AUTHORITY"
+}

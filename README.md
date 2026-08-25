@@ -94,7 +94,16 @@ authority has been created. Q15-R-P4-D accepts D-066 through D-070 as
 acquisition methods only. The fixed, bounded, no-retry prestate collector is
 [implemented locally](docs/Q15_R_PRESTATE_COLLECTOR.md), while every literal
 external value remains null. The prepared Q15-R-P4-R and Q15-R-P4-K records are
-unissued and blocked. This acceptance authorizes no collector execution, key
+unissued and blocked. Clean commit
+`34da95d002e912069c959bfef8e88a23b4880cea` produced the verified
+collector-bearing v3 archive SHA-256
+`f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a`
+with authority `NONE`.
+[D-071](docs/Q15_R_P4_R_COLLECTOR_RELEASE_DECISION_BUNDLE.md) is accepted by
+Q15-R-P4-E and binds those exact bytes as collector-release evidence only.
+Versioned successor P4-R preparation v2 resolves only that evidence group;
+seven P4-R inputs and all eight P4-K inputs remain null. This acceptance
+authorizes no collector execution, key
 action, literal path, stand operation, setup, or Q15 phase. The frozen
 contract is documented in
 [`docs/Q15_QUALIFICATION_CONTRACT.md`](docs/Q15_QUALIFICATION_CONTRACT.md).
@@ -472,7 +481,10 @@ Q15 issuance.
   `q15-r-operational-release-decision-check`, `q15-r-p3-acceptance-check`,
   `q15-r-stand-setup-preparation-v2-check`,
   `q15-r-external-input-acquisition-check`,
-  `q15-r-p4-d-implementation-check`, `q15-authorization-v2-check`,
+  `q15-r-p4-d-implementation-check`,
+  `q15-r-p4-r-collector-release-decision-check`,
+  `q15-r-p4-e-acceptance-check`, `q15-r-p4-r-preparation-v2-check`,
+  `q15-authorization-v2-check`,
   `q15-controller-profile-check`, strict
   `q15-controller-codegen-check`,
   `schedule-check`, `calibration-check`,

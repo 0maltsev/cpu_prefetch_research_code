@@ -160,6 +160,17 @@ value remains null, and no stand, key, path, setup, or phase authority follows.
 | D-069 | Platform-evidence engineering | Fixed argv-only read-only collector; manual shell; mutating collector; remain blocked | `ACCEPTED_IMPLEMENTED_REPOSITORY_LOCAL_NO_EXECUTION_AUTHORITY`: fixed 25-command bounded no-retry collector in versioned bundle v3; [ADR-0069](decisions/0069-q15-r-read-only-prestate-collector.md) | Requested/verified boundary; ADR-0064; Q15-R-P4-D; fake-backend tests | None; cannot fill scientific freeze values | Contract/argv/limits/encoding/binary/source/release/authorization/stand/raw output/hash become evidence identity; v1/v2 remain readable | Platform/security/audit owners | Clean release, then separate exact P4-R | New collector contract and fresh prospectively authorized evidence |
 | D-070 | Security/integrity engineering | Canonical independently verified artifact/hash/fingerprint; unverified text; post-install derivation; remain blocked | `ACCEPTED_METHOD_LITERAL_VALUE_UNRESOLVED`: canonical off-stand construction and independent verification; [ADR-0070](decisions/0070-q15-r-allowed-signers-binding.md) | ADR-0061/0062; Q15-R-P4-D | None | File bytes, hash, fingerprint, principal, namespace, and verifier become identity | Security/custody/audit owners | Separate P4-K before trust install/signing | Key rotation requires new ADR/artifacts/signatures/acceptance |
 
+## Accepted Q15-R-P4-R collector-release decision
+
+D-071 is a no-authority engineering release decision accepted by Q15-R-P4-E
+and recorded in [ADR-0071](decisions/0071-q15-r-p4-r-collector-release-identity.md).
+Its exact options, evidence, and approval boundary are in the
+[collector-release decision bundle](Q15_R_P4_R_COLLECTOR_RELEASE_DECISION_BUNDLE.md).
+
+| ID | Classification | Options considered | Selected option or unresolved state | Evidence | Scientific effect | Compatibility effect | Owner | Deadline / gate | Supersession rule |
+|---|---|---|---|---|---|---|---|---|---|
+| D-071 | Q15-R-P4-R collector-release identity | Select exact clean `34da95d` v3 release; retain ineligible collector-free v2; build another release; stop | `ACCEPTED_NO_STAND_OR_EXECUTION_AUTHORITY`: exact v3 archive selected as collector-release evidence only; P4-R successor v2 resolves one release group; seven P4-R and eight P4-K inputs remain null; [ADR-0071](decisions/0071-q15-r-p4-r-collector-release-identity.md) | Clean commit/archive/sidecar; 154-file extraction; internal verifier/checksums; full static analysis; smoke/preflight; exact collector/contract/validator/codegen hashes; Q15-R-P4-E | None | Exact bytes are collector-release identity; predecessor P4-R/P4-K records remain immutable | Repository/build/platform/security/audit owners | Closed for release evidence; before literal collector root, transfer/install, P4-R issuance, or stand collection | Changed byte/profile/contract/toolchain/validator/report requires new clean release and prospective acceptance |
+
 ## Later protocol-defined decisions with open values
 
 Before confirmatory execution, the protocol still requires treatment-blind values/evidence for `delta_star`; cache-derived capacities/residency maps; rates and `mu_ref`; whole-matrix zero-loss inputs; ring `d2`; horizons/warm-up/moving-block/recovery values; repetitions/bootstrap budget; master/derived seed values and immutable roles; replacement budget/authority; H3 signatures/access; environmental limits/counters; and stand-hours/final block plan. Stages 6 and 7 supply algorithms and validators only, never these values.
@@ -216,8 +227,11 @@ verified with authority `NONE`. Q15-R-P2 accepted D-061 through D-064 and the
 adapter/setup preparation is implemented locally. Clean commit `c8b69ab` now
 produces a separately verified adapter-bearing no-authority operational-release
 candidate. Q15-R-P3 accepts D-065 and the versioned successor resolves only
-that exact release-evidence group. Actual role, custody, trust, prestate,
-literal-path, setup-authority, signed-Q15-R, and dynamic evidence remain absent.
+that exact release-evidence group. Q15-R-P4-D accepts D-066 through D-070;
+Q15-R-P4-E accepts D-071 and its versioned P4-R successor resolves only the
+exact clean collector-release group. Seven P4-R and eight P4-K inputs remain
+null. Actual role, custody, trust, prestate, literal-path, setup-authority,
+signed-Q15-R, and dynamic evidence remain absent.
 Experiment execution remains
 prohibited until the exact stand
 authority/mappings/watchdogs, selected-pair/address state,

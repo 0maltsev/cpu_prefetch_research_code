@@ -39,6 +39,15 @@ separate exact Q15-R-P4-R and is not run by repository verification.
 `validate_q15_r_prestate.py` is the offline artifact validator: it enforces
 unique/canonical JSON, Draft 2020-12, the exact contract prefix and process
 state, finite bounds, stop-first failure, and zero-self SHA-256.
+`check_q15_r_p4_r_collector_release_decision.py` validates proposed D-071,
+the exact clean v3 release bytes, immutable P4-R/P4-K predecessors, seven
+remaining null P4-R inputs, and six authority/lineage/value negative
+mutations. Its optional archive/extraction arguments perform read-only local
+release verification and never execute the collector.
+`check_q15_r_p4_e_acceptance.py` binds the exact D-071 owner acceptance and
+authorized no-authority successor hash. `check_q15_r_p4_r_preparation_v2.py`
+enforces one resolved release group, seven null P4-R inputs, unchanged P4-K,
+all 25 commands/limits, `NOT_ISSUED`, and eight negative mutations.
 
 D-053 adds `check_q15_probe_implementation.py` and
 `check_q15_probe_codegen.py`. The first validates the exact master-seed,

@@ -109,10 +109,18 @@ for the later exact authorization. A generic approval, SSH
 permission, or root access cannot substitute; setup would still not authorize
 Q15-R.
 
-The fixed collector and validator are implemented with fake evidence. Exact
-Q15-R-P4-R and Q15-R-P4-K preparations remain unissued and retain eight null
-inputs each. The smallest next repository-local authorization is one commit
-and a clean no-authority collector-bearing qualification-tool bundle. Separate
+The fixed collector and validator are implemented with fake evidence. Clean
+commit `34da95d002e912069c959bfef8e88a23b4880cea` produced the verified
+collector-bearing v3 archive SHA-256
+`f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a`
+with authority `NONE`. Q15-R-P4-E accepts the
+[D-071 collector-release decision](Q15_R_P4_R_COLLECTOR_RELEASE_DECISION_BUNDLE.md)
+and hash-binds that release. Versioned successor P4-R preparation v2 resolves
+only the clean collector-release evidence group and retains seven null external
+inputs. The original P4-R preparation remains immutable with eight null inputs;
+P4-K remains unissued and retains all eight null inputs. The smallest next
+gates require owner/platform evidence for those external values and separate
+exact authorization; no value may be inferred. Separate
 future Q15-R-P4-R, Q15-R-P4-K, Q15-R-P5, Q15-R, and Q15-W gates remain
 mandatory and unopened.
 

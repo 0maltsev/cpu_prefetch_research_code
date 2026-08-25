@@ -106,6 +106,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0068](0068-q15-r-secondary-custody-root.md) | `ACCEPTED_METHOD_LITERAL_VALUE_UNRESOLVED` | Require an independently controlled absolute non-stand secondary custody root. |
 | [ADR-0069](0069-q15-r-read-only-prestate-collector.md) | `ACCEPTED_AND_IMPLEMENTED_REPOSITORY_LOCAL_NO_EXECUTION_AUTHORITY` | Use the fixed 25-command, bounded, no-retry, partial-safe read-only prestate collector. |
 | [ADR-0070](0070-q15-r-allowed-signers-binding.md) | `ACCEPTED_METHOD_LITERAL_VALUE_UNRESOLVED` | Construct and independently verify canonical allowed-signers bytes and fingerprint off-stand. |
+| [ADR-0071](0071-q15-r-p4-r-collector-release-identity.md) | `ACCEPTED_NO_STAND_OR_EXECUTION_AUTHORITY` | Select the exact clean collector-bearing v3 release as P4-R evidence only and preserve all external inputs and later authority gates. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
 Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,

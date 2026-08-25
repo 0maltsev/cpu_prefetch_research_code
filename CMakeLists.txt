@@ -770,6 +770,27 @@ if(BUILD_TESTING)
     q15.r_p4_d_implementation
     PROPERTIES LABELS "q15;qualification;prestate;decision;authorization;schema;pre-pilot;synthetic")
   add_test(
+    NAME q15.r_p4_r_collector_release_decision
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_collector_release_decision.py")
+  set_tests_properties(
+    q15.r_p4_r_collector_release_decision
+    PROPERTIES LABELS "q15;qualification;prestate;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_e_acceptance
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_e_acceptance.py")
+  set_tests_properties(
+    q15.r_p4_e_acceptance
+    PROPERTIES LABELS "q15;qualification;prestate;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_r_preparation_v2
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_preparation_v2.py")
+  set_tests_properties(
+    q15.r_p4_r_preparation_v2
+    PROPERTIES LABELS "q15;qualification;prestate;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py")
@@ -1685,6 +1706,15 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_d_implementation.py"
   COMMAND
     "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_collector_release_decision.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_e_acceptance.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_preparation_v2.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py"
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -1771,6 +1801,27 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_d_implementation.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking accepted D-066 through D-070 and the no-authority prestate collector")
+add_custom_target(
+  q15-r-p4-r-collector-release-decision-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_collector_release_decision.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking proposed D-071 no-authority collector-release selection")
+add_custom_target(
+  q15-r-p4-e-acceptance-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_e_acceptance.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking accepted D-071 and the no-authority P4-E boundary")
+add_custom_target(
+  q15-r-p4-r-preparation-v2-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p4_r_preparation_v2.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the versioned P4-R successor with release evidence only")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND

@@ -709,6 +709,23 @@ entry is excluded until a clean release and separate exact Q15-R-P4-R exist.
 No repository test performs stand, network, key, filesystem mutation, PMU/MSR,
 affinity/NUMA, calibration, pilot, measurement, or confirmatory work.
 
+The D-071 proposal checker additionally binds the exact clean v3 archive,
+sidecar, 154-file extraction, manifest/SBOM/source/collector/validator/contract/
+library/codegen hashes, immutable P4-R predecessor, unchanged P4-K
+preparation, and seven ordered null successor inputs. Six negative mutations
+cover authority widening, premature acceptance, release drift, fabricated or
+missing P4-R input, and P4-K drift. Its optional local-release mode verifies
+the actual archive and clean extraction without executing the collector.
+
+The P4-E acceptance checker binds the exact owner statement, immutable
+proposal, release selection, P4-R predecessor, P4-K preparation, and successor
+hash. Five negatives reject authority widening, proposal/release drift,
+missing P4-R inputs, and P4-K drift. The P4-R v2 checker permits only one
+resolved collector-release group, preserves the invocation/25-command/limit
+contract, and retains seven ordered null P4-R plus eight null P4-K inputs.
+Eight negatives reject authority, lineage, release, value, command, issuance,
+and P4-K drift. Neither checker executes the collector or touches the stand.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

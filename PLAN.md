@@ -420,16 +420,20 @@ authorization/amendment.
   key. D-095 subsequently authorized exactly one signature and one target-key
   attempt under a further security downgrade. The signature verifies, but a
   deterministic wrapper defect stopped before target-key generation. The
-  append-only partial tree remains, D-095 is terminal, and P4-K-R is blocked.
+  append-only partial tree remains and D-095 is terminal. D-096/ADR-0096
+  separately authorized one corrected create-exclusive `p4-k-v2` transaction;
+  its bootstrap signature, target public key/fingerprint, hashes, receipt, and
+  private-key metadata verify. It stopped before P4-K-R.
   The later owner delegation authorizes repository-local work, and ADR-0086
   implements a generic no-authority controller admission/state-machine with no
   OS backend. It requires every future external hash, active signature,
   independent review, explicit bound, and direct process contract before it
   can mint a ticket. D-087 through D-092 remain byte-preserved but are
-  superseded by D-093. The next safe P4-K gate is explicit D-096 acceptance for
-  a fixed, regression-tested, create-exclusive `p4-k-v2` transaction. No second
-  signature, target key, P4-K-R, stand, Q15, calibration, pilot, measurement,
-  or confirmatory action is authorized.
+  superseded by D-093. The next safe P4-K gate is explicit D-097 acceptance,
+  completion of its four public-only review inputs, and a separately issued
+  P4-K-R authorization. The prepared D-097 template is not authority. No
+  P4-K-R, stand, Q15, calibration, pilot, measurement, or confirmatory action
+  is authorized.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

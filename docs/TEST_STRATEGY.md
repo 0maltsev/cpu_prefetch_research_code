@@ -907,6 +907,26 @@ Optional external mode hashes only named public files, verifies the existing
 SSHSIG, and uses metadata-only target-path absence; it never reads or hashes a
 private key. D-095 execution must never be rerun.
 
+D-096 adds a disposable-key regression that exercises the corrected mutually
+exclusive subprocess-input branches through real OpenSSH sign/verify and
+rejects a wrong message before any real action. The authorization checker binds
+the frozen D-095 helper/evidence/commit, corrected tool, exact host tools,
+canonical 1,800-second bytes, new v2 paths, four permitted scopes, and seven
+negative mutations. The complete-evidence checker binds nine public artifacts,
+one independently verified bootstrap signature, exact target public
+fingerprint/allowed-signers bytes, private metadata-only evidence, and D-095
+preservation; six mutations reject extra attempts, private-content access,
+lineage mutation, incomplete state, P4-K-R continuation, and authority widening.
+External mode hashes only named public artifacts and inspects only private-file
+metadata.
+
+The D-097 preparation checker validates the D-096-bound still-unissued P4-K-R
+successor, exact four null review inputs, two null outputs, public-only review
+contract, one attempt/zero retry, and all-false action authority. Six mutations
+reject premature issuance, private access, retry, P4-K-R/stand authority, and
+fabricated review input. It performs no review, private probe, signature,
+installation, stand, Q15, or experiment action.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

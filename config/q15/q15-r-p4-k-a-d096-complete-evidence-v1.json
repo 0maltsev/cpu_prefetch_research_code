@@ -1,0 +1,79 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-a-d096-complete-evidence/1",
+  "evidence_id": "Q15-R-P4-K-A-D096-COMPLETE-EVIDENCE-20260826-01",
+  "protocol_version": "2.0.0-pre.2",
+  "decision_id": "D-096",
+  "transaction_id": "Q15-R-P4-K-A-D096-20260826-01",
+  "status": "COMPLETE_VALID_P4_K_V2_CREATED_STOPPED_FOR_P4_K_R",
+  "completed_at_utc": "2026-08-25T21:15:38Z",
+  "lineage": {
+    "d095_repository_commit": "7a2c4e58bf771543edac6afd3e3a110ae61b30bf",
+    "d095_terminal_evidence_path": "config/q15/q15-r-p4-k-a-d095-terminal-failure-evidence-v1.json",
+    "d095_terminal_evidence_sha256": "ccfe61af14b8aca872a9fd0f4ab4371fb3e74cf445846c8b1a8b30e660f2fa2d",
+    "decision_adr_path": "docs/decisions/0096-supersede-terminal-d095-with-p4-k-v2.md",
+    "decision_adr_sha256": "1a6614ada5af2a47672ac9f715d89f34dd23ef7e672e39defe4cdb149a442046",
+    "action_authorization_path": "config/q15/q15-r-p4-k-a-d096-action-authorization-v1.json",
+    "action_authorization_sha256": "8feb2ccffcd565ca9b202c8da736fe9f62e3869cb08e68ef87e38af6439be761",
+    "executed_action_tool_path": "tools/execute_d096_p4_k_a.py",
+    "executed_action_tool_sha256": "7c9e7841348d8a51e7809ff9059110997bd308a7f53f2055a06b816846f518d3",
+    "frozen_d095_helper_path": "tools/execute_d095_p4_k_a.py",
+    "frozen_d095_helper_sha256": "dee54311e8698c50d63709b7294af9895c482647ca8a51b8a6341e08364a16c9"
+  },
+  "external_public_root": "/home/omaltsev/.local/share/cpu-prefetch-q15/p4-k-v2/public",
+  "public_artifacts": [
+    {"filename": "SHA256SUMS", "sha256": "1bf9a96ce92c25369730ef97b69acf1cef8f37eef69b21dd53d50d3cb08d3489", "size_bytes": 739},
+    {"filename": "action_authorization.json", "sha256": "8feb2ccffcd565ca9b202c8da736fe9f62e3869cb08e68ef87e38af6439be761", "size_bytes": 4500},
+    {"filename": "action_authorization.json.sig", "sha256": "2514a67103b4850889653efd0c38b75d5669e7da97870d2c1ff1ccb6a16d7e0c", "size_bytes": 330},
+    {"filename": "action_receipt.json", "sha256": "36db7093c7e8854c6307707883e856864ff58db0c48d69ee89a89f917e92f4d0", "size_bytes": 2353},
+    {"filename": "bootstrap_signature_verification.json", "sha256": "f4a5ed840e005622b56482300221405f160618d99b76b08bdb8aced243b83cec", "size_bytes": 625},
+    {"filename": "owner_pre_action_review.json", "sha256": "ea6c9a9a829becdd287f83e1600142fc874368287355512ab94c8e591db52724", "size_bytes": 548},
+    {"filename": "target_allowed_signers", "sha256": "b08f32720b7987218a5c51f31f822f2ea1d22ff948beb41382518927d815c718", "size_bytes": 112},
+    {"filename": "target_fingerprint.txt", "sha256": "9c0da30e9f634b01eab451dd2e129f246ff7c0783bac8aa323cbc18392cbbba0", "size_bytes": 51},
+    {"filename": "target_public_key.pub", "sha256": "41cf7aab4c512c38dc0c3f802fdc0e3265cb3327828b5d3bcc0ba2cacf273b21", "size_bytes": 106}
+  ],
+  "signature_evidence": {
+    "signature_created_attempts": 1,
+    "signature_sha256": "2514a67103b4850889653efd0c38b75d5669e7da97870d2c1ff1ccb6a16d7e0c",
+    "independent_read_only_verification": "PASS",
+    "principal": "cpu-prefetch-q15-authorization",
+    "namespace": "cpu-prefetch-q15-authorization",
+    "signer_fingerprint": "SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0"
+  },
+  "target_key_evidence": {
+    "generation_attempts": 1,
+    "fingerprint": "SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM",
+    "public_key_sha256": "41cf7aab4c512c38dc0c3f802fdc0e3265cb3327828b5d3bcc0ba2cacf273b21",
+    "allowed_signers_sha256": "b08f32720b7987218a5c51f31f822f2ea1d22ff948beb41382518927d815c718",
+    "private_path": "/home/omaltsev/.local/share/cpu-prefetch-q15/p4-k-v2/id_ed25519",
+    "private_mode_octal": "0600",
+    "private_uid": 1000,
+    "private_size_bytes_observed_without_content_read": 419,
+    "private_content_read_or_hashed": false,
+    "private_key_encrypted": false,
+    "independent_recovery_exists": false
+  },
+  "d095_preservation": {
+    "terminal_evidence_sha256": "ccfe61af14b8aca872a9fd0f4ab4371fb3e74cf445846c8b1a8b30e660f2fa2d",
+    "partial_public_tree_reverified": true,
+    "target_private_path_remains_absent": true,
+    "mutation_cleanup_or_deletion_performed": false
+  },
+  "disposition": {
+    "d096_complete": true,
+    "retry_repair_overwrite_cleanup_or_deletion_authorized": false,
+    "p4_k_r_executed": false,
+    "next_gate": "SEPARATE_P4_K_R_REVIEW_DECISION_AND_AUTHORIZATION_REQUIRED",
+    "automatic_continuation": false
+  },
+  "authority_boundary": {
+    "repository_local_complete_evidence_and_checker_authorized": true,
+    "read_only_public_and_private_metadata_verification_authorized": true,
+    "second_d096_signature_or_target_key_action_authorized": false,
+    "p4_k_r_or_later_phase_authorized": false,
+    "stand_access_or_modification_authorized": false,
+    "transfer_install_or_setup_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "qualification_calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

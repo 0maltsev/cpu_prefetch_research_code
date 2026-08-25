@@ -105,6 +105,15 @@ zero target-key attempts, and mandatory no-retry/P4-K-R stop. Its optional
 external mode reads only named public artifacts and target-path metadata; it
 never reads or hashes private-key content.
 
+`check_d096_authorization.py` validates the new v2 transaction, corrected
+disposable-key sign/verify regression, exact tool/lineage/UTC/path/authority
+bindings, and seven negative mutations without using real credentials.
+`check_d096_complete_evidence.py` validates nine public artifacts, bootstrap
+signature, target public fingerprint, private metadata-only evidence, and the
+D-095 preservation/P4-K-R stop boundary. `check_d097_p4_k_r_preparation.py`
+validates the still-unissued public-only review successor and its four null
+inputs; it grants no review or later authority.
+
 `check_q15_r_p4_k_a_controller_profile.py` validates ADR-0086's generic
 no-authority implementation profile, exact controller/test source hashes, the
 fixed ten-step graph, the immutable absent-bootstrap disposition, strict

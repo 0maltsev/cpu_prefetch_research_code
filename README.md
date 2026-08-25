@@ -135,15 +135,22 @@ D-093 supersedes the unaccepted D-087 through D-092 bootstrap-genesis proposal
 and explicitly accepts a single-owner, development-host, unencrypted, no-
 recovery root with critical impersonation and key-loss risk. Exactly one
 create-exclusive action completed; public evidence verifies and the private
-key remains outside the repository. D-094 now transitions only that exact
-fingerprint to `ACTIVE` for future separately authorized use. D-095 then
+key remains outside the repository. D-094 transitioned only that exact
+fingerprint to `ACTIVE` for separately authorized use. D-095 then
 authorized one bootstrap signature and one target-key attempt under a further
 single-owner/development-host/unencrypted downgrade. The signature is valid,
 but a deterministic verification-wrapper defect stopped the transaction before
 target-key generation. The partial public evidence is retained, the target
-private path is absent, D-095 is terminal, and P4-K-R is ineligible. A new
-D-096 supersession is required before any second signature or target-key
-attempt. The earlier owner delegation authorizes and
+private path is absent, and D-095 is terminal. D-096/ADR-0096 prospectively
+superseded only that failed action, fixed the wrapper seam, and authorized one
+new create-exclusive `p4-k-v2` transaction. That transaction completed: the
+bootstrap signature and public artifact hashes verify, target fingerprint
+`SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM` is independently
+verified, and the private key remains outside the repository with metadata-only
+verification. The evidence SHA-256 is
+`8c30c1fb941179f0498943fd6ac34264ba185a318661513802fd1b2e29dfa4c8`.
+The prepared D-097 P4-K-R record remains unissued with four null inputs and
+grants no review or downstream authority. The earlier owner delegation authorizes and
 ADR-0086 implements a generic no-authority controller policy engine; it has no
 OS backend and cannot admit without complete signed external evidence. The
 preserved predecessor decision/input bundle is

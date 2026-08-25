@@ -200,12 +200,23 @@ terminally before target-key generation because the wrapper passed both
 retained, the target private path is absent, and D-095 permits no retry,
 repair, overwrite, cleanup, deletion, or continuation.
 
-P4-K-A now requires an explicit D-096 supersession. The prepared
-[`D-096 decision bundle`](Q15_R_P4_K_A_D096_SUPERSESSION_DECISION_BUNDLE.md)
-recommends preserving the failed `p4-k-v1` tree, fixing and regression-testing
-only the wrapper defect, and using a new create-exclusive `p4-k-v2`
-transaction. Until separately accepted, no second signature, target-key
-attempt, or P4-K-R review is authorized.
+D-096/ADR-0096 was accepted and superseded only the terminal D-095 action. Its
+new create-exclusive `p4-k-v2` transaction completed with authorization
+SHA-256 `8feb2ccf...`, independently verified bootstrap signature SHA-256
+`2514a671...`, target fingerprint
+`SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM`, and complete-evidence
+SHA-256 `8c30c1fb...`. The failed `p4-k-v1` tree remains preserved and was not
+retried or repaired. Private key contents remain outside the repository and
+were not read or hashed.
+
+The next decision is D-097/P4-K-R. Its
+[`decision bundle`](Q15_R_P4_K_R_D097_DECISION_BUNDLE.md) and still-unissued
+authorization template are prepared, but four exact inputs remain null: the
+fresh bootstrap-signed authorization and signature, the fixed public-only
+review-tool hash, and the terminal review-output path/evidence identity. D-097
+must be explicitly accepted and separately issued before one read-only review.
+It prohibits probing the private-key path and grants no P5 or downstream
+authority.
 
 ADR-0086 now implements the generic repository-local controller, admission
 schema, fake tests, and profile under the later owner delegation. It has no OS
@@ -220,11 +231,12 @@ D-087 through D-092 remain byte-preserved but are superseded by D-093 rather
 than accepted. The D-093 authorization, public evidence, and lifecycle policy
 are machine checked. The private key remains outside the repository; repository
 tools record only its exact authorized path and metadata, never its contents or
-content hash. D-094 makes the root eligible for future separately authorized
-signing and produced an unissued P4-K-A successor. D-095 consumed its exact
-one-signature authority and failed terminally before producing a target key.
-The next safe gate is explicit D-096 acceptance; active trust or the valid
-D-095 signature is not retry, target-key, P4-K-R, or downstream authority.
+content hash. D-094 made the root eligible for separately authorized signing
+and produced an unissued P4-K-A successor. D-095 consumed its exact one-
+signature authority and failed terminally before producing a target key. D-096
+used a new authorization, signature, transaction, and path and completed the
+target-key action. Active trust, the D-095/D-096 signatures, and the target key
+are not P4-K-R or downstream authority; D-097 remains a separate explicit gate.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)

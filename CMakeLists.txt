@@ -893,6 +893,27 @@ if(BUILD_TESTING)
     q15.r_p4_k_a_d095_terminal_failure
     PROPERTIES LABELS "q15;qualification;security;custody;failure;evidence;lifecycle;schema;pre-pilot;synthetic")
   add_test(
+    NAME q15.r_p4_k_a_d096_authorization
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d096_authorization.py")
+  set_tests_properties(
+    q15.r_p4_k_a_d096_authorization
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;regression;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_k_a_d096_complete_evidence
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d096_complete_evidence.py")
+  set_tests_properties(
+    q15.r_p4_k_a_d096_complete_evidence
+    PROPERTIES LABELS "q15;qualification;security;custody;evidence;lifecycle;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_k_r_d097_preparation
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d097_p4_k_r_preparation.py")
+  set_tests_properties(
+    q15.r_p4_k_r_d097_preparation
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py")
@@ -2066,6 +2087,27 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_d095_terminal_failure.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking terminal D-095 partial evidence and the no-retry boundary")
+add_custom_target(
+  q15-r-p4-k-a-d096-authorization-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d096_authorization.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the corrected one-shot D-096 authorization")
+add_custom_target(
+  q15-r-p4-k-a-d096-complete-evidence-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d096_complete_evidence.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking complete D-096 public/private-metadata evidence")
+add_custom_target(
+  q15-r-p4-k-r-d097-preparation-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d097_p4_k_r_preparation.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking still-unissued D-097 P4-K-R preparation")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND

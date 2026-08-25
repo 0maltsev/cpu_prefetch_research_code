@@ -886,6 +886,13 @@ if(BUILD_TESTING)
     q15.r_bootstrap_d094_activation
     PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;evidence;lifecycle;schema;pre-pilot;synthetic")
   add_test(
+    NAME q15.r_p4_k_a_d095_terminal_failure
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d095_terminal_failure.py")
+  set_tests_properties(
+    q15.r_p4_k_a_d095_terminal_failure
+    PROPERTIES LABELS "q15;qualification;security;custody;failure;evidence;lifecycle;schema;pre-pilot;synthetic")
+  add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py")
@@ -2052,6 +2059,13 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_d094_bootstrap_activation.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking exact root activation and the still-unissued P4-K-A successor")
+add_custom_target(
+  q15-r-p4-k-a-d095-terminal-failure-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d095_terminal_failure.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking terminal D-095 partial evidence and the no-retry boundary")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND

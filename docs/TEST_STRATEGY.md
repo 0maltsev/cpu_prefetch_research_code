@@ -897,6 +897,16 @@ prior state, signing/use claims, authority widening, fabricated inputs,
 premature issuance, lineage drift, or missing blockers. Optional external mode
 reruns only D-093 public and private-metadata verification.
 
+D-095 binds the exact security downgrade, action tool, active root, canonical
+1,800-second authorization, and one-signature/one-target-attempt boundary. Its
+execution produced one valid bootstrap signature but stopped before target-key
+generation on a deterministic `subprocess.run` argument conflict. The terminal
+failure checker binds four retained public artifacts, verifies zero target-key
+attempts and the no-retry/P4-K-R stop boundary, and rejects six mutations.
+Optional external mode hashes only named public files, verifies the existing
+SSHSIG, and uses metadata-only target-path absence; it never reads or hashes a
+private key. D-095 execution must never be rerun.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

@@ -192,21 +192,20 @@ and explicitly accepted one-owner role collapse, development-host creation, an
 unencrypted Ed25519 private key, no independent recovery, and the resulting
 critical impersonation and key-loss risks. The single authorized create-
 exclusive action completed. Its public evidence verifies. D-094 subsequently
-activated only that fingerprint for future separately authorized use. It has
-not signed anything and no P4-K-A action is issued.
+activated that fingerprint. D-095 later superseded the target-action security
+controls for one exact development-host unencrypted single-owner transaction.
+It created and independently verified one bootstrap signature, then stopped
+terminally before target-key generation because the wrapper passed both
+`stdin` and `input` to `subprocess.run`. Four public partial artifacts are
+retained, the target private path is absent, and D-095 permits no retry,
+repair, overwrite, cleanup, deletion, or continuation.
 
-Before P4-K-A can proceed, these six inputs and gates remain required:
-
-1. exact offline ceremony/public-extraction tools, versions, hashes, fixed
-   argv, environment inventory, and network-unavailable evidence;
-2. literal KDF work value and non-secret operational custody evidence;
-3. an unused action ID plus exact create-exclusive public export paths and
-   artifact identities;
-4. literal issue and expiry UTC instants;
-5. canonical authorization and detached-signature SHA-256 values produced only
-   by a separately authorized SSHSIG signing action; and
-6. the review evidence required by the unchanged P4-K-A contract; D-093's role
-   collapse applies only to bootstrap genesis.
+P4-K-A now requires an explicit D-096 supersession. The prepared
+[`D-096 decision bundle`](Q15_R_P4_K_A_D096_SUPERSESSION_DECISION_BUNDLE.md)
+recommends preserving the failed `p4-k-v1` tree, fixing and regression-testing
+only the wrapper defect, and using a new create-exclusive `p4-k-v2`
+transaction. Until separately accepted, no second signature, target-key
+attempt, or P4-K-R review is authorized.
 
 ADR-0086 now implements the generic repository-local controller, admission
 schema, fake tests, and profile under the later owner delegation. It has no OS
@@ -222,9 +221,10 @@ than accepted. The D-093 authorization, public evidence, and lifecycle policy
 are machine checked. The private key remains outside the repository; repository
 tools record only its exact authorized path and metadata, never its contents or
 content hash. D-094 makes the root eligible for future separately authorized
-signing and produces an unissued P4-K-A successor with one of seven inputs
-resolved. The next safe gate is a decision bundle for the six remaining
-target-key inputs; active trust alone is not signing or downstream authority.
+signing and produced an unissued P4-K-A successor. D-095 consumed its exact
+one-signature authority and failed terminally before producing a target key.
+The next safe gate is explicit D-096 acceptance; active trust or the valid
+D-095 signature is not retry, target-key, P4-K-R, or downstream authority.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)

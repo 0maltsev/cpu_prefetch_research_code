@@ -99,6 +99,12 @@ premature P4-K-A unblocking, and all operational scopes. It does not implement
 or execute a controller or perform any offline, key, trust, path, signature,
 stand, Q15, or experiment action.
 
+`check_d095_terminal_failure.py` validates the append-only D-095 partial
+failure, retained public artifact hashes, valid bootstrap signature identity,
+zero target-key attempts, and mandatory no-retry/P4-K-R stop. Its optional
+external mode reads only named public artifacts and target-path metadata; it
+never reads or hashes private-key content.
+
 `check_q15_r_p4_k_a_controller_profile.py` validates ADR-0086's generic
 no-authority implementation profile, exact controller/test source hashes, the
 fixed ten-step graph, the immutable absent-bootstrap disposition, strict

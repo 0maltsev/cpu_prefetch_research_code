@@ -136,17 +136,22 @@ and explicitly accepts a single-owner, development-host, unencrypted, no-
 recovery root with critical impersonation and key-loss risk. Exactly one
 create-exclusive action completed; public evidence verifies and the private
 key remains outside the repository. D-094 now transitions only that exact
-fingerprint to `ACTIVE` for future separately authorized use. No signature or
-P4-K-A action was issued. A versioned successor resolves bootstrap trust only;
-six P4-K-A inputs remain null. The earlier owner delegation authorizes and
+fingerprint to `ACTIVE` for future separately authorized use. D-095 then
+authorized one bootstrap signature and one target-key attempt under a further
+single-owner/development-host/unencrypted downgrade. The signature is valid,
+but a deterministic verification-wrapper defect stopped the transaction before
+target-key generation. The partial public evidence is retained, the target
+private path is absent, D-095 is terminal, and P4-K-R is ineligible. A new
+D-096 supersession is required before any second signature or target-key
+attempt. The earlier owner delegation authorizes and
 ADR-0086 implements a generic no-authority controller policy engine; it has no
 OS backend and cannot admit without complete signed external evidence. The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
 SHA-256 `065d8a6d5f882bff84ee9bdbe27eb0e0c9e2bfea56c58cbe2b9bfc61cab3a4b7`.
 Its original null inputs and questions remain immutable but are superseded by
-D-093/D-094. No root signing, P4-K-A/P4-K-R issuance, stand, Q15, calibration,
-pilot, measurement, or confirmatory work is authorized yet.
+D-093/D-094. No P4-K-R, stand, Q15, calibration, pilot, measurement, or
+confirmatory work is authorized.
 The frozen
 contract is documented in
 [`docs/Q15_QUALIFICATION_CONTRACT.md`](docs/Q15_QUALIFICATION_CONTRACT.md).

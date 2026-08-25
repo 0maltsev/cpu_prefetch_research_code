@@ -1,0 +1,116 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-a-authorization-template/2",
+  "template_id": "Q15-R-P4-K-A-AUTHORIZATION-TEMPLATE-20260825-02",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "STILL_UNISSUED_BOOTSTRAP_TRUST_RESOLVED_SIX_INPUTS_AND_EXACT_AUTHORITY_REQUIRED",
+  "lineage": {
+    "predecessor_template_path": "config/q15/q15-r-p4-k-a.authorization-template-v1.json",
+    "predecessor_template_sha256": "7669a2f693a7ffca3fa583ec3ed7a45e1ea130a51ee009ac33a77b936409ccb5",
+    "policy_acceptance_path": "config/q15/q15-r-p4-k-a-d-acceptance-v1.json",
+    "policy_acceptance_sha256": "c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf",
+    "activation_authorization_path": "config/q15/q15-r-bootstrap-root-d094-activation-authorization-v1.json",
+    "activation_authorization_sha256": "3649a14bcc55618e9f6707a9b570cdf79124a5a93b43058964d40d9020ce6e5d",
+    "active_lifecycle_state_path": "config/q15/q15-r-bootstrap-root-lifecycle-state-v2.json",
+    "active_lifecycle_state_sha256": "75f9724160e6a6868014a699eb4608dfbfdd37da4ef952f977a31b79d70619ae"
+  },
+  "gate": {
+    "gate_id": "Q15-R-P4-K-A",
+    "purpose": "ONE_SHOT_NEW_OFFLINE_ED25519_CEREMONY_AND_PUBLIC_ARTIFACT_CONSTRUCTION",
+    "source_mode": "NEW_OFFLINE_ED25519_KEY_CEREMONY_UNDER_LATER_SEPARATE_EXACT_AUTHORIZATION",
+    "custody_domain_id": "OWNER-OFFLINE-Q15-KEY-CUSTODY",
+    "custodian_principal_id": "cpu-prefetch-q15-custodian",
+    "named_authority_principal": "cpu-prefetch-q15-operator",
+    "independent_review_principal": "cpu-prefetch-q15-auditor",
+    "authorization_id": null,
+    "authorization_sha256": null,
+    "issued_at_utc": null,
+    "expires_at_utc": null,
+    "exact_validity_seconds": 1800,
+    "renewal_allowed": false,
+    "reuse_allowed": false,
+    "canonicalization": "JCS-I64-v1",
+    "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+    "signature_principal": "cpu-prefetch-q15-authorization",
+    "signature_namespace": "cpu-prefetch-q15-authorization",
+    "bootstrap_authorization_signer_fingerprint": "SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0",
+    "bootstrap_authorization_trust_evidence_sha256": "75f9724160e6a6868014a699eb4608dfbfdd37da4ef952f977a31b79d70619ae",
+    "detached_signature_sha256": null,
+    "pre_execution_independent_review_sha256": null
+  },
+  "fixed_action_contract": {
+    "key_type": "ED25519",
+    "private_key_location": "OFF_STAND_OUTSIDE_REPOSITORY",
+    "private_key_path_or_bytes_serialized": false,
+    "target_key_may_authorize_its_own_creation": false,
+    "action_attempt_count": 1,
+    "retry_count": 0,
+    "repair_in_place_allowed": false,
+    "create_exclusive_public_artifacts_required": true,
+    "overwrite_allowed": false,
+    "canonical_allowed_signers_profile": "OPENSSH-ALLOWED-SIGNERS-SINGLE-ED25519-v1",
+    "allowed_signers_principal": "cpu-prefetch-q15-authorization",
+    "allowed_signers_destination_for_later_setup": "/etc/cpu-prefetch/q15/allowed_signers",
+    "independent_sha256_and_fingerprint_verification_required_later": true,
+    "stop_after_public_evidence_capture": true,
+    "automatic_continuation_to_p4_k_r": false,
+    "installation_or_q15_signing_allowed": false
+  },
+  "resolved_input_groups": [
+    {
+      "name": "BOOTSTRAP_AUTHORIZATION_SIGNER_FINGERPRINT_AND_TRUST_EVIDENCE_SHA256",
+      "state": "RESOLVED_BY_D093_PUBLIC_EVIDENCE_AND_D094_ACTIVE_LIFECYCLE",
+      "value": {
+        "fingerprint": "SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0",
+        "authorization_principal": "cpu-prefetch-q15-authorization",
+        "signature_namespace": "cpu-prefetch-q15-authorization",
+        "allowed_signers_sha256": "6c21b0d631a3842e182bd92e0856aa5073c949f5c5a6b4a8e85b48dd2016f33d",
+        "root_public_key_sha256": "3a8d2f9eeb799a9be2af035beb00f4a6ef822fd0dad963c4eaea91344ff95527",
+        "d093_evidence_sha256": "e7066cf41fe2af2d38ee0c0a8947ce326f78882ed07294faa42143f1ef020361",
+        "d094_activation_authorization_sha256": "3649a14bcc55618e9f6707a9b570cdf79124a5a93b43058964d40d9020ce6e5d",
+        "active_lifecycle_state_sha256": "75f9724160e6a6868014a699eb4608dfbfdd37da4ef952f977a31b79d70619ae"
+      }
+    }
+  ],
+  "unresolved_inputs": [
+    {"name": "EXACT_OFFLINE_CEREMONY_AND_PUBLIC_EXTRACTION_TOOL_IDS_VERSIONS_SHA256_AND_FIXED_ARGV", "value": null},
+    {"name": "CREATE_EXCLUSIVE_PUBLIC_ARTIFACT_IDS_AND_ABSOLUTE_SOURCE_PATHS", "value": null},
+    {"name": "OFFLINE_CUSTODY_CONTROL_AND_CEREMONY_ENVIRONMENT_EVIDENCE_ID_AND_SHA256", "value": null},
+    {"name": "LITERAL_ISSUE_AND_EXPIRY_UTC_INSTANTS", "value": null},
+    {"name": "CANONICAL_AUTHORIZATION_SHA256_AND_DETACHED_SIGNATURE_SHA256", "value": null},
+    {"name": "DISTINCT_AUDITOR_PRE_EXECUTION_REVIEW_ARTIFACT_ID_AND_SHA256", "value": null}
+  ],
+  "prospective_outputs": [
+    {"name": "ED25519_PUBLIC_KEY_ARTIFACT_ID_BYTES_AND_SHA256", "value": null},
+    {"name": "ED25519_SHA256_FINGERPRINT", "value": null},
+    {"name": "CANONICAL_ALLOWED_SIGNERS_ARTIFACT_ID_BYTES_AND_SHA256", "value": null},
+    {"name": "ALLOWED_SIGNERS_SOURCE_ABSOLUTE_PATH_FOR_LATER_SETUP", "value": null},
+    {"name": "OFFLINE_CUSTODY_EVIDENCE_ARTIFACT_ID_AND_SHA256_WITHOUT_PRIVATE_PATH_OR_BYTES", "value": null},
+    {"name": "P4_K_A_COMPLETE_OR_PARTIAL_ACTION_RECEIPT_ID_AND_SHA256", "value": null}
+  ],
+  "rollback": {
+    "profile": "Q15-R-P4-K-A-STOP-RETAIN-PUBLIC-EVIDENCE-NO-DELETE-v1",
+    "on_pre_action_failure": "STOP_WITH_NO_KEY_OR_ARTIFACT_ACTION",
+    "on_post_action_failure": "STOP_RETAIN_COMPLETE_OR_PARTIAL_PUBLIC_EVIDENCE_AND_CUSTODY_RECEIPTS",
+    "private_key_material_must_remain_only_in_accepted_offline_custody": true,
+    "delete_overwrite_retry_repair_or_cleanup_authorized": false,
+    "future_action_requires_separate_exact_authorization": true
+  },
+  "authority_boundary": {
+    "repository_local_successor_preparation_authorized": true,
+    "bootstrap_root_active": true,
+    "current_root_signing_action_authorized": false,
+    "key_read_generation_import_copy_fingerprint_or_use_authorized": false,
+    "public_key_or_allowed_signers_artifact_creation_authorized": false,
+    "private_key_in_repository_or_on_stand_authorized": false,
+    "custody_or_public_artifact_path_creation_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "p4_k_a_authorized": false,
+    "p4_k_r_authorized": false,
+    "stand_access_authorized": false,
+    "transfer_install_or_setup_authorized": false,
+    "p4_r_i_or_p4_r_c_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

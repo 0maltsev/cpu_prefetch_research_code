@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-bootstrap-root-d094-activation-authorization:v1",
+  "title": "D-094 exact bootstrap-root activation authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "protocol_version", "decision_id", "status", "issued_at_utc", "owner_principal", "lineage", "exact_root", "transition", "authority_boundary", "user_authorization", "bounded_interpretation"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-bootstrap-root-d094-activation-authorization/1"},
+    "authorization_id": {"const": "Q15-R-BOOTSTRAP-D094-ACTIVATION-AUTHORIZATION-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "decision_id": {"const": "D-094"},
+    "status": {"const": "ACCEPTED_EXACT_ROOT_ACTIVATION_AUTHORIZATION"},
+    "issued_at_utc": {"const": "2026-08-25T20:06:42Z"},
+    "owner_principal": {"const": "cpu-prefetch-bootstrap-owner"},
+    "lineage": {"const": {"decision_adr_path": "docs/decisions/0094-activate-d093-bootstrap-root-for-authorization-trust.md", "decision_adr_sha256": "fae561bdd0c7f24644bc10328bb2eb687b4234782c74673f15a074c81eea8d3d", "d093_evidence_path": "config/q15/q15-r-bootstrap-root-d093-evidence-v1.json", "d093_evidence_sha256": "e7066cf41fe2af2d38ee0c0a8947ce326f78882ed07294faa42143f1ef020361", "d093_lifecycle_policy_path": "config/q15/q15-r-bootstrap-root-d093-lifecycle-policy-v1.json", "d093_lifecycle_policy_sha256": "863ad34c5ea144b0cfd2ad71a99e205cd082683cc4e1941fa06ec3fc289641d5"}},
+    "exact_root": {"const": {"transaction_id": "Q15-R-BOOTSTRAP-D093-20260825-01", "fingerprint": "SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0", "key_type": "OPENSSH_ED25519", "authorization_principal": "cpu-prefetch-q15-authorization", "signature_namespace": "cpu-prefetch-q15-authorization", "allowed_signers_sha256": "6c21b0d631a3842e182bd92e0856aa5073c949f5c5a6b4a8e85b48dd2016f33d", "root_public_key_sha256": "3a8d2f9eeb799a9be2af035beb00f4a6ef822fd0dad963c4eaea91344ff95527"}},
+    "transition": {"const": {"from": "CREATED", "to": "ACTIVE", "activated_at_utc": "2026-08-25T20:06:42Z", "permanent_until_append_only_terminal_or_superseding_record": true, "private_key_read_hashed_copied_or_used": false, "signature_created": false, "automatic_p4_k_a_continuation": false}},
+    "authority_boundary": {"const": {"repository_local_activation_record_authorized": true, "repository_local_p4_k_a_successor_preparation_authorized": true, "private_key_access_or_use_authorized": false, "root_signing_authorized": false, "p4_k_a_or_p4_k_r_execution_authorized": false, "target_key_creation_authorized": false, "stand_access_or_modification_authorized": false, "q15_r_or_q15_w_authorized": false, "qualification_calibration_pilot_measurement_or_confirmatory_authorized": false}},
+    "user_authorization": {"type": "string", "minLength": 1},
+    "bounded_interpretation": {"type": "string", "minLength": 1}
+  }
+}

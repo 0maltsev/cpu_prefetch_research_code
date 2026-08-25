@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-bootstrap-root-d093-evidence:v1",
+  "title": "D-093 bootstrap-root public evidence record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "evidence_id", "protocol_version", "decision_id", "transaction_id", "status", "created_at_utc", "fingerprint", "lineage", "bootstrap_governance_resolution", "private_key_metadata_only", "public_trust_evidence", "security_posture", "root_lifecycle", "authority_boundary"],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["filename", "sha256", "size_bytes"],
+      "properties": {
+        "filename": {"enum": ["SHA256SUMS", "action_authorization.json", "allowed_signers", "fingerprint.txt", "public_receipt.json", "root_public_key.pub"]},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "size_bytes": {"type": "integer", "minimum": 1}
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-bootstrap-root-d093-evidence/1"},
+    "evidence_id": {"const": "Q15-R-BOOTSTRAP-D093-EVIDENCE-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "decision_id": {"const": "D-093"},
+    "transaction_id": {"const": "Q15-R-BOOTSTRAP-D093-20260825-01"},
+    "status": {"const": "BOOTSTRAP_ROOT_CREATED_PUBLIC_EVIDENCE_VERIFIED_NOT_ACTIVATED_FOR_SIGNING"},
+    "created_at_utc": {"const": "2026-08-25T19:39:49Z"},
+    "fingerprint": {"const": "SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0"},
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_commit", "action_authorization_path", "action_authorization_sha256", "decision_adr_path", "decision_adr_sha256", "action_tool_path", "action_tool_sha256", "read_only_verifier_path", "read_only_verifier_sha256", "lifecycle_policy_path", "lifecycle_policy_sha256"],
+      "properties": {
+        "source_commit": {"const": "561b956d45072e6f23dd7152f4bd359f304d3089"},
+        "action_authorization_path": {"const": "config/q15/q15-r-bootstrap-root-d093-action-authorization-v1.json"},
+        "action_authorization_sha256": {"const": "271584663d21718357b6fcf013ca0a83a842410cae24d9463b4723217cdb954e"},
+        "decision_adr_path": {"const": "docs/decisions/0093-single-owner-development-host-unencrypted-bootstrap-root.md"},
+        "decision_adr_sha256": {"const": "25caddc4f8a1f4917bf12ccf2e9fd7f1b08c740c242b54ca3257f9766ec53c09"},
+        "action_tool_path": {"const": "tools/create_d093_bootstrap_root.py"},
+        "action_tool_sha256": {"const": "b98032e7353b37a10257603dc28b5e78d050440ff5090058f890c9bdbb2549ad"},
+        "read_only_verifier_path": {"const": "tools/verify_d093_bootstrap_evidence.py"},
+        "read_only_verifier_sha256": {"const": "f600efcc439383a6291f8ac6f07b48de049cf814181df0f1fbc4fe052cba3d50"},
+        "lifecycle_policy_path": {"const": "config/q15/q15-r-bootstrap-root-d093-lifecycle-policy-v1.json"},
+        "lifecycle_policy_sha256": {"const": "863ad34c5ea144b0cfd2ad71a99e205cd082683cc4e1941fa06ec3fc289641d5"}
+      }
+    },
+    "bootstrap_governance_resolution": {
+      "type": "array", "minItems": 6, "maxItems": 6,
+      "items": {"type": "object", "additionalProperties": false, "required": ["question_id", "resolution"], "properties": {"question_id": {"pattern": "^BGR-Q[1-6]$"}, "resolution": {"type": "string", "minLength": 1}}}
+    },
+    "private_key_metadata_only": {
+      "const": {"absolute_path": "/home/omaltsev/.local/share/cpu-prefetch-q15/bootstrap-root-v1/id_ed25519", "mode_octal": "0600", "owner_uid": 1000, "owner_gid": 1000, "size_bytes_observed_without_content_read": 432, "content_read_or_hashed_by_repository_tools": false, "private_key_bytes_or_hash_recorded": false, "encrypted": false, "independent_recovery_exists": false}
+    },
+    "public_trust_evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["absolute_root", "directory_mode_octal", "artifacts", "sidecar_verification", "fingerprint_verification", "initial_sidecar_invocation_from_wrong_working_directory"],
+      "properties": {
+        "absolute_root": {"const": "/home/omaltsev/.local/share/cpu-prefetch-q15/bootstrap-root-v1/public"},
+        "directory_mode_octal": {"const": "0700"},
+        "artifacts": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/artifact"}},
+        "sidecar_verification": {"const": "PASS_WHEN_RUN_FROM_PUBLIC_ROOT"},
+        "fingerprint_verification": {"const": "PASS_OPENSSH_SHA256"},
+        "initial_sidecar_invocation_from_wrong_working_directory": {"const": "INVOCATION_ERROR_NO_HASH_MISMATCH"}
+      }
+    },
+    "security_posture": {"const": {"single_owner_operator_custodian_auditor": true, "development_host_bootstrap": true, "unencrypted_private_key": true, "independent_recovery_waived": true, "critical_impersonation_risk_accepted": true, "critical_key_loss_risk_accepted": true}},
+    "root_lifecycle": {"const": {"current_state": "CREATED", "activated_for_signing": false, "used_to_sign": false, "automatic_continuation": false, "next_gate": "SEPARATE_ROOT_ACTIVATION_AND_P4_K_A_AUTHORIZATION_PREPARATION"}},
+    "authority_boundary": {"const": {"repository_evidence_and_policy_recording_authorized": true, "root_activation_authorized": false, "root_signing_authorized": false, "p4_k_a_or_p4_k_r_authorized": false, "stand_access_or_modification_authorized": false, "q15_r_or_q15_w_authorized": false, "qualification_calibration_pilot_measurement_or_confirmatory_authorized": false}}
+  }
+}

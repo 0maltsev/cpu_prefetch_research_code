@@ -412,16 +412,22 @@ authorization/amendment.
   policy only. It freezes the exact offline environment/toolchain,
   encrypted-key custody, public export, bootstrap-root, fixed-controller, and
   issuance/review contracts while retaining all seven P4-K-A external inputs
-  as null. The owner explicitly reports no qualifying bootstrap signer, so a
-  separately governed bootstrap root is the blocking next trust gate.
+  as null. D-093 later supersedes only the unaccepted bootstrap-genesis
+  proposal and specified genesis security controls. Under its explicit critical
+  risk acceptance, exactly one create-exclusive development-host unencrypted
+  Ed25519 root was created and its public evidence verifies. D-094 subsequently
+  records the exact `CREATED` to `ACTIVE` transition without using the private
+  key. This makes the fingerprint eligible for a future separately authorized
+  signature; it does not itself authorize signing.
   The later owner delegation authorizes repository-local work, and ADR-0086
   implements a generic no-authority controller admission/state-machine with no
   OS backend. It requires every future external hash, active signature,
   independent review, explicit bound, and direct process contract before it
-  can mint a ticket. D-087 through D-092 are prepared as the next bootstrap-
-  governance-root decision/input bundle; eight external inputs and six owner
-  questions remain null. No environment/key/trust/path/artifact/signature/
-  issuance or external action has occurred.
+  can mint a ticket. D-087 through D-092 remain byte-preserved but are
+  superseded by D-093. A v2 P4-K-A successor resolves only bootstrap trust;
+  six inputs and all signature/action evidence remain null. Separate exact
+  signing and P4-K-A preparation/issuance remain mandatory. No P4-K, stand,
+  Q15, calibration, pilot, measurement, or confirmatory action is authorized.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

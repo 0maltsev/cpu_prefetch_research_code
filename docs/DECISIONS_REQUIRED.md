@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`P4_K_A_GENERIC_CONTROLLER_IMPLEMENTED; BOOTSTRAP_ROOT_EXTERNAL_INPUTS_REQUIRED_NO_AUTHORITY`**
+Stage 2/16 disposition: **`D094_BOOTSTRAP_ROOT_ACTIVE_NO_SIGNING_AUTHORITY; P4_K_A_SIX_INPUTS_AND_AUTHORITY_REQUIRED`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
@@ -180,45 +180,51 @@ machine-record SHA-256
 is accepted as policy by Q15-R-P4-K-A-D/ADR-0080 through ADR-0085. Acceptance
 SHA-256 is
 `c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf`.
-It maps all seven still-null P4-K-A inputs to exact environment/toolchain,
+It originally mapped seven null P4-K-A inputs to exact environment/toolchain,
 encrypted-key custody, public export, bootstrap-root, fixed-controller, and
-issuance/review contracts.
+issuance/review contracts. D-094 resolves only bootstrap trust in a versioned
+successor; the immutable predecessor remains unchanged.
 
-The owner selected
-`P4KA-Q4=NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED`. The smallest blocking
-governance decision is therefore a separate prospective bootstrap-root
-establishment bundle. It must define its own distinct signer/custodian/auditor
-roles, trust-anchor construction/review contract, exact non-secret evidence,
-authority boundary, and rollback without using the nonexistent target P4-K key
-to authorize itself.
+The owner originally selected
+`P4KA-Q4=NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED`. D-093 subsequently
+superseded the unaccepted D-087 through D-092 bootstrap-genesis recommendations
+and explicitly accepted one-owner role collapse, development-host creation, an
+unencrypted Ed25519 private key, no independent recovery, and the resulting
+critical impersonation and key-loss risks. The single authorized create-
+exclusive action completed. Its public evidence verifies. D-094 subsequently
+activated only that fingerprint for future separately authorized use. It has
+not signed anything and no P4-K-A action is issued.
 
-After that root exists, the remaining P4-K-A inputs are still required:
+Before P4-K-A can proceed, these six inputs and gates remain required:
 
 1. exact offline ceremony/public-extraction tools, versions, hashes, fixed
    argv, environment inventory, and network-unavailable evidence;
 2. literal KDF work value and non-secret operational custody evidence;
 3. an unused action ID plus exact create-exclusive public export paths and
    artifact identities;
-4. bootstrap signer fingerprint and reviewed public trust-evidence hash;
-5. literal issue/expiry UTC instants and canonical authorization/signature
-   hashes; and
-6. distinct auditor pre-execution review evidence.
+4. literal issue and expiry UTC instants;
+5. canonical authorization and detached-signature SHA-256 values produced only
+   by a separately authorized SSHSIG signing action; and
+6. the review evidence required by the unchanged P4-K-A contract; D-093's role
+   collapse applies only to bootstrap genesis.
 
 ADR-0086 now implements the generic repository-local controller, admission
 schema, fake tests, and profile under the later owner delegation. It has no OS
 backend and cannot mint a ticket while bootstrap, environment, toolchain,
 custody, path, issuance, and review evidence are absent.
 
-The next prepared gate is the
+The preserved predecessor is the
 [`Q15-R bootstrap governance-root decision/input bundle`](Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
 SHA-256
 `065d8a6d5f882bff84ee9bdbe27eb0e0c9e2bfea56c58cbe2b9bfc61cab3a4b7`.
-D-087 through D-092 remain proposed because selection depends on real external
-identity and custody capabilities. Eight external inputs and six owner answers
-remain null. The repository host and experiment stand are not silently treated
-as the owner-controlled offline environment. Private key bytes, paths,
-passphrases, seeds, and credentials must never enter a response or repository
-record.
+D-087 through D-092 remain byte-preserved but are superseded by D-093 rather
+than accepted. The D-093 authorization, public evidence, and lifecycle policy
+are machine checked. The private key remains outside the repository; repository
+tools record only its exact authorized path and metadata, never its contents or
+content hash. D-094 makes the root eligible for future separately authorized
+signing and produces an unissued P4-K-A successor with one of seven inputs
+resolved. The next safe gate is a decision bundle for the six remaining
+target-key inputs; active trust alone is not signing or downstream authority.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)

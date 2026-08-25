@@ -131,17 +131,22 @@ The no-authority P4-K-A choices in the
 [`D-080 through D-085 operational-input decision bundle`](docs/Q15_R_P4_K_A_OPERATIONAL_INPUT_DECISION_BUNDLE.md)
 are accepted as policy by Q15-R-P4-K-A-D/ADR-0080 through ADR-0085.
 Acceptance SHA-256 is `c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf`.
-The owner states that no qualifying bootstrap signer exists, so P4-K-A remains
-blocked until a separately governed bootstrap root is established. All seven
-P4-K-A external inputs remain null. The later owner delegation authorizes and
+D-093 supersedes the unaccepted D-087 through D-092 bootstrap-genesis proposal
+and explicitly accepts a single-owner, development-host, unencrypted, no-
+recovery root with critical impersonation and key-loss risk. Exactly one
+create-exclusive action completed; public evidence verifies and the private
+key remains outside the repository. D-094 now transitions only that exact
+fingerprint to `ACTIVE` for future separately authorized use. No signature or
+P4-K-A action was issued. A versioned successor resolves bootstrap trust only;
+six P4-K-A inputs remain null. The earlier owner delegation authorizes and
 ADR-0086 implements a generic no-authority controller policy engine; it has no
 OS backend and cannot admit without complete signed external evidence. The
-next decision/input bundle is
+preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
 SHA-256 `065d8a6d5f882bff84ee9bdbe27eb0e0c9e2bfea56c58cbe2b9bfc61cab3a4b7`.
-Its eight external inputs and six owner questions remain null. No offline/key/
-trust/path activity, signature, issuance, stand, Q15, calibration, pilot,
-measurement, or confirmatory work occurred or is admissible yet.
+Its original null inputs and questions remain immutable but are superseded by
+D-093/D-094. No root signing, P4-K-A/P4-K-R issuance, stand, Q15, calibration,
+pilot, measurement, or confirmatory work is authorized yet.
 The frozen
 contract is documented in
 [`docs/Q15_QUALIFICATION_CONTRACT.md`](docs/Q15_QUALIFICATION_CONTRACT.md).

@@ -1,8 +1,9 @@
 # Q15-R bootstrap governance-root decision/input bundle
 
-Status: **`PROPOSED_D087_D092_EXTERNAL_GENESIS_IDENTITY_AND_OFFLINE_CUSTODY_EVIDENCE_REQUIRED_NO_KEY_OR_EXECUTION_AUTHORITY`**
+Status: **`SUPERSEDED_BEFORE_ACCEPTANCE_BY_D093; IMMUTABLE_PROPOSAL_PRESERVED`**
 
-This is the first irreducible external gate after Q15-R-P4-K-A-D. The
+This was the proposed external gate after Q15-R-P4-K-A-D and is retained as an
+immutable predecessor. D-093's exact supersession is recorded below. The
 machine-readable bundle is
 [`q15-r-bootstrap-governance-root-decision-input-v1.json`](../config/q15/q15-r-bootstrap-governance-root-decision-input-v1.json),
 SHA-256
@@ -80,3 +81,53 @@ The checker validates immutable lineage, exact D-087 through D-092 order,
 eight null inputs, six unanswered questions, and fail-closed authority. It does
 not access an identity provider, offline environment, key, trust artifact,
 path, stand, or experiment system.
+
+## D-093 supersession and completed bounded action
+
+On 2026-08-25 the owner accepted D-093, superseding this unaccepted proposal's
+bootstrap-genesis recommendations while preserving its bytes. D-093 explicitly
+allows one owner to hold all three roles, development-host creation, an
+unencrypted OpenSSH Ed25519 private key, and no independent recovery. The owner
+accepted the critical impersonation and key-loss risks.
+
+Exactly one create-exclusive action completed under authorization SHA-256
+`271584663d21718357b6fcf013ca0a83a842410cae24d9463b4723217cdb954e`.
+The public fingerprint is
+`SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0`. The repository evidence
+record contains public hashes and only private-file metadata; no repository
+tool read or hashed private contents. D-093 stopped with lifecycle state
+`CREATED` and no signature; D-094 below records the later activation. Every
+signing/action gate still requires separate exact authorization.
+
+```sh
+cmake --build --preset dev-gcc \
+  --target q15-r-bootstrap-d093-authorization-check \
+           q15-r-bootstrap-d093-evidence-check
+ctest --preset dev-gcc \
+  -R '^q15\.r_bootstrap_d093_(authorization|evidence)$' \
+  --output-on-failure
+```
+
+The create tool is intentionally absent from these commands. It must not be
+run again for this transaction.
+
+## D-094 activation result
+
+The owner's subsequent exact-next-step delegation accepts ADR-0094. The
+append-only lifecycle successor binds the verified D-093 fingerprint and
+public trust hashes and transitions `CREATED` to `ACTIVE` at
+`2026-08-25T20:06:42Z`. No private-key read, hash, copy, use, or signature was
+performed. Active means eligible for a future separately authorized SSHSIG
+action; it is not current signing or P4-K-A authority.
+
+The versioned P4-K-A successor resolves exactly the bootstrap signer/trust
+input and preserves the original target-key contract. It remains unissued with
+six inputs null.
+
+```sh
+cmake --build --preset dev-gcc \
+  --target q15-r-bootstrap-d094-activation-check
+ctest --preset dev-gcc \
+  -R '^q15\.r_bootstrap_d094_activation$' \
+  --output-on-failure
+```

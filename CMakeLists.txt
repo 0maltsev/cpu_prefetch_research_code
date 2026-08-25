@@ -865,6 +865,27 @@ if(BUILD_TESTING)
     q15.r_bootstrap_governance_root_decision
     PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
   add_test(
+    NAME q15.r_bootstrap_d093_authorization
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d093_bootstrap_authorization.py")
+  set_tests_properties(
+    q15.r_bootstrap_d093_authorization
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_bootstrap_d093_evidence
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d093_bootstrap_evidence.py")
+  set_tests_properties(
+    q15.r_bootstrap_d093_evidence
+    PROPERTIES LABELS "q15;qualification;security;custody;evidence;lifecycle;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_bootstrap_d094_activation
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d094_bootstrap_activation.py")
+  set_tests_properties(
+    q15.r_bootstrap_d094_activation
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;evidence;lifecycle;schema;pre-pilot;synthetic")
+  add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py")
@@ -1824,6 +1845,15 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_bootstrap_governance_root_decision.py"
   COMMAND
     "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d093_bootstrap_authorization.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d093_bootstrap_evidence.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d094_bootstrap_activation.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py"
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -2001,6 +2031,27 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_bootstrap_governance_root_decision.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking proposed bootstrap governance-root inputs without key authority")
+add_custom_target(
+  q15-r-bootstrap-d093-authorization-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d093_bootstrap_authorization.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the exact one-action D-093 bootstrap-root authorization")
+add_custom_target(
+  q15-r-bootstrap-d093-evidence-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d093_bootstrap_evidence.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking D-093 public evidence and the created/not-active boundary")
+add_custom_target(
+  q15-r-bootstrap-d094-activation-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d094_bootstrap_activation.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking exact root activation and the still-unissued P4-K-A successor")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND

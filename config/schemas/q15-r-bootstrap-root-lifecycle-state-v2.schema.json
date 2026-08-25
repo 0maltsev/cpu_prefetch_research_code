@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-bootstrap-root-lifecycle-state:v2",
+  "title": "Activated D-093 bootstrap-root lifecycle state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "state_record_id", "protocol_version", "fingerprint", "status", "current_root_state", "lineage", "trust_binding", "history", "security_posture", "authority_boundary", "next_gate", "supersession_rule"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-bootstrap-root-lifecycle-state/2"},
+    "state_record_id": {"const": "Q15-R-BOOTSTRAP-LIFECYCLE-STATE-20260825-02"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "fingerprint": {"const": "SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0"},
+    "status": {"const": "ACTIVE_FOR_FUTURE_SEPARATELY_AUTHORIZED_SSHSIG_VERIFICATION_AND_SIGNING"},
+    "current_root_state": {"const": "ACTIVE"},
+    "lineage": {"const": {"predecessor_policy_path": "config/q15/q15-r-bootstrap-root-d093-lifecycle-policy-v1.json", "predecessor_policy_sha256": "863ad34c5ea144b0cfd2ad71a99e205cd082683cc4e1941fa06ec3fc289641d5", "activation_authorization_path": "config/q15/q15-r-bootstrap-root-d094-activation-authorization-v1.json", "activation_authorization_sha256": "3649a14bcc55618e9f6707a9b570cdf79124a5a93b43058964d40d9020ce6e5d", "d093_evidence_path": "config/q15/q15-r-bootstrap-root-d093-evidence-v1.json", "d093_evidence_sha256": "e7066cf41fe2af2d38ee0c0a8947ce326f78882ed07294faa42143f1ef020361"}},
+    "trust_binding": {"const": {"authorization_principal": "cpu-prefetch-q15-authorization", "signature_namespace": "cpu-prefetch-q15-authorization", "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1", "allowed_signers_sha256": "6c21b0d631a3842e182bd92e0856aa5073c949f5c5a6b4a8e85b48dd2016f33d", "root_public_key_sha256": "3a8d2f9eeb799a9be2af035beb00f4a6ef822fd0dad963c4eaea91344ff95527"}},
+    "history": {"const": [{"sequence": 1, "from": null, "to": "CREATED", "at_utc": "2026-08-25T19:39:49Z", "authority_id": "Q15-R-BOOTSTRAP-D093-ACTION-AUTHORIZATION-20260825-01"}, {"sequence": 2, "from": "CREATED", "to": "ACTIVE", "at_utc": "2026-08-25T20:06:42Z", "authority_id": "Q15-R-BOOTSTRAP-D094-ACTIVATION-AUTHORIZATION-20260825-01"}]},
+    "security_posture": {"const": {"single_owner_operator_custodian_auditor": true, "development_host_private_key": true, "private_key_unencrypted": true, "independent_recovery_exists": false, "critical_impersonation_and_key_loss_risks_accepted": true}},
+    "authority_boundary": {"const": {"root_is_eligible_for_future_separately_authorized_signing": true, "current_signing_action_authorized": false, "p4_k_a_or_p4_k_r_execution_authorized": false, "target_key_creation_authorized": false, "stand_access_or_modification_authorized": false, "q15_r_or_q15_w_authorized": false, "qualification_calibration_pilot_measurement_or_confirmatory_authorized": false}},
+    "next_gate": {"const": "RESOLVE_REMAINING_P4_K_A_INPUTS_AND_SEPARATELY_AUTHORIZE_ONE_SIGNATURE_AND_ACTION"},
+    "supersession_rule": {"type": "string", "minLength": 1}
+  }
+}

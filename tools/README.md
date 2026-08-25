@@ -114,6 +114,28 @@ fourteen fail-closed mutations. It neither selects a real-world identity or
 custody mechanism nor creates, reads, imports, copies, fingerprints, signs, or
 uses any key or trust artifact.
 
+D-093 adds `create_d093_bootstrap_root.py`,
+`check_d093_bootstrap_authorization.py`,
+`verify_d093_bootstrap_evidence.py`, and
+`check_d093_bootstrap_evidence.py`. The create tool is fixed to the exact
+authorized development-host paths and transaction; its single authorized
+execution has completed and must not be repeated. The authorization checker
+uses only its no-key self-test by default; `--verify-action-host` additionally
+rehashes the exact development-host interpreter and `ssh-keygen` bytes. The
+read-only verifier hashes public artifacts and inspects the private file with
+`lstat` only. The evidence checker defaults to repository-only validation;
+`--verify-external` additionally verifies the development-host public root
+without reading or hashing private content. None of these checks activates the
+root or authorizes signing, P4-K, stand, Q15, or experiment work.
+
+D-094 adds `check_d094_bootstrap_activation.py`. It validates the exact
+activation authorization, append-only active lifecycle state, and v2 P4-K-A
+successor. The checker proves that only bootstrap trust moved from null to the
+accepted fingerprint, six inputs remain null, no signature or target-key
+action occurred, and all stand/Q15/experiment authority remains false. Its
+`--verify-external` mode calls only the D-093 read-only public/private-metadata
+verifier.
+
 D-053 adds `check_q15_probe_implementation.py` and
 `check_q15_probe_codegen.py`. The first validates the exact master-seed,
 namespace/purpose, derived-key, buffer-integrity, and no-authority profile with

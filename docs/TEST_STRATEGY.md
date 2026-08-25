@@ -872,6 +872,31 @@ identity, offline-environment, key, custody, public-trust, signing, stand,
 Q15, or experiment authority. Passing this checker is software evidence only;
 it cannot establish a genesis identity or offline custody.
 
+D-093 preserves that proposal but supersedes its recommendations before
+acceptance. The authorization checker binds the exact owner/host/tool/path/
+algorithm downgrade, one attempt, zero retry, private-content non-observation,
+and later-authority boundary; 13 mutations plus a no-key self-test must pass.
+The default test is portable and validates the recorded action-host hashes;
+`--verify-action-host` additionally rehashes those exact external binaries on
+the development host.
+The repository evidence checker validates both Draft 2020-12 records, exact
+lineage, BGR-Q1 through BGR-Q6 dispositions, six public artifact hash/size
+pairs, private metadata-only evidence, and the `CREATED`/not-active boundary;
+11 mutations reject activation, use, continuation, authority, risk, BGR,
+artifact, or secret-evidence drift. Its optional development-host mode reruns
+the read-only verifier against public files and private `lstat` metadata. Tests
+must never rerun the create-exclusive generation action.
+
+D-094 adds a three-record activation/successor check. It validates the exact
+D-093 hashes and fingerprint, append-only `CREATED` to `ACTIVE` order, public
+trust principal/namespace, absence of private-key use or signature creation,
+and byte-preservation of the P4-K-A target-key contract, outputs, and rollback.
+The v2 successor must resolve exactly bootstrap trust, keep six inputs null,
+and remain unissued. Twelve mutations reject wrong-root activation, illegal
+prior state, signing/use claims, authority widening, fabricated inputs,
+premature issuance, lineage drift, or missing blockers. Optional external mode
+reruns only D-093 public and private-metadata verification.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

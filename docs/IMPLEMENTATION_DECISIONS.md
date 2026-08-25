@@ -2,11 +2,11 @@
 
 Protocol version: **`2.0.0-pre.2`**; immutable predecessor `2.0.0-pre.1`
 
-Register date: **2026-08-24**
+Register date: **2026-08-25**
 
-Stage 2/16 decision state: **`COMPLETE; Q1_THROUGH_Q15_R_P3_ACCEPTED`**
+Stage 2/16 decision state: **`COMPLETE; D094_ACCEPTED_ROOT_ACTIVE_P4_K_A_UNISSUED`**
 
-Current implementation state: **`STAGE16_COMPLETE; Q15_R_P3_D065_ACCEPTED_NO_AUTHORITY; RELEASE_EVIDENCE_RESOLVED; FIVE_SETUP_INPUTS_UNRESOLVED; PILOT_BLOCKED`**
+Current implementation state: **`STAGE16_COMPLETE; D094_ROOT_ACTIVE_NO_SIGNING_AUTHORITY; P4_K_A_SIX_INPUTS_AND_PILOT_BLOCKED`**
 
 `ACCEPTED` means an ADR freezes the choice. `PROPOSED` is a recommendation awaiting explicit owner acceptance. `UNRESOLVED` is not a default. `PROTOCOL_FIXED` restates source-of-truth behavior and is never an engineering choice. A selected implementation that changes scientific meaning requires a versioned protocol amendment, not merely an ADR.
 
@@ -229,16 +229,20 @@ implementation or external action.
 |---|---|---|---|---|---|---|---|---|---|
 | D-086 | Security/generic no-authority controller | Generic hash-bound policy engine requiring complete external admission; premature environment specialization; ad hoc executable; no implementation | `ACCEPTED_IMPLEMENTED_REPOSITORY_LOCAL_NO_EXTERNAL_OR_EXECUTION_AUTHORITY`: typed ten-step admission state machine, no OS backend, explicit limits, direct argv/non-secret environment, TTY/FD secret boundary, partial retention, and mandatory stop; [ADR-0086](decisions/0086-q15-r-p4-k-a-generic-controller-implementation.md) | Owner delegation; ADR-0084; profile SHA-256 `0ceafd80...`; five focused fake tests | None | Controller source/binary/profile, graph, admission, limits, process/secret boundary, and external hashes become transaction identity | Repository/security/custody/audit owners | Generic implementation closed; clean release and every exact external input before admission | New prospective ADR, clean release, and review for any graph/admission/process/evidence/failure change |
 
-## Proposed bootstrap governance-root decisions
+## Superseded bootstrap governance-root proposal and accepted D-093
 
-D-087 through D-092 are proposed in the
+D-087 through D-092 were proposed in the
 [bootstrap governance-root bundle](Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
 SHA-256 `065d8a6d5f882bff84ee9bdbe27eb0e0c9e2bfea56c58cbe2b9bfc61cab3a4b7`.
-They remain unresolved because the available real external identity and
-offline-custody mechanisms are unknown. The machine record retains complete
-options, evidence effects, owners, deadlines, and supersession rules. Eight
-external values and six owner answers remain null; no root action is
-authorized.
+Their immutable machine record remains unchanged, but D-093 supersedes the
+proposal before acceptance. The six BGR questions are closed by explicit
+waivers or generated public evidence, not by pretending that the recommended
+controls were satisfied.
+
+| ID | Classification | Options considered | Selected option or unresolved state | Evidence | Scientific effect | Compatibility effect | Owner | Deadline / gate | Supersession rule |
+|---|---|---|---|---|---|---|---|---|---|
+| D-093 | Security/bootstrap genesis and custody downgrade | Remain blocked; establish D-087..D-092 controls; accept single-owner development-host unencrypted/no-recovery root | `ACCEPTED_SECURITY_DOWNGRADE_ROOT_CREATED_NOT_ACTIVATED`: exactly one create-exclusive Ed25519 action completed; private content was not read or hashed; public evidence verified; root state is `CREATED`; [ADR-0093](decisions/0093-single-owner-development-host-unencrypted-bootstrap-root.md) | Owner's exact authorization; authorization SHA-256 `27158466...`; fingerprint `SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0`; evidence and lifecycle records | None | Material security downgrade: host/owner compromise permits impersonation and loss has no independent recovery; fingerprint, paths, public bytes, policy and action lineage become compatibility identity | Protocol/security/custody/audit owner acting under the accepted role-collapse waiver | Creation closed; separate exact activation authorization before any signing or P4-K-A use | New prospective ADR and append-only lifecycle record for activation, use, path/fingerprint/tool/owner change, rotation, revocation, compromise, loss, or authority widening; never edit prior evidence |
+| D-094 | Security/bootstrap trust activation | Leave exact D-093 root in `CREATED`; activate exact verified fingerprint; revoke/compromise/loss | `ACCEPTED_ROOT_ACTIVE_NO_SIGNING_OR_DOWNSTREAM_ACTION_AUTHORITY`: transition exact D-093 fingerprint from `CREATED` to `ACTIVE`; resolve only P4-K-A bootstrap trust; [ADR-0094](decisions/0094-activate-d093-bootstrap-root-for-authorization-trust.md) | Owner's exact-next-gate delegation; D-093 evidence SHA-256 `e7066cf4...`; D-094 authorization SHA-256 `3649a14b...`; active lifecycle SHA-256 `75f97241...`; 12 negative tests | None | Exact fingerprint, allowed-signers/public hashes, principal/namespace, activation lineage, and active state become future authorization identity; D-093 critical risks remain | Protocol/security/custody/audit owner under D-093 role collapse | Activation closed; six P4-K-A inputs and separate signing/action authority remain blockers | New prospective ADR and append-only state for signing authority, revocation, compromise, loss, supersession, or any trust/identity/authority change |
 
 ## Later protocol-defined decisions with open values
 

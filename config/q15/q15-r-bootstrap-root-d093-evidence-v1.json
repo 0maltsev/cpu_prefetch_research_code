@@ -1,0 +1,81 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-bootstrap-root-d093-evidence/1",
+  "evidence_id": "Q15-R-BOOTSTRAP-D093-EVIDENCE-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "decision_id": "D-093",
+  "transaction_id": "Q15-R-BOOTSTRAP-D093-20260825-01",
+  "status": "BOOTSTRAP_ROOT_CREATED_PUBLIC_EVIDENCE_VERIFIED_NOT_ACTIVATED_FOR_SIGNING",
+  "created_at_utc": "2026-08-25T19:39:49Z",
+  "fingerprint": "SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0",
+  "lineage": {
+    "source_commit": "561b956d45072e6f23dd7152f4bd359f304d3089",
+    "action_authorization_path": "config/q15/q15-r-bootstrap-root-d093-action-authorization-v1.json",
+    "action_authorization_sha256": "271584663d21718357b6fcf013ca0a83a842410cae24d9463b4723217cdb954e",
+    "decision_adr_path": "docs/decisions/0093-single-owner-development-host-unencrypted-bootstrap-root.md",
+    "decision_adr_sha256": "25caddc4f8a1f4917bf12ccf2e9fd7f1b08c740c242b54ca3257f9766ec53c09",
+    "action_tool_path": "tools/create_d093_bootstrap_root.py",
+    "action_tool_sha256": "b98032e7353b37a10257603dc28b5e78d050440ff5090058f890c9bdbb2549ad",
+    "read_only_verifier_path": "tools/verify_d093_bootstrap_evidence.py",
+    "read_only_verifier_sha256": "f600efcc439383a6291f8ac6f07b48de049cf814181df0f1fbc4fe052cba3d50",
+    "lifecycle_policy_path": "config/q15/q15-r-bootstrap-root-d093-lifecycle-policy-v1.json",
+    "lifecycle_policy_sha256": "863ad34c5ea144b0cfd2ad71a99e205cd082683cc4e1941fa06ec3fc289641d5"
+  },
+  "bootstrap_governance_resolution": [
+    {"question_id": "BGR-Q1", "resolution": "SUPERSEDED_BY_D093_SINGLE_OWNER_ACCEPTANCE"},
+    {"question_id": "BGR-Q2", "resolution": "SUPERSEDED_BY_D093_ROLE_COLLAPSE_AND_RECOVERY_WAIVER"},
+    {"question_id": "BGR-Q3", "resolution": "SUPERSEDED_BY_D093_DEVELOPMENT_HOST_ACCEPTANCE_AND_BOUND_INVENTORY"},
+    {"question_id": "BGR-Q4", "resolution": "SUPERSEDED_BY_D093_UNENCRYPTED_KEY_AND_RECOVERY_WAIVER"},
+    {"question_id": "BGR-Q5", "resolution": "RESOLVED_BY_CREATE_EXCLUSIVE_PUBLIC_ARTIFACTS_AND_HASHES"},
+    {"question_id": "BGR-Q6", "resolution": "RESOLVED_BY_ACCEPTED_APPEND_ONLY_LIFECYCLE_POLICY_WITH_SEPARATE_ACTIVATION_GATE"}
+  ],
+  "private_key_metadata_only": {
+    "absolute_path": "/home/omaltsev/.local/share/cpu-prefetch-q15/bootstrap-root-v1/id_ed25519",
+    "mode_octal": "0600",
+    "owner_uid": 1000,
+    "owner_gid": 1000,
+    "size_bytes_observed_without_content_read": 432,
+    "content_read_or_hashed_by_repository_tools": false,
+    "private_key_bytes_or_hash_recorded": false,
+    "encrypted": false,
+    "independent_recovery_exists": false
+  },
+  "public_trust_evidence": {
+    "absolute_root": "/home/omaltsev/.local/share/cpu-prefetch-q15/bootstrap-root-v1/public",
+    "directory_mode_octal": "0700",
+    "artifacts": [
+      {"filename": "SHA256SUMS", "sha256": "9d770c1c065e4d71c5f8e6bb5a5b9aac72f9468eed6fac42ee9742de59834570", "size_bytes": 428},
+      {"filename": "action_authorization.json", "sha256": "271584663d21718357b6fcf013ca0a83a842410cae24d9463b4723217cdb954e", "size_bytes": 5723},
+      {"filename": "allowed_signers", "sha256": "6c21b0d631a3842e182bd92e0856aa5073c949f5c5a6b4a8e85b48dd2016f33d", "size_bytes": 112},
+      {"filename": "fingerprint.txt", "sha256": "eb40e36768566f4fc36a2fa1b75fec8bbc2b82aea94ef75780b4afee5ec87208", "size_bytes": 51},
+      {"filename": "public_receipt.json", "sha256": "3c97bf7d6d12079ee247f823b66c4fc164258e317820c592661ecf055039cbc9", "size_bytes": 1693},
+      {"filename": "root_public_key.pub", "sha256": "3a8d2f9eeb799a9be2af035beb00f4a6ef822fd0dad963c4eaea91344ff95527", "size_bytes": 116}
+    ],
+    "sidecar_verification": "PASS_WHEN_RUN_FROM_PUBLIC_ROOT",
+    "fingerprint_verification": "PASS_OPENSSH_SHA256",
+    "initial_sidecar_invocation_from_wrong_working_directory": "INVOCATION_ERROR_NO_HASH_MISMATCH"
+  },
+  "security_posture": {
+    "single_owner_operator_custodian_auditor": true,
+    "development_host_bootstrap": true,
+    "unencrypted_private_key": true,
+    "independent_recovery_waived": true,
+    "critical_impersonation_risk_accepted": true,
+    "critical_key_loss_risk_accepted": true
+  },
+  "root_lifecycle": {
+    "current_state": "CREATED",
+    "activated_for_signing": false,
+    "used_to_sign": false,
+    "automatic_continuation": false,
+    "next_gate": "SEPARATE_ROOT_ACTIVATION_AND_P4_K_A_AUTHORIZATION_PREPARATION"
+  },
+  "authority_boundary": {
+    "repository_evidence_and_policy_recording_authorized": true,
+    "root_activation_authorized": false,
+    "root_signing_authorized": false,
+    "p4_k_a_or_p4_k_r_authorized": false,
+    "stand_access_or_modification_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "qualification_calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

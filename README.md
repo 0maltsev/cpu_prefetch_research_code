@@ -78,12 +78,18 @@ controller-bearing v2 base archive SHA-256
 its manifest and CLI still grant no authority. The fixed controller core,
 authorization-v2 contract, no-authority CLI, unapplied role/custody plan, fake
 tests, and strict dual-disassembler audit are documented in
-[`docs/Q15_R_CONTROLLER.md`](docs/Q15_R_CONTROLLER.md). The proposed
+[`docs/Q15_R_CONTROLLER.md`](docs/Q15_R_CONTROLLER.md). The
 [`D-061 through D-064 operational-prerequisite bundle`](docs/Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
 is accepted by Q15-R-P2. The fixed inherited-descriptor trust-anchor adapter is
 implemented and fake-tested locally; the four-role setup, access, and
-quarantine graph is bound in a blocked no-authority preparation. No operational
-release, signer/trust anchor, actual credentials/custody, stand setup, or Q15-R
+quarantine graph is bound in a blocked no-authority preparation. Clean commit
+`c8b69abf0c6aec7b740efe78d998a93545302a94` produced the verified
+adapter-bearing archive SHA-256
+`8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01`
+with authority `NONE`. Q15-R-P3/ADR-0065
+[selects those exact bytes](docs/Q15_R_OPERATIONAL_RELEASE_DECISION_BUNDLE.md)
+as later setup evidence only; successor preparation v2 resolves no other
+input. No signer/trust anchor, actual credentials/custody, stand setup, or Q15-R
 authority has been created. The frozen
 contract is documented in
 [`docs/Q15_QUALIFICATION_CONTRACT.md`](docs/Q15_QUALIFICATION_CONTRACT.md).
@@ -355,8 +361,11 @@ controller software passes local fake/schema/codegen checks. Clean v2 base
 release SHA-256
 `48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035`
 passes clean extraction and remains no-authority. Accepted D-061 through D-064
-close only the repository-local adapter and setup-contract decisions. A new
-clean operational release, actual commands/roles/custody/trust/signature/
+close only the repository-local adapter and setup-contract decisions. Clean
+adapter-bearing release candidate SHA-256
+`8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01`
+passes 133-file clean-extraction verification and five self-tests. D-065 is
+accepted as evidence only; actual commands/roles/custody/trust/signature/
 prestate evidence, exact setup/Q15 authority, and dynamic evidence still block
 Q15 issuance.
 
@@ -453,7 +462,9 @@ Q15 issuance.
   `runner-schema-check`, `qualification-schema-check`, `q15-r-decision-check`,
   `q15-r-operational-prerequisite-check`, `q15-r-p2-acceptance-check`,
   `q15-trust-anchor-adapter-profile-check`,
-  `q15-r-stand-setup-preparation-check`, `q15-authorization-v2-check`,
+  `q15-r-stand-setup-preparation-check`,
+  `q15-r-operational-release-decision-check`, `q15-r-p3-acceptance-check`,
+  `q15-r-stand-setup-preparation-v2-check`, `q15-authorization-v2-check`,
   `q15-controller-profile-check`, strict
   `q15-controller-codegen-check`,
   `schedule-check`, `calibration-check`,

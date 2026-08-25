@@ -372,10 +372,14 @@ authorization/amendment.
   `NONE`. Q15-R-P2 accepts D-061 through D-064 and ADR-0061 through ADR-0064.
   The fixed inherited-descriptor trust adapter, canonical receipt, fake tests,
   synchronized no-authority records, and blocked exact setup preparation are
-  implemented locally. No stand was accessed. A new clean operational release,
-  fully resolved and separately authorized four-role/custody setup, actual
-  trust/signature/prestate evidence, exact signed Q15-R argv, and dynamic
-  authority remain required.
+  implemented locally. Clean commit `c8b69ab` produced and verified an
+  adapter-bearing no-authority operational-release candidate. Q15-R-P3 accepts
+  D-065 and selects its exact bytes without stand or execution authority;
+  versioned successor preparation v2 resolves only the release
+  evidence group and keeps five external inputs unresolved. No stand was
+  accessed. A fully resolved and separately authorized four-role/custody setup,
+  the five external trust/path/prestate inputs, exact signed Q15-R argv, and
+  dynamic authority remain required.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

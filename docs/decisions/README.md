@@ -100,6 +100,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0062](0062-q15-r-trust-anchor-adapter.md) | `ACCEPTED_AND_IMPLEMENTED_REPOSITORY_LOCAL_NO_AUTHORITY` | Use fixed bounded inherited descriptors and a canonical auditor verification receipt ahead of controller admission. |
 | [ADR-0063](0063-q15-r-four-role-stand-setup.md) | `ACCEPTED_POLICY_NO_STAND_SETUP_AUTHORITY` | Require the prospective four-role/two-domain literal-argv setup transaction without creating it. |
 | [ADR-0064](0064-q15-r-access-quarantine-and-authority.md) | `ACCEPTED_POLICY_NO_PROBE_OR_Q15_AUTHORITY` | Require complete access evidence, first-failure stop, non-deleting quarantine, and later separate Q15-R authority. |
+| [ADR-0065](0065-q15-r-operational-release-identity.md) | `ACCEPTED_NO_STAND_OR_EXECUTION_AUTHORITY` | Select the exact clean adapter-bearing Q15-R release as setup-input evidence only. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
 Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,

@@ -50,9 +50,10 @@ cpu_prefetch_q15_controller --execute-q15-r EXACT_AUTHORIZATION EXACT_DETACHED_S
 
 In the current build it refuses before opening either path. The clean v2 base
 bundle retains that refusal. Q15-R-P2 authorizes and implements only the local
-adapter seam; it does not enable this CLI or create an operational release.
-Execution still requires an actual trust anchor and role/custody evidence, a
-new clean release, an exact signed Q15-R record, and separate explicit approval.
+adapter seam; it does not enable this CLI. A clean adapter-bearing release
+now exists with authority `NONE`, and Q15-R-P3/ADR-0065 selects it as evidence
+only. Execution still requires an actual trust anchor and role/custody evidence,
+an exact signed Q15-R record, and separate explicit approval.
 
 Repository verification:
 

@@ -82,20 +82,32 @@ records bind the acceptance and adapter identities without inventing any stand
 fact. The exact command graph is preserved in the
 [`blocked stand-setup authorization preparation`](Q15_R_STAND_SETUP_AUTHORIZATION_BUNDLE.md).
 
-Before any stand-setup approval can be requested, a clean operational release,
-actual allowed-signers artifact/fingerprint, exact secondary custody domain,
-fresh stand prestate, literal paths, named authority, UTC validity, evidence
-IDs/hashes, signature, and independent review must be supplied. A generic
-approval, SSH permission, or root access cannot substitute for that future
-exact setup authorization; setup would still not authorize Q15-R.
+Q15-R-P3 accepts D-065/ADR-0065 and creates versioned successor preparation
+v2. Only the clean-release evidence group is resolved. The predecessor remains
+byte-preserved; all five external setup groups and every authority field remain
+unresolved or false.
+
+Clean commit `c8b69abf0c6aec7b740efe78d998a93545302a94` produced and
+verified an adapter-bearing no-authority release with archive SHA-256
+`8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01`.
+D-065 is [accepted by Q15-R-P3](Q15_R_OPERATIONAL_RELEASE_DECISION_BUNDLE.md)
+as the exact future setup release input. The predecessor six-input preparation
+remains immutable; versioned successor v2 resolves only release evidence and
+retains five external groups: literal allowed-signers source, operational
+release root, secondary custody root, fresh stand prestate, and the actual
+allowed-signers artifact/hash/fingerprint. Named authority, UTC validity,
+evidence IDs/hashes, signature, and independent review also remain mandatory
+for the later exact authorization. A generic approval, SSH
+permission, or root access cannot substitute; setup would still not authorize
+Q15-R.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)
 records D-051 as accepted by Q15-S1/ADR-0051. The fixed adapter, separate tool
 and bundle profile, split authority schema, and blocked preparation records are
 implemented locally. The clean no-authority bundle build is separately
-completed for the v2 base release, but no Q15 authorization may be emitted
-while the operational implementation/release, role, command, custody, trust,
+completed for the v2 base and adapter-bearing candidate releases, but no Q15
+authorization may be emitted while the role, command, custody, trust,
 signature, and predecessor fields are missing.
 
 ## Accepted Q14 governance and D-047 mapping; next qualification inputs required
@@ -267,9 +279,10 @@ strict codegen reports. That release grants no stand access or dynamic
 authority.
 
 With the clean controller-bearing v2 base release verified, Q15-R-P2 now closes
-owner disposition and repository-local trust-adapter implementation. Q15-R
-still needs a new clean operational release and separately authorized and
-verified stand setup. It then needs its own exact signed authorization:
+owner disposition and repository-local trust-adapter implementation. The new
+clean operational release is selected by Q15-R-P3 as evidence only; Q15-R still
+needs separately authorized and verified stand setup. It then needs its own
+exact signed authorization:
 fixed controller argv/endpoint, stand/binding, distinct effective identities,
 actual expiry/signature, quotas/custody evidence, and read-only targets. Q15-W remains
 blocked until sealed Q15-R evidence and all three complete prestates exist.

@@ -666,6 +666,23 @@ authority widening, silent issuance, missing/reordered commands, or fabricated
 resolution of any of the six operational input groups. They execute no command
 from the setup graph.
 
+### 29. Q15-R-P3 operational-release selection preparation
+
+The D-065 proposal and Q15-R-P3 acceptance checkers bind the exact clean
+commit, outer archive and sidecar, source archive, 133-entry internal inventory,
+manifest, SBOM, controller/tool binaries, adapter-bearing library, version
+metadata, and all three strict code-generation reports. The proposal checker's
+portable mode checks schema, authority, predecessor immutability, exact evidence
+constants, and five remaining unresolved inputs without requiring a local build
+directory. Its explicit local-evidence mode additionally hashes the archive,
+sidecar, and clean extraction. Negative mutations cover authority widening,
+proposal drift, release-hash drift, fabricated external-input resolution, and
+a missing input. The successor-v2 checker additionally preserves the
+predecessor hash, resolves only release evidence, retains five unresolved
+groups, preserves 20/24/10 transaction identity, and rejects lineage drift,
+transaction loss, or silent issuance. No stand operation, transfer, install,
+probe, Q15 phase, calibration, pilot, or measurement is executed.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

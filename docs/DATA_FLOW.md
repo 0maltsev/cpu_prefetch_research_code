@@ -284,5 +284,6 @@ all three, binds the receipt to the auditor-owned allowed-signers artifact and
 signer fingerprint, and emits only a typed trust anchor for the existing fixed
 admission validator. The allowed-signers file and private key never flow into
 the controller. In the current repository this edge terminates at fake tests;
-there is no OS descriptor producer, operational release, or execution ticket
-source.
+there is no OS descriptor producer or execution-ticket source. The clean
+adapter-bearing bundle is selected evidence only; successor preparation v2
+adds no OS producer or authority.

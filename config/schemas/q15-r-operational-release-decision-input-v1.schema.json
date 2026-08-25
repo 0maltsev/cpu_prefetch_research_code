@@ -1,0 +1,119 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-operational-release-decision-input:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "$defs": {
+    "nonempty": {"minLength": 1, "type": "string"},
+    "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "unresolved": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {"$ref": "#/$defs/nonempty"},
+        "state": {"const": "UNRESOLVED"},
+        "value": {"type": "null"}
+      },
+      "required": ["name", "state", "value"],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "authority_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "access_probe_execution_authorized": {"const": false},
+        "account_or_key_changes_authorized": {"const": false},
+        "approval_effect": {"const": "SELECTS_RELEASE_EVIDENCE_ONLY_FUTURE_STAND_SETUP_AUTHORIZATION_REQUIRED"},
+        "bundle_transfer_or_install_authorized": {"const": false},
+        "calibration_authorized": {"const": false},
+        "confirmatory_authorized": {"const": false},
+        "dynamic_qualification_authorized": {"const": false},
+        "filesystem_or_permission_changes_authorized": {"const": false},
+        "measurement_authorized": {"const": false},
+        "msr_read_authorized": {"const": false},
+        "msr_write_authorized": {"const": false},
+        "pilot_authorized": {"const": false},
+        "q15_r_authorized": {"const": false},
+        "q15_w_authorized": {"const": false},
+        "real_affinity_numa_authorized": {"const": false},
+        "real_pmu_authorized": {"const": false},
+        "repository_local_record_synchronization_authorized": {"const": true},
+        "stand_access_authorized": {"const": false},
+        "stand_setup_authorized": {"const": false}
+      },
+      "required": ["access_probe_execution_authorized", "account_or_key_changes_authorized", "approval_effect", "bundle_transfer_or_install_authorized", "calibration_authorized", "confirmatory_authorized", "dynamic_qualification_authorized", "filesystem_or_permission_changes_authorized", "measurement_authorized", "msr_read_authorized", "msr_write_authorized", "pilot_authorized", "q15_r_authorized", "q15_w_authorized", "real_affinity_numa_authorized", "real_pmu_authorized", "repository_local_record_synchronization_authorized", "stand_access_authorized", "stand_setup_authorized"],
+      "type": "object"
+    },
+    "bundle_id": {"const": "Q15-R-OPERATIONAL-RELEASE-DECISION-INPUT-20260825-01"},
+    "decision": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {"$ref": "#/$defs/nonempty"},
+        "compatibility_effect": {"$ref": "#/$defs/nonempty"},
+        "deadline_gate": {"$ref": "#/$defs/nonempty"},
+        "decision_id": {"const": "D-065"},
+        "evidence": {"items": {"$ref": "#/$defs/nonempty"}, "minItems": 1, "type": "array"},
+        "options_considered": {"items": {"$ref": "#/$defs/nonempty"}, "minItems": 2, "type": "array", "uniqueItems": true},
+        "owner": {"items": {"$ref": "#/$defs/nonempty"}, "minItems": 1, "type": "array", "uniqueItems": true},
+        "recommended_option": {"$ref": "#/$defs/nonempty"},
+        "scientific_effect": {"$ref": "#/$defs/nonempty"},
+        "selected_option_if_accepted": {"const": "SELECT_C8B69AB_NO_AUTHORITY_OPERATIONAL_RELEASE_EVIDENCE_ONLY"},
+        "state": {"const": "PROPOSED_AWAITING_EXPLICIT_OWNER_ACCEPTANCE_NO_AUTHORITY"},
+        "supersession_rule": {"$ref": "#/$defs/nonempty"}
+      },
+      "required": ["classification", "compatibility_effect", "deadline_gate", "decision_id", "evidence", "options_considered", "owner", "recommended_option", "scientific_effect", "selected_option_if_accepted", "state", "supersession_rule"],
+      "type": "object"
+    },
+    "operational_release_evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "archive_bytes": {"const": 4356358},
+        "archive_name": {"const": "cpu-prefetch-q15-qualification-tool-2.0.0-c8b69ab-clean-8d27197443f2.tar.gz"},
+        "archive_sha256": {"$ref": "#/$defs/sha256"},
+        "bundle_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "bundle_profile": {"const": "Q15-QUALIFICATION-TOOL-BUNDLE-v2"},
+        "controller_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "controller_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "internal_file_count": {"const": 133},
+        "internal_sha256s_sha256": {"$ref": "#/$defs/sha256"},
+        "probe_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "q15_qualification_library_sha256": {"$ref": "#/$defs/sha256"},
+        "q15_tool_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "repository_license": {"const": "NO-LICENSE-GRANT"},
+        "runtime_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "sbom_sha256": {"$ref": "#/$defs/sha256"},
+        "sidecar_sha256": {"$ref": "#/$defs/sha256"},
+        "source_archive_name": {"const": "cpu-prefetch-source-c8b69ab-clean.tar.gz"},
+        "source_archive_sha256": {"$ref": "#/$defs/sha256"},
+        "source_dirty": {"const": false},
+        "source_revision": {"const": "c8b69abf0c6aec7b740efe78d998a93545302a94"},
+        "version_metadata_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "required": ["archive_bytes", "archive_name", "archive_sha256", "bundle_manifest_sha256", "bundle_profile", "controller_binary_sha256", "controller_codegen_report_sha256", "internal_file_count", "internal_sha256s_sha256", "probe_codegen_report_sha256", "q15_qualification_library_sha256", "q15_tool_binary_sha256", "repository_license", "runtime_codegen_report_sha256", "sbom_sha256", "sidecar_sha256", "source_archive_name", "source_archive_sha256", "source_dirty", "source_revision", "version_metadata_sha256"],
+      "type": "object"
+    },
+    "predecessor_preparation": {
+      "const": {
+        "path": "config/q15/q15-r-stand-setup-authorization.preparation.json",
+        "preparation_id": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01",
+        "sha256": "a671fad5b45823a617140d9ee1f684235812daede0048fb67e1255ce74ecb057",
+        "state": "IMMUTABLE_PREDECESSOR_SIX_INPUTS_UNRESOLVED_NO_AUTHORITY"
+      }
+    },
+    "prepared_at_utc": {"const": "2026-08-25T08:23:45Z"},
+    "proposed_successor_setup_state": {
+      "const": {
+        "remaining_input_count": 5,
+        "release_selection_state": "AWAITING_D065_ACCEPTANCE",
+        "status": "BLOCKED_RELEASE_SELECTION_AND_EXTERNAL_INPUTS_NO_AUTHORITY",
+        "transaction_identity": "PRESERVE_D063_D064_20_SETUP_24_ACCESS_18_DENY_10_QUARANTINE"
+      }
+    },
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "remaining_required_inputs": {"items": {"$ref": "#/$defs/unresolved"}, "maxItems": 5, "minItems": 5, "type": "array", "uniqueItems": true},
+    "schema_version": {"const": "cpu-prefetch-q15-r-operational-release-decision-input/1"},
+    "status": {"const": "PROPOSED_OPEN_BEFORE_Q15_R_P3_NO_AUTHORITY"}
+  },
+  "required": ["authority_boundary", "bundle_id", "decision", "operational_release_evidence", "predecessor_preparation", "prepared_at_utc", "proposed_successor_setup_state", "protocol_version", "remaining_required_inputs", "schema_version", "status"],
+  "title": "Proposed exact Q15-R operational-release selection and successor setup inputs",
+  "type": "object"
+}

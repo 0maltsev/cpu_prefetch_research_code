@@ -4,9 +4,9 @@ Protocol version: **`2.0.0-pre.2`**; immutable predecessor `2.0.0-pre.1`
 
 Register date: **2026-08-24**
 
-Stage 2/16 decision state: **`COMPLETE; Q1_THROUGH_Q15_R_P2_ACCEPTED`**
+Stage 2/16 decision state: **`COMPLETE; Q1_THROUGH_Q15_R_P3_ACCEPTED`**
 
-Current implementation state: **`STAGE16_COMPLETE; Q15_R_P2_REPOSITORY_LOCAL_IMPLEMENTED_NO_AUTHORITY; STAND_SETUP_INPUTS_UNRESOLVED; PILOT_BLOCKED`**
+Current implementation state: **`STAGE16_COMPLETE; Q15_R_P3_D065_ACCEPTED_NO_AUTHORITY; RELEASE_EVIDENCE_RESOLVED; FIVE_SETUP_INPUTS_UNRESOLVED; PILOT_BLOCKED`**
 
 `ACCEPTED` means an ADR freezes the choice. `PROPOSED` is a recommendation awaiting explicit owner acceptance. `UNRESOLVED` is not a default. `PROTOCOL_FIXED` restates source-of-truth behavior and is never an engineering choice. A selected implementation that changes scientific meaning requires a versioned protocol amendment, not merely an ADR.
 
@@ -143,6 +143,7 @@ rollback, and unchanged later-authority boundary are in the
 | D-062 | Operational adapter and trust anchor | Ambient root; shell wrapper; fixed non-setuid inherited-FD adapter; ineligibility | `ACCEPTED_AND_IMPLEMENTED_REPOSITORY_LOCAL_NO_AUTHORITY`: fixed FDs 3/4/5 with 1 MiB/128 KiB/128 KiB bounds, offline key, auditor anchor and canonical receipt, no OS backend/CLI authority; [ADR-0062](decisions/0062-q15-r-trust-anchor-adapter.md) | Fake exact/hash/canonical/bounds/no-retry tests; source/profile checks; no-authority CLI refusal | None; qualification admission only | Adapter/descriptors/path/signer/key/namespace/receipt/binary become authorization identity | Controller/security/platform/audit owners | Local seam closed; actual key, OS evidence, clean release, and signed Q15-R remain open | New decision, clean release, and authorization on any trust/adapter change |
 | D-063 | Four-role/two-domain setup transaction | Root/shared identity; labels; four system users/private dirs; ineligibility | `ACCEPTED_POLICY_NO_STAND_SETUP_AUTHORITY`: 20 literal argv templates, private groups plus `cpu-prefetch-q15` traversal group, role-private paths, typed unresolved artifacts; [ADR-0063](decisions/0063-q15-r-four-role-stand-setup.md) | ADR-0058; historical storage inventory; synchronized unapplied plan; blocked setup preparation | None | Actual UID/GID/group/path/mode/device/quota/key/evidence become identity | Security/platform/custody/audit owners | Before any stand account/key/path/permission/install mutation | New prospective transaction for any identity/path/domain/access change |
 | D-064 | Negative access, rollback, and authority boundary | Delete; continue; first-failure quarantine; setup implies Q15-R | `ACCEPTED_POLICY_NO_PROBE_OR_Q15_AUTHORITY`: 24 probes/18 mandatory denials, stop first, quarantine only completed prefix without deletion, later separate Q15-R; [ADR-0064](decisions/0064-q15-r-access-quarantine-and-authority.md) | ADR-0059/0060; no-omnibus governance; evidence-retention rules; four setup-preparation negatives | None | Matrix/expected results/rollback/evidence IDs become transaction identity | Security/platform/custody/audit/protocol owners | Before setup and again before Q15-R issuance | New decision for any matrix/rollback/retry/deletion/authority change |
+| D-065 | Q15-R no-authority operational-release identity | Select exact `c8b69ab` release; retain ineligible adapter-free base; build another release; stop | `ACCEPTED_NO_STAND_OR_EXECUTION_AUTHORITY`: select commit `c8b69abf0c6aec7b740efe78d998a93545302a94` and archive SHA-256 `8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01` as setup-input evidence only; [ADR-0065](decisions/0065-q15-r-operational-release-identity.md), [decision bundle](Q15_R_OPERATIONAL_RELEASE_DECISION_BUNDLE.md) | Q15-R-P3 acceptance; clean build; outer sidecar; 133-file extraction; five self-tests; exact manifest/SBOM/binary/library/report hashes; authority `NONE` | None | Every selected release byte/profile/report becomes setup-input identity | Repository/build/controller/security/audit owners | Release identity closed; five external setup inputs remain before stand setup or Q15-R | New clean release identity, complete verification, and prospective acceptance; old evidence remains immutable |
 
 ## Later protocol-defined decisions with open values
 
@@ -196,11 +197,12 @@ no-authority and intentionally lacks the production controller. Q15-R-P1
 accepts D-057 through D-060 and locally adds the fixed controller,
 authorization-v2, exact role/custody policy IDs, containment limits, signature
 boundary, tests, and profiles. The clean controller-bearing v2 base release is
-verified with authority `NONE`. D-061 through D-064 now propose its release
-binding, operational trust adapter, stand setup/access matrix, and quarantine
-boundary; none is accepted. Operational implementation/release, actual role/
-custody/trust evidence, exact signed Q15-R authorization, authorized commands,
-and all dynamic evidence remain absent.
+verified with authority `NONE`. Q15-R-P2 accepted D-061 through D-064 and the
+adapter/setup preparation is implemented locally. Clean commit `c8b69ab` now
+produces a separately verified adapter-bearing no-authority operational-release
+candidate. Q15-R-P3 accepts D-065 and the versioned successor resolves only
+that exact release-evidence group. Actual role, custody, trust, prestate,
+literal-path, setup-authority, signed-Q15-R, and dynamic evidence remain absent.
 Experiment execution remains
 prohibited until the exact stand
 authority/mappings/watchdogs, selected-pair/address state,

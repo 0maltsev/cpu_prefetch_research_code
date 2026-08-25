@@ -213,15 +213,17 @@ restoration, and quarantine the stand if restoration is uncertain.
 
 The exact sealed measurement candidate, clean Q15-S3 component release, and
 clean no-authority Q15-R-P1 v2 base release are verified evidence. The Q15-R-P2
-adapter seam is locally implemented but has no clean operational release.
-Q15-R and Q15-W themselves are not approval-ready because that release, actual
-trust anchor, role/custody/signature artifacts, and values above are absent.
+adapter seam is locally implemented and clean commit `c8b69ab` produced a
+verified adapter-bearing release candidate with authority `NONE`. D-065
+is accepted by Q15-R-P3 as evidence only. Q15-R and Q15-W themselves are not
+approval-ready because actual trust anchor, role/custody/signature artifacts,
+and values above are absent.
 A generic reply such as `approve Q15`, prior SSH permission, root access, or
 approval of this prepared document cannot authorize stand activity.
 
 Q15-R-P2 accepted D-061 through D-064 in the
 [`operational-prerequisite bundle`](Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md).
 The exact next safe work is to supply and review every missing setup input and
-build a clean operational release, then request a separate literal stand-setup
-authorization. Q15-R may be prepared for signed approval only after that setup
-and release pass. Q15-W can be prepared only after sealed Q15-R evidence exists.
+then request a separate literal stand-setup authorization. Q15-R may be
+prepared for signed approval only after that setup and release pass. Q15-W can
+be prepared only after sealed Q15-R evidence exists.

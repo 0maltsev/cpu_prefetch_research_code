@@ -36,5 +36,7 @@ complete 24-cell effective-access matrix, and quarantine policy are frozen,
 but retain typed unresolved inputs and no execution authority. The blocked
 [`stand-setup authorization preparation`](Q15_R_STAND_SETUP_AUTHORIZATION_BUNDLE.md)
 binds the exact command source. A later setup authorization must first bind a
-clean operational release, every literal replacement, fresh prestate, target,
-evidence destinations, authority, and operator before any command may run.
+selected clean operational release, every literal replacement, fresh prestate,
+target, evidence destinations, authority, and operator before any command may
+run. D-065 release evidence is selected, but all five external groups remain
+unresolved in successor preparation v2.

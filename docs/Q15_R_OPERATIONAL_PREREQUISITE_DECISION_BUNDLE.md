@@ -49,9 +49,10 @@ The proposal binds the exact clean controller-bearing base release:
 
 This release is prerequisite evidence, not the future operational execution
 release. Its CLI still refuses before opening Q15-R inputs. Enabling the fixed
-core now has an accepted, fake-tested repository-local adapter. It still requires
-a new clean operational release, actual trust-anchor and role/custody evidence, and a later
-separately approved signed Q15-R record.
+core now has an accepted, fake-tested repository-local adapter. Q15-R-P3 accepts
+D-065 and selects the verified clean adapter-bearing release as evidence only.
+Actual trust-anchor and role/custody evidence and a later separately approved
+signed Q15-R record remain required.
 
 ## D-061 — clean v2 base-release identity
 
@@ -242,10 +243,10 @@ account absence would require deletion. Q15-R-P2 accepted quarantine-only as
 the prospective failure policy; executing it still needs setup authority. No `rm`, `userdel`, `groupdel`,
 recursive chmod, evidence overwrite, or silent retry is proposed.
 
-## Inputs still required before setup can be authorized
+## Disposition of the original six setup-input groups
 
-1. A new clean no-authority operational release containing the verified
-   repository-local adapter.
+1. `CLOSED_BY_Q15_R_P3`: exact D-065 acceptance selects the verified clean
+   no-authority adapter-bearing release as evidence only.
 2. Exact allowed-signers bytes/hash, Ed25519 signer fingerprint, private-key
    custodian, and signature/receipt artifact contracts.
 3. Exact secondary custody host/root/device/mount/owner/mode/quota/reserve and

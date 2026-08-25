@@ -121,9 +121,19 @@ Its 118-file internal verification and five non-authorizing self-tests pass;
 its manifest still grants no authority. Accepted D-061 through D-064
 [`operational-prerequisite bundle`](Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
 binds this release as base evidence only. The operational adapter is implemented
-in the repository but not in this clean archive. Another clean operational
-release, actual role/custody/trust evidence, and a later approved signed Q15-R
-remain mandatory.
+in the repository but not in this clean archive. Clean commit
+`c8b69abf0c6aec7b740efe78d998a93545302a94` subsequently produced the
+adapter-bearing v2 archive
+`cpu-prefetch-q15-qualification-tool-2.0.0-c8b69ab-clean-8d27197443f2.tar.gz`
+(4356358 bytes), SHA-256
+`8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01`.
+Its sidecar, 133-file clean extraction, five non-authorizing self-tests, and
+exact manifest/SBOM/source/binary/library/codegen bindings pass with authority
+`NONE`. Q15-R-P3/ADR-0065
+[selects this identity](Q15_R_OPERATIONAL_RELEASE_DECISION_BUNDLE.md) for later
+setup evidence only. Versioned successor preparation v2 resolves only that
+group. Actual role/custody/trust/prestate evidence and a later approved signed
+Q15-R remain mandatory.
 
 ## Split authorization records
 

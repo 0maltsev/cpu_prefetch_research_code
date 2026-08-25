@@ -260,8 +260,9 @@ verification-receipt FD 5. It validates bounds, snapshot properties, hashes,
 the auditor/allowed-signers/signer/SSHSIG identities, and clean release binding.
 It has no trust-anchor path read, private key, shell, setuid, network, ambient
 root, selector, or real stand backend. The current CLI remains no-authority;
-OS descriptor construction, authorization decoding, role enforcement, a clean
-operational release, and signed phase authority are later external gates.
+Q15-R-P3 selects the clean release as evidence only. OS descriptor
+construction, authorization decoding, role enforcement, and signed phase
+authority remain later external gates.
 
 ## Failure and compatibility model
 

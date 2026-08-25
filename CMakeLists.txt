@@ -694,6 +694,27 @@ if(BUILD_TESTING)
     q15.r_stand_setup_authorization_preparation
     PROPERTIES LABELS "q15;qualification;decision;authorization;schema;pre-pilot;synthetic")
   add_test(
+    NAME q15.r_operational_release_decision
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_operational_release_decision.py")
+  set_tests_properties(
+    q15.r_operational_release_decision
+    PROPERTIES LABELS "q15;qualification;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p3_acceptance
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p3_acceptance.py")
+  set_tests_properties(
+    q15.r_p3_acceptance
+    PROPERTIES LABELS "q15;qualification;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_stand_setup_authorization_preparation_v2
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_stand_setup_authorization_preparation_v2.py")
+  set_tests_properties(
+    q15.r_stand_setup_authorization_preparation_v2
+    PROPERTIES LABELS "q15;qualification;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py")
@@ -1586,6 +1607,15 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_stand_setup_authorization_preparation.py"
   COMMAND
     "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_operational_release_decision.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p3_acceptance.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_stand_setup_authorization_preparation_v2.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py"
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -1637,6 +1667,27 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_stand_setup_authorization_preparation.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking the exact blocked Q15-R stand-setup authorization preparation")
+add_custom_target(
+  q15-r-operational-release-decision-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_operational_release_decision.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the proposed no-authority Q15-R operational-release selection")
+add_custom_target(
+  q15-r-p3-acceptance-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p3_acceptance.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking accepted D-065 and the repository-local-only authority boundary")
+add_custom_target(
+  q15-r-stand-setup-preparation-v2-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_stand_setup_authorization_preparation_v2.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the versioned no-authority successor stand-setup preparation")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND

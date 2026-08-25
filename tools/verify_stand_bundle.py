@@ -165,6 +165,45 @@ def q15_profile_errors(
             )
         ):
             failures.append("Q15 controller bundle has invalid authorization-v2 binding")
+        for name, expected_id_key, expected_id, expected_path, expected_state_key, expected_state in (
+            (
+                "trust_anchor_adapter_profile",
+                "profile_id",
+                "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+                "config/q15/q15-r-trust-anchor-adapter-profile-v1.json",
+                "implementation_state",
+                "IMPLEMENTED_REPOSITORY_LOCAL_FAKE_BACKEND_ONLY_NO_AUTHORITY",
+            ),
+            (
+                "q15_r_p2_acceptance",
+                "acceptance_id",
+                "Q15-R-P2-ACCEPTANCE-20260825-01",
+                "config/q15/q15-r-p2-acceptance-v1.json",
+                "authority",
+                "REPOSITORY_LOCAL_ONLY",
+            ),
+            (
+                "stand_setup_authorization_preparation",
+                "preparation_id",
+                "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01",
+                "config/q15/q15-r-stand-setup-authorization.preparation.json",
+                "status",
+                "BLOCKED_INPUTS_REQUIRED_NO_AUTHORITY",
+            ),
+        ):
+            binding = manifest.get(name)
+            if not isinstance(binding, dict) or (
+                binding.get(expected_id_key) != expected_id
+                or binding.get("path") != expected_path
+                or binding.get(expected_state_key) != expected_state
+                or not isinstance(binding.get("sha256"), str)
+                or len(binding.get("sha256", "")) != 64
+                or any(
+                    character not in "0123456789abcdef"
+                    for character in binding.get("sha256", "")
+                )
+            ):
+                failures.append(f"Q15 controller bundle has invalid {name}")
     for forbidden in (
         "release/bin/cpu_prefetch_runner",
         "release/lib/libcpu_prefetch_runner_core.a",

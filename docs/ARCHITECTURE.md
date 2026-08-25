@@ -253,6 +253,16 @@ controller boundary as one bounded U32BE-length-prefixed JCS-I64 frame; durable
 append-only custody remains external. None of these components is linked into
 or authorizes the scientific measurement runner.
 
+ADR-0062 places `Q15-R-TRUST-ANCHOR-ADAPTER-v1` immediately before the fixed
+Q15-R controller admission seam. It has three fixed inherited inputs only:
+authorization core FD 3, detached-signature FD 4, and canonical independent-
+verification-receipt FD 5. It validates bounds, snapshot properties, hashes,
+the auditor/allowed-signers/signer/SSHSIG identities, and clean release binding.
+It has no trust-anchor path read, private key, shell, setuid, network, ambient
+root, selector, or real stand backend. The current CLI remains no-authority;
+OS descriptor construction, authorization decoding, role enforcement, a clean
+operational release, and signed phase authority are later external gates.
+
 ## Failure and compatibility model
 
 Lifecycle transitions and partial failures are append-only. Early failure cannot fabricate raw artifacts. Producer and consumer sources remain independently immutable; failed reconciliation produces an audit and no joined-derived stream. A correction or format conversion creates a derived artifact. Replacement follows the complete-block protocol and never reuses run identity.

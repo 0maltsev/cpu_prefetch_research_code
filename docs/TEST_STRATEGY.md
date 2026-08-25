@@ -640,6 +640,32 @@ and software-prefetch mutants must be rejected. Sanitizer runs may execute only
 the fake/synthetic label; real PMU, affinity, NUMA, MSR, stand, qualification,
 calibration, pilot, measurement, and confirmatory paths are prohibited.
 
+### 28. Q15-R-P2 trust-adapter and setup-preparation checks
+
+The adapter suite uses only an injected descriptor reader. It requires exactly
+one logical call for each fixed descriptor in order 3, 4, 5 and stops without
+retry or fallback at the first read failure. Positive evidence covers bounded,
+nonempty, read-only regular-file snapshots from offset zero through EOF,
+authorization/signature/receipt SHA-256 binding, exact JCS-I64 receipt bytes,
+the accepted SSHSIG scheme and namespace, auditor verifier, allowed-signers
+artifact/path/hash, signer fingerprint, absence of a stand private key, clean
+release identity, and admission through the existing fixed core.
+
+Negatives cover missing and oversized bytes, wrong descriptor, mutable or
+non-regular input, nonzero offset, missing EOF, raw hash drift, noncanonical
+receipt bytes, wrong verifier/path/namespace/signature, failed verifier exit,
+stand private-key presence, dirty source, and missing/drifting anchor identity.
+ASan/UBSan and TSan run only these fake paths. Source/profile checks bind the
+implementation bytes and prohibit shell, setuid, network, OS-path-open,
+arbitrary-selector, ambient-root, or stand interfaces.
+
+The Q15-R-P2 acceptance and setup-preparation checks preserve the accepted
+proposal SHA-256, synchronize the controller/role/Q15-R/Q15-W no-authority
+records, require exact 20/24/10 command identities and 18 denials, and reject
+authority widening, silent issuance, missing/reordered commands, or fabricated
+resolution of any of the six operational input groups. They execute no command
+from the setup graph.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

@@ -276,3 +276,13 @@ frame flows to an external authorization-bound custodian. Raw counter,
 timestamp, CPU/page, integrity, layout, codegen, and MSR observations flow only
 into append-only qualification evidence. Contract bytes or a no-authority
 bundle cannot flow into an authorization decision as if execution had passed.
+
+Before Q15-R controller admission, ADR-0062 permits only three inherited
+read-only regular-file snapshots: canonical authorization-core bytes, detached
+SSHSIG bytes, and a canonical auditor verification receipt. The adapter hashes
+all three, binds the receipt to the auditor-owned allowed-signers artifact and
+signer fingerprint, and emits only a typed trust anchor for the existing fixed
+admission validator. The allowed-signers file and private key never flow into
+the controller. In the current repository this edge terminates at fake tests;
+there is no OS descriptor producer, operational release, or execution ticket
+source.

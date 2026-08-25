@@ -1,0 +1,54 @@
+{
+  "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+  "accepted_date": "2026-08-25",
+  "accepted_decisions": [
+    {
+      "decision_id": "D-061",
+      "selected_option": "Bind the exact clean v2 release as prerequisite evidence only; require a later clean operational-adapter release and exact signed Q15-R authority.",
+      "state": "ACCEPTED_NO_EXECUTION_AUTHORITY"
+    },
+    {
+      "decision_id": "D-062",
+      "selected_option": "Use Q15-R-TRUST-ANCHOR-ADAPTER-v1: no shell, no setuid, no arbitrary selectors, offline private key, auditor-readable trust anchor, independent SSHSIG verification receipt, and inherited bounded descriptors into the fixed core.",
+      "state": "ACCEPTED_FOR_REPOSITORY_LOCAL_IMPLEMENTATION_NO_AUTHORITY"
+    },
+    {
+      "decision_id": "D-063",
+      "selected_option": "Use the literal argv transaction templates and complete access matrix in the accepted bundle; unresolved artifact paths and actual IDs must be replaced by hash-bound literals in a later setup authorization.",
+      "state": "ACCEPTED_POLICY_NO_STAND_SETUP_AUTHORITY"
+    },
+    {
+      "decision_id": "D-064",
+      "selected_option": "Require every positive and negative probe, stop on first mismatch, retain evidence, apply only quarantine commands applicable to the completed prefix, delete nothing, and require separate later Q15-R approval.",
+      "state": "ACCEPTED_POLICY_NO_PROBE_OR_Q15_AUTHORITY"
+    }
+  ],
+  "authority_boundary": {
+    "account_or_key_changes_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "calibration_authorized": false,
+    "confirmatory_authorized": false,
+    "dynamic_qualification_authorized": false,
+    "measurement_authorized": false,
+    "msr_read_authorized": false,
+    "msr_write_authorized": false,
+    "operational_adapter_implementation_authorized": true,
+    "pilot_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "real_affinity_numa_authorized": false,
+    "real_pmu_authorized": false,
+    "release_and_setup_record_synchronization_authorized": true,
+    "stand_access_authorized": false,
+    "stand_setup_authorization_preparation_authorized": true,
+    "stand_setup_execution_authorized": false
+  },
+  "protocol_version": "2.0.0-pre.2",
+  "proposal_binding": {
+    "bundle_id": "Q15-R-OPERATIONAL-PREREQUISITE-DECISION-INPUT-20260825-01",
+    "path": "config/q15/q15-r-operational-prerequisite-decision-input-v1.json",
+    "sha256": "6e27f16c8c4280b96cb0e6c58a02247e87f595399743218612325e037f8b85e7"
+  },
+  "schema_version": "cpu-prefetch-q15-r-p2-acceptance/1",
+  "user_acceptance": "Q15-R-P2 - accept D-061 through D-064 in the Q15-R operational-prerequisite and role/custody decision bundle. Authorize repository-local implementation and verification of Q15-R-TRUST-ANCHOR-ADAPTER-v1, synchronization of no-authority release/setup records, and preparation of an exact stand-setup authorization bundle only. Do not access or modify the stand, create accounts or keys, transfer or install artifacts, execute access probes, issue/sign/execute Q15-R or Q15-W, use real PMU/MSR/affinity/NUMA operations, calibrate, pilot, measure, or perform confirmatory work. Stand setup and every later phase require separate explicit approval."
+}

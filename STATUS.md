@@ -3,7 +3,7 @@
 Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
 **`2.0.0-pre.1`** retained
 
-Repository state: **`Q15_R_P1_IMPLEMENTED_LOCAL_NO_AUTHORITY`**
+Repository state: **`Q15_R_P2_ADAPTER_IMPLEMENTED_LOCAL_SETUP_PREPARATION_BLOCKED_NO_AUTHORITY`**
 
 Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 **`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**
@@ -13,14 +13,14 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/16 implementation-decision record | `COMPLETE`; Q1 through Q15-R-P1 recorded | ADR-0001 through ADR-0060 are accepted. D-057 through D-060 freeze only the repository-local Q15-R controller/auth-v2, role/custody IDs, limits, and signature/issuance boundary. No acceptance grants stand, PMU, dynamic qualification, privileged, calibration, pilot, or confirmatory authority. |
+| Stage 2/16 implementation-decision record | `COMPLETE`; Q1 through Q15-R-P2 recorded | ADR-0001 through ADR-0064 are accepted. D-061 through D-064 additionally freeze the no-authority v2 base identity, fixed trust adapter, four-role setup, access/quarantine, and later-authority boundary. No acceptance grants stand, PMU/MSR, dynamic qualification, privileged control, calibration, pilot, measurement, or confirmatory authority. |
 | Stage 3 build/CI foundation | `COMPLETE_REVERIFIED` | ADR-0022, constrained offline inputs, dual compiler/library development/release presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations freshly pass Stage 16. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
 | Workload construction | `COMPLETE_LOCAL` | ADR-0025 through ADR-0028 fix the deterministic stream, unbiased permutations, payload/mixer/integrity grammars, event/node layouts, and five package mechanisms. Known-answer/property/corruption/no-allocation and dual-disassembler checks pass. |
 | Schedule generation | `COMPLETE_LOCAL` | ADR-0029's offline Decimal80/Philox suite, external u64be artifact, imported envelope, derivation record, immutable C++ decoder, namespace/common-family validation, and failure/golden/corruption matrices pass. |
 | Timing system | `COMPLETE_SOFTWARE`; platform gate open | `cpu_prefetch_timing` implements D-009's selected reader, exact conversion, producer/consumer boundary capture, offline equations, qualification evaluators, no-correction diagnostics, and dual-disassembler/mutant audit. Q13 selects pair inputs, but no full pair-specific dynamic qualification or before-block evidence exists. |
-| Platform layer | `Q15_R_P1_LOCAL_CONTROLLER_NO_AUTHORITY`; operational stand gate open | The clean Q15-S3 component release remains the last sealed bundle. Q15-R-P1 adds a local fixed controller core and no-authority CLI over the fakeable S3 components. Real PMU/affinity/NUMA/MSR use, an operational adapter/trust anchor, a clean controller-bearing release, exact argv/roles/custody/signatures, prestates, evidence, and authority remain absent. |
+| Platform layer | `Q15_R_ADAPTER_IMPLEMENTED_LOCAL_NO_OPERATIONAL_RELEASE`; operational stand gate open | The clean v2 base archive remains authority `NONE`. `Q15-R-TRUST-ANCHOR-ADAPTER-v1` now validates three fixed bounded inherited snapshots and a canonical auditor receipt through fake backends only. Real PMU/affinity/NUMA/MSR use, a new clean operational release, actual trust anchor/roles/custody/signatures, prestates, evidence, and authority remain absent. |
 | Lifecycle/controller | `Q15_R_FIXED_GRAPH_IMPLEMENTED_LOCAL_NO_AUTHORITY` | ADR-0048 preserves unbounded scientific worker polling. ADR-0057/0059 add a separate 15-step qualification graph, u64-max pre-start poll limits, 60-second independent start-watchdog requirement, finite resource bounds, first-failure stop, partial-prefix retention, and no retry. Fake failure injection and GNU/LLVM retry-mutant audits pass; no controller ticket can be minted from the no-authority CLI. |
 | Raw storage/integrity | `COMPLETE_LOCAL`; operational gate open | `cpu_prefetch_storage` implements the accepted codec, bounded private streams, immutable envelopes/integrity records, checked budgeting, no-replace two-copy local publication, recovery-only reopening, and partial finalization. Real domains/custody, run-plan capacity, residency, and recovery evidence remain Phase 16 gates. |
 | Reconciliation/run gates | `COMPLETE_LOCAL`; concrete evidence open | `cpu_prefetch_reconciliation` performs exact run-level reconciliation/gates, while `Stage14CrossRecordSemanticValidator` resolves seed catalogs, active complete-block pool, precision counts, access chronology, replacement lineage, and budget. Final acceptance still requires concrete frozen inputs and both passes. |
@@ -30,10 +30,10 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Measurement system | `V3_LOCAL_NOT_EXECUTION_AUTHORIZED` | `cpu_prefetch_runner_core` implements strict 21-kind v3 admission and corrected wait/drain semantics. The sealed measurement candidate remains immutable and unprivileged. Q15-S1 adds only a separate fixed-scope qualification executable; it is not in the candidate and grants no authority. |
 | Q15-P0 local verification | `COMPLETE` | GCC and Clang/libc++ development and release matrices pass 216/216 each; both ASan/UBSan matrices and GCC TSan pass 216/216; Clang/libc++ TSan passes its applicable 214/214. Full 73-file static analysis, formatting, schemas, immutable protocol hashes, release policy, dependency/license, CI, and all dual-disassembler generated-code gates pass. No stand or MSR operation occurred. |
 | Q15-P0 candidate release | `COMPLETE_NO_AUTHORITY` | Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` produced `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; archive SHA-256 is `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`. Outer/internal hashes, 94-file clean extraction, and both nonprivileged self-tests pass. Its manifest denies dynamic, pilot, confirmatory, and measurement execution authority. |
-| Exact Q15 preparation | `Q15_R_P1_IMPLEMENTED_LOCAL; RELEASE_AND_OPERATIONAL_EVIDENCE_OPEN` | D-057 through D-060 and ADR-0057 through ADR-0060 are accepted. Authorization-v2, controller and unapplied setup profiles, fixed core/CLI, 15-step failure injection, resource gates, schema negatives, and dual-disassembler retry-mutant checks pass. A clean v2 release, actual credentials/custody/signer/trust anchor, separately approved signed Q15-R, Q15-W, and every execution authority remain absent. |
+| Exact Q15 preparation | `Q15_R_P2_ACCEPTED; STAND_SETUP_BLOCKED_INPUTS_REQUIRED; NO_AUTHORITY` | ADR-0061 through ADR-0064 and the acceptance record preserve the proposal hash and authority boundary. The adapter/profile/receipt model, fake tests, synchronized no-authority records, and exact blocked 20-command/24-probe/10-quarantine setup preparation exist. No clean operational release, actual credentials/custody/signer/trust/prestate evidence, setup authority, signed Q15-R, Q15-W, or execution authority exists. |
 | Stage 16 software verification | `COMPLETE` | Both compiler/library development and release matrices pass 187/187; sanitizer matrices pass 187/187, 187/187, 187/187, and applicable 185/185; strict component codegen, static/format/schema/provenance/dependency/CI checks, synthetic dispositions, reproducible bundle, clean extraction, and nonprivileged self-tests pass. ADR-0042 and the readiness report bind the evidence boundary. |
 | Stand preflight | `COMPLETE_INVENTORY_ONLY_NOT_QUALIFIED` | The exact bundle and 72-file internal inventory passed on `xeon-cpu-fetch`; smoke, self-test, and the collector ran as `nobody:nogroup`. Snapshot `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` observes two packages/two NUMA nodes and retains seven blockers. Inventory SHA-256 is `f3bb301c77918c0287c8a287e3915f5d68929684eece660464c69f62770ac94b`; the sidecar-publication failure and recovered checksum are preserved. |
-| Pilot | `BLOCKED` | A clean controller-bearing release, actual four-role/custody evidence, a separately approved signed Q15-R and later Q15-W, dynamic H0/H1/clock/layout/CPU/residency/storage evidence, calibration inputs, and separate Q16 authority are absent. |
+| Pilot | `BLOCKED` | The local adapter exists, but a clean operational release, authorized/verified four-role/custody/trust setup, a separately approved signed Q15-R and later Q15-W, dynamic H0/H1/clock/layout/CPU/residency/storage evidence, calibration inputs, and separate Q16 authority are absent. |
 | Confirmatory execution | `PROHIBITED` | Pilot outputs and later freeze records, budgets, authorities, and sealing proof are absent. |
 
 ## Stage 4 products
@@ -399,17 +399,18 @@ confirmatory operation occurred.
 | Release/bundle/authority | `COMPLETE_NO_AUTHORITY`: one clean exact Q15-S3 commit and a clean qualification-tool bundle are the local handoff; Git and the bundle manifest/sidecar bind their exact identities. No stand, PMU, affinity/NUMA, MSR, dynamic qualification, Q15-R/Q15-W, calibration, pilot, measurement, or confirmatory authority exists. |
 
 All Q15-S3 and Q15-R-P1 evidence is local or synthetic. The fixed controller
-is implemented but not operationally enabled. The next safe gate is explicit
-authorization for one clean controller-bearing no-authority commit/release;
-actual operational evidence and a later exact signed Q15-R approval remain
-separate gates. Q15-R remains unauthorized.
+is implemented and cleanly released as no-authority base evidence but is not
+operationally enabled. Q15-R-P2 subsequently accepted D-061 through D-064 and
+implemented only the repository-local trust-adapter seam and blocked setup
+preparation. A clean operational release, actual stand setup/evidence, and
+later exact signed Q15-R approval remain separate gates. Q15-R is unauthorized.
 
 ## Q15-R decision/input preparation verification
 
 | Check | Result |
 |---|---|
 | Decision/input record | `PASS`: D-057 through D-060 are accepted by Q15-R-P1 for repository-local implementation only; JSON SHA-256 `b99f6d07294c7505fba0cfee79bc425553e398be742280d71e3b467ee80739eb` |
-| Protocol and schema | `PASS`: 2 immutable snapshots, 36 artifacts, 8 authoritative hashes, 14 imported and 26 implementation Draft 2020-12 schemas |
+| Protocol and schema | `PASS`: 2 immutable snapshots, 36 artifacts, 8 authoritative hashes, 14 imported and 27 implementation Draft 2020-12 schemas |
 | Semantic negatives | `PASS`: authority escalation, role overlap, missing pointer probe, zero watchdog, and missing later issuance approval are rejected |
 | Split preparation records | `PASS`: Q15-R/Q15-W records hash-bind the decision input, remain blocked, and cannot validate as authorization |
 | Document integrity | `PASS`: 134 Markdown files and 272 local links |
@@ -429,7 +430,25 @@ separate gates. Q15-R remains unauthorized.
 | Full primary regression | `PASS`: clean-prefix GCC build and 266/266 CTest tests |
 | Formatting/static analysis | `PASS`: complete formatting inventory and focused clang-tidy over all five changed C++ translation units/probes/tests; no user-code diagnostics |
 | Protocol/schema/document/profile checks | `PASS`: immutable protocol hashes; 35 positive/32 negative protocol fixtures; 5 decision, 12 authorization-v2, 8 controller/setup-profile, and 43 no-authority-bundle negative cases; 22 dependency records; 134 documents/272 links |
-| Release state | `NOT_CREATED`: the worktree is intentionally uncommitted/dirty and the v2 bundle target must reject it; no release hash or execution authority exists |
+| Release state | `SUPERSEDED_BY_VERIFIED_NO_AUTHORITY_RELEASE`: clean commit `a75bcdd0367d79f8ee0496c55edda74311c9ef7d` and v2 archive SHA-256 `48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035` now exist; no execution authority exists |
+
+## Q15-R-P2 operational-prerequisite implementation
+
+| Check | Result |
+|---|---|
+| Release binding | `PASS`: exact clean commit/archive/sidecar, 118-file internal inventory, manifest, SBOM, source, controller/tool binaries, and controller-codegen report are hash-bound |
+| Decision state | `ACCEPTED_REPOSITORY_LOCAL_ONLY`: the proposal remains immutable; Q15-R-P2 acceptance and ADR-0061 through ADR-0064 freeze the selected options without granting a later phase |
+| Trust boundary | `IMPLEMENTED_LOCAL_FAKEABLE_NO_AUTHORITY`: offline Ed25519 key policy, auditor-owned `0640` allowed-signers file, canonical independent receipt, fixed bounded FDs 3/4/5, no shell/setuid/root/arbitrary selector/OS backend |
+| Setup commands | `PREPARED_NOT_EXECUTED`: 20 literal argv templates; three typed artifact tokens remain mandatory blockers; no package/network/delete/device/Q15 command exists |
+| Access matrix | `PASS_STATIC`: all four roles by six targets, 24 stable probes and exactly 18 mandatory denials; real OS execution remains unauthorized |
+| Rollback | `ACCEPTED_POLICY_NOT_EXECUTED`: ten non-deleting lock/chmod argv templates applicable only to the completed prefix, evidence retained, no full-prestate-restoration claim |
+| Semantic negatives | `PASS`: acceptance widening, authority escalation, release/profile drift, stand private key, deletion, access widening, missing/reordered transaction IDs, and fabricated input resolution are rejected |
+| Adapter functional tests | `PASS`: all 59 Q15-labelled GCC tests and all five focused Clang/libc++ adapter tests; descriptor failure, malformed snapshots, receipt/binding drift, and raw-hash drift fail closed |
+| Sanitizers | `PASS`: all five focused adapter tests under GCC ASan/UBSan and GCC TSan |
+| Formatting/static analysis | `PASS`: full format inventory and focused changed-unit Clang-Tidy; the bounded whole-repository static-analysis rerun was interrupted without a diagnostic and is not claimed as fresh P2 evidence |
+| Documentation | `PASS`: 140 Markdown files and 296 local links after final consistency edits |
+| Setup preparation | `BLOCKED_INPUTS_REQUIRED_NO_AUTHORITY`: exact 20/24/10 transaction identity is bound; all six operational input groups and every issuance/signature field remain null/unresolved |
+| Authority | `NONE`: no stand access, account/key/path change, transfer/install, access probe, Q15-R/Q15-W, dynamic, calibration, pilot, measurement, or confirmatory authority |
 
 ## Fresh local verification through Stage 16
 
@@ -659,6 +678,14 @@ evidence rather than source-controlled authority. Q15 stand qualification and
 Q16a through Q16d Stage 17
 phase execution are not approval-ready and cannot be inferred from Q14, SSH
 access, or root access.
+
+The clean Q15-R-P1 v2 base release remains verified without authority. The
+[`Q15-R operational-prerequisite decision bundle`](docs/Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
+is accepted by Q15-R-P2. The repository-local adapter and blocked setup
+preparation are implemented; no operational release or stand evidence was
+created. The exact next safe gate is collection and owner review of the missing
+literal setup inputs, followed by a separate fully resolved stand-setup
+authorization. Stand setup cannot be inferred from Q15-R-P2.
 
 Pilot remains blocked on the selected pair/layout/atomic,
 requested-versus-verified controls/restoration, exact

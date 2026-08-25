@@ -71,12 +71,20 @@ commit `7a92629` and archive SHA-256
 `20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848`
 bind the implemented components, but intentionally contain no production
 controller or authority. Q15-R-P1 accepted D-057 through D-060 for
-repository-local implementation only. The fixed controller core,
+repository-local implementation only. Clean commit
+`a75bcdd0367d79f8ee0496c55edda74311c9ef7d` now binds the verified
+controller-bearing v2 base archive SHA-256
+`48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035`;
+its manifest and CLI still grant no authority. The fixed controller core,
 authorization-v2 contract, no-authority CLI, unapplied role/custody plan, fake
 tests, and strict dual-disassembler audit are documented in
-[`docs/Q15_R_CONTROLLER.md`](docs/Q15_R_CONTROLLER.md). No clean
-controller-bearing release, signer/trust anchor, actual credentials/custody,
-stand setup, or Q15-R authority has been created. The frozen
+[`docs/Q15_R_CONTROLLER.md`](docs/Q15_R_CONTROLLER.md). The proposed
+[`D-061 through D-064 operational-prerequisite bundle`](docs/Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
+is accepted by Q15-R-P2. The fixed inherited-descriptor trust-anchor adapter is
+implemented and fake-tested locally; the four-role setup, access, and
+quarantine graph is bound in a blocked no-authority preparation. No operational
+release, signer/trust anchor, actual credentials/custody, stand setup, or Q15-R
+authority has been created. The frozen
 contract is documented in
 [`docs/Q15_QUALIFICATION_CONTRACT.md`](docs/Q15_QUALIFICATION_CONTRACT.md).
 Its implementations, executable hashes, exact authorized argv, and live
@@ -343,9 +351,14 @@ integrity, pure classification, and counted-load codegen slice is implemented;
 D-054 through D-056 add the repository-local same-buffer session, fakeable
 fixed Linux acquisition path, and seven distinct collectors. Their clean
 component release is verified. D-057 through D-060 are accepted and their fixed
-controller software passes local fake/schema/codegen checks. A separately
-authorized clean v2 release, operational adapter/trust anchor, actual commands/
-roles/custody/signature, and dynamic evidence still block Q15 issuance.
+controller software passes local fake/schema/codegen checks. Clean v2 base
+release SHA-256
+`48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035`
+passes clean extraction and remains no-authority. Accepted D-061 through D-064
+close only the repository-local adapter and setup-contract decisions. A new
+clean operational release, actual commands/roles/custody/trust/signature/
+prestate evidence, exact setup/Q15 authority, and dynamic evidence still block
+Q15 issuance.
 
 ## Created targets and metadata
 
@@ -438,7 +451,10 @@ roles/custody/signature, and dynamic evidence still block Q15 issuance.
   `storage-codegen-check`, `runner-relax-codegen-check`, strict
   `runner-combined-codegen-audit`, strict `runner-combined-codegen-check`,
   `runner-schema-check`, `qualification-schema-check`, `q15-r-decision-check`,
-  `q15-authorization-v2-check`, `q15-controller-profile-check`, strict
+  `q15-r-operational-prerequisite-check`, `q15-r-p2-acceptance-check`,
+  `q15-trust-anchor-adapter-profile-check`,
+  `q15-r-stand-setup-preparation-check`, `q15-authorization-v2-check`,
+  `q15-controller-profile-check`, strict
   `q15-controller-codegen-check`,
   `schedule-check`, `calibration-check`,
   `orchestration-check`, `analysis-check`, `document-check`,

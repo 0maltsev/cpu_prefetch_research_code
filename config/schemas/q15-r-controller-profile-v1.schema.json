@@ -107,7 +107,7 @@
         "transfer_policy_id": "Q15-HASHED-SEALED-TRANSFER-WITH-RECEIPT-v1"
       }
     },
-    "decision_ids": {"const": ["D-057", "D-058", "D-059", "D-060"]},
+    "decision_ids": {"const": ["D-057", "D-058", "D-059", "D-060", "D-061", "D-062"]},
     "limits": {
       "const": {
         "authorization_validity_seconds": 14400,
@@ -132,6 +132,14 @@
       ]
     },
     "profile_id": {"const": "Q15-R-STATIC-CONTROLLER-v1"},
+    "trust_anchor_adapter_binding": {
+      "const": {
+        "controller_cli_enabled": false,
+        "profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+        "profile_sha256": "a41ee172b4997bf08d4f564c585811a4a04795dad75ba8598b8d7a85c51fd3d2",
+        "release_state": "REPOSITORY_LOCAL_ONLY_NO_OPERATIONAL_RELEASE"
+      }
+    },
     "protocol_version": {"const": "2.0.0-pre.2"},
     "schema_version": {"const": "cpu-prefetch-q15-r-controller-profile/1"},
     "source_bindings": {
@@ -176,6 +184,7 @@
     "limits",
     "principal_ids",
     "profile_id",
+    "trust_anchor_adapter_binding",
     "protocol_version",
     "schema_version",
     "source_bindings",

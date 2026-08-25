@@ -1,10 +1,15 @@
 #include "cpu_prefetch/qualification/q15_controller.hpp"
+#include "cpu_prefetch/qualification/q15_trust_anchor_adapter.hpp"
+#include "cpu_prefetch/workload/deterministic.hpp"
 
 #include <gtest/gtest.h>
 
 #include <algorithm>
 #include <array>
+#include <cstddef>
+#include <map>
 #include <optional>
+#include <span>
 #include <string>
 #include <utility>
 #include <vector>
@@ -19,7 +24,11 @@ using cpu_prefetch::qualification::Q15RControllerState;
 using cpu_prefetch::qualification::Q15RControllerStep;
 using cpu_prefetch::qualification::Q15RControllerTicket;
 using cpu_prefetch::qualification::Q15RControllerTrustAnchor;
+using cpu_prefetch::qualification::Q15RDescriptorSnapshot;
+using cpu_prefetch::qualification::Q15RInheritedDescriptorReader;
+using cpu_prefetch::qualification::Q15RSignatureVerificationReceipt;
 using cpu_prefetch::qualification::Q15RStepEvidence;
+using cpu_prefetch::qualification::Q15RTrustAnchorAdapterBindings;
 
 constexpr std::string_view kHash0 =
     "0000000000000000000000000000000000000000000000000000000000000000";
@@ -86,6 +95,106 @@ constexpr std::string_view kHash1 =
       false,
       true};
 }
+
+[[nodiscard]] auto bytes(std::string_view value) -> std::vector<std::byte> {
+  const auto source = std::as_bytes(std::span(value.data(), value.size()));
+  return {source.begin(), source.end()};
+}
+
+[[nodiscard]] auto digest(const std::vector<std::byte>& value) -> std::string {
+  return cpu_prefetch::workload::sha256(std::span<const std::byte>(value)).hex();
+}
+
+class FakeDescriptorReader final : public Q15RInheritedDescriptorReader {
+public:
+  [[nodiscard]] auto read_bounded(int descriptor, std::size_t maximum_bytes)
+      -> Result<Q15RDescriptorSnapshot> override {
+    calls.emplace_back(descriptor, maximum_bytes);
+    if (fail_descriptor && *fail_descriptor == descriptor) {
+      return Result<Q15RDescriptorSnapshot>::failure({ErrorCategory::missing_evidence,
+                                                      "$/fake-fd", "Q15R-FAKE-FD",
+                                                      "injected descriptor failure"});
+    }
+    const auto found = snapshots.find(descriptor);
+    if (found == snapshots.end()) {
+      return Result<Q15RDescriptorSnapshot>::failure(
+          {ErrorCategory::missing_evidence, "$/fake-fd", "Q15R-FAKE-FD-MISSING",
+           "unknown descriptor"});
+    }
+    return Result<Q15RDescriptorSnapshot>::success(found->second);
+  }
+
+  std::map<int, Q15RDescriptorSnapshot> snapshots;
+  std::vector<std::pair<int, std::size_t>> calls;
+  std::optional<int> fail_descriptor;
+};
+
+struct AdapterFixture final {
+  Q15RControllerAdmission admission_value{admission()};
+  Q15RTrustAnchorAdapterBindings bindings;
+  Q15RSignatureVerificationReceipt receipt;
+  FakeDescriptorReader reader;
+
+  AdapterFixture() {
+    using namespace cpu_prefetch::qualification;
+    const auto authorization_bytes = bytes("{\"synthetic\":\"authorization-core\"}");
+    const auto signature_bytes = bytes("-----BEGIN SSH SIGNATURE-----\nsynthetic\n");
+    admission_value.authorization_core_sha256 = digest(authorization_bytes);
+    admission_value.detached_signature_sha256 = digest(signature_bytes);
+    admission_value.signature_verification_artifact_id = "verification-receipt";
+    bindings = {admission_value.source_revision,
+                admission_value.controller_binary_sha256,
+                admission_value.stand_id,
+                admission_value.binding_id,
+                "allowed-signers-artifact",
+                std::string(kHash1),
+                "SHA256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                false};
+    receipt = {std::string(kQ15RVerificationReceiptSchemaVersion),
+               admission_value.signature_verification_artifact_id,
+               admission_value.authorization_core_sha256,
+               admission_value.detached_signature_artifact_id,
+               admission_value.detached_signature_sha256,
+               bindings.allowed_signers_artifact_id,
+               bindings.allowed_signers_sha256,
+               std::string(kQ15RAllowedSignersPath),
+               std::string(kQ15RAuthorizationPrincipal),
+               bindings.signer_key_fingerprint,
+               std::string(kQ15RAuthorizationSignatureScheme),
+               std::string(kQ15RAuthorizationSignatureNamespace),
+               std::string(kQ15RAuditorPrincipal),
+               "/usr/bin/ssh-keygen",
+               0,
+               true,
+               false};
+    const auto canonical = canonical_q15_r_verification_receipt(receipt);
+    EXPECT_TRUE(canonical.has_value());
+    const auto receipt_bytes = bytes(canonical.value());
+    admission_value.signature_verification_sha256 = digest(receipt_bytes);
+    reader.snapshots.emplace(
+        kQ15RInheritedDescriptorContract.authorization_core_fd,
+        Q15RDescriptorSnapshot{kQ15RInheritedDescriptorContract.authorization_core_fd,
+                               authorization_bytes, true, true, true, true});
+    reader.snapshots.emplace(
+        kQ15RInheritedDescriptorContract.detached_signature_fd,
+        Q15RDescriptorSnapshot{kQ15RInheritedDescriptorContract.detached_signature_fd,
+                               signature_bytes, true, true, true, true});
+    reader.snapshots.emplace(
+        kQ15RInheritedDescriptorContract.verification_receipt_fd,
+        Q15RDescriptorSnapshot{kQ15RInheritedDescriptorContract.verification_receipt_fd,
+                               receipt_bytes, true, true, true, true});
+  }
+
+  void refresh_receipt_bytes() {
+    using namespace cpu_prefetch::qualification;
+    const auto canonical = canonical_q15_r_verification_receipt(receipt);
+    ASSERT_TRUE(canonical.has_value());
+    auto receipt_bytes = bytes(canonical.value());
+    admission_value.signature_verification_sha256 = digest(receipt_bytes);
+    reader.snapshots.at(kQ15RInheritedDescriptorContract.verification_receipt_fd)
+        .bytes = std::move(receipt_bytes);
+  }
+};
 
 class FakeOperations final : public Q15RControllerOperations {
 public:
@@ -303,6 +412,127 @@ TEST(Q15RController, EveryDirectResourceLimitFailsClosedBeforePromotion) {
     EXPECT_TRUE(report.evidence.empty());
     ASSERT_EQ(report.errors.size(), 1U);
     EXPECT_EQ(report.errors.front().rule_id, "Q15R-RESOURCE-LIMIT");
+  }
+}
+
+TEST(Q15RTrustAnchorAdapter, ExactFixedDescriptorsProduceAdmissibleTrustAnchor) {
+  using namespace cpu_prefetch::qualification;
+  AdapterFixture fixture;
+  auto anchor = load_q15_r_trust_anchor(fixture.admission_value, fixture.bindings,
+                                        fixture.receipt, fixture.reader);
+  ASSERT_TRUE(anchor.has_value());
+  EXPECT_TRUE(anchor.value().independent_signature_verified);
+  EXPECT_FALSE(anchor.value().source_dirty);
+  EXPECT_EQ(anchor.value().authorization_core_sha256,
+            fixture.admission_value.authorization_core_sha256);
+  EXPECT_EQ(fixture.reader.calls, (std::vector<std::pair<int, std::size_t>>{
+                                      {3, 1'048'576U}, {4, 131'072U}, {5, 131'072U}}));
+  EXPECT_TRUE(
+      admit_q15_r_controller(fixture.admission_value, anchor.value()).has_value());
+}
+
+TEST(Q15RTrustAnchorAdapter, DescriptorFailureStopsWithoutRetryOrFallback) {
+  using namespace cpu_prefetch::qualification;
+  for (const auto [descriptor, expected_calls] :
+       std::array<std::pair<int, std::size_t>, 3U>{{{3, 1U}, {4, 2U}, {5, 3U}}}) {
+    AdapterFixture fixture;
+    fixture.reader.fail_descriptor = descriptor;
+    const auto result = load_q15_r_trust_anchor(
+        fixture.admission_value, fixture.bindings, fixture.receipt, fixture.reader);
+    EXPECT_FALSE(result.has_value());
+    EXPECT_EQ(fixture.reader.calls.size(), expected_calls);
+    EXPECT_EQ(std::ranges::count_if(
+                  fixture.reader.calls,
+                  [descriptor](const auto& call) { return call.first == descriptor; }),
+              1);
+  }
+}
+
+TEST(Q15RTrustAnchorAdapter, RejectsIncompleteMutableOrMisdirectedSnapshots) {
+  using namespace cpu_prefetch::qualification;
+  using Mutation = void (*)(Q15RDescriptorSnapshot&);
+  constexpr std::array<Mutation, 6U> mutations{
+      [](Q15RDescriptorSnapshot& value) { value.regular_file = false; },
+      [](Q15RDescriptorSnapshot& value) { value.read_only = false; },
+      [](Q15RDescriptorSnapshot& value) { value.offset_at_start = false; },
+      [](Q15RDescriptorSnapshot& value) { value.reached_eof = false; },
+      [](Q15RDescriptorSnapshot& value) { value.descriptor = 99; },
+      [](Q15RDescriptorSnapshot& value) { value.bytes.clear(); },
+  };
+  for (const auto mutate : mutations) {
+    AdapterFixture fixture;
+    mutate(fixture.reader.snapshots.at(
+        kQ15RInheritedDescriptorContract.authorization_core_fd));
+    EXPECT_FALSE(load_q15_r_trust_anchor(fixture.admission_value, fixture.bindings,
+                                         fixture.receipt, fixture.reader)
+                     .has_value());
+    EXPECT_EQ(fixture.reader.calls.size(), 1U);
+  }
+  AdapterFixture oversized;
+  oversized.reader.snapshots.at(kQ15RInheritedDescriptorContract.detached_signature_fd)
+      .bytes.resize(kQ15RInheritedDescriptorContract.detached_signature_maximum_bytes +
+                    1U);
+  EXPECT_FALSE(load_q15_r_trust_anchor(oversized.admission_value, oversized.bindings,
+                                       oversized.receipt, oversized.reader)
+                   .has_value());
+  EXPECT_EQ(oversized.reader.calls.size(), 2U);
+}
+
+TEST(Q15RTrustAnchorAdapter, ReceiptMustBeCanonicalIndependentAndFullyBound) {
+  using namespace cpu_prefetch::qualification;
+  using Mutation = void (*)(AdapterFixture&);
+  constexpr std::array<Mutation, 11U> mutations{
+      [](AdapterFixture& value) { value.receipt.verifier_principal_id = "controller"; },
+      [](AdapterFixture& value) { value.receipt.verification_succeeded = false; },
+      [](AdapterFixture& value) { value.receipt.verification_exit_code = 1; },
+      [](AdapterFixture& value) { value.receipt.private_key_present_on_stand = true; },
+      [](AdapterFixture& value) { value.receipt.allowed_signers_path = "/tmp/anchor"; },
+      [](AdapterFixture& value) { value.receipt.signature_namespace = "other"; },
+      [](AdapterFixture& value) {
+        value.receipt.detached_signature_sha256 = std::string(kHash0);
+      },
+      [](AdapterFixture& value) { value.bindings.source_dirty = true; },
+      [](AdapterFixture& value) {
+        value.bindings.allowed_signers_sha256 = std::string(kHash0);
+      },
+      [](AdapterFixture& value) { value.bindings.signer_key_fingerprint.clear(); },
+      [](AdapterFixture& value) {
+        value.bindings.allowed_signers_artifact_id =
+            value.admission_value.detached_signature_artifact_id;
+      },
+  };
+  for (const auto mutate : mutations) {
+    AdapterFixture fixture;
+    mutate(fixture);
+    fixture.refresh_receipt_bytes();
+    EXPECT_FALSE(load_q15_r_trust_anchor(fixture.admission_value, fixture.bindings,
+                                         fixture.receipt, fixture.reader)
+                     .has_value());
+  }
+
+  AdapterFixture noncanonical;
+  auto& receipt_bytes =
+      noncanonical.reader.snapshots
+          .at(kQ15RInheritedDescriptorContract.verification_receipt_fd)
+          .bytes;
+  receipt_bytes.insert(receipt_bytes.begin(), std::byte{' '});
+  noncanonical.admission_value.signature_verification_sha256 = digest(receipt_bytes);
+  EXPECT_FALSE(load_q15_r_trust_anchor(noncanonical.admission_value,
+                                       noncanonical.bindings, noncanonical.receipt,
+                                       noncanonical.reader)
+                   .has_value());
+}
+
+TEST(Q15RTrustAnchorAdapter, RawAuthorizationAndSignatureHashDriftFailsClosed) {
+  using namespace cpu_prefetch::qualification;
+  for (const int descriptor :
+       {kQ15RInheritedDescriptorContract.authorization_core_fd,
+        kQ15RInheritedDescriptorContract.detached_signature_fd}) {
+    AdapterFixture fixture;
+    fixture.reader.snapshots.at(descriptor).bytes.push_back(std::byte{0});
+    EXPECT_FALSE(load_q15_r_trust_anchor(fixture.admission_value, fixture.bindings,
+                                         fixture.receipt, fixture.reader)
+                     .has_value());
   }
 }
 

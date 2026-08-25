@@ -365,10 +365,17 @@ authorization/amendment.
   traversal-plus-counter-boundary dual-disassembler audits pass. This work is
   handed off as one clean exact commit and a separate clean no-authority
   qualification-tool bundle. That clean v1 release intentionally has no
-  production controller command. A separately authorized clean
-  controller-bearing v2 release, operational adapter/trust anchor, actual
-  role/custody evidence, exact signed Q15-R argv, and dynamic authority remain
-  required.
+  production controller command. Clean Q15-R-P1 commit
+  `a75bcdd0367d79f8ee0496c55edda74311c9ef7d` and v2 archive SHA-256
+  `48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035`
+  now bind the fixed controller as verified base evidence with authority
+  `NONE`. Q15-R-P2 accepts D-061 through D-064 and ADR-0061 through ADR-0064.
+  The fixed inherited-descriptor trust adapter, canonical receipt, fake tests,
+  synchronized no-authority records, and blocked exact setup preparation are
+  implemented locally. No stand was accessed. A new clean operational release,
+  fully resolved and separately authorized four-role/custody setup, actual
+  trust/signature/prestate evidence, exact signed Q15-R argv, and dynamic
+  authority remain required.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

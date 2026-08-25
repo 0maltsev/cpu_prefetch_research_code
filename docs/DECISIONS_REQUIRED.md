@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_COMPLETE; Q15_R_D057_D060_AWAITING_APPROVAL_NO_AUTHORITY`**
+Stage 2/16 disposition: **`Q15_R_P2_ACCEPTED_ADAPTER_LOCAL; STAND_SETUP_BLOCKED_INPUTS_REQUIRED`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
@@ -65,18 +65,38 @@ Q15-R-P1 accepted D-057 through D-060 in the
 [`Q15-R controller-closure decision/input bundle`](Q15_R_DECISION_INPUT_BUNDLE.md).
 The repository-local fixed controller, authorization-v2/profile validators,
 fake tests, generated-code audit, and unapplied role/custody plan now pass.
-This closes the implementation decision, not the release or execution gates.
+Clean commit `a75bcdd0367d79f8ee0496c55edda74311c9ef7d` and v2 archive
+SHA-256 `48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035`
+close the no-authority base-release gate. This closes neither the operational
+adapter, stand setup, nor execution gates.
 Stand access, account/key changes, Q15-R issuance/execution, Q15-W, dynamic
 qualification, calibration, pilot, measurement, and confirmation remain
 prohibited.
+
+Q15-R-P2 accepted D-061 through D-064 in the
+[`Q15-R operational-prerequisite decision bundle`](Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
+and ADR-0061 through ADR-0064. The fixed inherited-descriptor adapter is
+implemented and fake-tested locally; the v2 base release remains prerequisite
+authority `NONE`. The synchronized role/custody and Q15-R/Q15-W preparation
+records bind the acceptance and adapter identities without inventing any stand
+fact. The exact command graph is preserved in the
+[`blocked stand-setup authorization preparation`](Q15_R_STAND_SETUP_AUTHORIZATION_BUNDLE.md).
+
+Before any stand-setup approval can be requested, a clean operational release,
+actual allowed-signers artifact/fingerprint, exact secondary custody domain,
+fresh stand prestate, literal paths, named authority, UTC validity, evidence
+IDs/hashes, signature, and independent review must be supplied. A generic
+approval, SSH permission, or root access cannot substitute for that future
+exact setup authorization; setup would still not authorize Q15-R.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)
 records D-051 as accepted by Q15-S1/ADR-0051. The fixed adapter, separate tool
 and bundle profile, split authority schema, and blocked preparation records are
 implemented locally. The clean no-authority bundle build is separately
-authorized, but no Q15 authorization may be emitted while implementation,
-role, command, limit, custody, signature, and predecessor fields are missing.
+completed for the v2 base release, but no Q15 authorization may be emitted
+while the operational implementation/release, role, command, custody, trust,
+signature, and predecessor fields are missing.
 
 ## Accepted Q14 governance and D-047 mapping; next qualification inputs required
 
@@ -246,9 +266,10 @@ fixed Linux acquisition seams, seven collectors, dynamic profile, and both
 strict codegen reports. That release grants no stand access or dynamic
 authority.
 
-With the local controller implemented, Q15-R first needs separately authorized
-commit/release of a clean controller-bearing no-authority v2 bundle and an
-operational trust-anchor adapter. It then still needs its own exact signed authorization:
+With the clean controller-bearing v2 base release verified, Q15-R-P2 now closes
+owner disposition and repository-local trust-adapter implementation. Q15-R
+still needs a new clean operational release and separately authorized and
+verified stand setup. It then needs its own exact signed authorization:
 fixed controller argv/endpoint, stand/binding, distinct effective identities,
 actual expiry/signature, quotas/custody evidence, and read-only targets. Q15-W remains
 blocked until sealed Q15-R evidence and all three complete prestates exist.

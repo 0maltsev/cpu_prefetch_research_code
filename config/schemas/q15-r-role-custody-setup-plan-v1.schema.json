@@ -3,6 +3,18 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
+    "accepted_operational_prerequisites": {
+      "const": {
+        "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+        "acceptance_sha256": "2c280b46c8cf196f52f9446089c1749b2b0fe754033049b5cac0e472353245eb",
+        "adapter_profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+        "adapter_profile_sha256": "a41ee172b4997bf08d4f564c585811a4a04795dad75ba8598b8d7a85c51fd3d2",
+        "base_release_archive_sha256": "48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035",
+        "base_release_authority": "NONE",
+        "stand_setup_preparation_id": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01",
+        "stand_setup_preparation_sha256": "a671fad5b45823a617140d9ee1f684235812daede0048fb67e1255ce74ecb057"
+      }
+    },
     "authority_boundary": {
       "additionalProperties": false,
       "properties": {
@@ -108,6 +120,7 @@
     "status": {"const": "PREPARED_NO_STAND_AUTHORITY"}
   },
   "required": [
+    "accepted_operational_prerequisites",
     "authority_boundary",
     "completion_state",
     "custody_domains",

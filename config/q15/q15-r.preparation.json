@@ -9,6 +9,16 @@
     "q15_r_decision_input_id": "Q15-R-DECISION-INPUT-20260824-01",
     "q15_r_decision_input_sha256": "b99f6d07294c7505fba0cfee79bc425553e398be742280d71e3b467ee80739eb",
     "q15_r_decision_state": "ACCEPTED_FOR_REPOSITORY_LOCAL_IMPLEMENTATION_NO_AUTHORITY",
+    "q15_r_operational_prerequisites": {
+      "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+      "acceptance_sha256": "2c280b46c8cf196f52f9446089c1749b2b0fe754033049b5cac0e472353245eb",
+      "adapter_profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+      "adapter_profile_sha256": "a41ee172b4997bf08d4f564c585811a4a04795dad75ba8598b8d7a85c51fd3d2",
+      "base_release_archive_sha256": "48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035",
+      "base_release_authority": "NONE",
+      "stand_setup_preparation_id": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01",
+      "stand_setup_preparation_sha256": "a671fad5b45823a617140d9ee1f684235812daede0048fb67e1255ce74ecb057"
+    },
     "q15_s3_component_release": {
       "archive_sha256": "20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848",
       "binary_sha256": "0e0e7a9c8fb52c9540fa93bb6a9f83dafe96e26927247ee122c0a5691ef7814a",

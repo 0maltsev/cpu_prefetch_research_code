@@ -1,6 +1,6 @@
 # Q15 stand-qualification decision/input bundle
 
-Status: **`Q15_S3_COMPONENT_RELEASE_VERIFIED_NO_AUTHORITY; Q15_R_CONTROLLER_DECISIONS_PREPARED`**
+Status: **`Q15_R_V2_BASE_RELEASE_VERIFIED_NO_AUTHORITY; OPERATIONAL_PREREQUISITES_PROPOSED`**
 
 Date prepared: 2026-08-24
 
@@ -12,18 +12,21 @@ platform mutation, calibration, pilot work, measurement, or confirmation.
 
 ## Outcome
 
-The clean measurement release and the clean Q15-S3 qualification-component
-release are closed and hash-bound. Q15-S1 through Q15-S3 implement the split
+The clean measurement release, Q15-S3 qualification-component release, and
+Q15-R-P1 controller-bearing v2 base release are closed and hash-bound. Q15-S1
+through Q15-S3 implement the split
 tool boundary, exact probe/collector contract, deterministic pointer slice,
 same-buffer session, Linux acquisition seams, and seven collectors. The Q15-S3
 archive SHA-256 is
 `20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848`.
-Q15 authorization remains blocked because that sealed release intentionally
-lacks the fixed controller; actual authority credentials, executable argv,
-custody enforcement, validity/signature, and fresh dynamic evidence do not
-exist. D-057 through D-060 are accepted and locally implemented in the separate
-[`Q15-R decision/input bundle`](Q15_R_DECISION_INPUT_BUNDLE.md), but no clean
-controller-bearing release or execution authority exists.
+Q15 authorization remains blocked. D-057 through D-060 are accepted and
+locally implemented in the separate
+[`Q15-R decision/input bundle`](Q15_R_DECISION_INPUT_BUNDLE.md). Clean commit
+`a75bcdd0367d79f8ee0496c55edda74311c9ef7d` produced the v2 base archive
+SHA-256 `48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035`,
+but its CLI and manifest deliberately grant no authority. The operational
+adapter, actual credentials/trust/custody, executable argv, validity/signature,
+and fresh dynamic evidence do not exist.
 
 An authorization document cannot be emitted with placeholders. The split
 authority schema represents only `AUTHORIZED`; the separate preparation schema
@@ -78,6 +81,27 @@ The fixed identities are runner profile
 `X86-PAUSE-ONE-PER-RELAX-SITE-v1`, software-prefetch mapping
 `X86-64-PREFETCHW-PREFETCHT0-v1`, and hardware-prefetch mapping
 `INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1`.
+
+### Clean Q15-R-P1 v2 base release
+
+| Field | Exact value | State |
+|---|---|---|
+| Source revision | `a75bcdd0367d79f8ee0496c55edda74311c9ef7d` | `VERIFIED_CLEAN` |
+| Bundle profile | `Q15-QUALIFICATION-TOOL-BUNDLE-v2` | `VERIFIED_NO_AUTHORITY` |
+| Archive | `cpu-prefetch-q15-qualification-tool-2.0.0-a75bcdd-clean-b4438745f3ca.tar.gz` | `SEALED_NO_AUTHORITY` |
+| Archive bytes | `4247166` | `VERIFIED` |
+| Archive SHA-256 | `48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035` | `VERIFIED` |
+| Sidecar SHA-256 | `9c7dee2e07c49e51af8b3e922e8295ecce959dfe53deed4d3604e59722655505` | `VERIFIED` |
+| Source archive SHA-256 | `b4438745f3ca5a461a456ea7200970b41893572869866bf40a5d58da4c18d2c7` | `VERIFIED_CLEAN` |
+| Manifest SHA-256 | `90f01cd1be57d844f532d0b9f5612179aa9436a44ba353e3aeda724d10704030` | `VERIFIED` |
+| SBOM SHA-256 | `c1b915f082ce3b6a1c916c7bef1d17e008d0dede623ec8aa927dbe868dd3f537` | `VERIFIED` |
+| Controller SHA-256 | `36607f03669d194b22d37bc6652e92fe8486ab0ef4964ef5217ad73d18d15cf1` | `NO_AUTHORITY_CLI` |
+| Q15 tool SHA-256 | `ba93d6384eb536654ccdfa94dc4b52c0cfde9408b9d79ef902ea6e3749548d15` | `NO_AUTHORITY_CLI` |
+
+All 118 internal inventory entries and five non-authorizing self-tests pass.
+The adapter is now implemented only in the later dirty repository state; it is
+not in this archive. This archive is not an execution release, and possession
+grants no authority.
 
 ## D-051 accepted decision: split qualification authority and tool boundary
 
@@ -187,16 +211,17 @@ restoration, and quarantine the stand if restoration is uncertain.
 
 ## Approval readiness
 
-The exact sealed measurement candidate and clean Q15-S3 component release are
-verified evidence. Q15-R-P1 accepted D-057 through D-060 and the repository-
-local controller/profile/setup work passes. Q15-R and Q15-W themselves are not
-approval-ready because the clean controller-bearing release, operational trust
-anchor, actual role/custody/signature artifacts, and values above are absent.
+The exact sealed measurement candidate, clean Q15-S3 component release, and
+clean no-authority Q15-R-P1 v2 base release are verified evidence. The Q15-R-P2
+adapter seam is locally implemented but has no clean operational release.
+Q15-R and Q15-W themselves are not approval-ready because that release, actual
+trust anchor, role/custody/signature artifacts, and values above are absent.
 A generic reply such as `approve Q15`, prior SSH permission, root access, or
 approval of this prepared document cannot authorize stand activity.
 
-The exact next safe work is separate authorization for one commit containing
-the verified Q15-R-P1 changes, followed by a clean no-authority v2 bundle build
-and verification. That does not authorize stand access or Q15-R. Q15-R
-may only then be prepared for separate signed approval. Q15-W can be prepared
-only after sealed Q15-R evidence exists.
+Q15-R-P2 accepted D-061 through D-064 in the
+[`operational-prerequisite bundle`](Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md).
+The exact next safe work is to supply and review every missing setup input and
+build a clean operational release, then request a separate literal stand-setup
+authorization. Q15-R may be prepared for signed approval only after that setup
+and release pass. Q15-W can be prepared only after sealed Q15-R evidence exists.

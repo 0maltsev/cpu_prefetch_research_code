@@ -111,9 +111,19 @@ profile, collector library/schema, and both strict code-generation reports.
 The clean Q15-S3 v1 release intentionally exposes no production controller
 command for the phase-spanning session/collectors. Q15-R-P1 subsequently
 accepted D-057 through D-060 and the repository now contains the fixed
-controller core, a no-authority CLI, and a v2 bundle profile. No v2 bundle has
-been sealed. A separately authorized clean controller-bearing release and a
-later separately approved signed Q15-R record remain mandatory.
+controller core and no-authority CLI. Clean commit
+`a75bcdd0367d79f8ee0496c55edda74311c9ef7d` produced the verified
+controller-bearing v2 archive
+`cpu-prefetch-q15-qualification-tool-2.0.0-a75bcdd-clean-b4438745f3ca.tar.gz`
+(4247166 bytes), SHA-256
+`48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035`.
+Its 118-file internal verification and five non-authorizing self-tests pass;
+its manifest still grants no authority. Accepted D-061 through D-064
+[`operational-prerequisite bundle`](Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
+binds this release as base evidence only. The operational adapter is implemented
+in the repository but not in this clean archive. Another clean operational
+release, actual role/custody/trust evidence, and a later approved signed Q15-R
+remain mandatory.
 
 ## Split authorization records
 

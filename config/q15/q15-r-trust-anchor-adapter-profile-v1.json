@@ -1,0 +1,54 @@
+{
+  "accepted_decision_ids": ["D-061", "D-062", "D-063", "D-064"],
+  "acceptance_binding": {
+    "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+    "path": "config/q15/q15-r-p2-acceptance-v1.json",
+    "sha256": "2c280b46c8cf196f52f9446089c1749b2b0fe754033049b5cac0e472353245eb"
+  },
+  "authority_boundary": {
+    "account_or_key_changes_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "dynamic_qualification_authorized": false,
+    "operational_adapter_implemented_repository_local": true,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "real_affinity_numa_authorized": false,
+    "real_pmu_msr_authorized": false,
+    "stand_access_authorized": false,
+    "stand_setup_authorized": false
+  },
+  "descriptor_contract": {
+    "authorization_core": {"fd": 3, "maximum_bytes": 1048576},
+    "detached_signature": {"fd": 4, "maximum_bytes": 131072},
+    "logical_read_calls_per_descriptor": 1,
+    "required_snapshot_properties": ["REGULAR_FILE", "READ_ONLY", "OFFSET_ZERO", "EOF_REACHED", "NONEMPTY", "WITHIN_BOUND"],
+    "retry_or_fallback": false,
+    "verification_receipt": {"fd": 5, "maximum_bytes": 131072}
+  },
+  "implementation_state": "IMPLEMENTED_REPOSITORY_LOCAL_FAKE_BACKEND_ONLY_NO_AUTHORITY",
+  "profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+  "prohibited_interfaces": ["AMBIENT_ROOT", "ARBITRARY_SELECTOR", "NETWORK", "OS_PATH_OPEN", "PRIVATE_KEY_ON_STAND", "SETUID", "SHELL", "STAND_OPERATION"],
+  "protocol_version": "2.0.0-pre.2",
+  "schema_version": "cpu-prefetch-q15-r-trust-anchor-adapter-profile/1",
+  "source_bindings": [
+    {"path": "include/cpu_prefetch/qualification/q15_trust_anchor_adapter.hpp", "sha256": "60be11e0e75e842639932118e38dce9a4fab9351020e3a78a56b479130fae386"},
+    {"path": "src/qualification/q15_trust_anchor_adapter.cpp", "sha256": "fea7f72ec0a503fe69eee1f9db25e348ad8b5371ac121b9489f6b76d00fa6002"},
+    {"path": "include/cpu_prefetch/qualification/q15_controller.hpp", "sha256": "2b58f48dda6c76dc8eefb917f1bf9670f03f2578638f1ab06f2c84e5669698de"},
+    {"path": "config/schemas/q15-r-signature-verification-receipt-v1.schema.json", "sha256": "7d42654f85b9277a3f865ac4d7a01a4e6d90a133138f739bd26a548cac5f85bf"}
+  ],
+  "trust_anchor_contract": {
+    "allowed_signers_group": "cpu-prefetch-q15-auditor",
+    "allowed_signers_mode": "0640",
+    "allowed_signers_owner": "root",
+    "allowed_signers_path": "/etc/cpu-prefetch/q15/allowed_signers",
+    "authorization_principal": "cpu-prefetch-q15-authorization",
+    "canonicalization": "JCS-I64-v1",
+    "controller_can_read_allowed_signers": false,
+    "independent_receipt_schema": "cpu-prefetch-q15-r-signature-verification-receipt/1",
+    "private_key_permitted_on_stand": false,
+    "signature_namespace": "cpu-prefetch-q15-authorization",
+    "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+    "verifier_principal_id": "cpu-prefetch-q15-auditor",
+    "verifier_executable": "/usr/bin/ssh-keygen"
+  }
+}

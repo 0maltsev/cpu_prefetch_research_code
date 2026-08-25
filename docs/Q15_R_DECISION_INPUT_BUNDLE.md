@@ -222,12 +222,15 @@ requires a new decision and authorization.
 
 ## Evidence still required after approval
 
-Approval closes decisions, not operational evidence. Q15-R remains blocked
-until all of the following exist:
+Approval closed D-057 through D-060, not operational evidence. The first item
+is now complete: clean commit `a75bcdd0367d79f8ee0496c55edda74311c9ef7d`
+and v2 archive SHA-256
+`48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035`
+bind the exact controller source/binary/report/manifest/SBOM bytes with
+authority `NONE`. Q15-R remains blocked until all later items exist:
 
-1. one separately authorized clean commit and verified no-authority bundle
-   containing exact controller source/binary/report/manifest/SBOM/archive
-   hashes;
+1. a new clean no-authority operational release containing the accepted and
+   locally implemented trust-anchor adapter;
 2. separately authorized stand setup of four real credentials and custody
    paths, with positive and complete negative OS access evidence;
 3. fresh stand/inventory checks and exact executable paths/hashes, literal
@@ -238,6 +241,11 @@ until all of the following exist:
 
 No field above may be replaced by `latest`, a wildcard, root convenience, a
 requested value copied as verified state, or an inferred platform value.
+
+The accepted D-061 through D-064
+[`operational-prerequisite bundle`](Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
+and ADR-0061 through ADR-0064 close only the repository-local decision and
+implementation gate. The prepared setup record authorizes nothing.
 
 ## Machine check
 

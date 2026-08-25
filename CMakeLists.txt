@@ -180,7 +180,8 @@ target_include_directories(
 add_library(
   cpu_prefetch_q15_qualification STATIC
   src/qualification/q15_controller.cpp
-  src/qualification/q15_collectors.cpp)
+  src/qualification/q15_collectors.cpp
+  src/qualification/q15_trust_anchor_adapter.cpp)
 add_library(cpu_prefetch::q15_qualification ALIAS cpu_prefetch_q15_qualification)
 target_link_libraries(
   cpu_prefetch_q15_qualification
@@ -665,6 +666,34 @@ if(BUILD_TESTING)
     q15.r_decision_input
     PROPERTIES LABELS "q15;qualification;decision;authorization;schema;pre-pilot;synthetic")
   add_test(
+    NAME q15.r_operational_prerequisite
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_operational_prerequisite.py")
+  set_tests_properties(
+    q15.r_operational_prerequisite
+    PROPERTIES LABELS "q15;qualification;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p2_acceptance
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p2_acceptance.py")
+  set_tests_properties(
+    q15.r_p2_acceptance
+    PROPERTIES LABELS "q15;qualification;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.trust_anchor_adapter_profile
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_trust_anchor_adapter_profile.py")
+  set_tests_properties(
+    q15.trust_anchor_adapter_profile
+    PROPERTIES LABELS "q15;qualification;controller;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_stand_setup_authorization_preparation
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_stand_setup_authorization_preparation.py")
+  set_tests_properties(
+    q15.r_stand_setup_authorization_preparation
+    PROPERTIES LABELS "q15;qualification;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py")
@@ -1097,6 +1126,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_runtime.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_collectors.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_controller.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_trust_anchor_adapter.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/json.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/model.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/validation.hpp"
@@ -1136,6 +1166,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_controller.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/q15_trust_anchor_adapter.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
@@ -1242,6 +1273,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_controller.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/q15_trust_anchor_adapter.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
@@ -1542,6 +1574,18 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_decision_input.py"
   COMMAND
     "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_operational_prerequisite.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p2_acceptance.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_trust_anchor_adapter_profile.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_stand_setup_authorization_preparation.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py"
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -1565,6 +1609,34 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_r_decision_input.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking the non-authorizing Q15-R decision/input bundle")
+add_custom_target(
+  q15-r-operational-prerequisite-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_operational_prerequisite.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the proposed no-authority Q15-R operational prerequisites")
+add_custom_target(
+  q15-r-p2-acceptance-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_p2_acceptance.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the accepted repository-local Q15-R-P2 authority boundary")
+add_custom_target(
+  q15-trust-anchor-adapter-profile-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_trust_anchor_adapter_profile.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the fakeable no-authority Q15-R trust-anchor adapter")
+add_custom_target(
+  q15-r-stand-setup-preparation-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_stand_setup_authorization_preparation.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the exact blocked Q15-R stand-setup authorization preparation")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND
@@ -1813,6 +1885,9 @@ add_custom_target(
     q15-runtime-codegen-check
     q15-controller-codegen-check
     q15-controller-profile-check
+    q15-r-p2-acceptance-check
+    q15-r-stand-setup-preparation-check
+    q15-trust-anchor-adapter-profile-check
     q15-probe-collector-contract-check
     q15-probe-implementation-check
     q15-dynamic-implementation-check

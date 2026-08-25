@@ -1,0 +1,78 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-trust-anchor-adapter-profile:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "accepted_decision_ids": {"const": ["D-061", "D-062", "D-063", "D-064"]},
+    "acceptance_binding": {
+      "const": {
+        "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+        "path": "config/q15/q15-r-p2-acceptance-v1.json",
+        "sha256": "2c280b46c8cf196f52f9446089c1749b2b0fe754033049b5cac0e472353245eb"
+      }
+    },
+    "authority_boundary": {
+      "const": {
+        "account_or_key_changes_authorized": false,
+        "bundle_transfer_or_install_authorized": false,
+        "dynamic_qualification_authorized": false,
+        "operational_adapter_implemented_repository_local": true,
+        "q15_r_authorized": false,
+        "q15_w_authorized": false,
+        "real_affinity_numa_authorized": false,
+        "real_pmu_msr_authorized": false,
+        "stand_access_authorized": false,
+        "stand_setup_authorized": false
+      }
+    },
+    "descriptor_contract": {
+      "const": {
+        "authorization_core": {"fd": 3, "maximum_bytes": 1048576},
+        "detached_signature": {"fd": 4, "maximum_bytes": 131072},
+        "logical_read_calls_per_descriptor": 1,
+        "required_snapshot_properties": ["REGULAR_FILE", "READ_ONLY", "OFFSET_ZERO", "EOF_REACHED", "NONEMPTY", "WITHIN_BOUND"],
+        "retry_or_fallback": false,
+        "verification_receipt": {"fd": 5, "maximum_bytes": 131072}
+      }
+    },
+    "implementation_state": {"const": "IMPLEMENTED_REPOSITORY_LOCAL_FAKE_BACKEND_ONLY_NO_AUTHORITY"},
+    "profile_id": {"const": "Q15-R-TRUST-ANCHOR-ADAPTER-v1"},
+    "prohibited_interfaces": {"const": ["AMBIENT_ROOT", "ARBITRARY_SELECTOR", "NETWORK", "OS_PATH_OPEN", "PRIVATE_KEY_ON_STAND", "SETUID", "SHELL", "STAND_OPERATION"]},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "schema_version": {"const": "cpu-prefetch-q15-r-trust-anchor-adapter-profile/1"},
+    "source_bindings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        },
+        "required": ["path", "sha256"],
+        "type": "object"
+      },
+      "maxItems": 4,
+      "minItems": 4,
+      "type": "array"
+    },
+    "trust_anchor_contract": {
+      "const": {
+        "allowed_signers_group": "cpu-prefetch-q15-auditor",
+        "allowed_signers_mode": "0640",
+        "allowed_signers_owner": "root",
+        "allowed_signers_path": "/etc/cpu-prefetch/q15/allowed_signers",
+        "authorization_principal": "cpu-prefetch-q15-authorization",
+        "canonicalization": "JCS-I64-v1",
+        "controller_can_read_allowed_signers": false,
+        "independent_receipt_schema": "cpu-prefetch-q15-r-signature-verification-receipt/1",
+        "private_key_permitted_on_stand": false,
+        "signature_namespace": "cpu-prefetch-q15-authorization",
+        "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+        "verifier_principal_id": "cpu-prefetch-q15-auditor",
+        "verifier_executable": "/usr/bin/ssh-keygen"
+      }
+    }
+  },
+  "required": ["accepted_decision_ids", "acceptance_binding", "authority_boundary", "descriptor_contract", "implementation_state", "profile_id", "prohibited_interfaces", "protocol_version", "schema_version", "source_bindings", "trust_anchor_contract"],
+  "title": "Accepted repository-local no-authority Q15-R trust-anchor adapter profile",
+  "type": "object"
+}

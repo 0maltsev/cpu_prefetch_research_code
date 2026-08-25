@@ -96,6 +96,10 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 | [ADR-0058](0058-q15-r-role-and-custody-identities.md) | `ACCEPTED_POLICY_NO_STAND_SETUP_AUTHORITY` | Freeze four proposed principal IDs and two distinct custody-domain policy identities without creating them. |
 | [ADR-0059](0059-q15-r-prospective-limits-and-stop-rules.md) | `ACCEPTED_POLICY_NO_EXECUTION_AUTHORITY` | Freeze exact Q15-R containment limits, first-failure stop, partial retention, and no-retry behavior. |
 | [ADR-0060](0060-q15-r-signature-and-issuance-boundary.md) | `ACCEPTED_POLICY_NO_ISSUANCE_AUTHORITY` | Require JCS-I64 OpenSSH SSHSIG authorization, independent verification, and a later explicit Q15-R issuance approval. |
+| [ADR-0061](0061-q15-r-v2-base-release-identity.md) | `ACCEPTED_NO_EXECUTION_AUTHORITY` | Bind the clean v2 controller-bearing release as immutable prerequisite evidence, never execution authority. |
+| [ADR-0062](0062-q15-r-trust-anchor-adapter.md) | `ACCEPTED_AND_IMPLEMENTED_REPOSITORY_LOCAL_NO_AUTHORITY` | Use fixed bounded inherited descriptors and a canonical auditor verification receipt ahead of controller admission. |
+| [ADR-0063](0063-q15-r-four-role-stand-setup.md) | `ACCEPTED_POLICY_NO_STAND_SETUP_AUTHORITY` | Require the prospective four-role/two-domain literal-argv setup transaction without creating it. |
+| [ADR-0064](0064-q15-r-access-quarantine-and-authority.md) | `ACCEPTED_POLICY_NO_PROBE_OR_Q15_AUTHORITY` | Require complete access evidence, first-failure stop, non-deleting quarantine, and later separate Q15-R authority. |
 
 Open later-gate scientific and platform decisions are kept in `docs/IMPLEMENTATION_DECISIONS.md` and `docs/DECISIONS_REQUIRED.md`; they do not become frozen merely by being documented. Q7 accepted ADR-0030 on 2026-08-20; its implementation and qualification evidence remain later gates. ADR-0031 implements protocol-fixed Stage 10 behavior and the previously open termination mapping without selecting watchdog, recovery, relax, or stand values.
 Q9 accepted ADR-0032 and ADR-0033 on 2026-08-21. Stage 11 codec, corruption,

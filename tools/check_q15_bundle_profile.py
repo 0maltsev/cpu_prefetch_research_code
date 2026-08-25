@@ -81,6 +81,24 @@ def base_manifest() -> dict[str, object]:
             "sha256": "0" * 64,
             "status": "PREPARED_NO_STAND_AUTHORITY",
         },
+        "q15_r_p2_acceptance": {
+            "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+            "authority": "REPOSITORY_LOCAL_ONLY",
+            "path": "config/q15/q15-r-p2-acceptance-v1.json",
+            "sha256": "0" * 64,
+        },
+        "stand_setup_authorization_preparation": {
+            "path": "config/q15/q15-r-stand-setup-authorization.preparation.json",
+            "preparation_id": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01",
+            "sha256": "0" * 64,
+            "status": "BLOCKED_INPUTS_REQUIRED_NO_AUTHORITY",
+        },
+        "trust_anchor_adapter_profile": {
+            "implementation_state": "IMPLEMENTED_REPOSITORY_LOCAL_FAKE_BACKEND_ONLY_NO_AUTHORITY",
+            "path": "config/q15/q15-r-trust-anchor-adapter-profile-v1.json",
+            "profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+            "sha256": "0" * 64,
+        },
         "source_archive": {"source_dirty": False},
     }
     document.update({field: False for field in DENIED_FIELDS})
@@ -156,6 +174,16 @@ def main() -> int:
     del missing_dynamic["dynamic_implementation_profile"]
     require_rejected(missing_dynamic, set(REQUIRED_PATHS), "missing dynamic profile")
     negative_count += 1
+
+    for name in (
+        "trust_anchor_adapter_profile",
+        "q15_r_p2_acceptance",
+        "stand_setup_authorization_preparation",
+    ):
+        mutated = copy.deepcopy(positive)
+        del mutated[name]
+        require_rejected(mutated, set(REQUIRED_PATHS), f"missing {name}")
+        negative_count += 1
 
     dirty = copy.deepcopy(positive)
     dirty["source_archive"] = {"source_dirty": True}

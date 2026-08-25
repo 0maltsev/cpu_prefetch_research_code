@@ -433,7 +433,9 @@ def main() -> int:
                     "Q15_QUALIFICATION_TOOL.md",
                     "Q15_R_CONTROLLER.md",
                     "Q15_R_DECISION_INPUT_BUNDLE.md",
+                    "Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md",
                     "Q15_R_ROLE_CUSTODY_SETUP_PLAN.md",
+                    "Q15_R_STAND_SETUP_AUTHORIZATION_BUNDLE.md",
                     "Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md",
                 ]
             )
@@ -470,6 +472,10 @@ def main() -> int:
                     "check_q15_controller_codegen.py",
                     "check_q15_controller_profile.py",
                     "check_q15_r_decision_input.py",
+                    "check_q15_r_operational_prerequisite.py",
+                    "check_q15_r_p2_acceptance.py",
+                    "check_q15_r_stand_setup_authorization_preparation.py",
+                    "check_q15_trust_anchor_adapter_profile.py",
                     "check_q15_dynamic_implementation.py",
                     "check_q15_probe_collector_contract.py",
                     "check_q15_probe_implementation.py",
@@ -590,6 +596,21 @@ def main() -> int:
                 / "q15"
                 / "q15-r-role-custody-setup-plan-v1.json"
             )
+            adapter_profile_path = (
+                root
+                / "config"
+                / "q15"
+                / "q15-r-trust-anchor-adapter-profile-v1.json"
+            )
+            p2_acceptance_path = (
+                root / "config" / "q15" / "q15-r-p2-acceptance-v1.json"
+            )
+            stand_setup_preparation_path = (
+                root
+                / "config"
+                / "q15"
+                / "q15-r-stand-setup-authorization.preparation.json"
+            )
             manifest.update(
                 {
                     "account_or_key_changes_authorized": False,
@@ -639,6 +660,34 @@ def main() -> int:
                         "plan_id": "Q15-R-ROLE-CUSTODY-SETUP-PLAN-v1",
                         "sha256": sha256(setup_plan_path),
                         "status": "PREPARED_NO_STAND_AUTHORITY",
+                    },
+                    "q15_r_p2_acceptance": {
+                        "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+                        "authority": "REPOSITORY_LOCAL_ONLY",
+                        "path": "config/q15/q15-r-p2-acceptance-v1.json",
+                        "sha256": sha256(p2_acceptance_path),
+                    },
+                    "stand_setup_authorization_preparation": {
+                        "path": (
+                            "config/q15/"
+                            "q15-r-stand-setup-authorization.preparation.json"
+                        ),
+                        "preparation_id": (
+                            "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01"
+                        ),
+                        "sha256": sha256(stand_setup_preparation_path),
+                        "status": "BLOCKED_INPUTS_REQUIRED_NO_AUTHORITY",
+                    },
+                    "trust_anchor_adapter_profile": {
+                        "implementation_state": (
+                            "IMPLEMENTED_REPOSITORY_LOCAL_FAKE_BACKEND_ONLY_NO_AUTHORITY"
+                        ),
+                        "path": (
+                            "config/q15/"
+                            "q15-r-trust-anchor-adapter-profile-v1.json"
+                        ),
+                        "profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+                        "sha256": sha256(adapter_profile_path),
                     },
                     "scientific_schedule_access_authorized": False,
                     "stand_access_authorized": False,

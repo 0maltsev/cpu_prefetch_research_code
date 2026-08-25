@@ -61,7 +61,7 @@
     "secondary_domain_id": "DEVELOPMENT-REPOSITORY-Q15-CUSTODY",
     "transfer_policy_id": "Q15-HASHED-SEALED-TRANSFER-WITH-RECEIPT-v1"
   },
-  "decision_ids": ["D-057", "D-058", "D-059", "D-060"],
+  "decision_ids": ["D-057", "D-058", "D-059", "D-060", "D-061", "D-062"],
   "limits": {
     "authorization_validity_seconds": 14400,
     "controller_start_poll_limit": 18446744073709551615,
@@ -82,6 +82,12 @@
     "cpu-prefetch-q15-auditor"
   ],
   "profile_id": "Q15-R-STATIC-CONTROLLER-v1",
+  "trust_anchor_adapter_binding": {
+    "controller_cli_enabled": false,
+    "profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+    "profile_sha256": "a41ee172b4997bf08d4f564c585811a4a04795dad75ba8598b8d7a85c51fd3d2",
+    "release_state": "REPOSITORY_LOCAL_ONLY_NO_OPERATIONAL_RELEASE"
+  },
   "protocol_version": "2.0.0-pre.2",
   "schema_version": "cpu-prefetch-q15-r-controller-profile/1",
   "source_bindings": [
@@ -95,7 +101,7 @@
     },
     {
       "path": "tools/q15_controller_main.cpp",
-      "sha256": "e9948f5054bacda73fea04e7ff5d4eef2137225b940d525432265f48cd88f457"
+      "sha256": "00f3da3c81ad5d602dfb7d3e7f4c33c809c3ad8a802b889915a588165487f4bd"
     },
     {
       "path": "config/schemas/q15-qualification-authorization-v2.schema.json",

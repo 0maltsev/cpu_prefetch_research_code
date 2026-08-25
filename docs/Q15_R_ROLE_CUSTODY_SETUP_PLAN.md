@@ -28,7 +28,13 @@ synthetic-byte transfer/receipt, and independent hash verification. Failure of
 any positive or negative check makes the setup ineligible; it does not invite
 fallback to root or broader permissions.
 
-This document intentionally contains no account, key, permission, mount,
-capability, or filesystem mutation commands. Preparing it did not access the
-stand. A later setup authorization must identify the exact commands, target,
-rollback, evidence destinations, and operator before any such action.
+This plan itself remains unapplied. Q15-R-P2 accepted the policy in the
+[`Q15-R operational-prerequisite decision bundle`](Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
+and synchronized this record to the accepted adapter and base-release
+identities. The literal account/group/path/trust-anchor argv templates,
+complete 24-cell effective-access matrix, and quarantine policy are frozen,
+but retain typed unresolved inputs and no execution authority. The blocked
+[`stand-setup authorization preparation`](Q15_R_STAND_SETUP_AUTHORIZATION_BUNDLE.md)
+binds the exact command source. A later setup authorization must first bind a
+clean operational release, every literal replacement, fresh prestate, target,
+evidence destinations, authority, and operator before any command may run.

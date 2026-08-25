@@ -1,5 +1,6 @@
 #include "cpu_prefetch/foundation/repository_info.hpp"
 #include "cpu_prefetch/qualification/q15_controller.hpp"
+#include "cpu_prefetch/qualification/q15_trust_anchor_adapter.hpp"
 
 #include <exception>
 #include <iostream>
@@ -33,20 +34,27 @@ auto run(int argc, char** argv) -> int {
         kQ15RControllerGraph.back() !=
             Q15RControllerStep::wait_for_separate_q15_w_or_expire_fail_closed ||
         kQ15RControllerLimits.external_start_watchdog_seconds != 60U ||
-        kQ15RControllerLimits.max_same_buffer_session_wall_seconds != 14'400U) {
+        kQ15RControllerLimits.max_same_buffer_session_wall_seconds != 14'400U ||
+        kQ15RTrustAnchorAdapterProfileId != "Q15-R-TRUST-ANCHOR-ADAPTER-v1" ||
+        kQ15RInheritedDescriptorContract.authorization_core_fd != 3 ||
+        kQ15RInheritedDescriptorContract.detached_signature_fd != 4 ||
+        kQ15RInheritedDescriptorContract.verification_receipt_fd != 5) {
       std::cerr << "q15-controller-self-test: FAIL profile mismatch\n";
       return 1;
     }
     std::cout << "q15-controller-self-test: PASS profile=" << kQ15RControllerProfileId
-              << " graph_steps=15 stand=NOT_ACCESSED signature=NOT_VERIFIED "
-                 "authority=NONE execution=NOT_STARTED\n";
+              << " graph_steps=15 adapter=LOCAL_FAKEABLE_NO_AUTHORITY "
+                 "stand=NOT_ACCESSED signature=NOT_VERIFIED authority=NONE "
+                 "execution=NOT_STARTED\n";
     return 0;
   }
   if (argc == 2 && std::string_view(argv[1]) == "--describe-scope") {
     std::cout
         << "profile=" << kQ15RControllerProfileId
         << " authorization=" << kQ15RAuthorizationSchemaVersion
-        << " graph_steps=15 q15_r=true q15_w=false arbitrary_selectors=false "
+        << " adapter=" << kQ15RTrustAnchorAdapterProfileId
+        << " adapter_backend=fake-only graph_steps=15 q15_r=true q15_w=false "
+           "arbitrary_selectors=false "
            "stand_access=false real_pmu=false msr=false affinity=false numa=false "
            "calibration=false pilot=false measurement=false confirmatory=false "
            "authority=NONE\n";

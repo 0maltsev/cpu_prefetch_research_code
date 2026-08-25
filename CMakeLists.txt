@@ -914,6 +914,27 @@ if(BUILD_TESTING)
     q15.r_p4_k_r_d097_preparation
     PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
   add_test(
+    NAME q15.r_p4_k_r_d097_authorization
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d097_authorization.py")
+  set_tests_properties(
+    q15.r_p4_k_r_d097_authorization
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p4_k_r_d097_complete_evidence
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d097_complete_evidence.py")
+  set_tests_properties(
+    q15.r_p4_k_r_d097_complete_evidence
+    PROPERTIES LABELS "q15;qualification;security;custody;evidence;lifecycle;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_p5_d098_preparation
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d098_p5_preparation.py")
+  set_tests_properties(
+    q15.r_p5_d098_preparation
+    PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py")
@@ -2108,6 +2129,27 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_d097_p4_k_r_preparation.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking still-unissued D-097 P4-K-R preparation")
+add_custom_target(
+  q15-r-p4-k-r-d097-authorization-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d097_authorization.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the one-shot public-only D-097 authorization")
+add_custom_target(
+  q15-r-p4-k-r-d097-complete-evidence-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d097_complete_evidence.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking complete D-097 public-only review evidence")
+add_custom_target(
+  q15-r-p5-d098-preparation-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d098_p5_preparation.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the D-097-bound still-unissued P5 preparation")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND

@@ -209,14 +209,21 @@ SHA-256 `8c30c1fb...`. The failed `p4-k-v1` tree remains preserved and was not
 retried or repaired. Private key contents remain outside the repository and
 were not read or hashed.
 
-The next decision is D-097/P4-K-R. Its
-[`decision bundle`](Q15_R_P4_K_R_D097_DECISION_BUNDLE.md) and still-unissued
-authorization template are prepared, but four exact inputs remain null: the
-fresh bootstrap-signed authorization and signature, the fixed public-only
-review-tool hash, and the terminal review-output path/evidence identity. D-097
-must be explicitly accepted and separately issued before one read-only review.
-It prohibits probing the private-key path and grants no P5 or downstream
-authority.
+D-097/ADR-0097 was accepted and completed exactly once. Authorization SHA-256
+`a34a2441...`, bootstrap signature `ab874dcc...`, review receipt `5a3233fb...`,
+and complete-evidence SHA-256 `b7c6125d...` verify. The public-only review
+verified all D-096 public hashes, target fingerprint, principal, and public-key
+byte equality. It performed no private-key access or presence probe, no
+installation/activation, and no retry; it stopped before P5.
+
+The next decision path is documented in the
+[`D-098 P5 bundle`](Q15_R_P5_D098_DECISION_BUNDLE.md). Preparation v3 resolves
+only the two reviewed public-trust groups. Three inputs remain null and block
+P5: the literal operational release root, independent secondary custody root,
+and fresh current stand-prestate artifact ID/SHA-256. P4-R-I and then P4-R-C
+require separate exact approvals before those values may be resolved. P5,
+stand setup, Q15, calibration, pilot, measurement, and confirmation remain
+unauthorized.
 
 ADR-0086 now implements the generic repository-local controller, admission
 schema, fake tests, and profile under the later owner delegation. It has no OS
@@ -236,7 +243,8 @@ and produced an unissued P4-K-A successor. D-095 consumed its exact one-
 signature authority and failed terminally before producing a target key. D-096
 used a new authorization, signature, transaction, and path and completed the
 target-key action. Active trust, the D-095/D-096 signatures, and the target key
-are not P4-K-R or downstream authority; D-097 remains a separate explicit gate.
+did not themselves grant P4-K-R. D-097 separately completed the public review,
+but its receipt and reviewed target identity are not P5 or downstream authority.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)

@@ -1,0 +1,67 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-r-d097-complete-evidence/1",
+  "evidence_id": "Q15-R-P4-K-R-D097-COMPLETE-EVIDENCE-20260826-01",
+  "protocol_version": "2.0.0-pre.2",
+  "decision_id": "D-097",
+  "transaction_id": "Q15-R-P4-K-R-D097-20260826-01",
+  "status": "COMPLETE_VALID_PUBLIC_ONLY_REVIEW_STOPPED_BEFORE_P5",
+  "completed_at_utc": "2026-08-25T22:04:10Z",
+  "lineage": {
+    "source_commit": "3f6b9299e3cdf4bc88b08a8cdf83094d398160d6",
+    "decision_adr_path": "docs/decisions/0097-single-owner-public-only-p4-k-r-review.md",
+    "decision_adr_sha256": "341eb2145a9a252e93bb1296792840c6f18a3f87a275670e76dd8e5cae5a414d",
+    "d095_terminal_evidence_path": "config/q15/q15-r-p4-k-a-d095-terminal-failure-evidence-v1.json",
+    "d095_terminal_evidence_sha256": "ccfe61af14b8aca872a9fd0f4ab4371fb3e74cf445846c8b1a8b30e660f2fa2d",
+    "d096_complete_evidence_path": "config/q15/q15-r-p4-k-a-d096-complete-evidence-v1.json",
+    "d096_complete_evidence_sha256": "8c30c1fb941179f0498943fd6ac34264ba185a318661513802fd1b2e29dfa4c8",
+    "review_tool_path": "tools/execute_d097_p4_k_r.py",
+    "review_tool_sha256": "139b734aab6a9313c3aedc58ea687256d1061661e995803a91349cc07beb71c9",
+    "authorization_path": "config/q15/q15-r-p4-k-r-d097-action-authorization-v1.json",
+    "authorization_sha256": "a34a244118dd43e6cd3b4780ae2432491832546ef36071870fabbec7d9dc9306",
+    "authorization_signature_path": "config/q15/q15-r-p4-k-r-d097-action-authorization-v1.json.sig",
+    "authorization_signature_sha256": "ab874dcc46bea92330b101c9ea98ed233b745809964dcc9a5d396b2022eb2c78",
+    "owner_waiver_path": "config/q15/q15-r-p4-k-r-d097-owner-review-waiver-v1.json",
+    "owner_waiver_sha256": "12e9ac9a1bc83c1c60ad95a477c6bcf2709576143cf9acc3f8fadb94561f7261"
+  },
+  "external_review_root": "/home/omaltsev/.local/share/cpu-prefetch-q15/p4-k-v2/review-v1",
+  "public_artifacts": [
+    {"filename": "SHA256SUMS", "sha256": "67acc9b2858c500c56a7fd025850a1f4300458e47a61c5380cc7bd81a3bb83b5", "size_bytes": 471},
+    {"filename": "accepted_public_trust_evidence.json", "sha256": "8d1a906d8c54576dd8bba179a5847dd1f735a874e8a8fb66ee957db5a41875a4", "size_bytes": 638},
+    {"filename": "owner_pre_review_waiver.json", "sha256": "12e9ac9a1bc83c1c60ad95a477c6bcf2709576143cf9acc3f8fadb94561f7261", "size_bytes": 1049},
+    {"filename": "review_authorization.json", "sha256": "a34a244118dd43e6cd3b4780ae2432491832546ef36071870fabbec7d9dc9306", "size_bytes": 4284},
+    {"filename": "review_authorization.json.sig", "sha256": "ab874dcc46bea92330b101c9ea98ed233b745809964dcc9a5d396b2022eb2c78", "size_bytes": 330},
+    {"filename": "review_receipt.json", "sha256": "5a3233fbbab534a762549455d3d8b7eefa2f7497c8ec0b0871da19cfdcee00f1", "size_bytes": 964}
+  ],
+  "review_evidence": {
+    "review_attempts": 1,
+    "retry_count": 0,
+    "review_principal": "cpu-prefetch-bootstrap-owner",
+    "independent_reviewer_exists": false,
+    "single_owner_waiver_applied": true,
+    "bootstrap_signature_verification": "PASS",
+    "public_hash_inventory_verification": "PASS",
+    "ed25519_fingerprint_verification": "PASS",
+    "allowed_signers_principal_and_key_equality": "PASS",
+    "target_fingerprint": "SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM",
+    "review_receipt_sha256": "5a3233fbbab534a762549455d3d8b7eefa2f7497c8ec0b0871da19cfdcee00f1",
+    "accepted_public_trust_evidence_sha256": "8d1a906d8c54576dd8bba179a5847dd1f735a874e8a8fb66ee957db5a41875a4",
+    "private_key_access_or_presence_probe_performed": false,
+    "installation_or_activation_performed": false
+  },
+  "disposition": {
+    "d097_complete": true,
+    "automatic_continuation": false,
+    "next_gate": "SEPARATE_P5_STAND_SETUP_DECISION_AND_AUTHORIZATION_REQUIRED",
+    "review_evidence_reuse_or_retry_authorized": false
+  },
+  "authority_boundary": {
+    "repository_local_complete_evidence_and_checker_authorized": true,
+    "read_only_external_public_evidence_verification_authorized": true,
+    "private_key_access_or_presence_probe_authorized": false,
+    "p5_installation_or_trust_activation_authorized": false,
+    "target_key_signing_authorized": false,
+    "stand_access_or_modification_authorized": false,
+    "p4_r_q15_or_platform_controls_authorized": false,
+    "qualification_calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

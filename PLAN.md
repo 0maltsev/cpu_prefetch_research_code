@@ -423,17 +423,22 @@ authorization/amendment.
   append-only partial tree remains and D-095 is terminal. D-096/ADR-0096
   separately authorized one corrected create-exclusive `p4-k-v2` transaction;
   its bootstrap signature, target public key/fingerprint, hashes, receipt, and
-  private-key metadata verify. It stopped before P4-K-R.
+  private-key metadata verify. It stopped before P4-K-R. D-097/ADR-0097 then
+  authorized and completed one separate bootstrap-signed public-only review;
+  hashes, fingerprint, principal/key equality, receipt, and mandatory P5 stop
+  verify without private access or presence probing.
   The later owner delegation authorizes repository-local work, and ADR-0086
   implements a generic no-authority controller admission/state-machine with no
   OS backend. It requires every future external hash, active signature,
   independent review, explicit bound, and direct process contract before it
   can mint a ticket. D-087 through D-092 remain byte-preserved but are
-  superseded by D-093. The next safe P4-K gate is explicit D-097 acceptance,
-  completion of its four public-only review inputs, and a separately issued
-  P4-K-R authorization. The prepared D-097 template is not authority. No
-  P4-K-R, stand, Q15, calibration, pilot, measurement, or confirmatory action
-  is authorized.
+  superseded by D-093. P4-K-A and P4-K-R are complete under their accepted
+  downgrade. D-098 prepares P5 but resolves only the two D-097 public groups;
+  operational release root, independent secondary custody root, and fresh
+  stand prestate remain null. The next safe external gate is separately signed
+  P4-R-I, followed by separately authorized P4-R-C; only then may exact P5 be
+  prepared for approval. No P4-R, P5, stand, Q15, calibration, pilot,
+  measurement, or confirmatory action is authorized.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

@@ -114,6 +114,14 @@ D-095 preservation/P4-K-R stop boundary. `check_d097_p4_k_r_preparation.py`
 validates the still-unissued public-only review successor and its four null
 inputs; it grants no review or later authority.
 
+`execute_d097_p4_k_r.py` implements the accepted one-shot public-only review;
+its self-test uses no real credential. `check_d097_authorization.py` binds the
+exact tool, waiver, UTC, public sources, and P5 stop. The complete-evidence
+checker validates six named public review artifacts and offers an explicit
+external public-only mode. `check_d098_p5_preparation.py` validates the
+D-097-bound still-unissued setup successor with exactly three external inputs
+still null and no stand/P5 authority.
+
 `check_q15_r_p4_k_a_controller_profile.py` validates ADR-0086's generic
 no-authority implementation profile, exact controller/test source hashes, the
 fixed ten-step graph, the immutable absent-bootstrap disposition, strict

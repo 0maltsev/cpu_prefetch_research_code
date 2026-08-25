@@ -3,7 +3,7 @@
 Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
 **`2.0.0-pre.1`** retained
 
-Repository state: **`D096_COMPLETE_VALID_P4_K_V2_CREATED; D097_P4_K_R_PREPARED_UNISSUED`**
+Repository state: **`D097_COMPLETE_VALID_PUBLIC_ONLY_REVIEW; D098_P5_PREPARED_THREE_INPUTS_BLOCKED`**
 
 Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 **`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**
@@ -13,7 +13,7 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/16 implementation-decision record | `COMPLETE`; D-096 successor action recorded | ADR-0001 through ADR-0086 and ADR-0093 through ADR-0096 are accepted. D-095 remains terminal; D-096 completed as a separate transaction and grants no P4-K-R authority. |
+| Stage 2/16 implementation-decision record | `COMPLETE`; D-097 review recorded | ADR-0001 through ADR-0086 and ADR-0093 through ADR-0097 are accepted. D-095 remains terminal; D-096 and D-097 completed as distinct one-shot transactions; P5 remains unissued. |
 | Stage 3 build/CI foundation | `COMPLETE_REVERIFIED` | ADR-0022, constrained offline inputs, dual compiler/library development/release presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations freshly pass Stage 16. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
@@ -30,7 +30,7 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Measurement system | `V3_LOCAL_NOT_EXECUTION_AUTHORIZED` | `cpu_prefetch_runner_core` implements strict 21-kind v3 admission and corrected wait/drain semantics. The sealed measurement candidate remains immutable and unprivileged. Q15-S1 adds only a separate fixed-scope qualification executable; it is not in the candidate and grants no authority. |
 | Q15-P0 local verification | `COMPLETE` | GCC and Clang/libc++ development and release matrices pass 216/216 each; both ASan/UBSan matrices and GCC TSan pass 216/216; Clang/libc++ TSan passes its applicable 214/214. Full 73-file static analysis, formatting, schemas, immutable protocol hashes, release policy, dependency/license, CI, and all dual-disassembler generated-code gates pass. No stand or MSR operation occurred. |
 | Q15-P0 candidate release | `COMPLETE_NO_AUTHORITY` | Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` produced `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; archive SHA-256 is `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`. Outer/internal hashes, 94-file clean extraction, and both nonprivileged self-tests pass. Its manifest denies dynamic, pilot, confirmatory, and measurement execution authority. |
-| Exact Q15 preparation | `D096_COMPLETE_VALID_P4_K_V2_CREATED; D097_PREPARED_UNISSUED` | D-095 remains terminal and preserved. D-096 used a new transaction/path and corrected wrapper; authorization SHA-256 `8feb2ccf...`, bootstrap signature SHA-256 `2514a671...`, target fingerprint `SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM`, and evidence SHA-256 `8c30c1fb...` verify. D-097 P4-K-R has four null inputs and no authority; no stand, Q15, or experiment authority exists. |
+| Exact Q15 preparation | `D097_COMPLETE_VALID_PUBLIC_ONLY_REVIEW; D098_P5_PREPARATION_NO_AUTHORITY` | D-095 remains terminal. D-096 target evidence and D-097 authorization/signature/review evidence verify; D-097 receipt SHA-256 `5a3233fb...` and complete evidence `b7c6125d...` stop before P5. The reviewed target fingerprint is `SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM`. D-098 resolves two public groups but retains three null stand/P5 inputs; no stand, Q15, or experiment authority exists. |
 | Stage 16 software verification | `COMPLETE` | Both compiler/library development and release matrices pass 187/187; sanitizer matrices pass 187/187, 187/187, 187/187, and applicable 185/185; strict component codegen, static/format/schema/provenance/dependency/CI checks, synthetic dispositions, reproducible bundle, clean extraction, and nonprivileged self-tests pass. ADR-0042 and the readiness report bind the evidence boundary. |
 | Stand preflight | `COMPLETE_INVENTORY_ONLY_NOT_QUALIFIED` | The exact bundle and 72-file internal inventory passed on `xeon-cpu-fetch`; smoke, self-test, and the collector ran as `nobody:nogroup`. Snapshot `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` observes two packages/two NUMA nodes and retains seven blockers. Inventory SHA-256 is `f3bb301c77918c0287c8a287e3915f5d68929684eece660464c69f62770ac94b`; the sidecar-publication failure and recovered checksum are preserved. |
 | Pilot | `BLOCKED` | The exact clean adapter-bearing release is selected as evidence only. Authorized/verified four-role/custody/trust setup, a separately approved signed Q15-R and later Q15-W, dynamic H0/H1/clock/layout/CPU/residency/storage evidence, calibration inputs, and separate Q16 authority are absent. |
@@ -789,12 +789,14 @@ stopped terminally on a wrapper defect before target-key generation and remains
 preserved. D-096/ADR-0096 then authorized one distinct corrected `p4-k-v2`
 transaction. Its authorization, bootstrap signature, public key/fingerprint,
 public manifest, receipt, and metadata-only private-key evidence verify; it
-stopped before P4-K-R. D-097 now prepares only a still-unissued public-only
-review authorization with four null inputs. A separately signed/approved
-read-only P4-R-I is also still unopened. P4-K-R and P4-R-C remain blocked on
-their exact external predecessors. Neither D-095 nor D-096 authorizes P4-K-R,
-stand access, transfer/extraction, collector execution, Q15, calibration,
-pilot, measurement, or confirmatory work.
+stopped before P4-K-R. D-097/ADR-0097 separately authorized one public-only
+review. Its bootstrap signature, six public output artifacts, public key,
+fingerprint, allowed-signers equality, and D-095/D-096 lineage verify. It
+performed one attempt, zero retries, no private access/probe, no installation,
+and stopped before P5. D-098 preparation resolves only the two reviewed public
+groups and retains three null P5 inputs. A separately signed/approved read-only
+P4-R-I is still unopened; P4-R-C and P5 remain blocked. No stand, Q15,
+calibration, pilot, measurement, or confirmatory work is authorized.
 
 Pilot remains blocked on the selected pair/layout/atomic,
 requested-versus-verified controls/restoration, exact

@@ -927,6 +927,22 @@ reject premature issuance, private access, retry, P4-K-R/stand authority, and
 fabricated review input. It performs no review, private probe, signature,
 installation, stand, Q15, or experiment action.
 
+The accepted D-097 authorization checker binds the reviewed public source,
+single-owner waiver, tool/ADR/template/lineage hashes, exact 1,800-second
+window, one attempt/zero retry, and mandatory P5 stop. Its tool self-test uses
+only a known public key and rejects a wrong principal; the source checker
+rejects private-path and shell tokens. Seven authorization mutations and six
+complete-evidence mutations cover private access, retry, overwrite,
+installation/activation, stand/target signing, automatic continuation, and
+authority widening. External complete-evidence mode reads only the six named
+review artifacts, bootstrap public trust, and target public key.
+
+The D-098 P5-preparation checker proves that only the two D-097 public-trust
+groups are resolved, exactly three external inputs remain null, the accepted
+20/24/18/10 setup/access/denial/rollback counts remain fixed, and every P5,
+P4-R, stand, Q15, and experiment authority is false. Six mutations reject
+fabricated inputs, premature issuance, installation, P4-R, P5, and stand scope.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

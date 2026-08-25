@@ -149,15 +149,22 @@ bootstrap signature and public artifact hashes verify, target fingerprint
 verified, and the private key remains outside the repository with metadata-only
 verification. The evidence SHA-256 is
 `8c30c1fb941179f0498943fd6ac34264ba185a318661513802fd1b2e29dfa4c8`.
-The prepared D-097 P4-K-R record remains unissued with four null inputs and
-grants no review or downstream authority. The earlier owner delegation authorizes and
+D-097/ADR-0097 then authorized one bootstrap-signed, create-exclusive,
+public-only P4-K-R review under the accepted single-owner waiver. The review
+completed once, verified the public hashes/fingerprint/allowed-signers bytes,
+performed no private-key access or presence probe, and stopped before P5.
+Complete-evidence SHA-256 is
+`b7c6125d216e01e4207ce54872b2fdb02fd7bf41bb97f99f495006ee28ce4a90`.
+The D-098 P5 preparation resolves only the two reviewed public-trust groups;
+three external inputs remain null and every P5/stand authority is false. The
+earlier owner delegation authorizes and
 ADR-0086 implements a generic no-authority controller policy engine; it has no
 OS backend and cannot admit without complete signed external evidence. The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
 SHA-256 `065d8a6d5f882bff84ee9bdbe27eb0e0c9e2bfea56c58cbe2b9bfc61cab3a4b7`.
 Its original null inputs and questions remain immutable but are superseded by
-D-093/D-094. No P4-K-R, stand, Q15, calibration, pilot, measurement, or
+D-093/D-094. No P5, stand, Q15, calibration, pilot, measurement, or
 confirmatory work is authorized.
 The frozen
 contract is documented in

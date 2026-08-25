@@ -179,6 +179,7 @@ target_include_directories(
 
 add_library(
   cpu_prefetch_q15_qualification STATIC
+  src/qualification/q15_controller.cpp
   src/qualification/q15_collectors.cpp)
 add_library(cpu_prefetch::q15_qualification ALIAS cpu_prefetch_q15_qualification)
 target_link_libraries(
@@ -317,6 +318,14 @@ target_link_libraries(
   PRIVATE
     cpu_prefetch::foundation
     cpu_prefetch::platform
+    cpu_prefetch::q15_qualification
+    cpu_prefetch_project_options)
+
+add_executable(cpu_prefetch_q15_controller tools/q15_controller_main.cpp)
+target_link_libraries(
+  cpu_prefetch_q15_controller
+  PRIVATE
+    cpu_prefetch::foundation
     cpu_prefetch::q15_qualification
     cpu_prefetch_project_options)
 
@@ -497,6 +506,18 @@ if(BUILD_TESTING)
     PREFIX "q15.collector."
     PROPERTIES LABELS "q15;qualification;platform;synthetic")
 
+  add_executable(cpu_prefetch_q15_controller_tests tests/q15_controller_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_q15_controller_tests
+    PRIVATE
+      cpu_prefetch::q15_qualification
+      cpu_prefetch_project_options
+      GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_q15_controller_tests
+    PREFIX "q15.controller."
+    PROPERTIES LABELS "q15;qualification;controller;authorization;synthetic")
+
   add_executable(
     cpu_prefetch_q15_runtime_noalloc_tests
     tests/q15_runtime_noalloc_test.cpp)
@@ -550,6 +571,30 @@ if(BUILD_TESTING)
       LABELS "q15;qualification;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
         "q15-tool-self-test: PASS.*device=NOT_OPENED.*msr=NOT_ACCESSED.*authority=NONE")
+  add_test(NAME q15.controller_self_test
+           COMMAND cpu_prefetch_q15_controller --self-test)
+  set_tests_properties(
+    q15.controller_self_test
+    PROPERTIES
+      LABELS "q15;qualification;controller;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "q15-controller-self-test: PASS.*stand=NOT_ACCESSED.*authority=NONE.*execution=NOT_STARTED")
+  add_test(NAME q15.controller_scope
+           COMMAND cpu_prefetch_q15_controller --describe-scope)
+  set_tests_properties(
+    q15.controller_scope
+    PROPERTIES
+      LABELS "q15;qualification;controller;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "Q15-R-STATIC-CONTROLLER-v1.*graph_steps=15.*q15_w=false.*stand_access=false.*authority=NONE")
+  add_test(NAME q15.controller_no_authority_execute
+           COMMAND cpu_prefetch_q15_controller --execute-q15-r
+                   /nonexistent/authorization.json /nonexistent/authorization.sshsig)
+  set_tests_properties(
+    q15.controller_no_authority_execute
+    PROPERTIES
+      LABELS "q15;qualification;controller;pre-pilot;negative;synthetic"
+      WILL_FAIL TRUE)
   add_test(NAME q15.tool_scope COMMAND cpu_prefetch_q15_tool --describe-fixed-scope)
   set_tests_properties(
     q15.tool_scope
@@ -612,6 +657,27 @@ if(BUILD_TESTING)
   set_tests_properties(
     q15.split_authorization_schema
     PROPERTIES LABELS "q15;qualification;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.r_decision_input
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_r_decision_input.py")
+  set_tests_properties(
+    q15.r_decision_input
+    PROPERTIES LABELS "q15;qualification;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.fixed_controller_authorization_v2
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py")
+  set_tests_properties(
+    q15.fixed_controller_authorization_v2
+    PROPERTIES LABELS "q15;qualification;controller;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.fixed_controller_profile
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_q15_controller_profile.py")
+  set_tests_properties(
+    q15.fixed_controller_profile
+    PROPERTIES LABELS "q15;qualification;controller;schema;pre-pilot;synthetic")
   add_test(
     NAME q15.bundle_profile_policy
     COMMAND "${Python3_EXECUTABLE}"
@@ -992,6 +1058,18 @@ add_executable(
 target_link_libraries(
   cpu_prefetch_q15_runtime_codegen_mutant
   PRIVATE cpu_prefetch::platform cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_q15_controller_codegen_probe EXCLUDE_FROM_ALL
+  tools/q15_controller_codegen_probe.cpp)
+target_link_libraries(
+  cpu_prefetch_q15_controller_codegen_probe
+  PRIVATE cpu_prefetch::q15_qualification cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_q15_controller_codegen_mutant EXCLUDE_FROM_ALL
+  tools/q15_controller_codegen_mutant.cpp)
+target_link_libraries(
+  cpu_prefetch_q15_controller_codegen_mutant
+  PRIVATE cpu_prefetch::q15_qualification cpu_prefetch_project_options)
 
 find_program(CPU_PREFETCH_CLANG_FORMAT NAMES clang-format REQUIRED)
 find_program(CPU_PREFETCH_CLANG_TIDY NAMES clang-tidy REQUIRED)
@@ -1018,6 +1096,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_msr.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_runtime.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_collectors.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_controller.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/json.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/model.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/protocol/validation.hpp"
@@ -1056,6 +1135,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/q15_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
@@ -1096,6 +1176,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_collectors_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_msr_tool_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
@@ -1126,7 +1207,10 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_runtime_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_runtime_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_qualification_tool_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_controller_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -1157,6 +1241,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/q15_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/json.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/load.cpp"
   "${PROJECT_SOURCE_DIR}/src/protocol/model.cpp"
@@ -1196,6 +1281,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_collectors_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_msr_tool_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
@@ -1226,7 +1312,10 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_runtime_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_runtime_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_mutant.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_qualification_tool_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_controller_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/smoke_main.cpp")
@@ -1241,6 +1330,7 @@ add_custom_target(
     cpu_prefetch_preflight
     cpu_prefetch_qualification
     cpu_prefetch_q15_tool
+    cpu_prefetch_q15_controller
     cpu_prefetch_runner
     cpu_prefetch_smoke
   COMMENT "Running clang-tidy over repository C++ targets")
@@ -1414,6 +1504,20 @@ add_custom_target(
     cpu_prefetch_q15_runtime_codegen_mutant
   COMMENT "Requiring dual-disassembler D-055 enable/traversal/disable evidence")
 add_custom_target(
+  q15-controller-codegen-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_controller_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_q15_controller_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_q15_controller_codegen_mutant>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/q15_controller_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS
+    cpu_prefetch_q15_controller_codegen_probe
+    cpu_prefetch_q15_controller_codegen_mutant
+  COMMENT "Requiring dual-disassembler D-057 fixed-graph and no-retry evidence")
+add_custom_target(
   runner-schema-check
   COMMAND "${Python3_EXECUTABLE}"
           "${PROJECT_SOURCE_DIR}/tools/check_runner_schema.py"
@@ -1435,6 +1539,15 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_schema.py"
   COMMAND
     "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_decision_input.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_controller_profile.py"
+  COMMAND
+    "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_probe_collector_contract.py"
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -1444,7 +1557,28 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_q15_dynamic_implementation.py"
     --source-root "${PROJECT_SOURCE_DIR}"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking Q14, Q15-P0, split Q15-R/Q15-W, and Q15 probe contracts")
+  COMMENT "Checking Q14, Q15-P0, split Q15-R/Q15-W, Q15-R decisions, and probe contracts")
+add_custom_target(
+  q15-r-decision-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_r_decision_input.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the non-authorizing Q15-R decision/input bundle")
+add_custom_target(
+  q15-authorization-v2-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the fixed-controller Q15-R authorization-v2 envelope")
+add_custom_target(
+  q15-controller-profile-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_controller_profile.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the fixed controller and unapplied role/custody profiles")
 add_custom_target(
   q15-probe-collector-contract-check
   COMMAND
@@ -1518,6 +1652,7 @@ install(
     cpu_prefetch_preflight
     cpu_prefetch_qualification
     cpu_prefetch_q15_tool
+    cpu_prefetch_q15_controller
     cpu_prefetch_runner
     cpu_prefetch_smoke
   ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
@@ -1560,6 +1695,7 @@ install(
 install(
   FILES
     "${PROJECT_SOURCE_DIR}/docs/PRE_PILOT_READINESS_REPORT.md"
+    "${PROJECT_SOURCE_DIR}/docs/Q15_R_DECISION_INPUT_BUNDLE.md"
     "${PROJECT_SOURCE_DIR}/docs/Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md"
     "${PROJECT_SOURCE_DIR}/docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md"
     "${PROJECT_SOURCE_DIR}/docs/STAND_BUNDLE.md"
@@ -1667,6 +1803,7 @@ add_custom_target(
     cpu_prefetch_platform
     cpu_prefetch_preflight
     cpu_prefetch_protocol
+    cpu_prefetch_q15_controller
     cpu_prefetch_q15_tool
     cpu_prefetch_qualification
     cpu_prefetch_smoke
@@ -1674,6 +1811,8 @@ add_custom_target(
     q15-bundle-profile-check
     q15-probe-codegen-check
     q15-runtime-codegen-check
+    q15-controller-codegen-check
+    q15-controller-profile-check
     q15-probe-collector-contract-check
     q15-probe-implementation-check
     q15-dynamic-implementation-check

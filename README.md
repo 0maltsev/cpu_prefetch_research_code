@@ -66,9 +66,17 @@ binds that release. Q15-S1/ADR-0051 accepts the separate qualification-tool,
 read-only Q15-R, and prestate-bound Q15-W split. The repository now has the
 fixed-path adapter, separate tool/bundle profile, split authority schema, and
 non-authorizing preparation records described in
-[`docs/Q15_QUALIFICATION_TOOL.md`](docs/Q15_QUALIFICATION_TOOL.md). No clean
-tool bundle, stand access, dynamic qualification, or execution authority had
-been produced when these preparation records were written. The frozen
+[`docs/Q15_QUALIFICATION_TOOL.md`](docs/Q15_QUALIFICATION_TOOL.md). Clean Q15-S3
+commit `7a92629` and archive SHA-256
+`20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848`
+bind the implemented components, but intentionally contain no production
+controller or authority. Q15-R-P1 accepted D-057 through D-060 for
+repository-local implementation only. The fixed controller core,
+authorization-v2 contract, no-authority CLI, unapplied role/custody plan, fake
+tests, and strict dual-disassembler audit are documented in
+[`docs/Q15_R_CONTROLLER.md`](docs/Q15_R_CONTROLLER.md). No clean
+controller-bearing release, signer/trust anchor, actual credentials/custody,
+stand setup, or Q15-R authority has been created. The frozen
 contract is documented in
 [`docs/Q15_QUALIFICATION_CONTRACT.md`](docs/Q15_QUALIFICATION_CONTRACT.md).
 Its implementations, executable hashes, exact authorized argv, and live
@@ -251,11 +259,17 @@ build/dev-gcc/cpu_prefetch_qualification --self-test
 build/dev-gcc/cpu_prefetch_q15_tool --self-test
 build/dev-gcc/cpu_prefetch_q15_tool --describe-fixed-scope
 build/dev-gcc/cpu_prefetch_q15_tool --describe-dynamic-scope
+build/dev-gcc/cpu_prefetch_q15_controller --self-test
+build/dev-gcc/cpu_prefetch_q15_controller --describe-scope
 cmake --build --preset dev-gcc --target q15-probe-collector-contract-check
 cmake --build --preset dev-gcc --target q15-probe-implementation-check
 cmake --build --preset dev-gcc --target q15-dynamic-implementation-check
+cmake --build --preset dev-gcc --target q15-r-decision-check
+cmake --build --preset dev-gcc --target q15-authorization-v2-check
+cmake --build --preset dev-gcc --target q15-controller-profile-check
 cmake --build --preset release-gcc --target q15-probe-codegen-check
 cmake --build --preset release-gcc --target q15-runtime-codegen-check
+cmake --build --preset release-gcc --target q15-controller-codegen-check
 ctest --preset dev-gcc -L q15 --output-on-failure
 ```
 
@@ -269,6 +283,11 @@ the exact same-buffer session, fixed Linux acquisition seams, and seven
 collector components, but exposes no unauthenticated session/collector launch
 command. Do not run any device/control option without a separately signed exact
 Q15-R or Q15-W record; the binary and bundle themselves grant no authority.
+
+`cpu_prefetch_q15_controller` contains the fixed D-057 graph. Its local
+self-test and scope command are pure. In the current no-authority build the
+production-shaped `--execute-q15-r` entry refuses before opening its two input
+paths; no signed record or operational trust anchor has been created.
 
 The release policy rejects `-march=native`, `-mtune=native`, `-Ofast`, and
 `-ffast-math`. Coverage is not configured because no coverage policy has been
@@ -311,7 +330,9 @@ new candidate can be sealed;
 the target still rejects dirty source, missing reports, hash drift, overwrite,
 or any authority-bearing manifest.
 
-`q15-qualification-tool-bundle` is a third, separate no-authority profile. It
+`q15-qualification-tool-bundle` is a third, separate no-authority profile. Its
+current controller-bearing form is `Q15-QUALIFICATION-TOOL-BUNDLE-v2`; the
+prior verified Q15-S3 v1 bundle remains unchanged and readable. The v2 profile
 contains no measurement runner and fixes the qualification tool to the accepted
 06_55H/0x1A4/CPUs-0,1,26 mapping. Its manifest denies dynamic qualification,
 MSR read/write, scientific-schedule, measurement, pilot, and confirmatory
@@ -321,8 +342,10 @@ exact probe/collector definitions are frozen and hash-bound as
 integrity, pure classification, and counted-load codegen slice is implemented;
 D-054 through D-056 add the repository-local same-buffer session, fakeable
 fixed Linux acquisition path, and seven distinct collectors. Their clean
-release hashes, exact prospective commands, roles, limits, custody, signatures,
-and dynamic evidence still block Q15 issuance.
+component release is verified. D-057 through D-060 are accepted and their fixed
+controller software passes local fake/schema/codegen checks. A separately
+authorized clean v2 release, operational adapter/trust anchor, actual commands/
+roles/custody/signature, and dynamic evidence still block Q15 issuance.
 
 ## Created targets and metadata
 
@@ -375,6 +398,9 @@ and dynamic evidence still block Q15 issuance.
   presence grants no authority and local tests use only fake device I/O;
 - `cpu_prefetch_q15_tool_tests`: fixed-path/offset, CPUID, exact-transition,
   stale/broad input, and I/O-failure tests without MSR access;
+- `cpu_prefetch_q15_controller` and `cpu_prefetch_q15_controller_tests`: fixed
+  authorization-v2 admission, 15-step first-failure graph, bounded evidence,
+  no-authority CLI, and fake failure/resource tests;
 - `cpu_prefetch_foundation_tests`: GoogleTest identity contract;
 - `cpu_prefetch_protocol_tests`: typed loading, semantic, canonical, lifecycle,
   block, access, and round-trip contracts;
@@ -411,7 +437,9 @@ and dynamic evidence still block Q15 issuance.
   `timing-codegen-check`, `storage-format-check`, `storage-schema-check`, strict
   `storage-codegen-check`, `runner-relax-codegen-check`, strict
   `runner-combined-codegen-audit`, strict `runner-combined-codegen-check`,
-  `runner-schema-check`, `qualification-schema-check`,
+  `runner-schema-check`, `qualification-schema-check`, `q15-r-decision-check`,
+  `q15-authorization-v2-check`, `q15-controller-profile-check`, strict
+  `q15-controller-codegen-check`,
   `schedule-check`, `calibration-check`,
   `orchestration-check`, `analysis-check`, `document-check`,
   `dependency-check`, `ci-check`, and `release-policy-check`;

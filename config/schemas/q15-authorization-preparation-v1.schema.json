@@ -34,7 +34,7 @@
       "required": ["tool_profile_id", "bundle_profile", "source_revision", "bundle_sha256", "binary_sha256", "release_state"],
       "properties": {
         "tool_profile_id": {"const": "Q15-FIXED-QUALIFICATION-TOOL-v1"},
-        "bundle_profile": {"const": "Q15-QUALIFICATION-TOOL-BUNDLE-v1"},
+        "bundle_profile": {"const": "Q15-QUALIFICATION-TOOL-BUNDLE-v2"},
         "source_revision": {"type": "null"},
         "bundle_sha256": {"type": "null"},
         "binary_sha256": {"type": "null"},

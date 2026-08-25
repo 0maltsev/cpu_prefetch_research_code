@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-decision-input:v1",
+  "title": "Non-authorizing Q15-R decision and input bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "bundle_id", "prepared_at_utc",
+    "status", "decision_ids", "measurement_candidate",
+    "qualification_component_release", "stand_evidence", "decisions",
+    "remaining_evidence_gates", "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-decision-input/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "bundle_id": {"const": "Q15-R-DECISION-INPUT-20260824-01"},
+    "prepared_at_utc": {"const": "2026-08-24T17:31:57Z"},
+    "status": {"const": "ACCEPTED_FOR_REPOSITORY_LOCAL_IMPLEMENTATION_NO_AUTHORITY"},
+    "decision_ids": {
+      "const": ["D-057", "D-058", "D-059", "D-060"]
+    },
+    "measurement_candidate": {"$ref": "#/$defs/measurement_candidate"},
+    "qualification_component_release": {"$ref": "#/$defs/qualification_release"},
+    "stand_evidence": {"$ref": "#/$defs/stand_evidence"},
+    "decisions": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {"$ref": "#/$defs/decision"}
+    },
+    "remaining_evidence_gates": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/nonempty"}
+    },
+    "authority_boundary": {"$ref": "#/$defs/authority_boundary"}
+  },
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "positive_u64": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18446744073709551615
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "relative_path", "sha256"],
+      "properties": {
+        "artifact_id": {"$ref": "#/$defs/nonempty"},
+        "relative_path": {"$ref": "#/$defs/nonempty"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "measurement_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_revision", "bundle_profile", "archive_sha256",
+        "runner_sha256", "runner_profile_id", "cpu_pair_selection_id",
+        "relax_mapping_id", "software_prefetch_mapping_id",
+        "hardware_prefetch_mapping_id"
+      ],
+      "properties": {
+        "source_revision": {"const": "693f00b3878ed027dc09aea7916f149874fb12a1"},
+        "bundle_profile": {"const": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"},
+        "archive_sha256": {"const": "f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1"},
+        "runner_sha256": {"const": "8bf2577750872a7595e62797e6ef278607f3bd5308820e2c21cc957ff192c2c7"},
+        "runner_profile_id": {"const": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3"},
+        "cpu_pair_selection_id": {"const": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1"},
+        "relax_mapping_id": {"const": "X86-PAUSE-ONE-PER-RELAX-SITE-v1"},
+        "software_prefetch_mapping_id": {"const": "X86-64-PREFETCHW-PREFETCHT0-v1"},
+        "hardware_prefetch_mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"}
+      }
+    },
+    "qualification_release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_revision", "bundle_profile", "archive_name", "archive_bytes",
+        "archive_sha256", "source_archive_sha256", "binary_sha256",
+        "bundle_manifest_sha256", "sbom_sha256", "version_metadata_sha256",
+        "probe_codegen_report_sha256", "runtime_codegen_report_sha256",
+        "dynamic_profile_sha256", "probe_implementation_sha256",
+        "probe_contract_sha256", "protocol_import_manifest_sha256",
+        "repository_license", "release_scope"
+      ],
+      "properties": {
+        "source_revision": {"const": "7a9262987d4c52df95e9ed2ddc09cfa0d214b198"},
+        "bundle_profile": {"const": "Q15-QUALIFICATION-TOOL-BUNDLE-v1"},
+        "archive_name": {"const": "cpu-prefetch-q15-qualification-tool-2.0.0-7a92629-clean-542e64956985.tar.gz"},
+        "archive_bytes": {"const": 4138818},
+        "archive_sha256": {"const": "20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848"},
+        "source_archive_sha256": {"const": "542e64956985e8921224cb5ab1130ee5c8e1896687a32f768c920ef6bcd4e8b2"},
+        "binary_sha256": {"const": "0e0e7a9c8fb52c9540fa93bb6a9f83dafe96e26927247ee122c0a5691ef7814a"},
+        "bundle_manifest_sha256": {"const": "e6d8da78c5feb5ec3fa76a4526b26bf898826de89556c788cf1c4006df559bed"},
+        "sbom_sha256": {"const": "7b7cb9eec2a5aa1bb9ad22ddb2000092a2ded3d3a43b82e1e90a9e5a0f346717"},
+        "version_metadata_sha256": {"const": "a5fa21792f52770ec9c4764f99307110b024ecf349a7bc516b140c0b0edcd6ea"},
+        "probe_codegen_report_sha256": {"const": "cb3368f851c5c5ac8e2c5ef5747ecf53f27e586b4b756798daa8386a1266f4aa"},
+        "runtime_codegen_report_sha256": {"const": "e3c09d4fcbb759b0008c728d563f984d38bdb93e269ac70f3ebd6a1d99ab7014"},
+        "dynamic_profile_sha256": {"const": "b25e3f10eae82cde0084c5907982ac0ae090d8de790656627f7760b614ebe08c"},
+        "probe_implementation_sha256": {"const": "52765fbb98f57e72de246306710ce4b9063e7ff8ef0d7f66b318b01eaa8b83de"},
+        "probe_contract_sha256": {"const": "c5a13646ea5e413239337e1b83b3162578c35591a54d6002f656a78acfd3d531"},
+        "protocol_import_manifest_sha256": {"const": "e06ac6bdc4f4d6b47a6f3c0d548f2b3b0f1088684a77cae08cbf7167800a1d76"},
+        "repository_license": {"const": "NO-LICENSE-GRANT"},
+        "release_scope": {"const": "COMPONENTS_PRESENT_NO_PRODUCTION_Q15_R_CONTROLLER_NO_AUTHORITY"}
+      }
+    },
+    "stand_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stand_id", "inventory", "topology", "storage", "selected_cpus"],
+      "properties": {
+        "stand_id": {"const": "XEON-CPU-FETCH"},
+        "inventory": {"$ref": "#/$defs/artifact"},
+        "topology": {"$ref": "#/$defs/artifact"},
+        "storage": {"$ref": "#/$defs/artifact"},
+        "selected_cpus": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["near", "far"],
+          "properties": {
+            "near": {"const": [0, 1]},
+            "far": {"const": [0, 26]}
+          }
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id", "classification", "state", "options_considered",
+        "recommended_option", "exact_inputs_if_approved", "evidence",
+        "scientific_effect", "compatibility_effect", "owners", "gate",
+        "supersession_rule"
+      ],
+      "properties": {
+        "decision_id": {"enum": ["D-057", "D-058", "D-059", "D-060"]},
+        "classification": {"$ref": "#/$defs/nonempty"},
+        "state": {"const": "ACCEPTED_Q15_R_P1_NO_EXECUTION_AUTHORITY"},
+        "options_considered": {
+          "type": "array", "minItems": 2, "uniqueItems": true,
+          "items": {"$ref": "#/$defs/nonempty"}
+        },
+        "recommended_option": {"$ref": "#/$defs/nonempty"},
+        "exact_inputs_if_approved": {"type": "object", "minProperties": 1},
+        "evidence": {
+          "type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nonempty"}
+        },
+        "scientific_effect": {"$ref": "#/$defs/nonempty"},
+        "compatibility_effect": {"$ref": "#/$defs/nonempty"},
+        "owners": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"$ref": "#/$defs/nonempty"}
+        },
+        "gate": {"$ref": "#/$defs/nonempty"},
+        "supersession_rule": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approval_effect", "repository_local_implementation_authorized",
+        "stand_access_authorized", "account_or_key_changes_authorized",
+        "bundle_transfer_or_install_authorized", "q15_r_authorized",
+        "q15_w_authorized", "dynamic_qualification_authorized",
+        "real_pmu_authorized", "msr_read_authorized", "msr_write_authorized",
+        "real_affinity_numa_authorized", "calibration_authorized",
+        "pilot_authorized", "measurement_authorized",
+        "confirmatory_authorized"
+      ],
+      "properties": {
+        "approval_effect": {"const": "REPOSITORY_LOCAL_CLOSURE_ONLY_FUTURE_AUTHORIZATION_STILL_REQUIRED"},
+        "repository_local_implementation_authorized": {"const": true},
+        "stand_access_authorized": {"const": false},
+        "account_or_key_changes_authorized": {"const": false},
+        "bundle_transfer_or_install_authorized": {"const": false},
+        "q15_r_authorized": {"const": false},
+        "q15_w_authorized": {"const": false},
+        "dynamic_qualification_authorized": {"const": false},
+        "real_pmu_authorized": {"const": false},
+        "msr_read_authorized": {"const": false},
+        "msr_write_authorized": {"const": false},
+        "real_affinity_numa_authorized": {"const": false},
+        "calibration_authorized": {"const": false},
+        "pilot_authorized": {"const": false},
+        "measurement_authorized": {"const": false},
+        "confirmatory_authorized": {"const": false}
+      }
+    }
+  }
+}

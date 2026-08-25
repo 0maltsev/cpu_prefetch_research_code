@@ -19,7 +19,7 @@ def sha256(path: pathlib.Path) -> str:
 
 
 def q15_profile_errors(
-    manifest: dict[str, object], release_paths: set[str | None]
+    manifest: dict[str, object], release_paths: set[str | None], *, controller_v2: bool
 ) -> list[str]:
     failures: list[str] = []
     source_archive = manifest.get("source_archive")
@@ -77,7 +77,7 @@ def q15_profile_errors(
         or any(character not in "0123456789abcdef" for character in dynamic["sha256"])
     ):
         failures.append("Q15 dynamic implementation profile binding is invalid")
-    for field in (
+    denied_fields = [
         "dynamic_qualification_authorized",
         "msr_read_authorized",
         "msr_write_authorized",
@@ -85,7 +85,22 @@ def q15_profile_errors(
         "measurement_execution_command_present",
         "pilot_authorized",
         "confirmatory_authorized",
-    ):
+    ]
+    if controller_v2:
+        denied_fields.extend(
+            [
+                "stand_access_authorized",
+                "account_or_key_changes_authorized",
+                "bundle_transfer_or_install_authorized",
+                "q15_r_authorized",
+                "q15_w_authorized",
+                "real_pmu_authorized",
+                "real_affinity_numa_authorized",
+                "calibration_authorized",
+                "measurement_authorized",
+            ]
+        )
+    for field in denied_fields:
         if manifest.get(field) is not False:
             failures.append(f"Q15 qualification-tool must deny {field}")
     for required in (
@@ -101,6 +116,55 @@ def q15_profile_errors(
     ):
         if required not in release_paths:
             failures.append(f"Q15 qualification-tool misses {required}")
+    if controller_v2:
+        if "release/bin/cpu_prefetch_q15_controller" not in release_paths:
+            failures.append("Q15 controller bundle misses controller executable")
+        for name, expected_id, expected_path in (
+            (
+                "controller_profile",
+                "Q15-R-STATIC-CONTROLLER-v1",
+                "config/q15/q15-r-controller-profile-v1.json",
+            ),
+            (
+                "role_custody_setup_plan",
+                "Q15-R-ROLE-CUSTODY-SETUP-PLAN-v1",
+                "config/q15/q15-r-role-custody-setup-plan-v1.json",
+            ),
+        ):
+            binding = manifest.get(name)
+            identity_key = "profile_id" if name == "controller_profile" else "plan_id"
+            if not isinstance(binding, dict) or (
+                binding.get(identity_key) != expected_id
+                or binding.get("path") != expected_path
+                or not isinstance(binding.get("sha256"), str)
+                or len(binding.get("sha256", "")) != 64
+                or any(
+                    character not in "0123456789abcdef"
+                    for character in binding.get("sha256", "")
+                )
+                or (
+                    name == "role_custody_setup_plan"
+                    and binding.get("status") != "PREPARED_NO_STAND_AUTHORITY"
+                )
+            ):
+                failures.append(f"Q15 controller bundle has invalid {name}")
+        authorization = manifest.get("authorization_v2_contract")
+        if not isinstance(authorization, dict) or (
+            authorization.get("schema_version")
+            != "cpu-prefetch-q15-qualification-authorization/2"
+            or authorization.get("path")
+            != (
+                "config/schemas/implementation/"
+                "q15-qualification-authorization-v2.schema.json"
+            )
+            or not isinstance(authorization.get("sha256"), str)
+            or len(authorization.get("sha256", "")) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in authorization.get("sha256", "")
+            )
+        ):
+            failures.append("Q15 controller bundle has invalid authorization-v2 binding")
     for forbidden in (
         "release/bin/cpu_prefetch_runner",
         "release/lib/libcpu_prefetch_runner_core.a",
@@ -157,6 +221,10 @@ def main() -> int:
         ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
             "cpu-prefetch-q15-qualification-tool-bundle/1",
+            "Q15_TOOL_RELEASE_NO_AUTHORITY",
+        ),
+        "Q15-QUALIFICATION-TOOL-BUNDLE-v2": (
+            "cpu-prefetch-q15-qualification-tool-bundle/2",
             "Q15_TOOL_RELEASE_NO_AUTHORITY",
         ),
     }
@@ -271,8 +339,14 @@ def main() -> int:
             ):
                 failures.append("pilot candidate combined report lacks D-047 identity")
 
-    if profile == "Q15-QUALIFICATION-TOOL-BUNDLE-v1":
-        failures.extend(q15_profile_errors(manifest, release_paths))
+    if profile in (
+        "Q15-QUALIFICATION-TOOL-BUNDLE-v1",
+        "Q15-QUALIFICATION-TOOL-BUNDLE-v2",
+    ):
+        controller_v2 = profile == "Q15-QUALIFICATION-TOOL-BUNDLE-v2"
+        failures.extend(
+            q15_profile_errors(manifest, release_paths, controller_v2=controller_v2)
+        )
         for required_evidence in (
             pathlib.Path(
                 "docs/evidence/stage16/"
@@ -288,11 +362,16 @@ def main() -> int:
                 failures.append(
                     f"Q15 probe/collector contract misses source evidence {required_evidence}"
                 )
-        for binding_name in (
+        binding_names = [
             "probe_collector_contract",
             "probe_implementation_profile",
             "dynamic_implementation_profile",
-        ):
+        ]
+        if controller_v2:
+            binding_names.extend(
+                ["controller_profile", "role_custody_setup_plan"]
+            )
+        for binding_name in binding_names:
             binding = manifest.get(binding_name, {})
             binding_text = binding.get("path") if isinstance(binding, dict) else None
             if not isinstance(binding_text, str):
@@ -308,10 +387,32 @@ def main() -> int:
                 or sha256(binding_path) != binding.get("sha256")
             ):
                 failures.append(f"Q15 {binding_name} path/hash mismatch")
-        for report in (
+        if controller_v2:
+            authorization = manifest.get("authorization_v2_contract", {})
+            authorization_text = (
+                authorization.get("path")
+                if isinstance(authorization, dict)
+                else None
+            )
+            if not isinstance(authorization_text, str):
+                failures.append("Q15 authorization-v2 path is absent")
+            else:
+                authorization_relative = pathlib.Path(authorization_text)
+                authorization_path = root / authorization_relative
+                if (
+                    authorization_relative.is_absolute()
+                    or ".." in authorization_relative.parts
+                    or not authorization_path.is_file()
+                    or sha256(authorization_path) != authorization.get("sha256")
+                ):
+                    failures.append("Q15 authorization-v2 path/hash mismatch")
+        reports = [
             "q15_probe_codegen_report.json",
             "q15_runtime_codegen_report.json",
-        ):
+        ]
+        if controller_v2:
+            reports.append("q15_controller_codegen_report.json")
+        for report in reports:
             report_relative = pathlib.Path("build-provenance") / report
             if report_relative not in declared:
                 failures.append(f"Q15 qualification-tool misses codegen report {report}")

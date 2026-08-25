@@ -1,0 +1,310 @@
+{
+  "authority_boundary": {
+    "account_or_key_changes_authorized": false,
+    "approval_effect": "REPOSITORY_LOCAL_CLOSURE_ONLY_FUTURE_AUTHORIZATION_STILL_REQUIRED",
+    "bundle_transfer_or_install_authorized": false,
+    "calibration_authorized": false,
+    "confirmatory_authorized": false,
+    "dynamic_qualification_authorized": false,
+    "measurement_authorized": false,
+    "msr_read_authorized": false,
+    "msr_write_authorized": false,
+    "pilot_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "real_affinity_numa_authorized": false,
+    "real_pmu_authorized": false,
+    "repository_local_implementation_authorized": true,
+    "stand_access_authorized": false
+  },
+  "bundle_id": "Q15-R-DECISION-INPUT-20260824-01",
+  "decision_ids": [
+    "D-057",
+    "D-058",
+    "D-059",
+    "D-060"
+  ],
+  "decisions": [
+    {
+      "classification": "qualification controller and authorization-format engineering",
+      "compatibility_effect": "Controller binary, command graph, transport, canonical record format, and all exact argv become qualification identity and require a new clean no-authority release.",
+      "decision_id": "D-057",
+      "evidence": [
+        "ADR-0051 requires a separate hash-bound qualification tool and split Q15-R/Q15-W authority.",
+        "ADR-0054 requires one literal buffer mapping to survive Q15-R sealing and the later Q15-W transaction.",
+        "The clean Q15-S3 release contains fixed probe/collector components but intentionally exposes no production command that starts them."
+      ],
+      "exact_inputs_if_approved": {
+        "arbitrary_runtime_selectors": false,
+        "authorization_format": "cpu-prefetch-q15-qualification-authorization/2",
+        "authorization_source": "ONE_EXACT_CANONICAL_SIGNED_RECORD",
+        "command_graph": [
+          "VERIFY_AUTHORIZATION_AND_RELEASE_BINDINGS",
+          "VERIFY_ROLE_AND_NEGATIVE_ACCESS_EVIDENCE",
+          "CREATE_PRIVATE_SAME_BUFFER_SESSION",
+          "COLLECT_FIXED_MSR_PRESTATE_AS_AUDITOR",
+          "COLLECT_CLOCK",
+          "COLLECT_ATOMIC_LAYOUT",
+          "COLLECT_ACTUAL_CPU_MIGRATION",
+          "COLLECT_ADDRESS_RESIDENCY",
+          "COLLECT_SOFTWARE_PREFETCH_CAPABILITY",
+          "COLLECT_STORAGE_CUSTODY",
+          "NEGATIVE_ACCESS_CHECK",
+          "RUN_H0_REGULAR_STREAM_PROBE",
+          "RUN_H0_POINTER_STREAM_PROBE",
+          "SEAL_Q15_R_EVIDENCE",
+          "WAIT_FOR_SEPARATE_Q15_W_OR_EXPIRE_FAIL_CLOSED"
+        ],
+        "controller_executable": "cpu_prefetch_q15_controller",
+        "controller_invocation_template": [
+          "cpu_prefetch_q15_controller",
+          "--execute-q15-r",
+          "<EXACT_AUTHORIZATION_PATH>",
+          "<EXACT_DETACHED_SIGNATURE_PATH>"
+        ],
+        "controller_profile_id": "Q15-R-STATIC-CONTROLLER-v1",
+        "custody_transport": "INHERITED_BOUNDED_FD_CANONICAL_FRAMES-v1",
+        "phase_handoff_transport": "VERSIONED_LOCAL_UNIX_DOMAIN_PEERCRED-v1",
+        "production_cli_commands": [
+          "--execute-q15-r"
+        ],
+        "same_buffer_lifetime": "ONE_PRIVATE_ANONYMOUS_MAPPING_H0_THROUGH_RESTORE_READBACK"
+      },
+      "gate": "Before a clean controller-bearing no-authority bundle and before any Q15-R authorization can be issued.",
+      "options_considered": [
+        "Use ad-hoc shell orchestration around component APIs.",
+        "Add arbitrary collector selectors to cpu_prefetch_q15_tool.",
+        "Add one statically fixed fail-closed controller and authorization-v2 command graph.",
+        "Declare the stand ineligible and stop."
+      ],
+      "owners": [
+        "controller owner",
+        "platform owner",
+        "security owner",
+        "custody owner",
+        "audit owner"
+      ],
+      "recommended_option": "Add one statically fixed fail-closed controller and authorization-v2 command graph; preserve stand-ineligible as the fallback.",
+      "scientific_effect": "None; the controller only acquires qualification evidence and cannot access scientific schedules, namespaces, outcomes, calibration, pilot, measurement, or analysis.",
+      "state": "ACCEPTED_Q15_R_P1_NO_EXECUTION_AUTHORITY",
+      "supersession_rule": "Any graph, transport, role, executable, authorization-format, same-buffer, or canonicalization change requires a new ADR, clean release, and requalification; scientific changes require protocol review."
+    },
+    {
+      "classification": "least-privilege identity and two-domain custody engineering",
+      "compatibility_effect": "Principal IDs, key fingerprints, effective groups/capabilities, output root, custody-domain IDs, policies, and receipt format become authorization identity.",
+      "decision_id": "D-058",
+      "evidence": [
+        "ADR-0050 requires four distinct effective identities, negative access evidence, and two distinct custody domains.",
+        "Read-only storage evidence establishes /dev/md3 as one candidate stand domain and the development repository as a separate-machine domain, but does not establish accounts or permissions."
+      ],
+      "exact_inputs_if_approved": {
+        "append_only_policy_id": "Q15-PRIMARY-APPEND-ONLY-SEAL-THEN-TRANSFER-v1",
+        "auditor_principal_id": "cpu-prefetch-q15-auditor",
+        "controller_principal_id": "cpu-prefetch-q15-controller",
+        "custodian_principal_id": "cpu-prefetch-q15-custodian",
+        "four_principals_must_be_distinct": true,
+        "operator_principal_id": "cpu-prefetch-q15-operator",
+        "output_root": "/var/lib/cpu-prefetch/q15-r",
+        "partial_artifact_policy_id": "Q15-RETAIN-PARTIAL-NEVER-PROMOTE-v1",
+        "primary_domain_id": "XEON-CPU-FETCH-MD3-Q15-CUSTODY",
+        "recovery_policy_id": "Q15-NO-OVERWRITE-NEW-ARTIFACT-ID-v1",
+        "secondary_domain_id": "DEVELOPMENT-REPOSITORY-Q15-CUSTODY",
+        "transfer_policy_id": "Q15-HASHED-SEALED-TRANSFER-WITH-RECEIPT-v1"
+      },
+      "gate": "Before role/custody setup, and again before Q15-R issuance with actual account, key, permission, capability, and negative-access evidence.",
+      "options_considered": [
+        "Reuse the root SSH identity for all roles.",
+        "Use labels without distinct effective credentials.",
+        "Use four exact least-privilege principals and two hash-verified custody domains.",
+        "Declare the stand ineligible and stop."
+      ],
+      "owners": [
+        "security owner",
+        "platform owner",
+        "custody owner",
+        "audit owner"
+      ],
+      "recommended_option": "Use the exact four principal IDs and custody policy/domain IDs in this record; actual accounts, keys, groups, capabilities, permissions, and negative tests remain separately authorized stand evidence.",
+      "scientific_effect": "None; this separates execution, mutation, custody, and verification and cannot change a treatment or observation.",
+      "state": "ACCEPTED_Q15_R_P1_NO_EXECUTION_AUTHORITY",
+      "supersession_rule": "Any identity, credential, permission, capability, domain, path, quota, or custody-policy change requires a new prospective authorization and fresh negative evidence."
+    },
+    {
+      "classification": "prospective resource, validity, and watchdog limits",
+      "compatibility_effect": "Every numerical bound and stop condition is part of Q15-R authorization identity; later changes require a new record rather than editing evidence.",
+      "decision_id": "D-059",
+      "evidence": [
+        "ADR-0048 requires exact nonzero start-barrier poll limits and an external process watchdog selected prospectively.",
+        "ADR-0045 requires exact byte, time, artifact, custody, and stop limits and rejects unbounded authority.",
+        "The clock contract fixes 100000 prime reads, 10000000 deltas per core, and three 100000-exchange cross-core windows spanning at least 60 seconds each."
+      ],
+      "exact_inputs_if_approved": {
+        "authorization_validity_seconds": 14400,
+        "controller_start_poll_limit": 18446744073709551615,
+        "external_start_watchdog_seconds": 60,
+        "frame_maximum_payload_bytes": 16777216,
+        "max_active_collection_wall_seconds": 1800,
+        "max_artifact_count": 128,
+        "max_cpu_seconds": 7200,
+        "max_output_bytes": 2147483648,
+        "max_same_buffer_session_wall_seconds": 14400,
+        "primary_custody_quota_bytes": 4294967296,
+        "stop_conditions": [
+          "FIRST_AUTHORIZATION_OR_RELEASE_BINDING_MISMATCH",
+          "FIRST_ROLE_OR_NEGATIVE_ACCESS_MISMATCH",
+          "FIRST_PEER_CREDENTIAL_OR_TRANSPORT_MISMATCH",
+          "FIRST_CLOCK_AFFINITY_NUMA_RESIDENCY_FAULT_PMU_OR_MSR_FAILURE",
+          "FIRST_INTEGRITY_COUNT_CANONICALIZATION_HASH_OR_CUSTODY_FAILURE",
+          "FIRST_LIMIT_EXPIRY_OR_DISCONNECT",
+          "PRESERVE_PARTIAL_EVIDENCE_AND_NEVER_RETRY"
+        ],
+        "worker_start_poll_limit": 18446744073709551615
+      },
+      "gate": "Before controller implementation freezes these fields and before Q15-R issuance binds issue/expiry timestamps and actual limits.",
+      "options_considered": [
+        "Leave limits unset until execution.",
+        "Derive limits from qualification or scientific outcomes.",
+        "Freeze conservative finite outer bounds prospectively and use maximum u64 only for the two pre-start poll counters.",
+        "Declare the stand ineligible and stop."
+      ],
+      "owners": [
+        "controller owner",
+        "platform owner",
+        "security owner",
+        "custody owner",
+        "protocol owner"
+      ],
+      "recommended_option": "Freeze the exact limits and stop conditions in this record. The u64 poll bounds do not replace the independent 60-second start watchdog; no in-measurement poll-count limit is introduced.",
+      "scientific_effect": "None if applied only to pre-start and external qualification containment. Limit expiry produces retained invalid/incomplete qualification evidence and never selects or tunes a treatment.",
+      "state": "ACCEPTED_Q15_R_P1_NO_EXECUTION_AUTHORITY",
+      "supersession_rule": "Changing a limit or stop condition requires a new prospective decision/authorization; no value may be adjusted from observed treatment effects or scientific outcomes."
+    },
+    {
+      "classification": "approval, signature, issuance, and phase-authority governance",
+      "compatibility_effect": "Canonical authorization bytes, signature namespace/scheme, signer identity, validity interval, and all bound artifacts become immutable authority identity.",
+      "decision_id": "D-060",
+      "evidence": [
+        "ADR-0045 requires a prospective hash-bound authorization and rejects generic approval or root access as authority.",
+        "ADR-0051 requires Q15-R and Q15-W to be separately signed, with Q15-W depending on sealed Q15-R evidence.",
+        "The current request is to prepare a decision/input bundle, not to access or qualify the stand."
+      ],
+      "exact_inputs_if_approved": {
+        "authorization_canonicalization": "JCS-I64-v1",
+        "authorization_signature_namespace": "cpu-prefetch-q15-authorization",
+        "authorization_signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+        "approval_authorizes": [
+          "REPOSITORY_LOCAL_STATIC_CONTROLLER_IMPLEMENTATION",
+          "AUTHORIZATION_V2_SCHEMA_AND_VALIDATOR_IMPLEMENTATION",
+          "FAKE_BACKEND_TESTS",
+          "SANITIZER_AND_DUAL_DISASSEMBLER_AUDIT",
+          "NO_AUTHORITY_ROLE_AND_CUSTODY_SETUP_ARTIFACT_PREPARATION"
+        ],
+        "approval_does_not_authorize": [
+          "STAND_ACCESS",
+          "ACCOUNT_OR_KEY_CREATION",
+          "BUNDLE_TRANSFER_OR_INSTALL",
+          "Q15_R_ISSUANCE_OR_SIGNATURE",
+          "Q15_R_EXECUTION",
+          "Q15_W_PREPARATION_OR_EXECUTION",
+          "REAL_PMU_MSR_AFFINITY_OR_NUMA_OPERATION",
+          "DYNAMIC_QUALIFICATION",
+          "CALIBRATION",
+          "PILOT",
+          "MEASUREMENT",
+          "CONFIRMATORY_EXECUTION"
+        ],
+        "issuance_requires_new_explicit_approval": true,
+        "q15_w_requires_separate_later_approval": true
+      },
+      "gate": "This approval precedes repository-local closure only; a later exact Q15-R authorization with actual hashes, identities, timestamps, argv, and signature must be approved separately.",
+      "options_considered": [
+        "Treat approval of this bundle as Q15-R execution authority.",
+        "Treat prior SSH permission as continuing qualification authority.",
+        "Authorize repository-local blocker closure only and require later signed Q15-R issuance approval.",
+        "Stop without implementing the controller."
+      ],
+      "owners": [
+        "protocol owner",
+        "platform owner",
+        "security owner",
+        "controller owner",
+        "custody owner",
+        "audit owner"
+      ],
+      "recommended_option": "Authorize repository-local blocker closure only, use the exact detached-signature policy, and require a later explicit approval over the final signed Q15-R record.",
+      "scientific_effect": "None; this bundle grants no stand, qualification, calibration, pilot, measurement, analysis, or confirmatory authority.",
+      "state": "ACCEPTED_Q15_R_P1_NO_EXECUTION_AUTHORITY",
+      "supersession_rule": "A change to signature scheme, canonicalization, signer, issuance process, phase split, or authority boundary requires a new governance decision and new immutable authorization."
+    }
+  ],
+  "measurement_candidate": {
+    "archive_sha256": "f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1",
+    "bundle_profile": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1",
+    "cpu_pair_selection_id": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",
+    "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+    "relax_mapping_id": "X86-PAUSE-ONE-PER-RELAX-SITE-v1",
+    "runner_profile_id": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3",
+    "runner_sha256": "8bf2577750872a7595e62797e6ef278607f3bd5308820e2c21cc957ff192c2c7",
+    "software_prefetch_mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",
+    "source_revision": "693f00b3878ed027dc09aea7916f149874fb12a1"
+  },
+  "prepared_at_utc": "2026-08-24T17:31:57Z",
+  "protocol_version": "2.0.0-pre.2",
+  "qualification_component_release": {
+    "archive_bytes": 4138818,
+    "archive_name": "cpu-prefetch-q15-qualification-tool-2.0.0-7a92629-clean-542e64956985.tar.gz",
+    "archive_sha256": "20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848",
+    "binary_sha256": "0e0e7a9c8fb52c9540fa93bb6a9f83dafe96e26927247ee122c0a5691ef7814a",
+    "bundle_manifest_sha256": "e6d8da78c5feb5ec3fa76a4526b26bf898826de89556c788cf1c4006df559bed",
+    "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v1",
+    "dynamic_profile_sha256": "b25e3f10eae82cde0084c5907982ac0ae090d8de790656627f7760b614ebe08c",
+    "probe_codegen_report_sha256": "cb3368f851c5c5ac8e2c5ef5747ecf53f27e586b4b756798daa8386a1266f4aa",
+    "probe_contract_sha256": "c5a13646ea5e413239337e1b83b3162578c35591a54d6002f656a78acfd3d531",
+    "probe_implementation_sha256": "52765fbb98f57e72de246306710ce4b9063e7ff8ef0d7f66b318b01eaa8b83de",
+    "protocol_import_manifest_sha256": "e06ac6bdc4f4d6b47a6f3c0d548f2b3b0f1088684a77cae08cbf7167800a1d76",
+    "release_scope": "COMPONENTS_PRESENT_NO_PRODUCTION_Q15_R_CONTROLLER_NO_AUTHORITY",
+    "repository_license": "NO-LICENSE-GRANT",
+    "runtime_codegen_report_sha256": "e3c09d4fcbb759b0008c728d563f984d38bdb93e269ac70f3ebd6a1d99ab7014",
+    "sbom_sha256": "7b7cb9eec2a5aa1bb9ad22ddb2000092a2ded3d3a43b82e1e90a9e5a0f346717",
+    "source_archive_sha256": "542e64956985e8921224cb5ab1130ee5c8e1896687a32f768c920ef6bcd4e8b2",
+    "source_revision": "7a9262987d4c52df95e9ed2ddc09cfa0d214b198",
+    "version_metadata_sha256": "a5fa21792f52770ec9c4764f99307110b024ecf349a7bc516b140c0b0edcd6ea"
+  },
+  "remaining_evidence_gates": [
+    "One separately authorized clean commit and no-authority controller-bearing bundle with exact source, binary, report, manifest, SBOM, archive, and sidecar hashes.",
+    "Separately authorized stand setup of four actual credentials and custody paths, followed by complete positive and negative OS access evidence.",
+    "Exact current stand inventory/topology recheck, executable paths and hashes, literal argv, controller endpoint, output artifact IDs, and transfer receipt contract.",
+    "Exact issue and expiry UTC, actual signer/key identity, canonical authorization hash, detached signature artifact, signature hash, and independent verification record.",
+    "A later explicit approval of the final signed Q15-R authorization."
+  ],
+  "schema_version": "cpu-prefetch-q15-r-decision-input/1",
+  "stand_evidence": {
+    "inventory": {
+      "artifact_id": "STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02",
+      "relative_path": "docs/evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02.json",
+      "sha256": "f8c6adbac92a9b163c45f71138946f3672eab7391fa27800fd909e028bc73087"
+    },
+    "selected_cpus": {
+      "far": [
+        0,
+        26
+      ],
+      "near": [
+        0,
+        1
+      ]
+    },
+    "stand_id": "XEON-CPU-FETCH",
+    "storage": {
+      "artifact_id": "STAND-STORAGE-XEON-CPU-FETCH-20260822-01-SHA256SUMS",
+      "relative_path": "docs/evidence/stage16/STAND-STORAGE-XEON-CPU-FETCH-20260822-01/SHA256SUMS",
+      "sha256": "9469ad245de27d7211db2a746ae1016dfdebb3a8df07b846fe499ad290617c83"
+    },
+    "topology": {
+      "artifact_id": "STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01-SHA256SUMS",
+      "relative_path": "docs/evidence/stage16/STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/SHA256SUMS",
+      "sha256": "c0c1e727315e17a6e54ef8857e5f4b6ceedbbf97a43f57a3c0659629108ca205"
+    }
+  },
+  "status": "ACCEPTED_FOR_REPOSITORY_LOCAL_IMPLEMENTATION_NO_AUTHORITY"
+}

@@ -9,19 +9,29 @@ from verify_stand_bundle import q15_profile_errors
 
 
 DENIED_FIELDS = (
+    "account_or_key_changes_authorized",
+    "bundle_transfer_or_install_authorized",
+    "calibration_authorized",
+    "confirmatory_authorized",
     "dynamic_qualification_authorized",
+    "measurement_authorized",
+    "measurement_execution_command_present",
     "msr_read_authorized",
     "msr_write_authorized",
-    "scientific_schedule_access_authorized",
-    "measurement_execution_command_present",
     "pilot_authorized",
-    "confirmatory_authorized",
+    "q15_r_authorized",
+    "q15_w_authorized",
+    "real_affinity_numa_authorized",
+    "real_pmu_authorized",
+    "scientific_schedule_access_authorized",
+    "stand_access_authorized",
 )
 
 REQUIRED_PATHS = {
     "release/bin/cpu_prefetch_smoke",
     "release/bin/cpu_prefetch_preflight",
     "release/bin/cpu_prefetch_qualification",
+    "release/bin/cpu_prefetch_q15_controller",
     "release/bin/cpu_prefetch_q15_tool",
     "release/lib/libcpu_prefetch_foundation.a",
     "release/lib/libcpu_prefetch_platform.a",
@@ -52,6 +62,25 @@ def base_manifest() -> dict[str, object]:
             "path": "config/q15/q15-dynamic-implementation-profile-v1.json",
             "sha256": "0" * 64,
         },
+        "authorization_v2_contract": {
+            "path": (
+                "config/schemas/implementation/"
+                "q15-qualification-authorization-v2.schema.json"
+            ),
+            "schema_version": "cpu-prefetch-q15-qualification-authorization/2",
+            "sha256": "0" * 64,
+        },
+        "controller_profile": {
+            "path": "config/q15/q15-r-controller-profile-v1.json",
+            "profile_id": "Q15-R-STATIC-CONTROLLER-v1",
+            "sha256": "0" * 64,
+        },
+        "role_custody_setup_plan": {
+            "path": "config/q15/q15-r-role-custody-setup-plan-v1.json",
+            "plan_id": "Q15-R-ROLE-CUSTODY-SETUP-PLAN-v1",
+            "sha256": "0" * 64,
+            "status": "PREPARED_NO_STAND_AUTHORITY",
+        },
         "source_archive": {"source_dirty": False},
     }
     document.update({field: False for field in DENIED_FIELDS})
@@ -61,13 +90,13 @@ def base_manifest() -> dict[str, object]:
 def require_rejected(
     document: dict[str, object], paths: set[str | None], description: str
 ) -> None:
-    if not q15_profile_errors(document, paths):
+    if not q15_profile_errors(document, paths, controller_v2=True):
         raise AssertionError(f"Q15 bundle-profile negative accepted: {description}")
 
 
 def main() -> int:
     positive = base_manifest()
-    if q15_profile_errors(positive, set(REQUIRED_PATHS)):
+    if q15_profile_errors(positive, set(REQUIRED_PATHS), controller_v2=True):
         raise AssertionError("valid no-authority Q15 bundle profile was rejected")
 
     negative_count = 0

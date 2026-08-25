@@ -1,0 +1,123 @@
+{
+  "authority_boundary": {
+    "account_or_key_changes_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "calibration_authorized": false,
+    "confirmatory_authorized": false,
+    "dynamic_qualification_authorized": false,
+    "measurement_authorized": false,
+    "msr_access_authorized": false,
+    "pilot_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "real_affinity_numa_authorized": false,
+    "real_pmu_authorized": false,
+    "stand_access_authorized": false
+  },
+  "authorization_contract": {
+    "canonicalization": "JCS-I64-v1",
+    "core_schema_version": "cpu-prefetch-q15-qualification-authorization/2",
+    "detached_signature_required": true,
+    "independent_verification_required": true,
+    "signature_namespace": "cpu-prefetch-q15-authorization",
+    "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1"
+  },
+  "command_contract": {
+    "arbitrary_runtime_selectors": false,
+    "controller_executable": "cpu_prefetch_q15_controller",
+    "graph": [
+      "VERIFY_AUTHORIZATION_AND_RELEASE_BINDINGS",
+      "VERIFY_ROLE_AND_NEGATIVE_ACCESS_EVIDENCE",
+      "CREATE_PRIVATE_SAME_BUFFER_SESSION",
+      "COLLECT_FIXED_MSR_PRESTATE_AS_AUDITOR",
+      "COLLECT_CLOCK",
+      "COLLECT_ATOMIC_LAYOUT",
+      "COLLECT_ACTUAL_CPU_MIGRATION",
+      "COLLECT_ADDRESS_RESIDENCY",
+      "COLLECT_SOFTWARE_PREFETCH_CAPABILITY",
+      "COLLECT_STORAGE_CUSTODY",
+      "NEGATIVE_ACCESS_CHECK",
+      "RUN_H0_REGULAR_STREAM_PROBE",
+      "RUN_H0_POINTER_STREAM_PROBE",
+      "SEAL_Q15_R_EVIDENCE",
+      "WAIT_FOR_SEPARATE_Q15_W_OR_EXPIRE_FAIL_CLOSED"
+    ],
+    "invocation": [
+      "cpu_prefetch_q15_controller",
+      "--execute-q15-r",
+      "<EXACT_AUTHORIZATION_PATH>",
+      "<EXACT_DETACHED_SIGNATURE_PATH>"
+    ],
+    "no_authority_build_behavior": "REFUSE_BEFORE_OPENING_ARGUMENT_PATHS",
+    "production_commands": ["--execute-q15-r"],
+    "retry_or_fallback": false
+  },
+  "custody_contract": {
+    "append_only_policy_id": "Q15-PRIMARY-APPEND-ONLY-SEAL-THEN-TRANSFER-v1",
+    "output_root": "/var/lib/cpu-prefetch/q15-r",
+    "partial_artifact_policy_id": "Q15-RETAIN-PARTIAL-NEVER-PROMOTE-v1",
+    "primary_domain_id": "XEON-CPU-FETCH-MD3-Q15-CUSTODY",
+    "recovery_policy_id": "Q15-NO-OVERWRITE-NEW-ARTIFACT-ID-v1",
+    "secondary_domain_id": "DEVELOPMENT-REPOSITORY-Q15-CUSTODY",
+    "transfer_policy_id": "Q15-HASHED-SEALED-TRANSFER-WITH-RECEIPT-v1"
+  },
+  "decision_ids": ["D-057", "D-058", "D-059", "D-060"],
+  "limits": {
+    "authorization_validity_seconds": 14400,
+    "controller_start_poll_limit": 18446744073709551615,
+    "external_start_watchdog_seconds": 60,
+    "frame_maximum_payload_bytes": 16777216,
+    "max_active_collection_wall_seconds": 1800,
+    "max_artifact_count": 128,
+    "max_cpu_seconds": 7200,
+    "max_output_bytes": 2147483648,
+    "max_same_buffer_session_wall_seconds": 14400,
+    "primary_custody_quota_bytes": 4294967296,
+    "worker_start_poll_limit": 18446744073709551615
+  },
+  "principal_ids": [
+    "cpu-prefetch-q15-operator",
+    "cpu-prefetch-q15-controller",
+    "cpu-prefetch-q15-custodian",
+    "cpu-prefetch-q15-auditor"
+  ],
+  "profile_id": "Q15-R-STATIC-CONTROLLER-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "schema_version": "cpu-prefetch-q15-r-controller-profile/1",
+  "source_bindings": [
+    {
+      "path": "include/cpu_prefetch/qualification/q15_controller.hpp",
+      "sha256": "2b58f48dda6c76dc8eefb917f1bf9670f03f2578638f1ab06f2c84e5669698de"
+    },
+    {
+      "path": "src/qualification/q15_controller.cpp",
+      "sha256": "6e1d5f3b0b4fedb10ef1f91b7fbe3e5fde53bf070ad8ff7695be491c3618e50f"
+    },
+    {
+      "path": "tools/q15_controller_main.cpp",
+      "sha256": "e9948f5054bacda73fea04e7ff5d4eef2137225b940d525432265f48cd88f457"
+    },
+    {
+      "path": "config/schemas/q15-qualification-authorization-v2.schema.json",
+      "sha256": "9004d2e6ee509aa7944520752ab34b48874f34b4e93a7c088d574c46085d2e5f"
+    },
+    {
+      "path": "config/q15/q15-r-decision-input-v1.json",
+      "sha256": "b99f6d07294c7505fba0cfee79bc425553e398be742280d71e3b467ee80739eb"
+    }
+  ],
+  "stop_conditions": [
+    "FIRST_AUTHORIZATION_OR_RELEASE_BINDING_MISMATCH",
+    "FIRST_ROLE_OR_NEGATIVE_ACCESS_MISMATCH",
+    "FIRST_PEER_CREDENTIAL_OR_TRANSPORT_MISMATCH",
+    "FIRST_CLOCK_AFFINITY_NUMA_RESIDENCY_FAULT_PMU_OR_MSR_FAILURE",
+    "FIRST_INTEGRITY_COUNT_CANONICALIZATION_HASH_OR_CUSTODY_FAILURE",
+    "FIRST_LIMIT_EXPIRY_OR_DISCONNECT",
+    "PRESERVE_PARTIAL_EVIDENCE_AND_NEVER_RETRY"
+  ],
+  "transport_contract": {
+    "custody_transport": "INHERITED_BOUNDED_FD_CANONICAL_FRAMES-v1",
+    "phase_handoff_transport": "VERSIONED_LOCAL_UNIX_DOMAIN_PEERCRED-v1",
+    "same_buffer_lifetime": "ONE_PRIVATE_ANONYMOUS_MAPPING_H0_THROUGH_RESTORE_READBACK"
+  }
+}

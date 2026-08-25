@@ -1,6 +1,6 @@
 # Q15 qualification-tool boundary
 
-Status: **`D054_D056_COMPONENTS_IMPLEMENTED_LOCAL_UNCOMMITTED; PRIOR_D053_CLEAN_BUNDLE_RETAINED; NO_AUTHORITY`**
+Status: **`Q15_S3_CLEAN_COMPONENT_RELEASE_VERIFIED; FIXED_CONTROLLER_ABSENT; NO_AUTHORITY`**
 
 Protocol: `2.0.0-pre.2`
 
@@ -97,28 +97,33 @@ The `q15-qualification-tool-bundle` target is distinct from
   sidecar; and
 - refuses dirty source and append-only overwrite.
 
-A clean D-052/Q15-S1 archive was sealed from its separately authorized
-revision. The separately authorized D-053 handoff adds one clean exact commit
-and a clean no-authority qualification-tool bundle; its manifest and outer
-sidecar carry the exact revision and hashes. ADR-0052 freezes the exact
-regular-stream, pointer-dependent, and seven-collector contract in
-`config/q15/q15-probe-collector-contract-v1.json`. The bundle carries and
-hash-binds that contract. D-053 additionally binds the implementation profile
-and strict counted-traversal codegen report. That prior clean D-053 bundle is
-unchanged and still contains no Q15-S3 components.
+The authorized clean Q15-S3 commit is
+`7a9262987d4c52df95e9ed2ddc09cfa0d214b198`. Its verified no-authority archive
+is `cpu-prefetch-q15-qualification-tool-2.0.0-7a92629-clean-542e64956985.tar.gz`
+(4138818 bytes), SHA-256
+`20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848`.
+The Q15 executable SHA-256 is
+`0e0e7a9c8fb52c9540fa93bb6a9f83dafe96e26927247ee122c0a5691ef7814a`.
+Its 101-file clean-extraction verification and four non-authorizing self-tests
+pass. The bundle contains and hash-binds D-052 through D-056, the dynamic
+profile, collector library/schema, and both strict code-generation reports.
 
-The bundle builder is now prepared to include the Q15-S3 dynamic profile,
-collector library/schema, and strict caller-boundary codegen report, while
-keeping every authority field false. No Q15-S3 commit or clean replacement
-bundle was authorized in this step, so exact clean hashes and prospective
-commands remain later release and Q15-R/Q15-W inputs.
+The clean Q15-S3 v1 release intentionally exposes no production controller
+command for the phase-spanning session/collectors. Q15-R-P1 subsequently
+accepted D-057 through D-060 and the repository now contains the fixed
+controller core, a no-authority CLI, and a v2 bundle profile. No v2 bundle has
+been sealed. A separately authorized clean controller-bearing release and a
+later separately approved signed Q15-R record remain mandatory.
 
 ## Split authorization records
 
-`cpu-prefetch-q15-qualification-authorization/1` is the only prospective Q15
-authority format after ADR-0051. It has distinct `Q15_R_READ_ONLY` and
-`Q15_W_APPLY_PROBE_RESTORE` phases. New omnibus v2 `STAND_QUALIFICATION`
-documents are rejected; historical v1/v2 schemas remain readable.
+`cpu-prefetch-q15-qualification-authorization/1` remains the split preparation
+format from ADR-0051. ADR-0057 adds
+`cpu-prefetch-q15-qualification-authorization/2` for the future fixed
+`Q15_R_READ_ONLY` controller: it uses a canonical core plus detached SSHSIG and
+independent verification evidence. Q15-W remains separately authorized and is
+not enabled by v2. Omnibus `STAND_QUALIFICATION` documents are rejected;
+historical schemas remain readable.
 
 The checked preparation records are:
 

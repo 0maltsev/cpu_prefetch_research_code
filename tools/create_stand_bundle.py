@@ -20,7 +20,7 @@ from typing import Any
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
 STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"
-Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v1"
+Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v2"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
         "cpu_prefetch_queue_codegen_probe",
@@ -48,6 +48,10 @@ STAGE17_CODEGEN_INPUTS = {
     ),
 }
 Q15_CODEGEN_INPUTS = {
+    "q15_controller_codegen_report.json": (
+        "cpu_prefetch_q15_controller_codegen_probe",
+        "check_q15_controller_codegen.py",
+    ),
     "q15_probe_codegen_report.json": (
         "cpu_prefetch_q15_probe_codegen_probe",
         "check_q15_probe_codegen.py",
@@ -283,7 +287,11 @@ def main() -> int:
         )
     if q15_tool:
         required_binaries.extend(
-            ["cpu_prefetch_qualification", "cpu_prefetch_q15_tool"]
+            [
+                "cpu_prefetch_qualification",
+                "cpu_prefetch_q15_controller",
+                "cpu_prefetch_q15_tool",
+            ]
         )
         q15_library_names = {
             "libcpu_prefetch_foundation.a",
@@ -391,6 +399,10 @@ def main() -> int:
                     "docs/evidence/stage16/"
                     "STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/SHA256SUMS"
                 ),
+                pathlib.Path(
+                    "docs/evidence/stage16/"
+                    "STAND-STORAGE-XEON-CPU-FETCH-20260822-01/SHA256SUMS"
+                ),
             ):
                 target = staging / relative
                 target.parent.mkdir(parents=True, exist_ok=True)
@@ -419,6 +431,9 @@ def main() -> int:
                     "Q15_PREREQUISITE_CLOSURE.md",
                     "Q15_QUALIFICATION_CONTRACT.md",
                     "Q15_QUALIFICATION_TOOL.md",
+                    "Q15_R_CONTROLLER.md",
+                    "Q15_R_DECISION_INPUT_BUNDLE.md",
+                    "Q15_R_ROLE_CUSTODY_SETUP_PLAN.md",
                     "Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md",
                 ]
             )
@@ -451,6 +466,10 @@ def main() -> int:
                 [
                     "check_hardware_prefetch_schema.py",
                     "check_q15_authorization_schema.py",
+                    "check_q15_authorization_v2.py",
+                    "check_q15_controller_codegen.py",
+                    "check_q15_controller_profile.py",
+                    "check_q15_r_decision_input.py",
                     "check_q15_dynamic_implementation.py",
                     "check_q15_probe_collector_contract.py",
                     "check_q15_probe_implementation.py",
@@ -507,7 +526,7 @@ def main() -> int:
             "schema_version": (
                 "cpu-prefetch-pilot-candidate-bundle/1"
                 if stage17
-                else "cpu-prefetch-q15-qualification-tool-bundle/1"
+                else "cpu-prefetch-q15-qualification-tool-bundle/2"
                 if q15_tool
                 else "cpu-prefetch-stand-bundle/1"
             ),
@@ -556,14 +575,48 @@ def main() -> int:
             dynamic_profile_path = (
                 root / "config" / "q15" / "q15-dynamic-implementation-profile-v1.json"
             )
+            controller_profile_path = (
+                root / "config" / "q15" / "q15-r-controller-profile-v1.json"
+            )
+            authorization_schema_path = (
+                root
+                / "config"
+                / "schemas"
+                / "q15-qualification-authorization-v2.schema.json"
+            )
+            setup_plan_path = (
+                root
+                / "config"
+                / "q15"
+                / "q15-r-role-custody-setup-plan-v1.json"
+            )
             manifest.update(
                 {
+                    "account_or_key_changes_authorized": False,
+                    "authorization_v2_contract": {
+                        "path": (
+                            "config/schemas/implementation/"
+                            "q15-qualification-authorization-v2.schema.json"
+                        ),
+                        "schema_version": (
+                            "cpu-prefetch-q15-qualification-authorization/2"
+                        ),
+                        "sha256": sha256(authorization_schema_path),
+                    },
+                    "bundle_transfer_or_install_authorized": False,
+                    "calibration_authorized": False,
+                    "controller_profile": {
+                        "path": "config/q15/q15-r-controller-profile-v1.json",
+                        "profile_id": "Q15-R-STATIC-CONTROLLER-v1",
+                        "sha256": sha256(controller_profile_path),
+                    },
                     "dynamic_implementation_profile": {
                         "profile_id": "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1",
                         "path": "config/q15/q15-dynamic-implementation-profile-v1.json",
                         "sha256": sha256(dynamic_profile_path),
                     },
                     "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+                    "measurement_authorized": False,
                     "msr_read_authorized": False,
                     "msr_write_authorized": False,
                     "probe_collector_contract": {
@@ -577,7 +630,18 @@ def main() -> int:
                         "sha256": sha256(probe_profile_path),
                     },
                     "qualification_tool_profile_id": "Q15-FIXED-QUALIFICATION-TOOL-v1",
+                    "q15_r_authorized": False,
+                    "q15_w_authorized": False,
+                    "real_affinity_numa_authorized": False,
+                    "real_pmu_authorized": False,
+                    "role_custody_setup_plan": {
+                        "path": "config/q15/q15-r-role-custody-setup-plan-v1.json",
+                        "plan_id": "Q15-R-ROLE-CUSTODY-SETUP-PLAN-v1",
+                        "sha256": sha256(setup_plan_path),
+                        "status": "PREPARED_NO_STAND_AUTHORITY",
+                    },
                     "scientific_schedule_access_authorized": False,
+                    "stand_access_authorized": False,
                 }
             )
         write_json(staging / "BUNDLE_MANIFEST.json", manifest)

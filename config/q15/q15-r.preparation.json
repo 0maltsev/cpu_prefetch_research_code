@@ -6,12 +6,27 @@
   "known_inputs": {
     "cpu_pair_selection_id": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",
     "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+    "q15_r_decision_input_id": "Q15-R-DECISION-INPUT-20260824-01",
+    "q15_r_decision_input_sha256": "b99f6d07294c7505fba0cfee79bc425553e398be742280d71e3b467ee80739eb",
+    "q15_r_decision_state": "ACCEPTED_FOR_REPOSITORY_LOCAL_IMPLEMENTATION_NO_AUTHORITY",
+    "q15_s3_component_release": {
+      "archive_sha256": "20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848",
+      "binary_sha256": "0e0e7a9c8fb52c9540fa93bb6a9f83dafe96e26927247ee122c0a5691ef7814a",
+      "release_scope": "COMPONENTS_PRESENT_NO_PRODUCTION_Q15_R_CONTROLLER_NO_AUTHORITY",
+      "source_revision": "7a9262987d4c52df95e9ed2ddc09cfa0d214b198"
+    },
     "probe_collector_contract_id": "Q15-PROBE-COLLECTOR-CONTRACT-v1",
     "probe_collector_contract_sha256": "c5a13646ea5e413239337e1b83b3162578c35591a54d6002f656a78acfd3d531",
     "protocol_import_manifest_sha256": "e06ac6bdc4f4d6b47a6f3c0d548f2b3b0f1088684a77cae08cbf7167800a1d76",
     "relax_mapping_id": "X86-PAUSE-ONE-PER-RELAX-SITE-v1",
     "runner_profile_id": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3",
-    "software_prefetch_mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1"
+    "software_prefetch_mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",
+    "stand_evidence": {
+      "inventory_sha256": "f8c6adbac92a9b163c45f71138946f3672eab7391fa27800fd909e028bc73087",
+      "stand_id": "XEON-CPU-FETCH",
+      "storage_sha256": "9469ad245de27d7211db2a746ae1016dfdebb3a8df07b846fe499ad290617c83",
+      "topology_sha256": "c0c1e727315e17a6e54ef8857e5f4b6ceedbbf97a43f57a3c0659629108ca205"
+    }
   },
   "measurement_candidate": {
     "archive_sha256": "f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1",
@@ -28,7 +43,7 @@
   "protocol_version": "2.0.0-pre.2",
   "qualification_tool": {
     "binary_sha256": null,
-    "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v1",
+    "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v2",
     "bundle_sha256": null,
     "release_state": "NOT_SEALED",
     "source_revision": null,
@@ -38,15 +53,13 @@
   "stand_access_authorized": false,
   "status": "BLOCKED_INPUTS_REQUIRED",
   "unresolved_inputs": [
-    "clean qualification-tool source revision, bundle SHA-256, and binary SHA-256",
-    "exact stand and current inventory/topology artifact identities and hashes",
-    "four distinct role identities plus account, key, group, and capability mapping",
+    "new clean controller-bearing no-authority release and exact source, bundle, binary, report, manifest, SBOM, and sidecar hashes",
+    "fresh stand inventory/topology verification at execution preparation",
+    "four actual distinct role credentials plus account, key, group, and capability mapping",
     "negative OS access evidence for every forbidden role/action pair",
-    "exact read-only command argv, executable hashes, targets, roles, and output artifact IDs",
-    "collector and probe executable implementations, generated-code evidence, hashes, and exact authorized argv implementing Q15-PROBE-COLLECTOR-CONTRACT-v1",
-    "exact custody domains, output root, policies, quota, and transfer receipt contract",
-    "exact issue and expiry UTC, detached-signature scheme, signer, artifact, and hash",
-    "exact wall, CPU, byte, artifact, start-barrier, and external-watchdog limits",
-    "exact stop conditions"
+    "exact literal controller argv, executable hashes, endpoint, targets, roles, and output artifact IDs",
+    "actual custody permissions, quota enforcement, append-only behavior, secondary transfer endpoint, and receipt evidence",
+    "exact issue and expiry UTC, signer/key fingerprint, canonical authorization hash, detached-signature artifact, and signature hash",
+    "independent validation of the final signed Q15-R record and separate explicit issuance approval"
   ]
 }

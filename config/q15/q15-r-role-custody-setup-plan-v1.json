@@ -1,0 +1,95 @@
+{
+  "authority_boundary": {
+    "account_creation_authorized": false,
+    "capability_or_group_change_authorized": false,
+    "credential_creation_authorized": false,
+    "filesystem_change_authorized": false,
+    "key_creation_authorized": false,
+    "negative_access_execution_authorized": false,
+    "q15_r_authorized": false,
+    "stand_access_authorized": false
+  },
+  "completion_state": "BLOCKED_UNTIL_SEPARATE_STAND_SETUP_AUTHORIZATION",
+  "custody_domains": [
+    {
+      "actual_mount_or_host": null,
+      "domain_id": "XEON-CPU-FETCH-MD3-Q15-CUSTODY",
+      "path_created": false,
+      "proposed_root": "/var/lib/cpu-prefetch/q15-r",
+      "role": "PRIMARY_APPEND_ONLY_STAND_DOMAIN",
+      "verification_state": "NOT_EXECUTED"
+    },
+    {
+      "actual_mount_or_host": null,
+      "domain_id": "DEVELOPMENT-REPOSITORY-Q15-CUSTODY",
+      "path_created": false,
+      "proposed_root": null,
+      "role": "SECONDARY_SEPARATE_MACHINE_DOMAIN",
+      "verification_state": "NOT_EXECUTED"
+    }
+  ],
+  "evidence_required_before_q15_r_issuance": [
+    "ACTUAL_UID_GID_GROUPS_AND_CAPABILITIES_FOR_ALL_FOUR_PRINCIPALS",
+    "ACTUAL_ED25519_PUBLIC_KEY_FINGERPRINT_AND_AUTHORIZED_SIGNER_POLICY",
+    "PRIMARY_ROOT_DEVICE_MOUNT_OPTIONS_OWNER_MODE_QUOTA_AND_FREE_SPACE",
+    "POSITIVE_ACCESS_TESTS_FOR_EACH_PERMITTED_OPERATION",
+    "NEGATIVE_CROSS_ROLE_ACCESS_TESTS_FOR_EACH_FORBIDDEN_OPERATION",
+    "TWO_DISTINCT_CUSTODY_DOMAIN_PROOF",
+    "APPEND_ONLY_SEAL_TRANSFER_AND_RECEIPT_DRY_RUN_WITH_SYNTHETIC_BYTES",
+    "INDEPENDENT_AUDITOR_RECEIPT_AND_HASH_VERIFICATION"
+  ],
+  "plan_id": "Q15-R-ROLE-CUSTODY-SETUP-PLAN-v1",
+  "policies": {
+    "append_only_policy_id": "Q15-PRIMARY-APPEND-ONLY-SEAL-THEN-TRANSFER-v1",
+    "partial_artifact_policy_id": "Q15-RETAIN-PARTIAL-NEVER-PROMOTE-v1",
+    "primary_custody_quota_bytes": 4294967296,
+    "recovery_policy_id": "Q15-NO-OVERWRITE-NEW-ARTIFACT-ID-v1",
+    "transfer_policy_id": "Q15-HASHED-SEALED-TRANSFER-WITH-RECEIPT-v1"
+  },
+  "principals": [
+    {
+      "account_created": false,
+      "actual_capabilities": null,
+      "actual_groups": null,
+      "actual_uid": null,
+      "principal_id": "cpu-prefetch-q15-operator",
+      "public_key_fingerprint": null,
+      "purpose": "ISSUE_EXACT_PHASE_REQUEST_ONLY",
+      "verification_state": "NOT_EXECUTED"
+    },
+    {
+      "account_created": false,
+      "actual_capabilities": null,
+      "actual_groups": null,
+      "actual_uid": null,
+      "principal_id": "cpu-prefetch-q15-controller",
+      "public_key_fingerprint": null,
+      "purpose": "EXECUTE_FIXED_CONTROLLER_ONLY_AFTER_ADMISSION",
+      "verification_state": "NOT_EXECUTED"
+    },
+    {
+      "account_created": false,
+      "actual_capabilities": null,
+      "actual_groups": null,
+      "actual_uid": null,
+      "principal_id": "cpu-prefetch-q15-custodian",
+      "public_key_fingerprint": null,
+      "purpose": "SEAL_TRANSFER_AND_RECEIPT_CUSTODY_ONLY",
+      "verification_state": "NOT_EXECUTED"
+    },
+    {
+      "account_created": false,
+      "actual_capabilities": null,
+      "actual_groups": null,
+      "actual_uid": null,
+      "principal_id": "cpu-prefetch-q15-auditor",
+      "public_key_fingerprint": null,
+      "purpose": "READ_ONLY_PRESTATE_READBACK_AND_INDEPENDENT_VERIFICATION",
+      "verification_state": "NOT_EXECUTED"
+    }
+  ],
+  "protocol_version": "2.0.0-pre.2",
+  "schema_version": "cpu-prefetch-q15-r-role-custody-setup-plan/1",
+  "stand_id": "XEON-CPU-FETCH",
+  "status": "PREPARED_NO_STAND_AUTHORITY"
+}

@@ -11,6 +11,14 @@
     "probe_collector_contract_sha256": "c5a13646ea5e413239337e1b83b3162578c35591a54d6002f656a78acfd3d531",
     "h1_rule": "requested=prestate|000000000000000f; preserve bits 63:4",
     "msr_hex": "000001a4",
+    "q15_r_decision_input_id": "Q15-R-DECISION-INPUT-20260824-01",
+    "q15_r_decision_input_sha256": "b99f6d07294c7505fba0cfee79bc425553e398be742280d71e3b467ee80739eb",
+    "q15_s3_component_release": {
+      "archive_sha256": "20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848",
+      "binary_sha256": "0e0e7a9c8fb52c9540fa93bb6a9f83dafe96e26927247ee122c0a5691ef7814a",
+      "release_scope": "COMPONENTS_PRESENT_NO_PRODUCTION_Q15_R_CONTROLLER_NO_AUTHORITY",
+      "source_revision": "7a9262987d4c52df95e9ed2ddc09cfa0d214b198"
+    },
     "restore_rule": "reverse successful apply order; complete-value independent readback; quarantine on uncertainty"
   },
   "measurement_candidate": {
@@ -28,7 +36,7 @@
   "protocol_version": "2.0.0-pre.2",
   "qualification_tool": {
     "binary_sha256": null,
-    "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v1",
+    "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v2",
     "bundle_sha256": null,
     "release_state": "NOT_SEALED",
     "source_revision": null,
@@ -40,14 +48,12 @@
   "unresolved_inputs": [
     "sealed and independently verified Q15-R authorization and evidence-set hashes",
     "complete immutable CPU 0, 1, and 26 prestates from Q15-R",
-    "clean qualification-tool source revision, bundle SHA-256, and binary SHA-256",
-    "collector and probe executable implementations, generated-code evidence, hashes, and exact authorized argv implementing Q15-PROBE-COLLECTOR-CONTRACT-v1",
+    "new clean controller-bearing no-authority release for the accepted and locally implemented D-057 through D-060 closure",
     "exact apply, inverse, independent readback, probe, and restoration argv and executable hashes",
     "exact one-control apply order and reverse restoration order",
     "four distinct effective identities and negative access evidence",
     "exact custody, quota, partial-artifact, transfer, recovery, and quarantine policies",
     "exact issue and expiry UTC, detached-signature scheme, signer, artifact, and hash",
-    "exact wall, CPU, byte, artifact, and external-watchdog limits",
-    "exact stop conditions"
+    "actual Q15-W validity, limits, signature, and stop conditions derived prospectively after sealed Q15-R evidence"
   ]
 }

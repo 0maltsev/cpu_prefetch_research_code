@@ -1,0 +1,125 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-role-custody-setup-plan:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "account_creation_authorized": {"const": false},
+        "capability_or_group_change_authorized": {"const": false},
+        "credential_creation_authorized": {"const": false},
+        "filesystem_change_authorized": {"const": false},
+        "key_creation_authorized": {"const": false},
+        "negative_access_execution_authorized": {"const": false},
+        "q15_r_authorized": {"const": false},
+        "stand_access_authorized": {"const": false}
+      },
+      "required": [
+        "account_creation_authorized",
+        "capability_or_group_change_authorized",
+        "credential_creation_authorized",
+        "filesystem_change_authorized",
+        "key_creation_authorized",
+        "negative_access_execution_authorized",
+        "q15_r_authorized",
+        "stand_access_authorized"
+      ],
+      "type": "object"
+    },
+    "completion_state": {
+      "const": "BLOCKED_UNTIL_SEPARATE_STAND_SETUP_AUTHORIZATION"
+    },
+    "custody_domains": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "actual_mount_or_host": {"type": "null"},
+          "domain_id": {"type": "string", "minLength": 1},
+          "path_created": {"const": false},
+          "proposed_root": {"type": ["string", "null"]},
+          "role": {"type": "string", "minLength": 1},
+          "verification_state": {"const": "NOT_EXECUTED"}
+        },
+        "required": [
+          "actual_mount_or_host",
+          "domain_id",
+          "path_created",
+          "proposed_root",
+          "role",
+          "verification_state"
+        ],
+        "type": "object"
+      },
+      "maxItems": 2,
+      "minItems": 2,
+      "type": "array"
+    },
+    "evidence_required_before_q15_r_issuance": {
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 8,
+      "uniqueItems": true,
+      "type": "array"
+    },
+    "plan_id": {"const": "Q15-R-ROLE-CUSTODY-SETUP-PLAN-v1"},
+    "policies": {
+      "const": {
+        "append_only_policy_id": "Q15-PRIMARY-APPEND-ONLY-SEAL-THEN-TRANSFER-v1",
+        "partial_artifact_policy_id": "Q15-RETAIN-PARTIAL-NEVER-PROMOTE-v1",
+        "primary_custody_quota_bytes": 4294967296,
+        "recovery_policy_id": "Q15-NO-OVERWRITE-NEW-ARTIFACT-ID-v1",
+        "transfer_policy_id": "Q15-HASHED-SEALED-TRANSFER-WITH-RECEIPT-v1"
+      }
+    },
+    "principals": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "account_created": {"const": false},
+          "actual_capabilities": {"type": "null"},
+          "actual_groups": {"type": "null"},
+          "actual_uid": {"type": "null"},
+          "principal_id": {"type": "string", "minLength": 1},
+          "public_key_fingerprint": {"type": "null"},
+          "purpose": {"type": "string", "minLength": 1},
+          "verification_state": {"const": "NOT_EXECUTED"}
+        },
+        "required": [
+          "account_created",
+          "actual_capabilities",
+          "actual_groups",
+          "actual_uid",
+          "principal_id",
+          "public_key_fingerprint",
+          "purpose",
+          "verification_state"
+        ],
+        "type": "object"
+      },
+      "maxItems": 4,
+      "minItems": 4,
+      "type": "array"
+    },
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "schema_version": {
+      "const": "cpu-prefetch-q15-r-role-custody-setup-plan/1"
+    },
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "PREPARED_NO_STAND_AUTHORITY"}
+  },
+  "required": [
+    "authority_boundary",
+    "completion_state",
+    "custody_domains",
+    "evidence_required_before_q15_r_issuance",
+    "plan_id",
+    "policies",
+    "principals",
+    "protocol_version",
+    "schema_version",
+    "stand_id",
+    "status"
+  ],
+  "title": "Non-authorizing Q15-R role and custody setup plan",
+  "type": "object"
+}

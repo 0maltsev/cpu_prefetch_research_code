@@ -351,9 +351,11 @@ authorization/amendment.
   The v3 implementation passes the complete local compiler, sanitizer, schema,
   static-analysis, and generated-code matrix. Clean revision `693f00b` seals
   the no-authority candidate with outer SHA-256 `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`.
-  The exact Q15 input bundle is prepared but cannot authorize activity until
-  every exact tool-release hash, command,
-  role, limit, custody, prestate, and signature input is resolved.
+  The clean Q15-S3 component release is sealed and verified. Q15-R-P1 accepts
+  D-057..D-060 for repository-local work only. ADR-0057..0060, the strict
+  authorization-v2 contract, fixed 15-step controller core/no-authority CLI,
+  fake failure/resource tests, dual-disassembler retry-mutant gate, and
+  unapplied role/custody plan are implemented. They cannot authorize activity.
   D-052/ADR-0052 freezes the probe/collector contract. Q15-S2/ADR-0053
   implements, audits, and releases the pointer-order/integrity and
   counted-traversal slice in a clean no-authority bundle. Q15-S3/ADR-0054
@@ -362,8 +364,11 @@ authorization/amendment.
   canonical collector components. Fake/no-allocation tests and strict
   traversal-plus-counter-boundary dual-disassembler audits pass. This work is
   handed off as one clean exact commit and a separate clean no-authority
-  qualification-tool bundle. No exact execution argv or dynamic authority
-  exists.
+  qualification-tool bundle. That clean v1 release intentionally has no
+  production controller command. A separately authorized clean
+  controller-bearing v2 release, operational adapter/trust anchor, actual
+  role/custody evidence, exact signed Q15-R argv, and dynamic authority remain
+  required.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

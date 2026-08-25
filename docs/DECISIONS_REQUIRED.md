@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_COMPLETE; Q15_S3_LOCAL; CLEAN_Q15_TOOL_AND_OPERATIONAL_INPUTS_OPEN`**
+Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_COMPLETE; Q15_R_D057_D060_AWAITING_APPROVAL_NO_AUTHORITY`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
@@ -54,11 +54,21 @@ programming, regular and pointer-dependent traversals/classification, and seven
 collector acceptance boundaries. Q15-S2/ADR-0053 resolves the frozen seed as
 the ADR-0025 master seed and locally implements the exact pointer cycle,
 complete-buffer integrity, pure classification, and counted traversal bodies.
-Q15-S3/ADR-0054 through ADR-0056 locally implement the same-buffer session,
-fixed fakeable Linux acquisition mechanisms, and seven distinct collectors.
-The clean generated-code/release hashes, prospective argv, roles, limits,
-custody, signatures, and dynamic evidence are still missing and must not be
-filled from defaults.
+Q15-S3/ADR-0054 through ADR-0056 implement and cleanly release the same-buffer
+session, fixed fakeable Linux acquisition mechanisms, and seven distinct
+collectors. Commit `7a92629` and archive SHA-256
+`20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848`
+bind those components and code-generation reports. The release intentionally
+lacks a production controller.
+
+Q15-R-P1 accepted D-057 through D-060 in the
+[`Q15-R controller-closure decision/input bundle`](Q15_R_DECISION_INPUT_BUNDLE.md).
+The repository-local fixed controller, authorization-v2/profile validators,
+fake tests, generated-code audit, and unapplied role/custody plan now pass.
+This closes the implementation decision, not the release or execution gates.
+Stand access, account/key changes, Q15-R issuance/execution, Q15-W, dynamic
+qualification, calibration, pilot, measurement, and confirmation remain
+prohibited.
 
 The prepared
 [`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)
@@ -236,10 +246,11 @@ fixed Linux acquisition seams, seven collectors, dynamic profile, and both
 strict codegen reports. That release grants no stand access or dynamic
 authority.
 
-With that clean release, Q15-R still needs its own exact signed
-authorization: clean source/binary/bundle/report hashes, fixed controller
-argv/endpoint, stand/binding, distinct effective identities, expiry/watchdog,
-output quotas/custody/durability domains, and read-only targets. Q15-W remains
+With the local controller implemented, Q15-R first needs separately authorized
+commit/release of a clean controller-bearing no-authority v2 bundle and an
+operational trust-anchor adapter. It then still needs its own exact signed authorization:
+fixed controller argv/endpoint, stand/binding, distinct effective identities,
+actual expiry/signature, quotas/custody evidence, and read-only targets. Q15-W remains
 blocked until sealed Q15-R evidence and all three complete prestates exist.
 Stand-side qualification remains a later exact
 Q15-R/Q15-W authorization, and every

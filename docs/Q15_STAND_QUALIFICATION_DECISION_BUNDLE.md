@@ -1,6 +1,6 @@
 # Q15 stand-qualification decision/input bundle
 
-Status: **`D053_POINTER_SLICE_RELEASED_NO_AUTHORITY; NOT_AUTHORIZATION_READY; NO_STAND_AUTHORITY`**
+Status: **`Q15_S3_COMPONENT_RELEASE_VERIFIED_NO_AUTHORITY; Q15_R_CONTROLLER_DECISIONS_PREPARED`**
 
 Date prepared: 2026-08-24
 
@@ -12,15 +12,18 @@ platform mutation, calibration, pilot work, measurement, or confirmation.
 
 ## Outcome
 
-The clean measurement-release prerequisite is closed and hash-bound below.
-Q15-S1 accepts D-051 and implements a separate fixed-scope qualification tool,
-bundle profile, split authority schema, and blocked preparation records. Exact
-ADR-0052 now freezes the exact probe/collector definitions. Q15-S2/ADR-0053
-resolves and locally implements the pointer permutation, integrity, pure
-classification, and counted traversal/codegen slice. Q15 authorization remains
-blocked because clean tool-release/report hashes, the dynamic probe path,
-seven collector executables, authority, command, numerical-limit, prestate, and
-custody fields required by ADR-0045 and ADR-0049 through ADR-0052 do not exist.
+The clean measurement release and the clean Q15-S3 qualification-component
+release are closed and hash-bound. Q15-S1 through Q15-S3 implement the split
+tool boundary, exact probe/collector contract, deterministic pointer slice,
+same-buffer session, Linux acquisition seams, and seven collectors. The Q15-S3
+archive SHA-256 is
+`20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848`.
+Q15 authorization remains blocked because that sealed release intentionally
+lacks the fixed controller; actual authority credentials, executable argv,
+custody enforcement, validity/signature, and fresh dynamic evidence do not
+exist. D-057 through D-060 are accepted and locally implemented in the separate
+[`Q15-R decision/input bundle`](Q15_R_DECISION_INPUT_BUNDLE.md), but no clean
+controller-bearing release or execution authority exists.
 
 An authorization document cannot be emitted with placeholders. The split
 authority schema represents only `AUTHORIZED`; the separate preparation schema
@@ -125,12 +128,10 @@ enumerate missing inputs, but cannot validate as authority. See
 
 ## Mandatory inputs still unresolved
 
-### Before a qualification-tool release can be used dynamically
+### Before a controller-bearing qualification-tool release can be used dynamically
 
-- clean source and release hashes for the locally implemented fixed-address
-  family-06/model-55H, MSR-0x1A4, CPUs-0/1/26 adapter;
-- exact dynamic implementation and generated-code/release evidence for the
-  frozen regular-stream, pointer-dependent, and seven-collector contract;
+- a new clean no-authority release binding that controller, the existing
+  components, all generated-code reports, and exact source/binary hashes;
 - exact independent readback executable/identity, not merely a second call
   through the writer identity;
 - negative tests proving no measurement, calibration, pilot, wildcard target,
@@ -186,15 +187,16 @@ restoration, and quarantine the stand if restoration is uncertain.
 
 ## Approval readiness
 
-The exact sealed measurement-candidate portion, D-052 contract, and D-053
-local implementation decision are
-approval-ready evidence. Q15-S1 is accepted and locally implemented, but Q15-R and Q15-W are not
-approval-ready because their mandatory artifacts and values above are absent.
+The exact sealed measurement candidate and clean Q15-S3 component release are
+verified evidence. Q15-R-P1 accepted D-057 through D-060 and the repository-
+local controller/profile/setup work passes. Q15-R and Q15-W themselves are not
+approval-ready because the clean controller-bearing release, operational trust
+anchor, actual role/custody/signature artifacts, and values above are absent.
 A generic reply such as `approve Q15`, prior SSH permission, root access, or
 approval of this prepared document cannot authorize stand activity.
 
-The exact next safe work is to implement and audit the remaining dynamic PMU
-path and seven collectors, then produce a clean no-authority tool release and
-supply the remaining Q15-R executable/command, role, limit, custody, and
-validity values. Q15-R may only then be prepared for separate approval. Q15-W
-can be prepared only after Q15-R evidence exists.
+The exact next safe work is separate authorization for one commit containing
+the verified Q15-R-P1 changes, followed by a clean no-authority v2 bundle build
+and verification. That does not authorize stand access or Q15-R. Q15-R
+may only then be prepared for separate signed approval. Q15-W can be prepared
+only after sealed Q15-R evidence exists.

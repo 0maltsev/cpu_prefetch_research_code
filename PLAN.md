@@ -334,8 +334,9 @@ authorization/amendment.
 - **Objective:** Collect treatment-blind evidence needed to freeze platform-dependent capacities, calibration outputs, horizons, environment, precision, and feasibility.
 - **Inputs and prerequisite decisions:** Phase 16 accepted; D-044 through D-046
   governance accepted; D-047 physical mapping implemented and strict combined
-  audit passed; ADR-0104 finite operational successor; clean exact
-  no-authority candidate release evidence; accepted preflight and exact stand
+  audit passed; ADR-0104 finite operational graph; ADR-0105 append-only state
+  journal; verified exact no-authority candidate bytes and custody receipt;
+  accepted preflight and exact stand
   qualification; then dependency-ready phase inputs and a phase-scoped pilot
   authorization with exact namespaces, plans, durations/repetitions, controls,
   custody, storage, and stand budget. See
@@ -452,11 +453,14 @@ authorization/amendment.
   may hold owner/operator/controller/custodian/auditor roles and one
   authorization may cover the frozen read-only preflight observation set; no
   independent-review claim is permitted. The current state remains `PREPARED`
-  because nine entries in `STAGE17-EXTERNAL-INPUTS-v1` still require real
-  external evidence. `S17-EXT-006` is resolved by clean commit `2b4f16c` and
-  no-authority pilot-candidate archive SHA-256 `d1c44bc0...`. The D-104
-  self-test is hermetic; real qualification archive bytes
-  are handled only by the explicit external-artifact integration contract. No
+  because the ADR-0105 genesis journal contains no resolution or transition
+  records. The immutable requirement catalog therefore reports all ten
+  `S17-EXT` inputs missing. The historical `S17-EXT-006` release metadata is
+  preserved but cannot resolve the input until caller-supplied archive and
+  sidecar bytes pass their fixed integration contract and a real custody
+  receipt is recorded. The D-104 self-test is hermetic; real qualification
+  archive bytes are handled only by an explicit external-artifact integration
+  contract. No
   stand, P4-R-C, P5, Q15, calibration, pilot, measurement, or confirmatory
   action is authorized.
   Q15-S1/ADR-0051 accepts and

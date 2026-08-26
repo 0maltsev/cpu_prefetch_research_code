@@ -4,8 +4,12 @@ This repository has completed the **Stage 16 independent pre-pilot software
 verification slice** for protocol **`2.0.0-pre.2`**. Its current disposition is
 `PREPARED_EXTERNAL_INPUTS_REQUIRED`: the finite Stage 17 operational successor
 is prepared locally, while pilot and confirmatory execution remain blocked on
-the single machine-readable external-input checklist recorded in
+ten machine-readable external-input requirements recorded in
 [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
+The immutable graph/catalog and canonical append-only journal compute the
+current state as `PREPARED`, with zero resolutions and `pilot_ready=false`;
+legacy successor/checklist status fields are preserved templates, not current
+evidence.
 It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
@@ -198,11 +202,13 @@ disclosed owner, and one authorization may cover a frozen read-only preflight
 observation set. This does not weaken or authorize the Stage 18 selection,
 validation-unseal, H3-evaluation, or H1/H2-release chronology. The current
 successor state is `PREPARED`, not pilot authority.
-Clean commit `2b4f16c` produced and clean-extraction verified the no-authority
-pilot-candidate archive SHA-256 `d1c44bc0...`; this resolves only
-`S17-EXT-006`. Its machine-readable release-evidence record binds the archive,
-sidecar, manifest, binaries, and strict codegen reports. Nine checklist inputs
-remain unresolved.
+ADR-0105 preserves the ADR-0104 successor/checklist as immutable templates and
+moves operational status into hash-chained append-only resolution, transition,
+and journal records. Clean commit `2b4f16c` and its historical release-evidence
+record identify a no-authority candidate, but they do not prove that the exact
+archive and sidecar bytes are currently available. `S17-EXT-006` therefore
+remains external-required until caller-supplied real files pass the fixed
+custody/integration contract. All ten catalog inputs remain unresolved.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
@@ -402,6 +408,7 @@ cmake --build --preset dev-gcc --target q15-r-decision-check
 cmake --build --preset dev-gcc --target q15-authorization-v2-check
 cmake --build --preset dev-gcc --target q15-controller-profile-check
 cmake --build --preset dev-gcc --target stage17-operational-successor-check
+cmake --build --preset dev-gcc --target stage17-state-journal-check
 cmake --build --preset release-gcc --target q15-probe-codegen-check
 cmake --build --preset release-gcc --target q15-runtime-codegen-check
 cmake --build --preset release-gcc --target q15-controller-codegen-check
@@ -422,6 +429,23 @@ cmake --build --preset dev-gcc --target q15-qualification-archive-integration-ch
 The expected filename, byte count, SHA-256, release identity, and candidate
 rebuild commands are in
 [`Q15-QUALIFICATION-ARCHIVE-EXTERNAL-CONTRACT-v1`](config/q15/q15-qualification-archive-external-contract-v1.json).
+
+Stage 17 pilot-candidate release bytes have their own explicit integration
+gate. It never runs as a self-test and cannot resolve `S17-EXT-006` from
+metadata alone:
+
+```sh
+cmake --preset dev-gcc \
+  -DCPU_PREFETCH_STAGE17_PILOT_CANDIDATE_ARCHIVE=/absolute/path/to/exact.tar.gz \
+  -DCPU_PREFETCH_STAGE17_PILOT_CANDIDATE_SIDECAR=/absolute/path/to/exact.tar.gz.sha256
+cmake --build --preset dev-gcc \
+  --target stage17-pilot-candidate-artifact-integration-check
+```
+
+The fixed bytes and clean detached-worktree recovery procedure are documented
+in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
+The exact unissued owner-input template for the next possible gate is
+[`S17-EXT-001`](docs/STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md).
 
 `cpu_prefetch_runner` can validate a future explicit admission record but has
 no measurement command. `cpu_prefetch_qualification` has no dynamic collector
@@ -596,7 +620,9 @@ Q15 issuance.
   `timing-codegen-check`, `storage-format-check`, `storage-schema-check`, strict
   `storage-codegen-check`, `runner-relax-codegen-check`, strict
   `runner-combined-codegen-audit`, strict `runner-combined-codegen-check`,
-  `runner-schema-check`, `qualification-schema-check`, `q15-r-decision-check`,
+  `runner-schema-check`, `qualification-schema-check`,
+  `stage17-operational-successor-check`, `stage17-state-journal-check`,
+  `q15-r-decision-check`,
   `q15-r-operational-prerequisite-check`, `q15-r-p2-acceptance-check`,
   `q15-trust-anchor-adapter-profile-check`,
   `q15-r-stand-setup-preparation-check`,

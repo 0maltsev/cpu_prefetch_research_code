@@ -5,8 +5,9 @@ Pilot execution readiness: **false**
 Stage 17 complete: **false**  
 Stage 18 ready: **false**
 
-ADR-0104 replaces the open-ended pilot governance chain with one finite
-successor. It does not authorize stand access or a run:
+ADR-0104 replaces the open-ended pilot governance chain with one finite graph.
+ADR-0105 makes that graph persistable without rewriting history. Neither ADR
+authorizes stand access or a run:
 
 ```text
 PREPARED
@@ -15,23 +16,39 @@ PREPARED
   -> READY_FOR_STAGE17_PHASE_AUTHORIZATION
 ```
 
-Every edge consumes immutable evidence from the single
-[`STAGE17-EXTERNAL-INPUTS-v1`](../config/stage17/stage17-external-input-checklist-v1.json)
-checklist. Missing, partial, expired, or hash-mismatched evidence retains the
-current state and stops without automatic retry. The final state permits
-preparation of an exact phase authorization; it is not itself pilot execution
-authority. Pilot execution additionally requires every checklist entry.
+The immutable
+[`STAGE17-OPERATIONAL-GRAPH-v1`](../config/stage17/stage17-operational-graph-definition-v1.json)
+defines the edges. The immutable
+[`STAGE17-EXTERNAL-INPUT-CATALOG-v1`](../config/stage17/stage17-external-input-catalog-v1.json)
+defines requirements but contains no mutable resolution status. Separate
+`stage17-external-input-resolution-v1` records and
+`stage17-state-transition-v1` records are referenced by hash from successive
+append-only `stage17-state-journal-v1` snapshots. The checked-in
+[`genesis snapshot`](../config/stage17/journal/stage17-state-journal-000000.json)
+has no records, so replay computes `PREPARED`, all ten inputs missing, and
+`pilot_ready=false`.
 
-`S17-EXT-006` is resolved by clean source commit
-`2b4f16c61c306ade5f4383ac2abb1ad709f772a8` and no-authority archive
-`cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4.tar.gz`,
-SHA-256 `d1c44bc0c78b002ca3ca9bf33f1a33258cceafbeb838c87815e48a7e675227dc`.
-Clean extraction verified 171 files and all four shipped self-tests retained
-`pilot_authorized=false`, `confirmatory_authorized=false`, and
-`dynamic_qualification_authorized=false`. The machine-readable
-[`STAGE17-PILOT-CANDIDATE-RELEASE-EVIDENCE-v1`](../config/stage17/stage17-pilot-candidate-release-evidence-v1.json)
-also binds the sidecar, manifest, release binaries, and six strict codegen
-reports without depending on the ignored build tree.
+The historical successor v1 and `STAGE17-EXTERNAL-INPUTS-v1` checklist remain
+byte-immutable definition/templates. Their embedded `current_state` and
+per-item `status` fields are not operational state or evidence. Missing,
+partial, expired, inaccessible, or hash-mismatched evidence retains the
+computed state and stops without automatic retry. The final graph state permits
+preparation of an exact phase authorization; it is not itself pilot execution
+authority. Pilot readiness additionally requires verified resolutions for all
+ten catalog inputs and an unexpired `S17-EXT-010` at an explicit evaluation
+time.
+
+`S17-EXT-006` is currently unresolved. The historical release-evidence record
+still states the clean source revision and archive metadata and remains
+unchanged, but metadata is not proof that the archive/sidecar bytes exist.
+The new fixed
+[`external custody/integration contract`](../config/stage17/stage17-pilot-candidate-external-contract-v1.json)
+requires caller-supplied regular nonsymlink archive and sidecar files, exact
+filenames, byte counts, SHA-256 values, sidecar bytes, safe extraction, manifest
+identity, 171-entry internal checksum inventory plus its one `SHA256SUMS` file,
+internal verification, and no-authority flags. Until
+those exact bytes are supplied to the integration checker and a real custody
+receipt is recorded, no `S17-EXT-006` resolution is valid.
 
 For pilot governance only, `cpu-prefetch-stage17-pilot-owner` is explicitly
 the owner, operator, controller, custodian, and auditor. Reviews must disclose
@@ -50,18 +67,72 @@ No Stage 17 record can unseal or authorize Stage 18.
 
 ```sh
 cmake --build --preset dev-gcc --target stage17-operational-successor-check
-ctest --preset dev-gcc -R 'runner.stage17_operational_successor|q15.p4_r_c_executor_no_network_self_test' --output-on-failure
+cmake --build --preset dev-gcc --target stage17-state-journal-check
+ctest --preset dev-gcc -R 'runner.stage17_(operational_successor|state_journal)|q15.p4_r_c_executor_no_network_self_test' --output-on-failure
 ```
 
-Print the one authoritative unresolved-input list:
+Print the computed state and authoritative unresolved-input list:
 
 ```sh
 /tmp/cpu-prefetch-stage16-deps/python/bin/python \
-  tools/check_stage17_operational_successor.py --print-missing
+  tools/check_stage17_state_journal.py --print-status
 ```
 
 The interpreter path above is the current pre-provisioned development prefix;
 another clean environment may use its recorded CMake `Python3_EXECUTABLE`.
+
+The state-journal self-test writes every positive fixture to an isolated
+directory, closes and reloads all referenced JSON files, and recomputes their
+hashes. Its negative set rejects skip/backward edges, forks, replay, duplicate
+sequence numbers, predecessor replacement, incomplete evidence, unknown or
+expired authority, graph/catalog drift, weakened Stage 18 chronology, missing
+external bytes, and the regression pair `artifact_id=DOES-NOT-EXIST` with a
+syntactically valid all-`a` SHA-256.
+
+## Exact next authorization draft
+
+The only next operational draft is
+[`S17-EXT-001 read-only preflight authorization`](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md).
+Every real owner-supplied field is null, it is not issued, and it cannot be
+used as evidence. The first resolution and transition must not be constructed
+until the owner supplies the exact target, UTC window, bounds, archive paths,
+six frozen read-only command vectors, executable hashes, and output locators.
+
+## Pilot-candidate archive integration boundary
+
+Run the integration checker only with caller-supplied real files:
+
+```sh
+cmake --preset dev-gcc \
+  -DCPU_PREFETCH_STAGE17_PILOT_CANDIDATE_ARCHIVE=/absolute/custody/path/exact.tar.gz \
+  -DCPU_PREFETCH_STAGE17_PILOT_CANDIDATE_SIDECAR=/absolute/custody/path/exact.tar.gz.sha256
+cmake --build build/dev-gcc \
+  --target stage17-pilot-candidate-artifact-integration-check
+```
+
+The command is deliberately not part of the hermetic self-test. A failed or
+unavailable byte-identical archive leaves `S17-EXT-006` external-required; it
+never falls back to the historical metadata record.
+
+If no custody copy exists, the contracted recovery attempt is a clean detached
+worktree at the exact source revision. Choose a new nonexistent worktree path;
+the example path is fixed only for reproducibility and must not already exist:
+
+```sh
+git worktree add --detach \
+  /tmp/cpu-prefetch-s17-release-2b4f16c \
+  2b4f16c61c306ade5f4383ac2abb1ad709f772a8
+cd /tmp/cpu-prefetch-s17-release-2b4f16c
+cmake --preset release-gcc
+cmake --build --preset release-gcc --target pilot-candidate-bundle
+sha256sum \
+  build/release-gcc/pilot-candidate-bundle/cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4.tar.gz \
+  build/release-gcc/pilot-candidate-bundle/cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4.tar.gz.sha256
+```
+
+The recovered archive and sidecar must match every byte count and SHA-256 in
+the fixed contract. A reproducible build claim without that exact match is a
+failed recovery attempt, not release evidence.
 
 ## External qualification archive boundary
 

@@ -1,0 +1,53 @@
+{
+  "authority_boundary": {
+    "automatic_transition": false,
+    "retry_allowed": false,
+    "stage18_authority": false
+  },
+  "catalog": {
+    "path": "config/stage17/stage17-external-input-catalog-v1.json",
+    "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+  },
+  "genesis": {
+    "genesis_record": {
+      "authority_scope": "NO_EXECUTION_AUTHORITY",
+      "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+      "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+      "initial_state": "PREPARED",
+      "journal_id": "STAGE17-STATE-JOURNAL-v1",
+      "protocol_version": "2.0.0-pre.2",
+      "version_hashes": {
+        "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+        "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+        "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+        "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+        "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+        "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+        "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+      }
+    },
+    "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+    "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+    "initial_state": "PREPARED"
+  },
+  "graph": {
+    "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+    "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+  },
+  "journal_id": "STAGE17-STATE-JOURNAL-v1",
+  "journal_sequence_number": 0,
+  "previous_journal": null,
+  "protocol_version": "2.0.0-pre.2",
+  "resolution_records": [],
+  "schema_version": "cpu-prefetch-stage17-state-journal/1",
+  "transition_records": [],
+  "version_hashes": {
+    "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+    "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+    "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+    "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+    "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+    "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+    "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+  }
+}

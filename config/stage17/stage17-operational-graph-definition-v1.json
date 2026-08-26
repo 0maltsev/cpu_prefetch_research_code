@@ -1,0 +1,66 @@
+{
+  "schema_version": "cpu-prefetch-stage17-operational-graph-definition/1",
+  "graph_id": "STAGE17-OPERATIONAL-GRAPH-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "initial_state": "PREPARED",
+  "state_order": [
+    "PREPARED",
+    "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+    "PREFLIGHT_ACCEPTED",
+    "READY_FOR_STAGE17_PHASE_AUTHORIZATION"
+  ],
+  "transitions": [
+    {
+      "sequence_number": 1,
+      "from_state": "PREPARED",
+      "to_state": "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+      "required_input_ids": ["S17-EXT-001"],
+      "authorization_input_ids": ["S17-EXT-001"],
+      "authority_scope": "READ_ONLY_PREFLIGHT_STATE_ADVANCE_ONLY",
+      "automatic_transition": false,
+      "retry_allowed": false,
+      "stage18_authority": false
+    },
+    {
+      "sequence_number": 2,
+      "from_state": "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+      "to_state": "PREFLIGHT_ACCEPTED",
+      "required_input_ids": ["S17-EXT-001", "S17-EXT-002", "S17-EXT-003"],
+      "authorization_input_ids": ["S17-EXT-001"],
+      "authority_scope": "PREFLIGHT_ACCEPTANCE_STATE_ADVANCE_ONLY",
+      "automatic_transition": false,
+      "retry_allowed": false,
+      "stage18_authority": false
+    },
+    {
+      "sequence_number": 3,
+      "from_state": "PREFLIGHT_ACCEPTED",
+      "to_state": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "required_input_ids": ["S17-EXT-001", "S17-EXT-002", "S17-EXT-003", "S17-EXT-004", "S17-EXT-005", "S17-EXT-006"],
+      "authorization_input_ids": ["S17-EXT-001", "S17-EXT-005"],
+      "authority_scope": "STAGE17_PHASE_AUTHORIZATION_PREPARATION_ONLY",
+      "automatic_transition": false,
+      "retry_allowed": false,
+      "stage18_authority": false
+    }
+  ],
+  "pilot_ready_input_ids": ["S17-EXT-001", "S17-EXT-002", "S17-EXT-003", "S17-EXT-004", "S17-EXT-005", "S17-EXT-006", "S17-EXT-007", "S17-EXT-008", "S17-EXT-009", "S17-EXT-010"],
+  "pilot_governance": {
+    "role_principal": "cpu-prefetch-stage17-pilot-owner",
+    "roles": ["owner", "operator", "controller", "custodian", "auditor"],
+    "independent_review_claimed": false,
+    "pki_ceremony_per_observation_required": false
+  },
+  "confirmatory_governance": {
+    "strict_chronology_preserved": true,
+    "pilot_role_collapse_applies": false,
+    "access_state_order": ["PLANNED", "COLLECTED_SEALED", "TRAINING_OPEN", "SELECTION_FROZEN", "VALIDATION_UNSEALED", "H3_EVALUATED", "H1H2_RELEASED", "ARCHIVED"],
+    "stage17_authority_may_authorize_stage18": false
+  },
+  "legacy_templates": {
+    "adr_0104_sha256": "747b66d46db9103279026627cfd318861111ff71f66790013b31ece164360323",
+    "successor_v1_sha256": "15921041ba3cdb75310fad6abfde29734009ed4732e536a8daf5686527dfe4e2",
+    "checklist_v1_sha256": "d29e650041dbefcbd52da5aed261f3c484a5fe96b3d95576617bb54887587d3f",
+    "predecessor_manifest_sha256": "d0532418f895865c48f537488999e541901565fb958b12d3b8946bf06987a3a7"
+  }
+}

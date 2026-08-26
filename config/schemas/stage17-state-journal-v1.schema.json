@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:state-journal:v1",
+  "title": "Append-only Stage 17 state-journal snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "journal_id", "journal_sequence_number", "protocol_version", "previous_journal", "graph", "catalog", "version_hashes", "genesis", "resolution_records", "transition_records", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-state-journal/1"},
+    "journal_id": {"const": "STAGE17-STATE-JOURNAL-v1"},
+    "journal_sequence_number": {"type": "integer", "minimum": 0},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "previous_journal": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/record_ref"}]},
+    "graph": {"$ref": "#/$defs/record_ref"},
+    "catalog": {"$ref": "#/$defs/record_ref"},
+    "version_hashes": {"$ref": "#/$defs/version_hashes"},
+    "genesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hash_algorithm", "initial_state", "genesis_record", "genesis_sha256"],
+      "properties": {
+        "hash_algorithm": {"const": "SHA-256-CANONICAL-JSON-v1"},
+        "initial_state": {"const": "PREPARED"},
+        "genesis_record": {"type": "object"},
+        "genesis_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "resolution_records": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/record_ref"}},
+    "transition_records": {"type": "array", "maxItems": 3, "uniqueItems": true, "items": {"$ref": "#/$defs/record_ref"}},
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["automatic_transition", "retry_allowed", "stage18_authority"],
+      "properties": {
+        "automatic_transition": {"const": false},
+        "retry_allowed": {"const": false},
+        "stage18_authority": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "version_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_schema_sha256", "catalog_schema_sha256", "resolution_schema_sha256", "transition_schema_sha256", "journal_schema_sha256", "custody_receipt_schema_sha256", "authorization_schema_sha256"],
+      "properties": {
+        "graph_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "catalog_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "resolution_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "transition_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "journal_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "custody_receipt_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "authorization_schema_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "record_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

@@ -59,19 +59,20 @@ execution remains `BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`. Q15-P0 did not
 authorize stand access, MSR operations, dynamic qualification, accounts,
 privilege, calibration, pilot, or confirmation.
 
-## ADR-0104 operational-governance addendum
+## ADR-0104/ADR-0105 operational-governance addendum
 
 ADR-0104 does not change the sealed Stage 16 bundle verdict. It replaces the
-later open-ended pilot governance chain with one finite successor and one
-external-input checklist. The operational record is `PREPARED`; positive and
-negative local tests prove only the transition model. D-099 through D-108 are
-hash-preserved, the D-104 self-test is hermetic, and a real qualification
-archive is an explicit integration/action input. No stand observation was made
-for this addendum. Clean commit `2b4f16c` and no-authority pilot-candidate
-archive SHA-256 `d1c44bc0...` resolve only `S17-EXT-006`; the nine unresolved
-checklist entries are the authoritative pilot blockers. Stage 18 remains
-blocked on the unchanged imported sealing and access chronology plus all
-pilot-derived freezes.
+later open-ended pilot governance chain with one finite graph. ADR-0105 keeps
+that graph and the old successor/checklist templates immutable while deriving
+state from an append-only journal and real-byte evidence. The checked-in
+genesis computes `PREPARED`, 0 resolutions, 0 transitions, ten missing inputs,
+and `pilot_ready=false`; disk-backed positive and negative local tests prove
+only software behavior. D-099 through D-108 are hash-preserved, the D-104
+self-test is hermetic, and real qualification/pilot-candidate archives are
+explicit integration inputs. No stand observation was made for this addendum.
+The old `S17-EXT-006` release metadata is not a resolution without the exact
+archive/sidecar bytes and custody receipt. Stage 18 remains blocked on the
+unchanged imported sealing/access chronology plus all pilot-derived freezes.
 
 ## Requirement-by-requirement verification matrix
 

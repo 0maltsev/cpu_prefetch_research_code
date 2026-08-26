@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:external-input-resolution:v1",
+  "title": "Append-only Stage 17 external-input resolution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "resolution_id", "sequence_number", "input_id", "actor", "recorded_at_utc", "graph_sha256", "catalog_sha256", "version_hashes", "evidence", "authorization", "verification_result", "automatic_resolution", "retry_authority", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-external-input-resolution/1"},
+    "resolution_id": {"type": "string", "minLength": 1},
+    "sequence_number": {"type": "integer", "minimum": 1},
+    "input_id": {"pattern": "^S17-EXT-[0-9]{3}$"},
+    "actor": {"type": "string", "minLength": 1},
+    "recorded_at_utc": {"$ref": "#/$defs/utc"},
+    "graph_sha256": {"$ref": "#/$defs/sha256"},
+    "catalog_sha256": {"$ref": "#/$defs/sha256"},
+    "version_hashes": {"$ref": "#/$defs/version_hashes"},
+    "evidence": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"oneOf": [{"$ref": "#/$defs/repository_file"}, {"$ref": "#/$defs/external_receipt"}]}},
+    "authorization": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/authorization"}]},
+    "verification_result": {"const": "PASS"},
+    "automatic_resolution": {"const": false},
+    "retry_authority": {"const": false},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "version_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_schema_sha256", "catalog_schema_sha256", "resolution_schema_sha256", "transition_schema_sha256", "journal_schema_sha256", "custody_receipt_schema_sha256", "authorization_schema_sha256"],
+      "properties": {
+        "graph_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "catalog_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "resolution_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "transition_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "journal_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "custody_receipt_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "authorization_schema_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "repository_file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "path", "size_bytes", "sha256"],
+      "properties": {
+        "kind": {"const": "REPOSITORY_FILE"},
+        "path": {"type": "string", "minLength": 1},
+        "size_bytes": {"type": "integer", "minimum": 0},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "external_receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "receipt_path", "receipt_size_bytes", "receipt_sha256"],
+      "properties": {
+        "kind": {"const": "EXTERNAL_CUSTODY_RECEIPT"},
+        "receipt_path": {"type": "string", "minLength": 1},
+        "receipt_size_bytes": {"type": "integer", "minimum": 0},
+        "receipt_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authorization_id", "evidence_path", "issued_at_utc", "expires_at_utc", "authority_scope"],
+      "properties": {
+        "authorization_id": {"type": "string", "minLength": 1},
+        "evidence_path": {"type": "string", "minLength": 1},
+        "issued_at_utc": {"$ref": "#/$defs/utc"},
+        "expires_at_utc": {"$ref": "#/$defs/utc"},
+        "authority_scope": {"enum": ["READ_ONLY_PREFLIGHT", "PRIVILEGED_QUALIFICATION_CONTROL", "STAGE17_PILOT_PHASE_ONLY"]}
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-authorization-evidence:v1",
+  "title": "Stage 17 operational authorization evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "input_id", "actor", "issued_at_utc", "expires_at_utc", "authority_scope", "target_scope", "frozen_observation_ids", "limits", "role_collapse_acknowledged", "independent_review_claimed", "permissions"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-operational-authorization-evidence/1"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "input_id": {"enum": ["S17-EXT-001", "S17-EXT-005", "S17-EXT-010"]},
+    "actor": {"type": "string", "minLength": 1},
+    "issued_at_utc": {"$ref": "#/$defs/utc"},
+    "expires_at_utc": {"$ref": "#/$defs/utc"},
+    "authority_scope": {"enum": ["READ_ONLY_PREFLIGHT", "PRIVILEGED_QUALIFICATION_CONTROL", "STAGE17_PILOT_PHASE_ONLY"]},
+    "target_scope": {"type": "string", "minLength": 1},
+    "frozen_observation_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_commands", "max_wall_seconds", "attempts_per_observation", "retries"],
+      "properties": {
+        "max_commands": {"type": "integer", "minimum": 1},
+        "max_wall_seconds": {"type": "integer", "minimum": 1},
+        "attempts_per_observation": {"const": 1},
+        "retries": {"const": 0}
+      }
+    },
+    "role_collapse_acknowledged": {"const": true},
+    "independent_review_claimed": {"const": false},
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stand_read_only", "stand_mutation", "privileged_controls", "calibration", "pilot_execution", "stage18_authority"],
+      "properties": {
+        "stand_read_only": {"type": "boolean"},
+        "stand_mutation": {"type": "boolean"},
+        "privileged_controls": {"type": "boolean"},
+        "calibration": {"type": "boolean"},
+        "pilot_execution": {"type": "boolean"},
+        "stage18_authority": {"const": false}
+      }
+    }
+  },
+  "$defs": {"utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}}
+}

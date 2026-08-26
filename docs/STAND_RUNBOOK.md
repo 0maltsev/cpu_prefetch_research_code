@@ -54,10 +54,23 @@ The prospective
 [finite Stage 17 operational successor](STAGE17_OPERATIONAL_AUTHORIZATION.md)
 now owns pilot admission. Its current state is `PREPARED`; it may advance only
 through `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, `PREFLIGHT_ACCEPTED`, and
-`READY_FOR_STAGE17_PHASE_AUTHORIZATION` using the one machine-readable
-external-input checklist. No state is inferred from SSH reachability, and the
-last state is permission to prepare an exact phase authorization rather than
+`READY_FOR_STAGE17_PHASE_AUTHORIZATION`. ADR-0105 makes the graph and ten-item
+requirement catalog immutable and derives state only from canonical genesis
+plus sequential append-only evidence-resolution and transition records. The
+legacy successor/checklist are definition/templates, not current status. No
+state is inferred from SSH reachability or metadata hashes, and the last graph
+state is permission to prepare an exact phase authorization rather than
 permission to execute it.
+
+Before the first read-only preflight, complete the exact
+[`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
+must provide the target, pinned host-key evidence, UTC window, finite limits,
+archive/sidecar locators, and six exact read-only command/output contracts. Do
+not use the draft itself as evidence. Create the authorization and supporting
+contract as new repository files, recompute their actual sizes and SHA-256
+values, create one append-only resolution, and create the adjacent transition
+only after the validator accepts those files. There is one attempt per frozen
+observation, zero retry, and partial evidence is retained.
 
 ### 3. Privileged capability verification
 
@@ -105,10 +118,18 @@ authorized probe/collector command, and the runbook must not improvise one.
 ### 5. Calibration/pilot preparation
 
 Only after the successor reaches `READY_FOR_STAGE17_PHASE_AUTHORIZATION` and
-all entries in `STAGE17-EXTERNAL-INPUTS-v1` resolve may the owner issue the
+all entries in `STAGE17-EXTERNAL-INPUT-CATALOG-v1` have verified append-only
+resolutions may the owner issue the
 exact phase-scoped pilot authorization. Bundle verification, inventory, or
 preflight acceptance does not authorize calibration or pilot. Confirmatory
 namespaces and outcomes remain inaccessible.
+
+`S17-EXT-006` is not resolved by the historical release metadata. Supply the
+real archive and sidecar to the explicit integration checker documented in
+[`STAGE17_OPERATIONAL_AUTHORIZATION.md`](STAGE17_OPERATIONAL_AUTHORIZATION.md).
+It checks exact bytes, safe extraction, manifest identity, internal bundle
+verification, and no-authority flags. Missing or nonidentical bytes keep the
+input external-required.
 
 ### 6. Artifact transfer to the development repository
 
@@ -307,8 +328,9 @@ Require all of the following as immutable, source-hashed evidence:
 
 - the operational successor has reached
   `READY_FOR_STAGE17_PHASE_AUTHORIZATION`, every item in
-  `STAGE17-EXTERNAL-INPUTS-v1` is resolved, and the exact phase authorization
-  binds those hashes;
+  `STAGE17-EXTERNAL-INPUT-CATALOG-v1` has a verified resolution, the latest
+  journal has one valid predecessor chain, and the exact phase authorization
+  binds those record and snapshot hashes;
 
 - accepted queue provenance/licenses/modes, atomic mapping, refinement/progress arguments;
 - supported platform inventory with eligible near/far topology;

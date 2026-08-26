@@ -467,6 +467,8 @@ def main() -> int:
                     "check_hardware_prefetch_schema.py",
                     "check_runner_schema.py",
                     "check_stage17_authorization_schema.py",
+                    "check_stage17_pilot_candidate_artifact.py",
+                    "stage17_pilot_candidate_artifact.py",
                 ]
             )
         if q15_tool:

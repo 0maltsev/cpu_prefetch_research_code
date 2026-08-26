@@ -29,6 +29,10 @@ set(CPU_PREFETCH_Q15_QUALIFICATION_ARCHIVE "" CACHE FILEPATH
     "Explicit external Q15 qualification archive for integration checking")
 set(CPU_PREFETCH_Q15_QUALIFICATION_SIDECAR "" CACHE FILEPATH
     "Explicit external Q15 qualification archive sidecar for integration checking")
+set(CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_ARCHIVE "" CACHE FILEPATH
+    "Caller-supplied exact Stage 17 pilot-candidate archive for integration checking")
+set(CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_SIDECAR "" CACHE FILEPATH
+    "Caller-supplied exact Stage 17 pilot-candidate sidecar for integration checking")
 set_property(
   CACHE CPU_PREFETCH_SANITIZER
   PROPERTY STRINGS NONE ADDRESS_UNDEFINED THREAD)
@@ -657,7 +661,18 @@ if(BUILD_TESTING)
     PROPERTIES
       LABELS "runner;authorization;governance;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
-        "PASS.*state=PREPARED.*transitions=3.*external_inputs=9.*pilot_ready=false.*stand=NOT_ACCESSED")
+        "PASS.*legacy_template=true.*state=PREPARED.*transitions=0.*external_inputs=10.*pilot_ready=false.*stand=NOT_ACCESSED")
+  add_test(
+    NAME runner.stage17_state_journal
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_state_journal.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_state_journal
+    PROPERTIES
+      LABELS "runner;authorization;governance;state-journal;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS.*state=PREPARED.*resolved=0.*missing=10.*pilot_ready=false.*disk_positive=10/3.*negative=15.*nonexistent_evidence=REJECTED.*reload=PASS.*Stage18=false.*stand=NOT_ACCESSED")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -1865,6 +1880,10 @@ add_custom_target(
     --self-test
   COMMAND
     "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_state_journal.py"
+    --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_schema.py"
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -2228,7 +2247,24 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_operational_successor.py"
     --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking the finite pilot operational successor and immutable predecessor manifest")
+  COMMENT "Checking immutable Stage 17 predecessor/templates and the journal successor")
+add_custom_target(
+  stage17-state-journal-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_state_journal.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the append-only Stage 17 state journal with disk-backed positive and negative fixtures")
+add_custom_target(
+  stage17-pilot-candidate-artifact-integration-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_pilot_candidate_artifact.py"
+    --archive "${CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_ARCHIVE}"
+    --sidecar "${CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_SIDECAR}"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking caller-supplied real pilot-candidate archive/sidecar bytes; never a self-test")
 add_custom_target(
   q15-qualification-archive-integration-check
   COMMAND

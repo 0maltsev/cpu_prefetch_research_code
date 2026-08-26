@@ -1,0 +1,42 @@
+{
+  "schema_version": "cpu-prefetch-stage17-pilot-candidate-external-contract/1",
+  "contract_id": "STAGE17-PILOT-CANDIDATE-EXTERNAL-CONTRACT-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "source_revision": "2b4f16c61c306ade5f4383ac2abb1ad709f772a8",
+  "archive": {
+    "filename": "cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4.tar.gz",
+    "size_bytes": 5582257,
+    "sha256": "d1c44bc0c78b002ca3ca9bf33f1a33258cceafbeb838c87815e48a7e675227dc"
+  },
+  "sidecar": {
+    "filename": "cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4.tar.gz.sha256",
+    "size_bytes": 135,
+    "sha256": "32833508557e3306a167695fd1059bf2de62552868283fe0efcb4fa6885b5eb6",
+    "exact_ascii": "d1c44bc0c78b002ca3ca9bf33f1a33258cceafbeb838c87815e48a7e675227dc  cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4.tar.gz\n"
+  },
+  "release_identity": {
+    "top_level_directory": "cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4",
+    "manifest_path": "BUNDLE_MANIFEST.json",
+    "manifest_sha256": "b810828c3f6111eb087f5067ae1bd0c48e13de6fe90a7f5aac03132b874250fc",
+    "bundle_profile": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1",
+    "file_count": 171
+  },
+  "verifier": {
+    "id": "STAGE17-PILOT-CANDIDATE-EXTERNAL-VERIFIER",
+    "version": "1",
+    "path": "tools/check_stage17_pilot_candidate_artifact.py"
+  },
+  "custody_recovery": {
+    "policy": "BYTE_IDENTICAL_CUSTODY_COPY_OR_REPRODUCIBLE_REBUILD",
+    "clean_checkout_configure_command": "cmake --preset release-gcc",
+    "clean_checkout_build_command": "cmake --build --preset release-gcc --target pilot-candidate-bundle",
+    "acceptance_rule": "REBUILT_ARCHIVE_AND_SIDECAR_MUST_MATCH_EVERY_CONTRACTED_BYTE_SIZE_AND_SHA256_OR_S17_EXT_006_REMAINS_UNRESOLVED"
+  },
+  "authority_boundary": {
+    "stand_access": false,
+    "preflight": false,
+    "calibration": false,
+    "pilot": false,
+    "stage18": false
+  }
+}

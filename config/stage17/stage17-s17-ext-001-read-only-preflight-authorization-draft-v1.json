@@ -1,0 +1,94 @@
+{
+  "schema_version": "cpu-prefetch-stage17-s17-ext-001-authorization-draft/1",
+  "draft_id": "STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v1",
+  "status": "DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED",
+  "protocol_version": "2.0.0-pre.2",
+  "journal_bindings": {
+    "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+    "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+    "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+    "journal_path": "config/stage17/journal/stage17-state-journal-000000.json"
+  },
+  "authorization_payload": {
+    "schema_version": "cpu-prefetch-stage17-operational-authorization-evidence/1",
+    "authorization_id": null,
+    "input_id": "S17-EXT-001",
+    "actor": null,
+    "issued_at_utc": null,
+    "expires_at_utc": null,
+    "authority_scope": "READ_ONLY_PREFLIGHT",
+    "target_scope": null,
+    "frozen_observation_ids": [
+      "S17-RO-PREFLIGHT-001-TARGET-AND-TRANSPORT-IDENTITY",
+      "S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION",
+      "S17-RO-PREFLIGHT-003-BUNDLE-INTERNAL-VERIFICATION",
+      "S17-RO-PREFLIGHT-004-NONPRIVILEGED-SELF-TESTS",
+      "S17-RO-PREFLIGHT-005-RUNTIME-TOOL-IDENTITIES",
+      "S17-RO-PREFLIGHT-006-READ-ONLY-PLATFORM-INVENTORY"
+    ],
+    "limits": {
+      "max_commands": null,
+      "max_wall_seconds": null,
+      "attempts_per_observation": 1,
+      "retries": 0
+    },
+    "role_collapse_acknowledged": true,
+    "independent_review_claimed": false,
+    "permissions": {
+      "stand_read_only": true,
+      "stand_mutation": false,
+      "privileged_controls": false,
+      "calibration": false,
+      "pilot_execution": false,
+      "stage18_authority": false
+    }
+  },
+  "owner_must_fill": [
+    "authorization_payload.authorization_id",
+    "authorization_payload.actor",
+    "authorization_payload.issued_at_utc",
+    "authorization_payload.expires_at_utc",
+    "authorization_payload.target_scope",
+    "authorization_payload.limits.max_commands",
+    "authorization_payload.limits.max_wall_seconds",
+    "supporting_observation_contract.target.stand_id",
+    "supporting_observation_contract.target.ssh_target",
+    "supporting_observation_contract.target.pinned_host_key_sha256",
+    "supporting_observation_contract.archive_locator",
+    "supporting_observation_contract.sidecar_locator",
+    "supporting_observation_contract.observations[*].executable_path",
+    "supporting_observation_contract.observations[*].executable_sha256",
+    "supporting_observation_contract.observations[*].argv",
+    "supporting_observation_contract.observations[*].output_locator"
+  ],
+  "supporting_observation_contract": {
+    "target": {
+      "stand_id": null,
+      "ssh_target": null,
+      "pinned_host_key_sha256": null
+    },
+    "pilot_candidate_contract_path": "config/stage17/stage17-pilot-candidate-external-contract-v1.json",
+    "pilot_candidate_contract_sha256": "256675098d20881861f5593fc58e1b78a40326366bd1f279be79ef30ead66ded",
+    "archive_locator": null,
+    "sidecar_locator": null,
+    "observations": [
+      {"observation_id": "S17-RO-PREFLIGHT-001-TARGET-AND-TRANSPORT-IDENTITY", "executable_path": null, "executable_sha256": null, "argv": null, "output_locator": null},
+      {"observation_id": "S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION", "executable_path": null, "executable_sha256": null, "argv": null, "output_locator": null},
+      {"observation_id": "S17-RO-PREFLIGHT-003-BUNDLE-INTERNAL-VERIFICATION", "executable_path": null, "executable_sha256": null, "argv": null, "output_locator": null},
+      {"observation_id": "S17-RO-PREFLIGHT-004-NONPRIVILEGED-SELF-TESTS", "executable_path": null, "executable_sha256": null, "argv": null, "output_locator": null},
+      {"observation_id": "S17-RO-PREFLIGHT-005-RUNTIME-TOOL-IDENTITIES", "executable_path": null, "executable_sha256": null, "argv": null, "output_locator": null},
+      {"observation_id": "S17-RO-PREFLIGHT-006-READ-ONLY-PLATFORM-INVENTORY", "executable_path": null, "executable_sha256": null, "argv": null, "output_locator": null}
+    ],
+    "stop_policy": "STOP_ON_FIRST_MISMATCH_OR_NONZERO_EXIT_RETAIN_PARTIAL_EVIDENCE_NO_RETRY",
+    "retention_policy": "CREATE_EXCLUSIVE_APPEND_ONLY_RETAIN_SUCCESS_AND_FAILURE_NO_DELETE"
+  },
+  "issuance_rule": "FILL_EVERY_LISTED_OWNER_FIELD; FREEZE_AND_HASH_THE_SUPPORTING_OBSERVATION_CONTRACT; EXTRACT_AUTHORIZATION_PAYLOAD_TO_A_NEW_REPOSITORY_FILE; VALIDATE_REAL_BYTES; THEN_CREATE_ONE_APPEND_ONLY_S17-EXT-001-RESOLUTION. THIS DRAFT IS NOT EVIDENCE OR AUTHORITY.",
+  "authority_boundary": {
+    "stand_access": false,
+    "preflight": false,
+    "stand_mutation": false,
+    "calibration": false,
+    "pilot": false,
+    "stage18": false
+  }
+}

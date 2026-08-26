@@ -29,15 +29,16 @@ synthetic-only Stage 15 analysis profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
 
-ADR-0104 is the prospective pilot-governance successor. It leaves D-099
+ADR-0104 is the prospective pilot-governance graph. ADR-0105 leaves D-099
 through D-108 and their evidence unchanged, keeps D-105 through D-108
 proposed/unaccepted, and replaces their open-ended continuation as a pilot gate
-with the single machine-readable
-[`STAGE17-EXTERNAL-INPUTS-v1`](../config/stage17/stage17-external-input-checklist-v1.json)
-checklist. The current state is `PREPARED`. There are no additional decision-
-only D-109/D-110 questions. Clean commit `2b4f16c` and no-authority archive
-SHA-256 `d1c44bc0...` resolve `S17-EXT-006`; advancement still requires exact
-external evidence for S17-EXT-001..005 and S17-EXT-007..010, not another
+with one immutable requirement catalog and append-only state journal. The
+current computed state is `PREPARED`; all `S17-EXT-001..010` inputs are
+unresolved. There are no additional decision-only D-109/D-110 questions. The
+old clean commit/archive metadata does not resolve `S17-EXT-006` without
+caller-supplied exact archive/sidecar bytes and a verifiable custody receipt.
+The immediate owner input is the exact real data listed in the
+[`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md), not another
 recommendation bundle.
 
 Q15-R-P4-F was accepted on 2026-08-25 and is recorded in ADR-0072 through

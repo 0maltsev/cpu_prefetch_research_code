@@ -2,7 +2,7 @@
 
 Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
 
-Stage 2/16 disposition: **`D094_BOOTSTRAP_ROOT_ACTIVE_NO_SIGNING_AUTHORITY; P4_K_A_SIX_INPUTS_AND_AUTHORITY_REQUIRED`**
+Stage 17 disposition: **`OPERATIONAL_SUCCESSOR_PREPARED; TEN_EXTERNAL_INPUTS_REQUIRED`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
 
@@ -28,6 +28,15 @@ implementation-owned planning/access profile, and ADR-0041 closing the
 synthetic-only Stage 15 analysis profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
+
+ADR-0104 is the prospective pilot-governance successor. It leaves D-099
+through D-108 and their evidence unchanged, keeps D-105 through D-108
+proposed/unaccepted, and replaces their open-ended continuation as a pilot gate
+with the single machine-readable
+[`STAGE17-EXTERNAL-INPUTS-v1`](../config/stage17/stage17-external-input-checklist-v1.json)
+checklist. The current state is `PREPARED`. There are no additional decision-
+only D-109/D-110 questions. Advancement now requires external evidence for
+S17-EXT-001 through S17-EXT-010, not another recommendation bundle.
 
 Q15-R-P4-F was accepted on 2026-08-25 and is recorded in ADR-0072 through
 ADR-0075. It freezes repository-local literals and still-unissued templates

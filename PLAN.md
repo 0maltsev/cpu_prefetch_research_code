@@ -334,18 +334,18 @@ authorization/amendment.
 - **Objective:** Collect treatment-blind evidence needed to freeze platform-dependent capacities, calibration outputs, horizons, environment, precision, and feasibility.
 - **Inputs and prerequisite decisions:** Phase 16 accepted; D-044 through D-046
   governance accepted; D-047 physical mapping implemented and strict combined
-  audit passed; clean exact no-authority candidate release evidence; exact Q15
-  release/stand qualification authorized and passed; then separate
-  dependency-ready Q16a D2, Q16b service-rate, Q16c feasibility, and Q16d
-  blinded pilot/freeze-input authorizations with exact namespaces, plans,
-  durations/repetitions, controls, custody, storage, and stand budget. See the
-  [pre-Stage-17 bundle](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md).
+  audit passed; ADR-0104 finite operational successor; clean exact
+  no-authority candidate release evidence; accepted preflight and exact stand
+  qualification; then dependency-ready phase inputs and a phase-scoped pilot
+  authorization with exact namespaces, plans, durations/repetitions, controls,
+  custody, storage, and stand budget. See
+  [`STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
 - **Files/components:** Immutable pilot/calibration run artifacts, failure records, blinded summaries, freeze-decision inputs; no confirmatory namespace.
 - **Tests:** Per-run runbook gates, manifest completeness, join/integrity, blinded covariance/tail/recovery/environment procedures, no-access and namespace audits.
 - **Acceptance criteria:** Evidence is complete and treatment-blind for each required freeze; no failed correctness gate; all confirmatory decisions can be justified or the study is declared infeasible/unresolved.
 - **Explicitly excluded:** Confirmatory outcomes, result-bearing claims, treatment-driven tuning, pilot substitution for Stage A.
 - **Rollback or failure behavior:** Preserve all pilot artifacts/failures. Material implementation/platform change invalidates dependent pilot evidence. Do not cherry-pick or repeat for favorable effects.
-- **Status:** `PROHIBITED`; Q14 accepts D-044 through D-046, D-047 closes the
+- **Status:** `PREPARED_EXTERNAL_INPUTS_REQUIRED`; Q14 accepts D-044 through D-046, D-047 closes the
   physical emitter and strict combined audit, and Q15-P0/ADR-0048 through
   ADR-0050 accept the repository-local prerequisite correction/mapping/policy.
   The v3 implementation passes the complete local compiler, sanitizer, schema,
@@ -444,22 +444,24 @@ authorization/amendment.
   implemented with zero action authority. Because D-099 did not identify the
   remote Python, `dd`, and tar runtime used by that implementation, the
   executor retains an explicit null runtime-acceptance gate and cannot execute.
-  Clean implementation commit `dc643df` is now frozen. The D-105 through D-108
-  no-action bundle prepares the exact read-only runtime-evidence choices with
-  every selection null. The next safe gate is exact acceptance of that
-  repository-local implementation scope, followed by a clean collector
-  successor and only then a separately signed and explicitly approved
-  read-only runtime capture. Its reviewed evidence must feed another clean
-  executor successor before a newly prepared, separately signed and
-  explicitly approved P4-R-C action. Only after reviewed P4-R-C output may
-  exact P5 be prepared for approval. No
-  P4-R-C, P5, Q15, calibration, pilot,
-  measurement, or confirmatory action is authorized.
+  Clean implementation commit `dc643df` and D-099..D-108 records/evidence are
+  now hash-preserved. D-105 through D-108 remain proposed/unaccepted and are no
+  longer an endlessly recursive pilot gate. ADR-0104 adds the sole finite
+  successor: `PREPARED -> AUTHORIZED_FOR_READ_ONLY_PREFLIGHT ->
+  PREFLIGHT_ACCEPTED -> READY_FOR_STAGE17_PHASE_AUTHORIZATION`. The pilot owner
+  may hold owner/operator/controller/custodian/auditor roles and one
+  authorization may cover the frozen read-only preflight observation set; no
+  independent-review claim is permitted. The current state remains `PREPARED`
+  because all ten entries in `STAGE17-EXTERNAL-INPUTS-v1` require real external
+  evidence. The D-104 self-test is hermetic; real qualification archive bytes
+  are handled only by the explicit external-artifact integration contract. No
+  stand, P4-R-C, P5, Q15, calibration, pilot, measurement, or confirmatory
+  action is authorized.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate
-  dependency-ready Q16 phase approvals remain mandatory. No omnibus Stage 17
-  authorization is valid.
+  dependency-ready scientific phase inputs and an exact phase authorization
+  remain mandatory. No Stage 17 record authorizes Stage 18.
 
 ## Phase 18 — Confirmatory execution
 

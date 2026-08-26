@@ -3,9 +3,9 @@
 Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
 **`2.0.0-pre.1`** retained
 
-Repository state: **`D104_COMMITTED_NO_AUTHORITY; D105_D108_RUNTIME_DECISIONS_PROPOSED`**
+Repository state: **`STAGE17_OPERATIONAL_SUCCESSOR_PREPARED_EXTERNAL_INPUTS_REQUIRED`**
 
-Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
+Readiness verdict: **`PREPARED`**; **`NOT_READY_FOR_STAGE17_PILOT_EXECUTION`**;
 **`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**
 
 ## Readiness by area
@@ -13,7 +13,7 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/16 implementation-decision record | `COMPLETE`; D-100..D-103 implementation decisions recorded | ADR-0001 through ADR-0086, ADR-0093 through ADR-0097, ADR-0099, and ADR-0100 through ADR-0103 are accepted. D-095 remains terminal; D-096, D-097, and D-099 completed as distinct one-shot transactions; P4-R-C and P5 remain unissued. |
+| Stage 2/16 implementation-decision record | `COMPLETE`; pilot-governance successor recorded | ADR-0001 through ADR-0086, ADR-0093 through ADR-0097, ADR-0099, ADR-0100 through ADR-0103, and prospective ADR-0104 are accepted. D-099..D-108 decision/evidence bytes are hash-preserved; D-105..D-108 remain proposed/unaccepted. |
 | Stage 3 build/CI foundation | `COMPLETE_REVERIFIED` | ADR-0022, constrained offline inputs, dual compiler/library development/release presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations freshly pass Stage 16. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
@@ -31,10 +31,11 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Q15-P0 local verification | `COMPLETE` | GCC and Clang/libc++ development and release matrices pass 216/216 each; both ASan/UBSan matrices and GCC TSan pass 216/216; Clang/libc++ TSan passes its applicable 214/214. Full 73-file static analysis, formatting, schemas, immutable protocol hashes, release policy, dependency/license, CI, and all dual-disassembler generated-code gates pass. No stand or MSR operation occurred. |
 | Q15-P0 candidate release | `COMPLETE_NO_AUTHORITY` | Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` produced `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; archive SHA-256 is `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`. Outer/internal hashes, 94-file clean extraction, and both nonprivileged self-tests pass. Its manifest denies dynamic, pilot, confirmatory, and measurement execution authority. |
 | Exact Q15 preparation | `D104_LOCAL_EXECUTOR_PREPARED_NO_ACTION_AUTHORITY` | D-099 evidence remains the immutable identity predecessor. The fixed P4-R-C executor separates collection and result review, validates exact custody/release/hash inputs, uses create-exclusive outputs, retains bounded partial failure evidence, and has no target-private-key path. No stand mutation occurred. D-098 still retains three null P5 inputs. |
-| P4-R-C prerequisite decisions | `D104_COMMITTED_NO_AUTHORITY; D105_D108_EXACT_ACCEPTANCE_REQUIRED` | Clean commit `dc643df` binds executor SHA `0b7e2f1c...`, the 13-step fake-tested graph, zero retry, fixed OpenSSH allowlist, append-only custody, namespace rule, schemas, and authority `NONE`. D-099 did not capture remote Python/`dd`/tar runtime identity, so execution rejects. D-105..D-108 decision SHA `6d753cee...` recommends one later signed read-only capture/review and clean successor; every selection/action input is still null. |
+| P4-R-C predecessor decisions | `D104_HISTORICAL_NO_AUTHORITY; D105_D108_PRESERVED_PROPOSED_NOT_ACTIVE_PILOT_GATE` | Clean commit `dc643df` binds historical executor SHA `0b7e2f1c...`; the current hermetic successor is separately hash-bound by ADR-0104. D-099 did not capture remote Python/`dd`/tar runtime identity, so the old action still rejects. D-105..D-108 SHA `6d753cee...` remains unchanged with all selections/action inputs null and is not silently accepted. |
+| Stage 17 operational authorization | `PREPARED_EXTERNAL_INPUTS_REQUIRED` | ADR-0104 provides the only successor graph: `PREPARED -> AUTHORIZED_FOR_READ_ONLY_PREFLIGHT -> PREFLIGHT_ACCEPTED -> READY_FOR_STAGE17_PHASE_AUTHORIZATION`. Pilot roles are explicitly collapsed to one disclosed owner and one authorization may cover one frozen read-only observation set. Ten exact external inputs remain unresolved; no stand or phase authority exists. The strict Stage 18 access chronology is unchanged. |
 | Stage 16 software verification | `COMPLETE` | Both compiler/library development and release matrices pass 187/187; sanitizer matrices pass 187/187, 187/187, 187/187, and applicable 185/185; strict component codegen, static/format/schema/provenance/dependency/CI checks, synthetic dispositions, reproducible bundle, clean extraction, and nonprivileged self-tests pass. ADR-0042 and the readiness report bind the evidence boundary. |
 | Stand preflight | `COMPLETE_INVENTORY_ONLY_NOT_QUALIFIED` | The exact bundle and 72-file internal inventory passed on `xeon-cpu-fetch`; smoke, self-test, and the collector ran as `nobody:nogroup`. Snapshot `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` observes two packages/two NUMA nodes and retains seven blockers. Inventory SHA-256 is `f3bb301c77918c0287c8a287e3915f5d68929684eece660464c69f62770ac94b`; the sidecar-publication failure and recovered checksum are preserved. |
-| Pilot | `BLOCKED` | The exact clean adapter-bearing release is selected as evidence only. Authorized/verified four-role/custody/trust setup, a separately approved signed Q15-R and later Q15-W, dynamic H0/H1/clock/layout/CPU/residency/storage evidence, calibration inputs, and separate Q16 authority are absent. |
+| Pilot | `NOT_READY_FOR_STAGE17_PILOT_EXECUTION` | The authoritative checklist `STAGE17-EXTERNAL-INPUTS-v1` has ten unresolved entries: read-only preflight authorization/evidence/acceptance, dynamic qualification/control/restoration, clean successor release, calibration outputs, exact pilot plan, storage/custody budget, and one phase-scoped pilot authorization. |
 | Confirmatory execution | `PROHIBITED` | Pilot outputs and later freeze records, budgets, authorities, and sealing proof are absent. |
 
 ## Stage 4 products
@@ -810,6 +811,15 @@ separately signed read-only P4-R-I identity capture and public review, with
 four successful observations and no stand mutation. P4-R-C and P5 remain
 blocked and unissued. No Q15, calibration, pilot, measurement, or confirmatory
 work is authorized.
+
+ADR-0104 prospectively supersedes ADR-0045/0046/0050 only for the pilot
+operational role/authorization boundary. It replaces the decision-only
+D-105..D-108 continuation path with one finite successor and one
+machine-readable checklist without changing those predecessor bytes. The
+current record is `PREPARED`; the hermetic D-104 self-test reads only synthetic
+transfer bytes, while a real qualification archive is checked only by the
+explicit external-artifact integration command. Pilot role collapse never
+applies to Stage 18 sealing or access.
 
 Pilot remains blocked on the selected pair/layout/atomic,
 requested-versus-verified controls/restoration, exact

@@ -193,6 +193,19 @@ prefetch mutants. Repository tests use fake operations and an allocation hook.
 Neither checker starts a Q15 session, opens a counter/device, changes affinity
 or NUMA policy, or accesses a stand.
 
+ADR-0104 adds `check_stage17_operational_successor.py`, which validates the
+immutable D-099..D-108 preservation manifest, the one finite Stage 17
+operational state chain, the single external-input checklist, pilot role
+collapse, and the unchanged Stage 18 chronology. `--self-test` exercises the
+complete positive chain and negative skip/missing/regression/role/PKI/access
+cases; `--print-missing` prints the authoritative unresolved IDs.
+
+`execute_d104_p4_r_c.py --self-test` now supplies synthetic archive/sidecar
+bytes directly to the fake graph and does not read ignored build artifacts.
+`check_q15_qualification_archive.py` is the separate integration/action-input
+check for a caller-supplied exact archive and sidecar. It never discovers a
+build path and its successful result grants no stand or execution authority.
+
 ## Stage 8 clock-decision evidence collector
 
 `collect_stage8_clock_evidence.sh` gathers read-only host, topology, clocksource,

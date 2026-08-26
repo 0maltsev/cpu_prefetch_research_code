@@ -23,6 +23,7 @@ EXPECTED = {
     "D-107": "FIX_EXACT_PINNED_OPENSSH_COMMAND_AND_STDIN_SCRIPT_GRAPH",
     "D-108": "REQUIRE_CANONICAL_COMPLETE_CAPTURE_SEPARATE_REVIEW_AND_CLEAN_SUCCESSOR",
 }
+HISTORICAL_D104_REVISION = "dc643df498fa36c3c34507f977634c05421751b1"
 
 
 def sha256(path: pathlib.Path) -> str:
@@ -31,6 +32,21 @@ def sha256(path: pathlib.Path) -> str:
 
 def load(path: pathlib.Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def historical_d104_executor_sha256() -> str | None:
+    completed = subprocess.run(
+        ["git", "show", f"{HISTORICAL_D104_REVISION}:tools/execute_d104_p4_r_c.py"],
+        cwd=ROOT,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+        shell=False,
+    )
+    if completed.returncode != 0:
+        return None
+    return hashlib.sha256(completed.stdout).hexdigest()
 
 
 def semantic_errors(record: dict[str, Any], *, verify_files: bool) -> list[str]:
@@ -78,11 +94,13 @@ def semantic_errors(record: dict[str, Any], *, verify_files: bool) -> list[str]:
         for path_field, hash_field in (
             ("d100_acceptance_path", "d100_acceptance_sha256"),
             ("d104_preparation_path", "d104_preparation_sha256"),
-            ("d104_executor_path", "d104_executor_sha256"),
         ):
             path = ROOT / str(inputs.get(path_field, ""))
             if not path.is_file() or sha256(path) != inputs.get(hash_field):
                 errors.append(f"immutable local input drifted: {path_field}")
+        historical_hash = historical_d104_executor_sha256()
+        if historical_hash is None or historical_hash != inputs.get("d104_executor_sha256"):
+            errors.append("immutable historical D-104 executor Git object drifted")
         d099 = subprocess.run(
             [sys.executable, str(ROOT / "tools/check_d099_p4_r_i_complete.py")],
             cwd=ROOT,

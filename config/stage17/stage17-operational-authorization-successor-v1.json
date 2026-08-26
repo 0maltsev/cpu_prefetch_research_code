@@ -1,0 +1,100 @@
+{
+  "schema_version": "cpu-prefetch-stage17-operational-authorization-successor/1",
+  "successor_id": "STAGE17-OPERATIONAL-AUTHORIZATION-SUCCESSOR-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "PREPARED_EXTERNAL_INPUTS_REQUIRED",
+  "current_state": "PREPARED",
+  "state_order": [
+    "PREPARED",
+    "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+    "PREFLIGHT_ACCEPTED",
+    "READY_FOR_STAGE17_PHASE_AUTHORIZATION"
+  ],
+  "transitions": [
+    {
+      "from": "PREPARED",
+      "to": "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+      "required_external_input_ids": ["S17-EXT-001"],
+      "failure_policy": "RETAIN_PARTIAL_EVIDENCE_STOP_NO_AUTOMATIC_RETRY_OR_ADVANCE"
+    },
+    {
+      "from": "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+      "to": "PREFLIGHT_ACCEPTED",
+      "required_external_input_ids": ["S17-EXT-002", "S17-EXT-003"],
+      "failure_policy": "RETAIN_PARTIAL_EVIDENCE_STOP_NO_AUTOMATIC_RETRY_OR_ADVANCE"
+    },
+    {
+      "from": "PREFLIGHT_ACCEPTED",
+      "to": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "required_external_input_ids": ["S17-EXT-004", "S17-EXT-005", "S17-EXT-006"],
+      "failure_policy": "RETAIN_PARTIAL_EVIDENCE_STOP_NO_AUTOMATIC_RETRY_OR_ADVANCE"
+    }
+  ],
+  "prospective_adr": {
+    "path": "docs/decisions/0104-stage17-pilot-operational-governance-successor.md",
+    "sha256": "747b66d46db9103279026627cfd318861111ff71f66790013b31ece164360323"
+  },
+  "preserved_predecessors": {
+    "path": "config/stage17/d099-d108-preservation-manifest-v1.json",
+    "sha256": "d0532418f895865c48f537488999e541901565fb958b12d3b8946bf06987a3a7",
+    "range": "D-099..D-108",
+    "d105_d108_disposition": "PRESERVED_PROPOSED_NOT_ACCEPTED_NOT_REQUIRED_BY_THIS_SUCCESSOR"
+  },
+  "pilot_governance": {
+    "role_principal": "cpu-prefetch-stage17-pilot-owner",
+    "roles": {
+      "owner": "cpu-prefetch-stage17-pilot-owner",
+      "operator": "cpu-prefetch-stage17-pilot-owner",
+      "controller": "cpu-prefetch-stage17-pilot-owner",
+      "custodian": "cpu-prefetch-stage17-pilot-owner",
+      "auditor": "cpu-prefetch-stage17-pilot-owner"
+    },
+    "role_collapse_acknowledged": true,
+    "independent_review_claimed": false,
+    "read_only_authorization_scope": "ONE_HASHED_OWNER_AUTHORIZATION_MAY_COVER_ONE_FROZEN_PREFLIGHT_OBSERVATION_SET",
+    "pki_ceremony_per_read_only_observation_required": false,
+    "phase_scoped_authorization_required": true,
+    "outcome_access_allowed": false
+  },
+  "confirmatory_governance": {
+    "strict_chronology_preserved": true,
+    "pilot_role_collapse_applies": false,
+    "access_state_order": [
+      "PLANNED",
+      "COLLECTED_SEALED",
+      "TRAINING_OPEN",
+      "SELECTION_FROZEN",
+      "VALIDATION_UNSEALED",
+      "H3_EVALUATED",
+      "H1H2_RELEASED",
+      "ARCHIVED"
+    ],
+    "validation_sealed_until_authorized_unseal": true,
+    "h1_h2_release_requires_h3_evaluated": true,
+    "stage17_authority_may_authorize_stage18": false
+  },
+  "external_input_checklist": {
+    "path": "config/stage17/stage17-external-input-checklist-v1.json",
+    "sha256": "7b5da0075383b4602d463f86f1974a8eaf68609895254885b78d93ac29f1febe"
+  },
+  "hermetic_executor_successor": {
+    "path": "tools/execute_d104_p4_r_c.py",
+    "sha256": "9a9176f97b35a37632ec6432ed5244d22711cd482e7ad121e9206d995685f023",
+    "historical_d104_sha256": "0b7e2f1c65849abe7d29ed8fd91fabb6105b8977d3051b9947ac7346fc14bdf6",
+    "external_archive_contract": {
+      "path": "config/q15/q15-qualification-archive-external-contract-v1.json",
+      "sha256": "aab462febeee7d33f0a9f5079276a39e2ece83cc098fa408a57c1b2f06fd2f2e"
+    },
+    "self_test_reads_ignored_build_artifacts": false
+  },
+  "authority_boundary": {
+    "repository_local_governance_implementation": true,
+    "stand_access": false,
+    "privileged_controls": false,
+    "calibration": false,
+    "pilot_execution": false,
+    "confirmatory_execution": false,
+    "stage17_complete": false,
+    "stage18_ready": false
+  }
+}

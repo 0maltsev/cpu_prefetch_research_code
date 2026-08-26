@@ -2,9 +2,10 @@
 
 This repository has completed the **Stage 16 independent pre-pilot software
 verification slice** for protocol **`2.0.0-pre.2`**. Its current disposition is
-`READY_FOR_STAND_PREFLIGHT`, while pilot and confirmatory execution remain
-blocked on stand evidence and frozen inputs recorded in
-[`docs/PRE_PILOT_READINESS_REPORT.md`](docs/PRE_PILOT_READINESS_REPORT.md).
+`PREPARED_EXTERNAL_INPUTS_REQUIRED`: the finite Stage 17 operational successor
+is prepared locally, while pilot and confirmatory execution remain blocked on
+the single machine-readable external-input checklist recorded in
+[`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
 It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
@@ -188,6 +189,15 @@ Clean commit `dc643df` freezes those bytes. The prospective
 recommends a separately authorized read-only runtime capture/review and clean
 successor; its machine-record SHA-256 is `6d753cee...`. It grants no key,
 stand, collector, P4-R-C, or later authority.
+ADR-0104 now prospectively replaces that open-ended pilot-governance path with
+one finite operational successor and one external-input checklist. D-099
+through D-108 and their evidence remain hash-preserved and unchanged; D-105
+through D-108 remain proposed/unaccepted rather than being silently adopted.
+Pilot owner/operator/controller/custodian/auditor roles may be held by the one
+disclosed owner, and one authorization may cover a frozen read-only preflight
+observation set. This does not weaken or authorize the Stage 18 selection,
+validation-unseal, H3-evaluation, or H1/H2-release chronology. The current
+successor state is `PREPARED`, not pilot authority.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
@@ -386,11 +396,27 @@ cmake --build --preset dev-gcc --target q15-dynamic-implementation-check
 cmake --build --preset dev-gcc --target q15-r-decision-check
 cmake --build --preset dev-gcc --target q15-authorization-v2-check
 cmake --build --preset dev-gcc --target q15-controller-profile-check
+cmake --build --preset dev-gcc --target stage17-operational-successor-check
 cmake --build --preset release-gcc --target q15-probe-codegen-check
 cmake --build --preset release-gcc --target q15-runtime-codegen-check
 cmake --build --preset release-gcc --target q15-controller-codegen-check
 ctest --preset dev-gcc -L q15 --output-on-failure
 ```
+
+The D-104 fake/self-test is hermetic and does not discover or read the ignored
+build tree. Validate the exact qualification archive only as a separate,
+explicit integration/action input:
+
+```sh
+cmake --preset dev-gcc \
+  -DCPU_PREFETCH_Q15_QUALIFICATION_ARCHIVE=/absolute/path/to/exact.tar.gz \
+  -DCPU_PREFETCH_Q15_QUALIFICATION_SIDECAR=/absolute/path/to/exact.tar.gz.sha256
+cmake --build --preset dev-gcc --target q15-qualification-archive-integration-check
+```
+
+The expected filename, byte count, SHA-256, release identity, and candidate
+rebuild commands are in
+[`Q15-QUALIFICATION-ARCHIVE-EXTERNAL-CONTRACT-v1`](config/q15/q15-qualification-archive-external-contract-v1.json).
 
 `cpu_prefetch_runner` can validate a future explicit admission record but has
 no measurement command. `cpu_prefetch_qualification` has no dynamic collector

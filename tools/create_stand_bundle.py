@@ -388,6 +388,8 @@ def main() -> int:
             staging / "config" / "schemas" / "imported",
         )
         copy_tree_files(root / "config" / "examples", staging / "config" / "examples")
+        if stage17:
+            copy_tree_files(root / "config" / "stage17", staging / "config" / "stage17")
         if q15_tool:
             copy_tree_files(root / "config" / "q15", staging / "config" / "q15")
             for relative in (
@@ -422,6 +424,7 @@ def main() -> int:
                 [
                     "PRODUCTION_RUNNER.md",
                     "STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md",
+                    "STAGE17_OPERATIONAL_AUTHORIZATION.md",
                 ]
             )
         if q15_tool:

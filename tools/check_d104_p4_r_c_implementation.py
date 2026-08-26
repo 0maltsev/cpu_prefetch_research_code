@@ -23,6 +23,7 @@ import execute_d104_p4_r_c as executor  # noqa: E402
 ACCEPTANCE = ROOT / "config/q15/q15-r-p4-r-c-d100-acceptance-v1.json"
 PREPARATION = ROOT / "config/q15/q15-r-p4-r-c-d104-preparation-v1.json"
 TEMPLATE = ROOT / "config/q15/q15-r-p4-r-c-d104-action-authorization-template-v1.json"
+HISTORICAL_D104_REVISION = "dc643df498fa36c3c34507f977634c05421751b1"
 
 
 def sha256(path: pathlib.Path) -> str:
@@ -31,6 +32,21 @@ def sha256(path: pathlib.Path) -> str:
 
 def load(path: pathlib.Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def historical_d104_executor() -> bytes:
+    completed = subprocess.run(
+        ["git", "show", f"{HISTORICAL_D104_REVISION}:tools/execute_d104_p4_r_c.py"],
+        cwd=ROOT,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+        shell=False,
+    )
+    if completed.returncode != 0:
+        raise RuntimeError("historical D-104 executor Git object is unavailable")
+    return completed.stdout
 
 
 def validate(document: pathlib.Path, schema_name: str) -> list[str]:
@@ -196,8 +212,13 @@ def main() -> int:
             Draft202012Validator.check_schema(load(ROOT / "config/schemas" / name))
         except Exception as exception:  # noqa: BLE001 - report every schema defect.
             errors.append(f"invalid D-104 schema {name}: {exception}")
-    if preparation.get("executor_sha256") != sha256(ROOT / "tools/execute_d104_p4_r_c.py"):
-        errors.append("D-104 preparation does not bind the executor bytes")
+    try:
+        historical_executor_sha256 = hashlib.sha256(historical_d104_executor()).hexdigest()
+    except RuntimeError as exception:
+        errors.append(str(exception))
+    else:
+        if preparation.get("executor_sha256") != historical_executor_sha256:
+            errors.append("D-104 preparation does not bind its historical executor bytes")
     unresolved = preparation.get("unresolved_action_inputs", {})
     if len(unresolved) != 8 or any(value is not None for value in unresolved.values()):
         errors.append("D-104 preparation fabricated an external/action input")

@@ -1,6 +1,7 @@
 # Stage A Stand Runbook
 
-Status: **planning and read-only inventory document only**. This runbook does
+Status: **Stage 17 operational successor `PREPARED`; external inputs
+required**. This runbook does
 not authorize a platform mutation, calibration, pilot, or confirmatory
 execution. Commands in the read-only section only observe state and do not make
 the current machine an eligible stand. It becomes operational only after the
@@ -49,13 +50,14 @@ implementation only in the
 [Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md); it grants no stand
 control or execution authority.
 
-The accepted
-[pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
-defines three non-collapsible gates: Q14 authorizes repository-local closure
-only, a later complete Q15 may authorize exact stand qualification, and later
-dependency-ready Q16a through Q16d records may authorize individual Stage 17
-phases. Q15-P0 subsequently accepts repository-local D-048 through D-050 only.
-It closes no dynamic gate and authorizes no stand action.
+The prospective
+[finite Stage 17 operational successor](STAGE17_OPERATIONAL_AUTHORIZATION.md)
+now owns pilot admission. Its current state is `PREPARED`; it may advance only
+through `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, `PREFLIGHT_ACCEPTED`, and
+`READY_FOR_STAGE17_PHASE_AUTHORIZATION` using the one machine-readable
+external-input checklist. No state is inferred from SSH reachability, and the
+last state is permission to prepare an exact phase authorization rather than
+permission to execute it.
 
 ### 3. Privileged capability verification
 
@@ -69,13 +71,15 @@ There is no automatic privileged path in the bundle. Do not use `sudo`, write
 sysfs/MSRs, stop services, change boot state, or apply a control until the exact
 target/value/inverse and independent verification have been approved.
 
-ADR-0050 requires four distinct operational identities: operator, controller,
-custodian, and auditor. The proposed primary qualification-output domain is
-the candidate stand filesystem on `/dev/md3`; the proposed secondary custody
-domain is the development repository on the separate development machine.
-This is a setup proposal, not completed evidence. Do not create accounts,
-install keys/capabilities, or create output paths until a separate exact
-authorization covers those changes and the negative access matrix.
+ADR-0104 supersedes ADR-0050's distinct-identity requirement for Stage 17 pilot
+operations only. The declared principal `cpu-prefetch-stage17-pilot-owner` may
+act as owner, operator, controller, custodian, and auditor, and every review
+must state `distinct_auditor=false` and `independent_review_claimed=false`.
+This role collapse does not grant privilege: commands, targets, limits,
+readbacks, restoration, and storage paths still require exact evidence and
+authorization. The proposed primary qualification-output domain remains the
+candidate stand filesystem on `/dev/md3`; an actual independent secondary
+custody domain remains external evidence.
 
 ### 4. Safe restoration
 
@@ -100,12 +104,11 @@ authorized probe/collector command, and the runbook must not improvise one.
 
 ### 5. Calibration/pilot preparation
 
-Only after the readiness report's `BLOCKED_BEFORE_PILOT` items are closed and
-the exact Q15 qualification has passed may owners create an explicit
-dependency-ready calibration/pilot plan and request the applicable Q16 phase
-authorization. Bundle verification, inventory, Q14, and Q15 do not authorize
-calibration or pilot. Confirmatory namespaces and outcomes remain
-inaccessible.
+Only after the successor reaches `READY_FOR_STAGE17_PHASE_AUTHORIZATION` and
+all ten entries in `STAGE17-EXTERNAL-INPUTS-v1` resolve may the owner issue the
+exact phase-scoped pilot authorization. Bundle verification, inventory, or
+preflight acceptance does not authorize calibration or pilot. Confirmatory
+namespaces and outcomes remain inaccessible.
 
 ### 6. Artifact transfer to the development repository
 
@@ -273,6 +276,15 @@ operations are stand-specific evidence still awaiting approval.
 
 ## 1. Roles and separation
 
+ADR-0104's single-owner collapse applies only through Stage 17 pilot
+operations. It is an explicitly accepted loss of independent operational
+review, not a claim that one identity is independent of itself. One owner
+authorization may cover one frozen set of read-only preflight observations;
+do not create one PKI ceremony per observation.
+
+The following role separation remains mandatory for Stage 18 confirmatory
+sealing and access. Pilot role collapse cannot satisfy it:
+
 Before stand access, record named identities and approved combinations for:
 
 - freeze authority;
@@ -292,6 +304,11 @@ The access design must keep validation outcomes technically inaccessible through
 ### Before any pilot
 
 Require all of the following as immutable, source-hashed evidence:
+
+- the operational successor has reached
+  `READY_FOR_STAGE17_PHASE_AUTHORIZATION`, every item in
+  `STAGE17-EXTERNAL-INPUTS-v1` is resolved, and the exact phase authorization
+  binds those hashes;
 
 - accepted queue provenance/licenses/modes, atomic mapping, refinement/progress arguments;
 - supported platform inventory with eligible near/far topology;

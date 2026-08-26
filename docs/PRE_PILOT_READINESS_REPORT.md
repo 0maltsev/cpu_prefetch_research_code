@@ -9,7 +9,7 @@ Assessment scope: software verification and stand transfer only
 ## Verdict
 
 - Software/bundle state: **`READY_FOR_STAND_PREFLIGHT`**.
-- Pilot state: **`BLOCKED_BEFORE_PILOT`**.
+- Pilot state: **`PREPARED_EXTERNAL_INPUTS_REQUIRED_NOT_READY_FOR_STAGE17_PILOT_EXECUTION`**.
 - Confirmatory state: **`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**.
 
 This verdict authorizes installation verification and read-only inventory on a
@@ -53,10 +53,23 @@ no-authority candidate; archive SHA-256 is
 and its 94-file clean extraction and two nonprivileged self-tests pass. Exact
 Q15 tool/authority/command/limit/custody inputs remain open.
 
-The readiness states remain `READY_FOR_STAND_PREFLIGHT`,
-`BLOCKED_BEFORE_PILOT`, and `BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`. Q15-P0 did
-not authorize stand access, MSR operations, dynamic qualification, accounts,
+The sealed Stage 16 bundle remains `READY_FOR_STAND_PREFLIGHT`; the current
+pilot disposition is `PREPARED_EXTERNAL_INPUTS_REQUIRED`, and confirmatory
+execution remains `BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`. Q15-P0 did not
+authorize stand access, MSR operations, dynamic qualification, accounts,
 privilege, calibration, pilot, or confirmation.
+
+## ADR-0104 operational-governance addendum
+
+ADR-0104 does not change the sealed Stage 16 bundle verdict. It replaces the
+later open-ended pilot governance chain with one finite successor and one
+external-input checklist. The operational record is `PREPARED`; positive and
+negative local tests prove only the transition model. D-099 through D-108 are
+hash-preserved, the D-104 self-test is hermetic, and a real qualification
+archive is an explicit integration/action input. No stand observation was made
+for this addendum. The ten unresolved checklist entries are the authoritative
+pilot blockers. Stage 18 remains blocked on the unchanged imported sealing and
+access chronology plus all pilot-derived freezes.
 
 ## Requirement-by-requirement verification matrix
 
@@ -193,20 +206,11 @@ members are not separate artifact-copy domains under D-020. The
 [Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md) is accepted for
 implementation only and grants no execution authority.
 
-The accepted
-[pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
-records the exact authorization order. Q14 is repository-local policy and
-implementation authority only; its local framework and D-044 clean
-no-authority release closure pass at `693f00b`. Q15-S1/ADR-0051 accepts and
-locally implements the separate qualification tool plus Q15-R/Q15-W authority
-split without touching that release. D-052/ADR-0052 freezes the probe/collector
-contract. Q15-S2/ADR-0053 implements and releases only the deterministic
-pointer cycle, integrity/classification, and counted traversal/codegen slice
-in a clean no-authority bundle. The dynamic PMU path, seven collectors, their
-clean executable hashes, remaining exact operational inputs, and all dynamic
-evidence remain absent. Future exact Q15-R/Q15-W is required for
-stand qualification, and future dependency-ready Q16a through Q16d records are
-required for individual Stage 17 phases. Q15/Q16 are not approval-ready.
+The [finite Stage 17 operational successor](STAGE17_OPERATIONAL_AUTHORIZATION.md)
+is now the authoritative pilot-admission path. It retains the earlier Q14/Q15
+software evidence without treating those records as execution authority. The
+current state is `PREPARED`; exact preflight, qualification, calibration,
+storage, plan, release, and phase-authorization evidence remains absent.
 
 ## Mandatory evidence remaining before pilot
 

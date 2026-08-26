@@ -841,8 +841,18 @@ def load_action_records(
 
 
 def run_remote_plan(
-    backend: Backend, authorization_hash: str, completed: list[str] | None = None
+    backend: Backend,
+    authorization_hash: str,
+    archive_payload: bytes,
+    sidecar_payload: bytes,
+    completed: list[str] | None = None,
 ) -> tuple[bytes, bytes, list[str]]:
+    """Execute the fixed graph using caller-supplied immutable transfer bytes.
+
+    Keeping artifact acquisition outside this function makes the fake/self-test
+    path hermetic.  The action path remains responsible for validating and
+    reading the exact external archive before it calls this graph.
+    """
     if completed is None:
         completed = ["P4RC-001"]
     preflight = require_plan_success(
@@ -873,8 +883,8 @@ def run_remote_plan(
         )
     completed.append("P4RC-002")
     require_plan_success("P4RC-003", backend.invoke("P4RC-003-CREATE", REMOTE_PYTHON_STDIN, _script_payload(REMOTE_CREATE_SCRIPT), COMMAND_TIMEOUT_SECONDS), completed); completed.append("P4RC-003")
-    require_plan_success("P4RC-004-ARCHIVE", backend.invoke("P4RC-004-ARCHIVE", REMOTE_UPLOAD_ARCHIVE, ARCHIVE.read_bytes(), COMMAND_TIMEOUT_SECONDS), completed)
-    require_plan_success("P4RC-004-SIDECAR", backend.invoke("P4RC-004-SIDECAR", REMOTE_UPLOAD_SIDECAR, SIDECAR.read_bytes(), COMMAND_TIMEOUT_SECONDS), completed); completed.append("P4RC-004")
+    require_plan_success("P4RC-004-ARCHIVE", backend.invoke("P4RC-004-ARCHIVE", REMOTE_UPLOAD_ARCHIVE, archive_payload, COMMAND_TIMEOUT_SECONDS), completed)
+    require_plan_success("P4RC-004-SIDECAR", backend.invoke("P4RC-004-SIDECAR", REMOTE_UPLOAD_SIDECAR, sidecar_payload, COMMAND_TIMEOUT_SECONDS), completed); completed.append("P4RC-004")
     require_plan_success("P4RC-005/006", backend.invoke("P4RC-005-006-VERIFY", REMOTE_PYTHON_STDIN, _script_payload(REMOTE_VERIFY_SCRIPT), COMMAND_TIMEOUT_SECONDS), completed); completed.extend(["P4RC-005", "P4RC-006"])
     require_plan_success("P4RC-007", backend.invoke("P4RC-007-EXTRACT", REMOTE_PYTHON_STDIN, _script_payload(REMOTE_EXTRACT_SCRIPT), COMMAND_TIMEOUT_SECONDS), completed); completed.append("P4RC-007")
     require_plan_success("P4RC-008", backend.invoke("P4RC-008-INTERNAL", REMOTE_PYTHON_STDIN, _script_payload(REMOTE_INTERNAL_SCRIPT), COMMAND_TIMEOUT_SECONDS), completed); completed.append("P4RC-008")
@@ -1233,11 +1243,17 @@ def execute(
         raise ActionError("SSH transport private key mode is not 0600")
     require_regular(SSH, "e3bc4b0d2382755b4dd398101c9c00ab20df91c2e565b017f0c8f033004391f2")
     require_regular(SSH_KEYGEN, "f5a191e91589ab689c93caccc09d827a3a9d4ab28f950dc94ae05351c1389e11")
+    archive_payload = ARCHIVE.read_bytes()
+    sidecar_payload = SIDECAR.read_bytes()
     completed = ["P4RC-001"]
     try:
         expires = parse_utc(auth["expires_at_utc"])
         stdout, stderr, completed = run_remote_plan(
-            OpenSshBackend(expires), auth_hash, completed
+            OpenSshBackend(expires),
+            auth_hash,
+            archive_payload,
+            sidecar_payload,
+            completed,
         )
         emit_success(auth_hash, stdout, stderr, completed)
     except PlanFailure as exception:
@@ -1263,6 +1279,10 @@ def execute(
 def self_test() -> None:
     if len(STEPS) != 13 or [step.identifier for step in STEPS] != [f"P4RC-{index:03d}" for index in range(1, 14)]:
         raise ActionError("exact 13-step graph drifted")
+    forbidden_plan_names = {"ARCHIVE", "SIDECAR", "open"}
+    observed_plan_names = set(run_remote_plan.__code__.co_names)
+    if forbidden_plan_names & observed_plan_names:
+        raise ActionError("hermetic graph acquired a filesystem artifact dependency")
     for command in (
         REMOTE_PYTHON_STDIN, REMOTE_UPLOAD_ARCHIVE, REMOTE_UPLOAD_SIDECAR,
         REMOTE_SELF_TEST, REMOTE_DESCRIBE,
@@ -1284,7 +1304,11 @@ def self_test() -> None:
         ):
             raise ActionError("remote script contains forbidden process escape")
     authorization_hash = "a" * 64
-    stdout, stderr, completed = run_remote_plan(FakeBackend(), authorization_hash)
+    synthetic_archive = b"D104-HERMETIC-SYNTHETIC-ARCHIVE-v1"
+    synthetic_sidecar = b"D104-HERMETIC-SYNTHETIC-SIDECAR-v1\n"
+    stdout, stderr, completed = run_remote_plan(
+        FakeBackend(), authorization_hash, synthetic_archive, synthetic_sidecar
+    )
     if stderr or completed != [f"P4RC-{index:03d}" for index in range(1, 12)]:
         raise ActionError("complete fake graph order drifted")
     validate_collector_artifact(stdout, authorization_hash)
@@ -1343,7 +1367,12 @@ def self_test() -> None:
         "P4RC-011-COLLECT",
     ):
         try:
-            run_remote_plan(FakeBackend(fail_at=identifier), authorization_hash)
+            run_remote_plan(
+                FakeBackend(fail_at=identifier),
+                authorization_hash,
+                synthetic_archive,
+                synthetic_sidecar,
+            )
         except PlanFailure:
             pass
         else:

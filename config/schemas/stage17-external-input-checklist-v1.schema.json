@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:external-input-checklist:v1",
+  "title": "Complete external input checklist for Stage 17 pilot readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "checklist_id",
+    "protocol_version",
+    "status",
+    "all_resolved",
+    "unresolved_count",
+    "items",
+    "completion_rule",
+    "confirmatory_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-external-input-checklist/1"},
+    "checklist_id": {"const": "STAGE17-EXTERNAL-INPUTS-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"enum": ["EXTERNAL_INPUTS_REQUIRED", "COMPLETE"]},
+    "all_resolved": {"type": "boolean"},
+    "unresolved_count": {"type": "integer", "minimum": 0},
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/item"}
+    },
+    "completion_rule": {"const": "EVERY_ITEM_RESOLVED_BY_ONE_IMMUTABLE_HASHED_ARTIFACT_OR_EXPLICIT_NOT_APPLICABLE_PROTOCOL_RATIONALE"},
+    "confirmatory_boundary": {"const": "NO_ITEM_AUTHORIZES_STAGE18_OR_UNSEALS_CONFIRMATORY_OUTCOMES"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_id",
+        "gate",
+        "description",
+        "required_evidence",
+        "owner",
+        "status",
+        "artifact_id",
+        "sha256",
+        "resolution_rule"
+      ],
+      "properties": {
+        "input_id": {"pattern": "^S17-EXT-[0-9]{3}$"},
+        "gate": {
+          "enum": [
+            "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+            "PREFLIGHT_ACCEPTED",
+            "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+            "READY_FOR_STAGE17_PILOT_EXECUTION"
+          ]
+        },
+        "description": {"type": "string", "minLength": 1},
+        "required_evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "owner": {"type": "string", "minLength": 1},
+        "status": {"enum": ["EXTERNAL_REQUIRED", "RESOLVED", "NOT_APPLICABLE"]},
+        "artifact_id": {"type": ["string", "null"], "minLength": 1},
+        "sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+        "resolution_rule": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

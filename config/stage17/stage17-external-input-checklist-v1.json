@@ -1,0 +1,122 @@
+{
+  "schema_version": "cpu-prefetch-stage17-external-input-checklist/1",
+  "checklist_id": "STAGE17-EXTERNAL-INPUTS-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "EXTERNAL_INPUTS_REQUIRED",
+  "all_resolved": false,
+  "unresolved_count": 10,
+  "items": [
+    {
+      "input_id": "S17-EXT-001",
+      "gate": "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+      "description": "One prospective read-only preflight authorization covering the complete frozen observation set, target, bundle contract, limits, UTC window, stop/retention policy, and the disclosed pilot role collapse.",
+      "required_evidence": ["canonical authorization artifact", "authorization artifact SHA-256", "explicit owner approval", "issued_at_utc and expires_at_utc"],
+      "owner": "repository and platform owner",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "One authorization may cover all listed read-only observations; it must not authorize mutation, calibration, measurement, pilot runs, or Stage 18 access."
+    },
+    {
+      "input_id": "S17-EXT-002",
+      "gate": "PREFLIGHT_ACCEPTED",
+      "description": "Fresh read-only stand preflight and runtime/tool identity output obtained under S17-EXT-001, including the explicit qualification archive integration check.",
+      "required_evidence": ["complete append-only preflight artifact", "command and runtime identities", "archive integration-check receipt", "artifact SHA-256 inventory", "partial-failure record if incomplete"],
+      "owner": "pilot owner acting as operator and custodian",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "The capture is one-shot and fail-closed; incomplete evidence is retained but cannot advance the state."
+    },
+    {
+      "input_id": "S17-EXT-003",
+      "gate": "PREFLIGHT_ACCEPTED",
+      "description": "Single-owner pilot preflight acceptance record that independently recomputes all hashes and explicitly disclaims independent audit.",
+      "required_evidence": ["preflight acceptance artifact", "source evidence hashes", "role-collapse acknowledgement", "acceptance artifact SHA-256"],
+      "owner": "pilot owner acting as auditor",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "The same owner may review, but the record must say distinct_auditor=false and independent_review_claimed=false."
+    },
+    {
+      "input_id": "S17-EXT-004",
+      "gate": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "description": "Dynamic stand qualification for selected CPU pairs, monotonic clock, atomic/layout behavior, affinity, migration, NUMA residency, page state, storage, and recovery.",
+      "required_evidence": ["near CPUs 0/1 qualification", "far CPUs 0/26 qualification", "cross-core clock evidence", "runtime lock-free and layout evidence", "actual CPU and migration evidence", "NUMA/page/storage/recovery evidence"],
+      "owner": "platform and timing owner",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "Every requested value must have separate verified readback; a development-host or static inventory result is insufficient."
+    },
+    {
+      "input_id": "S17-EXT-005",
+      "gate": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "description": "Exact privileged-control authorization and evidence for H0/H1, frequency/turbo/C-state/SMT observations, prefetch MSR mapping, independent readback, probes, and restoration.",
+      "required_evidence": ["named least-privilege command authorization", "complete prestate", "exact apply and inverse argv/hashes", "independent readback", "regular and pointer probe evidence", "restoration proof"],
+      "owner": "platform owner acting under a separately bounded privileged authority",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "Command success never substitutes for verified state; failure to restore quarantines the stand."
+    },
+    {
+      "input_id": "S17-EXT-006",
+      "gate": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "description": "Clean exact Stage 17 pilot runner release and pilot-candidate bundle identity after this successor is committed and rebuilt.",
+      "required_evidence": ["clean source commit", "release binary SHA-256", "pilot-candidate archive and sidecar SHA-256", "build/dependency provenance", "strict generated-code reports"],
+      "owner": "release owner",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "Dirty or hash-drifted outputs are ineligible; the no-authority bundle by itself grants no run authority."
+    },
+    {
+      "input_id": "S17-EXT-007",
+      "gate": "READY_FOR_STAGE17_PILOT_EXECUTION",
+      "description": "Treatment-blind calibration inputs and immutable outputs required before the selected pilot phase, including distance, service-rate, and strict-zero-loss feasibility dependencies where applicable.",
+      "required_evidence": ["D2 calibration plan and accepted d2 per context", "service-rate runs and mu_cell/mu_ref", "candidate-load freeze", "matrix zero-loss feasibility record", "raw calibration artifact hashes"],
+      "owner": "calibration, statistical, and protocol owner",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "No value may be inferred from confirmatory outcomes or replaced by a repository default; cap collapse or invalid calibration blocks advancement."
+    },
+    {
+      "input_id": "S17-EXT-008",
+      "gate": "READY_FOR_STAGE17_PILOT_EXECUTION",
+      "description": "Exact pilot run plan and immutable scientific inputs.",
+      "required_evidence": ["pilot run IDs and count", "durations and repetition counts", "capacities and working-set mappings", "exact pilot schedules and checksums", "disjoint namespaces and seed artifacts", "warm-up/horizon/recovery plan", "treatment-blind acceptance and stop rules"],
+      "owner": "protocol, statistical, calibration, and controller owner",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "The plan is prospective, outcome-independent, and contains no confirmatory namespace or outcome access."
+    },
+    {
+      "input_id": "S17-EXT-009",
+      "gate": "READY_FOR_STAGE17_PILOT_EXECUTION",
+      "description": "Pilot raw-buffer and durable-storage budget plus two-domain custody, append-only transfer, partial-failure, and recovery evidence.",
+      "required_evidence": ["checked producer/consumer buffer budget", "durable byte/copy budget", "primary and secondary custody identities", "append-only paths and quotas", "transfer receipt contract", "partial-artifact and recovery rehearsal"],
+      "owner": "storage and custody owner",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "Capacity must cover the exact pilot plan; overflow or missing custody is a fail-closed blocker."
+    },
+    {
+      "input_id": "S17-EXT-010",
+      "gate": "READY_FOR_STAGE17_PILOT_EXECUTION",
+      "description": "One exact phase-scoped Stage 17 pilot authorization binding every accepted predecessor and the finite permitted run set.",
+      "required_evidence": ["canonical phase authorization", "all predecessor artifact IDs and SHA-256 values", "exact permitted run IDs", "command and resource limits", "authority and custody identities", "UTC validity", "stop and partial-artifact policy"],
+      "owner": "pilot owner acting in the explicitly collapsed pilot roles",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
+      "resolution_rule": "Authorization is valid only after S17-EXT-001 through S17-EXT-009 resolve and cannot authorize Stage 18, top-up, cell repair, hidden retry, or outcome access."
+    }
+  ],
+  "completion_rule": "EVERY_ITEM_RESOLVED_BY_ONE_IMMUTABLE_HASHED_ARTIFACT_OR_EXPLICIT_NOT_APPLICABLE_PROTOCOL_RATIONALE",
+  "confirmatory_boundary": "NO_ITEM_AUTHORIZES_STAGE18_OR_UNSEALS_CONFIRMATORY_OUTCOMES"
+}

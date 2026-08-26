@@ -25,6 +25,10 @@ option(CPU_PREFETCH_WARNINGS_AS_ERRORS "Treat project warnings as errors" ON)
 option(CPU_PREFETCH_ENABLE_PROPERTY_TESTS "Build RapidCheck smoke tests" ON)
 set(CPU_PREFETCH_SANITIZER "NONE" CACHE STRING "NONE, ADDRESS_UNDEFINED, or THREAD")
 set(CPU_PREFETCH_RAPIDCHECK_REVISION "" CACHE STRING "Provisioned RapidCheck revision")
+set(CPU_PREFETCH_Q15_QUALIFICATION_ARCHIVE "" CACHE FILEPATH
+    "Explicit external Q15 qualification archive for integration checking")
+set(CPU_PREFETCH_Q15_QUALIFICATION_SIDECAR "" CACHE FILEPATH
+    "Explicit external Q15 qualification archive sidecar for integration checking")
 set_property(
   CACHE CPU_PREFETCH_SANITIZER
   PROPERTY STRINGS NONE ADDRESS_UNDEFINED THREAD)
@@ -643,6 +647,17 @@ if(BUILD_TESTING)
       LABELS "q15;qualification;p4-r-c;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
         "SELF-TEST PASS.*fake failures.*no network")
+  add_test(
+    NAME runner.stage17_operational_successor
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_operational_successor.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_operational_successor
+    PROPERTIES
+      LABELS "runner;authorization;governance;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS.*state=PREPARED.*transitions=3.*pilot_ready=false.*stand=NOT_ACCESSED")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -1846,6 +1861,10 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_authorization_schema.py"
   COMMAND
     "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_operational_successor.py"
+    --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_schema.py"
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -2203,6 +2222,23 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking proposed no-action D-105 through D-108 runtime evidence decisions")
 add_custom_target(
+  stage17-operational-successor-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_operational_successor.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the finite pilot operational successor and immutable predecessor manifest")
+add_custom_target(
+  q15-qualification-archive-integration-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_q15_qualification_archive.py"
+    --archive "${CPU_PREFETCH_Q15_QUALIFICATION_ARCHIVE}"
+    --sidecar "${CPU_PREFETCH_Q15_QUALIFICATION_SIDECAR}"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking an explicitly supplied exact external qualification archive; never a self-test")
+add_custom_target(
   q15-authorization-v2-check
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -2338,6 +2374,7 @@ install(
     "${PROJECT_SOURCE_DIR}/docs/Q15_R_PRESTATE_COLLECTOR.md"
     "${PROJECT_SOURCE_DIR}/docs/Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md"
     "${PROJECT_SOURCE_DIR}/docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md"
+    "${PROJECT_SOURCE_DIR}/docs/STAGE17_OPERATIONAL_AUTHORIZATION.md"
     "${PROJECT_SOURCE_DIR}/docs/STAND_BUNDLE.md"
     "${PROJECT_SOURCE_DIR}/docs/STAND_RUNBOOK.md"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation")
@@ -2354,6 +2391,11 @@ install(
   PATTERN "*.md")
 install(
   DIRECTORY "${PROJECT_SOURCE_DIR}/config/q15"
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation"
+  FILES_MATCHING
+  PATTERN "*.json")
+install(
+  DIRECTORY "${PROJECT_SOURCE_DIR}/config/stage17"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/cpu-prefetch-foundation"
   FILES_MATCHING
   PATTERN "*.json")

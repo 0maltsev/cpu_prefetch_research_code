@@ -64,13 +64,14 @@ inputs fail closed. The legacy successor/checklist are definition/templates,
 not current status. The last graph state permits preparation of an exact phase
 authorization; it is not execution permission.
 
-ADR-0107 leaves v1/v2 bytes unchanged, and ADR-0108 leaves all v1/v2/v3 bytes
-unchanged while making future `S17-EXT-001` production admission use policy/
-envelope/authorization/supporting-contract v4 and fixed action plan v2. Do not write an SSH
+ADR-0107 leaves v1/v2 bytes unchanged, ADR-0108 leaves all v1/v2/v3 bytes
+unchanged, and ADR-0109 preserves every v1-v4 predecessor. Future
+`S17-EXT-001` production admission uses policy/envelope/authorization/
+supporting-contract v5 and fixed action plan v3. Do not write an SSH
 command, argv, stdin, output filename, timeout, retry, or permission into an
 owner record. The immutable fixed action plan and hash-bound production
 executor/collector own those values. The owner may supply only the typed
-target, pinned-key/known-hosts, transport identity locator, archive/sidecar/
+target, pinned-key/known-hosts, transport identity locator/size/hash, archive/sidecar/
 extracted-root locators, capture identity/time, executable paths, UTC window,
 and one pre-existing safe local evidence root. The root may not be the
 repository or `/etc`, `/proc`, or `/sys`, and it may contain no symlink
@@ -78,21 +79,26 @@ component.
 
 Before the first read-only preflight, complete the exact
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
-must provide only its listed typed v4 values; raw action bytes are forbidden.
+must provide only its listed typed v5 values; raw action bytes are forbidden.
 Do not use the draft itself as evidence. Create the typed supporting contract
 first; hash-bind its path, byte count, SHA-256, schema identity, and fixed plan
-in the v4 authorization; then bind policy, authorization, contract, plan and
-the complete verifier/executor/collector/journal/helper closure in one v4
+in the v5 authorization; then bind policy, authorization, contract, plan and
+the complete verifier/executor/collector/journal/helper closure in one v5
 semantic envelope. Remote runtime
 executable/module/dependency identities remain read-only `S17-EXT-002` outputs,
 not prospective values. Admission alone is not action readiness: exact
 transition 1 must bind the resolution and authorization, the computed state
 must be `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, and prospective/status evaluation
 must find a live authorization with every bound byte still valid and no prior
-attempt. Production execution does not accept `as_of_utc`: it rereads actual
-system UTC immediately before the action and stops future or expired authority
-before any marker or transport. OpenSSH option paths must be literal under
-local `ssh -G`. Before the marker the executor validates its actually loaded
+attempt. Production execution does not accept `as_of_utc`: after all long
+validation and preparation, it takes a final actual system-UTC sample and
+stops future or expired authority before any marker. It samples again after
+the durable marker immediately before the first transport; expiry, future
+authority, or rollback retains a typed failure and opens no transport. OpenSSH
+option paths must be literal under local `ssh -G`. Before the marker, verified
+known-hosts and identity bytes are copied into sealed `memfd` snapshots. The
+child consumes inherited `/proc/self/fd/N` locators and never reopens the
+mutable owner path. Before the marker the executor validates its actually loaded
 runtime closure, exact SSH argv, safe owner-owned evidence-root identity, and
 all six compiled programs. It then creates children relative to an
 `O_DIRECTORY|O_NOFOLLOW` descriptor, fsyncs the marker and directory before

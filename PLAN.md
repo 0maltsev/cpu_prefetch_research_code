@@ -338,7 +338,8 @@ authorization/amendment.
   journal; ADR-0106 default-deny semantic predecessor; ADR-0107 fixed
   read-only plan and transition/one-shot action gate; ADR-0108 actual-clock,
   literal-OpenSSH-path, loaded-runtime, durable-marker, typed-failure, and
-  global-deadline successor; verified exact
+  global-deadline predecessor; ADR-0109 final/post-marker clock and sealed
+  OpenSSH-input-consumption successor; verified exact
   no-authority candidate bytes and custody receipt;
   accepted preflight and exact stand
   qualification; then dependency-ready phase inputs and a phase-scoped pilot
@@ -485,6 +486,19 @@ authorization/amendment.
   contract. No
   stand, P4-R-C, P5, Q15, calibration, pilot, measurement, or confirmatory
   action is authorized.
+  ADR-0109 keeps every predecessor through policy v4, plan v2, executor v2,
+  verifier v4, journal runtime v1, and collector v2 byte-identical. The active
+  policy-v5 closure uses plan v3, verifier v5, executor v3, and the versioned
+  journal runtime v2 while reusing collector v2. It completes slow preparation
+  before the final system-UTC sample, takes a second sample after the durable
+  marker immediately before first transport, rejects rollback as well as
+  future/expired authority, and passes only sealed `memfd` snapshots of exact
+  verified known-hosts and transport-identity bytes to child processes. The
+  focused 17A.4 suite adds seven positive and five negative cases, including a
+  real local child read, source replacement/mutation, both expiry boundaries,
+  rollback, schema drift, legacy-v2 rejection, concurrency, and pinning setup
+  failure. The operational journal remains `PREPARED` with 0/10 resolutions,
+  zero transitions, `action_ready=false`, and `pilot_ready=false`.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

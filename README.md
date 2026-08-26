@@ -237,6 +237,19 @@ the first transport; any later failure retains it and attempts one typed
 create-exclusive failure record. One 180-second monotonic deadline covers the
 entire action. The checked-in journal remains `PREPARED`, with no authority or
 attempt record.
+ADR-0109 preserves every policy/plan/schema/runtime predecessor through v4 and
+adds the current policy-v5, fixed-plan-v3, verifier-v5, journal-runtime-v2, and
+executor-v3 closure. All long validation, hash, render, compile, schema-load,
+and OpenSSH-input pinning work finishes before a fresh system-UTC sample is
+checked and the marker can exist. A second fresh sample is checked after the
+durable marker immediately before the first transport; expiry, not-yet-valid
+authority, or wall-clock rollback retains a typed failure and opens no
+transport. Verified known-hosts and identity bytes are copied into Linux
+sealed `memfd` snapshots before the marker and are consumed through inherited
+`/proc/self/fd/N` locators, so replacement or in-place mutation of the owner
+path cannot change child-consumed bytes. The prior executor v2 does not admit
+the v5 envelope. Seven focused positive and five focused negative 17A.4 cases
+pass in addition to the preserved two runtime positives and 79 negatives.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
@@ -474,8 +487,8 @@ The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
 The exact unissued owner-input template for the next possible gate is
 [`S17-EXT-001`](docs/STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md).
-Its v3 authorization byte/hash-binds a separate supporting contract and the
-immutable fixed action plan. The prospectively known local executor/collector
+Its v5 authorization byte/hash-binds a separate supporting contract and fixed
+action plan v3. The prospectively known local executor/collector
 bytes are inputs; remote runtime
 executable/module/dependency identities are read-only `S17-EXT-002` outputs.
 

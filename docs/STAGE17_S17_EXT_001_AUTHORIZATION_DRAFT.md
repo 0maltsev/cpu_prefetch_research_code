@@ -1,9 +1,9 @@
 # S17-EXT-001 read-only preflight authorization draft
 
 The current machine-readable draft is
-[`STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v4`](../config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v4.json).
-The v1, v2, and v3 drafts remain immutable predecessors. None is authority or
-evidence. The v4 record is deliberately unissuable: every owner-controlled
+[`STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v5`](../config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v5.json).
+The v1 through v4 drafts remain immutable predecessors. None is authority or
+evidence. The v5 record is deliberately unissuable: every owner-controlled
 value is `null`, status is `DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED`, and its
 authority boundary denies stand access, preflight, mutation, calibration,
 pilot, and Stage 18 work.
@@ -14,7 +14,8 @@ The owner must prospectively provide all of the following in one exact action:
 
 - unique authorization ID, actor, issue UTC, expiry UTC, and target-scope ID;
 - exact stand ID, SSH target, known-hosts host, structurally valid pinned-key
-  evidence, exact single-line known-hosts file, and transport identity locator;
+  evidence, exact single-line known-hosts file, and transport identity
+  locator/byte-count/SHA-256 binding;
 - exact pilot-candidate archive, sidecar, and extracted bundle-root locators;
 - capture ID and UTC plus one normalized pre-existing nonsymlink local
   evidence root outside the repository and forbidden system roots; and
@@ -27,13 +28,13 @@ timeout, retry, or permission value. Those values exist only in the immutable
 repository-owned fixed action plan.
 
 The supporting contract must be written first and validated against
-`cpu-prefetch-stage17-read-only-preflight-supporting-contract/4`. The
+`cpu-prefetch-stage17-read-only-preflight-supporting-contract/5`. The
 authorization then binds its repository-relative path, exact byte count,
 SHA-256, and schema identity. Both files are finally bound by one
-`cpu-prefetch-stage17-operational-evidence-envelope/4`, together with policy
-v4, fixed plan v2, all v4 schemas, and the complete verifier/executor/
+`cpu-prefetch-stage17-operational-evidence-envelope/5`, together with policy
+v5, fixed plan v3, all v5 schemas, and the complete verifier/executor/
 collector/journal/helper runtime closure. A v1/v2/v3
-authorization or an unbound contract cannot resolve `S17-EXT-001`.
+or v4 authorization, or an unbound contract, cannot resolve `S17-EXT-001`.
 
 The six observation IDs are fixed, ordered, and unique:
 
@@ -69,9 +70,17 @@ verifier. Prospective `action_ready=true` additionally requires adjacent
 transition 1, computed state `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, a live
 explicit evaluation UTC, the actual loaded runtime paths/bytes, repeated byte
 checks, and no prior attempt marker or output. Production execution accepts no
-caller time. It obtains actual system UTC, rejects future/expired authority,
-validates literal OpenSSH option paths, exact SSH argv and all six compiled
-programs before the marker, then uses directory-FD create-exclusive storage.
+caller time. It completes all long semantic/schema/runtime checks, repeated
+hashing, six-program render/compile, and OpenSSH-input pinning before taking
+the final actual system-UTC sample. Future or expired authority cannot create
+a marker. After durable marker creation, it samples actual UTC again
+immediately before the first transport; expiry, future authority, or rollback
+creates a typed failure and opens no transport. Verified known-hosts and
+transport-identity bytes live in sealed `memfd` snapshots inherited by the
+child and addressed as `/proc/self/fd/N`; the mutable owner pathname is never
+reopened after marker. Literal effective paths are checked locally with
+`/usr/bin/ssh -G`, without a connection. The executor otherwise uses exact SSH
+argv and directory-FD create-exclusive storage.
 The marker file and parent directory are fsynced before transport; one
 180-second monotonic deadline covers the whole action, and every post-marker
 failure retains the marker and attempts a typed failure record without retry.

@@ -10,8 +10,9 @@ ADR-0105 makes that graph persistable without rewriting history. ADR-0106 adds
 semantic evidence admission without changing the v1 graph, catalog, genesis,
 or snapshots. ADR-0107 supersedes only future `S17-EXT-001` admission with a
 fixed-action, transition-gated v3 policy. ADR-0108 preserves all v1/v2/v3
-bytes and supplies the v4 production runtime/durability successor. None of
-these ADRs authorizes stand access or a run:
+bytes and supplies the v4 production runtime/durability predecessor. ADR-0109
+preserves all v1-v4 definitions and supplies the v5 clock/credential-
+consumption successor. None of these ADRs authorizes stand access or a run:
 
 ```text
 PREPARED
@@ -33,9 +34,9 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v4`](../config/stage17/stage17-operational-evidence-admission-policy-v4.json)
-binds policy v3, ADR-0107, ADR-0108, every used v4 schema, fixed action plan
-v2, and the complete verifier/executor/collector/journal/helper runtime closure. It
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v5`](../config/stage17/stage17-operational-evidence-admission-policy-v5.json)
+binds policy v4, ADR-0108, ADR-0109, every used v5 schema, fixed action plan
+v3, and the complete verifier/executor/collector/journal/helper runtime closure. It
 registers one semantic verifier per catalog input. Admission is default-deny. Only
 `S17-EXT-001` and `S17-EXT-006` currently have implemented verifiers;
 `S17-EXT-002..005` and `S17-EXT-007..010` produce the blocking result
@@ -53,7 +54,7 @@ ten catalog inputs and an unexpired, predecessor-bound `S17-EXT-010` at an
 explicit evaluation time. Because its semantic verifier is not implemented,
 pilot readiness cannot currently become true.
 
-`S17-EXT-001` requires one v4 semantic envelope that binds the authorization,
+`S17-EXT-001` requires one v5 semantic envelope that binds the authorization,
 supporting contract, policy, action plan, verifier, executor, and collector by
 repository-relative path, byte count, SHA-256, and schema identity. The owner
 cannot provide command, argv, stdin, or output-file bytes. The repository-owned
@@ -75,11 +76,18 @@ that key. Prospective action readiness additionally requires exact transition
 1, computed state `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, an explicit live
 evaluation UTC, fresh byte checks, and absence of the fixed create-exclusive
 attempt marker. Production execution does not accept that evaluation time as
-authority: it reads actual system UTC immediately before the action and rejects
-future or expired authority before marker or transport. OpenSSH option paths
-reject expansion/configuration characters, and local `/usr/bin/ssh -G` must
-reproduce their exact literal values. All six programs and the fixed SSH argv
-are validated before the marker. The executor pins the safe root by directory
+authority. It completes all long semantic/schema/runtime checks, repeated
+hashing, six-program render/compile, and credential pinning before a final
+actual system-UTC sample; future or expired authority cannot create a marker.
+It samples again after durable marker creation immediately before first
+transport; expiry, not-yet-valid authority, or rollback retains a typed
+failure and opens no transport. OpenSSH option paths reject expansion/
+configuration characters, and local `/usr/bin/ssh -G` must reproduce their
+exact descriptor paths. Verified known-hosts and transport-identity bytes are
+copied into sealed Linux `memfd` snapshots before marker and inherited by the
+child through `pass_fds`; OpenSSH consumes `/proc/self/fd/N`, not a mutable
+owner pathname. All schemas required after marker are preloaded. The executor
+pins the safe root by directory
 FD, create-exclusively writes and fsyncs the marker, fsyncs the parent before
 transport, retains typed records after any operational failure, and enforces
 one 180-second monotonic deadline over the whole action.
@@ -134,8 +142,12 @@ state mechanics. One fully typed synthetic S17-EXT-001 contract is persisted,
 reloaded, and byte/hash-verified in an isolated directory; a separate harness
 replays ten mechanical resolution placeholders and three transitions but
 cannot enter the production CLI. Two runtime positives cover literal local
-`ssh -G` expansion and a complete six-observation fake-transport action.
-Seventy-nine negatives reject malformed or
+`ssh -G` expansion and a complete six-observation fake-transport action. Seven
+focused positive and five focused negative 17A.4 cases cover both expiry
+boundaries, rollback, atomic replacement and in-place mutation of both
+OpenSSH inputs, exact bytes read by a real local child, post-marker schema
+drift, legacy-executor rejection, concurrency, and pinning failure.
+Seventy-nine predecessor negatives reject malformed or
 unbound S17-EXT-001 evidence, generic JSON/receipts, unknown/unimplemented
 verifiers, arbitrary/mutating commands, unsafe roots, malformed host keys,
 implementation/schema/plan drift, missing transition, expiry, one-shot replay,
@@ -146,16 +158,18 @@ mutations, and `artifact_id=DOES-NOT-EXIST` plus an all-`a` SHA-256.
 
 The only next operational draft is
 [`S17-EXT-001 read-only preflight authorization`](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md).
-Every real owner-supplied field in the v4 draft is null, it is not issued, and
+Every real owner-supplied field in the v5 draft is null, it is not issued, and
 it cannot be used as evidence. The first resolution and transition must not be
 constructed until the owner supplies the exact target, UTC window, pinned key
 and known-hosts bindings, archive/sidecar/extracted-root locators, capture
-identity/time, transport identity locator, one safe evidence root, and the two
+identity/time, transport identity locator/size/hash, one safe evidence root,
+and the two
 prospective executable paths. Limits, commands, argv, stdin, output names, and
 permissions are repository-fixed rather than owner-selectable. Prospective
 readiness may be evaluated at an explicit UTC, but the executor uses only
-actual system UTC for action authority; historical resolution or transition
-validity does not keep an expired authorization active.
+actual system UTC for action authority at both the final pre-marker and first-
+transport boundaries; historical resolution or transition validity does not
+keep an expired authorization active.
 
 ## Pilot-candidate archive integration boundary
 

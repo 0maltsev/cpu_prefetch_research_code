@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-c-d105-runtime-decision-input:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "bundle_id", "protocol_version", "status", "source_commit", "stand_id", "endpoint", "immutable_inputs", "decisions", "proposed_repository_local_scope_if_accepted", "required_before_runtime_action", "authority_boundary", "exact_owner_acceptance_template"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-c-d105-runtime-decision-input/1"},
+    "bundle_id": {"const": "Q15-R-P4-R-C-D105-RUNTIME-DECISION-INPUT-20260826-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "PROPOSED_EXACT_ACCEPTANCE_REQUIRED_NO_KEY_OR_STAND_AUTHORITY"},
+    "source_commit": {"const": "dc643df498fa36c3c34507f977634c05421751b1"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "endpoint": {"const": "root@185.184.131.153"},
+    "immutable_inputs": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}, "minProperties": 14, "maxProperties": 14},
+    "decisions": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["decision_id", "classification", "options", "recommended_option", "selected_option", "evidence", "scientific_effect", "compatibility_effect", "owner", "deadline_gate", "supersession_rule"],
+        "properties": {
+          "decision_id": {"enum": ["D-105", "D-106", "D-107", "D-108"]},
+          "classification": {"type": "string", "minLength": 1},
+          "options": {"type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "recommended_option": {"type": "string", "minLength": 1},
+          "selected_option": {"type": "null"},
+          "evidence": {"type": "string", "minLength": 1},
+          "scientific_effect": {"const": "NONE"},
+          "compatibility_effect": {"type": "string", "minLength": 1},
+          "owner": {"type": "string", "minLength": 1},
+          "deadline_gate": {"type": "string", "minLength": 1},
+          "supersession_rule": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "proposed_repository_local_scope_if_accepted": {
+      "const": {
+        "implement_fixed_read_only_runtime_collector": true,
+        "implement_fake_backend_schema_and_negative_tests": true,
+        "prepare_still_unissued_runtime_authorization_and_review_templates": true,
+        "target_private_key_use": false,
+        "sign_or_issue_authorization": false,
+        "stand_access": false,
+        "stand_mutation": false,
+        "runtime_collection": false,
+        "p4_r_c_or_later": false
+      }
+    },
+    "required_before_runtime_action": {"type": "object", "additionalProperties": {"type": "null"}, "minProperties": 9, "maxProperties": 9},
+    "authority_boundary": {
+      "const": {
+        "repository_local_decision_preparation_authorized": true,
+        "repository_local_runtime_collector_implementation_authorized": false,
+        "target_private_key_use_authorized": false,
+        "signing_or_issuance_authorized": false,
+        "stand_access_authorized": false,
+        "stand_mutation_authorized": false,
+        "runtime_collection_authorized": false,
+        "p4_r_c_or_later_authorized": false,
+        "calibration_pilot_measurement_or_confirmatory_authorized": false
+      }
+    },
+    "exact_owner_acceptance_template": {"type": "string", "pattern": "@DECISION_INPUT_SHA256@"}
+  }
+}

@@ -444,8 +444,13 @@ authorization/amendment.
   implemented with zero action authority. Because D-099 did not identify the
   remote Python, `dd`, and tar runtime used by that implementation, the
   executor retains an explicit null runtime-acceptance gate and cannot execute.
-  The next safe gate is a separate read-only runtime-evidence decision, followed
-  by a clean successor and only then a newly prepared, separately signed and
+  Clean implementation commit `dc643df` is now frozen. The D-105 through D-108
+  no-action bundle prepares the exact read-only runtime-evidence choices with
+  every selection null. The next safe gate is exact acceptance of that
+  repository-local implementation scope, followed by a clean collector
+  successor and only then a separately signed and explicitly approved
+  read-only runtime capture. Its reviewed evidence must feed another clean
+  executor successor before a newly prepared, separately signed and
   explicitly approved P4-R-C action. Only after reviewed P4-R-C output may
   exact P5 be prepared for approval. No
   P4-R-C, P5, Q15, calibration, pilot,

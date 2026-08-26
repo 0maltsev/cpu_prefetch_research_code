@@ -183,6 +183,11 @@ blocked until a prospective decision supplies or explicitly accepts the remote
 Python/`dd`/tar runtime compatibility identity absent from D-099.
 The fixed graph, checks, and stop boundary are documented in
 [`Q15_R_P4_R_C_D104_IMPLEMENTATION.md`](docs/Q15_R_P4_R_C_D104_IMPLEMENTATION.md).
+Clean commit `dc643df` freezes those bytes. The prospective
+[`D-105 through D-108 runtime bundle`](docs/Q15_R_P4_R_C_D105_RUNTIME_DECISION_BUNDLE.md)
+recommends a separately authorized read-only runtime capture/review and clean
+successor; its machine-record SHA-256 is `6d753cee...`. It grants no key,
+stand, collector, P4-R-C, or later authority.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),

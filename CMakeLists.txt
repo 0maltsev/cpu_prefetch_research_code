@@ -2196,6 +2196,13 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking accepted D-100 through D-103 P4-R-C implementation and blocked action gate")
 add_custom_target(
+  q15-r-p4-r-c-d105-runtime-decision-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d105_runtime_decision.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking proposed no-action D-105 through D-108 runtime evidence decisions")
+add_custom_target(
   q15-authorization-v2-check
   COMMAND
     "${Python3_EXECUTABLE}"

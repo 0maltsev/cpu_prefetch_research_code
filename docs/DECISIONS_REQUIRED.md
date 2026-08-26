@@ -253,6 +253,15 @@ then freeze a clean successor before any D-104 signature or stand mutation.
 P4-R-C action, key use, P5, Q15, calibration, pilot, measurement, and
 confirmation remain unauthorized.
 
+The exact D-105 through D-108 machine decision record is now prepared with
+SHA-256 `6d753cee...`, bound to clean D-104 implementation commit `dc643df` and
+executor SHA-256 `0b7e2f1c...`. Its recommendations are: one signed read-only
+runtime capture and separate review, an explicit single-owner waiver, a fixed
+pinned OpenSSH command/stdin collector graph, and complete reviewed evidence
+before a clean successor. All four selections and nine action inputs remain
+null. Exact acceptance authorizes repository-local implementation only; every
+key use and stand observation remains a later separately signed gate.
+
 ADR-0086 now implements the generic repository-local controller, admission
 schema, fake tests, and profile under the later owner delegation. It has no OS
 backend and cannot mint a ticket while bootstrap, environment, toolchain,

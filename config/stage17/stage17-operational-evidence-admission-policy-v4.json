@@ -1,0 +1,53 @@
+{
+  "schema_version": "cpu-prefetch-stage17-operational-evidence-admission-policy/4",
+  "policy_id": "STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v4",
+  "policy_version": "4",
+  "protocol_version": "2.0.0-pre.2",
+  "predecessor": {
+    "policy_v3": {"path": "config/stage17/stage17-operational-evidence-admission-policy-v3.json", "size_bytes": 4945, "sha256": "56e9094828db0e0d12e227eb668a6d51d427926aa1c04e61b4b1f5c3a13f1038"},
+    "adr_0107": {"path": "docs/decisions/0107-stage17-fixed-read-only-action-semantics.md", "size_bytes": 5756, "sha256": "58b8f997f560f7ec4431ef5c8c457c9a1769c7975f69f5f6b1ec8b67d45eb67e"},
+    "adr_0108": {"path": "docs/decisions/0108-stage17-one-shot-runtime-and-durability-boundary.md", "size_bytes": 5294, "sha256": "cc734066699390d029c305cdf1b8c0cb3856c5c2acb984fe18de1cfbf5465821"},
+    "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+    "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+    "genesis_file_sha256": "da9ba7f6072b2e4555db98db8d7c886c133c7f5e98c4f2964b5ef67ba438fafe",
+    "genesis_record_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+    "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6"
+  },
+  "schema_bindings": [
+    {"path": "config/schemas/stage17-operational-evidence-admission-policy-v4.schema.json", "size_bytes": 3625, "sha256": "b0c2258adae597ffde44cb1687619620dad960598236b751abc1d52f6cc17dac"},
+    {"path": "config/schemas/stage17-operational-evidence-envelope-v4.schema.json", "size_bytes": 1913, "sha256": "5fc14f564f8a437f5442f828e00ad19abaab501653f77a5cda0b33ca4a70c7dc"},
+    {"path": "config/schemas/stage17-read-only-preflight-authorization-v4.schema.json", "size_bytes": 3368, "sha256": "659371952a968b5b8f53acb4ab8550931bfaa3f45399c58afa90418488895370"},
+    {"path": "config/schemas/stage17-read-only-preflight-supporting-contract-v4.schema.json", "size_bytes": 5239, "sha256": "d088579e630f685527d9f18aa24fb6667656182be194bb06cfdc24d3dabfa78b"},
+    {"path": "config/schemas/stage17-read-only-preflight-fixed-action-plan-v2.schema.json", "size_bytes": 1923, "sha256": "e8ba976991a06a141d36c2f7f6bd5b85ac2bcce97422f2a2538449ed181e0037"},
+    {"path": "config/schemas/stage17-read-only-preflight-attempt-v2.schema.json", "size_bytes": 2260, "sha256": "52fff9661bc1234783f94545f4ec03bb30ea259be83acfee5486ca6237a5d7cf"},
+    {"path": "config/schemas/stage17-read-only-preflight-observation-receipt-v1.schema.json", "size_bytes": 2205, "sha256": "ee876808a7a04bf3048e0bda1601e7a3f9590d130f6956a4271d2954b1bed635"},
+    {"path": "config/schemas/stage17-read-only-preflight-failure-v2.schema.json", "size_bytes": 2330, "sha256": "3af5a4dc594da16b60315d123b757bf4b2e071e8ed3ee699a76afbd8d0f5ce51"},
+    {"path": "config/schemas/stage17-read-only-preflight-completion-v1.schema.json", "size_bytes": 1874, "sha256": "5ce965d430b451753384f464e38efd413e0b8310fe72b33a2fd844f046acd5c0"}
+  ],
+  "fixed_action_plan": {"path": "config/stage17/stage17-read-only-preflight-fixed-action-plan-v2.json", "size_bytes": 7286, "sha256": "dc27c9bd113121652c780bfad58a7269942aaf9ffd5c904573455a3b6cdb28f4"},
+  "implementations": {
+    "semantic_verifier": {"path": "tools/stage17_semantic_verifier_v4.py", "size_bytes": 33018, "sha256": "da24dfc0dd73698c586603818c6083d03df476cc498fe790c7a19ab8a273cc01"},
+    "executor": {"path": "tools/stage17_read_only_preflight_executor_v2.py", "size_bytes": 25723, "sha256": "1c2b7dd48bc10946443640a629f56011d805bb676d46165a16c0e9f0cc788391"},
+    "collector": {"path": "tools/stage17_read_only_preflight_collector_v2.py", "size_bytes": 1889, "sha256": "dbbb2720047fec0b5a757d58f51c38d6262b1b0a6a5d0fc62ccf057a1466aa6a"},
+    "state_journal": {"path": "tools/stage17_state_journal.py", "size_bytes": 59304, "sha256": "d617e121ea11ca6b4b576b6e7c693117c8844ba85d2fa74dffb442b18bf9fd62"},
+    "semantic_verifier_v3_helper": {"path": "tools/stage17_semantic_verifier_v3.py", "size_bytes": 34177, "sha256": "cbc6c54f5949ef12545f58b82b216c6a38bd681453620b2d18820c6dfed39636"},
+    "collector_v1_helper": {"path": "tools/stage17_read_only_preflight_collector_v1.py", "size_bytes": 11963, "sha256": "ff19f0cf370d558a1309d684049b59beced6c9c9520b983180920090c5baae48"},
+    "pilot_candidate_verifier": {"path": "tools/stage17_pilot_candidate_artifact.py", "size_bytes": 8311, "sha256": "d25d7340891987bfb2c5db652f8f279ca30d7f5c65452d53e1dc05f0b11ff8a1"}
+  },
+  "entries": [
+    {"input_id": "S17-EXT-001", "status": "IMPLEMENTED", "verifier_id": "STAGE17-S17-EXT-001-SEMANTIC-VERIFIER", "verifier_version": "4"},
+    {"input_id": "S17-EXT-002", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-002-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-003", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-003-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-004", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-004-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-005", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-005-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-006", "status": "IMPLEMENTED", "verifier_id": "STAGE17-PILOT-CANDIDATE-EXTERNAL-VERIFIER", "verifier_version": "1"},
+    {"input_id": "S17-EXT-007", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-007-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-008", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-008-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-009", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-009-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-010", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-010-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"}
+  ],
+  "action_readiness": {"actual_system_utc_required_for_execution": true, "caller_time_authority": false, "runtime_identity_context_required": true, "exact_transition_1_required": true, "durable_create_exclusive_marker_required": true, "global_monotonic_deadline_seconds": 180, "retry_allowed": false},
+  "default_action": "REJECT_SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED",
+  "synthetic_bypass_available": false,
+  "stage18_authority": false
+}

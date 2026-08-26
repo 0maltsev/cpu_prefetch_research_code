@@ -64,8 +64,9 @@ inputs fail closed. The legacy successor/checklist are definition/templates,
 not current status. The last graph state permits preparation of an exact phase
 authorization; it is not execution permission.
 
-ADR-0107 leaves v1/v2 bytes unchanged and makes future `S17-EXT-001` admission
-use policy/envelope/authorization/supporting-contract v3. Do not write an SSH
+ADR-0107 leaves v1/v2 bytes unchanged, and ADR-0108 leaves all v1/v2/v3 bytes
+unchanged while making future `S17-EXT-001` production admission use policy/
+envelope/authorization/supporting-contract v4 and fixed action plan v2. Do not write an SSH
 command, argv, stdin, output filename, timeout, retry, or permission into an
 owner record. The immutable fixed action plan and hash-bound production
 executor/collector own those values. The owner may supply only the typed
@@ -77,19 +78,27 @@ component.
 
 Before the first read-only preflight, complete the exact
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
-must provide only its listed typed v3 values; raw action bytes are forbidden.
+must provide only its listed typed v4 values; raw action bytes are forbidden.
 Do not use the draft itself as evidence. Create the typed supporting contract
 first; hash-bind its path, byte count, SHA-256, schema identity, and fixed plan
-in the v3 authorization; then bind policy, authorization, contract, plan,
-verifier, executor, and collector in one v3 semantic envelope. Remote runtime
+in the v4 authorization; then bind policy, authorization, contract, plan and
+the complete verifier/executor/collector/journal/helper closure in one v4
+semantic envelope. Remote runtime
 executable/module/dependency identities remain read-only `S17-EXT-002` outputs,
 not prospective values. Admission alone is not action readiness: exact
 transition 1 must bind the resolution and authorization, the computed state
-must be `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, the authorization must be live at
-explicit `as_of_utc`, every prospective byte must pass again, and the fixed
-attempt marker must be absent. The executor creates that marker before the
-first transport and never retries; success, failure, and partial bytes are
-retained.
+must be `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, and prospective/status evaluation
+must find a live authorization with every bound byte still valid and no prior
+attempt. Production execution does not accept `as_of_utc`: it rereads actual
+system UTC immediately before the action and stops future or expired authority
+before any marker or transport. OpenSSH option paths must be literal under
+local `ssh -G`. Before the marker the executor validates its actually loaded
+runtime closure, exact SSH argv, safe owner-owned evidence-root identity, and
+all six compiled programs. It then creates children relative to an
+`O_DIRECTORY|O_NOFOLLOW` descriptor, fsyncs the marker and directory before
+transport, applies one 180-second monotonic deadline, and never retries.
+Success, typed failure, receipts, and partial output bytes are retained; none
+has Stage 18 authority.
 
 ### 3. Privileged capability verification
 

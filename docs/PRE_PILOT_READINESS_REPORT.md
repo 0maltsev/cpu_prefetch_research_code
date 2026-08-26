@@ -59,7 +59,7 @@ execution remains `BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`. Q15-P0 did not
 authorize stand access, MSR operations, dynamic qualification, accounts,
 privilege, calibration, pilot, or confirmation.
 
-## ADR-0104 through ADR-0106 operational-governance addendum
+## ADR-0104 through ADR-0108 operational-governance addendum
 
 ADR-0104 does not change the sealed Stage 16 bundle verdict. It replaces the
 later open-ended pilot governance chain with one finite graph. ADR-0105 keeps
@@ -76,6 +76,12 @@ explicit integration inputs. No stand observation was made for this addendum.
 The old `S17-EXT-006` release metadata is not a resolution without the exact
 archive/sidecar bytes and custody receipt. Stage 18 remains blocked on the
 unchanged imported sealing/access chronology plus all pilot-derived freezes.
+ADR-0107's fixed read-only action predecessor is followed by ADR-0108's policy
+v4 runtime boundary: actual system UTC, literal OpenSSH option paths, loaded-
+module identity, six-program pre-marker validation, directory-FD create-
+exclusive storage, marker and parent-directory fsync, typed post-marker
+records, and one 180-second monotonic deadline. This successor grants no
+authority and does not change the readiness verdict.
 
 ## Requirement-by-requirement verification matrix
 

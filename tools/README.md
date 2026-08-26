@@ -207,9 +207,18 @@ semantic admission. ADR-0107 adds the policy-bound
 `stage17_read_only_preflight_executor_v1.py`, and
 `stage17_read_only_preflight_collector_v1.py`. The production CLI accepts no
 command, argv, stdin, retry, or fake transport. Its action path remains
-unreachable in the checked-in `PREPARED` journal; the state-journal self-test
-uses only a test-module fake to prove marker-before-transport, partial
-retention, and zero retry without network or stand access.
+unreachable in the checked-in `PREPARED` journal. ADR-0108 preserves those
+modules and adds policy v4, fixed plan v2,
+`stage17_semantic_verifier_v4.py`,
+`stage17_read_only_preflight_executor_v2.py`, and
+`stage17_read_only_preflight_collector_v2.py`. Executor v2 has no caller-time
+or command seam, verifies the loaded runtime and six rendered programs before
+the action marker, uses literal OpenSSH option paths, directory-FD exclusive
+records with marker/directory fsync, typed post-marker failure evidence, and
+one global monotonic deadline. The state-journal self-test uses only a test-
+module fake and local no-connection `ssh -G`; it proves durability ordering,
+partial retention, concurrency exclusion, and zero retry without network or
+stand access.
 
 `execute_d104_p4_r_c.py --self-test` now supplies synthetic archive/sidecar
 bytes directly to the fake graph and does not read ignored build artifacts.

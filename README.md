@@ -224,6 +224,19 @@ no command, argv, stdin, shell, or output-file choice. A structurally valid
 Ed25519 wire key, exact known-hosts bytes, executable byte identity, transition
 1, live explicit action UTC, and absent create-exclusive attempt marker are all
 mandatory. Resolution in `PREPARED` is never action-ready.
+ADR-0108 preserves those v1/v2/v3 bytes and closes the production runtime
+boundary with policy v4 and fixed action plan v2. Production execution has no
+caller-selected authority time: actual system UTC is checked immediately
+before a marker can be created. OpenSSH option paths reject expansion and
+configuration characters, and local `ssh -G` proves their effective values
+remain literal without opening a connection. The loaded verifier/executor/
+collector/journal closure must match the policy-bound files, all six programs
+must render and compile before the marker, and the evidence root is pinned by
+directory descriptor. The marker file and parent directory are fsynced before
+the first transport; any later failure retains it and attempts one typed
+create-exclusive failure record. One 180-second monotonic deadline covers the
+entire action. The checked-in journal remains `PREPARED`, with no authority or
+attempt record.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),

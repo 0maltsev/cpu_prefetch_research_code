@@ -22,11 +22,11 @@ from stage17_pilot_candidate_artifact import (
     VERIFIER_VERSION,
     verify_pilot_candidate_artifact,
 )
-from stage17_semantic_verifier_v3 import (
+from stage17_semantic_verifier_v4 import (
     SemanticAdmissionError,
     evaluate_s17_ext_001_action_readiness,
-    verify_policy_v3,
-    verify_s17_ext_001_semantics_v3,
+    verify_policy_v4,
+    verify_s17_ext_001_semantics_v4,
 )
 
 
@@ -56,19 +56,19 @@ SCHEMA_PATHS = {
     "authorization_schema_sha256": "config/schemas/stage17-operational-authorization-evidence-v1.schema.json",
 }
 SEMANTIC_POLICY_PATH = pathlib.PurePosixPath(
-    "config/stage17/stage17-operational-evidence-admission-policy-v3.json"
+    "config/stage17/stage17-operational-evidence-admission-policy-v4.json"
 )
 SEMANTIC_POLICY_SCHEMA_PATH = pathlib.PurePosixPath(
-    "config/schemas/stage17-operational-evidence-admission-policy-v3.schema.json"
+    "config/schemas/stage17-operational-evidence-admission-policy-v4.schema.json"
 )
 SEMANTIC_ENVELOPE_SCHEMA_PATH = pathlib.PurePosixPath(
-    "config/schemas/stage17-operational-evidence-envelope-v3.schema.json"
+    "config/schemas/stage17-operational-evidence-envelope-v4.schema.json"
 )
 S17_EXT_001_AUTHORIZATION_SCHEMA_PATH = pathlib.PurePosixPath(
-    "config/schemas/stage17-read-only-preflight-authorization-v3.schema.json"
+    "config/schemas/stage17-read-only-preflight-authorization-v4.schema.json"
 )
 S17_EXT_001_CONTRACT_SCHEMA_PATH = pathlib.PurePosixPath(
-    "config/schemas/stage17-read-only-preflight-supporting-contract-v3.schema.json"
+    "config/schemas/stage17-read-only-preflight-supporting-contract-v4.schema.json"
 )
 PINNED_HOST_KEY_SCHEMA_PATH = pathlib.PurePosixPath(
     "config/schemas/stage17-pinned-host-key-evidence-v1.schema.json"
@@ -330,7 +330,7 @@ def load_semantic_policy(
         "Stage 17 semantic-admission policy",
     )
     try:
-        verify_policy_v3(
+        verify_policy_v4(
             root=root,
             policy=policy,
             graph_sha256=graph_sha256,
@@ -925,8 +925,8 @@ SEMANTIC_VERIFIERS: dict[tuple[str, str, str], SemanticVerifier] = {
     (
         "S17-EXT-001",
         "STAGE17-S17-EXT-001-SEMANTIC-VERIFIER",
-        "3",
-    ): verify_s17_ext_001_semantics_v3,
+        "4",
+    ): verify_s17_ext_001_semantics_v4,
     (
         "S17-EXT-006",
         "STAGE17-PILOT-CANDIDATE-EXTERNAL-VERIFIER",
@@ -1224,6 +1224,7 @@ def validate_journal(
     pilot_sidecar: pathlib.Path | None = None,
     as_of_utc: str | None = None,
     requested_action_input_id: str | None = None,
+    runtime_identity_paths: dict[str, str] | None = None,
 ) -> JournalValidation:
     root = repository_root.resolve()
     journal_schema = root / SCHEMA_PATHS["journal_schema_sha256"]
@@ -1314,6 +1315,7 @@ def validate_journal(
                 authorization=action_authorization,
                 semantic_context=action_resolution.semantic_context,
                 as_of_utc=as_of_utc,
+                runtime_identity_paths=runtime_identity_paths,
             )
             action_ready = action_context is not None
         elif issued <= evaluation_time < expires:

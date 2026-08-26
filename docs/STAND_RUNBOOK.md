@@ -64,18 +64,32 @@ inputs fail closed. The legacy successor/checklist are definition/templates,
 not current status. The last graph state permits preparation of an exact phase
 authorization; it is not execution permission.
 
+ADR-0107 leaves v1/v2 bytes unchanged and makes future `S17-EXT-001` admission
+use policy/envelope/authorization/supporting-contract v3. Do not write an SSH
+command, argv, stdin, output filename, timeout, retry, or permission into an
+owner record. The immutable fixed action plan and hash-bound production
+executor/collector own those values. The owner may supply only the typed
+target, pinned-key/known-hosts, transport identity locator, archive/sidecar/
+extracted-root locators, capture identity/time, executable paths, UTC window,
+and one pre-existing safe local evidence root. The root may not be the
+repository or `/etc`, `/proc`, or `/sys`, and it may contain no symlink
+component.
+
 Before the first read-only preflight, complete the exact
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
-must provide the target, pinned host-key evidence, UTC window, finite limits,
-archive/sidecar locators, prospective local launcher/collector bytes, and six
-exact argv/stdin/remote-command/output contracts. Do not use the draft itself
-as evidence. Create the typed supporting contract first; hash-bind its path,
-byte count, SHA-256, and schema identity in the v2 authorization; then bind both
-files in one v2 semantic envelope. Remote runtime executable/module/dependency
-identities remain read-only `S17-EXT-002` outputs, not prospective values. The
-validator must accept the envelope and confirm the authorization is still live
-at intended action UTC before an adjacent transition can be prepared. There is
-one attempt per observation, zero retry, stop-first, and partial retention.
+must provide only its listed typed v3 values; raw action bytes are forbidden.
+Do not use the draft itself as evidence. Create the typed supporting contract
+first; hash-bind its path, byte count, SHA-256, schema identity, and fixed plan
+in the v3 authorization; then bind policy, authorization, contract, plan,
+verifier, executor, and collector in one v3 semantic envelope. Remote runtime
+executable/module/dependency identities remain read-only `S17-EXT-002` outputs,
+not prospective values. Admission alone is not action readiness: exact
+transition 1 must bind the resolution and authorization, the computed state
+must be `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, the authorization must be live at
+explicit `as_of_utc`, every prospective byte must pass again, and the fixed
+attempt marker must be absent. The executor creates that marker before the
+first transport and never retries; success, failure, and partial bytes are
+retained.
 
 ### 3. Privileged capability verification
 

@@ -1,0 +1,151 @@
+{
+  "schema_version": "cpu-prefetch-stage17-read-only-preflight-fixed-action-plan/1",
+  "plan_id": "STAGE17-READ-ONLY-PREFLIGHT-FIXED-ACTION-PLAN-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "lineage": {
+    "accepted_remote_boundary": "D-100_FIXED_TOKEN_REMOTE_LOGIN_SHELL_BOUNDARY",
+    "semantic_policy_predecessor": "STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v2"
+  },
+  "owner_command_bytes_allowed": false,
+  "fixed_environment": {
+    "LANG": "C",
+    "LC_ALL": "C",
+    "TZ": "UTC0"
+  },
+  "transport": {
+    "local_executable_role": "STAGE17_READ_ONLY_PREFLIGHT_EXECUTOR",
+    "local_shell": false,
+    "ssh_executable": "/usr/bin/ssh",
+    "remote_command": "/usr/bin/env -i LANG=C LC_ALL=C TZ=UTC0 /usr/bin/python3 -I -S -",
+    "remote_executable": "/usr/bin/env",
+    "remote_argv": ["-i", "LANG=C", "LC_ALL=C", "TZ=UTC0", "/usr/bin/python3", "-I", "-S", "-"],
+    "remote_login_shell_boundary": "FIXED_TOKEN_STRING_NO_OWNER_COMMAND_BYTES_ACCEPTED_BY_D-100",
+    "fixed_ssh_argv_template": [
+      "/usr/bin/ssh", "-F", "/dev/null", "-T",
+      "-o", "BatchMode=yes",
+      "-o", "StrictHostKeyChecking=yes",
+      "-o", "UserKnownHostsFile={PINNED_KNOWN_HOSTS_PATH}",
+      "-o", "GlobalKnownHostsFile=/dev/null",
+      "-o", "HostKeyAlgorithms=ssh-ed25519",
+      "-o", "UpdateHostKeys=no",
+      "-o", "PubkeyAuthentication=yes",
+      "-o", "PasswordAuthentication=no",
+      "-o", "KbdInteractiveAuthentication=no",
+      "-o", "PreferredAuthentications=publickey",
+      "-o", "IdentitiesOnly=yes",
+      "-o", "IdentityFile={TRANSPORT_IDENTITY_LOCATOR}",
+      "-o", "IdentityAgent=none",
+      "-o", "ConnectionAttempts=1",
+      "-o", "ConnectTimeout=10",
+      "-o", "ServerAliveInterval=5",
+      "-o", "ServerAliveCountMax=1",
+      "-o", "ClearAllForwardings=yes",
+      "-o", "ExitOnForwardFailure=yes",
+      "-o", "ControlMaster=no",
+      "-o", "ControlPath=none",
+      "-o", "PermitLocalCommand=no",
+      "-o", "RequestTTY=no",
+      "-o", "LogLevel=ERROR",
+      "--", "{SSH_TARGET}",
+      "/usr/bin/env -i LANG=C LC_ALL=C TZ=UTC0 /usr/bin/python3 -I -S -"
+    ],
+    "attempts_per_observation": 1,
+    "retries": 0,
+    "stop_on_first_failure": true
+  },
+  "evidence_root_policy": {
+    "owner_supplies_one_normalized_absolute_root": true,
+    "root_must_preexist_as_nonsymlink_directory": true,
+    "repository_descendants_forbidden": true,
+    "forbidden_absolute_roots": ["/etc", "/proc", "/sys"],
+    "parent_traversal_forbidden": true,
+    "symlink_components_forbidden": true,
+    "attempt_marker_relative_path": "stage17-read-only-preflight-attempt-v1.json",
+    "failure_relative_path": "stage17-read-only-preflight-failure-v1.json",
+    "observation_output_stem_template": "s17-ro-{ORDINAL_3_DIGIT}"
+  },
+  "typed_owner_values": [
+    "stand_id", "ssh_target", "known_hosts_host", "pinned_host_key_evidence_binding",
+    "pinned_known_hosts_binding", "transport_identity_locator", "pilot_archive_locator",
+    "pilot_sidecar_locator", "extracted_bundle_root_locator", "capture_id",
+    "captured_at_utc", "evidence_root", "authorization_id", "actor",
+    "issued_at_utc", "expires_at_utc"
+  ],
+  "observations": [
+    {
+      "observation_id": "S17-RO-PREFLIGHT-001-TARGET-AND-TRANSPORT-IDENTITY",
+      "local_executable_role": "STAGE17_READ_ONLY_PREFLIGHT_EXECUTOR",
+      "stdin_binding": "STAGE17_READ_ONLY_PREFLIGHT_COLLECTOR_v1_RENDER_TARGET_IDENTITY",
+      "output_type": "CANONICAL_JSON_STDOUT_PLUS_RAW_STDERR_AND_RECEIPT",
+      "max_output_bytes": 1048576,
+      "timeout_seconds": 30,
+      "read_only_effect": "OBSERVE_HOSTNAME_KERNEL_MACHINE_AND_REMOTE_PYTHON_PATH"
+    },
+    {
+      "observation_id": "S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION",
+      "local_executable_role": "STAGE17_READ_ONLY_PREFLIGHT_EXECUTOR",
+      "stdin_binding": "STAGE17_READ_ONLY_PREFLIGHT_COLLECTOR_v1_RENDER_ARCHIVE_VERIFICATION",
+      "output_type": "CANONICAL_JSON_STDOUT_PLUS_RAW_STDERR_AND_RECEIPT",
+      "max_output_bytes": 1048576,
+      "timeout_seconds": 30,
+      "read_only_effect": "READ_AND_HASH_EXACT_ARCHIVE_AND_SIDECAR"
+    },
+    {
+      "observation_id": "S17-RO-PREFLIGHT-003-BUNDLE-INTERNAL-VERIFICATION",
+      "local_executable_role": "STAGE17_READ_ONLY_PREFLIGHT_EXECUTOR",
+      "stdin_binding": "STAGE17_READ_ONLY_PREFLIGHT_COLLECTOR_v1_RENDER_INTERNAL_VERIFICATION",
+      "output_type": "CANONICAL_JSON_STDOUT_PLUS_RAW_STDERR_AND_RECEIPT",
+      "max_output_bytes": 1048576,
+      "timeout_seconds": 30,
+      "read_only_effect": "READ_AND_HASH_BUNDLE_MANIFEST_AND_SHA256SUMS_MEMBERS"
+    },
+    {
+      "observation_id": "S17-RO-PREFLIGHT-004-NONPRIVILEGED-SELF-TESTS",
+      "local_executable_role": "STAGE17_READ_ONLY_PREFLIGHT_EXECUTOR",
+      "stdin_binding": "STAGE17_READ_ONLY_PREFLIGHT_COLLECTOR_v1_RENDER_SELF_TESTS",
+      "output_type": "CANONICAL_JSON_STDOUT_PLUS_RAW_STDERR_AND_RECEIPT",
+      "max_output_bytes": 1048576,
+      "timeout_seconds": 30,
+      "read_only_effect": "RUN_FIXED_SMOKE_PREFLIGHT_AND_QUALIFICATION_SELF_TEST_ARGV_WITH_SHELL_FALSE"
+    },
+    {
+      "observation_id": "S17-RO-PREFLIGHT-005-RUNTIME-TOOL-IDENTITIES",
+      "local_executable_role": "STAGE17_READ_ONLY_PREFLIGHT_EXECUTOR",
+      "stdin_binding": "STAGE17_READ_ONLY_PREFLIGHT_COLLECTOR_v1_RENDER_RUNTIME_IDENTITIES",
+      "output_type": "CANONICAL_JSON_STDOUT_PLUS_RAW_STDERR_AND_RECEIPT",
+      "max_output_bytes": 1048576,
+      "timeout_seconds": 30,
+      "read_only_effect": "LSTAT_AND_HASH_FIXED_REMOTE_RUNTIME_AND_BUNDLE_EXECUTABLES"
+    },
+    {
+      "observation_id": "S17-RO-PREFLIGHT-006-READ-ONLY-PLATFORM-INVENTORY",
+      "local_executable_role": "STAGE17_READ_ONLY_PREFLIGHT_EXECUTOR",
+      "stdin_binding": "STAGE17_READ_ONLY_PREFLIGHT_COLLECTOR_v1_RENDER_PLATFORM_INVENTORY",
+      "output_type": "CANONICAL_JSON_STDOUT_PLUS_RAW_STDERR_AND_RECEIPT",
+      "max_output_bytes": 1048576,
+      "timeout_seconds": 30,
+      "read_only_effect": "RUN_FIXED_PREFLIGHT_INVENTORY_ARGV_WITH_SHELL_FALSE"
+    }
+  ],
+  "forbidden_semantics": {
+    "shell_from_local_executor": true,
+    "owner_supplied_command_argv_or_stdin": true,
+    "redirect_pipe_command_substitution_or_shell_metacharacters": true,
+    "sudo_or_privilege_escalation": true,
+    "package_installation": true,
+    "stand_file_creation_or_mutation": true,
+    "sysfs_msr_or_control_write": true,
+    "service_change": true,
+    "calibration_pilot_measurement_or_stage18": true
+  },
+  "authority_boundary": {
+    "stand_read_only": true,
+    "stand_mutation": false,
+    "privileged_controls": false,
+    "qualification": false,
+    "calibration": false,
+    "pilot_execution": false,
+    "measurement": false,
+    "stage18_authority": false
+  }
+}

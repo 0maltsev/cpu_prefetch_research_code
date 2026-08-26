@@ -1,0 +1,44 @@
+{
+  "schema_version": "cpu-prefetch-stage17-operational-evidence-admission-policy/3",
+  "policy_id": "STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v3",
+  "policy_version": "3",
+  "protocol_version": "2.0.0-pre.2",
+  "predecessor": {
+    "policy_v2": {"path": "config/stage17/stage17-operational-evidence-admission-policy-v2.json", "size_bytes": 3144, "sha256": "acbec72c7d9e4bc6475e4b10f2723e60b68046dc5c5fda4c5412e6aff690ac36"},
+    "adr_0106": {"path": "docs/decisions/0106-stage17-default-deny-semantic-evidence-admission.md", "size_bytes": 5602, "sha256": "28d0ac0ffb77cf42410163559ddc7ae5c75d21ad341757a8ca15b1795796b413"},
+    "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+    "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+    "genesis_file_sha256": "da9ba7f6072b2e4555db98db8d7c886c133c7f5e98c4f2964b5ef67ba438fafe",
+    "genesis_record_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+    "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6"
+  },
+  "schema_bindings": [
+    {"path": "config/schemas/stage17-operational-evidence-admission-policy-v3.schema.json", "size_bytes": 2892, "sha256": "ff95f889516cf0f390dc862b4ca47bf4f53938329474c05a9efa769949e01240"},
+    {"path": "config/schemas/stage17-operational-evidence-envelope-v3.schema.json", "size_bytes": 2482, "sha256": "81ce34b99d5046de0986b1409f467e4337530dd18471d616004e9241fba1deb7"},
+    {"path": "config/schemas/stage17-read-only-preflight-authorization-v3.schema.json", "size_bytes": 3350, "sha256": "6533f87fd9cfaef7e89be59ab8f307f827e4f030dc0dfedc6f8a1aa65a2e05eb"},
+    {"path": "config/schemas/stage17-read-only-preflight-supporting-contract-v3.schema.json", "size_bytes": 5304, "sha256": "c1f2d360d7f18e90e5fc3d84b576ab2e3c79fb6255004fb8a0dd7dcf4d4ee39b"},
+    {"path": "config/schemas/stage17-read-only-preflight-fixed-action-plan-v1.schema.json", "size_bytes": 2152, "sha256": "7347e8e69a7d35274fb066452788d27bdea600a2724f44ddb35febd80b61f17b"},
+    {"path": "config/schemas/stage17-read-only-preflight-attempt-v1.schema.json", "size_bytes": 1367, "sha256": "1cbcc765a92d17e58d0612b68ccb8962a836943b5610b529c6c5fd4c9cadec48"}
+  ],
+  "fixed_action_plan": {"path": "config/stage17/stage17-read-only-preflight-fixed-action-plan-v1.json", "size_bytes": 6715, "sha256": "841583fb01e9598a27b002a1c1325290e98ee39314deac035c3ca26efd2b5a44"},
+  "implementations": {
+    "semantic_verifier": {"path": "tools/stage17_semantic_verifier_v3.py", "size_bytes": 34177, "sha256": "cbc6c54f5949ef12545f58b82b216c6a38bd681453620b2d18820c6dfed39636"},
+    "executor": {"path": "tools/stage17_read_only_preflight_executor_v1.py", "size_bytes": 11500, "sha256": "ef14046fc883e2d156f5d1b204102eda5e1d7ffcb730a85ccdd9c4ccfc1820d3"},
+    "collector": {"path": "tools/stage17_read_only_preflight_collector_v1.py", "size_bytes": 11963, "sha256": "ff19f0cf370d558a1309d684049b59beced6c9c9520b983180920090c5baae48"}
+  },
+  "entries": [
+    {"input_id": "S17-EXT-001", "status": "IMPLEMENTED", "verifier_id": "STAGE17-S17-EXT-001-SEMANTIC-VERIFIER", "verifier_version": "3"},
+    {"input_id": "S17-EXT-002", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-002-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-003", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-003-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-004", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-004-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-005", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-005-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-006", "status": "IMPLEMENTED", "verifier_id": "STAGE17-PILOT-CANDIDATE-EXTERNAL-VERIFIER", "verifier_version": "1"},
+    {"input_id": "S17-EXT-007", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-007-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-008", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-008-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-009", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-009-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"},
+    {"input_id": "S17-EXT-010", "status": "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED", "verifier_id": "STAGE17-S17-EXT-010-SEMANTIC-VERIFIER", "verifier_version": "UNIMPLEMENTED"}
+  ],
+  "default_action": "REJECT_SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED",
+  "synthetic_bypass_available": false,
+  "stage18_authority": false
+}

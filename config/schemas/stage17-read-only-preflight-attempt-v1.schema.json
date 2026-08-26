@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:read-only-preflight-attempt:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "attempt_id", "authorization_id", "authorization_sha256", "resolution_id", "resolution_sha256", "transition_id", "transition_sha256", "action_plan_sha256", "started_at_utc", "attempt_number", "retry_allowed", "transport_may_start_after_marker", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-read-only-preflight-attempt/1"},
+    "attempt_id": {"type": "string", "minLength": 1},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "authorization_sha256": {"$ref": "#/$defs/sha256"},
+    "resolution_id": {"type": "string", "minLength": 1},
+    "resolution_sha256": {"$ref": "#/$defs/sha256"},
+    "transition_id": {"type": "string", "minLength": 1},
+    "transition_sha256": {"$ref": "#/$defs/sha256"},
+    "action_plan_sha256": {"$ref": "#/$defs/sha256"},
+    "started_at_utc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "attempt_number": {"const": 1},
+    "retry_allowed": {"const": false},
+    "transport_may_start_after_marker": {"const": true},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

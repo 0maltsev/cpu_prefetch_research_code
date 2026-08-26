@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:read-only-preflight-fixed-action-plan:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "protocol_version", "lineage", "owner_command_bytes_allowed", "fixed_environment", "transport", "evidence_root_policy", "typed_owner_values", "observations", "forbidden_semantics", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-read-only-preflight-fixed-action-plan/1"},
+    "plan_id": {"const": "STAGE17-READ-ONLY-PREFLIGHT-FIXED-ACTION-PLAN-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "lineage": {"type": "object"},
+    "owner_command_bytes_allowed": {"const": false},
+    "fixed_environment": {"const": {"LANG": "C", "LC_ALL": "C", "TZ": "UTC0"}},
+    "transport": {"type": "object"},
+    "evidence_root_policy": {"type": "object"},
+    "typed_owner_values": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "observations": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["observation_id", "local_executable_role", "stdin_binding", "output_type", "max_output_bytes", "timeout_seconds", "read_only_effect"],
+        "properties": {
+          "observation_id": {"type": "string"},
+          "local_executable_role": {"const": "STAGE17_READ_ONLY_PREFLIGHT_EXECUTOR"},
+          "stdin_binding": {"type": "string"},
+          "output_type": {"const": "CANONICAL_JSON_STDOUT_PLUS_RAW_STDERR_AND_RECEIPT"},
+          "max_output_bytes": {"const": 1048576},
+          "timeout_seconds": {"const": 30},
+          "read_only_effect": {"type": "string"}
+        }
+      }
+    },
+    "forbidden_semantics": {"type": "object"},
+    "authority_boundary": {
+      "const": {"stand_read_only": true, "stand_mutation": false, "privileged_controls": false, "qualification": false, "calibration": false, "pilot_execution": false, "measurement": false, "stage18_authority": false}
+    }
+  }
+}

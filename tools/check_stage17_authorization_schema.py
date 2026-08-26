@@ -222,6 +222,12 @@ def main() -> int:
         "stage17-operational-evidence-envelope-v2.schema.json",
         "stage17-read-only-preflight-authorization-v2.schema.json",
         "stage17-read-only-preflight-supporting-contract-v2.schema.json",
+        "stage17-operational-evidence-admission-policy-v3.schema.json",
+        "stage17-operational-evidence-envelope-v3.schema.json",
+        "stage17-read-only-preflight-authorization-v3.schema.json",
+        "stage17-read-only-preflight-supporting-contract-v3.schema.json",
+        "stage17-read-only-preflight-fixed-action-plan-v1.schema.json",
+        "stage17-read-only-preflight-attempt-v1.schema.json",
         "stage17-pinned-host-key-evidence-v1.schema.json",
     )
     for filename in semantic_admission_schema_paths:
@@ -341,7 +347,8 @@ def main() -> int:
     print(
         "stage17-authorization-check: PASS "
         "(1 legacy + 4 current execution positive, 1 superseded Q15, 9 negative, "
-        "5 semantic-admission schemas, no authority issued)"
+        f"{len(semantic_admission_schema_paths)} semantic-admission schemas, "
+        "no authority issued)"
     )
     return 0
 

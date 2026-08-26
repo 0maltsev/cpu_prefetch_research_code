@@ -12,6 +12,7 @@ import pathlib
 import shutil
 import sys
 import tempfile
+from unittest import mock
 from typing import Any
 
 from stage17_state_journal import (
@@ -43,6 +44,17 @@ from stage17_state_journal import (
     validate_transitions,
     version_hashes,
 )
+from stage17_semantic_verifier_v3 import (
+    ACTION_PLAN_PATH,
+    ADR_0106_PATH,
+    ATTEMPT_SCHEMA_PATH,
+    COLLECTOR_PATH,
+    EXECUTOR_PATH,
+    POLICY_V2_PATH,
+    V3_SCHEMA_PATHS,
+)
+import stage17_read_only_preflight_executor_v1 as production_executor
+from stage17_read_only_preflight_collector_v1 import render_observation_program
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -50,7 +62,7 @@ DEFAULT_JOURNAL = pathlib.Path(
     "config/stage17/journal/stage17-state-journal-000000.json"
 )
 DRAFT_PATH = pathlib.Path(
-    "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v2.json"
+    "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v3.json"
 )
 LEGACY_DRAFT_PATH = pathlib.Path(
     "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v1.json"
@@ -109,10 +121,18 @@ class SyntheticBuilder:
             GRAPH_PATH.as_posix(),
             CATALOG_PATH.as_posix(),
             LEGACY_DRAFT_PATH.as_posix(),
+            "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v2.json",
             DRAFT_PATH.as_posix(),
             PILOT_CONTRACT_PATH.as_posix(),
             PILOT_CONTRACT_SCHEMA_PATH.as_posix(),
             PILOT_VERIFIER_PATH.as_posix(),
+            POLICY_V2_PATH,
+            ADR_0106_PATH,
+            ACTION_PLAN_PATH,
+            EXECUTOR_PATH,
+            COLLECTOR_PATH,
+            "tools/stage17_semantic_verifier_v3.py",
+            *V3_SCHEMA_PATHS,
             SEMANTIC_POLICY_PATH.as_posix(),
             SEMANTIC_POLICY_SCHEMA_PATH.as_posix(),
             SEMANTIC_ENVELOPE_SCHEMA_PATH.as_posix(),
@@ -171,6 +191,10 @@ class SyntheticBuilder:
         self.transition_count = 0
         self.pilot_archive: pathlib.Path | None = None
         self.pilot_sidecar: pathlib.Path | None = None
+        self._external_temporary = tempfile.TemporaryDirectory(
+            prefix="stage17-action-fixture-"
+        )
+        self.external_root = pathlib.Path(self._external_temporary.name)
 
     def append_snapshot(
         self, kind: str, reference: dict[str, str], *, previous: pathlib.Path | None = None
@@ -214,9 +238,16 @@ class SyntheticBuilder:
         authorization_mutator=None,
         envelope_mutator=None,
     ) -> tuple[dict[str, Any], dict[str, Any]]:
-        pinned_path = self.root / "synthetic/pinned-host-key.txt"
+        pinned_path = self.root / "synthetic/pinned-host-key.json"
         pinned_path.parent.mkdir(parents=True, exist_ok=True)
-        synthetic_host_key = b"synthetic-ed25519-host-key-bytes-not-authority"
+        key_type = b"ssh-ed25519"
+        public_key = bytes(range(32))
+        synthetic_host_key = (
+            len(key_type).to_bytes(4, "big")
+            + key_type
+            + len(public_key).to_bytes(4, "big")
+            + public_key
+        )
         fingerprint = "SHA256:" + base64.b64encode(
             hashlib.sha256(synthetic_host_key).digest()
         ).decode("ascii").rstrip("=")
@@ -226,7 +257,7 @@ class SyntheticBuilder:
                 "schema_version": "cpu-prefetch-stage17-pinned-host-key-evidence/1",
                 "evidence_id": "SYNTHETIC-PINNED-HOST-KEY-NO-AUTHORITY",
                 "stand_id": "SYNTHETIC-STAND-NOT-ACCESSED",
-                "ssh_target": "synthetic.invalid",
+                "ssh_target": "synthetic@synthetic.invalid",
                 "algorithm": "ssh-ed25519",
                 "public_key_base64": base64.b64encode(synthetic_host_key).decode("ascii"),
                 "fingerprint_sha256": fingerprint,
@@ -234,67 +265,54 @@ class SyntheticBuilder:
                 "runtime_observation": False,
             },
         )
-        launcher_path = self.root / "synthetic/local-launcher"
-        collector_path = self.root / "synthetic/local-collector"
-        launcher_path.write_bytes(b"synthetic local launcher bytes\n")
-        collector_path.write_bytes(b"synthetic local collector bytes\n")
+        known_hosts_path = self.root / "synthetic/pinned.known_hosts"
+        known_hosts_path.write_bytes(
+            b"synthetic.invalid ssh-ed25519 "
+            + base64.b64encode(synthetic_host_key)
+            + b"\n"
+        )
+        transport_identity = self.external_root / "synthetic-transport-identity"
+        transport_identity.write_bytes(b"synthetic non-key transport fixture\n")
+        transport_identity.chmod(0o600)
+        launcher_path = self.external_root / "stage17-read-only-preflight-executor"
+        collector_path = self.external_root / "stage17-read-only-preflight-collector"
+        shutil.copyfile(self.root / EXECUTOR_PATH, launcher_path)
+        shutil.copyfile(self.root / COLLECTOR_PATH, collector_path)
+        launcher_path.chmod(0o755)
+        collector_path.chmod(0o755)
+        evidence_root = self.external_root / "evidence-root"
+        evidence_root.mkdir(mode=0o700)
+        policy = load_json(self.root / SEMANTIC_POLICY_PATH)
+        action_plan_binding = {
+            **policy["fixed_action_plan"],
+            "schema_identity": (
+                "cpu-prefetch-stage17-read-only-preflight-fixed-action-plan/1"
+            ),
+        }
         pilot_fixed = self.catalog["fixed_evidence_contracts"][0]
         identities = [
             {
-                "identity_id": "LOCAL_PREFLIGHT_LAUNCHER",
-                "role": "LAUNCHER",
-                "execution_path": "/synthetic/stage17/bin/launcher",
-                "source_path": launcher_path.relative_to(self.root).as_posix(),
-                "size_bytes": launcher_path.stat().st_size,
-                "sha256": sha256_file(launcher_path),
+                "identity_id": "STAGE17_READ_ONLY_PREFLIGHT_EXECUTOR",
+                "role": "EXECUTOR",
+                "execution_path": str(launcher_path),
+                "source_binding": copy.deepcopy(policy["implementations"]["executor"]),
             },
             {
-                "identity_id": "LOCAL_PREFLIGHT_COLLECTOR",
+                "identity_id": "STAGE17_READ_ONLY_PREFLIGHT_COLLECTOR",
                 "role": "COLLECTOR",
-                "execution_path": "/synthetic/stage17/bin/collector",
-                "source_path": collector_path.relative_to(self.root).as_posix(),
-                "size_bytes": collector_path.stat().st_size,
-                "sha256": sha256_file(collector_path),
+                "execution_path": str(collector_path),
+                "source_binding": copy.deepcopy(policy["implementations"]["collector"]),
             },
         ]
-        observations = []
-        for index, observation_id in enumerate(FIXED_PREFLIGHT_OBSERVATION_IDS, start=1):
-            local_identity_id = (
-                "LOCAL_PREFLIGHT_LAUNCHER"
-                if index == 1
-                else "LOCAL_PREFLIGHT_COLLECTOR"
-            )
-            execution_path = next(
-                identity["execution_path"]
-                for identity in identities
-                if identity["identity_id"] == local_identity_id
-            )
-            observations.append(
-                {
-                    "observation_id": observation_id,
-                    "local_action_identity_id": local_identity_id,
-                    "argv_bytes_base64": [
-                        b64(execution_path),
-                        b64(f"--observation={index}"),
-                    ],
-                    "stdin_bytes_base64": b64(""),
-                    "remote_command_bytes_base64": b64(
-                        f"synthetic-read-only-observation-{index}"
-                    ),
-                    "output_locator": f"/synthetic/stage17/output/observation-{index}.json",
-                    "output_creation": "CREATE_EXCLUSIVE",
-                    "max_output_bytes": 1024,
-                }
-            )
         contract: dict[str, Any] = {
-            "schema_version": (
-                "cpu-prefetch-stage17-read-only-preflight-supporting-contract/2"
-            ),
+            "schema_version": "cpu-prefetch-stage17-read-only-preflight-supporting-contract/3",
             "contract_id": "SYNTHETIC-S17-EXT-001-SUPPORTING-CONTRACT-NO-AUTHORITY",
             "protocol_version": "2.0.0-pre.2",
+            "fixed_action_plan": action_plan_binding,
             "target": {
                 "stand_id": "SYNTHETIC-STAND-NOT-ACCESSED",
-                "ssh_target": "synthetic.invalid",
+                "ssh_target": "synthetic@synthetic.invalid",
+                "known_hosts_host": "synthetic.invalid",
                 "pinned_host_key_evidence": {
                     "path": pinned_path.relative_to(self.root).as_posix(),
                     "size_bytes": pinned_path.stat().st_size,
@@ -303,6 +321,12 @@ class SyntheticBuilder:
                         "cpu-prefetch-stage17-pinned-host-key-evidence/1"
                     ),
                 },
+                "pinned_known_hosts": {
+                    "path": known_hosts_path.relative_to(self.root).as_posix(),
+                    "size_bytes": known_hosts_path.stat().st_size,
+                    "sha256": sha256_file(known_hosts_path),
+                },
+                "transport_identity_locator": str(transport_identity),
             },
             "pilot_candidate": {
                 "contract": {
@@ -315,7 +339,13 @@ class SyntheticBuilder:
                 },
                 "archive_locator": "/synthetic/custody/pilot-candidate.tar.gz",
                 "sidecar_locator": "/synthetic/custody/pilot-candidate.tar.gz.sha256",
+                "bundle_root_locator": "/synthetic/stand/extracted-pilot-candidate",
             },
+            "capture": {
+                "capture_id": "SYNTHETIC-S17-PREFLIGHT-NO-AUTHORITY",
+                "captured_at_utc": utc(21),
+            },
+            "evidence_root": str(evidence_root),
             "prospective_local_action_identities": identities,
             "remote_runtime_identity_policy": {
                 "source_input_id": "S17-EXT-002",
@@ -326,35 +356,37 @@ class SyntheticBuilder:
                 ],
                 "prospective_values_present": False,
             },
-            "observations": observations,
             "limits": {
                 "max_commands": 6,
-                "max_wall_seconds": 600,
-                "max_total_output_bytes": 8192,
+                "max_wall_seconds": 180,
+                "max_total_output_bytes": 6291456,
+                "max_output_bytes_per_observation": 1048576,
+                "timeout_seconds_per_observation": 30,
                 "attempts_per_observation": 1,
                 "retries": 0,
             },
-            "stop_policy": "STOP_ON_FIRST_MISMATCH_OR_NONZERO_EXIT",
+            "stop_policy": "STOP_ON_FIRST_MISMATCH_NONZERO_EXIT_TIMEOUT_OR_OUTPUT_LIMIT",
             "retention_policy": (
-                "CREATE_EXCLUSIVE_APPEND_ONLY_RETAIN_SUCCESS_AND_FAILURE_NO_DELETE"
+                "CREATE_EXCLUSIVE_APPEND_ONLY_RETAIN_SUCCESS_FAILURE_AND_PARTIAL_NO_DELETE"
             ),
             "authority_boundary": copy.deepcopy(READ_ONLY_PERMISSION_MATRIX),
         }
         if contract_mutator is not None:
             contract_mutator(contract)
-        contract_path = self.root / "evidence/s17-ext-001-supporting-contract-v2.json"
+        contract_path = self.root / "evidence/s17-ext-001-supporting-contract-v3.json"
         write_json(contract_path, contract)
         contract_binding = {
             "path": contract_path.relative_to(self.root).as_posix(),
             "size_bytes": contract_path.stat().st_size,
             "sha256": sha256_file(contract_path),
             "schema_identity": (
-                "cpu-prefetch-stage17-read-only-preflight-supporting-contract/2"
+                "cpu-prefetch-stage17-read-only-preflight-supporting-contract/3"
             ),
         }
         authorization: dict[str, Any] = {
-            "schema_version": "cpu-prefetch-stage17-read-only-preflight-authorization/2",
+            "schema_version": "cpu-prefetch-stage17-read-only-preflight-authorization/3",
             "authorization_id": "SYNTHETIC-S17-EXT-001-AUTHORIZATION-NO-AUTHORITY",
+            "attempt_id": "SYNTHETIC-S17-EXT-001-ATTEMPT-NO-AUTHORITY",
             "input_id": "S17-EXT-001",
             "actor": actor,
             "issued_at_utc": utc(0),
@@ -362,35 +394,45 @@ class SyntheticBuilder:
             "authority_scope": "READ_ONLY_PREFLIGHT",
             "target_scope": (
                 "STAND_ID=SYNTHETIC-STAND-NOT-ACCESSED;"
-                "SSH_TARGET=synthetic.invalid;SCOPE=READ_ONLY_PREFLIGHT"
+                "SSH_TARGET=synthetic@synthetic.invalid;SCOPE=READ_ONLY_PREFLIGHT;"
+                "PLAN=STAGE17-READ-ONLY-PREFLIGHT-FIXED-ACTION-PLAN-v1"
             ),
             "target": {
                 "stand_id": contract["target"]["stand_id"],
                 "ssh_target": contract["target"]["ssh_target"],
+                "known_hosts_host": contract["target"]["known_hosts_host"],
                 "pinned_host_key_evidence_sha256": contract["target"][
                     "pinned_host_key_evidence"
                 ]["sha256"],
+                "pinned_known_hosts_sha256": contract["target"][
+                    "pinned_known_hosts"
+                ]["sha256"],
             },
             "frozen_observation_ids": list(FIXED_PREFLIGHT_OBSERVATION_IDS),
+            "fixed_action_plan": action_plan_binding,
             "supporting_observation_contract": contract_binding,
+            "evidence_root": str(evidence_root),
             "limits": copy.deepcopy(contract["limits"]),
             "role_collapse_acknowledged": True,
             "independent_review_claimed": False,
             "permissions": copy.deepcopy(READ_ONLY_PERMISSION_MATRIX),
+            "automatic_transition": False,
+            "retry_allowed": False,
+            "stage18_authority": False,
         }
         if authorization_mutator is not None:
             authorization_mutator(authorization)
-        authorization_path = self.root / "evidence/s17-ext-001-authorization-v2.json"
+        authorization_path = self.root / "evidence/s17-ext-001-authorization-v3.json"
         write_json(authorization_path, authorization)
         authorization_binding = {
             "path": authorization_path.relative_to(self.root).as_posix(),
             "size_bytes": authorization_path.stat().st_size,
             "sha256": sha256_file(authorization_path),
-            "schema_identity": "cpu-prefetch-stage17-read-only-preflight-authorization/2",
+            "schema_identity": "cpu-prefetch-stage17-read-only-preflight-authorization/3",
         }
         policy_path = self.root / SEMANTIC_POLICY_PATH
         envelope: dict[str, Any] = {
-            "schema_version": "cpu-prefetch-stage17-operational-evidence-envelope/2",
+            "schema_version": "cpu-prefetch-stage17-operational-evidence-envelope/3",
             "envelope_id": "SYNTHETIC-S17-EXT-001-SEMANTIC-ENVELOPE-NO-AUTHORITY",
             "input_id": "S17-EXT-001",
             "predecessor": {
@@ -403,6 +445,10 @@ class SyntheticBuilder:
                 "resolution_schema_sha256": self.versions[
                     "resolution_schema_sha256"
                 ],
+                "semantic_policy_v2_sha256": policy["predecessor"]["policy_v2"][
+                    "sha256"
+                ],
+                "adr_0106_sha256": policy["predecessor"]["adr_0106"]["sha256"],
             },
             "semantic_policy": {
                 "path": SEMANTIC_POLICY_PATH.as_posix(),
@@ -411,15 +457,22 @@ class SyntheticBuilder:
             },
             "semantic_verifier": {
                 "verifier_id": "STAGE17-S17-EXT-001-SEMANTIC-VERIFIER",
-                "verifier_version": "2",
+                "verifier_version": "3",
             },
             "authorization": authorization_binding,
             "supporting_contract": contract_binding,
+            "fixed_action_plan": action_plan_binding,
+            "executor_implementation": copy.deepcopy(
+                policy["implementations"]["executor"]
+            ),
+            "collector_implementation": copy.deepcopy(
+                policy["implementations"]["collector"]
+            ),
             "stage18_authority": False,
         }
         if envelope_mutator is not None:
             envelope_mutator(envelope)
-        envelope_path = self.root / "evidence/s17-ext-001-semantic-envelope-v2.json"
+        envelope_path = self.root / "evidence/s17-ext-001-semantic-envelope-v3.json"
         write_json(envelope_path, envelope)
         evidence = {
             "kind": "REPOSITORY_FILE",
@@ -581,7 +634,7 @@ class SyntheticBuilder:
             authorization = {
                 "authorization_id": authorization_document["authorization_id"],
                 "evidence_path": (
-                    "evidence/s17-ext-001-authorization-v2.json"
+                    "evidence/s17-ext-001-authorization-v3.json"
                     if input_id == "S17-EXT-001"
                     else authorization_evidence["path"]
                 ),
@@ -723,6 +776,8 @@ class SyntheticBuilder:
                 path=path,
                 sha256=digest,
                 document=document,
+                authorization_document=None,
+                semantic_context=None,
             )
         current_state, transitions = validate_transitions(
             root=self.root,
@@ -751,13 +806,10 @@ def validate_s17_ext_001_draft(root: pathlib.Path, journal_path: pathlib.Path) -
     ):
         raise JournalError("immutable S17-EXT-001 draft v1 drifted")
     draft = load_json(repository_file(root, DRAFT_PATH.as_posix()))
-    relative_journal = (
-        journal_path.relative_to(root) if journal_path.is_absolute() else journal_path
-    )
-    journal = load_json(repository_file(root, relative_journal.as_posix()))
+    del journal_path
     if (
         draft.get("schema_version")
-        != "cpu-prefetch-stage17-s17-ext-001-authorization-draft/2"
+        != "cpu-prefetch-stage17-s17-ext-001-authorization-draft/3"
         or draft.get("status") != "DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED"
         or draft.get("authority_boundary")
         != {
@@ -772,12 +824,14 @@ def validate_s17_ext_001_draft(root: pathlib.Path, journal_path: pathlib.Path) -
         raise JournalError("S17-EXT-001 draft claims authority")
     bindings = draft.get("compatibility", {})
     policy_path = repository_file(root, SEMANTIC_POLICY_PATH.as_posix())
+    predecessor_v2 = (
+        "config/stage17/"
+        "stage17-s17-ext-001-read-only-preflight-authorization-draft-v2.json"
+    )
     if (
-        bindings.get("graph_sha256") != journal["graph"]["sha256"]
-        or bindings.get("catalog_sha256") != journal["catalog"]["sha256"]
-        or bindings.get("genesis_sha256") != journal["genesis"]["genesis_sha256"]
-        or bindings.get("predecessor_draft_path") != LEGACY_DRAFT_PATH.as_posix()
-        or bindings.get("predecessor_draft_sha256") != LEGACY_DRAFT_SHA256
+        bindings.get("predecessor_draft_path") != predecessor_v2
+        or bindings.get("predecessor_draft_sha256")
+        != sha256_file(repository_file(root, predecessor_v2))
         or bindings.get("semantic_policy_path") != SEMANTIC_POLICY_PATH.as_posix()
         or bindings.get("semantic_policy_size_bytes") != policy_path.stat().st_size
         or bindings.get("semantic_policy_sha256") != sha256_file(policy_path)
@@ -793,29 +847,28 @@ def validate_s17_ext_001_draft(root: pathlib.Path, journal_path: pathlib.Path) -
         or payload.get("limits", {}).get("max_commands") != 6
         or payload.get("limits", {}).get("attempts_per_observation") != 1
         or payload.get("limits", {}).get("retries") != 0
+        or payload.get("automatic_transition") is not False
+        or payload.get("retry_allowed") is not False
+        or payload.get("stage18_authority") is not False
     ):
         raise JournalError("S17-EXT-001 draft fixed authorization scope drifted")
     for field in (
         "authorization_id",
+        "attempt_id",
         "actor",
         "issued_at_utc",
         "expires_at_utc",
         "target_scope",
+        "evidence_root",
     ):
         if payload.get(field) is not None:
             raise JournalError(f"S17-EXT-001 draft fabricated owner field: {field}")
-    if any(
-        payload.get("limits", {}).get(field) is not None
-        for field in ("max_wall_seconds", "max_total_output_bytes")
-    ):
-        raise JournalError("S17-EXT-001 draft fabricated owner limits")
     supporting = draft.get("supporting_observation_contract", {})
-    observed_identifiers = tuple(
-        item.get("observation_id")
-        for item in supporting.get("observations", [])
-    )
-    if observed_identifiers != FIXED_PREFLIGHT_OBSERVATION_IDS:
-        raise JournalError("S17-EXT-001 supporting observation family drifted")
+    if (
+        "observations" in supporting
+        or draft.get("owner_command_argv_or_stdin_fields") != []
+    ):
+        raise JournalError("S17-EXT-001 v3 draft exposes owner command bytes")
     if supporting.get("remote_runtime_identity_policy") != {
         "source_input_id": "S17-EXT-002",
         "identity_classes": [
@@ -828,14 +881,26 @@ def validate_s17_ext_001_draft(root: pathlib.Path, journal_path: pathlib.Path) -
         raise JournalError("S17-EXT-001 draft runtime identity boundary drifted")
     owner_values = [
         payload.get("target", {}).get(field)
-        for field in ("stand_id", "ssh_target", "pinned_host_key_evidence_sha256")
+        for field in (
+            "stand_id",
+            "ssh_target",
+            "known_hosts_host",
+            "pinned_host_key_evidence_sha256",
+            "pinned_known_hosts_sha256",
+        )
     ]
     owner_values.extend(
         payload.get("supporting_observation_contract", {}).get(field)
         for field in ("path", "size_bytes", "sha256")
     )
     owner_values.extend(
-        supporting.get("target", {}).get(field) for field in ("stand_id", "ssh_target")
+        supporting.get("target", {}).get(field)
+        for field in (
+            "stand_id",
+            "ssh_target",
+            "known_hosts_host",
+            "transport_identity_locator",
+        )
     )
     owner_values.extend(
         supporting.get("target", {})
@@ -844,29 +909,22 @@ def validate_s17_ext_001_draft(root: pathlib.Path, journal_path: pathlib.Path) -
         for field in ("path", "size_bytes", "sha256")
     )
     owner_values.extend(
-        supporting.get("pilot_candidate", {}).get(field)
-        for field in ("archive_locator", "sidecar_locator")
+        supporting.get("target", {}).get("pinned_known_hosts", {}).get(field)
+        for field in ("path", "size_bytes", "sha256")
     )
+    owner_values.extend(
+        supporting.get("pilot_candidate", {}).get(field)
+        for field in ("archive_locator", "sidecar_locator", "bundle_root_locator")
+    )
+    owner_values.extend(
+        supporting.get("capture", {}).get(field)
+        for field in ("capture_id", "captured_at_utc")
+    )
+    owner_values.append(supporting.get("evidence_root"))
     owner_values.extend(
         identity.get(field)
         for identity in supporting.get("prospective_local_action_identities", [])
-        for field in ("execution_path", "source_path", "size_bytes", "sha256")
-    )
-    owner_values.extend(
-        observation.get(field)
-        for observation in supporting.get("observations", [])
-        for field in (
-            "local_action_identity_id",
-            "argv_bytes_base64",
-            "stdin_bytes_base64",
-            "remote_command_bytes_base64",
-            "output_locator",
-            "max_output_bytes",
-        )
-    )
-    owner_values.extend(
-        supporting.get("limits", {}).get(field)
-        for field in ("max_wall_seconds", "max_total_output_bytes")
+        for field in ("execution_path",)
     )
     if any(value is not None for value in owner_values):
         raise JournalError("S17-EXT-001 draft fabricated target or observation data")
@@ -891,6 +949,31 @@ def positive_disk_test() -> tuple[int, int, int, int]:
             or first.pilot_ready
         ):
             raise JournalError("typed S17-EXT-001 did not survive disk/hash admission")
+        if first.action_context is None:
+            raise JournalError("positive action context is absent")
+        plan = load_json(builder.root / ACTION_PLAN_PATH)
+        substitutions = {
+            "{PINNED_KNOWN_HOSTS_PATH}": first.action_context["known_hosts_path"],
+            "{TRANSPORT_IDENTITY_LOCATOR}": first.action_context[
+                "transport_identity_locator"
+            ],
+            "{SSH_TARGET}": first.action_context["ssh_target"],
+        }
+        expected_argv = []
+        for token in plan["transport"]["fixed_ssh_argv_template"]:
+            rendered = token
+            for placeholder, value in substitutions.items():
+                rendered = rendered.replace(placeholder, value)
+            expected_argv.append(rendered)
+        if production_executor._ssh_argv(first.action_context) != expected_argv:
+            raise JournalError("production executor argv differs from fixed action plan")
+        for observation_id in FIXED_PREFLIGHT_OBSERVATION_IDS:
+            program = render_observation_program(
+                observation_id, first.action_context["collector_context"]
+            )
+            if not program or b"shell=True" in program or b"/usr/bin/touch" in program:
+                raise JournalError("fixed collector rendered forbidden program bytes")
+            compile(program, f"<{observation_id}>", "exec")
         for reference in builder.latest_document["resolution_records"]:
             path = builder.root / reference["path"]
             if sha256_file(path) != reference["sha256"] or not load_json(path):
@@ -980,13 +1063,13 @@ def negative_tests() -> int:
 
     def missing_supporting_contract(builder: SyntheticBuilder) -> None:
         builder.add_resolution("S17-EXT-001")
-        (builder.root / "evidence/s17-ext-001-supporting-contract-v2.json").unlink()
+        (builder.root / "evidence/s17-ext-001-supporting-contract-v3.json").unlink()
 
     run("missing-supporting-contract", missing_supporting_contract)
 
     def changed_supporting_contract(builder: SyntheticBuilder) -> None:
         builder.add_resolution("S17-EXT-001")
-        contract_path = builder.root / "evidence/s17-ext-001-supporting-contract-v2.json"
+        contract_path = builder.root / "evidence/s17-ext-001-supporting-contract-v3.json"
         contract = load_json(contract_path)
         contract["target"]["stand_id"] = "CHANGED-AFTER-BINDING"
         contract_path.write_text(
@@ -1032,11 +1115,49 @@ def negative_tests() -> int:
         ),
     )
     run(
-        "contract-observation-id-mismatch",
+        "mutating-remote-command",
         lambda builder: builder.add_resolution(
             "S17-EXT-001",
-            contract_mutator=lambda document: document["observations"][0].update(
-                {"observation_id": "ARBITRARY-OBSERVATION"}
+            contract_mutator=lambda document: document.update(
+                {
+                    "remote_command_bytes_base64": b64(
+                        "/usr/bin/touch /tmp/STAGE17-MUTATION"
+                    )
+                }
+            ),
+        ),
+    )
+    for label, command in (
+        ("sudo-command", "sudo /usr/bin/id"),
+        ("shell-command", "/bin/sh -c /usr/bin/id"),
+        ("redirect-command", "/usr/bin/id > /tmp/output"),
+        ("pipe-command", "/usr/bin/id | /usr/bin/cat"),
+        ("command-substitution", "/usr/bin/id $(/usr/bin/hostname)"),
+    ):
+        run(
+            label,
+            lambda builder, value=command: builder.add_resolution(
+                "S17-EXT-001",
+                contract_mutator=lambda document: document.update(
+                    {"owner_remote_command": value}
+                ),
+            ),
+        )
+    run(
+        "arbitrary-argv",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            contract_mutator=lambda document: document.update(
+                {"argv_bytes_base64": [b64("/usr/bin/touch")]}
+            ),
+        ),
+    )
+    run(
+        "arbitrary-stdin",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            contract_mutator=lambda document: document.update(
+                {"stdin_bytes_base64": b64("mutating input")}
             ),
         ),
     )
@@ -1046,18 +1167,80 @@ def negative_tests() -> int:
             "S17-EXT-001",
             contract_mutator=lambda document: document[
                 "prospective_local_action_identities"
-            ][0].update({"sha256": "a" * 64}),
+            ][0]["source_binding"].update({"sha256": "a" * 64}),
         ),
     )
+
+    def arbitrary_launcher_bytes(builder: SyntheticBuilder) -> None:
+        arbitrary = builder.root / "synthetic/arbitrary-launcher.py"
+        arbitrary.parent.mkdir(parents=True, exist_ok=True)
+        arbitrary.write_bytes(b"#!/usr/bin/python3\nprint('arbitrary')\n")
+        arbitrary.chmod(0o755)
+        binding = {
+            "path": arbitrary.relative_to(builder.root).as_posix(),
+            "size_bytes": arbitrary.stat().st_size,
+            "sha256": sha256_file(arbitrary),
+        }
+        builder.add_resolution(
+            "S17-EXT-001",
+            contract_mutator=lambda document: document[
+                "prospective_local_action_identities"
+            ][0].update({"execution_path": str(arbitrary), "source_binding": binding}),
+        )
+
+    run("arbitrary-launcher-bytes", arbitrary_launcher_bytes)
     run(
-        "argv-executable-mismatch",
+        "prospective-collector-source-sha-mismatch",
         lambda builder: builder.add_resolution(
             "S17-EXT-001",
-            contract_mutator=lambda document: document["observations"][0].update(
-                {"argv_bytes_base64": [b64("/wrong/executable")]}
+            contract_mutator=lambda document: document[
+                "prospective_local_action_identities"
+            ][1]["source_binding"].update({"sha256": "b" * 64}),
+        ),
+    )
+
+    def non_executable_launcher(builder: SyntheticBuilder) -> None:
+        def mutate(document: dict[str, Any]) -> None:
+            pathlib.Path(
+                document["prospective_local_action_identities"][0]["execution_path"]
+            ).chmod(0o644)
+
+        builder.add_resolution("S17-EXT-001", contract_mutator=mutate)
+
+    run("non-executable-launcher", non_executable_launcher)
+
+    def hash_mismatched_execution_file(builder: SyntheticBuilder) -> None:
+        def mutate(document: dict[str, Any]) -> None:
+            path = pathlib.Path(
+                document["prospective_local_action_identities"][0]["execution_path"]
+            )
+            path.write_bytes(path.read_bytes() + b"# drift\n")
+
+        builder.add_resolution("S17-EXT-001", contract_mutator=mutate)
+
+    run("hash-mismatched-local-action", hash_mismatched_execution_file)
+    run(
+        "raw-observation-contract-forbidden",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            contract_mutator=lambda document: document.update(
+                {"observations": [{"argv": ["/wrong/executable"]}]}
             ),
         ),
     )
+
+    def unsafe_output_root(builder: SyntheticBuilder) -> None:
+        builder.add_resolution(
+            "S17-EXT-001",
+            contract_mutator=lambda document: document.update(
+                {"evidence_root": "/etc/stage17-new-output"}
+            ),
+            authorization_mutator=lambda document: document.update(
+                {"evidence_root": "/etc/stage17-new-output"}
+            ),
+        )
+
+    run("output-outside-evidence-root", unsafe_output_root)
 
     def generic_accepted(builder: SyntheticBuilder) -> None:
         evidence = builder.repository_evidence(
@@ -1081,6 +1264,44 @@ def negative_tests() -> int:
         builder.add_resolution("S17-EXT-001")
 
     run("unknown-semantic-verifier", unknown_semantic_verifier)
+
+    def malformed_ed25519_blob(builder: SyntheticBuilder) -> None:
+        def mutate(document: dict[str, Any]) -> None:
+            binding = document["target"]["pinned_host_key_evidence"]
+            path = builder.root / binding["path"]
+            pinned = load_json(path)
+            malformed = b"x" * 32
+            pinned["public_key_base64"] = base64.b64encode(malformed).decode("ascii")
+            pinned["fingerprint_sha256"] = "SHA256:" + base64.b64encode(
+                hashlib.sha256(malformed).digest()
+            ).decode("ascii").rstrip("=")
+            path.write_text(
+                json.dumps(pinned, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+            )
+            binding["size_bytes"] = path.stat().st_size
+            binding["sha256"] = sha256_file(path)
+
+        builder.add_resolution("S17-EXT-001", contract_mutator=mutate)
+
+    run("malformed-ed25519-wire-blob", malformed_ed25519_blob)
+
+    def drift_file(builder: SyntheticBuilder, relative: str) -> None:
+        path = builder.root / relative
+        path.write_bytes(path.read_bytes() + b"\n")
+        builder.add_resolution("S17-EXT-001")
+
+    run(
+        "fixed-action-plan-drift",
+        lambda builder: drift_file(builder, ACTION_PLAN_PATH),
+    )
+    run(
+        "v3-schema-drift",
+        lambda builder: drift_file(builder, V3_SCHEMA_PATHS[1]),
+    )
+    run(
+        "production-verifier-drift",
+        lambda builder: drift_file(builder, "tools/stage17_semantic_verifier_v3.py"),
+    )
     run(
         "s17-ext-010-without-predecessor-bindings",
         lambda builder: builder.add_resolution("S17-EXT-010"),
@@ -1095,17 +1316,113 @@ def negative_tests() -> int:
         ),
     )
 
+    with tempfile.TemporaryDirectory(prefix="stage17-negative-no-transition-") as temporary:
+        builder = SyntheticBuilder(pathlib.Path(temporary))
+        builder.add_resolution("S17-EXT-001")
+        result = builder.validate(
+            as_of_utc=utc(22), requested_action_input_id="S17-EXT-001"
+        )
+        if (
+            result.current_state != "PREPARED"
+            or result.transition_count != 0
+            or result.action_ready
+        ):
+            raise JournalError("S17-EXT-001 became action-ready without transition 1")
+        negative_count += 1
+
     with tempfile.TemporaryDirectory(prefix="stage17-negative-expired-action-") as temporary:
         builder = SyntheticBuilder(pathlib.Path(temporary))
         builder.add_resolution("S17-EXT-001")
         builder.add_transition()
-        expect_failure(
-            "expired-action-readiness",
-            lambda: builder.validate(
-                as_of_utc="2030-01-02T00:00:00Z",
-                requested_action_input_id="S17-EXT-001",
-            ),
+        expired = builder.validate(
+            as_of_utc="2030-01-02T00:00:00Z",
+            requested_action_input_id="S17-EXT-001",
         )
+        if expired.action_ready:
+            raise JournalError("expired S17-EXT-001 remained action-ready")
+        negative_count += 1
+
+    with tempfile.TemporaryDirectory(prefix="stage17-negative-attempt-marker-") as temporary:
+        builder = SyntheticBuilder(pathlib.Path(temporary))
+        builder.add_resolution("S17-EXT-001")
+        builder.add_transition()
+        ready = builder.validate(
+            as_of_utc=utc(22), requested_action_input_id="S17-EXT-001"
+        )
+        if not ready.action_ready or ready.action_context is None:
+            raise JournalError("one-shot marker fixture was not initially ready")
+        marker = pathlib.Path(ready.action_context["attempt_marker_path"])
+        write_json(marker, {"synthetic_attempt_started": True})
+        repeated = builder.validate(
+            as_of_utc=utc(22), requested_action_input_id="S17-EXT-001"
+        )
+        if repeated.action_ready:
+            raise JournalError("existing create-exclusive marker allowed repeat")
+        negative_count += 1
+
+    with tempfile.TemporaryDirectory(prefix="stage17-negative-partial-failure-") as temporary:
+        builder = SyntheticBuilder(pathlib.Path(temporary))
+        builder.add_resolution("S17-EXT-001")
+        builder.add_transition()
+        calls = 0
+
+        def fail_first_transport(*_args, **_kwargs):
+            nonlocal calls
+            marker = (
+                builder.external_root / "evidence-root"
+                / "stage17-read-only-preflight-attempt-v1.json"
+            )
+            if not marker.is_file():
+                raise JournalError("transport opened before create-exclusive marker")
+            calls += 1
+            return production_executor.TransportResult(
+                returncode=1,
+                stdout=b"synthetic partial stdout",
+                stderr=b"synthetic failure",
+            )
+
+        with mock.patch.object(
+            production_executor, "_transport_once", side_effect=fail_first_transport
+        ):
+            try:
+                production_executor.execute_once(
+                    repository_root=builder.root,
+                    latest_journal=builder.latest_path.relative_to(builder.root),
+                    journal_directory=builder.root / "config/stage17/journal",
+                    as_of_utc=utc(22),
+                )
+            except production_executor.ActionExecutionError:
+                pass
+            else:
+                raise JournalError("partial transport failure did not stop execution")
+            try:
+                production_executor.execute_once(
+                    repository_root=builder.root,
+                    latest_journal=builder.latest_path.relative_to(builder.root),
+                    journal_directory=builder.root / "config/stage17/journal",
+                    as_of_utc=utc(22),
+                )
+            except production_executor.ActionExecutionError:
+                pass
+            else:
+                raise JournalError("second executor invocation was not blocked")
+        if calls != 1:
+            raise JournalError("partial failure opened transport more than once")
+        marker_path = (
+            builder.external_root / "evidence-root"
+            / "stage17-read-only-preflight-attempt-v1.json"
+        )
+        validate_schema(
+            load_json(marker_path),
+            builder.root / ATTEMPT_SCHEMA_PATH,
+            "synthetic one-shot attempt marker",
+        )
+        failure_path = (
+            builder.external_root / "evidence-root"
+            / "stage17-read-only-preflight-failure-v1.json"
+        )
+        if not failure_path.is_file():
+            raise JournalError("partial failure evidence was not retained")
         negative_count += 1
 
     def synthetic_pilot_placeholders(builder: SyntheticBuilder) -> None:

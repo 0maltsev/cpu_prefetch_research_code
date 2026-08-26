@@ -200,6 +200,17 @@ collapse, and the unchanged Stage 18 chronology. `--self-test` exercises the
 complete positive chain and negative skip/missing/regression/role/PKI/access
 cases; `--print-missing` prints the authoritative unresolved IDs.
 
+ADR-0105/0106 add `stage17_state_journal.py` and
+`check_stage17_state_journal.py` for append-only replay and default-deny
+semantic admission. ADR-0107 adds the policy-bound
+`stage17_semantic_verifier_v3.py`, immutable fixed action plan,
+`stage17_read_only_preflight_executor_v1.py`, and
+`stage17_read_only_preflight_collector_v1.py`. The production CLI accepts no
+command, argv, stdin, retry, or fake transport. Its action path remains
+unreachable in the checked-in `PREPARED` journal; the state-journal self-test
+uses only a test-module fake to prove marker-before-transport, partial
+retention, and zero retry without network or stand access.
+
 `execute_d104_p4_r_c.py --self-test` now supplies synthetic archive/sidecar
 bytes directly to the fake graph and does not read ignored build artifacts.
 `check_q15_qualification_archive.py` is the separate integration/action-input

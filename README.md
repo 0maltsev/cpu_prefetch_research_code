@@ -216,6 +216,14 @@ and `S17-EXT-002..005` plus `S17-EXT-007..010` return
 `SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED`. Generic JSON, generic receipts,
 and test placeholders cannot resolve an input. State-machine mechanics fixtures
 are separate from the production CLI.
+ADR-0107 leaves every v1/v2 definition immutable and makes the v3
+`S17-EXT-001` action graph repository-owned. Policy v3 hash-binds all v3
+schemas, the fixed plan, and separate verifier/executor/collector sources.
+Owner evidence contains typed target/custody/capture/evidence-root values but
+no command, argv, stdin, shell, or output-file choice. A structurally valid
+Ed25519 wire key, exact known-hosts bytes, executable byte identity, transition
+1, live explicit action UTC, and absent create-exclusive attempt marker are all
+mandatory. Resolution in `PREPARED` is never action-ready.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
@@ -453,8 +461,9 @@ The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
 The exact unissued owner-input template for the next possible gate is
 [`S17-EXT-001`](docs/STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md).
-Its v2 authorization byte/hash-binds a separate supporting contract. The
-prospectively known local launcher/collector bytes are inputs; remote runtime
+Its v3 authorization byte/hash-binds a separate supporting contract and the
+immutable fixed action plan. The prospectively known local executor/collector
+bytes are inputs; remote runtime
 executable/module/dependency identities are read-only `S17-EXT-002` outputs.
 
 `cpu_prefetch_runner` can validate a future explicit admission record but has

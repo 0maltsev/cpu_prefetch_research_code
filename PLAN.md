@@ -335,7 +335,8 @@ authorization/amendment.
 - **Inputs and prerequisite decisions:** Phase 16 accepted; D-044 through D-046
   governance accepted; D-047 physical mapping implemented and strict combined
   audit passed; ADR-0104 finite operational graph; ADR-0105 append-only state
-  journal; ADR-0106 default-deny semantic evidence policy; verified exact
+  journal; ADR-0106 default-deny semantic predecessor; ADR-0107 fixed
+  read-only plan and transition/one-shot action gate; verified exact
   no-authority candidate bytes and custody receipt;
   accepted preflight and exact stand
   qualification; then dependency-ready phase inputs and a phase-scoped pilot
@@ -459,6 +460,12 @@ authorization/amendment.
   over the immutable v1 graph/catalog/genesis: `S17-EXT-001` and `S17-EXT-006`
   have implemented semantic verifiers, while `002..005` and `007..010` remain
   explicitly `SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED`. The immutable
+  ADR-0107 v3 successor removes owner-controlled commands/argv/stdin, binds a
+  repository-owned six-observation plan plus exact verifier/executor/collector
+  bytes, validates OpenSSH Ed25519 wire and known-hosts structure, restricts all
+  outputs to one safe evidence root, and makes exact transition 1, live UTC,
+  fresh bytes, and an absent create-exclusive marker mandatory for action
+  readiness. No checked-in action or evidence values were created. The immutable
   requirement catalog therefore reports all ten
   `S17-EXT` inputs missing. The historical `S17-EXT-006` release metadata is
   preserved but cannot resolve the input until caller-supplied archive and

@@ -22,6 +22,12 @@ from stage17_pilot_candidate_artifact import (
     VERIFIER_VERSION,
     verify_pilot_candidate_artifact,
 )
+from stage17_semantic_verifier_v3 import (
+    SemanticAdmissionError,
+    evaluate_s17_ext_001_action_readiness,
+    verify_policy_v3,
+    verify_s17_ext_001_semantics_v3,
+)
 
 
 STATE_ORDER = (
@@ -50,19 +56,19 @@ SCHEMA_PATHS = {
     "authorization_schema_sha256": "config/schemas/stage17-operational-authorization-evidence-v1.schema.json",
 }
 SEMANTIC_POLICY_PATH = pathlib.PurePosixPath(
-    "config/stage17/stage17-operational-evidence-admission-policy-v2.json"
+    "config/stage17/stage17-operational-evidence-admission-policy-v3.json"
 )
 SEMANTIC_POLICY_SCHEMA_PATH = pathlib.PurePosixPath(
-    "config/schemas/stage17-operational-evidence-admission-policy-v2.schema.json"
+    "config/schemas/stage17-operational-evidence-admission-policy-v3.schema.json"
 )
 SEMANTIC_ENVELOPE_SCHEMA_PATH = pathlib.PurePosixPath(
-    "config/schemas/stage17-operational-evidence-envelope-v2.schema.json"
+    "config/schemas/stage17-operational-evidence-envelope-v3.schema.json"
 )
 S17_EXT_001_AUTHORIZATION_SCHEMA_PATH = pathlib.PurePosixPath(
-    "config/schemas/stage17-read-only-preflight-authorization-v2.schema.json"
+    "config/schemas/stage17-read-only-preflight-authorization-v3.schema.json"
 )
 S17_EXT_001_CONTRACT_SCHEMA_PATH = pathlib.PurePosixPath(
-    "config/schemas/stage17-read-only-preflight-supporting-contract-v2.schema.json"
+    "config/schemas/stage17-read-only-preflight-supporting-contract-v3.schema.json"
 )
 PINNED_HOST_KEY_SCHEMA_PATH = pathlib.PurePosixPath(
     "config/schemas/stage17-pinned-host-key-evidence-v1.schema.json"
@@ -113,6 +119,8 @@ class ExternalInputResolution:
     path: pathlib.Path
     sha256: str
     document: dict[str, Any]
+    authorization_document: dict[str, Any] | None
+    semantic_context: dict[str, Any] | None
 
 
 @dataclass(frozen=True)
@@ -138,6 +146,7 @@ class JournalValidation:
     latest_journal_sha256: str
     requested_action_input_id: str | None
     action_ready: bool
+    action_context: dict[str, Any] | None
 
 
 SemanticVerifier = Callable[..., dict[str, Any] | None]
@@ -320,32 +329,22 @@ def load_semantic_policy(
         root / SEMANTIC_POLICY_SCHEMA_PATH,
         "Stage 17 semantic-admission policy",
     )
-    predecessor = policy["predecessor"]
-    expected = {
-        "graph_path": "config/stage17/stage17-operational-graph-definition-v1.json",
-        "graph_sha256": graph_sha256,
-        "catalog_path": "config/stage17/stage17-external-input-catalog-v1.json",
-        "catalog_sha256": catalog_sha256,
-        "genesis_path": GENESIS_PATH.as_posix(),
-        "genesis_file_sha256": sha256_file(repository_file(root, GENESIS_PATH.as_posix())),
-        "genesis_record_sha256": genesis_sha256,
-        "resolution_schema_path": SCHEMA_PATHS["resolution_schema_sha256"],
-        "resolution_schema_sha256": sha256_file(
-            repository_file(root, SCHEMA_PATHS["resolution_schema_sha256"])
-        ),
-        "adr_path": ADR_0105_PATH.as_posix(),
-        "adr_sha256": sha256_file(repository_file(root, ADR_0105_PATH.as_posix())),
-    }
-    if predecessor != expected:
-        raise JournalError("semantic-admission policy predecessor binding drifted")
-    expected_ids = [f"S17-EXT-{index:03d}" for index in range(1, 11)]
-    entries = policy.get("entries", [])
-    if [entry.get("input_id") for entry in entries] != expected_ids:
-        raise JournalError("semantic-admission policy registry is not exact and ordered")
-    if policy.get("default_action") != (
-        "REJECT_SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED"
-    ) or policy.get("synthetic_bypass_available") is not False:
-        raise JournalError("semantic-admission policy is not default-deny")
+    try:
+        verify_policy_v3(
+            root=root,
+            policy=policy,
+            graph_sha256=graph_sha256,
+            catalog_sha256=catalog_sha256,
+            genesis_file_sha256=sha256_file(
+                repository_file(root, GENESIS_PATH.as_posix())
+            ),
+            genesis_record_sha256=genesis_sha256,
+            resolution_schema_sha256=sha256_file(
+                repository_file(root, SCHEMA_PATHS["resolution_schema_sha256"])
+            ),
+        )
+    except SemanticAdmissionError as exception:
+        raise JournalError(str(exception)) from exception
     return policy, policy_path, sha256_file(policy_path)
 
 
@@ -926,8 +925,8 @@ SEMANTIC_VERIFIERS: dict[tuple[str, str, str], SemanticVerifier] = {
     (
         "S17-EXT-001",
         "STAGE17-S17-EXT-001-SEMANTIC-VERIFIER",
-        "2",
-    ): verify_s17_ext_001_semantics,
+        "3",
+    ): verify_s17_ext_001_semantics_v3,
     (
         "S17-EXT-006",
         "STAGE17-PILOT-CANDIDATE-EXTERNAL-VERIFIER",
@@ -1061,21 +1060,35 @@ def validate_resolutions(
                 f"SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED:{input_id}:"
                 f"{entry.get('verifier_id')}:{entry.get('verifier_version')}"
             )
-        authorization_document = verifier(
-            root=root,
-            resolution=document,
-            repository_documents=repository_documents,
-            receipt_documents=receipt_documents,
-            policy_path=policy_path,
-            policy_sha256=policy_sha256,
-            policy_entry=entry,
-            graph_sha256=graph_sha256,
-            catalog_sha256=catalog_sha256,
-            genesis_sha256=genesis_sha256,
-            catalog=catalog,
-            pilot_archive=pilot_archive,
-            pilot_sidecar=pilot_sidecar,
-        )
+        try:
+            semantic_result = verifier(
+                root=root,
+                resolution=document,
+                repository_documents=repository_documents,
+                receipt_documents=receipt_documents,
+                policy=policy,
+                policy_path=policy_path,
+                policy_sha256=policy_sha256,
+                policy_entry=entry,
+                graph_sha256=graph_sha256,
+                catalog_sha256=catalog_sha256,
+                genesis_sha256=genesis_sha256,
+                resolution_schema_sha256=expected_versions[
+                    "resolution_schema_sha256"
+                ],
+                catalog=catalog,
+                pilot_archive=pilot_archive,
+                pilot_sidecar=pilot_sidecar,
+            )
+        except SemanticAdmissionError as exception:
+            raise JournalError(str(exception)) from exception
+        authorization_document: dict[str, Any] | None = None
+        semantic_context: dict[str, Any] | None = None
+        if isinstance(semantic_result, dict) and "authorization" in semantic_result:
+            authorization_document = semantic_result.get("authorization")
+            semantic_context = semantic_result.get("context")
+        elif isinstance(semantic_result, dict):
+            authorization_document = semantic_result
         if catalog_items[input_id]["authorization_required"]:
             if not isinstance(authorization_document, dict):
                 raise JournalError(f"{input_id} semantic verifier returned no authorization")
@@ -1089,6 +1102,8 @@ def validate_resolutions(
             path=path,
             sha256=digest,
             document=document,
+            authorization_document=authorization_document,
+            semantic_context=semantic_context,
         )
     return by_input
 
@@ -1262,6 +1277,7 @@ def validate_journal(
     resolved_ids = tuple(item for item in expected_ids if item in resolutions)
     missing_ids = tuple(item for item in expected_ids if item not in resolutions)
     action_ready = False
+    action_context: dict[str, Any] | None = None
     if requested_action_input_id is not None:
         if requested_action_input_id not in {"S17-EXT-001", "S17-EXT-005", "S17-EXT-010"}:
             raise JournalError("requested action has no registered authorization boundary")
@@ -1272,9 +1288,9 @@ def validate_journal(
             raise JournalError(
                 f"requested action authorization is unresolved: {requested_action_input_id}"
             )
-        action_authorization = action_resolution.document.get("authorization")
+        action_authorization = action_resolution.authorization_document
         if not isinstance(action_authorization, dict):
-            raise JournalError("requested action has no authorization summary")
+            raise JournalError("requested action has no verified authorization")
         evaluation_time = parse_utc(as_of_utc, "action-readiness evaluation time")
         issued = parse_utc(
             action_authorization.get("issued_at_utc"), "action authorization issue"
@@ -1282,21 +1298,33 @@ def validate_journal(
         expires = parse_utc(
             action_authorization.get("expires_at_utc"), "action authorization expiry"
         )
-        if not issued <= evaluation_time < expires:
-            raise JournalError(
-                f"requested action authorization is expired or not yet valid: "
-                f"{requested_action_input_id}"
+        if requested_action_input_id == "S17-EXT-001":
+            del evaluation_time, issued, expires
+            if action_resolution.semantic_context is None:
+                raise JournalError("S17-EXT-001 action context is absent")
+            action_context = evaluate_s17_ext_001_action_readiness(
+                root=root,
+                current_state=current_state,
+                transition_documents=[item.document for item in transitions],
+                transition_ids_and_hashes=[
+                    (item.transition_id, item.sha256) for item in transitions
+                ],
+                resolution_id=action_resolution.resolution_id,
+                resolution_sha256=action_resolution.sha256,
+                authorization=action_authorization,
+                semantic_context=action_resolution.semantic_context,
+                as_of_utc=as_of_utc,
             )
-        action_ready = True
+            action_ready = action_context is not None
+        elif issued <= evaluation_time < expires:
+            action_ready = True
     pilot_ready = current_state == STATE_ORDER[-1] and not missing_ids
     if pilot_ready:
         if as_of_utc is None:
             pilot_ready = False
         else:
             evaluation_time = parse_utc(as_of_utc, "pilot readiness evaluation time")
-            pilot_authorization = resolutions["S17-EXT-010"].document.get(
-                "authorization"
-            )
+            pilot_authorization = resolutions["S17-EXT-010"].authorization_document
             if not isinstance(pilot_authorization, dict):
                 raise JournalError("pilot-ready state has no S17-EXT-010 authorization")
             issued = parse_utc(
@@ -1317,4 +1345,5 @@ def validate_journal(
         latest_journal_sha256=lineage[-1][2],
         requested_action_input_id=requested_action_input_id,
         action_ready=action_ready,
+        action_context=action_context,
     )

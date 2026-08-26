@@ -217,6 +217,18 @@ def main() -> int:
     )
     args = parser.parse_args()
     root = pathlib.Path(__file__).resolve().parents[1]
+    semantic_admission_schema_paths = (
+        "stage17-operational-evidence-admission-policy-v2.schema.json",
+        "stage17-operational-evidence-envelope-v2.schema.json",
+        "stage17-read-only-preflight-authorization-v2.schema.json",
+        "stage17-read-only-preflight-supporting-contract-v2.schema.json",
+        "stage17-pinned-host-key-evidence-v1.schema.json",
+    )
+    for filename in semantic_admission_schema_paths:
+        schema = json.loads(
+            (root / "config/schemas" / filename).read_text(encoding="utf-8")
+        )
+        Draft202012Validator.check_schema(schema)
     schemas = {
         version: json.loads(
             (root / f"config/schemas/stage17-authorization-v{version}.schema.json").read_text(
@@ -328,7 +340,8 @@ def main() -> int:
             return 1
     print(
         "stage17-authorization-check: PASS "
-        "(1 legacy + 4 current execution positive, 1 superseded Q15, 9 negative, no authority issued)"
+        "(1 legacy + 4 current execution positive, 1 superseded Q15, 9 negative, "
+        "5 semantic-admission schemas, no authority issued)"
     )
     return 0
 

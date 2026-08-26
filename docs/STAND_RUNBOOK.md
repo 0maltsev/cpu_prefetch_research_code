@@ -54,23 +54,28 @@ The prospective
 [finite Stage 17 operational successor](STAGE17_OPERATIONAL_AUTHORIZATION.md)
 now owns pilot admission. Its current state is `PREPARED`; it may advance only
 through `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, `PREFLIGHT_ACCEPTED`, and
-`READY_FOR_STAGE17_PHASE_AUTHORIZATION`. ADR-0105 makes the graph and ten-item
-requirement catalog immutable and derives state only from canonical genesis
-plus sequential append-only evidence-resolution and transition records. The
-legacy successor/checklist are definition/templates, not current status. No
-state is inferred from SSH reachability or metadata hashes, and the last graph
-state is permission to prepare an exact phase authorization rather than
-permission to execute it.
+`READY_FOR_STAGE17_PHASE_AUTHORIZATION`. ADR-0105 derives state only from
+canonical genesis plus sequential append-only evidence-resolution and
+transition records. ADR-0106 leaves the v1 graph/catalog/genesis immutable and
+adds a default-deny semantic policy. A file, generic JSON object, generic
+receipt, or metadata hash cannot resolve an input. Only `S17-EXT-001` and
+`S17-EXT-006` currently have implemented semantic verifiers; the other eight
+inputs fail closed. The legacy successor/checklist are definition/templates,
+not current status. The last graph state permits preparation of an exact phase
+authorization; it is not execution permission.
 
 Before the first read-only preflight, complete the exact
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
 must provide the target, pinned host-key evidence, UTC window, finite limits,
-archive/sidecar locators, and six exact read-only command/output contracts. Do
-not use the draft itself as evidence. Create the authorization and supporting
-contract as new repository files, recompute their actual sizes and SHA-256
-values, create one append-only resolution, and create the adjacent transition
-only after the validator accepts those files. There is one attempt per frozen
-observation, zero retry, and partial evidence is retained.
+archive/sidecar locators, prospective local launcher/collector bytes, and six
+exact argv/stdin/remote-command/output contracts. Do not use the draft itself
+as evidence. Create the typed supporting contract first; hash-bind its path,
+byte count, SHA-256, and schema identity in the v2 authorization; then bind both
+files in one v2 semantic envelope. Remote runtime executable/module/dependency
+identities remain read-only `S17-EXT-002` outputs, not prospective values. The
+validator must accept the envelope and confirm the authorization is still live
+at intended action UTC before an adjacent transition can be prepared. There is
+one attempt per observation, zero retry, stop-first, and partial retention.
 
 ### 3. Privileged capability verification
 
@@ -118,8 +123,8 @@ authorized probe/collector command, and the runbook must not improvise one.
 ### 5. Calibration/pilot preparation
 
 Only after the successor reaches `READY_FOR_STAGE17_PHASE_AUTHORIZATION` and
-all entries in `STAGE17-EXTERNAL-INPUT-CATALOG-v1` have verified append-only
-resolutions may the owner issue the
+all entries in `STAGE17-EXTERNAL-INPUT-CATALOG-v1` have verified semantic,
+append-only resolutions may the owner issue the
 exact phase-scoped pilot authorization. Bundle verification, inventory, or
 preflight acceptance does not authorize calibration or pilot. Confirmatory
 namespaces and outcomes remain inaccessible.

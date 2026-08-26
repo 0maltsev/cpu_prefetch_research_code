@@ -335,7 +335,8 @@ authorization/amendment.
 - **Inputs and prerequisite decisions:** Phase 16 accepted; D-044 through D-046
   governance accepted; D-047 physical mapping implemented and strict combined
   audit passed; ADR-0104 finite operational graph; ADR-0105 append-only state
-  journal; verified exact no-authority candidate bytes and custody receipt;
+  journal; ADR-0106 default-deny semantic evidence policy; verified exact
+  no-authority candidate bytes and custody receipt;
   accepted preflight and exact stand
   qualification; then dependency-ready phase inputs and a phase-scoped pilot
   authorization with exact namespaces, plans, durations/repetitions, controls,
@@ -454,7 +455,11 @@ authorization/amendment.
   authorization may cover the frozen read-only preflight observation set; no
   independent-review claim is permitted. The current state remains `PREPARED`
   because the ADR-0105 genesis journal contains no resolution or transition
-  records. The immutable requirement catalog therefore reports all ten
+  records. ADR-0106 layers a predecessor-bound default-deny semantic registry
+  over the immutable v1 graph/catalog/genesis: `S17-EXT-001` and `S17-EXT-006`
+  have implemented semantic verifiers, while `002..005` and `007..010` remain
+  explicitly `SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED`. The immutable
+  requirement catalog therefore reports all ten
   `S17-EXT` inputs missing. The historical `S17-EXT-006` release metadata is
   preserved but cannot resolve the input until caller-supplied archive and
   sidecar bytes pass their fixed integration contract and a real custody

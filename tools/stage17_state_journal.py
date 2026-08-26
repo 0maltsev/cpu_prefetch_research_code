@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import datetime as dt
+import base64
+import binascii
 import hashlib
 import json
 import os
@@ -15,7 +17,7 @@ from typing import Any, Callable
 from jsonschema import Draft202012Validator
 
 from stage17_pilot_candidate_artifact import (
-    ArtifactVerification,
+    ArtifactError,
     VERIFIER_ID,
     VERIFIER_VERSION,
     verify_pilot_candidate_artifact,
@@ -46,6 +48,48 @@ SCHEMA_PATHS = {
     "journal_schema_sha256": "config/schemas/stage17-state-journal-v1.schema.json",
     "custody_receipt_schema_sha256": "config/schemas/stage17-external-custody-receipt-v1.schema.json",
     "authorization_schema_sha256": "config/schemas/stage17-operational-authorization-evidence-v1.schema.json",
+}
+SEMANTIC_POLICY_PATH = pathlib.PurePosixPath(
+    "config/stage17/stage17-operational-evidence-admission-policy-v2.json"
+)
+SEMANTIC_POLICY_SCHEMA_PATH = pathlib.PurePosixPath(
+    "config/schemas/stage17-operational-evidence-admission-policy-v2.schema.json"
+)
+SEMANTIC_ENVELOPE_SCHEMA_PATH = pathlib.PurePosixPath(
+    "config/schemas/stage17-operational-evidence-envelope-v2.schema.json"
+)
+S17_EXT_001_AUTHORIZATION_SCHEMA_PATH = pathlib.PurePosixPath(
+    "config/schemas/stage17-read-only-preflight-authorization-v2.schema.json"
+)
+S17_EXT_001_CONTRACT_SCHEMA_PATH = pathlib.PurePosixPath(
+    "config/schemas/stage17-read-only-preflight-supporting-contract-v2.schema.json"
+)
+PINNED_HOST_KEY_SCHEMA_PATH = pathlib.PurePosixPath(
+    "config/schemas/stage17-pinned-host-key-evidence-v1.schema.json"
+)
+ADR_0105_PATH = pathlib.PurePosixPath(
+    "docs/decisions/0105-stage17-append-only-operational-state-journal.md"
+)
+GENESIS_PATH = pathlib.PurePosixPath(
+    "config/stage17/journal/stage17-state-journal-000000.json"
+)
+FIXED_PREFLIGHT_OBSERVATION_IDS = (
+    "S17-RO-PREFLIGHT-001-TARGET-AND-TRANSPORT-IDENTITY",
+    "S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION",
+    "S17-RO-PREFLIGHT-003-BUNDLE-INTERNAL-VERIFICATION",
+    "S17-RO-PREFLIGHT-004-NONPRIVILEGED-SELF-TESTS",
+    "S17-RO-PREFLIGHT-005-RUNTIME-TOOL-IDENTITIES",
+    "S17-RO-PREFLIGHT-006-READ-ONLY-PLATFORM-INVENTORY",
+)
+READ_ONLY_PERMISSION_MATRIX = {
+    "stand_read_only": True,
+    "stand_mutation": False,
+    "privileged_controls": False,
+    "qualification": False,
+    "calibration": False,
+    "pilot_execution": False,
+    "measurement": False,
+    "stage18_authority": False,
 }
 LEGACY_TEMPLATE_PATHS = {
     "adr_0104_sha256": "docs/decisions/0104-stage17-pilot-operational-governance-successor.md",
@@ -92,9 +136,11 @@ class JournalValidation:
     resolution_count: int
     transition_count: int
     latest_journal_sha256: str
+    requested_action_input_id: str | None
+    action_ready: bool
 
 
-PilotVerifier = Callable[..., ArtifactVerification]
+SemanticVerifier = Callable[..., dict[str, Any] | None]
 
 
 def canonical_json_bytes(document: object) -> bytes:
@@ -229,6 +275,406 @@ def record_from_ref(
     if digest != reference.get("sha256"):
         raise JournalError(f"{label} reference SHA-256 mismatch")
     return path, load_json(path), digest
+
+
+def require_absolute_locator(value: object, label: str) -> str:
+    if not isinstance(value, str) or not value.startswith("/"):
+        raise JournalError(f"{label} is not an exact absolute locator")
+    parsed = pathlib.PurePosixPath(value)
+    if ".." in parsed.parts or str(parsed) != value or "*" in value:
+        raise JournalError(f"{label} is not a normalized absolute locator")
+    return value
+
+
+def require_concrete_text(value: object, label: str) -> str:
+    if not isinstance(value, str) or not value or value != value.strip():
+        raise JournalError(f"{label} is not exact nonempty text")
+    if value.casefold() in {"latest", "current", "unresolved", "tbd"} or "*" in value:
+        raise JournalError(f"{label} uses a forbidden unresolved/wildcard token")
+    return value
+
+
+def decode_exact_base64(value: object, label: str, *, allow_empty: bool) -> bytes:
+    if not isinstance(value, str):
+        raise JournalError(f"{label} is not base64 text")
+    try:
+        decoded = base64.b64decode(value, validate=True)
+    except (binascii.Error, ValueError) as exception:
+        raise JournalError(f"{label} is malformed base64") from exception
+    if not allow_empty and not decoded:
+        raise JournalError(f"{label} must bind nonempty bytes")
+    return decoded
+
+
+def load_semantic_policy(
+    root: pathlib.Path,
+    *,
+    graph_sha256: str,
+    catalog_sha256: str,
+    genesis_sha256: str,
+) -> tuple[dict[str, Any], pathlib.Path, str]:
+    policy_path = repository_file(root, SEMANTIC_POLICY_PATH.as_posix())
+    policy = load_json(policy_path)
+    validate_schema(
+        policy,
+        root / SEMANTIC_POLICY_SCHEMA_PATH,
+        "Stage 17 semantic-admission policy",
+    )
+    predecessor = policy["predecessor"]
+    expected = {
+        "graph_path": "config/stage17/stage17-operational-graph-definition-v1.json",
+        "graph_sha256": graph_sha256,
+        "catalog_path": "config/stage17/stage17-external-input-catalog-v1.json",
+        "catalog_sha256": catalog_sha256,
+        "genesis_path": GENESIS_PATH.as_posix(),
+        "genesis_file_sha256": sha256_file(repository_file(root, GENESIS_PATH.as_posix())),
+        "genesis_record_sha256": genesis_sha256,
+        "resolution_schema_path": SCHEMA_PATHS["resolution_schema_sha256"],
+        "resolution_schema_sha256": sha256_file(
+            repository_file(root, SCHEMA_PATHS["resolution_schema_sha256"])
+        ),
+        "adr_path": ADR_0105_PATH.as_posix(),
+        "adr_sha256": sha256_file(repository_file(root, ADR_0105_PATH.as_posix())),
+    }
+    if predecessor != expected:
+        raise JournalError("semantic-admission policy predecessor binding drifted")
+    expected_ids = [f"S17-EXT-{index:03d}" for index in range(1, 11)]
+    entries = policy.get("entries", [])
+    if [entry.get("input_id") for entry in entries] != expected_ids:
+        raise JournalError("semantic-admission policy registry is not exact and ordered")
+    if policy.get("default_action") != (
+        "REJECT_SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED"
+    ) or policy.get("synthetic_bypass_available") is not False:
+        raise JournalError("semantic-admission policy is not default-deny")
+    return policy, policy_path, sha256_file(policy_path)
+
+
+def semantic_policy_entry(policy: dict[str, Any], input_id: str) -> dict[str, Any]:
+    matches = [entry for entry in policy["entries"] if entry["input_id"] == input_id]
+    if len(matches) != 1:
+        raise JournalError(f"SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED:{input_id}")
+    entry = matches[0]
+    if entry.get("status") != "IMPLEMENTED":
+        raise JournalError(f"SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED:{input_id}")
+    return entry
+
+
+def verify_s17_ext_001_semantics(
+    *,
+    root: pathlib.Path,
+    resolution: dict[str, Any],
+    repository_documents: list[tuple[pathlib.Path, dict[str, Any]]],
+    receipt_documents: list[dict[str, Any]],
+    policy_path: pathlib.Path,
+    policy_sha256: str,
+    policy_entry: dict[str, Any],
+    graph_sha256: str,
+    catalog_sha256: str,
+    genesis_sha256: str,
+    catalog: dict[str, Any],
+    **_: Any,
+) -> dict[str, Any]:
+    if receipt_documents:
+        raise JournalError("S17-EXT-001 cannot use generic external receipts")
+    envelopes = [
+        (path, document)
+        for path, document in repository_documents
+        if document.get("schema_version")
+        == "cpu-prefetch-stage17-operational-evidence-envelope/2"
+    ]
+    if len(envelopes) != 1 or len(repository_documents) != 1:
+        raise JournalError("S17-EXT-001 requires exactly one v2 semantic envelope")
+    _, envelope = envelopes[0]
+    validate_schema(
+        envelope,
+        root / SEMANTIC_ENVELOPE_SCHEMA_PATH,
+        "S17-EXT-001 semantic envelope",
+    )
+    if envelope.get("input_id") != "S17-EXT-001":
+        raise JournalError("S17-EXT-001 semantic-envelope input mismatch")
+    if envelope.get("semantic_verifier") != {
+        "verifier_id": policy_entry["verifier_id"],
+        "verifier_version": policy_entry["verifier_version"],
+    }:
+        raise JournalError("S17-EXT-001 semantic-verifier binding mismatch")
+    policy_binding = envelope["semantic_policy"]
+    if (
+        policy_binding.get("path") != policy_path.relative_to(root).as_posix()
+        or policy_binding.get("size_bytes") != policy_path.stat().st_size
+        or policy_binding.get("sha256") != policy_sha256
+    ):
+        raise JournalError("S17-EXT-001 semantic-policy binding mismatch")
+    predecessor = envelope["predecessor"]
+    if predecessor != {
+        "graph_sha256": graph_sha256,
+        "catalog_sha256": catalog_sha256,
+        "genesis_sha256": genesis_sha256,
+        "resolution_schema_identity": "cpu-prefetch-stage17-external-input-resolution/1",
+        "resolution_schema_sha256": sha256_file(
+            repository_file(root, SCHEMA_PATHS["resolution_schema_sha256"])
+        ),
+    }:
+        raise JournalError("S17-EXT-001 v1 predecessor binding mismatch")
+
+    authorization_binding = envelope["authorization"]
+    authorization_path = verify_file_binding(
+        root,
+        path_text=authorization_binding.get("path"),
+        expected_size=authorization_binding.get("size_bytes"),
+        expected_sha256=authorization_binding.get("sha256"),
+        label="S17-EXT-001 authorization",
+    )
+    if authorization_binding.get("schema_identity") != (
+        "cpu-prefetch-stage17-read-only-preflight-authorization/2"
+    ):
+        raise JournalError("S17-EXT-001 authorization schema identity mismatch")
+    authorization = load_json(authorization_path)
+    validate_schema(
+        authorization,
+        root / S17_EXT_001_AUTHORIZATION_SCHEMA_PATH,
+        "S17-EXT-001 authorization",
+    )
+
+    contract_binding = envelope["supporting_contract"]
+    contract_path = verify_file_binding(
+        root,
+        path_text=contract_binding.get("path"),
+        expected_size=contract_binding.get("size_bytes"),
+        expected_sha256=contract_binding.get("sha256"),
+        label="S17-EXT-001 supporting contract",
+    )
+    contract_schema_identity = (
+        "cpu-prefetch-stage17-read-only-preflight-supporting-contract/2"
+    )
+    if contract_binding.get("schema_identity") != contract_schema_identity:
+        raise JournalError("S17-EXT-001 supporting-contract schema identity mismatch")
+    contract = load_json(contract_path)
+    validate_schema(
+        contract,
+        root / S17_EXT_001_CONTRACT_SCHEMA_PATH,
+        "S17-EXT-001 supporting contract",
+    )
+    if authorization.get("supporting_observation_contract") != contract_binding:
+        raise JournalError("authorization is not byte/hash-bound to supporting contract")
+
+    observation_ids = tuple(
+        observation.get("observation_id") for observation in contract["observations"]
+    )
+    if observation_ids != FIXED_PREFLIGHT_OBSERVATION_IDS or tuple(
+        authorization.get("frozen_observation_ids", ())
+    ) != FIXED_PREFLIGHT_OBSERVATION_IDS:
+        raise JournalError("S17-EXT-001 observation family/order mismatch")
+    if len(set(observation_ids)) != len(observation_ids):
+        raise JournalError("S17-EXT-001 observation IDs are duplicated")
+
+    target = contract["target"]
+    require_concrete_text(target.get("stand_id"), "S17-EXT-001 stand ID")
+    require_concrete_text(target.get("ssh_target"), "S17-EXT-001 SSH target")
+    pinned = target["pinned_host_key_evidence"]
+    pinned_path = verify_file_binding(
+        root,
+        path_text=pinned.get("path"),
+        expected_size=pinned.get("size_bytes"),
+        expected_sha256=pinned.get("sha256"),
+        label="S17-EXT-001 pinned host-key evidence",
+    )
+    if pinned.get("schema_identity") != (
+        "cpu-prefetch-stage17-pinned-host-key-evidence/1"
+    ):
+        raise JournalError("S17-EXT-001 pinned host-key schema identity mismatch")
+    pinned_document = load_json(pinned_path)
+    validate_schema(
+        pinned_document,
+        root / PINNED_HOST_KEY_SCHEMA_PATH,
+        "S17-EXT-001 pinned host-key evidence",
+    )
+    if (
+        pinned_document.get("stand_id") != target["stand_id"]
+        or pinned_document.get("ssh_target") != target["ssh_target"]
+    ):
+        raise JournalError("S17-EXT-001 pinned host key target mismatch")
+    public_key_bytes = decode_exact_base64(
+        pinned_document.get("public_key_base64"),
+        "pinned host public key",
+        allow_empty=False,
+    )
+    expected_fingerprint = "SHA256:" + base64.b64encode(
+        hashlib.sha256(public_key_bytes).digest()
+    ).decode("ascii").rstrip("=")
+    if pinned_document.get("fingerprint_sha256") != expected_fingerprint:
+        raise JournalError("S17-EXT-001 pinned host-key fingerprint mismatch")
+    if authorization.get("target") != {
+        "stand_id": target["stand_id"],
+        "ssh_target": target["ssh_target"],
+        "pinned_host_key_evidence_sha256": pinned["sha256"],
+    }:
+        raise JournalError("S17-EXT-001 authorization target mismatch")
+    expected_target_scope = (
+        f"STAND_ID={target['stand_id']};SSH_TARGET={target['ssh_target']};"
+        "SCOPE=READ_ONLY_PREFLIGHT"
+    )
+    if authorization.get("target_scope") != expected_target_scope:
+        raise JournalError("S17-EXT-001 target scope is not exact")
+
+    fixed_contract = contract["pilot_candidate"]["contract"]
+    catalog_fixed_contract = catalog["fixed_evidence_contracts"][0]
+    expected_pilot_contract_binding = {
+        "path": catalog_fixed_contract["path"],
+        "size_bytes": catalog_fixed_contract["size_bytes"],
+        "sha256": catalog_fixed_contract["sha256"],
+        "schema_identity": "cpu-prefetch-stage17-pilot-candidate-external-contract/1",
+    }
+    if fixed_contract != expected_pilot_contract_binding:
+        raise JournalError("S17-EXT-001 pilot-candidate contract binding mismatch")
+    pilot_contract_path = verify_file_binding(
+        root,
+        path_text=fixed_contract.get("path"),
+        expected_size=fixed_contract.get("size_bytes"),
+        expected_sha256=fixed_contract.get("sha256"),
+        label="S17-EXT-001 pilot-candidate contract",
+    )
+    pilot_contract = load_json(pilot_contract_path)
+    validate_schema(
+        pilot_contract,
+        root / "config/schemas/stage17-pilot-candidate-external-contract-v1.schema.json",
+        "S17-EXT-001 pilot-candidate contract",
+    )
+    if (
+        fixed_contract.get("schema_identity")
+        != "cpu-prefetch-stage17-pilot-candidate-external-contract/1"
+        or pilot_contract.get("schema_version")
+        != "cpu-prefetch-stage17-pilot-candidate-external-contract/1"
+    ):
+        raise JournalError("S17-EXT-001 pilot-candidate contract identity mismatch")
+    archive_locator = require_absolute_locator(
+        contract["pilot_candidate"]["archive_locator"], "pilot archive"
+    )
+    sidecar_locator = require_absolute_locator(
+        contract["pilot_candidate"]["sidecar_locator"], "pilot sidecar"
+    )
+    if archive_locator == sidecar_locator:
+        raise JournalError("pilot archive and sidecar locators are not distinct")
+
+    identities = contract["prospective_local_action_identities"]
+    expected_identities = (
+        ("LOCAL_PREFLIGHT_LAUNCHER", "LAUNCHER"),
+        ("LOCAL_PREFLIGHT_COLLECTOR", "COLLECTOR"),
+    )
+    if tuple((item.get("identity_id"), item.get("role")) for item in identities) != (
+        expected_identities
+    ):
+        raise JournalError("prospective launcher/collector identity family drifted")
+    identity_ids: set[str] = set()
+    identity_by_id: dict[str, dict[str, Any]] = {}
+    for identity in identities:
+        require_absolute_locator(identity.get("execution_path"), "local execution path")
+        verify_file_binding(
+            root,
+            path_text=identity.get("source_path"),
+            expected_size=identity.get("size_bytes"),
+            expected_sha256=identity.get("sha256"),
+            label=f"{identity['identity_id']} prospective bytes",
+        )
+        identity_ids.add(str(identity["identity_id"]))
+        identity_by_id[str(identity["identity_id"])] = identity
+    runtime_policy = contract["remote_runtime_identity_policy"]
+    if runtime_policy != {
+        "source_input_id": "S17-EXT-002",
+        "identity_classes": [
+            "REMOTE_EXECUTABLE",
+            "REMOTE_MODULE",
+            "REMOTE_DEPENDENCY",
+        ],
+        "prospective_values_present": False,
+    }:
+        raise JournalError("remote runtime identities were fabricated prospectively")
+
+    output_locators: set[str] = set()
+    referenced_identity_ids: set[str] = set()
+    output_sum = 0
+    for index, observation in enumerate(contract["observations"]):
+        if observation["local_action_identity_id"] not in identity_ids:
+            raise JournalError("observation references unknown local action identity")
+        referenced_identity_ids.add(str(observation["local_action_identity_id"]))
+        argv = observation["argv_bytes_base64"]
+        decoded_argv: list[bytes] = []
+        for argument_index, argument in enumerate(argv):
+            decoded_argv.append(
+                decode_exact_base64(
+                    argument,
+                    f"observation {index} argv[{argument_index}]",
+                    allow_empty=False,
+                )
+            )
+        expected_executable = identity_by_id[
+            str(observation["local_action_identity_id"])
+        ]["execution_path"].encode("utf-8")
+        if decoded_argv[0] != expected_executable:
+            raise JournalError("observation argv[0] does not bind its local executable")
+        decode_exact_base64(
+            observation["stdin_bytes_base64"],
+            f"observation {index} stdin",
+            allow_empty=True,
+        )
+        decode_exact_base64(
+            observation["remote_command_bytes_base64"],
+            f"observation {index} remote command",
+            allow_empty=False,
+        )
+        output_locator = require_absolute_locator(
+            observation["output_locator"], f"observation {index} output"
+        )
+        if output_locator in output_locators:
+            raise JournalError("observation output locators are not create-exclusive unique")
+        output_locators.add(output_locator)
+        output_sum += int(observation["max_output_bytes"])
+
+    if referenced_identity_ids != identity_ids:
+        raise JournalError("launcher and collector are not both used by observations")
+
+    limits = contract["limits"]
+    if authorization.get("limits") != limits:
+        raise JournalError("S17-EXT-001 authorization/contract limits mismatch")
+    if output_sum > limits["max_total_output_bytes"]:
+        raise JournalError("per-observation output limits exceed total output limit")
+    if contract.get("stop_policy") != "STOP_ON_FIRST_MISMATCH_OR_NONZERO_EXIT":
+        raise JournalError("S17-EXT-001 stop-first policy drifted")
+    if contract.get("retention_policy") != (
+        "CREATE_EXCLUSIVE_APPEND_ONLY_RETAIN_SUCCESS_AND_FAILURE_NO_DELETE"
+    ):
+        raise JournalError("S17-EXT-001 retain-partial policy drifted")
+    if contract.get("authority_boundary") != READ_ONLY_PERMISSION_MATRIX:
+        raise JournalError("S17-EXT-001 contract permission matrix widened")
+    if authorization.get("permissions") != READ_ONLY_PERMISSION_MATRIX:
+        raise JournalError("S17-EXT-001 authorization permission matrix widened")
+    if (
+        authorization.get("role_collapse_acknowledged") is not True
+        or authorization.get("independent_review_claimed") is not False
+    ):
+        raise JournalError("S17-EXT-001 role-collapse disclosure mismatch")
+    for field in ("authorization_id", "actor"):
+        require_concrete_text(authorization.get(field), f"S17-EXT-001 {field}")
+    summary = resolution.get("authorization")
+    if not isinstance(summary, dict):
+        raise JournalError("S17-EXT-001 resolution lacks authorization summary")
+    for field in (
+        "authorization_id",
+        "issued_at_utc",
+        "expires_at_utc",
+        "authority_scope",
+    ):
+        if summary.get(field) != authorization.get(field):
+            raise JournalError(f"S17-EXT-001 authorization {field} mismatch")
+    if summary.get("evidence_path") != authorization_path.relative_to(root).as_posix():
+        raise JournalError("S17-EXT-001 authorization path mismatch")
+    if authorization.get("actor") != resolution.get("actor"):
+        raise JournalError("S17-EXT-001 authorization actor mismatch")
+    issued = parse_utc(authorization.get("issued_at_utc"), "authorization issue")
+    expires = parse_utc(authorization.get("expires_at_utc"), "authorization expiry")
+    recorded = parse_utc(resolution.get("recorded_at_utc"), "resolution time")
+    if not issued <= recorded < expires:
+        raise JournalError("S17-EXT-001 authorization is not valid at resolution time")
+    return authorization
 
 
 def validate_graph_catalog(
@@ -399,15 +845,9 @@ def validate_authorization_permissions(document: dict[str, Any], input_id: str) 
     if permissions.get("stage18_authority") is not False:
         raise JournalError("authorization grants Stage 18 authority")
     if input_id == "S17-EXT-001":
-        expected = {
-            "stand_read_only": True,
-            "stand_mutation": False,
-            "privileged_controls": False,
-            "calibration": False,
-            "pilot_execution": False,
-            "stage18_authority": False,
-        }
-        if permissions != expected or document.get("authority_scope") != "READ_ONLY_PREFLIGHT":
+        if permissions != READ_ONLY_PERMISSION_MATRIX or document.get(
+            "authority_scope"
+        ) != "READ_ONLY_PREFLIGHT":
             raise JournalError("S17-EXT-001 authorization exceeds read-only preflight")
     elif input_id == "S17-EXT-005":
         if (
@@ -426,6 +866,76 @@ def validate_authorization_permissions(document: dict[str, Any], input_id: str) 
             raise JournalError("S17-EXT-010 authorization scope mismatch")
 
 
+def verify_s17_ext_006_semantics(
+    *,
+    root: pathlib.Path,
+    receipt_documents: list[dict[str, Any]],
+    catalog: dict[str, Any],
+    pilot_archive: pathlib.Path | None,
+    pilot_sidecar: pathlib.Path | None,
+    **_: Any,
+) -> None:
+    if pilot_archive is None or pilot_sidecar is None:
+        raise JournalError(
+            "S17-EXT-006 requires caller-supplied archive and sidecar bytes"
+        )
+    if len(receipt_documents) != 1:
+        raise JournalError("S17-EXT-006 requires exactly one custody receipt")
+    receipt = receipt_documents[0]
+    fixed_contract = catalog["fixed_evidence_contracts"][0]
+    if (
+        receipt.get("contract_path") != fixed_contract["path"]
+        or receipt.get("contract_sha256") != fixed_contract["sha256"]
+        or receipt.get("verifier_id") != fixed_contract["verifier_id"]
+        or receipt.get("verifier_version") != fixed_contract["verifier_version"]
+    ):
+        raise JournalError("S17-EXT-006 receipt is not bound to the fixed contract")
+    if pathlib.Path(receipt["artifact_locator"]) != pilot_archive.absolute():
+        raise JournalError("S17-EXT-006 archive locator differs from caller input")
+    sidecars = receipt.get("sidecars", [])
+    if (
+        len(sidecars) != 1
+        or pathlib.Path(sidecars[0]["locator"]) != pilot_sidecar.absolute()
+    ):
+        raise JournalError("S17-EXT-006 sidecar locator differs from caller input")
+    contract_path = repository_file(root, receipt["contract_path"])
+    try:
+        result = verify_pilot_candidate_artifact(
+            repository_root=root,
+            contract_path=contract_path,
+            archive=pilot_archive,
+            sidecar=pilot_sidecar,
+        )
+    except ArtifactError as exception:
+        raise JournalError(f"S17-EXT-006 real-byte verification failed: {exception}") from exception
+    if (
+        receipt.get("artifact_size_bytes") != result.artifact_size_bytes
+        or receipt.get("artifact_sha256") != result.artifact_sha256
+        or receipt.get("verifier_id") != VERIFIER_ID
+        or receipt.get("verifier_version") != VERIFIER_VERSION
+    ):
+        raise JournalError("S17-EXT-006 custody receipt does not match real bytes")
+    if (
+        sidecars[0].get("size_bytes") != result.sidecar_size_bytes
+        or sidecars[0].get("sha256") != result.sidecar_sha256
+    ):
+        raise JournalError("S17-EXT-006 sidecar receipt does not match real bytes")
+
+
+SEMANTIC_VERIFIERS: dict[tuple[str, str, str], SemanticVerifier] = {
+    (
+        "S17-EXT-001",
+        "STAGE17-S17-EXT-001-SEMANTIC-VERIFIER",
+        "2",
+    ): verify_s17_ext_001_semantics,
+    (
+        "S17-EXT-006",
+        "STAGE17-PILOT-CANDIDATE-EXTERNAL-VERIFIER",
+        "1",
+    ): verify_s17_ext_006_semantics,
+}
+
+
 def validate_resolutions(
     *,
     root: pathlib.Path,
@@ -436,7 +946,7 @@ def validate_resolutions(
     catalog: dict[str, Any],
     pilot_archive: pathlib.Path | None,
     pilot_sidecar: pathlib.Path | None,
-    pilot_verifier: PilotVerifier,
+    genesis_sha256: str,
 ) -> dict[str, ExternalInputResolution]:
     catalog_items = {item["input_id"]: item for item in catalog["items"]}
     by_input: dict[str, ExternalInputResolution] = {}
@@ -444,7 +954,12 @@ def validate_resolutions(
     seen_hashes: set[str] = set()
     resolution_schema = root / SCHEMA_PATHS["resolution_schema_sha256"]
     receipt_schema = root / SCHEMA_PATHS["custody_receipt_schema_sha256"]
-    authorization_schema = root / SCHEMA_PATHS["authorization_schema_sha256"]
+    policy, policy_path, policy_sha256 = load_semantic_policy(
+        root,
+        graph_sha256=graph_sha256,
+        catalog_sha256=catalog_sha256,
+        genesis_sha256=genesis_sha256,
+    )
     for expected_sequence, reference in enumerate(references, start=1):
         path, document, digest = record_from_ref(
             root, reference, "external-input resolution"
@@ -468,7 +983,7 @@ def validate_resolutions(
             raise JournalError("resolution schema/version hashes drifted")
         recorded_at = parse_utc(document.get("recorded_at_utc"), "resolution time")
         evidence_kinds: set[str] = set()
-        repository_evidence_paths: set[str] = set()
+        repository_documents: list[tuple[pathlib.Path, dict[str, Any]]] = []
         receipt_documents: list[dict[str, Any]] = []
         for evidence in document.get("evidence", []):
             kind = str(evidence.get("kind"))
@@ -481,9 +996,7 @@ def validate_resolutions(
                     expected_sha256=evidence.get("sha256"),
                     label="repository evidence",
                 )
-                repository_evidence_paths.add(
-                    evidence_path.relative_to(root).as_posix()
-                )
+                repository_documents.append((evidence_path, load_json(evidence_path)))
             elif kind == "EXTERNAL_CUSTODY_RECEIPT":
                 receipt_path = verify_file_binding(
                     root,
@@ -520,93 +1033,53 @@ def validate_resolutions(
                 if parse_utc(receipt.get("verified_at_utc"), "receipt time") > recorded_at:
                     raise JournalError("receipt postdates its resolution")
                 receipt_documents.append(receipt)
-        policy = catalog_items[input_id]["evidence_policy"]
-        if policy == "REPOSITORY_FILE" and evidence_kinds != {"REPOSITORY_FILE"}:
+        evidence_policy = catalog_items[input_id]["evidence_policy"]
+        if evidence_policy == "REPOSITORY_FILE" and evidence_kinds != {"REPOSITORY_FILE"}:
             raise JournalError(f"{input_id} evidence policy mismatch")
-        if policy == "EXTERNAL_CUSTODY_RECEIPT" and "EXTERNAL_CUSTODY_RECEIPT" not in evidence_kinds:
+        if evidence_policy == "EXTERNAL_CUSTODY_RECEIPT" and "EXTERNAL_CUSTODY_RECEIPT" not in evidence_kinds:
             raise JournalError(f"{input_id} requires an external custody receipt")
-        if policy == "MIXED" and evidence_kinds != {
+        if evidence_policy == "MIXED" and evidence_kinds != {
             "REPOSITORY_FILE",
             "EXTERNAL_CUSTODY_RECEIPT",
         }:
             raise JournalError(f"{input_id} requires mixed repository/external evidence")
-        authorization = document.get("authorization")
+        authorization_summary = document.get("authorization")
         if catalog_items[input_id]["authorization_required"]:
-            if not isinstance(authorization, dict):
+            if not isinstance(authorization_summary, dict):
                 raise JournalError(f"{input_id} requires authorization evidence")
-            evidence_path_text = str(authorization.get("evidence_path"))
-            if evidence_path_text not in repository_evidence_paths:
-                raise JournalError("authorization path is not verified repository evidence")
-            authorization_path = repository_file(root, evidence_path_text)
-            authorization_document = load_json(authorization_path)
-            validate_schema(
-                authorization_document,
-                authorization_schema,
-                "operational authorization",
-            )
-            for field in (
-                "authorization_id",
-                "issued_at_utc",
-                "expires_at_utc",
-                "authority_scope",
-            ):
-                if authorization.get(field) != authorization_document.get(field):
-                    raise JournalError(f"authorization {field} mismatch")
-            if authorization_document.get("input_id") != input_id:
-                raise JournalError("authorization input ID mismatch")
-            if authorization_document.get("actor") != document.get("actor"):
-                raise JournalError("authorization actor mismatch")
-            issued = parse_utc(authorization.get("issued_at_utc"), "authorization issue")
-            expires = parse_utc(authorization.get("expires_at_utc"), "authorization expiry")
-            if not issued <= recorded_at < expires:
-                raise JournalError("authorization is unknown, not yet valid, or expired")
-            validate_authorization_permissions(authorization_document, input_id)
-        elif authorization is not None:
+        elif authorization_summary is not None:
             raise JournalError(f"{input_id} unexpectedly carries authorization")
-        if input_id == "S17-EXT-006":
-            if pilot_archive is None or pilot_sidecar is None:
-                raise JournalError(
-                    "S17-EXT-006 requires caller-supplied archive and sidecar bytes"
-                )
-            if len(receipt_documents) != 1:
-                raise JournalError("S17-EXT-006 requires exactly one custody receipt")
-            receipt = receipt_documents[0]
-            fixed_contract = catalog["fixed_evidence_contracts"][0]
-            if (
-                receipt.get("contract_path") != fixed_contract["path"]
-                or receipt.get("contract_sha256") != fixed_contract["sha256"]
-                or receipt.get("verifier_id") != fixed_contract["verifier_id"]
-                or receipt.get("verifier_version")
-                != fixed_contract["verifier_version"]
-            ):
-                raise JournalError("S17-EXT-006 receipt is not bound to the fixed contract")
-            if pathlib.Path(receipt["artifact_locator"]) != pilot_archive.absolute():
-                raise JournalError("S17-EXT-006 archive locator differs from caller input")
-            sidecars = receipt.get("sidecars", [])
-            if (
-                len(sidecars) != 1
-                or pathlib.Path(sidecars[0]["locator"]) != pilot_sidecar.absolute()
-            ):
-                raise JournalError("S17-EXT-006 sidecar locator differs from caller input")
-            contract_path = repository_file(root, receipt["contract_path"])
-            result = pilot_verifier(
-                repository_root=root,
-                contract_path=contract_path,
-                archive=pilot_archive,
-                sidecar=pilot_sidecar,
+        entry = semantic_policy_entry(policy, input_id)
+        verifier_key = (
+            input_id,
+            str(entry.get("verifier_id")),
+            str(entry.get("verifier_version")),
+        )
+        verifier = SEMANTIC_VERIFIERS.get(verifier_key)
+        if verifier is None:
+            raise JournalError(
+                f"SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED:{input_id}:"
+                f"{entry.get('verifier_id')}:{entry.get('verifier_version')}"
             )
-            if (
-                receipt.get("artifact_size_bytes") != result.artifact_size_bytes
-                or receipt.get("artifact_sha256") != result.artifact_sha256
-                or receipt.get("verifier_id") != VERIFIER_ID
-                or receipt.get("verifier_version") != VERIFIER_VERSION
-            ):
-                raise JournalError("S17-EXT-006 custody receipt does not match real bytes")
-            if len(sidecars) != 1 or (
-                sidecars[0].get("size_bytes") != result.sidecar_size_bytes
-                or sidecars[0].get("sha256") != result.sidecar_sha256
-            ):
-                raise JournalError("S17-EXT-006 sidecar receipt does not match real bytes")
+        authorization_document = verifier(
+            root=root,
+            resolution=document,
+            repository_documents=repository_documents,
+            receipt_documents=receipt_documents,
+            policy_path=policy_path,
+            policy_sha256=policy_sha256,
+            policy_entry=entry,
+            graph_sha256=graph_sha256,
+            catalog_sha256=catalog_sha256,
+            genesis_sha256=genesis_sha256,
+            catalog=catalog,
+            pilot_archive=pilot_archive,
+            pilot_sidecar=pilot_sidecar,
+        )
+        if catalog_items[input_id]["authorization_required"]:
+            if not isinstance(authorization_document, dict):
+                raise JournalError(f"{input_id} semantic verifier returned no authorization")
+            validate_authorization_permissions(authorization_document, input_id)
         by_input[input_id] = ExternalInputResolution(
             resolution_id=resolution_id,
             sequence_number=expected_sequence,
@@ -735,7 +1208,7 @@ def validate_journal(
     pilot_archive: pathlib.Path | None = None,
     pilot_sidecar: pathlib.Path | None = None,
     as_of_utc: str | None = None,
-    pilot_verifier: PilotVerifier = verify_pilot_candidate_artifact,
+    requested_action_input_id: str | None = None,
 ) -> JournalValidation:
     root = repository_root.resolve()
     journal_schema = root / SCHEMA_PATHS["journal_schema_sha256"]
@@ -773,7 +1246,7 @@ def validate_journal(
         catalog=catalog,
         pilot_archive=pilot_archive,
         pilot_sidecar=pilot_sidecar,
-        pilot_verifier=pilot_verifier,
+        genesis_sha256=genesis_sha256,
     )
     current_state, transitions = validate_transitions(
         root=root,
@@ -788,6 +1261,33 @@ def validate_journal(
     expected_ids = tuple(item["input_id"] for item in catalog["items"])
     resolved_ids = tuple(item for item in expected_ids if item in resolutions)
     missing_ids = tuple(item for item in expected_ids if item not in resolutions)
+    action_ready = False
+    if requested_action_input_id is not None:
+        if requested_action_input_id not in {"S17-EXT-001", "S17-EXT-005", "S17-EXT-010"}:
+            raise JournalError("requested action has no registered authorization boundary")
+        if as_of_utc is None:
+            raise JournalError("requested action requires an explicit UTC evaluation time")
+        action_resolution = resolutions.get(requested_action_input_id)
+        if action_resolution is None:
+            raise JournalError(
+                f"requested action authorization is unresolved: {requested_action_input_id}"
+            )
+        action_authorization = action_resolution.document.get("authorization")
+        if not isinstance(action_authorization, dict):
+            raise JournalError("requested action has no authorization summary")
+        evaluation_time = parse_utc(as_of_utc, "action-readiness evaluation time")
+        issued = parse_utc(
+            action_authorization.get("issued_at_utc"), "action authorization issue"
+        )
+        expires = parse_utc(
+            action_authorization.get("expires_at_utc"), "action authorization expiry"
+        )
+        if not issued <= evaluation_time < expires:
+            raise JournalError(
+                f"requested action authorization is expired or not yet valid: "
+                f"{requested_action_input_id}"
+            )
+        action_ready = True
     pilot_ready = current_state == STATE_ORDER[-1] and not missing_ids
     if pilot_ready:
         if as_of_utc is None:
@@ -815,4 +1315,6 @@ def validate_journal(
         resolution_count=len(resolutions),
         transition_count=len(transitions),
         latest_journal_sha256=lineage[-1][2],
+        requested_action_input_id=requested_action_input_id,
+        action_ready=action_ready,
     )

@@ -34,7 +34,10 @@ through D-108 and their evidence unchanged, keeps D-105 through D-108
 proposed/unaccepted, and replaces their open-ended continuation as a pilot gate
 with one immutable requirement catalog and append-only state journal. The
 current computed state is `PREPARED`; all `S17-EXT-001..010` inputs are
-unresolved. There are no additional decision-only D-109/D-110 questions. The
+unresolved. ADR-0106 requires per-input semantic proof: S17-EXT-001 and
+S17-EXT-006 verifiers are implemented; S17-EXT-002..005 and S17-EXT-007..010
+are explicitly `SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED`. There are no
+additional decision-only D-109/D-110 questions. The
 old clean commit/archive metadata does not resolve `S17-EXT-006` without
 caller-supplied exact archive/sidecar bytes and a verifiable custody receipt.
 The immediate owner input is the exact real data listed in the

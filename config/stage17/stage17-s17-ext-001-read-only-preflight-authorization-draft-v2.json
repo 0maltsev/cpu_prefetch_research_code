@@ -1,0 +1,164 @@
+{
+  "schema_version": "cpu-prefetch-stage17-s17-ext-001-authorization-draft/2",
+  "draft_id": "STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v2",
+  "status": "DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED",
+  "protocol_version": "2.0.0-pre.2",
+  "compatibility": {
+    "predecessor_draft_path": "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v1.json",
+    "predecessor_draft_sha256": "012646a0a7eba1d0f1d25cd7f08f1855241d5efe720bb4f6ce38710fde7cd462",
+    "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+    "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+    "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+    "semantic_policy_path": "config/stage17/stage17-operational-evidence-admission-policy-v2.json",
+    "semantic_policy_size_bytes": 3144,
+    "semantic_policy_sha256": "acbec72c7d9e4bc6475e4b10f2723e60b68046dc5c5fda4c5412e6aff690ac36"
+  },
+  "authorization_payload": {
+    "schema_version": "cpu-prefetch-stage17-read-only-preflight-authorization/2",
+    "authorization_id": null,
+    "input_id": "S17-EXT-001",
+    "actor": null,
+    "issued_at_utc": null,
+    "expires_at_utc": null,
+    "authority_scope": "READ_ONLY_PREFLIGHT",
+    "target_scope": null,
+    "target": {
+      "stand_id": null,
+      "ssh_target": null,
+      "pinned_host_key_evidence_sha256": null
+    },
+    "frozen_observation_ids": [
+      "S17-RO-PREFLIGHT-001-TARGET-AND-TRANSPORT-IDENTITY",
+      "S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION",
+      "S17-RO-PREFLIGHT-003-BUNDLE-INTERNAL-VERIFICATION",
+      "S17-RO-PREFLIGHT-004-NONPRIVILEGED-SELF-TESTS",
+      "S17-RO-PREFLIGHT-005-RUNTIME-TOOL-IDENTITIES",
+      "S17-RO-PREFLIGHT-006-READ-ONLY-PLATFORM-INVENTORY"
+    ],
+    "supporting_observation_contract": {
+      "path": null,
+      "size_bytes": null,
+      "sha256": null,
+      "schema_identity": "cpu-prefetch-stage17-read-only-preflight-supporting-contract/2"
+    },
+    "limits": {
+      "max_commands": 6,
+      "max_wall_seconds": null,
+      "max_total_output_bytes": null,
+      "attempts_per_observation": 1,
+      "retries": 0
+    },
+    "role_collapse_acknowledged": true,
+    "independent_review_claimed": false,
+    "permissions": {
+      "stand_read_only": true,
+      "stand_mutation": false,
+      "privileged_controls": false,
+      "qualification": false,
+      "calibration": false,
+      "pilot_execution": false,
+      "measurement": false,
+      "stage18_authority": false
+    }
+  },
+  "supporting_observation_contract": {
+    "schema_version": "cpu-prefetch-stage17-read-only-preflight-supporting-contract/2",
+    "contract_id": null,
+    "protocol_version": "2.0.0-pre.2",
+    "target": {
+      "stand_id": null,
+      "ssh_target": null,
+      "pinned_host_key_evidence": {
+        "path": null,
+        "size_bytes": null,
+        "sha256": null,
+        "schema_identity": "cpu-prefetch-stage17-pinned-host-key-evidence/1"
+      }
+    },
+    "pilot_candidate": {
+      "contract": {
+        "path": "config/stage17/stage17-pilot-candidate-external-contract-v1.json",
+        "size_bytes": 1899,
+        "sha256": "256675098d20881861f5593fc58e1b78a40326366bd1f279be79ef30ead66ded",
+        "schema_identity": "cpu-prefetch-stage17-pilot-candidate-external-contract/1"
+      },
+      "archive_locator": null,
+      "sidecar_locator": null
+    },
+    "prospective_local_action_identities": [
+      {
+        "identity_id": "LOCAL_PREFLIGHT_LAUNCHER",
+        "role": "LAUNCHER",
+        "execution_path": null,
+        "source_path": null,
+        "size_bytes": null,
+        "sha256": null
+      },
+      {
+        "identity_id": "LOCAL_PREFLIGHT_COLLECTOR",
+        "role": "COLLECTOR",
+        "execution_path": null,
+        "source_path": null,
+        "size_bytes": null,
+        "sha256": null
+      }
+    ],
+    "remote_runtime_identity_policy": {
+      "source_input_id": "S17-EXT-002",
+      "identity_classes": ["REMOTE_EXECUTABLE", "REMOTE_MODULE", "REMOTE_DEPENDENCY"],
+      "prospective_values_present": false
+    },
+    "observations": [
+      {"observation_id": "S17-RO-PREFLIGHT-001-TARGET-AND-TRANSPORT-IDENTITY", "local_action_identity_id": null, "argv_bytes_base64": null, "stdin_bytes_base64": null, "remote_command_bytes_base64": null, "output_locator": null, "output_creation": "CREATE_EXCLUSIVE", "max_output_bytes": null},
+      {"observation_id": "S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION", "local_action_identity_id": null, "argv_bytes_base64": null, "stdin_bytes_base64": null, "remote_command_bytes_base64": null, "output_locator": null, "output_creation": "CREATE_EXCLUSIVE", "max_output_bytes": null},
+      {"observation_id": "S17-RO-PREFLIGHT-003-BUNDLE-INTERNAL-VERIFICATION", "local_action_identity_id": null, "argv_bytes_base64": null, "stdin_bytes_base64": null, "remote_command_bytes_base64": null, "output_locator": null, "output_creation": "CREATE_EXCLUSIVE", "max_output_bytes": null},
+      {"observation_id": "S17-RO-PREFLIGHT-004-NONPRIVILEGED-SELF-TESTS", "local_action_identity_id": null, "argv_bytes_base64": null, "stdin_bytes_base64": null, "remote_command_bytes_base64": null, "output_locator": null, "output_creation": "CREATE_EXCLUSIVE", "max_output_bytes": null},
+      {"observation_id": "S17-RO-PREFLIGHT-005-RUNTIME-TOOL-IDENTITIES", "local_action_identity_id": null, "argv_bytes_base64": null, "stdin_bytes_base64": null, "remote_command_bytes_base64": null, "output_locator": null, "output_creation": "CREATE_EXCLUSIVE", "max_output_bytes": null},
+      {"observation_id": "S17-RO-PREFLIGHT-006-READ-ONLY-PLATFORM-INVENTORY", "local_action_identity_id": null, "argv_bytes_base64": null, "stdin_bytes_base64": null, "remote_command_bytes_base64": null, "output_locator": null, "output_creation": "CREATE_EXCLUSIVE", "max_output_bytes": null}
+    ],
+    "limits": {
+      "max_commands": 6,
+      "max_wall_seconds": null,
+      "max_total_output_bytes": null,
+      "attempts_per_observation": 1,
+      "retries": 0
+    },
+    "stop_policy": "STOP_ON_FIRST_MISMATCH_OR_NONZERO_EXIT",
+    "retention_policy": "CREATE_EXCLUSIVE_APPEND_ONLY_RETAIN_SUCCESS_AND_FAILURE_NO_DELETE",
+    "authority_boundary": {
+      "stand_read_only": true,
+      "stand_mutation": false,
+      "privileged_controls": false,
+      "qualification": false,
+      "calibration": false,
+      "pilot_execution": false,
+      "measurement": false,
+      "stage18_authority": false
+    }
+  },
+  "owner_must_fill": [
+    "authorization_payload.authorization_id",
+    "authorization_payload.actor",
+    "authorization_payload.issued_at_utc",
+    "authorization_payload.expires_at_utc",
+    "authorization_payload.target_scope",
+    "authorization_payload.target.*",
+    "authorization_payload.supporting_observation_contract.path/size_bytes/sha256",
+    "authorization_payload.limits.max_wall_seconds/max_total_output_bytes",
+    "supporting_observation_contract.contract_id",
+    "supporting_observation_contract.target.*",
+    "supporting_observation_contract.pilot_candidate.archive_locator/sidecar_locator",
+    "supporting_observation_contract.prospective_local_action_identities[*].execution_path/source_path/size_bytes/sha256",
+    "supporting_observation_contract.observations[*].local_action_identity_id/argv_bytes_base64/stdin_bytes_base64/remote_command_bytes_base64/output_locator/max_output_bytes",
+    "supporting_observation_contract.limits.max_wall_seconds/max_total_output_bytes"
+  ],
+  "issuance_rule": "OWNER FILLS EVERY LISTED VALUE; WRITES AND HASHES THE SUPPORTING CONTRACT; BINDS ITS PATH/BYTE-COUNT/SHA-256/SCHEMA IDENTITY INTO THE AUTHORIZATION; WRITES AND HASHES BOTH FILES INTO ONE V2 SEMANTIC ENVELOPE; THEN REQUESTS VALIDATION. THIS DRAFT IS NOT AUTHORITY OR EVIDENCE.",
+  "authority_boundary": {
+    "stand_access": false,
+    "preflight": false,
+    "stand_mutation": false,
+    "calibration": false,
+    "pilot": false,
+    "stage18": false
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-evidence-envelope:v2",
+  "title": "Stage 17 operational semantic-evidence envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "envelope_id", "input_id", "predecessor", "semantic_policy", "semantic_verifier", "authorization", "supporting_contract", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-operational-evidence-envelope/2"},
+    "envelope_id": {"type": "string", "minLength": 1},
+    "input_id": {"const": "S17-EXT-001"},
+    "predecessor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_sha256", "catalog_sha256", "genesis_sha256", "resolution_schema_identity", "resolution_schema_sha256"],
+      "properties": {
+        "graph_sha256": {"$ref": "#/$defs/sha256"},
+        "catalog_sha256": {"$ref": "#/$defs/sha256"},
+        "genesis_sha256": {"$ref": "#/$defs/sha256"},
+        "resolution_schema_identity": {"const": "cpu-prefetch-stage17-external-input-resolution/1"},
+        "resolution_schema_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "semantic_policy": {"$ref": "#/$defs/file_binding"},
+    "semantic_verifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verifier_id", "verifier_version"],
+      "properties": {
+        "verifier_id": {"const": "STAGE17-S17-EXT-001-SEMANTIC-VERIFIER"},
+        "verifier_version": {"const": "2"}
+      }
+    },
+    "authorization": {"$ref": "#/$defs/typed_file_binding"},
+    "supporting_contract": {"$ref": "#/$defs/typed_file_binding"},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "size_bytes", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "typed_file_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "size_bytes", "sha256", "schema_identity"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "schema_identity": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

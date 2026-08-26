@@ -59,12 +59,15 @@ execution remains `BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`. Q15-P0 did not
 authorize stand access, MSR operations, dynamic qualification, accounts,
 privilege, calibration, pilot, or confirmation.
 
-## ADR-0104/ADR-0105 operational-governance addendum
+## ADR-0104 through ADR-0106 operational-governance addendum
 
 ADR-0104 does not change the sealed Stage 16 bundle verdict. It replaces the
 later open-ended pilot governance chain with one finite graph. ADR-0105 keeps
 that graph and the old successor/checklist templates immutable while deriving
-state from an append-only journal and real-byte evidence. The checked-in
+state from an append-only journal and real-byte evidence. ADR-0106 adds a
+predecessor-bound default-deny semantic registry: only S17-EXT-001 and
+S17-EXT-006 have implemented verifiers, and the other eight inputs cannot be
+resolved by generic evidence. The checked-in
 genesis computes `PREPARED`, 0 resolutions, 0 transitions, ten missing inputs,
 and `pilot_ready=false`; disk-backed positive and negative local tests prove
 only software behavior. D-099 through D-108 are hash-preserved, the D-104

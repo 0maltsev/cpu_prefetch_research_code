@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import copy
 import hashlib
 import json
@@ -13,17 +14,33 @@ import sys
 import tempfile
 from typing import Any
 
-from stage17_pilot_candidate_artifact import ArtifactVerification
 from stage17_state_journal import (
+    ADR_0105_PATH,
+    FIXED_PREFLIGHT_OBSERVATION_IDS,
+    GENESIS_PATH,
     LEGACY_TEMPLATE_PATHS,
+    PINNED_HOST_KEY_SCHEMA_PATH,
+    READ_ONLY_PERMISSION_MATRIX,
     SCHEMA_PATHS,
+    SEMANTIC_ENVELOPE_SCHEMA_PATH,
+    SEMANTIC_POLICY_PATH,
+    SEMANTIC_POLICY_SCHEMA_PATH,
+    S17_EXT_001_AUTHORIZATION_SCHEMA_PATH,
+    S17_EXT_001_CONTRACT_SCHEMA_PATH,
+    ExternalInputResolution,
     JournalError,
     canonical_json_bytes,
     load_json,
+    parse_utc,
+    record_from_ref,
     repository_file,
     sha256_bytes,
     sha256_file,
+    validate_graph_catalog,
     validate_journal,
+    validate_journal_lineage,
+    validate_schema,
+    validate_transitions,
     version_hashes,
 )
 
@@ -33,6 +50,9 @@ DEFAULT_JOURNAL = pathlib.Path(
     "config/stage17/journal/stage17-state-journal-000000.json"
 )
 DRAFT_PATH = pathlib.Path(
+    "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v2.json"
+)
+LEGACY_DRAFT_PATH = pathlib.Path(
     "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v1.json"
 )
 GRAPH_PATH = pathlib.Path(
@@ -49,6 +69,7 @@ PILOT_CONTRACT_SCHEMA_PATH = pathlib.Path(
 )
 PILOT_VERIFIER_PATH = pathlib.Path("tools/stage17_pilot_candidate_artifact.py")
 BASE_TIME = "2030-01-01"
+LEGACY_DRAFT_SHA256 = "012646a0a7eba1d0f1d25cd7f08f1855241d5efe720bb4f6ce38710fde7cd462"
 
 
 def write_json(path: pathlib.Path, document: object) -> None:
@@ -72,6 +93,10 @@ def utc(minute: int) -> str:
     return f"{BASE_TIME}T{hour:02d}:{minute_in_hour:02d}:00Z"
 
 
+def b64(value: str) -> str:
+    return base64.b64encode(value.encode("utf-8")).decode("ascii")
+
+
 class SyntheticBuilder:
     """Write immutable fixtures and journal successors to a real temporary tree."""
 
@@ -80,11 +105,20 @@ class SyntheticBuilder:
         for relative in (
             *SCHEMA_PATHS.values(),
             *LEGACY_TEMPLATE_PATHS.values(),
+            ADR_0105_PATH.as_posix(),
             GRAPH_PATH.as_posix(),
             CATALOG_PATH.as_posix(),
+            LEGACY_DRAFT_PATH.as_posix(),
+            DRAFT_PATH.as_posix(),
             PILOT_CONTRACT_PATH.as_posix(),
             PILOT_CONTRACT_SCHEMA_PATH.as_posix(),
             PILOT_VERIFIER_PATH.as_posix(),
+            SEMANTIC_POLICY_PATH.as_posix(),
+            SEMANTIC_POLICY_SCHEMA_PATH.as_posix(),
+            SEMANTIC_ENVELOPE_SCHEMA_PATH.as_posix(),
+            S17_EXT_001_AUTHORIZATION_SCHEMA_PATH.as_posix(),
+            S17_EXT_001_CONTRACT_SCHEMA_PATH.as_posix(),
+            PINNED_HOST_KEY_SCHEMA_PATH.as_posix(),
         ):
             copy_file(ROOT / relative, root / relative)
         self.graph = load_json(root / GRAPH_PATH)
@@ -171,6 +205,229 @@ class SyntheticBuilder:
             "size_bytes": path.stat().st_size,
             "sha256": sha256_file(path),
         }
+
+    def s17_ext_001_evidence(
+        self,
+        actor: str,
+        *,
+        contract_mutator=None,
+        authorization_mutator=None,
+        envelope_mutator=None,
+    ) -> tuple[dict[str, Any], dict[str, Any]]:
+        pinned_path = self.root / "synthetic/pinned-host-key.txt"
+        pinned_path.parent.mkdir(parents=True, exist_ok=True)
+        synthetic_host_key = b"synthetic-ed25519-host-key-bytes-not-authority"
+        fingerprint = "SHA256:" + base64.b64encode(
+            hashlib.sha256(synthetic_host_key).digest()
+        ).decode("ascii").rstrip("=")
+        write_json(
+            pinned_path,
+            {
+                "schema_version": "cpu-prefetch-stage17-pinned-host-key-evidence/1",
+                "evidence_id": "SYNTHETIC-PINNED-HOST-KEY-NO-AUTHORITY",
+                "stand_id": "SYNTHETIC-STAND-NOT-ACCESSED",
+                "ssh_target": "synthetic.invalid",
+                "algorithm": "ssh-ed25519",
+                "public_key_base64": base64.b64encode(synthetic_host_key).decode("ascii"),
+                "fingerprint_sha256": fingerprint,
+                "source": "OWNER_PROVIDED_OUT_OF_BAND_PIN",
+                "runtime_observation": False,
+            },
+        )
+        launcher_path = self.root / "synthetic/local-launcher"
+        collector_path = self.root / "synthetic/local-collector"
+        launcher_path.write_bytes(b"synthetic local launcher bytes\n")
+        collector_path.write_bytes(b"synthetic local collector bytes\n")
+        pilot_fixed = self.catalog["fixed_evidence_contracts"][0]
+        identities = [
+            {
+                "identity_id": "LOCAL_PREFLIGHT_LAUNCHER",
+                "role": "LAUNCHER",
+                "execution_path": "/synthetic/stage17/bin/launcher",
+                "source_path": launcher_path.relative_to(self.root).as_posix(),
+                "size_bytes": launcher_path.stat().st_size,
+                "sha256": sha256_file(launcher_path),
+            },
+            {
+                "identity_id": "LOCAL_PREFLIGHT_COLLECTOR",
+                "role": "COLLECTOR",
+                "execution_path": "/synthetic/stage17/bin/collector",
+                "source_path": collector_path.relative_to(self.root).as_posix(),
+                "size_bytes": collector_path.stat().st_size,
+                "sha256": sha256_file(collector_path),
+            },
+        ]
+        observations = []
+        for index, observation_id in enumerate(FIXED_PREFLIGHT_OBSERVATION_IDS, start=1):
+            local_identity_id = (
+                "LOCAL_PREFLIGHT_LAUNCHER"
+                if index == 1
+                else "LOCAL_PREFLIGHT_COLLECTOR"
+            )
+            execution_path = next(
+                identity["execution_path"]
+                for identity in identities
+                if identity["identity_id"] == local_identity_id
+            )
+            observations.append(
+                {
+                    "observation_id": observation_id,
+                    "local_action_identity_id": local_identity_id,
+                    "argv_bytes_base64": [
+                        b64(execution_path),
+                        b64(f"--observation={index}"),
+                    ],
+                    "stdin_bytes_base64": b64(""),
+                    "remote_command_bytes_base64": b64(
+                        f"synthetic-read-only-observation-{index}"
+                    ),
+                    "output_locator": f"/synthetic/stage17/output/observation-{index}.json",
+                    "output_creation": "CREATE_EXCLUSIVE",
+                    "max_output_bytes": 1024,
+                }
+            )
+        contract: dict[str, Any] = {
+            "schema_version": (
+                "cpu-prefetch-stage17-read-only-preflight-supporting-contract/2"
+            ),
+            "contract_id": "SYNTHETIC-S17-EXT-001-SUPPORTING-CONTRACT-NO-AUTHORITY",
+            "protocol_version": "2.0.0-pre.2",
+            "target": {
+                "stand_id": "SYNTHETIC-STAND-NOT-ACCESSED",
+                "ssh_target": "synthetic.invalid",
+                "pinned_host_key_evidence": {
+                    "path": pinned_path.relative_to(self.root).as_posix(),
+                    "size_bytes": pinned_path.stat().st_size,
+                    "sha256": sha256_file(pinned_path),
+                    "schema_identity": (
+                        "cpu-prefetch-stage17-pinned-host-key-evidence/1"
+                    ),
+                },
+            },
+            "pilot_candidate": {
+                "contract": {
+                    "path": pilot_fixed["path"],
+                    "size_bytes": pilot_fixed["size_bytes"],
+                    "sha256": pilot_fixed["sha256"],
+                    "schema_identity": (
+                        "cpu-prefetch-stage17-pilot-candidate-external-contract/1"
+                    ),
+                },
+                "archive_locator": "/synthetic/custody/pilot-candidate.tar.gz",
+                "sidecar_locator": "/synthetic/custody/pilot-candidate.tar.gz.sha256",
+            },
+            "prospective_local_action_identities": identities,
+            "remote_runtime_identity_policy": {
+                "source_input_id": "S17-EXT-002",
+                "identity_classes": [
+                    "REMOTE_EXECUTABLE",
+                    "REMOTE_MODULE",
+                    "REMOTE_DEPENDENCY",
+                ],
+                "prospective_values_present": False,
+            },
+            "observations": observations,
+            "limits": {
+                "max_commands": 6,
+                "max_wall_seconds": 600,
+                "max_total_output_bytes": 8192,
+                "attempts_per_observation": 1,
+                "retries": 0,
+            },
+            "stop_policy": "STOP_ON_FIRST_MISMATCH_OR_NONZERO_EXIT",
+            "retention_policy": (
+                "CREATE_EXCLUSIVE_APPEND_ONLY_RETAIN_SUCCESS_AND_FAILURE_NO_DELETE"
+            ),
+            "authority_boundary": copy.deepcopy(READ_ONLY_PERMISSION_MATRIX),
+        }
+        if contract_mutator is not None:
+            contract_mutator(contract)
+        contract_path = self.root / "evidence/s17-ext-001-supporting-contract-v2.json"
+        write_json(contract_path, contract)
+        contract_binding = {
+            "path": contract_path.relative_to(self.root).as_posix(),
+            "size_bytes": contract_path.stat().st_size,
+            "sha256": sha256_file(contract_path),
+            "schema_identity": (
+                "cpu-prefetch-stage17-read-only-preflight-supporting-contract/2"
+            ),
+        }
+        authorization: dict[str, Any] = {
+            "schema_version": "cpu-prefetch-stage17-read-only-preflight-authorization/2",
+            "authorization_id": "SYNTHETIC-S17-EXT-001-AUTHORIZATION-NO-AUTHORITY",
+            "input_id": "S17-EXT-001",
+            "actor": actor,
+            "issued_at_utc": utc(0),
+            "expires_at_utc": "2030-01-02T00:00:00Z",
+            "authority_scope": "READ_ONLY_PREFLIGHT",
+            "target_scope": (
+                "STAND_ID=SYNTHETIC-STAND-NOT-ACCESSED;"
+                "SSH_TARGET=synthetic.invalid;SCOPE=READ_ONLY_PREFLIGHT"
+            ),
+            "target": {
+                "stand_id": contract["target"]["stand_id"],
+                "ssh_target": contract["target"]["ssh_target"],
+                "pinned_host_key_evidence_sha256": contract["target"][
+                    "pinned_host_key_evidence"
+                ]["sha256"],
+            },
+            "frozen_observation_ids": list(FIXED_PREFLIGHT_OBSERVATION_IDS),
+            "supporting_observation_contract": contract_binding,
+            "limits": copy.deepcopy(contract["limits"]),
+            "role_collapse_acknowledged": True,
+            "independent_review_claimed": False,
+            "permissions": copy.deepcopy(READ_ONLY_PERMISSION_MATRIX),
+        }
+        if authorization_mutator is not None:
+            authorization_mutator(authorization)
+        authorization_path = self.root / "evidence/s17-ext-001-authorization-v2.json"
+        write_json(authorization_path, authorization)
+        authorization_binding = {
+            "path": authorization_path.relative_to(self.root).as_posix(),
+            "size_bytes": authorization_path.stat().st_size,
+            "sha256": sha256_file(authorization_path),
+            "schema_identity": "cpu-prefetch-stage17-read-only-preflight-authorization/2",
+        }
+        policy_path = self.root / SEMANTIC_POLICY_PATH
+        envelope: dict[str, Any] = {
+            "schema_version": "cpu-prefetch-stage17-operational-evidence-envelope/2",
+            "envelope_id": "SYNTHETIC-S17-EXT-001-SEMANTIC-ENVELOPE-NO-AUTHORITY",
+            "input_id": "S17-EXT-001",
+            "predecessor": {
+                "graph_sha256": self.graph_sha256,
+                "catalog_sha256": self.catalog_sha256,
+                "genesis_sha256": self.genesis_sha256,
+                "resolution_schema_identity": (
+                    "cpu-prefetch-stage17-external-input-resolution/1"
+                ),
+                "resolution_schema_sha256": self.versions[
+                    "resolution_schema_sha256"
+                ],
+            },
+            "semantic_policy": {
+                "path": SEMANTIC_POLICY_PATH.as_posix(),
+                "size_bytes": policy_path.stat().st_size,
+                "sha256": sha256_file(policy_path),
+            },
+            "semantic_verifier": {
+                "verifier_id": "STAGE17-S17-EXT-001-SEMANTIC-VERIFIER",
+                "verifier_version": "2",
+            },
+            "authorization": authorization_binding,
+            "supporting_contract": contract_binding,
+            "stage18_authority": False,
+        }
+        if envelope_mutator is not None:
+            envelope_mutator(envelope)
+        envelope_path = self.root / "evidence/s17-ext-001-semantic-envelope-v2.json"
+        write_json(envelope_path, envelope)
+        evidence = {
+            "kind": "REPOSITORY_FILE",
+            "path": envelope_path.relative_to(self.root).as_posix(),
+            "size_bytes": envelope_path.stat().st_size,
+            "sha256": sha256_file(envelope_path),
+        }
+        return authorization, evidence
 
     def authorization_document(self, input_id: str, actor: str) -> dict[str, Any]:
         scopes = {
@@ -275,13 +532,23 @@ class SyntheticBuilder:
         evidence_override: list[dict[str, Any]] | None = None,
         resolution_id: str | None = None,
         extra_fields: dict[str, Any] | None = None,
+        contract_mutator=None,
+        authorization_mutator=None,
+        envelope_mutator=None,
     ) -> dict[str, Any]:
         sequence = len(self.resolutions) + 1
         actor = "synthetic-stage17-owner"
         item = next(entry for entry in self.catalog["items"] if entry["input_id"] == input_id)
         authorization_document: dict[str, Any] | None = None
         authorization_evidence: dict[str, Any] | None = None
-        if item["authorization_required"]:
+        if input_id == "S17-EXT-001":
+            authorization_document, authorization_evidence = self.s17_ext_001_evidence(
+                actor,
+                contract_mutator=contract_mutator,
+                authorization_mutator=authorization_mutator,
+                envelope_mutator=envelope_mutator,
+            )
+        elif item["authorization_required"]:
             authorization_document = self.authorization_document(input_id, actor)
             authorization_evidence = self.repository_evidence(
                 input_id, authorization_document
@@ -313,7 +580,11 @@ class SyntheticBuilder:
         if authorization_document is not None and authorization_evidence is not None:
             authorization = {
                 "authorization_id": authorization_document["authorization_id"],
-                "evidence_path": authorization_evidence["path"],
+                "evidence_path": (
+                    "evidence/s17-ext-001-authorization-v2.json"
+                    if input_id == "S17-EXT-001"
+                    else authorization_evidence["path"]
+                ),
                 "issued_at_utc": authorization_document["issued_at_utc"],
                 "expires_at_utc": authorization_document["expires_at_utc"],
                 "authority_scope": authorization_document["authority_scope"],
@@ -402,7 +673,12 @@ class SyntheticBuilder:
         self.transition_count += 1
         return document
 
-    def validate(self, *, as_of_utc: str | None = None):
+    def validate(
+        self,
+        *,
+        as_of_utc: str | None = None,
+        requested_action_input_id: str | None = None,
+    ):
         return validate_journal(
             repository_root=self.root,
             latest_journal=self.latest_path.relative_to(self.root),
@@ -410,25 +686,55 @@ class SyntheticBuilder:
             pilot_archive=self.pilot_archive,
             pilot_sidecar=self.pilot_sidecar,
             as_of_utc=as_of_utc,
-            pilot_verifier=synthetic_pilot_verifier,
+            requested_action_input_id=requested_action_input_id,
         )
 
-
-def synthetic_pilot_verifier(**arguments: Any) -> ArtifactVerification:
-    del arguments["repository_root"], arguments["contract_path"]
-    archive = pathlib.Path(arguments["archive"])
-    sidecar = pathlib.Path(arguments["sidecar"])
-    archive_sha256 = sha256_file(archive)
-    if sidecar.read_bytes() != f"{archive_sha256}  {archive.name}\n".encode("ascii"):
-        raise JournalError("synthetic pilot sidecar does not bind its archive")
-    return ArtifactVerification(
-        artifact_size_bytes=archive.stat().st_size,
-        artifact_sha256=archive_sha256,
-        sidecar_size_bytes=sidecar.stat().st_size,
-        sidecar_sha256=sha256_file(sidecar),
-        manifest_sha256="synthetic-not-used",
-        file_count=1,
-    )
+    def validate_mechanics(self) -> tuple[str, int, int]:
+        """Exercise storage/replay mechanics without admitting operational evidence."""
+        lineage, latest = validate_journal_lineage(
+            self.root,
+            self.latest_path.relative_to(self.root),
+            self.root / SCHEMA_PATHS["journal_schema_sha256"],
+            self.root / "config/stage17/journal",
+        )
+        graph, _, graph_sha256, catalog_sha256, expected_versions = (
+            validate_graph_catalog(self.root, latest)
+        )
+        mechanical_resolutions: dict[str, ExternalInputResolution] = {}
+        schema_path = self.root / SCHEMA_PATHS["resolution_schema_sha256"]
+        for expected_sequence, reference in enumerate(
+            latest["resolution_records"], start=1
+        ):
+            path, document, digest = record_from_ref(
+                self.root, reference, "mechanical resolution fixture"
+            )
+            validate_schema(document, schema_path, "mechanical resolution fixture")
+            if document.get("sequence_number") != expected_sequence:
+                raise JournalError("mechanical fixture resolution sequence drifted")
+            input_id = str(document["input_id"])
+            mechanical_resolutions[input_id] = ExternalInputResolution(
+                resolution_id=str(document["resolution_id"]),
+                sequence_number=expected_sequence,
+                input_id=input_id,
+                actor=str(document["actor"]),
+                recorded_at_utc=parse_utc(
+                    document["recorded_at_utc"], "mechanical resolution time"
+                ),
+                path=path,
+                sha256=digest,
+                document=document,
+            )
+        current_state, transitions = validate_transitions(
+            root=self.root,
+            references=latest["transition_records"],
+            graph=graph,
+            graph_sha256=graph_sha256,
+            catalog_sha256=catalog_sha256,
+            expected_versions=expected_versions,
+            genesis_sha256=self.genesis_sha256,
+            resolutions=mechanical_resolutions,
+        )
+        return current_state, len(mechanical_resolutions), len(transitions)
 
 
 def expect_failure(label: str, action) -> None:
@@ -440,13 +746,19 @@ def expect_failure(label: str, action) -> None:
 
 
 def validate_s17_ext_001_draft(root: pathlib.Path, journal_path: pathlib.Path) -> None:
+    if sha256_file(repository_file(root, LEGACY_DRAFT_PATH.as_posix())) != (
+        LEGACY_DRAFT_SHA256
+    ):
+        raise JournalError("immutable S17-EXT-001 draft v1 drifted")
     draft = load_json(repository_file(root, DRAFT_PATH.as_posix()))
     relative_journal = (
         journal_path.relative_to(root) if journal_path.is_absolute() else journal_path
     )
     journal = load_json(repository_file(root, relative_journal.as_posix()))
     if (
-        draft.get("status") != "DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED"
+        draft.get("schema_version")
+        != "cpu-prefetch-stage17-s17-ext-001-authorization-draft/2"
+        or draft.get("status") != "DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED"
         or draft.get("authority_boundary")
         != {
             "stand_access": False,
@@ -458,36 +770,27 @@ def validate_s17_ext_001_draft(root: pathlib.Path, journal_path: pathlib.Path) -
         }
     ):
         raise JournalError("S17-EXT-001 draft claims authority")
-    bindings = draft.get("journal_bindings", {})
+    bindings = draft.get("compatibility", {})
+    policy_path = repository_file(root, SEMANTIC_POLICY_PATH.as_posix())
     if (
         bindings.get("graph_sha256") != journal["graph"]["sha256"]
         or bindings.get("catalog_sha256") != journal["catalog"]["sha256"]
         or bindings.get("genesis_sha256") != journal["genesis"]["genesis_sha256"]
-        or bindings.get("journal_path") != relative_journal.as_posix()
+        or bindings.get("predecessor_draft_path") != LEGACY_DRAFT_PATH.as_posix()
+        or bindings.get("predecessor_draft_sha256") != LEGACY_DRAFT_SHA256
+        or bindings.get("semantic_policy_path") != SEMANTIC_POLICY_PATH.as_posix()
+        or bindings.get("semantic_policy_size_bytes") != policy_path.stat().st_size
+        or bindings.get("semantic_policy_sha256") != sha256_file(policy_path)
     ):
-        raise JournalError("S17-EXT-001 draft journal binding drifted")
+        raise JournalError("S17-EXT-001 draft compatibility binding drifted")
     payload = draft.get("authorization_payload", {})
-    fixed_observations = [
-        "S17-RO-PREFLIGHT-001-TARGET-AND-TRANSPORT-IDENTITY",
-        "S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION",
-        "S17-RO-PREFLIGHT-003-BUNDLE-INTERNAL-VERIFICATION",
-        "S17-RO-PREFLIGHT-004-NONPRIVILEGED-SELF-TESTS",
-        "S17-RO-PREFLIGHT-005-RUNTIME-TOOL-IDENTITIES",
-        "S17-RO-PREFLIGHT-006-READ-ONLY-PLATFORM-INVENTORY",
-    ]
     if (
         payload.get("input_id") != "S17-EXT-001"
         or payload.get("authority_scope") != "READ_ONLY_PREFLIGHT"
-        or payload.get("frozen_observation_ids") != fixed_observations
-        or payload.get("permissions")
-        != {
-            "stand_read_only": True,
-            "stand_mutation": False,
-            "privileged_controls": False,
-            "calibration": False,
-            "pilot_execution": False,
-            "stage18_authority": False,
-        }
+        or tuple(payload.get("frozen_observation_ids", ()))
+        != FIXED_PREFLIGHT_OBSERVATION_IDS
+        or payload.get("permissions") != READ_ONLY_PERMISSION_MATRIX
+        or payload.get("limits", {}).get("max_commands") != 6
         or payload.get("limits", {}).get("attempts_per_observation") != 1
         or payload.get("limits", {}).get("retries") != 0
     ):
@@ -503,82 +806,144 @@ def validate_s17_ext_001_draft(root: pathlib.Path, journal_path: pathlib.Path) -
             raise JournalError(f"S17-EXT-001 draft fabricated owner field: {field}")
     if any(
         payload.get("limits", {}).get(field) is not None
-        for field in ("max_commands", "max_wall_seconds")
+        for field in ("max_wall_seconds", "max_total_output_bytes")
     ):
         raise JournalError("S17-EXT-001 draft fabricated owner limits")
     supporting = draft.get("supporting_observation_contract", {})
-    observed_identifiers = [
+    observed_identifiers = tuple(
         item.get("observation_id")
         for item in supporting.get("observations", [])
-    ]
-    if observed_identifiers != fixed_observations:
-        raise JournalError("S17-EXT-001 supporting observation family drifted")
-    owner_fields = (
-        *supporting.get("target", {}).values(),
-        supporting.get("archive_locator"),
-        supporting.get("sidecar_locator"),
-        *(
-            value
-            for observation in supporting.get("observations", [])
-            for key, value in observation.items()
-            if key != "observation_id"
-        ),
     )
-    if any(value is not None for value in owner_fields):
+    if observed_identifiers != FIXED_PREFLIGHT_OBSERVATION_IDS:
+        raise JournalError("S17-EXT-001 supporting observation family drifted")
+    if supporting.get("remote_runtime_identity_policy") != {
+        "source_input_id": "S17-EXT-002",
+        "identity_classes": [
+            "REMOTE_EXECUTABLE",
+            "REMOTE_MODULE",
+            "REMOTE_DEPENDENCY",
+        ],
+        "prospective_values_present": False,
+    }:
+        raise JournalError("S17-EXT-001 draft runtime identity boundary drifted")
+    owner_values = [
+        payload.get("target", {}).get(field)
+        for field in ("stand_id", "ssh_target", "pinned_host_key_evidence_sha256")
+    ]
+    owner_values.extend(
+        payload.get("supporting_observation_contract", {}).get(field)
+        for field in ("path", "size_bytes", "sha256")
+    )
+    owner_values.extend(
+        supporting.get("target", {}).get(field) for field in ("stand_id", "ssh_target")
+    )
+    owner_values.extend(
+        supporting.get("target", {})
+        .get("pinned_host_key_evidence", {})
+        .get(field)
+        for field in ("path", "size_bytes", "sha256")
+    )
+    owner_values.extend(
+        supporting.get("pilot_candidate", {}).get(field)
+        for field in ("archive_locator", "sidecar_locator")
+    )
+    owner_values.extend(
+        identity.get(field)
+        for identity in supporting.get("prospective_local_action_identities", [])
+        for field in ("execution_path", "source_path", "size_bytes", "sha256")
+    )
+    owner_values.extend(
+        observation.get(field)
+        for observation in supporting.get("observations", [])
+        for field in (
+            "local_action_identity_id",
+            "argv_bytes_base64",
+            "stdin_bytes_base64",
+            "remote_command_bytes_base64",
+            "output_locator",
+            "max_output_bytes",
+        )
+    )
+    owner_values.extend(
+        supporting.get("limits", {}).get(field)
+        for field in ("max_wall_seconds", "max_total_output_bytes")
+    )
+    if any(value is not None for value in owner_values):
         raise JournalError("S17-EXT-001 draft fabricated target or observation data")
 
 
-def positive_disk_test() -> tuple[int, int]:
-    with tempfile.TemporaryDirectory(prefix="stage17-journal-positive-") as temporary:
+def positive_disk_test() -> tuple[int, int, int, int]:
+    with tempfile.TemporaryDirectory(prefix="stage17-semantic-positive-") as temporary:
         builder = SyntheticBuilder(pathlib.Path(temporary))
         genesis = builder.validate()
         if genesis.current_state != "PREPARED" or genesis.pilot_ready:
             raise JournalError("disk genesis did not evaluate to PREPARED")
         builder.add_resolution("S17-EXT-001")
         builder.add_transition()
-        first = builder.validate()
-        if first.current_state != "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT":
-            raise JournalError("first persisted transition did not reload")
-        builder.add_resolution("S17-EXT-002")
-        builder.add_resolution("S17-EXT-003")
-        builder.add_transition()
-        second = builder.validate()
-        if second.current_state != "PREFLIGHT_ACCEPTED":
-            raise JournalError("second persisted transition did not reload")
-        for input_id in ("S17-EXT-004", "S17-EXT-005", "S17-EXT-006"):
-            builder.add_resolution(input_id)
-        builder.add_transition()
-        third = builder.validate()
+        first = builder.validate(
+            as_of_utc=utc(22), requested_action_input_id="S17-EXT-001"
+        )
         if (
-            third.current_state != "READY_FOR_STAGE17_PHASE_AUTHORIZATION"
-            or third.pilot_ready
+            first.current_state != "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT"
+            or first.resolution_count != 1
+            or first.transition_count != 1
+            or not first.action_ready
+            or first.pilot_ready
         ):
-            raise JournalError("phase-ready state or pilot gate was miscomputed")
-        for input_id in ("S17-EXT-007", "S17-EXT-008", "S17-EXT-009", "S17-EXT-010"):
-            builder.add_resolution(input_id)
-        final = builder.validate(as_of_utc=utc(90))
-        if not final.pilot_ready or final.missing_input_ids:
-            raise JournalError("fully persisted synthetic fixture did not become pilot-ready")
+            raise JournalError("typed S17-EXT-001 did not survive disk/hash admission")
         for reference in builder.latest_document["resolution_records"]:
             path = builder.root / reference["path"]
             if sha256_file(path) != reference["sha256"] or not load_json(path):
-                raise JournalError("resolution fixture did not reload from disk")
+                raise JournalError("semantic resolution fixture did not reload from disk")
         for reference in builder.latest_document["transition_records"]:
             path = builder.root / reference["path"]
             if sha256_file(path) != reference["sha256"] or not load_json(path):
-                raise JournalError("transition fixture did not reload from disk")
-        return final.resolution_count, final.transition_count
+                raise JournalError("semantic transition fixture did not reload from disk")
+
+    with tempfile.TemporaryDirectory(prefix="stage17-mechanics-positive-") as temporary:
+        builder = SyntheticBuilder(pathlib.Path(temporary))
+        builder.add_resolution("S17-EXT-001")
+        builder.add_transition()
+        builder.add_resolution("S17-EXT-002")
+        builder.add_resolution("S17-EXT-003")
+        builder.add_transition()
+        for input_id in ("S17-EXT-004", "S17-EXT-005", "S17-EXT-006"):
+            builder.add_resolution(input_id)
+        builder.add_transition()
+        for input_id in (
+            "S17-EXT-007",
+            "S17-EXT-008",
+            "S17-EXT-009",
+            "S17-EXT-010",
+        ):
+            builder.add_resolution(input_id)
+        state, resolution_count, transition_count = builder.validate_mechanics()
+        if (
+            state != "READY_FOR_STAGE17_PHASE_AUTHORIZATION"
+            or resolution_count != 10
+            or transition_count != 3
+        ):
+            raise JournalError("state-machine-only persisted fixture did not replay")
+        for kind in ("resolution_records", "transition_records"):
+            for reference in builder.latest_document[kind]:
+                path = builder.root / reference["path"]
+                if sha256_file(path) != reference["sha256"] or not load_json(path):
+                    raise JournalError("mechanical fixture did not reload from disk")
+        return 1, 1, resolution_count, transition_count
 
 
 def negative_tests() -> int:
     negative_count = 0
 
-    def run(label: str, scenario) -> None:
+    def run(label: str, scenario, *, mechanics: bool = False) -> None:
         nonlocal negative_count
         with tempfile.TemporaryDirectory(prefix=f"stage17-negative-{label}-") as temporary:
             builder = SyntheticBuilder(pathlib.Path(temporary))
             scenario(builder)
-            expect_failure(label, builder.validate)
+            expect_failure(
+                label,
+                builder.validate_mechanics if mechanics else builder.validate,
+            )
         negative_count += 1
 
     run(
@@ -601,6 +966,169 @@ def negative_tests() -> int:
             "S17-EXT-001",
             extra_fields={"artifact_id": "DOES-NOT-EXIST", "sha256": "a" * 64},
         ),
+    )
+
+    run(
+        "one-arbitrary-observation-id",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            authorization_mutator=lambda document: document.update(
+                {"frozen_observation_ids": ["ARBITRARY-OBSERVATION"]}
+            ),
+        ),
+    )
+
+    def missing_supporting_contract(builder: SyntheticBuilder) -> None:
+        builder.add_resolution("S17-EXT-001")
+        (builder.root / "evidence/s17-ext-001-supporting-contract-v2.json").unlink()
+
+    run("missing-supporting-contract", missing_supporting_contract)
+
+    def changed_supporting_contract(builder: SyntheticBuilder) -> None:
+        builder.add_resolution("S17-EXT-001")
+        contract_path = builder.root / "evidence/s17-ext-001-supporting-contract-v2.json"
+        contract = load_json(contract_path)
+        contract["target"]["stand_id"] = "CHANGED-AFTER-BINDING"
+        contract_path.write_text(
+            json.dumps(contract, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+
+    run("changed-supporting-contract", changed_supporting_contract)
+
+    run(
+        "unbound-supporting-contract",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            authorization_mutator=lambda document: document[
+                "supporting_observation_contract"
+            ].update({"sha256": "a" * 64}),
+        ),
+    )
+    run(
+        "target-mismatch",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            authorization_mutator=lambda document: document["target"].update(
+                {"stand_id": "MISMATCHED-STAND"}
+            ),
+        ),
+    )
+    run(
+        "pilot-contract-sha-mismatch",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            contract_mutator=lambda document: document["pilot_candidate"][
+                "contract"
+            ].update({"sha256": "a" * 64}),
+        ),
+    )
+    run(
+        "limits-mismatch",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            authorization_mutator=lambda document: document["limits"].update(
+                {"max_wall_seconds": 601}
+            ),
+        ),
+    )
+    run(
+        "contract-observation-id-mismatch",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            contract_mutator=lambda document: document["observations"][0].update(
+                {"observation_id": "ARBITRARY-OBSERVATION"}
+            ),
+        ),
+    )
+    run(
+        "prospective-local-executable-sha-mismatch",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            contract_mutator=lambda document: document[
+                "prospective_local_action_identities"
+            ][0].update({"sha256": "a" * 64}),
+        ),
+    )
+    run(
+        "argv-executable-mismatch",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            contract_mutator=lambda document: document["observations"][0].update(
+                {"argv_bytes_base64": [b64("/wrong/executable")]}
+            ),
+        ),
+    )
+
+    def generic_accepted(builder: SyntheticBuilder) -> None:
+        evidence = builder.repository_evidence(
+            "S17-EXT-001-GENERIC", {"accepted": True}
+        )
+        builder.add_resolution("S17-EXT-001", evidence_override=[evidence])
+
+    run("generic-accepted-json", generic_accepted)
+    run(
+        "arbitrary-external-receipt",
+        lambda builder: builder.add_resolution("S17-EXT-002"),
+    )
+
+    def unknown_semantic_verifier(builder: SyntheticBuilder) -> None:
+        policy_path = builder.root / SEMANTIC_POLICY_PATH
+        policy = load_json(policy_path)
+        policy["entries"][0]["verifier_id"] = "UNKNOWN-SEMANTIC-VERIFIER"
+        policy_path.write_text(
+            json.dumps(policy, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        builder.add_resolution("S17-EXT-001")
+
+    run("unknown-semantic-verifier", unknown_semantic_verifier)
+    run(
+        "s17-ext-010-without-predecessor-bindings",
+        lambda builder: builder.add_resolution("S17-EXT-010"),
+    )
+    run(
+        "expanded-permission-matrix",
+        lambda builder: builder.add_resolution(
+            "S17-EXT-001",
+            authorization_mutator=lambda document: document["permissions"].update(
+                {"measurement": True}
+            ),
+        ),
+    )
+
+    with tempfile.TemporaryDirectory(prefix="stage17-negative-expired-action-") as temporary:
+        builder = SyntheticBuilder(pathlib.Path(temporary))
+        builder.add_resolution("S17-EXT-001")
+        builder.add_transition()
+        expect_failure(
+            "expired-action-readiness",
+            lambda: builder.validate(
+                as_of_utc="2030-01-02T00:00:00Z",
+                requested_action_input_id="S17-EXT-001",
+            ),
+        )
+        negative_count += 1
+
+    def synthetic_pilot_placeholders(builder: SyntheticBuilder) -> None:
+        builder.add_resolution("S17-EXT-001")
+        builder.add_transition()
+        for input_id in ("S17-EXT-002", "S17-EXT-003"):
+            builder.add_resolution(input_id)
+        builder.add_transition()
+        for input_id in ("S17-EXT-004", "S17-EXT-005", "S17-EXT-006"):
+            builder.add_resolution(input_id)
+        builder.add_transition()
+        for input_id in (
+            "S17-EXT-007",
+            "S17-EXT-008",
+            "S17-EXT-009",
+            "S17-EXT-010",
+        ):
+            builder.add_resolution(input_id)
+
+    run("synthetic-placeholders-cannot-be-pilot-ready", synthetic_pilot_placeholders)
+    run(
+        "arbitrary-pilot-candidate-bytes",
+        lambda builder: builder.add_resolution("S17-EXT-006"),
     )
 
     def missing_external_bytes(builder: SyntheticBuilder) -> None:
@@ -634,13 +1162,13 @@ def negative_tests() -> int:
             }
         )
 
-    run("skip", skip)
+    run("skip", skip, mechanics=True)
 
     def incomplete(builder: SyntheticBuilder) -> None:
         builder.add_resolution("S17-EXT-001")
         builder.add_transition(overrides={"evidence_resolutions": []})
 
-    run("incomplete", incomplete)
+    run("incomplete", incomplete, mechanics=True)
 
     def duplicate_transition_input(builder: SyntheticBuilder) -> None:
         builder.add_resolution("S17-EXT-001")
@@ -662,13 +1190,13 @@ def negative_tests() -> int:
             }
         )
 
-    run("duplicate-transition-input", duplicate_transition_input)
+    run("duplicate-transition-input", duplicate_transition_input, mechanics=True)
 
     def replaced_predecessor(builder: SyntheticBuilder) -> None:
         builder.add_resolution("S17-EXT-001")
         builder.add_transition(overrides={"previous_transition_sha256": "b" * 64})
 
-    run("replaced-predecessor", replaced_predecessor)
+    run("replaced-predecessor", replaced_predecessor, mechanics=True)
 
     def unknown_authorization(builder: SyntheticBuilder) -> None:
         builder.add_resolution("S17-EXT-001")
@@ -685,7 +1213,7 @@ def negative_tests() -> int:
             }
         )
 
-    run("unknown-authorization", unknown_authorization)
+    run("unknown-authorization", unknown_authorization, mechanics=True)
 
     def expired_authorization(builder: SyntheticBuilder) -> None:
         builder.add_resolution("S17-EXT-001")
@@ -713,7 +1241,7 @@ def negative_tests() -> int:
             }
         )
 
-    run("backward", backward)
+    run("backward", backward, mechanics=True)
 
     def duplicate_sequence(builder: SyntheticBuilder) -> None:
         builder.add_resolution("S17-EXT-001")
@@ -722,7 +1250,7 @@ def negative_tests() -> int:
         builder.add_resolution("S17-EXT-003")
         builder.add_transition(overrides={"sequence_number": 1})
 
-    run("duplicate-sequence", duplicate_sequence)
+    run("duplicate-sequence", duplicate_sequence, mechanics=True)
 
     def graph_change(builder: SyntheticBuilder) -> None:
         graph_path = builder.root / GRAPH_PATH
@@ -776,10 +1304,18 @@ def negative_tests() -> int:
     return negative_count
 
 
-def self_test() -> tuple[int, int, int]:
-    resolutions, transitions = positive_disk_test()
+def self_test() -> tuple[int, int, int, int, int]:
+    semantic_resolutions, semantic_transitions, mechanics_resolutions, mechanics_transitions = (
+        positive_disk_test()
+    )
     negatives = negative_tests()
-    return resolutions, transitions, negatives
+    return (
+        semantic_resolutions,
+        semantic_transitions,
+        mechanics_resolutions,
+        mechanics_transitions,
+        negatives,
+    )
 
 
 def main() -> int:
@@ -790,6 +1326,7 @@ def main() -> int:
     parser.add_argument("--pilot-candidate-archive", type=pathlib.Path)
     parser.add_argument("--pilot-candidate-sidecar", type=pathlib.Path)
     parser.add_argument("--as-of-utc")
+    parser.add_argument("--requested-action-input-id")
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--print-status", action="store_true")
     arguments = parser.parse_args()
@@ -805,11 +1342,19 @@ def main() -> int:
             pilot_archive=arguments.pilot_candidate_archive,
             pilot_sidecar=arguments.pilot_candidate_sidecar,
             as_of_utc=arguments.as_of_utc,
+            requested_action_input_id=arguments.requested_action_input_id,
         )
         validate_s17_ext_001_draft(root, arguments.journal)
-        resolutions = transitions = negatives = 0
+        semantic_resolutions = semantic_transitions = 0
+        mechanics_resolutions = mechanics_transitions = negatives = 0
         if arguments.self_test:
-            resolutions, transitions, negatives = self_test()
+            (
+                semantic_resolutions,
+                semantic_transitions,
+                mechanics_resolutions,
+                mechanics_transitions,
+                negatives,
+            ) = self_test()
     except (JournalError, OSError, json.JSONDecodeError) as exception:
         print(f"stage17-state-journal-check: FAIL: {exception}", file=sys.stderr)
         return 1
@@ -819,6 +1364,9 @@ def main() -> int:
         "resolved_input_ids": list(result.resolved_input_ids),
         "missing_input_ids": list(result.missing_input_ids),
         "transition_count": result.transition_count,
+        "requested_action_input_id": result.requested_action_input_id,
+        "action_ready": result.action_ready,
+        "stand": "NOT_ACCESSED",
     }
     if arguments.print_status:
         print(json.dumps(status, sort_keys=True, separators=(",", ":")))
@@ -827,8 +1375,10 @@ def main() -> int:
             "stage17-state-journal-check: PASS "
             f"state={result.current_state} resolved={result.resolution_count} "
             f"missing={len(result.missing_input_ids)} pilot_ready={str(result.pilot_ready).lower()} "
-            f"disk_positive={resolutions}/{transitions} negative={negatives} "
-            "nonexistent_evidence=REJECTED reload=PASS Stage18=false stand=NOT_ACCESSED"
+            f"semantic_positive={semantic_resolutions}/{semantic_transitions} "
+            f"mechanics_positive={mechanics_resolutions}/{mechanics_transitions} "
+            f"negative={negatives} nonexistent_evidence=REJECTED "
+            "generic_evidence=REJECTED reload=PASS Stage18=false stand=NOT_ACCESSED"
         )
     return 0
 

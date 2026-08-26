@@ -209,6 +209,13 @@ record identify a no-authority candidate, but they do not prove that the exact
 archive and sidecar bytes are currently available. `S17-EXT-006` therefore
 remains external-required until caller-supplied real files pass the fixed
 custody/integration contract. All ten catalog inputs remain unresolved.
+ADR-0106 adds a predecessor-bound v2 semantic-admission policy without changing
+those v1 bytes. Operational admission is default-deny: `S17-EXT-001` has a
+fully typed verifier, `S17-EXT-006` retains its exact archive/sidecar verifier,
+and `S17-EXT-002..005` plus `S17-EXT-007..010` return
+`SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED`. Generic JSON, generic receipts,
+and test placeholders cannot resolve an input. State-machine mechanics fixtures
+are separate from the production CLI.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
@@ -446,6 +453,9 @@ The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
 The exact unissued owner-input template for the next possible gate is
 [`S17-EXT-001`](docs/STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md).
+Its v2 authorization byte/hash-binds a separate supporting contract. The
+prospectively known local launcher/collector bytes are inputs; remote runtime
+executable/module/dependency identities are read-only `S17-EXT-002` outputs.
 
 `cpu_prefetch_runner` can validate a future explicit admission record but has
 no measurement command. `cpu_prefetch_qualification` has no dynamic collector

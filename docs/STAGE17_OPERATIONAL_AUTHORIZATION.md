@@ -6,8 +6,9 @@ Stage 17 complete: **false**
 Stage 18 ready: **false**
 
 ADR-0104 replaces the open-ended pilot governance chain with one finite graph.
-ADR-0105 makes that graph persistable without rewriting history. Neither ADR
-authorizes stand access or a run:
+ADR-0105 makes that graph persistable without rewriting history. ADR-0106 adds
+semantic evidence admission without changing the v1 graph, catalog, genesis,
+or snapshots. None of these ADRs authorizes stand access or a run:
 
 ```text
 PREPARED
@@ -28,6 +29,15 @@ append-only `stage17-state-journal-v1` snapshots. The checked-in
 has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
+The versioned
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v2`](../config/stage17/stage17-operational-evidence-admission-policy-v2.json)
+binds the v1 graph/catalog/genesis/resolution predecessor and registers one
+semantic verifier per catalog input. Admission is default-deny. Only
+`S17-EXT-001` and `S17-EXT-006` currently have implemented verifiers;
+`S17-EXT-002..005` and `S17-EXT-007..010` produce the blocking result
+`SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED`. File existence, byte count,
+SHA-256, generic JSON, or a generic custody receipt is never sufficient.
+
 The historical successor v1 and `STAGE17-EXTERNAL-INPUTS-v1` checklist remain
 byte-immutable definition/templates. Their embedded `current_state` and
 per-item `status` fields are not operational state or evidence. Missing,
@@ -35,8 +45,19 @@ partial, expired, inaccessible, or hash-mismatched evidence retains the
 computed state and stops without automatic retry. The final graph state permits
 preparation of an exact phase authorization; it is not itself pilot execution
 authority. Pilot readiness additionally requires verified resolutions for all
-ten catalog inputs and an unexpired `S17-EXT-010` at an explicit evaluation
-time.
+ten catalog inputs and an unexpired, predecessor-bound `S17-EXT-010` at an
+explicit evaluation time. Because its semantic verifier is not implemented,
+pilot readiness cannot currently become true.
+
+`S17-EXT-001` requires one v2 semantic envelope that binds the authorization
+and supporting contract by repository-relative path, byte count, SHA-256, and
+schema identity. The contract fixes exactly six ordered observations, exact
+target/host-key evidence, pilot-candidate contract/locators, local action bytes,
+complete command bytes, create-exclusive outputs, finite limits, stop-first,
+retain-partial, role-collapse disclosure, and the exact read-only permission
+matrix. Prospective launcher/collector identities are inputs. Remote runtime
+executable/module/dependency identities are `S17-EXT-002` observation outputs
+and are forbidden as invented prospective values.
 
 `S17-EXT-006` is currently unresolved. The historical release-evidence record
 still states the clean source revision and archive metadata and remains
@@ -81,22 +102,27 @@ Print the computed state and authoritative unresolved-input list:
 The interpreter path above is the current pre-provisioned development prefix;
 another clean environment may use its recorded CMake `Python3_EXECUTABLE`.
 
-The state-journal self-test writes every positive fixture to an isolated
-directory, closes and reloads all referenced JSON files, and recomputes their
-hashes. Its negative set rejects skip/backward edges, forks, replay, duplicate
-sequence numbers, predecessor replacement, incomplete evidence, unknown or
-expired authority, graph/catalog drift, weakened Stage 18 chronology, missing
-external bytes, and the regression pair `artifact_id=DOES-NOT-EXIST` with a
-syntactically valid all-`a` SHA-256.
+The state-journal self-test separates operational evidence admission from pure
+state mechanics. One fully typed synthetic S17-EXT-001 contract is persisted,
+reloaded, and byte/hash-verified in an isolated directory; a separate harness
+replays ten mechanical resolution placeholders and three transitions but
+cannot enter the production CLI. Thirty-three negatives reject malformed or
+unbound S17-EXT-001 evidence, generic JSON/receipts, unknown/unimplemented
+verifiers, synthetic pilot-readiness attempts, expiry at intended action time,
+state/lineage mutations, and `artifact_id=DOES-NOT-EXIST` plus an all-`a`
+SHA-256.
 
 ## Exact next authorization draft
 
 The only next operational draft is
 [`S17-EXT-001 read-only preflight authorization`](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md).
-Every real owner-supplied field is null, it is not issued, and it cannot be
-used as evidence. The first resolution and transition must not be constructed
-until the owner supplies the exact target, UTC window, bounds, archive paths,
-six frozen read-only command vectors, executable hashes, and output locators.
+Every real owner-supplied field in the v2 draft is null, it is not issued, and
+it cannot be used as evidence. The first resolution and transition must not be
+constructed until the owner supplies the exact target, UTC window, bounds,
+archive paths, six frozen read-only byte vectors, prospective local executable
+identities, and create-exclusive output locators. Action readiness is evaluated
+again at the requested UTC; historical resolution or transition validity does
+not keep an expired authorization active.
 
 ## Pilot-candidate archive integration boundary
 

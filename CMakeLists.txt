@@ -672,7 +672,7 @@ if(BUILD_TESTING)
     PROPERTIES
       LABELS "runner;authorization;governance;state-journal;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
-        "PASS.*state=PREPARED.*resolved=0.*missing=10.*pilot_ready=false.*disk_positive=10/3.*negative=15.*nonexistent_evidence=REJECTED.*reload=PASS.*Stage18=false.*stand=NOT_ACCESSED")
+        "PASS.*state=PREPARED.*resolved=0.*missing=10.*pilot_ready=false.*semantic_positive=1/1.*mechanics_positive=10/3.*negative=33.*nonexistent_evidence=REJECTED.*generic_evidence=REJECTED.*reload=PASS.*Stage18=false.*stand=NOT_ACCESSED")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -2255,7 +2255,7 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_state_journal.py"
     --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking the append-only Stage 17 state journal with disk-backed positive and negative fixtures")
+  COMMENT "Checking append-only Stage 17 mechanics and default-deny semantic evidence admission")
 add_custom_target(
   stage17-pilot-candidate-artifact-integration-check
   COMMAND

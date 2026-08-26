@@ -438,12 +438,16 @@ authorization/amendment.
   stand prestate remain null. D-099/ADR-0099 completed the exact signed P4-R-I
   gate with four successful pinned-host read-only observations, one immutable
   local capture, one single-owner review, and a mandatory stop without stand
-  mutation. The D-100 through D-103 bundle now exposes four exact P4-R-C
-  prerequisite conflicts and recommendations without selecting them or
-  granting action authority. The next safe gate is exact acceptance of those
-  choices for repository-local executor implementation. A later newly
-  prepared, separately signed and explicitly approved P4-R-C is still required
-  before stand mutation; only then may exact P5 be prepared for approval. No
+  mutation. D-100 through D-103 are accepted under ADR-0100 through ADR-0103
+  for repository-local implementation only. The fixed D-104 executor, output
+  schemas, fake full graph/failure matrix, and still-unissued preparation are
+  implemented with zero action authority. Because D-099 did not identify the
+  remote Python, `dd`, and tar runtime used by that implementation, the
+  executor retains an explicit null runtime-acceptance gate and cannot execute.
+  The next safe gate is a separate read-only runtime-evidence decision, followed
+  by a clean successor and only then a newly prepared, separately signed and
+  explicitly approved P4-R-C action. Only after reviewed P4-R-C output may
+  exact P5 be prepared for approval. No
   P4-R-C, P5, Q15, calibration, pilot,
   measurement, or confirmatory action is authorized.
   Q15-S1/ADR-0051 accepts and

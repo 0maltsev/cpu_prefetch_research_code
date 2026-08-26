@@ -633,6 +633,16 @@ if(BUILD_TESTING)
       LABELS "q15;qualification;prestate;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
         "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1.*commands=25.*retries=0.*stand_access=false.*authority=NONE")
+  add_test(
+    NAME q15.p4_r_c_executor_no_network_self_test
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/execute_d104_p4_r_c.py" --self-test)
+  set_tests_properties(
+    q15.p4_r_c_executor_no_network_self_test
+    PROPERTIES
+      LABELS "q15;qualification;p4-r-c;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "SELF-TEST PASS.*fake failures.*no network")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -2178,6 +2188,13 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_d100_p4_r_c_decision.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking proposed no-action D-100 through D-103 P4-R-C decisions")
+add_custom_target(
+  q15-r-p4-r-c-d104-implementation-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d104_p4_r_c_implementation.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking accepted D-100 through D-103 P4-R-C implementation and blocked action gate")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND

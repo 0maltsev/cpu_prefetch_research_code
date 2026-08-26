@@ -1,6 +1,11 @@
 # Q15-R-P4-R-C D-100 through D-103 decision/input bundle
 
-Status: **`PROPOSED_EXACT_OWNER_ACCEPTANCE_REQUIRED_NO_ACTION_AUTHORITY`**
+Status: **`ACCEPTED_REPOSITORY_LOCAL_IMPLEMENTATION_ONLY_NO_ACTION_AUTHORITY`**
+
+Disposition: the proposal machine record remains immutable. The bounded direct
+owner acceptance is recorded separately in
+`config/q15/q15-r-p4-r-c-d100-acceptance-v1.json` (SHA-256 `bdfe690a...`) and
+ADR-0100 through ADR-0103. No action authority was added.
 
 Machine record SHA-256:
 `faa4c377a3261b35422a9cc7699f674458d55a364083a06f42441cc4abcc60d6`.
@@ -124,6 +129,9 @@ That action must stop before P5 and every Q15/scientific phase.
 > action requires a later separately signed and explicitly approved
 > authorization.
 
-Until that statement is accepted exactly, D-100 through D-103 remain proposed,
-the executor must not be implemented as an operational tool, and P4-R-C remains
-blocked.
+That statement was accepted by direct reference in the next owner response.
+Repository-local implementation is therefore permitted and complete, while
+key use, signing, stand access, staging, collection, P4-R-C, and later phases
+remain blocked. The selected implementation also exposes a new prospective
+compatibility gate: D-099 did not capture remote Python/`dd`/tar runtime
+identity, so the executor rejects action execution until that input is closed.

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-c-d100-acceptance:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "acceptance_id", "protocol_version", "status", "decision_input_path", "decision_input_sha256", "decision_bundle_commit", "accepted_selections", "accepted_risk_groups", "acceptance_basis", "bounded_interpretation", "authority_boundary", "next_gate"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-c-d100-acceptance/1"},
+    "acceptance_id": {"const": "Q15-R-P4-R-C-D100-ACCEPTANCE-20260826-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "ACCEPTED_REPOSITORY_LOCAL_IMPLEMENTATION_ONLY_NO_ACTION_AUTHORITY"},
+    "decision_input_path": {"const": "config/q15/q15-r-p4-r-c-d100-decision-input-v1.json"},
+    "decision_input_sha256": {"const": "faa4c377a3261b35422a9cc7699f674458d55a364083a06f42441cc4abcc60d6"},
+    "decision_bundle_commit": {"const": "d0a725a135b2f3ba43fed2bca534ae931ad2cc6b"},
+    "accepted_selections": {
+      "const": {
+        "D-100": "ACCEPT_SINGLE_OWNER_OPERATOR_CUSTODIAN_AUDITOR_COLLAPSE_FOR_ONE_P4_R_C",
+        "D-101": "ALLOW_ONLY_THE_EXACT_VERIFIED_D099_CUSTODY_ROOT_AND_REQUIRE_EVERY_P4_R_C_OUTPUT_TO_BE_ABSENT_AND_CREATE_EXCLUSIVE",
+        "D-102": "ACCEPT_ONLY_PRECOMPUTED_HASH_BOUND_CONSTANT_REMOTE_COMMAND_STRINGS_WITH_LOCAL_SHELL_FALSE_NO_USER_INTERPOLATION_AND_STRICT_TOKEN_VALIDATION",
+        "D-103": "AUTHORIZE_CREATE_EXCLUSIVE_MODE_0700_NAMESPACE_PARENT_IF_ABSENT_AND_REQUIRE_EXACT_ROOT_OWNED_NONSYMLINK_STATE_IF_PRESENT"
+      }
+    },
+    "accepted_risk_groups": {"type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "acceptance_basis": {"type": "string", "minLength": 1},
+    "bounded_interpretation": {"type": "string", "pattern": "repository-local implementation and verification only"},
+    "authority_boundary": {
+      "const": {
+        "repository_local_acceptance_adr_executor_schema_test_and_preparation_authorized": true,
+        "target_private_key_use_authorized": false,
+        "signing_or_authorization_issuance_authorized": false,
+        "stand_access_authorized": false,
+        "stand_filesystem_mutation_authorized": false,
+        "archive_or_sidecar_transfer_authorized": false,
+        "bundle_extraction_authorized": false,
+        "collector_self_test_or_description_on_stand_authorized": false,
+        "collector_execution_authorized": false,
+        "p4_r_c_authorized": false,
+        "p5_or_q15_r_or_q15_w_authorized": false,
+        "platform_controls_authorized": false,
+        "calibration_pilot_measurement_or_confirmatory_authorized": false
+      }
+    },
+    "next_gate": {"const": "FREEZE_VERIFIED_EXECUTOR_AND_STILL_UNISSUED_RECORDS_THEN_REQUIRE_SEPARATE_EXACT_SIGNED_P4_R_C_ACTION_APPROVAL"}
+  }
+}

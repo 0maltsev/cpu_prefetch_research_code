@@ -236,14 +236,22 @@ confirmation remain unauthorized.
 
 The exact
 [`D-100 through D-103 P4-R-C bundle`](Q15_R_P4_R_C_D100_DECISION_BUNDLE.md)
-is now prepared with machine-record SHA-256 `faa4c377...`. It exposes four
-prospective choices that a blanket approval cannot silently resolve: the
-single-owner P4-R-C review downgrade, compatibility with the exact pre-existing
-D-099 custody root, the unavoidable fixed OpenSSH login-shell boundary, and
-the namespace-parent creation rule. All four selections remain null and every
-action authority remains false. Exact owner acceptance of the displayed
-statement is required before repository-local executor implementation; the
-one-shot stand action will still require its own later exact signed approval.
+has machine-record SHA-256 `faa4c377...`; the directly responsive bounded owner
+acceptance has SHA-256 `bdfe690a...`. ADR-0100 through ADR-0103 now select the
+single-owner P4-R-C review downgrade, compatibility with only the exact
+pre-existing D-099 custody root, the fixed OpenSSH login-shell boundary, and
+the create-exclusive namespace-parent rule. The repository-local executor,
+schemas, fake failures, and still-unissued preparation are implemented.
+
+The next unresolved compatibility input is narrower: D-099 did not capture the
+stand's absolute `/usr/bin/python3`, `/usr/bin/dd`, or Python tar-runtime
+identity used by the fixed executor. D-102 says tool bytes are compatibility
+identity, so the executor's runtime-acceptance constant remains null and its
+action path fails closed. Prepare and separately authorize a read-only runtime
+identity acquisition or explicitly accept exact runtime compatibility risk,
+then freeze a clean successor before any D-104 signature or stand mutation.
+P4-R-C action, key use, P5, Q15, calibration, pilot, measurement, and
+confirmation remain unauthorized.
 
 ADR-0086 now implements the generic repository-local controller, admission
 schema, fake tests, and profile under the later owner delegation. It has no OS

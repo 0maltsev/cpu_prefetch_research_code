@@ -169,14 +169,20 @@ occurred. P4-R-C requires a new exact authorization. The earlier owner
 delegation authorizes and
 ADR-0086 implements a generic no-authority controller policy engine; it has no
 OS backend and cannot admit without complete signed external evidence. The
-proposed
+accepted implementation-only
 [`D-100 through D-103 P4-R-C bundle`](docs/Q15_R_P4_R_C_D100_DECISION_BUNDLE.md)
 now isolates four exact prerequisite conflicts: single-owner review, reuse of
 only the verified D-099 custody root, the fixed OpenSSH remote-command boundary,
 and namespace-parent creation. Its machine-record SHA-256 is `faa4c377...`;
-all selections and action prerequisites remain null/false. A blanket approval
-does not silently resolve these values, and no P4-R-C tool implementation,
-signature, stand mutation, transfer, collector, or later authority exists.
+the bounded acceptance SHA-256 is `bdfe690a...`. ADR-0100 through ADR-0103 and
+`tools/execute_d104_p4_r_c.py` implement only the fixed fail-closed local
+executor, fake transport/failure checks, append-only evidence contracts, and
+still-unissued action preparation. No key use, signature, stand mutation,
+transfer, collector, or later authority exists. The action path is additionally
+blocked until a prospective decision supplies or explicitly accepts the remote
+Python/`dd`/tar runtime compatibility identity absent from D-099.
+The fixed graph, checks, and stop boundary are documented in
+[`Q15_R_P4_R_C_D104_IMPLEMENTATION.md`](docs/Q15_R_P4_R_C_D104_IMPLEMENTATION.md).
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),

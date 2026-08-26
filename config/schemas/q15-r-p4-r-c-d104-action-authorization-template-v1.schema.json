@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-c-d104-action-authorization-template:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "template_id", "protocol_version", "status", "preparation_path", "transaction_id", "capture_id", "authorization_validity_seconds", "signer_key_fingerprint", "signature_scheme", "signature_principal", "signature_namespace", "clean_implementation_commit", "executor_sha256", "issued_at_utc", "expires_at_utc", "authorization_sha256", "detached_signature_sha256", "pre_execution_review_sha256", "action_owner_approval", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-c-d104-action-authorization-template/1"},
+    "template_id": {"const": "Q15-R-P4-R-C-D104-ACTION-AUTHORIZATION-TEMPLATE-20260826-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "STILL_UNISSUED_REQUIRES_CLEAN_COMMIT_SIGNATURE_REVIEW_AND_EXACT_APPROVAL"},
+    "preparation_path": {"const": "config/q15/q15-r-p4-r-c-d104-preparation-v1.json"},
+    "transaction_id": {"const": "Q15-R-P4-R-C-D104-XEON-CPU-FETCH-20260826-01"},
+    "capture_id": {"const": "Q15-R-P4-R-XEON-CPU-FETCH-20260825-01"},
+    "authorization_validity_seconds": {"const": 1800},
+    "signer_key_fingerprint": {"const": "SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM"},
+    "signature_scheme": {"const": "OPENSSH-SSHSIG-ED25519-SHA512-v1"},
+    "signature_principal": {"const": "cpu-prefetch-q15-authorization"},
+    "signature_namespace": {"const": "cpu-prefetch-q15-authorization"},
+    "clean_implementation_commit": {"type": "null"},
+    "executor_sha256": {"type": "null"},
+    "issued_at_utc": {"type": "null"},
+    "expires_at_utc": {"type": "null"},
+    "authorization_sha256": {"type": "null"},
+    "detached_signature_sha256": {"type": "null"},
+    "pre_execution_review_sha256": {"type": "null"},
+    "action_owner_approval": {"type": "null"},
+    "authority_boundary": {"const": {"template_preparation_only": true, "key_use_or_signing_authorized": false, "stand_access_or_mutation_authorized": false, "p4_r_c_or_later_authorized": false}}
+  }
+}

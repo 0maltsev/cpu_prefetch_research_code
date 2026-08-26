@@ -1,0 +1,57 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-r-c-d104-preparation/1",
+  "preparation_id": "Q15-R-P4-R-C-D104-PREPARATION-20260826-01",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "IMPLEMENTED_NO_AUTHORITY_BLOCKED_ON_REMOTE_RUNTIME_COMPATIBILITY_AND_ACTION_INPUTS",
+  "acceptance_path": "config/q15/q15-r-p4-r-c-d100-acceptance-v1.json",
+  "acceptance_sha256": "bdfe690a15b80c85d9fdf747a2036d48c1d8f56a8f2856dfc7e1d7b597c4a65f",
+  "executor_path": "tools/execute_d104_p4_r_c.py",
+  "executor_sha256": "0b7e2f1c65849abe7d29ed8fd91fabb6105b8977d3051b9947ac7346fc14bdf6",
+  "executor_contract": "Q15-R-P4-R-C-EXECUTOR-CONTRACT-v1",
+  "transaction_id": "Q15-R-P4-R-C-D104-XEON-CPU-FETCH-20260826-01",
+  "capture_id": "Q15-R-P4-R-XEON-CPU-FETCH-20260825-01",
+  "stand_id": "XEON-CPU-FETCH",
+  "endpoint": "root@185.184.131.153",
+  "immutable_inputs": {
+    "d099_complete_evidence_sha256": "afc31fca0451e883dc72c86827a814da209da7031c0b2ec66316b92301c4c241",
+    "archive_sha256": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a",
+    "archive_sidecar_sha256": "f2bf9e3f2ed97541905b7e0fbc24dfa15d3b5c3096bd7e9ab0d23dcdbe0fffd4",
+    "collector_binary_sha256": "4716e1dfc2e65fd61dce1ea54a70fd876a0b4322b69d9ad1fde5c67a65c48a57",
+    "collector_contract_sha256": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87",
+    "collector_embedded_selected_release_sha256": "8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01",
+    "pinned_hosts_sha256": "89ddf9b9d9dc48520c9d30968bb4a63a58aa976bf9be341ac811f735eaef757d",
+    "target_allowed_signers_sha256": "b08f32720b7987218a5c51f31f822f2ea1d22ff948beb41382518927d815c718",
+    "transport_public_key_sha256": "b46d49976a60f4a578282ff4d2061e7d58640eb74993c3f5333fa609792d488a",
+    "ssh_sha256": "e3bc4b0d2382755b4dd398101c9c00ab20df91c2e565b017f0c8f033004391f2",
+    "ssh_keygen_sha256": "f5a191e91589ab689c93caccc09d827a3a9d4ab28f950dc94ae05351c1389e11"
+  },
+  "unresolved_action_inputs": {
+    "clean_implementation_commit": null,
+    "issued_at_utc": null,
+    "expires_at_utc": null,
+    "canonical_authorization_sha256": null,
+    "detached_signature_sha256": null,
+    "pre_execution_review_sha256": null,
+    "exact_action_owner_approval": null,
+    "stand_remote_python_dd_tar_runtime_identity_evidence_or_explicit_compatibility_acceptance": null
+  },
+  "artifacts": {
+    "authorization_template": "config/q15/q15-r-p4-r-c-d104-action-authorization-template-v1.json",
+    "action_schema": "config/schemas/q15-r-p4-r-c-d104-action-authorization-v1.schema.json",
+    "pre_execution_review_schema": "config/schemas/q15-r-p4-r-c-d104-pre-execution-review-v1.schema.json",
+    "transfer_receipt_schema": "config/schemas/q15-r-p4-r-c-d104-transfer-receipt-v1.schema.json",
+    "failure_schema": "config/schemas/q15-r-p4-r-c-d104-failure-v1.schema.json",
+    "owner_review_schema": "config/schemas/q15-r-p4-r-c-d104-owner-review-v1.schema.json"
+  },
+  "authority_boundary": {
+    "repository_local_preparation_authorized": true,
+    "target_private_key_use_authorized": false,
+    "signing_or_authorization_issuance_authorized": false,
+    "stand_access_authorized": false,
+    "stand_filesystem_mutation_authorized": false,
+    "transfer_extraction_or_collector_execution_authorized": false,
+    "p4_r_c_or_later_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  },
+  "next_gate": "ONE_CLEAN_IMPLEMENTATION_COMMIT_THEN_SEPARATE_READ_ONLY_REMOTE_RUNTIME_EVIDENCE_DECISION_BEFORE_D104_ACTION"
+}

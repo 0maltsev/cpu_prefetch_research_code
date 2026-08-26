@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-c-d104-transfer-receipt:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "transaction_id", "authorization_sha256", "status", "completed_steps", "archive_sha256", "collector_stdout_sha256", "collector_stderr_sha256", "retry_count", "partial_staging_retained", "stand_activation_performed", "automatic_continuation", "created_at_utc"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-c-d104-transfer-receipt/1"},
+    "transaction_id": {"const": "Q15-R-P4-R-C-D104-XEON-CPU-FETCH-20260826-01"},
+    "authorization_sha256": {"$ref": "#/$defs/sha256"},
+    "status": {"const": "COMPLETE_VALID_STAGING_AND_COLLECTION_STOPPED_FOR_SEPARATE_OWNER_REVIEW"},
+    "completed_steps": {"const": ["P4RC-001", "P4RC-002", "P4RC-003", "P4RC-004", "P4RC-005", "P4RC-006", "P4RC-007", "P4RC-008", "P4RC-009", "P4RC-010", "P4RC-011", "P4RC-012"]},
+    "archive_sha256": {"const": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a"},
+    "collector_stdout_sha256": {"$ref": "#/$defs/sha256"},
+    "collector_stderr_sha256": {"$ref": "#/$defs/sha256"},
+    "retry_count": {"const": 0},
+    "partial_staging_retained": {"const": true},
+    "stand_activation_performed": {"const": false},
+    "automatic_continuation": {"const": false},
+    "created_at_utc": {"$ref": "#/$defs/utc"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}}
+}

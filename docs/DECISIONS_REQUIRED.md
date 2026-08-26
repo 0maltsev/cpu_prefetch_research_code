@@ -43,12 +43,15 @@ caller-supplied exact archive/sidecar bytes and a verifiable custody receipt.
 The immediate owner input is the exact real data listed in the
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md), not another
 recommendation bundle.
-ADR-0108 preserves the v1/v2/v3 predecessors and makes the current S17-EXT-001
-draft v4. The owner must still supply its exact target, UTC window, host-key/
+ADR-0108 through ADR-0110 preserve all earlier definitions while making policy
+v6, fixed plan v4, verifier v6, executor v4, and journal runtime v3 current.
+The owner must still supply the exact v6 target, UTC window, host-key/
 known-hosts and transport identities, archive/sidecar/bundle locators, exact-
 second capture identity/time, safe evidence root, and actual executor/collector
 paths. Production authority is evaluated from actual system UTC, not an owner
-or CLI time. These are unresolved external inputs, not implementation defaults.
+or CLI time. Executor v4 retains sealed snapshots and gives OpenSSH parent-
+procfd locators; the hermetic actual-OpenSSH capability is required before a
+marker. These are unresolved external inputs, not implementation defaults.
 
 Q15-R-P4-F was accepted on 2026-08-25 and is recorded in ADR-0072 through
 ADR-0075. It freezes repository-local literals and still-unissued templates

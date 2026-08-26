@@ -12,7 +12,9 @@ or snapshots. ADR-0107 supersedes only future `S17-EXT-001` admission with a
 fixed-action, transition-gated v3 policy. ADR-0108 preserves all v1/v2/v3
 bytes and supplies the v4 production runtime/durability predecessor. ADR-0109
 preserves all v1-v4 definitions and supplies the v5 clock/credential-
-consumption successor. None of these ADRs authorizes stand access or a run:
+consumption predecessor. ADR-0110 preserves all v1-v5 definitions and supplies
+the v6 real-OpenSSH-consumption successor. None of these ADRs authorizes stand
+access or a run:
 
 ```text
 PREPARED
@@ -34,9 +36,9 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v5`](../config/stage17/stage17-operational-evidence-admission-policy-v5.json)
-binds policy v4, ADR-0108, ADR-0109, every used v5 schema, fixed action plan
-v3, and the complete verifier/executor/collector/journal/helper runtime closure. It
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v6`](../config/stage17/stage17-operational-evidence-admission-policy-v6.json)
+binds policy v5, ADR-0109, ADR-0110, every used v6/current record schema, fixed
+action plan v4, and the complete verifier/executor/collector/journal/broker/helper runtime closure. It
 registers one semantic verifier per catalog input. Admission is default-deny. Only
 `S17-EXT-001` and `S17-EXT-006` currently have implemented verifiers;
 `S17-EXT-002..005` and `S17-EXT-007..010` produce the blocking result
@@ -54,7 +56,7 @@ ten catalog inputs and an unexpired, predecessor-bound `S17-EXT-010` at an
 explicit evaluation time. Because its semantic verifier is not implemented,
 pilot readiness cannot currently become true.
 
-`S17-EXT-001` requires one v5 semantic envelope that binds the authorization,
+`S17-EXT-001` requires one v6 semantic envelope that binds the authorization,
 supporting contract, policy, action plan, verifier, executor, and collector by
 repository-relative path, byte count, SHA-256, and schema identity. The owner
 cannot provide command, argv, stdin, or output-file bytes. The repository-owned
@@ -82,11 +84,18 @@ actual system-UTC sample; future or expired authority cannot create a marker.
 It samples again after durable marker creation immediately before first
 transport; expiry, not-yet-valid authority, or rollback retains a typed
 failure and opens no transport. OpenSSH option paths reject expansion/
-configuration characters, and local `/usr/bin/ssh -G` must reproduce their
-exact descriptor paths. Verified known-hosts and transport-identity bytes are
-copied into sealed Linux `memfd` snapshots before marker and inherited by the
-child through `pass_fds`; OpenSSH consumes `/proc/self/fd/N`, not a mutable
-owner pathname. All schemas required after marker are preloaded. The executor
+configuration characters. Local `/usr/bin/ssh -G` checks only option expansion;
+it is not evidence that OpenSSH later consumes a credential. Verified
+known-hosts and transport-identity bytes are copied into sealed Linux `memfd`
+snapshots before marker and kept open by executor v4. OpenSSH receives
+`/proc/<procfs-visible-parent>/fd/N` paths and no credential descriptor through
+`pass_fds`; the visible parent PID comes from numeric `/proc/self`, not an
+`os.getpid()` assumption. Before the final clock, a hermetic real
+`/usr/bin/ssh`/`/usr/sbin/sshd -i` pipe fixture must authenticate using both
+snapshots after the disposable owner sources have changed. It opens no socket,
+network, or stand connection. Procfs/reopen/seal/size/hash/parse/capability
+failure blocks before marker and transport. All schemas required after marker
+are preloaded. The executor
 pins the safe root by directory
 FD, create-exclusively writes and fsyncs the marker, fsyncs the parent before
 transport, retains typed records after any operational failure, and enforces
@@ -124,7 +133,8 @@ No Stage 17 record can unseal or authorize Stage 18.
 ```sh
 cmake --build --preset dev-gcc --target stage17-operational-successor-check
 cmake --build --preset dev-gcc --target stage17-state-journal-check
-ctest --preset dev-gcc -R 'runner.stage17_(operational_successor|state_journal)|q15.p4_r_c_executor_no_network_self_test' --output-on-failure
+cmake --build --preset dev-gcc --target stage17-openssh-consumption-check
+ctest --preset dev-gcc -R 'runner.stage17_(operational_successor|state_journal|openssh_snapshot_consumption)|q15.p4_r_c_executor_no_network_self_test' --output-on-failure
 ```
 
 Print the computed state and authoritative unresolved-input list:
@@ -147,6 +157,12 @@ focused positive and five focused negative 17A.4 cases cover both expiry
 boundaries, rollback, atomic replacement and in-place mutation of both
 OpenSSH inputs, exact bytes read by a real local child, post-marker schema
 drift, legacy-executor rejection, concurrency, and pinning failure.
+Eight focused positive and twenty focused negative 17A.5 cases reproduce the
+real OpenSSH inherited-fd failure, prove actual parent-procfd credential
+consumption, and cover PID namespaces, denied procfs, premature close, seal/
+size/hash/key failures, owner source mutation, both authority boundaries,
+capability failure before marker, concurrency/replay, every marker version,
+schema drift, and predecessor/successor rejection.
 Seventy-nine predecessor negatives reject malformed or
 unbound S17-EXT-001 evidence, generic JSON/receipts, unknown/unimplemented
 verifiers, arbitrary/mutating commands, unsafe roots, malformed host keys,
@@ -158,7 +174,7 @@ mutations, and `artifact_id=DOES-NOT-EXIST` plus an all-`a` SHA-256.
 
 The only next operational draft is
 [`S17-EXT-001 read-only preflight authorization`](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md).
-Every real owner-supplied field in the v5 draft is null, it is not issued, and
+Every real owner-supplied field in the v6 draft is null, it is not issued, and
 it cannot be used as evidence. The first resolution and transition must not be
 constructed until the owner supplies the exact target, UTC window, pinned key
 and known-hosts bindings, archive/sidecar/extracted-root locators, capture

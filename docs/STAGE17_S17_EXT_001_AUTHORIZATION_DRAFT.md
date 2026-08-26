@@ -1,9 +1,9 @@
 # S17-EXT-001 read-only preflight authorization draft
 
 The current machine-readable draft is
-[`STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v5`](../config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v5.json).
-The v1 through v4 drafts remain immutable predecessors. None is authority or
-evidence. The v5 record is deliberately unissuable: every owner-controlled
+[`STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v6`](../config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v6.json).
+The v1 through v5 drafts remain immutable predecessors. None is authority or
+evidence. The v6 record is deliberately unissuable: every owner-controlled
 value is `null`, status is `DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED`, and its
 authority boundary denies stand access, preflight, mutation, calibration,
 pilot, and Stage 18 work.
@@ -28,13 +28,13 @@ timeout, retry, or permission value. Those values exist only in the immutable
 repository-owned fixed action plan.
 
 The supporting contract must be written first and validated against
-`cpu-prefetch-stage17-read-only-preflight-supporting-contract/5`. The
+`cpu-prefetch-stage17-read-only-preflight-supporting-contract/6`. The
 authorization then binds its repository-relative path, exact byte count,
 SHA-256, and schema identity. Both files are finally bound by one
-`cpu-prefetch-stage17-operational-evidence-envelope/5`, together with policy
-v5, fixed plan v3, all v5 schemas, and the complete verifier/executor/
-collector/journal/helper runtime closure. A v1/v2/v3
-or v4 authorization, or an unbound contract, cannot resolve `S17-EXT-001`.
+`cpu-prefetch-stage17-operational-evidence-envelope/6`, together with policy
+v6, fixed plan v4, all current schemas, and the complete verifier/executor/
+collector/journal/broker/helper runtime closure. A v1-v5 authorization, or an
+unbound contract, cannot resolve `S17-EXT-001`.
 
 The six observation IDs are fixed, ordered, and unique:
 
@@ -76,11 +76,18 @@ the final actual system-UTC sample. Future or expired authority cannot create
 a marker. After durable marker creation, it samples actual UTC again
 immediately before the first transport; expiry, future authority, or rollback
 creates a typed failure and opens no transport. Verified known-hosts and
-transport-identity bytes live in sealed `memfd` snapshots inherited by the
-child and addressed as `/proc/self/fd/N`; the mutable owner pathname is never
-reopened after marker. Literal effective paths are checked locally with
-`/usr/bin/ssh -G`, without a connection. The executor otherwise uses exact SSH
-argv and directory-FD create-exclusive storage.
+transport-identity bytes live in sealed `memfd` snapshots retained by executor
+v4 and addressed to OpenSSH as `/proc/<procfs-visible-parent>/fd/N`; the child
+inherits no credential descriptor and the mutable owner pathname is never
+reopened. The mounted-procfs PID is discovered through numeric `/proc/self`,
+not assumed from `os.getpid()`. Literal effective paths may be checked locally
+with `/usr/bin/ssh -G`, but that is not consumption evidence. Before the final
+clock and marker, a hermetic real `/usr/bin/ssh` plus `/usr/sbin/sshd -i` pipe
+fixture must authenticate with exact disposable snapshots after both owner
+sources are changed. No socket, network, or stand is involved. Procfs denial,
+reopen/seal/size/hash drift, key parse failure, or capability failure blocks
+before marker and transport. The executor otherwise uses exact SSH argv and
+directory-FD create-exclusive storage.
 The marker file and parent directory are fsynced before transport; one
 180-second monotonic deadline covers the whole action, and every post-marker
 failure retains the marker and attempts a typed failure record without retry.

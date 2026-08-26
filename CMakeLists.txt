@@ -673,6 +673,17 @@ if(BUILD_TESTING)
       LABELS "runner;authorization;governance;state-journal;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
         "PASS.*state=PREPARED.*resolved=0.*missing=10.*pilot_ready=false.*semantic_positive=1/1.*mechanics_positive=10/3.*runtime_positive=2.*stage17a4_positive=7.*stage17a4_negative=5.*negative=79.*nonexistent_evidence=REJECTED.*generic_evidence=REJECTED.*reload=PASS.*Stage18=false.*stand=NOT_ACCESSED")
+  add_test(
+    NAME runner.stage17_openssh_snapshot_consumption
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_openssh_snapshot_consumption.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_openssh_snapshot_consumption
+    PROPERTIES
+      LABELS "runner;authorization;openssh;state-journal;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS.*positive=8.*negative=20.*real_openssh=true.*network=false")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -2254,8 +2265,20 @@ add_custom_target(
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_state_journal.py"
     --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_openssh_snapshot_consumption.py"
+    --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking append-only Stage 17 mechanics and default-deny semantic evidence admission")
+  COMMENT "Checking Stage 17 journal admission and real local OpenSSH snapshot consumption")
+add_custom_target(
+  stage17-openssh-consumption-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_openssh_snapshot_consumption.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Characterizing OpenSSH fd hygiene and parent-procfd snapshot consumption locally")
 add_custom_target(
   stage17-pilot-candidate-artifact-integration-check
   COMMAND

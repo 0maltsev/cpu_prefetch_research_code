@@ -228,8 +228,9 @@ ADR-0108 preserves those v1/v2/v3 bytes and closes the production runtime
 boundary with policy v4 and fixed action plan v2. Production execution has no
 caller-selected authority time: actual system UTC is checked immediately
 before a marker can be created. OpenSSH option paths reject expansion and
-configuration characters, and local `ssh -G` proves their effective values
-remain literal without opening a connection. The loaded verifier/executor/
+configuration characters, and local `ssh -G` checks that their effective
+values remain literal without opening a connection; it does not prove later
+credential consumption. The loaded verifier/executor/
 collector/journal closure must match the policy-bound files, all six programs
 must render and compile before the marker, and the evidence root is pinned by
 directory descriptor. The marker file and parent directory are fsynced before
@@ -238,18 +239,29 @@ create-exclusive failure record. One 180-second monotonic deadline covers the
 entire action. The checked-in journal remains `PREPARED`, with no authority or
 attempt record.
 ADR-0109 preserves every policy/plan/schema/runtime predecessor through v4 and
-adds the current policy-v5, fixed-plan-v3, verifier-v5, journal-runtime-v2, and
-executor-v3 closure. All long validation, hash, render, compile, schema-load,
+adds the immutable policy-v5, fixed-plan-v3, verifier-v5, journal-runtime-v2,
+and executor-v3 predecessor. All long validation, hash, render, compile, schema-load,
 and OpenSSH-input pinning work finishes before a fresh system-UTC sample is
 checked and the marker can exist. A second fresh sample is checked after the
 durable marker immediately before the first transport; expiry, not-yet-valid
 authority, or wall-clock rollback retains a typed failure and opens no
 transport. Verified known-hosts and identity bytes are copied into Linux
-sealed `memfd` snapshots before the marker and are consumed through inherited
-`/proc/self/fd/N` locators, so replacement or in-place mutation of the owner
-path cannot change child-consumed bytes. The prior executor v2 does not admit
-the v5 envelope. Seven focused positive and five focused negative 17A.4 cases
-pass in addition to the preserved two runtime positives and 79 negatives.
+sealed `memfd` snapshots before the marker. ADR-0110 confirms that executor
+v3's inherited `/proc/self/fd/N` design is incompatible with real OpenSSH fd
+hygiene: `/usr/bin/ssh` closes or reuses descriptors at or above 3 before
+credential consumption. Policy v6, plan v4, verifier v6, journal runtime v3,
+and executor v4 therefore expose the still-open sealed snapshots through
+`/proc/<procfs-visible-parent>/fd/N`; the SSH child inherits no credential
+descriptor and the executor retains both memfds until child termination.
+PID discovery uses the numeric `/proc/self` target rather than `os.getpid()`.
+Before any marker, a hermetic local `/usr/bin/ssh` plus `/usr/sbin/sshd -i`
+pipe fixture proves strict-host-key and Ed25519 public-key authentication from
+the exact snapshots after both owner sources are changed. It opens no socket
+or network connection. `ssh -G`, mocks, and a generic Python child remain
+option/rendering diagnostics, not credential-consumption proof. The prior
+executor v3 rejects v6 records, all marker versions block replay, eight new
+positive and twenty new negative 17A.5 cases pass, and the preserved 17A.4 and
+79-negative suites remain green.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),

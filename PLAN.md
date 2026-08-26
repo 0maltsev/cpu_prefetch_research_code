@@ -338,8 +338,8 @@ authorization/amendment.
   journal; ADR-0106 default-deny semantic predecessor; ADR-0107 fixed
   read-only plan and transition/one-shot action gate; ADR-0108 actual-clock,
   literal-OpenSSH-path, loaded-runtime, durable-marker, typed-failure, and
-  global-deadline predecessor; ADR-0109 final/post-marker clock and sealed
-  OpenSSH-input-consumption successor; verified exact
+  global-deadline predecessor; ADR-0109 final/post-marker-clock predecessor;
+  ADR-0110 policy-v6 parent-procfd OpenSSH-consumption successor; verified exact
   no-authority candidate bytes and custody receipt;
   accepted preflight and exact stand
   qualification; then dependency-ready phase inputs and a phase-scoped pilot
@@ -488,7 +488,7 @@ authorization/amendment.
   action is authorized.
   ADR-0109 keeps every predecessor through policy v4, plan v2, executor v2,
   verifier v4, journal runtime v1, and collector v2 byte-identical. The active
-  policy-v5 closure uses plan v3, verifier v5, executor v3, and the versioned
+  then-current policy-v5 closure used plan v3, verifier v5, executor v3, and the versioned
   journal runtime v2 while reusing collector v2. It completes slow preparation
   before the final system-UTC sample, takes a second sample after the durable
   marker immediately before first transport, rejects rollback as well as
@@ -499,6 +499,20 @@ authorization/amendment.
   rollback, schema drift, legacy-v2 rejection, concurrency, and pinning setup
   failure. The operational journal remains `PREPARED` with 0/10 resolutions,
   zero transitions, `action_ready=false`, and `pilot_ready=false`.
+  ADR-0110 preserves that entire v5/v3/v2 closure after a targeted real
+  `/usr/bin/ssh` characterization reproduces OpenSSH fd hygiene closing or
+  reusing inherited self-procfd descriptors. The active policy-v6 closure uses
+  plan v4, verifier v6, executor v4, journal runtime v3, unchanged collector
+  v2, and a hash-bound parent-snapshot broker. Executor-held sealed memfds are
+  named through `/proc/<procfs-visible-parent>/fd/N`; no credential descriptor
+  is inherited. A hermetic actual OpenSSH/sshd pipe fixture proves strict
+  host-key and Ed25519 authentication from the exact snapshots after both
+  owner sources are changed, with no socket, network, or stand. Eight focused
+  positive and twenty focused negative 17A.5 cases cover PID namespaces,
+  procfs denial, seal/size/hash/parse failure, owner-source replacement and
+  mutation, expiry/rollback, capability-before-marker, concurrency, replay,
+  cross-version markers, schema drift, and predecessor rejection. The current
+  state and all external blockers remain unchanged.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

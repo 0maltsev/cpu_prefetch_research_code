@@ -105,7 +105,7 @@ authorized probe/collector command, and the runbook must not improvise one.
 ### 5. Calibration/pilot preparation
 
 Only after the successor reaches `READY_FOR_STAGE17_PHASE_AUTHORIZATION` and
-all ten entries in `STAGE17-EXTERNAL-INPUTS-v1` resolve may the owner issue the
+all entries in `STAGE17-EXTERNAL-INPUTS-v1` resolve may the owner issue the
 exact phase-scoped pilot authorization. Bundle verification, inventory, or
 preflight acceptance does not authorize calibration or pilot. Confirmatory
 namespaces and outcomes remain inaccessible.

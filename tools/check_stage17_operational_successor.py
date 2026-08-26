@@ -24,6 +24,8 @@ PRESERVATION_PATH = ROOT / "config/stage17/d099-d108-preservation-manifest-v1.js
 PRESERVATION_SCHEMA = ROOT / "config/schemas/stage17-predecessor-preservation-v1.schema.json"
 EXTERNAL_ARCHIVE_CONTRACT = ROOT / "config/q15/q15-qualification-archive-external-contract-v1.json"
 EXTERNAL_ARCHIVE_SCHEMA = ROOT / "config/schemas/q15-qualification-archive-external-contract-v1.schema.json"
+RELEASE_EVIDENCE_PATH = ROOT / "config/stage17/stage17-pilot-candidate-release-evidence-v1.json"
+RELEASE_EVIDENCE_SCHEMA = ROOT / "config/schemas/stage17-pilot-candidate-release-evidence-v1.schema.json"
 
 STATE_ORDER = [
     "PREPARED",
@@ -180,6 +182,21 @@ def checklist_errors(checklist: dict[str, Any]) -> list[str]:
         )
         if resolved is not has_reference:
             errors.append(f"{item.get('input_id')} resolution/reference mismatch")
+    release_item = next(
+        (item for item in items if item.get("input_id") == "S17-EXT-006"), None
+    )
+    if release_item is None or release_item.get("status") != "RESOLVED":
+        errors.append("S17-EXT-006 clean release evidence is not resolved")
+    else:
+        release_evidence = load(RELEASE_EVIDENCE_PATH)
+        errors.extend(schema_errors(release_evidence, RELEASE_EVIDENCE_SCHEMA))
+        if release_item.get("artifact_id") != release_evidence.get("evidence_id"):
+            errors.append("S17-EXT-006 evidence identity mismatch")
+        if release_item.get("sha256") != sha256(RELEASE_EVIDENCE_PATH):
+            errors.append("S17-EXT-006 evidence SHA-256 mismatch")
+        authority = release_evidence.get("authority_boundary", {})
+        if any(authority.values()):
+            errors.append("S17-EXT-006 release evidence grants operational authority")
     return errors
 
 

@@ -198,6 +198,11 @@ disclosed owner, and one authorization may cover a frozen read-only preflight
 observation set. This does not weaken or authorize the Stage 18 selection,
 validation-unseal, H3-evaluation, or H1/H2-release chronology. The current
 successor state is `PREPARED`, not pilot authority.
+Clean commit `2b4f16c` produced and clean-extraction verified the no-authority
+pilot-candidate archive SHA-256 `d1c44bc0...`; this resolves only
+`S17-EXT-006`. Its machine-readable release-evidence record binds the archive,
+sidecar, manifest, binaries, and strict codegen reports. Nine checklist inputs
+remain unresolved.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),

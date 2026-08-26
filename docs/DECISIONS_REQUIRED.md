@@ -35,8 +35,10 @@ proposed/unaccepted, and replaces their open-ended continuation as a pilot gate
 with the single machine-readable
 [`STAGE17-EXTERNAL-INPUTS-v1`](../config/stage17/stage17-external-input-checklist-v1.json)
 checklist. The current state is `PREPARED`. There are no additional decision-
-only D-109/D-110 questions. Advancement now requires external evidence for
-S17-EXT-001 through S17-EXT-010, not another recommendation bundle.
+only D-109/D-110 questions. Clean commit `2b4f16c` and no-authority archive
+SHA-256 `d1c44bc0...` resolve `S17-EXT-006`; advancement still requires exact
+external evidence for S17-EXT-001..005 and S17-EXT-007..010, not another
+recommendation bundle.
 
 Q15-R-P4-F was accepted on 2026-08-25 and is recorded in ADR-0072 through
 ADR-0075. It freezes repository-local literals and still-unissued templates

@@ -452,8 +452,10 @@ authorization/amendment.
   may hold owner/operator/controller/custodian/auditor roles and one
   authorization may cover the frozen read-only preflight observation set; no
   independent-review claim is permitted. The current state remains `PREPARED`
-  because all ten entries in `STAGE17-EXTERNAL-INPUTS-v1` require real external
-  evidence. The D-104 self-test is hermetic; real qualification archive bytes
+  because nine entries in `STAGE17-EXTERNAL-INPUTS-v1` still require real
+  external evidence. `S17-EXT-006` is resolved by clean commit `2b4f16c` and
+  no-authority pilot-candidate archive SHA-256 `d1c44bc0...`. The D-104
+  self-test is hermetic; real qualification archive bytes
   are handled only by the explicit external-artifact integration contract. No
   stand, P4-R-C, P5, Q15, calibration, pilot, measurement, or confirmatory
   action is authorized.

@@ -657,7 +657,7 @@ if(BUILD_TESTING)
     PROPERTIES
       LABELS "runner;authorization;governance;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
-        "PASS.*state=PREPARED.*transitions=3.*pilot_ready=false.*stand=NOT_ACCESSED")
+        "PASS.*state=PREPARED.*transitions=3.*external_inputs=9.*pilot_ready=false.*stand=NOT_ACCESSED")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)

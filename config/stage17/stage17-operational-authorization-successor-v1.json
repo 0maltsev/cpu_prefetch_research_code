@@ -75,7 +75,7 @@
   },
   "external_input_checklist": {
     "path": "config/stage17/stage17-external-input-checklist-v1.json",
-    "sha256": "7b5da0075383b4602d463f86f1974a8eaf68609895254885b78d93ac29f1febe"
+    "sha256": "d29e650041dbefcbd52da5aed261f3c484a5fe96b3d95576617bb54887587d3f"
   },
   "hermetic_executor_successor": {
     "path": "tools/execute_d104_p4_r_c.py",

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cpu-prefetch.invalid/schemas/stage17-pilot-candidate-release-evidence-v1.schema.json",
+  "title": "Stage 17 pilot-candidate release evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "evidence_id", "protocol_version", "source", "build", "bundle", "manifest", "release_binaries", "codegen_reports", "verification", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-pilot-candidate-release-evidence/1"},
+    "evidence_id": {"const": "STAGE17-PILOT-CANDIDATE-RELEASE-EVIDENCE-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["revision", "dirty"],
+      "properties": {
+        "revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "dirty": {"const": false}
+      }
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["configure_preset", "target"],
+      "properties": {
+        "configure_preset": {"const": "release-gcc"},
+        "target": {"const": "pilot-candidate-bundle"}
+      }
+    },
+    "bundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["filename", "size_bytes", "sha256", "sidecar_filename", "sidecar_size_bytes", "sidecar_sha256", "top_level_directory"],
+      "properties": {
+        "filename": {"type": "string", "minLength": 1},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "sidecar_filename": {"type": "string", "minLength": 1},
+        "sidecar_size_bytes": {"type": "integer", "minimum": 1},
+        "sidecar_sha256": {"$ref": "#/$defs/sha256"},
+        "top_level_directory": {"type": "string", "minLength": 1}
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256", "profile", "file_count", "pilot_authorized", "confirmatory_authorized", "dynamic_qualification_authorized"],
+      "properties": {
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "profile": {"const": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"},
+        "file_count": {"type": "integer", "minimum": 1},
+        "pilot_authorized": {"const": false},
+        "confirmatory_authorized": {"const": false},
+        "dynamic_qualification_authorized": {"const": false}
+      }
+    },
+    "release_binaries": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/hashed_path"}
+    },
+    "codegen_reports": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "allOf": [
+          {"$ref": "#/$defs/hashed_path"},
+          {
+            "type": "object",
+            "required": ["status"],
+            "properties": {"status": {"const": "PASS"}}
+          }
+        ]
+      }
+    },
+    "verification": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check_id", "result"],
+        "properties": {
+          "check_id": {"type": "string", "minLength": 1},
+          "result": {"const": "PASS"}
+        }
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stand_accessed", "dynamic_qualification_authorized", "pilot_authorized", "confirmatory_authorized"],
+      "properties": {
+        "stand_accessed": {"const": false},
+        "dynamic_qualification_authorized": {"const": false},
+        "pilot_authorized": {"const": false},
+        "confirmatory_authorized": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "hashed_path": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "status": {"const": "PASS"}
+      }
+    }
+  }
+}

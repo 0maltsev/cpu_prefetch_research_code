@@ -4,7 +4,7 @@
   "protocol_version": "2.0.0-pre.2",
   "status": "EXTERNAL_INPUTS_REQUIRED",
   "all_resolved": false,
-  "unresolved_count": 10,
+  "unresolved_count": 9,
   "items": [
     {
       "input_id": "S17-EXT-001",
@@ -67,9 +67,9 @@
       "description": "Clean exact Stage 17 pilot runner release and pilot-candidate bundle identity after this successor is committed and rebuilt.",
       "required_evidence": ["clean source commit", "release binary SHA-256", "pilot-candidate archive and sidecar SHA-256", "build/dependency provenance", "strict generated-code reports"],
       "owner": "release owner",
-      "status": "EXTERNAL_REQUIRED",
-      "artifact_id": null,
-      "sha256": null,
+      "status": "RESOLVED",
+      "artifact_id": "STAGE17-PILOT-CANDIDATE-RELEASE-EVIDENCE-v1",
+      "sha256": "f97cbead4f4473aa671a4eae74c8ab1a4eec401e8c7ccc8c321b1642adc71956",
       "resolution_rule": "Dirty or hash-drifted outputs are ineligible; the no-authority bundle by itself grants no run authority."
     },
     {

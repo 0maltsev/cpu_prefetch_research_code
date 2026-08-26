@@ -67,9 +67,11 @@ external-input checklist. The operational record is `PREPARED`; positive and
 negative local tests prove only the transition model. D-099 through D-108 are
 hash-preserved, the D-104 self-test is hermetic, and a real qualification
 archive is an explicit integration/action input. No stand observation was made
-for this addendum. The ten unresolved checklist entries are the authoritative
-pilot blockers. Stage 18 remains blocked on the unchanged imported sealing and
-access chronology plus all pilot-derived freezes.
+for this addendum. Clean commit `2b4f16c` and no-authority pilot-candidate
+archive SHA-256 `d1c44bc0...` resolve only `S17-EXT-006`; the nine unresolved
+checklist entries are the authoritative pilot blockers. Stage 18 remains
+blocked on the unchanged imported sealing and access chronology plus all
+pilot-derived freezes.
 
 ## Requirement-by-requirement verification matrix
 

@@ -20,7 +20,18 @@ Every edge consumes immutable evidence from the single
 checklist. Missing, partial, expired, or hash-mismatched evidence retains the
 current state and stops without automatic retry. The final state permits
 preparation of an exact phase authorization; it is not itself pilot execution
-authority. Pilot execution additionally requires all ten checklist entries.
+authority. Pilot execution additionally requires every checklist entry.
+
+`S17-EXT-006` is resolved by clean source commit
+`2b4f16c61c306ade5f4383ac2abb1ad709f772a8` and no-authority archive
+`cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4.tar.gz`,
+SHA-256 `d1c44bc0c78b002ca3ca9bf33f1a33258cceafbeb838c87815e48a7e675227dc`.
+Clean extraction verified 171 files and all four shipped self-tests retained
+`pilot_authorized=false`, `confirmatory_authorized=false`, and
+`dynamic_qualification_authorized=false`. The machine-readable
+[`STAGE17-PILOT-CANDIDATE-RELEASE-EVIDENCE-v1`](../config/stage17/stage17-pilot-candidate-release-evidence-v1.json)
+also binds the sidecar, manifest, release binaries, and six strict codegen
+reports without depending on the ignored build tree.
 
 For pilot governance only, `cpu-prefetch-stage17-pilot-owner` is explicitly
 the owner, operator, controller, custodian, and auditor. Reviews must disclose

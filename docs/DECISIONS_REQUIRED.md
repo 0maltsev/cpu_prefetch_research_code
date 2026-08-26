@@ -234,6 +234,17 @@ P4-R-C may then stage and run the fixed prestate collector only within its own
 authority. P5, stand setup, Q15, calibration, pilot, measurement, and
 confirmation remain unauthorized.
 
+The exact
+[`D-100 through D-103 P4-R-C bundle`](Q15_R_P4_R_C_D100_DECISION_BUNDLE.md)
+is now prepared with machine-record SHA-256 `faa4c377...`. It exposes four
+prospective choices that a blanket approval cannot silently resolve: the
+single-owner P4-R-C review downgrade, compatibility with the exact pre-existing
+D-099 custody root, the unavoidable fixed OpenSSH login-shell boundary, and
+the namespace-parent creation rule. All four selections remain null and every
+action authority remains false. Exact owner acceptance of the displayed
+statement is required before repository-local executor implementation; the
+one-shot stand action will still require its own later exact signed approval.
+
 ADR-0086 now implements the generic repository-local controller, admission
 schema, fake tests, and profile under the later owner delegation. It has no OS
 backend and cannot mint a ticket while bootstrap, environment, toolchain,

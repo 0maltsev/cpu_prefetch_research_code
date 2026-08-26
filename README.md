@@ -169,6 +169,15 @@ occurred. P4-R-C requires a new exact authorization. The earlier owner
 delegation authorizes and
 ADR-0086 implements a generic no-authority controller policy engine; it has no
 OS backend and cannot admit without complete signed external evidence. The
+proposed
+[`D-100 through D-103 P4-R-C bundle`](docs/Q15_R_P4_R_C_D100_DECISION_BUNDLE.md)
+now isolates four exact prerequisite conflicts: single-owner review, reuse of
+only the verified D-099 custody root, the fixed OpenSSH remote-command boundary,
+and namespace-parent creation. Its machine-record SHA-256 is `faa4c377...`;
+all selections and action prerequisites remain null/false. A blanket approval
+does not silently resolve these values, and no P4-R-C tool implementation,
+signature, stand mutation, transfer, collector, or later authority exists.
+The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
 SHA-256 `065d8a6d5f882bff84ee9bdbe27eb0e0c9e2bfea56c58cbe2b9bfc61cab3a4b7`.

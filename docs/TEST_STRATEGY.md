@@ -953,6 +953,14 @@ observations and their semantic review, and eight negative mutations. External
 verification reads only named public evidence.
 The completed capture must never be rerun; later tests are read-only.
 
+The D-100 decision checker validates the Draft 2020-12 schema, exact D-099 and
+v3-release hashes, safe archive inventory, four unique unresolved decisions,
+recommended option membership, frozen future counts/paths/rollback, seven
+unmet action prerequisites, and the no-action authority boundary. Twelve
+mutations reject premature selection, fabricated readiness, retry/path/custody
+drift, abbreviated blanket acceptance, and key/stand/collector/P4-R-C scope.
+It runs the D-099 checker as a predecessor and never contacts the stand.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

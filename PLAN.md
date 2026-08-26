@@ -438,9 +438,13 @@ authorization/amendment.
   stand prestate remain null. D-099/ADR-0099 completed the exact signed P4-R-I
   gate with four successful pinned-host read-only observations, one immutable
   local capture, one single-owner review, and a mandatory stop without stand
-  mutation. The next safe external gate is a newly prepared, separately signed
-  and explicitly approved P4-R-C; only then may exact P5 be prepared for
-  approval. No P4-R-C, P5, Q15, calibration, pilot,
+  mutation. The D-100 through D-103 bundle now exposes four exact P4-R-C
+  prerequisite conflicts and recommendations without selecting them or
+  granting action authority. The next safe gate is exact acceptance of those
+  choices for repository-local executor implementation. A later newly
+  prepared, separately signed and explicitly approved P4-R-C is still required
+  before stand mutation; only then may exact P5 be prepared for approval. No
+  P4-R-C, P5, Q15, calibration, pilot,
   measurement, or confirmatory action is authorized.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither

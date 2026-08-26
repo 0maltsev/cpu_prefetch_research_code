@@ -131,6 +131,13 @@ canonical bytes, public/signature identities, capture semantics, sidecars,
 manifest, eight negative mutations, and the mandatory P4-R-C stop. Neither
 tool authorizes P4-R-C or later work.
 
+`check_d100_p4_r_c_decision.py` validates the proposed D-100 through D-103
+P4-R-C prerequisite bundle, exact D-099/release/path lineage, local safe-archive
+evidence, four null selections, seven unmet action prerequisites, all-false
+action authority, and twelve negative mutations. It is read-only and performs
+no signing, stand access, transfer, extraction, collector execution, or later
+phase action.
+
 `check_q15_r_p4_k_a_controller_profile.py` validates ADR-0086's generic
 no-authority implementation profile, exact controller/test source hashes, the
 fixed ten-step graph, the immutable absent-bootstrap disposition, strict

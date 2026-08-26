@@ -157,7 +157,16 @@ Complete-evidence SHA-256 is
 `b7c6125d216e01e4207ce54872b2fdb02fd7bf41bb97f99f495006ee28ce4a90`.
 The D-098 P5 preparation resolves only the two reviewed public-trust groups;
 three external inputs remain null and every P5/stand authority is false. The
-earlier owner delegation authorizes and
+accepted D-099/ADR-0099 action used the reviewed P4-K v2 key once to sign its
+exact authorization, then made exactly four pinned-host, read-only identity
+observations. All returned status zero; the immutable capture and single-owner
+public review verify, and execution stopped before P4-R-C. Complete-evidence
+SHA-256 is
+`afc31fca0451e883dc72c86827a814da209da7031c0b2ec66316b92301c4c241`.
+No stand filesystem mutation, transfer, extraction, collector execution, P5,
+Q15, platform control, calibration, pilot, measurement, or confirmatory action
+occurred. P4-R-C requires a new exact authorization. The earlier owner
+delegation authorizes and
 ADR-0086 implements a generic no-authority controller policy engine; it has no
 OS backend and cannot admit without complete signed external evidence. The
 preserved predecessor decision/input bundle is

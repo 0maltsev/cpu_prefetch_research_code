@@ -935,6 +935,13 @@ if(BUILD_TESTING)
     q15.r_p5_d098_preparation
     PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
   add_test(
+    NAME q15.r_p4_r_i_d099_complete
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_d099_p4_r_i_complete.py")
+  set_tests_properties(
+    q15.r_p4_r_i_d099_complete
+    PROPERTIES LABELS "q15;qualification;security;custody;evidence;lifecycle;schema;pre-pilot;synthetic")
+  add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_v2.py")
@@ -2150,6 +2157,13 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_d098_p5_preparation.py"
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking the D-097-bound still-unissued P5 preparation")
+add_custom_target(
+  q15-r-p4-r-i-d099-complete-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_d099_p4_r_i_complete.py"
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking complete D-099 read-only P4-R-I evidence")
 add_custom_target(
   q15-authorization-v2-check
   COMMAND

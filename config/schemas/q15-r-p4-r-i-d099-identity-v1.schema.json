@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-i-d099-identity:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_id", "authorization_sha256", "automatic_continuation_to_p4_r_c", "capture_completed_at_utc", "capture_started_at_utc", "decision_id", "host", "observations", "pinned_host_key_fingerprint", "protocol_version", "read_only", "retry_count", "stand_filesystem_mutation_performed", "stand_id", "status", "transaction_id", "transport_account", "transport_public_key_fingerprint"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-i-d099-identity/1"},
+    "artifact_id": {"const": "Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01"},
+    "authorization_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "automatic_continuation_to_p4_r_c": {"const": false},
+    "capture_completed_at_utc": {"type": "string", "format": "date-time"},
+    "capture_started_at_utc": {"type": "string", "format": "date-time"},
+    "decision_id": {"const": "D-099"},
+    "host": {"const": "185.184.131.153"},
+    "observations": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "object", "minProperties": 10}},
+    "pinned_host_key_fingerprint": {"const": "SHA256:HZMyUcQIuSQIodYGxXGQ3RCoqR8UcOWPPzuTDhXKtS4"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "read_only": {"const": true},
+    "retry_count": {"const": 0},
+    "stand_filesystem_mutation_performed": {"const": false},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "COMPLETE_VALID_READ_ONLY_IDENTITY_STOPPED_FOR_REVIEW"},
+    "transaction_id": {"const": "Q15-R-P4-R-I-D099-XEON-CPU-FETCH-20260826-01"},
+    "transport_account": {"const": "root"},
+    "transport_public_key_fingerprint": {"const": "SHA256:mtIlJWQzNackGLwexvC6bTnmLb8yJtdUQdC/k+FxKRo"}
+  }
+}

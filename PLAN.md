@@ -435,9 +435,12 @@ authorization/amendment.
   superseded by D-093. P4-K-A and P4-K-R are complete under their accepted
   downgrade. D-098 prepares P5 but resolves only the two D-097 public groups;
   operational release root, independent secondary custody root, and fresh
-  stand prestate remain null. The next safe external gate is separately signed
-  P4-R-I, followed by separately authorized P4-R-C; only then may exact P5 be
-  prepared for approval. No P4-R, P5, stand, Q15, calibration, pilot,
+  stand prestate remain null. D-099/ADR-0099 completed the exact signed P4-R-I
+  gate with four successful pinned-host read-only observations, one immutable
+  local capture, one single-owner review, and a mandatory stop without stand
+  mutation. The next safe external gate is a newly prepared, separately signed
+  and explicitly approved P4-R-C; only then may exact P5 be prepared for
+  approval. No P4-R-C, P5, Q15, calibration, pilot,
   measurement, or confirmatory action is authorized.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither

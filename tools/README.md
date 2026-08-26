@@ -122,6 +122,15 @@ external public-only mode. `check_d098_p5_preparation.py` validates the
 D-097-bound still-unissued setup successor with exactly three external inputs
 still null and no stand/P5 authority.
 
+`execute_d099_p4_r_i.py` implements the completed D-099 one-shot gate: four
+fixed pinned-host read-only observations, bounded capture, and one public owner
+review. Its `--self-test` is network-free. The real `--capture` and `--review`
+transactions have completed and must never be rerun. Use
+`check_d099_p4_r_i_complete.py` for read-only verification of schemas,
+canonical bytes, public/signature identities, capture semantics, sidecars,
+manifest, eight negative mutations, and the mandatory P4-R-C stop. Neither
+tool authorizes P4-R-C or later work.
+
 `check_q15_r_p4_k_a_controller_profile.py` validates ADR-0086's generic
 no-authority implementation profile, exact controller/test source hashes, the
 fixed ten-step graph, the immutable absent-bootstrap disposition, strict

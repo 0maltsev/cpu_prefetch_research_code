@@ -943,6 +943,16 @@ groups are resolved, exactly three external inputs remain null, the accepted
 P4-R, stand, Q15, and experiment authority is false. Six mutations reject
 fabricated inputs, premature issuance, installation, P4-R, P5, and stand scope.
 
+The D-099 executor self-test proves fixed command vectors, pinned-host and
+transport-key handling, bounded output, one-attempt/zero-retry behavior,
+create-exclusive local evidence, and the mandatory P4-R-C stop without opening
+a network connection. The complete checker validates four Draft 2020-12
+schemas, canonical authorization/capture/review bytes, all hashes and sidecars,
+every authorization-bound repository input, the target SSHSIG, exact four
+observations and their semantic review, and eight negative mutations. External
+verification reads only named public evidence.
+The completed capture must never be rerun; later tests are read-only.
+
 ## Evidence order
 
 Verification proceeds from import/dependency checks through schema/unit/property checks, queue/refinement/concurrency checks, sanitizers, platform/timing/generated-code gates, lifecycle/storage/reconciliation integration, clean-room build, and synthetic dry run. Pre-pilot acceptance requires all applicable layers to pass with immutable evidence, zero unresolved sanitizer/correctness findings, a qualified eligible platform, and no unapproved suppression or unavailable mandatory capability.

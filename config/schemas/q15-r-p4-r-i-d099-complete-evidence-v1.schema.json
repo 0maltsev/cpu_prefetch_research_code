@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-i-d099-complete-evidence:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "transaction_id", "decision_id", "protocol_version", "stand_id", "status", "authorization", "capture", "review", "disposition", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-i-d099-complete-evidence/1"},
+    "transaction_id": {"const": "Q15-R-P4-R-I-D099-XEON-CPU-FETCH-20260826-01"},
+    "decision_id": {"const": "D-099"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "COMPLETE_VALID_READ_ONLY_IDENTITY_REVIEWED_STOPPED_BEFORE_P4_R_C"},
+    "authorization": {"type": "object", "minProperties": 8},
+    "capture": {
+      "type": "object",
+      "required": ["observation_count", "observation_attempts_each", "retry_count", "all_returncodes_zero", "all_stderr_empty", "stand_filesystem_mutation_performed"],
+      "properties": {
+        "observation_count": {"const": 4},
+        "observation_attempts_each": {"const": 1},
+        "retry_count": {"const": 0},
+        "all_returncodes_zero": {"const": true},
+        "all_stderr_empty": {"const": true},
+        "stand_filesystem_mutation_performed": {"const": false}
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": ["review_attempts", "distinct_reviewer", "single_owner_waiver_accepted", "stand_access_performed_during_review"],
+      "properties": {
+        "review_attempts": {"const": 1},
+        "distinct_reviewer": {"const": false},
+        "single_owner_waiver_accepted": {"const": true},
+        "stand_access_performed_during_review": {"const": false}
+      }
+    },
+    "disposition": {
+      "type": "object",
+      "required": ["fresh_identity_accepted_for_p4_r_c_preparation", "automatic_continuation", "next_gate", "p4_r_c_issued_or_executed"],
+      "properties": {
+        "fresh_identity_accepted_for_p4_r_c_preparation": {"const": true},
+        "automatic_continuation": {"const": false},
+        "next_gate": {"const": "SEPARATE_EXACT_Q15_R_P4_R_C_DECISION_AND_AUTHORIZATION_REQUIRED"},
+        "p4_r_c_issued_or_executed": {"const": false}
+      }
+    },
+    "authority_boundary": {
+      "const": {
+        "repository_local_completion_records_and_tests_authorized": true,
+        "stand_access_authorized": false,
+        "stand_filesystem_mutation_authorized": false,
+        "transfer_extraction_or_collector_authorized": false,
+        "p4_r_c_authorized": false,
+        "p5_authorized": false,
+        "q15_r_or_q15_w_authorized": false,
+        "platform_controls_authorized": false,
+        "calibration_pilot_measurement_or_confirmatory_authorized": false
+      }
+    }
+  }
+}

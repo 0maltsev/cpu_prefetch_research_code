@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-i-d099-owner-review:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_sha256", "authorization_sha256", "automatic_continuation", "decision_id", "distinct_reviewer", "owner_waiver_status", "p4_r_c_authorized", "protocol_version", "review_attempt", "review_principal", "reviewed_at_utc", "sidecar_sha256", "signature_sha256", "stand_access_performed_during_review", "status", "transaction_id"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-i-d099-owner-review/1"},
+    "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "authorization_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "automatic_continuation": {"const": false},
+    "decision_id": {"const": "D-099"},
+    "distinct_reviewer": {"const": false},
+    "owner_waiver_status": {"const": "ACCEPTED_SINGLE_OWNER_P4_R_I_WAIVER"},
+    "p4_r_c_authorized": {"const": false},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "review_attempt": {"const": 1},
+    "review_principal": {"const": "cpu-prefetch-q15-auditor"},
+    "reviewed_at_utc": {"type": "string", "format": "date-time"},
+    "sidecar_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "signature_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "stand_access_performed_during_review": {"const": false},
+    "status": {"const": "ACCEPTED_SINGLE_OWNER_PUBLIC_REVIEW_STOPPED_BEFORE_P4_R_C"},
+    "transaction_id": {"const": "Q15-R-P4-R-I-D099-XEON-CPU-FETCH-20260826-01"}
+  }
+}

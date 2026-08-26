@@ -3,7 +3,7 @@
 Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
 **`2.0.0-pre.1`** retained
 
-Repository state: **`D097_COMPLETE_VALID_PUBLIC_ONLY_REVIEW; D098_P5_PREPARED_THREE_INPUTS_BLOCKED`**
+Repository state: **`D099_COMPLETE_VALID_READ_ONLY_IDENTITY_REVIEWED; BLOCKED_BEFORE_P4_R_C`**
 
 Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 **`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**
@@ -13,7 +13,7 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/16 implementation-decision record | `COMPLETE`; D-097 review recorded | ADR-0001 through ADR-0086 and ADR-0093 through ADR-0097 are accepted. D-095 remains terminal; D-096 and D-097 completed as distinct one-shot transactions; P5 remains unissued. |
+| Stage 2/16 implementation-decision record | `COMPLETE`; D-099 identity gate recorded | ADR-0001 through ADR-0086 and ADR-0093 through ADR-0097 plus ADR-0099 are accepted. D-095 remains terminal; D-096, D-097, and D-099 completed as distinct one-shot transactions; P4-R-C and P5 remain unissued. |
 | Stage 3 build/CI foundation | `COMPLETE_REVERIFIED` | ADR-0022, constrained offline inputs, dual compiler/library development/release presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations freshly pass Stage 16. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
@@ -30,7 +30,7 @@ Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
 | Measurement system | `V3_LOCAL_NOT_EXECUTION_AUTHORIZED` | `cpu_prefetch_runner_core` implements strict 21-kind v3 admission and corrected wait/drain semantics. The sealed measurement candidate remains immutable and unprivileged. Q15-S1 adds only a separate fixed-scope qualification executable; it is not in the candidate and grants no authority. |
 | Q15-P0 local verification | `COMPLETE` | GCC and Clang/libc++ development and release matrices pass 216/216 each; both ASan/UBSan matrices and GCC TSan pass 216/216; Clang/libc++ TSan passes its applicable 214/214. Full 73-file static analysis, formatting, schemas, immutable protocol hashes, release policy, dependency/license, CI, and all dual-disassembler generated-code gates pass. No stand or MSR operation occurred. |
 | Q15-P0 candidate release | `COMPLETE_NO_AUTHORITY` | Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` produced `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; archive SHA-256 is `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`. Outer/internal hashes, 94-file clean extraction, and both nonprivileged self-tests pass. Its manifest denies dynamic, pilot, confirmatory, and measurement execution authority. |
-| Exact Q15 preparation | `D097_COMPLETE_VALID_PUBLIC_ONLY_REVIEW; D098_P5_PREPARATION_NO_AUTHORITY` | D-095 remains terminal. D-096 target evidence and D-097 authorization/signature/review evidence verify; D-097 receipt SHA-256 `5a3233fb...` and complete evidence `b7c6125d...` stop before P5. The reviewed target fingerprint is `SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM`. D-098 resolves two public groups but retains three null stand/P5 inputs; no stand, Q15, or experiment authority exists. |
+| Exact Q15 preparation | `D099_COMPLETE_VALID_READ_ONLY_IDENTITY_REVIEWED; BLOCKED_BEFORE_P4_R_C` | D-099 authorization/signature/capture/review/complete evidence verify (`def07da5...`/`09a75c9...`/`774aca6...`/`f01e143...`/`afc31fc...`). Exactly four pinned-host read-only observations succeeded; no stand mutation occurred. D-098 still retains three null P5 inputs. P4-R-C, P5, Q15, and experiment authority remain absent. |
 | Stage 16 software verification | `COMPLETE` | Both compiler/library development and release matrices pass 187/187; sanitizer matrices pass 187/187, 187/187, 187/187, and applicable 185/185; strict component codegen, static/format/schema/provenance/dependency/CI checks, synthetic dispositions, reproducible bundle, clean extraction, and nonprivileged self-tests pass. ADR-0042 and the readiness report bind the evidence boundary. |
 | Stand preflight | `COMPLETE_INVENTORY_ONLY_NOT_QUALIFIED` | The exact bundle and 72-file internal inventory passed on `xeon-cpu-fetch`; smoke, self-test, and the collector ran as `nobody:nogroup`. Snapshot `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` observes two packages/two NUMA nodes and retains seven blockers. Inventory SHA-256 is `f3bb301c77918c0287c8a287e3915f5d68929684eece660464c69f62770ac94b`; the sidecar-publication failure and recovered checksum are preserved. |
 | Pilot | `BLOCKED` | The exact clean adapter-bearing release is selected as evidence only. Authorized/verified four-role/custody/trust setup, a separately approved signed Q15-R and later Q15-W, dynamic H0/H1/clock/layout/CPU/residency/storage evidence, calibration inputs, and separate Q16 authority are absent. |
@@ -494,11 +494,21 @@ Q15-R approval remain separate gates. Q15-R is unauthorized.
 | Binding | Governance commit `f30036e31acc8ae036f2f31086d493eeb30db9d7`; immutable v3 archive SHA-256 `f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a`; P4-E/P4-R-v2/P4-K and reference inventory hashes preserved |
 | Frozen literals | One create-exclusive non-operational stand staging tree; fixed capture ID; exact stdout/stderr/sidecar/receipt/review paths in `DEVELOPMENT-REPOSITORY-Q15-CUSTODY`; selected for unissued templates only and no path is created |
 | Authority policy | Named operator, distinct custodian/auditor, root as bootstrap transport only, nonrenewable 1,800-second UTC window, accepted SSHSIG profile; all actual instants/key/fingerprint/signature/review hashes remain null |
-| Execution graph | `Q15-R-P4-R-I` fresh read-only identity and mandatory stop/review, then later separate `Q15-R-P4-R-C` create-exclusive staging and one collector attempt; both templates are unissued and hash-bound (`38223ea7...`, `22d4aa6f...`) |
+| Execution graph | `Q15-R-P4-R-I` fresh read-only identity and mandatory stop/review, then later separate `Q15-R-P4-R-C` create-exclusive staging and one collector attempt. The original templates are hash-bound (`38223ea7...`, `22d4aa6f...`); D-099 separately completed P4-R-I, while P4-R-C remains unissued. |
 | Failure behavior | Zero retry; 13 ordered transfer/verification actions; eleven stop groups; preserve complete/partial bytes; no delete, overwrite, reuse, cleanup, activation, or operational-root mutation |
 | Verification | Proposal: Draft schema plus 15 negative mutations and optional local archive audit. Acceptance: 7 negative mutations. Split successor templates: Draft schemas, immutable hash/ADR bindings, exact commands/paths/graph/limits/rollback, and 12 negative mutations |
-| Remaining inputs | P4-R-I retains six null groups; P4-R-C retains six null groups including accepted fresh identity/review hashes; P4-K retains eight null inputs; actual UTC/signature/review/transport evidence is absent |
-| Authority | `NONE`: no stand access, path creation, transfer/extraction, stand self-test, collector execution, key/signature/issuance, P4-R/P4-K/Q15-R/Q15-W, platform control, calibration, pilot, measurement, or confirmatory action |
+| Remaining inputs | D-099 supplies completed P4-R-I authorization/signature/transport/identity/review evidence only. A current P4-R-C successor has not been prepared or issued; P4-K predecessor remains byte-preserved. |
+| Authority | D-072..D-075 grant `NONE`. D-099's consumed authority covered only four read-only observations and local capture/review. No path creation on the stand, transfer/extraction, stand self-test, collector execution, P4-R-C/P5/Q15-R/Q15-W, platform control, calibration, pilot, measurement, or confirmatory authority exists. |
+
+## Completed D-099 P4-R-I identity gate
+
+| Check | Result |
+|---|---|
+| Decision state | `COMPLETE_VALID_READ_ONLY_IDENTITY_REVIEWED_STOPPED_BEFORE_P4_R_C`; ADR-0099 accepted the explicit single-owner downgrade and one exact action |
+| Authorization | Canonical 1,800-second authorization SHA-256 `def07da5...`; target-key SSHSIG SHA-256 `09a75c9...`; target fingerprint `SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM` |
+| Observation evidence | Exactly four pinned-host commands returned zero with empty stderr; capture SHA-256 `774aca6...`; review SHA-256 `f01e143...`; complete evidence SHA-256 `afc31fc...` |
+| Verification | Four Draft 2020-12 schemas, canonical hashes/sidecars/manifest, external public/signature evidence, semantic identity checks, executor self-test, and eight negative mutations pass |
+| Boundary | No stand filesystem mutation, transfer, extraction, collector, platform control, or scientific action occurred. P4-R-C is a new exact gate and remains blocked. |
 
 ## Accepted Q15-R-P4-K-D policy and unissued templates
 
@@ -794,9 +804,11 @@ review. Its bootstrap signature, six public output artifacts, public key,
 fingerprint, allowed-signers equality, and D-095/D-096 lineage verify. It
 performed one attempt, zero retries, no private access/probe, no installation,
 and stopped before P5. D-098 preparation resolves only the two reviewed public
-groups and retains three null P5 inputs. A separately signed/approved read-only
-P4-R-I is still unopened; P4-R-C and P5 remain blocked. No stand, Q15,
-calibration, pilot, measurement, or confirmatory work is authorized.
+groups and retains three null P5 inputs. D-099/ADR-0099 then completed the
+separately signed read-only P4-R-I identity capture and public review, with
+four successful observations and no stand mutation. P4-R-C and P5 remain
+blocked and unissued. No Q15, calibration, pilot, measurement, or confirmatory
+work is authorized.
 
 Pilot remains blocked on the selected pair/layout/atomic,
 requested-versus-verified controls/restoration, exact

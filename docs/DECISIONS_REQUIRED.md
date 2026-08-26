@@ -220,10 +220,19 @@ The next decision path is documented in the
 [`D-098 P5 bundle`](Q15_R_P5_D098_DECISION_BUNDLE.md). Preparation v3 resolves
 only the two reviewed public-trust groups. Three inputs remain null and block
 P5: the literal operational release root, independent secondary custody root,
-and fresh current stand-prestate artifact ID/SHA-256. P4-R-I and then P4-R-C
-require separate exact approvals before those values may be resolved. P5,
-stand setup, Q15, calibration, pilot, measurement, and confirmation remain
-unauthorized.
+and fresh current stand-prestate artifact ID/SHA-256.
+
+D-099/ADR-0099 completed P4-R-I exactly once. Its canonical authorization,
+target-key SSHSIG, four pinned-host read-only observations, create-exclusive
+identity capture, and single-owner public review verify. Complete-evidence
+SHA-256 is `afc31fca0451e883dc72c86827a814da209da7031c0b2ec66316b92301c4c241`.
+It made no stand filesystem mutation and stopped before P4-R-C.
+
+The next unresolved gate is a new exact P4-R-C preparation, signature, and
+explicit execution approval bound to the accepted D-099 identity/review.
+P4-R-C may then stage and run the fixed prestate collector only within its own
+authority. P5, stand setup, Q15, calibration, pilot, measurement, and
+confirmation remain unauthorized.
 
 ADR-0086 now implements the generic repository-local controller, admission
 schema, fake tests, and profile under the later owner delegation. It has no OS

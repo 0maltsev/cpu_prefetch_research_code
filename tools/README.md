@@ -2,7 +2,18 @@
 
 Stage 3 tools verify the build foundation, protocol snapshot, documentation,
 dependency inventory, and release flags. `cpu_prefetch_smoke` reports build
-identity only. `generate_schedule.py` is the accepted standalone Stage 7
+identity only. Stage 17B adds `stage17_phase_controller_v2.py` as the only
+current phase controller and `check_stage17_fixed_action_production.py` as its
+hermetic integration suite. The controller derives trust from admitted
+EXT002/003 and release identity from EXT003 or EXT006, snapshots exact
+worker/request bytes, and accepts completion only after typed output
+validation. The historical v1 controller refuses before opening a worker,
+marker, or output directory. The production worker is the closed
+`cpu_prefetch_runner --execute-fixed-stage17-action-v2` dispatcher; its
+synthetic backend exists only in a separately linked test executable and is
+not selectable from the production CLI.
+
+`generate_schedule.py` is the accepted standalone Stage 7
 preparation tool; it generates a complete immutable schedule and envelopes
 before measurement and cannot observe a queue, clock, or outcome. No tool in
 this directory is a benchmark or produces scientific results.

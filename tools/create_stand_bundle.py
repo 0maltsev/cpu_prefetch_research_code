@@ -19,7 +19,7 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v2"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
@@ -388,8 +388,54 @@ def main() -> int:
             staging / "config" / "schemas" / "imported",
         )
         copy_tree_files(root / "config" / "examples", staging / "config" / "examples")
+        stage17_controller_runtime: dict[str, Any] | None = None
         if stage17:
             copy_tree_files(root / "config" / "stage17", staging / "config" / "stage17")
+            # The v2 pilot candidate carries the executable controller at the
+            # exact repository-relative paths authenticated by policy v10.
+            # Keep the general implementation-schema layout for legacy bundle
+            # validators and also materialize the controller's exact paths.
+            copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
+            policy_relative = pathlib.Path(
+                "config/stage17/stage17-operational-evidence-admission-policy-v10.json"
+            )
+            policy_path = root / policy_relative
+            policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
+            controller_files: list[dict[str, Any]] = []
+            for group_name in ("bindings", "runtime_closure"):
+                for key, binding in policy_document[group_name].items():
+                    relative = pathlib.Path(binding["path"])
+                    if relative.is_absolute() or ".." in relative.parts:
+                        raise ValueError(f"unsafe Stage 17 controller binding: {relative}")
+                    source = root / relative
+                    if (not source.is_file() or source.is_symlink()
+                            or source.stat().st_size != binding["size_bytes"]
+                            or sha256(source) != binding["sha256"]):
+                        raise ValueError(f"Stage 17 controller binding drifted: {relative}")
+                    target = staging / relative
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(source, target)
+                    target.chmod(0o644)
+                    controller_files.append({
+                        "group": group_name,
+                        "key": key,
+                        "path": relative.as_posix(),
+                        "size_bytes": binding["size_bytes"],
+                        "sha256": binding["sha256"],
+                    })
+            stage17_controller_runtime = {
+                "controller_id": "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v2",
+                "entrypoint": "tools/stage17_phase_controller_v2.py",
+                "invocation": ["python3", "tools/stage17_phase_controller_v2.py"],
+                "policy": {
+                    "path": policy_relative.as_posix(),
+                    "size_bytes": policy_path.stat().st_size,
+                    "sha256": sha256(policy_path),
+                },
+                "bound_files": controller_files,
+                "production_test_mode_available": False,
+                "authority_embedded": False,
+            }
         if q15_tool:
             copy_tree_files(root / "config" / "q15", staging / "config" / "q15")
             for relative in (
@@ -425,6 +471,7 @@ def main() -> int:
                     "PRODUCTION_RUNNER.md",
                     "STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md",
                     "STAGE17_OPERATIONAL_AUTHORIZATION.md",
+                    "STAGE17_STAND_HANDOFF.md",
                 ]
             )
         if q15_tool:
@@ -539,7 +586,7 @@ def main() -> int:
             "release_artifacts": release_artifacts,
             "repository_license": "NO-LICENSE-GRANT",
             "schema_version": (
-                "cpu-prefetch-pilot-candidate-bundle/1"
+                "cpu-prefetch-pilot-candidate-bundle/2"
                 if stage17
                 else "cpu-prefetch-q15-qualification-tool-bundle/3"
                 if q15_tool
@@ -580,6 +627,21 @@ def main() -> int:
             manifest["software_prefetch_mapping_id"] = (
                 "X86-64-PREFETCHW-PREFETCHT0-v1"
             )
+            worker = staging / "release/bin/cpu_prefetch_runner"
+            manifest["stage17_fixed_action_runtime"] = {
+                "member_path": "release/bin/cpu_prefetch_runner",
+                "size_bytes": worker.stat().st_size,
+                "sha256": sha256(worker),
+                "role": "STAGE17_FIXED_ACTION_WORKER",
+                "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v2",
+                "supported_actions": [
+                    "Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
+                    "STAGE17-BLINDED-PILOT",
+                ],
+                "synthetic_test_only": False,
+            }
+            assert stage17_controller_runtime is not None
+            manifest["stage17_controller_runtime"] = stage17_controller_runtime
         if q15_tool:
             probe_contract_path = (
                 root / "config" / "q15" / "q15-probe-collector-contract-v1.json"

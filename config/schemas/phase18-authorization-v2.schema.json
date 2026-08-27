@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:phase18:authorization:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "actor", "issued_at_utc", "expires_at_utc", "trust_context_id", "trust_context_sha256", "stage17_completion_sha256", "phase18_readiness_sha256", "allowed_chronology", "authority_scope", "stage17_authority_reuse_allowed", "automatic_transition", "retry_allowed"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-phase18-authorization/2"}, "authorization_id": {"type": "string", "minLength": 1}, "actor": {"type": "string", "minLength": 1}, "issued_at_utc": {"$ref": "#/$defs/utc"}, "expires_at_utc": {"$ref": "#/$defs/utc"}, "trust_context_id": {"type": "string", "minLength": 1}, "trust_context_sha256": {"$ref": "#/$defs/sha256"}, "stage17_completion_sha256": {"$ref": "#/$defs/sha256"}, "phase18_readiness_sha256": {"$ref": "#/$defs/sha256"}, "allowed_chronology": {"const": ["PLANNED", "COLLECTED_SEALED", "TRAINING_OPEN", "SELECTION_FROZEN", "VALIDATION_UNSEALED", "H3_EVALUATED", "H1H2_RELEASED", "ARCHIVED"]}, "authority_scope": {"const": "PHASE18_ACCESS_TRANSITION_ONLY"}, "stage17_authority_reuse_allowed": {"const": false}, "automatic_transition": {"const": false}, "retry_allowed": {"const": false}
+  }, "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "utc": {"type": "string", "format": "date-time", "pattern": "Z$"}}
+}

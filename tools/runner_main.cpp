@@ -1,5 +1,6 @@
 #include "cpu_prefetch/foundation/repository_info.hpp"
 #include "cpu_prefetch/runner/runner.hpp"
+#include "cpu_prefetch/runner/stage17_fixed_action.hpp"
 
 #include <exception>
 #include <filesystem>
@@ -14,12 +15,14 @@ namespace {
 void usage(std::ostream& output) {
   output << "Usage:\n"
          << "  cpu_prefetch_runner --self-test\n"
+         << "  cpu_prefetch_runner --execute-fixed-stage17-action-v2 ACTION "
+            "--request-fd FD --context-fd FD --output-dir-fd FD "
+            "--fixed-dispatch-end\n"
          << "  cpu_prefetch_runner --validate-admission FILE --stand-id ID "
             "--binding-id ID\n\n"
-         << "Q14 authorizes repository-local implementation and validation only. "
-            "This executable "
-            "does not expose a measurement, calibration, pilot, or confirmatory "
-            "execution command.\n";
+         << "The Stage 17 action entry is an internal fd-only dispatcher. It accepts "
+            "only six compiled actions and no command, plugin, path-based request, "
+            "stdin, output name, fake backend, or Phase 18 authority.\n";
 }
 
 [[nodiscard]] auto read_file(const std::filesystem::path& path) -> std::string {
@@ -43,6 +46,11 @@ void print_errors(std::span<const cpu_prefetch::protocol::ValidationError> error
 }
 
 int run(int argc, char** argv) {
+  if (argc >= 2 && std::string_view(argv[1]) == "--execute-fixed-stage17-action-v2") {
+    cpu_prefetch::runner::stage17::LinuxFixedActionOperations operations;
+    return cpu_prefetch::runner::stage17::run_fixed_action_worker(argc, argv,
+                                                                  operations);
+  }
   if (argc == 2 && std::string_view(argv[1]) == "--self-test") {
     const auto repository = cpu_prefetch::foundation::repository_info();
     if (repository.protocol_version != cpu_prefetch::protocol::kProtocolVersion ||

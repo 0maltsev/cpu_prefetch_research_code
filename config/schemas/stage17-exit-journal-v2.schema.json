@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:exit-journal:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "journal_id", "initial_state", "operational_journal_sha256", "record_references", "current_state_claim", "synthetic_test_only", "phase18_authority"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-stage17-exit-journal/2"}, "journal_id": {"type": "string", "minLength": 1}, "initial_state": {"const": "READY_FOR_STAGE17_PHASE_AUTHORIZATION"}, "operational_journal_sha256": {"$ref": "#/$defs/sha256"}, "record_references": {"type": "array", "items": {"$ref": "#/$defs/file"}}, "current_state_claim": {"enum": ["READY_FOR_STAGE17_PHASE_AUTHORIZATION", "PILOT_AUTHORIZED", "PILOT_EXECUTED", "PILOT_EVIDENCE_SEALED", "STAGE17_COMPLETE", "PHASE18_HANDOFF_PREPARED"]}, "synthetic_test_only": {"type": "boolean"}, "phase18_authority": {"const": false}},
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "file": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+}

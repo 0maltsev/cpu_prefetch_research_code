@@ -16,7 +16,9 @@ consumption predecessor. ADR-0110 preserves all v1-v5 definitions and supplies
 the v6 real-OpenSSH-consumption predecessor. ADR-0111 preserves all v1-v6
 definitions and supplies the v7 authority/lifecycle predecessor. ADR-0112
 preserves all v1-v7 definitions and supplies the v8 group-quiescence and
-cleanup-evidence successor. None of these
+cleanup-evidence predecessor. ADR-0113/policy v9 is preserved as
+`REJECTED_FAIL_OPEN_PREDECESSOR`. ADR-0114 supplies the policy-v10 fixed-action
+production successor. None of these
 ADRs authorizes stand access or a run:
 
 ```text
@@ -38,16 +40,17 @@ append-only `stage17-state-journal-v1` snapshots. The checked-in
 has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
-The versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v8`](../config/stage17/stage17-operational-evidence-admission-policy-v8.json)
-binds policy v7, ADR-0111, ADR-0112, every used v8/current record schema, fixed
-action plan v6, and the complete verifier/executor/collector/journal/broker/
-supervisor/helper runtime closure. It
-registers one semantic verifier per catalog input. Admission is default-deny. Only
-`S17-EXT-001` and `S17-EXT-006` currently have implemented verifiers;
-`S17-EXT-002..005` and `S17-EXT-007..010` produce the blocking result
-`SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED`. File existence, byte count,
-SHA-256, generic JSON, or a generic custody receipt is never sufficient.
+The current versioned
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v10`](../config/stage17/stage17-operational-evidence-admission-policy-v10.json)
+binds policy v9 as a rejected predecessor, ADR-0114, every current record
+schema, fixed phase actions v2, the exact Python controller/admission/exit
+closure, and the actual C++ worker/runner/entrypoint sources. It registers a
+production semantic verifier for every catalog input. Admission is
+default-deny: file existence, byte count, SHA-256, generic JSON, boolean-only
+claims, self-selected trust, or a generic custody receipt is never sufficient.
+EXT004 additionally binds every reported qualification digest to exact source
+bytes. EXT006 verifies caller-supplied archive, sidecar, manifest, custody, and
+release-member bytes and returns their typed runtime context.
 
 The historical successor v1 and `STAGE17-EXTERNAL-INPUTS-v1` checklist remain
 byte-immutable definition/templates. Their embedded `current_state` and
@@ -57,8 +60,8 @@ computed state and stops without automatic retry. The final graph state permits
 preparation of an exact phase authorization; it is not itself pilot execution
 authority. Pilot readiness additionally requires verified resolutions for all
 ten catalog inputs and an unexpired, predecessor-bound `S17-EXT-010` at an
-explicit evaluation time. Because its semantic verifier is not implemented,
-pilot readiness cannot currently become true.
+actual system time. Its verifier is implemented, but the checked-in journal has
+no real resolutions, so pilot readiness remains false.
 
 `S17-EXT-001` requires one v8 semantic envelope that binds the authorization,
 supporting contract, policy, action plan, verifier, executor, and collector by
@@ -123,13 +126,40 @@ Only then may snapshots close and evidence be published.
 still states the clean source revision and archive metadata and remains
 unchanged, but metadata is not proof that the archive/sidecar bytes exist.
 The new fixed
-[`external custody/integration contract`](../config/stage17/stage17-pilot-candidate-external-contract-v1.json)
+[`external custody/integration contract`](../config/schemas/stage17-pilot-candidate-external-contract-v2.schema.json)
 requires caller-supplied regular nonsymlink archive and sidecar files, exact
 filenames, byte counts, SHA-256 values, sidecar bytes, safe extraction, manifest
-identity, 171-entry internal checksum inventory plus its one `SHA256SUMS` file,
-internal verification, and no-authority flags. Until
+identity, internal checksum inventory, exact worker member path/size/hash,
+source revision, `STAGE17_FIXED_ACTION_WORKER` role, runtime profile, closed
+six-action surface, internal verification, and no-authority flags. Until
 those exact bytes are supplied to the integration checker and a real custody
 receipt is recorded, no `S17-EXT-006` resolution is valid.
+
+EXT002 admits a complete six-observation preflight bundle and the actually
+observed runner/trust-anchor bytes. EXT003 owner review accepts those exact
+hashes and discloses the pilot role collapse. EXT004 requires nine typed
+qualification records whose every reported digest binds a re-read source
+artifact. EXT005 is the post-action Q15-W family and cannot exist unless its
+signed pre-action request produced a typed, restored, non-quarantined result.
+EXT007 independently binds Q16a/Q16b/Q16c authorizations, requests, attempts,
+typed results and freeze. EXT008 binds exact run IDs, schedules, seeds,
+capacities, packages, admission tickets, stop/resource limits and artifact
+names. EXT009 requires the storage budget, two custody domains, copy ledger and
+recovery test. EXT010 names the exact preceding nine resolution hashes and the
+frozen pilot request; it grants no Phase 18 authority.
+
+Controller v2 obtains trust only from admitted EXT002/003. Q15-R/Q15-W use the
+worker bytes observed there; EXT006 later proves that those bytes equal the
+release member. Q16a/Q16b/Q16c and pilot use only the admitted EXT006 runtime.
+The admitted allowed-signers bytes and authorization-signature bytes are read
+once and sealed; `ssh-keygen -Y verify` receives only parent-procfd snapshot
+locators and never reopens the owner paths.
+The worker is `cpu_prefetch_runner` with one fd-only dispatcher for exactly six
+actions. Worker and canonical request bytes are copied into sealed snapshots
+before the durable one-shot marker, so mutation of their owner paths cannot
+alter child input. Exit zero is insufficient: controller completion follows
+only after quiescence, action-specific result-schema validation, full lineage,
+and exact output-set byte verification.
 
 For pilot governance only, `cpu-prefetch-stage17-pilot-owner` is explicitly
 the owner, operator, controller, custodian, and auditor. Reviews must disclose
@@ -151,6 +181,7 @@ cmake --build --preset dev-gcc --target stage17-operational-successor-check
 cmake --build --preset dev-gcc --target stage17-state-journal-check
 cmake --build --preset dev-gcc --target stage17-openssh-consumption-check
 cmake --build --preset dev-gcc --target stage17-authority-child-lifecycle-check
+cmake --build --preset dev-gcc --target stage17-complete-operational-admission-check
 ctest --preset dev-gcc -R 'runner.stage17_(operational_successor|state_journal|openssh_snapshot_consumption|authority_child_lifecycle)|q15.p4_r_c_executor_no_network_self_test' --output-on-failure
 ```
 

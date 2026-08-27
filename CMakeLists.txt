@@ -173,7 +173,8 @@ target_include_directories(
 add_library(
   cpu_prefetch_runner_core STATIC
   src/runner/qualification.cpp
-  src/runner/runner.cpp)
+  src/runner/runner.cpp
+  src/runner/stage17_fixed_action.cpp)
 add_library(cpu_prefetch::runner ALIAS cpu_prefetch_runner_core)
 target_link_libraries(
   cpu_prefetch_runner_core
@@ -233,7 +234,9 @@ target_include_directories(
 # ADR-0044's owner-thread preparation uses the already-allocated Stage 11
 # private streams. The dependency is declared only after the storage target is
 # available; storage itself has no runner dependency.
-target_link_libraries(cpu_prefetch_runner_core PUBLIC cpu_prefetch::storage)
+target_link_libraries(
+  cpu_prefetch_runner_core
+  PUBLIC cpu_prefetch::storage cpu_prefetch::foundation)
 
 add_library(cpu_prefetch_reconciliation STATIC
             src/reconciliation/reconciliation.cpp)
@@ -263,6 +266,15 @@ target_include_directories(
   PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+# The Stage 17 fixed worker is compiled into the production runner and calls
+# the accepted Q15/platform and calibration/data-plane implementations.  The
+# dependencies are declared after all participating targets exist to avoid a
+# fake or path-selected runtime plugin seam.
+target_link_libraries(
+  cpu_prefetch_runner_core
+  PUBLIC cpu_prefetch::calibration cpu_prefetch::platform
+  PRIVATE cpu_prefetch_project_options)
 
 add_library(
   cpu_prefetch_orchestration STATIC
@@ -585,7 +597,9 @@ if(BUILD_TESTING)
     PREFIX "lifecycle."
     PROPERTIES LABELS "lifecycle")
 
-  add_executable(cpu_prefetch_runner_tests tests/runner_model_test.cpp)
+  add_executable(cpu_prefetch_runner_tests
+                 tests/runner_model_test.cpp
+                 tests/stage17_fixed_action_test.cpp)
   target_link_libraries(
     cpu_prefetch_runner_tests
     PRIVATE cpu_prefetch::runner cpu_prefetch_project_options GTest::gtest_main)
@@ -593,6 +607,19 @@ if(BUILD_TESTING)
     cpu_prefetch_runner_tests
     PREFIX "runner."
     PROPERTIES LABELS "runner;pre-pilot;synthetic")
+
+  # Separate test-linked backend: production cpu_prefetch_runner has no CLI
+  # switch, environment variable, plugin path, or linkage that can select it.
+  add_executable(cpu_prefetch_stage17_test_worker
+                 tools/stage17_test_worker_main.cpp)
+  target_link_libraries(
+    cpu_prefetch_stage17_test_worker
+    PRIVATE cpu_prefetch::runner cpu_prefetch_project_options)
+  add_executable(cpu_prefetch_stage17_no_result_worker
+                 tools/stage17_no_result_worker_main.cpp)
+  target_link_libraries(
+    cpu_prefetch_stage17_no_result_worker
+    PRIVATE cpu_prefetch_project_options)
 
   add_test(NAME runner.qualification_self_test COMMAND cpu_prefetch_qualification
                  --self-test)
@@ -729,27 +756,18 @@ if(BUILD_TESTING)
       PASS_REGULAR_EXPRESSION
         "PASS positive=7 negative=6 stand=NOT_ACCESSED")
   add_test(
-    NAME runner.stage17_complete_operational_admission
+    NAME runner.stage17_fixed_action_production
     COMMAND "${Python3_EXECUTABLE}"
-            "${PROJECT_SOURCE_DIR}/tools/check_stage17_complete_operational_admission.py"
-            --self-test)
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_fixed_action_production.py"
+            --self-test
+            --worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
+            --no-result-worker "$<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>")
   set_tests_properties(
-    runner.stage17_complete_operational_admission
+    runner.stage17_fixed_action_production
     PROPERTIES
-      LABELS "runner;authorization;stage17b;phase18;pre-pilot;synthetic"
+      LABELS "runner;authorization;controller;stage17b;phase18;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
-        "PASS positive=3 negative=44 mechanics_bypass=false checked_in_journal_unchanged=true stand=NOT_ACCESSED")
-  add_test(
-    NAME runner.stage17_phase_controllers
-    COMMAND "${Python3_EXECUTABLE}"
-            "${PROJECT_SOURCE_DIR}/tools/check_stage17_phase_controllers.py"
-            --self-test)
-  set_tests_properties(
-    runner.stage17_phase_controllers
-    PROPERTIES
-      LABELS "runner;authorization;controller;stage17b;pre-pilot;synthetic"
-      PASS_REGULAR_EXPRESSION
-        "PASS positive=2 negative=11 production_cli_test_mode=false stand=NOT_ACCESSED")
+        "PASS positive=12 negative=21 compiled_dispatch=true state_gate_mock=false stand=NOT_ACCESSED")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -1485,6 +1503,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/orchestration/precision.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/qualification.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/runner.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_fixed_action.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/software_prefetch.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/calibration.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
@@ -1551,6 +1570,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/reconciliation/reconciliation.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/runner.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_fixed_action.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -1590,6 +1610,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/runner_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_fixed_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
@@ -1611,6 +1632,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_no_result_worker_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_test_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_probe.cpp"
@@ -1663,6 +1686,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/reconciliation/reconciliation.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/runner.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_fixed_action.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -1701,6 +1725,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/repository_info_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/runner_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_fixed_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
@@ -1722,6 +1747,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_no_result_worker_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_test_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_probe_codegen_probe.cpp"
@@ -2385,12 +2412,11 @@ add_custom_target(
     --self-test
   COMMAND
     "${Python3_EXECUTABLE}"
-    "${PROJECT_SOURCE_DIR}/tools/check_stage17_complete_operational_admission.py"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_fixed_action_production.py"
     --self-test
-  COMMAND
-    "${Python3_EXECUTABLE}"
-    "${PROJECT_SOURCE_DIR}/tools/check_stage17_phase_controllers.py"
-    --self-test
+    --worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
+    --no-result-worker "$<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>"
+  DEPENDS cpu_prefetch_stage17_test_worker cpu_prefetch_stage17_no_result_worker
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking complete Stage 17 semantic admission, controllers, exit, and Phase 18 handoff locally")
 add_custom_target(

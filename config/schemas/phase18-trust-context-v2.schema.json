@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:phase18:trust-context:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "trust_context_id", "allowed_signers", "principal", "sshsig_namespace", "signer_role", "reviewer_role", "independent_from_stage17_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-phase18-trust-context/2"},
+    "trust_context_id": {"type": "string", "minLength": 1},
+    "allowed_signers": {"$ref": "#/$defs/file"},
+    "principal": {"type": "string", "minLength": 1},
+    "sshsig_namespace": {"type": "string", "minLength": 1},
+    "signer_role": {"type": "string", "minLength": 1},
+    "reviewer_role": {"type": "string", "minLength": 1},
+    "independent_from_stage17_authority": {"const": true}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  }
+}

@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Production authority boundary for fixed Q15/Q16/Stage-17-pilot actions.
+"""Rejected fail-open predecessor retained only for review/preservation tests.
 
-The production CLI has no fake backend and accepts no command, argv, stdin, or
-retry option.  It verifies an SSHSIG authorization, current journal state,
-actual executable/request bytes, and system UTC before a durable one-shot
-marker.  Synthetic tests monkeypatch subprocess internals from a separate test
-module; that facility is not selectable by this CLI.
+Every direct execution path refuses before opening caller files, a journal,
+worker, marker, or output root. Production authority belongs exclusively to
+the policy-v10 controller v2 successor.
 """
 
 from __future__ import annotations
@@ -238,6 +236,17 @@ def execute_once(
     journal_directory: pathlib.Path, authorization_path: pathlib.Path,
     signature_path: pathlib.Path,
 ) -> None:
+    # ADR-0114 rejects this predecessor as a production authority boundary.
+    # Keep the historical parser/helpers importable for preservation tests, but
+    # refuse before opening the authorization, signature, worker, request,
+    # journal, marker, or output root.  Production execution is exposed only by
+    # stage17_phase_controller_v2.py.
+    raise ControllerError(
+        "REJECTED_FAIL_OPEN_PREDECESSOR: use the authority-anchored Stage 17 "
+        "phase controller v2"
+    )
+    # The unreachable predecessor implementation remains below so its original
+    # failure mode stays reviewable without retaining an executable boundary.
     root = repository_root.resolve()
     authorization, authorization_bytes = _load_json(authorization_path)
     _validate(_validator(root, AUTHORIZATION_SCHEMA), authorization, "phase authorization")

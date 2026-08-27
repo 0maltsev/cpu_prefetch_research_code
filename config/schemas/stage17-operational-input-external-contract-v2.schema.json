@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-input-external-contract:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "contract_id", "protocol_version", "predecessor", "manifest_schema", "manifest_schema_sha256", "ext006_contract_schema", "ext006_contract_schema_sha256", "allowed_input_ids", "verification", "synthetic_authority", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-operational-input-external-contract/2"}, "contract_id": {"const": "STAGE17-OPERATIONAL-INPUT-EXTERNAL-CONTRACT-v2"}, "protocol_version": {"const": "2.0.0-pre.2"},
+    "predecessor": {"$ref": "#/$defs/binding"}, "manifest_schema": {"const": "cpu-prefetch-stage17-operational-input-manifest/2"}, "manifest_schema_sha256": {"$ref": "#/$defs/sha256"}, "ext006_contract_schema": {"const": "cpu-prefetch-stage17-pilot-candidate-external-contract/2"}, "ext006_contract_schema_sha256": {"$ref": "#/$defs/sha256"},
+    "allowed_input_ids": {"const": ["S17-EXT-002", "S17-EXT-004", "S17-EXT-005", "S17-EXT-006", "S17-EXT-007", "S17-EXT-009"]},
+    "verification": {"const": {"nonsymlink_regular_files": true, "recompute_size_and_sha256": true, "closed_role_schema_registry": true, "json_schema_validation": true, "cross_artifact_lineage": true, "generic_receipt_sufficient": false}},
+    "synthetic_authority": {"const": false}, "phase18_authority": {"const": false}
+  }, "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+}

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:fixed-action-context:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "authorization_sha256", "request_id", "request_sha256", "attempt_id", "action_id", "phase18_authority"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-stage17-fixed-action-context/2"}, "authorization_id": {"type": "string", "minLength": 1}, "authorization_sha256": {"$ref": "#/$defs/sha256"}, "request_id": {"type": "string", "minLength": 1}, "request_sha256": {"$ref": "#/$defs/sha256"}, "attempt_id": {"type": "string", "minLength": 1}, "action_id": {"enum": ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c", "STAGE17-BLINDED-PILOT"]}, "phase18_authority": {"const": false}}, "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

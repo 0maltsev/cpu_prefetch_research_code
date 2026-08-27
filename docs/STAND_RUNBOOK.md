@@ -1,7 +1,7 @@
 # Stage A Stand Runbook
 
-Status: **Stage 17 operational successor `PREPARED`; external inputs
-required**. This runbook does
+Status: **Stage 17B local engineering closed; operational successor `PREPARED`;
+all ten real external inputs required**. This runbook does
 not authorize a platform mutation, calibration, pilot, or confirmatory
 execution. Commands in the read-only section only observe state and do not make
 the current machine an eligible stand. It becomes operational only after the
@@ -58,19 +58,21 @@ through `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, `PREFLIGHT_ACCEPTED`, and
 canonical genesis plus sequential append-only evidence-resolution and
 transition records. ADR-0106 leaves the v1 graph/catalog/genesis immutable and
 adds a default-deny semantic policy. A file, generic JSON object, generic
-receipt, or metadata hash cannot resolve an input. Only `S17-EXT-001` and
-`S17-EXT-006` currently have implemented semantic verifiers; the other eight
-inputs fail closed. The legacy successor/checklist are definition/templates,
-not current status. The last graph state permits preparation of an exact phase
-authorization; it is not execution permission.
+receipt, boolean claim, self-selected trust root, or metadata hash cannot
+resolve an input. ADR-0114/policy v10 implements a production verifier for all
+ten inputs and the closed six-action controller/worker boundary. This is local
+engineering closure only: every input still requires real exact bytes and the
+checked-in journal remains empty. The legacy successor/checklist are
+definition/templates, not current status. The last graph state permits
+preparation of an exact phase authorization; it is not execution permission.
 
 ADR-0107 leaves v1/v2 bytes unchanged, ADR-0108 leaves all v1/v2/v3 bytes
 unchanged, ADR-0109 preserves every v1-v4 predecessor, ADR-0110 preserves the
 complete v5 predecessor, ADR-0111 preserves the complete v6 predecessor, and
-ADR-0112 preserves the complete v7 predecessor.
-Future
-`S17-EXT-001` production admission uses policy/envelope/authorization/
-supporting-contract v8 and fixed action plan v6. Do not write an SSH
+ADR-0112 preserves the complete v7 predecessor. ADR-0113/policy v9 is a
+rejected fail-open predecessor. ADR-0114/policy v10 is the current local
+admission boundary. Future `S17-EXT-001` preflight admission continues to use
+its policy-bound authorization/supporting-contract semantics. Do not write an SSH
 command, argv, stdin, output filename, timeout, retry, or permission into an
 owner record. The immutable fixed action plan and hash-bound production
 executor/collector own those values. The owner may supply only the typed
@@ -80,7 +82,8 @@ and one pre-existing safe local evidence root. The root may not be the
 repository or `/etc`, `/proc`, or `/sys`, and it may contain no symlink
 component.
 
-Before the first read-only preflight, complete the exact
+Before the first read-only preflight, follow the exact ordered handoff in
+[`STAGE17_STAND_HANDOFF.md`](STAGE17_STAND_HANDOFF.md) and complete the exact
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
 must provide only its listed typed v8 values; raw action bytes are forbidden.
 Do not use the draft itself as evidence. Create the typed supporting contract

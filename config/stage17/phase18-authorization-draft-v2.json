@@ -1,0 +1,17 @@
+{
+  "schema_version": "cpu-prefetch-phase18-authorization/2",
+  "issued": false,
+  "authorization_id": null,
+  "actor": null,
+  "issued_at_utc": null,
+  "expires_at_utc": null,
+  "trust_context_id": null,
+  "trust_context_sha256": null,
+  "stage17_completion_sha256": null,
+  "phase18_readiness_sha256": null,
+  "allowed_chronology": ["PLANNED", "COLLECTED_SEALED", "TRAINING_OPEN", "SELECTION_FROZEN", "VALIDATION_UNSEALED", "H3_EVALUATED", "H1H2_RELEASED", "ARCHIVED"],
+  "authority_scope": "UNISSUED_NO_AUTHORITY",
+  "stage17_authority_reuse_allowed": false,
+  "automatic_transition": false,
+  "retry_allowed": false
+}

@@ -629,4 +629,29 @@ auto admit_runner(const RunnerAdmission& admission,
                       admission.execution_limits, admission.binding_id));
 }
 
+auto admit_runner_from_sealed_controller(const RunnerAdmission& admission,
+                                         const AdmissionTrustAnchor& trust_anchor,
+                                         const SealedControllerProof& proof)
+    -> protocol::Result<AdmissionTicket> {
+  auto errors = validate_admission_fields(admission, trust_anchor);
+  if (!protocol::Sha256::parse(proof.canonical_admission_sha256,
+                               "$/runner_admission_sha256")) {
+    errors.push_back(error(ErrorCategory::invalid_hash, "$/runner_admission_sha256",
+                           "RUN-SEALED-ADMISSION-SHA256",
+                           "sealed admission digest must be lowercase SHA-256"));
+  }
+  if (!protocol::Sha256::parse(proof.evidence_set_sha256,
+                               "$/runner_evidence_set_sha256")) {
+    errors.push_back(error(ErrorCategory::invalid_hash, "$/runner_evidence_set_sha256",
+                           "RUN-SEALED-EVIDENCE-SHA256",
+                           "sealed evidence-set digest must be lowercase SHA-256"));
+  }
+  if (!errors.empty()) {
+    return protocol::Result<AdmissionTicket>::failure(std::move(errors));
+  }
+  return protocol::Result<AdmissionTicket>::success(
+      AdmissionTicket(admission.package, admission.placement, admission.workers,
+                      admission.execution_limits, admission.binding_id));
+}
+
 } // namespace cpu_prefetch::runner

@@ -529,7 +529,7 @@ authorization/amendment.
   atomic replacement of both credential source paths. No external input or
   authority was created.
   ADR-0112 makes policy v8, plan v6, verifier v8, executor v6, and journal
-  runtime v5 current. A Linux subreaper observes leader exit with
+  runtime v5 the immutable lifecycle predecessor. A Linux subreaper observes leader exit with
   `waitid(WNOWAIT)`, holds the waitable leader PID/PGID while same-group and
   adopted descendants are terminated/reaped, and reaps the leader last. A
   surviving descendant is typed failure on zero and nonzero leader exits;
@@ -537,6 +537,16 @@ authorization/amendment.
   leader reap and group disappearance and provide typed fallback retention for
   a failure-publication error. The 17A.7 focused suites pass seven positive and
   fourteen negative cases without creating an external input or authority.
+  ADR-0113/policy v9 is retained as a rejected fail-open predecessor and its
+  controller refuses. ADR-0114/policy v10 completes the repository-local
+  production admission surface: all ten input verifiers, independent trust and
+  release contexts, six compiled fixed actions, exact-byte execution, typed
+  output admission, Stage 17 exit, and independent signed Phase 18 access. The
+  synthetic 10-resolution/3-transition/exit/handoff test runs through the
+  production schemas and verifiers with a separately linked compiled test
+  backend; it does not advance the checked-in journal. The next step is the
+  exact stand handoff in `docs/STAGE17_STAND_HANDOFF.md`, not another local
+  hardening stage.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

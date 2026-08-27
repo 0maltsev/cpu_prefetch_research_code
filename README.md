@@ -2,14 +2,15 @@
 
 This repository has completed the **Stage 16 independent pre-pilot software
 verification slice** for protocol **`2.0.0-pre.2`**. Its current disposition is
-`PREPARED_EXTERNAL_INPUTS_REQUIRED`: the finite Stage 17 operational successor
-is prepared locally, while pilot and confirmatory execution remain blocked on
-ten machine-readable external-input requirements recorded in
+`STAGE17B_LOCAL_ENGINEERING_CLOSED_EXTERNAL_INPUTS_REQUIRED`: the finite Stage
+17 operational successor and fixed-action production admission path are
+implemented locally, while pilot and confirmatory execution remain blocked on
+ten real machine-readable external-input requirements recorded in
 [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
 The immutable graph/catalog and canonical append-only journal compute the
 current state as `PREPARED`, with zero resolutions and `pilot_ready=false`;
 legacy successor/checklist status fields are preserved templates, not current
-evidence.
+evidence. Synthetic verification is not operational progress.
 It contains the Stage 3 build foundation, Stage 4
 typed protocol model, and independently authored bounded SPSC ring and
 linked/recycler queue cores with provenance, refinement, model, stress,
@@ -279,7 +280,7 @@ process-group cleanup, replay/concurrency, and real local OpenSSH in-place and
 atomic replacement of both credential source paths. This grants no action,
 pilot, measurement, or Stage 18 authority.
 ADR-0112 makes policy v8, fixed plan v6, verifier v8, journal runtime v5, and
-executor v6 the current repository-local production boundary. The Linux
+executor v6 the immutable process-lifecycle predecessor. The Linux
 supervisor enables subreaper mode, observes leader exit with
 `waitid(WNOWAIT)`, and holds the waitable leader PID/PGID until every
 same-group member and adopted child is terminated and reaped. A zero-exit
@@ -293,6 +294,17 @@ create-exclusive typed fallback retains both the primary and retention reason
 instead of suppressing the error. The new focused suites add seven positive and
 fourteen negative checks, including a local reproduction of executor v5's
 false success. No authority or operational input is created.
+ADR-0113/policy v9 is retained as `REJECTED_FAIL_OPEN_PREDECESSOR`: it allowed
+an authorization to choose its trust/executable and treated exit zero as
+completion. Its controller now refuses before opening a worker, output root,
+or marker. ADR-0114/policy v10 is the current local engineering boundary. It
+implements production semantic admission for all ten inputs, independent
+EXT002/003 trust, the EXT003-to-EXT006 release-equality bridge, the six compiled
+fd-only fixed actions, typed result/output admission, a PID-namespace-safe
+quiescence supervisor, Stage 17 exit, and separately signed Phase 18 access.
+The local compiled-dispatch integration passes without a state-gate mock, but
+it creates only temporary `synthetic/test-only` evidence. The checked-in
+journal remains `PREPARED`, 0/10 resolved, and no action is authorized.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
@@ -528,16 +540,20 @@ cmake --build --preset dev-gcc \
 
 The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
-The exact unissued owner-input template for the next possible gate is
-[`S17-EXT-001`](docs/STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md).
-Its v5 authorization byte/hash-binds a separate supporting contract and fixed
-action plan v3. The prospectively known local executor/collector
-bytes are inputs; remote runtime
-executable/module/dependency identities are read-only `S17-EXT-002` outputs.
+The policy-v10 stand handoff begins with a separately issued S17-EXT-001 and
+ends with a separately issued pilot authorization; exact commands and expected
+append-only record paths are in
+[`docs/STAGE17_STAND_HANDOFF.md`](docs/STAGE17_STAND_HANDOFF.md).
 
-`cpu_prefetch_runner` can validate a future explicit admission record but has
-no measurement command. `cpu_prefetch_qualification` has no dynamic collector
-or control command. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
+`cpu_prefetch_runner` now contains one closed fd-only dispatcher for exactly
+`Q15-R`, `Q15-W`, `Q16a`, `Q16b`, `Q16c`, and the blinded Stage 17 pilot. It
+accepts no arbitrary command, plugin, caller argv/stdin, output filename, or
+production fake backend. Controller v2 independently obtains trust from
+admitted EXT002/003, binds Q15 to that observed worker, binds Q16/pilot to the
+later byte-equal EXT006 release, snapshots worker/request bytes, and requires
+typed result plus exact artifact verification after process-group quiescence.
+The historical controller v1 always refuses. Presence of this software grants
+no action authority. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
 
 `cpu_prefetch_q15_tool` is a separate no-measurement qualification executable.
 Its self-test and two scope-description commands are safe locally. Q15-S3 links
@@ -587,7 +603,10 @@ verification, and nonprivileged self-test commands.
 revision and `PASS` reports from every strict component and combined codegen
 gate, includes the runner and qualification-only binary, and records
 `pilot_authorized=false`, `confirmatory_authorized=false`, and no measurement
-command. The v3 Q15-P0 source must repeat the strict combined audit before a
+command. Its v2 manifest also hash-binds and carries the complete production
+policy/controller runtime at exact repository-relative paths; the verifier
+rejects missing, substituted, or test-mode controller bytes. The v3 Q15-P0
+source must repeat the strict combined audit before a
 new candidate can be sealed;
 the target still rejects dirty source, missing reports, hash drift, overwrite,
 or any authority-bearing manifest.

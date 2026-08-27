@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:fixed-phase-actions:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "protocol_version", "predecessor", "worker_role", "runtime_profile", "actions", "execution_policy", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-fixed-phase-actions/2"},
+    "profile_id": {"const": "STAGE17-FIXED-PHASE-ACTIONS-v2"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "predecessor": {"$ref": "#/$defs/file_binding"},
+    "worker_role": {"const": "STAGE17_FIXED_ACTION_WORKER"},
+    "runtime_profile": {"const": "STAGE17-FIXED-ACTION-WORKER-v2"},
+    "actions": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/action"}},
+    "execution_policy": {"const": {"entrypoint": "--execute-fixed-stage17-action-v2", "request_transport": "INHERITED_SEALED_REGULAR_FILE_FD", "authority_context_transport": "CONTROLLER_GENERATED_INHERITED_SEALED_REGULAR_FILE_FD", "output_transport": "INHERITED_OPEN_DIRECTORY_FD", "shell": false, "caller_command_argv_stdin": false, "one_attempt": true, "retries": 0, "typed_result_required": true, "process_group_quiescence_required": true}},
+    "phase18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file_binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "action": {"type": "object", "additionalProperties": false, "required": ["ordinal", "action_id", "required_state", "required_resolution_ids", "authorization_resolution_id", "runtime_source", "privileged", "calibration", "pilot", "requires_restoration", "permission_matrix", "result_schema_identity", "fixed_output_names"], "properties": {
+      "ordinal": {"type": "integer", "minimum": 1, "maximum": 6},
+      "action_id": {"enum": ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c", "STAGE17-BLINDED-PILOT"]},
+      "required_state": {"enum": ["PREFLIGHT_ACCEPTED", "READY_FOR_STAGE17_PHASE_AUTHORIZATION"]},
+      "required_resolution_ids": {"type": "array", "minItems": 3, "maxItems": 10, "uniqueItems": true, "items": {"pattern": "^S17-EXT-[0-9]{3}$"}},
+      "authorization_resolution_id": {"type": ["string", "null"], "pattern": "^S17-EXT-[0-9]{3}$"},
+      "runtime_source": {"enum": ["EXT002_EXT003_ACCEPTED_RUNTIME", "EXT006_RELEASE_RUNTIME"]},
+      "privileged": {"type": "boolean"}, "calibration": {"type": "boolean"}, "pilot": {"type": "boolean"}, "requires_restoration": {"type": "boolean"},
+      "permission_matrix": {"type": "object", "additionalProperties": false, "required": ["read_only_observation", "privileged_controls", "calibration", "pilot_execution", "measurement", "phase18"], "properties": {"read_only_observation": {"type": "boolean"}, "privileged_controls": {"type": "boolean"}, "calibration": {"type": "boolean"}, "pilot_execution": {"type": "boolean"}, "measurement": {"type": "boolean"}, "phase18": {"const": false}}},
+      "result_schema_identity": {"const": "cpu-prefetch-stage17-phase-action-result/2"},
+      "fixed_output_names": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"}}
+    }}
+  }
+}

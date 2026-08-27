@@ -215,6 +215,11 @@ struct AdmissionTrustAnchor final {
   bool source_dirty;
 };
 
+struct SealedControllerProof final {
+  std::string canonical_admission_sha256;
+  std::string evidence_set_sha256;
+};
+
 class AdmissionTicket final {
 public:
   [[nodiscard]] auto package() const noexcept -> protocol::QueuePackage {
@@ -235,6 +240,10 @@ public:
 private:
   friend auto admit_runner(const RunnerAdmission&, const AdmissionTrustAnchor&,
                            const std::filesystem::path&)
+      -> protocol::Result<AdmissionTicket>;
+  friend auto admit_runner_from_sealed_controller(const RunnerAdmission&,
+                                                  const AdmissionTrustAnchor&,
+                                                  const SealedControllerProof&)
       -> protocol::Result<AdmissionTicket>;
 
   AdmissionTicket(protocol::QueuePackage package, protocol::Placement placement,
@@ -259,6 +268,16 @@ private:
                                 const AdmissionTrustAnchor& trust_anchor,
                                 const std::filesystem::path& manifest_parent)
     -> protocol::Result<AdmissionTicket>;
+
+// Stage 17's fixed-action controller has already opened every evidence object
+// without following symlinks and has sealed the canonical admission document
+// into the request FD.  This entry point deliberately repeats all admission
+// field checks, then binds the ticket to the canonical document and to the
+// controller's closed evidence-set digest.  It does not accept paths and does
+// not weaken the ordinary path-verifying admit_runner() entry point.
+[[nodiscard]] auto admit_runner_from_sealed_controller(
+    const RunnerAdmission& admission, const AdmissionTrustAnchor& trust_anchor,
+    const SealedControllerProof& proof) -> protocol::Result<AdmissionTicket>;
 [[nodiscard]] auto verify_evidence_files(const RunnerAdmission& admission,
                                          const std::filesystem::path& manifest_parent)
     -> std::vector<protocol::ValidationError>;

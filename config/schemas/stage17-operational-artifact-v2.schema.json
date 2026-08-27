@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:operational-artifact:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["artifact_id", "role", "media_type", "locator", "size_bytes", "sha256", "schema_identity", "schema_binding", "lineage"],
+  "properties": {
+    "artifact_id": {"type": "string", "minLength": 1},
+    "role": {"enum": ["PREFLIGHT_ATTEMPT", "PREFLIGHT_OBSERVATION_RECEIPT", "PREFLIGHT_STDOUT", "PREFLIGHT_STDERR", "PREFLIGHT_COMPLETION", "RUNTIME_IDENTITY", "RUNTIME_WORKER_BINARY", "TRUST_ANCHOR", "TRUST_ALLOWED_SIGNERS", "OWNER_ACCEPTANCE", "QUALIFICATION_SOURCE", "QUALIFICATION_NEAR_FAR", "QUALIFICATION_CLOCK", "QUALIFICATION_ATOMICS_LAYOUT", "QUALIFICATION_AFFINITY_MIGRATION", "QUALIFICATION_NUMA_PAGES", "QUALIFICATION_STORAGE_RECOVERY", "QUALIFICATION_HARDWARE_PREFETCH", "QUALIFICATION_STAND_PRESTATE", "QUALIFICATION_Q15_COLLECTOR", "PHASE_ACTION_AUTHORIZATION", "PHASE_ACTION_REQUEST", "PHASE_ACTION_ATTEMPT", "PHASE_ACTION_RESULT", "PHASE_ACTION_COMPLETION", "AUTHORIZATION_SIGNATURE", "CALIBRATION_Q16A_AUTHORIZATION", "CALIBRATION_Q16A_REQUEST", "CALIBRATION_Q16A_ATTEMPT", "CALIBRATION_Q16A_RESULT", "CALIBRATION_Q16A_COMPLETION", "CALIBRATION_Q16B_AUTHORIZATION", "CALIBRATION_Q16B_REQUEST", "CALIBRATION_Q16B_ATTEMPT", "CALIBRATION_Q16B_RESULT", "CALIBRATION_Q16B_COMPLETION", "CALIBRATION_Q16C_AUTHORIZATION", "CALIBRATION_Q16C_REQUEST", "CALIBRATION_Q16C_ATTEMPT", "CALIBRATION_Q16C_RESULT", "CALIBRATION_Q16C_COMPLETION", "CALIBRATION_FREEZE", "PILOT_PLAN", "PILOT_SCHEDULE", "RUNNER_ADMISSION", "STORAGE_BUDGET", "CUSTODY_DOMAIN", "COPY_LEDGER", "RECOVERY_TEST", "PILOT_AUTHORIZATION", "PILOT_REQUEST"]},
+    "media_type": {"enum": ["application/json", "application/octet-stream"]},
+    "locator": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 0}, "sha256": {"$ref": "#/$defs/sha256"},
+    "schema_identity": {"type": ["string", "null"]}, "schema_binding": {"anyOf": [{"$ref": "#/$defs/file_binding"}, {"type": "null"}]},
+    "lineage": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/hash_binding"}}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "file_binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}, "hash_binding": {"type": "object", "additionalProperties": false, "required": ["id", "sha256"], "properties": {"id": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+}

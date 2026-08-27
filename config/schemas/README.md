@@ -92,6 +92,15 @@ bits that would enable a prohibited action.
 shape while binding the ADR-0048 v3 runner. It validates prospective authority
 only and does not issue or execute it.
 
+The Stage 17B `*-v2` operational manifest, artifact, typed-record, phase-action,
+action-output, exit, and Phase 18 schemas form the policy-v10 closed registry.
+They require exact schema-file bindings, artifact byte hashes, lineage, six
+fixed action identities, typed terminal results, and separate Phase 18 trust.
+`stage17-frozen-schedule-v2` and `runner-admission-v3` bind the pilot schedule
+and sealed runner ticket; generic JSON, boolean-only claims, and unknown roles
+are invalid. These schemas validate records but do not issue authority or
+populate the checked-in journal.
+
 `hardware-prefetch-qualification-v1.schema.json` is ADR-0049's exact Intel
 family-06 model-55H, MSR-0x1A4, CPUs-0/1/26 H0/H1 evidence envelope. Its
 semantic validator proves complete-value mapping/readback/restoration, unknown-

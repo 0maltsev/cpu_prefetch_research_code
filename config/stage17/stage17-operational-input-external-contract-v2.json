@@ -1,0 +1,14 @@
+{
+  "schema_version": "cpu-prefetch-stage17-operational-input-external-contract/2",
+  "contract_id": "STAGE17-OPERATIONAL-INPUT-EXTERNAL-CONTRACT-v2",
+  "protocol_version": "2.0.0-pre.2",
+  "predecessor": {"path": "config/stage17/stage17-operational-input-external-contract-v1.json", "size_bytes": 585, "sha256": "5f20e91b96a3634febabf9a1929f60af27dd28f457b17f7cb45df2d322dfc06c"},
+  "manifest_schema": "cpu-prefetch-stage17-operational-input-manifest/2",
+  "manifest_schema_sha256": "07e7e81300cf7332815e48949f5fee2941fe3ab55bc9257322cfe9003eed8497",
+  "ext006_contract_schema": "cpu-prefetch-stage17-pilot-candidate-external-contract/2",
+  "ext006_contract_schema_sha256": "3b7d398b399c9e24c9ecd5b8408377be48829ad9e6268882bac61cf5d1dd2b5e",
+  "allowed_input_ids": ["S17-EXT-002", "S17-EXT-004", "S17-EXT-005", "S17-EXT-006", "S17-EXT-007", "S17-EXT-009"],
+  "verification": {"nonsymlink_regular_files": true, "recompute_size_and_sha256": true, "closed_role_schema_registry": true, "json_schema_validation": true, "cross_artifact_lineage": true, "generic_receipt_sufficient": false},
+  "synthetic_authority": false,
+  "phase18_authority": false
+}

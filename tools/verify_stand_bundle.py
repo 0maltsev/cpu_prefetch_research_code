@@ -322,6 +322,10 @@ def main() -> int:
             "cpu-prefetch-pilot-candidate-bundle/1",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
         ),
+        "STAGE17-PILOT-CANDIDATE-BUNDLE-v2": (
+            "cpu-prefetch-pilot-candidate-bundle/2",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
             "cpu-prefetch-q15-qualification-tool-bundle/1",
             "Q15_TOOL_RELEASE_NO_AUTHORITY",
@@ -361,7 +365,8 @@ def main() -> int:
         ("measurement_execution_command_present", "a measurement command"),
     ):
         value = manifest.get(field)
-        if profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v1" and value is not False:
+        if profile in ("STAGE17-PILOT-CANDIDATE-BUNDLE-v1",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v2") and value is not False:
             failures.append(f"pilot candidate must explicitly prohibit {description}")
         elif profile == "STAGE16-STAND-BUNDLE-v1" and value not in (None, False):
             failures.append(f"Stage 16 bundle unexpectedly enables {description}")
@@ -403,7 +408,8 @@ def main() -> int:
     if not source_path.is_file() or sha256(source_path) != source.get("sha256"):
         failures.append("source archive path/hash mismatch")
 
-    if profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v1":
+    if profile in ("STAGE17-PILOT-CANDIDATE-BUNDLE-v1",
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v2"):
         if (
             manifest.get("software_prefetch_mapping_id")
             != "X86-64-PREFETCHW-PREFETCHT0-v1"
@@ -445,6 +451,80 @@ def main() -> int:
                 != "X86-64-PREFETCHW-PREFETCHT0-v1"
             ):
                 failures.append("pilot candidate combined report lacks D-047 identity")
+        if profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v2":
+            runtime = manifest.get("stage17_fixed_action_runtime")
+            expected_actions = ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
+                                "STAGE17-BLINDED-PILOT"]
+            worker = root / "release/bin/cpu_prefetch_runner"
+            if (not isinstance(runtime, dict)
+                    or runtime.get("member_path") != "release/bin/cpu_prefetch_runner"
+                    or runtime.get("size_bytes") != worker.stat().st_size
+                    or runtime.get("sha256") != sha256(worker)
+                    or runtime.get("role") != "STAGE17_FIXED_ACTION_WORKER"
+                    or runtime.get("runtime_profile") != "STAGE17-FIXED-ACTION-WORKER-v2"
+                    or runtime.get("supported_actions") != expected_actions
+                    or runtime.get("synthetic_test_only") is not False):
+                failures.append("pilot candidate v2 fixed-action runtime binding is invalid")
+            payload = worker.read_bytes()
+            for token in (b"--execute-fixed-stage17-action-v2",
+                          b"STAGE17-FIXED-ACTION-WORKER-v2",
+                          *(item.encode("ascii") for item in expected_actions)):
+                if token not in payload:
+                    failures.append("pilot candidate v2 worker lacks fixed dispatcher surface")
+                    break
+            controller = manifest.get("stage17_controller_runtime")
+            if not isinstance(controller, dict):
+                failures.append("pilot candidate v2 controller runtime is absent")
+            else:
+                policy_binding = controller.get("policy")
+                policy_path = root / "config/stage17/stage17-operational-evidence-admission-policy-v10.json"
+                if (controller.get("controller_id")
+                        != "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v2"
+                        or controller.get("entrypoint")
+                        != "tools/stage17_phase_controller_v2.py"
+                        or controller.get("invocation")
+                        != ["python3", "tools/stage17_phase_controller_v2.py"]
+                        or controller.get("production_test_mode_available") is not False
+                        or controller.get("authority_embedded") is not False
+                        or not isinstance(policy_binding, dict)
+                        or policy_binding.get("path")
+                        != "config/stage17/stage17-operational-evidence-admission-policy-v10.json"
+                        or not policy_path.is_file()
+                        or policy_binding.get("size_bytes") != policy_path.stat().st_size
+                        or policy_binding.get("sha256") != sha256(policy_path)):
+                    failures.append("pilot candidate v2 controller identity is invalid")
+                else:
+                    policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
+                    expected_bound_files = []
+                    for group_name in ("bindings", "runtime_closure"):
+                        for key, binding in policy_document.get(group_name, {}).items():
+                            expected_bound_files.append({
+                                "group": group_name,
+                                "key": key,
+                                "path": binding.get("path"),
+                                "size_bytes": binding.get("size_bytes"),
+                                "sha256": binding.get("sha256"),
+                            })
+                    if controller.get("bound_files") != expected_bound_files:
+                        failures.append("pilot candidate v2 controller closure differs from policy")
+                    else:
+                        for binding in expected_bound_files:
+                            relative_text = binding["path"]
+                            relative = pathlib.Path(relative_text)
+                            candidate = root / relative
+                            if (relative.is_absolute() or ".." in relative.parts
+                                    or not candidate.is_file() or candidate.is_symlink()
+                                    or candidate.stat().st_size != binding["size_bytes"]
+                                    or sha256(candidate) != binding["sha256"]):
+                                failures.append(
+                                    f"pilot candidate v2 controller binding drifted: {relative_text}"
+                                )
+                                break
+                    entrypoint = root / "tools/stage17_phase_controller_v2.py"
+                    entrypoint_payload = entrypoint.read_bytes() if entrypoint.is_file() else b""
+                    if (b"test_linked_worker=False" not in entrypoint_payload
+                            or b"--test-linked-worker" in entrypoint_payload):
+                        failures.append("pilot candidate v2 controller exposes a production test mode")
 
     if profile in (
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1",

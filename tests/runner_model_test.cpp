@@ -196,6 +196,16 @@ TEST(RunnerAdmission, CompleteSyntheticFixturePassesFieldValidation) {
                   .empty());
 }
 
+TEST(RunnerAdmission, SealedControllerProofProducesTicketWithoutPathReread) {
+  const auto admission = complete_admission();
+  const auto ticket = cpu_prefetch::runner::admit_runner_from_sealed_controller(
+      admission, trust_anchor(), {std::string(64U, 'a'), std::string(64U, 'b')});
+  ASSERT_TRUE(ticket.has_value());
+  EXPECT_EQ(ticket.value().package(), admission.package);
+  EXPECT_EQ(ticket.value().placement(), admission.placement);
+  EXPECT_EQ(ticket.value().binding_id(), admission.binding_id);
+}
+
 TEST(RunnerPreparation, AffinityReadbackPrecedesOwnerPrivateFirstTouch) {
   const auto run_id =
       cpu_prefetch::protocol::RunId::parse("runner-preparation", "$/run_id");

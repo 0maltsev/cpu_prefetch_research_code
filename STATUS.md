@@ -3,7 +3,7 @@
 Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
 **`2.0.0-pre.1`** retained
 
-Repository state: **`STAGE17_OPERATIONAL_SUCCESSOR_PREPARED_EXTERNAL_INPUTS_REQUIRED`**
+Repository state: **`STAGE17B_LOCAL_ENGINEERING_CLOSED_EXTERNAL_INPUTS_REQUIRED`**
 
 Readiness verdict: **`PREPARED`**; **`NOT_READY_FOR_STAGE17_PILOT_EXECUTION`**;
 **`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**
@@ -13,7 +13,7 @@ Readiness verdict: **`PREPARED`**; **`NOT_READY_FOR_STAGE17_PILOT_EXECUTION`**;
 | Area | State | Evidence or blocker |
 |---|---|---|
 | Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/16 implementation-decision record | `COMPLETE`; pilot-governance successor recorded | ADR-0001 through ADR-0086, ADR-0093 through ADR-0097, ADR-0099, and ADR-0100 through ADR-0112 are accepted. ADR-0105 implements append-only state persistence; ADR-0106 adds the immutable default-deny semantic predecessor; ADR-0107 adds fixed action semantics and transition/one-shot gating; ADR-0108 through ADR-0111 remain immutable runtime/clock/snapshot/lifecycle predecessors. ADR-0112 adds the policy-v8 held-leader/subreaper group-quiescence and cleanup-evidence successor without changing ADR-0104's graph or any predecessor identity. D-099..D-108 decision/evidence bytes are hash-preserved; D-105..D-108 remain proposed/unaccepted. |
+| Stage 2/16 implementation-decision record | `COMPLETE`; pilot-governance successor recorded | ADR-0001 through ADR-0086, ADR-0093 through ADR-0097, ADR-0099, and ADR-0100 through ADR-0112 remain accepted immutable decisions. ADR-0113/policy v9 is retained as `REJECTED_FAIL_OPEN_PREDECESSOR`. ADR-0114 accepts policy v10 only as the repository-local fixed-action/admission boundary; it issues no authority. D-099..D-108 decision/evidence bytes are hash-preserved; D-105..D-108 remain proposed/unaccepted. |
 | Stage 3 build/CI foundation | `COMPLETE_REVERIFIED` | ADR-0022, constrained offline inputs, dual compiler/library development/release presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations freshly pass Stage 16. |
 | Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
@@ -32,7 +32,7 @@ Readiness verdict: **`PREPARED`**; **`NOT_READY_FOR_STAGE17_PILOT_EXECUTION`**;
 | Q15-P0 candidate release | `COMPLETE_NO_AUTHORITY` | Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` produced `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; archive SHA-256 is `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`. Outer/internal hashes, 94-file clean extraction, and both nonprivileged self-tests pass. Its manifest denies dynamic, pilot, confirmatory, and measurement execution authority. |
 | Exact Q15 preparation | `D104_LOCAL_EXECUTOR_PREPARED_NO_ACTION_AUTHORITY` | D-099 evidence remains the immutable identity predecessor. The fixed P4-R-C executor separates collection and result review, validates exact custody/release/hash inputs, uses create-exclusive outputs, retains bounded partial failure evidence, and has no target-private-key path. No stand mutation occurred. D-098 still retains three null P5 inputs. |
 | P4-R-C predecessor decisions | `D104_HISTORICAL_NO_AUTHORITY; D105_D108_PRESERVED_PROPOSED_NOT_ACTIVE_PILOT_GATE` | Clean commit `dc643df` binds historical executor SHA `0b7e2f1c...`; the current hermetic successor is separately hash-bound by ADR-0104. D-099 did not capture remote Python/`dd`/tar runtime identity, so the old action still rejects. D-105..D-108 SHA `6d753cee...` remains unchanged with all selections/action inputs null and is not silently accepted. |
-| Stage 17 operational authorization | `PREPARED_EXTERNAL_INPUTS_REQUIRED` | ADR-0104 provides the only successor graph; ADR-0105 preserves the v1 successor/checklist and computes state from the append-only journal; ADR-0106 through ADR-0111 remain immutable predecessors. ADR-0112 policy v8/plan v6 bind verifier v8, executor v6, journal runtime v5, unchanged collector v2/snapshot broker v1, and the new held-leader Linux supervisor plus every record/schema/helper byte. The final live system/monotonic authority guard remains immediately before `Popen`. The supervisor observes leader exit with `waitid(WNOWAIT)`, retains its PID/PGID until group scans and subreaper adoption prove descendants gone, sends TERM/KILL only before leader reap, and publishes evidence or closes snapshots only after independent leader/group proofs. Seven focused positives and fourteen focused negatives pass for 17A.7, including the reproduced v5 false success, zero/nonzero leaders, closed pipes, multiple and TERM-resistant descendants, EINTR/EIO wait barriers, terminal-schema coverage, replay/concurrency gates, and visible fallback-retention errors. The preserved 17A.6 6/25, 17A.5 8/20, 17A.4 7/5, two runtime positives, and 79 predecessor negatives remain green. `S17-EXT-006` retains exact-byte verification; the other eight inputs fail closed. The checked-in journal has 0 resolutions and 0 transitions, all ten inputs are missing, `action_ready=false`, `pilot_ready=false`, and `stand=NOT_ACCESSED`. No stand, preflight, phase, measurement, or Stage 18 authority exists. |
+| Stage 17 operational authorization | `LOCAL_ENGINEERING_CLOSED; PREPARED_EXTERNAL_INPUTS_REQUIRED` | ADR-0104/0105 retain the finite graph and append-only journal; ADR-0106..0112 are immutable admission/runtime predecessors. ADR-0113/policy v9 is rejected and controller v1 refuses. ADR-0114/policy v10 binds an exact transitive runtime closure, implements per-input production verifiers for all `S17-EXT-001..010`, derives trust only from admitted EXT002/003, binds the observed stand anchor back to EXT001, bridges the observed Q15 worker to a byte-identical EXT006 release, and exposes exactly six compiled fd-only worker actions. Controller v2 snapshots worker/request bytes, preloads terminal schemas/action definitions before its marker, enforces system UTC/signature/state/one-shot authority, retains Stage 17A quiescence guarantees, and requires typed result plus exact output validation; Q15-W cannot complete without restoration. EXT004 source hashes bind real source bytes, and EXT006 returns a typed archive/member context. Stage 17 exit is computed from typed pilot evidence; Phase 18 uses a separate trust context, signed authorization, and strict chronology. The local synthetic suite passes 12 positive/21 negative cases using the compiled test-linked dispatcher and no state-gate mock. It creates no operational progress. Checked-in state remains 0 resolutions, 0 transitions, ten missing, `action_ready=false`, `pilot_ready=false`, `stand=NOT_ACCESSED`. |
 | Stage 16 software verification | `COMPLETE` | Both compiler/library development and release matrices pass 187/187; sanitizer matrices pass 187/187, 187/187, 187/187, and applicable 185/185; strict component codegen, static/format/schema/provenance/dependency/CI checks, synthetic dispositions, reproducible bundle, clean extraction, and nonprivileged self-tests pass. ADR-0042 and the readiness report bind the evidence boundary. |
 | Stand preflight | `COMPLETE_INVENTORY_ONLY_NOT_QUALIFIED` | The exact bundle and 72-file internal inventory passed on `xeon-cpu-fetch`; smoke, self-test, and the collector ran as `nobody:nogroup`. Snapshot `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` observes two packages/two NUMA nodes and retains seven blockers. Inventory SHA-256 is `f3bb301c77918c0287c8a287e3915f5d68929684eece660464c69f62770ac94b`; the sidecar-publication failure and recovered checksum are preserved. |
 | Pilot | `NOT_READY_FOR_STAGE17_PILOT_EXECUTION` | The authoritative immutable catalog has ten unresolved entries. The legacy `S17-EXT-006` release metadata is preserved but no resolution is accepted without caller-supplied archive/sidecar bytes, the fixed integration contract, and a real custody receipt. Read-only preflight authorization/evidence/acceptance, dynamic qualification/control/restoration, release custody bytes, calibration outputs, exact pilot plan, storage/custody budget, and one phase-scoped pilot authorization remain unresolved. |
@@ -819,9 +819,10 @@ predecessor bytes. ADR-0105 preserves the successor/checklist v1 files as
 immutable templates and places operational status in an append-only
 resolution/transition journal. ADR-0106 requires a predecessor-bound
 default-deny semantic verifier after structural and real-byte checks; generic
-JSON/receipts and synthetic placeholders cannot resolve inputs. S17-EXT-001
-and S17-EXT-006 have implemented verifiers; the other eight remain explicitly
-blocked. ADR-0107 policy v3 remains the immutable fixed-command predecessor.
+JSON/receipts and synthetic placeholders cannot resolve inputs. At that
+predecessor boundary, S17-EXT-001 and S17-EXT-006 had implemented verifiers;
+the other eight were explicitly blocked. ADR-0107 policy v3 remains the
+immutable fixed-command predecessor.
 ADR-0108 policy v4 and fixed plan v2 additionally remove caller-controlled
 production time, reject OpenSSH expansion paths, bind the actually loaded
 runtime closure, validate all six programs before a marker, pin the evidence
@@ -849,13 +850,19 @@ reserve and a mandatory final reap barrier completes before snapshots close or
 typed failure publication. A reserve overrun is failure evidence, never
 permission to return with a live child. Cleanup preserves the primary error.
 ADR-0112 makes policy v8, plan v6, verifier v8, executor v6, and journal runtime
-v5 current. Its Linux subreaper holds a waitable exited leader with
+v5 the immutable lifecycle predecessor. Its Linux subreaper holds a waitable exited leader with
 `waitid(WNOWAIT)` until process-group and adopted-child scans prove quiescence,
 then reaps adopted children and the leader. A leader exit never substitutes
 for group proof, all signals precede leader reap, and typed records distinguish
 `leader_reaped` from `process_group_gone`. Every terminal cleanup result is
 schema-representable; a separate typed create-exclusive record retains the
 primary and retention errors if full failure publication fails.
+ADR-0113/policy v9 is rejected as fail-open and cannot execute. ADR-0114 and
+policy v10 close all ten semantic verifier contracts, the compiled six-action
+worker, independent trust/release binding, exact-byte controller, typed
+outputs, Stage 17 exit, and separate Phase 18 access locally. The current
+12-positive/19-negative compiled-dispatch suite is synthetic-only; no
+checked-in resolution, transition, authorization, or stand evidence was added.
 Canonical replay of the checked-in genesis is
 `PREPARED`, 0/10 resolved, 0 transitions, `action_ready=false`, and
 `pilot_ready=false`. Repository

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:phase18:readiness-report:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "report_id", "stage17_completion_id", "stage17_completion_sha256", "sealed_pilot_manifest_sha256", "treatment_blind_freeze_sha256", "role_separation_declaration_sha256", "state", "blockers", "phase18_authority"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-phase18-readiness-report/1"}, "report_id": {"type": ["string", "null"]}, "stage17_completion_id": {"type": ["string", "null"]}, "stage17_completion_sha256": {"$ref": "#/$defs/hash_or_null"}, "sealed_pilot_manifest_sha256": {"$ref": "#/$defs/hash_or_null"}, "treatment_blind_freeze_sha256": {"$ref": "#/$defs/hash_or_null"}, "role_separation_declaration_sha256": {"$ref": "#/$defs/hash_or_null"}, "state": {"enum": ["UNISSUED", "READY_FOR_SEPARATE_PHASE18_AUTHORIZATION"]}, "blockers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}, "phase18_authority": {"const": false}},
+  "$defs": {"hash_or_null": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^[0-9a-f]{64}$"}]}}
+}

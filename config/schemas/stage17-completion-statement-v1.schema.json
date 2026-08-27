@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:completion-statement:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["all_ten_inputs_admitted", "operational_journal_sha256", "pilot_completion_sha256", "sealed_manifest_sha256", "treatment_blind_freeze_sha256", "pilot_evidence_sealed", "completed_at_utc", "phase18_authority"],
+  "properties": {
+    "all_ten_inputs_admitted": {"const": true}, "operational_journal_sha256": {"$ref": "#/$defs/sha"}, "pilot_completion_sha256": {"$ref": "#/$defs/sha"}, "sealed_manifest_sha256": {"$ref": "#/$defs/sha"}, "treatment_blind_freeze_sha256": {"$ref": "#/$defs/sha"}, "pilot_evidence_sealed": {"const": true}, "completed_at_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}, "phase18_authority": {"const": false}
+  }, "$defs": {"sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

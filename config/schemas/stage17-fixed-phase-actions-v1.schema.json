@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:fixed-phase-actions:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "protocol_version", "actions", "execution_policy", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-fixed-phase-actions/1"},
+    "profile_id": {"const": "STAGE17-FIXED-PHASE-ACTIONS-v1"}, "protocol_version": {"const": "2.0.0-pre.2"},
+    "actions": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"type": "object", "additionalProperties": false, "required": ["action_id", "required_state", "required_resolution_ids", "executable_role", "fixed_argv_template", "privileged", "requires_restoration", "result_schema"], "properties": {"action_id": {"enum": ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c", "STAGE17-BLINDED-PILOT"]}, "required_state": {"enum": ["PREFLIGHT_ACCEPTED", "READY_FOR_STAGE17_PHASE_AUTHORIZATION"]}, "required_resolution_ids": {"type": "array", "uniqueItems": true, "items": {"pattern": "^S17-EXT-[0-9]{3}$"}}, "executable_role": {"type": "string", "minLength": 1}, "fixed_argv_template": {"type": "array", "minItems": 7, "items": {"type": "string", "minLength": 1}}, "privileged": {"type": "boolean"}, "requires_restoration": {"type": "boolean"}, "result_schema": {"const": "cpu-prefetch-stage17-phase-action-result/1"}}}},
+    "execution_policy": {"const": {"shell": false, "caller_command_argv_stdin": false, "system_utc": true, "monotonic_deadline": true, "one_attempt": true, "retries": 0, "create_exclusive_evidence": true, "typed_partial_failure": true, "process_group_quiescence": true}},
+    "phase18_authority": {"const": false}
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:phase-action-authorization:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "action_id", "actor", "target", "issued_at_utc", "expires_at_utc", "predecessor_resolutions", "fixed_action_definition_sha256", "request_binding", "allowed_signers_binding", "principal", "sshsig_namespace", "executable_bindings", "evidence_root", "expected_prestate_sha256", "permission_matrix", "max_wall_seconds", "one_attempt", "retry_allowed", "stop_first", "retain_partial", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-phase-action-authorization/1"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "action_id": {"enum": ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c", "STAGE17-BLINDED-PILOT"]},
+    "actor": {"type": "string", "minLength": 1},
+    "target": {"type": "object", "additionalProperties": false, "required": ["stand_id", "execution_root"], "properties": {"stand_id": {"type": "string", "minLength": 1}, "execution_root": {"type": "string", "minLength": 1}}},
+    "issued_at_utc": {"$ref": "#/$defs/utc"}, "expires_at_utc": {"$ref": "#/$defs/utc"},
+    "predecessor_resolutions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/binding"}},
+    "fixed_action_definition_sha256": {"$ref": "#/$defs/sha256"},
+    "request_binding": {"$ref": "#/$defs/file_binding"}, "allowed_signers_binding": {"$ref": "#/$defs/file_binding"},
+    "principal": {"type": "string", "minLength": 1}, "sshsig_namespace": {"type": "string", "minLength": 1},
+    "executable_bindings": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}},
+    "evidence_root": {"type": "string", "minLength": 1},
+    "expected_prestate_sha256": {"$ref": "#/$defs/sha256"},
+    "permission_matrix": {"type": "object", "additionalProperties": false, "required": ["read_only_observation", "privileged_controls", "calibration", "pilot_execution", "measurement", "phase18"], "properties": {"read_only_observation": {"type": "boolean"}, "privileged_controls": {"type": "boolean"}, "calibration": {"type": "boolean"}, "pilot_execution": {"type": "boolean"}, "measurement": {"type": "boolean"}, "phase18": {"const": false}}},
+    "max_wall_seconds": {"type": "integer", "minimum": 1, "maximum": 1800},
+    "one_attempt": {"const": true}, "retry_allowed": {"const": false}, "stop_first": {"const": true}, "retain_partial": {"const": true}, "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "binding": {"type": "object", "additionalProperties": false, "required": ["input_id", "resolution_id", "sha256"], "properties": {"input_id": {"pattern": "^S17-EXT-[0-9]{3}$"}, "resolution_id": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "file_binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  }
+}

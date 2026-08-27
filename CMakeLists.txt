@@ -717,6 +717,39 @@ if(BUILD_TESTING)
       LABELS "runner;authorization;process-group;evidence;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
         "PASS positive=4 negative=8 stand=NOT_ACCESSED")
+  add_test(
+    NAME runner.stage17_pid_namespace_supervisor
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_pid_namespace_supervisor.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_pid_namespace_supervisor
+    PROPERTIES
+      LABELS "runner;authorization;process-group;pid-namespace;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS positive=7 negative=6 stand=NOT_ACCESSED")
+  add_test(
+    NAME runner.stage17_complete_operational_admission
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_complete_operational_admission.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_complete_operational_admission
+    PROPERTIES
+      LABELS "runner;authorization;stage17b;phase18;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS positive=3 negative=44 mechanics_bypass=false checked_in_journal_unchanged=true stand=NOT_ACCESSED")
+  add_test(
+    NAME runner.stage17_phase_controllers
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_phase_controllers.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_phase_controllers
+    PROPERTIES
+      LABELS "runner;authorization;controller;stage17b;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS positive=2 negative=11 production_cli_test_mode=false stand=NOT_ACCESSED")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -2344,6 +2377,22 @@ add_custom_target(
     --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking held-leader group quiescence and typed cleanup evidence locally")
+add_custom_target(
+  stage17-complete-operational-admission-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_pid_namespace_supervisor.py"
+    --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_complete_operational_admission.py"
+    --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_phase_controllers.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking complete Stage 17 semantic admission, controllers, exit, and Phase 18 handoff locally")
 add_custom_target(
   stage17-pilot-candidate-artifact-integration-check
   COMMAND

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:phase-action-evidence:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "evidence_id", "kind", "action_id", "authorization_id", "authorization_sha256", "request_sha256", "fixed_action_definition_sha256", "runtime_sha256", "attempt", "retries", "actual_started_at_utc", "actual_completed_at_utc", "duration_ns", "returncode", "stdout_size_bytes", "stdout_sha256", "stderr_size_bytes", "stderr_sha256", "leader_reaped", "process_group_gone", "terminal_cleanup_outcome", "failure_category", "partial_retained", "quarantine", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-phase-action-evidence/1"}, "evidence_id": {"type": "string", "minLength": 1}, "kind": {"enum": ["ATTEMPT", "FAILURE", "COMPLETION"]}, "action_id": {"type": "string", "minLength": 1},
+    "authorization_id": {"type": "string", "minLength": 1}, "authorization_sha256": {"$ref": "#/$defs/sha"}, "request_sha256": {"$ref": "#/$defs/sha"}, "fixed_action_definition_sha256": {"$ref": "#/$defs/sha"}, "runtime_sha256": {"$ref": "#/$defs/sha"},
+    "attempt": {"const": 1}, "retries": {"const": 0}, "actual_started_at_utc": {"$ref": "#/$defs/utc"}, "actual_completed_at_utc": {"$ref": "#/$defs/utc"}, "duration_ns": {"type": "integer", "minimum": 0}, "returncode": {"type": ["integer", "null"]},
+    "stdout_size_bytes": {"type": "integer", "minimum": 0}, "stdout_sha256": {"$ref": "#/$defs/sha"}, "stderr_size_bytes": {"type": "integer", "minimum": 0}, "stderr_sha256": {"$ref": "#/$defs/sha"},
+    "leader_reaped": {"type": "boolean"}, "process_group_gone": {"type": "boolean"}, "terminal_cleanup_outcome": {"type": "string", "minLength": 1}, "failure_category": {"type": ["string", "null"]}, "partial_retained": {"const": true}, "quarantine": {"type": "boolean"}, "phase18_authority": {"const": false}
+  },
+  "$defs": {"sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$"}}
+}

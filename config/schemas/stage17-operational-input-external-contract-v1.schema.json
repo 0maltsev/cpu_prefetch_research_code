@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-input-external-contract:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "contract_id", "protocol_version", "allowed_input_ids", "manifest_schema", "verification", "synthetic_authority", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-operational-input-external-contract/1"},
+    "contract_id": {"const": "STAGE17-OPERATIONAL-INPUT-EXTERNAL-CONTRACT-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "allowed_input_ids": {"const": ["S17-EXT-002", "S17-EXT-004", "S17-EXT-005", "S17-EXT-007", "S17-EXT-009"]},
+    "manifest_schema": {"const": "cpu-prefetch-stage17-operational-input-manifest/1"},
+    "verification": {"const": {"nonsymlink_regular_files": true, "recompute_size_and_sha256": true, "input_specific_semantics": true, "generic_receipt_sufficient": false}},
+    "synthetic_authority": {"const": false}, "phase18_authority": {"const": false}
+  }
+}

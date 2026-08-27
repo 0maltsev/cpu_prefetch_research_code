@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:pilot-exit-journal:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "journal_id", "initial_state", "record_references", "current_state_claim", "synthetic_test_only", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-pilot-exit-journal/1"}, "journal_id": {"type": "string", "minLength": 1}, "initial_state": {"const": "READY_FOR_STAGE17_PHASE_AUTHORIZATION"},
+    "record_references": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"pattern": "^[0-9a-f]{64}$"}}}},
+    "current_state_claim": {"enum": ["READY_FOR_STAGE17_PHASE_AUTHORIZATION", "PILOT_AUTHORIZED", "PILOT_EXECUTED", "PILOT_EVIDENCE_SEALED", "STAGE17_COMPLETE", "PHASE18_HANDOFF_PREPARED"]}, "synthetic_test_only": {"type": "boolean"}, "phase18_authority": {"const": false}
+  }
+}

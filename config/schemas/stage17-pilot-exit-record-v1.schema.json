@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:pilot-exit-record:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "record_id", "record_type", "sequence_number", "previous_record_sha256", "created_at_utc", "actor", "synthetic_test_only", "source_bindings", "payload", "automatic_transition", "retry_authority", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-pilot-exit-record/1"}, "record_id": {"type": "string", "minLength": 1},
+    "record_type": {"enum": ["PILOT_ATTEMPT", "PILOT_RECEIPT", "PILOT_FAILURE", "PILOT_COMPLETION", "SEALED_PILOT_ARTIFACT_MANIFEST", "TREATMENT_BLIND_FREEZE", "ROLE_SEPARATION_DECLARATION", "STAGE17_COMPLETION_STATEMENT", "PHASE18_READINESS_REPORT", "PHASE18_AUTHORIZATION_DRAFT", "STATE_TRANSITION"]},
+    "sequence_number": {"type": "integer", "minimum": 1}, "previous_record_sha256": {"pattern": "^[0-9a-f]{64}$"}, "created_at_utc": {"$ref": "#/$defs/utc"}, "actor": {"type": "string", "minLength": 1}, "synthetic_test_only": {"type": "boolean"},
+    "source_bindings": {"type": "array", "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["artifact_id", "path", "size_bytes", "sha256"], "properties": {"artifact_id": {"type": "string", "minLength": 1}, "path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 0}, "sha256": {"pattern": "^[0-9a-f]{64}$"}}}},
+    "payload": {"type": "object"}, "automatic_transition": {"const": false}, "retry_authority": {"const": false}, "phase18_authority": {"const": false}
+  },
+  "$defs": {"utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}}
+}

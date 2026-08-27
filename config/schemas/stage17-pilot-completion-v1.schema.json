@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:pilot-completion:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["completed", "attempt", "retries", "run_ids", "receipt_sha256s", "all_artifacts_immutable", "all_leaders_reaped", "all_process_groups_gone", "stage18_authority"],
+  "properties": {
+    "completed": {"const": true}, "attempt": {"const": 1}, "retries": {"const": 0},
+    "run_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "receipt_sha256s": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"pattern": "^[0-9a-f]{64}$"}},
+    "all_artifacts_immutable": {"const": true}, "all_leaders_reaped": {"const": true}, "all_process_groups_gone": {"const": true}, "stage18_authority": {"const": false}
+  }
+}

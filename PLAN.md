@@ -515,7 +515,8 @@ authorization/amendment.
   cross-version markers, schema drift, and predecessor rejection. The current
   state and all external blockers remain unchanged.
   ADR-0111 preserves that complete policy-v6 closure and makes policy v7,
-  plan v5, verifier v7, executor v5, and journal runtime v4 current. Snapshot
+  plan v5, verifier v7, executor v5, and journal runtime v4 an immutable
+  predecessor. Snapshot
   verification now precedes a final live system/monotonic authority guard
   inside the transport boundary, immediately followed by `Popen`. Every child
   starts a new process group, and bounded TERM/KILL consumes the global cleanup
@@ -527,6 +528,15 @@ authorization/amendment.
   markers v1-v5, plus actual local OpenSSH consumption after both in-place and
   atomic replacement of both credential source paths. No external input or
   authority was created.
+  ADR-0112 makes policy v8, plan v6, verifier v8, executor v6, and journal
+  runtime v5 current. A Linux subreaper observes leader exit with
+  `waitid(WNOWAIT)`, holds the waitable leader PID/PGID while same-group and
+  adopted descendants are terminated/reaped, and reaps the leader last. A
+  surviving descendant is typed failure on zero and nonzero leader exits;
+  closed pipes do not imply quiescence. New schemas independently require
+  leader reap and group disappearance and provide typed fallback retention for
+  a failure-publication error. The 17A.7 focused suites pass seven positive and
+  fourteen negative cases without creating an external input or authority.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:read-only-preflight-failure-retention:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "attempt_id", "attempt_marker_sha256", "authorization_id", "authorization_sha256", "resolution_id", "resolution_sha256", "transition_id", "transition_sha256", "action_plan_sha256", "runtime_implementation_hashes", "primary_failed_stage", "primary_reason_category", "primary_reason", "retention_reason", "leader_reaped", "process_group_gone", "terminal_cleanup_outcome", "actual_recorded_at_utc", "retry_allowed", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-read-only-preflight-failure-retention/1"},
+    "attempt_id": {"type": "string", "minLength": 1},
+    "attempt_marker_sha256": {"$ref": "#/$defs/sha256"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "authorization_sha256": {"$ref": "#/$defs/sha256"},
+    "resolution_id": {"type": "string", "minLength": 1},
+    "resolution_sha256": {"$ref": "#/$defs/sha256"},
+    "transition_id": {"type": "string", "minLength": 1},
+    "transition_sha256": {"$ref": "#/$defs/sha256"},
+    "action_plan_sha256": {"$ref": "#/$defs/sha256"},
+    "runtime_implementation_hashes": {"type": "object", "minProperties": 17, "maxProperties": 17, "additionalProperties": {"$ref": "#/$defs/sha256"}},
+    "primary_failed_stage": {"type": "string", "minLength": 1},
+    "primary_reason_category": {"type": "string", "minLength": 1},
+    "primary_reason": {"type": "string", "minLength": 1, "maxLength": 512},
+    "retention_reason": {"type": "string", "minLength": 1, "maxLength": 512},
+    "leader_reaped": {"type": "boolean"},
+    "process_group_gone": {"const": true},
+    "terminal_cleanup_outcome": {"enum": ["NOT_STARTED_GROUP_ABSENT", "NORMAL_LEADER_REAPED_GROUP_QUIESCENT", "SIGTERM_LEADER_REAPED_GROUP_QUIESCENT", "SIGKILL_LEADER_REAPED_GROUP_QUIESCENT", "SIGKILL_BARRIER_LEADER_REAPED_GROUP_QUIESCENT"]},
+    "actual_recorded_at_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$"},
+    "retry_allowed": {"const": false},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

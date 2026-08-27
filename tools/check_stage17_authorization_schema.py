@@ -265,6 +265,16 @@ def main() -> int:
         "stage17-read-only-preflight-observation-receipt-v4.schema.json",
         "stage17-read-only-preflight-failure-v5.schema.json",
         "stage17-read-only-preflight-completion-v4.schema.json",
+        "stage17-operational-evidence-admission-policy-v8.schema.json",
+        "stage17-operational-evidence-envelope-v8.schema.json",
+        "stage17-read-only-preflight-authorization-v8.schema.json",
+        "stage17-read-only-preflight-supporting-contract-v8.schema.json",
+        "stage17-read-only-preflight-fixed-action-plan-v6.schema.json",
+        "stage17-read-only-preflight-attempt-v6.schema.json",
+        "stage17-read-only-preflight-observation-receipt-v5.schema.json",
+        "stage17-read-only-preflight-failure-v6.schema.json",
+        "stage17-read-only-preflight-failure-retention-v1.schema.json",
+        "stage17-read-only-preflight-completion-v5.schema.json",
     )
     for filename in semantic_admission_schema_paths:
         schema = json.loads(

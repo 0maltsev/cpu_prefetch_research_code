@@ -1,9 +1,9 @@
 # S17-EXT-001 read-only preflight authorization draft
 
 The current machine-readable draft is
-[`STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v7`](../config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v7.json).
-The v1 through v6 drafts remain immutable predecessors. None is authority or
-evidence. The v7 record is deliberately unissuable: every owner-controlled
+[`STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v8`](../config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v8.json).
+The v1 through v7 drafts remain immutable predecessors. None is authority or
+evidence. The v8 record is deliberately unissuable: every owner-controlled
 value is `null`, status is `DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED`, and its
 authority boundary denies stand access, preflight, mutation, calibration,
 pilot, and Stage 18 work.
@@ -28,12 +28,12 @@ timeout, retry, or permission value. Those values exist only in the immutable
 repository-owned fixed action plan.
 
 The supporting contract must be written first and validated against
-`cpu-prefetch-stage17-read-only-preflight-supporting-contract/7`. The
+`cpu-prefetch-stage17-read-only-preflight-supporting-contract/8`. The
 authorization then binds its repository-relative path, exact byte count,
 SHA-256, and schema identity. Both files are finally bound by one
-`cpu-prefetch-stage17-operational-evidence-envelope/7`, together with policy
-v7, fixed plan v5, all current schemas, and the complete verifier/executor/
-collector/journal/broker/helper runtime closure. A v1-v6 authorization, or an
+`cpu-prefetch-stage17-operational-evidence-envelope/8`, together with policy
+v8, fixed plan v6, all current schemas, and the complete verifier/executor/
+collector/journal/broker/supervisor/helper runtime closure. A v1-v7 authorization, or an
 unbound contract, cannot resolve `S17-EXT-001`.
 
 The six observation IDs are fixed, ordered, and unique:
@@ -92,12 +92,15 @@ The marker file and parent directory are fsynced before transport. Both
 snapshots are reverified before the final post-marker clock sample. That live
 system/monotonic authority guard is inside the transport boundary and is
 followed immediately by `Popen`, with no filesystem, hash, schema, or render
-work between them. Every child starts a new process group. Success or failure
-returns only after the child is reaped; setup, runtime, timeout, or cancellation
+work between them. Every child starts a new process group under a Linux
+subreaper. The leader remains waitable under `waitid(WNOWAIT)` until
+independent group scans prove every descendant gone; adopted children and then
+the leader are reaped in that order. Setup, runtime, timeout, or cancellation
 failures perform bounded TERM/KILL cleanup without replacing the primary
-error. If the deadline's cleanup reserve expires, a mandatory final reap
-barrier prevents live-child return and the overrun remains failure evidence.
-Snapshots close and typed failure publication occur only after reap. The
+error. If the deadline's cleanup reserve expires, the fail-stop barrier still
+proves group quiescence. Snapshots close and typed evidence publication occur
+only after `leader_reaped=true` and `process_group_gone=true`. Full-failure
+retention has a typed create-exclusive fallback. The
 180-second monotonic deadline charges transport and cleanup, and every
 post-marker failure retains the marker without retry.
 This repository currently contains no resolution, transition, authorization,

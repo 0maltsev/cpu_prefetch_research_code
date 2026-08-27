@@ -43,8 +43,10 @@ caller-supplied exact archive/sidecar bytes and a verifiable custody receipt.
 The immediate owner input is the exact real data listed in the
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md), not another
 recommendation bundle.
-ADR-0108 through ADR-0111 preserve all earlier definitions while making policy
-v7, fixed plan v5, verifier v7, executor v5, and journal runtime v4 current.
+ADR-0108 through ADR-0112 preserve all earlier definitions while making policy
+v8, fixed plan v6, verifier v8, executor v6, and journal runtime v5 current.
+The current supervisor separately proves leader reap and process-group
+quiescence before evidence publication or credential-snapshot closure.
 The owner must still supply the exact v7 target, UTC window, host-key/
 known-hosts and transport identities, archive/sidecar/bundle locators, exact-
 second capture identity/time, safe evidence root, and actual executor/collector

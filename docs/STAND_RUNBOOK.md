@@ -65,10 +65,11 @@ not current status. The last graph state permits preparation of an exact phase
 authorization; it is not execution permission.
 
 ADR-0107 leaves v1/v2 bytes unchanged, ADR-0108 leaves all v1/v2/v3 bytes
-unchanged, ADR-0109 preserves every v1-v4 predecessor, and ADR-0110 preserves
-the complete v5 predecessor. Future
+unchanged, ADR-0109 preserves every v1-v4 predecessor, ADR-0110 preserves the
+complete v5 predecessor, and ADR-0111 preserves the complete v6 predecessor.
+Future
 `S17-EXT-001` production admission uses policy/envelope/authorization/
-supporting-contract v6 and fixed action plan v4. Do not write an SSH
+supporting-contract v7 and fixed action plan v5. Do not write an SSH
 command, argv, stdin, output filename, timeout, retry, or permission into an
 owner record. The immutable fixed action plan and hash-bound production
 executor/collector own those values. The owner may supply only the typed
@@ -80,11 +81,11 @@ component.
 
 Before the first read-only preflight, complete the exact
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
-must provide only its listed typed v6 values; raw action bytes are forbidden.
+must provide only its listed typed v7 values; raw action bytes are forbidden.
 Do not use the draft itself as evidence. Create the typed supporting contract
 first; hash-bind its path, byte count, SHA-256, schema identity, and fixed plan
 in the v6 authorization; then bind policy, authorization, contract, plan and
-the complete verifier/executor/collector/journal/broker/helper closure in one v6
+the complete verifier/executor/collector/journal/broker/helper closure in one v7
 semantic envelope. Remote runtime
 executable/module/dependency identities remain read-only `S17-EXT-002` outputs,
 not prospective values. Admission alone is not action readiness: exact
@@ -98,7 +99,7 @@ the durable marker immediately before the first transport; expiry, future
 authority, or rollback retains a typed failure and opens no transport. Local
 `ssh -G` checks option expansion only; it is not credential-consumption proof.
 Before the marker, verified known-hosts and identity bytes are copied into
-sealed `memfd` snapshots held open by executor v4. OpenSSH receives
+sealed `memfd` snapshots held open by executor v5. OpenSSH receives
 `/proc/<procfs-visible-parent>/fd/N` locators and inherits no credential
 descriptor. Before the final authority sample, a hermetic local
 `/usr/bin/ssh` plus `/usr/sbin/sshd -i` pipe fixture must authenticate with both
@@ -108,8 +109,15 @@ seal/size/hash drift, identity parse failure, or capability failure stops
 before marker and transport. The executor also validates its actually loaded
 runtime closure, exact SSH argv, safe owner-owned evidence-root identity, and
 all six compiled programs. It then creates children relative to an
-`O_DIRECTORY|O_NOFOLLOW` descriptor, fsyncs the marker and directory before
-transport, applies one 180-second monotonic deadline, and never retries.
+`O_DIRECTORY|O_NOFOLLOW` descriptor and fsyncs the marker and directory. Both
+snapshots are reverified before a final live system/monotonic authority guard
+inside the transport boundary; `Popen` follows without intervening blocking or
+fallible preparation. Each child starts in a new process group. The transport
+owns, terminates when needed, and reaps that group before snapshots close or a
+typed failure is published. Bounded TERM/KILL retains the primary error and
+consumes the global cleanup reserve; if exhausted, a mandatory final reap
+barrier prevents live-child return and records the overrun as failure. There
+are no retries.
 Success, typed failure, receipts, and partial output bytes are retained; none
 has Stage 18 authority.
 

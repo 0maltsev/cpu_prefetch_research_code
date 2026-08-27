@@ -684,6 +684,17 @@ if(BUILD_TESTING)
       LABELS "runner;authorization;openssh;state-journal;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
         "PASS.*positive=8.*negative=20.*real_openssh=true.*network=false")
+  add_test(
+    NAME runner.stage17_authority_child_lifecycle
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_authority_child_lifecycle.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_authority_child_lifecycle
+    PROPERTIES
+      LABELS "runner;authorization;openssh;lifecycle;state-journal;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS.*positive=6.*negative=25.*actual_openssh_in_place=KNOWN_HOSTS_AND_TRANSPORT_IDENTITY.*actual_openssh_atomic=KNOWN_HOSTS_AND_TRANSPORT_IDENTITY.*network=false")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -2269,6 +2280,10 @@ add_custom_target(
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_openssh_snapshot_consumption.py"
     --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_authority_child_lifecycle.py"
+    --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking Stage 17 journal admission and real local OpenSSH snapshot consumption")
 add_custom_target(
@@ -2279,6 +2294,14 @@ add_custom_target(
     --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Characterizing OpenSSH fd hygiene and parent-procfd snapshot consumption locally")
+add_custom_target(
+  stage17-authority-child-lifecycle-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_authority_child_lifecycle.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking final authority guards and bounded SSH child/process-group cleanup locally")
 add_custom_target(
   stage17-pilot-candidate-artifact-integration-check
   COMMAND

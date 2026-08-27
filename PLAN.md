@@ -339,7 +339,8 @@ authorization/amendment.
   read-only plan and transition/one-shot action gate; ADR-0108 actual-clock,
   literal-OpenSSH-path, loaded-runtime, durable-marker, typed-failure, and
   global-deadline predecessor; ADR-0109 final/post-marker-clock predecessor;
-  ADR-0110 policy-v6 parent-procfd OpenSSH-consumption successor; verified exact
+  ADR-0110 policy-v6 parent-procfd OpenSSH-consumption predecessor and ADR-0111
+  policy-v7 final-authority/process-lifecycle successor; verified exact
   no-authority candidate bytes and custody receipt;
   accepted preflight and exact stand
   qualification; then dependency-ready phase inputs and a phase-scoped pilot
@@ -513,6 +514,19 @@ authorization/amendment.
   mutation, expiry/rollback, capability-before-marker, concurrency, replay,
   cross-version markers, schema drift, and predecessor rejection. The current
   state and all external blockers remain unchanged.
+  ADR-0111 preserves that complete policy-v6 closure and makes policy v7,
+  plan v5, verifier v7, executor v5, and journal runtime v4 current. Snapshot
+  verification now precedes a final live system/monotonic authority guard
+  inside the transport boundary, immediately followed by `Popen`. Every child
+  starts a new process group, and bounded TERM/KILL consumes the global cleanup
+  reserve. A mandatory final reap barrier prevents live-child return before
+  snapshots close or typed failure is published; reserve overrun is retained
+  as failure and cleanup never hides the primary reason. Six positive and twenty-five
+  negative 17A.6 cases cover the characterized v4 gaps, every required
+  post-`Popen` fault, real sleeping process-group cleanup, concurrency and
+  markers v1-v5, plus actual local OpenSSH consumption after both in-place and
+  atomic replacement of both credential source paths. No external input or
+  authority was created.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

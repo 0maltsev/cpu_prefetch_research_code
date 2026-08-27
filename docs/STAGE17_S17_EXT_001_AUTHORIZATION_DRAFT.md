@@ -1,9 +1,9 @@
 # S17-EXT-001 read-only preflight authorization draft
 
 The current machine-readable draft is
-[`STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v6`](../config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v6.json).
-The v1 through v5 drafts remain immutable predecessors. None is authority or
-evidence. The v6 record is deliberately unissuable: every owner-controlled
+[`STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v7`](../config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v7.json).
+The v1 through v6 drafts remain immutable predecessors. None is authority or
+evidence. The v7 record is deliberately unissuable: every owner-controlled
 value is `null`, status is `DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED`, and its
 authority boundary denies stand access, preflight, mutation, calibration,
 pilot, and Stage 18 work.
@@ -28,12 +28,12 @@ timeout, retry, or permission value. Those values exist only in the immutable
 repository-owned fixed action plan.
 
 The supporting contract must be written first and validated against
-`cpu-prefetch-stage17-read-only-preflight-supporting-contract/6`. The
+`cpu-prefetch-stage17-read-only-preflight-supporting-contract/7`. The
 authorization then binds its repository-relative path, exact byte count,
 SHA-256, and schema identity. Both files are finally bound by one
-`cpu-prefetch-stage17-operational-evidence-envelope/6`, together with policy
-v6, fixed plan v4, all current schemas, and the complete verifier/executor/
-collector/journal/broker/helper runtime closure. A v1-v5 authorization, or an
+`cpu-prefetch-stage17-operational-evidence-envelope/7`, together with policy
+v7, fixed plan v5, all current schemas, and the complete verifier/executor/
+collector/journal/broker/helper runtime closure. A v1-v6 authorization, or an
 unbound contract, cannot resolve `S17-EXT-001`.
 
 The six observation IDs are fixed, ordered, and unique:
@@ -77,7 +77,7 @@ a marker. After durable marker creation, it samples actual UTC again
 immediately before the first transport; expiry, future authority, or rollback
 creates a typed failure and opens no transport. Verified known-hosts and
 transport-identity bytes live in sealed `memfd` snapshots retained by executor
-v4 and addressed to OpenSSH as `/proc/<procfs-visible-parent>/fd/N`; the child
+v5 and addressed to OpenSSH as `/proc/<procfs-visible-parent>/fd/N`; the child
 inherits no credential descriptor and the mutable owner pathname is never
 reopened. The mounted-procfs PID is discovered through numeric `/proc/self`,
 not assumed from `os.getpid()`. Literal effective paths may be checked locally
@@ -88,8 +88,17 @@ sources are changed. No socket, network, or stand is involved. Procfs denial,
 reopen/seal/size/hash drift, key parse failure, or capability failure blocks
 before marker and transport. The executor otherwise uses exact SSH argv and
 directory-FD create-exclusive storage.
-The marker file and parent directory are fsynced before transport; one
-180-second monotonic deadline covers the whole action, and every post-marker
-failure retains the marker and attempts a typed failure record without retry.
+The marker file and parent directory are fsynced before transport. Both
+snapshots are reverified before the final post-marker clock sample. That live
+system/monotonic authority guard is inside the transport boundary and is
+followed immediately by `Popen`, with no filesystem, hash, schema, or render
+work between them. Every child starts a new process group. Success or failure
+returns only after the child is reaped; setup, runtime, timeout, or cancellation
+failures perform bounded TERM/KILL cleanup without replacing the primary
+error. If the deadline's cleanup reserve expires, a mandatory final reap
+barrier prevents live-child return and the overrun remains failure evidence.
+Snapshots close and typed failure publication occur only after reap. The
+180-second monotonic deadline charges transport and cleanup, and every
+post-marker failure retains the marker without retry.
 This repository currently contains no resolution, transition, authorization,
 evidence, or attempt.

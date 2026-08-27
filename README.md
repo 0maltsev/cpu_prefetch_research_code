@@ -262,6 +262,22 @@ option/rendering diagnostics, not credential-consumption proof. The prior
 executor v3 rejects v6 records, all marker versions block replay, eight new
 positive and twenty new negative 17A.5 cases pass, and the preserved 17A.4 and
 79-negative suites remain green.
+ADR-0111 preserves every predecessor through policy v6/executor v4 and makes
+policy v7, fixed plan v5, verifier v7, journal runtime v4, and executor v5 the
+current repository-local production boundary. Executor v5 completes both
+sealed-snapshot verifications before the final post-marker authority sample;
+inside the transport boundary it checks live system UTC, nonrollback, the
+monotonic authorization-expiry deadline, and the global 180-second deadline,
+then calls `Popen` without intervening hashing, schema work, rendering, or
+filesystem I/O. After `Popen`, one owner block always terminates the child's
+new process group when necessary and reaps the child before snapshots close or
+typed failure evidence is written. TERM/KILL waits consume the global deadline;
+if its cleanup reserve is exhausted, a mandatory final reap barrier prevents a
+live-child return and records the deadline breach. Six focused positives and twenty-five
+focused negatives cover the v4 expiry gap, every requested post-`Popen` fault,
+process-group cleanup, replay/concurrency, and real local OpenSSH in-place and
+atomic replacement of both credential source paths. This grants no action,
+pilot, measurement, or Stage 18 authority.
 The
 preserved predecessor decision/input bundle is
 [`D-087 through D-092 bootstrap governance-root preparation`](docs/Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),

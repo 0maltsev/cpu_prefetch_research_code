@@ -51,6 +51,7 @@ from stage17_state_journal_v2 import (
     version_hashes,
 )
 import stage17_state_journal_v3 as current_journal
+import stage17_state_journal_v4 as current_journal_v7
 from stage17_semantic_verifier_v5 import (
     ACTION_PLAN_PATH,
     ADR_0108_PATH,
@@ -69,6 +70,7 @@ from stage17_semantic_verifier_v4 import V4_SCHEMA_PATHS as LEGACY_V4_SCHEMA_PAT
 import stage17_read_only_preflight_executor_v2 as legacy_executor
 import stage17_read_only_preflight_executor_v3 as production_executor
 import stage17_read_only_preflight_executor_v4 as current_executor
+import stage17_read_only_preflight_executor_v5 as current_executor_v5
 import stage17_read_only_preflight_collector_v2 as production_collector
 from stage17_read_only_preflight_collector_v2 import render_observation_program
 
@@ -82,6 +84,9 @@ DRAFT_PATH = pathlib.Path(
 )
 DRAFT_V6_PATH = pathlib.Path(
     "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v6.json"
+)
+DRAFT_V7_PATH = pathlib.Path(
+    "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v7.json"
 )
 LEGACY_DRAFT_PATH = pathlib.Path(
     "config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v1.json"
@@ -1054,6 +1059,81 @@ def validate_s17_ext_001_draft_v6(root: pathlib.Path) -> None:
         }
     ):
         raise JournalError("S17-EXT-001 draft v6 widened runtime authority")
+
+
+def validate_s17_ext_001_draft_v7(root: pathlib.Path) -> None:
+    draft = load_json(repository_file(root, DRAFT_V7_PATH.as_posix()))
+    policy_path = repository_file(
+        root, current_journal_v7.SEMANTIC_POLICY_PATH.as_posix()
+    )
+    plan_path = repository_file(
+        root, "config/stage17/stage17-read-only-preflight-fixed-action-plan-v5.json"
+    )
+    compatibility = draft.get("compatibility", {})
+    if (
+        draft.get("schema_version")
+        != "cpu-prefetch-stage17-s17-ext-001-authorization-draft/7"
+        or draft.get("status") != "DRAFT_NOT_ISSUED_OWNER_INPUT_REQUIRED"
+        or compatibility.get("semantic_policy_path")
+        != current_journal_v7.SEMANTIC_POLICY_PATH.as_posix()
+        or compatibility.get("semantic_policy_size_bytes") != policy_path.stat().st_size
+        or compatibility.get("semantic_policy_sha256") != sha256_file(policy_path)
+    ):
+        raise JournalError("S17-EXT-001 draft v7 compatibility binding drifted")
+    authorization = draft.get("authorization_payload", {})
+    contract = draft.get("supporting_observation_contract", {})
+    envelope = draft.get("semantic_envelope", {})
+    if (
+        authorization.get("schema_version")
+        != "cpu-prefetch-stage17-read-only-preflight-authorization/7"
+        or contract.get("schema_version")
+        != "cpu-prefetch-stage17-read-only-preflight-supporting-contract/7"
+        or envelope.get("schema_version")
+        != "cpu-prefetch-stage17-operational-evidence-envelope/7"
+        or authorization.get("fixed_action_plan", {}).get("sha256")
+        != sha256_file(plan_path)
+        or contract.get("fixed_action_plan") != authorization.get("fixed_action_plan")
+        or envelope.get("fixed_action_plan") != authorization.get("fixed_action_plan")
+        or draft.get("owner_command_argv_or_stdin_fields") != []
+    ):
+        raise JournalError("S17-EXT-001 draft v7 version or fixed plan drifted")
+    owner_values = [
+        authorization.get(field)
+        for field in (
+            "authorization_id", "attempt_id", "actor", "issued_at_utc",
+            "expires_at_utc", "target_scope", "evidence_root",
+        )
+    ]
+    owner_values.extend(authorization.get("target", {}).values())
+    owner_values.extend(
+        contract.get("target", {}).get("transport_identity", {}).values()
+    )
+    owner_values.extend(
+        contract.get("pilot_candidate", {}).get(field)
+        for field in ("archive_locator", "sidecar_locator", "bundle_root_locator")
+    )
+    owner_values.extend(contract.get("capture", {}).values())
+    owner_values.extend((contract.get("contract_id"), contract.get("evidence_root")))
+    owner_values.extend(
+        item.get("execution_path")
+        for item in contract.get("prospective_local_action_identities", [])
+    )
+    boundary = draft.get("runtime_boundary", {})
+    if any(value is not None for value in owner_values):
+        raise JournalError("S17-EXT-001 draft v7 fabricated an owner-controlled value")
+    if (
+        boundary.get("snapshot_reverification_before_final_guard") is not True
+        or boundary.get("popen_is_next_operation_after_guard") is not True
+        or boundary.get("monotonic_authority_deadline_required") is not True
+        or boundary.get("child_reaped_before_evidence_and_snapshot_close") is not True
+        or boundary.get("cleanup_within_global_deadline") is not True
+        or draft.get("authority_boundary")
+        != {
+            "stand_access": False, "preflight": False, "stand_mutation": False,
+            "calibration": False, "pilot": False, "stage18": False,
+        }
+    ):
+        raise JournalError("S17-EXT-001 draft v7 widened runtime authority")
 
 
 def positive_disk_test() -> tuple[int, int, int, int]:
@@ -2685,6 +2765,7 @@ def main() -> int:
         )
         validate_s17_ext_001_draft(root, arguments.journal)
         validate_s17_ext_001_draft_v6(root)
+        validate_s17_ext_001_draft_v7(root)
         current_result = current_journal.validate_journal(
             repository_root=root,
             latest_journal=arguments.journal,
@@ -2706,7 +2787,28 @@ def main() -> int:
             or current_result.pilot_ready != result.pilot_ready
         ):
             raise JournalError("policy-v5 and policy-v6 checked state projections disagree")
-        result = current_result
+        newest_result = current_journal_v7.validate_journal(
+            repository_root=root,
+            latest_journal=arguments.journal,
+            journal_directory=journal_directory,
+            pilot_archive=arguments.pilot_candidate_archive,
+            pilot_sidecar=arguments.pilot_candidate_sidecar,
+            as_of_utc=arguments.as_of_utc,
+            requested_action_input_id=arguments.requested_action_input_id,
+            runtime_identity_paths=(
+                current_executor_v5.runtime_identity_paths()
+                if arguments.requested_action_input_id == "S17-EXT-001"
+                else None
+            ),
+        )
+        if (
+            newest_result.current_state != current_result.current_state
+            or newest_result.resolution_count != current_result.resolution_count
+            or newest_result.transition_count != current_result.transition_count
+            or newest_result.pilot_ready != current_result.pilot_ready
+        ):
+            raise JournalError("policy-v6 and policy-v7 checked state projections disagree")
+        result = newest_result
         semantic_resolutions = semantic_transitions = 0
         mechanics_resolutions = mechanics_transitions = runtime_positives = 0
         stage17a4_positives = stage17a4_negatives = negatives = 0

@@ -486,6 +486,8 @@ def main() -> int:
                         != ["python3", "tools/stage17_phase_controller_v2.py"]
                         or controller.get("production_test_mode_available") is not False
                         or controller.get("authority_embedded") is not False
+                        or controller.get("repository_evidence_roots")
+                        != ["config", "docs"]
                         or not isinstance(policy_binding, dict)
                         or policy_binding.get("path")
                         != "config/stage17/stage17-operational-evidence-admission-policy-v10.json"
@@ -525,6 +527,19 @@ def main() -> int:
                     if (b"test_linked_worker=False" not in entrypoint_payload
                             or b"--test-linked-worker" in entrypoint_payload):
                         failures.append("pilot candidate v2 controller exposes a production test mode")
+                    for relative_text in (
+                        "docs/decisions/0104-stage17-pilot-operational-governance-successor.md",
+                        "config/q15/q15-r-p4-r-i-d099-authorization-v1.json",
+                        "docs/evidence/stage17/"
+                        "Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/"
+                        "Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01.json",
+                    ):
+                        candidate = root / relative_text
+                        if not candidate.is_file() or candidate.is_symlink():
+                            failures.append(
+                                "pilot candidate v2 repository evidence is absent: "
+                                + relative_text
+                            )
 
     if profile in (
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1",

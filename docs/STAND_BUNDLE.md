@@ -28,6 +28,13 @@ Every bundle contains:
   all JSON `null`; and
 - this document, the readiness report, and the exact stand runbook.
 
+The v2 Stage 17 pilot-candidate profile also materializes the complete
+repository `config/` and `docs/` evidence closure at the bundle root. The
+production journal and controller can therefore reauthenticate immutable ADR,
+Q15 trust-chain, and evidence bytes with the bundle root itself as
+`--repository-root`; neither an ignored build tree nor a separate checkout is
+consulted. The deterministic source archive remains the rebuild input.
+
 The deterministic outer filename binds project version, Git revision, source
 state, and the first twelve hexadecimal digits of the source-archive SHA-256.
 Existing bundle paths are never overwritten.

@@ -390,7 +390,12 @@ def main() -> int:
         copy_tree_files(root / "config" / "examples", staging / "config" / "examples")
         stage17_controller_runtime: dict[str, Any] | None = None
         if stage17:
-            copy_tree_files(root / "config" / "stage17", staging / "config" / "stage17")
+            # Journal and semantic admission authenticate predecessor ADRs,
+            # Q15 trust-chain records, and repository evidence at their exact
+            # repository-relative paths. Materialize the complete evidence
+            # closure at the directly consumable bundle root.
+            copy_tree_files(root / "config", staging / "config")
+            copy_tree_files(root / "docs", staging / "docs")
             # The v2 pilot candidate carries the executable controller at the
             # exact repository-relative paths authenticated by policy v10.
             # Keep the general implementation-schema layout for legacy bundle
@@ -435,6 +440,7 @@ def main() -> int:
                 "bound_files": controller_files,
                 "production_test_mode_available": False,
                 "authority_embedded": False,
+                "repository_evidence_roots": ["config", "docs"],
             }
         if q15_tool:
             copy_tree_files(root / "config" / "q15", staging / "config" / "q15")

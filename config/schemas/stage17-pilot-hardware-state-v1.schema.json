@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:pilot-hardware-state:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mapping_id", "q15_w_result_sha256", "whole_plot_order", "apply_readback", "restore_readback", "cell_count", "restoration_verified", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-pilot-hardware-state/1"},
+    "mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"},
+    "q15_w_result_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "whole_plot_order": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"enum": ["H0", "H1"]}},
+    "apply_readback": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/msr"}},
+    "restore_readback": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/msr"}},
+    "cell_count": {"const": 180},
+    "restoration_verified": {"const": true},
+    "phase18_authority": {"const": false}
+  },
+  "$defs": {
+    "msr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cpu", "complete_value_hex"],
+      "properties": {
+        "cpu": {"enum": [0, 1, 26]},
+        "complete_value_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"}
+      }
+    }
+  }
+}

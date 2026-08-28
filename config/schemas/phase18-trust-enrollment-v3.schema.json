@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:phase18:trust-enrollment:v3",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "enrollment_id", "stage17_completion_sha256", "stage17_trust_context", "independent_allowed_signers", "principal", "namespace", "signer_role", "reviewer_role", "independent_from_stage17_authority", "issued_at_utc", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-phase18-trust-enrollment/3"}, "enrollment_id": {"type": "string", "minLength": 1}, "stage17_completion_sha256": {"$ref": "#/$defs/sha"},
+    "stage17_trust_context": {"type": "object"}, "independent_allowed_signers": {"$ref": "#/$defs/file"}, "principal": {"type": "string", "minLength": 1}, "namespace": {"const": "cpu-prefetch-phase18-access-v3"}, "signer_role": {"type": "string", "minLength": 1}, "reviewer_role": {"type": "string", "minLength": 1}, "independent_from_stage17_authority": {"const": true}, "issued_at_utc": {"type": "string", "format": "date-time", "pattern": "Z$"}, "phase18_authority": {"const": false}
+  },
+  "$defs": {"sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "file": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha"}}}}
+}

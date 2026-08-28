@@ -19,7 +19,8 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v2"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v3"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
@@ -229,6 +230,7 @@ def make_sbom(
         "documentNamespace": f"https://example.invalid/cpu-prefetch/sbom/{revision}",
         "name": {
             STAGE17_PROFILE: "cpu-prefetch-stage17-pilot-candidate",
+            STAGE17_DRY_RUN_PROFILE: "cpu-prefetch-stage17-hermetic-dry-run",
             Q15_TOOL_PROFILE: "cpu-prefetch-q15-qualification-tool",
         }.get(profile, "cpu-prefetch-stage16-stand-bundle"),
         "packages": packages,
@@ -247,10 +249,13 @@ def main() -> int:
         choices=(
             "stage16-preflight",
             "stage17-pilot-candidate",
+            "stage17-hermetic-dry-run",
             "q15-qualification-tool",
         ),
         default="stage16-preflight",
     )
+    parser.add_argument("--test-linked-worker", type=pathlib.Path)
+    parser.add_argument("--no-result-worker", type=pathlib.Path)
     args = parser.parse_args()
     root = args.source_root.resolve()
     build = args.build_dir.resolve()
@@ -261,10 +266,13 @@ def main() -> int:
     revision_short = revision[:7]
     dirty = bool(git(root, "status", "--porcelain=v1"))
     source_state = "dirty" if dirty else "clean"
-    stage17 = args.profile == "stage17-pilot-candidate"
+    stage17 = args.profile in (
+        "stage17-pilot-candidate", "stage17-hermetic-dry-run"
+    )
+    stage17_dry_run = args.profile == "stage17-hermetic-dry-run"
     q15_tool = args.profile == "q15-qualification-tool"
     profile = (
-        STAGE17_PROFILE
+        (STAGE17_DRY_RUN_PROFILE if stage17_dry_run else STAGE17_PROFILE)
         if stage17
         else Q15_TOOL_PROFILE if q15_tool else STAGE16_PROFILE
     )
@@ -272,6 +280,20 @@ def main() -> int:
         raise ValueError(
             f"{profile} requires a clean exact source revision"
         )
+    if stage17_dry_run:
+        if args.test_linked_worker is None or args.no_result_worker is None:
+            raise ValueError(
+                "hermetic dry-run bundle requires test and no-result workers"
+            )
+        test_worker = args.test_linked_worker.resolve()
+        no_result_worker = args.no_result_worker.resolve()
+        if not test_worker.is_file() or not os.access(test_worker, os.X_OK):
+            raise ValueError("test-linked worker is not an executable regular file")
+        if (not no_result_worker.is_file()
+                or not os.access(no_result_worker, os.X_OK)):
+            raise ValueError("no-result regression worker is not executable")
+    elif args.test_linked_worker is not None or args.no_result_worker is not None:
+        raise ValueError("production bundles reject test-linked workers")
     version_metadata = json.loads(
         (build / "generated" / "version_metadata.json").read_text(encoding="utf-8")
     )
@@ -357,6 +379,14 @@ def main() -> int:
         for name in required_binaries:
             shutil.copyfile(build / name, release_bin / name)
             (release_bin / name).chmod(0o755)
+        if stage17_dry_run:
+            shutil.copyfile(test_worker, release_bin / "cpu_prefetch_runner")
+            (release_bin / "cpu_prefetch_runner").chmod(0o755)
+            shutil.copyfile(
+                no_result_worker,
+                release_bin / "cpu_prefetch_stage17_no_result_worker",
+            )
+            (release_bin / "cpu_prefetch_stage17_no_result_worker").chmod(0o755)
         for library in required_libraries:
             shutil.copyfile(library, release_lib / library.name)
 
@@ -396,13 +426,13 @@ def main() -> int:
             # closure at the directly consumable bundle root.
             copy_tree_files(root / "config", staging / "config")
             copy_tree_files(root / "docs", staging / "docs")
-            # The v2 pilot candidate carries the executable controller at the
-            # exact repository-relative paths authenticated by policy v10.
+            # The v3 pilot candidate carries the executable controller at the
+            # exact repository-relative paths authenticated by policy v11.
             # Keep the general implementation-schema layout for legacy bundle
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v10.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v11.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
@@ -429,9 +459,9 @@ def main() -> int:
                         "sha256": binding["sha256"],
                     })
             stage17_controller_runtime = {
-                "controller_id": "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v2",
-                "entrypoint": "tools/stage17_phase_controller_v2.py",
-                "invocation": ["python3", "tools/stage17_phase_controller_v2.py"],
+                "controller_id": "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v3",
+                "entrypoint": "tools/stage17_phase_controller_v3.py",
+                "invocation": ["python3", "tools/stage17_phase_controller_v3.py"],
                 "policy": {
                     "path": policy_relative.as_posix(),
                     "size_bytes": policy_path.stat().st_size,
@@ -442,6 +472,27 @@ def main() -> int:
                 "authority_embedded": False,
                 "repository_evidence_roots": ["config", "docs"],
             }
+            if stage17_dry_run:
+                # The hermetic regression harness preserves predecessor suites
+                # as characterization evidence.  Their import graph is wider
+                # than the current production policy closure, so carry every
+                # versioned Stage 17 Python module in this test-only profile.
+                for source in sorted((root / "tools").glob("stage17_*.py")):
+                    target = staging / "tools" / source.name
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(source, target)
+                    target.chmod(0o755)
+                for name in (
+                    "check_stage17_complete_operational_admission.py",
+                    "check_stage17_pilot_semantics_v3.py",
+                    "check_stage17_fixed_action_production.py",
+                    "run_stage17_hermetic_handoff.py",
+                ):
+                    source = root / "tools" / name
+                    target = staging / "tools" / name
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(source, target)
+                    target.chmod(0o755)
         if q15_tool:
             copy_tree_files(root / "config" / "q15", staging / "config" / "q15")
             for relative in (
@@ -592,7 +643,7 @@ def main() -> int:
             "release_artifacts": release_artifacts,
             "repository_license": "NO-LICENSE-GRANT",
             "schema_version": (
-                "cpu-prefetch-pilot-candidate-bundle/2"
+                "cpu-prefetch-pilot-candidate-bundle/3"
                 if stage17
                 else "cpu-prefetch-q15-qualification-tool-bundle/3"
                 if q15_tool
@@ -639,12 +690,12 @@ def main() -> int:
                 "size_bytes": worker.stat().st_size,
                 "sha256": sha256(worker),
                 "role": "STAGE17_FIXED_ACTION_WORKER",
-                "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v2",
+                "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v3",
                 "supported_actions": [
                     "Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
                     "STAGE17-BLINDED-PILOT",
                 ],
-                "synthetic_test_only": False,
+                "synthetic_test_only": stage17_dry_run,
             }
             assert stage17_controller_runtime is not None
             manifest["stage17_controller_runtime"] = stage17_controller_runtime
@@ -826,6 +877,26 @@ def main() -> int:
                 }
             )
         write_json(staging / "BUNDLE_MANIFEST.json", manifest)
+
+        inventory_files = sorted(
+            path for path in staging.rglob("*")
+            if path.is_file() and path not in {
+                staging / "BUNDLE_INVENTORY.json", staging / "SHA256SUMS"
+            }
+        )
+        write_json(
+            staging / "BUNDLE_INVENTORY.json",
+            {
+                "schema_version": "cpu-prefetch-stand-bundle-inventory/1",
+                "bundle_profile": profile,
+                "source_revision": revision,
+                "files": [
+                    {"path": path.relative_to(staging).as_posix(),
+                     "size_bytes": path.stat().st_size, "sha256": sha256(path)}
+                    for path in inventory_files
+                ],
+            },
+        )
 
         checksum_files = sorted(
             path

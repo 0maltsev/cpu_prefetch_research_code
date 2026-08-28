@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:q15-session-failure:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "failure_id", "session_id", "failure_stage", "failure_category", "q15_r_attempt_id", "q15_w_attempt_id", "leader_reaped", "process_group_gone", "restoration_verified", "supervisor_restore_readback", "quarantine_operation", "partial_retained", "recorded_at_utc", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-q15-session-failure/1"},
+    "failure_id": {"type": "string", "minLength": 1},
+    "session_id": {"type": "string", "minLength": 1},
+    "failure_stage": {"enum": ["Q15_R_PRESTATE", "Q15_R_WAIT", "Q15_W_ADMISSION", "Q15_W_MUTATION", "Q15_W_RESTORE", "RETENTION"]},
+    "failure_category": {"type": "string", "minLength": 1},
+    "q15_r_attempt_id": {"type": "string", "minLength": 1},
+    "q15_w_attempt_id": {"type": ["string", "null"]},
+    "leader_reaped": {"type": "boolean"},
+    "process_group_gone": {"type": "boolean"},
+    "restoration_verified": {"type": "boolean"},
+    "supervisor_restore_readback": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["cpu", "requested_hex", "observed_hex", "matches"],
+        "properties": {
+          "cpu": {"enum": [0, 1, 26]},
+          "requested_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
+          "observed_hex": {"type": ["string", "null"], "pattern": "^[0-9a-f]{16}$"},
+          "matches": {"type": "boolean"}
+        }
+      }
+    },
+    "quarantine_operation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["performed", "record_sha256"],
+      "properties": {
+        "performed": {"type": "boolean"},
+        "record_sha256": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^[0-9a-f]{64}$"}]}
+      }
+    },
+    "partial_retained": {"const": true},
+    "recorded_at_utc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "phase18_authority": {"const": false}
+  }
+}

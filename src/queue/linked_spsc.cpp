@@ -36,6 +36,7 @@ LinkedSpscQueue::LinkedSpscQueue(QueueCapacity capacity,
   cache_line_bytes_ = cache_line_bytes.value;
   node_arena_alignment_bytes_ = arena_alignment_bytes.value;
   node_stride_bytes_ = detail::round_up(sizeof(Node), cache_line_bytes_);
+  initial_node_order_.assign(node_order.begin(), node_order.end());
   node_storage_ =
       detail::AlignedBlock(detail::checked_multiply(node_count, node_stride_bytes_),
                            node_arena_alignment_bytes_);
@@ -222,6 +223,42 @@ LinkedQuiescentAudit LinkedSpscQueue::audit_quiescent() const {
           every_node_owned_once,
           recycler_fifo_shape,
           positions_in_range};
+}
+
+bool LinkedSpscQueue::reset_quiescent() noexcept {
+  try {
+    const auto before = audit_quiescent();
+    if (before.queued_events != 0U || !before.chain_acyclic || !before.tail_reachable ||
+        !before.every_node_owned_once || !before.recycler_fifo_shape ||
+        !before.positions_in_range || initial_node_order_.size() != capacity_ + 1U) {
+      return false;
+    }
+    for (std::size_t index = 0U; index < capacity_ + 1U; ++index) {
+      auto* node = node_at(index);
+      node->next.store(nullptr, std::memory_order_relaxed);
+      node->event = nullptr;
+    }
+    for (std::size_t index = 0U; index < capacity_; ++index) {
+      recycler_slots_[index].value.store(node_at(initial_node_order_[index + 1U]),
+                                         std::memory_order_relaxed);
+    }
+    auto* sentinel = node_at(initial_node_order_.front());
+    producer_->tail = sentinel;
+    consumer_->head = sentinel;
+    recycler_producer_->position = 0U;
+    recycler_consumer_->position = 0U;
+    const auto after = audit_quiescent();
+    return after.queued_events == 0U &&
+           after.reachable_order ==
+               std::vector<std::size_t>{initial_node_order_.front()} &&
+           after.recycler_order ==
+               std::vector<std::size_t>(initial_node_order_.begin() + 1,
+                                        initial_node_order_.end()) &&
+           after.chain_acyclic && after.tail_reachable && after.every_node_owned_once &&
+           after.recycler_fifo_shape && after.positions_in_range;
+  } catch (...) {
+    return false;
+  }
 }
 
 } // namespace cpu_prefetch::queue

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:pilot-plan:v3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "plan_core_sha256", "protocol_version", "stand_id", "repetitions_per_cell", "whole_plot_order", "hardware_control", "cells", "treatment_blind", "confirmatory_outcomes_accessed", "synthetic_test_only", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-pilot-plan/3"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "plan_core_sha256": {"$ref": "#/$defs/sha256"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "stand_id": {"type": "string", "minLength": 1},
+    "repetitions_per_cell": {"type": "integer", "minimum": 1},
+    "whole_plot_order": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"enum": ["H0", "H1"]}},
+    "hardware_control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mapping_id", "q15_w_result_sha256", "prestate"],
+      "properties": {
+        "mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"},
+        "q15_w_result_sha256": {"$ref": "#/$defs/sha256"},
+        "prestate": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/msr"}}
+      }
+    },
+    "cells": {"type": "array", "minItems": 180, "maxItems": 180, "items": {"$ref": "#/$defs/cell"}},
+    "treatment_blind": {"const": true},
+    "confirmatory_outcomes_accessed": {"const": false},
+    "synthetic_test_only": {"type": "boolean"},
+    "phase18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "msr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cpu", "complete_value_hex"],
+      "properties": {
+        "cpu": {"enum": [0, 1, 26]},
+        "complete_value_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"}
+      }
+    },
+    "u64": {"type": "integer", "minimum": 0},
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cell_ordinal", "repetition_ordinal", "hardware_state", "placement", "working_set_class", "load_level", "capacity", "offered_count", "package", "d2_cache_lines", "schedule_sha256", "run_id", "seed_id", "seed_hex", "cache_line_bytes", "base_page_bytes", "runner_admission", "runner_admission_sha256", "runner_evidence_set_sha256", "schedule_deadline_ticks", "schedule_origin_ticks", "schedule_horizon_ticks", "duration_ticks", "warmup_run_id", "warmup_schedule_sha256", "warmup_seed_id", "warmup_schedule_deadline_ticks", "warmup_schedule_origin_ticks", "warmup_schedule_horizon_ticks", "shared_memory_node"],
+      "properties": {
+        "cell_ordinal": {"type": "integer", "minimum": 0, "maximum": 179}, "repetition_ordinal": {"type": "integer", "minimum": 0}, "hardware_state": {"enum": ["H0", "H1"]}, "placement": {"enum": ["NEAR", "FAR"]}, "working_set_class": {"enum": ["L2_RESIDENT", "LLC_RESIDENT", "BEYOND_LLC"]}, "load_level": {"enum": ["L025", "L050", "L075"]}, "capacity": {"type": "integer", "minimum": 8}, "offered_count": {"type": "integer", "minimum": 1}, "package": {"enum": ["R0", "R1", "R2", "L0", "L1"]}, "d2_cache_lines": {"type": "integer", "minimum": 2}, "schedule_sha256": {"$ref": "#/$defs/sha256"}, "run_id": {"type": "string", "minLength": 1}, "seed_id": {"type": "string", "minLength": 1}, "seed_hex": {"$ref": "#/$defs/sha256"}, "cache_line_bytes": {"type": "integer", "minimum": 16}, "base_page_bytes": {"type": "integer", "minimum": 4096}, "runner_admission": {"type": "object"}, "runner_admission_sha256": {"$ref": "#/$defs/sha256"}, "runner_evidence_set_sha256": {"$ref": "#/$defs/sha256"}, "schedule_deadline_ticks": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/u64"}}, "schedule_origin_ticks": {"$ref": "#/$defs/u64"}, "schedule_horizon_ticks": {"type": "integer", "minimum": 1}, "duration_ticks": {"type": "integer", "minimum": 1}, "warmup_run_id": {"type": "string", "minLength": 1}, "warmup_schedule_sha256": {"$ref": "#/$defs/sha256"}, "warmup_seed_id": {"type": "string", "minLength": 1}, "warmup_schedule_deadline_ticks": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/u64"}}, "warmup_schedule_origin_ticks": {"$ref": "#/$defs/u64"}, "warmup_schedule_horizon_ticks": {"type": "integer", "minimum": 1}, "shared_memory_node": {"type": "integer", "minimum": 0}
+      }
+    },
+    "cell": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cell_ordinal", "package", "hardware_state", "placement", "working_set_class", "load_level", "runs"],
+      "properties": {"cell_ordinal": {"type": "integer", "minimum": 0, "maximum": 179}, "package": {"enum": ["R0", "R1", "R2", "L0", "L1"]}, "hardware_state": {"enum": ["H0", "H1"]}, "placement": {"enum": ["NEAR", "FAR"]}, "working_set_class": {"enum": ["L2_RESIDENT", "LLC_RESIDENT", "BEYOND_LLC"]}, "load_level": {"enum": ["L025", "L050", "L075"]}, "runs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/run"}}}
+    }
+  }
+}

@@ -97,6 +97,9 @@ public:
   [[nodiscard]] AtomicLockFreeEvidence atomic_lock_free_evidence() const noexcept;
   [[nodiscard]] LayoutEvidence layout_evidence() const noexcept;
   [[nodiscard]] RingQuiescentAudit audit_quiescent() const noexcept;
+  // Controller-only warm-up reset.  It is valid only after a complete drain;
+  // no allocation, remapping, or queue operation may overlap this call.
+  [[nodiscard]] bool reset_quiescent() noexcept;
   [[nodiscard]] const void*
   producer_slot_target(std::size_t distance_slots) const noexcept {
     return &slots_[position_at_distance(producer_->position,

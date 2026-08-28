@@ -92,6 +92,7 @@ struct EventArenaLayout final {
 class EventArena final {
 public:
   explicit EventArena(const EventArenaConfig& config);
+  EventArena(const EventArenaConfig& config, std::span<std::byte> external_storage);
   ~EventArena();
 
   EventArena(const EventArena&) = delete;
@@ -105,6 +106,13 @@ public:
   }
   [[nodiscard]] std::span<const std::size_t> record_order() const noexcept {
     return record_order_;
+  }
+  [[nodiscard]] const std::byte* storage_address() const noexcept { return storage_; }
+  [[nodiscard]] std::size_t allocated_bytes() const noexcept {
+    return allocated_bytes_;
+  }
+  [[nodiscard]] std::size_t base_page_bytes() const noexcept {
+    return base_page_bytes_;
   }
   [[nodiscard]] const EventRecord& physical_record(std::size_t index) const;
   [[nodiscard]] EventSelection select(LogicalSequence sequence) const noexcept;
@@ -130,6 +138,7 @@ private:
   std::byte* storage_{nullptr};
   std::vector<std::size_t> record_order_;
   Sha256Digest prepared_content_checksum_{{}};
+  bool owns_storage_{true};
 };
 
 [[nodiscard]] ConsumerState initial_consumer_state(const MasterSeed& master_seed,

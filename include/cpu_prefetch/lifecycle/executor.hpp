@@ -62,6 +62,7 @@ enum class ExecutionFailureReason : std::uint8_t {
   deadline_overflow,
   producer_attempt,
   consumer_poll,
+  platform_monitor,
   cancelled,
 };
 
@@ -177,6 +178,7 @@ execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock
   std::atomic<bool> cancellation{false};
   std::atomic<bool> producer_failed{false};
   std::atomic<bool> preparation_failed{false};
+  std::atomic<bool> platform_monitor_failed{false};
 
   MeasurementExecutionReport report{
       ExecutionFailurePhase::none,
@@ -392,6 +394,13 @@ execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock
   }
   report.measurement_origin_ticks = origin_reading.ticks;
 
+  if constexpr (requires { preparation.observe_during_measurement(); }) {
+    if (!preparation.observe_during_measurement()) {
+      platform_monitor_failed.store(true, std::memory_order_release);
+      cancellation.store(true, std::memory_order_release);
+    }
+  }
+
   producer.join();
   consumer.join();
   report.cancellation_requested = cancellation.load(std::memory_order_acquire);
@@ -406,9 +415,12 @@ execute_measurement_with_preparation(PreparedScheduleView schedule, Clock& clock
   report.drain_polls = consumer_state.drain_polls;
   report.consumer_drained = consumer_state.drained;
 
-  if (producer_state.failure != ExecutionFailureReason::none &&
-      !(producer_state.failure == ExecutionFailureReason::cancelled &&
-        consumer_state.failure != ExecutionFailureReason::none)) {
+  if (platform_monitor_failed.load(std::memory_order_acquire)) {
+    report.failure_phase = ExecutionFailurePhase::measurement;
+    report.failure_reason = ExecutionFailureReason::platform_monitor;
+  } else if (producer_state.failure != ExecutionFailureReason::none &&
+             !(producer_state.failure == ExecutionFailureReason::cancelled &&
+               consumer_state.failure != ExecutionFailureReason::none)) {
     report.failure_phase =
         producer_state.failure == ExecutionFailureReason::start_watchdog
             ? ExecutionFailurePhase::start_barrier

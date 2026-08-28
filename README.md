@@ -297,11 +297,13 @@ false success. No authority or operational input is created.
 ADR-0113/policy v9 is retained as `REJECTED_FAIL_OPEN_PREDECESSOR`: it allowed
 an authorization to choose its trust/executable and treated exit zero as
 completion. Its controller now refuses before opening a worker, output root,
-or marker. ADR-0114/policy v10 is the current local engineering boundary. It
-implements production semantic admission for all ten inputs, independent
-EXT002/003 trust, the EXT003-to-EXT006 release-equality bridge, the six compiled
-fd-only fixed actions, typed result/output admission, a PID-namespace-safe
-quiescence supervisor, Stage 17 exit, and separately signed Phase 18 access.
+or marker. ADR-0114/policy v10 is an immutable incomplete predecessor.
+ADR-0115/policy v11 is the current local engineering boundary. It implements
+production semantic admission for all ten inputs, independent EXT002/003
+trust, full clean-bundle/EXT006 release equality, supervised Q15-R/Q15-W,
+complete Q16 and 180-cell pilot semantics, six compiled fd-only fixed actions,
+streamed typed result/output admission, a PID-namespace-safe quiescence
+supervisor, Stage 17 exit, and separately signed Phase 18 access.
 The local compiled-dispatch integration passes without a state-gate mock, but
 it creates only temporary `synthetic/test-only` evidence. The checked-in
 journal remains `PREPARED`, 0/10 resolved, and no action is authorized.
@@ -540,7 +542,7 @@ cmake --build --preset dev-gcc \
 
 The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
-The policy-v10 stand handoff begins with a separately issued S17-EXT-001 and
+The policy-v11 stand handoff begins with a separately issued S17-EXT-001 and
 ends with a separately issued pilot authorization; exact commands and expected
 append-only record paths are in
 [`docs/STAGE17_STAND_HANDOFF.md`](docs/STAGE17_STAND_HANDOFF.md).
@@ -548,12 +550,19 @@ append-only record paths are in
 `cpu_prefetch_runner` now contains one closed fd-only dispatcher for exactly
 `Q15-R`, `Q15-W`, `Q16a`, `Q16b`, `Q16c`, and the blinded Stage 17 pilot. It
 accepts no arbitrary command, plugin, caller argv/stdin, output filename, or
-production fake backend. Controller v2 independently obtains trust from
+production fake backend. Controller v3 independently obtains trust from
 admitted EXT002/003, binds Q15 to that observed worker, binds Q16/pilot to the
 later byte-equal EXT006 release, snapshots worker/request bytes, and requires
 typed result plus exact artifact verification after process-group quiescence.
 The historical controller v1 always refuses. Presence of this software grants
 no action authority. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
+
+The release target `stage17-hermetic-handoff-check` builds and fully verifies a
+clean no-authority bundle before running its compiled test-linked dispatcher.
+From an extracted hermetic bundle root, one
+`tools/run_stage17_hermetic_handoff.py` command authors all temporary synthetic
+records without manual JSON and verifies Stage 17 completion. It never advances
+the checked-in journal and cannot authorize a stand or Phase 18.
 
 `cpu_prefetch_q15_tool` is a separate no-measurement qualification executable.
 Its self-test and two scope-description commands are safe locally. Q15-S3 links

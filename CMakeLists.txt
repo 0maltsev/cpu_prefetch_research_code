@@ -251,6 +251,11 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+# The Stage 17 fixed worker performs exact post-run reconciliation before it
+# can publish any terminal run artifact.  This dependency is intentionally
+# outside the timed data plane.
+target_link_libraries(cpu_prefetch_runner_core PUBLIC cpu_prefetch::reconciliation)
+
 add_library(cpu_prefetch_calibration STATIC src/calibration/calibration.cpp)
 add_library(cpu_prefetch::calibration ALIAS cpu_prefetch_calibration)
 target_link_libraries(
@@ -755,19 +760,35 @@ if(BUILD_TESTING)
       LABELS "runner;authorization;process-group;pid-namespace;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
         "PASS positive=7 negative=6 stand=NOT_ACCESSED")
-  add_test(
-    NAME runner.stage17_fixed_action_production
-    COMMAND "${Python3_EXECUTABLE}"
-            "${PROJECT_SOURCE_DIR}/tools/check_stage17_fixed_action_production.py"
-            --self-test
-            --worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
-            --no-result-worker "$<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>")
-  set_tests_properties(
-    runner.stage17_fixed_action_production
-    PROPERTIES
-      LABELS "runner;authorization;controller;stage17b;phase18;pre-pilot;synthetic"
-      PASS_REGULAR_EXPRESSION
-        "PASS positive=12 negative=21 compiled_dispatch=true state_gate_mock=false stand=NOT_ACCESSED")
+  if(CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_ARCHIVE
+      AND CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_SIDECAR)
+    add_test(
+      NAME runner.stage17_fixed_action_production
+      COMMAND "${Python3_EXECUTABLE}"
+              "${PROJECT_SOURCE_DIR}/tools/check_stage17_fixed_action_production.py"
+              --self-test
+              --worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
+              --no-result-worker "$<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>"
+              --bundle-archive "${CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_ARCHIVE}"
+              --bundle-sidecar "${CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_SIDECAR}")
+    set_tests_properties(
+      runner.stage17_fixed_action_production
+      PROPERTIES
+        LABELS "runner;authorization;controller;stage17b;phase18;pre-pilot;synthetic"
+        PASS_REGULAR_EXPRESSION
+          "PASS positive=12 negative=12 compiled_dispatch=true state_gate_mock=false.*stand=NOT_ACCESSED")
+  else()
+    add_test(
+      NAME runner.stage17_pilot_semantics_v3
+      COMMAND "${Python3_EXECUTABLE}"
+              "${PROJECT_SOURCE_DIR}/tools/check_stage17_pilot_semantics_v3.py"
+              --self-test)
+    set_tests_properties(
+      runner.stage17_pilot_semantics_v3
+      PROPERTIES
+        LABELS "runner;controller;stage17b;pilot;pre-pilot;synthetic"
+        PASS_REGULAR_EXPRESSION "PASS positive=2 negative=5")
+  endif()
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -2412,13 +2433,11 @@ add_custom_target(
     --self-test
   COMMAND
     "${Python3_EXECUTABLE}"
-    "${PROJECT_SOURCE_DIR}/tools/check_stage17_fixed_action_production.py"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_pilot_semantics_v3.py"
     --self-test
-    --worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
-    --no-result-worker "$<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>"
   DEPENDS cpu_prefetch_stage17_test_worker cpu_prefetch_stage17_no_result_worker
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking complete Stage 17 semantic admission, controllers, exit, and Phase 18 handoff locally")
+  COMMENT "Checking Stage 17 PID namespace and full 180-cell pilot-plan semantics locally")
 add_custom_target(
   stage17-pilot-candidate-artifact-integration-check
   COMMAND
@@ -2670,6 +2689,51 @@ add_custom_target(
     workload-codegen-check
   COMMENT
     "Creating the clean, no-authority Stage 17 pilot-candidate bundle; all strict codegen gates must pass")
+
+add_custom_target(
+  stage17-hermetic-handoff-check
+  COMMAND
+    "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/create_stand_bundle.py"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --build-dir "${PROJECT_BINARY_DIR}"
+    --output-dir "${PROJECT_BINARY_DIR}/stage17-hermetic-handoff-bundle"
+    --profile stage17-hermetic-dry-run
+    --test-linked-worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
+    --no-result-worker "$<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>"
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/run_stage17_hermetic_handoff.py"
+    --bundle-root "${PROJECT_SOURCE_DIR}"
+    --bundle-directory "${PROJECT_BINARY_DIR}/stage17-hermetic-handoff-bundle"
+  DEPENDS
+    cpu_prefetch_analysis
+    cpu_prefetch_calibration
+    cpu_prefetch_foundation
+    cpu_prefetch_lifecycle
+    cpu_prefetch_orchestration
+    cpu_prefetch_platform
+    cpu_prefetch_preflight
+    cpu_prefetch_protocol
+    cpu_prefetch_qualification
+    cpu_prefetch_queue
+    cpu_prefetch_reconciliation
+    cpu_prefetch_runner
+    cpu_prefetch_schedule
+    cpu_prefetch_smoke
+    cpu_prefetch_stage17_no_result_worker
+    cpu_prefetch_stage17_test_worker
+    cpu_prefetch_storage
+    cpu_prefetch_timing
+    cpu_prefetch_workload
+    queue-codegen-check
+    runner-combined-codegen-check
+    runner-relax-codegen-check
+    storage-codegen-check
+    timing-codegen-check
+    workload-codegen-check
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT
+    "Building, fully verifying, and executing the no-authority Stage 17 hermetic handoff")
 
 add_custom_target(
   q15-qualification-tool-bundle

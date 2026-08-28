@@ -113,6 +113,9 @@ public:
   [[nodiscard]] AtomicLockFreeEvidence atomic_lock_free_evidence() const noexcept;
   [[nodiscard]] LayoutEvidence layout_evidence() const noexcept;
   [[nodiscard]] LinkedQuiescentAudit audit_quiescent() const;
+  // Controller-only warm-up reset.  The original permutation is restored in
+  // place after a complete drain; no allocation or remapping occurs.
+  [[nodiscard]] bool reset_quiescent() noexcept;
 
 private:
   friend struct testing::QueuePhaseTestAccess;
@@ -250,6 +253,7 @@ private:
   ConsumerState* consumer_{nullptr};
   RecyclerPosition* recycler_producer_{nullptr};
   RecyclerPosition* recycler_consumer_{nullptr};
+  std::vector<std::size_t> initial_node_order_;
 };
 
 } // namespace cpu_prefetch::queue

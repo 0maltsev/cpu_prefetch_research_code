@@ -125,17 +125,24 @@ void validate_permutation(std::span<const std::size_t> order) {
 
 } // namespace
 
-EventArena::EventArena(const EventArenaConfig& config)
-    : capacity_(config.capacity), cache_line_bytes_(config.cache_line_bytes),
-      base_page_bytes_(config.base_page_bytes) {
-  if (!is_power_of_two(capacity_)) {
+namespace {
+
+void initialize_event_arena(const EventArenaConfig& config, std::size_t& capacity,
+                            std::size_t& cache_line_bytes, std::size_t& base_page_bytes,
+                            std::size_t& allocated_bytes, std::byte*& storage,
+                            std::vector<std::size_t>& record_order,
+                            bool allocate_storage) {
+  capacity = config.capacity;
+  cache_line_bytes = config.cache_line_bytes;
+  base_page_bytes = config.base_page_bytes;
+  if (!is_power_of_two(capacity)) {
     throw WorkloadSetupError("event arena capacity must be a nonzero power of two");
   }
-  if (!is_power_of_two(cache_line_bytes_) || cache_line_bytes_ < sizeof(EventRecord)) {
+  if (!is_power_of_two(cache_line_bytes) || cache_line_bytes < sizeof(EventRecord)) {
     throw WorkloadSetupError(
         "event cache-line bytes must be a power of two that fits the record");
   }
-  if (!is_power_of_two(base_page_bytes_) || base_page_bytes_ < cache_line_bytes_) {
+  if (!is_power_of_two(base_page_bytes) || base_page_bytes < cache_line_bytes) {
     throw WorkloadSetupError(
         "event base-page bytes must be a power of two at least one cache line");
   }
@@ -148,26 +155,54 @@ EventArena::EventArena(const EventArenaConfig& config)
       config.master_seed, config.seed_namespace, StreamPurpose::event_order));
   const DeterministicStream payload_stream(derive_stream_key(
       config.master_seed, config.seed_namespace, StreamPurpose::event_payload));
-  record_order_ = make_permutation(capacity_, order_stream);
-  allocated_bytes_ = checked_multiply(capacity_, cache_line_bytes_);
-  storage_ = static_cast<std::byte*>(
-      ::operator new(allocated_bytes_, std::align_val_t(base_page_bytes_)));
-  std::memset(storage_, 0, allocated_bytes_);
-  for (std::size_t index = 0; index < capacity_; ++index) {
+  record_order = make_permutation(capacity, order_stream);
+  allocated_bytes = checked_multiply(capacity, cache_line_bytes);
+  if (allocate_storage) {
+    storage = static_cast<std::byte*>(
+        ::operator new(allocated_bytes, std::align_val_t(base_page_bytes)));
+  }
+  if (storage == nullptr ||
+      reinterpret_cast<std::uintptr_t>(storage) % base_page_bytes != 0U) {
+    throw WorkloadSetupError("event arena storage is absent or not base-page aligned");
+  }
+  std::memset(storage, 0, allocated_bytes);
+  for (std::size_t index = 0; index < capacity; ++index) {
     std::construct_at(
-        reinterpret_cast<EventRecord*>(line_at(index)),
+        reinterpret_cast<EventRecord*>(storage + (index * cache_line_bytes)),
         EventRecord{static_cast<std::uint64_t>(index), payload_stream.draw(index)});
   }
+}
+
+} // namespace
+
+EventArena::EventArena(const EventArenaConfig& config)
+    : capacity_(config.capacity), cache_line_bytes_(config.cache_line_bytes),
+      base_page_bytes_(config.base_page_bytes) {
   try {
+    initialize_event_arena(config, capacity_, cache_line_bytes_, base_page_bytes_,
+                           allocated_bytes_, storage_, record_order_, true);
     prepared_content_checksum_ = content_checksum();
   } catch (...) {
-    for (std::size_t index = 0; index < capacity_; ++index) {
-      std::destroy_at(reinterpret_cast<EventRecord*>(line_at(index)));
+    if (storage_ != nullptr) {
+      ::operator delete(storage_, std::align_val_t(base_page_bytes_));
     }
-    ::operator delete(storage_, std::align_val_t(base_page_bytes_));
     storage_ = nullptr;
     throw;
   }
+}
+
+EventArena::EventArena(const EventArenaConfig& config,
+                       std::span<std::byte> external_storage)
+    : capacity_(config.capacity), cache_line_bytes_(config.cache_line_bytes),
+      base_page_bytes_(config.base_page_bytes), storage_(external_storage.data()),
+      owns_storage_(false) {
+  const auto required = checked_multiply(config.capacity, config.cache_line_bytes);
+  if (external_storage.size() != required) {
+    throw WorkloadSetupError("external event arena storage size is not exact");
+  }
+  initialize_event_arena(config, capacity_, cache_line_bytes_, base_page_bytes_,
+                         allocated_bytes_, storage_, record_order_, false);
+  prepared_content_checksum_ = content_checksum();
 }
 
 EventArena::~EventArena() {
@@ -175,7 +210,9 @@ EventArena::~EventArena() {
     for (std::size_t index = 0; index < capacity_; ++index) {
       std::destroy_at(reinterpret_cast<EventRecord*>(line_at(index)));
     }
-    ::operator delete(storage_, std::align_val_t(base_page_bytes_));
+    if (owns_storage_) {
+      ::operator delete(storage_, std::align_val_t(base_page_bytes_));
+    }
   }
 }
 

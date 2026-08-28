@@ -237,6 +237,23 @@ bytes directly to the fake graph and does not read ignored build artifacts.
 check for a caller-supplied exact archive and sidecar. It never discovers a
 build path and its successful result grants no stand or execution authority.
 
+## Stage 17B.1 fixed-action pilot and handoff
+
+`stage17_operational_semantics_v3.py` and
+`stage17_semantic_verifier_v11.py` implement closed role-to-schema admission
+for all ten external inputs. `stage17_output_registry_v3.py` pins the production
+schemas before a marker and streams raw observations under frozen-plan-derived
+bounds. `stage17_phase_controller_v3.py` and
+`stage17_fixed_action_executor_v3.py` consume sealed worker/request bytes and
+require typed action output after process-family quiescence.
+
+`stage17_operational_cli.py` is the production canonical author/admit/journal
+CLI. It does not sign or invent facts. `run_stage17_hermetic_handoff.py` is the
+single test-only bundle-root rehearsal: it fully verifies the bundle and then
+uses the compiled test-linked dispatcher to create a temporary synthetic
+10-resolution/3-transition/pilot/seal/exit chain. It never changes the
+checked-in journal or supplies operational authority.
+
 ## Stage 8 clock-decision evidence collector
 
 `collect_stage8_clock_evidence.sh` gathers read-only host, topology, clocksource,

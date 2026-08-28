@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:calibration-hardware-state:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "action_id", "plan_sha256", "mapping_id", "q15_w_result_sha256", "whole_plot_order", "apply_readback", "restore_readback", "run_count", "restoration_verified", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-calibration-hardware-state/1"},
+    "action_id": {"enum": ["Q16a", "Q16b", "Q16c"]},
+    "plan_sha256": {"$ref": "#/$defs/sha256"},
+    "mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"},
+    "q15_w_result_sha256": {"$ref": "#/$defs/sha256"},
+    "whole_plot_order": {"const": ["H0", "H1"]},
+    "apply_readback": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/msr"}},
+    "restore_readback": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/msr"}},
+    "run_count": {"type": "integer", "minimum": 1},
+    "restoration_verified": {"const": true},
+    "phase18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "msr": {"type": "object", "additionalProperties": false, "required": ["cpu", "complete_value_hex"], "properties": {"cpu": {"enum": [0, 1, 26]}, "complete_value_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"}}}
+  }
+}

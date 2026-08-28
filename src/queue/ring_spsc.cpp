@@ -71,4 +71,22 @@ RingQuiescentAudit RingSpscQueue::audit_quiescent() const noexcept {
           producer_->position < capacity_ && consumer_->position < capacity_};
 }
 
+bool RingSpscQueue::reset_quiescent() noexcept {
+  const auto before = audit_quiescent();
+  if (before.occupied_slots != 0U || !before.positions_in_range ||
+      producer_->position != consumer_->position) {
+    return false;
+  }
+  for (std::size_t index = 0U; index < capacity_; ++index) {
+    if (slots_[index].value.load(std::memory_order_relaxed) != nullptr) {
+      return false;
+    }
+  }
+  producer_->position = 0U;
+  consumer_->position = 0U;
+  const auto after = audit_quiescent();
+  return after.occupied_slots == 0U && after.producer_position == 0U &&
+         after.consumer_position == 0U && after.positions_in_range;
+}
+
 } // namespace cpu_prefetch::queue

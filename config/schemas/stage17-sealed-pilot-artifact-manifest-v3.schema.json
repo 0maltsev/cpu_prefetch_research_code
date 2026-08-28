@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:sealed-pilot-manifest:v3",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "plan_sha256", "cell_count", "repetitions_per_cell", "run_count", "artifact_count", "artifacts", "treatment_blind", "confirmatory_outcomes_accessed", "sealed", "phase18_authority"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-stage17-sealed-pilot-artifact-manifest/3"}, "plan_id": {"type": "string", "minLength": 1}, "plan_sha256": {"$ref": "#/$defs/sha256"}, "cell_count": {"const": 180}, "repetitions_per_cell": {"type": "integer", "minimum": 1}, "run_count": {"type": "integer", "minimum": 180}, "artifact_count": {"type": "integer", "minimum": 1801}, "artifacts": {"type": "array", "minItems": 1801, "items": {"$ref": "#/$defs/artifact"}}, "treatment_blind": {"const": true}, "confirmatory_outcomes_accessed": {"const": false}, "sealed": {"const": true}, "phase18_authority": {"const": false}},
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "artifact": {"type": "object", "additionalProperties": false, "required": ["role", "schema_identity", "file_name", "size_bytes", "sha256"], "properties": {"role": {"type": "string", "minLength": 1}, "schema_identity": {"type": "string", "minLength": 1}, "file_name": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]+$"}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+}

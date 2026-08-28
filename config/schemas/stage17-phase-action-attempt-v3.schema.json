@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:phase-action-attempt:v3",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "attempt_id", "action_id", "authorization_id", "authorization_sha256", "request_sha256", "runtime_sha256", "release_resolution_id", "release_resolution_sha256", "evidence_root_binding", "started_at_utc", "one_attempt", "retries", "marker_durable", "phase18_authority"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-stage17-phase-action-attempt/3"}, "attempt_id": {"type": "string", "minLength": 1}, "action_id": {"$ref": "#/$defs/action"}, "authorization_id": {"type": "string", "minLength": 1}, "authorization_sha256": {"$ref": "#/$defs/sha256"}, "request_sha256": {"$ref": "#/$defs/sha256"}, "runtime_sha256": {"$ref": "#/$defs/sha256"}, "release_resolution_id": {"type": "string", "minLength": 1}, "release_resolution_sha256": {"$ref": "#/$defs/sha256"}, "evidence_root_binding": {"type": "object"}, "started_at_utc": {"$ref": "#/$defs/utc"}, "one_attempt": {"const": true}, "retries": {"const": 0}, "marker_durable": {"const": true}, "phase18_authority": {"const": false}},
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "utc": {"type": "string", "format": "date-time", "pattern": "Z$"}, "action": {"enum": ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c", "STAGE17-BLINDED-PILOT"]}}
+}

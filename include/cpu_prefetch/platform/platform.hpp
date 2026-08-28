@@ -78,6 +78,10 @@ public:
   [[nodiscard]] auto value() & -> T& { return std::get<0>(storage_); }
   [[nodiscard]] auto value() const& -> const T& { return std::get<0>(storage_); }
   [[nodiscard]] auto value() && -> T&& { return std::get<0>(std::move(storage_)); }
+  [[nodiscard]] auto value_if() noexcept -> T* { return std::get_if<0>(&storage_); }
+  [[nodiscard]] auto value_if() const noexcept -> const T* {
+    return std::get_if<0>(&storage_);
+  }
   [[nodiscard]] auto errors() const -> const std::vector<Error>& {
     static const std::vector<Error> no_errors;
     return has_value() ? no_errors : std::get<1>(storage_);

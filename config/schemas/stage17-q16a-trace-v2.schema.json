@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:q16a-trace:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "calibration_plan_sha256", "seed_id", "producer_demand_ticks", "consumer_demand_ticks", "producer_issue_ticks", "consumer_issue_ticks", "producer_full_count", "consumer_empty_count", "ring_off", "confirmatory_outcomes_accessed"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-stage17-q16a-trace/2"}, "calibration_plan_sha256": {"$ref": "#/$defs/sha256"}, "seed_id": {"type": "string", "minLength": 1}, "producer_demand_ticks": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}}, "consumer_demand_ticks": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}}, "producer_issue_ticks": {"type": "array", "items": {"type": "integer", "minimum": 0}}, "consumer_issue_ticks": {"type": "array", "items": {"type": "integer", "minimum": 0}}, "producer_full_count": {"type": "integer", "minimum": 0}, "consumer_empty_count": {"type": "integer", "minimum": 0}, "ring_off": {"const": true}, "confirmatory_outcomes_accessed": {"const": false}},
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

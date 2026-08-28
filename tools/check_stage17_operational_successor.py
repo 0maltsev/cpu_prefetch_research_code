@@ -20,7 +20,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
-from stage17_state_journal_v7 import JournalError, validate_operational_journal
+from stage17_state_journal_v9 import JournalError, validate_operational_journal
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -160,7 +160,8 @@ def main() -> int:
     try:
         result = validate_operational_journal(
             repository_root=ROOT,
-            latest_journal=JOURNAL_PATH,
+            evidence_root=ROOT,
+            latest_journal=ROOT / JOURNAL_PATH,
             journal_directory=ROOT / JOURNAL_PATH.parent,
         )
     except (JournalError, OSError, json.JSONDecodeError) as exception:
@@ -193,7 +194,7 @@ def main() -> int:
             "stage17-operational-successor-check: PASS "
             f"(legacy_template=true; state={result.current_state}; transitions=0; "
             f"external_inputs={len(result.missing_input_ids)}; pilot_ready=false; "
-            "semantic_policy=v10; all_ten_verifiers=IMPLEMENTED; "
+            "semantic_policy=v11; all_ten_verifiers=IMPLEMENTED; "
             "Stage17/Stage18 complete=false; stand=NOT_ACCESSED)"
         )
     return 0

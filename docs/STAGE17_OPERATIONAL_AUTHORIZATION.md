@@ -17,8 +17,10 @@ the v6 real-OpenSSH-consumption predecessor. ADR-0111 preserves all v1-v6
 definitions and supplies the v7 authority/lifecycle predecessor. ADR-0112
 preserves all v1-v7 definitions and supplies the v8 group-quiescence and
 cleanup-evidence predecessor. ADR-0113/policy v9 is preserved as
-`REJECTED_FAIL_OPEN_PREDECESSOR`. ADR-0114 supplies the policy-v10 fixed-action
-production successor. None of these
+`REJECTED_FAIL_OPEN_PREDECESSOR`. ADR-0114/policy v10 remains an immutable
+incomplete predecessor. ADR-0115 supplies the policy-v11 full-bundle,
+fixed-action pilot, streamed-output, supervised-Q15, and handoff successor.
+None of these
 ADRs authorizes stand access or a run:
 
 ```text
@@ -41,16 +43,19 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The current versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v10`](../config/stage17/stage17-operational-evidence-admission-policy-v10.json)
-binds policy v9 as a rejected predecessor, ADR-0114, every current record
-schema, fixed phase actions v2, the exact Python controller/admission/exit
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v11`](../config/stage17/stage17-operational-evidence-admission-policy-v11.json)
+binds policy v10 as an immutable predecessor, ADR-0115, every current record
+schema, fixed phase actions v3, the exact Python controller/admission/exit
 closure, and the actual C++ worker/runner/entrypoint sources. It registers a
 production semantic verifier for every catalog input. Admission is
 default-deny: file existence, byte count, SHA-256, generic JSON, boolean-only
 claims, self-selected trust, or a generic custody receipt is never sufficient.
 EXT004 additionally binds every reported qualification digest to exact source
-bytes. EXT006 verifies caller-supplied archive, sidecar, manifest, custody, and
-release-member bytes and returns their typed runtime context.
+bytes. EXT006 runs the full stand-bundle verifier, checks `SHA256SUMS`, SBOM,
+inventory, manifest, custody and worker bytes, derives runtime class from those
+bytes, and returns their typed context. The observed EXT002/003 worker must be
+byte-identical to that release member. Raw observations are streamed under a
+frozen-plan-derived bound rather than a fixed 16 MiB cap.
 
 The historical successor v1 and `STAGE17-EXTERNAL-INPUTS-v1` checklist remain
 byte-immutable definition/templates. Their embedded `current_state` and
@@ -182,6 +187,7 @@ cmake --build --preset dev-gcc --target stage17-state-journal-check
 cmake --build --preset dev-gcc --target stage17-openssh-consumption-check
 cmake --build --preset dev-gcc --target stage17-authority-child-lifecycle-check
 cmake --build --preset dev-gcc --target stage17-complete-operational-admission-check
+cmake --build --preset release-gcc --target stage17-hermetic-handoff-check
 ctest --preset dev-gcc -R 'runner.stage17_(operational_successor|state_journal|openssh_snapshot_consumption|authority_child_lifecycle)|q15.p4_r_c_executor_no_network_self_test' --output-on-failure
 ```
 
@@ -257,8 +263,10 @@ cmake --build build/dev-gcc \
   --target stage17-pilot-candidate-artifact-integration-check
 ```
 
-The command is deliberately not part of the hermetic self-test. A failed or
-unavailable byte-identical archive leaves `S17-EXT-006` external-required; it
+The production integration command is separate from synthetic evidence. The
+hermetic target builds its own no-authority bundle and proves the same v3
+archive-to-EXT006 path. A failed or unavailable byte-identical production
+archive leaves `S17-EXT-006` external-required; it
 never falls back to the historical metadata record.
 
 If no custody copy exists, the contracted recovery attempt is a clean detached

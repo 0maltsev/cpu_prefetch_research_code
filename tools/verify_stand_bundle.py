@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import pathlib
+import subprocess
 import sys
 
 
@@ -310,6 +311,31 @@ def main() -> int:
             "inventory mismatch: missing="
             f"{sorted(map(str, declared - actual))} extra={sorted(map(str, actual - declared))}"
         )
+    inventory_path = root / "BUNDLE_INVENTORY.json"
+    if not inventory_path.is_file():
+        failures.append("bundle inventory document is absent")
+    else:
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        inventory_entries = inventory.get("files", [])
+        inventory_paths = {
+            pathlib.Path(item.get("path", "")) for item in inventory_entries
+            if isinstance(item, dict)
+        }
+        expected_inventory = declared - {pathlib.Path("BUNDLE_INVENTORY.json")}
+        if (inventory.get("schema_version")
+                != "cpu-prefetch-stand-bundle-inventory/1"
+                or inventory_paths != expected_inventory):
+            failures.append("bundle inventory document does not cover exact payload")
+        else:
+            for item in inventory_entries:
+                path = root / item["path"]
+                if (path.stat().st_size, sha256(path)) != (
+                    item.get("size_bytes"), item.get("sha256")
+                ):
+                    failures.append(
+                        f"bundle inventory byte mismatch: {item['path']}"
+                    )
+                    break
 
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     profile = manifest.get("bundle_profile")
@@ -324,6 +350,14 @@ def main() -> int:
         ),
         "STAGE17-PILOT-CANDIDATE-BUNDLE-v2": (
             "cpu-prefetch-pilot-candidate-bundle/2",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
+        "STAGE17-PILOT-CANDIDATE-BUNDLE-v3": (
+            "cpu-prefetch-pilot-candidate-bundle/3",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
+        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1": (
+            "cpu-prefetch-pilot-candidate-bundle/3",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
         ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
@@ -366,7 +400,9 @@ def main() -> int:
     ):
         value = manifest.get(field)
         if profile in ("STAGE17-PILOT-CANDIDATE-BUNDLE-v1",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v2") and value is not False:
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v2",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v3",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1") and value is not False:
             failures.append(f"pilot candidate must explicitly prohibit {description}")
         elif profile == "STAGE16-STAND-BUNDLE-v1" and value not in (None, False):
             failures.append(f"Stage 16 bundle unexpectedly enables {description}")
@@ -409,7 +445,9 @@ def main() -> int:
         failures.append("source archive path/hash mismatch")
 
     if profile in ("STAGE17-PILOT-CANDIDATE-BUNDLE-v1",
-                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v2"):
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v2",
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v3",
+                   "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1"):
         if (
             manifest.get("software_prefetch_mapping_id")
             != "X86-64-PREFETCHW-PREFETCHT0-v1"
@@ -540,6 +578,101 @@ def main() -> int:
                                 "pilot candidate v2 repository evidence is absent: "
                                 + relative_text
                             )
+
+        if profile in ("STAGE17-PILOT-CANDIDATE-BUNDLE-v3",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1"):
+            runtime = manifest.get("stage17_fixed_action_runtime")
+            expected_actions = ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
+                                "STAGE17-BLINDED-PILOT"]
+            worker = root / "release/bin/cpu_prefetch_runner"
+            expected_synthetic = profile == "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1"
+            if (not isinstance(runtime, dict)
+                    or runtime.get("member_path") != "release/bin/cpu_prefetch_runner"
+                    or runtime.get("size_bytes") != worker.stat().st_size
+                    or runtime.get("sha256") != sha256(worker)
+                    or runtime.get("role") != "STAGE17_FIXED_ACTION_WORKER"
+                    or runtime.get("runtime_profile")
+                    != "STAGE17-FIXED-ACTION-WORKER-v3"
+                    or runtime.get("supported_actions") != expected_actions
+                    or runtime.get("synthetic_test_only") is not expected_synthetic):
+                failures.append("pilot candidate v3 fixed-action runtime binding is invalid")
+            payload = worker.read_bytes()
+            for token in (b"--execute-fixed-stage17-action-v3",
+                          b"STAGE17-FIXED-ACTION-WORKER-v3",
+                          *(item.encode("ascii") for item in expected_actions)):
+                if token not in payload:
+                    failures.append("pilot candidate v3 worker lacks fixed dispatcher surface")
+                    break
+            completed = None
+            try:
+                completed = subprocess.run(
+                    [str(worker), "--stage17-runtime-identity-v3"],
+                    stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE, check=False, timeout=15,
+                    env={"LANG": "C", "LC_ALL": "C", "PATH": "/usr/bin:/bin",
+                         "TZ": "UTC"},
+                )
+                identity = json.loads(completed.stdout)
+            except (OSError, subprocess.SubprocessError, json.JSONDecodeError):
+                identity = None
+            expected_identity = {
+                "binary_sha256": sha256(worker),
+                "protocol_version": "2.0.0-pre.2",
+                "role": "STAGE17_FIXED_ACTION_WORKER",
+                "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v3",
+                "source_dirty": False,
+                "source_revision": manifest.get("source_archive", {}).get(
+                    "source_revision"
+                ),
+                "supported_actions": expected_actions,
+                "synthetic_test_only": expected_synthetic,
+            }
+            if (completed is None or completed.returncode != 0
+                    or identity != expected_identity):
+                failures.append(
+                    "pilot candidate v3 worker runtime identity/provenance is invalid"
+                )
+            controller = manifest.get("stage17_controller_runtime")
+            policy_path = root / (
+                "config/stage17/"
+                "stage17-operational-evidence-admission-policy-v11.json"
+            )
+            if (not isinstance(controller, dict)
+                    or controller.get("controller_id")
+                    != "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v3"
+                    or controller.get("entrypoint")
+                    != "tools/stage17_phase_controller_v3.py"
+                    or controller.get("invocation")
+                    != ["python3", "tools/stage17_phase_controller_v3.py"]
+                    or controller.get("production_test_mode_available") is not False
+                    or controller.get("authority_embedded") is not False
+                    or not policy_path.is_file()):
+                failures.append("pilot candidate v3 controller identity is invalid")
+            else:
+                binding = controller.get("policy", {})
+                if (binding.get("path") != policy_path.relative_to(root).as_posix()
+                        or binding.get("size_bytes") != policy_path.stat().st_size
+                        or binding.get("sha256") != sha256(policy_path)):
+                    failures.append("pilot candidate v3 policy binding is invalid")
+                policy = json.loads(policy_path.read_text(encoding="utf-8"))
+                expected_bound = [
+                    {"group": group, "key": key, "path": item.get("path"),
+                     "size_bytes": item.get("size_bytes"),
+                     "sha256": item.get("sha256")}
+                    for group in ("bindings", "runtime_closure")
+                    for key, item in policy.get(group, {}).items()
+                ]
+                if controller.get("bound_files") != expected_bound:
+                    failures.append("pilot candidate v3 controller closure differs from policy")
+                for item in expected_bound:
+                    candidate = root / str(item["path"])
+                    if (not candidate.is_file() or candidate.is_symlink()
+                            or candidate.stat().st_size != item["size_bytes"]
+                            or sha256(candidate) != item["sha256"]):
+                        failures.append(
+                            f"pilot candidate v3 controller binding drifted: {item['path']}"
+                        )
+                        break
 
     if profile in (
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1",

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/implementation/schedule-derivation-v2.schema.json",
+  "title": "Implementation-owned ADR-0029 schedule derivation record for protocol 2.0.0-pre.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_schema",
+    "protocol_version",
+    "record_id",
+    "schedule_suite",
+    "base_rng_suite",
+    "purpose",
+    "seed_id",
+    "parent_namespace_id",
+    "namespace_id",
+    "derived_key_u32be_hex",
+    "python_version",
+    "decimal_version",
+    "libmpdec_version",
+    "canonicalization_suite",
+    "record_hash_profile",
+    "record_sha256"
+  ],
+  "properties": {
+    "record_schema": {"const": "cpu-prefetch-schedule-derivation-v2"},
+    "protocol_version": {"const": "2.0.0-pre.3"},
+    "record_id": {"type": "string", "minLength": 1},
+    "schedule_suite": {"const": "POISSON-EXPONENTIAL-PHILOX-DECIMAL80-FLOOR-ABS-PS-v1"},
+    "base_rng_suite": {"const": "PHILOX4X32-10-HMAC-SHA256-v1"},
+    "purpose": {"const": "arrival-schedule"},
+    "seed_id": {"type": "string", "minLength": 1},
+    "parent_namespace_id": {"type": "string", "minLength": 1},
+    "namespace_id": {"type": "string", "minLength": 1},
+    "derived_key_u32be_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
+    "python_version": {"type": "string", "pattern": "^3\\.14\\.[0-9]+$"},
+    "decimal_version": {"type": "string", "minLength": 1},
+    "libmpdec_version": {"type": "string", "minLength": 1},
+    "canonicalization_suite": {"const": "JCS-I64-v1"},
+    "record_hash_profile": {"const": "SCHEDULE-DERIVATION-JCS-I64-ZEROSELF-SHA256-v1"},
+    "record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

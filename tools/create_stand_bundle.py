@@ -19,8 +19,8 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v3"
-STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v4"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
@@ -297,8 +297,8 @@ def main() -> int:
     version_metadata = json.loads(
         (build / "generated" / "version_metadata.json").read_text(encoding="utf-8")
     )
-    if version_metadata["protocol_version"] != "2.0.0-pre.2":
-        raise ValueError("release metadata is not bound to protocol 2.0.0-pre.2")
+    if version_metadata["protocol_version"] != "2.0.0-pre.3":
+        raise ValueError("release metadata is not bound to protocol 2.0.0-pre.3")
     if version_metadata["source_revision"] != revision:
         raise ValueError("release metadata revision differs from the source tree")
 
@@ -411,10 +411,10 @@ def main() -> int:
             "\n".join(runtime_lines), encoding="utf-8"
         )
 
-        copy_tree_files(root / "protocol" / "2.0.0-pre.2", staging / "protocol" / "2.0.0-pre.2")
+        copy_tree_files(root / "protocol" / "2.0.0-pre.3", staging / "protocol" / "2.0.0-pre.3")
         copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas" / "implementation")
         copy_tree_files(
-            root / "protocol" / "2.0.0-pre.2" / "handoff" / "schemas",
+            root / "protocol" / "2.0.0-pre.3" / "handoff" / "schemas",
             staging / "config" / "schemas" / "imported",
         )
         copy_tree_files(root / "config" / "examples", staging / "config" / "examples")
@@ -426,13 +426,13 @@ def main() -> int:
             # closure at the directly consumable bundle root.
             copy_tree_files(root / "config", staging / "config")
             copy_tree_files(root / "docs", staging / "docs")
-            # The v3 pilot candidate carries the executable controller at the
-            # exact repository-relative paths authenticated by policy v11.
+            # The v4 pilot candidate carries the executable controller at the
+            # exact repository-relative paths authenticated by policy v12.
             # Keep the general implementation-schema layout for legacy bundle
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v11.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v12.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
@@ -459,9 +459,9 @@ def main() -> int:
                         "sha256": binding["sha256"],
                     })
             stage17_controller_runtime = {
-                "controller_id": "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v3",
-                "entrypoint": "tools/stage17_phase_controller_v3.py",
-                "invocation": ["python3", "tools/stage17_phase_controller_v3.py"],
+                "controller_id": "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v4",
+                "entrypoint": "tools/stage17_phase_controller_v4.py",
+                "invocation": ["python3", "tools/stage17_phase_controller_v4.py"],
                 "policy": {
                     "path": policy_relative.as_posix(),
                     "size_bytes": policy_path.stat().st_size,
@@ -486,6 +486,8 @@ def main() -> int:
                     "check_stage17_complete_operational_admission.py",
                     "check_stage17_pilot_semantics_v3.py",
                     "check_stage17_fixed_action_production.py",
+                    "check_stage17_pilot_semantics_v4.py",
+                    "check_stage17_production_handoff_v4.py",
                     "run_stage17_hermetic_handoff.py",
                 ):
                     source = root / "tools" / name
@@ -630,9 +632,9 @@ def main() -> int:
             "measurement_execution_command_present": False,
             "pilot_authorized": False,
             "protocol_import_manifest_sha256": sha256(
-                root / "protocol" / "2.0.0-pre.2" / "IMPORT_MANIFEST.json"
+                root / "protocol" / "2.0.0-pre.3" / "IMPORT_MANIFEST.json"
             ),
-            "protocol_version": "2.0.0-pre.2",
+            "protocol_version": "2.0.0-pre.3",
             "readiness_state": (
                 "RELEASE_INPUT_READY_FOR_Q15_PREPARATION"
                 if stage17
@@ -643,7 +645,7 @@ def main() -> int:
             "release_artifacts": release_artifacts,
             "repository_license": "NO-LICENSE-GRANT",
             "schema_version": (
-                "cpu-prefetch-pilot-candidate-bundle/3"
+                "cpu-prefetch-pilot-candidate-bundle/4"
                 if stage17
                 else "cpu-prefetch-q15-qualification-tool-bundle/3"
                 if q15_tool
@@ -690,7 +692,7 @@ def main() -> int:
                 "size_bytes": worker.stat().st_size,
                 "sha256": sha256(worker),
                 "role": "STAGE17_FIXED_ACTION_WORKER",
-                "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v3",
+                "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v4",
                 "supported_actions": [
                     "Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
                     "STAGE17-BLINDED-PILOT",

@@ -28,7 +28,7 @@ inline constexpr std::string_view kDecodedHashAlgorithm =
 inline constexpr std::string_view kEnvelopeHashProfile =
     "SCHEDULE-JCS-I64-ZEROSELF-SHA256-v1";
 inline constexpr std::string_view kDerivationSchema =
-    "cpu-prefetch-schedule-derivation-v1";
+    "cpu-prefetch-schedule-derivation-v2";
 inline constexpr std::string_view kDerivationHashProfile =
     "SCHEDULE-DERIVATION-JCS-I64-ZEROSELF-SHA256-v1";
 // ADR-0029 froze this label into key and decoded-deadline hash preimages.

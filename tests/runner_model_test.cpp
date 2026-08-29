@@ -61,7 +61,7 @@ constexpr std::string_view kZeroHash =
 [[nodiscard]] auto complete_admission_json() -> std::string {
   std::ostringstream output;
   output << R"({"schema_version":"cpu-prefetch-runner-admission/3",)"
-         << R"("protocol_version":"2.0.0-pre.2",)"
+         << R"("protocol_version":"2.0.0-pre.3",)"
          << R"("runner_profile_id":"STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3",)"
          << R"("cpu_pair_selection_id":"XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1",)"
          << R"("relax_mapping_id":"X86-PAUSE-ONE-PER-RELAX-SITE-v1",)"

@@ -823,11 +823,12 @@ auto load_manifest(const json::Value& document) -> RunManifest {
       "$out/confirmatory_estimability"));
   std::vector<ConfirmatoryBlocker> confirmatory_blockers;
   const auto* blocker_value = optional(object, "confirmatory_blockers");
-  if (protocol_version == ProtocolVersion::v2_0_0_pre_2) {
+  if (protocol_version != ProtocolVersion::v2_0_0_pre_1) {
     if (blocker_value == nullptr) {
       fail(ErrorCategory::missing_field, "$out/confirmatory_blockers",
            "SCHEMA-REQUIRED",
-           "2.0.0-pre.2 requires the exhaustive confirmatory blocker array");
+           "protocol versions 2.0.0-pre.2 and later require the exhaustive "
+           "confirmatory blocker array");
     }
     const auto& blocker_array = array_of(*blocker_value, "$out/confirmatory_blockers");
     confirmatory_blockers.reserve(blocker_array.size());

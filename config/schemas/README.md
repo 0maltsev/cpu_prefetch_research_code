@@ -4,7 +4,8 @@ These schemas supplement but never modify or replace the immutable logical
 contracts under the current `protocol/2.0.0-pre.2/handoff/schemas/` (with the
 immutable pre.1 predecessor retained separately).
 
-`schedule-derivation-v1.schema.json` validates the ADR-0029 record referenced
+`schedule-derivation-v1.schema.json` preserves the pre.2 record, and
+`schedule-derivation-v2.schema.json` validates the pre.3 ADR-0029 record referenced
 by the imported schedule envelope's `rng.derivation_record_id`. It binds the
 accepted base RNG and schedule suites, seed identity, explicit parent/child
 namespaces, `arrival-schedule` purpose, derived Philox key identity, exact
@@ -16,8 +17,9 @@ phase/integrity artifact a concrete implementation-owned document shape. Its
 five checksum-evidence objects project unchanged into the imported run
 manifest's `integrity_evidence`; the schema does not extend that manifest.
 
-`copy-ledger-record-v1.schema.json` records ADR-0033's append-only durability
-evidence outside the imported raw-observation envelope. It fixes the v1
+`copy-ledger-record-v1.schema.json` preserves the pre.2 contract, while
+`copy-ledger-record-v2.schema.json` records ADR-0033's append-only durability
+evidence for pre.3 outside the imported raw-observation envelope. It fixes the
 no-compression, one-temporary/two-durable-copy policy and supports explicit
 incomplete records. Distinct domain IDs, exact expected/observed identity, and
 sealed-state implications are also checked by the C++ semantic builder because

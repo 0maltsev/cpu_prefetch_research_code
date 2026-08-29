@@ -1,6 +1,6 @@
 # Stage A Stand Runbook
 
-Status: **Stage 17B.1 local engineering closed; operational successor `PREPARED`;
+Status: **Stage 17B.2 repository-local engineering closed; operational successor `PREPARED`;
 all ten real external inputs required**. This runbook does
 not authorize a platform mutation, calibration, pilot, or confirmatory
 execution. Commands in the read-only section only observe state and do not make
@@ -59,9 +59,11 @@ canonical genesis plus sequential append-only evidence-resolution and
 transition records. ADR-0106 leaves the v1 graph/catalog/genesis immutable and
 adds a default-deny semantic policy. A file, generic JSON object, generic
 receipt, boolean claim, self-selected trust root, or metadata hash cannot
-resolve an input. ADR-0115/policy v11 implements the current production
-verifier for all ten inputs, full bundle/EXT006 closure, supervised Q15,
-complete pilot semantics, and the closed six-action controller/worker boundary. This is local
+resolve an input. ADR-0115/policy v11 is an immutable incomplete predecessor.
+ADR-0116 amends the pilot warm-up bootstrap in protocol pre.3, and
+ADR-0117/policy v12 implements the current production verifier for all ten
+inputs, full bundle/EXT006 closure, supervised Q15, durable complete pilot
+semantics, and the closed six-action controller/worker boundary. This is local
 engineering closure only: every input still requires real exact bytes and the
 checked-in journal remains empty. The legacy successor/checklist are
 definition/templates, not current status. The last graph state permits
@@ -71,8 +73,9 @@ ADR-0107 leaves v1/v2 bytes unchanged, ADR-0108 leaves all v1/v2/v3 bytes
 unchanged, ADR-0109 preserves every v1-v4 predecessor, ADR-0110 preserves the
 complete v5 predecessor, ADR-0111 preserves the complete v6 predecessor, and
 ADR-0112 preserves the complete v7 predecessor. ADR-0113/policy v9 is rejected;
-ADR-0114/policy v10 is an immutable incomplete predecessor. ADR-0115/policy
-v11 is the current local admission and handoff boundary. Future `S17-EXT-001`
+ADR-0114/policy v10 and ADR-0115/policy v11 are immutable incomplete
+predecessors. ADR-0117/policy v12 is the current local admission and handoff
+boundary. Future `S17-EXT-001`
 preflight admission continues to use
 its policy-bound authorization/supporting-contract semantics. Do not write an SSH
 command, argv, stdin, output filename, timeout, retry, or permission into an

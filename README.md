@@ -1,11 +1,16 @@
 # CPU Prefetch Research Code
 
 This repository has completed the **Stage 16 independent pre-pilot software
-verification slice** for protocol **`2.0.0-pre.2`**. Its current disposition is
-`STAGE17B_LOCAL_ENGINEERING_CLOSED_EXTERNAL_INPUTS_REQUIRED`: the finite Stage
-17 operational successor and fixed-action production admission path are
-implemented locally, while pilot and confirmatory execution remain blocked on
-ten real machine-readable external-input requirements recorded in
+verification slice** and the repository-local Stage 17B.2 implementation for
+protocol **`2.0.0-pre.3`**. Its current disposition is
+`STAGE17B2_LOCAL_ENGINEERING_CLOSED_EXTERNAL_INPUTS_REQUIRED`: the finite
+Stage 17 operational successor and public handoff tooling are implemented and
+freshly verified locally, while admission remains fail-closed. Protocol pre.2's
+first-pilot warm-up cycle was resolved prospectively by the accepted
+[`D-116 amendment bundle`](docs/STAGE17_PILOT_WARMUP_PROTOCOL_AMENDMENT_DECISION_BUNDLE.md)
+and ADR-0116 in immutable pre.3; no stand or run authority followed from that
+decision. Pilot and confirmatory execution remain blocked on ten real
+machine-readable external-input requirements recorded in
 [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
 The immutable graph/catalog and canonical append-only journal compute the
 current state as `PREPARED`, with zero resolutions and `pilot_ready=false`;
@@ -297,12 +302,14 @@ false success. No authority or operational input is created.
 ADR-0113/policy v9 is retained as `REJECTED_FAIL_OPEN_PREDECESSOR`: it allowed
 an authorization to choose its trust/executable and treated exit zero as
 completion. Its controller now refuses before opening a worker, output root,
-or marker. ADR-0114/policy v10 is an immutable incomplete predecessor.
-ADR-0115/policy v11 is the current local engineering boundary. It implements
+or marker. ADR-0114/policy v10 and ADR-0115/policy v11 are immutable
+incomplete predecessors. ADR-0116 accepts the pre.3 warm-up amendment;
+ADR-0117/policy v12 is the current local engineering boundary. It implements
 production semantic admission for all ten inputs, independent EXT002/003
 trust, full clean-bundle/EXT006 release equality, supervised Q15-R/Q15-W,
-complete Q16 and 180-cell pilot semantics, six compiled fd-only fixed actions,
-streamed typed result/output admission, a PID-namespace-safe quiescence
+complete Q16 and durable 180-cell repeated-pilot semantics, six compiled
+fd-only fixed actions, independent bounded-memory raw decoding, streamed typed
+result/output admission, a PID-namespace-safe quiescence
 supervisor, Stage 17 exit, and separately signed Phase 18 access.
 The local compiled-dispatch integration passes without a state-gate mock, but
 it creates only temporary `synthetic/test-only` evidence. The checked-in
@@ -333,12 +340,13 @@ repository-authored material.
 
 ## Scientific source of truth
 
-The immutable imported snapshot is in
-[`protocol/2.0.0-pre.2/`](protocol/2.0.0-pre.2/). Start with:
+The current immutable imported snapshot is in
+[`protocol/2.0.0-pre.3/`](protocol/2.0.0-pre.3/); pre.1 and pre.2 remain
+immutable readable predecessors. Start with:
 
-1. [`EXPERIMENT_IMPLEMENTATION_SPEC.md`](protocol/2.0.0-pre.2/EXPERIMENT_IMPLEMENTATION_SPEC.md);
-2. [`PROTOCOL_FREEZE_CHECKLIST.md`](protocol/2.0.0-pre.2/PROTOCOL_FREEZE_CHECKLIST.md);
-3. [`handoff/README.md`](protocol/2.0.0-pre.2/handoff/README.md);
+1. [`EXPERIMENT_IMPLEMENTATION_SPEC.md`](protocol/2.0.0-pre.3/EXPERIMENT_IMPLEMENTATION_SPEC.md);
+2. [`PROTOCOL_FREEZE_CHECKLIST.md`](protocol/2.0.0-pre.3/PROTOCOL_FREEZE_CHECKLIST.md);
+3. [`handoff/README.md`](protocol/2.0.0-pre.3/handoff/README.md);
 4. [`docs/TRACEABILITY_MATRIX.md`](docs/TRACEABILITY_MATRIX.md).
 
 The accepted Stage 13 scientific-method and input boundary is collected in
@@ -348,7 +356,7 @@ software implementation, documented in
 [`docs/CALIBRATION.md`](docs/CALIBRATION.md). They authorize no stand
 calibration or performance execution and produce no platform outputs.
 
-`protocol/2.0.0-pre.2/PAPER_AGENTS.md` is imported evidence, not a repository
+`protocol/2.0.0-pre.3/PAPER_AGENTS.md` is imported evidence, not a repository
 instruction file. Stage B and Stage C remain outside scope. Development and
 synthetic checks support software correctness only and never empirical claims.
 
@@ -542,7 +550,7 @@ cmake --build --preset dev-gcc \
 
 The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
-The policy-v11 stand handoff begins with a separately issued S17-EXT-001 and
+The policy-v12 stand handoff begins with a separately issued S17-EXT-001 and
 ends with a separately issued pilot authorization; exact commands and expected
 append-only record paths are in
 [`docs/STAGE17_STAND_HANDOFF.md`](docs/STAGE17_STAND_HANDOFF.md).
@@ -550,7 +558,7 @@ append-only record paths are in
 `cpu_prefetch_runner` now contains one closed fd-only dispatcher for exactly
 `Q15-R`, `Q15-W`, `Q16a`, `Q16b`, `Q16c`, and the blinded Stage 17 pilot. It
 accepts no arbitrary command, plugin, caller argv/stdin, output filename, or
-production fake backend. Controller v3 independently obtains trust from
+production fake backend. Controller v4 independently obtains trust from
 admitted EXT002/003, binds Q15 to that observed worker, binds Q16/pilot to the
 later byte-equal EXT006 release, snapshots worker/request bytes, and requires
 typed result plus exact artifact verification after process-group quiescence.
@@ -558,11 +566,15 @@ The historical controller v1 always refuses. Presence of this software grants
 no action authority. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
 
 The release target `stage17-hermetic-handoff-check` builds and fully verifies a
-clean no-authority bundle before running its compiled test-linked dispatcher.
-From an extracted hermetic bundle root, one
-`tools/run_stage17_hermetic_handoff.py` command authors all temporary synthetic
-records without manual JSON and verifies Stage 17 completion. It never advances
-the checked-in journal and cannot authorize a stand or Phase 18.
+separately classified no-authority test bundle before running its compiled
+test-linked dispatcher. From an extracted hermetic bundle root,
+`tools/run_stage17_hermetic_handoff.py` first materializes a read-only private
+admission snapshot, then drives canonical public CLI authoring,
+signature verification, admission, journal append, compiled actions, pilot
+sealing, and Stage 17 completion against temporary synthetic bytes. It never
+advances the checked-in journal, cannot satisfy production EXT006, and cannot
+authorize a stand or Phase 18. The production pilot-candidate bundle is a
+separate profile containing the real `cpu_prefetch_runner`.
 
 `cpu_prefetch_q15_tool` is a separate no-measurement qualification executable.
 Its self-test and two scope-description commands are safe locally. Q15-S3 links

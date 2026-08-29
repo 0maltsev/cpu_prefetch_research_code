@@ -1,0 +1,176 @@
+{
+  "manifest_version": 1,
+  "protocol_version": "2.0.0-pre.3",
+  "source_repository": {
+    "identity": "cpu_prefetch_research_code_protocol_authority",
+    "git_commit": "12aa7c102daff53441e11d3bfdb5b291cedaf900",
+    "git_commit_status": "Q17B2_PROT_AUTHORIZED_LOCAL_AMENDMENT"
+  },
+  "import_timestamp_utc": "2026-08-28T18:33:12Z",
+  "verification_result": "PASS",
+  "verification_scope": "AUTHORIZED_AMENDMENT_INVENTORY_SIZE_SHA256_AND_DECLARED_AUTHORITATIVE_HASHES",
+  "draft_2020_12_meta_schema_validation": "PASS_JSONSCHEMA_4.26.0_REQUIRED_BY_REPOSITORY_CHECK",
+  "compatibility_status": {
+    "current_protocol": "2.0.0-pre.3",
+    "status": "CURRENT",
+    "prior_version": "2.0.0-pre.2",
+    "prior_status": "IMMUTABLE_READABLE_NO_MIXED_SEALED_GRAPH"
+  },
+  "authorization": {
+    "decision_id": "D-116",
+    "approval_ids": [
+      "Q17B2-PROT"
+    ],
+    "authority_roles": [
+      "PROTOCOL_OWNER",
+      "STATISTICAL_OWNER"
+    ],
+    "outcome_accessed": false
+  },
+  "artifacts": [
+    {
+      "original_relative_path": "EXPERIMENT_IMPLEMENTATION_SPEC.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/EXPERIMENT_IMPLEMENTATION_SPEC.md",
+      "file_size_bytes": 78625,
+      "sha256": "a32a518d146d76ce81165db049c72d4bf7367841b1b6d59e1ad031888a816cb7",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "AGENTS.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/PAPER_AGENTS.md",
+      "file_size_bytes": 10006,
+      "sha256": "0a5016b8ab29e68ae1ec14bac1f3812251f05e8ee4629481a9e933374e6aabf7",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "PROTOCOL_FREEZE_CHECKLIST.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/PROTOCOL_FREEZE_CHECKLIST.md",
+      "file_size_bytes": 12645,
+      "sha256": "d95eed8b40dbefa79fae68dbfd160359599fd48370a3276be58b1b7f92a57bac",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/ACCESS_AND_SEALING_PROTOCOL.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/ACCESS_AND_SEALING_PROTOCOL.md",
+      "file_size_bytes": 5112,
+      "sha256": "b04f720a67c85ec1b6e75b590d32d201169c6886f5e9670e55b7f1d23a7d2817",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/AMENDMENTS.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/AMENDMENTS.md",
+      "file_size_bytes": 11182,
+      "sha256": "9cbb70f0357c7398ce50b98ed8fa21785f7b0caf5c29717ec44997a3ca3e85a0",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/DATA_DICTIONARY.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/DATA_DICTIONARY.md",
+      "file_size_bytes": 10052,
+      "sha256": "bff468e6135b67accf6f464862e5c2f87fd8aa540cbcd23d994c981eb3948094",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/HANDOFF_READINESS_REPORT.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/HANDOFF_READINESS_REPORT.md",
+      "file_size_bytes": 9607,
+      "sha256": "80f7e42098d5320841d524a40f40fac526b87c45343fdc50372b2fa53d5372f5",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/IMPLEMENTATION_DECISIONS.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/IMPLEMENTATION_DECISIONS.md",
+      "file_size_bytes": 5857,
+      "sha256": "3c6da65288d698f730744f22cf1511e17320b320c3c8d8adc180cadcf0939f67",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/PROTOCOL_VERSION.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/PROTOCOL_VERSION.md",
+      "file_size_bytes": 5749,
+      "sha256": "1da5b45de9cc070c085fbc9806f629963aabdf8da3ffb034e5266f28cf3779bb",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/README.md",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/README.md",
+      "file_size_bytes": 3253,
+      "sha256": "b2fee8b1597ed847acc7b9264a009cb90a23290d69b926595a1efbd606967f58",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/schemas/block-plan.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/schemas/block-plan.schema.json",
+      "file_size_bytes": 4542,
+      "sha256": "2f2f6e8501acf649c93d6c3d2f39dbee09a0df8b9bcd8406e14f84da89ad7f3b",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/schemas/failure-record.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/schemas/failure-record.schema.json",
+      "file_size_bytes": 3635,
+      "sha256": "1c3f4974efd82bbe48eaf350536256baacc069c706009c66eda6b0ac7ef95eec",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/schemas/freeze-record.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/schemas/freeze-record.schema.json",
+      "file_size_bytes": 13728,
+      "sha256": "2163f82f296431cf564991aabc50a2d1445ecec0b0faa2e0b94e0267afa2ff94",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/schemas/platform.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/schemas/platform.schema.json",
+      "file_size_bytes": 4428,
+      "sha256": "46eac40f59ed7e17d7d0c1c6a3b8aa5b6738e95dc581a9f9eace24762b276283",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/schemas/raw-observation.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/schemas/raw-observation.schema.json",
+      "file_size_bytes": 9452,
+      "sha256": "053ce37bcbde0baf27452262b59a28fe331f81f3a5288a73b814deb8d31db7ab",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/schemas/run-manifest.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/schemas/run-manifest.schema.json",
+      "file_size_bytes": 16549,
+      "sha256": "b5c7ee7248a8f320e398c582429003d923a187c5d8c24c0da07ecd88b1797a9d",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "handoff/schemas/schedule.schema.json",
+      "imported_relative_path": "protocol/2.0.0-pre.3/handoff/schemas/schedule.schema.json",
+      "file_size_bytes": 4593,
+      "sha256": "807ddfff4aa72dd34b39301a58ac910c208bbf9403ddd36809a1f0551dc0401c",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    },
+    {
+      "original_relative_path": "paper/main.pdf",
+      "imported_relative_path": "protocol/2.0.0-pre.3/main.pdf",
+      "file_size_bytes": 511984,
+      "sha256": "f7dccf3db2a4809c8d703d294f1407f91322cbc918cb2083b689c1c755b8d60e",
+      "verification_result": "PASS_AUTHORIZED_AMENDMENT_BYTES",
+      "compatibility_status": "CURRENT_2.0.0-pre.3"
+    }
+  ]
+}

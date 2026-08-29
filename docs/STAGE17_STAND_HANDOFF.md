@@ -7,15 +7,14 @@ substitute a synthetic fixture or edit a validated JSON document by hand.
 
 ## Local hermetic rehearsal
 
-From a clean extracted `STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1` root, this single
+From a clean extracted `STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2` root, this single
 command performs the full temporary 10-resolution/3-transition/pilot/seal/exit
 workflow through the production validators and compiled test-linked dispatcher:
 
 ```sh
 python3 -B tools/run_stage17_hermetic_handoff.py \
   --bundle-root "$PWD" \
-  --pilot-archive /absolute/path/to/exact-hermetic-bundle.tar.gz \
-  --pilot-sidecar /absolute/path/to/exact-hermetic-bundle.tar.gz.sha256
+  --bundle-directory /absolute/path/containing/exact-hermetic-bundle-and-sidecar
 ```
 
 It creates no checked-in record and grants no stand or Phase 18 authority.
@@ -34,14 +33,23 @@ test -f "$S17_REPOSITORY/BUNDLE_MANIFEST.json"
   --root "$S17_REPOSITORY"
 test ! -e "$S17_EVIDENCE"
 install -d -m 0700 "$S17_EVIDENCE"
-"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli.py" \
-  --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" init
-"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli.py" \
+"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+  --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+  init --materialize-admission-root
+export S17_RELEASE_BUNDLE_ROOT="$S17_REPOSITORY"
+export S17_REPOSITORY="$S17_EVIDENCE/admission-root"
+test -f "$S17_EVIDENCE/manifests/stage17-admission-root-binding-v1.json"
+"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
   --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" status
+S17_JOURNAL=$("$S17_PYTHON" -B \
+  "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+  --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+  journal-path)
+test -f "$S17_JOURNAL"
 ```
 
 Expected initial result is `PREPARED`, zero resolutions, zero transitions and
-ten missing inputs. `stage17_operational_cli.py` writes canonical JSON with
+ten missing inputs. `stage17_operational_cli_v4.py` writes canonical JSON with
 `O_EXCL`, fsyncs file and parent, verifies supplied detached signatures, and
 validates a candidate journal before accepting its immutable successor. It
 never signs, invents owner facts, or enables a fake backend.
@@ -50,13 +58,13 @@ For each externally produced typed artifact family, build its manifest without
 manual JSON editing:
 
 ```sh
-"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli.py" \
+"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
   --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
   --pilot-archive "$S17_PILOT_ARCHIVE" --pilot-sidecar "$S17_PILOT_SIDECAR" \
   author-manifest --input-id S17-EXT-NNN --manifest-id OWNER_MANIFEST_ID \
   --stand-id OWNER_STAND_ID \
   --artifact ROLE:ARTIFACT_ID=/absolute/path/to/existing/typed-artifact \
-  --output /absolute/new/path/manifest-v3.json
+  --output /absolute/new/path/manifest-v4.json
 ```
 
 The repeated `--artifact` values must name the complete closed role family for
@@ -64,16 +72,67 @@ that input. The command validates actual bytes against the registered schema.
 
 ## Ordered real workflow
 
-1. Use the fixed EXT001 authoring contract and the owner's signing system to
-   produce canonical unsigned authorization/supporting-contract/envelope bytes
-   plus a detached SSHSIG. Admit them with `admit-resolution`; then run
-   `append-transition`. Expected journal states: resolution `000001`, T1
-   `000002`, state `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`.
+1. Create the fixed EXT001 authorization/supporting-contract/envelope without
+   editing JSON. All uppercase values are owner inputs; the command validates
+   the exact Ed25519 host-key bytes, known-hosts line, transport identity,
+   bundle locators, finite UTC window and fixed read-only policy:
+
+   ```sh
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+     --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+     --pilot-archive "$S17_PILOT_ARCHIVE" \
+     --pilot-sidecar "$S17_PILOT_SIDECAR" author-ext001 \
+     --stand-id "$OWNER_STAND_ID" --ssh-target "$OWNER_SSH_TARGET" \
+     --known-hosts-host "$OWNER_KNOWN_HOSTS_HOST" \
+     --pinned-host-public-key "$OWNER_PINNED_HOST_PUBLIC_KEY" \
+     --pinned-known-hosts "$OWNER_PINNED_KNOWN_HOSTS" \
+     --transport-identity "$OWNER_TRANSPORT_IDENTITY" \
+     --bundle-root-locator "$S17_RELEASE_BUNDLE_ROOT" \
+     --capture-id "$EXT001_CAPTURE_ID" \
+     --captured-at-utc "$EXT001_CAPTURED_AT_UTC" \
+     --preflight-evidence-root "$EXT001_PREFLIGHT_OUTPUT_ROOT" \
+     --actor "$OWNER_ACTOR" --issued-at-utc "$EXT001_ISSUED_AT_UTC" \
+     --expires-at-utc "$EXT001_EXPIRES_AT_UTC" \
+     --authorization-id "$EXT001_AUTHORIZATION_ID" \
+     --attempt-id "$EXT001_ATTEMPT_ID" --contract-id "$EXT001_CONTRACT_ID" \
+     --envelope-id "$EXT001_ENVELOPE_ID" \
+     --output-directory "$S17_REPOSITORY/evidence/ext001-v9"
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+     --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+     --pilot-archive "$S17_PILOT_ARCHIVE" \
+     --pilot-sidecar "$S17_PILOT_SIDECAR" admit-resolution \
+     --input-id S17-EXT-001 --actor "$OWNER_ACTOR" \
+     --recorded-at-utc "$EXT001_RECORDED_AT_UTC" \
+     --repository-evidence "$S17_REPOSITORY/evidence/ext001-v9/envelope-v9.json" \
+     --authorization-file "$S17_REPOSITORY/evidence/ext001-v9/authorization-v8.json"
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+     --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+     --pilot-archive "$S17_PILOT_ARCHIVE" \
+     --pilot-sidecar "$S17_PILOT_SIDECAR" append-transition \
+     --actor "$OWNER_ACTOR" --timestamp-utc "$EXT001_TRANSITION_UTC"
+   ```
+
+   Expected journal states: resolution `000001`, T1 `000002`, state
+   `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`. The v1 journal evidence policy is
+   satisfied inside the private admission snapshot; the release bundle root
+   remains byte-identical and independently verifiable.
 
 2. Execute the six fixed read-only observations with the current preflight
    executor. Author and admit the complete EXT002 manifest (attempt, six
    stdout, six stderr, six receipts, completion, observed trust/runtime and
    inventory records). No Q15 action is permitted before this succeeds.
+
+   ```sh
+   S17_JOURNAL=$("$S17_PYTHON" -B \
+     "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+     --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+     journal-path)
+   "$S17_PYTHON" -B \
+     "$S17_REPOSITORY/tools/stage17_read_only_preflight_executor_v7.py" \
+     --execute --repository-root "$S17_REPOSITORY" \
+     --journal "$S17_JOURNAL" \
+     --journal-directory "$S17_EVIDENCE/journal"
+   ```
 
 3. Author EXT003 owner acceptance from the admitted EXT002 hashes, explicitly
    preserving `distinct_auditor=false` and `independent_review=false`. Admit
@@ -82,40 +141,70 @@ that input. The command validates actual bytes against the registered schema.
 4. Canonically author the Q15-R request and unsigned authorization:
 
    ```sh
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      author-request --action Q15-R --action-inputs "$Q15_R_TYPED_INPUTS" \
-     --request-id "$Q15_R_REQUEST_ID" --authorization-id "$Q15_R_AUTH_ID" \
+     --request-id "$Q15_R_REQUEST_ID" --session-id "$Q15_SESSION_ID" \
+     --authorization-id "$Q15_R_AUTH_ID" \
      --attempt-id "$Q15_R_ATTEMPT_ID" --output-root "$Q15_SESSION_ROOT" \
      --output "$Q15_R_REQUEST"
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      author-authorization --request "$Q15_R_REQUEST" --actor "$Q15_ACTOR" \
      --reviewer "$Q15_REVIEWER" --issued-at-utc "$Q15_R_ISSUED_UTC" \
      --expires-at-utc "$Q15_R_EXPIRES_UTC" --output "$Q15_R_AUTHORIZATION"
    ```
 
-   The owner signs those exact bytes externally. Start the phase-spanning Q15
-   session with `stage17_q15_session_controller_v1.py --start`; it waits in
-   `H0_SEALED_WAITING_FOR_Q15_W` without releasing its private mapping.
+   The owner signs those exact bytes externally and verifies the detached
+   signature through `verify-signature`. Start the phase-spanning Q15 session;
+   it waits in `H0_SEALED_WAITING_FOR_Q15_W` without releasing its private
+   mapping:
+
+   ```sh
+   S17_JOURNAL=$("$S17_PYTHON" -B \
+     "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+     --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+     journal-path)
+   "$S17_PYTHON" -B \
+     "$S17_REPOSITORY/tools/stage17_q15_session_controller_v2.py" --start \
+     --repository-root "$S17_REPOSITORY" --journal "$S17_JOURNAL" \
+     --journal-directory "$S17_EVIDENCE/journal" \
+     --operational-evidence-root "$S17_EVIDENCE" \
+     --authorization "$Q15_R_AUTHORIZATION" --signature "$Q15_R_SIGNATURE" \
+     --pilot-archive "$S17_PILOT_ARCHIVE" \
+     --pilot-sidecar "$S17_PILOT_SIDECAR"
+   ```
 
 5. While Q15-R is waiting, collect, author and admit EXT004's exact
    qualification source/derived records. Canonically author and externally
    sign Q15-W. Continue the same session with
-   `stage17_q15_session_controller_v1.py --continue-q15-w --control-id
-   OWNER_CAPTURED_CONTROL_ID`. Q15-W re-reads live prestate, applies/readbacks,
+   the following command, using the exact control ID printed by the waiting
+   start process. Q15-W re-reads live prestate, applies/readbacks,
    runs both probes, restores/readbacks, and retains failure/quarantine evidence
    if recovery cannot be proven. Admit EXT005 only from its typed outputs.
+
+   ```sh
+   "$S17_PYTHON" -B \
+     "$S17_REPOSITORY/tools/stage17_q15_session_controller_v2.py" \
+     --continue-q15-w --control-id "$Q15_CONTROL_ID" \
+     --journal "$S17_JOURNAL" \
+     --journal-directory "$S17_EVIDENCE/journal" \
+     --operational-evidence-root "$S17_EVIDENCE" \
+     --authorization "$Q15_W_AUTHORIZATION" --signature "$Q15_W_SIGNATURE" \
+     --pilot-archive "$S17_PILOT_ARCHIVE" \
+     --pilot-sidecar "$S17_PILOT_SIDECAR"
+   ```
 
 6. Verify the actual archive/sidecar and author EXT006 without manual JSON:
 
    ```sh
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      --pilot-archive "$S17_PILOT_ARCHIVE" --pilot-sidecar "$S17_PILOT_SIDECAR" \
      author-ext006-contract --primary-custody-domain "$CUSTODY_DOMAIN_A" \
      --secondary-custody-domain "$CUSTODY_DOMAIN_B" \
-     --output "$S17_EVIDENCE/manifests/ext006-contract-v3.json"
+     --contract-id "$EXT006_CONTRACT_ID" \
+     --output "$S17_EVIDENCE/manifests/ext006-contract-v4.json"
    ```
 
    Create both custody receipts, admit EXT006, then append T3 only after
@@ -126,13 +215,11 @@ that input. The command validates actual bytes against the registered schema.
    `author-authorization`, external detached signing, `verify-signature`, then:
 
    ```sh
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_phase_controller_v3.py" \
-     --execute --repository-root "$S17_REPOSITORY" \
-     --operational-evidence-root "$S17_EVIDENCE" \
-     --journal "$S17_EVIDENCE/journal/stage17-state-journal-000009.json" \
-     --journal-directory "$S17_EVIDENCE/journal" \
-     --authorization "$ACTION_AUTHORIZATION" --signature "$ACTION_SIGNATURE" \
-     --pilot-archive "$S17_PILOT_ARCHIVE" --pilot-sidecar "$S17_PILOT_SIDECAR"
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+     --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+     --pilot-archive "$S17_PILOT_ARCHIVE" --pilot-sidecar "$S17_PILOT_SIDECAR" \
+     execute-action --authorization "$ACTION_AUTHORIZATION" \
+     --signature "$ACTION_SIGNATURE"
    ```
 
    Admit EXT007 only after the three complete result families and calibration
@@ -152,14 +239,36 @@ that input. The command validates actual bytes against the registered schema.
     create the Stage 17 exit chain. Completion is derived from admitted EXT010
     and those exact hashes; a handwritten readiness boolean is rejected.
 
+    ```sh
+    "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+      --pilot-archive "$S17_PILOT_ARCHIVE" \
+      --pilot-sidecar "$S17_PILOT_SIDECAR" \
+      derive-stage17-completion --pilot-output-root "$PILOT_OUTPUT_ROOT" \
+      --output "$S17_EVIDENCE/stage17-completion-v4.json"
+    ```
+
 11. Prepare only unissued Phase 18 readiness, independent trust enrollment,
     authorization draft and empty access journal. No Stage 17 authority can
     advance Phase 18 from `PLANNED`.
 
+    ```sh
+    "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
+      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
+      prepare-phase18-readiness \
+      --stage17-completion "$S17_EVIDENCE/stage17-completion-v4.json" \
+      --created-at-utc "$ACTUAL_PHASE18_READINESS_UTC" \
+      --output "$S17_EVIDENCE/phase18-readiness-v4.json"
+    ```
+
+    Without a separately pre-admitted independent Phase 18 trust anchor this
+    command must emit `BLOCKED_EXTERNAL_PHASE18_TRUST_REQUIRED`; it never
+    creates Phase 18 authorization.
+
 At each admission use:
 
 ```sh
-"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli.py" \
+"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v4.py" \
   --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
   --pilot-archive "$S17_PILOT_ARCHIVE" --pilot-sidecar "$S17_PILOT_SIDECAR" \
   admit-resolution --input-id S17-EXT-NNN --actor "$OWNER_ACTOR" \

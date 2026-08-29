@@ -63,7 +63,7 @@ TEST(Stage17FixedAction, CalibrationAndPilotRejectPathWithoutTicketAndSchedule) 
       ASSERT_FALSE(result.has_value()) << package;
       ASSERT_FALSE(result.errors().empty());
       EXPECT_EQ(result.errors().front().rule_id, action == FixedAction::blinded_pilot
-                                                     ? "S17-PILOT-PLAN"
+                                                     ? "S17-PILOT-SESSION-REQUIRED"
                                                      : "S17-Q16-PLAN-FAMILY");
     }
   }

@@ -18,7 +18,9 @@ definitions and supplies the v7 authority/lifecycle predecessor. ADR-0112
 preserves all v1-v7 definitions and supplies the v8 group-quiescence and
 cleanup-evidence predecessor. ADR-0113/policy v9 is preserved as
 `REJECTED_FAIL_OPEN_PREDECESSOR`. ADR-0114/policy v10 remains an immutable
-incomplete predecessor. ADR-0115 supplies the policy-v11 full-bundle,
+incomplete predecessor. ADR-0115 supplies the immutable policy-v11
+predecessor. ADR-0116 accepts the protocol pre.3 pilot warm-up bootstrap
+amendment. ADR-0117 supplies the policy-v12 durable-session, full-bundle,
 fixed-action pilot, streamed-output, supervised-Q15, and handoff successor.
 None of these
 ADRs authorizes stand access or a run:
@@ -43,9 +45,9 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The current versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v11`](../config/stage17/stage17-operational-evidence-admission-policy-v11.json)
-binds policy v10 as an immutable predecessor, ADR-0115, every current record
-schema, fixed phase actions v3, the exact Python controller/admission/exit
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v12`](../config/stage17/stage17-operational-evidence-admission-policy-v12.json)
+binds policy v11 as an immutable predecessor, ADR-0116/0117, every current
+record schema, fixed phase actions v4, the exact Python controller/admission/exit
 closure, and the actual C++ worker/runner/entrypoint sources. It registers a
 production semantic verifier for every catalog input. Admission is
 default-deny: file existence, byte count, SHA-256, generic JSON, boolean-only

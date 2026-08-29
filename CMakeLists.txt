@@ -765,8 +765,8 @@ if(BUILD_TESTING)
     add_test(
       NAME runner.stage17_fixed_action_production
       COMMAND "${Python3_EXECUTABLE}"
-              "${PROJECT_SOURCE_DIR}/tools/check_stage17_fixed_action_production.py"
-              --self-test
+              "${PROJECT_SOURCE_DIR}/tools/check_stage17_production_handoff_v4.py"
+              --run-hermetic-workflow
               --worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
               --no-result-worker "$<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>"
               --bundle-archive "${CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_ARCHIVE}"
@@ -778,8 +778,8 @@ if(BUILD_TESTING)
         PASS_REGULAR_EXPRESSION
           "PASS positive=12 negative=12 compiled_dispatch=true state_gate_mock=false.*stand=NOT_ACCESSED")
   else()
-    add_test(
-      NAME runner.stage17_pilot_semantics_v3
+  add_test(
+    NAME runner.stage17_pilot_semantics_v3
       COMMAND "${Python3_EXECUTABLE}"
               "${PROJECT_SOURCE_DIR}/tools/check_stage17_pilot_semantics_v3.py"
               --self-test)
@@ -789,6 +789,26 @@ if(BUILD_TESTING)
         LABELS "runner;controller;stage17b;pilot;pre-pilot;synthetic"
         PASS_REGULAR_EXPRESSION "PASS positive=2 negative=5")
   endif()
+  add_test(
+    NAME runner.stage17_pilot_semantics_v4
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_pilot_semantics_v4.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_pilot_semantics_v4
+    PROPERTIES
+      LABELS "runner;controller;stage17b2;pilot;raw;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION "PASS \\(2 positive, 9 negative\\)")
+  add_test(
+    NAME runner.stage17_raw_stream_decoder_v1
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/stage17_raw_stream_decoder_v1.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_raw_stream_decoder_v1
+    PROPERTIES
+      LABELS "runner;controller;stage17b2;pilot;raw;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION "PASS \\(3 positive, 4 negative\\)")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -1353,7 +1373,7 @@ if(BUILD_TESTING)
   add_test(NAME smoke.executable COMMAND cpu_prefetch_smoke)
   set_tests_properties(
     smoke.executable
-    PROPERTIES PASS_REGULAR_EXPRESSION "protocol=2.0.0-pre.2")
+    PROPERTIES PASS_REGULAR_EXPRESSION "protocol=2.0.0-pre.3")
 
   add_test(NAME preflight.self_test COMMAND cpu_prefetch_preflight --self-test)
   set_tests_properties(
@@ -2435,9 +2455,17 @@ add_custom_target(
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_pilot_semantics_v3.py"
     --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_pilot_semantics_v4.py"
+    --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/stage17_raw_stream_decoder_v1.py"
+    --self-test
   DEPENDS cpu_prefetch_stage17_test_worker cpu_prefetch_stage17_no_result_worker
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking Stage 17 PID namespace and full 180-cell pilot-plan semantics locally")
+  COMMENT "Checking Stage 17 PID namespace, durable full pilot plan, and independent raw decoding locally")
 add_custom_target(
   stage17-pilot-candidate-artifact-integration-check
   COMMAND
@@ -2565,7 +2593,7 @@ install(
 install(
   FILES
     "${PROJECT_BINARY_DIR}/generated/version_metadata.json"
-    "${PROJECT_SOURCE_DIR}/protocol/2.0.0-pre.2/handoff/PROTOCOL_VERSION.md"
+    "${PROJECT_SOURCE_DIR}/protocol/2.0.0-pre.3/handoff/PROTOCOL_VERSION.md"
     "${PROJECT_SOURCE_DIR}/config/dependencies.json"
     "${PROJECT_SOURCE_DIR}/docs/PLATFORM_CONTROL.md"
     "${PROJECT_SOURCE_DIR}/docs/ANALYSIS.md"
@@ -2696,7 +2724,7 @@ add_custom_target(
     "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/create_stand_bundle.py"
     --source-root "${PROJECT_SOURCE_DIR}"
     --build-dir "${PROJECT_BINARY_DIR}"
-    --output-dir "${PROJECT_BINARY_DIR}/stage17-hermetic-handoff-bundle"
+    --output-dir "${PROJECT_BINARY_DIR}/stage17-hermetic-handoff-bundle/${CPU_PREFETCH_GIT_REVISION_SHORT}"
     --profile stage17-hermetic-dry-run
     --test-linked-worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
     --no-result-worker "$<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>"
@@ -2704,7 +2732,7 @@ add_custom_target(
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/run_stage17_hermetic_handoff.py"
     --bundle-root "${PROJECT_SOURCE_DIR}"
-    --bundle-directory "${PROJECT_BINARY_DIR}/stage17-hermetic-handoff-bundle"
+    --bundle-directory "${PROJECT_BINARY_DIR}/stage17-hermetic-handoff-bundle/${CPU_PREFETCH_GIT_REVISION_SHORT}"
   DEPENDS
     cpu_prefetch_analysis
     cpu_prefetch_calibration

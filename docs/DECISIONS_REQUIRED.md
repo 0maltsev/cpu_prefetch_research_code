@@ -1,10 +1,26 @@
 # Decisions Required
 
-Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
+Protocol version: **`2.0.0-pre.3`**; predecessors `2.0.0-pre.1` and
+`2.0.0-pre.2` retained immutable
 
 Stage 17 disposition: **`OPERATIONAL_SUCCESSOR_PREPARED; TEN_EXTERNAL_INPUTS_REQUIRED`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
+
+## Resolved Stage 17B.2 scientific decision
+
+`D-116` is **`ACCEPTED`**. Protocol `2.0.0-pre.2` required
+warm-up `max(5 s, 10*h_max/rho_min)` while defining both nonconstant inputs
+from valid pilot observations and providing no first-pilot bootstrap rule.
+The owner accepted the prospective five-second pre-freeze bootstrap as both
+protocol and statistical owner. ADR-0116 and immutable protocol
+`2.0.0-pre.3` now define that exception and preserve the later
+`max(5 s, 10*h_max/rho_min)` freeze. The exact options and compatibility
+impact are retained in the
+[`D-116 decision bundle`](STAGE17_PILOT_WARMUP_PROTOCOL_AMENDMENT_DECISION_BUNDLE.md).
+All three snapshots and their manifests pass the protocol hash check. This
+decision grants no stand, calibration, pilot, measurement, or Phase 18
+authority.
 
 The repository still contains no authorized production benchmark execution.
 Q13 adds a fail-closed runner admission/static-dispatch core whose CLI cannot
@@ -34,9 +50,9 @@ through D-108 and their evidence unchanged, keeps D-105 through D-108
 proposed/unaccepted, and replaces their open-ended continuation as a pilot gate
 with one immutable requirement catalog and append-only state journal. The
 current computed state is `PREPARED`; all `S17-EXT-001..010` inputs are
-unresolved. ADR-0106 requires per-input semantic proof: S17-EXT-001 and
-S17-EXT-006 verifiers are implemented; S17-EXT-002..005 and S17-EXT-007..010
-are explicitly `SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED`. There are no
+unresolved. ADR-0117/policy v12 requires per-input semantic proof for every
+`S17-EXT-001..010`; all ten production verifier registrations are implemented
+and default-deny. There are no
 additional decision-only D-109/D-110 questions. The
 old clean commit/archive metadata does not resolve `S17-EXT-006` without
 caller-supplied exact archive/sidecar bytes and a verifiable custody receipt.

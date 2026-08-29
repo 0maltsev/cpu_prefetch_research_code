@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:pilot-run-failure:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "attempt_id", "run_id", "attempt_sha256", "failure_category", "failure_stage", "partial_artifacts", "completed_at_utc", "retry_allowed", "session_complete", "synthetic_test_only", "phase18_authority"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-stage17-pilot-run-failure/1"}, "session_id": {"type": "string", "minLength": 1}, "attempt_id": {"type": "string", "minLength": 1}, "run_id": {"type": "string", "minLength": 1}, "attempt_sha256": {"$ref": "#/$defs/sha256"}, "failure_category": {"type": "string", "minLength": 1}, "failure_stage": {"enum": ["AUTHORITY_GUARD", "HARDWARE_ENTER", "WARMUP", "RESET", "MEASUREMENT", "DRAIN", "ARTIFACT_RETENTION", "DEADLINE", "RESTORATION"]}, "partial_artifacts": {"type": "array", "items": {"$ref": "#/$defs/artifact"}}, "completed_at_utc": {"$ref": "#/$defs/utc"}, "retry_allowed": {"const": false}, "session_complete": {"const": false}, "synthetic_test_only": {"type": "boolean"}, "phase18_authority": {"const": false}},
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "utc": {"type": "string", "format": "date-time", "pattern": "Z$"}, "artifact": {"type": "object", "additionalProperties": false, "required": ["role", "file_name", "size_bytes", "sha256"], "properties": {"role": {"type": "string", "minLength": 1}, "file_name": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+}

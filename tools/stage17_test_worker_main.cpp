@@ -3,6 +3,7 @@
 #include "cpu_prefetch/runner/stage17_fixed_action.hpp"
 #include "cpu_prefetch/workload/deterministic.hpp"
 
+#include <algorithm>
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -15,6 +16,7 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -97,6 +99,57 @@ using JsonValue = cpu_prefetch::protocol::json::Value;
 
 [[nodiscard]] auto fake_hash(char character) -> std::string {
   return std::string(64U, character);
+}
+
+void append_u32(std::vector<std::byte>& output, std::uint32_t value) {
+  for (std::uint32_t shift = 0U; shift < 32U; shift += 8U) {
+    output.push_back(static_cast<std::byte>((value >> shift) & 0xffU));
+  }
+}
+
+void append_u64(std::vector<std::byte>& output, std::uint64_t value) {
+  for (std::uint32_t shift = 0U; shift < 64U; shift += 8U) {
+    output.push_back(static_cast<std::byte>((value >> shift) & 0xffU));
+  }
+}
+
+void append_prefix(std::vector<std::byte>& output, std::string_view run_id) {
+  append_u32(output, static_cast<std::uint32_t>(run_id.size()));
+  for (const auto value : run_id) {
+    output.push_back(static_cast<std::byte>(value));
+  }
+  while ((output.size() % 8U) != 0U) {
+    output.push_back(std::byte{0});
+  }
+}
+
+[[nodiscard]] auto synthetic_raw_rows(std::string_view run_id, std::uint64_t count)
+    -> std::array<std::vector<std::byte>, 3U> {
+  std::array<std::vector<std::byte>, 3U> result;
+  for (std::uint64_t logical = 0U; logical < count; ++logical) {
+    const auto base = logical * 100U;
+    append_prefix(result[0], run_id);
+    for (const auto value : std::array<std::uint64_t, 15U>{
+             logical, logical % 2U, base, 0U, base + 1U, 0U, base + 2U, 0U, base + 3U,
+             0U, base + 4U, 0U, base + 5U, logical, 15U}) {
+      append_u64(result[0], value);
+    }
+    append_prefix(result[1], run_id);
+    for (const auto value :
+         std::array<std::uint64_t, 10U>{logical, logical % 2U, 0U, base + 6U, 0U,
+                                        base + 7U, 0U, base + 8U, 0U, base + 9U}) {
+      append_u64(result[1], value);
+    }
+    append_prefix(result[2], run_id);
+    for (const auto value : std::array<std::uint64_t, 24U>{
+             logical,   logical,   logical % 2U, logical,   logical,   base,
+             base + 1U, base + 2U, base + 3U,    base + 4U, base + 5U, base + 6U,
+             base + 7U, base + 8U, base + 9U,    1U,        1U,        2U,
+             4U,        3U,        2U,           2U,        1U,        9U}) {
+      append_u64(result[2], value);
+    }
+  }
+  return result;
 }
 
 [[nodiscard]] auto msr_values(std::string_view value) -> JsonArray {
@@ -187,18 +240,20 @@ publish_calibration_hardware(FixedAction action, const JsonObject& inputs,
       : action == FixedAction::q16c ? "cpu-prefetch-stage17-q16c-output/3"
                                     : "cpu-prefetch-stage17-blinded-pilot-run/3";
   std::vector<ArtifactPayload> payloads;
-  const auto raw = std::vector<std::byte>(16U, std::byte{0x17});
-  const auto raw_sha = cpu_prefetch::workload::sha256(raw).hex();
+  auto raw = synthetic_raw_rows(*run_id, *offered);
+  const auto producer_sha = cpu_prefetch::workload::sha256(raw[0]).hex();
+  const auto consumer_sha = cpu_prefetch::workload::sha256(raw[1]).hex();
+  const auto joined_sha = cpu_prefetch::workload::sha256(raw[2]).hex();
   payloads.push_back({"PRODUCER_RAW_OBSERVATIONS", "RAW-OBS-U64LE-LP-RUNID-v1",
-                      "application/octet-stream", producer, raw});
+                      "application/octet-stream", producer, raw[0]});
   payloads.push_back({"CONSUMER_RAW_OBSERVATIONS", "RAW-OBS-U64LE-LP-RUNID-v1",
-                      "application/octet-stream", consumer, raw});
+                      "application/octet-stream", consumer, raw[1]});
   payloads.push_back(
-      {"PHASE_INTEGRITY", "cpu-prefetch-phase-integrity-report/1", "application/json",
-       prefix + "phase-integrity-v1.json",
+      {"PHASE_INTEGRITY", "cpu-prefetch-phase-integrity-report/2", "application/json",
+       prefix + "phase-integrity-v2.json",
        encoded({
-           {"schema_version", string_value("cpu-prefetch-phase-integrity-report/1")},
-           {"protocol_version", string_value("2.0.0-pre.2")},
+           {"schema_version", string_value("cpu-prefetch-phase-integrity-report/2")},
+           {"protocol_version", string_value("2.0.0-pre.3")},
            {"record_kind", string_value("PHASE_INTEGRITY_REPORT")},
            {"artifact_id", string_value(prefix + "phase-integrity")},
            {"run_id", string_value(*run_id)},
@@ -211,19 +266,19 @@ publish_calibration_hardware(FixedAction action, const JsonObject& inputs,
            {"event_records_pre_checksum",
             JsonValue(JsonObject{{"algorithm_record_id", string_value("SHA-256")},
                                  {"algorithm_version", string_value("1")},
-                                 {"value_hex", string_value(raw_sha)}})},
+                                 {"value_hex", string_value(producer_sha)}})},
            {"event_records_post_checksum",
             JsonValue(JsonObject{{"algorithm_record_id", string_value("SHA-256")},
                                  {"algorithm_version", string_value("1")},
-                                 {"value_hex", string_value(raw_sha)}})},
+                                 {"value_hex", string_value(producer_sha)}})},
            {"ordered_index_checksum",
             JsonValue(JsonObject{{"algorithm_record_id", string_value("SHA-256")},
                                  {"algorithm_version", string_value("1")},
-                                 {"value_hex", string_value(raw_sha)}})},
+                                 {"value_hex", string_value(producer_sha)}})},
            {"address_delta_checksum",
             JsonValue(JsonObject{{"algorithm_record_id", string_value("SHA-256")},
                                  {"algorithm_version", string_value("1")},
-                                 {"value_hex", string_value(raw_sha)}})},
+                                 {"value_hex", string_value(producer_sha)}})},
            {"content_checksum_match", JsonValue(true)},
        })});
   for (const auto& [role, name] :
@@ -232,14 +287,14 @@ publish_calibration_hardware(FixedAction action, const JsonObject& inputs,
            std::pair{"CONSUMER_RAW_ENVELOPE"sv,
                      prefix + "consumer-envelope-v1.json"}}) {
     payloads.push_back(
-        {std::string(role), "2.0.0-pre.2", "application/json", name,
+        {std::string(role), "2.0.0-pre.3", "application/json", name,
          encoded({{"schema_version", string_value("synthetic-envelope/1")},
                   {"run_id", string_value(*run_id)},
                   {"synthetic_test_only", JsonValue(true)}})});
   }
   payloads.push_back({"JOINED_RAW_OBSERVATIONS", "RAW-OBS-U64LE-LP-RUNID-v1",
-                      "application/octet-stream", joined, raw});
-  payloads.push_back({"JOINED_RAW_ENVELOPE", "2.0.0-pre.2", "application/json",
+                      "application/octet-stream", joined, raw[2]});
+  payloads.push_back({"JOINED_RAW_ENVELOPE", "2.0.0-pre.3", "application/json",
                       prefix + "joined-envelope-v1.json",
                       encoded({{"schema_version", string_value("synthetic-envelope/1")},
                                {"run_id", string_value(*run_id)},
@@ -251,9 +306,9 @@ publish_calibration_hardware(FixedAction action, const JsonObject& inputs,
        prefix + "join-audit-v3.json",
        encoded({{"schema_version", string_value("cpu-prefetch-stage17-join-audit/3")},
                 {"run_id", string_value(*run_id)},
-                {"producer_raw_sha256", string_value(raw_sha)},
-                {"consumer_raw_sha256", string_value(raw_sha)},
-                {"joined_raw_sha256", string_value(raw_sha)},
+                {"producer_raw_sha256", string_value(producer_sha)},
+                {"consumer_raw_sha256", string_value(consumer_sha)},
+                {"joined_raw_sha256", string_value(joined_sha)},
                 {"producer_rows", uint_value(*offered)},
                 {"accepted_rows", uint_value(*offered)},
                 {"full_rows", uint_value(0U)},
@@ -689,6 +744,257 @@ public:
         {std::move(artifacts), true, false, "PILOT_COMPLETE_SEALED"});
   }
 
+  [[nodiscard]] auto execute_pilot_session(
+      const JsonObject& action_inputs, ArtifactSink& sink,
+      const cpu_prefetch::runner::stage17::PilotSessionAuthority& authority)
+      -> Result<ActionOutcome> override {
+    const auto* plan_value = member(action_inputs, "pilot_plan");
+    const auto* plan = plan_value == nullptr ? nullptr : plan_value->as_object();
+    const auto* plan_sha = string_member(action_inputs, "plan_sha256");
+    const auto* cells_value = plan == nullptr ? nullptr : member(*plan, "cells");
+    const auto* cells = cells_value == nullptr ? nullptr : cells_value->as_array();
+    const auto repetitions = plan == nullptr
+                                 ? std::optional<std::uint64_t>{}
+                                 : uint_member(*plan, "repetitions_per_cell");
+    const auto* plan_id = plan == nullptr ? nullptr : string_member(*plan, "plan_id");
+    const auto* hardware_value =
+        plan == nullptr ? nullptr : member(*plan, "hardware_control");
+    const auto* hardware =
+        hardware_value == nullptr ? nullptr : hardware_value->as_object();
+    const auto* q15w =
+        hardware == nullptr ? nullptr : string_member(*hardware, "q15_w_result_sha256");
+    const auto* orders_value =
+        plan == nullptr ? nullptr : member(*plan, "whole_plot_orders");
+    const auto* orders = orders_value == nullptr ? nullptr : orders_value->as_array();
+    if (plan == nullptr || plan_sha == nullptr || plan_id == nullptr ||
+        cells == nullptr || cells->size() != 180U || !repetitions ||
+        *repetitions == 0U || q15w == nullptr || orders == nullptr ||
+        orders->size() != *repetitions) {
+      return Result<ActionOutcome>::failure(ValidationError{
+          ErrorCategory::cross_field, "$/action_inputs/pilot_plan",
+          "S17-TEST-PILOT-SESSION", "synthetic pilot session plan is incomplete"});
+    }
+    struct Entry final {
+      JsonObject run;
+      std::uint64_t repetition;
+      std::uint64_t execution;
+    };
+    std::vector<Entry> run_order;
+    for (const auto& cell_value : *cells) {
+      const auto* cell = cell_value.as_object();
+      const auto* runs_value = cell == nullptr ? nullptr : member(*cell, "runs");
+      const auto* runs = runs_value == nullptr ? nullptr : runs_value->as_array();
+      if (runs == nullptr || runs->size() != *repetitions) {
+        return Result<ActionOutcome>::failure(ValidationError{
+            ErrorCategory::cross_field, "$/action_inputs/pilot_plan/cells",
+            "S17-TEST-PILOT-RUNS", "synthetic repeated pilot cell is incomplete"});
+      }
+      for (const auto& run_value : *runs) {
+        const auto* run = run_value.as_object();
+        const auto repetition = run == nullptr
+                                    ? std::optional<std::uint64_t>{}
+                                    : uint_member(*run, "repetition_ordinal");
+        const auto execution = run == nullptr ? std::optional<std::uint64_t>{}
+                                              : uint_member(*run, "execution_ordinal");
+        if (run == nullptr || !repetition || !execution) {
+          return Result<ActionOutcome>::failure(ValidationError{
+              ErrorCategory::cross_field, "$/action_inputs/pilot_plan/cells/runs",
+              "S17-TEST-PILOT-ORDER", "synthetic run order is absent"});
+        }
+        run_order.push_back({*run, *repetition, *execution});
+      }
+    }
+    std::ranges::sort(run_order, [](const auto& left, const auto& right) {
+      return std::tie(left.repetition, left.execution) <
+             std::tie(right.repetition, right.execution);
+    });
+    if (run_order.size() != 180U * *repetitions) {
+      return Result<ActionOutcome>::failure(
+          ValidationError{ErrorCategory::cross_field, "$/action_inputs/pilot_plan",
+                          "S17-TEST-PILOT-COUNT", "synthetic pilot run count drifted"});
+    }
+    auto artifact_json = [](const auto& item, bool include_schema) {
+      JsonObject value{{"role", string_value(item.role)},
+                       {"file_name", string_value(item.file_name)},
+                       {"size_bytes", uint_value(item.size_bytes)},
+                       {"sha256", string_value(item.sha256)}};
+      if (include_schema) {
+        value.emplace("schema_identity", string_value(item.schema_identity));
+      }
+      return JsonValue(std::move(value));
+    };
+    std::vector<cpu_prefetch::runner::stage17::ArtifactBinding> artifacts;
+    JsonArray attempt_hashes;
+    JsonArray completion_hashes;
+    for (const auto& entry : run_order) {
+      const auto* run_id = string_member(entry.run, "run_id");
+      if (run_id == nullptr) {
+        throw std::runtime_error("synthetic pilot run identity is absent");
+      }
+      std::ostringstream prefix_builder;
+      prefix_builder << "pilot-b" << std::setw(3) << std::setfill('0')
+                     << entry.repetition << "-e" << std::setw(3) << entry.execution
+                     << '-';
+      const auto prefix = prefix_builder.str();
+      const auto attempt_id = authority.session_id + ":" + *run_id + ":attempt-1";
+      auto attempt = publish(
+          sink, "STAGE17_PILOT_RUN_ATTEMPT", "cpu-prefetch-stage17-pilot-run-attempt/1",
+          "application/json", prefix + "attempt-v1.json",
+          encoded({
+              {"schema_version",
+               string_value("cpu-prefetch-stage17-pilot-run-attempt/1")},
+              {"session_id", string_value(authority.session_id)},
+              {"attempt_id", string_value(attempt_id)},
+              {"run_id", string_value(*run_id)},
+              {"plan_sha256", string_value(*plan_sha)},
+              {"authorization_sha256", string_value(authority.authorization_sha256)},
+              {"cell_ordinal", JsonValue(*member(entry.run, "cell_ordinal"))},
+              {"repetition_ordinal", uint_value(entry.repetition)},
+              {"execution_ordinal", uint_value(entry.execution)},
+              {"started_at_utc", string_value("2030-01-01T00:00:00.000000Z")},
+              {"deadline_seconds", uint_value(180U)},
+              {"one_attempt", JsonValue(true)},
+              {"retry_allowed", JsonValue(false)},
+              {"marker_durable", JsonValue(true)},
+              {"synthetic_test_only", JsonValue(true)},
+              {"phase18_authority", JsonValue(false)},
+          }));
+      if (!attempt) {
+        return Result<ActionOutcome>::failure(attempt.errors());
+      }
+      attempt_hashes.push_back(string_value(attempt.value().sha256));
+      artifacts.push_back(attempt.value());
+      auto materialized = entry.run;
+      materialized.emplace("plan_sha256", string_value(*plan_sha));
+      auto run_artifacts =
+          run_payloads(FixedAction::blinded_pilot, materialized, prefix, sink);
+      if (!run_artifacts) {
+        return Result<ActionOutcome>::failure(run_artifacts.errors());
+      }
+      JsonArray run_index;
+      for (const auto& item : run_artifacts.value()) {
+        run_index.push_back(artifact_json(item, false));
+        artifacts.push_back(item);
+      }
+      auto completion =
+          publish(sink, "STAGE17_PILOT_RUN_COMPLETION",
+                  "cpu-prefetch-stage17-pilot-run-completion/1", "application/json",
+                  prefix + "completion-v1.json",
+                  encoded({
+                      {"schema_version",
+                       string_value("cpu-prefetch-stage17-pilot-run-completion/1")},
+                      {"session_id", string_value(authority.session_id)},
+                      {"attempt_id", string_value(attempt_id)},
+                      {"run_id", string_value(*run_id)},
+                      {"attempt_sha256", string_value(attempt.value().sha256)},
+                      {"artifact_bindings", JsonValue(std::move(run_index))},
+                      {"completed_at_utc", string_value("2030-01-01T00:00:00.000001Z")},
+                      {"duration_ns", uint_value(1U)},
+                      {"terminal_state", string_value("RUN_COMPLETED")},
+                      {"restoration_boundary_pending", JsonValue(true)},
+                      {"synthetic_test_only", JsonValue(true)},
+                      {"phase18_authority", JsonValue(false)},
+                  }));
+      if (!completion) {
+        return Result<ActionOutcome>::failure(completion.errors());
+      }
+      completion_hashes.push_back(string_value(completion.value().sha256));
+      artifacts.push_back(completion.value());
+    }
+    auto hardware_artifact =
+        publish(sink, "STAGE17_PILOT_HARDWARE_STATE",
+                "cpu-prefetch-stage17-pilot-hardware-state/2", "application/json",
+                "stage17-pilot-hardware-state-v2.json",
+                encoded({
+                    {"schema_version",
+                     string_value("cpu-prefetch-stage17-pilot-hardware-state/2")},
+                    {"mapping_id", string_value("INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1")},
+                    {"q15_w_result_sha256", string_value(*q15w)},
+                    {"whole_plot_orders", JsonValue(*orders)},
+                    {"apply_readback", JsonValue(msr_values("000000000000000f"))},
+                    {"restore_readback", JsonValue(msr_values("0000000000000000"))},
+                    {"cell_count", uint_value(180U)},
+                    {"run_count", uint_value(run_order.size())},
+                    {"restoration_verified", JsonValue(true)},
+                    {"phase18_authority", JsonValue(false)},
+                }));
+    if (!hardware_artifact) {
+      return Result<ActionOutcome>::failure(hardware_artifact.errors());
+    }
+    artifacts.push_back(hardware_artifact.value());
+    JsonArray manifest_index;
+    for (const auto& item : artifacts) {
+      manifest_index.push_back(artifact_json(item, true));
+    }
+    auto manifest = publish(
+        sink, "SEALED_PILOT_ARTIFACT_MANIFEST",
+        "cpu-prefetch-stage17-sealed-pilot-artifact-manifest/4", "application/json",
+        "stage17-sealed-pilot-manifest-v4.json",
+        encoded({
+            {"schema_version",
+             string_value("cpu-prefetch-stage17-sealed-pilot-artifact-manifest/4")},
+            {"session_id", string_value(authority.session_id)},
+            {"authorization_sha256", string_value(authority.authorization_sha256)},
+            {"plan_id", string_value(*plan_id)},
+            {"plan_sha256", string_value(*plan_sha)},
+            {"cell_count", uint_value(180U)},
+            {"repetitions_per_cell", uint_value(*repetitions)},
+            {"run_count", uint_value(run_order.size())},
+            {"artifact_count", uint_value(artifacts.size())},
+            {"artifacts", JsonValue(std::move(manifest_index))},
+            {"run_attempt_sha256s", JsonValue(attempt_hashes)},
+            {"run_completion_sha256s", JsonValue(completion_hashes)},
+            {"treatment_blind", JsonValue(true)},
+            {"confirmatory_outcomes_accessed", JsonValue(false)},
+            {"sealed", JsonValue(true)},
+            {"synthetic_test_only", JsonValue(true)},
+            {"phase18_authority", JsonValue(false)},
+        }));
+    if (!manifest) {
+      return Result<ActionOutcome>::failure(manifest.errors());
+    }
+    artifacts.push_back(manifest.value());
+    auto file_ref = [](const auto& item) {
+      return JsonValue(JsonObject{{"file_name", string_value(item.file_name)},
+                                  {"size_bytes", uint_value(item.size_bytes)},
+                                  {"sha256", string_value(item.sha256)}});
+    };
+    auto session = publish(
+        sink, "STAGE17_PILOT_SESSION_COMPLETION",
+        "cpu-prefetch-stage17-pilot-session-completion/1", "application/json",
+        "stage17-pilot-session-completion-v1.json",
+        encoded({
+            {"schema_version",
+             string_value("cpu-prefetch-stage17-pilot-session-completion/1")},
+            {"session_id", string_value(authority.session_id)},
+            {"authorization_id", string_value(authority.authorization_id)},
+            {"authorization_sha256", string_value(authority.authorization_sha256)},
+            {"request_sha256", string_value(authority.request_sha256)},
+            {"plan_id", string_value(*plan_id)},
+            {"plan_sha256", string_value(*plan_sha)},
+            {"stand_id", string_value(authority.stand_id)},
+            {"run_count", uint_value(run_order.size())},
+            {"run_attempt_sha256s", JsonValue(attempt_hashes)},
+            {"run_completion_sha256s", JsonValue(completion_hashes)},
+            {"sealed_manifest", file_ref(manifest.value())},
+            {"hardware_state", file_ref(hardware_artifact.value())},
+            {"started_at_utc", string_value("2030-01-01T00:00:00.000000Z")},
+            {"completed_at_utc", string_value("2030-01-01T00:00:01.000000Z")},
+            {"terminal_state", string_value("PILOT_SESSION_COMPLETE_SEALED")},
+            {"all_runs_complete", JsonValue(true)},
+            {"restoration_verified", JsonValue(true)},
+            {"quarantined", JsonValue(false)},
+            {"synthetic_test_only", JsonValue(true)},
+            {"phase18_authority", JsonValue(false)},
+        }));
+    if (!session) {
+      return Result<ActionOutcome>::failure(session.errors());
+    }
+    artifacts.push_back(session.value());
+    return Result<ActionOutcome>::success(
+        {std::move(artifacts), true, false, "PILOT_SESSION_COMPLETE_SEALED"});
+  }
+
   [[nodiscard]] auto synthetic_test_only() const noexcept -> bool override {
     return true;
   }
@@ -698,7 +1004,7 @@ public:
 
 int main(int argc, char** argv) {
   try {
-    if (argc == 2 && std::string_view(argv[1]) == "--stage17-runtime-identity-v3") {
+    if (argc == 2 && std::string_view(argv[1]) == "--stage17-runtime-identity-v4") {
       const auto repository = cpu_prefetch::foundation::repository_info();
       const auto binary_sha256 =
           cpu_prefetch::runner::stage17::self_executable_sha256();
@@ -723,6 +1029,11 @@ int main(int argc, char** argv) {
     if (argc >= 2 && std::string_view(argv[1]) == "--execute-stage17-q15-session-v1") {
       return cpu_prefetch::runner::stage17::run_test_q15_phase_session_worker(
           argc, argv, operations);
+    }
+    if (argc >= 2 &&
+        std::string_view(argv[1]) == "--execute-stage17-pilot-session-v1") {
+      return cpu_prefetch::runner::stage17::run_pilot_session_worker(argc, argv,
+                                                                     operations);
     }
     return cpu_prefetch::runner::stage17::run_fixed_action_worker(argc, argv,
                                                                   operations);

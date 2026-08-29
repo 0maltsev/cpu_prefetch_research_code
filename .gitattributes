@@ -1,0 +1,2 @@
+# Preserve intentional Markdown hard-break bytes in the imported protocol snapshot.
+protocol/2.0.0-pre.3/handoff/HANDOFF_READINESS_REPORT.md -whitespace

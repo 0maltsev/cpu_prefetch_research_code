@@ -15,12 +15,15 @@ namespace {
 void usage(std::ostream& output) {
   output << "Usage:\n"
          << "  cpu_prefetch_runner --self-test\n"
-         << "  cpu_prefetch_runner --execute-fixed-stage17-action-v3 ACTION "
+         << "  cpu_prefetch_runner --execute-fixed-stage17-action-v4 ACTION "
             "--request-fd FD --context-fd FD --output-dir-fd FD "
             "--fixed-dispatch-end\n"
          << "  cpu_prefetch_runner --execute-stage17-q15-session-v1 "
             "--q15-r-request-fd FD --q15-r-context-fd FD "
             "--q15-w-control-fd FD --output-dir-fd FD --fixed-dispatch-end\n"
+         << "  cpu_prefetch_runner --execute-stage17-pilot-session-v1 "
+            "--request-fd FD --context-fd FD --output-dir-fd FD "
+            "--fixed-dispatch-end\n"
          << "  cpu_prefetch_runner --validate-admission FILE --stand-id ID "
             "--binding-id ID\n\n"
          << "The Stage 17 action entry is an internal fd-only dispatcher. It accepts "
@@ -49,7 +52,7 @@ void print_errors(std::span<const cpu_prefetch::protocol::ValidationError> error
 }
 
 int run(int argc, char** argv) {
-  if (argc == 2 && std::string_view(argv[1]) == "--stage17-runtime-identity-v3") {
+  if (argc == 2 && std::string_view(argv[1]) == "--stage17-runtime-identity-v4") {
     const auto repository = cpu_prefetch::foundation::repository_info();
     const auto binary_sha256 = cpu_prefetch::runner::stage17::self_executable_sha256();
     if (!binary_sha256) {
@@ -69,13 +72,18 @@ int run(int argc, char** argv) {
                  "\"synthetic_test_only\":false}\n";
     return 0;
   }
-  if (argc >= 2 && std::string_view(argv[1]) == "--execute-fixed-stage17-action-v3") {
+  if (argc >= 2 && std::string_view(argv[1]) == "--execute-fixed-stage17-action-v4") {
     cpu_prefetch::runner::stage17::LinuxFixedActionOperations operations;
     return cpu_prefetch::runner::stage17::run_fixed_action_worker(argc, argv,
                                                                   operations);
   }
   if (argc >= 2 && std::string_view(argv[1]) == "--execute-stage17-q15-session-v1") {
     return cpu_prefetch::runner::stage17::run_q15_phase_session_worker(argc, argv);
+  }
+  if (argc >= 2 && std::string_view(argv[1]) == "--execute-stage17-pilot-session-v1") {
+    cpu_prefetch::runner::stage17::LinuxFixedActionOperations operations;
+    return cpu_prefetch::runner::stage17::run_pilot_session_worker(argc, argv,
+                                                                   operations);
   }
   if (argc == 2 && std::string_view(argv[1]) == "--self-test") {
     const auto repository = cpu_prefetch::foundation::repository_info();

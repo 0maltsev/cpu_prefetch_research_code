@@ -15,7 +15,7 @@ import subprocess
 import sys
 import tempfile
 
-import stage17_pilot_candidate_artifact_v3 as pilot_artifact
+import stage17_pilot_candidate_artifact_v4 as pilot_artifact
 
 
 def _run(command: list[str], *, root: pathlib.Path, timeout: int) -> None:
@@ -62,11 +62,26 @@ def main() -> int:
             root = pilot_artifact._safe_extract(
                 archive, pathlib.Path(temporary.name)
             )
-        worker = root / "release/bin/cpu_prefetch_runner"
-        no_result = root / "release/bin/cpu_prefetch_stage17_no_result_worker"
+        operational_temporary = tempfile.TemporaryDirectory(
+            prefix="stage17-hermetic-operational-"
+        )
+        operational_root = pathlib.Path(operational_temporary.name) / "evidence"
+        operational_root.mkdir(mode=0o700)
+        _run(
+            [sys.executable, "-B", "tools/stage17_operational_cli_v4.py",
+             "--repository-root", str(root),
+             "--evidence-root", str(operational_root),
+             "--synthetic-test-only", "init", "--materialize-admission-root"],
+            root=root, timeout=180,
+        )
+        admission_root = operational_root / "admission-root"
+        worker = admission_root / "release/bin/cpu_prefetch_runner"
+        no_result = (
+            admission_root / "release/bin/cpu_prefetch_stage17_no_result_worker"
+        )
         required = (
             root / "validators/verify_stand_bundle.py",
-            root / "tools/check_stage17_fixed_action_production.py",
+            admission_root / "tools/check_stage17_production_handoff_v4.py",
             worker, no_result, archive, sidecar,
         )
         if any(not item.is_file() or item.is_symlink() for item in required):
@@ -79,17 +94,24 @@ def main() -> int:
         )
         _run(
             [sys.executable, "-B",
-             "tools/check_stage17_fixed_action_production.py", "--self-test",
+             "tools/check_stage17_production_handoff_v4.py",
+             "--run-hermetic-workflow",
              "--worker", str(worker),
              "--no-result-worker", str(no_result),
+             # Release provenance must be derived from the unchanged verified
+             # bundle, not from the separate admission workspace after it has
+             # acquired create-exclusive repository-evidence records.
+             "--bundle-root", str(root),
              "--bundle-archive", str(archive),
              "--bundle-sidecar", str(sidecar)],
-            root=root, timeout=1800,
+            root=admission_root, timeout=1800,
         )
     except (OSError, subprocess.SubprocessError, RuntimeError) as exception:
         print(f"stage17-hermetic-handoff: FAIL: {exception}", file=sys.stderr)
         return 1
     finally:
+        if "operational_temporary" in locals():
+            operational_temporary.cleanup()
         if temporary is not None:
             temporary.cleanup()
     print(

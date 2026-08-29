@@ -10,8 +10,8 @@ import re
 import sys
 from pathlib import Path
 
-PROTOCOL_VERSIONS = ("2.0.0-pre.1", "2.0.0-pre.2")
-CURRENT_PROTOCOL_VERSION = "2.0.0-pre.2"
+PROTOCOL_VERSIONS = ("2.0.0-pre.1", "2.0.0-pre.2", "2.0.0-pre.3")
+CURRENT_PROTOCOL_VERSION = "2.0.0-pre.3"
 
 
 def sha256(path: Path) -> str:
@@ -59,10 +59,10 @@ def main() -> int:
             fail(f"{protocol_version}: manifest is not verified PASS")
         if protocol_version == CURRENT_PROTOCOL_VERSION:
             authorization = manifest.get("authorization", {})
-            if authorization.get("decision_id") != "D-031" or authorization.get(
+            if authorization.get("decision_id") != "D-116" or authorization.get(
                 "approval_ids"
-            ) != ["Q10", "Q11"]:
-                fail("current snapshot lacks the exact D-031 Q10/Q11 authorization")
+            ) != ["Q17B2-PROT"]:
+                fail("current snapshot lacks the exact D-116 Q17B2-PROT authorization")
 
         declared_paths: set[Path] = set()
         for artifact in manifest.get("artifacts", []):

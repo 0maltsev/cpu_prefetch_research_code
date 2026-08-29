@@ -33,6 +33,11 @@ def main() -> int:
     parser.add_argument("--prior-version", required=True)
     parser.add_argument("--git-revision", required=True)
     parser.add_argument("--timestamp-utc", required=True)
+    parser.add_argument("--decision-id", default="D-031")
+    parser.add_argument("--approval-id", action="append", dest="approval_ids")
+    parser.add_argument(
+        "--git-commit-status", default="Q10_Q11_AUTHORIZED_LOCAL_AMENDMENT"
+    )
     arguments = parser.parse_args()
 
     root = arguments.source_root.resolve()
@@ -65,7 +70,7 @@ def main() -> int:
         "source_repository": {
             "identity": "cpu_prefetch_research_code_protocol_authority",
             "git_commit": arguments.git_revision,
-            "git_commit_status": "Q10_Q11_AUTHORIZED_LOCAL_AMENDMENT",
+            "git_commit_status": arguments.git_commit_status,
         },
         "import_timestamp_utc": arguments.timestamp_utc,
         "verification_result": "PASS",
@@ -83,8 +88,8 @@ def main() -> int:
             "prior_status": "IMMUTABLE_READABLE_NO_MIXED_SEALED_GRAPH",
         },
         "authorization": {
-            "decision_id": "D-031",
-            "approval_ids": ["Q10", "Q11"],
+            "decision_id": arguments.decision_id,
+            "approval_ids": arguments.approval_ids or ["Q10", "Q11"],
             "authority_roles": ["PROTOCOL_OWNER", "STATISTICAL_OWNER"],
             "outcome_accessed": False,
         },

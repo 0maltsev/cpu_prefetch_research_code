@@ -15,13 +15,13 @@ namespace cpu_prefetch::runner::stage17 {
 inline constexpr std::string_view kFixedActionWorkerRole =
     "STAGE17_FIXED_ACTION_WORKER";
 inline constexpr std::string_view kFixedActionRuntimeProfile =
-    "STAGE17-FIXED-ACTION-WORKER-v3";
+    "STAGE17-FIXED-ACTION-WORKER-v4";
 inline constexpr std::string_view kFixedActionRequestSchema =
-    "cpu-prefetch-stage17-fixed-action-request/3";
+    "cpu-prefetch-stage17-fixed-action-request/4";
 inline constexpr std::string_view kFixedActionResultSchema =
-    "cpu-prefetch-stage17-phase-action-result/3";
+    "cpu-prefetch-stage17-phase-action-result/4";
 inline constexpr std::string_view kFixedActionContextSchema =
-    "cpu-prefetch-stage17-fixed-action-context/3";
+    "cpu-prefetch-stage17-fixed-action-context/4";
 
 enum class FixedAction : std::uint8_t {
   q15_r,
@@ -68,6 +68,18 @@ struct ActionOutcome final {
   std::string terminal_state;
 };
 
+struct PilotSessionAuthority final {
+  std::string session_id;
+  std::string authorization_id;
+  std::string authorization_sha256;
+  std::string request_sha256;
+  std::string stand_id;
+  std::uint64_t issued_at_epoch_seconds;
+  std::uint64_t expires_at_epoch_seconds;
+  std::uint64_t per_run_deadline_seconds;
+  bool synthetic_test_only;
+};
+
 // The production and test-linked workers share parsing, exact dispatcher,
 // create-exclusive output, and typed result construction.  Only the concrete
 // operations implementation differs at link/entry-point construction time;
@@ -80,6 +92,10 @@ public:
                                      const protocol::json::Value::Object& action_inputs,
                                      ArtifactSink& sink)
       -> protocol::Result<ActionOutcome> = 0;
+  [[nodiscard]] virtual auto
+  execute_pilot_session(const protocol::json::Value::Object& action_inputs,
+                        ArtifactSink& sink, const PilotSessionAuthority& authority)
+      -> protocol::Result<ActionOutcome>;
   [[nodiscard]] virtual auto synthetic_test_only() const noexcept -> bool = 0;
 };
 
@@ -89,13 +105,17 @@ public:
                              const protocol::json::Value::Object& action_inputs,
                              ArtifactSink& sink)
       -> protocol::Result<ActionOutcome> override;
+  [[nodiscard]] auto
+  execute_pilot_session(const protocol::json::Value::Object& action_inputs,
+                        ArtifactSink& sink, const PilotSessionAuthority& authority)
+      -> protocol::Result<ActionOutcome> override;
   [[nodiscard]] auto synthetic_test_only() const noexcept -> bool override {
     return false;
   }
 };
 
 // Internal fd-only worker boundary. Accepted argv is exactly:
-//   --execute-fixed-stage17-action-v3 ACTION --request-fd N --context-fd N
+//   --execute-fixed-stage17-action-v4 ACTION --request-fd N --context-fd N
 //   --output-dir-fd N --fixed-dispatch-end
 // The caller cannot provide a command, plugin, stdin, output name, backend, or
 // experiment-definition path.  Returns 0 only after a typed result and every
@@ -112,6 +132,12 @@ public:
 [[nodiscard]] auto run_test_q15_phase_session_worker(int argc, char** argv,
                                                      FixedActionOperations& operations)
     -> int;
+
+// The pilot is a durable session, not one 180-second action.  One compiled
+// process retains mappings across the frozen run order; each run receives its
+// own durable marker, actual-UTC guard, and 180-second fail-stop watchdog.
+[[nodiscard]] auto run_pilot_session_worker(int argc, char** argv,
+                                            FixedActionOperations& operations) -> int;
 
 } // namespace cpu_prefetch::runner::stage17
 

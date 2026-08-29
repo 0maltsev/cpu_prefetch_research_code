@@ -18,7 +18,7 @@ separate Stage 12 offline reconciliation layer.
 | Endianness | `LITTLE_ENDIAN` |
 | Compression | `NONE` |
 | Durability policy | `RAW-OBS-NONE-TMP1-DUR2-v1` |
-| Logical/envelope schema version | Matches its immutable protocol graph (`2.0.0-pre.1` historical or current `2.0.0-pre.2`); no mixed envelope/row graph |
+| Logical/envelope schema version | Matches its immutable protocol graph (`2.0.0-pre.1`/pre.2 historical or current `2.0.0-pre.3`); no mixed envelope/row graph |
 | Canonical JSON | `JCS-I64-v1`, UTF-8, no BOM or trailing newline |
 
 These values implement ADR-0032 and ADR-0033. Unknown or mixed identifiers,
@@ -124,7 +124,7 @@ hex value. The report also records pre/post equality without suppressing a
 mismatch. A mismatch may invalidate a run later; it does not authorize
 destruction of the raw evidence.
 
-`cpu-prefetch-copy-ledger-record/1` is implementation-owned and remains outside
+`cpu-prefetch-copy-ledger-record/2` is implementation-owned and remains outside
 the imported envelope. It records object/subject identity, exact bytes/hash,
 stream completeness, policy/counts, each domain/URI/readback/result/timestamp,
 failures, and `SEALED_COMPLETE` or `INCOMPLETE`. Here, sealed completion means

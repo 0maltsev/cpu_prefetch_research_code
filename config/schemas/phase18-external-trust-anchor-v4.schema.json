@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:phase18:external-trust-anchor:v4",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "anchor_id", "allowed_signers", "public_key_fingerprint_sha256", "principal", "namespace", "signer_role", "reviewer_role", "custody_approval_id", "independent_from_stage17", "admitted_at_utc", "phase18_authority"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-phase18-external-trust-anchor/4"}, "anchor_id": {"type": "string", "minLength": 1}, "allowed_signers": {"$ref": "#/$defs/file"}, "public_key_fingerprint_sha256": {"type": "string", "pattern": "^SHA256:[A-Za-z0-9+/]{43}$"}, "principal": {"type": "string", "minLength": 1}, "namespace": {"const": "cpu-prefetch-phase18-access-v4"}, "signer_role": {"type": "string", "minLength": 1}, "reviewer_role": {"type": "string", "minLength": 1}, "custody_approval_id": {"type": "string", "minLength": 1}, "independent_from_stage17": {"const": true}, "admitted_at_utc": {"type": "string", "format": "date-time", "pattern": "Z$"}, "phase18_authority": {"const": false}},
+  "$defs": {"sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "file": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha"}}}}
+}

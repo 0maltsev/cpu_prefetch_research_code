@@ -6,7 +6,7 @@ namespace {
 
 TEST(RepositoryInfo, CarriesProtocolAndBuildIdentity) {
   const auto info = cpu_prefetch::foundation::repository_info();
-  EXPECT_EQ(info.protocol_version, "2.0.0-pre.2");
+  EXPECT_EQ(info.protocol_version, "2.0.0-pre.3");
   EXPECT_FALSE(info.source_revision.empty());
   EXPECT_FALSE(info.source_revision_short.empty());
   EXPECT_FALSE(info.compiler.empty());

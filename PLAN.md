@@ -1,7 +1,7 @@
 # Stage A Implementation Plan
 
-Protocol version: **`2.0.0-pre.2`** (with immutable predecessor
-`2.0.0-pre.1`). Status values are `COMPLETE`, `BLOCKED`, `PENDING`, and
+Protocol version: **`2.0.0-pre.3`** (with immutable predecessors
+`2.0.0-pre.1` and `2.0.0-pre.2`). Status values are `COMPLETE`, `BLOCKED`, `PENDING`, and
 `PROHIBITED`. The phases are dependency ordered; a later phase may be explored
 only where it cannot force an unresolved earlier choice. Stage B and Stage C
 are deferred future work outside this plan and require separate
@@ -17,10 +17,11 @@ authorization/amendment.
 - **Explicitly excluded:** Benchmark, queues, controls, runner, analysis pipeline, calibration, pilot, confirmation.
 - **Rollback or failure behavior:** A declared-hash mismatch or normative contradiction stops bootstrap; do not repair imported bytes. Remove no source evidence; replace a bad import only from verified source and record a new timestamp/manifest.
 - **Status:** `COMPLETE_REVERIFIED`; Q11 preserved the original 18-artifact
-  pre.1 snapshot and added the authorized 18-artifact pre.2 snapshot. The
-  pinned jsonschema 4.26.0 check verifies all 36 sizes/hashes, both exact
-  inventories, eight authoritative hashes, and all 14 imported Draft 2020-12
-  schemas.
+  pre.1 snapshot and added the authorized 18-artifact pre.2 snapshot. D-116
+  added the accepted 18-artifact pre.3 amendment while preserving both
+  predecessors. The pinned jsonschema 4.26.0 check verifies all 54
+  sizes/hashes, three exact inventories, twelve authoritative hashes, and all
+  21 imported Draft 2020-12 schemas.
 
 ## Phase 2 — Implementation-decision freeze
 
@@ -352,7 +353,12 @@ authorization/amendment.
 - **Acceptance criteria:** Evidence is complete and treatment-blind for each required freeze; no failed correctness gate; all confirmatory decisions can be justified or the study is declared infeasible/unresolved.
 - **Explicitly excluded:** Confirmatory outcomes, result-bearing claims, treatment-driven tuning, pilot substitution for Stage A.
 - **Rollback or failure behavior:** Preserve all pilot artifacts/failures. Material implementation/platform change invalidates dependent pilot evidence. Do not cherry-pick or repeat for favorable effects.
-- **Status:** `PREPARED_EXTERNAL_INPUTS_REQUIRED`; Q14 accepts D-044 through D-046, D-047 closes the
+- **Status:** `LOCAL_STAGE17B2_ENGINEERING_CLOSED; EXTERNAL_INPUTS_REQUIRED`;
+  D-116/ADR-0116 and immutable pre.3 resolve the first-pilot warm-up cycle with
+  an exact five-second pre-freeze bootstrap and preserve the later pilot-derived
+  freeze. ADR-0117/policy v12 implements the durable per-run pilot session and
+  independent raw decoder without authorizing Q16 or pilot execution. Q14
+  accepts D-044 through D-046, D-047 closes the
   physical emitter and strict combined audit, and Q15-P0/ADR-0048 through
   ADR-0050 accept the repository-local prerequisite correction/mapping/policy.
   The v3 implementation passes the complete local compiler, sanitizer, schema,
@@ -538,14 +544,19 @@ authorization/amendment.
   a failure-publication error. The 17A.7 focused suites pass seven positive and
   fourteen negative cases without creating an external input or authority.
   ADR-0113/policy v9 is rejected and its controller refuses; ADR-0114/policy
-  v10 remains an immutable incomplete predecessor. ADR-0115/policy v11 is the
-  repository-local production boundary: full clean-bundle/EXT006 verification,
+  v10 and ADR-0115/policy v11 remain immutable incomplete predecessors.
+  ADR-0116 accepts protocol pre.3; ADR-0117/policy v12 is the repository-local
+  production boundary: full clean-bundle/EXT006 verification,
   all ten input verifiers, independent trust/release contexts, supervised Q15,
-  complete Q16 and 180-cell pilot semantics, six compiled fixed actions,
-  exact-byte execution, streamed typed output admission, Stage 17 exit, and
-  independent signed Phase 18 access. The one-command hermetic bundle-root
+  complete Q16 and durable repeated 180-cell pilot semantics, six compiled
+  fixed actions, exact-byte execution, bounded independent raw decoding,
+  streamed typed output admission, Stage 17 exit, and independent signed
+  Phase 18 access. The one-command hermetic bundle-root
   rehearsal runs the 10-resolution/3-transition/pilot/seal/exit flow through
-  the compiled test-linked dispatcher without advancing the checked-in journal.
+  the compiled test-linked dispatcher without advancing the checked-in journal;
+  it passes 12 positive and 12 negative public-workflow cases. Fresh dev,
+  ASan/UBSan, and TSan matrices pass 339/339 each, with formatting, focused
+  clang-tidy, and strict dual-disassembler gates also passing.
   The next step is the
   exact stand handoff in `docs/STAGE17_STAND_HANDOFF.md`, not another local
   hardening stage.

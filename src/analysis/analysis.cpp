@@ -91,8 +91,10 @@ void add(std::vector<protocol::ValidationError>& errors,
     -> std::string_view {
   switch (version) {
   case protocol::ProtocolVersion::v2_0_0_pre_1:
-    return protocol::kPreviousProtocolVersion;
+    return protocol::kOldestReadableProtocolVersion;
   case protocol::ProtocolVersion::v2_0_0_pre_2:
+    return protocol::kPreviousProtocolVersion;
+  case protocol::ProtocolVersion::v2_0_0_pre_3:
     return protocol::kProtocolVersion;
   }
   return {};
@@ -1114,11 +1116,12 @@ auto summarize_run(const SyntheticRunInput& run,
                    std::span<const ImmutableArtifact> artifacts)
     -> protocol::Result<RunSummary> {
   std::vector<protocol::ValidationError> errors;
-  if (run.protocol_version != protocol::ProtocolVersion::v2_0_0_pre_2 ||
+  if ((run.protocol_version != protocol::ProtocolVersion::v2_0_0_pre_2 &&
+       run.protocol_version != protocol::ProtocolVersion::v2_0_0_pre_3) ||
       run.schema_version != kRunInputSchema) {
     add(errors, protocol::ErrorCategory::unsupported_version, "$/run/version",
         "ANALYSIS-RUN-VERSION",
-        "Stage 15 accepts only the pre.2 synthetic run-input schema");
+        "Stage 15 accepts only the pre.2/pre.3 synthetic run-input schemas");
   }
   const auto* manifest =
       find_artifact(artifacts, run.manifest_artifact.artifact_id.value());
@@ -1744,7 +1747,10 @@ auto canonical_configuration(const AnalysisConfiguration& configuration)
 auto run_synthetic_analysis(const AnalysisInput& input)
     -> protocol::Result<AnalysisOutput> {
   std::vector<protocol::ValidationError> errors;
-  if (input.configuration.protocol_version != protocol::ProtocolVersion::v2_0_0_pre_2 ||
+  if ((input.configuration.protocol_version !=
+           protocol::ProtocolVersion::v2_0_0_pre_2 &&
+       input.configuration.protocol_version !=
+           protocol::ProtocolVersion::v2_0_0_pre_3) ||
       input.configuration.analysis_profile != kAnalysisProfile ||
       input.configuration.bootstrap.profile != kBootstrapProfile ||
       input.configuration.bootstrap.rng_algorithm_version !=
@@ -1760,7 +1766,7 @@ auto run_synthetic_analysis(const AnalysisInput& input)
   std::set<std::string> artifact_ids;
   for (std::size_t index = 0U; index < input.artifacts.size(); ++index) {
     const auto& artifact = input.artifacts[index];
-    if (artifact.protocol_version != protocol::ProtocolVersion::v2_0_0_pre_2) {
+    if (artifact.protocol_version != input.configuration.protocol_version) {
       add(errors, protocol::ErrorCategory::unsupported_version,
           "$/artifacts/" + std::to_string(index), "ANALYSIS-MIXED-VERSION",
           "mixed protocol versions are forbidden");

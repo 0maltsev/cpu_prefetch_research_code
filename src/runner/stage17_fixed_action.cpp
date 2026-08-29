@@ -25,6 +25,7 @@
 #include <cerrno>
 #include <charconv>
 #include <chrono>
+#include <condition_variable>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -34,6 +35,7 @@
 #include <limits>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <optional>
 #include <ranges>
 #include <set>
@@ -44,6 +46,7 @@
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <thread>
+#include <tuple>
 #include <unistd.h>
 #include <utility>
 #include <vector>
@@ -62,7 +65,7 @@ constexpr std::size_t kMaximumRequestBytes =
 constexpr std::size_t kMaximumWorkerBytes =
     static_cast<std::size_t>(64U) * 1024U * 1024U;
 constexpr std::size_t kCacheLineBytes = 64U;
-constexpr std::string_view kResultFileName = "stage17-action-result-v3.json";
+constexpr std::string_view kResultFileName = "stage17-action-result-v4.json";
 
 [[nodiscard]] auto make_error(protocol::ErrorCategory category, std::string path,
                               std::string rule, std::string message)
@@ -184,6 +187,48 @@ template <typename T>
          << std::setfill('0') << microseconds << 'Z';
   return output.str();
 }
+
+[[nodiscard]] auto epoch_seconds_now() -> std::uint64_t {
+  const auto value = std::chrono::duration_cast<std::chrono::seconds>(
+                         std::chrono::system_clock::now().time_since_epoch())
+                         .count();
+  if (value <= 0) {
+    throw std::runtime_error("system UTC is outside the supported epoch");
+  }
+  return static_cast<std::uint64_t>(value);
+}
+
+class PilotRunDeadline final {
+public:
+  explicit PilotRunDeadline(std::chrono::seconds duration)
+      : worker_([this, duration] {
+          std::unique_lock lock(mutex_);
+          if (!condition_.wait_for(lock, duration, [this] { return complete_; })) {
+            // The controller records the already durable per-run marker and a
+            // typed session failure after the process family is reaped.  _exit
+            // is async-signal-independent and cannot be mistaken for success.
+            ::_exit(124);
+          }
+        }) {}
+
+  PilotRunDeadline(const PilotRunDeadline&) = delete;
+  auto operator=(const PilotRunDeadline&) -> PilotRunDeadline& = delete;
+
+  ~PilotRunDeadline() {
+    {
+      std::lock_guard lock(mutex_);
+      complete_ = true;
+    }
+    condition_.notify_all();
+    worker_.join();
+  }
+
+private:
+  std::mutex mutex_;
+  std::condition_variable condition_;
+  bool complete_{false};
+  std::thread worker_;
+};
 
 [[nodiscard]] auto parse_fd(std::string_view value) -> std::optional<int> {
   int descriptor = -1;
@@ -308,6 +353,65 @@ publish_all(ArtifactSink& sink, std::vector<ArtifactPayload> payloads,
   std::vector<std::byte> result(value.size());
   std::memcpy(result.data(), value.data(), value.size());
   return result;
+}
+
+[[nodiscard]] auto artifact_reference(const ArtifactBinding& binding) -> JsonValue {
+  return JsonValue(JsonObject{
+      {"role", string_value(binding.role)},
+      {"file_name", string_value(binding.file_name)},
+      {"size_bytes", uint_value(binding.size_bytes)},
+      {"sha256", string_value(binding.sha256)},
+  });
+}
+
+[[nodiscard]] auto file_reference(const ArtifactBinding& binding) -> JsonValue {
+  return JsonValue(JsonObject{
+      {"file_name", string_value(binding.file_name)},
+      {"size_bytes", uint_value(binding.size_bytes)},
+      {"sha256", string_value(binding.sha256)},
+  });
+}
+
+struct PilotFailureDetails final {
+  std::string_view prefix;
+  std::string_view attempt_id;
+  std::string_view run_id;
+  std::string_view attempt_sha256;
+  std::string_view category;
+  std::string_view stage;
+  std::span<const ArtifactBinding> partial;
+};
+
+[[nodiscard]] auto publish_pilot_failure(ArtifactSink& sink,
+                                         const PilotSessionAuthority& authority,
+                                         const PilotFailureDetails& details) -> bool {
+  JsonArray artifacts;
+  for (const auto& item : details.partial) {
+    artifacts.push_back(artifact_reference(item));
+  }
+  const auto document = canonical(JsonObject{
+      {"schema_version", string_value("cpu-prefetch-stage17-pilot-run-failure/1")},
+      {"session_id", string_value(authority.session_id)},
+      {"attempt_id", string_value(details.attempt_id)},
+      {"run_id", string_value(details.run_id)},
+      {"attempt_sha256", string_value(details.attempt_sha256)},
+      {"failure_category", string_value(details.category)},
+      {"failure_stage", string_value(details.stage)},
+      {"partial_artifacts", JsonValue(std::move(artifacts))},
+      {"completed_at_utc", string_value(utc_now())},
+      {"retry_allowed", JsonValue(false)},
+      {"session_complete", JsonValue(false)},
+      {"synthetic_test_only", JsonValue(authority.synthetic_test_only)},
+      {"phase18_authority", JsonValue(false)},
+  });
+  if (!document) {
+    return false;
+  }
+  auto published = sink.publish(
+      {"STAGE17_PILOT_RUN_FAILURE", "cpu-prefetch-stage17-pilot-run-failure/1",
+       "application/json", std::string(details.prefix) + "failure-v1.json",
+       bytes(document.value())});
+  return published.has_value();
 }
 
 [[nodiscard]] auto hex_u64(std::uint64_t value) -> std::string {
@@ -2372,7 +2476,7 @@ package_capture(FixedAction action, const JsonObject& input,
                        "application/octet-stream", consumer_file,
                        std::move(capture.consumer_bytes)});
   artifacts.push_back({"PHASE_INTEGRITY", std::string(storage::kPhaseIntegritySchema),
-                       "application/json", prefix + "phase-integrity-v1.json",
+                       "application/json", prefix + "phase-integrity-v2.json",
                        bytes(integrity.value().bytes)});
   artifacts.push_back({"PRODUCER_RAW_ENVELOPE", std::string(protocol::kProtocolVersion),
                        "application/json", prefix + "producer-envelope-v1.json",
@@ -2819,12 +2923,473 @@ package_capture(FixedAction action, const JsonObject& input,
       {std::move(bindings), true, false, "CALIBRATION_CAPTURE_COMPLETE"});
 }
 
+struct PilotRunEntry final {
+  JsonObject run;
+  std::uint64_t cell_ordinal;
+  std::uint64_t repetition_ordinal;
+  std::uint64_t execution_ordinal;
+  std::string hardware_state;
+};
+
+[[nodiscard]] auto pilot_session_v4(const JsonObject& input, ArtifactSink& sink,
+                                    const PilotSessionAuthority& authority)
+    -> protocol::Result<ActionOutcome> {
+  constexpr std::array input_fields{"plan_sha256"sv, "pilot_plan"sv};
+  const auto* plan_sha = string_member(input, "plan_sha256");
+  const auto* plan = require_object(input, "pilot_plan");
+  if (!exact_fields(input, input_fields) || plan_sha == nullptr || plan == nullptr ||
+      string_member(*plan, "schema_version") == nullptr ||
+      *string_member(*plan, "schema_version") != "cpu-prefetch-stage17-pilot-plan/4" ||
+      string_member(*plan, "protocol_version") == nullptr ||
+      *string_member(*plan, "protocol_version") != protocol::kProtocolVersion ||
+      string_member(*plan, "stand_id") == nullptr ||
+      *string_member(*plan, "stand_id") != authority.stand_id ||
+      string_member(*plan, "plan_id") == nullptr ||
+      bool_member(*plan, "treatment_blind") == nullptr ||
+      !*bool_member(*plan, "treatment_blind") ||
+      bool_member(*plan, "confirmatory_outcomes_accessed") == nullptr ||
+      *bool_member(*plan, "confirmatory_outcomes_accessed") ||
+      bool_member(*plan, "synthetic_test_only") == nullptr ||
+      *bool_member(*plan, "synthetic_test_only") != authority.synthetic_test_only ||
+      bool_member(*plan, "phase18_authority") == nullptr ||
+      *bool_member(*plan, "phase18_authority") ||
+      uint_member(*plan, "per_run_deadline_seconds") !=
+          authority.per_run_deadline_seconds) {
+    return failure<ActionOutcome>("$/action_inputs/pilot_plan", "S17-PILOT-V4-PLAN",
+                                  "durable pilot requires the admitted v4 plan");
+  }
+  const auto canonical_plan = canonical(*plan);
+  if (!canonical_plan || sha256(canonical_plan.value()) != *plan_sha) {
+    return failure<ActionOutcome>("$/action_inputs/plan_sha256",
+                                  "S17-PILOT-V4-PLAN-HASH",
+                                  "pilot plan bytes/hash drifted");
+  }
+  const auto repetitions = uint_member(*plan, "repetitions_per_cell");
+  const auto* cells_value = member(*plan, "cells");
+  const auto* cells = cells_value == nullptr ? nullptr : cells_value->as_array();
+  const auto* orders_value = member(*plan, "whole_plot_orders");
+  const auto* orders = orders_value == nullptr ? nullptr : orders_value->as_array();
+  const auto* hardware = require_object(*plan, "hardware_control");
+  const auto prestate =
+      hardware == nullptr ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
+                                "$/pilot_plan/hardware_control",
+                                "S17-PILOT-V4-HARDWARE", "hardware binding absent")
+                          : parse_prestate(*hardware);
+  const auto* recovery = require_object(*plan, "recovery");
+  const auto recovery_ticks = recovery == nullptr
+                                  ? std::optional<std::uint64_t>{}
+                                  : uint_member(*recovery, "duration_ticks");
+  if (!repetitions || *repetitions == 0U || cells == nullptr || cells->size() != 180U ||
+      orders == nullptr || orders->size() != *repetitions || hardware == nullptr ||
+      !prestate || recovery == nullptr || !recovery_ticks || *recovery_ticks == 0U ||
+      string_member(*hardware, "mapping_id") == nullptr ||
+      *string_member(*hardware, "mapping_id") != platform::kHardwarePrefetchMappingId ||
+      string_member(*hardware, "q15_w_result_sha256") == nullptr) {
+    return failure<ActionOutcome>("$/action_inputs/pilot_plan", "S17-PILOT-V4-SHAPE",
+                                  "pilot matrix/control shape is incomplete");
+  }
+
+  const std::set<std::string> packages{"R0", "R1", "R2", "L0", "L1"};
+  const std::set<std::string> placements{"NEAR", "FAR"};
+  const std::set<std::string> working_sets{"L2_RESIDENT", "LLC_RESIDENT", "BEYOND_LLC"};
+  const std::set<std::string> loads{"L025", "L050", "L075"};
+  std::set<std::string> factors;
+  std::set<std::string> run_ids;
+  std::vector<std::set<std::uint64_t>> execution_ordinals(
+      static_cast<std::size_t>(*repetitions));
+  std::vector<PilotRunEntry> run_order;
+  run_order.reserve(static_cast<std::size_t>(*repetitions) * 180U);
+  for (const auto& cell_value : *cells) {
+    const auto* cell = cell_value.as_object();
+    const auto cell_ordinal = cell == nullptr ? std::optional<std::uint64_t>{}
+                                              : uint_member(*cell, "cell_ordinal");
+    const auto* package = cell == nullptr ? nullptr : string_member(*cell, "package");
+    const auto* state =
+        cell == nullptr ? nullptr : string_member(*cell, "hardware_state");
+    const auto* placement =
+        cell == nullptr ? nullptr : string_member(*cell, "placement");
+    const auto* working =
+        cell == nullptr ? nullptr : string_member(*cell, "working_set_class");
+    const auto* load = cell == nullptr ? nullptr : string_member(*cell, "load_level");
+    const auto* runs_value = cell == nullptr ? nullptr : member(*cell, "runs");
+    const auto* runs = runs_value == nullptr ? nullptr : runs_value->as_array();
+    if (!cell_ordinal || *cell_ordinal >= 180U || package == nullptr ||
+        !packages.contains(*package) || state == nullptr ||
+        (*state != "H0" && *state != "H1") || placement == nullptr ||
+        !placements.contains(*placement) || working == nullptr ||
+        !working_sets.contains(*working) || load == nullptr || !loads.contains(*load) ||
+        runs == nullptr || runs->size() != *repetitions ||
+        !factors
+             .insert(*package + "/" + *state + "/" + *placement + "/" + *working + "/" +
+                     *load)
+             .second) {
+      return failure<ActionOutcome>("$/action_inputs/pilot_plan/cells",
+                                    "S17-PILOT-V4-CELL",
+                                    "pilot cell product is invalid or duplicated");
+    }
+    for (std::size_t repetition = 0U; repetition < runs->size(); ++repetition) {
+      const auto* run = (*runs)[repetition].as_object();
+      const auto* run_id = run == nullptr ? nullptr : string_member(*run, "run_id");
+      const auto run_repetition = run == nullptr
+                                      ? std::optional<std::uint64_t>{}
+                                      : uint_member(*run, "repetition_ordinal");
+      const auto execution = run == nullptr ? std::optional<std::uint64_t>{}
+                                            : uint_member(*run, "execution_ordinal");
+      if (run == nullptr || run_id == nullptr || !run_ids.insert(*run_id).second ||
+          run_repetition != repetition || !execution || *execution >= 180U ||
+          !execution_ordinals[repetition].insert(*execution).second ||
+          uint_member(*run, "cell_ordinal") != *cell_ordinal ||
+          string_member(*run, "package") == nullptr ||
+          *string_member(*run, "package") != *package ||
+          string_member(*run, "hardware_state") == nullptr ||
+          *string_member(*run, "hardware_state") != *state ||
+          string_member(*run, "placement") == nullptr ||
+          *string_member(*run, "placement") != *placement ||
+          string_member(*run, "working_set_class") == nullptr ||
+          *string_member(*run, "working_set_class") != *working ||
+          string_member(*run, "load_level") == nullptr ||
+          *string_member(*run, "load_level") != *load ||
+          member(*run, "plan_sha256") != nullptr) {
+        return failure<ActionOutcome>("$/action_inputs/pilot_plan/cells/runs",
+                                      "S17-PILOT-V4-RUN",
+                                      "pilot run identity/order/factors drifted");
+      }
+      run_order.push_back({*run, *cell_ordinal, *run_repetition, *execution, *state});
+    }
+  }
+  if (factors.size() != 180U || run_order.size() != 180U * *repetitions ||
+      std::ranges::any_of(execution_ordinals,
+                          [](const auto& values) { return values.size() != 180U; })) {
+    return failure<ActionOutcome>("$/action_inputs/pilot_plan", "S17-PILOT-V4-MATRIX",
+                                  "pilot repeated Cartesian matrix is incomplete");
+  }
+  std::ranges::sort(run_order, [](const auto& left, const auto& right) {
+    return std::tie(left.repetition_ordinal, left.execution_ordinal) <
+           std::tie(right.repetition_ordinal, right.execution_ordinal);
+  });
+  for (const auto& entry : run_order) {
+    const auto* order =
+        (*orders)[static_cast<std::size_t>(entry.repetition_ordinal)].as_array();
+    const auto* first =
+        order == nullptr || order->size() != 2U ? nullptr : (*order)[0].as_string();
+    const auto* second =
+        order == nullptr || order->size() != 2U ? nullptr : (*order)[1].as_string();
+    const auto* expected = entry.execution_ordinal < 90U ? first : second;
+    if (first == nullptr || second == nullptr || *first == *second ||
+        (*first != "H0" && *first != "H1") || (*second != "H0" && *second != "H1") ||
+        expected == nullptr || entry.hardware_state != *expected) {
+      return failure<ActionOutcome>("$/action_inputs/pilot_plan/whole_plot_orders",
+                                    "S17-PILOT-V4-WHOLE-PLOT",
+                                    "temporal block hardware order drifted");
+    }
+  }
+
+  std::vector<ArtifactBinding> bindings;
+  bindings.reserve(run_order.size() * 12U + 3U);
+  std::vector<std::string> attempt_hashes;
+  std::vector<std::string> completion_hashes;
+  attempt_hashes.reserve(run_order.size());
+  completion_hashes.reserve(run_order.size());
+  PilotPersistentContexts persistent_contexts;
+  PilotWholePlotControl hardware_control(prestate.value());
+  std::string active_state;
+  const auto session_started_at = utc_now();
+  for (std::size_t index = 0U; index < run_order.size(); ++index) {
+    auto& entry = run_order[index];
+    const auto* run_id = string_member(entry.run, "run_id");
+    const auto now = epoch_seconds_now();
+    if (now < authority.issued_at_epoch_seconds ||
+        now >= authority.expires_at_epoch_seconds) {
+      return failure<ActionOutcome>("$/authority", "S17-PILOT-RUN-AUTHORITY",
+                                    "run authority is future or expired before marker");
+    }
+    std::ostringstream prefix_builder;
+    prefix_builder << "pilot-b" << std::setw(3) << std::setfill('0')
+                   << entry.repetition_ordinal << "-e" << std::setw(3)
+                   << entry.execution_ordinal << '-';
+    const auto prefix = prefix_builder.str();
+    const auto attempt_id = authority.session_id + ":" + *run_id + ":attempt-1";
+    const auto run_started_at = utc_now();
+    const auto run_started = std::chrono::steady_clock::now();
+    const auto attempt = canonical(JsonObject{
+        {"schema_version", string_value("cpu-prefetch-stage17-pilot-run-attempt/1")},
+        {"session_id", string_value(authority.session_id)},
+        {"attempt_id", string_value(attempt_id)},
+        {"run_id", string_value(*run_id)},
+        {"plan_sha256", string_value(*plan_sha)},
+        {"authorization_sha256", string_value(authority.authorization_sha256)},
+        {"cell_ordinal", uint_value(entry.cell_ordinal)},
+        {"repetition_ordinal", uint_value(entry.repetition_ordinal)},
+        {"execution_ordinal", uint_value(entry.execution_ordinal)},
+        {"started_at_utc", string_value(run_started_at)},
+        {"deadline_seconds", uint_value(authority.per_run_deadline_seconds)},
+        {"one_attempt", JsonValue(true)},
+        {"retry_allowed", JsonValue(false)},
+        {"marker_durable", JsonValue(true)},
+        {"synthetic_test_only", JsonValue(authority.synthetic_test_only)},
+        {"phase18_authority", JsonValue(false)},
+    });
+    if (!attempt) {
+      return protocol::Result<ActionOutcome>::failure(attempt.errors());
+    }
+    auto attempt_binding = sink.publish(
+        {"STAGE17_PILOT_RUN_ATTEMPT", "cpu-prefetch-stage17-pilot-run-attempt/1",
+         "application/json", prefix + "attempt-v1.json", bytes(attempt.value())});
+    if (!attempt_binding) {
+      return protocol::Result<ActionOutcome>::failure(attempt_binding.errors());
+    }
+    const auto attempt_sha = attempt_binding.value().sha256;
+    attempt_hashes.push_back(attempt_sha);
+    bindings.push_back(std::move(attempt_binding.value()));
+    if (active_state != entry.hardware_state) {
+      if ((!active_state.empty() && !hardware_control.leave()) ||
+          !hardware_control.enter(entry.hardware_state)) {
+        static_cast<void>(publish_pilot_failure(sink, authority,
+                                                {prefix,
+                                                 attempt_id,
+                                                 *run_id,
+                                                 attempt_sha,
+                                                 "PLATFORM_STATE",
+                                                 "HARDWARE_ENTER",
+                                                 {}}));
+        return failure<ActionOutcome>(
+            "$/pilot_plan/hardware_control", "S17-PILOT-RUN-HARDWARE",
+            "whole-plot state transition failed after marker");
+      }
+      active_state = entry.hardware_state;
+    }
+    PilotRunDeadline deadline(std::chrono::seconds(authority.per_run_deadline_seconds));
+    auto materialized = entry.run;
+    materialized.emplace("plan_sha256", string_value(*plan_sha));
+    auto capture =
+        package_capture(FixedAction::blinded_pilot, materialized, &persistent_contexts);
+    if (!capture) {
+      static_cast<void>(publish_pilot_failure(sink, authority,
+                                              {prefix,
+                                               attempt_id,
+                                               *run_id,
+                                               attempt_sha,
+                                               "RUN_INVALID",
+                                               "MEASUREMENT",
+                                               {}}));
+      return protocol::Result<ActionOutcome>::failure(capture.errors());
+    }
+    auto payloads = run_artifacts(FixedAction::blinded_pilot, materialized,
+                                  std::move(capture.value()), prefix);
+    if (!payloads) {
+      static_cast<void>(publish_pilot_failure(sink, authority,
+                                              {prefix,
+                                               attempt_id,
+                                               *run_id,
+                                               attempt_sha,
+                                               "ARTIFACT_INVALID",
+                                               "ARTIFACT_RETENTION",
+                                               {}}));
+      return protocol::Result<ActionOutcome>::failure(payloads.errors());
+    }
+    std::vector<ArtifactBinding> run_bindings;
+    run_bindings.reserve(payloads.value().size());
+    for (auto& payload : payloads.value()) {
+      auto published = sink.publish(std::move(payload));
+      if (!published) {
+        static_cast<void>(publish_pilot_failure(sink, authority,
+                                                {prefix, attempt_id, *run_id,
+                                                 attempt_sha, "ARTIFACT_RETENTION",
+                                                 "ARTIFACT_RETENTION", run_bindings}));
+        return protocol::Result<ActionOutcome>::failure(published.errors());
+      }
+      run_bindings.push_back(published.value());
+      bindings.push_back(std::move(published.value()));
+    }
+    JsonArray run_artifact_index;
+    for (const auto& item : run_bindings) {
+      run_artifact_index.push_back(artifact_reference(item));
+    }
+    const auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                              std::chrono::steady_clock::now() - run_started)
+                              .count();
+    const auto completion = canonical(JsonObject{
+        {"schema_version", string_value("cpu-prefetch-stage17-pilot-run-completion/1")},
+        {"session_id", string_value(authority.session_id)},
+        {"attempt_id", string_value(attempt_id)},
+        {"run_id", string_value(*run_id)},
+        {"attempt_sha256", string_value(attempt_sha)},
+        {"artifact_bindings", JsonValue(std::move(run_artifact_index))},
+        {"completed_at_utc", string_value(utc_now())},
+        {"duration_ns", uint_value(static_cast<std::uint64_t>(duration))},
+        {"terminal_state", string_value("RUN_COMPLETED")},
+        {"restoration_boundary_pending", JsonValue(true)},
+        {"synthetic_test_only", JsonValue(authority.synthetic_test_only)},
+        {"phase18_authority", JsonValue(false)},
+    });
+    if (!completion) {
+      return protocol::Result<ActionOutcome>::failure(completion.errors());
+    }
+    auto completion_binding = sink.publish(
+        {"STAGE17_PILOT_RUN_COMPLETION", "cpu-prefetch-stage17-pilot-run-completion/1",
+         "application/json", prefix + "completion-v1.json", bytes(completion.value())});
+    if (!completion_binding) {
+      static_cast<void>(publish_pilot_failure(sink, authority,
+                                              {prefix, attempt_id, *run_id, attempt_sha,
+                                               "ARTIFACT_RETENTION",
+                                               "ARTIFACT_RETENTION", run_bindings}));
+      return protocol::Result<ActionOutcome>::failure(completion_binding.errors());
+    }
+    completion_hashes.push_back(completion_binding.value().sha256);
+    bindings.push_back(std::move(completion_binding.value()));
+    if (entry.execution_ordinal == 179U && index + 1U < run_order.size()) {
+      if (!hardware_control.leave()) {
+        return failure<ActionOutcome>("$/pilot_plan/hardware_control",
+                                      "S17-PILOT-RECOVERY-RESTORE",
+                                      "temporal-block restoration failed");
+      }
+      active_state.clear();
+      const auto recovery_ns = (*recovery_ticks + 999U) / 1000U;
+      if (recovery_ns >
+          static_cast<std::uint64_t>(std::chrono::nanoseconds::max().count())) {
+        return failure<ActionOutcome>("$/pilot_plan/recovery/duration_ticks",
+                                      "S17-PILOT-RECOVERY-RANGE",
+                                      "recovery duration exceeds monotonic range");
+      }
+      std::this_thread::sleep_for(std::chrono::nanoseconds(recovery_ns));
+    }
+  }
+  if (!active_state.empty() && !hardware_control.leave()) {
+    return failure<ActionOutcome>("$/pilot_plan/hardware_control",
+                                  "S17-PILOT-FINAL-RESTORE",
+                                  "final hardware restoration failed");
+  }
+  JsonArray apply_readback;
+  for (const auto& value : hardware_control.apply_readback()) {
+    apply_readback.emplace_back(
+        JsonObject{{"cpu", uint_value(value.cpu)},
+                   {"complete_value_hex", string_value(hex_u64(value.value))}});
+  }
+  JsonArray restore_readback;
+  for (const auto& value : hardware_control.restore_readback()) {
+    restore_readback.emplace_back(
+        JsonObject{{"cpu", uint_value(value.cpu)},
+                   {"complete_value_hex", string_value(hex_u64(value.value))}});
+  }
+  auto hardware_document = canonical(JsonObject{
+      {"schema_version", string_value("cpu-prefetch-stage17-pilot-hardware-state/2")},
+      {"mapping_id", string_value(platform::kHardwarePrefetchMappingId)},
+      {"q15_w_result_sha256",
+       string_value(*string_member(*hardware, "q15_w_result_sha256"))},
+      {"whole_plot_orders", JsonValue(*orders)},
+      {"apply_readback", JsonValue(std::move(apply_readback))},
+      {"restore_readback", JsonValue(std::move(restore_readback))},
+      {"cell_count", uint_value(180U)},
+      {"run_count", uint_value(run_order.size())},
+      {"restoration_verified", JsonValue(true)},
+      {"phase18_authority", JsonValue(false)},
+  });
+  if (!hardware_document) {
+    return protocol::Result<ActionOutcome>::failure(hardware_document.errors());
+  }
+  auto hardware_binding = sink.publish(
+      {"STAGE17_PILOT_HARDWARE_STATE", "cpu-prefetch-stage17-pilot-hardware-state/2",
+       "application/json", "stage17-pilot-hardware-state-v2.json",
+       bytes(hardware_document.value())});
+  if (!hardware_binding) {
+    return protocol::Result<ActionOutcome>::failure(hardware_binding.errors());
+  }
+  bindings.push_back(hardware_binding.value());
+  JsonArray artifact_index;
+  for (const auto& item : bindings) {
+    artifact_index.emplace_back(JsonObject{
+        {"role", string_value(item.role)},
+        {"schema_identity", string_value(item.schema_identity)},
+        {"file_name", string_value(item.file_name)},
+        {"size_bytes", uint_value(item.size_bytes)},
+        {"sha256", string_value(item.sha256)},
+    });
+  }
+  JsonArray attempt_index;
+  JsonArray completion_index;
+  for (const auto& value : attempt_hashes) {
+    attempt_index.push_back(string_value(value));
+  }
+  for (const auto& value : completion_hashes) {
+    completion_index.push_back(string_value(value));
+  }
+  auto manifest = canonical(JsonObject{
+      {"schema_version",
+       string_value("cpu-prefetch-stage17-sealed-pilot-artifact-manifest/4")},
+      {"session_id", string_value(authority.session_id)},
+      {"authorization_sha256", string_value(authority.authorization_sha256)},
+      {"plan_id", string_value(*string_member(*plan, "plan_id"))},
+      {"plan_sha256", string_value(*plan_sha)},
+      {"cell_count", uint_value(180U)},
+      {"repetitions_per_cell", uint_value(*repetitions)},
+      {"run_count", uint_value(run_order.size())},
+      {"artifact_count", uint_value(bindings.size())},
+      {"artifacts", JsonValue(std::move(artifact_index))},
+      {"run_attempt_sha256s", JsonValue(attempt_index)},
+      {"run_completion_sha256s", JsonValue(completion_index)},
+      {"treatment_blind", JsonValue(true)},
+      {"confirmatory_outcomes_accessed", JsonValue(false)},
+      {"sealed", JsonValue(true)},
+      {"synthetic_test_only", JsonValue(authority.synthetic_test_only)},
+      {"phase18_authority", JsonValue(false)},
+  });
+  if (!manifest) {
+    return protocol::Result<ActionOutcome>::failure(manifest.errors());
+  }
+  auto manifest_binding = sink.publish(
+      {"SEALED_PILOT_ARTIFACT_MANIFEST",
+       "cpu-prefetch-stage17-sealed-pilot-artifact-manifest/4", "application/json",
+       "stage17-sealed-pilot-manifest-v4.json", bytes(manifest.value())});
+  if (!manifest_binding) {
+    return protocol::Result<ActionOutcome>::failure(manifest_binding.errors());
+  }
+  bindings.push_back(manifest_binding.value());
+  auto session = canonical(JsonObject{
+      {"schema_version",
+       string_value("cpu-prefetch-stage17-pilot-session-completion/1")},
+      {"session_id", string_value(authority.session_id)},
+      {"authorization_id", string_value(authority.authorization_id)},
+      {"authorization_sha256", string_value(authority.authorization_sha256)},
+      {"request_sha256", string_value(authority.request_sha256)},
+      {"plan_id", string_value(*string_member(*plan, "plan_id"))},
+      {"plan_sha256", string_value(*plan_sha)},
+      {"stand_id", string_value(authority.stand_id)},
+      {"run_count", uint_value(run_order.size())},
+      {"run_attempt_sha256s", JsonValue(std::move(attempt_index))},
+      {"run_completion_sha256s", JsonValue(std::move(completion_index))},
+      {"sealed_manifest", file_reference(manifest_binding.value())},
+      {"hardware_state", file_reference(hardware_binding.value())},
+      {"started_at_utc", string_value(session_started_at)},
+      {"completed_at_utc", string_value(utc_now())},
+      {"terminal_state", string_value("PILOT_SESSION_COMPLETE_SEALED")},
+      {"all_runs_complete", JsonValue(true)},
+      {"restoration_verified", JsonValue(true)},
+      {"quarantined", JsonValue(false)},
+      {"synthetic_test_only", JsonValue(authority.synthetic_test_only)},
+      {"phase18_authority", JsonValue(false)},
+  });
+  if (!session) {
+    return protocol::Result<ActionOutcome>::failure(session.errors());
+  }
+  auto session_binding = sink.publish(
+      {"STAGE17_PILOT_SESSION_COMPLETION",
+       "cpu-prefetch-stage17-pilot-session-completion/1", "application/json",
+       "stage17-pilot-session-completion-v1.json", bytes(session.value())});
+  if (!session_binding) {
+    return protocol::Result<ActionOutcome>::failure(session_binding.errors());
+  }
+  bindings.push_back(std::move(session_binding.value()));
+  return protocol::Result<ActionOutcome>::success(
+      {std::move(bindings), true, false, "PILOT_SESSION_COMPLETE_SEALED"});
+}
+
 [[nodiscard]] auto validate_request(const JsonObject& request, FixedAction action,
                                     bool synthetic_backend)
     -> protocol::Result<const JsonObject*> {
   constexpr std::array fields{
       "schema_version"sv,
       "request_id"sv,
+      "session_id"sv,
       "action_id"sv,
       "stand_id"sv,
       "authorization_id"sv,
@@ -2843,6 +3408,7 @@ package_capture(FixedAction action, const JsonObject& input,
       string_member(request, "action_id") == nullptr ||
       *string_member(request, "action_id") != to_string(action) ||
       string_member(request, "request_id") == nullptr ||
+      string_member(request, "session_id") == nullptr ||
       string_member(request, "stand_id") == nullptr ||
       string_member(request, "authorization_id") == nullptr ||
       string_member(request, "attempt_id") == nullptr ||
@@ -2900,12 +3466,16 @@ package_capture(FixedAction action, const JsonObject& input,
                                       "authorization_sha256"sv,
                                       "request_id"sv,
                                       "request_sha256"sv,
+                                      "session_id"sv,
                                       "attempt_id"sv,
                                       "action_id"sv,
                                       "fixed_action_definition_sha256"sv,
                                       "runtime_sha256"sv,
                                       "release_sha256"sv,
                                       "predecessor_sha256s"sv,
+                                      "issued_at_epoch_seconds"sv,
+                                      "expires_at_epoch_seconds"sv,
+                                      "per_run_deadline_seconds"sv,
                                       "synthetic_test_only"sv,
                                       "phase18_authority"sv};
   return exact_fields(context, context_fields) &&
@@ -2915,6 +3485,7 @@ package_capture(FixedAction action, const JsonObject& input,
          string_member(context, "authorization_sha256") != nullptr &&
          string_member(context, "request_id") != nullptr &&
          string_member(context, "request_sha256") != nullptr &&
+         string_member(context, "session_id") != nullptr &&
          string_member(context, "attempt_id") != nullptr &&
          string_member(context, "action_id") != nullptr &&
          string_member(context, "fixed_action_definition_sha256") != nullptr &&
@@ -2922,6 +3493,9 @@ package_capture(FixedAction action, const JsonObject& input,
          string_member(context, "release_sha256") != nullptr &&
          member(context, "predecessor_sha256s") != nullptr &&
          member(context, "predecessor_sha256s")->as_array() != nullptr &&
+         uint_member(context, "issued_at_epoch_seconds").has_value() &&
+         uint_member(context, "expires_at_epoch_seconds").has_value() &&
+         uint_member(context, "per_run_deadline_seconds") == 180U &&
          bool_member(context, "synthetic_test_only") != nullptr &&
          bool_member(context, "phase18_authority") != nullptr &&
          !*bool_member(context, "phase18_authority") &&
@@ -2929,6 +3503,8 @@ package_capture(FixedAction action, const JsonObject& input,
              *string_member(request, "authorization_id") &&
          *string_member(context, "request_id") ==
              *string_member(request, "request_id") &&
+         *string_member(context, "session_id") ==
+             *string_member(request, "session_id") &&
          *string_member(context, "request_sha256") == sha256(request_bytes) &&
          *string_member(context, "attempt_id") ==
              *string_member(request, "attempt_id") &&
@@ -3108,16 +3684,33 @@ auto LinuxFixedActionOperations::execute(
     return q16a_plan(action_inputs, sink);
   case FixedAction::q16b:
   case FixedAction::q16c:
-  case FixedAction::blinded_pilot:
     return q16_or_pilot(action, action_inputs, sink);
+  case FixedAction::blinded_pilot:
+    return failure<ActionOutcome>(
+        "$/action_id", "S17-PILOT-SESSION-REQUIRED",
+        "the blinded pilot is accepted only through its durable-session entrypoint");
   }
   return failure<ActionOutcome>("$/action_id", "S17-WORKER-DISPATCH",
                                 "fixed action dispatcher is incomplete");
 }
 
+auto FixedActionOperations::execute_pilot_session(const protocol::json::Value::Object&,
+                                                  ArtifactSink&,
+                                                  const PilotSessionAuthority&)
+    -> protocol::Result<ActionOutcome> {
+  return failure<ActionOutcome>("$/action_id", "S17-PILOT-SESSION-UNIMPLEMENTED",
+                                "this fixed-action backend has no pilot session");
+}
+
+auto LinuxFixedActionOperations::execute_pilot_session(
+    const protocol::json::Value::Object& action_inputs, ArtifactSink& sink,
+    const PilotSessionAuthority& authority) -> protocol::Result<ActionOutcome> {
+  return pilot_session_v4(action_inputs, sink, authority);
+}
+
 auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& operations)
     -> int {
-  if (argc != 10 || std::string_view(argv[1]) != "--execute-fixed-stage17-action-v3" ||
+  if (argc != 10 || std::string_view(argv[1]) != "--execute-fixed-stage17-action-v4" ||
       std::string_view(argv[3]) != "--request-fd" ||
       std::string_view(argv[5]) != "--context-fd" ||
       std::string_view(argv[7]) != "--output-dir-fd" ||
@@ -3172,6 +3765,81 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
   static_cast<void>(
       emit_action_result(*output_fd, kResultFileName, request, request_bytes.value(),
                          *context, action.value(), outcome.value(),
+                         operations.synthetic_test_only(), started_at, started));
+  return 0;
+}
+
+auto run_pilot_session_worker(int argc, char** argv, FixedActionOperations& operations)
+    -> int {
+  if (argc != 9 || std::string_view(argv[1]) != "--execute-stage17-pilot-session-v1" ||
+      std::string_view(argv[2]) != "--request-fd" ||
+      std::string_view(argv[4]) != "--context-fd" ||
+      std::string_view(argv[6]) != "--output-dir-fd" ||
+      std::string_view(argv[8]) != "--fixed-dispatch-end") {
+    throw std::runtime_error("pilot durable-session argv contract rejected");
+  }
+  const auto request_fd = parse_fd(argv[3]);
+  const auto context_fd = parse_fd(argv[5]);
+  const auto output_fd = parse_fd(argv[7]);
+  if (!request_fd || !context_fd || !output_fd) {
+    throw std::runtime_error("pilot durable-session fd contract rejected");
+  }
+  validate_output_fd(*output_fd);
+  const auto request_bytes = read_regular_fd(*request_fd);
+  const auto context_bytes = read_regular_fd(*context_fd);
+  if (!request_bytes || !context_bytes) {
+    throw std::runtime_error("pilot sealed input read failed");
+  }
+  const auto parsed_request = protocol::json::parse(request_bytes.value());
+  const auto parsed_context = protocol::json::parse(context_bytes.value());
+  const auto* request = parsed_request && parsed_request.value().as_object() != nullptr
+                            ? parsed_request.value().as_object()
+                            : nullptr;
+  const auto* context = parsed_context && parsed_context.value().as_object() != nullptr
+                            ? parsed_context.value().as_object()
+                            : nullptr;
+  if (request == nullptr || context == nullptr ||
+      !validate_context(*context, *request, request_bytes.value(),
+                        FixedAction::blinded_pilot)) {
+    throw std::runtime_error("pilot authority context rejected");
+  }
+  const auto action_inputs = validate_request(*request, FixedAction::blinded_pilot,
+                                              operations.synthetic_test_only());
+  const auto issued = uint_member(*context, "issued_at_epoch_seconds");
+  const auto expires = uint_member(*context, "expires_at_epoch_seconds");
+  const auto deadline = uint_member(*context, "per_run_deadline_seconds");
+  if (!action_inputs || !issued || !expires || !deadline || *issued >= *expires ||
+      *deadline != 180U) {
+    throw std::runtime_error("pilot request/session authority rejected");
+  }
+  const auto actual_now = epoch_seconds_now();
+  if (actual_now < *issued || actual_now >= *expires) {
+    throw std::runtime_error("pilot authority is future or expired before session");
+  }
+  const PilotSessionAuthority authority{
+      *string_member(*request, "session_id"),
+      *string_member(*context, "authorization_id"),
+      *string_member(*context, "authorization_sha256"),
+      sha256(request_bytes.value()),
+      *string_member(*request, "stand_id"),
+      *issued,
+      *expires,
+      *deadline,
+      operations.synthetic_test_only(),
+  };
+  DirectoryArtifactSink sink(*output_fd);
+  const auto started_at = utc_now();
+  const auto started = std::chrono::steady_clock::now();
+  const auto outcome =
+      operations.execute_pilot_session(*action_inputs.value(), sink, authority);
+  if (!outcome) {
+    throw std::runtime_error(
+        "pilot session failed closed: " + outcome.errors().front().rule_id + ": " +
+        outcome.errors().front().message);
+  }
+  static_cast<void>(
+      emit_action_result(*output_fd, kResultFileName, *request, request_bytes.value(),
+                         *context, FixedAction::blinded_pilot, outcome.value(),
                          operations.synthetic_test_only(), started_at, started));
   return 0;
 }
@@ -3234,7 +3902,7 @@ auto run_q15_phase_session_worker(int argc, char** argv) -> int {
     throw std::runtime_error("Q15-R evidence publication failed");
   }
   const auto q15_r_result_sha = emit_action_result(
-      *output_fd, "stage17-q15-r-result-v3.json", *q15_r_request,
+      *output_fd, "stage17-q15-r-result-v4.json", *q15_r_request,
       q15_r_request_bytes.value(), *q15_r_context, FixedAction::q15_r,
       q15_r_outcome.value(), false, q15_r_started_at, q15_r_started);
   const auto waiting = canonical(JsonObject{
@@ -3288,7 +3956,7 @@ auto run_q15_phase_session_worker(int argc, char** argv) -> int {
                              q15_w_outcome.errors().front().rule_id);
   }
   static_cast<void>(emit_action_result(
-      *output_fd, "stage17-q15-w-result-v3.json", *q15_w_request, q15_w_request_bytes,
+      *output_fd, "stage17-q15-w-result-v4.json", *q15_w_request, q15_w_request_bytes,
       *q15_w_context, FixedAction::q15_w, q15_w_outcome.value(), false,
       q15_w_started_at, q15_w_started));
   return 0;
@@ -3349,7 +4017,7 @@ auto run_test_q15_phase_session_worker(int argc, char** argv,
     throw std::runtime_error("test Q15-R operation failed closed");
   }
   const auto q15r_result_sha =
-      emit_action_result(*output_fd, "stage17-q15-r-result-v3.json", *q15r_request,
+      emit_action_result(*output_fd, "stage17-q15-r-result-v4.json", *q15r_request,
                          q15r_request_bytes.value(), *q15r_context, FixedAction::q15_r,
                          q15r_outcome.value(), true, q15r_started_at, q15r_started);
   const auto* session_id = string_member(q15r_bound_inputs, "session_id");
@@ -3403,7 +4071,7 @@ auto run_test_q15_phase_session_worker(int argc, char** argv,
   if (!q15w_outcome) {
     throw std::runtime_error("test Q15-W operation failed closed");
   }
-  static_cast<void>(emit_action_result(*output_fd, "stage17-q15-w-result-v3.json",
+  static_cast<void>(emit_action_result(*output_fd, "stage17-q15-w-result-v4.json",
                                        *q15w_request, q15w_request_bytes, *q15w_context,
                                        FixedAction::q15_w, q15w_outcome.value(), true,
                                        q15w_started_at, q15w_started));

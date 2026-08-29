@@ -68,7 +68,7 @@ def main() -> int:
         operational_root = pathlib.Path(operational_temporary.name) / "evidence"
         operational_root.mkdir(mode=0o700)
         _run(
-            [sys.executable, "-B", "tools/stage17_operational_cli_v5.py",
+            [sys.executable, "-B", "tools/stage17_operational_cli_v4.py",
              "--repository-root", str(root),
              "--evidence-root", str(operational_root),
              "--synthetic-test-only", "init", "--materialize-admission-root"],

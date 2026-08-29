@@ -134,9 +134,18 @@ that input. The command validates actual bytes against the registered schema.
      --journal-directory "$S17_EVIDENCE/journal"
    ```
 
-3. Author EXT003 owner acceptance from the admitted EXT002 hashes, explicitly
-   preserving `distinct_auditor=false` and `independent_review=false`. Admit
-   EXT002/003 and append T2. Expected state: `PREFLIGHT_ACCEPTED`.
+   **Current stop gate:** policy v13 closes the external-journal read-only
+   preflight only. Controller v4 is still bound to policy v12/envelope v9 and
+   rejects the v13 journal before Q15. Do not execute T2, Q15, Q16, pilot, or
+   any later command in this document until a prospective controller successor
+   is implemented, clean-bundle verified, and separately admitted. The
+   remaining commands below preserve the accepted policy-v12 design; they are
+   not executable under policy v13.
+
+3. After that successor exists, author EXT003 owner acceptance from the
+   admitted EXT002 hashes, explicitly preserving `distinct_auditor=false` and
+   `independent_review=false`. Admit EXT002/003 and append T2. Expected state:
+   `PREFLIGHT_ACCEPTED`.
 
 4. Canonically author the Q15-R request and unsigned authorization:
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Hermetic Stage 17B.1 admission and compiled fixed-dispatch integration.
 
-The fixture uses disposable SSHSIG keys, temporary typed artifacts, the current
-policy-v13 journal runtime, controller v4, sealed snapshots, and the separately
+The fixture uses disposable SSHSIG keys, temporary typed artifacts, the real
+policy-v11 journal runtime, controller v3, sealed snapshots, and the separately
 linked C++ test worker.  It opens no socket and grants no real authority.  The
 outer driver copies the repository to a disposable bundle-root projection so
 repository-owned governance records never modify the checked-in tree.
@@ -34,8 +34,8 @@ import check_stage17_pilot_semantics_v4 as pilot_plan_builder
 import stage17_phase_controller_v1 as rejected_controller
 import stage17_phase_controller_v4 as controller
 import stage17_q15_session_controller_v2 as q15_session
-import stage17_semantic_verifier_v13 as semantic_registry
-import stage17_state_journal_v11 as journal
+import stage17_semantic_verifier_v12 as semantic_registry
+import stage17_state_journal_v10 as journal
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -77,7 +77,7 @@ class OperationalWorkflowDriver:
 
     Repository evidence is authored only in the outer driver's disposable
     repository projection.  Journal snapshots, records, and receipts are kept
-    in the distinct owner evidence root used by the production v11 runtime.
+    in the distinct owner evidence root used by the production v9 runtime.
     """
 
     def __init__(self, base: pathlib.Path) -> None:
@@ -101,7 +101,7 @@ class OperationalWorkflowDriver:
         self.genesis_record = {
             "journal_id": "STAGE17-STATE-JOURNAL-v1",
             # The immutable graph/catalog/genesis v1 remains bound to pre.2;
-            # current policy v13 separately binds the pre.3 implementation.
+            # current policy v12 separately binds the pre.3 implementation.
             "protocol_version": "2.0.0-pre.2", "initial_state": "PREPARED",
             "graph_sha256": self.graph_sha, "catalog_sha256": self.catalog_sha,
             "version_hashes": self.versions,
@@ -170,7 +170,7 @@ class OperationalWorkflowDriver:
         stdin_payload: bytes | None = None,
     ) -> str:
         invocation = [
-            str(PYTHON), "-B", str(self.root / "tools/stage17_operational_cli_v5.py"),
+            str(PYTHON), "-B", str(self.root / "tools/stage17_operational_cli_v4.py"),
             "--repository-root", str(self.root),
             "--evidence-root", str(self.operational),
         ]
@@ -227,7 +227,7 @@ class OperationalWorkflowDriver:
         self.pilot_sidecar = self.pilot_sidecar or pathlib.Path(
             str(self.pilot_archive) + ".sha256"
         )
-        output = self.root / "evidence/ext001-v10"
+        output = self.root / "evidence/ext001-v9"
         preflight = self.external / "preflight-evidence"
         preflight.mkdir(mode=0o700, exist_ok=True)
         now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
@@ -257,9 +257,9 @@ class OperationalWorkflowDriver:
             "--envelope-id", "SYNTHETIC-S17-EXT-001-ENVELOPE-TEST-ONLY",
             "--output-directory", str(output),
         )
-        authorization_path = output / "authorization-v9.json"
+        authorization_path = output / "authorization-v8.json"
         authorization = json.loads(authorization_path.read_text())
-        envelope_path = output / "envelope-v10.json"
+        envelope_path = output / "envelope-v9.json"
         summary = {
             "authorization_id": authorization["authorization_id"],
             "evidence_path": authorization_path.relative_to(self.root).as_posix(),
@@ -452,7 +452,7 @@ class OperationalWorkflowDriver:
             "stage18_authority": False,
         }
         authorization_path = repository_evidence / (
-            "s17-ext-001-authorization-v9.json"
+            "s17-ext-001-authorization-v8.json"
         )
         write(authorization_path, authorization)
         authorization_binding = {
@@ -496,7 +496,7 @@ class OperationalWorkflowDriver:
             "runtime_implementations": policy["implementations"],
             "stage18_authority": False,
         }
-        envelope_path = repository_evidence / "s17-ext-001-envelope-v10.json"
+        envelope_path = repository_evidence / "s17-ext-001-envelope-v9.json"
         write(envelope_path, envelope)
         summary = {
             "authorization_id": authorization["authorization_id"],

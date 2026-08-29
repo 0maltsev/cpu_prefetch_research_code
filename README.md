@@ -307,15 +307,19 @@ incomplete predecessors. ADR-0116 accepts the pre.3 warm-up amendment;
 ADR-0117/policy v12 remains the durable pilot/handoff predecessor. A real
 pre-marker handoff characterization proved that its preflight executor still
 used the legacy repository-root journal loader. ADR-0118/policy v13 is the
-current local engineering boundary: executor v8 validates the append-only
+current read-only-preflight engineering boundary: executor v8 validates the append-only
 journal below the separate external evidence root while definitions remain
-under the verified release root. It otherwise preserves and implements
+under the verified release root. Policy v12 continues to preserve
 production semantic admission for all ten inputs, independent EXT002/003
 trust, full clean-bundle/EXT006 release equality, supervised Q15-R/Q15-W,
 complete Q16 and durable 180-cell repeated-pilot semantics, six compiled
 fd-only fixed actions, independent bounded-memory raw decoding, streamed typed
 result/output admission, a PID-namespace-safe quiescence
 supervisor, Stage 17 exit, and separately signed Phase 18 access.
+The current CLI-v5-to-controller-v4 path for actions after `PREFLIGHT_ACCEPTED`
+is fail-closed because controller v4 remains bound to policy v12/envelope v9;
+a prospective controller successor is required before Q15. This later blocker
+does not widen or invalidate the fixed six-observation read-only preflight.
 The local compiled-dispatch integration passes without a state-gate mock, but
 it creates only temporary `synthetic/test-only` evidence. The checked-in
 journal remains `PREPARED`, 0/10 resolved, and no action is authorized.

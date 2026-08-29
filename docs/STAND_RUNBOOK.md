@@ -61,7 +61,7 @@ adds a default-deny semantic policy. A file, generic JSON object, generic
 receipt, boolean claim, self-selected trust root, or metadata hash cannot
 resolve an input. ADR-0115/policy v11 is an immutable incomplete predecessor.
 ADR-0116 amends the pilot warm-up bootstrap in protocol pre.3, and
-ADR-0117/policy v12 implements the current production verifier for all ten
+ADR-0117/policy v12 implements the durable production verifier for all ten
 inputs, full bundle/EXT006 closure, supervised Q15, durable complete pilot
 semantics, and the closed six-action controller/worker boundary. This is local
 engineering closure only: every input still requires real exact bytes and the
@@ -74,9 +74,12 @@ unchanged, ADR-0109 preserves every v1-v4 predecessor, ADR-0110 preserves the
 complete v5 predecessor, ADR-0111 preserves the complete v6 predecessor, and
 ADR-0112 preserves the complete v7 predecessor. ADR-0113/policy v9 is rejected;
 ADR-0114/policy v10 and ADR-0115/policy v11 are immutable incomplete
-predecessors. ADR-0117/policy v12 is the current local admission and handoff
-boundary. Future `S17-EXT-001`
-preflight admission continues to use
+predecessors. ADR-0118/policy v13 is the current local admission and handoff
+runtime. It keeps repository definitions under the verified release root and
+requires journal, resolution, and transition lineage under the distinct
+external operational evidence root. Policy v12 executor v7 must not be used
+for a new preflight because it rejects the documented external journal before
+its marker. Future `S17-EXT-001` preflight admission continues to use
 its policy-bound authorization/supporting-contract semantics. Do not write an SSH
 command, argv, stdin, output filename, timeout, retry, or permission into an
 owner record. The immutable fixed action plan and hash-bound production

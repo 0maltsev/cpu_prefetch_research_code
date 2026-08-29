@@ -304,7 +304,12 @@ an authorization to choose its trust/executable and treated exit zero as
 completion. Its controller now refuses before opening a worker, output root,
 or marker. ADR-0114/policy v10 and ADR-0115/policy v11 are immutable
 incomplete predecessors. ADR-0116 accepts the pre.3 warm-up amendment;
-ADR-0117/policy v12 is the current local engineering boundary. It implements
+ADR-0117/policy v12 remains the durable pilot/handoff predecessor. A real
+pre-marker handoff characterization proved that its preflight executor still
+used the legacy repository-root journal loader. ADR-0118/policy v13 is the
+current local engineering boundary: executor v8 validates the append-only
+journal below the separate external evidence root while definitions remain
+under the verified release root. It otherwise preserves and implements
 production semantic admission for all ten inputs, independent EXT002/003
 trust, full clean-bundle/EXT006 release equality, supervised Q15-R/Q15-W,
 complete Q16 and durable 180-cell repeated-pilot semantics, six compiled
@@ -550,7 +555,7 @@ cmake --build --preset dev-gcc \
 
 The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
-The policy-v12 stand handoff begins with a separately issued S17-EXT-001 and
+The policy-v13 stand handoff begins with a separately issued S17-EXT-001 and
 ends with a separately issued pilot authorization; exact commands and expected
 append-only record paths are in
 [`docs/STAGE17_STAND_HANDOFF.md`](docs/STAGE17_STAND_HANDOFF.md).

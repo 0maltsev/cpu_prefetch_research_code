@@ -545,7 +545,8 @@ authorization/amendment.
   fourteen negative cases without creating an external input or authority.
   ADR-0113/policy v9 is rejected and its controller refuses; ADR-0114/policy
   v10 and ADR-0115/policy v11 remain immutable incomplete predecessors.
-  ADR-0116 accepts protocol pre.3; ADR-0117/policy v12 is the repository-local
+  ADR-0116 accepts protocol pre.3; ADR-0117/policy v12 provides the durable
+  pilot/handoff design. ADR-0118/policy v13 is the repository-local
   production boundary: full clean-bundle/EXT006 verification,
   all ten input verifiers, independent trust/release contexts, supervised Q15,
   complete Q16 and durable repeated 180-cell pilot semantics, six compiled

@@ -427,12 +427,12 @@ def main() -> int:
             copy_tree_files(root / "config", staging / "config")
             copy_tree_files(root / "docs", staging / "docs")
             # The v4 pilot candidate carries the executable controller at the
-            # exact repository-relative paths authenticated by policy v12.
+            # exact repository-relative paths authenticated by policy v13.
             # Keep the general implementation-schema layout for legacy bundle
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v12.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v13.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))

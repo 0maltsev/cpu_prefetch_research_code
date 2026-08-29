@@ -706,6 +706,17 @@ if(BUILD_TESTING)
       PASS_REGULAR_EXPRESSION
         "PASS.*state=PREPARED.*resolved=0.*missing=10.*pilot_ready=false.*semantic_positive=1/1.*mechanics_positive=10/3.*runtime_positive=2.*stage17a4_positive=7.*stage17a4_negative=5.*negative=79.*nonexistent_evidence=REJECTED.*generic_evidence=REJECTED.*reload=PASS.*Stage18=false.*stand=NOT_ACCESSED")
   add_test(
+    NAME runner.stage17_external_journal_preflight
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_external_journal_preflight.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_external_journal_preflight
+    PROPERTIES
+      LABELS "runner;authorization;external-journal;preflight;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS positive=2 negative=3 transport=0 marker=0")
+  add_test(
     NAME runner.stage17_openssh_snapshot_consumption
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_stage17_openssh_snapshot_consumption.py"
@@ -2415,6 +2426,18 @@ add_custom_target(
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_process_group_evidence.py"
     --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_external_journal_preflight.py"
+    --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_read_only_preflight_policy_v10.py"
+    --check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_policy_v13.py"
+    --check
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking Stage 17 journal admission and real local OpenSSH snapshot consumption")
 add_custom_target(

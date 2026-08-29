@@ -45,8 +45,8 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The current versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v12`](../config/stage17/stage17-operational-evidence-admission-policy-v12.json)
-binds policy v11 as an immutable predecessor, ADR-0116/0117, every current
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v13`](../config/stage17/stage17-operational-evidence-admission-policy-v13.json)
+binds policy v12 as an immutable predecessor, ADR-0116/0117/0118, every current
 record schema, fixed phase actions v4, the exact Python controller/admission/exit
 closure, and the actual C++ worker/runner/entrypoint sources. It registers a
 production semantic verifier for every catalog input. Admission is

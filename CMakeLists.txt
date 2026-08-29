@@ -717,6 +717,17 @@ if(BUILD_TESTING)
       PASS_REGULAR_EXPRESSION
         "PASS positive=2 negative=3 transport=0 marker=0")
   add_test(
+    NAME runner.stage17_external_journal_preflight_v2
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_external_journal_preflight_v2.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_external_journal_preflight_v2
+    PROPERTIES
+      LABELS "runner;authorization;external-journal;preflight;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS positive=3 negative=4 transport=0 marker=0")
+  add_test(
     NAME runner.stage17_openssh_snapshot_consumption
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_stage17_openssh_snapshot_consumption.py"
@@ -2432,11 +2443,23 @@ add_custom_target(
     --self-test
   COMMAND
     "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_external_journal_preflight_v2.py"
+    --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/author_stage17_read_only_preflight_policy_v10.py"
     --check
   COMMAND
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/author_stage17_policy_v13.py"
+    --check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_read_only_preflight_policy_v11.py"
+    --check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_policy_v14.py"
     --check
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking Stage 17 journal admission and real local OpenSSH snapshot consumption")

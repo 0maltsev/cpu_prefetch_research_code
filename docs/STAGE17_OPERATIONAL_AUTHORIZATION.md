@@ -45,8 +45,8 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The current versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v13`](../config/stage17/stage17-operational-evidence-admission-policy-v13.json)
-binds policy v12 as an immutable predecessor, ADR-0116/0117/0118, every current
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v14`](../config/stage17/stage17-operational-evidence-admission-policy-v14.json)
+binds policy v13 as an immutable predecessor, ADR-0116/0117/0118/0119, every current
 record schema, fixed phase actions v4, the exact Python controller/admission/exit
 closure, and the actual C++ worker/runner/entrypoint sources. It registers a
 production semantic verifier for every catalog input. Admission is
@@ -70,7 +70,7 @@ ten catalog inputs and an unexpired, predecessor-bound `S17-EXT-010` at an
 actual system time. Its verifier is implemented, but the checked-in journal has
 no real resolutions, so pilot readiness remains false.
 
-`S17-EXT-001` requires one v8 semantic envelope that binds the authorization,
+`S17-EXT-001` requires one envelope-v11 semantic record that binds the authorization,
 supporting contract, policy, action plan, verifier, executor, and collector by
 repository-relative path, byte count, SHA-256, and schema identity. The owner
 cannot provide command, argv, stdin, or output-file bytes. The repository-owned

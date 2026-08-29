@@ -666,7 +666,7 @@ def main() -> int:
             controller = manifest.get("stage17_controller_runtime")
             policy_path = root / (
                 "config/stage17/"
-                f"stage17-operational-evidence-admission-policy-v{13 if current_v4 else 11}.json"
+                f"stage17-operational-evidence-admission-policy-v{14 if current_v4 else 11}.json"
             )
             if (not isinstance(controller, dict)
                     or controller.get("controller_id")
@@ -706,7 +706,7 @@ def main() -> int:
                         break
                 nested_path = root / (
                     "config/stage17/"
-                    "stage17-read-only-preflight-evidence-admission-policy-v10.json"
+                    "stage17-read-only-preflight-evidence-admission-policy-v11.json"
                 )
                 nested_summary = controller.get("nested_preflight_policy", {})
                 if not nested_path.is_file():
@@ -741,7 +741,7 @@ def main() -> int:
                             )
                             break
                 for relative in (
-                    "tools/stage17_read_only_preflight_executor_v8.py",
+                    "tools/stage17_read_only_preflight_executor_v9.py",
                     "tools/stage17_read_only_preflight_collector_v2.py",
                 ):
                     candidate = root / relative

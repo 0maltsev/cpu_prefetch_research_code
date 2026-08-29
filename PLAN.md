@@ -546,14 +546,17 @@ authorization/amendment.
   ADR-0113/policy v9 is rejected and its controller refuses; ADR-0114/policy
   v10 and ADR-0115/policy v11 remain immutable incomplete predecessors.
   ADR-0116 accepts protocol pre.3; ADR-0117/policy v12 provides the durable
-  pilot/handoff design. ADR-0118/policy v13 is the repository-local
-  read-only-preflight boundary: exact external-journal validation and the six
-  fixed observations. The durable policy-v12 design retains full clean-bundle/EXT006 verification,
+  pilot/handoff design. ADR-0118/policy v13 is preserved after executor v8's
+  missing canonical-serializer import stopped the first T1 execution before
+  marker/transport. ADR-0119/policy v14, preflight policy v11, CLI v6, journal
+  v12, and executor v9 are the repository-local read-only-preflight boundary:
+  exact external-journal validation, complete pre-marker preparation, and the
+  six fixed observations. The durable policy-v12 design retains full clean-bundle/EXT006 verification,
   all ten input verifiers, independent trust/release contexts, supervised Q15,
   complete Q16 and durable repeated 180-cell pilot semantics, six compiled
   fixed actions, exact-byte execution, bounded independent raw decoding,
   streamed typed output admission, Stage 17 exit, and independent signed
-  Phase 18 access, but controller v4 cannot consume a policy-v13/v10-envelope
+  Phase 18 access, but controller v4 cannot consume a policy-v14/v11-envelope
   journal after T2. A prospective controller successor is required before Q15.
   The predecessor one-command hermetic bundle-root
   rehearsal runs the 10-resolution/3-transition/pilot/seal/exit flow through
@@ -561,8 +564,10 @@ authorization/amendment.
   it passes 12 positive and 12 negative public-workflow cases. Fresh dev,
   ASan/UBSan, and TSan matrices pass 339/339 each, with formatting, focused
   clang-tidy, and strict dual-disassembler gates also passing.
-  The next safe step is only the exact S17-EXT-001/read-only-preflight handoff
-  in `docs/STAGE17_STAND_HANDOFF.md`; stop after collecting its evidence.
+  The next safe external step is to build and independently verify a fresh
+  policy-v14 candidate release, then issue one fresh S17-EXT-001 and execute
+  only its read-only preflight from `docs/STAGE17_STAND_HANDOFF.md`; stop after
+  collecting its evidence. Every earlier partial transaction remains terminal.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

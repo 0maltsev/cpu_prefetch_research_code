@@ -74,9 +74,12 @@ unchanged, ADR-0109 preserves every v1-v4 predecessor, ADR-0110 preserves the
 complete v5 predecessor, ADR-0111 preserves the complete v6 predecessor, and
 ADR-0112 preserves the complete v7 predecessor. ADR-0113/policy v9 is rejected;
 ADR-0114/policy v10 and ADR-0115/policy v11 are immutable incomplete
-predecessors. ADR-0118/policy v13 is the current local admission and handoff
-runtime. It keeps repository definitions under the verified release root and
-requires journal, resolution, and transition lineage under the distinct
+predecessors. ADR-0118/policy v13 and executor v8 are immutable predecessors
+after the first T1 action stopped before marker/transport on its missing
+canonical-serializer import. ADR-0119/policy v14, preflight policy v11, CLI
+v6, journal v12, and executor v9 are the current local admission and handoff
+runtime. They keep repository definitions under the verified release root and
+require journal, resolution, and transition lineage under the distinct
 external operational evidence root. Policy v12 executor v7 must not be used
 for a new preflight because it rejects the documented external journal before
 its marker. Future `S17-EXT-001` preflight admission continues to use
@@ -93,11 +96,13 @@ component.
 Before the first read-only preflight, follow the exact ordered handoff in
 [`STAGE17_STAND_HANDOFF.md`](STAGE17_STAND_HANDOFF.md) and complete the exact
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
-must provide only its listed typed v8 values; raw action bytes are forbidden.
+must provide only the listed typed authorization/contract-v9 values; raw
+action bytes are forbidden.
 Do not use the draft itself as evidence. Create the typed supporting contract
 first; hash-bind its path, byte count, SHA-256, schema identity, and fixed plan
-in the v8 authorization; then bind policy, authorization, contract, plan and
-the complete verifier/executor/collector/journal/broker/supervisor/helper closure in one v8
+in the v9 authorization; then bind policy, authorization, contract, plan and
+the complete verifier/executor/collector/journal/broker/supervisor/helper
+closure in one envelope-v11
 semantic envelope. Remote runtime
 executable/module/dependency identities remain read-only `S17-EXT-002` outputs,
 not prospective values. Admission alone is not action readiness: exact

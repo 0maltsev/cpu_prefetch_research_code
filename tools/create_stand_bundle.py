@@ -427,12 +427,12 @@ def main() -> int:
             copy_tree_files(root / "config", staging / "config")
             copy_tree_files(root / "docs", staging / "docs")
             # The v4 pilot candidate carries the executable controller at the
-            # exact repository-relative paths authenticated by policy v13.
+            # exact repository-relative paths authenticated by policy v14.
             # Keep the general implementation-schema layout for legacy bundle
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v13.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v14.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
@@ -476,14 +476,14 @@ def main() -> int:
                 "authority_embedded": False,
                 "repository_evidence_roots": ["config", "docs"],
             }
-            # Policy v13 binds the complete preflight policy v10 by exact
+            # Policy v14 binds the complete preflight policy v11 by exact
             # bytes. The nested policy also binds compatibility modules by
             # pathname without importing them into the current Python closure.
             # Carry those exact files so production admission does not depend
             # on the wider test-only source projection.
             nested_policy_relative = pathlib.Path(
                 "config/stage17/"
-                "stage17-read-only-preflight-evidence-admission-policy-v10.json"
+                "stage17-read-only-preflight-evidence-admission-policy-v11.json"
             )
             nested_policy_path = root / nested_policy_relative
             nested_policy = json.loads(nested_policy_path.read_text(encoding="utf-8"))

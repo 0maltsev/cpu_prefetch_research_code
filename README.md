@@ -304,19 +304,21 @@ an authorization to choose its trust/executable and treated exit zero as
 completion. Its controller now refuses before opening a worker, output root,
 or marker. ADR-0114/policy v10 and ADR-0115/policy v11 are immutable
 incomplete predecessors. ADR-0116 accepts the pre.3 warm-up amendment;
-ADR-0117/policy v12 remains the durable pilot/handoff predecessor. A real
-pre-marker handoff characterization proved that its preflight executor still
-used the legacy repository-root journal loader. ADR-0118/policy v13 is the
-current read-only-preflight engineering boundary: executor v8 validates the append-only
-journal below the separate external evidence root while definitions remain
-under the verified release root. Policy v12 continues to preserve
+ADR-0117/policy v12 remains the durable pilot/handoff predecessor. Real
+pre-marker handoffs exposed first the legacy repository-root loader and then a
+missing canonical-serializer import in executor v8 after T1. ADR-0118/policy
+v13 and preflight policy v10 are preserved predecessors. ADR-0119/policy v14,
+preflight policy v11, CLI v6, journal v12, and executor v9 are the current
+read-only-preflight engineering boundary. The focused persisted-journal test
+passes 3 positive/4 negative cases through complete pre-marker preparation
+with six compiled programs and zero marker/transport. Policy v12 continues to preserve
 production semantic admission for all ten inputs, independent EXT002/003
 trust, full clean-bundle/EXT006 release equality, supervised Q15-R/Q15-W,
 complete Q16 and durable 180-cell repeated-pilot semantics, six compiled
 fd-only fixed actions, independent bounded-memory raw decoding, streamed typed
 result/output admission, a PID-namespace-safe quiescence
 supervisor, Stage 17 exit, and separately signed Phase 18 access.
-The current CLI-v5-to-controller-v4 path for actions after `PREFLIGHT_ACCEPTED`
+The current CLI-v6-to-controller-v4 path for actions after `PREFLIGHT_ACCEPTED`
 is fail-closed because controller v4 remains bound to policy v12/envelope v9;
 a prospective controller successor is required before Q15. This later blocker
 does not widen or invalidate the fixed six-observation read-only preflight.
@@ -559,7 +561,7 @@ cmake --build --preset dev-gcc \
 
 The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
-The policy-v13 stand handoff begins with a separately issued S17-EXT-001 and
+The policy-v14 stand handoff begins with a separately issued S17-EXT-001 and
 ends with a separately issued pilot authorization; exact commands and expected
 append-only record paths are in
 [`docs/STAGE17_STAND_HANDOFF.md`](docs/STAGE17_STAND_HANDOFF.md).

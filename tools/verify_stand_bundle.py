@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -703,6 +704,17 @@ def main() -> int:
                             f"pilot candidate controller binding drifted: {item['path']}"
                         )
                         break
+                for relative in (
+                    "tools/stage17_read_only_preflight_executor_v7.py",
+                    "tools/stage17_read_only_preflight_collector_v2.py",
+                ):
+                    candidate = root / relative
+                    if (not candidate.is_file() or candidate.is_symlink()
+                            or not os.access(candidate, os.X_OK)):
+                        failures.append(
+                            "pilot candidate S17-EXT-001 action identity is not "
+                            f"executable: {relative}"
+                        )
 
     if profile in (
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1",

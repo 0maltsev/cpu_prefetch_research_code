@@ -450,7 +450,11 @@ def main() -> int:
                     target = staging / relative
                     target.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copyfile(source, target)
-                    target.chmod(0o644)
+                    # Policy-bound Python entrypoints are executed at the exact
+                    # path admitted by S17-EXT-001.  Preserve the repository's
+                    # executable bit instead of silently turning those paths
+                    # into non-executable regular files in the clean bundle.
+                    target.chmod(0o755 if os.access(source, os.X_OK) else 0o644)
                     controller_files.append({
                         "group": group_name,
                         "key": key,

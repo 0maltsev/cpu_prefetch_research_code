@@ -704,6 +704,42 @@ def main() -> int:
                             f"pilot candidate controller binding drifted: {item['path']}"
                         )
                         break
+                nested_path = root / (
+                    "config/stage17/"
+                    "stage17-read-only-preflight-evidence-admission-policy-v10.json"
+                )
+                nested_summary = controller.get("nested_preflight_policy", {})
+                if not nested_path.is_file():
+                    failures.append("nested preflight policy is absent")
+                else:
+                    nested_policy = json.loads(nested_path.read_text(encoding="utf-8"))
+                    expected_nested = [
+                        {
+                            "group": group,
+                            "key": key,
+                            "path": item.get("path"),
+                            "size_bytes": item.get("size_bytes"),
+                            "sha256": item.get("sha256"),
+                        }
+                        for group in ("implementations", "operational_implementations")
+                        for key, item in nested_policy.get(group, {}).items()
+                    ]
+                    if (nested_summary.get("path")
+                            != nested_path.relative_to(root).as_posix()
+                            or nested_summary.get("size_bytes")
+                            != nested_path.stat().st_size
+                            or nested_summary.get("sha256") != sha256(nested_path)
+                            or nested_summary.get("bound_files") != expected_nested):
+                        failures.append("nested preflight policy closure drifted")
+                    for item in expected_nested:
+                        candidate = root / str(item["path"])
+                        if (not candidate.is_file() or candidate.is_symlink()
+                                or candidate.stat().st_size != item["size_bytes"]
+                                or sha256(candidate) != item["sha256"]):
+                            failures.append(
+                                "nested preflight bound file is absent or drifted"
+                            )
+                            break
                 for relative in (
                     "tools/stage17_read_only_preflight_executor_v8.py",
                     "tools/stage17_read_only_preflight_collector_v2.py",

@@ -476,6 +476,50 @@ def main() -> int:
                 "authority_embedded": False,
                 "repository_evidence_roots": ["config", "docs"],
             }
+            # Policy v13 binds the complete preflight policy v10 by exact
+            # bytes. The nested policy also binds compatibility modules by
+            # pathname without importing them into the current Python closure.
+            # Carry those exact files so production admission does not depend
+            # on the wider test-only source projection.
+            nested_policy_relative = pathlib.Path(
+                "config/stage17/"
+                "stage17-read-only-preflight-evidence-admission-policy-v10.json"
+            )
+            nested_policy_path = root / nested_policy_relative
+            nested_policy = json.loads(nested_policy_path.read_text(encoding="utf-8"))
+            nested_bound_files: list[dict[str, object]] = []
+            for group_name in ("implementations", "operational_implementations"):
+                for key, binding in nested_policy[group_name].items():
+                    relative = pathlib.Path(binding["path"])
+                    if relative.is_absolute() or ".." in relative.parts:
+                        raise ValueError(
+                            f"unsafe nested Stage 17 binding: {relative}"
+                        )
+                    source = root / relative
+                    if (not source.is_file() or source.is_symlink()
+                            or source.stat().st_size != binding["size_bytes"]
+                            or sha256(source) != binding["sha256"]):
+                        raise ValueError(
+                            f"nested Stage 17 binding drifted: {relative}"
+                        )
+                    target = staging / relative
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    if not target.exists():
+                        shutil.copyfile(source, target)
+                        target.chmod(0o755 if os.access(source, os.X_OK) else 0o644)
+                    nested_bound_files.append({
+                        "group": group_name,
+                        "key": key,
+                        "path": relative.as_posix(),
+                        "size_bytes": binding["size_bytes"],
+                        "sha256": binding["sha256"],
+                    })
+            stage17_controller_runtime["nested_preflight_policy"] = {
+                "path": nested_policy_relative.as_posix(),
+                "size_bytes": nested_policy_path.stat().st_size,
+                "sha256": sha256(nested_policy_path),
+                "bound_files": nested_bound_files,
+            }
             if stage17_dry_run:
                 # The hermetic regression harness preserves predecessor suites
                 # as characterization evidence.  Their import graph is wider

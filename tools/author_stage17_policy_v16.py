@@ -34,6 +34,7 @@ SUCCESSOR_BINDINGS = (
     "tools/stage17_phase_controller_v6.py",
     "tools/stage17_q15_session_controller_v4.py",
     "tools/stage17_operational_cli_v8.py",
+    "tools/author_stage17_pre_marker_blocker_v1.py",
 )
 
 

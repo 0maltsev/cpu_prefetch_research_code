@@ -303,6 +303,7 @@ def main() -> int:
         "stage17-read-only-preflight-supporting-contract-v9.schema.json",
         "stage17-read-only-preflight-evidence-admission-policy-v10.schema.json",
         "stage17-operational-evidence-admission-policy-v14.schema.json",
+        "stage17-operational-evidence-admission-policy-v15.schema.json",
         "stage17-operational-evidence-envelope-v11.schema.json",
         "stage17-read-only-preflight-evidence-admission-policy-v11.schema.json",
         "stage17-operational-input-manifest-v4.schema.json",

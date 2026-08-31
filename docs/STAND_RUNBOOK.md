@@ -76,14 +76,17 @@ ADR-0112 preserves the complete v7 predecessor. ADR-0113/policy v9 is rejected;
 ADR-0114/policy v10 and ADR-0115/policy v11 are immutable incomplete
 predecessors. ADR-0118/policy v13 and executor v8 are immutable predecessors
 after the first T1 action stopped before marker/transport on its missing
-canonical-serializer import. ADR-0119/policy v14, preflight policy v11, CLI
-v6, journal v12, and executor v9 are the current local admission and handoff
-runtime. They keep repository definitions under the verified release root and
+canonical-serializer import. ADR-0119/policy v14, preflight policy v11,
+journal v12, and executor v9 remain the read-only-preflight boundary.
+ADR-0120/policy v15, journal v13, controller v5, Q15 controller v3, and CLI v7
+are the current post-preflight admission and handoff runtime. They keep
+repository definitions under the verified release root and
 require journal, resolution, and transition lineage under the distinct
 external operational evidence root. Policy v12 executor v7 must not be used
 for a new preflight because it rejects the documented external journal before
 its marker. Future `S17-EXT-001` preflight admission continues to use
-its policy-bound authorization/supporting-contract semantics. Do not write an SSH
+its policy-bound authorization/supporting-contract semantics. Controller v4
+and CLI v6 must not be used after T1. Do not write an SSH
 command, argv, stdin, output filename, timeout, retry, or permission into an
 owner record. The immutable fixed action plan and hash-bound production
 executor/collector own those values. The owner may supply only the typed

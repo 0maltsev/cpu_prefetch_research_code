@@ -426,13 +426,13 @@ def main() -> int:
             # closure at the directly consumable bundle root.
             copy_tree_files(root / "config", staging / "config")
             copy_tree_files(root / "docs", staging / "docs")
-            # The v4 pilot candidate carries the executable controller at the
-            # exact repository-relative paths authenticated by policy v14.
+            # The v4 worker bundle carries the executable controller successor
+            # at the exact repository-relative paths authenticated by policy v15.
             # Keep the general implementation-schema layout for legacy bundle
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v14.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v15.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
@@ -463,9 +463,9 @@ def main() -> int:
                         "sha256": binding["sha256"],
                     })
             stage17_controller_runtime = {
-                "controller_id": "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v4",
-                "entrypoint": "tools/stage17_phase_controller_v4.py",
-                "invocation": ["python3", "tools/stage17_phase_controller_v4.py"],
+                "controller_id": "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v5",
+                "entrypoint": "tools/stage17_phase_controller_v5.py",
+                "invocation": ["python3", "tools/stage17_phase_controller_v5.py"],
                 "policy": {
                     "path": policy_relative.as_posix(),
                     "size_bytes": policy_path.stat().st_size,
@@ -476,7 +476,7 @@ def main() -> int:
                 "authority_embedded": False,
                 "repository_evidence_roots": ["config", "docs"],
             }
-            # Policy v14 binds the complete preflight policy v11 by exact
+            # Policy v15 binds the complete preflight policy v11 by exact
             # bytes. The nested policy also binds compatibility modules by
             # pathname without importing them into the current Python closure.
             # Carry those exact files so production admission does not depend

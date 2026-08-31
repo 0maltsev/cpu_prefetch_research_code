@@ -726,7 +726,7 @@ if(BUILD_TESTING)
     PROPERTIES
       LABELS "runner;authorization;external-journal;preflight;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
-        "PASS positive=3 negative=4 transport=0 marker=0")
+        "PASS positive=4 negative=5 transport=0 marker=0")
   add_test(
     NAME runner.stage17_openssh_snapshot_consumption
     COMMAND "${Python3_EXECUTABLE}"
@@ -2460,6 +2460,10 @@ add_custom_target(
   COMMAND
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/author_stage17_policy_v14.py"
+    --check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_policy_v15.py"
     --check
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking Stage 17 journal admission and real local OpenSSH snapshot consumption")

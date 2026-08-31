@@ -22,6 +22,8 @@ incomplete predecessor. ADR-0115 supplies the immutable policy-v11
 predecessor. ADR-0116 accepts the protocol pre.3 pilot warm-up bootstrap
 amendment. ADR-0117 supplies the policy-v12 durable-session, full-bundle,
 fixed-action pilot, streamed-output, supervised-Q15, and handoff successor.
+ADR-0120 supplies the policy-v15 post-preflight controller compatibility
+successor.
 None of these
 ADRs authorizes stand access or a run:
 
@@ -45,8 +47,8 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The current versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v14`](../config/stage17/stage17-operational-evidence-admission-policy-v14.json)
-binds policy v13 as an immutable predecessor, ADR-0116/0117/0118/0119, every current
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v15`](../config/stage17/stage17-operational-evidence-admission-policy-v15.json)
+binds policy v14 as an immutable predecessor, ADR-0116/0117/0118/0119/0120, every current
 record schema, fixed phase actions v4, the exact Python controller/admission/exit
 closure, and the actual C++ worker/runner/entrypoint sources. It registers a
 production semantic verifier for every catalog input. Admission is
@@ -70,7 +72,9 @@ ten catalog inputs and an unexpired, predecessor-bound `S17-EXT-010` at an
 actual system time. Its verifier is implemented, but the checked-in journal has
 no real resolutions, so pilot readiness remains false.
 
-`S17-EXT-001` requires one envelope-v11 semantic record that binds the authorization,
+`S17-EXT-001` continues to use one envelope-v11 semantic record and preflight
+policy v11. Journal v12/policy v14 and journal v13/policy v15 independently
+validate its exact bytes; no record migration is allowed. The envelope binds the authorization,
 supporting contract, policy, action plan, verifier, executor, and collector by
 repository-relative path, byte count, SHA-256, and schema identity. The owner
 cannot provide command, argv, stdin, or output-file bytes. The repository-owned
@@ -126,6 +130,9 @@ reaped only after group quiescence. Records independently bind
 `leader_reaped=true` and `process_group_gone=true`. A versioned typed fallback
 preserves the primary and retention errors if full failure publication fails.
 Only then may snapshots close and evidence be published.
+Controller v4 remains an immutable incompatible predecessor. Controller v5
+changes only its journal dependency to journal v13/policy v15; Q15 controller
+v3 and CLI v7 use the same successor. No successor grants action authority.
 `PREPARED`, later states, expiry, drift, or a prior marker return
 `action_ready=false`; no later state inherits or repeats the preflight.
 
@@ -155,7 +162,7 @@ names. EXT009 requires the storage budget, two custody domains, copy ledger and
 recovery test. EXT010 names the exact preceding nine resolution hashes and the
 frozen pilot request; it grants no Phase 18 authority.
 
-Controller v2 obtains trust only from admitted EXT002/003. Q15-R/Q15-W use the
+Controller v5 obtains trust only from admitted EXT002/003. Q15-R/Q15-W use the
 worker bytes observed there; EXT006 later proves that those bytes equal the
 release member. Q16a/Q16b/Q16c and pilot use only the admitted EXT006 runtime.
 The admitted allowed-signers bytes and authorization-signature bytes are read

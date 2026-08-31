@@ -13,8 +13,8 @@ import sys
 import tempfile
 
 
-POSITIVE_CASES = 3
-NEGATIVE_CASES = 4
+POSITIVE_CASES = 4
+NEGATIVE_CASES = 5
 
 
 class CheckError(RuntimeError):
@@ -40,7 +40,7 @@ def cli(
     *arguments: str,
 ) -> subprocess.CompletedProcess[str]:
     return run([
-        python, "-B", str(repository / "tools/stage17_operational_cli_v6.py"),
+        python, "-B", str(repository / "tools/stage17_operational_cli_v7.py"),
         "--repository-root", str(repository),
         "--evidence-root", str(evidence),
         *arguments,
@@ -148,6 +148,53 @@ def self_test(root: pathlib.Path) -> None:
             "--timestamp-utc", exact_second(transitioned),
         )
         journal = evidence / "journal/stage17-state-journal-000002.json"
+        predecessor_controller_code = """
+import pathlib, sys
+sys.path.insert(0, str(pathlib.Path(%r) / 'tools'))
+import stage17_phase_controller_v4 as controller
+import stage17_state_journal_v10 as journal
+assert controller.journal_runtime is journal
+try:
+    journal.validate_operational_journal(
+        repository_root=pathlib.Path(%r), evidence_root=pathlib.Path(%r),
+        latest_journal=pathlib.Path(%r), journal_directory=pathlib.Path(%r),
+        as_of_utc=%r)
+except Exception:
+    print('controller-v4-policy-mismatch: PASS')
+else:
+    raise AssertionError('controller v4 unexpectedly accepted policy-v15 journal')
+""" % (str(admission), str(admission), str(evidence), str(journal),
+         str(journal.parent), exact_second(evaluated))
+        predecessor_controller = run(
+            [python, "-B", "-c", predecessor_controller_code], cwd=admission,
+        )
+        if "controller-v4-policy-mismatch: PASS" not in \
+                predecessor_controller.stdout:
+            raise CheckError("controller v4 incompatibility was not reproduced")
+
+        successor_controller_code = """
+import pathlib, sys
+sys.path.insert(0, str(pathlib.Path(%r) / 'tools'))
+import stage17_state_journal_v13 as journal
+import stage17_phase_controller_v5 as controller
+validation = journal.validate_operational_journal(
+    repository_root=pathlib.Path(%r), evidence_root=pathlib.Path(%r),
+    latest_journal=pathlib.Path(%r), journal_directory=pathlib.Path(%r),
+    as_of_utc=%r)
+assert validation.current_state == 'AUTHORIZED_FOR_READ_ONLY_PREFLIGHT'
+assert validation.resolution_count == 1 and validation.transition_count == 1
+assert controller.predecessor.journal_runtime is journal
+assert journal.SEMANTIC_POLICY_PATH.as_posix().endswith('policy-v15.json')
+print('controller-v5-policy-v15-compatibility: PASS')
+""" % (str(admission), str(admission), str(evidence), str(journal),
+         str(journal.parent), exact_second(evaluated))
+        successor_controller = run(
+            [python, "-B", "-c", successor_controller_code], cwd=admission,
+        )
+        if "controller-v5-policy-v15-compatibility: PASS" not in \
+                successor_controller.stdout:
+            raise CheckError("controller v5 did not accept the current journal")
+
         code = """
 import hashlib, pathlib, sys
 from unittest import mock

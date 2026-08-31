@@ -551,13 +551,15 @@ authorization/amendment.
   marker/transport. ADR-0119/policy v14, preflight policy v11, CLI v6, journal
   v12, and executor v9 are the repository-local read-only-preflight boundary:
   exact external-journal validation, complete pre-marker preparation, and the
-  six fixed observations. The durable policy-v12 design retains full clean-bundle/EXT006 verification,
+  six fixed observations. ADR-0120/policy v15, journal v13, controller v5,
+  Q15 controller v3, and CLI v7 close the post-preflight version mismatch
+  without changing action or scientific semantics. The durable policy-v12 design retains full clean-bundle/EXT006 verification,
   all ten input verifiers, independent trust/release contexts, supervised Q15,
   complete Q16 and durable repeated 180-cell pilot semantics, six compiled
   fixed actions, exact-byte execution, bounded independent raw decoding,
   streamed typed output admission, Stage 17 exit, and independent signed
-  Phase 18 access, but controller v4 cannot consume a policy-v14/v11-envelope
-  journal after T2. A prospective controller successor is required before Q15.
+  Phase 18 access. Controller v4 remains an incompatible predecessor; only
+  controller v5 may consume the policy-v15 journal after T2.
   The predecessor one-command hermetic bundle-root
   rehearsal runs the 10-resolution/3-transition/pilot/seal/exit flow through
   the compiled test-linked dispatcher without advancing the checked-in journal;
@@ -565,9 +567,10 @@ authorization/amendment.
   ASan/UBSan, and TSan matrices pass 339/339 each, with formatting, focused
   clang-tidy, and strict dual-disassembler gates also passing.
   The next safe external step is to build and independently verify a fresh
-  policy-v14 candidate release, then issue one fresh S17-EXT-001 and execute
-  only its read-only preflight from `docs/STAGE17_STAND_HANDOFF.md`; stop after
-  collecting its evidence. Every earlier partial transaction remains terminal.
+  policy-v15 candidate release, then issue one fresh S17-EXT-001 and execute
+  only its read-only preflight from `docs/STAGE17_STAND_HANDOFF.md`; admit the
+  resulting EXT002/003 and T2 before separately authorized Q15. Every earlier
+  partial transaction remains terminal.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

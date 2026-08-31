@@ -611,6 +611,7 @@ def main() -> int:
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
             }
             version = 4 if current_v4 else 3
+            controller_version = 5 if current_v4 else version
             expected_synthetic = profile in {
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
@@ -666,15 +667,15 @@ def main() -> int:
             controller = manifest.get("stage17_controller_runtime")
             policy_path = root / (
                 "config/stage17/"
-                f"stage17-operational-evidence-admission-policy-v{14 if current_v4 else 11}.json"
+                f"stage17-operational-evidence-admission-policy-v{15 if current_v4 else 11}.json"
             )
             if (not isinstance(controller, dict)
                     or controller.get("controller_id")
-                    != f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v{version}"
+                    != f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v{controller_version}"
                     or controller.get("entrypoint")
-                    != f"tools/stage17_phase_controller_v{version}.py"
+                    != f"tools/stage17_phase_controller_v{controller_version}.py"
                     or controller.get("invocation")
-                    != ["python3", f"tools/stage17_phase_controller_v{version}.py"]
+                    != ["python3", f"tools/stage17_phase_controller_v{controller_version}.py"]
                     or controller.get("production_test_mode_available") is not False
                     or controller.get("authority_embedded") is not False
                     or not policy_path.is_file()):

@@ -30,6 +30,13 @@ failed before marker and transport. Policy v16/preflight policy v12 require a
 typed receipt for those immutable source bytes and empty output root, then bind
 an exact named 20-key attempt-v8/executor-v10 successor. The stopped
 transaction is never retried.
+ADR-0122 preserves the next D-121 transaction, whose durable attempt-v8 marker
+was created before the executor detected adopted local capability-fixture
+children and stopped before `Popen`. Its terminal schemas then rejected the
+actual runtime closure. Policy v17/preflight policy v13 require a typed
+marker-only receipt, isolate and reap the OpenSSH fixture before marker, and
+bind one exact 22-name set across attempt v9 and every terminal record. D-121
+is also never retried.
 None of these
 ADRs authorizes stand access or a run:
 
@@ -53,8 +60,9 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The current versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v16`](../config/stage17/stage17-operational-evidence-admission-policy-v16.json)
-binds policy v15 as an immutable predecessor, ADR-0116/0117/0118/0119/0120/0121, every current
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v17`](../config/stage17/stage17-operational-evidence-admission-policy-v17.json)
+binds policy v16 as an immutable predecessor,
+ADR-0116/0117/0118/0119/0120/0121/0122, every current
 record schema, fixed phase actions v4, the exact Python controller/admission/exit
 closure, and the actual C++ worker/runner/entrypoint sources. It registers a
 production semantic verifier for every catalog input. Admission is
@@ -67,6 +75,13 @@ bytes, and returns their typed context. The observed EXT002/003 worker must be
 byte-identical to that release member. Raw observations are streamed under a
 frozen-plan-derived bound rather than a fixed 16 MiB cap.
 
+For EXT001, preflight policy v13 separately binds the D-120 pre-marker receipt,
+the D-121 marker-only post-marker receipt, snapshot broker v2, executor v11,
+and one exact 22-name runtime set shared by attempt v9, receipt v6, failure v7,
+failure-retention v2, and completion v6. The local OpenSSH/sshd pipe fixture is
+subreaper-isolated and fully reaped before the durable marker. Neither receipt
+is execution authority, and the D-121 attempt cannot be retried.
+
 The historical successor v1 and `STAGE17-EXTERNAL-INPUTS-v1` checklist remain
 byte-immutable definition/templates. Their embedded `current_state` and
 per-item `status` fields are not operational state or evidence. Missing,
@@ -78,8 +93,8 @@ ten catalog inputs and an unexpired, predecessor-bound `S17-EXT-010` at an
 actual system time. Its verifier is implemented, but the checked-in journal has
 no real resolutions, so pilot readiness remains false.
 
-New `S17-EXT-001` uses one envelope-v12 semantic record, authorization and
-contract v10, and preflight policy v12. Journal v14/policy v16 independently
+New `S17-EXT-001` uses one envelope-v13 semantic record, authorization and
+contract v11, and preflight policy v13. Journal v15/policy v17 independently
 validate its exact bytes; no record migration is allowed. The envelope binds the authorization,
 supporting contract, policy, action plan, verifier, executor, and collector by
 repository-relative path, byte count, SHA-256, and schema identity. The owner

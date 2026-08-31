@@ -122,8 +122,8 @@ control, calibration, or pilot work.
 
 The version-2 successor additionally includes the compiled
 `release/bin/cpu_prefetch_runner` fixed-action worker and the exact
-repository-relative policy-v15/controller-v5 closure and nested preflight-policy
-v11 closure. `BUNDLE_MANIFEST.json`
+repository-relative policy-v17/controller-v7 closure and nested preflight-policy
+v13 closure. `BUNDLE_MANIFEST.json`
 records every policy binding and runtime module byte hash under
 `stage17_controller_runtime`; bundle verification rereads those files and
 rejects a missing, substituted, or test-mode controller. The bundle contains

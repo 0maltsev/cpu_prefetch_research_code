@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:preflight-post-marker-blocker:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "blocker_id", "predecessor_attempt_marker",
+    "predecessor_journal", "predecessor_authorization",
+    "predecessor_resolution", "predecessor_transition",
+    "predecessor_output_root", "observed_failure", "actor",
+    "recorded_at_utc", "retry_allowed", "replacement_transaction_required",
+    "stage18_authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-preflight-post-marker-blocker/1"
+    },
+    "blocker_id": {"type": "string", "minLength": 1},
+    "predecessor_attempt_marker": {
+      "allOf": [
+        {"$ref": "#/$defs/external_binding"},
+        {"properties": {"schema_identity": {
+          "const": "cpu-prefetch-stage17-read-only-preflight-attempt/8"
+        }}}
+      ]
+    },
+    "predecessor_journal": {"$ref": "#/$defs/external_binding"},
+    "predecessor_authorization": {"$ref": "#/$defs/external_binding"},
+    "predecessor_resolution": {"$ref": "#/$defs/external_binding"},
+    "predecessor_transition": {"$ref": "#/$defs/external_binding"},
+    "predecessor_output_root": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["locator", "entries", "attempt_marker_only"],
+      "properties": {
+        "locator": {"type": "string", "pattern": "^/"},
+        "entries": {
+          "const": ["stage17-read-only-preflight-attempt-v8.json"]
+        },
+        "attempt_marker_only": {"const": true}
+      }
+    },
+    "observed_failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "failure_stage", "reason_category", "transport_started",
+        "remote_observation_count", "completed_observation_ids",
+        "full_failure_record_present", "fallback_failure_record_present",
+        "retention_failure_category", "source"
+      ],
+      "properties": {
+        "failure_stage": {"const": "TRANSPORT_SETUP"},
+        "reason_category": {"const": "PROCESS_SUPERVISOR_SETUP_FAILURE"},
+        "transport_started": {"const": false},
+        "remote_observation_count": {"const": 0},
+        "completed_observation_ids": {"const": []},
+        "full_failure_record_present": {"const": false},
+        "fallback_failure_record_present": {"const": false},
+        "retention_failure_category": {
+          "const": "TERMINAL_SCHEMA_RUNTIME_CARDINALITY_MISMATCH"
+        },
+        "source": {
+          "const": "OPERATOR_OBSERVED_EXECUTOR_ERROR_AND_OUTPUT_ROOT_INVENTORY"
+        }
+      }
+    },
+    "actor": {"type": "string", "minLength": 1},
+    "recorded_at_utc": {"$ref": "#/$defs/actual_utc"},
+    "retry_allowed": {"const": false},
+    "replacement_transaction_required": {"const": true},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "actual_utc": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$"
+    },
+    "external_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["locator", "size_bytes", "sha256", "schema_identity"],
+      "properties": {
+        "locator": {"type": "string", "pattern": "^/"},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "schema_identity": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

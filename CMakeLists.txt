@@ -739,6 +739,17 @@ if(BUILD_TESTING)
       PASS_REGULAR_EXPRESSION
         "PASS positive=4 negative=5 stand=NOT_ACCESSED")
   add_test(
+    NAME runner.stage17_preflight_terminal_compatibility
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_preflight_terminal_compatibility.py"
+            --self-test)
+  set_tests_properties(
+    runner.stage17_preflight_terminal_compatibility
+    PROPERTIES
+      LABELS "runner;authorization;preflight;openssh;pre-pilot;synthetic"
+      PASS_REGULAR_EXPRESSION
+        "PASS positive=8 negative=19 transport=0 stand=NOT_ACCESSED")
+  add_test(
     NAME runner.stage17_openssh_snapshot_consumption
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_stage17_openssh_snapshot_consumption.py"
@@ -2487,6 +2498,18 @@ add_custom_target(
   COMMAND
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_pre_marker_runtime_cardinality.py"
+    --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_read_only_preflight_policy_v13.py"
+    --check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_policy_v17.py"
+    --check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_preflight_terminal_compatibility.py"
     --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking Stage 17 journal admission and real local OpenSSH snapshot consumption")

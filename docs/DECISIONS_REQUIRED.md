@@ -59,20 +59,26 @@ caller-supplied exact archive/sidecar bytes and a verifiable custody receipt.
 The immediate owner input is the exact real data listed in the
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md), not another
 recommendation bundle.
-ADR-0108 through ADR-0112 preserve all earlier definitions while making policy
-v8, fixed plan v6, verifier v8, executor v6, and journal runtime v5 current.
+ADR-0108 through ADR-0112 preserve their earlier definitions. ADR-0121
+preserves the terminal D-120 pre-marker transaction, and ADR-0122 preserves
+the terminal D-121 marker-only transaction. Policy v17, preflight policy v13,
+fixed plans v6/v8, verifier v13, executor v11, journal runtime v15, controller
+v7, Q15 controller v5, and CLI v9 are the current prospective release closure.
 The current supervisor separately proves leader reap and process-group
 quiescence before evidence publication or credential-snapshot closure.
-The owner must still supply the exact v7 target, UTC window, host-key/
+The owner must still supply a new exact target, finite UTC window, host-key/
 known-hosts and transport identities, archive/sidecar/bundle locators, exact-
-second capture identity/time, safe evidence root, and actual executor/collector
-paths. Production authority is evaluated from actual system UTC, not an owner
-or CLI time. Executor v5 retains sealed snapshots and gives OpenSSH parent-
-procfd locators; the hermetic actual-OpenSSH capability is required before a
-marker. Snapshot verification completes before the final transport guard, and
-every started SSH process group must be terminated/reaped before snapshot close
-or failure publication. These are unresolved external inputs, not
-implementation defaults.
+second capture identity/time, safe evidence root, and both immutable D-120 and
+D-121 blocker receipts. The CLI derives executor/collector paths and bytes
+from the policy; the owner cannot select them. Production authority is
+evaluated from actual system UTC, not an owner or CLI time. Executor v11
+retains sealed snapshots and gives OpenSSH parent-procfd locators; snapshot
+broker v2 runs the hermetic actual-OpenSSH capability under a subreaper and
+must reap every adopted fixture child before marker. Every started SSH process
+group must be terminated/reaped before snapshot close or failure publication.
+Attempt v9 and every terminal schema require the same exact twenty-two runtime
+identities. These are unresolved external inputs, not implementation defaults,
+and neither stopped transaction can be retried.
 
 Q15-R-P4-F was accepted on 2026-08-25 and is recorded in ADR-0072 through
 ADR-0075. It freezes repository-local literals and still-unissued templates

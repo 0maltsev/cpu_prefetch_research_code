@@ -20,7 +20,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
-from stage17_state_journal_v14 import JournalError, validate_operational_journal
+from stage17_state_journal_v15 import JournalError, validate_operational_journal
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -194,7 +194,7 @@ def main() -> int:
             "stage17-operational-successor-check: PASS "
             f"(legacy_template=true; state={result.current_state}; transitions=0; "
             f"external_inputs={len(result.missing_input_ids)}; pilot_ready=false; "
-            "semantic_policy=v16; preflight_policy=v12; controller=v6; "
+            "semantic_policy=v17; preflight_policy=v13; controller=v7; "
             "all_ten_verifiers=IMPLEMENTED; "
             "Stage17/Stage18 complete=false; stand=NOT_ACCESSED)"
         )

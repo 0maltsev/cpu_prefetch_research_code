@@ -1,6 +1,6 @@
 # S17-EXT-001 read-only preflight authorization draft
 
-The current machine-readable draft is
+The preserved machine-readable owner-input template is
 [`STAGE17-S17-EXT-001-READ-ONLY-PREFLIGHT-AUTHORIZATION-DRAFT-v8`](../config/stage17/stage17-s17-ext-001-read-only-preflight-authorization-draft-v8.json).
 The v1 through v7 drafts remain immutable predecessors. None is authority or
 evidence. The v8 record is deliberately unissuable: every owner-controlled
@@ -19,22 +19,26 @@ The owner must prospectively provide all of the following in one exact action:
 - exact pilot-candidate archive, sidecar, and extracted bundle-root locators;
 - capture ID and UTC plus one normalized pre-existing nonsymlink local
   evidence root outside the repository and forbidden system roots; and
-- exact execution paths for the policy-bound production executor and collector;
-  production must load and execute those same files, not equivalent copies at
-  dead prospective paths.
+- the exact immutable D-120 pre-marker and D-121 post-marker blocker receipts.
+
+The CLI derives the executor and collector paths and byte bindings from the
+verified current policy. The owner cannot select or override them, and
+production must load and execute those exact files.
 
 The owner supplies no command, argv, stdin, shell, per-observation output path,
 timeout, retry, or permission value. Those values exist only in the immutable
 repository-owned fixed action plan.
 
 The supporting contract must be written first and validated against
-`cpu-prefetch-stage17-read-only-preflight-supporting-contract/8`. The
+`cpu-prefetch-stage17-read-only-preflight-supporting-contract/11`. The
 authorization then binds its repository-relative path, exact byte count,
 SHA-256, and schema identity. Both files are finally bound by one
-`cpu-prefetch-stage17-operational-evidence-envelope/8`, together with policy
-v8, fixed plan v6, all current schemas, and the complete verifier/executor/
-collector/journal/broker/supervisor/helper runtime closure. A v1-v7 authorization, or an
-unbound contract, cannot resolve `S17-EXT-001`.
+`cpu-prefetch-stage17-operational-evidence-envelope/13`, together with
+preflight policy v13, effective fixed plan v6, successor plan v8, all current
+schemas, and the complete verifier/executor/collector/journal/broker/
+supervisor/helper runtime closure. The emitted authorization has schema
+version 11. Any predecessor authorization, missing blocker binding, or unbound
+contract cannot resolve a new `S17-EXT-001`.
 
 The six observation IDs are fixed, ordered, and unique:
 
@@ -77,7 +81,7 @@ a marker. After durable marker creation, it samples actual UTC again
 immediately before the first transport; expiry, future authority, or rollback
 creates a typed failure and opens no transport. Verified known-hosts and
 transport-identity bytes live in sealed `memfd` snapshots retained by executor
-v5 and addressed to OpenSSH as `/proc/<procfs-visible-parent>/fd/N`; the child
+v11 and addressed to OpenSSH as `/proc/<procfs-visible-parent>/fd/N`; the child
 inherits no credential descriptor and the mutable owner pathname is never
 reopened. The mounted-procfs PID is discovered through numeric `/proc/self`,
 not assumed from `os.getpid()`. Literal effective paths may be checked locally
@@ -86,8 +90,11 @@ clock and marker, a hermetic real `/usr/bin/ssh` plus `/usr/sbin/sshd -i` pipe
 fixture must authenticate with exact disposable snapshots after both owner
 sources are changed. No socket, network, or stand is involved. Procfs denial,
 reopen/seal/size/hash drift, key parse failure, or capability failure blocks
-before marker and transport. The executor otherwise uses exact SSH argv and
-directory-FD create-exclusive storage.
+before marker and transport. Snapshot broker v2 runs that fixture under a
+subreaper and reaps every adopted fixture child before returning; a subsequent
+transport supervisor lease must observe zero pre-existing children. The
+executor otherwise uses exact SSH argv and directory-FD create-exclusive
+storage.
 The marker file and parent directory are fsynced before transport. Both
 snapshots are reverified before the final post-marker clock sample. That live
 system/monotonic authority guard is inside the transport boundary and is
@@ -103,5 +110,10 @@ only after `leader_reaped=true` and `process_group_gone=true`. Full-failure
 retention has a typed create-exclusive fallback. The
 180-second monotonic deadline charges transport and cleanup, and every
 post-marker failure retains the marker without retry.
+Attempt v9, receipt v6, failure v7, failure-retention v2, and completion v6 all
+require the same exact twenty-two named runtime identities. The consumed D-121
+attempt-v8 marker remains immutable and can never be retried; a new action
+requires a new finite authorization, attempt ID, output root, and transition
+lineage.
 This repository currently contains no resolution, transition, authorization,
 evidence, or attempt.

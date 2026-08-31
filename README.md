@@ -311,19 +311,23 @@ v13 and preflight policy v10 are preserved predecessors. ADR-0119/policy v14
 and ADR-0120/policy v15 remain immutable compatibility predecessors. The real
 D-120 T1 transaction stopped before marker/transport when attempt schema v7's
 17-property limit rejected policy v11's 19 runtime identities. ADR-0121
-preserves that transaction and binds preflight policy v12, exact attempt v8,
-executor v10, operational policy v16, journal v14, controller v6, Q15
-controller v4, and CLI v8 as the current engineering boundary. Policy v12 continues to preserve
+preserves that transaction. The following D-121 action created attempt v8 but
+stopped before `Popen` because its local OpenSSH fixture left adopted children;
+the old terminal schemas then could not retain the actual closure. ADR-0122
+preserves that marker-only transaction and binds preflight policy v13, attempt
+v9, executor v11, operational policy v17, journal v15, controller v7, Q15
+controller v5, and CLI v9 as the current engineering boundary. Policy v12 continues to preserve
 production semantic admission for all ten inputs, independent EXT002/003
 trust, full clean-bundle/EXT006 release equality, supervised Q15-R/Q15-W,
 complete Q16 and durable 180-cell repeated-pilot semantics, six compiled
 fd-only fixed actions, independent bounded-memory raw decoding, streamed typed
 result/output admission, a PID-namespace-safe quiescence
 supervisor, Stage 17 exit, and separately signed Phase 18 access.
-The current CLI-v6-to-controller-v4 path for actions after `PREFLIGHT_ACCEPTED`
-is fail-closed because controller v4 remains bound to policy v12/envelope v9;
-a prospective controller successor is required before Q15. This later blocker
-does not widen or invalidate the fixed six-observation read-only preflight.
+The historical CLI-v6-to-controller-v4 path remains fail-closed because
+controller v4 is bound to policy v12/envelope v9. The current CLI v9 and
+controller v7 are bound to policy v17 and journal v15; they still require
+admitted EXT002/003 and transition T2 before Q15 and do not inherit authority
+from the fixed six-observation read-only preflight.
 The local compiled-dispatch integration passes without a state-gate mock, but
 it creates only temporary `synthetic/test-only` evidence. The checked-in
 journal remains `PREPARED`, 0/10 resolved, and no action is authorized.
@@ -563,8 +567,9 @@ cmake --build --preset dev-gcc \
 
 The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
-The policy-v16 stand handoff begins with a typed D-120 blocker receipt and a
-separately issued fresh S17-EXT-001, and
+The policy-v17 stand handoff begins with the preserved typed D-120 pre-marker
+receipt and D-121 post-marker receipt, followed by a separately issued fresh
+S17-EXT-001, and
 ends with a separately issued pilot authorization; exact commands and expected
 append-only record paths are in
 [`docs/STAGE17_STAND_HANDOFF.md`](docs/STAGE17_STAND_HANDOFF.md).
@@ -572,13 +577,16 @@ append-only record paths are in
 `cpu_prefetch_runner` now contains one closed fd-only dispatcher for exactly
 `Q15-R`, `Q15-W`, `Q16a`, `Q16b`, `Q16c`, and the blinded Stage 17 pilot. It
 accepts no arbitrary command, plugin, caller argv/stdin, output filename, or
-production fake backend. Controller v6 independently obtains trust from
+production fake backend. Controller v7 independently obtains trust from
 admitted EXT002/003, binds Q15 to that observed worker, binds Q16/pilot to the
 later byte-equal EXT006 release, snapshots worker/request bytes, and requires
 typed result plus exact artifact verification after process-group quiescence.
-ADR-0121 binds policy v16, preflight policy v12, journal v14, CLI v8, executor
-v10 and Q15 controller v4 to the exact closed 20-key runtime set without
-translating evidence or retrying the stopped transaction.
+ADR-0121 binds its immutable policy-v16 predecessor. ADR-0122 records the
+actual marker-only D-121 stop and binds policy v17, preflight policy v13,
+journal v15, CLI v9, executor v11, the quiescent OpenSSH snapshot broker v2,
+and exact 22-key attempt/receipt/failure/fallback/completion contracts. The v2
+broker reaps every local capability-fixture descendant before the marker; the
+D-121 marker remains consumed and is never retried.
 The historical controller v1 always refuses. Presence of this software grants
 no action authority. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
 

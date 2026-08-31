@@ -549,25 +549,31 @@ authorization/amendment.
   pilot/handoff design. ADR-0118/policy v13 is preserved after executor v8's
   missing canonical-serializer import stopped the first T1 execution before
   marker/transport. ADR-0119/policy v14, preflight policy v11, CLI v6, journal
-  v12, and executor v9 are the repository-local read-only-preflight boundary:
-  exact external-journal validation, complete pre-marker preparation, and the
-  six fixed observations. ADR-0120/policy v15, journal v13, controller v5,
-  Q15 controller v3, and CLI v7 close the post-preflight version mismatch
-  without changing action or scientific semantics. The durable policy-v12 design retains full clean-bundle/EXT006 verification,
+  v12, and executor v9 are immutable predecessors. ADR-0120 closes the
+  post-preflight mismatch, while ADR-0121 preserves the real D-120 pre-marker
+  cardinality stop and binds policy v16/preflight policy v12, journal v14,
+  executor v10, controller v6, Q15 controller v4, and CLI v8 without changing
+  action or scientific semantics. The durable policy-v12 design retains full clean-bundle/EXT006 verification,
   all ten input verifiers, independent trust/release contexts, supervised Q15,
   complete Q16 and durable repeated 180-cell pilot semantics, six compiled
   fixed actions, exact-byte execution, bounded independent raw decoding,
   streamed typed output admission, Stage 17 exit, and independent signed
-  Phase 18 access. Controller v4 remains an incompatible predecessor; only
-  controller v5 may consume the policy-v15 journal after T2.
+  Phase 18 access. Predecessor controllers remain incompatible; only
+  controller v6 may consume the policy-v16 journal after T2.
   The predecessor one-command hermetic bundle-root
   rehearsal runs the 10-resolution/3-transition/pilot/seal/exit flow through
   the compiled test-linked dispatcher without advancing the checked-in journal;
   it passes 12 positive and 12 negative public-workflow cases. Fresh dev,
   ASan/UBSan, and TSan matrices pass 339/339 each, with formatting, focused
   clang-tidy, and strict dual-disassembler gates also passing.
-  The next safe external step is to build and independently verify a fresh
-  policy-v15 candidate release, then issue one fresh S17-EXT-001 and execute
+  A real D-120 T1 transaction stopped before marker/transport when attempt
+  schema v7's 17-property limit rejected policy v11's 19 runtime identities.
+  ADR-0121 retains that transaction and requires a typed blocker receipt with
+  exact source bytes and an empty predecessor output root. Preflight policy
+  v12/attempt v8/executor v10 and operational policy v16/journal v14/controller
+  v6/CLI v8 now bind the exact closed 20-key successor set. The next safe
+  external step is to build and independently verify a fresh policy-v16
+  candidate release, then issue one fresh S17-EXT-001 and execute
   only its read-only preflight from `docs/STAGE17_STAND_HANDOFF.md`; admit the
   resulting EXT002/003 and T2 before separately authorized Q15. Every earlier
   partial transaction remains terminal.

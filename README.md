@@ -307,11 +307,13 @@ incomplete predecessors. ADR-0116 accepts the pre.3 warm-up amendment;
 ADR-0117/policy v12 remains the durable pilot/handoff predecessor. Real
 pre-marker handoffs exposed first the legacy repository-root loader and then a
 missing canonical-serializer import in executor v8 after T1. ADR-0118/policy
-v13 and preflight policy v10 are preserved predecessors. ADR-0119/policy v14,
-preflight policy v11, CLI v6, journal v12, and executor v9 are the current
-read-only-preflight engineering boundary. The focused persisted-journal test
-passes 3 positive/4 negative cases through complete pre-marker preparation
-with six compiled programs and zero marker/transport. Policy v12 continues to preserve
+v13 and preflight policy v10 are preserved predecessors. ADR-0119/policy v14
+and ADR-0120/policy v15 remain immutable compatibility predecessors. The real
+D-120 T1 transaction stopped before marker/transport when attempt schema v7's
+17-property limit rejected policy v11's 19 runtime identities. ADR-0121
+preserves that transaction and binds preflight policy v12, exact attempt v8,
+executor v10, operational policy v16, journal v14, controller v6, Q15
+controller v4, and CLI v8 as the current engineering boundary. Policy v12 continues to preserve
 production semantic admission for all ten inputs, independent EXT002/003
 trust, full clean-bundle/EXT006 release equality, supervised Q15-R/Q15-W,
 complete Q16 and durable 180-cell repeated-pilot semantics, six compiled
@@ -561,7 +563,8 @@ cmake --build --preset dev-gcc \
 
 The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
-The policy-v15 stand handoff begins with a separately issued S17-EXT-001 and
+The policy-v16 stand handoff begins with a typed D-120 blocker receipt and a
+separately issued fresh S17-EXT-001, and
 ends with a separately issued pilot authorization; exact commands and expected
 append-only record paths are in
 [`docs/STAGE17_STAND_HANDOFF.md`](docs/STAGE17_STAND_HANDOFF.md).
@@ -569,13 +572,13 @@ append-only record paths are in
 `cpu_prefetch_runner` now contains one closed fd-only dispatcher for exactly
 `Q15-R`, `Q15-W`, `Q16a`, `Q16b`, `Q16c`, and the blinded Stage 17 pilot. It
 accepts no arbitrary command, plugin, caller argv/stdin, output filename, or
-production fake backend. Controller v5 independently obtains trust from
+production fake backend. Controller v6 independently obtains trust from
 admitted EXT002/003, binds Q15 to that observed worker, binds Q16/pilot to the
 later byte-equal EXT006 release, snapshots worker/request bytes, and requires
 typed result plus exact artifact verification after process-group quiescence.
-ADR-0120 changes only the controller's journal dependency: policy v15,
-journal v13, CLI v7 and Q15 controller v3 consume the current external journal
-without translating or weakening any evidence record.
+ADR-0121 binds policy v16, preflight policy v12, journal v14, CLI v8, executor
+v10 and Q15 controller v4 to the exact closed 20-key runtime set without
+translating evidence or retrying the stopped transaction.
 The historical controller v1 always refuses. Presence of this software grants
 no action authority. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
 

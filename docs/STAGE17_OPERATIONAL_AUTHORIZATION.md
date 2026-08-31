@@ -24,6 +24,12 @@ amendment. ADR-0117 supplies the policy-v12 durable-session, full-bundle,
 fixed-action pilot, streamed-output, supervised-Q15, and handoff successor.
 ADR-0120 supplies the policy-v15 post-preflight controller compatibility
 successor.
+ADR-0121 preserves the subsequent real D-120 T1 stop: attempt schema v7
+expected 17 runtime identities while policy v11 supplied 19, so validation
+failed before marker and transport. Policy v16/preflight policy v12 require a
+typed receipt for those immutable source bytes and empty output root, then bind
+an exact named 20-key attempt-v8/executor-v10 successor. The stopped
+transaction is never retried.
 None of these
 ADRs authorizes stand access or a run:
 
@@ -47,8 +53,8 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The current versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v15`](../config/stage17/stage17-operational-evidence-admission-policy-v15.json)
-binds policy v14 as an immutable predecessor, ADR-0116/0117/0118/0119/0120, every current
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v16`](../config/stage17/stage17-operational-evidence-admission-policy-v16.json)
+binds policy v15 as an immutable predecessor, ADR-0116/0117/0118/0119/0120/0121, every current
 record schema, fixed phase actions v4, the exact Python controller/admission/exit
 closure, and the actual C++ worker/runner/entrypoint sources. It registers a
 production semantic verifier for every catalog input. Admission is
@@ -72,8 +78,8 @@ ten catalog inputs and an unexpired, predecessor-bound `S17-EXT-010` at an
 actual system time. Its verifier is implemented, but the checked-in journal has
 no real resolutions, so pilot readiness remains false.
 
-`S17-EXT-001` continues to use one envelope-v11 semantic record and preflight
-policy v11. Journal v12/policy v14 and journal v13/policy v15 independently
+New `S17-EXT-001` uses one envelope-v12 semantic record, authorization and
+contract v10, and preflight policy v12. Journal v14/policy v16 independently
 validate its exact bytes; no record migration is allowed. The envelope binds the authorization,
 supporting contract, policy, action plan, verifier, executor, and collector by
 repository-relative path, byte count, SHA-256, and schema identity. The owner

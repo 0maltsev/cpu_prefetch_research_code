@@ -1,0 +1,23 @@
+{
+  "schema_version": "cpu-prefetch-stage17-read-only-preflight-fixed-action-plan/9",
+  "plan_id": "STAGE17-READ-ONLY-PREFLIGHT-FIXED-ACTION-PLAN-v9",
+  "protocol_version": "2.0.0-pre.3",
+  "predecessor": {"path": "config/stage17/stage17-read-only-preflight-fixed-action-plan-v6.json", "size_bytes": 11546, "sha256": "41ef692166148c29b6d880b6c551fa8e51173c116ac40c950489a78dec8ef4fe"},
+  "predecessor_successor": {"path": "config/stage17/stage17-read-only-preflight-fixed-action-plan-v8.json", "size_bytes": 1364, "sha256": "87eb20ea04c8265f64f12640522c02454b371aaab75c73d471c161080ff2915f"},
+  "effective_action_plan": {"path": "config/stage17/stage17-read-only-preflight-fixed-action-plan-v6.json", "size_bytes": 11546, "sha256": "41ef692166148c29b6d880b6c551fa8e51173c116ac40c950489a78dec8ef4fe"},
+  "capability_fixture": {
+    "openssh_consumption": "REAL_LOCAL_PIPE_ONLY",
+    "subreaper_before_fixture": true,
+    "adopted_children_reaped_before_marker": true,
+    "remaining_children": 0,
+    "failure_boundary": "PRE_MARKER_FAIL_CLOSED"
+  },
+  "terminal_records": {
+    "runtime_identity_set": "EXACT_NAMED_POLICY_SET",
+    "attempt_receipt_failure_fallback_completion_consistent": true,
+    "retention_validation_error_propagated": true,
+    "action_time_schema_bindings_use_current_policy": true
+  },
+  "one_shot": {"attempts": 1, "retries": 0, "cross_version_markers_block": true},
+  "stage18_authority": false
+}

@@ -2511,6 +2511,18 @@ add_custom_target(
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_preflight_terminal_compatibility.py"
     --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_action_revalidation_binding.py"
+    --self-test
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_read_only_preflight_policy_v14.py"
+    --check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_policy_v18.py"
+    --check
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking Stage 17 journal admission and real local OpenSSH snapshot consumption")
 add_custom_target(

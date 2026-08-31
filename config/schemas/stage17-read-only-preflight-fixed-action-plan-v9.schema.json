@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:read-only-preflight-fixed-action-plan:v9",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "protocol_version", "predecessor", "predecessor_successor", "effective_action_plan", "capability_fixture", "terminal_records", "one_shot", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-read-only-preflight-fixed-action-plan/9"},
+    "plan_id": {"const": "STAGE17-READ-ONLY-PREFLIGHT-FIXED-ACTION-PLAN-v9"},
+    "protocol_version": {"const": "2.0.0-pre.3"},
+    "predecessor": {"$ref": "#/$defs/binding"},
+    "predecessor_successor": {"$ref": "#/$defs/binding"},
+    "effective_action_plan": {"$ref": "#/$defs/binding"},
+    "capability_fixture": {"const": {"openssh_consumption": "REAL_LOCAL_PIPE_ONLY", "subreaper_before_fixture": true, "adopted_children_reaped_before_marker": true, "remaining_children": 0, "failure_boundary": "PRE_MARKER_FAIL_CLOSED"}},
+    "terminal_records": {"const": {"runtime_identity_set": "EXACT_NAMED_POLICY_SET", "attempt_receipt_failure_fallback_completion_consistent": true, "retention_validation_error_propagated": true, "action_time_schema_bindings_use_current_policy": true}},
+    "one_shot": {"const": {"attempts": 1, "retries": 0, "cross_version_markers_block": true}},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+}

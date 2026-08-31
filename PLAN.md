@@ -552,15 +552,16 @@ authorization/amendment.
   v12, and executor v9 are immutable predecessors. ADR-0120 closes the
   post-preflight mismatch. ADR-0121 preserves the real D-120 pre-marker
   cardinality stop. ADR-0122 additionally preserves the real D-121 marker-only
-  stop and binds policy v17/preflight policy v13, journal v15, executor v11,
-  controller v7, Q15 controller v5, and CLI v9 without changing action or
+  stop. ADR-0123 preserves the real D-122 empty-output action-revalidation
+  stop and binds policy v18/preflight policy v14, journal v16, executor v12,
+  controller v8, Q15 controller v6, and CLI v10 without changing action or
   scientific semantics. The durable policy-v12 design retains full clean-bundle/EXT006 verification,
   all ten input verifiers, independent trust/release contexts, supervised Q15,
   complete Q16 and durable repeated 180-cell pilot semantics, six compiled
   fixed actions, exact-byte execution, bounded independent raw decoding,
   streamed typed output admission, Stage 17 exit, and independent signed
   Phase 18 access. Predecessor controllers remain incompatible; only
-  controller v7 may consume the policy-v17 journal after T2.
+  controller v8 may consume the policy-v18 journal after T2.
   The predecessor one-command hermetic bundle-root
   rehearsal runs the 10-resolution/3-transition/pilot/seal/exit flow through
   the compiled test-linked dispatcher without advancing the checked-in journal;
@@ -574,8 +575,11 @@ authorization/amendment.
   runs the real local OpenSSH/sshd capability under a subreaper and proves all
   fixture descendants reaped before marker. Attempt v9 plus receipt v6,
   failure v7, fallback v2, and completion v6 all bind exactly the same 22
-  named runtime identities. The next safe external step is to build and
-  independently verify a fresh policy-v17 candidate release, then issue one
+  named runtime identities. D-122 stopped before marker/transport during
+  action-time terminal-schema revalidation; D-123 preserves it with a typed
+  blocker and selects the current terminal schemas before any marker is
+  created. The next safe external step is to build and independently verify a
+  fresh policy-v18 candidate release, then issue one
   new finite S17-EXT-001 replacement transaction and execute
   only its read-only preflight from `docs/STAGE17_STAND_HANDOFF.md`; admit the
   resulting EXT002/003 and T2 before separately authorized Q15. Every earlier

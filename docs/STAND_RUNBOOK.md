@@ -82,17 +82,21 @@ the attempt-v7 17-versus-policy-v11 19 runtime-cardinality mismatch.
 The D-121 policy-v16 transaction then created attempt v8 but stopped before
 `Popen`: its local OpenSSH capability left adopted descendants under PID 1,
 and its older terminal schemas could not retain the 20-key runtime failure.
-ADR-0122/policy v17, preflight policy v13, journal v15, executor v11,
-controller v7, Q15 controller v5, and CLI v9 are current. They keep
+ADR-0122/policy v17 remains the terminal-record predecessor. The subsequent
+D-122 transaction reached T1 but stopped before marker/transport during
+action-time terminal-schema revalidation. ADR-0123/policy v18, preflight
+policy v14, journal v16, executor v12, controller v8, Q15 controller v6, and
+CLI v10 are current. They keep
 repository definitions under the verified release root and
 require journal, resolution, and transition lineage under the distinct
 external operational evidence root. Policy v12 executor v7 must not be used
 for a new preflight because it rejects the documented external journal before
 its marker. A typed D-120 blocker proves its prior output root is empty. The
 separate D-121 blocker rehashes its marker, journal, authorization, resolution,
-and T1 and proves the output root remains marker-only. Neither grants authority
-or retry. A fresh `S17-EXT-001` uses the policy-bound v11 authorization/
-contract and envelope v13. Snapshot broker v2 must report zero remaining
+and T1 and proves the output root remains marker-only. The D-123 blocker
+rehashes the empty-output action-revalidation stop. None grants authority or
+retry. A fresh `S17-EXT-001` uses the policy-bound v11 authorization,
+contract v12, and envelope v14. Snapshot broker v2 must report zero remaining
 fixture children before marker. Predecessor controllers/CLIs must not
 be used. Do not write an SSH
 command, argv, stdin, output filename, timeout, retry, or permission into an
@@ -107,14 +111,14 @@ component.
 Before the first read-only preflight, follow the exact ordered handoff in
 [`STAGE17_STAND_HANDOFF.md`](STAGE17_STAND_HANDOFF.md) and complete the exact
 [`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
-must provide only the listed typed authorization/contract-v11 values and the
-typed immutable D-120 and D-121 blocker receipts; raw
+must provide only the listed typed authorization/contract-v12 values and the
+typed immutable D-120, D-121, and D-123 blocker receipts; raw
 action bytes are forbidden.
 Do not use the draft itself as evidence. Create the typed supporting contract
 first; hash-bind its path, byte count, SHA-256, schema identity, and fixed plan
 in the v11 authorization; then bind policy, authorization, contract, plan and
 the complete verifier/executor/collector/journal/broker/supervisor/helper
-closure in one envelope-v13
+closure in one envelope-v14
 semantic envelope. Remote runtime
 executable/module/dependency identities remain read-only `S17-EXT-002` outputs,
 not prospective values. Admission alone is not action readiness: exact

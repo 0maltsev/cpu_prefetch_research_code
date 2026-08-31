@@ -37,6 +37,12 @@ actual runtime closure. Policy v17/preflight policy v13 require a typed
 marker-only receipt, isolate and reap the OpenSSH fixture before marker, and
 bind one exact 22-name set across attempt v9 and every terminal record. D-121
 is also never retried.
+ADR-0123 preserves the following D-122 transaction, which reached T1 but
+stopped before marker/transport when action-time revalidation selected an
+inherited terminal schema map. Policy v18/preflight policy v14 require a typed
+receipt for those immutable source bytes and empty output root, then bind an
+exact named 23-key runtime set across attempt v10, receipt v7, failure v8,
+failure-retention v3, and completion v7. D-122 is also never retried.
 None of these
 ADRs authorizes stand access or a run:
 
@@ -60,9 +66,9 @@ has no records, so replay computes `PREPARED`, all ten inputs missing, and
 `pilot_ready=false`.
 
 The current versioned
-[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v17`](../config/stage17/stage17-operational-evidence-admission-policy-v17.json)
-binds policy v16 as an immutable predecessor,
-ADR-0116/0117/0118/0119/0120/0121/0122, every current
+[`STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v18`](../config/stage17/stage17-operational-evidence-admission-policy-v18.json)
+binds policy v17 as an immutable predecessor,
+ADR-0116/0117/0118/0119/0120/0121/0122/0123, every current
 record schema, fixed phase actions v4, the exact Python controller/admission/exit
 closure, and the actual C++ worker/runner/entrypoint sources. It registers a
 production semantic verifier for every catalog input. Admission is
@@ -75,12 +81,13 @@ bytes, and returns their typed context. The observed EXT002/003 worker must be
 byte-identical to that release member. Raw observations are streamed under a
 frozen-plan-derived bound rather than a fixed 16 MiB cap.
 
-For EXT001, preflight policy v13 separately binds the D-120 pre-marker receipt,
-the D-121 marker-only post-marker receipt, snapshot broker v2, executor v11,
-and one exact 22-name runtime set shared by attempt v9, receipt v6, failure v7,
-failure-retention v2, and completion v6. The local OpenSSH/sshd pipe fixture is
-subreaper-isolated and fully reaped before the durable marker. Neither receipt
-is execution authority, and the D-121 attempt cannot be retried.
+For EXT001, preflight policy v14 separately binds the D-120 pre-marker receipt,
+the D-121 marker-only post-marker receipt, the D-123 action-revalidation
+receipt, snapshot broker v2, executor v12, and one exact 23-name runtime set
+shared by attempt v10, receipt v7, failure v8, failure-retention v3, and
+completion v7. The local OpenSSH/sshd pipe fixture is subreaper-isolated and
+fully reaped before the durable marker. No receipt is execution authority, and
+D-120/D-121/D-122 attempts cannot be retried.
 
 The historical successor v1 and `STAGE17-EXTERNAL-INPUTS-v1` checklist remain
 byte-immutable definition/templates. Their embedded `current_state` and
@@ -93,8 +100,8 @@ ten catalog inputs and an unexpired, predecessor-bound `S17-EXT-010` at an
 actual system time. Its verifier is implemented, but the checked-in journal has
 no real resolutions, so pilot readiness remains false.
 
-New `S17-EXT-001` uses one envelope-v13 semantic record, authorization and
-contract v11, and preflight policy v13. Journal v15/policy v17 independently
+New `S17-EXT-001` uses one envelope-v14 semantic record, authorization v11,
+contract v12, and preflight policy v14. Journal v16/policy v18 independently
 validate its exact bytes; no record migration is allowed. The envelope binds the authorization,
 supporting contract, policy, action plan, verifier, executor, and collector by
 repository-relative path, byte count, SHA-256, and schema identity. The owner
@@ -126,7 +133,7 @@ failure and opens no transport. OpenSSH option paths reject expansion/
 configuration characters. Local `/usr/bin/ssh -G` checks only option expansion;
 it is not evidence that OpenSSH later consumes a credential. Verified
 known-hosts and transport-identity bytes are copied into sealed Linux `memfd`
-snapshots before marker and kept open by executor v6. OpenSSH receives
+snapshots before marker and kept open by executor v12. OpenSSH receives
 `/proc/<procfs-visible-parent>/fd/N` paths and no credential descriptor through
 `pass_fds`; the visible parent PID comes from numeric `/proc/self`, not an
 `os.getpid()` assumption. Before the final clock, a hermetic real
@@ -151,9 +158,10 @@ reaped only after group quiescence. Records independently bind
 `leader_reaped=true` and `process_group_gone=true`. A versioned typed fallback
 preserves the primary and retention errors if full failure publication fails.
 Only then may snapshots close and evidence be published.
-Controller v4 remains an immutable incompatible predecessor. Controller v5
-changes only its journal dependency to journal v13/policy v15; Q15 controller
-v3 and CLI v7 use the same successor. No successor grants action authority.
+Predecessor controllers remain immutable incompatible predecessors for a new
+D-123 replacement preflight. Controller v8, journal v16, Q15 controller v6 and
+CLI v10 are the current policy-v18-bound production path, but they still grant
+no action authority by themselves.
 `PREPARED`, later states, expiry, drift, or a prior marker return
 `action_ready=false`; no later state inherits or repeats the preflight.
 

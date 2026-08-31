@@ -314,9 +314,12 @@ D-120 T1 transaction stopped before marker/transport when attempt schema v7's
 preserves that transaction. The following D-121 action created attempt v8 but
 stopped before `Popen` because its local OpenSSH fixture left adopted children;
 the old terminal schemas then could not retain the actual closure. ADR-0122
-preserves that marker-only transaction and binds preflight policy v13, attempt
-v9, executor v11, operational policy v17, journal v15, controller v7, Q15
-controller v5, and CLI v9 as the current engineering boundary. Policy v12 continues to preserve
+preserves that marker-only transaction. D-122 then reached T1 but stopped
+before marker/transport during action-time terminal-schema revalidation.
+ADR-0123 preserves that empty-output transaction and binds preflight policy
+v14, attempt v10, executor v12, operational policy v18, journal v16,
+controller v8, Q15 controller v6, and CLI v10 as the current engineering
+boundary. Policy v12 continues to preserve
 production semantic admission for all ten inputs, independent EXT002/003
 trust, full clean-bundle/EXT006 release equality, supervised Q15-R/Q15-W,
 complete Q16 and durable 180-cell repeated-pilot semantics, six compiled
@@ -324,8 +327,8 @@ fd-only fixed actions, independent bounded-memory raw decoding, streamed typed
 result/output admission, a PID-namespace-safe quiescence
 supervisor, Stage 17 exit, and separately signed Phase 18 access.
 The historical CLI-v6-to-controller-v4 path remains fail-closed because
-controller v4 is bound to policy v12/envelope v9. The current CLI v9 and
-controller v7 are bound to policy v17 and journal v15; they still require
+controller v4 is bound to policy v12/envelope v9. The current CLI v10 and
+controller v8 are bound to policy v18 and journal v16; they still require
 admitted EXT002/003 and transition T2 before Q15 and do not inherit authority
 from the fixed six-observation read-only preflight.
 The local compiled-dispatch integration passes without a state-gate mock, but
@@ -567,9 +570,9 @@ cmake --build --preset dev-gcc \
 
 The fixed bytes and clean detached-worktree recovery procedure are documented
 in [`docs/STAGE17_OPERATIONAL_AUTHORIZATION.md`](docs/STAGE17_OPERATIONAL_AUTHORIZATION.md).
-The policy-v17 stand handoff begins with the preserved typed D-120 pre-marker
-receipt and D-121 post-marker receipt, followed by a separately issued fresh
-S17-EXT-001, and
+The policy-v18 stand handoff begins with the preserved typed D-120 pre-marker
+receipt, D-121 post-marker receipt, and D-123 action-revalidation blocker,
+followed by a separately issued fresh S17-EXT-001, and
 ends with a separately issued pilot authorization; exact commands and expected
 append-only record paths are in
 [`docs/STAGE17_STAND_HANDOFF.md`](docs/STAGE17_STAND_HANDOFF.md).
@@ -577,7 +580,7 @@ append-only record paths are in
 `cpu_prefetch_runner` now contains one closed fd-only dispatcher for exactly
 `Q15-R`, `Q15-W`, `Q16a`, `Q16b`, `Q16c`, and the blinded Stage 17 pilot. It
 accepts no arbitrary command, plugin, caller argv/stdin, output filename, or
-production fake backend. Controller v7 independently obtains trust from
+production fake backend. Controller v8 independently obtains trust from
 admitted EXT002/003, binds Q15 to that observed worker, binds Q16/pilot to the
 later byte-equal EXT006 release, snapshots worker/request bytes, and requires
 typed result plus exact artifact verification after process-group quiescence.
@@ -586,7 +589,10 @@ actual marker-only D-121 stop and binds policy v17, preflight policy v13,
 journal v15, CLI v9, executor v11, the quiescent OpenSSH snapshot broker v2,
 and exact 22-key attempt/receipt/failure/fallback/completion contracts. The v2
 broker reaps every local capability-fixture descendant before the marker; the
-D-121 marker remains consumed and is never retried.
+D-121 marker remains consumed and is never retried. ADR-0123 records the
+D-122 pre-marker action-revalidation stop and binds policy v18/preflight
+policy v14, journal v16, CLI v10, executor v12, and terminal records
+v10/v7/v8/v3/v7; D-122 also remains consumed and is never retried.
 The historical controller v1 always refuses. Presence of this software grants
 no action authority. See [`docs/PRODUCTION_RUNNER.md`](docs/PRODUCTION_RUNNER.md).
 

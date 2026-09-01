@@ -584,6 +584,47 @@ authorization/amendment.
   only its read-only preflight from `docs/STAGE17_STAND_HANDOFF.md`; admit the
   resulting EXT002/003 and T2 before separately authorized Q15. Every earlier
   partial transaction remains terminal.
+  An exhaustive real read-only search of this development environment (full
+  repository git history, every non-repository filesystem location a prior
+  session could have written to, and every locally present CI/hermetic-
+  rehearsal artifact) found no real D-120/D-121/D-123 blocker-receipt
+  evidence recoverable anywhere. ADR-0124 accepts a fourth, mutually
+  exclusive `S17-EXT-001` predecessor-evidence path for exactly this case: a
+  `no_predecessor_attestation` record, created only by the owner, binding
+  real byte-exact search-evidence rather than inventing predecessor bytes
+  that do not exist; the three-blocker-receipt path and its schemas are
+  unchanged. ADR-0125 wires the authoring/admission side into a new,
+  additive policy successor (v19: `stage17_operational_cli_v11.py`,
+  `stage17_semantic_verifier_v19.py`, `stage17_state_journal_v17.py`,
+  `stage17_read_only_preflight_semantic_verifier_v15.py`) without altering
+  policy v18's accepted closure. ADR-0126 then finds and fixes the real
+  remaining defect: v19's own closure still bound the unchanged read-only
+  preflight executor, whose action-time call site names a function the new
+  preflight verifier never defined, and would have raised `AttributeError`
+  before transport; it adds `evaluate_s17_ext_001_action_readiness_v15`,
+  `stage17_read_only_preflight_executor_v13.py`, a second preflight-plan
+  policy successor (v15, binding the same executor/verifier/journal
+  identities), and operational policy successor v20. All three ADRs are
+  accepted. Two focused regression suites,
+  `stage17-no-predecessor-attestation-check` and
+  `stage17-executor-v13-action-readiness-check`, prove both predecessor-
+  evidence branches resolve correctly through the real CLI-to-journal-to-
+  executor dispatch chain, with no shortcut. A real
+  `no_predecessor_attestation` record, bound to a real documented search,
+  has been authored by the owner. `stage17-operational-successor-check`
+  continues to report `semantic_policy=v18; preflight_policy=v14;
+  controller=v8` as the accepted production chain; policy v19/v20 exist as
+  fully tested, verified successors sitting alongside it, not yet promoted
+  -- that promotion is a distinct, separately authorized decision this work
+  does not make. A new `STAGE17-PILOT-CANDIDATE-BUNDLE-v5` profile,
+  additive to `create_stand_bundle.py`/`verify_stand_bundle.py`'s unchanged
+  v1-v4 behavior, seals policy v20/preflight-policy v15/executor v13 as a
+  distinct candidate identity from clean revision `05035ce`; archive
+  SHA-256 is `1773b5db196f54520f197af19fe6a20f643d577b880cc47a8aa3935bf6f1a3b6`.
+  Clean-extraction validation (`validators/verify_stand_bundle.py`, 1136
+  files) and both nonprivileged self-tests pass; its manifest continues to
+  deny dynamic, pilot, confirmatory, and measurement execution authority.
+  No stand, SSH, or credential access occurred at any point in this work.
   Q15-S1/ADR-0051 accepts and
   locally implements the separate tool plus Q15-R/Q15-W split; neither
   preparation record is authority. Separate

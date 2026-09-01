@@ -663,6 +663,34 @@ new candidate can be sealed;
 the target still rejects dirty source, missing reports, hash drift, overwrite,
 or any authority-bearing manifest.
 
+A new `STAGE17-PILOT-CANDIDATE-BUNDLE-v5` profile, additive to the target's
+unchanged v1 through v4 behavior, binds
+[`ADR-0124`](docs/decisions/0124-stage17-no-predecessor-attestation.md),
+[`ADR-0125`](docs/decisions/0125-stage17-no-predecessor-attestation-runtime-wiring.md),
+and
+[`ADR-0126`](docs/decisions/0126-stage17-no-predecessor-attestation-executor-binding.md)
+(all accepted) as a distinct candidate identity sealing operational policy
+v20, preflight-plan policy v15, and read-only preflight executor v13 --
+the D-124 no-predecessor-attestation alternative to the three real-evidence
+blocker receipts, and the executor action-readiness fix that makes it
+reachable through the real stand-facing dispatch chain rather than only at
+resolution time. Clean revision `05035ce` produced the verified candidate;
+archive SHA-256 is
+`1773b5db196f54520f197af19fe6a20f643d577b880cc47a8aa3935bf6f1a3b6`. Clean
+extraction (1136 files), `validators/verify_stand_bundle.py`, and both
+nonprivileged self-tests pass. Its manifest denies dynamic, pilot,
+confirmatory, and measurement execution authority, identically to v1
+through v4. `stage17-operational-successor-check` continues to report
+`semantic_policy=v18; preflight_policy=v14; controller=v8` as the accepted
+production chain; sealing this candidate does not itself promote v19/v20 --
+that remains a separate, explicit decision. `stage17-no-predecessor-
+attestation-check` and `stage17-executor-v13-action-readiness-check` prove
+both predecessor-evidence branches resolve correctly through the real
+CLI-to-journal-to-executor chain with no shortcut. A real, owner-authored
+`no_predecessor_attestation` record exists, bound to a real documented
+search of this development environment that found no recoverable
+D-120/D-121/D-123 evidence. No stand, SSH, or credential access occurred.
+
 `q15-qualification-tool-bundle` is a third, separate no-authority profile. Its
 new collector-bearing form is `Q15-QUALIFICATION-TOOL-BUNDLE-v3`; the verified
 Q15-S3 v1 and controller-bearing v2 bundles remain unchanged and readable. The

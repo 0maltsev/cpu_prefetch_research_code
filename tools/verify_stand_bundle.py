@@ -373,6 +373,10 @@ def main() -> int:
             "cpu-prefetch-pilot-candidate-bundle/5",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
         ),
+        "STAGE17-PILOT-CANDIDATE-BUNDLE-v6": (
+            "cpu-prefetch-pilot-candidate-bundle/6",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
             "cpu-prefetch-q15-qualification-tool-bundle/1",
             "Q15_TOOL_RELEASE_NO_AUTHORITY",
@@ -398,6 +402,7 @@ def main() -> int:
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
             "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v5",
+            "STAGE17-PILOT-CANDIDATE-BUNDLE-v6",
         } else "2.0.0-pre.2"
     )
     if manifest.get("protocol_version") != expected_protocol:
@@ -425,7 +430,8 @@ def main() -> int:
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v5") and value is not False:
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v5",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v6") and value is not False:
             failures.append(f"pilot candidate must explicitly prohibit {description}")
         elif profile == "STAGE16-STAND-BUNDLE-v1" and value not in (None, False):
             failures.append(f"Stage 16 bundle unexpectedly enables {description}")
@@ -473,7 +479,8 @@ def main() -> int:
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
-                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v5"):
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v5",
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v6"):
         if (
             manifest.get("software_prefetch_mapping_id")
             != "X86-64-PREFETCHW-PREFETCHT0-v1"
@@ -615,20 +622,26 @@ def main() -> int:
                                 "STAGE17-BLINDED-PILOT"]
             worker = root / "release/bin/cpu_prefetch_runner"
             current_v5 = profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v5"
+            current_v6 = profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v6"
             # The compiled worker binary (release/bin/cpu_prefetch_runner) is
-            # unaffected by the D-124/D-125/D-126 admission-side changes v5
-            # seals, so its own runtime identity stays at its unchanged v4
-            # compiled-in strings even under bundle profile v5. Only the
-            # admission-side policy/executor identity below advances.
-            current_v4 = current_v5 or profile in {
+            # unaffected by the D-124/D-125/D-126/D-127 admission-side changes
+            # v5/v6 seal, so its own runtime identity stays at its unchanged
+            # v4 compiled-in strings even under bundle profile v5/v6. Only
+            # the admission-side policy/executor/controller identity below
+            # advances -- v6 additionally promotes phase-controller v9
+            # (ADR-0127) and operational policy v21, the complete, currently
+            # documented production chain.
+            current_v4 = current_v5 or current_v6 or profile in {
                 "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
             }
             version = 4 if current_v4 else 3
-            controller_version = 8 if current_v4 else version
-            admission_policy_version = 20 if current_v5 else 18 if current_v4 else 11
-            nested_policy_version = 15 if current_v5 else 14
-            executor_version = 13 if current_v5 else 12
+            controller_version = 9 if current_v6 else 8 if current_v4 else version
+            admission_policy_version = (
+                21 if current_v6 else 20 if current_v5 else 18 if current_v4 else 11
+            )
+            nested_policy_version = 15 if (current_v5 or current_v6) else 14
+            executor_version = 13 if (current_v5 or current_v6) else 12
             expected_synthetic = profile in {
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",

@@ -194,7 +194,7 @@ def main() -> int:
             "stage17-operational-successor-check: PASS "
             f"(legacy_template=true; state={result.current_state}; transitions=0; "
             f"external_inputs={len(result.missing_input_ids)}; pilot_ready=false; "
-            "semantic_policy=v18; preflight_policy=v14; controller=v8; "
+            "semantic_policy=v21; preflight_policy=v15; controller=v9; "
             "all_ten_verifiers=IMPLEMENTED; "
             "Stage17/Stage18 complete=false; stand=NOT_ACCESSED)"
         )

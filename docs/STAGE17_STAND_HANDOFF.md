@@ -35,23 +35,23 @@ test -f "$S17_REPOSITORY/BUNDLE_MANIFEST.json"
   --root "$S17_REPOSITORY"
 test ! -e "$S17_EVIDENCE"
 install -d -m 0700 "$S17_EVIDENCE"
-"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
   --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
   init --materialize-admission-root
 export S17_RELEASE_BUNDLE_ROOT="$S17_REPOSITORY"
 export S17_REPOSITORY="$S17_EVIDENCE/admission-root"
 test -f "$S17_EVIDENCE/manifests/stage17-admission-root-binding-v1.json"
-"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
   --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" status
 S17_JOURNAL=$("$S17_PYTHON" -B \
-  "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+  "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
   --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
   journal-path)
 test -f "$S17_JOURNAL"
 ```
 
 Expected initial result is `PREPARED`, zero resolutions, zero transitions and
-ten missing inputs. `stage17_operational_cli_v10.py` writes canonical JSON with
+ten missing inputs. `stage17_operational_cli_v11.py` writes canonical JSON with
 `O_EXCL`, fsyncs file and parent, verifies supplied detached signatures, and
 validates a candidate journal before accepting its immutable successor. It
 never signs, invents owner facts, or enables a fake backend.
@@ -60,7 +60,7 @@ For each externally produced typed artifact family, build its manifest without
 manual JSON editing:
 
 ```sh
-"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
   --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
   --pilot-archive "$S17_PILOT_ARCHIVE" --pilot-sidecar "$S17_PILOT_SIDECAR" \
   author-manifest --input-id S17-EXT-NNN --manifest-id OWNER_MANIFEST_ID \
@@ -108,10 +108,17 @@ that input. The command validates actual bytes against the registered schema.
 1. Create the fixed EXT001 authorization/supporting-contract/envelope without
    editing JSON. All uppercase values are owner inputs; the command validates
    the exact Ed25519 host-key bytes, known-hosts line, transport identity,
-   bundle locators, finite UTC window and fixed read-only policy:
+   bundle locators, finite UTC window and fixed read-only policy. Supply
+   predecessor evidence for D-120/D-121/D-123 exactly one of two mutually
+   exclusive ways (ADR-0124, accepted): the three `--*-blocker` flags shown
+   below when real blocker-receipt evidence exists, or
+   `--no-predecessor-attestation "$D124_NO_PREDECESSOR_ATTESTATION"` in their
+   place when an exhaustive real search -- never assumed -- found none to
+   bind. Author that attestation record with `tools/author_stage17_no_
+   predecessor_attestation_v1.py` first if using it.
 
    ```sh
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      --pilot-archive "$S17_PILOT_ARCHIVE" \
      --pilot-sidecar "$S17_PILOT_SIDECAR" author-ext001 \
@@ -133,7 +140,7 @@ that input. The command validates actual bytes against the registered schema.
      --attempt-id "$EXT001_ATTEMPT_ID" --contract-id "$EXT001_CONTRACT_ID" \
      --envelope-id "$EXT001_ENVELOPE_ID" \
      --output-directory "$S17_REPOSITORY/evidence/ext001-v14"
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      --pilot-archive "$S17_PILOT_ARCHIVE" \
      --pilot-sidecar "$S17_PILOT_SIDECAR" admit-resolution \
@@ -141,7 +148,7 @@ that input. The command validates actual bytes against the registered schema.
      --recorded-at-utc "$EXT001_RECORDED_AT_UTC" \
      --repository-evidence "$S17_REPOSITORY/evidence/ext001-v14/envelope-v14.json" \
      --authorization-file "$S17_REPOSITORY/evidence/ext001-v14/authorization-v11.json"
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      --pilot-archive "$S17_PILOT_ARCHIVE" \
      --pilot-sidecar "$S17_PILOT_SIDECAR" append-transition \
@@ -151,27 +158,10 @@ that input. The command validates actual bytes against the registered schema.
    Expected journal states: resolution `000001`, T1 `000002`, state
    `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`. The v1 journal evidence policy is
    satisfied inside the private admission snapshot; the release bundle root
-   remains byte-identical and independently verifiable.
-
-   **Alternative predecessor-evidence path (ADR-0124/ADR-0125/ADR-0126,
-   all `PROPOSED`/owner-review pending, not yet promoted to the production
-   chain above):** when no real D-120/D-121/D-123 blocker-receipt evidence
-   exists to bind -- confirmed only after an exhaustive real search, never
-   assumed -- the owner may instead author a `no_predecessor_attestation`
-   record with `tools/author_stage17_no_predecessor_attestation_v1.py` and
-   pass `--no-predecessor-attestation "$D124_NO_PREDECESSOR_ATTESTATION"`
-   to `author-ext001` in place of the three `--*-blocker` flags (mutually
-   exclusive, enforced before any file I/O). This path is fully implemented
-   and tested (`stage17-no-predecessor-attestation-check`,
-   `stage17-executor-v13-action-readiness-check`) against `tools/
-   stage17_operational_cli_v11.py`, `tools/stage17_read_only_preflight_
-   executor_v13.py`, and policy successors v19/v20, but those successors
-   are not the currently accepted production chain -- `stage17-operational-
-   successor-check` must report `semantic_policy=v20; preflight_policy=v15`
-   (not v18/v14) before this alternative is usable for a real attempt. That
-   promotion is a separate, explicit owner decision, not implied by ADR-0124
-   through ADR-0126 alone. Until promoted, use the three-blocker path above
-   exactly as documented.
+   remains byte-identical and independently verifiable. The
+   `--no-predecessor-attestation` substitution (ADR-0124, accepted) is
+   mutually exclusive with the three `--*-blocker` flags, enforced before
+   any file I/O; use exactly one of the two, never both, never neither.
 
 2. Execute the six fixed read-only observations with the current preflight
    executor. Author and admit the complete EXT002 manifest (attempt, six
@@ -180,39 +170,39 @@ that input. The command validates actual bytes against the registered schema.
 
    ```sh
    S17_JOURNAL=$("$S17_PYTHON" -B \
-     "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+     "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      journal-path)
    "$S17_PYTHON" -B \
-     "$S17_REPOSITORY/tools/stage17_read_only_preflight_executor_v12.py" \
+     "$S17_REPOSITORY/tools/stage17_read_only_preflight_executor_v13.py" \
      --execute --repository-root "$S17_REPOSITORY" \
      --journal "$S17_JOURNAL" \
      --journal-directory "$S17_EVIDENCE/journal"
    ```
 
-   Policy v18 binds this policy-v14/executor-v12 preflight and journal
-   v16/controller v8 for later actions. Predecessor controllers are immutable
+   Policy v21 binds this policy-v15/executor-v13 preflight and journal
+   v17/controller v9 for later actions. Predecessor controllers are immutable
    and must not be substituted. A failed or partial preflight remains terminal;
    retain its evidence and issue no automatic retry.
 
 3. Author EXT002 from the complete retained observation family, then author
    EXT003 owner acceptance from the admitted EXT002 hashes, explicitly
    preserving `distinct_auditor=false` and `independent_review=false`. Admit
-   EXT002/003 through CLI v10 and append T2. Expected state:
-   `PREFLIGHT_ACCEPTED`. Revalidate the resulting journal with policy v18
+   EXT002/003 through CLI v11 and append T2. Expected state:
+   `PREFLIGHT_ACCEPTED`. Revalidate the resulting journal with policy v21
    before preparing Q15.
 
 4. Canonically author the Q15-R request and unsigned authorization:
 
    ```sh
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      author-request --action Q15-R --action-inputs "$Q15_R_TYPED_INPUTS" \
      --request-id "$Q15_R_REQUEST_ID" --session-id "$Q15_SESSION_ID" \
      --authorization-id "$Q15_R_AUTH_ID" \
      --attempt-id "$Q15_R_ATTEMPT_ID" --output-root "$Q15_SESSION_ROOT" \
      --output "$Q15_R_REQUEST"
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      author-authorization --request "$Q15_R_REQUEST" --actor "$Q15_ACTOR" \
      --reviewer "$Q15_REVIEWER" --issued-at-utc "$Q15_R_ISSUED_UTC" \
@@ -226,7 +216,7 @@ that input. The command validates actual bytes against the registered schema.
 
    ```sh
    S17_JOURNAL=$("$S17_PYTHON" -B \
-     "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+     "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      journal-path)
    "$S17_PYTHON" -B \
@@ -262,7 +252,7 @@ that input. The command validates actual bytes against the registered schema.
 6. Verify the actual archive/sidecar and author EXT006 without manual JSON:
 
    ```sh
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      --pilot-archive "$S17_PILOT_ARCHIVE" --pilot-sidecar "$S17_PILOT_SIDECAR" \
      author-ext006-contract --primary-custody-domain "$CUSTODY_DOMAIN_A" \
@@ -279,7 +269,7 @@ that input. The command validates actual bytes against the registered schema.
    `author-authorization`, external detached signing, `verify-signature`, then:
 
    ```sh
-   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+   "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
      --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
      --pilot-archive "$S17_PILOT_ARCHIVE" --pilot-sidecar "$S17_PILOT_SIDECAR" \
      execute-action --authorization "$ACTION_AUTHORIZATION" \
@@ -304,7 +294,7 @@ that input. The command validates actual bytes against the registered schema.
     and those exact hashes; a handwritten readiness boolean is rejected.
 
     ```sh
-    "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+    "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
       --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
       --pilot-archive "$S17_PILOT_ARCHIVE" \
       --pilot-sidecar "$S17_PILOT_SIDECAR" \
@@ -317,7 +307,7 @@ that input. The command validates actual bytes against the registered schema.
     advance Phase 18 from `PLANNED`.
 
     ```sh
-    "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+    "$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
       --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
       prepare-phase18-readiness \
       --stage17-completion "$S17_EVIDENCE/stage17-completion-v4.json" \
@@ -332,7 +322,7 @@ that input. The command validates actual bytes against the registered schema.
 At each admission use:
 
 ```sh
-"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v10.py" \
+"$S17_PYTHON" -B "$S17_REPOSITORY/tools/stage17_operational_cli_v11.py" \
   --repository-root "$S17_REPOSITORY" --evidence-root "$S17_EVIDENCE" \
   --pilot-archive "$S17_PILOT_ARCHIVE" --pilot-sidecar "$S17_PILOT_SIDECAR" \
   admit-resolution --input-id S17-EXT-NNN --actor "$OWNER_ACTOR" \

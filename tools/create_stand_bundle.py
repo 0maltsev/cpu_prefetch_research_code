@@ -19,7 +19,7 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v5"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v6"
 STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
@@ -437,13 +437,14 @@ def main() -> int:
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
             # The dry-run profile's own identity (STAGE17-HERMETIC-DRY-RUN-
-            # BUNDLE-v2) is unchanged by ADR-0124/0125/0126, so it keeps
+            # BUNDLE-v2) is unchanged by ADR-0124/0125/0126/0127, so it keeps
             # binding the accepted v18/v14 chain; only the real candidate
-            # profile (bumped to v5) binds the new v20/v15 successor chain.
+            # profile (bumped to v6) binds the complete v21/v15 successor
+            # chain, now promoted to the documented production path.
             policy_relative = pathlib.Path(
                 "config/stage17/stage17-operational-evidence-admission-policy-v18.json"
                 if stage17_dry_run else
-                "config/stage17/stage17-operational-evidence-admission-policy-v20.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v21.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
@@ -473,10 +474,14 @@ def main() -> int:
                         "size_bytes": binding["size_bytes"],
                         "sha256": binding["sha256"],
                     })
+            controller_suffix = "v8" if stage17_dry_run else "v9"
             stage17_controller_runtime = {
-                "controller_id": "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v8",
-                "entrypoint": "tools/stage17_phase_controller_v8.py",
-                "invocation": ["python3", "tools/stage17_phase_controller_v8.py"],
+                "controller_id":
+                    f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-{controller_suffix}",
+                "entrypoint": f"tools/stage17_phase_controller_{controller_suffix}.py",
+                "invocation": [
+                    "python3", f"tools/stage17_phase_controller_{controller_suffix}.py",
+                ],
                 "policy": {
                     "path": policy_relative.as_posix(),
                     "size_bytes": policy_path.stat().st_size,
@@ -487,7 +492,7 @@ def main() -> int:
                 "authority_embedded": False,
                 "repository_evidence_roots": ["config", "docs"],
             }
-            # Policy v20 binds the complete preflight policy v15 by exact
+            # Policy v21 binds the complete preflight policy v15 by exact
             # bytes. The nested policy also binds compatibility modules by
             # pathname without importing them into the current Python closure.
             # Carry those exact files so production admission does not depend
@@ -707,7 +712,7 @@ def main() -> int:
             "schema_version": (
                 "cpu-prefetch-pilot-candidate-bundle/4"
                 if stage17_dry_run
-                else "cpu-prefetch-pilot-candidate-bundle/5"
+                else "cpu-prefetch-pilot-candidate-bundle/6"
                 if stage17
                 else "cpu-prefetch-q15-qualification-tool-bundle/3"
                 if q15_tool

@@ -436,7 +436,13 @@ def main() -> int:
             # general implementation-schema layout for legacy bundle
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
+            # The dry-run profile's own identity (STAGE17-HERMETIC-DRY-RUN-
+            # BUNDLE-v2) is unchanged by ADR-0124/0125/0126, so it keeps
+            # binding the accepted v18/v14 chain; only the real candidate
+            # profile (bumped to v5) binds the new v20/v15 successor chain.
             policy_relative = pathlib.Path(
+                "config/stage17/stage17-operational-evidence-admission-policy-v18.json"
+                if stage17_dry_run else
                 "config/stage17/stage17-operational-evidence-admission-policy-v20.json"
             )
             policy_path = root / policy_relative
@@ -488,7 +494,8 @@ def main() -> int:
             # on the wider test-only source projection.
             nested_policy_relative = pathlib.Path(
                 "config/stage17/"
-                "stage17-read-only-preflight-evidence-admission-policy-v15.json"
+                "stage17-read-only-preflight-evidence-admission-policy-"
+                + ("v14.json" if stage17_dry_run else "v15.json")
             )
             nested_policy_path = root / nested_policy_relative
             nested_policy = json.loads(nested_policy_path.read_text(encoding="utf-8"))

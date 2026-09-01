@@ -32,10 +32,10 @@ import stage17_output_registry_v4 as output_registry
 import stage17_pilot_candidate_artifact_v4 as release_artifact
 import check_stage17_pilot_semantics_v4 as pilot_plan_builder
 import stage17_phase_controller_v1 as rejected_controller
-import stage17_phase_controller_v4 as controller
-import stage17_q15_session_controller_v2 as q15_session
-import stage17_semantic_verifier_v12 as semantic_registry
-import stage17_state_journal_v10 as journal
+import stage17_phase_controller_v8 as controller
+import stage17_q15_session_controller_v6 as q15_session
+import stage17_semantic_verifier_v18 as semantic_registry
+import stage17_state_journal_v16 as journal
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -80,9 +80,13 @@ class OperationalWorkflowDriver:
     in the distinct owner evidence root used by the production v9 runtime.
     """
 
-    def __init__(self, base: pathlib.Path) -> None:
+    def __init__(self, base: pathlib.Path, root: pathlib.Path | None = None) -> None:
         self.base = base
-        self.root = ROOT.resolve()
+        # Repository evidence is authored only in the outer driver's
+        # disposable repository projection: the real extracted bundle root
+        # when one is supplied by the hermetic Fixture, so `init` finds a
+        # real BUNDLE_MANIFEST.json instead of the raw development tree.
+        self.root = (root if root is not None else ROOT).resolve()
         self.external = base / "external"
         self.external.mkdir(mode=0o700)
         self.graph = json.loads((
@@ -170,7 +174,7 @@ class OperationalWorkflowDriver:
         stdin_payload: bytes | None = None,
     ) -> str:
         invocation = [
-            str(PYTHON), "-B", str(self.root / "tools/stage17_operational_cli_v4.py"),
+            str(PYTHON), "-B", str(self.root / "tools/stage17_operational_cli_v10.py"),
             "--repository-root", str(self.root),
             "--evidence-root", str(self.operational),
         ]
@@ -607,7 +611,10 @@ class Fixture:
         fixture_epoch = dt.datetime.now(dt.timezone.utc).replace(microsecond=0) - dt.timedelta(minutes=23)
         legacy.BASE_TIME = fixture_epoch.date().isoformat()
         legacy.utc = lambda minute: (fixture_epoch + dt.timedelta(minutes=minute)).isoformat().replace("+00:00", "Z")
-        self.builder = OperationalWorkflowDriver(temporary)
+        self.bundle_root = bundle_root.resolve()
+        self.bundle_archive = bundle_archive.resolve()
+        self.bundle_sidecar = bundle_sidecar.resolve()
+        self.builder = OperationalWorkflowDriver(temporary, root=self.bundle_root)
         self.root, self.external = self.builder.root, self.builder.external
         self.worker = self.external / "observed-cpu-prefetch-stage17-test-worker"
         shutil.copyfile(worker, self.worker)
@@ -618,9 +625,6 @@ class Fixture:
         self.external_contract = self.root / (
             "config/stage17/stage17-operational-input-external-contract-v2.json"
         )
-        self.bundle_root = bundle_root.resolve()
-        self.bundle_archive = bundle_archive.resolve()
-        self.bundle_sidecar = bundle_sidecar.resolve()
         self.builder.pilot_archive = self.bundle_archive
         self.builder.pilot_sidecar = self.bundle_sidecar
         self.positive_actions = 0

@@ -23,8 +23,12 @@ import subprocess
 import sys
 import tempfile
 import traceback
+from types import SimpleNamespace
 from typing import Any, Callable
 
+import author_stage17_action_revalidation_blocker_v1 as action_blocker
+import author_stage17_post_marker_blocker_v1 as post_blocker
+import author_stage17_pre_marker_blocker_v1 as pre_blocker
 import check_stage17_complete_operational_admission as legacy
 import stage17_operational_semantics_v4 as semantics
 import stage17_exit_state_machine_v4 as exit_machine
@@ -70,6 +74,135 @@ def write(path: pathlib.Path, document: object) -> None:
 def schema_binding(root: pathlib.Path, relative: str) -> dict[str, Any]:
     path = root / relative
     return {"path": relative, "size_bytes": path.stat().st_size, "sha256": digest(path)}
+
+
+def synthetic_d121_marker(root: pathlib.Path) -> dict[str, object]:
+    """A synthetic v8-schema attempt marker for the D-121 post-marker blocker.
+
+    The post-marker-blocker schema is permanently bound to schema
+    cpu-prefetch-stage17-read-only-preflight-attempt/8 (D-121's own frozen
+    predecessor evidence), independent of which attempt schema the current
+    production executor actually emits (v10). This mirrors the same fixture
+    construction tools/check_stage17_executor_v13_action_readiness.py uses.
+    """
+    sha_placeholder = "a" * 64
+    runtime_names = json.loads(
+        (root / "config/schemas/stage17-read-only-preflight-attempt-v8.schema.json")
+        .read_text(encoding="utf-8")
+    )["properties"]["runtime_implementation_hashes"]["propertyNames"]["enum"]
+    snapshot = {
+        "source_size_bytes": 1, "consumed_sha256": sha_placeholder,
+        "snapshot_size_bytes": 1,
+        "snapshot_mechanism": "LINUX_SEALED_MEMFD_PARENT_PROCFS-v1",
+        "verified_seals": ["F_SEAL_WRITE", "F_SEAL_GROW", "F_SEAL_SHRINK", "F_SEAL_SEAL"],
+        "procfs_visible_parent_pid": 1, "procfs_process_directory_device": 1,
+        "procfs_process_directory_inode": 1, "procfs_process_directory_uid": 1,
+        "credential_fd_inherited_by_child": False,
+        "source_path_reused_after_marker": False, "private_bytes_recorded": False,
+    }
+    return {
+        "schema_version": "cpu-prefetch-stage17-read-only-preflight-attempt/8",
+        "attempt_id": "SYNTHETIC-HERMETIC-D121-ATTEMPT",
+        "authorization_id": "SYNTHETIC-HERMETIC-D121-AUTHORIZATION",
+        "authorization_sha256": sha_placeholder,
+        "resolution_id": "SYNTHETIC-HERMETIC-RESOLUTION",
+        "resolution_sha256": sha_placeholder, "transition_id": "SYNTHETIC-HERMETIC-T1",
+        "transition_sha256": sha_placeholder, "action_plan_sha256": sha_placeholder,
+        "runtime_implementation_hashes": {name: sha_placeholder for name in runtime_names},
+        "ssh_argv_sha256": sha_placeholder,
+        "rendered_programs": [
+            {"ordinal": ordinal, "observation_id": f"SYNTHETIC-{ordinal}",
+             "size_bytes": 1, "sha256": sha_placeholder}
+            for ordinal in range(1, 7)
+        ],
+        "pinned_openssh_inputs": {
+            "known_hosts": {**snapshot, "role": "KNOWN_HOSTS"},
+            "transport_identity": {**snapshot, "role": "TRANSPORT_IDENTITY"},
+        },
+        "openssh_consumption_capability": {
+            "mechanism": "LINUX_SEALED_MEMFD_PARENT_PROCFS-v1", "result": "PASS",
+            "ssh_version": "SYNTHETIC", "ssh_sha256": sha_placeholder,
+            "sshd_sha256": sha_placeholder, "ssh_keygen_sha256": sha_placeholder,
+            "procfs_visible_parent_pid": 1, "descriptor_inheritance_used": False,
+            "source_mutation_before_consumption": True,
+            "strict_host_key_verification": True, "public_key_authentication": True,
+            "local_proxy_pipe_only": True, "network_used": False,
+            "private_bytes_recorded": False, "report_sha256": sha_placeholder,
+        },
+        "process_supervisor_capability": {
+            "mechanism": "LINUX_SUBREAPER_NSPID_NSPGID_HELD_LEADER-v2",
+            "namespace_local_executor_pid": 1, "namespace_local_executor_pgid": 1,
+            "procfs_visible_executor_pid": 1, "procfs_visible_executor_pgid": 1,
+            "pid_namespace_inode": "1", "procfs_pid_namespace_inode": "1",
+            "nspid": [1], "nspgid": [1], "mapping_unambiguous": True,
+            "waitid_wnowait_available": True, "subreaper_state_readable": True,
+            "initial_subreaper_state": 0, "signal_after_leader_reap_allowed": False,
+            "result": "PASS",
+        },
+        "prospective_evaluation_at_utc": "2030-01-01T00:00:00Z",
+        "actual_authority_sample_before_marker_utc": "2030-01-01T00:00:00Z",
+        "monotonic_deadline_ns": 2, "monotonic_authority_deadline_ns": 2,
+        "process_group_ownership":
+            "LINUX_SUBREAPER_NSPID_NSPGID_HOLD_LEADER_QUIESCE_THEN_REAP",
+        "attempt_number": 1, "retry_allowed": False,
+        "post_marker_authority_sample_required": True, "stage18_authority": False,
+    }
+
+
+def create_hermetic_blocker_evidence(
+    root: pathlib.Path, temporary: pathlib.Path,
+) -> dict[str, pathlib.Path]:
+    """Synthetic D-120/D-121/D-123 blocker receipts for the hermetic rehearsal.
+
+    Mirrors tools/check_stage17_executor_v13_action_readiness.py's
+    create_blocker_evidence(): these are explicitly synthetic fixtures, not
+    real predecessor evidence, and never touch the checked-in journal or a
+    real stand.
+    """
+    source_journal = temporary / "blocker-source-journal.json"
+    source_authorization = temporary / "blocker-source-authorization.json"
+    source_resolution = temporary / "blocker-source-resolution.json"
+    source_transition = temporary / "blocker-source-transition.json"
+    for path, label in (
+        (source_journal, "journal"), (source_authorization, "authorization"),
+        (source_resolution, "resolution"), (source_transition, "transition"),
+    ):
+        write(path, {"synthetic": label})
+    pre_output = temporary / "d120-empty-output"
+    pre_output.mkdir(mode=0o700)
+    pre_document = pre_blocker.render(
+        blocker_id="SYNTHETIC-HERMETIC-D120-BLOCKER",
+        recorded_at_utc="2030-01-01T00:00:00Z",
+        transaction_id="SYNTHETIC-HERMETIC-D120", journal=source_journal,
+        authorization=source_authorization, output_root=pre_output,
+    )
+    pre_path = temporary / "pre-marker-blocker.json"
+    write(pre_path, pre_document)
+    post_output = temporary / "d121-marker-only-output"
+    post_output.mkdir(mode=0o700)
+    marker = post_output / post_blocker.ATTEMPT_NAME
+    write(marker, synthetic_d121_marker(root))
+    post_document = post_blocker.build(SimpleNamespace(
+        blocker_id="SYNTHETIC-HERMETIC-D121-BLOCKER", actor="synthetic-stage17-owner",
+        output_root=post_output, journal=source_journal,
+        authorization=source_authorization, resolution=source_resolution,
+        transition=source_transition,
+    ))
+    post_path = temporary / "post-marker-blocker.json"
+    write(post_path, post_document)
+    action_output = temporary / "d123-empty-output"
+    action_output.mkdir(mode=0o700)
+    action_document = action_blocker.render(SimpleNamespace(
+        blocker_id="SYNTHETIC-HERMETIC-D123-BLOCKER",
+        recorded_at_utc="2030-01-01T00:00:03Z",
+        actor="synthetic-stage17-owner", transaction_id="SYNTHETIC-HERMETIC-D123",
+        journal=source_journal, authorization=source_authorization,
+        resolution=source_resolution, transition=source_transition,
+        output_root=action_output,
+    ))
+    action_path = temporary / "action-revalidation-blocker.json"
+    write(action_path, action_document)
+    return {"pre": pre_path, "post": post_path, "action": action_path}
 
 
 class OperationalWorkflowDriver:
@@ -231,9 +364,12 @@ class OperationalWorkflowDriver:
         self.pilot_sidecar = self.pilot_sidecar or pathlib.Path(
             str(self.pilot_archive) + ".sha256"
         )
-        output = self.root / "evidence/ext001-v9"
+        output = self.root / "evidence/ext001-v11"
         preflight = self.external / "preflight-evidence"
         preflight.mkdir(mode=0o700, exist_ok=True)
+        blockers_dir = self.external / "d120-d121-d123-blockers"
+        blockers_dir.mkdir(mode=0o700, exist_ok=True)
+        blockers = create_hermetic_blocker_evidence(self.root, blockers_dir)
         now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
         self._cli(
             "author-ext001",
@@ -247,6 +383,9 @@ class OperationalWorkflowDriver:
             "--capture-id", "SYNTHETIC-S17-PREFLIGHT-TEST-ONLY",
             "--captured-at-utc", now.isoformat().replace("+00:00", "Z"),
             "--preflight-evidence-root", str(preflight),
+            "--pre-marker-blocker", str(blockers["pre"]),
+            "--post-marker-blocker", str(blockers["post"]),
+            "--action-revalidation-blocker", str(blockers["action"]),
             "--actor", "synthetic-stage17-owner",
             "--issued-at-utc", (now - dt.timedelta(seconds=5)).isoformat().replace(
                 "+00:00", "Z"
@@ -261,9 +400,9 @@ class OperationalWorkflowDriver:
             "--envelope-id", "SYNTHETIC-S17-EXT-001-ENVELOPE-TEST-ONLY",
             "--output-directory", str(output),
         )
-        authorization_path = output / "authorization-v8.json"
+        authorization_path = output / "authorization-v11.json"
         authorization = json.loads(authorization_path.read_text())
-        envelope_path = output / "envelope-v9.json"
+        envelope_path = output / "envelope-v14.json"
         summary = {
             "authorization_id": authorization["authorization_id"],
             "evidence_path": authorization_path.relative_to(self.root).as_posix(),

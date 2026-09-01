@@ -256,7 +256,15 @@ class OperationalWorkflowDriver:
         self.allowed_signers, self.signing_key = self._synthetic_signer()
         self.operational = base / "operational-evidence"
         self.operational.mkdir(mode=0o700)
-        self._cli("init")
+        # `init` without --materialize-admission-root just echoes back
+        # --repository-root as the admission root, which has no writable
+        # evidence/ directory when self.root is a read-only bundle
+        # extraction. Materializing a real private admission-root
+        # projection (matching the real STAGE17_STAND_HANDOFF.md workflow)
+        # gives author-ext001 and friends somewhere to actually write.
+        initialized = self._cli("init", "--materialize-admission-root")
+        marker = "admission_root="
+        self.root = pathlib.Path(initialized.split(marker, 1)[1].strip())
         self.latest_path = self._latest_journal()
         self.latest = json.loads(self.latest_path.read_text())
 

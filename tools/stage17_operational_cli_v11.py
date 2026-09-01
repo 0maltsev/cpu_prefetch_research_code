@@ -36,7 +36,7 @@ from referencing import Registry, Resource
 
 import stage17_output_registry_v4 as output_registry
 import stage17_exit_state_machine_v4 as exit_machine
-import stage17_phase_controller_v8 as controller
+import stage17_phase_controller_v9 as controller
 import stage17_operational_semantics_v4 as semantics
 import stage17_pilot_candidate_artifact_v4 as pilot_artifact
 import stage17_state_journal as base

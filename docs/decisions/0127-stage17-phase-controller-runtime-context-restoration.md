@@ -1,6 +1,6 @@
 # ADR-0127: Stage 17 phase-controller runtime-context restoration
 
-- **Status:** `PROPOSED`
+- **Status:** `ACCEPTED`
 - **Decision ID:** D-127
 - **Classification:** implementation correctness, latent defect in already-
   accepted production code, request-preparation binding

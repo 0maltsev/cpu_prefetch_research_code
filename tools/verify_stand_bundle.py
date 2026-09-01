@@ -369,6 +369,10 @@ def main() -> int:
             "cpu-prefetch-pilot-candidate-bundle/4",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
         ),
+        "STAGE17-PILOT-CANDIDATE-BUNDLE-v5": (
+            "cpu-prefetch-pilot-candidate-bundle/5",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
             "cpu-prefetch-q15-qualification-tool-bundle/1",
             "Q15_TOOL_RELEASE_NO_AUTHORITY",
@@ -393,6 +397,7 @@ def main() -> int:
         "2.0.0-pre.3" if profile in {
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
             "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
+            "STAGE17-PILOT-CANDIDATE-BUNDLE-v5",
         } else "2.0.0-pre.2"
     )
     if manifest.get("protocol_version") != expected_protocol:
@@ -419,7 +424,8 @@ def main() -> int:
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v3",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
-                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2") and value is not False:
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v5") and value is not False:
             failures.append(f"pilot candidate must explicitly prohibit {description}")
         elif profile == "STAGE16-STAND-BUNDLE-v1" and value not in (None, False):
             failures.append(f"Stage 16 bundle unexpectedly enables {description}")
@@ -466,7 +472,8 @@ def main() -> int:
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v3",
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
-                   "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2"):
+                   "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v5"):
         if (
             manifest.get("software_prefetch_mapping_id")
             != "X86-64-PREFETCHW-PREFETCHT0-v1"
@@ -601,17 +608,27 @@ def main() -> int:
         if profile in ("STAGE17-PILOT-CANDIDATE-BUNDLE-v3",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
-                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2"):
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v5"):
             runtime = manifest.get("stage17_fixed_action_runtime")
             expected_actions = ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
                                 "STAGE17-BLINDED-PILOT"]
             worker = root / "release/bin/cpu_prefetch_runner"
-            current_v4 = profile in {
+            current_v5 = profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v5"
+            # The compiled worker binary (release/bin/cpu_prefetch_runner) is
+            # unaffected by the D-124/D-125/D-126 admission-side changes v5
+            # seals, so its own runtime identity stays at its unchanged v4
+            # compiled-in strings even under bundle profile v5. Only the
+            # admission-side policy/executor identity below advances.
+            current_v4 = current_v5 or profile in {
                 "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
             }
             version = 4 if current_v4 else 3
             controller_version = 8 if current_v4 else version
+            admission_policy_version = 20 if current_v5 else 18 if current_v4 else 11
+            nested_policy_version = 15 if current_v5 else 14
+            executor_version = 13 if current_v5 else 12
             expected_synthetic = profile in {
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
@@ -667,7 +684,7 @@ def main() -> int:
             controller = manifest.get("stage17_controller_runtime")
             policy_path = root / (
                 "config/stage17/"
-                f"stage17-operational-evidence-admission-policy-v{18 if current_v4 else 11}.json"
+                f"stage17-operational-evidence-admission-policy-v{admission_policy_version}.json"
             )
             if (not isinstance(controller, dict)
                     or controller.get("controller_id")
@@ -707,7 +724,8 @@ def main() -> int:
                         break
                 nested_path = root / (
                     "config/stage17/"
-                    "stage17-read-only-preflight-evidence-admission-policy-v14.json"
+                    "stage17-read-only-preflight-evidence-admission-policy-"
+                    f"v{nested_policy_version}.json"
                 )
                 nested_summary = controller.get("nested_preflight_policy", {})
                 if not nested_path.is_file():
@@ -742,7 +760,7 @@ def main() -> int:
                             )
                             break
                 for relative in (
-                    "tools/stage17_read_only_preflight_executor_v12.py",
+                    f"tools/stage17_read_only_preflight_executor_v{executor_version}.py",
                     "tools/stage17_read_only_preflight_collector_v2.py",
                 ):
                     candidate = root / relative

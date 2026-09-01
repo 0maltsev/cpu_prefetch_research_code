@@ -2526,6 +2526,22 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking Stage 17 journal admission and real local OpenSSH snapshot consumption")
 add_custom_target(
+  stage17-no-predecessor-attestation-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_no_predecessor_attestation.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the D-124 no-predecessor-attestation branch (ADR-0124, PROPOSED; grants no authority)")
+add_custom_target(
+  stage17-executor-v13-action-readiness-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v13_action_readiness.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking executor v13's action-readiness binding for both predecessor-evidence branches (ADR-0126, PROPOSED; grants no authority)")
+add_custom_target(
   stage17-openssh-consumption-check
   COMMAND
     "${Python3_EXECUTABLE}"

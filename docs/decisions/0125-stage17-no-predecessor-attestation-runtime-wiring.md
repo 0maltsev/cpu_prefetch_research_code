@@ -1,0 +1,98 @@
+# ADR-0125: Stage 17 no-predecessor-attestation runtime wiring
+
+- **Status:** `ACCEPTED`
+- **Decision ID:** D-125
+- **Classification:** implementation correctness, action admission,
+  runtime-closure successor
+- **Owner:** repository/platform/security/pilot owner
+- **Gate:** before any `S17-EXT-001` transaction may use the D-124
+  no-predecessor-attestation branch through the live CLI
+
+## Context
+
+ADR-0124 (`ACCEPTED_IMPLEMENTED_LOCAL_NOT_WIRED_NO_AUTHORITY`) implements a
+`no_predecessor_attestation` alternative to the three-blocker-receipt path
+for `S17-EXT-001`, as new additive files: `tools/stage17_operational_cli_v11.py`,
+`tools/stage17_read_only_preflight_semantic_verifier_v15.py`,
+`tools/author_stage17_no_predecessor_attestation_v1.py`, and the
+`stage17-preflight-no-predecessor-attestation-v1` and
+`stage17-read-only-preflight-supporting-contract-v13` schemas. Deliberately,
+none of it was wired into the accepted
+`config/stage17/stage17-operational-evidence-admission-policy-v18.json`
+`runtime_closure`, because that closure's exact file hashes are the
+production trust boundary every ADR since ADR-0108 has protected by minting
+a new successor rather than mutating an accepted file.
+
+Tracing the actual runtime dispatch: `stage17_operational_cli_v10.py` calls
+into `tools/stage17_state_journal_v16.py`, which hard-binds
+`import stage17_semantic_verifier_v18 as semantic` and monkeypatches that
+binding into its own predecessor chain. `stage17_semantic_verifier_v18.py`
+in turn hard-binds `S17-EXT-001` verification to
+`stage17_read_only_preflight_semantic_verifier_v14`. Neither the new CLI nor
+the new preflight verifier is reachable through this chain as they stand:
+`stage17_operational_cli_v11.py` (as ADR-0124 left it) still imports
+`stage17_state_journal_v16`, and no verifier binds
+`stage17_read_only_preflight_semantic_verifier_v15`.
+
+## Decision
+
+Bind the D-124 successor into a new, additive runtime chain, changing
+nothing about the accepted v18 closure's bytes:
+
+- `tools/stage17_read_only_preflight_semantic_verifier_v15.py` gains
+  `POLICY_PATH`, `POLICY_SCHEMA_PATH`, and `verify_policy_v15` re-exported
+  from its `immediate_predecessor` (v14) unchanged, since the underlying
+  `stage17-read-only-preflight-evidence-admission-policy-v14.json` document
+  itself does not change under this decision -- only which supporting-
+  contract schema version and predecessor-evidence branch it accepts for
+  `S17-EXT-001`.
+- New `tools/stage17_semantic_verifier_v19.py`: predecessor
+  `stage17_semantic_verifier_v18`, delegating `S17-EXT-001` to
+  `stage17_read_only_preflight_semantic_verifier_v15` and every other input
+  unchanged; `VERIFIER_VERSION = "19"`.
+- New `tools/stage17_state_journal_v17.py`: predecessor
+  `stage17_state_journal_v16`, hard-binding
+  `import stage17_semantic_verifier_v19 as semantic` and monkeypatching that
+  binding through the full predecessor chain, exactly as v16 did for v18.
+- `tools/stage17_operational_cli_v11.py` is amended (it was never wired into
+  any accepted policy and carries no authority) to import
+  `stage17_state_journal_v17` instead of `stage17_state_journal_v16`, so
+  `admit-resolution` under CLI v11 actually dispatches through the new
+  verifier chain.
+- New `config/schemas/stage17-operational-evidence-admission-policy-v19.schema.json`
+  and new `config/stage17/stage17-operational-evidence-admission-policy-v19.json`,
+  authored by new `tools/author_stage17_policy_v19.py` (predecessor
+  `author_stage17_policy_v18`), binding `runtime_import_roots` with
+  `stage17_state_journal_v17` and `stage17_operational_cli_v11` in place of
+  their v16/v10 predecessors, and a `runtime_closure` computed by the same
+  `discover_python_closure` walk used by every prior version -- every hash
+  in it is read from real file bytes on disk, never invented.
+
+Policy v18 and its entire existing `bindings`/`runtime_closure` remain
+byte-identical and independently valid; this ADR only adds v19 as a
+successor policy. No scientific behavior, action semantics, authority, or
+S17-EXT-002 through S17-EXT-010 verification logic changes. This resolves
+only which runtime files a *future* accepted policy would bind for the
+`S17-EXT-001` predecessor-evidence input.
+
+## Effects
+
+Once this ADR is accepted (a separate owner action from this file's
+creation) and policy v19 is admitted as the accepted runtime closure, the
+D-124 no-predecessor-attestation branch becomes reachable through the live
+`stage17_operational_cli_v11.py admit-resolution`/`author-ext001` path. Until
+then, `stage17_operational_cli_v10.py` remains the sole production entry
+point, unaffected by any file this ADR adds.
+
+## Verification and supersession
+
+Acceptance requires: `format-check`, static analysis, schema/protocol/
+canonical checks, `stage17-operational-successor-check`, the full existing
+CTest suite with no new regression, and a `--check` self-verification that
+policy v19's generated bytes match the checked-in file and its runtime
+closure exactly equals the real discovered Python import graph from its
+roots. This ADR remains `PROPOSED` until the owner reviews and separately
+accepts it; acceptance alone grants no stand, transport, calibration,
+pilot, measurement, or Stage 18 authority -- the real no-predecessor
+attestation record required to actually resolve a fresh `S17-EXT-001`
+transaction is still, per ADR-0124, an action only the owner takes.

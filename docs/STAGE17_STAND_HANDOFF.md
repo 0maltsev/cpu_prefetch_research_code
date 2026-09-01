@@ -153,6 +153,26 @@ that input. The command validates actual bytes against the registered schema.
    satisfied inside the private admission snapshot; the release bundle root
    remains byte-identical and independently verifiable.
 
+   **Alternative predecessor-evidence path (ADR-0124/ADR-0125/ADR-0126,
+   all `PROPOSED`/owner-review pending, not yet promoted to the production
+   chain above):** when no real D-120/D-121/D-123 blocker-receipt evidence
+   exists to bind -- confirmed only after an exhaustive real search, never
+   assumed -- the owner may instead author a `no_predecessor_attestation`
+   record with `tools/author_stage17_no_predecessor_attestation_v1.py` and
+   pass `--no-predecessor-attestation "$D124_NO_PREDECESSOR_ATTESTATION"`
+   to `author-ext001` in place of the three `--*-blocker` flags (mutually
+   exclusive, enforced before any file I/O). This path is fully implemented
+   and tested (`stage17-no-predecessor-attestation-check`,
+   `stage17-executor-v13-action-readiness-check`) against `tools/
+   stage17_operational_cli_v11.py`, `tools/stage17_read_only_preflight_
+   executor_v13.py`, and policy successors v19/v20, but those successors
+   are not the currently accepted production chain -- `stage17-operational-
+   successor-check` must report `semantic_policy=v20; preflight_policy=v15`
+   (not v18/v14) before this alternative is usable for a real attempt. That
+   promotion is a separate, explicit owner decision, not implied by ADR-0124
+   through ADR-0126 alone. Until promoted, use the three-blocker path above
+   exactly as documented.
+
 2. Execute the six fixed read-only observations with the current preflight
    executor. Author and admit the complete EXT002 manifest (attempt, six
    stdout, six stderr, six receipts, completion, observed trust/runtime and

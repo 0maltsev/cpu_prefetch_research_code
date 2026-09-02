@@ -2548,7 +2548,7 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v14_action_readiness.py"
     --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking executor v14's journal-reachability fix for both predecessor-evidence branches (ADR-0130, PROPOSED; grants no authority)")
+  COMMENT "Checking executor v14's journal-reachability fix for both predecessor-evidence branches (ADR-0130, ACCEPTED; grants no authority)")
 add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND

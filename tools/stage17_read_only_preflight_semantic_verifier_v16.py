@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Stage 17 S17-EXT-001 semantic-verifier successor rebinding executor v14
-and journal v20 (ADR-0130, `PROPOSED`).
+and journal v20 (ADR-0130, `ACCEPTED`).
 
 This module is a new, additive file.  It does not modify
 `stage17_read_only_preflight_semantic_verifier_v15.py`'s bytes, so the

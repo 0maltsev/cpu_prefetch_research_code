@@ -1,6 +1,6 @@
 # ADR-0130: Stage 17 executor journal reachability
 
-- **Status:** `PROPOSED`
+- **Status:** `ACCEPTED`
 - **Decision ID:** D-130
 - **Classification:** implementation correctness, latent defect in already-
   accepted-adjacent code, action-time journal binding

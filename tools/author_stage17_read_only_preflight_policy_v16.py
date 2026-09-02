@@ -2,7 +2,7 @@
 """Reproducibly render or verify the Stage 17 preflight policy v16.
 
 Rebinds executor v14's fixed journal-reachability import (ADR-0130,
-`PROPOSED`/owner-review pending): `implementations.executor` now points at
+`ACCEPTED`): `implementations.executor` now points at
 `tools/stage17_read_only_preflight_executor_v14.py`, and
 `implementations.state_journal` moves to `tools/stage17_state_journal_v20.py`
 -- the journal generation `stage17_operational_cli_v11.py` itself already

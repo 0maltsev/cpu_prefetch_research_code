@@ -41,6 +41,8 @@ SUCCESSOR_BINDINGS = (
     "tools/stage17_semantic_verifier_v23.py",
     "tools/stage17_pilot_candidate_artifact_v6.py",
     "tools/stage17_operational_semantics_v5.py",
+    "tools/stage17_state_journal_v19.py",
+    "config/schemas/stage17-runtime-release-provenance-v5.schema.json",
 )
 
 _BASE = (

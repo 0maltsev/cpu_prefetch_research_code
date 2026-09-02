@@ -15,8 +15,13 @@ successor rather than an edit to it.
 
 `build_extracted_release_receipt_v6`/`verify_extracted_release_receipt_v6`
 are faithful copies of `v4`'s same-named functions, retargeted to call the
-new `verify_extracted_bundle_v6` below. Everything else is re-exported
-from `v5` unchanged.
+new `verify_extracted_bundle_v6` below and the new
+`config/schemas/stage17-runtime-release-provenance-v5.schema.json` (a
+schema successor to the frozen `v18`-closure `-v4.schema.json`, whose own
+`bundle_profile` enum was just as frozen and narrow as the Python
+whitelist it accompanies -- discovered the same way, by actually running
+the rehearsal rather than assuming schema-level checks were already
+covered). Everything else is re-exported from `v5` unchanged.
 
 While rebasing the hermetic rehearsal against a freshly promoted v22/v23
 chain, the real sealed candidate bundle advanced to
@@ -176,7 +181,7 @@ def build_extracted_release_receipt_v6(
     context = verify_extracted_bundle_v6(bundle_root)
     relative_worker = context.worker_path.relative_to(context.bundle_root).as_posix()
     return {
-        "schema_version": "cpu-prefetch-stage17-runtime-release-provenance/4",
+        "schema_version": "cpu-prefetch-stage17-runtime-release-provenance/5",
         "receipt_id": receipt_id,
         "bundle_root": str(context.bundle_root),
         "bundle_profile": context.bundle_profile,
@@ -224,7 +229,7 @@ def verify_extracted_release_receipt_v6(
     *, repository_root: pathlib.Path, receipt: dict[str, Any],
 ) -> ExtractedReleaseContext:
     schema = _load_json(
-        repository_root / "config/schemas/stage17-runtime-release-provenance-v4.schema.json"
+        repository_root / "config/schemas/stage17-runtime-release-provenance-v5.schema.json"
     )
     Draft202012Validator.check_schema(schema)
     errors = list(Draft202012Validator(schema).iter_errors(receipt))

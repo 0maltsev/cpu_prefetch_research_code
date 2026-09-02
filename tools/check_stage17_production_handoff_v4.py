@@ -903,7 +903,7 @@ class Fixture:
             bundle_root=release_root,
             receipt_id="SYNTHETIC-EXT002-CLEAN-RELEASE-v4",
         )
-        provenance = directory / "runtime-release-provenance-v4.json"
+        provenance = directory / "runtime-release-provenance-v5.json"
         write(provenance, provenance_document)
         worker = release_root / "release/bin/cpu_prefetch_runner"
         self.worker = worker
@@ -915,7 +915,7 @@ class Fixture:
             self.artifact(
                 directory, "EXT002-RELEASE", "RUNTIME_RELEASE_PROVENANCE",
                 provenance,
-                schema="config/schemas/stage17-runtime-release-provenance-v4.schema.json",
+                schema="config/schemas/stage17-runtime-release-provenance-v5.schema.json",
             ),
         ]
         runtime = self.typed(directory, "EXT002-RUNTIME", "RUNTIME_IDENTITY", {

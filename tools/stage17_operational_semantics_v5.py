@@ -21,11 +21,31 @@ every other branch (`S17-EXT-003` through `S17-EXT-010`) is byte-identical
 to the predecessor, since only the `S17-EXT-002` branch was confirmed
 (by searching the full function body) to reference the release verifier
 at all.
+
+Running the real rehearsal against the fixes above still failed, this
+time inside `_read_artifacts` itself (frozen, `v4.py`): it validates every
+typed artifact's declared schema against the module-level `ROLE_SCHEMA`
+table, which pins `RUNTIME_RELEASE_PROVENANCE` to the same frozen
+`-v4.schema.json` ADR-0129 already replaced for the two other call sites.
+`_read_artifacts` is a plain re-export from `predecessor` here, so it
+still resolves `ROLE_SCHEMA` from `v4.py`'s own globals -- the identical
+free-variable-resolves-via-defining-module lesson recorded for
+`RECOGNIZED_PROFILES` above, at a third call site. This is the same
+defect class ADR-0129 already covers for real `S17-EXT-002` admission
+(a frozen reference to the superseded `-v4.schema.json` blocking a
+receipt this session's own successors legitimately produce with
+`schema_version: .../5`), so it is fixed here as part of ADR-0129's
+already-decided scope rather than opening a new ADR: `_read_artifacts_v5`
+is a faithful copy of `_read_artifacts`'s full body (confirmed by exact
+programmatic extraction), broadened only to resolve roles through this
+module's own `ROLE_SCHEMA_v5` (`v4`'s table plus the one entry pointing at
+the `-v5.schema.json` successor) instead of `v4.py`'s frozen table.
 """
 
 from __future__ import annotations
 
 import collections
+import json
 import pathlib
 import stat
 from typing import Any, Mapping
@@ -34,20 +54,129 @@ import stage17_operational_semantics_v4 as predecessor
 import stage17_pilot_candidate_artifact_v6 as release_verifier
 
 
+Artifact = predecessor.Artifact
 EXPECTED_ROLES = predecessor.EXPECTED_ROLES
+LOGICAL_ENVELOPE_ROLES = predecessor.LOGICAL_ENVELOPE_ROLES
 MANIFEST_SCHEMA = predecessor.MANIFEST_SCHEMA
+MEASUREMENT_KEYS = predecessor.MEASUREMENT_KEYS
 OperationalSemanticError = predecessor.OperationalSemanticError
+SIGNATURE_ROLES = predecessor.SIGNATURE_ROLES
+STREAMING_OBSERVATION_ROLES = predecessor.STREAMING_OBSERVATION_ROLES
+TYPED_SCHEMA = predecessor.TYPED_SCHEMA
+_artifact_content = predecessor._artifact_content
 _artifact_index = predecessor._artifact_index
 _one = predecessor._one
 _phase_family = predecessor._phase_family
-_read_artifacts = predecessor._read_artifacts
 _resolution_bindings = predecessor._resolution_bindings
+_schema = predecessor._schema
 _validate = predecessor._validate
 _validate_preflight = predecessor._validate_preflight
 load = predecessor.load
+output_registry = predecessor.output_registry
 pilot_plan_runtime = predecessor.pilot_plan_runtime
 sha = predecessor.sha
 verify_sshsig = predecessor.verify_sshsig
+
+ROLE_SCHEMA_v5: dict[str, str | None] = {
+    **predecessor.ROLE_SCHEMA,
+    "RUNTIME_RELEASE_PROVENANCE":
+        "config/schemas/stage17-runtime-release-provenance-v5.schema.json",
+}
+
+
+def _read_artifacts_v5(root: pathlib.Path, manifest_path: pathlib.Path,
+                       manifest: dict[str, Any],
+                       pinned: Mapping[str, bytes]) -> list[Artifact]:
+    """Faithful copy of predecessor `_read_artifacts`, broadened only to
+    resolve roles through this module's own `ROLE_SCHEMA_v5` instead of
+    `v4.py`'s frozen table. Every other check is byte-identical to the
+    predecessor.
+    """
+    result: list[Artifact] = []
+    ids: set[str] = set()
+    paths: set[pathlib.Path] = set()
+    for reference in manifest["artifacts"]:
+        role = reference["role"]
+        if role not in ROLE_SCHEMA_v5:
+            raise OperationalSemanticError(f"unknown production artifact role: {role}")
+        if reference["artifact_id"] in ids:
+            raise OperationalSemanticError("duplicate artifact ID")
+        ids.add(reference["artifact_id"])
+        streaming = role in STREAMING_OBSERVATION_ROLES
+        path, payload, size_bytes, artifact_sha256 = _artifact_content(
+            manifest_path, reference["locator"], load=not streaming,
+            expected_size=reference["size_bytes"],
+        )
+        if path in paths:
+            raise OperationalSemanticError("duplicate artifact locator")
+        paths.add(path)
+        if artifact_sha256 != reference["sha256"]:
+            raise OperationalSemanticError(f"artifact bytes drifted: {role}")
+        expected_schema = ROLE_SCHEMA_v5[role]
+        document: dict[str, Any] | None = None
+        if expected_schema is None:
+            if role in LOGICAL_ENVELOPE_ROLES:
+                if (reference["schema_identity"] != "2.0.0-pre.3"
+                        or reference["schema_binding"] is not None
+                        or reference["media_type"] != "application/json"):
+                    raise OperationalSemanticError(
+                        f"logical envelope contract drifted: {role}"
+                    )
+                assert payload is not None
+                document = json.loads(payload)
+                if not isinstance(document, dict):
+                    raise OperationalSemanticError(
+                        f"logical envelope JSON root drifted: {role}"
+                    )
+                result.append(Artifact(
+                    role, path, payload, size_bytes, artifact_sha256,
+                    document, reference,
+                ))
+                continue
+            if streaming:
+                if (reference["schema_identity"] != output_registry.RAW_SCHEMA
+                        or reference["schema_binding"] is not None
+                        or reference["media_type"] != "application/octet-stream"):
+                    raise OperationalSemanticError(
+                        f"raw observation physical contract drifted: {role}"
+                    )
+            elif (reference["schema_identity"] is not None
+                  or reference["schema_binding"] is not None):
+                raise OperationalSemanticError(f"untyped artifact claims a schema: {role}")
+            expected_media = (
+                "application/sshsig" if role in SIGNATURE_ROLES
+                else "application/octet-stream"
+            )
+            if reference["media_type"] != expected_media:
+                raise OperationalSemanticError(f"untyped artifact media drifted: {role}")
+        else:
+            schema_document, schema_payload = _schema(root, expected_schema, pinned)
+            binding = {
+                "path": expected_schema, "size_bytes": len(schema_payload),
+                "sha256": sha(schema_payload),
+            }
+            if reference["schema_binding"] != binding:
+                raise OperationalSemanticError(f"schema byte binding drifted: {role}")
+            assert payload is not None
+            document = json.loads(payload)
+            if not isinstance(document, dict):
+                raise OperationalSemanticError(f"JSON artifact root is not object: {role}")
+            _validate(root, document, expected_schema, role, pinned)
+            if reference["schema_identity"] != document.get("schema_version"):
+                raise OperationalSemanticError(f"schema identity drifted: {role}")
+            if expected_schema == TYPED_SCHEMA:
+                if document["record_role"] != role:
+                    raise OperationalSemanticError(f"typed record role mismatch: {role}")
+                expected_keys = MEASUREMENT_KEYS[role]
+                if frozenset(document["measurements"]) != expected_keys:
+                    raise OperationalSemanticError(f"typed fact family drifted: {role}")
+                if all(isinstance(item, bool) for item in document["measurements"].values()):
+                    raise OperationalSemanticError(f"boolean-only impostor rejected: {role}")
+        result.append(Artifact(
+            role, path, payload, size_bytes, artifact_sha256,
+            document, reference,
+        ))
+    return result
 
 
 def _verify_extracted_release_v5(
@@ -99,8 +228,8 @@ def verify_manifest_v5(
             or expected_input_id not in EXPECTED_ROLES
             or manifest["synthetic_test_only"] is not allow_synthetic):
         raise OperationalSemanticError("manifest input/classification drifted")
-    artifacts = _read_artifacts(root, manifest_path, manifest,
-                                pinned_repository_bytes)
+    artifacts = _read_artifacts_v5(root, manifest_path, manifest,
+                                   pinned_repository_bytes)
     observed_roles = collections.Counter(item.role for item in artifacts)
     expected_roles = EXPECTED_ROLES[expected_input_id].copy()
     if expected_input_id == "S17-EXT-007":

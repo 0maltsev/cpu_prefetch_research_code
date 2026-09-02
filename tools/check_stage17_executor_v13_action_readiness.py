@@ -351,38 +351,41 @@ def self_test(root: pathlib.Path) -> None:
         )
     with tempfile.TemporaryDirectory(prefix="stage17-d126-source-") as text:
         source_bundle = pathlib.Path(text) / "source-bundle"
-        shutil.copytree(
-            root, source_bundle, symlinks=False,
-            ignore=shutil.ignore_patterns(
-                ".git", "build", "build-*", "__pycache__", ".pytest_cache", "evidence",
-            ),
+        # This regression specifically proves executor v13's own
+        # action-readiness binding (ADR-0126), which only ever validates a
+        # resolution admitted against preflight-plan policy v15, dispatched
+        # through `cli_v11.py`'s own `journal_runtime` import (`v19`, ->
+        # policy v23 as of this commit) and `author-ext001`'s own hardcoded
+        # policy path (`v15.json`). Both keep moving forward as later ADRs
+        # land (policy v16, journal v20/v24, and whatever comes after), and
+        # `admit-resolution`'s own bindings check verifies cli_v11.py's real
+        # bytes against whichever policy its journal chain resolves to at
+        # actual runtime -- so a `source_bundle` built from the live working
+        # tree plus a single hand-patched file broke twice already (once
+        # against a stale, still-mutable v23 pin, once against the current
+        # file's own accumulated later edits): literal string substitution
+        # can never guarantee byte-for-byte equality with a hash some
+        # *other* policy generation already pinned, and any one live file
+        # in the closure moving independently reintroduces the same class
+        # of drift. Extracting the entire tree from one fixed historical
+        # commit -- rather than the live tree -- keeps every file in this
+        # regression's own closure mutually self-consistent by
+        # construction, immune to any later, unrelated edit.
+        commit_pinned_to_v22 = "b4065e411879876c6d5e8e0dd52952af87dbd810"
+        source_bundle.mkdir()
+        archive = subprocess.run(
+            ["git", "archive", commit_pinned_to_v22], cwd=root,
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, check=True,
+        ).stdout
+        subprocess.run(
+            ["tar", "-x"], input=archive, cwd=source_bundle, check=True,
         )
         (source_bundle / "BUNDLE_MANIFEST.json").write_text(
             '{"bundle_profile":"SYNTHETIC-D126-REGRESSION"}\n', encoding="ascii",
         )
         (source_bundle / "SHA256SUMS").write_text(
             "synthetic D126 regression fixture; not release evidence\n", encoding="ascii",
-        )
-        # This regression specifically proves executor v13's own
-        # action-readiness binding (ADR-0126), which only ever validates a
-        # resolution admitted against preflight-plan policy v15. The live
-        # repository's `cli_v11.py` moved its own `author-ext001` default to
-        # policy v16 once ADR-0130 rebound `S17-EXT-001` admission to
-        # executor v14 (see check_stage17_executor_v14_action_readiness.py
-        # for that coverage), so this test repoints its own isolated
-        # `source_bundle` copy of `cli_v11.py` back to v15 before exercising
-        # it -- keeping this file's original, narrower purpose intact
-        # without touching the real repository's current wiring.
-        copied_cli = source_bundle / "tools/stage17_operational_cli_v11.py"
-        copied_cli.write_text(
-            copied_cli.read_text(encoding="utf-8").replace(
-                "stage17-read-only-preflight-evidence-admission-policy-v16.json",
-                "stage17-read-only-preflight-evidence-admission-policy-v15.json",
-            ).replace(
-                "import stage17_state_journal_v20 as journal_runtime",
-                "import stage17_state_journal_v19 as journal_runtime",
-            ),
-            encoding="utf-8",
         )
         run_branch(root, source_bundle, branch="BLOCKERS",
                    output_subdir="evidence/ext001-d126-blockers")

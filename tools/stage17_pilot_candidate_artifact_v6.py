@@ -38,6 +38,12 @@ recognized; every other check is byte-identical to the predecessor. This
 file remains part of ADR-0129 (`PROPOSED`, not yet accepted), so widening
 its own whitelist here -- rather than minting yet another successor -- is
 still the accepted-vs-mutable file discipline, not an exception to it.
+
+The real sealed candidate bundle later advanced again to
+`STAGE17-PILOT-CANDIDATE-BUNDLE-v8` (and dry-run to `-v5`) while sealing
+ADR-0130's fix. `RECOGNIZED_PROFILES`/`DRY_RUN_PROFILES` widen the same
+way, for the same reason: this file is still ADR-0129's own mutable
+deliverable, not yet accepted.
 """
 
 from __future__ import annotations
@@ -74,9 +80,12 @@ _run_full_verifier = predecessor._run_full_verifier
 RECOGNIZED_PROFILES = predecessor.RECOGNIZED_PROFILES | {
     "STAGE17-PILOT-CANDIDATE-BUNDLE-v7",
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v4",
+    "STAGE17-PILOT-CANDIDATE-BUNDLE-v8",
+    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v5",
 }
 DRY_RUN_PROFILES = predecessor.DRY_RUN_PROFILES | {
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v4",
+    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v5",
 }
 verify_extracted_bundle_v5 = predecessor.verify_extracted_bundle_v5
 verify_pilot_candidate_artifact_v5 = predecessor.verify_pilot_candidate_artifact_v5

@@ -182,6 +182,7 @@ def require_synthetic_test_bundle(repository_root: pathlib.Path) -> None:
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v4",
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v5",
             )
             or manifest.get("stage17_fixed_action_runtime", {}).get(
                 "synthetic_test_only") is not True

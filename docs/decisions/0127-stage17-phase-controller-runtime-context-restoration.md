@@ -80,3 +80,27 @@ closure changed. Any later change to what `_runtime_from_context` reads
 or how request preparation binds runtime/release evidence requires
 another prospective successor under the same standard applied since
 ADR-0108.
+
+## Addendum: `_validate_action_inputs` restoration
+
+Once `S17-EXT-002`/`S17-EXT-003` admission was separately fixed (ADR-0129)
+and `author-request` became reachable by the hermetic rehearsal for the
+first time, a second function -- `_validate_action_inputs` -- was found
+missing from `stage17_phase_controller_v9.py` by the identical mechanism
+this ADR already documents: dropped at the same `v4`-to-`v5` succession
+point as `_runtime_from_context`, never re-exported or reimplemented by
+any later version, never hit until `author-request` finally executed far
+enough to call it. `tools/stage17_phase_controller_v10.py` restores it,
+ported from `v4`'s implementation with no behavioral change, confirmed by
+exact programmatic extraction rather than manual retyping, with its
+data-shape dependency checked against what real `S17-EXT-008` admission
+still produces (unchanged since `v4`). `v9` and its entire accepted
+closure are untouched; `v10` is a new, additive successor only.
+
+This restoration was implemented before the owner had reviewed it as
+part of this ADR's scope -- the owner was asked directly whether it
+should be treated as a new decision or as covered by this one, and
+explicitly confirmed treating it as covered here rather than requiring a
+separate ADR. This addendum records that confirmation for the historical
+record, consistent with this repository's practice of every accepted
+production-code change being traceable to an explicit owner decision.

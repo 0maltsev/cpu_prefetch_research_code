@@ -2,8 +2,7 @@
 """Reproducibly render or verify the Stage 17 preflight policy v17.
 
 Rebinds executor v15's fixed kernel-thread-tolerant process-group
-supervisor and OpenSSH snapshot broker (ADR-0131, `PROPOSED`/owner-review
-pending): `implementations.executor` now points at `tools/stage17_read_
+supervisor and OpenSSH snapshot broker (ADR-0131, `ACCEPTED`): `implementations.executor` now points at `tools/stage17_read_
 only_preflight_executor_v15.py`, `implementations.process_group_
 supervisor` moves to `tools/stage17_process_group_supervisor_v3.py`, and
 `implementations.openssh_snapshot_broker` moves to `tools/stage17_openssh_

@@ -2556,7 +2556,7 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v15_action_readiness.py"
     --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking executor v15's kernel-thread-tolerant process-group supervisor fix for both predecessor-evidence branches (ADR-0131, PROPOSED; grants no authority)")
+  COMMENT "Checking executor v15's kernel-thread-tolerant process-group supervisor fix for both predecessor-evidence branches (ADR-0131, ACCEPTED; grants no authority)")
 add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND

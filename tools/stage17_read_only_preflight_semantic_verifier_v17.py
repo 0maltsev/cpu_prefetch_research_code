@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stage 17 S17-EXT-001 semantic-verifier successor rebinding executor v15
 and the kernel-thread-tolerant process-group supervisor (ADR-0131,
-`PROPOSED`).
+`ACCEPTED`).
 
 This module is a new, additive file.  It does not modify
 `stage17_read_only_preflight_semantic_verifier_v16.py`'s bytes, so any

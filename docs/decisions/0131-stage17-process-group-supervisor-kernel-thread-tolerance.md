@@ -1,6 +1,6 @@
 # ADR-0131: Stage 17 process-group supervisor kernel-thread tolerance
 
-- **Status:** `PROPOSED`
+- **Status:** `ACCEPTED`
 - **Decision ID:** D-131
 - **Classification:** implementation correctness, latent defect in already-
   accepted production code, action-time capability-verification robustness

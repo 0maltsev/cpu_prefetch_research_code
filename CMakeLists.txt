@@ -2542,6 +2542,14 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking executor v13's action-readiness binding for both predecessor-evidence branches (ADR-0126, PROPOSED; grants no authority)")
 add_custom_target(
+  stage17-pilot-candidate-profile-recognition-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_pilot_candidate_profile_recognition.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking pilot-candidate artifact v5's broadened profile recognition against a real sealed bundle (ADR-0128, PROPOSED; grants no authority)")
+add_custom_target(
   stage17-openssh-consumption-check
   COMMAND
     "${Python3_EXECUTABLE}"

@@ -41,7 +41,7 @@ import stage17_operational_semantics_v4 as semantics
 import stage17_operational_semantics_v5 as semantics_v5
 import stage17_pilot_candidate_artifact_v4 as pilot_artifact
 import stage17_state_journal as base
-import stage17_state_journal_v23 as journal_runtime
+import stage17_state_journal_v24 as journal_runtime
 
 
 class OperationalCliError(RuntimeError):
@@ -972,7 +972,7 @@ def author_ext001(
         evidence_root / "journal/stage17-state-journal-000000.json"
     )
     policy_path = repository_root / (
-        "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v19.json"
+        "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v20.json"
     )
     policy, policy_payload = load_json(policy_path)
     catalog_path = repository_root / str(genesis["catalog"]["path"])
@@ -1003,19 +1003,41 @@ def author_ext001(
     }
     using_attestation = no_predecessor_attestation is not None
     contract_schema_version = (
-        "cpu-prefetch-stage17-read-only-preflight-supporting-contract/13"
+        "cpu-prefetch-stage17-read-only-preflight-supporting-contract/14"
         if using_attestation else
         "cpu-prefetch-stage17-read-only-preflight-supporting-contract/12"
     )
     contract_filename = (
-        "supporting-contract-v13.json" if using_attestation
+        "supporting-contract-v14.json" if using_attestation
         else "supporting-contract-v12.json"
     )
     contract_schema_relative = (
-        "config/schemas/stage17-read-only-preflight-supporting-contract-v13.schema.json"
+        "config/schemas/stage17-read-only-preflight-supporting-contract-v14.schema.json"
         if using_attestation else
         "config/schemas/stage17-read-only-preflight-supporting-contract-v12.schema.json"
     )
+    captured_pilot_identity: dict[str, Any] | None = None
+    if using_attestation:
+        archive_binding = streaming_binding(pilot_archive)
+        sidecar_binding = streaming_binding(pilot_sidecar)
+        manifest_path = bundle_root_locator / "BUNDLE_MANIFEST.json"
+        if not manifest_path.is_file() or manifest_path.is_symlink():
+            raise OperationalCliError("EXT001 bundle manifest is unavailable")
+        manifest_sha256 = digest(manifest_path.read_bytes())
+        inventory_path = bundle_root_locator / "SHA256SUMS"
+        if not inventory_path.is_file() or inventory_path.is_symlink():
+            raise OperationalCliError("EXT001 bundle checksum inventory is unavailable")
+        internal_file_count = len(
+            inventory_path.read_text(encoding="utf-8").splitlines()
+        )
+        captured_pilot_identity = {
+            "archive_size_bytes": archive_binding["size_bytes"],
+            "archive_sha256": archive_binding["sha256"],
+            "sidecar_size_bytes": sidecar_binding["size_bytes"],
+            "sidecar_sha256": sidecar_binding["sha256"],
+            "manifest_sha256": manifest_sha256,
+            "internal_file_count": internal_file_count,
+        }
     contract = {
         "schema_version": contract_schema_version,
         "contract_id": contract_id, "protocol_version": "2.0.0-pre.3",
@@ -1047,6 +1069,7 @@ def author_ext001(
             "archive_locator": str(pilot_archive.resolve()),
             "sidecar_locator": str(pilot_sidecar.resolve()),
             "bundle_root_locator": str(bundle_root_locator.resolve()),
+            **(captured_pilot_identity if captured_pilot_identity is not None else {}),
         },
         "capture": {"capture_id": capture_id, "captured_at_utc": captured_at_utc},
         "evidence_root": str(preflight_evidence_root.resolve()),

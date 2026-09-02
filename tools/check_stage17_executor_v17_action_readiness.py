@@ -364,11 +364,29 @@ def self_test(root: pathlib.Path) -> None:
         )
     with tempfile.TemporaryDirectory(prefix="stage17-d133-source-") as text:
         source_bundle = pathlib.Path(text) / "source-bundle"
-        shutil.copytree(
-            root, source_bundle, symlinks=False,
-            ignore=shutil.ignore_patterns(
-                ".git", "build", "build-*", "__pycache__", ".pytest_cache", "evidence",
-            ),
+        # This regression specifically proves executor v17's own
+        # action-readiness binding (ADR-0133), which only ever validates a
+        # resolution admitted against preflight-plan policy v19, dispatched
+        # through `cli_v11.py`'s own `journal_runtime` import (`v23`) and
+        # `author-ext001`'s own hardcoded policy path (`v19.json`). ADR-0134
+        # moves both forward (journal v24, policy v20), so a `source_bundle`
+        # built from the live working tree would build envelopes against the
+        # wrong policy generation for this file's own `executor_v17`/
+        # `current_semantic` binding -- the same drift class v13's own
+        # regression already hit twice against a hand-patched live copy.
+        # Extracting the entire tree from the fixed historical commit this
+        # generation was actually accepted against keeps every file in this
+        # regression's own closure mutually self-consistent by construction,
+        # immune to ADR-0134's later, unrelated edits.
+        commit_pinned_to_v19 = "6ae31a5219f5e0b595436c0a8c16408ed04e17bd"
+        source_bundle.mkdir()
+        archive = subprocess.run(
+            ["git", "archive", commit_pinned_to_v19], cwd=root,
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, check=True,
+        ).stdout
+        subprocess.run(
+            ["tar", "-x"], input=archive, cwd=source_bundle, check=True,
         )
         (source_bundle / "BUNDLE_MANIFEST.json").write_text(
             '{"bundle_profile":"SYNTHETIC-D133-REGRESSION"}\n', encoding="ascii",

@@ -573,16 +573,29 @@ def self_test(root: pathlib.Path) -> None:
         raise CheckError("regression: preflight policy v21 must bind collector v3")
     with tempfile.TemporaryDirectory(prefix="stage17-d135-source-") as text:
         source_bundle = pathlib.Path(text) / "source-bundle"
-        # Unlike v18's own regression (now pinned to the historical commit
-        # this generation was accepted against), this file exercises the
-        # repository's own CURRENT `author-ext001`/`admit-resolution`
-        # wiring directly -- policy v21/v29, executor v19, journal v25 are
-        # all `cli_v11.py`'s live default as of this commit.
-        shutil.copytree(
-            root, source_bundle, symlinks=False,
-            ignore=shutil.ignore_patterns(
-                ".git", "build", "build-*", "__pycache__", ".pytest_cache", "evidence",
-            ),
+        # This regression specifically proves executor v19's own
+        # action-readiness binding (ADR-0135), which only ever validates a
+        # resolution admitted against preflight-plan policy v21, dispatched
+        # through `cli_v11.py`'s own `journal_runtime` import (`v26`) and
+        # `author-ext001`'s own hardcoded policy path (`v21.json`). ADR-0137
+        # moves both forward (journal v27, policy v22), so a `source_bundle`
+        # built from the live working tree would build envelopes against the
+        # wrong policy generation for this file's own `executor_v19`/
+        # `current_semantic` binding -- the same drift class v13's own
+        # regression already hit twice against a hand-patched live copy.
+        # Extracting the entire tree from the fixed historical commit this
+        # generation was actually accepted against keeps every file in this
+        # regression's own closure mutually self-consistent by construction,
+        # immune to ADR-0137's later, unrelated edits.
+        commit_pinned_to_v21 = "e26dc34c67c57c9df8a3351df75afcc725c70720"
+        source_bundle.mkdir()
+        archive = subprocess.run(
+            ["git", "archive", commit_pinned_to_v21], cwd=root,
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, check=True,
+        ).stdout
+        subprocess.run(
+            ["tar", "-x"], input=archive, cwd=source_bundle, check=True,
         )
         (source_bundle / "BUNDLE_MANIFEST.json").write_text(
             '{"bundle_profile":"SYNTHETIC-D135-REGRESSION"}\n', encoding="ascii",

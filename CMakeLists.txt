@@ -2590,6 +2590,14 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking executor v19's corrected read-only preflight runtime-tool symlink identity (ADR-0135, ACCEPTED; grants no authority)")
 add_custom_target(
+  stage17-executor-v20-action-readiness-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v20_action_readiness.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking executor v20's completed journal reachability lockstep fix (ADR-0137, ACCEPTED; grants no authority)")
+add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND
     "${Python3_EXECUTABLE}"

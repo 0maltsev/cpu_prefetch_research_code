@@ -2542,6 +2542,14 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking executor v13's action-readiness binding for both predecessor-evidence branches (ADR-0126, PROPOSED; grants no authority)")
 add_custom_target(
+  stage17-executor-v14-action-readiness-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v14_action_readiness.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking executor v14's journal-reachability fix for both predecessor-evidence branches (ADR-0130, PROPOSED; grants no authority)")
+add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND
     "${Python3_EXECUTABLE}"

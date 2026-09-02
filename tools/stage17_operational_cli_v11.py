@@ -41,7 +41,7 @@ import stage17_operational_semantics_v4 as semantics
 import stage17_operational_semantics_v5 as semantics_v5
 import stage17_pilot_candidate_artifact_v4 as pilot_artifact
 import stage17_state_journal as base
-import stage17_state_journal_v19 as journal_runtime
+import stage17_state_journal_v20 as journal_runtime
 
 
 class OperationalCliError(RuntimeError):
@@ -968,7 +968,7 @@ def author_ext001(
         evidence_root / "journal/stage17-state-journal-000000.json"
     )
     policy_path = repository_root / (
-        "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v15.json"
+        "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v16.json"
     )
     policy, policy_payload = load_json(policy_path)
     catalog_path = repository_root / str(genesis["catalog"]["path"])

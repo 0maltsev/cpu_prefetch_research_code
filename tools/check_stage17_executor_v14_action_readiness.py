@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-"""D-126 regression for executor v13's action-readiness binding.
+"""D-130 regression for executor v14's action-readiness binding.
 
 Builds one temporary operational journal through the public CLI v11 for
 each S17-EXT-001 predecessor-evidence branch (the unchanged three-blocker
-path, and the new D-124 no-predecessor attestation) and verifies that
-executor v13's action-readiness check -- reached exactly as the real
-executor reaches it, via `current_semantic.evaluate_s17_ext_001_action_
-readiness_v15` -- resolves each branch correctly.  It also proves the
-defect this ADR fixes: the new preflight verifier module never defined an
-`evaluate_s17_ext_001_action_readiness_v14` attribute, so binding it
-unchanged behind the old executor's call site would have raised
-`AttributeError` before transport.  It does not create a transport marker
+path, and the D-124 no-predecessor attestation) and verifies that executor
+v14's action-readiness check -- reached exactly as the real executor
+reaches it, via `current_semantic.evaluate_s17_ext_001_action_readiness_v15`
+-- resolves each branch correctly using the corrected journal-reachability
+chain (ADR-0130: executor v14, journal v20, preflight-plan policy v16). It
+also proves the real, already-admitted resolution's defect class cannot
+recur: a fresh admission built through the current `cli_v11.py` default
+resolves cleanly end to end. Unlike
+`check_stage17_executor_v13_action_readiness.py`, this file exercises the
+repository's own current `author-ext001`/`admit-resolution` wiring
+directly, with no fixture patching. It does not create a transport marker
 and does not open SSH.
 """
 
@@ -91,8 +94,8 @@ def synthetic_v8_marker(root: pathlib.Path) -> dict[str, object]:
     }
     return {
         "schema_version": "cpu-prefetch-stage17-read-only-preflight-attempt/8",
-        "attempt_id": "SYNTHETIC-D126-ATTEMPT",
-        "authorization_id": "SYNTHETIC-D126-AUTHORIZATION",
+        "attempt_id": "SYNTHETIC-D130-ATTEMPT",
+        "authorization_id": "SYNTHETIC-D130-AUTHORIZATION",
         "authorization_sha256": SHA, "resolution_id": "SYNTHETIC-RESOLUTION",
         "resolution_sha256": SHA, "transition_id": "SYNTHETIC-T1",
         "transition_sha256": SHA, "action_plan_sha256": SHA,
@@ -184,15 +187,15 @@ def create_blocker_evidence(root: pathlib.Path, temporary: pathlib.Path) \
 
 
 def create_attestation_evidence(temporary: pathlib.Path) -> pathlib.Path:
-    search_evidence = temporary / "d126-search-evidence.txt"
+    search_evidence = temporary / "d130-search-evidence.txt"
     search_evidence.write_text(
-        "synthetic D-126 regression fixture; not real search evidence\n",
+        "synthetic D-130 regression fixture; not real search evidence\n",
         encoding="ascii",
     )
     output = temporary / "no-predecessor-attestation.json"
     completed = run([
         sys.executable, "-B", str(pathlib.Path(attestation_tool.__file__)),
-        "--attestation-id", "SYNTHETIC-D126-ATTESTATION",
+        "--attestation-id", "SYNTHETIC-D130-ATTESTATION",
         "--actor", "synthetic-owner",
         "--search-evidence", str(search_evidence),
         "--search-evidence-schema-identity",
@@ -215,7 +218,7 @@ def cli(python: str, repository: pathlib.Path, evidence: pathlib.Path,
 def run_branch(root: pathlib.Path, source_bundle: pathlib.Path, *,
                branch: str, output_subdir: str) -> dict[str, Any]:
     python = sys.executable
-    with tempfile.TemporaryDirectory(prefix=f"stage17-d126-{branch.lower()}-") as text:
+    with tempfile.TemporaryDirectory(prefix=f"stage17-d130-{branch.lower()}-") as text:
         temporary = pathlib.Path(text)
         evidence = temporary / "operational"
         evidence.mkdir(mode=0o700)
@@ -255,7 +258,7 @@ def run_branch(root: pathlib.Path, source_bundle: pathlib.Path, *,
             "--pinned-known-hosts", str(known_hosts),
             "--transport-identity", str(identity),
             "--bundle-root-locator", str(bundle_root),
-            "--capture-id", f"SYNTHETIC-D126-{branch}-CAPTURE",
+            "--capture-id", f"SYNTHETIC-D130-{branch}-CAPTURE",
             "--captured-at-utc", exact_second(recorded),
             "--preflight-evidence-root", str(preflight),
         ]
@@ -275,10 +278,10 @@ def run_branch(root: pathlib.Path, source_bundle: pathlib.Path, *,
             "--actor", "synthetic-owner",
             "--issued-at-utc", exact_second(issued),
             "--expires-at-utc", exact_second(expires),
-            "--authorization-id", f"SYNTHETIC-EXT001-D126-{branch}-AUTH",
-            "--attempt-id", f"SYNTHETIC-EXT001-D126-{branch}-ATTEMPT",
-            "--contract-id", f"SYNTHETIC-EXT001-D126-{branch}-CONTRACT",
-            "--envelope-id", f"SYNTHETIC-EXT001-D126-{branch}-ENVELOPE",
+            "--authorization-id", f"SYNTHETIC-EXT001-D130-{branch}-AUTH",
+            "--attempt-id", f"SYNTHETIC-EXT001-D130-{branch}-ATTEMPT",
+            "--contract-id", f"SYNTHETIC-EXT001-D130-{branch}-CONTRACT",
+            "--envelope-id", f"SYNTHETIC-EXT001-D130-{branch}-ENVELOPE",
             "--output-directory", str(output),
         ]
         cli(python, admission, evidence, "--pilot-archive", str(archive),
@@ -300,11 +303,12 @@ def run_branch(root: pathlib.Path, source_bundle: pathlib.Path, *,
         code = """
 import json, pathlib, sys
 sys.path.insert(0, str(pathlib.Path(%r) / 'tools'))
-import stage17_read_only_preflight_executor_v13 as executor
+import stage17_read_only_preflight_executor_v14 as executor
 assert hasattr(executor.current_semantic, 'evaluate_s17_ext_001_action_readiness_v15')
-assert not hasattr(executor.current_semantic, 'evaluate_s17_ext_001_action_readiness_v14'), (
-    'regression: the new preflight verifier module must never grow the old v14 name; '
-    'the fix binds the version-matched v15 name instead of aliasing the old one'
+assert executor.current_journal.__name__ == 'stage17_state_journal_v20', (
+    'regression: executor v14 must consult journal v20, the same generation '
+    'stage17_operational_cli_v11.py itself uses -- the exact reachability '
+    'gap ADR-0130 fixes'
 )
 validation = executor._prospective_validation(
     repository_root=pathlib.Path(%r),
@@ -338,18 +342,13 @@ print(json.dumps({'extra_binding_count': len(extra), 'total_binding_count': len(
 def self_test(root: pathlib.Path) -> None:
     if shutil.which("ssh-keygen") is None:
         raise CheckError("ssh-keygen is required for the synthetic Ed25519 fixture")
-    import stage17_read_only_preflight_semantic_verifier_v15 as preflight_module
-    if not hasattr(preflight_module, "evaluate_s17_ext_001_action_readiness_v15"):
+    import stage17_read_only_preflight_executor_v14 as executor_module
+    if executor_module.current_journal.__name__ != "stage17_state_journal_v20":
         raise CheckError(
-            "regression: stage17_read_only_preflight_semantic_verifier_v15 "
-            "must define evaluate_s17_ext_001_action_readiness_v15"
+            "regression: stage17_read_only_preflight_executor_v14 must import "
+            "stage17_state_journal_v20 as current_journal"
         )
-    if hasattr(preflight_module, "evaluate_s17_ext_001_action_readiness_v14"):
-        raise CheckError(
-            "regression: v15 must not silently alias the old v14 action-readiness "
-            "name -- executor v13 must call the version-matched v15 name directly"
-        )
-    with tempfile.TemporaryDirectory(prefix="stage17-d126-source-") as text:
+    with tempfile.TemporaryDirectory(prefix="stage17-d130-source-") as text:
         source_bundle = pathlib.Path(text) / "source-bundle"
         shutil.copytree(
             root, source_bundle, symlinks=False,
@@ -358,36 +357,15 @@ def self_test(root: pathlib.Path) -> None:
             ),
         )
         (source_bundle / "BUNDLE_MANIFEST.json").write_text(
-            '{"bundle_profile":"SYNTHETIC-D126-REGRESSION"}\n', encoding="ascii",
+            '{"bundle_profile":"SYNTHETIC-D130-REGRESSION"}\n', encoding="ascii",
         )
         (source_bundle / "SHA256SUMS").write_text(
-            "synthetic D126 regression fixture; not release evidence\n", encoding="ascii",
-        )
-        # This regression specifically proves executor v13's own
-        # action-readiness binding (ADR-0126), which only ever validates a
-        # resolution admitted against preflight-plan policy v15. The live
-        # repository's `cli_v11.py` moved its own `author-ext001` default to
-        # policy v16 once ADR-0130 rebound `S17-EXT-001` admission to
-        # executor v14 (see check_stage17_executor_v14_action_readiness.py
-        # for that coverage), so this test repoints its own isolated
-        # `source_bundle` copy of `cli_v11.py` back to v15 before exercising
-        # it -- keeping this file's original, narrower purpose intact
-        # without touching the real repository's current wiring.
-        copied_cli = source_bundle / "tools/stage17_operational_cli_v11.py"
-        copied_cli.write_text(
-            copied_cli.read_text(encoding="utf-8").replace(
-                "stage17-read-only-preflight-evidence-admission-policy-v16.json",
-                "stage17-read-only-preflight-evidence-admission-policy-v15.json",
-            ).replace(
-                "import stage17_state_journal_v20 as journal_runtime",
-                "import stage17_state_journal_v19 as journal_runtime",
-            ),
-            encoding="utf-8",
+            "synthetic D130 regression fixture; not release evidence\n", encoding="ascii",
         )
         run_branch(root, source_bundle, branch="BLOCKERS",
-                   output_subdir="evidence/ext001-d126-blockers")
+                   output_subdir="evidence/ext001-d130-blockers")
         run_branch(root, source_bundle, branch="ATTESTATION",
-                   output_subdir="evidence/ext001-d126-attestation")
+                   output_subdir="evidence/ext001-d130-attestation")
 
 
 def main() -> int:
@@ -398,10 +376,10 @@ def main() -> int:
     try:
         self_test(arguments.root.resolve())
     except Exception as exception:
-        print(f"stage17-executor-v13-action-readiness: FAIL: {exception}", file=sys.stderr)
+        print(f"stage17-executor-v14-action-readiness: FAIL: {exception}", file=sys.stderr)
         return 1
     print(
-        "stage17-executor-v13-action-readiness: PASS "
+        "stage17-executor-v14-action-readiness: PASS "
         f"positive={POSITIVE_CASES} negative={NEGATIVE_CASES} transport=0 marker=0"
     )
     return 0

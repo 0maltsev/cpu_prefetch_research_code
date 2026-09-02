@@ -1,6 +1,6 @@
 # ADR-0128: Stage 17 pilot-candidate artifact profile recognition
 
-- **Status:** `PROPOSED`
+- **Status:** `ACCEPTED`
 - **Decision ID:** D-128
 - **Classification:** implementation correctness, latent gap in already-
   accepted production code, `S17-EXT-006` archive/sidecar admission

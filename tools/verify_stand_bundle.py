@@ -413,6 +413,14 @@ def main() -> int:
             "cpu-prefetch-pilot-candidate-bundle/10",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
         ),
+        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v8": (
+            "cpu-prefetch-pilot-candidate-bundle/11",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
+        "STAGE17-PILOT-CANDIDATE-BUNDLE-v11": (
+            "cpu-prefetch-pilot-candidate-bundle/11",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
             "cpu-prefetch-q15-qualification-tool-bundle/1",
             "Q15_TOOL_RELEASE_NO_AUTHORITY",
@@ -448,6 +456,8 @@ def main() -> int:
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v9",
             "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v7",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v10",
+            "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v8",
+            "STAGE17-PILOT-CANDIDATE-BUNDLE-v11",
         } else "2.0.0-pre.2"
     )
     if manifest.get("protocol_version") != expected_protocol:
@@ -485,7 +495,9 @@ def main() -> int:
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v6",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v9",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v7",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v10") and value is not False:
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v10",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v8",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v11") and value is not False:
             failures.append(f"pilot candidate must explicitly prohibit {description}")
         elif profile == "STAGE16-STAND-BUNDLE-v1" and value not in (None, False):
             failures.append(f"Stage 16 bundle unexpectedly enables {description}")
@@ -543,7 +555,9 @@ def main() -> int:
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v6",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v9",
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v7",
-                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v10"):
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v10",
+                   "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v8",
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v11"):
         if (
             manifest.get("software_prefetch_mapping_id")
             != "X86-64-PREFETCHW-PREFETCHT0-v1"
@@ -689,7 +703,9 @@ def main() -> int:
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v6",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v9",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v7",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v10"):
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v10",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v8",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v11"):
             runtime = manifest.get("stage17_fixed_action_runtime")
             expected_actions = ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
                                 "STAGE17-BLINDED-PILOT"]
@@ -715,11 +731,15 @@ def main() -> int:
                 "STAGE17-PILOT-CANDIDATE-BUNDLE-v10",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v7",
             }
+            current_v11 = profile in {
+                "STAGE17-PILOT-CANDIDATE-BUNDLE-v11",
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v8",
+            }
             # The compiled worker binary (release/bin/cpu_prefetch_runner) is
             # unaffected by the D-124/D-125/D-126/D-127/D-128/D-130/D-131/
-            # D-132 admission-side changes v5/v6/v7/v8/v9/v10 seal, so its
-            # own runtime identity stays at its unchanged v4 compiled-in
-            # strings even under bundle profile v5/v6/v7/v8/v9/v10. Only the
+            # D-132/D-133 admission-side changes v5/v6/v7/v8/v9/v10/v11 seal,
+            # so its own runtime identity stays at its unchanged v4
+            # compiled-in strings even under bundle profile v5..v11. Only the
             # admission-side policy/executor/controller identity below
             # advances -- v6 (and the matching dry-run v3) promoted
             # phase-controller v9 (ADR-0127) and operational policy v21; v7
@@ -735,10 +755,14 @@ def main() -> int:
             # identity to v15/v17; v10 (and dry-run v7) further promotes
             # operational policy v26 (ADR-0132, OpenSSH snapshot mechanism
             # identity), which also advances the executor and
-            # preflight-plan-policy identity to v16/v18.
+            # preflight-plan-policy identity to v16/v18; v11 (and dry-run
+            # v8) further promotes operational policy v27 (ADR-0133,
+            # OpenSSH snapshot broker re-export completeness), which also
+            # advances the executor and preflight-plan-policy identity to
+            # v17/v19.
             current_v4 = (
                 current_v5 or current_v6 or current_v7 or current_v8
-                or current_v9 or current_v10 or profile in {
+                or current_v9 or current_v10 or current_v11 or profile in {
                     "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
                 }
@@ -746,11 +770,12 @@ def main() -> int:
             version = 4 if current_v4 else 3
             controller_version = (
                 9 if (current_v6 or current_v7 or current_v8 or current_v9
-                      or current_v10)
+                      or current_v10 or current_v11)
                 else 8 if current_v4 else version
             )
             admission_policy_version = (
-                26 if current_v10
+                27 if current_v11
+                else 26 if current_v10
                 else 25 if current_v9
                 else 24 if current_v8
                 else 22 if current_v7
@@ -760,13 +785,15 @@ def main() -> int:
                 else 11
             )
             nested_policy_version = (
-                18 if current_v10
+                19 if current_v11
+                else 18 if current_v10
                 else 17 if current_v9
                 else 16 if current_v8
                 else 15 if (current_v5 or current_v6 or current_v7) else 14
             )
             executor_version = (
-                16 if current_v10
+                17 if current_v11
+                else 16 if current_v10
                 else 15 if current_v9
                 else 14 if current_v8
                 else 13 if (current_v5 or current_v6 or current_v7) else 12
@@ -779,6 +806,7 @@ def main() -> int:
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v5",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v6",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v7",
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v8",
             }
             if (not isinstance(runtime, dict)
                     or runtime.get("member_path") != "release/bin/cpu_prefetch_runner"

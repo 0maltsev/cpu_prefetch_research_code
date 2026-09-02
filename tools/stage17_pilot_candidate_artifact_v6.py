@@ -43,7 +43,8 @@ The real sealed candidate bundle later advanced again to
 `STAGE17-PILOT-CANDIDATE-BUNDLE-v8` (and dry-run to `-v5`) while sealing
 ADR-0130's fix, then again to `-v9` (and dry-run to `-v6`) while sealing
 ADR-0131's fix, then again to `-v10` (and dry-run to `-v7`) while sealing
-ADR-0132's fix. `RECOGNIZED_PROFILES`/`DRY_RUN_PROFILES` widen the same
+ADR-0132's fix, then again to `-v11` (and dry-run to `-v8`) while sealing
+ADR-0133's fix. `RECOGNIZED_PROFILES`/`DRY_RUN_PROFILES` widen the same
 way each time, for the same reason: this file is still ADR-0129's own
 mutable deliverable, not yet accepted.
 """
@@ -88,12 +89,15 @@ RECOGNIZED_PROFILES = predecessor.RECOGNIZED_PROFILES | {
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v6",
     "STAGE17-PILOT-CANDIDATE-BUNDLE-v10",
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v7",
+    "STAGE17-PILOT-CANDIDATE-BUNDLE-v11",
+    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v8",
 }
 DRY_RUN_PROFILES = predecessor.DRY_RUN_PROFILES | {
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v4",
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v5",
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v6",
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v7",
+    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v8",
 }
 verify_extracted_bundle_v5 = predecessor.verify_extracted_bundle_v5
 verify_pilot_candidate_artifact_v5 = predecessor.verify_pilot_candidate_artifact_v5

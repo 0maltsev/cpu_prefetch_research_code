@@ -19,8 +19,8 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v13"
-STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v10"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v14"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v11"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
@@ -437,15 +437,18 @@ def main() -> int:
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
             # The dry-run profile's own identity (STAGE17-HERMETIC-DRY-RUN-
-            # BUNDLE-v3) and the real candidate profile (v13) both bind the
-            # complete v29/v21 successor chain (ADR-0124..0135), now the
+            # BUNDLE-v3) and the real candidate profile (v14) both bind the
+            # complete v30/v21 successor chain (ADR-0124..0136), now the
             # promoted, documented production path; they differ only in
             # worker binaries, synthetic_test_only, and the wider
             # characterization-suite file set the dry-run profile carries
-            # below. The predecessor v28/v20 chain remains immutable and
+            # below. The predecessor v29/v21 chain remains immutable and
             # readable at its own exact paths for anyone verifying history.
+            # ADR-0136 does not touch the preflight-plan policy at all, so
+            # the nested policy reference below stays v21, unchanged from
+            # the v13 profile.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v29.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v30.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
@@ -493,7 +496,7 @@ def main() -> int:
                 "authority_embedded": False,
                 "repository_evidence_roots": ["config", "docs"],
             }
-            # Policy v29 binds the complete preflight policy v21 by exact
+            # Policy v30 binds the complete preflight policy v21 by exact
             # bytes. The nested policy also binds compatibility modules by
             # pathname without importing them into the current Python closure.
             # Carry those exact files so production admission does not depend
@@ -710,7 +713,7 @@ def main() -> int:
             "release_artifacts": release_artifacts,
             "repository_license": "NO-LICENSE-GRANT",
             "schema_version": (
-                "cpu-prefetch-pilot-candidate-bundle/13"
+                "cpu-prefetch-pilot-candidate-bundle/14"
                 if stage17
                 else "cpu-prefetch-q15-qualification-tool-bundle/3"
                 if q15_tool

@@ -2566,6 +2566,14 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking executor v16's OpenSSH snapshot mechanism identity fix for both predecessor-evidence branches (ADR-0132, ACCEPTED; grants no authority)")
 add_custom_target(
+  stage17-executor-v17-action-readiness-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v17_action_readiness.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking executor v17's OpenSSH snapshot broker re-export completeness fix for both predecessor-evidence branches (ADR-0133, PROPOSED; grants no authority)")
+add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND
     "${Python3_EXECUTABLE}"

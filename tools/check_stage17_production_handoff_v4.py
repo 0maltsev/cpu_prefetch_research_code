@@ -36,10 +36,10 @@ import stage17_output_registry_v4 as output_registry
 import stage17_pilot_candidate_artifact_v4 as release_artifact
 import check_stage17_pilot_semantics_v4 as pilot_plan_builder
 import stage17_phase_controller_v1 as rejected_controller
-import stage17_phase_controller_v8 as controller
+import stage17_phase_controller_v9 as controller
 import stage17_q15_session_controller_v6 as q15_session
-import stage17_semantic_verifier_v18 as semantic_registry
-import stage17_state_journal_v16 as journal
+import stage17_semantic_verifier_v21 as semantic_registry
+import stage17_state_journal_v17 as journal
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -315,7 +315,7 @@ class OperationalWorkflowDriver:
         stdin_payload: bytes | None = None,
     ) -> str:
         invocation = [
-            str(PYTHON), "-B", str(self.root / "tools/stage17_operational_cli_v10.py"),
+            str(PYTHON), "-B", str(self.root / "tools/stage17_operational_cli_v11.py"),
             "--repository-root", str(self.root),
             "--evidence-root", str(self.operational),
         ]

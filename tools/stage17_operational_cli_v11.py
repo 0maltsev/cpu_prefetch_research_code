@@ -177,7 +177,10 @@ def validate_schema(root: pathlib.Path, relative: str,
 def require_synthetic_test_bundle(repository_root: pathlib.Path) -> None:
     """Permit synthetic admission only from the separately classified bundle."""
     manifest, _ = load_json(repository_root / "BUNDLE_MANIFEST.json")
-    if (manifest.get("bundle_profile") != "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2"
+    if (manifest.get("bundle_profile") not in (
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
+            )
             or manifest.get("stage17_fixed_action_runtime", {}).get(
                 "synthetic_test_only") is not True
             or manifest.get("pilot_authorized") is not False

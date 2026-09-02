@@ -14,15 +14,32 @@ itself now an accepted, immutable file, so this is a new, additive
 successor rather than an edit to it.
 
 `build_extracted_release_receipt_v6`/`verify_extracted_release_receipt_v6`
-are faithful copies of `v4`'s same-named functions, retargeted to call
-`v5`'s already-broadened `verify_extracted_bundle_v5` instead of `v4`'s
-narrower `verify_extracted_bundle_v4`. Everything else is re-exported
+are faithful copies of `v4`'s same-named functions, retargeted to call the
+new `verify_extracted_bundle_v6` below. Everything else is re-exported
 from `v5` unchanged.
+
+While rebasing the hermetic rehearsal against a freshly promoted v22/v23
+chain, the real sealed candidate bundle advanced to
+`STAGE17-PILOT-CANDIDATE-BUNDLE-v7` (and dry-run to `-v4`) -- profiles
+newer than `v5`'s own accepted, frozen `RECOGNIZED_PROFILES`/
+`DRY_RUN_PROFILES`. `verify_extracted_bundle_v5` (defined in the already-
+accepted `v5.py`) resolves those two names as its own module's globals,
+so merely re-assigning them here would not change its behavior -- the
+same free-variable-resolves-via-defining-module lesson ADR-0126 already
+recorded. `verify_extracted_bundle_v6` is therefore a faithful copy of
+`verify_extracted_bundle_v5`'s full body (not an edit to it), broadened to
+recognize `v7`/dry-run-`v4` in addition to everything `v5` already
+recognized; every other check is byte-identical to the predecessor. This
+file remains part of ADR-0129 (`PROPOSED`, not yet accepted), so widening
+its own whitelist here -- rather than minting yet another successor -- is
+still the accepted-vs-mutable file discipline, not an exception to it.
 """
 
 from __future__ import annotations
 
+import json
 import pathlib
+import subprocess
 from typing import Any
 
 from jsonschema import Draft202012Validator
@@ -49,16 +66,114 @@ _parse_sums = predecessor._parse_sums
 _verify_inventory = predecessor._verify_inventory
 _run_full_verifier = predecessor._run_full_verifier
 
-RECOGNIZED_PROFILES = predecessor.RECOGNIZED_PROFILES
-DRY_RUN_PROFILES = predecessor.DRY_RUN_PROFILES
+RECOGNIZED_PROFILES = predecessor.RECOGNIZED_PROFILES | {
+    "STAGE17-PILOT-CANDIDATE-BUNDLE-v7",
+    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v4",
+}
+DRY_RUN_PROFILES = predecessor.DRY_RUN_PROFILES | {
+    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v4",
+}
 verify_extracted_bundle_v5 = predecessor.verify_extracted_bundle_v5
 verify_pilot_candidate_artifact_v5 = predecessor.verify_pilot_candidate_artifact_v5
+build_contract_v4 = predecessor.predecessor.build_contract_v4
+
+
+def verify_extracted_bundle_v6(bundle_root: pathlib.Path) -> ExtractedReleaseContext:
+    """Faithful copy of predecessor `verify_extracted_bundle_v5`, broadened
+    only to recognize this module's own `RECOGNIZED_PROFILES` (v7/dry-run-v4
+    added) instead of `v5`'s frozen set. Every other check is byte-identical
+    to the predecessor.
+    """
+    root = bundle_root.resolve()
+    if not root.is_dir() or root.is_symlink():
+        raise ArtifactError("extracted bundle root is not a nonsymlink directory")
+    _run_full_verifier(root)
+    sums = _parse_sums(root)
+    _verify_inventory(root, sums)
+    manifest_path = root / "BUNDLE_MANIFEST.json"
+    manifest = _load_json(manifest_path)
+    runtime = manifest.get("stage17_fixed_action_runtime")
+    if not isinstance(runtime, dict):
+        raise ArtifactError("extracted bundle fixed-action runtime is absent")
+    profile = manifest.get("bundle_profile")
+    if profile not in RECOGNIZED_PROFILES:
+        raise ArtifactError("extracted bundle profile is not a recognized Stage 17 profile")
+    synthetic = profile in DRY_RUN_PROFILES
+    expected_runtime = {
+        "member_path": "release/bin/cpu_prefetch_runner",
+        "size_bytes": (root / "release/bin/cpu_prefetch_runner").stat().st_size,
+        "sha256": sha256_file(root / "release/bin/cpu_prefetch_runner"),
+        "role": "STAGE17_FIXED_ACTION_WORKER",
+        "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v4",
+        "supported_actions": list(SUPPORTED_ACTIONS),
+        "synthetic_test_only": synthetic,
+    }
+    if runtime != expected_runtime:
+        raise ArtifactError("extracted bundle runtime object is not exact")
+    worker = root / runtime["member_path"]
+    payload = worker.read_bytes()
+    if (payload[:4] != b"\x7fELF"
+            or b"--execute-fixed-stage17-action-v4" not in payload
+            or b"STAGE17-FIXED-ACTION-WORKER-v4" not in payload):
+        raise ArtifactError("extracted bundle worker lacks the fixed dispatcher")
+    source_revision = manifest.get("source_archive", {}).get("source_revision")
+    if (not isinstance(source_revision, str) or len(source_revision) != 40
+            or any(item not in "0123456789abcdef" for item in source_revision)):
+        raise ArtifactError("extracted bundle source revision is malformed")
+    completed = subprocess.run(
+        [str(worker), "--stage17-runtime-identity-v4"],
+        stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE, check=False, timeout=15,
+        env={"LANG": "C", "LC_ALL": "C", "PATH": "/usr/bin:/bin", "TZ": "UTC"},
+    )
+    try:
+        identity = json.loads(completed.stdout)
+    except json.JSONDecodeError as exception:
+        raise ArtifactError(
+            "fixed worker did not emit its closed runtime identity"
+        ) from exception
+    expected_identity = {
+        "binary_sha256": sha256_file(worker),
+        "protocol_version": "2.0.0-pre.3",
+        "role": "STAGE17_FIXED_ACTION_WORKER",
+        "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v4",
+        "source_dirty": False,
+        "source_revision": source_revision,
+        "supported_actions": list(SUPPORTED_ACTIONS),
+        "synthetic_test_only": synthetic,
+    }
+    if completed.returncode != 0 or identity != expected_identity:
+        raise ArtifactError(
+            "fixed worker runtime identity differs from clean release provenance"
+        )
+    verifier = root / "validators/verify_stand_bundle.py"
+    _regular(verifier)
+    return ExtractedReleaseContext(
+        bundle_root=root,
+        manifest_size_bytes=manifest_path.stat().st_size,
+        manifest_sha256=sha256_file(manifest_path),
+        source_revision=source_revision,
+        worker_path=worker,
+        worker_member_path=runtime["member_path"],
+        worker_size_bytes=worker.stat().st_size,
+        worker_sha256=sha256_file(worker),
+        worker_role=runtime["role"],
+        runtime_profile=runtime["runtime_profile"],
+        supported_actions=tuple(runtime["supported_actions"]),
+        bundle_profile=profile,
+        synthetic_test_only=synthetic,
+        sha256s_sha256=sha256_file(root / "SHA256SUMS"),
+        sbom_sha256=sha256_file(root / "SBOM.spdx.json"),
+        inventory_sha256=sha256_file(root / "BUNDLE_INVENTORY.json"),
+        full_verifier_size_bytes=verifier.stat().st_size,
+        full_verifier_sha256=sha256_file(verifier),
+    )
 
 
 def build_extracted_release_receipt_v6(
     *, bundle_root: pathlib.Path, receipt_id: str,
 ) -> dict[str, Any]:
-    context = verify_extracted_bundle_v5(bundle_root)
+    context = verify_extracted_bundle_v6(bundle_root)
     relative_worker = context.worker_path.relative_to(context.bundle_root).as_posix()
     return {
         "schema_version": "cpu-prefetch-stage17-runtime-release-provenance/4",
@@ -117,7 +232,7 @@ def verify_extracted_release_receipt_v6(
         raise ArtifactError(
             f"runtime-release receipt schema rejection: {errors[0].message}"
         )
-    context = verify_extracted_bundle_v5(pathlib.Path(receipt["bundle_root"]))
+    context = verify_extracted_bundle_v6(pathlib.Path(receipt["bundle_root"]))
     expected = build_extracted_release_receipt_v6(
         bundle_root=context.bundle_root, receipt_id=receipt["receipt_id"]
     )

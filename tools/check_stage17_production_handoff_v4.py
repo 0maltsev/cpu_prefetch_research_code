@@ -33,13 +33,13 @@ import check_stage17_complete_operational_admission as legacy
 import stage17_operational_semantics_v4 as semantics
 import stage17_exit_state_machine_v4 as exit_machine
 import stage17_output_registry_v4 as output_registry
-import stage17_pilot_candidate_artifact_v4 as release_artifact
+import stage17_pilot_candidate_artifact_v6 as release_artifact
 import check_stage17_pilot_semantics_v4 as pilot_plan_builder
 import stage17_phase_controller_v1 as rejected_controller
 import stage17_phase_controller_v9 as controller
 import stage17_q15_session_controller_v6 as q15_session
-import stage17_semantic_verifier_v21 as semantic_registry
-import stage17_state_journal_v17 as journal
+import stage17_semantic_verifier_v23 as semantic_registry
+import stage17_state_journal_v19 as journal
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -899,7 +899,7 @@ class Fixture:
         directory.mkdir(mode=0o700)
         release_root = directory / "verified-release"
         shutil.copytree(self.bundle_root, release_root, symlinks=False)
-        provenance_document = release_artifact.build_extracted_release_receipt_v4(
+        provenance_document = release_artifact.build_extracted_release_receipt_v6(
             bundle_root=release_root,
             receipt_id="SYNTHETIC-EXT002-CLEAN-RELEASE-v4",
         )

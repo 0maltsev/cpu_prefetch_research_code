@@ -24,7 +24,7 @@ import stage17_semantic_verifier_v23 as verifier
 
 
 ROOTS = (
-    "stage17_state_journal_v18",
+    "stage17_state_journal_v19",
     "stage17_read_only_preflight_executor_v13",
     "stage17_phase_controller_v9",
     "stage17_q15_session_controller_v6",

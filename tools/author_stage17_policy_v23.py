@@ -10,6 +10,17 @@ admit evidence captured from a `STAGE17-PILOT-CANDIDATE-BUNDLE-v5`/`v6`
 archive. Policy v22 and its entire bindings/runtime_closure remain
 byte-identical and independently valid; this is purely an additive
 successor.
+
+Also pulls in `tools/stage17_phase_controller_v10.py`, transitively
+discovered once `stage17_operational_cli_v11.py`'s `controller` import was
+repointed at it: `v10` restores `_validate_action_inputs`, dropped in the
+same `v4`-to-`v5` succession as `_runtime_from_context` (ADR-0127) and
+never re-exported since -- the sibling half of the exact gap ADR-0127
+already documents and accepts the fix pattern for, only now reachable
+because real `S17-EXT-002`/`S17-EXT-003` admission (this policy's own
+ADR-0129 fix) lets the hermetic rehearsal exercise `author-request` for
+the first time. Treated as a mechanical completion of ADR-0127's already-
+accepted scope, not a new ADR.
 """
 
 from __future__ import annotations
@@ -43,6 +54,7 @@ SUCCESSOR_BINDINGS = (
     "tools/stage17_operational_semantics_v5.py",
     "tools/stage17_state_journal_v19.py",
     "config/schemas/stage17-runtime-release-provenance-v5.schema.json",
+    "tools/stage17_phase_controller_v10.py",
 )
 
 _BASE = (

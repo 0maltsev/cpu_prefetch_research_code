@@ -36,7 +36,7 @@ import stage17_output_registry_v4 as output_registry
 import stage17_pilot_candidate_artifact_v6 as release_artifact
 import check_stage17_pilot_semantics_v4 as pilot_plan_builder
 import stage17_phase_controller_v1 as rejected_controller
-import stage17_phase_controller_v9 as controller
+import stage17_phase_controller_v10 as controller
 import stage17_q15_session_controller_v6 as q15_session
 import stage17_semantic_verifier_v23 as semantic_registry
 import stage17_state_journal_v19 as journal

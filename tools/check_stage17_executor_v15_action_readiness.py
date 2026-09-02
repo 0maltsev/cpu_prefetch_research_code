@@ -11,13 +11,13 @@ supervisor chain (ADR-0131: executor v15, process-group supervisor v3,
 openssh snapshot broker v3, journal v20, preflight-plan policy v17). It
 also proves the real crash class this ADR fixes cannot recur: a fresh
 admission built through the current `cli_v11.py` default resolves cleanly
-end to end. Like `check_stage17_executor_v14_action_readiness.py` (and
-unlike this file's own earlier revisions before it went stale), this file
-exercises the repository's own current `author-ext001`/`admit-resolution`
-wiring directly, with no fixture patching -- it will need the same
-historical-commit pinning `v13`'s and `v14`'s own regressions already
-adopted once a later ADR moves `cli_v11.py`'s default past this
-generation. It does not create a transport marker and does not open SSH.
+end to end -- at least until ADR-0132 moved `cli_v11.py`'s default past
+this generation, at which point this file adopted the same historical-
+commit pinning `check_stage17_executor_v13/v14_action_readiness.py`
+already needed for the same reason (see `check_stage17_executor_
+v16_action_readiness.py` for the current, not-yet-stale version of this
+same regression). It does not create a transport marker and does not
+open SSH.
 """
 
 from __future__ import annotations
@@ -361,11 +361,24 @@ def self_test(root: pathlib.Path) -> None:
         )
     with tempfile.TemporaryDirectory(prefix="stage17-d131-source-") as text:
         source_bundle = pathlib.Path(text) / "source-bundle"
-        shutil.copytree(
-            root, source_bundle, symlinks=False,
-            ignore=shutil.ignore_patterns(
-                ".git", "build", "build-*", "__pycache__", ".pytest_cache", "evidence",
-            ),
+        # This regression specifically proves executor v15's own
+        # process-group-supervisor fix (ADR-0131), which only ever
+        # validates a resolution admitted against the v21/v17/v25 chain.
+        # The live repository's `cli_v11.py` keeps moving forward (policy
+        # v18, journal v22/v26, and whatever comes after -- see ADR-0132),
+        # so this test extracts its own isolated `source_bundle` from the
+        # exact historical commit where policy v25 (this test's own
+        # target generation) was last accepted, the same fix already
+        # applied to `check_stage17_executor_v13/v14_action_readiness.py`.
+        commit_pinned_to_v25 = "ac11189331241588cd1c3beb6997b82f3b214e1c"
+        source_bundle.mkdir()
+        archive = subprocess.run(
+            ["git", "archive", commit_pinned_to_v25], cwd=root,
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, check=True,
+        ).stdout
+        subprocess.run(
+            ["tar", "-x"], input=archive, cwd=source_bundle, check=True,
         )
         (source_bundle / "BUNDLE_MANIFEST.json").write_text(
             '{"bundle_profile":"SYNTHETIC-D131-REGRESSION"}\n', encoding="ascii",

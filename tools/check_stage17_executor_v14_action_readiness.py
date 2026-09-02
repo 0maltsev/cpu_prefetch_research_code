@@ -350,11 +350,28 @@ def self_test(root: pathlib.Path) -> None:
         )
     with tempfile.TemporaryDirectory(prefix="stage17-d130-source-") as text:
         source_bundle = pathlib.Path(text) / "source-bundle"
-        shutil.copytree(
-            root, source_bundle, symlinks=False,
-            ignore=shutil.ignore_patterns(
-                ".git", "build", "build-*", "__pycache__", ".pytest_cache", "evidence",
-            ),
+        # This regression specifically proves executor v14's own
+        # journal-reachability fix (ADR-0130), which only ever validates a
+        # resolution admitted against the v20/v16/v24 chain. The live
+        # repository's `cli_v11.py` keeps moving forward (policy v17,
+        # journal v21/v25, and whatever comes after -- see ADR-0131), so
+        # this test extracts its own isolated `source_bundle` from the
+        # exact historical commit where policy v24 (this test's own
+        # target generation) was last accepted, rather than the live
+        # working tree plus a hand-patched file -- the same fragile
+        # approach that broke check_stage17_executor_v13_action_
+        # readiness.py twice already. Extracting the entire tree from one
+        # fixed commit keeps every file in this regression's own closure
+        # mutually self-consistent by construction.
+        commit_pinned_to_v24 = "820150cbec6670ba061f3021ba08e15a792a84a0"
+        source_bundle.mkdir()
+        archive = subprocess.run(
+            ["git", "archive", commit_pinned_to_v24], cwd=root,
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, check=True,
+        ).stdout
+        subprocess.run(
+            ["tar", "-x"], input=archive, cwd=source_bundle, check=True,
         )
         (source_bundle / "BUNDLE_MANIFEST.json").write_text(
             '{"bundle_profile":"SYNTHETIC-D130-REGRESSION"}\n', encoding="ascii",

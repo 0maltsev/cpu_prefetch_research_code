@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stage 17 S17-EXT-001 semantic-verifier successor rebinding executor v16
 and the OpenSSH snapshot broker's corrected mechanism identity (ADR-0132,
-`PROPOSED`).
+`ACCEPTED`).
 
 This module is a new, additive file.  It does not modify
 `stage17_read_only_preflight_semantic_verifier_v17.py`'s bytes, so any

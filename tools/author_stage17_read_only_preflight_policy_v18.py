@@ -2,7 +2,7 @@
 """Reproducibly render or verify the Stage 17 preflight policy v18.
 
 Rebinds executor v16's fixed OpenSSH snapshot mechanism identity
-(ADR-0132, `PROPOSED`/owner-review pending): `implementations.executor`
+(ADR-0132, `ACCEPTED`): `implementations.executor`
 now points at `tools/stage17_read_only_preflight_executor_v16.py`, and
 `implementations.openssh_snapshot_broker` moves to `tools/stage17_openssh_
 parent_snapshot_v4.py` -- the additive successors that stop a real,

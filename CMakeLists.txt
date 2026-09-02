@@ -2564,7 +2564,7 @@ add_custom_target(
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v16_action_readiness.py"
     --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-  COMMENT "Checking executor v16's OpenSSH snapshot mechanism identity fix for both predecessor-evidence branches (ADR-0132, PROPOSED; grants no authority)")
+  COMMENT "Checking executor v16's OpenSSH snapshot mechanism identity fix for both predecessor-evidence branches (ADR-0132, ACCEPTED; grants no authority)")
 add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND

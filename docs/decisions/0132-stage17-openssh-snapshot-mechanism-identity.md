@@ -1,6 +1,6 @@
 # ADR-0132: Stage 17 OpenSSH snapshot mechanism identity
 
-- **Status:** `PROPOSED`
+- **Status:** `ACCEPTED`
 - **Decision ID:** D-132
 - **Classification:** implementation correctness, latent defect in already-
   accepted production code, action-time attempt-marker schema conformance

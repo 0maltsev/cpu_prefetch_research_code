@@ -2,7 +2,7 @@
 """Reproducibly render or verify the Stage 17 preflight policy v19.
 
 Rebinds executor v17's completed OpenSSH snapshot broker re-export
-surface (ADR-0133, `PROPOSED`/owner-review pending): `implementations.
+surface (ADR-0133, `ACCEPTED`): `implementations.
 executor` now points at `tools/stage17_read_only_preflight_executor_
 v17.py`, and `implementations.openssh_snapshot_broker` moves to
 `tools/stage17_openssh_parent_snapshot_v5.py` -- the additive successors

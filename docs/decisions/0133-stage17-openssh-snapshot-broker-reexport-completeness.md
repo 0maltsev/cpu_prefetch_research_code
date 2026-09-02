@@ -1,6 +1,6 @@
 # ADR-0133: Stage 17 OpenSSH snapshot broker re-export completeness
 
-- **Status:** `PROPOSED`
+- **Status:** `ACCEPTED`
 - **Decision ID:** D-133
 - **Classification:** implementation correctness, incomplete re-export in
   an additive successor introduced this same session (ADR-0132), action-

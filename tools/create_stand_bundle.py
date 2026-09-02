@@ -19,8 +19,8 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v6"
-STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v7"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v4"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
@@ -437,15 +437,15 @@ def main() -> int:
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
             # The dry-run profile's own identity (STAGE17-HERMETIC-DRY-RUN-
-            # BUNDLE-v3) and the real candidate profile (v6) both bind the
-            # complete v21/v15 successor chain (ADR-0124..0127), now the
+            # BUNDLE-v3) and the real candidate profile (v7) both bind the
+            # complete v22/v15 successor chain (ADR-0124..0128), now the
             # promoted, documented production path; they differ only in
             # worker binaries, synthetic_test_only, and the wider
             # characterization-suite file set the dry-run profile carries
             # below. The predecessor v18/v14 chain remains immutable and
             # readable at its own exact paths for anyone verifying history.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v21.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v22.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
@@ -710,7 +710,7 @@ def main() -> int:
             "release_artifacts": release_artifacts,
             "repository_license": "NO-LICENSE-GRANT",
             "schema_version": (
-                "cpu-prefetch-pilot-candidate-bundle/6"
+                "cpu-prefetch-pilot-candidate-bundle/7"
                 if stage17
                 else "cpu-prefetch-q15-qualification-tool-bundle/3"
                 if q15_tool

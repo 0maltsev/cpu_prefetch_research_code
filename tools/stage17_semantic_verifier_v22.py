@@ -76,7 +76,7 @@ def verify_policy_v22(*, root: pathlib.Path, policy: dict[str, Any],
             "policy Python runtime closure is incomplete/expanded"
         )
     required = {
-        "tools/stage17_state_journal_v17.py",
+        "tools/stage17_state_journal_v18.py",
         "tools/stage17_phase_controller_v9.py",
         "tools/stage17_operational_cli_v11.py",
         "tools/stage17_read_only_preflight_executor_v13.py",

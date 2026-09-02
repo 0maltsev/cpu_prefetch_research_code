@@ -40,7 +40,7 @@ import stage17_phase_controller_v9 as controller
 import stage17_operational_semantics_v4 as semantics
 import stage17_pilot_candidate_artifact_v4 as pilot_artifact
 import stage17_state_journal as base
-import stage17_state_journal_v17 as journal_runtime
+import stage17_state_journal_v18 as journal_runtime
 
 
 class OperationalCliError(RuntimeError):
@@ -180,6 +180,7 @@ def require_synthetic_test_bundle(repository_root: pathlib.Path) -> None:
     if (manifest.get("bundle_profile") not in (
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v4",
             )
             or manifest.get("stage17_fixed_action_runtime", {}).get(
                 "synthetic_test_only") is not True

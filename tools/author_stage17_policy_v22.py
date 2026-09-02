@@ -22,7 +22,7 @@ import stage17_semantic_verifier_v22 as verifier
 
 
 ROOTS = (
-    "stage17_state_journal_v17",
+    "stage17_state_journal_v18",
     "stage17_read_only_preflight_executor_v13",
     "stage17_phase_controller_v9",
     "stage17_q15_session_controller_v6",
@@ -38,6 +38,7 @@ SUCCESSOR_BINDINGS = (
     "config/schemas/stage17-operational-evidence-admission-policy-v22.schema.json",
     "tools/stage17_semantic_verifier_v22.py",
     "tools/stage17_pilot_candidate_artifact_v5.py",
+    "tools/stage17_state_journal_v18.py",
 )
 
 _BASE = (

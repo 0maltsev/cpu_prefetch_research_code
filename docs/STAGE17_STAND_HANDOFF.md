@@ -189,7 +189,7 @@ that input. The command validates actual bytes against the registered schema.
    EXT003 owner acceptance from the admitted EXT002 hashes, explicitly
    preserving `distinct_auditor=false` and `independent_review=false`. Admit
    EXT002/003 through CLI v11 and append T2. Expected state:
-   `PREFLIGHT_ACCEPTED`. Revalidate the resulting journal with policy v21
+   `PREFLIGHT_ACCEPTED`. Revalidate the resulting journal with policy v22
    before preparing Q15.
 
 4. Canonically author the Q15-R request and unsigned authorization:

@@ -369,6 +369,10 @@ def main() -> int:
             "cpu-prefetch-pilot-candidate-bundle/4",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
         ),
+        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3": (
+            "cpu-prefetch-pilot-candidate-bundle/6",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
         "STAGE17-PILOT-CANDIDATE-BUNDLE-v5": (
             "cpu-prefetch-pilot-candidate-bundle/5",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
@@ -401,6 +405,7 @@ def main() -> int:
         "2.0.0-pre.3" if profile in {
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
             "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
+            "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v5",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v6",
         } else "2.0.0-pre.2"
@@ -430,6 +435,7 @@ def main() -> int:
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v5",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v6") and value is not False:
             failures.append(f"pilot candidate must explicitly prohibit {description}")
@@ -479,6 +485,7 @@ def main() -> int:
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
+                   "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v5",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v6"):
         if (
@@ -616,21 +623,26 @@ def main() -> int:
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v5"):
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v5",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v6"):
             runtime = manifest.get("stage17_fixed_action_runtime")
             expected_actions = ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
                                 "STAGE17-BLINDED-PILOT"]
             worker = root / "release/bin/cpu_prefetch_runner"
             current_v5 = profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v5"
-            current_v6 = profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v6"
+            current_v6 = profile in {
+                "STAGE17-PILOT-CANDIDATE-BUNDLE-v6",
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
+            }
             # The compiled worker binary (release/bin/cpu_prefetch_runner) is
             # unaffected by the D-124/D-125/D-126/D-127 admission-side changes
             # v5/v6 seal, so its own runtime identity stays at its unchanged
             # v4 compiled-in strings even under bundle profile v5/v6. Only
             # the admission-side policy/executor/controller identity below
-            # advances -- v6 additionally promotes phase-controller v9
-            # (ADR-0127) and operational policy v21, the complete, currently
-            # documented production chain.
+            # advances -- v6 (and the matching dry-run v3) additionally
+            # promotes phase-controller v9 (ADR-0127) and operational policy
+            # v21, the complete, currently documented production chain.
             current_v4 = current_v5 or current_v6 or profile in {
                 "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
@@ -645,6 +657,7 @@ def main() -> int:
             expected_synthetic = profile in {
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
             }
             if (not isinstance(runtime, dict)
                     or runtime.get("member_path") != "release/bin/cpu_prefetch_runner"

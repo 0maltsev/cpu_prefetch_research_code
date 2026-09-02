@@ -38,10 +38,10 @@ import stage17_output_registry_v4 as output_registry
 import stage17_exit_state_machine_v4 as exit_machine
 import stage17_phase_controller_v10 as controller
 import stage17_operational_semantics_v4 as semantics
-import stage17_operational_semantics_v5 as semantics_v5
+import stage17_operational_semantics_v6 as semantics_v6
 import stage17_pilot_candidate_artifact_v4 as pilot_artifact
 import stage17_state_journal as base
-import stage17_state_journal_v25 as journal_runtime
+import stage17_state_journal_v26 as journal_runtime
 
 
 class OperationalCliError(RuntimeError):
@@ -609,7 +609,7 @@ def author_operational_manifest(
             locator = path.relative_to(parent).as_posix()
         except ValueError as exception:
             raise OperationalCliError("manifest artifact is outside its directory") from exception
-        expected_schema = semantics_v5.ROLE_SCHEMA_v5.get(role, "UNKNOWN")
+        expected_schema = semantics_v6.ROLE_SCHEMA_v6.get(role, "UNKNOWN")
         if expected_schema == "UNKNOWN":
             raise OperationalCliError(f"unknown production artifact role: {role}")
         descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC)

@@ -99,6 +99,8 @@ RECOGNIZED_PROFILES = predecessor.RECOGNIZED_PROFILES | {
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v11",
     "STAGE17-PILOT-CANDIDATE-BUNDLE-v15",
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v12",
+    "STAGE17-PILOT-CANDIDATE-BUNDLE-v16",
+    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v13",
 }
 DRY_RUN_PROFILES = predecessor.DRY_RUN_PROFILES | {
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v4",
@@ -110,6 +112,7 @@ DRY_RUN_PROFILES = predecessor.DRY_RUN_PROFILES | {
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v10",
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v11",
     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v12",
+    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v13",
 }
 verify_extracted_bundle_v5 = predecessor.verify_extracted_bundle_v5
 verify_pilot_candidate_artifact_v5 = predecessor.verify_pilot_candidate_artifact_v5

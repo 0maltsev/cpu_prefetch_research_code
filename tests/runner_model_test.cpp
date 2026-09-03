@@ -426,6 +426,21 @@ TEST(RunnerQualification, MissingCountsMigrationsAndUnavailablePagesStayIneligib
   EXPECT_FALSE(software_prefetch.value().eligible);
 }
 
+TEST(RunnerQualification, ActualCpuMigrationAcceptsSingleCpuSeriesBoundToProducerRole) {
+  using namespace cpu_prefetch::runner;
+  const auto identity = qualification_identity();
+
+  const auto single_cpu_on_producer = make_actual_cpu_migration_evidence(
+      identity, {2U, 2U, 0U, 0U, 0U, 0U, 0U, 0U, true, true});
+  ASSERT_TRUE(single_cpu_on_producer.has_value());
+  EXPECT_TRUE(single_cpu_on_producer.value().eligible);
+
+  const auto single_cpu_off_pair = make_actual_cpu_migration_evidence(
+      identity, {2U, 2U, 7U, 7U, 7U, 7U, 0U, 0U, true, true});
+  ASSERT_TRUE(single_cpu_off_pair.has_value());
+  EXPECT_FALSE(single_cpu_off_pair.value().eligible);
+}
+
 TEST(RunnerAdmission, EveryEvidenceKindIsMandatoryAndUnique) {
   for (std::size_t index = 0U;
        index < cpu_prefetch::runner::kRequiredEvidenceKinds.size(); ++index) {

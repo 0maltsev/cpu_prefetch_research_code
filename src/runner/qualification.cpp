@@ -237,12 +237,27 @@ auto make_runtime_atomic_layout_evidence(const QualificationIdentity& identity,
 auto make_actual_cpu_migration_evidence(const QualificationIdentity& identity,
                                         const ActualCpuMigrationInput& input)
     -> protocol::Result<QualificationArtifact> {
+  // ADR-0148 amendment: an action with no real producer/consumer thread
+  // pair (a single probe CPU, e.g. Q15-R) honestly reports the same CPU
+  // for all four producer_*/consumer_* fields. That degenerate series
+  // cannot satisfy a real two-CPU accepted pair's distinct producer_cpu/
+  // consumer_cpu values simultaneously, so it is checked against the
+  // pair's producer_cpu only; an action with a genuine two-CPU pair still
+  // requires both roles to match their own accepted CPU exactly.
+  const bool single_cpu_series =
+      input.producer_first_cpu == input.producer_last_cpu &&
+      input.producer_first_cpu == input.consumer_first_cpu &&
+      input.producer_first_cpu == input.consumer_last_cpu;
+  const bool cpu_binding_passes =
+      single_cpu_series
+          ? input.producer_first_cpu == identity.workers.producer_cpu
+          : (input.producer_first_cpu == identity.workers.producer_cpu &&
+             input.producer_last_cpu == identity.workers.producer_cpu &&
+             input.consumer_first_cpu == identity.workers.consumer_cpu &&
+             input.consumer_last_cpu == identity.workers.consumer_cpu);
   const bool eligible =
       input.producer_sample_count != 0U && input.consumer_sample_count != 0U &&
-      input.producer_first_cpu == identity.workers.producer_cpu &&
-      input.producer_last_cpu == identity.workers.producer_cpu &&
-      input.consumer_first_cpu == identity.workers.consumer_cpu &&
-      input.consumer_last_cpu == identity.workers.consumer_cpu &&
+      cpu_binding_passes &&
       input.producer_migration_count == 0U && input.consumer_migration_count == 0U &&
       input.producer_singleton_affinity && input.consumer_singleton_affinity;
   return make_artifact(

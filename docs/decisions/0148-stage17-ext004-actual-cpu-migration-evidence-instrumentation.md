@@ -75,6 +75,37 @@ succeeds; `cpu_prefetch_runner_tests` (20/20) passes; `check_
 qualification_schema.py` and `check_runner_schema.py` both pass; the new
 schema validates its own meta-schema and a positive fixture.
 
+## Amendment (found while building S17-EXT-004's envelope-authoring
+tooling)
+
+This ADR's own "one real four-sample series honestly stands for both
+`producer_*` and `consumer_*` schema fields" claim was never actually
+exercised against `make_actual_cpu_migration_evidence` -- only the raw
+artifact was wired and verified. Building that "later authoring step"
+found it cannot work as originally accepted: `make_actual_cpu_migration_
+evidence` required `producer_first_cpu == identity.workers.producer_cpu`
+*and* `consumer_first_cpu == identity.workers.consumer_cpu`, and `valid_
+identity` (shared by all five kinds) requires `identity.workers` to be
+exactly `kNearWorkerPair{0,1}` or `kFarWorkerPair{0,26}` -- both real
+accepted pairs have distinct producer/consumer CPU ids. Q15-R's real
+series sets all four fields to its one real CPU, so it could never
+satisfy both equalities under any accepted pair; the envelope would have
+computed `eligible: false` for every real Q15-R session, permanently.
+
+Fixed in `make_actual_cpu_migration_evidence` (`src/runner/
+qualification.cpp`): when all four `producer_*`/`consumer_*` fields are
+equal (a real single-CPU series, no genuine producer/consumer thread
+pair), the check now requires only that one CPU to equal `identity.
+workers.producer_cpu`, matching Q15-R's real convention of running on
+CPU 0, which both accepted pairs share as their `producer_cpu`. An
+action with a real, genuinely distinct two-CPU pair (all four fields not
+equal) still requires the original, unchanged strict check against both
+`producer_cpu` and `consumer_cpu`. New unit test `RunnerQualification.
+ActualCpuMigrationAcceptsSingleCpuSeriesBoundToProducerRole` covers both
+the accepted single-CPU-on-producer-role case and a single-CPU-off-pair
+negative case; `cpu_prefetch_runner_tests` (21/21, including all prior
+cases) passes.
+
 ## Consequences
 
 - No real hardware time is required beyond what a normal Q15-R session

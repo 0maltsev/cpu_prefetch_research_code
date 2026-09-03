@@ -2646,6 +2646,38 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking q15-session-controller v9's phase_controller binding stays journal-current (ADR-0144, ACCEPTED; grants no authority)")
 add_custom_target(
+  stage17-executor-v24-action-readiness-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v24_action_readiness.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking executor v24's completed journal reachability lockstep fix (ADR-0145, ACCEPTED; grants no authority)")
+add_custom_target(
+  stage17-phase-controller-v13-journal-reachability-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_phase_controller_v13_journal_reachability.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking phase-controller v13's completed journal reachability fix (ADR-0145, ACCEPTED; grants no authority)")
+add_custom_target(
+  stage17-q15-session-controller-v11-phase-controller-binding-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_q15_session_controller_v11_phase_controller_binding.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking q15-session-controller v11's phase_controller binding stays journal-current (ADR-0145, ACCEPTED; grants no authority)")
+add_custom_target(
+  stage17-q15-session-failure-retention-v10-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_q15_session_failure_retention_v10.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the real Q15 session failure-retention schema fix (ADR-0145, ACCEPTED; grants no authority)")
+add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND
     "${Python3_EXECUTABLE}"

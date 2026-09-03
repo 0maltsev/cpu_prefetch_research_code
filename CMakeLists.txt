@@ -363,6 +363,18 @@ target_link_libraries(
     cpu_prefetch::timing
     cpu_prefetch_project_options)
 
+add_executable(
+  cpu_prefetch_q15_qualification_evidence_tool
+  tools/q15_qualification_evidence_tool_main.cpp)
+target_link_libraries(
+  cpu_prefetch_q15_qualification_evidence_tool
+  PRIVATE
+    cpu_prefetch::foundation
+    cpu_prefetch::protocol
+    cpu_prefetch::runner
+    cpu_prefetch::workload
+    cpu_prefetch_project_options)
+
 add_executable(cpu_prefetch_q15_controller tools/q15_controller_main.cpp)
 target_link_libraries(
   cpu_prefetch_q15_controller
@@ -1773,6 +1785,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_qualification_tool_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_clock_qualification_tool_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_qualification_evidence_tool_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_prestate_collector_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
@@ -1892,6 +1905,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_qualification_tool_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_clock_qualification_tool_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_qualification_evidence_tool_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_prestate_collector_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"

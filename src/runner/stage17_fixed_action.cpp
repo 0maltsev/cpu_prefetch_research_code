@@ -662,6 +662,43 @@ struct Q15PhaseSession final {
   if (!software_prefetch_raw) {
     return protocol::Result<ActionOutcome>::failure(software_prefetch_raw.errors());
   }
+  // Both entries below are already required to pass observation_passes above,
+  // which enforces singleton_affinity and entry_cpu == exit_cpu == the one
+  // prepared CPU for each probe: on any published session, the OS affinity
+  // mask was restricted to exactly that CPU before either probe ran and was
+  // never changed again, so migration across all four samples is structurally
+  // zero, not merely unobserved between them.
+  const auto migration_sample = [](std::string_view probe, std::string_view point,
+                                   std::uint32_t cpu) {
+    return JsonValue(JsonObject{{"probe", string_value(std::string(probe))},
+                                {"point", string_value(std::string(point))},
+                                {"cpu", uint_value(cpu)}});
+  };
+  JsonArray migration_samples;
+  migration_samples.push_back(
+      migration_sample("regular_stream", "entry", regular_observation.entry_cpu));
+  migration_samples.push_back(
+      migration_sample("regular_stream", "exit", regular_observation.exit_cpu));
+  migration_samples.push_back(
+      migration_sample("pointer_dependent", "entry", pointer_observation.entry_cpu));
+  migration_samples.push_back(
+      migration_sample("pointer_dependent", "exit", pointer_observation.exit_cpu));
+  auto cpu_migration_raw = canonical(JsonObject{
+      {"schema_version",
+       string_value("cpu-prefetch-stage17-q15-r-cpu-migration-raw/1")},
+      {"session_id", string_value(session.session_id)},
+      {"qualification_id", string_value(*string_member(input, "qualification_id"))},
+      {"expected_cpu", uint_value(session.memory->cpu())},
+      {"samples", JsonValue(std::move(migration_samples))},
+      {"singleton_affinity",
+       JsonValue(JsonObject{
+           {"regular_stream", JsonValue(regular_observation.singleton_affinity)},
+           {"pointer_dependent", JsonValue(pointer_observation.singleton_affinity)},
+       })},
+  });
+  if (!cpu_migration_raw) {
+    return protocol::Result<ActionOutcome>::failure(cpu_migration_raw.errors());
+  }
   return publish_all(
       sink,
       {{"Q15_R_READ_ONLY_PRESTATE", "cpu-prefetch-stage17-q15-r-output/3",
@@ -671,7 +708,10 @@ struct Q15PhaseSession final {
         "q15-r-atomic-layout-raw-v1.json", bytes(atomic_layout_raw.value())},
        {"Q15_R_SOFTWARE_PREFETCH_RAW",
         "cpu-prefetch-stage17-q15-r-software-prefetch-raw/1", "application/json",
-        "q15-r-software-prefetch-raw-v1.json", bytes(software_prefetch_raw.value())}},
+        "q15-r-software-prefetch-raw-v1.json", bytes(software_prefetch_raw.value())},
+       {"Q15_R_CPU_MIGRATION_RAW",
+        "cpu-prefetch-stage17-q15-r-cpu-migration-raw/1", "application/json",
+        "q15-r-cpu-migration-raw-v1.json", bytes(cpu_migration_raw.value())}},
       false, false, "Q15_R_READ_ONLY_COMPLETE");
 }
 

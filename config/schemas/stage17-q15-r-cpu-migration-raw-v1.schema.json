@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17-q15-r-cpu-migration-raw:v1",
+  "title": "Q15-R raw CPU-affinity samples across both H0 probe passes, pre-qualification-envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "qualification_id",
+    "expected_cpu",
+    "samples",
+    "singleton_affinity"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-q15-r-cpu-migration-raw/1"},
+    "session_id": {"type": "string", "minLength": 1},
+    "qualification_id": {"type": "string", "minLength": 1},
+    "expected_cpu": {"type": "integer", "minimum": 0},
+    "samples": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["probe", "point", "cpu"],
+        "properties": {
+          "probe": {"enum": ["regular_stream", "pointer_dependent"]},
+          "point": {"enum": ["entry", "exit"]},
+          "cpu": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "singleton_affinity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["regular_stream", "pointer_dependent"],
+      "properties": {
+        "regular_stream": {"type": "boolean"},
+        "pointer_dependent": {"type": "boolean"}
+      }
+    }
+  }
+}

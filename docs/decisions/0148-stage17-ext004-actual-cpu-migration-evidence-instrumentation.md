@@ -1,6 +1,6 @@
 # 0148. Stage 17 S17-EXT-004 actual-CPU-migration evidence instrumentation
 
-Status: PROPOSED
+Status: ACCEPTED
 
 ## Context
 
@@ -15,46 +15,82 @@ qualification.hpp`), already exists, is schema-validated, and is unit-
 tested in `tests/runner_model_test.cpp` -- but only against hand-supplied
 synthetic values, never real ones.
 
-Real Q15-R's own `Q15ProbePassObservation` struct (`include/cpu_prefetch/
-platform/q15_runtime.hpp`) currently carries a *single* `entry_cpu`,
-`exit_cpu`, and `singleton_affinity` per probe pass -- one observation
-covering the whole pass, not separated by producer/consumer role, and
-with no multiple-sample migration tracking within the pass. This is a
-real, structural gap, not a serialization gap: the `ActualCpuMigration
-Input` fields ADR-0147 could satisfy by reading already-computed data
-cannot be honestly populated from what `Q15ProbePassObservation` records
-today.
+This ADR originally assessed real Q15-R's `Q15ProbePassObservation`
+(`entry_cpu`, `exit_cpu`, `singleton_affinity` -- one observation per
+probe pass) as insufficient: "a real, structural gap, not a serialization
+gap," requiring new multi-sample measured-path instrumentation with
+careful scoping to avoid perturbing the timed region. Follow-up
+investigation before implementing found that assessment too pessimistic.
 
-## Decision (proposed)
+`singleton_affinity` is not a point-sample; it is `Linux
+QPlatformOperations::singleton_affinity_matches` (`src/platform/q15_
+runtime.cpp:199-211`) reading `sched_getaffinity` and checking `CPU_COUNT
+(&set) == 1 && CPU_ISSET(cpu, &set)` -- a genuine OS-level affinity-*mask*
+restriction, checked immediately before the counted region in `run_q15_
+probe_pass` (`src/platform/q15_runtime.cpp:465`). While that mask holds,
+the Linux scheduler is structurally incapable of migrating the thread to
+any other CPU -- not merely "unobserved," but impossible. A repository-
+wide search confirmed `sched_setaffinity` is called exactly once anywhere
+in the Q15 platform code (`LinuxQ15PlatformOperations::bind_current_
+thread`, `src/platform/q15_runtime.cpp:183-196`), during memory
+preparation (`Q15PreparedProbeMemory::create`, called before either probe
+pass runs) -- never inside `run_q15_probe_pass` itself, which only reads
+affinity (`sched_getaffinity`/`sched_getcpu`), never sets it.
 
-Extend the real Q15-R probe-pass measurement loop (`run_q15_probe_pass`,
-`src/runner/stage17_fixed_action.cpp` and/or `include/cpu_prefetch/
-platform/q15_runtime.hpp`) to sample CPU affinity multiple times during
-each pass, separately for the producer and consumer threads, recording:
+Further, `publish_q15_r`'s own `observation_passes` gate already hard-
+requires, for *both* the regular and pointer probes, that `singleton_
+affinity` held and `entry_cpu == exit_cpu == session.memory->cpu()`
+(`Q15ProbePassObservation::cpu_passes`) before any output is published at
+all -- any real published Q15-R session therefore already, provably,
+guarantees zero migration across both probes. Reporting this is not an
+approximation from sparse sampling; it is a structural corollary of an
+invariant Q15-R's own pass/fail gate already enforces.
 
-- a per-thread sample count,
-- first/last observed CPU per thread,
-- a migration count (transitions between distinct CPUs across samples),
-- whether singleton affinity held for the whole pass per thread.
+## Decision
 
-This is new measurement code inside the timed/measured path, so it must
-go through the same dual-disassembler codegen-audit discipline
-(`docs/PRODUCTION_RUNNER.md`'s "Affined preparation and static
-specialization boundary") the rest of the runner's measured path
-already requires -- affinity sampling must not itself perturb the
-measurement it is meant to characterize, which needs careful placement
-(likely only inside the already-existing pre/post-measurement affinity
-checks, not inside the hot inner loop) and its own scoping session
-before implementation.
+Wire `ACTUAL_CPU_MIGRATION`'s raw data as a pure serialization task, the
+same pattern as ADR-0147/ADR-0152: no new measured-path instrumentation.
+`publish_q15_r` publishes both probes' `entry_cpu`/`exit_cpu`/`singleton_
+affinity` as four ordered samples (regular-entry, regular-exit, pointer-
+entry, pointer-exit -- confirmed real execution order: `run_q15_probe_
+pass` is called with `regular_stream` before `pointer_dependent`,
+`src/runner/stage17_fixed_action.cpp:525` and `:533`). As with ADR-0147/
+ADR-0152, Q15-R has no real producer/consumer thread pair (a single probe
+CPU), so this one real four-sample series honestly stands for both
+`producer_*` and `consumer_*` schema fields; a later authoring step
+derives `migration_count` (provably 0, from `singleton_affinity` and
+identical CPUs across all four samples) and `first_cpu`/`last_cpu` from
+this raw series.
+
+## Implementation
+
+`publish_q15_r` now also publishes `Q15_R_CPU_MIGRATION_RAW` (`q15-r-cpu-
+migration-raw-v1.json`, new schema `stage17-q15-r-cpu-migration-raw-v1.
+schema.json`): `expected_cpu`, an ordered four-sample array (`probe`,
+`point`, `cpu` per sample), and `singleton_affinity` per probe. Pure
+sibling addition; `q15-r-output-v3.json` is unchanged.
+
+Verified: `cmake --build --preset dev-gcc` (full default target set)
+succeeds; `cpu_prefetch_runner_tests` (20/20) passes; `check_
+qualification_schema.py` and `check_runner_schema.py` both pass; the new
+schema validates its own meta-schema and a positive fixture.
 
 ## Consequences
 
-- Requires new C++ instrumentation in the runner's own measured path,
-  with the same strict audit requirements (no allocation, no blocking
-  calls, exact instruction accounting) the rest of that path already
-  meets -- a real, nontrivial implementation task, not a wiring fix.
-- Requires a real Q15-R re-run on the stand after the change to produce
-  real evidence with the new fields; the three already-captured real
-  sessions (`-16E`/`-17`/`-18`) cannot retroactively supply this data.
-- Should be scoped and implemented separately from ADR-0147, which needs
-  no new measurement code at all.
+- No real hardware time is required beyond what a normal Q15-R session
+  already uses -- this wires already-computed, already-real data, with no
+  perturbation risk since nothing new was added to the measured path.
+- Required a new C++ change to the compiled worker (recompiled release
+  binary, new bundle profile, the reachability-lockstep dance this
+  session has repeatedly had to complete for every new outer-policy
+  generation) before this can be exercised for real on the stand -- not
+  yet done, deferred pending explicit direction.
+- Does not by itself unblock S17-EXT-004 admission: `ADDRESS_RESIDENCY`
+  (ADR-0149) and `SELECTED_PAIR_CLOCK` (ADR-0150) remain unstarted, larger
+  gaps. `RUNTIME_ATOMIC_LAYOUT` (ADR-0147) and `SOFTWARE_PREFETCH_MAPPING`
+  (ADR-0152) are already implemented at the wiring level.
+- This ADR's original "requires careful measured-path scoping" framing
+  should not be assumed to generalize to ADR-0149/ADR-0150 without its
+  own investigation; the favorable outcome here came specifically from
+  `singleton_affinity`'s mask semantics, which do not obviously apply to
+  residency or clock-pairing measurement.

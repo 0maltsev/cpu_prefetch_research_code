@@ -526,6 +526,8 @@ def main() -> int:
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v16",
             "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v14",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v17",
+            "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v15",
+            "STAGE17-PILOT-CANDIDATE-BUNDLE-v18",
         } else "2.0.0-pre.2"
     )
     if manifest.get("protocol_version") != expected_protocol:

@@ -3,19 +3,19 @@
 
 A real admission built through the live `author-ext001`/`admit-
 resolution` wiring resolves cleanly and `action_ready` is true under
-executor v21 / semantic verifier v23 / journal v28 / preflight-plan
+executor v21 / semantic verifier v23 / journal v29 / preflight-plan
 policy v23 (ADR-0139), and the three-blocker-receipt branch is still
 cleanly rejected exactly as ADR-0134 left it. This is a narrow, pure
 reachability fix -- executor v21's only change from `v20` is its own
 `current_journal` import, so no collector- or archive-identity-specific
 proof is needed here (see `check_stage17_executor_v19_action_readiness.py`
-for that). Like `check_stage17_executor_v20_action_readiness.py` before
-this generation moved past it, this file exercises the repository's own
-current `author-ext001`/`admit-resolution` wiring directly, with no
-fixture patching -- it will need the same historical-commit pinning
-`v13`'s, `v19`'s, and `v20`'s own regressions already adopted once a
-later ADR moves `cli_v11.py`'s default past this generation. It does not
-create a transport marker and does not open SSH.
+for that). Pinned via `git archive` to the historical commit where
+`cli_v11.py`'s own `journal_runtime`/`author-ext001` policy path
+genuinely match what this generation's own executor/semantic-verifier
+hardcode (ADR-0141 has since moved `cli_v11.py`'s default past this
+generation, exactly as `v13`'s, `v19`'s, and `v20`'s own regressions
+were pinned once ADR-0135/ADR-0138/ADR-0140 moved past them). It does
+not create a transport marker and does not open SSH.
 """
 
 from __future__ import annotations
@@ -481,16 +481,29 @@ def self_test(root: pathlib.Path) -> None:
         raise CheckError("regression: preflight policy v23 must bind state_journal v29")
     with tempfile.TemporaryDirectory(prefix="stage17-d137-source-") as text:
         source_bundle = pathlib.Path(text) / "source-bundle"
-        # Unlike v20's own regression (now pinned to the historical commit
-        # this generation was accepted against), this file exercises the
-        # repository's own CURRENT `author-ext001`/`admit-resolution`
-        # wiring directly -- policy v23/v33, executor v21, journal v28 are
-        # all `cli_v11.py`'s live default as of this commit.
-        shutil.copytree(
-            root, source_bundle, symlinks=False,
-            ignore=shutil.ignore_patterns(
-                ".git", "build", "build-*", "__pycache__", ".pytest_cache", "evidence",
-            ),
+        # This regression specifically proves executor v21's own
+        # action-readiness binding (ADR-0139), which only ever validates a
+        # resolution admitted against preflight-plan policy v23, dispatched
+        # through `cli_v11.py`'s own `journal_runtime` import (`v29`) and
+        # `author-ext001`'s own hardcoded policy path (`v23.json`). ADR-0141
+        # moves both forward (journal v31, policy v24), so a `source_bundle`
+        # built from the live working tree would build envelopes against the
+        # wrong policy generation for this file's own `executor_v21`/
+        # `current_semantic` binding -- the same drift class v13's, v19's,
+        # and v20's own regressions already hit. Extracting the entire tree
+        # from the fixed historical commit this generation was actually
+        # accepted against keeps every file in this regression's own
+        # closure mutually self-consistent by construction, immune to
+        # ADR-0141's later, unrelated edits.
+        commit_pinned_to_v23 = "e3fa258c4ad52c226f1ce2e4bfcf7f65e767b2a3"
+        source_bundle.mkdir()
+        archive = subprocess.run(
+            ["git", "archive", commit_pinned_to_v23], cwd=root,
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, check=True,
+        ).stdout
+        subprocess.run(
+            ["tar", "-x"], input=archive, cwd=source_bundle, check=True,
         )
         (source_bundle / "BUNDLE_MANIFEST.json").write_text(
             '{"bundle_profile":"SYNTHETIC-D139-REGRESSION"}\n', encoding="ascii",

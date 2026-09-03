@@ -41,6 +41,30 @@
                     "cardinality": "EXACTLY_ONE",
                     "file_pattern": "q15-r-output-v3.json",
                     "media_type": "application/json"
+                },
+                {
+                    "role": "Q15_R_ATOMIC_LAYOUT_RAW",
+                    "schema_identity": "cpu-prefetch-stage17-q15-r-atomic-layout-raw/1",
+                    "schema_path": "config/schemas/stage17-q15-r-atomic-layout-raw-v1.schema.json",
+                    "cardinality": "EXACTLY_ONE",
+                    "file_pattern": "q15-r-atomic-layout-raw-v1.json",
+                    "media_type": "application/json"
+                },
+                {
+                    "role": "Q15_R_SOFTWARE_PREFETCH_RAW",
+                    "schema_identity": "cpu-prefetch-stage17-q15-r-software-prefetch-raw/1",
+                    "schema_path": "config/schemas/stage17-q15-r-software-prefetch-raw-v1.schema.json",
+                    "cardinality": "EXACTLY_ONE",
+                    "file_pattern": "q15-r-software-prefetch-raw-v1.json",
+                    "media_type": "application/json"
+                },
+                {
+                    "role": "Q15_R_CPU_MIGRATION_RAW",
+                    "schema_identity": "cpu-prefetch-stage17-q15-r-cpu-migration-raw/1",
+                    "schema_path": "config/schemas/stage17-q15-r-cpu-migration-raw-v1.schema.json",
+                    "cardinality": "EXACTLY_ONE",
+                    "file_pattern": "q15-r-cpu-migration-raw-v1.json",
+                    "media_type": "application/json"
                 }
             ]
         },

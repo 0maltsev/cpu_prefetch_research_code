@@ -283,14 +283,37 @@ Full trace output preserved at `/home/omaltsev/stage17-owner-evidence/
 clock-vdso-static-probe-evidence/` (`trace-10m-stdout.log`,
 `trace-10m-strace.log`).
 
-Not yet done: the other `StaticClockEvidenceInput` fields this tool does
-not cover (`bare_metal_linux_x86_64`, `current_clocksource_tsc`,
-`no_unstable_clock_report`, `constant_tsc`/`nonstop_tsc`/
-`invariant_tsc`, `no_clocksource_override`, `generated_code_passes`) --
-all real, locally-observable facts, but a separate piece of work from
-"the VDSO tracer" specifically -- and `glibc_call_path_verified_vdso`
-itself (a caller-asserted bool distinct from the traced counts, not yet
-wired to anything).
+The remaining `StaticClockEvidenceInput` fields are now also wired: new
+`--collect` assembles the complete input (locally-observable facts for
+`bare_metal_linux_x86_64` via the CPUID hypervisor-present bit,
+`current_clocksource_tsc` via sysfs, `constant_tsc`/`nonstop_tsc` via
+`/proc/cpuinfo`'s flags line, `invariant_tsc` via CPUID leaf `0x80000007`,
+`no_clocksource_override` via `/proc/cmdline`, `no_unstable_clock_report`
+via the real kernel ring buffer through `dmesg` run by direct fork/exec;
+`--probe-*`/`--generated-code-passes` as required CLI flags for what
+cannot be honestly self-observed) and calls the real
+`evaluate_static_clock_evidence()` directly.
+
+Run for real on the accepted stand with the real numbers above plus a
+real, current `timing-codegen-check` run
+(`cmake --build --preset release-gcc --target timing-codegen-check`:
+PASS, 11 operations, 6 source mutants, 3 machine mutants, confirmed the
+same day rather than assumed from the docs' own historical claim) and
+`--glibc-call-path-verified true` (justified by the real trace itself --
+zero syscalls across the traced sequence plus the real versioned vDSO
+symbol together are exactly what "the glibc call path used the vDSO"
+means): **every field is real and true, and
+`evaluate_static_clock_evidence()`'s own verdict is a real PASS** --
+`platform_passes`/`source_passes`/`frequency_invariance_passes`/
+`vdso_symbol_passes`/`vdso_execution_passes`/`generated_code_passes`/
+`resolution_passes` all true. `no_unstable_clock_report` came back
+`false` when this same command was first tried in this session's own dev
+sandbox (no kernel-buffer read permission there); on the stand, running
+as root, it is `true` for real. Captured `2026-09-03T21:46:06Z`, full
+output preserved at `/home/omaltsev/stage17-owner-evidence/clock-vdso-
+static-probe-evidence/collect-20260903-output.log`. This is Stage 8's
+entire static clock evidence gate, real and passing, on the accepted
+stand.
 
 ## Consequences
 
@@ -308,10 +331,12 @@ wired to anything).
   explicitly, not run opportunistically alongside another action.
 - Blocks S17-EXT-004 admission independent of whether ADR-0147/0148/0149
   are completed -- all five `QUALIFICATION_EVIDENCE` kinds are required,
-  so S17-EXT-004 cannot be built until this is resolved too. The real
-  static-clock VDSO trace is now done (see above); still blocked: real
-  `--qualify-pair` execution on the accepted stand, and the remaining
-  `StaticClockEvidenceInput` fields the VDSO tracer does not cover.
+  so S17-EXT-004 cannot be built until this is resolved too. Stage 8's
+  entire static clock evidence gate now has a real, complete PASS on the
+  accepted stand (see above); still blocked: real `--qualify-pair`
+  execution at full frozen scale on the accepted stand, and
+  `before_block_repeat`'s timestamp capture (`SelectedPairClockInput`'s
+  own field, distinct from `StaticClockEvidenceInput`).
 - Surfaced, incidentally, a genuine internal disagreement between two of
   the project's own authoritative documents about `ADDRESS_RESIDENCY`'s
   intended shape (recorded above for whoever revisits ADR-0149).

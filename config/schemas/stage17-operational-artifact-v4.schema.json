@@ -53,6 +53,7 @@
                 "Q15_R_COMPLETION",
                 "Q15_R_READ_ONLY_PRESTATE",
                 "Q15_R_ATOMIC_LAYOUT_RAW",
+                "Q15_R_SOFTWARE_PREFETCH_RAW",
                 "Q15_R_SESSION_WAITING",
                 "Q15_W_AUTHORIZATION",
                 "Q15_W_SIGNATURE",

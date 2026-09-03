@@ -634,13 +634,44 @@ struct Q15PhaseSession final {
   if (!atomic_layout_raw) {
     return protocol::Result<ActionOutcome>::failure(atomic_layout_raw.errors());
   }
+  // PRFCHW support is a CPU-model-wide microarchitectural fact, not per-core;
+  // Q15-R has no real producer/consumer thread pair (a single probe CPU), so
+  // one observation on that CPU honestly stands for both schema fields below.
+  const auto prefetch_capability =
+      X86CurrentCpuSoftwarePrefetchCapabilityBackend{}.observe();
+  auto software_prefetch_raw = canonical(JsonObject{
+      {"schema_version",
+       string_value("cpu-prefetch-stage17-q15-r-software-prefetch-raw/1")},
+      {"session_id", string_value(session.session_id)},
+      {"qualification_id", string_value(*string_member(input, "qualification_id"))},
+      {"mapping_id", string_value(std::string(kSoftwarePrefetchMappingId))},
+      {"observed_cpu", uint_value(session.memory->cpu())},
+      {"producer_maximum_extended_leaf",
+       uint_value(prefetch_capability.maximum_extended_leaf)},
+      {"producer_extended_leaf_ecx",
+       uint_value(prefetch_capability.extended_leaf_ecx)},
+      {"producer_prfchw_supported",
+       JsonValue(prefetch_capability.prfchw_supported)},
+      {"consumer_maximum_extended_leaf",
+       uint_value(prefetch_capability.maximum_extended_leaf)},
+      {"consumer_extended_leaf_ecx",
+       uint_value(prefetch_capability.extended_leaf_ecx)},
+      {"consumer_prfchw_supported",
+       JsonValue(prefetch_capability.prfchw_supported)},
+  });
+  if (!software_prefetch_raw) {
+    return protocol::Result<ActionOutcome>::failure(software_prefetch_raw.errors());
+  }
   return publish_all(
       sink,
       {{"Q15_R_READ_ONLY_PRESTATE", "cpu-prefetch-stage17-q15-r-output/3",
         "application/json", "q15-r-output-v3.json", bytes(document.value())},
        {"Q15_R_ATOMIC_LAYOUT_RAW",
         "cpu-prefetch-stage17-q15-r-atomic-layout-raw/1", "application/json",
-        "q15-r-atomic-layout-raw-v1.json", bytes(atomic_layout_raw.value())}},
+        "q15-r-atomic-layout-raw-v1.json", bytes(atomic_layout_raw.value())},
+       {"Q15_R_SOFTWARE_PREFETCH_RAW",
+        "cpu-prefetch-stage17-q15-r-software-prefetch-raw/1", "application/json",
+        "q15-r-software-prefetch-raw-v1.json", bytes(software_prefetch_raw.value())}},
       false, false, "Q15_R_READ_ONLY_COMPLETE");
 }
 

@@ -1529,6 +1529,18 @@ add_executable(
 target_link_libraries(
   cpu_prefetch_runner_codegen_mutant PRIVATE cpu_prefetch_project_options)
 add_executable(
+  cpu_prefetch_software_prefetch_mapping_codegen_probe EXCLUDE_FROM_ALL
+  tools/software_prefetch_mapping_codegen_probe.cpp)
+target_link_libraries(
+  cpu_prefetch_software_prefetch_mapping_codegen_probe
+  PRIVATE cpu_prefetch::runner cpu_prefetch_project_options)
+add_executable(
+  cpu_prefetch_software_prefetch_mapping_codegen_mutant EXCLUDE_FROM_ALL
+  tools/software_prefetch_mapping_codegen_mutant.cpp)
+target_link_libraries(
+  cpu_prefetch_software_prefetch_mapping_codegen_mutant
+  PRIVATE cpu_prefetch_project_options)
+add_executable(
   cpu_prefetch_runner_combined_codegen_probe EXCLUDE_FROM_ALL
   tools/runner_combined_codegen_probe.cpp)
 target_link_libraries(
@@ -1978,6 +1990,20 @@ add_custom_target(
     --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
   DEPENDS cpu_prefetch_runner_codegen_probe cpu_prefetch_runner_codegen_mutant
   COMMENT "Requiring dual-disassembler Q13 one-PAUSE relax evidence")
+add_custom_target(
+  software-prefetch-mapping-codegen-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_software_prefetch_mapping_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_software_prefetch_mapping_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_software_prefetch_mapping_codegen_mutant>"
+    --output
+    "${PROJECT_BINARY_DIR}/software_prefetch_mapping_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS
+    cpu_prefetch_software_prefetch_mapping_codegen_probe
+    cpu_prefetch_software_prefetch_mapping_codegen_mutant
+  COMMENT "Requiring dual-disassembler D-047 PREFETCHW/PREFETCHT0 mapping evidence")
 add_custom_target(
   runner-combined-codegen-audit
   COMMAND

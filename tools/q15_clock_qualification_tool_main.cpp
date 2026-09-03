@@ -1,25 +1,31 @@
 #include "cpu_prefetch/platform/platform.hpp"
 #include "cpu_prefetch/platform/q15_msr.hpp"
+#include "cpu_prefetch/protocol/json.hpp"
 #include "cpu_prefetch/qualification/q15_clock_pair_qualification.hpp"
 #include "cpu_prefetch/runner/runner.hpp"
 #include "cpu_prefetch/timing/cross_core_exchange.hpp"
 
 #include <atomic>
+#include <fstream>
 #include <iostream>
+#include <optional>
+#include <string>
 #include <string_view>
 
 namespace {
 
+using cpu_prefetch::qualification::ClockPairQualificationResult;
 using cpu_prefetch::qualification::kAcceptedClockPairQualificationCounts;
 using cpu_prefetch::qualification::run_clock_pair_qualification;
 using cpu_prefetch::runner::kFarWorkerPair;
 using cpu_prefetch::runner::kNearWorkerPair;
+using cpu_prefetch::runner::WorkerPair;
 
 void usage(std::ostream& output) {
   output << "Usage:\n"
          << "  cpu_prefetch_q15_clock_qualification_tool --self-test\n"
-         << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair near\n"
-         << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair far\n\n"
+         << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair near|far "
+            "[--output PATH]\n\n"
          << "ADR-0150. --qualify-pair runs the full frozen-constant "
             "per-core-then-cross-core measurement for real on this machine's "
             "CPUs (production repeat scale: "
@@ -32,7 +38,19 @@ void usage(std::ostream& output) {
                 1'000'000'000ULL
          << " real seconds). It requires family 06 model 55H and does not "
             "validate or grant authority; real qualification evidence also "
-            "requires this to run on the accepted stand.\n";
+            "requires this to run on the accepted stand. --output writes a raw, "
+            "partial pre-envelope artifact (schema stage17-q15-clock-pair-raw-v1) "
+            "covering only what this tool actually measures: prime/delta counts, "
+            "window counts, exchanges per window, and per-core/cross-core "
+            "pass/fail. It deliberately omits traced_call_count/"
+            "traced_syscall_count/before_block_repeat -- no real VDSO call/"
+            "syscall tracer or post-measurement block-repeat timestamp capture "
+            "exists in this codebase yet, so those SELECTED_PAIR_CLOCK envelope "
+            "fields cannot be derived from this artifact alone. Only written "
+            "when the measurement completes (producer_pinned, consumer_pinned, "
+            "and complete all true); a completed-but-failing measurement is "
+            "still written, since the raw artifact reports real facts, not a "
+            "verdict.\n";
 }
 
 [[nodiscard]] auto require_selected_model() -> bool {
@@ -70,7 +88,63 @@ auto self_test() -> int {
   return 0;
 }
 
-auto qualify_pair(std::string_view pair_name) -> int {
+namespace json = cpu_prefetch::protocol::json;
+
+[[nodiscard]] auto uint_value(std::uint64_t value) -> json::Value {
+  return json::Value(
+      json::Number{json::Number::Kind::unsigned_integer, std::to_string(value), value});
+}
+
+// Writes only what run_clock_pair_qualification actually measured -- see
+// usage()'s --output paragraph for exactly which SELECTED_PAIR_CLOCK
+// envelope fields this deliberately omits and why. Takes the per-core/
+// cross-core evidence already unwrapped, rather than the optionals
+// ClockPairQualificationResult holds them in, so the caller's single
+// has_value() check (immediately before calling this) is the only one
+// needed.
+[[nodiscard]] auto
+write_raw_output(const std::string& path, std::string_view pair_name, WorkerPair pair,
+                 bool producer_pinned, bool consumer_pinned,
+                 const cpu_prefetch::timing::PerCoreQualificationEvidence& producer,
+                 const cpu_prefetch::timing::PerCoreQualificationEvidence& consumer,
+                 const cpu_prefetch::timing::CrossCorePairEvidence& cross_core)
+    -> bool {
+  const auto document = json::Value(json::Value::Object{
+      {"schema_version",
+       json::Value(std::string("cpu-prefetch-stage17-q15-clock-pair-raw/1"))},
+      {"pair", json::Value(std::string(pair_name))},
+      {"producer_cpu", uint_value(pair.producer_cpu)},
+      {"consumer_cpu", uint_value(pair.consumer_cpu)},
+      {"producer_pinned", json::Value(producer_pinned)},
+      {"consumer_pinned", json::Value(consumer_pinned)},
+      {"producer_prime_read_count",
+       uint_value(kAcceptedClockPairQualificationCounts.prime_read_count)},
+      {"consumer_prime_read_count",
+       uint_value(kAcceptedClockPairQualificationCounts.prime_read_count)},
+      {"producer_delta_count", uint_value(producer.sequence.delta_count)},
+      {"consumer_delta_count", uint_value(consumer.sequence.delta_count)},
+      {"producer_to_consumer_window_count",
+       uint_value(cross_core.producer_to_consumer.windows.size())},
+      {"consumer_to_producer_window_count",
+       uint_value(cross_core.consumer_to_producer.windows.size())},
+      {"exchanges_per_window",
+       uint_value(cross_core.producer_to_consumer.exchange_count_per_window)},
+      {"producer_per_core_passed", json::Value(producer.passes)},
+      {"consumer_per_core_passed", json::Value(consumer.passes)},
+      {"cross_core_passed", json::Value(cross_core.passes)},
+  });
+  const auto canonical = json::canonicalize(document);
+  if (!canonical) {
+    return false;
+  }
+  std::ofstream file(path, std::ios::binary | std::ios::trunc);
+  file.write(canonical.value().data(),
+             static_cast<std::streamsize>(canonical.value().size()));
+  return static_cast<bool>(file);
+}
+
+auto qualify_pair(std::string_view pair_name, std::optional<std::string> output_path)
+    -> int {
   if (!require_selected_model()) {
     return 1;
   }
@@ -90,13 +164,29 @@ auto qualify_pair(std::string_view pair_name) -> int {
               << " complete=" << result.complete << '\n';
     return 1;
   }
+  if (!result.producer_per_core.has_value() || !result.consumer_per_core.has_value() ||
+      !result.cross_core.has_value()) {
+    std::cerr << "q15-clock-tool: FAIL evidence missing despite complete=true\n";
+    return 1;
+  }
+  const auto& producer = result.producer_per_core.value();
+  const auto& consumer = result.consumer_per_core.value();
+  const auto& cross_core = result.cross_core.value();
+  if (output_path &&
+      !write_raw_output(*output_path, pair_name, pair, result.producer_pinned,
+                        result.consumer_pinned, producer, consumer, cross_core)) {
+    std::cerr << "q15-clock-tool: FAIL cannot write raw output: " << *output_path
+              << '\n';
+    return 1;
+  }
   std::cout << "q15-clock-pair-qualification: " << (result.passes ? "PASS" : "FAIL")
             << " pair=" << pair_name << " producer_cpu=" << pair.producer_cpu
             << " consumer_cpu=" << pair.consumer_cpu
-            << " producer_per_core_passes=" << result.producer_per_core->passes
-            << " consumer_per_core_passes=" << result.consumer_per_core->passes
-            << " cross_core_passes=" << result.cross_core->passes
-            << " independent_role=EXTERNALLY_ENFORCED\n";
+            << " producer_per_core_passes=" << producer.passes
+            << " consumer_per_core_passes=" << consumer.passes
+            << " cross_core_passes=" << cross_core.passes
+            << " independent_role=EXTERNALLY_ENFORCED"
+            << (output_path ? " output=" + *output_path : std::string()) << '\n';
   return result.passes ? 0 : 1;
 }
 
@@ -105,7 +195,11 @@ auto run(int argc, char** argv) -> int {
     return self_test();
   }
   if (argc == 3 && std::string_view(argv[1]) == "--qualify-pair") {
-    return qualify_pair(argv[2]);
+    return qualify_pair(argv[2], std::nullopt);
+  }
+  if (argc == 5 && std::string_view(argv[1]) == "--qualify-pair" &&
+      std::string_view(argv[3]) == "--output") {
+    return qualify_pair(argv[2], std::string(argv[4]));
   }
   if (argc == 2 &&
       (std::string_view(argv[1]) == "--help" || std::string_view(argv[1]) == "-h")) {

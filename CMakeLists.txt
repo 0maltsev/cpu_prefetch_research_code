@@ -2614,6 +2614,14 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking executor v22's completed journal reachability lockstep fix (ADR-0141, ACCEPTED; grants no authority)")
 add_custom_target(
+  stage17-phase-controller-v11-journal-reachability-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_phase_controller_v11_journal_reachability.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking phase-controller v11's completed journal reachability fix (ADR-0142, ACCEPTED; grants no authority)")
+add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND
     "${Python3_EXECUTABLE}"

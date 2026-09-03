@@ -90,17 +90,28 @@ into the final schema-compliant envelope using real, externally-known
 facts, the same way `RUNTIME_IDENTITY`/`PLATFORM_MANIFEST` were already
 hand-authored this session.
 
+## Real envelope (session -20, toward an S17-EXT-004 admission attempt)
+
+Exercised for real: real session `-20` (run after this ADR's wiring was
+in the staged bundle) produced a real `q15-r-atomic-layout-raw-v1.json`
+(sha256 `5e5d0d617c4982c9f56a915d4ffb9e7a0c4a35cce3a354a649a072564c0921fe`,
+511 bytes, confirmed by reading it directly off the stand over a
+read-only SSH session). `cpu_prefetch_q15_qualification_evidence_tool`
+built the real `RUNTIME_ATOMIC_LAYOUT` envelope from it (identity bound
+to session `-20`'s real facts, matching ADR-0151/0152's pattern),
+`eligible: true`, saved to `/home/omaltsev/stage17-owner-evidence/
+ext004-authoring-20/qualification-evidence-runtime-atomic-layout-
+20.json`, validates against `qualification-evidence-v1.schema.json`.
+
 ## Consequences
 
 - No real hardware time is required beyond what a normal Q15-R session
   already uses -- this wires already-computed, already-real data.
-- Required a new C++ change to the compiled worker (recompiled release
-  binary, new bundle profile, the full ADR-0138-style reachability
-  lockstep this session has repeatedly had to complete for every new
-  outer-policy generation) before this can be exercised for real on the
-  stand -- not yet done, deferred pending explicit direction.
-- Does not by itself unblock S17-EXT-004 admission: `ACTUAL_CPU_
-  MIGRATION`, `ADDRESS_RESIDENCY`, and `SELECTED_PAIR_CLOCK` remain
-  blocked by separate, larger gaps (ADR-0148, ADR-0149, ADR-0150).
-  `SOFTWARE_PREFETCH_MAPPING` (ADR-0152) is now also implemented at the
-  wiring level.
+- Now exercised for real end to end: real session `-20` produced the raw
+  artifact, and a real, eligible, schema-valid envelope was built from
+  it (see above).
+- Does not by itself unblock S17-EXT-004 admission: `ADDRESS_RESIDENCY`
+  has no raw data for session `-20` (published only after ADR-0149) and
+  `SELECTED_PAIR_CLOCK` has no real raw data anywhere yet. `ACTUAL_CPU_
+  MIGRATION` (ADR-0148) and `SOFTWARE_PREFETCH_MAPPING` (ADR-0152) also
+  now have real, eligible session `-20` envelopes.

@@ -106,20 +106,36 @@ the accepted single-CPU-on-producer-role case and a single-CPU-off-pair
 negative case; `cpu_prefetch_runner_tests` (21/21, including all prior
 cases) passes.
 
+## Real envelope (session -20, toward an S17-EXT-004 admission attempt)
+
+Exercised for real, including the eligibility-check amendment above:
+real session `-20` produced a real `q15-r-cpu-migration-raw-v1.json`
+(sha256 `cc74c236e05b8ae883f0ed2d7e00b6adb83956c563b4dc412859a957dd2515eb`,
+478 bytes, confirmed by reading it directly off the stand over a
+read-only SSH session). `cpu_prefetch_q15_qualification_evidence_tool`
+built the real `ACTUAL_CPU_MIGRATION` envelope from it: all four
+`producer_*`/`consumer_*` CPU fields real `0` (the single real CPU
+Q15-R ran on), `producer_migration_count`/`consumer_migration_count`
+real `0`, both `singleton_affinity` real `true` -- exactly the
+degenerate single-CPU case the amendment above exists for, now confirmed
+against real hardware data rather than only the synthetic unit test.
+`eligible: true`, saved to `/home/omaltsev/stage17-owner-evidence/
+ext004-authoring-20/qualification-evidence-actual-cpu-migration-
+20.json`, validates against `qualification-evidence-v1.schema.json`.
+
 ## Consequences
 
 - No real hardware time is required beyond what a normal Q15-R session
   already uses -- this wires already-computed, already-real data, with no
   perturbation risk since nothing new was added to the measured path.
-- Required a new C++ change to the compiled worker (recompiled release
-  binary, new bundle profile, the reachability-lockstep dance this
-  session has repeatedly had to complete for every new outer-policy
-  generation) before this can be exercised for real on the stand -- not
-  yet done, deferred pending explicit direction.
+- Now exercised for real end to end, including the amendment above: real
+  session `-20` produced the raw artifact, and a real, eligible,
+  schema-valid envelope was built from it (see above).
 - Does not by itself unblock S17-EXT-004 admission: `ADDRESS_RESIDENCY`
-  (ADR-0149) and `SELECTED_PAIR_CLOCK` (ADR-0150) remain unstarted, larger
-  gaps. `RUNTIME_ATOMIC_LAYOUT` (ADR-0147) and `SOFTWARE_PREFETCH_MAPPING`
-  (ADR-0152) are already implemented at the wiring level.
+  has no raw data for session `-20` (published only after ADR-0149) and
+  `SELECTED_PAIR_CLOCK` has no real raw data anywhere yet. `RUNTIME_
+  ATOMIC_LAYOUT` (ADR-0147) and `SOFTWARE_PREFETCH_MAPPING` (ADR-0152)
+  also now have real, eligible session `-20` envelopes.
 - This ADR's original "requires careful measured-path scoping" framing
   should not be assumed to generalize to ADR-0149/ADR-0150 without its
   own investigation; the favorable outcome here came specifically from

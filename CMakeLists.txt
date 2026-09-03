@@ -123,6 +123,7 @@ add_library(
   cpu_prefetch_timing STATIC
   src/timing/capture.cpp
   src/timing/clock.cpp
+  src/timing/cross_core_exchange.cpp
   src/timing/intervals.cpp
   src/timing/qualification.cpp)
 add_library(cpu_prefetch::timing ALIAS cpu_prefetch_timing)
@@ -189,6 +190,7 @@ target_include_directories(
 add_library(
   cpu_prefetch_q15_qualification STATIC
   src/qualification/p4_k_a_controller.cpp
+  src/qualification/q15_clock_pair_qualification.cpp
   src/qualification/q15_controller.cpp
   src/qualification/q15_collectors.cpp
   src/qualification/q15_prestate.cpp
@@ -347,6 +349,18 @@ target_link_libraries(
     cpu_prefetch::foundation
     cpu_prefetch::platform
     cpu_prefetch::q15_qualification
+    cpu_prefetch_project_options)
+
+add_executable(
+  cpu_prefetch_q15_clock_qualification_tool
+  tools/q15_clock_qualification_tool_main.cpp)
+target_link_libraries(
+  cpu_prefetch_q15_clock_qualification_tool
+  PRIVATE
+    cpu_prefetch::platform
+    cpu_prefetch::q15_qualification
+    cpu_prefetch::runner
+    cpu_prefetch::timing
     cpu_prefetch_project_options)
 
 add_executable(cpu_prefetch_q15_controller tools/q15_controller_main.cpp)
@@ -542,6 +556,20 @@ if(BUILD_TESTING)
     cpu_prefetch_q15_collector_tests
     PREFIX "q15.collector."
     PROPERTIES LABELS "q15;qualification;platform;synthetic")
+
+  add_executable(
+    cpu_prefetch_q15_clock_pair_qualification_tests
+    tests/q15_clock_pair_qualification_test.cpp)
+  target_link_libraries(
+    cpu_prefetch_q15_clock_pair_qualification_tests
+    PRIVATE
+      cpu_prefetch::q15_qualification
+      cpu_prefetch_project_options
+      GTest::gtest_main)
+  gtest_discover_tests(
+    cpu_prefetch_q15_clock_pair_qualification_tests
+    PREFIX "q15.clock_pair."
+    PROPERTIES LABELS "q15;qualification;timing")
 
   add_executable(
     cpu_prefetch_q15_controller_tests
@@ -1613,6 +1641,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_msr.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_runtime.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/p4_k_a_controller.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_clock_pair_qualification.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_collectors.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_controller.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/qualification/q15_prestate.hpp"
@@ -1634,6 +1663,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/raw_observations.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/capture.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/clock.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/cross_core_exchange.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/intervals.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/qualification.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/workload/deterministic.hpp"
@@ -1655,6 +1685,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/q15_clock_pair_qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_prestate.cpp"
@@ -1679,6 +1710,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/storage/raw_observations.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/clock.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/cross_core_exchange.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/intervals.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/deterministic.cpp"
@@ -1701,6 +1733,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_collectors_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_clock_pair_qualification_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_prestate_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_msr_tool_test.cpp"
@@ -1739,6 +1772,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_qualification_tool_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_clock_qualification_tool_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_prestate_collector_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"
@@ -1771,6 +1805,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
+  "${PROJECT_SOURCE_DIR}/src/qualification/q15_clock_pair_qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_prestate.cpp"
@@ -1795,6 +1830,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/storage/raw_observations.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/clock.cpp"
+  "${PROJECT_SOURCE_DIR}/src/timing/cross_core_exchange.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/intervals.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/deterministic.cpp"
@@ -1816,6 +1852,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_collectors_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/q15_clock_pair_qualification_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_prestate_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_msr_tool_test.cpp"
@@ -1854,6 +1891,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_qualification_tool_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/q15_clock_qualification_tool_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_controller_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/q15_prestate_collector_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/workload_codegen_mutant.cpp"

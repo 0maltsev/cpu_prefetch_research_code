@@ -1,6 +1,6 @@
 # 0150. Stage 17 S17-EXT-004 selected-pair-clock real invocation
 
-Status: PROPOSED (design)
+Status: ACCEPTED
 
 ## Context
 
@@ -128,31 +128,125 @@ every Q15-R session.
    - Publishes raw results as a sibling artifact, the same pattern as
      ADR-0147/0148/0152, for later authoring into the final envelope.
 
-Real cost: at minimum `kCrossCoreWindowCount *
-kMinimumCrossCoreWindowStartSpanNanoseconds` = 180 real, uninterruptible
-seconds per pair for the cross-core windows alone, plus per-core sampling
-(low hundreds of milliseconds to a few seconds at accepted `clock_
-gettime` call latencies for 10.1M calls per core) -- three real minutes
-per pair, twice if both NEAR and FAR pairs are qualified.
+Real cost, refined by the implementation below: each direction's own
+window set spans `kMinimumCrossCoreWindowStartSpanNanoseconds` (60s)
+start-to-start, and the two directions run sequentially on the same pair
+of threads (producer-to-consumer, then consumer-to-producer) -- roughly
+two real minutes per pair for the cross-core phase, plus per-core
+sampling (low hundreds of milliseconds to a few seconds at accepted
+`clock_gettime` call latencies for 10.1M calls per core), twice if both
+NEAR and FAR pairs are qualified.
 
-This ADR still does not implement the above. It records a concrete,
-investigated design so a future implementation session (or a follow-up
-in this one) does not need to re-derive it, consistent with how ADR-0147
-first recorded its own finding before a later pass implemented it.
+## Implementation
+
+Built and verified locally (no real stand execution -- this machine is
+not the accepted Xeon 06_55H stand, and its 12 logical CPUs don't even
+include CPU 26, the FAR pair's second CPU):
+
+- `timing::CrossCoreExchangeSlot`/`CrossCoreExchangeChannel`
+  (`include/cpu_prefetch/timing/cross_core_exchange.hpp`, `src/timing/
+  cross_core_exchange.cpp`): the atomic ping-pong primitive from (b.1)
+  above, three cache-line-separated `std::atomic<uint64_t>` per slot
+  (sequence, and a two-word payload so a responder can transmit both of
+  its own timestamps back in one publish), bounded busy-spin with an
+  injectable `max_spins` (production default 2 billion; tests pass a
+  small bound to exercise the timeout path without waiting). Its own
+  `atomic_lock_free_evidence()` mirrors `queue::RingSpscQueue`'s own
+  pattern exactly, verified via a dedicated unit test rather than a
+  dual-disassembler codegen probe/mutant pair: unlike the D-047 mapping,
+  this primitive uses only standard `std::atomic` load/store/fetch_add,
+  which the C++ standard already guarantees correct codegen for -- there
+  is no "compiler silently substitutes the wrong instruction" risk a
+  hand-written-asm mapping has, so a codegen-probe/mutant pair would
+  duplicate a guarantee the language already provides. Verified clean
+  under ThreadSanitizer and ASan/UBSan, plus 20 repeated runs with no
+  flakiness.
+- `qualification::run_clock_pair_qualification` (`include/cpu_prefetch/
+  qualification/q15_clock_pair_qualification.hpp`, `src/qualification/
+  q15_clock_pair_qualification.cpp`): the (b.2) orchestration -- spawns
+  two real OS threads, each independently runs its own per-core prime/
+  delta phase via `timing::read_monotonic_raw_absolute()` while pinned
+  through the existing `bind_current_thread`/`singleton_affinity_
+  matches` primitives, then the two threads run the cross-core phase
+  (paced window starts, sequential producer-to-consumer then consumer-
+  to-producer directions) and feed the results into the unmodified
+  `timing::evaluate_per_core_qualification`/`evaluate_cross_core_pair`.
+  Repeat scale is a parameter (`ClockPairQualificationCounts`), not
+  hard-coded, specifically so the mechanism is testable at reduced scale
+  without touching the real, frozen production constants (`kAccepted
+  ClockPairQualificationCounts`). This function performs no CPU-family/
+  model check itself, the same separation `platform::run_q15_probe_pass`
+  already uses; a caller that wants the result trusted as real evidence
+  must gate that itself.
+- `tools/q15_clock_qualification_tool_main.cpp` (`cpu_prefetch_q15_
+  clock_qualification_tool`): the gated real command surface --
+  `--self-test` exercises only the exchange primitive with a synthetic
+  clock (touches no hardware, matching every other q15 tool's
+  `device=NOT_OPENED` self-test convention); `--qualify-pair near|far`
+  requires family 06 model 55H before calling `run_clock_pair_
+  qualification` with the real frozen constants. Verified: `--self-test`
+  passes; `--qualify-pair` on this (non-accepted, non-06_55H) machine
+  correctly fails closed at the family/model gate before touching any
+  thread or clock, exactly as intended.
+- `tests/q15_clock_pair_qualification_test.cpp`: a real (not
+  synthetic-clock), reduced-scale (1,000 prime / 5,000 delta / 3 windows
+  of 200 exchanges / 200ms window span, vs. the frozen 100,000/
+  10,000,000/3/100,000/60s) end-to-end run of `run_clock_pair_
+  qualification` on real CPUs 0 and 1, completing in ~400ms. Verifies
+  the substantive, scale-independent correctness properties (zero call/
+  timespec failures, zero causal regressions, affinity held throughout,
+  a genuinely nonempty and tightly bracketed clock-offset interval per
+  window) while correctly expecting the frozen-threshold booleans
+  (`prime_count_passes`, `accepted_policy_sample_count`, `window_span_
+  passes`, the aggregate `passes`) to read false at reduced scale, since
+  those specific checks compare against the frozen global constants
+  directly, not against the test's own smaller counts. Stable across ten
+  repeated runs and clean under ThreadSanitizer.
+
+Also fixed during implementation, caught by review before building: the
+first draft of `run_direction_initiator` returned `CrossCoreWindowInput`
+values whose `exchanges` spans pointed into a vector-of-vectors local to
+that same function -- a dangling-span bug once the function returned.
+Fixed by having it return an owning `DirectionCapture` struct instead,
+with the caller building the transient `CrossCoreWindowInput` spans only
+after the owning captures are safely held in its own, longer-lived
+scope.
+
+Verified: `cmake --build --preset dev-gcc` (full default target set)
+succeeds, including the new `cpu_prefetch_q15_clock_qualification_tool`
+and `cpu_prefetch_q15_clock_pair_qualification_tests` targets; all 6 new
+tests (4 `TimingCrossCoreExchange`, 2 `Q15ClockPairQualification`) pass,
+individually confirmed via `ctest --test-dir build/dev-gcc -R
+"^TimingCrossCoreExchange|^Q15ClockPairQualification"`; clean under the
+`tsan-gcc` and `asan-ubsan-gcc` presets for both new test binaries; no
+regressions in the rest of the existing suite (`ctest --test-dir
+build/dev-gcc`, 100% pass apart from two pre-existing, environment-
+dependent failures confirmed unrelated to this work by reproducing them
+identically with this session's changes stashed out: one needs
+`/proc/1/ns/pid` read access this shell does not have, the other needs a
+"classified dry-run bundle" state this build tree does not currently
+have materialized).
+
+Not yet done, and out of scope without a separate, explicit decision:
+running `--qualify-pair` at the real frozen scale on the accepted stand
+(the only environment that can produce real `SELECTED_PAIR_CLOCK`
+evidence), and the Python authoring tool that would wrap its raw output
+into the final schema-compliant envelope (ADR-0151's pattern).
 
 ## Consequences
 
-- This remains real, separate scientific/engineering work, now with a
-  concrete design rather than an open question -- still not a quick
-  follow-up to ADR-0147/0148/0152.
+- The mechanism is now real, implemented, and verified at reduced scale
+  on real (non-accepted) hardware -- what remains is exclusively real
+  stand time at full frozen scale, not further design or engineering
+  risk.
 - Introduces one genuinely new low-level primitive (the atomic ping-pong
-  exchange pair) that needs its own codegen/atomic-safety verification
-  before being trusted, mirroring the discipline already applied to the
-  D-047 mapping and the SPSC queue's own atomics.
+  exchange pair), verified via unit tests plus ThreadSanitizer/ASan/
+  UBSan rather than a dual-disassembler codegen pair, for the reasons
+  recorded above.
 - Requires new real-stand time distinct from and larger than a normal
-  Q15-R session (minutes, not the seconds a Q15-R H0 baseline takes) --
-  should be scheduled and confirmed explicitly, not run opportunistically
-  alongside another action.
+  Q15-R session (roughly two real minutes per pair, not the seconds a
+  Q15-R H0 baseline takes) -- should be scheduled and confirmed
+  explicitly, not run opportunistically alongside another action.
 - Blocks S17-EXT-004 admission independent of whether ADR-0147/0148/0149
   are completed -- all five `QUALIFICATION_EVIDENCE` kinds are required,
   so S17-EXT-004 cannot be built until this is resolved too.

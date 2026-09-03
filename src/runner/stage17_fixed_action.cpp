@@ -607,10 +607,40 @@ struct Q15PhaseSession final {
   if (!document) {
     return protocol::Result<ActionOutcome>::failure(document.errors());
   }
+  auto atomic_layout_raw = canonical(JsonObject{
+      {"schema_version",
+       string_value("cpu-prefetch-stage17-q15-r-atomic-layout-raw/1")},
+      {"session_id", string_value(session.session_id)},
+      {"qualification_id", string_value(*string_member(input, "qualification_id"))},
+      {"pointer_atomic_width_bytes", uint_value(atomics.atomic_pointer_width_bytes)},
+      {"pointer_atomic_alignment_bytes",
+       uint_value(atomics.atomic_pointer_alignment_bytes)},
+      {"termination_atomic_width_bytes",
+       uint_value(termination_evidence.atomic_width_bytes)},
+      {"termination_atomic_alignment_bytes",
+       uint_value(termination_evidence.atomic_alignment_bytes)},
+      {"cache_line_bytes", uint_value(layout.requested_cache_line_bytes)},
+      {"pointer_atomic_runtime_lock_free",
+       JsonValue(atomics.always_lock_free && atomics.runtime_lock_free)},
+      {"termination_atomic_runtime_lock_free",
+       JsonValue(termination_evidence.always_lock_free &&
+                 termination_evidence.runtime_lock_free)},
+      {"queue_layout_passed",
+       JsonValue(layout.bases_aligned && layout.ownership_lines_separated)},
+      {"ownership_lines_separated", JsonValue(layout.ownership_lines_separated)},
+      {"termination_dedicated_line",
+       JsonValue(termination_evidence.dedicated_cache_line)},
+  });
+  if (!atomic_layout_raw) {
+    return protocol::Result<ActionOutcome>::failure(atomic_layout_raw.errors());
+  }
   return publish_all(
       sink,
       {{"Q15_R_READ_ONLY_PRESTATE", "cpu-prefetch-stage17-q15-r-output/3",
-        "application/json", "q15-r-output-v3.json", bytes(document.value())}},
+        "application/json", "q15-r-output-v3.json", bytes(document.value())},
+       {"Q15_R_ATOMIC_LAYOUT_RAW",
+        "cpu-prefetch-stage17-q15-r-atomic-layout-raw/1", "application/json",
+        "q15-r-atomic-layout-raw-v1.json", bytes(atomic_layout_raw.value())}},
       false, false, "Q15_R_READ_ONLY_COMPLETE");
 }
 

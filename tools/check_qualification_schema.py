@@ -14,7 +14,7 @@ from jsonschema import Draft202012Validator
 def base(kind: str, details: dict[str, object]) -> dict[str, object]:
     return {
         "schema_version": "cpu-prefetch-qualification-evidence/1",
-        "protocol_version": "2.0.0-pre.2",
+        "protocol_version": "2.0.0-pre.3",
         "artifact_id": "SYNTHETIC-QUALIFICATION",
         "kind": kind,
         "stand_id": "SYNTHETIC-NOT-A-STAND",

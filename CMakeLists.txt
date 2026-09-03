@@ -2622,6 +2622,30 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking phase-controller v11's completed journal reachability fix (ADR-0142, ACCEPTED; grants no authority)")
 add_custom_target(
+  stage17-executor-v23-action-readiness-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v23_action_readiness.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking executor v23's completed journal reachability lockstep fix (ADR-0144, ACCEPTED; grants no authority)")
+add_custom_target(
+  stage17-phase-controller-v12-journal-reachability-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_phase_controller_v12_journal_reachability.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking phase-controller v12's completed journal reachability fix (ADR-0144, ACCEPTED; grants no authority)")
+add_custom_target(
+  stage17-q15-session-controller-v9-phase-controller-binding-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_q15_session_controller_v9_phase_controller_binding.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking q15-session-controller v9's phase_controller binding stays journal-current (ADR-0144, ACCEPTED; grants no authority)")
+add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND
     "${Python3_EXECUTABLE}"

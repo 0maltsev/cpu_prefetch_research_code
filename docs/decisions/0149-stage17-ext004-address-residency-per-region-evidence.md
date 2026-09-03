@@ -1,6 +1,6 @@
 # 0149. Stage 17 S17-EXT-004 per-region address-residency evidence
 
-Status: PROPOSED
+Status: ACCEPTED
 
 ## Context
 
@@ -79,10 +79,23 @@ larger in kind than ADR-0150's clock-pairing gap, where the low-level
 primitive (`read_monotonic_raw_absolute()`) was already real and simply
 needed composing into a new measurement.
 
-## Decision (proposed)
+Option 3 below revisits `qualification-evidence-v1.schema.json` itself.
+`git log --diff-filter=A -- config/schemas/qualification-evidence-v1.
+schema.json` shows the file was added in commit `b392af7` ("Close Stage
+17 pilot-candidate release mapping"), authored by the project owner
+directly, before any Stage 17 admission apparatus existed -- so unlike
+most schemas this ADR family touches, its three-region shape is not an
+inherited constraint from outside this decision's authority; the owner
+is its original author and can authorize revising it directly.
 
-Still not resolved; now better specified. Three real options, none of
-them wiring-only:
+## Decision
+
+Option 3, chosen and implemented: relax `residency_details` from three
+fixed named regions to a generic `regions` array, letting each real
+action report however many real regions it genuinely has instead of
+fabricating a producer/consumer/shared split no current action's memory
+architecture possesses. See Implementation below. The three options as
+originally scoped:
 
 1. **Extend the Pilot session with real producer-private/consumer-
    private allocations.** Add two new, genuinely separate NUMA-local
@@ -109,18 +122,97 @@ them wiring-only:
    that the current shape may not match where the project's own
    documentation places this measurement in the pipeline.
 
-No implementation should proceed until one of these is chosen.
+## Implementation
+
+`qualification-evidence-v1.schema.json`'s `residency_details` now
+requires `mechanism_id` plus a `regions` array (`minItems: 1`) of the
+already-existing, already-general `$defs/region` object -- unchanged
+itself: still `region` (self-naming) + `expected_node` + before/during/
+after/unavailable/wrong-node/migrated page counts, so no per-region
+rigor is lowered, only the outer shape (fixed field names -> array) is
+relaxed. `AddressResidencyInput` (`include/cpu_prefetch/runner/
+qualification.hpp`) now holds `std::vector<RegionResidencyInput>
+regions` instead of three named fields; `make_address_residency_evidence`
+(`src/runner/qualification.cpp`) requires every region to pass (`std::
+all_of`) and emits a `regions` JSON array in the same order.
+
+Q15-R (`src/runner/stage17_fixed_action.cpp`, `publish_q15_r`) now
+publishes a real `Q15_R_ADDRESS_RESIDENCY_RAW` artifact: its
+`regular_stream` and `pointer_dependent` probes share one physical
+buffer but are two distinct temporal measurement windows, so each is
+reported as its own honestly-named region (`regular_stream_probe_
+buffer`, `pointer_dependent_probe_buffer`) derived from the
+`Q15ResidencySnapshot`s already collected by `observation_passes`, using
+the same `unavailable`/`wrong-node`/`migrated` derivation as ADR-0148's
+`ACTUAL_CPU_MIGRATION` work. New schema `config/schemas/stage17-q15-r-
+address-residency-raw-v1.schema.json` validates the raw artifact; the
+role is registered in `stage17-operational-artifact-v4.schema.json`'s
+closed enum and the matching output entry added to `stage17-fixed-
+phase-actions-v4.json` (in the exact position `publish_all` emits it --
+applied proactively this time, learned directly from the real Q15-R
+session-19 `OutputAdmissionError: "fixed action output set differs from
+registry"` production failure earlier in this project). Policy v39
+re-rendered via `author_stage17_policy_v39.py --write` to pick up both
+pinned schema changes; 0/413 binding drift confirmed, nested preflight
+policy v27 unaffected.
+
+Incidentally confirmed rather than caused by this change:
+`src/qualification/q15_collectors.cpp`'s `collect_q15_address_residency`
+(a separate, pre-existing, production-unused function reachable only
+from `tests/q15_collectors_test.cpp`) already emitted its own JSON in a
+`regions`-array wire shape via its own independent construction path,
+not through `AddressResidencyInput` at all -- it needed no change and
+compiled unmodified, but its pre-existing shape cross-validates that an
+array-of-self-named-regions representation was already the direction
+this codebase's own prior work anticipated for this evidence kind, not
+an invention specific to this ADR. That function still hardcodes an
+expectation of exactly three regions named `CONSUMER_PRIVATE`/
+`PRODUCER_PRIVATE`/`SHARED_EVENT_AND_QUEUE` for its own "complete"
+check, so it remains specific to a possible future producer/consumer
+action and was not adapted for Q15-R's two-region case -- Q15-R's
+artifact is built directly in `publish_q15_r`, following the same
+pattern as ADR-0147/0148/0152, not routed through this collector.
+
+Verified: `tools/check_qualification_schema.py` (5 positive, 4 negative
+fixtures) passes with a `regions`-array `residency` fixture;
+`tools/check_stage17_fixed_action_production.py` and `tools/check_
+stage17_production_handoff_v4.py` (both had an identical three-key
+`ADDRESS_RESIDENCY` synthetic fixture, both updated to a `regions` list)
+pass; `tests/runner_model_test.cpp`'s two `make_address_residency_
+evidence` call sites updated to the new shape; full `cmake --build
+--preset dev-gcc` succeeds; `ctest --test-dir build/dev-gcc -L
+"q15|timing"` -- 126/126 tests pass (110 q15, 16 timing), including
+`cpu_prefetch_q15_collector_tests`, confirming no regression anywhere
+that referenced the old three-fixed-field shape.
+
+Not yet done, and out of scope without a separate, explicit decision:
+rebuilding/resealing a new stand bundle with this change, or exercising
+it for real on the accepted stand (a real Q15-R session publishing
+`Q15_R_ADDRESS_RESIDENCY_RAW`); the Python authoring tool that would
+wrap the raw artifact into the final schema-compliant `QUALIFICATION_
+EVIDENCE` envelope (ADR-0151's pattern) -- not yet built for this or any
+of the other four kinds in this family.
 
 ## Consequences
 
-- This is now assessed as a larger and more structural gap than ADR-0150
-  (SELECTED_PAIR_CLOCK), not smaller: SELECTED_PAIR_CLOCK's low-level
-  primitive was already real; `ADDRESS_RESIDENCY`'s per-region memory
-  model has never been built for any real action, only validated as
-  policy and referenced in documentation as future work.
-- Options 1 and 2 both require real, new engineering distinct from every
-  other ADR in this family (0147/0148/0150/0152); option 2 additionally
-  surfaces a real sequencing/circularity problem in how S17-EXT-004 is
-  scoped relative to Q16-family's own prerequisites.
-- Blocks S17-EXT-004 admission independent of ADR-0147/0148/0150/0152 --
-  all five `QUALIFICATION_EVIDENCE` kinds are required together.
+- Resolves S17-EXT-004's `ADDRESS_RESIDENCY` gap without fabricating a
+  producer/consumer/shared memory split no current real action's
+  architecture has, and without the circularity option 2 would have
+  introduced against Q16-family's own S17-EXT-004/005/006
+  prerequisites.
+- The schema relaxation is structural (field names -> a self-describing
+  array), not a lowered measurement bar: every existing per-region
+  pass/fail rule is unchanged and still required for every region an
+  action reports.
+- Leaves `platform::Placement`'s producer-private/consumer-private
+  fields exactly as they were -- real, validated, but still unused by
+  any production action -- available unchanged for whichever future
+  Q16-family work (or Pilot-session extension) eventually needs them;
+  this ADR does not foreclose either.
+- Was the last of the five `QUALIFICATION_EVIDENCE` kinds in this
+  family; with ADR-0147/0148/0150/0152 already ACCEPTED, all five now
+  have real, implemented, tested builders. S17-EXT-004 admission itself
+  -- which additionally needs each kind's raw artifacts wrapped into
+  final schema-compliant envelopes, and real stand execution for the
+  kinds (ADR-0150, this ADR) not yet exercised for real -- remains a
+  separate, not-yet-attempted step.

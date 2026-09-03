@@ -2678,6 +2678,30 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking the real Q15 session failure-retention schema fix (ADR-0145, ACCEPTED; grants no authority)")
 add_custom_target(
+  stage17-q15-session-execute-session-wiring-v12-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_q15_session_execute_session_wiring_v12.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking the real Q15 session execute_session wiring fix (ADR-0146, ACCEPTED; grants no authority)")
+add_custom_target(
+  stage17-phase-controller-v14-journal-reachability-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_phase_controller_v14_journal_reachability.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking phase-controller v14's completed journal reachability fix (ADR-0146, ACCEPTED; grants no authority)")
+add_custom_target(
+  stage17-executor-v25-action-readiness-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_executor_v25_action_readiness.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking executor v25's completed journal reachability lockstep fix (ADR-0146, ACCEPTED; grants no authority)")
+add_custom_target(
   stage17-pilot-candidate-profile-recognition-check
   COMMAND
     "${Python3_EXECUTABLE}"

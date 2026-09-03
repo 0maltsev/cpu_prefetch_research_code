@@ -51,6 +51,14 @@
                     "media_type": "application/json"
                 },
                 {
+                    "role": "Q15_R_ADDRESS_RESIDENCY_RAW",
+                    "schema_identity": "cpu-prefetch-stage17-q15-r-address-residency-raw/1",
+                    "schema_path": "config/schemas/stage17-q15-r-address-residency-raw-v1.schema.json",
+                    "cardinality": "EXACTLY_ONE",
+                    "file_pattern": "q15-r-address-residency-raw-v1.json",
+                    "media_type": "application/json"
+                },
+                {
                     "role": "Q15_R_SOFTWARE_PREFETCH_RAW",
                     "schema_identity": "cpu-prefetch-stage17-q15-r-software-prefetch-raw/1",
                     "schema_path": "config/schemas/stage17-q15-r-software-prefetch-raw-v1.schema.json",

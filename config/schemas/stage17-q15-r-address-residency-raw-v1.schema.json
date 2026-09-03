@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17-q15-r-address-residency-raw:v1",
+  "title": "Q15-R raw per-region page-residency observation, pre-qualification-envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "qualification_id",
+    "mechanism_id",
+    "regions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-q15-r-address-residency-raw/1"
+    },
+    "session_id": {"type": "string", "minLength": 1},
+    "qualification_id": {"type": "string", "minLength": 1},
+    "mechanism_id": {"type": "string", "minLength": 1},
+    "regions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "region",
+          "expected_node",
+          "before_page_count",
+          "during_page_count",
+          "after_page_count",
+          "unavailable_page_count",
+          "wrong_node_page_count",
+          "migrated_page_count"
+        ],
+        "properties": {
+          "region": {"type": "string", "minLength": 1},
+          "expected_node": {"type": "integer", "minimum": 0},
+          "before_page_count": {"type": "integer", "minimum": 0},
+          "during_page_count": {"type": "integer", "minimum": 0},
+          "after_page_count": {"type": "integer", "minimum": 0},
+          "unavailable_page_count": {"type": "integer", "minimum": 0},
+          "wrong_node_page_count": {"type": "integer", "minimum": 0},
+          "migrated_page_count": {"type": "integer", "minimum": 0}
+        }
+      }
+    }
+  }
+}

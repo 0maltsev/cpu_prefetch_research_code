@@ -98,11 +98,14 @@ struct RegionResidencyInput final {
   std::uint64_t migrated_page_count;
 };
 
+// ADR-0149: the region set is action-defined, not fixed to a producer/
+// consumer/shared shape -- a single-buffer action like Q15-R honestly
+// reports one region; an action with real separately-owned producer and
+// consumer memory can report more, each self-named via its own `region`
+// field.
 struct AddressResidencyInput final {
   std::string mechanism_id;
-  RegionResidencyInput shared_event_and_queue_pages;
-  RegionResidencyInput producer_private_pages;
-  RegionResidencyInput consumer_private_pages;
+  std::vector<RegionResidencyInput> regions;
 };
 
 struct SoftwarePrefetchMappingInput final {

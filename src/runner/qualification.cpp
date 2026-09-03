@@ -266,18 +266,19 @@ auto make_actual_cpu_migration_evidence(const QualificationIdentity& identity,
 auto make_address_residency_evidence(const QualificationIdentity& identity,
                                      const AddressResidencyInput& input)
     -> protocol::Result<QualificationArtifact> {
-  const bool eligible = !input.mechanism_id.empty() &&
-                        region_passes(input.shared_event_and_queue_pages) &&
-                        region_passes(input.producer_private_pages) &&
-                        region_passes(input.consumer_private_pages);
+  const bool eligible =
+      !input.mechanism_id.empty() && !input.regions.empty() &&
+      std::all_of(input.regions.begin(), input.regions.end(), region_passes);
+  JsonArray regions_json;
+  regions_json.reserve(input.regions.size());
+  for (const auto& region : input.regions) {
+    regions_json.push_back(region_json(region));
+  }
   return make_artifact(
       identity, QualificationEvidenceKind::address_residency, eligible,
       protocol::json::Value(JsonObject{
-          {"consumer_private_pages", region_json(input.consumer_private_pages)},
           {"mechanism_id", protocol::json::Value(input.mechanism_id)},
-          {"producer_private_pages", region_json(input.producer_private_pages)},
-          {"shared_event_and_queue_pages",
-           region_json(input.shared_event_and_queue_pages)},
+          {"regions", protocol::json::Value(std::move(regions_json))},
       }));
 }
 

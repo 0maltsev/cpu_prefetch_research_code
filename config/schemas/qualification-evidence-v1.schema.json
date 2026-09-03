@@ -209,15 +209,15 @@
       "additionalProperties": false,
       "required": [
         "mechanism_id",
-        "shared_event_and_queue_pages",
-        "producer_private_pages",
-        "consumer_private_pages"
+        "regions"
       ],
       "properties": {
         "mechanism_id": {"$ref": "#/$defs/nonempty"},
-        "shared_event_and_queue_pages": {"$ref": "#/$defs/region"},
-        "producer_private_pages": {"$ref": "#/$defs/region"},
-        "consumer_private_pages": {"$ref": "#/$defs/region"}
+        "regions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/region"}
+        }
       }
     },
     "software_prefetch_mapping_details": {

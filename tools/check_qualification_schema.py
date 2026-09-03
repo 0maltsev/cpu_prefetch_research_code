@@ -81,9 +81,7 @@ def fixtures() -> list[dict[str, object]]:
     }
     residency = {
         "mechanism_id": "SYNTHETIC-MECHANISM",
-        "shared_event_and_queue_pages": region,
-        "producer_private_pages": region,
-        "consumer_private_pages": region,
+        "regions": [region],
     }
     software_prefetch = {
         "mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",

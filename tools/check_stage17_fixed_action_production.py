@@ -866,19 +866,19 @@ class Fixture:
                 },
                 "ADDRESS_RESIDENCY": {
                     "mechanism_id": "SYNTHETIC-MOVE-PAGES-v1",
-                    **{
-                        name: {"region": name, "expected_node": 0,
-                               "before_page_count": 1,
-                               "during_page_count": 1,
-                               "after_page_count": 1,
-                               "unavailable_page_count": 0,
-                               "wrong_node_page_count": 0,
-                               "migrated_page_count": 0}
+                    "regions": [
+                        {"region": name, "expected_node": 0,
+                         "before_page_count": 1,
+                         "during_page_count": 1,
+                         "after_page_count": 1,
+                         "unavailable_page_count": 0,
+                         "wrong_node_page_count": 0,
+                         "migrated_page_count": 0}
                         for name in (
                             "shared_event_and_queue_pages",
                             "producer_private_pages", "consumer_private_pages"
                         )
-                    },
+                    ],
                 },
                 "SOFTWARE_PREFETCH_MAPPING": {
                     "mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",

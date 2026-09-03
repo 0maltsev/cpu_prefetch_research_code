@@ -699,6 +699,77 @@ struct Q15PhaseSession final {
   if (!cpu_migration_raw) {
     return protocol::Result<ActionOutcome>::failure(cpu_migration_raw.errors());
   }
+  // ADR-0149: Q15-R's regular_stream and pointer_dependent probes share one
+  // physical buffer but are two distinct temporal measurement windows, so
+  // both are reported as their own honestly-named region rather than
+  // collapsed into one. unavailable/wrong-node counts are summed across the
+  // before/during/after snapshots of each region (not deduplicated by page
+  // index): observation_passes above already requires every snapshot of
+  // both probes to individually pass Q15ResidencySnapshot::passes, so a
+  // published session always has zero here regardless of counting choice.
+  const auto residency_region =
+      [](std::string_view name, std::uint32_t expected_node,
+        const platform::Q15ResidencySnapshot& before,
+        const platform::Q15ResidencySnapshot& during,
+        const platform::Q15ResidencySnapshot& after) {
+        const auto count_unavailable = [](const platform::Q15ResidencySnapshot& snap) {
+          return static_cast<std::uint64_t>(std::count_if(
+              snap.page_nodes.begin(), snap.page_nodes.end(),
+              [](std::int32_t node) { return node < 0; }));
+        };
+        const auto count_wrong_node =
+            [expected_node](const platform::Q15ResidencySnapshot& snap) {
+              return static_cast<std::uint64_t>(std::count_if(
+                  snap.page_nodes.begin(), snap.page_nodes.end(),
+                  [expected_node](std::int32_t node) {
+                    return node >= 0 &&
+                           static_cast<std::uint32_t>(node) != expected_node;
+                  }));
+            };
+        std::uint64_t migrated = 0U;
+        for (std::size_t index = 0U;
+            index < before.page_nodes.size() && index < after.page_nodes.size();
+            ++index) {
+          if (before.page_nodes[index] != after.page_nodes[index]) {
+            ++migrated;
+          }
+        }
+        return JsonValue(JsonObject{
+            {"region", string_value(std::string(name))},
+            {"expected_node", uint_value(expected_node)},
+            {"before_page_count", uint_value(before.page_nodes.size())},
+            {"during_page_count", uint_value(during.page_nodes.size())},
+            {"after_page_count", uint_value(after.page_nodes.size())},
+            {"unavailable_page_count",
+             uint_value(count_unavailable(before) + count_unavailable(during) +
+                       count_unavailable(after))},
+            {"wrong_node_page_count",
+             uint_value(count_wrong_node(before) + count_wrong_node(during) +
+                       count_wrong_node(after))},
+            {"migrated_page_count", uint_value(migrated)},
+        });
+      };
+  JsonArray residency_regions;
+  residency_regions.push_back(residency_region(
+      "regular_stream_probe_buffer", session.memory->numa_node(),
+      regular_observation.before_residency, regular_observation.during_residency,
+      regular_observation.after_residency));
+  residency_regions.push_back(residency_region(
+      "pointer_dependent_probe_buffer", session.memory->numa_node(),
+      pointer_observation.before_residency, pointer_observation.during_residency,
+      pointer_observation.after_residency));
+  auto address_residency_raw = canonical(JsonObject{
+      {"schema_version",
+       string_value("cpu-prefetch-stage17-q15-r-address-residency-raw/1")},
+      {"session_id", string_value(session.session_id)},
+      {"qualification_id", string_value(*string_member(input, "qualification_id"))},
+      {"mechanism_id",
+       string_value(std::string("LINUX_MOVE_PAGES_PER_PAGE_NUMA_NODE_QUERY"))},
+      {"regions", JsonValue(std::move(residency_regions))},
+  });
+  if (!address_residency_raw) {
+    return protocol::Result<ActionOutcome>::failure(address_residency_raw.errors());
+  }
   return publish_all(
       sink,
       {{"Q15_R_READ_ONLY_PRESTATE", "cpu-prefetch-stage17-q15-r-output/3",
@@ -706,6 +777,9 @@ struct Q15PhaseSession final {
        {"Q15_R_ATOMIC_LAYOUT_RAW",
         "cpu-prefetch-stage17-q15-r-atomic-layout-raw/1", "application/json",
         "q15-r-atomic-layout-raw-v1.json", bytes(atomic_layout_raw.value())},
+       {"Q15_R_ADDRESS_RESIDENCY_RAW",
+        "cpu-prefetch-stage17-q15-r-address-residency-raw/1", "application/json",
+        "q15-r-address-residency-raw-v1.json", bytes(address_residency_raw.value())},
        {"Q15_R_SOFTWARE_PREFETCH_RAW",
         "cpu-prefetch-stage17-q15-r-software-prefetch-raw/1", "application/json",
         "q15-r-software-prefetch-raw-v1.json", bytes(software_prefetch_raw.value())},

@@ -363,7 +363,7 @@ TEST(RunnerQualification, TypedArtifactProducersDeriveEligibilityAndCanonicalByt
   const RegionResidencyInput producer{"PRODUCER_PRIVATE", 0U, 2U, 2U, 2U, 0U, 0U, 0U};
   const RegionResidencyInput consumer{"CONSUMER_PRIVATE", 0U, 2U, 2U, 2U, 0U, 0U, 0U};
   const auto residency = make_address_residency_evidence(
-      identity, {"SYNTHETIC-RESIDENCY-MECHANISM", shared, producer, consumer});
+      identity, {"SYNTHETIC-RESIDENCY-MECHANISM", {shared, producer, consumer}});
   ASSERT_TRUE(residency.has_value());
   EXPECT_TRUE(residency.value().eligible);
 
@@ -413,7 +413,7 @@ TEST(RunnerQualification, MissingCountsMigrationsAndUnavailablePagesStayIneligib
       "SHARED_EVENT_AND_QUEUE", 0U, 4U, 4U, 4U, 1U, 0U, 0U};
   const auto residency = make_address_residency_evidence(
       identity,
-      {"SYNTHETIC-RESIDENCY-MECHANISM", unavailable, unavailable, unavailable});
+      {"SYNTHETIC-RESIDENCY-MECHANISM", {unavailable, unavailable, unavailable}});
   ASSERT_TRUE(residency.has_value());
   EXPECT_FALSE(residency.value().eligible);
 

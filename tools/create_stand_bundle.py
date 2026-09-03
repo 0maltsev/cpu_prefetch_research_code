@@ -19,8 +19,8 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v19"
-STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v16"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v20"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v17"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
@@ -437,12 +437,12 @@ def main() -> int:
             # validators and also materialize the controller's exact paths.
             copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
             # The dry-run profile's own identity (STAGE17-HERMETIC-DRY-RUN-
-            # BUNDLE-v3) and the real candidate profile (v19) both bind the
-            # complete v38/v26 successor chain (ADR-0124..0145), now the
+            # BUNDLE-v3) and the real candidate profile (v20) both bind the
+            # complete v39/v27 successor chain (ADR-0124..0146), now the
             # promoted, documented production path; they differ only in
             # worker binaries, synthetic_test_only, and the wider
             # characterization-suite file set the dry-run profile carries
-            # below. The predecessor v37/v25 chain remains immutable and
+            # below. The predecessor v38/v26 chain remains immutable and
             # readable at its own exact paths for anyone verifying history.
             # ADR-0138 moves the outer policy (v31 -> v32, S17-EXT-002
             # schema-binding completion, no preflight-plan change); ADR-0139
@@ -464,9 +464,13 @@ def main() -> int:
             # outer policy (v37 -> v38) and the nested preflight-plan
             # policy (v25 -> v26) again, this time folding a real Q15
             # session failure-retention schema fix's own bindings-
-            # completion and reachability lockstep into one generation.
+            # completion and reachability lockstep into one generation;
+            # ADR-0146 moves both the outer policy (v38 -> v39) and the
+            # nested preflight-plan policy (v26 -> v27) again, folding in
+            # the real Q15 session execute_session wiring fix ADR-0145's
+            # own rebind never actually reached.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v38.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v39.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
@@ -514,14 +518,14 @@ def main() -> int:
                 "authority_embedded": False,
                 "repository_evidence_roots": ["config", "docs"],
             }
-            # Policy v38 binds the complete preflight policy v26 by exact
+            # Policy v39 binds the complete preflight policy v27 by exact
             # bytes. The nested policy also binds compatibility modules by
             # pathname without importing them into the current Python closure.
             # Carry those exact files so production admission does not depend
             # on the wider test-only source projection.
             nested_policy_relative = pathlib.Path(
                 "config/stage17/"
-                "stage17-read-only-preflight-evidence-admission-policy-v26.json"
+                "stage17-read-only-preflight-evidence-admission-policy-v27.json"
             )
             nested_policy_path = root / nested_policy_relative
             nested_policy = json.loads(nested_policy_path.read_text(encoding="utf-8"))

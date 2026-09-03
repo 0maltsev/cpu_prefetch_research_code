@@ -1,6 +1,6 @@
 # 0147. Stage 17 S17-EXT-004 runtime-atomic-layout evidence wiring
 
-Status: PROPOSED
+Status: ACCEPTED
 
 ## Context
 
@@ -54,28 +54,53 @@ already-implemented, already-tested builder with data already computed,
 and writing the resulting `QualificationArtifact.canonical_json` to disk
 as a new, versioned artifact.
 
-## Decision (proposed)
+## Decision
 
-Extend `publish_q15_r` (or a narrow sibling function it calls) to build a
-`RuntimeAtomicLayoutInput` from the `atomics`/`layout`/`termination_
-evidence` locals it already computes, call `make_runtime_atomic_layout_
-evidence`, and publish the resulting artifact alongside `q15-r-output-v3.
-json` via the existing `ArtifactSink` mechanism `publish_all` already
-uses.
+Extend `publish_q15_r` to build the `RuntimeAtomicLayoutInput`-shaped
+fields from the `atomics`/`layout`/`termination_evidence` locals it
+already computes, and publish them as a new, additive sibling artifact
+alongside `q15-r-output-v3.json` via the existing `ArtifactSink`
+mechanism `publish_all` already uses.
 
-This ADR does not implement the above; it records the real, verified
-feasibility finding and the specific real code locations involved, so a
-future implementation session does not need to re-derive them.
+## Implementation
+
+`publish_q15_r` now also publishes `Q15_R_ATOMIC_LAYOUT_RAW` (`q15-r-
+atomic-layout-raw-v1.json`, new schema `stage17-q15-r-atomic-layout-raw-
+v1.schema.json`), a pure sibling addition -- `q15-r-output-v3.json`
+itself is unchanged. Building this surfaced a real, previously-latent
+bug: `qualification-evidence-v1.schema.json`'s `protocol_version` const
+was pinned to the stale `2.0.0-pre.2` while the live `protocol::
+kProtocolVersion` is `2.0.0-pre.3`; every `make_*_evidence` builder would
+have produced schema-invalid output. Fixed alongside this change (both
+the schema const and `tools/check_qualification_schema.py`'s matching
+synthetic fixture).
+
+Verified: `cmake --build --preset dev-gcc` (full default target set)
+succeeds; `cpu_prefetch_runner_tests` (20/20, including the
+`Stage17FixedAction` suite) passes; `check_qualification_schema.py` and
+`check_runner_schema.py` both pass.
+
+Chose to build the raw, un-enveloped fields as a new artifact (rather
+than calling `make_runtime_atomic_layout_evidence` directly from the
+worker) because `QualificationIdentity`'s `stand_id`/`binding_id`/
+`binary_sha256` fields are external-identity concepts the compiled
+worker cannot cheaply and correctly self-derive; a later Python
+authoring tool (mirroring ADR-0151's pattern) wraps this raw artifact
+into the final schema-compliant envelope using real, externally-known
+facts, the same way `RUNTIME_IDENTITY`/`PLATFORM_MANIFEST` were already
+hand-authored this session.
 
 ## Consequences
 
 - No real hardware time is required beyond what a normal Q15-R session
   already uses -- this wires already-computed, already-real data.
-- Requires a new C++ change to the compiled worker (recompiled release
+- Required a new C++ change to the compiled worker (recompiled release
   binary, new bundle profile, the full ADR-0138-style reachability
   lockstep this session has repeatedly had to complete for every new
-  outer-policy generation).
+  outer-policy generation) before this can be exercised for real on the
+  stand -- not yet done, deferred pending explicit direction.
 - Does not by itself unblock S17-EXT-004 admission: `ACTUAL_CPU_
-  MIGRATION`, `ADDRESS_RESIDENCY`, `SELECTED_PAIR_CLOCK`, and now
-  `SOFTWARE_PREFETCH_MAPPING` remain blocked by separate, larger gaps
-  (ADR-0148, ADR-0149, ADR-0150, ADR-0152).
+  MIGRATION`, `ADDRESS_RESIDENCY`, and `SELECTED_PAIR_CLOCK` remain
+  blocked by separate, larger gaps (ADR-0148, ADR-0149, ADR-0150).
+  `SOFTWARE_PREFETCH_MAPPING` (ADR-0152) is now also implemented at the
+  wiring level.

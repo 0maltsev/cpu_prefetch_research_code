@@ -230,8 +230,46 @@ have materialized).
 Not yet done, and out of scope without a separate, explicit decision:
 running `--qualify-pair` at the real frozen scale on the accepted stand
 (the only environment that can produce real `SELECTED_PAIR_CLOCK`
-evidence), and the Python authoring tool that would wrap its raw output
-into the final schema-compliant envelope (ADR-0151's pattern).
+evidence).
+
+## Raw artifact, envelope wiring, and the static-clock VDSO tracer
+
+Since the above: `--qualify-pair --output PATH` now writes a real,
+partial raw artifact (schema `stage17-q15-clock-pair-raw-v1`) covering
+everything the pair-qualification measurement itself produces --
+deliberately excluding `traced_call_count`/`traced_syscall_count`/
+`before_block_repeat`, which have no real source in that measurement.
+`cpu_prefetch_q15_qualification_evidence_tool --kind SELECTED_PAIR_CLOCK`
+wraps that raw artifact into the real `qualification-evidence-v1`
+envelope, taking those three missing fields as required, never-defaulted
+CLI flags instead (in C++, following the same "don't reimplement
+eligibility logic in a second language" decision as the other four
+kinds, not the Python pattern originally sketched here).
+
+Those three fields are a *different* real gap from `SELECTED_PAIR_CLOCK`
+itself: they belong to `StaticClockEvidenceInput`/
+`evaluate_static_clock_evidence` (Stage 8's own static clock
+qualification, `timing/qualification.hpp`), not to the per-core/cross-
+core pair measurement this ADR implements. New
+`cpu_prefetch_clock_vdso_probe_tool` wires the two of that static
+input's checks that are real, in-process, and already implemented but
+never production-wired (`probe_vdso_clock_gettime()`,
+`monotonic_raw_resolution()`), and adds `--probe`: an isolated tracee
+performing exactly the real accepted 10,000,000-call
+`clock_gettime(CLOCK_MONOTONIC_RAW)` sequence and nothing else, matching
+`docs/TIMING.md`'s own requirement that the zero-syscall proof be "an
+external qualification input" -- proven by tracing this exact process
+from outside (`strace -c -e trace=clock_gettime`), not by anything the
+process claims about itself. Confirmed `strace`/`perf` are both present
+on the accepted stand.
+
+Not yet done: running that trace for real on the stand (needs this tool
+in a release bundle staged there), and the other `StaticClockEvidenceInput`
+fields this tool does not cover (`bare_metal_linux_x86_64`,
+`current_clocksource_tsc`, `no_unstable_clock_report`, `constant_tsc`/
+`nonstop_tsc`/`invariant_tsc`, `no_clocksource_override`,
+`generated_code_passes`) -- all real, locally-observable facts, but a
+separate piece of work from "the VDSO tracer" specifically.
 
 ## Consequences
 
@@ -249,7 +287,9 @@ into the final schema-compliant envelope (ADR-0151's pattern).
   explicitly, not run opportunistically alongside another action.
 - Blocks S17-EXT-004 admission independent of whether ADR-0147/0148/0149
   are completed -- all five `QUALIFICATION_EVIDENCE` kinds are required,
-  so S17-EXT-004 cannot be built until this is resolved too.
+  so S17-EXT-004 cannot be built until this is resolved too. Still
+  blocked: real `--qualify-pair` execution on the accepted stand, and
+  the real static-clock VDSO trace (tool now exists; not yet run there).
 - Surfaced, incidentally, a genuine internal disagreement between two of
   the project's own authoritative documents about `ADDRESS_RESIDENCY`'s
   intended shape (recorded above for whoever revisits ADR-0149).

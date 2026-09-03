@@ -16,24 +16,23 @@ using cpu_prefetch::runner::kFarWorkerPair;
 using cpu_prefetch::runner::kNearWorkerPair;
 
 void usage(std::ostream& output) {
-  output
-      << "Usage:\n"
-      << "  cpu_prefetch_q15_clock_qualification_tool --self-test\n"
-      << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair near\n"
-      << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair far\n\n"
-      << "ADR-0150. --qualify-pair runs the full frozen-constant "
-         "per-core-then-cross-core measurement for real on this machine's "
-         "CPUs (production repeat scale: "
-      << cpu_prefetch::timing::kQualificationPrimeReadCount << " prime reads + "
-      << cpu_prefetch::timing::kQualificationDeltaCount << " delta reads per core, "
-      << cpu_prefetch::timing::kCrossCoreWindowCount << " windows of "
-      << cpu_prefetch::timing::kCrossCoreExchangeCountPerWindow
-      << " exchanges per direction, spanning at least "
-      << cpu_prefetch::timing::kMinimumCrossCoreWindowStartSpanNanoseconds /
-             1'000'000'000ULL
-      << " real seconds). It requires family 06 model 55H and does not "
-         "validate or grant authority; real qualification evidence also "
-         "requires this to run on the accepted stand.\n";
+  output << "Usage:\n"
+         << "  cpu_prefetch_q15_clock_qualification_tool --self-test\n"
+         << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair near\n"
+         << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair far\n\n"
+         << "ADR-0150. --qualify-pair runs the full frozen-constant "
+            "per-core-then-cross-core measurement for real on this machine's "
+            "CPUs (production repeat scale: "
+         << cpu_prefetch::timing::kQualificationPrimeReadCount << " prime reads + "
+         << cpu_prefetch::timing::kQualificationDeltaCount << " delta reads per core, "
+         << cpu_prefetch::timing::kCrossCoreWindowCount << " windows of "
+         << cpu_prefetch::timing::kCrossCoreExchangeCountPerWindow
+         << " exchanges per direction, spanning at least "
+         << cpu_prefetch::timing::kMinimumCrossCoreWindowStartSpanNanoseconds /
+                1'000'000'000ULL
+         << " real seconds). It requires family 06 model 55H and does not "
+            "validate or grant authority; real qualification evidence also "
+            "requires this to run on the accepted stand.\n";
 }
 
 [[nodiscard]] auto require_selected_model() -> bool {
@@ -75,7 +74,7 @@ auto qualify_pair(std::string_view pair_name) -> int {
   if (!require_selected_model()) {
     return 1;
   }
-  const auto pair = pair_name == "near"   ? kNearWorkerPair
+  const auto pair = pair_name == "near"  ? kNearWorkerPair
                     : pair_name == "far" ? kFarWorkerPair
                                          : cpu_prefetch::runner::WorkerPair{0U, 0U};
   if (pair_name != "near" && pair_name != "far") {

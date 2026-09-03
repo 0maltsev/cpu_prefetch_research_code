@@ -588,10 +588,11 @@ TEST(TimingCrossCoreExchange, AtomicSlotsAreAlwaysLockFreeAndCacheLineSeparated)
   EXPECT_TRUE(evidence.runtime_lock_free);
   EXPECT_EQ(evidence.atomic_pointer_width_bytes, sizeof(std::atomic<std::uint64_t>));
   EXPECT_EQ(evidence.atomic_pointer_alignment_bytes,
-           alignof(std::atomic<std::uint64_t>));
+            alignof(std::atomic<std::uint64_t>));
 }
 
-TEST(TimingCrossCoreExchange, SlotWaitForReturnsAlreadyPublishedPayloadWithoutSpinning) {
+TEST(TimingCrossCoreExchange,
+     SlotWaitForReturnsAlreadyPublishedPayloadWithoutSpinning) {
   CrossCoreExchangeSlot slot;
   slot.publish(7U, 111U, 222U);
   const auto payload = slot.wait_for(7U, /*max_spins=*/1U);
@@ -610,12 +611,14 @@ TEST(TimingCrossCoreExchange, InitiatorTimesOutWhenResponderNeverAnswers) {
 }
 
 TEST(TimingCrossCoreExchange,
-    TwoThreadsCompleteManyCausallyOrderedRoundTripsInBothDirections) {
+     TwoThreadsCompleteManyCausallyOrderedRoundTripsInBothDirections) {
   constexpr std::size_t kRoundTrips = 2'000U;
   CrossCoreExchangeChannel forward_channel;
   CrossCoreExchangeChannel backward_channel;
   std::atomic<std::uint64_t> shared_clock{0U};
-  const auto now = [&] { return shared_clock.fetch_add(1U, std::memory_order_relaxed); };
+  const auto now = [&] {
+    return shared_clock.fetch_add(1U, std::memory_order_relaxed);
+  };
   std::atomic<bool> start{false};
 
   std::vector<CrossCoreExchangeSample> producer_to_consumer;

@@ -648,16 +648,12 @@ struct Q15PhaseSession final {
       {"observed_cpu", uint_value(session.memory->cpu())},
       {"producer_maximum_extended_leaf",
        uint_value(prefetch_capability.maximum_extended_leaf)},
-      {"producer_extended_leaf_ecx",
-       uint_value(prefetch_capability.extended_leaf_ecx)},
-      {"producer_prfchw_supported",
-       JsonValue(prefetch_capability.prfchw_supported)},
+      {"producer_extended_leaf_ecx", uint_value(prefetch_capability.extended_leaf_ecx)},
+      {"producer_prfchw_supported", JsonValue(prefetch_capability.prfchw_supported)},
       {"consumer_maximum_extended_leaf",
        uint_value(prefetch_capability.maximum_extended_leaf)},
-      {"consumer_extended_leaf_ecx",
-       uint_value(prefetch_capability.extended_leaf_ecx)},
-      {"consumer_prfchw_supported",
-       JsonValue(prefetch_capability.prfchw_supported)},
+      {"consumer_extended_leaf_ecx", uint_value(prefetch_capability.extended_leaf_ecx)},
+      {"consumer_prfchw_supported", JsonValue(prefetch_capability.prfchw_supported)},
   });
   if (!software_prefetch_raw) {
     return protocol::Result<ActionOutcome>::failure(software_prefetch_raw.errors());
@@ -707,48 +703,45 @@ struct Q15PhaseSession final {
   // index): observation_passes above already requires every snapshot of
   // both probes to individually pass Q15ResidencySnapshot::passes, so a
   // published session always has zero here regardless of counting choice.
-  const auto residency_region =
-      [](std::string_view name, std::uint32_t expected_node,
-        const platform::Q15ResidencySnapshot& before,
-        const platform::Q15ResidencySnapshot& during,
-        const platform::Q15ResidencySnapshot& after) {
-        const auto count_unavailable = [](const platform::Q15ResidencySnapshot& snap) {
+  const auto residency_region = [](std::string_view name, std::uint32_t expected_node,
+                                   const platform::Q15ResidencySnapshot& before,
+                                   const platform::Q15ResidencySnapshot& during,
+                                   const platform::Q15ResidencySnapshot& after) {
+    const auto count_unavailable = [](const platform::Q15ResidencySnapshot& snap) {
+      return static_cast<std::uint64_t>(
+          std::count_if(snap.page_nodes.begin(), snap.page_nodes.end(),
+                        [](std::int32_t node) { return node < 0; }));
+    };
+    const auto count_wrong_node =
+        [expected_node](const platform::Q15ResidencySnapshot& snap) {
           return static_cast<std::uint64_t>(std::count_if(
               snap.page_nodes.begin(), snap.page_nodes.end(),
-              [](std::int32_t node) { return node < 0; }));
+              [expected_node](std::int32_t node) {
+                return node >= 0 && static_cast<std::uint32_t>(node) != expected_node;
+              }));
         };
-        const auto count_wrong_node =
-            [expected_node](const platform::Q15ResidencySnapshot& snap) {
-              return static_cast<std::uint64_t>(std::count_if(
-                  snap.page_nodes.begin(), snap.page_nodes.end(),
-                  [expected_node](std::int32_t node) {
-                    return node >= 0 &&
-                           static_cast<std::uint32_t>(node) != expected_node;
-                  }));
-            };
-        std::uint64_t migrated = 0U;
-        for (std::size_t index = 0U;
-            index < before.page_nodes.size() && index < after.page_nodes.size();
-            ++index) {
-          if (before.page_nodes[index] != after.page_nodes[index]) {
-            ++migrated;
-          }
-        }
-        return JsonValue(JsonObject{
-            {"region", string_value(std::string(name))},
-            {"expected_node", uint_value(expected_node)},
-            {"before_page_count", uint_value(before.page_nodes.size())},
-            {"during_page_count", uint_value(during.page_nodes.size())},
-            {"after_page_count", uint_value(after.page_nodes.size())},
-            {"unavailable_page_count",
-             uint_value(count_unavailable(before) + count_unavailable(during) +
-                       count_unavailable(after))},
-            {"wrong_node_page_count",
-             uint_value(count_wrong_node(before) + count_wrong_node(during) +
-                       count_wrong_node(after))},
-            {"migrated_page_count", uint_value(migrated)},
-        });
-      };
+    std::uint64_t migrated = 0U;
+    for (std::size_t index = 0U;
+         index < before.page_nodes.size() && index < after.page_nodes.size(); ++index) {
+      if (before.page_nodes[index] != after.page_nodes[index]) {
+        ++migrated;
+      }
+    }
+    return JsonValue(JsonObject{
+        {"region", string_value(std::string(name))},
+        {"expected_node", uint_value(expected_node)},
+        {"before_page_count", uint_value(before.page_nodes.size())},
+        {"during_page_count", uint_value(during.page_nodes.size())},
+        {"after_page_count", uint_value(after.page_nodes.size())},
+        {"unavailable_page_count",
+         uint_value(count_unavailable(before) + count_unavailable(during) +
+                    count_unavailable(after))},
+        {"wrong_node_page_count",
+         uint_value(count_wrong_node(before) + count_wrong_node(during) +
+                    count_wrong_node(after))},
+        {"migrated_page_count", uint_value(migrated)},
+    });
+  };
   JsonArray residency_regions;
   residency_regions.push_back(residency_region(
       "regular_stream_probe_buffer", session.memory->numa_node(),
@@ -774,18 +767,18 @@ struct Q15PhaseSession final {
       sink,
       {{"Q15_R_READ_ONLY_PRESTATE", "cpu-prefetch-stage17-q15-r-output/3",
         "application/json", "q15-r-output-v3.json", bytes(document.value())},
-       {"Q15_R_ATOMIC_LAYOUT_RAW",
-        "cpu-prefetch-stage17-q15-r-atomic-layout-raw/1", "application/json",
-        "q15-r-atomic-layout-raw-v1.json", bytes(atomic_layout_raw.value())},
+       {"Q15_R_ATOMIC_LAYOUT_RAW", "cpu-prefetch-stage17-q15-r-atomic-layout-raw/1",
+        "application/json", "q15-r-atomic-layout-raw-v1.json",
+        bytes(atomic_layout_raw.value())},
        {"Q15_R_ADDRESS_RESIDENCY_RAW",
         "cpu-prefetch-stage17-q15-r-address-residency-raw/1", "application/json",
         "q15-r-address-residency-raw-v1.json", bytes(address_residency_raw.value())},
        {"Q15_R_SOFTWARE_PREFETCH_RAW",
         "cpu-prefetch-stage17-q15-r-software-prefetch-raw/1", "application/json",
         "q15-r-software-prefetch-raw-v1.json", bytes(software_prefetch_raw.value())},
-       {"Q15_R_CPU_MIGRATION_RAW",
-        "cpu-prefetch-stage17-q15-r-cpu-migration-raw/1", "application/json",
-        "q15-r-cpu-migration-raw-v1.json", bytes(cpu_migration_raw.value())}},
+       {"Q15_R_CPU_MIGRATION_RAW", "cpu-prefetch-stage17-q15-r-cpu-migration-raw/1",
+        "application/json", "q15-r-cpu-migration-raw-v1.json",
+        bytes(cpu_migration_raw.value())}},
       false, false, "Q15_R_READ_ONLY_COMPLETE");
 }
 

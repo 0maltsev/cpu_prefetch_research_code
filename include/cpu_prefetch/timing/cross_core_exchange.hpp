@@ -32,7 +32,7 @@ public:
   auto operator=(const CrossCoreExchangeSlot&) -> CrossCoreExchangeSlot& = delete;
 
   void publish(std::uint64_t sequence, std::uint64_t first,
-              std::uint64_t second) noexcept {
+               std::uint64_t second) noexcept {
     first_.store(first, std::memory_order_relaxed);
     second_.store(second, std::memory_order_relaxed);
     sequence_.store(sequence, std::memory_order_release);
@@ -44,14 +44,14 @@ public:
   // returns std::nullopt on timeout rather than blocking forever on a
   // wedged peer. Never issues a syscall itself, so it never perturbs the
   // exchange it is timing.
-  [[nodiscard]] auto
-  wait_for(std::uint64_t sequence,
-          std::size_t max_spins = kCrossCoreExchangeMaximumSpinIterations)
-      const noexcept -> std::optional<Payload> {
+  [[nodiscard]] auto wait_for(
+      std::uint64_t sequence,
+      std::size_t max_spins = kCrossCoreExchangeMaximumSpinIterations) const noexcept
+      -> std::optional<Payload> {
     for (std::size_t spins = 0U; spins < max_spins; ++spins) {
       if (sequence_.load(std::memory_order_acquire) == sequence) {
         return Payload{first_.load(std::memory_order_relaxed),
-                      second_.load(std::memory_order_relaxed)};
+                       second_.load(std::memory_order_relaxed)};
       }
     }
     return std::nullopt;

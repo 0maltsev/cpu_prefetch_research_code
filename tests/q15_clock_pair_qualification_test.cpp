@@ -32,7 +32,7 @@ constexpr ClockPairQualificationCounts kReducedCounts{
 };
 
 TEST(Q15ClockPairQualification,
-    RealTwoThreadRunOnNearPairCompletesWithNoFailuresOrRegressions) {
+     RealTwoThreadRunOnNearPairCompletesWithNoFailuresOrRegressions) {
   const auto result = run_clock_pair_qualification(WorkerPair{0U, 1U}, kReducedCounts);
 
   ASSERT_TRUE(result.producer_pinned);
@@ -66,8 +66,8 @@ TEST(Q15ClockPairQualification,
 }
 
 TEST(Q15ClockPairQualification, PinningFailsClosedForACpuOutsideTheFixedQ15Domain) {
-  const auto result = run_clock_pair_qualification(WorkerPair{0U, 4'000'000U},
-                                                    kReducedCounts);
+  const auto result =
+      run_clock_pair_qualification(WorkerPair{0U, 4'000'000U}, kReducedCounts);
   EXPECT_TRUE(result.producer_pinned);
   EXPECT_FALSE(result.consumer_pinned);
   EXPECT_FALSE(result.complete);

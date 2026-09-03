@@ -244,22 +244,20 @@ auto make_actual_cpu_migration_evidence(const QualificationIdentity& identity,
   // consumer_cpu values simultaneously, so it is checked against the
   // pair's producer_cpu only; an action with a genuine two-CPU pair still
   // requires both roles to match their own accepted CPU exactly.
-  const bool single_cpu_series =
-      input.producer_first_cpu == input.producer_last_cpu &&
-      input.producer_first_cpu == input.consumer_first_cpu &&
-      input.producer_first_cpu == input.consumer_last_cpu;
+  const bool single_cpu_series = input.producer_first_cpu == input.producer_last_cpu &&
+                                 input.producer_first_cpu == input.consumer_first_cpu &&
+                                 input.producer_first_cpu == input.consumer_last_cpu;
   const bool cpu_binding_passes =
-      single_cpu_series
-          ? input.producer_first_cpu == identity.workers.producer_cpu
-          : (input.producer_first_cpu == identity.workers.producer_cpu &&
-             input.producer_last_cpu == identity.workers.producer_cpu &&
-             input.consumer_first_cpu == identity.workers.consumer_cpu &&
-             input.consumer_last_cpu == identity.workers.consumer_cpu);
+      single_cpu_series ? input.producer_first_cpu == identity.workers.producer_cpu
+                        : (input.producer_first_cpu == identity.workers.producer_cpu &&
+                           input.producer_last_cpu == identity.workers.producer_cpu &&
+                           input.consumer_first_cpu == identity.workers.consumer_cpu &&
+                           input.consumer_last_cpu == identity.workers.consumer_cpu);
   const bool eligible =
       input.producer_sample_count != 0U && input.consumer_sample_count != 0U &&
-      cpu_binding_passes &&
-      input.producer_migration_count == 0U && input.consumer_migration_count == 0U &&
-      input.producer_singleton_affinity && input.consumer_singleton_affinity;
+      cpu_binding_passes && input.producer_migration_count == 0U &&
+      input.consumer_migration_count == 0U && input.producer_singleton_affinity &&
+      input.consumer_singleton_affinity;
   return make_artifact(
       identity, QualificationEvidenceKind::actual_cpu_migration, eligible,
       protocol::json::Value(JsonObject{
@@ -289,12 +287,11 @@ auto make_address_residency_evidence(const QualificationIdentity& identity,
   for (const auto& region : input.regions) {
     regions_json.push_back(region_json(region));
   }
-  return make_artifact(
-      identity, QualificationEvidenceKind::address_residency, eligible,
-      protocol::json::Value(JsonObject{
-          {"mechanism_id", protocol::json::Value(input.mechanism_id)},
-          {"regions", protocol::json::Value(std::move(regions_json))},
-      }));
+  return make_artifact(identity, QualificationEvidenceKind::address_residency, eligible,
+                       protocol::json::Value(JsonObject{
+                           {"mechanism_id", protocol::json::Value(input.mechanism_id)},
+                           {"regions", protocol::json::Value(std::move(regions_json))},
+                       }));
 }
 
 auto make_software_prefetch_mapping_evidence(const QualificationIdentity& identity,

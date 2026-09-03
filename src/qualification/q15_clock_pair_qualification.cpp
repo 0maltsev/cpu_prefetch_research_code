@@ -34,8 +34,7 @@ struct PerCoreCapture final {
   std::size_t call_failures = 0U;
   std::size_t invalid_timespecs = 0U;
   for (std::size_t index = 0U; index < counts.prime_read_count; ++index) {
-    if (timing::read_monotonic_raw_absolute().status !=
-        timing::ClockReadStatus::ok) {
+    if (timing::read_monotonic_raw_absolute().status != timing::ClockReadStatus::ok) {
       ++call_failures;
     }
   }
@@ -66,27 +65,21 @@ struct PerCoreCapture final {
 
   const auto affinity_after = operations.singleton_affinity_matches(cpu);
   const auto cpu_after = operations.current_cpu();
-  const bool affinity_held = affinity_after && affinity_after.value() && cpu_after &&
-                             cpu_after.value() == cpu;
+  const bool affinity_held =
+      affinity_after && affinity_after.value() && cpu_after && cpu_after.value() == cpu;
 
   const timing::PerCoreQualificationInput input{
-      timestamps,
-      counts.prime_read_count,
-      call_failures,
-      invalid_timespecs,
-      affinity_held,
-      true,
-      affinity_held,
-      affinity_held,
+      timestamps,        counts.prime_read_count, call_failures,
+      invalid_timespecs, affinity_held,           true,
+      affinity_held,     affinity_held,
   };
   return {true, timing::evaluate_per_core_qualification(input)};
 }
 
 [[nodiscard]] auto now_absolute_nanoseconds() -> std::uint64_t {
   const auto reading = timing::read_monotonic_raw_absolute();
-  return reading.status == timing::ClockReadStatus::ok
-             ? reading.absolute_nanoseconds
-             : 0U;
+  return reading.status == timing::ClockReadStatus::ok ? reading.absolute_nanoseconds
+                                                       : 0U;
 }
 
 // Owns one direction's captured windows. CrossCoreWindowInput itself only
@@ -100,8 +93,7 @@ struct DirectionCapture final {
     std::vector<timing::CrossCoreWindowInput> result;
     result.reserve(starts.size());
     for (std::size_t window = 0U; window < starts.size(); ++window) {
-      result.push_back(timing::CrossCoreWindowInput{starts[window],
-                                                     exchanges[window]});
+      result.push_back(timing::CrossCoreWindowInput{starts[window], exchanges[window]});
     }
     return result;
   }
@@ -110,22 +102,20 @@ struct DirectionCapture final {
 // One direction's windows: the initiator side of `channel`, paired with a
 // concurrent run_direction_responder call on the other thread, coordinated
 // only via the channel's atomics.
-[[nodiscard]] auto
-run_direction_initiator(timing::CrossCoreExchangeChannel& channel,
-                        const ClockPairQualificationCounts& counts)
+[[nodiscard]] auto run_direction_initiator(timing::CrossCoreExchangeChannel& channel,
+                                           const ClockPairQualificationCounts& counts)
     -> DirectionCapture {
-  DirectionCapture capture{std::vector<std::uint64_t>(counts.window_count),
-                           std::vector<std::vector<timing::CrossCoreExchangeSample>>(
-                               counts.window_count)};
+  DirectionCapture capture{
+      std::vector<std::uint64_t>(counts.window_count),
+      std::vector<std::vector<timing::CrossCoreExchangeSample>>(counts.window_count)};
   const auto phase_start = now_absolute_nanoseconds();
-  const auto spacing = counts.window_count > 1U
-                          ? counts.minimum_window_start_span_nanoseconds /
-                                (counts.window_count - 1U)
-                          : 0U;
+  const auto spacing =
+      counts.window_count > 1U
+          ? counts.minimum_window_start_span_nanoseconds / (counts.window_count - 1U)
+          : 0U;
   std::uint64_t sequence = 0U;
   for (std::size_t window = 0U; window < counts.window_count; ++window) {
-    const auto target =
-        phase_start + static_cast<std::uint64_t>(window) * spacing;
+    const auto target = phase_start + static_cast<std::uint64_t>(window) * spacing;
     while (now_absolute_nanoseconds() < target) {
       std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
@@ -224,7 +214,7 @@ auto run_clock_pair_qualification(runner::WorkerPair pair,
   const auto producer_to_consumer_windows = producer_to_consumer_capture->windows();
   const auto consumer_to_producer_windows = consumer_to_producer_capture->windows();
   const timing::CrossCorePairInput cross_core_input{producer_to_consumer_windows,
-                                                     consumer_to_producer_windows};
+                                                    consumer_to_producer_windows};
   result.cross_core = timing::evaluate_cross_core_pair(cross_core_input);
   result.complete = result.producer_per_core.has_value() &&
                     result.consumer_per_core.has_value() &&

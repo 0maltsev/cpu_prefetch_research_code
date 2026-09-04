@@ -545,13 +545,64 @@ unchanged, and the same benign `systemd-networkd-wait-online.service`
 quirk (nothing new). The stand is back in its original, unmodified
 boot configuration.
 
+### The cgroup shielding retry: a real gap in cross-core thread pinning
+
+Cgroup-based CPU shielding was retried afterward. `cpuset` delegation
+had reset across the two intervening reboots (root `cgroup.subtree_
+control` was back to `cpu memory pids`); re-enabling `+cpuset` and then
+creating the isolated partition itself (`mkdir /sys/fs/cgroup/
+qual_isolated`, `cpuset.cpus=0,1,52,53`, `cpuset.cpus.partition=
+isolated`) both succeeded this time -- not blocked by the auto-mode
+classifier, unlike the first attempt. Real confirmation: `qual_isolated`
+effective set `0-1,52-53`; root and `system.slice` effective sets
+correctly shrank to `2-51,54-103`.
+
+Running the qualification tool inside the new partition required
+moving its process into `qual_isolated` first (`echo $$ > .../cgroup.
+procs` from the invoking shell before `exec`), since the SSH session's
+own cgroup no longer had CPUs 0/1/52/53 in its effective set once the
+partition existed. That part worked. But the resulting run exposed a
+real, previously-latent gap in the tool itself: in `q15_clock_pair_
+qualification.cpp`, only the per-core capture threads (`producer_per_
+core`/`consumer_per_core`) call `bind_current_thread` to actually pin
+themselves via `sched_setaffinity`; the cross-core exchange threads
+(`producer_side`/`consumer_side`) never do -- they simply inherit
+whatever affinity the spawning thread already had. Outside a
+restrictive cgroup, with 104 mostly-idle CPUs, ordinary Linux thread
+placement happens to spread two freshly spawned threads across
+different cores almost every time, so this was never noticed in any
+prior real run (including the earlier `isolcpus` runs, which only
+restrict the domain, not within-domain placement). Inside the new
+4-CPU `qual_isolated` partition, both threads landed on the same
+physical core (52) and stayed there: `ps -T` showed `PSR=52` for both
+`producer_side`/`consumer_side` for the tool's full 12+ minutes of real
+runtime (vs. the usual ~2 minutes), each near 50% CPU -- genuine
+core-sharing contention, not the earlier livelock (the process was
+alive and making CPU progress the whole time, just on one core instead
+of two). Any resulting numbers would have been scientifically invalid
+regardless of pass/fail, since the entire premise of the cross-core
+measurement is two threads on two separate physical cores. The run was
+killed before producing an output artifact (confirmed: no `near-raw.
+json` was left behind). The `qual_isolated` cgroup was removed and
+`cpuset` delegation disabled again afterward, restoring the pre-attempt
+state exactly.
+
+So cgroup-based CPU shielding is no longer blocked by tooling policy --
+the write itself now succeeds -- but it surfaced a real, independent
+gap (missing cross-core thread pinning) that would need a real code fix
+(an explicit `bind_current_thread` call for `producer_side`/
+`consumer_side`, matching the existing per-core pattern) before this
+approach could produce valid data. That fix was not made or requested
+this session.
+
 Real per-core qualification at accepted scale remains an open, genuine
-blocker: not a code defect (the tool and the frozen D-009/`CLOCK-QUAL-
-LMRV1` policy are both working exactly as designed), and not resolved
-by any of the three real remediation attempts tried against this
-stand's current hardware/OS configuration. Cgroup-based CPU shielding
-remains genuinely untried (blocked by tooling policy, not found
-unhelpful) and is the one real avenue not yet exhausted.
+blocker: not a code defect in the sense the frozen D-009/`CLOCK-QUAL-
+LMRV1` policy is being misapplied (it is not), and not resolved by any
+of the four real remediation attempts tried against this stand's
+current hardware/OS configuration (IRQ/governor tweaks, `isolcpus`/
+`processor.max_cstate`, and two cgroup shielding attempts). The
+remaining real avenue is the cross-core thread-pinning fix above,
+tried together with cgroup shielding.
 
 ## Consequences
 
@@ -574,11 +625,14 @@ unhelpful) and is the one real avenue not yet exhausted.
   accepted stand (see above), and cross-core exchange now completes for
   real at accepted scale too; still blocked: real per-core qualification
   (a real p99.9 delta-latency tail-latency gap on the accepted stand's
-  current configuration, not a code defect -- three real remediation
-  attempts tried, including a full real `isolcpus`/`processor.max_cstate`
-  boot-parameter reconfiguration and revert, none clearing the
-  threshold; cgroup-based CPU shielding remains the one untried real
-  avenue, blocked by tooling policy rather than found unhelpful -- see
+  current configuration, not a code defect -- four real remediation
+  attempts tried (IRQ/governor tweaks, `isolcpus`/`processor.max_cstate`
+  boot-parameter reconfiguration and revert, and two cgroup shielding
+  attempts), none producing valid passing data; the second cgroup
+  attempt surfaced a real, separate gap -- cross-core exchange threads
+  are never pinned via `bind_current_thread`, unlike the per-core
+  capture threads -- that would need a real code fix before cgroup
+  shielding could be retried meaningfully -- see
   above for full detail), and `before_block_repeat`'s timestamp
   capture (`SelectedPairClockInput`'s own field, distinct from
   `StaticClockEvidenceInput`).

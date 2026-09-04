@@ -1822,6 +1822,25 @@ fresh journal (`-26`) is needed, this time building every renumbered
 artifact from real tool output and freshly-computed real hashes at each
 step, not string substitution of a prior journal's files.
 
+Journal `-26` reached real `PREFLIGHT_ACCEPTED` cleanly on the first
+attempt at every step: `S17-EXT-002`'s four artifacts were rebuilt via
+`build_extracted_release_receipt_v6` for the real provenance document
+plus hand-chained hash computation (each cross-reference read from the
+*actual just-written* file's real bytes, not copied from a prior
+journal), with a real self-check script confirming every cross-
+reference before deployment; `S17-EXT-003`'s owner-acceptance record
+was built by reading the real, just-admitted `S17-EXT-002` resolution
+file directly (`resolution_id`/its own real sha256) rather than typed
+by hand. Real result: `{"current_state": "PREFLIGHT_ACCEPTED",
+"resolutions": 3, "transitions": 2}`. Next real steps: copy journal
+`-26` to the stand (same procedure as `-24`), run a fresh real Q15-R
+session bound to `-26`'s new resolutions, rebuild the five real
+`QUALIFICATION_EVIDENCE`/`PLATFORM_MANIFEST`/`PILOT_PLATFORM_
+MEASUREMENTS`/`HARDWARE_PREFETCH_QUALIFICATION` artifacts from that new
+session (this time with `PILOT_PLATFORM_MEASUREMENTS`'s `source_
+bindings` ids matching the manifest's own artifact ids exactly), and
+admit `S17-EXT-004` for real.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

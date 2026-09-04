@@ -67,6 +67,10 @@ SUCCESSOR_BINDINGS = (
     "tools/stage17_state_journal_v35.py",
     "tools/stage17_phase_controller_v14.py",
     "tools/stage17_q15_session_controller_v12.py",
+    "config/schemas/stage17-q15-r-atomic-layout-raw-v1.schema.json",
+    "config/schemas/stage17-q15-r-address-residency-raw-v1.schema.json",
+    "config/schemas/stage17-q15-r-cpu-migration-raw-v1.schema.json",
+    "config/schemas/stage17-q15-r-software-prefetch-raw-v1.schema.json",
 )
 
 def _find_base(module: object) -> object:

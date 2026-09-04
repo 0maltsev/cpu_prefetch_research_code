@@ -589,20 +589,60 @@ state exactly.
 
 So cgroup-based CPU shielding is no longer blocked by tooling policy --
 the write itself now succeeds -- but it surfaced a real, independent
-gap (missing cross-core thread pinning) that would need a real code fix
+gap (missing cross-core thread pinning) that needed a real code fix
 (an explicit `bind_current_thread` call for `producer_side`/
 `consumer_side`, matching the existing per-core pattern) before this
-approach could produce valid data. That fix was not made or requested
-this session.
+approach could produce valid data.
 
-Real per-core qualification at accepted scale remains an open, genuine
-blocker: not a code defect in the sense the frozen D-009/`CLOCK-QUAL-
-LMRV1` policy is being misapplied (it is not), and not resolved by any
-of the four real remediation attempts tried against this stand's
+### The cross-core pinning fix, and a third real cgroup attempt
+
+That fix was made: `producer_side`/`consumer_side` in
+`run_clock_pair_qualification` now each construct their own
+`platform::LinuxQ15PlatformOperations` and call `bind_current_thread`
+on `pair.producer_cpu`/`pair.consumer_cpu` before doing any exchange
+work, mirroring the existing per-core capture pattern exactly; a failed
+bind makes the thread return early, leaving its `DirectionCapture`
+unset, which the existing "captures missing" check already turns into
+`complete=false`/`passes=false` -- no new result fields needed. Verified
+locally: clean release-gcc build, clean under ThreadSanitizer and
+ASan/UBSan, both existing `q15_clock_pair_qualification_test.cpp` cases
+still pass unchanged (the CPU-domain-validation edge case never reaches
+the new code -- it still fails at the earlier per-core gate).
+
+Rebuilt the release-gcc tool (sha256 `637b2e38...`, differing from the
+pre-fix `13daae36...` as expected), deployed it to the stand, and
+recreated the `qual_isolated` isolated cpuset partition a third time.
+With the fix in place, a live check mid-run confirmed the two worker
+threads now land on separate real cores (`PSR=0` and `PSR=1`, not the
+same core as before). The real run completed in the normal ~2 minutes
+(`2:00.93` elapsed, `cross_core_passes=1`) rather than stalling:
+
+| | producer | consumer | threshold |
+|---|---|---|---|
+| p99.9 delta | 1.472 us | 1.545 us | <= 1.0 us |
+| p99.999 delta | 4.041 us | 7.335 us | <= 10.0 us |
+
+This is the best real result across every attempt this session: p99.999
+now clears comfortably on both sides (better than any prior attempt),
+and p99.9, while still not clearing the threshold, is closer than the
+`isolcpus`/IRQ-governor attempts and does not show the regression those
+showed. Still `producer_per_core_passes=0`/`consumer_per_core_passes
+=0`. The real output artifact was preserved (`near-raw.json`, 487
+bytes); the `qual_isolated` cgroup and `cpuset` delegation were fully
+reverted afterward, confirmed by an empty `cgroup.procs` before removal
+and the root effective set returning to `0-103`.
+
+Real per-core qualification at accepted scale remains an open blocker:
+not a code defect in the sense the frozen D-009/`CLOCK-QUAL-LMRV1`
+policy is being misapplied (it is not; the cross-core pinning fix above
+is a real, independent, genuine bug fix, but the *blocking* criterion
+here has always been per-core, not cross-core), and not yet resolved by
+any of the four real remediation attempts tried against this stand's
 current hardware/OS configuration (IRQ/governor tweaks, `isolcpus`/
-`processor.max_cstate`, and two cgroup shielding attempts). The
-remaining real avenue is the cross-core thread-pinning fix above,
-tried together with cgroup shielding.
+`processor.max_cstate`, and three cgroup shielding attempts -- the last
+with correct pinning). The cgroup-plus-pinning-fix combination is the
+closest real result yet to the p99.9 threshold and the strongest
+candidate for further real investigation, should someone continue this.
 
 ## Consequences
 
@@ -627,12 +667,13 @@ tried together with cgroup shielding.
   (a real p99.9 delta-latency tail-latency gap on the accepted stand's
   current configuration, not a code defect -- four real remediation
   attempts tried (IRQ/governor tweaks, `isolcpus`/`processor.max_cstate`
-  boot-parameter reconfiguration and revert, and two cgroup shielding
-  attempts), none producing valid passing data; the second cgroup
-  attempt surfaced a real, separate gap -- cross-core exchange threads
-  are never pinned via `bind_current_thread`, unlike the per-core
-  capture threads -- that would need a real code fix before cgroup
-  shielding could be retried meaningfully -- see
+  boot-parameter reconfiguration and revert, and three cgroup shielding
+  attempts), none clearing the p99.9 threshold; the second cgroup
+  attempt surfaced and fixed a real, separate gap -- cross-core exchange
+  threads were never pinned via `bind_current_thread`, unlike the
+  per-core capture threads -- and the third attempt, with that fix
+  applied, produced the closest real result yet (p99.999 clearing
+  comfortably on both sides, p99.9 still ~1.5x the threshold) -- see
   above for full detail), and `before_block_repeat`'s timestamp
   capture (`SelectedPairClockInput`'s own field, distinct from
   `StaticClockEvidenceInput`).

@@ -19,8 +19,8 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v20"
-STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v17"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v21"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "queue_codegen_report.json": (
@@ -305,7 +305,12 @@ def main() -> int:
     required_binaries = ["cpu_prefetch_smoke", "cpu_prefetch_preflight"]
     if stage17:
         required_binaries.extend(
-            ["cpu_prefetch_runner", "cpu_prefetch_qualification"]
+            [
+                "cpu_prefetch_runner",
+                "cpu_prefetch_qualification",
+                "cpu_prefetch_q15_clock_qualification_tool",
+                "cpu_prefetch_q15_qualification_evidence_tool",
+            ]
         )
     if q15_tool:
         required_binaries.extend(

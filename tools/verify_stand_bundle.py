@@ -493,6 +493,14 @@ def main() -> int:
             "cpu-prefetch-pilot-candidate-bundle/14",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
         ),
+        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18": (
+            "cpu-prefetch-pilot-candidate-bundle/14",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
+        "STAGE17-PILOT-CANDIDATE-BUNDLE-v21": (
+            "cpu-prefetch-pilot-candidate-bundle/14",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
             "cpu-prefetch-q15-qualification-tool-bundle/1",
             "Q15_TOOL_RELEASE_NO_AUTHORITY",
@@ -548,6 +556,8 @@ def main() -> int:
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v19",
             "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v17",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v20",
+            "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
+            "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
         } else "2.0.0-pre.2"
     )
     if manifest.get("protocol_version") != expected_protocol:
@@ -605,7 +615,9 @@ def main() -> int:
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v16",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v19",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v17",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v20") and value is not False:
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v20",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v21") and value is not False:
             failures.append(f"pilot candidate must explicitly prohibit {description}")
         elif profile == "STAGE16-STAND-BUNDLE-v1" and value not in (None, False):
             failures.append(f"Stage 16 bundle unexpectedly enables {description}")
@@ -683,7 +695,9 @@ def main() -> int:
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v16",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v19",
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v17",
-                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v20"):
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v20",
+                   "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v21"):
         if (
             manifest.get("software_prefetch_mapping_id")
             != "X86-64-PREFETCHW-PREFETCHT0-v1"
@@ -849,7 +863,9 @@ def main() -> int:
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v16",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v19",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v17",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v20"):
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v20",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v21"):
             runtime = manifest.get("stage17_fixed_action_runtime")
             expected_actions = ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
                                 "STAGE17-BLINDED-PILOT"]
@@ -914,6 +930,13 @@ def main() -> int:
             current_v20 = profile in {
                 "STAGE17-PILOT-CANDIDATE-BUNDLE-v20",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v17",
+                # v21/dry-run-v18 add the real clock-qualification and
+                # qualification-evidence tools to the bundle's release
+                # binaries (ADR-0150) without touching the admission
+                # policy/executor/preflight-plan chain, so they share v20's
+                # generation rather than advancing it.
+                "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
             }
             # The compiled worker binary (release/bin/cpu_prefetch_runner) is
             # unaffected by the D-124/D-125/D-126/D-127/D-128/D-130/D-131/
@@ -1078,6 +1101,7 @@ def main() -> int:
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v15",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v16",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v17",
+                "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
             }
             if (not isinstance(runtime, dict)
                     or runtime.get("member_path") != "release/bin/cpu_prefetch_runner"

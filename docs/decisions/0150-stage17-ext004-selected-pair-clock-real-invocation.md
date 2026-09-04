@@ -854,6 +854,77 @@ pre-faulting the vector (e.g. `std::vector(count, 0)` instead of
 `reserve` + `push_back`, or an explicit touch pass before starting the
 timed loop) to see whether it measurably closes the p99.9 gap.
 
+## Resolution: the tail-latency gap was a page-fault artifact of the measurement itself
+
+That fix was made and verified for real, and it resolved the blocker
+completely. `capture_per_core` (`src/qualification/
+q15_clock_pair_qualification.cpp`) changed from `std::vector<uint64_t>
+timestamps; timestamps.reserve(counts.delta_count + 1U);` with
+`push_back` inside the timed loop, to `std::vector<uint64_t>
+timestamps(counts.delta_count + 1U, 0U);` (value-initialized, which
+libstdc++ implements as a real memset over the whole buffer at
+construction time) with indexed assignment inside the loop. This moves
+every page fault from first-touch of the 80 MB buffer to before the
+timed loop starts, rather than scattered across it. Verified locally
+first: clean release-gcc build, clean under ThreadSanitizer and ASan/
+UBSan, both existing tests still pass unchanged.
+
+Deployed to the stand (sha256 `2187e340...`) and re-run under the same
+cgroup-shielding-alone configuration that had produced the best result
+so far. Real result: **full PASS** -- `producer_per_core_passes=1
+consumer_per_core_passes=1 cross_core_passes=1`. p99.9 delta dropped
+from ~1.5 us to **51 ns / 49 ns** on the two sides (a ~30x reduction);
+p99.999 dropped to 1.572 us / 1.745 us, comfortably under the 10.0 us
+limit. A `perf stat` taken on this same run showed page-fault count
+essentially unchanged from before the fix (63,633 vs. the earlier
+56,940) -- confirming the mechanism precisely: the fix did not reduce
+the number of page faults, it moved *when* they happen, out of the
+timed window entirely.
+
+Given every real remediation attempt this session (IRQ/governor tweaks,
+`isolcpus`, all four cgroup-shielding attempts) had produced roughly the
+same ~1.5-2.2 us p99.9 regardless of OS-level tuning, the natural next
+real question was whether the fix needed cgroup shielding at all, or
+was sufficient by itself. Removed the cgroup entirely (delegation
+disabled, root `cpuset.cpus.effective` back to `0-103`) and re-ran
+`--qualify-pair near` on the stand's completely default configuration
+-- no cgroup, no `isolcpus`, no governor/turbo changes, nothing. Real
+result: **full PASS again**, p99.9 51 ns / 51 ns, p99.999 3.069 us /
+3.321 us. Then `--qualify-pair far` (CPU 0 / CPU 26, genuinely
+cross-NUMA-socket) under the same plain default configuration: **full
+PASS**, p99.9 52 ns / 51 ns, p99.999 3.200 us / 4.199 us. Both raw
+output artifacts are real, complete, and fully passing for the first
+time this entire engagement:
+
+```
+near-raw.json: producer_per_core_passed=true consumer_per_core_passed=true cross_core_passed=true
+far-raw.json:  producer_per_core_passed=true consumer_per_core_passed=true cross_core_passed=true
+```
+
+So none of the OS-level remediation explored earlier in this document
+(IRQ/governor tweaks, `isolcpus`/`processor.max_cstate`, cgroup
+shielding, or any combination) was ever actually the fix -- they each
+produced small, inconsistent, partial improvements because they
+happened to reduce contention that was itself a much smaller factor
+than the measurement code's own first-touch page faults. The real
+production configuration needs no stand-side system reconfiguration at
+all: the accepted stand, completely unmodified, passes real per-core
+qualification for both the near and far pairs at the full frozen scale
+(10,000,000 delta reads, 100,000 prime reads) with this fix in place.
+
+Real per-core qualification at accepted scale is no longer a blocker.
+Combined with cross-core exchange (fixed and verified earlier in this
+document) and Stage 8's static clock evidence gate (also a real,
+complete PASS on the accepted stand), all three real measurement
+components `SELECTED_PAIR_CLOCK` evidence depends on now produce real,
+passing evidence for both pairs on the accepted stand. What remains
+before `SELECTED_PAIR_CLOCK` evidence can be assembled: `traced_call_
+count`/`traced_syscall_count` (the raw artifact still deliberately omits
+these -- no real VDSO call/syscall tracer exists in this codebase yet,
+separate from the static-clock gate's own external tracer requirement)
+and `before_block_repeat`'s post-measurement timestamp capture, neither
+of which was touched this session.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -872,33 +943,25 @@ timed loop) to see whether it measurably closes the p99.9 gap.
   are completed -- all five `QUALIFICATION_EVIDENCE` kinds are required,
   so S17-EXT-004 cannot be built until this is resolved too. Stage 8's
   entire static clock evidence gate now has a real, complete PASS on the
-  accepted stand (see above), and cross-core exchange now completes for
-  real at accepted scale too; still blocked: real per-core qualification
-  (a real p99.9 delta-latency tail-latency gap on the accepted stand's
-  current configuration, not a code defect -- six real remediation
-  attempts tried (IRQ/governor tweaks, `isolcpus`/`processor.max_cstate`
-  boot-parameter reconfiguration and revert, three cgroup shielding
-  attempts, cgroup shielding combined with the IRQ/governor tweaks, and
-  cgroup shielding alone at the real far-pair scale) plus three real
-  diagnostics (a 10x longer prime-read warm-up, ruling out a cold-start
-  explanation; a 10x larger delta sample count, ruling out a wall-
-  clock-periodic dilutable-outlier explanation; and a real MSR SMI-count
-  check plus `perf stat`, ruling out SMI entirely and surfacing a real,
-  concrete, actionable lead -- ~57,000 minor page faults, plausibly from
-  the reserved-but-unfaulted 80 MB timestamp vectors, order-of-magnitude
-  consistent with the observed tail latency but not yet acted on), none
-  clearing the p99.9 threshold; the second cgroup
-  attempt surfaced and fixed a real, separate gap -- cross-core exchange
-  threads were never pinned via `bind_current_thread`, unlike the
-  per-core capture threads -- and
-  cgroup shielding alone with that fix applied, at the near-pair scale,
-  produced the closest real result yet (p99.999 clearing comfortably on
-  both sides, p99.9 still ~1.5x the threshold); combining it with the
-  governor/turbo tweaks made it worse, and the real far pair (genuinely
-  cross-NUMA-socket) was worse still, missing even the p99.999 threshold
-  -- see above for full detail), and `before_block_repeat`'s timestamp
-  capture (`SelectedPairClockInput`'s own field, distinct from
-  `StaticClockEvidenceInput`).
+  accepted stand, cross-core exchange completes for real at accepted
+  scale, and -- as of the page-fault fix recorded above -- real per-core
+  qualification now passes for real at accepted scale too, for both the
+  near and far pairs, on the stand's completely unmodified default
+  configuration (no cgroup, `isolcpus`, or governor tuning needed; the
+  real cause was ~57,000 first-touch page faults from the per-core
+  timestamp buffer landing inside the timed loop, not any stand-side
+  scheduling, interrupt, or power-management factor -- six real OS-level
+  remediation attempts and two sample-count diagnostics tried before
+  root-causing it this way all produced small, inconsistent, partial
+  improvements because they addressed a much smaller factor than the
+  measurement code's own allocation pattern; see above for the full
+  investigation). Still blocked: `traced_call_count`/`traced_syscall_
+  count` (the raw artifact deliberately omits these -- no real VDSO
+  call/syscall tracer exists in this codebase yet, separate from the
+  static-clock gate's own external tracer requirement) and
+  `before_block_repeat`'s post-measurement timestamp capture
+  (`SelectedPairClockInput`'s own field, distinct from
+  `StaticClockEvidenceInput`) -- neither touched this session.
 - Surfaced, incidentally, a genuine internal disagreement between two of
   the project's own authoritative documents about `ADDRESS_RESIDENCY`'s
   intended shape (recorded above for whoever revisits ADR-0149).

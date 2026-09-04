@@ -760,6 +760,48 @@ meaningfully change the tail latency; whatever is producing the p99.9
 gap is not a cold-start effect. Cgroup state was fully reverted
 afterward, as with every other real attempt.
 
+### A second diagnostic: does a larger delta sample count help?
+
+Same rationale, aimed at a different question: if the tail outliers were
+tied to a roughly fixed number of real periodic events across wall-clock
+time (e.g. a timer interrupt, NMI, or SMI happening a fixed number of
+times per second) rather than a fixed fraction of calls, a 10x larger
+sample count would dilute their share of the distribution and p99.9
+should improve. Added a matching `--delta-count N` flag (same pattern as
+`--prime-read-count`: real code, committed, refuses `--output`, prints
+an explicit diagnostic-only note; `accepted_policy_sample_count` checks
+`delta_count` against the exact frozen `10'000'000` constant, so this
+can never produce accepted evidence either).
+
+Real run: near pair, cgroup shielding alone, 100,000,000 delta reads
+(10x the frozen 10,000,000), frozen prime count:
+
+| | producer | consumer | threshold |
+|---|---|---|---|
+| p99.9 delta | 1.506 us | 1.500 us | <= 1.0 us |
+| p99.999 delta | 4.087 us | 3.994 us | <= 10.0 us |
+
+Compared against the same cgroup-alone configuration at the frozen
+delta count (1.472 us / 1.545 us p99.9, 4.041 us / 7.335 us p99.999):
+p99.9 is essentially unchanged on both sides -- well within the same
+noise band as every other repeated real run this session. p99.999 held
+steady on the producer and improved on the consumer. The maximum delta
+grew by roughly 20x (max 2.49 s / 2.81 s vs. the earlier ~127 ms / 138
+ms), consistent with simple extreme-value behavior at 10x the sample
+count and not evidence of anything new. A 10x larger sample does not
+move the p99.9 percentile at all, which rules out a wall-clock-periodic,
+dilutable-outlier explanation: roughly a fixed ~0.1% of individual
+`clock_gettime(CLOCK_MONOTONIC_RAW)` delta reads exceed the ~1.5 us
+range on this stand regardless of how many are taken, a stable, systemic
+property of the read path here rather than a rare event that scales
+with wall-clock time. Cgroup state was fully reverted afterward.
+
+Between the two diagnostics, neither a longer warm-up nor a larger
+sample count changes the real p99.9 result -- the gap looks like an
+intrinsic property of this specific stand's `clock_gettime`/vDSO path at
+the tail, not an artifact of any of the measurement's own tunable
+parameters.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -785,9 +827,11 @@ afterward, as with every other real attempt.
   attempts tried (IRQ/governor tweaks, `isolcpus`/`processor.max_cstate`
   boot-parameter reconfiguration and revert, three cgroup shielding
   attempts, cgroup shielding combined with the IRQ/governor tweaks, and
-  cgroup shielding alone at the real far-pair scale) plus one real
-  diagnostic (a 10x longer prime-read warm-up, ruling out a cold-start
-  explanation), none clearing the p99.9 threshold; the second cgroup
+  cgroup shielding alone at the real far-pair scale) plus two real
+  diagnostics (a 10x longer prime-read warm-up, ruling out a cold-start
+  explanation, and a 10x larger delta sample count, ruling out a wall-
+  clock-periodic dilutable-outlier explanation), none clearing the
+  p99.9 threshold; the second cgroup
   attempt surfaced and fixed a real, separate gap -- cross-core exchange
   threads were never pinned via `bind_current_thread`, unlike the
   per-core capture threads -- and

@@ -6,14 +6,17 @@
 #include "cpu_prefetch/timing/cross_core_exchange.hpp"
 
 #include <atomic>
+#include <charconv>
 #include <fstream>
 #include <iostream>
 #include <optional>
 #include <string>
 #include <string_view>
+#include <system_error>
 
 namespace {
 
+using cpu_prefetch::qualification::ClockPairQualificationCounts;
 using cpu_prefetch::qualification::ClockPairQualificationResult;
 using cpu_prefetch::qualification::kAcceptedClockPairQualificationCounts;
 using cpu_prefetch::qualification::run_clock_pair_qualification;
@@ -25,7 +28,9 @@ void usage(std::ostream& output) {
   output << "Usage:\n"
          << "  cpu_prefetch_q15_clock_qualification_tool --self-test\n"
          << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair near|far "
-            "[--output PATH]\n\n"
+            "[--output PATH]\n"
+         << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair near|far "
+            "--prime-read-count N\n\n"
          << "ADR-0150. --qualify-pair runs the full frozen-constant "
             "per-core-then-cross-core measurement for real on this machine's "
             "CPUs (production repeat scale: "
@@ -50,7 +55,11 @@ void usage(std::ostream& output) {
             "when the measurement completes (producer_pinned, consumer_pinned, "
             "and complete all true); a completed-but-failing measurement is "
             "still written, since the raw artifact reports real facts, not a "
-            "verdict.\n";
+            "verdict. --prime-read-count N replaces the frozen prime read "
+            "count for a diagnostic run only -- prime_count_passes will "
+            "correctly read false since N no longer matches the accepted "
+            "constant, this can never produce real qualification evidence, "
+            "and it cannot be combined with --output.\n";
 }
 
 [[nodiscard]] auto require_selected_model() -> bool {
@@ -143,8 +152,9 @@ write_raw_output(const std::string& path, std::string_view pair_name, WorkerPair
   return static_cast<bool>(file);
 }
 
-auto qualify_pair(std::string_view pair_name, std::optional<std::string> output_path)
-    -> int {
+auto qualify_pair(std::string_view pair_name, std::optional<std::string> output_path,
+                  ClockPairQualificationCounts counts =
+                      kAcceptedClockPairQualificationCounts) -> int {
   if (!require_selected_model()) {
     return 1;
   }
@@ -155,8 +165,13 @@ auto qualify_pair(std::string_view pair_name, std::optional<std::string> output_
     std::cerr << "q15-clock-tool: FAIL rule=Q15-CLOCK-PAIR-ARGV\n";
     return 2;
   }
-  const auto result =
-      run_clock_pair_qualification(pair, kAcceptedClockPairQualificationCounts);
+  if (counts.prime_read_count != kAcceptedClockPairQualificationCounts.prime_read_count) {
+    std::cerr << "q15-clock-tool: NOTE diagnostic-only run, prime_read_count="
+              << counts.prime_read_count << " (accepted="
+              << kAcceptedClockPairQualificationCounts.prime_read_count
+              << ") -- cannot produce real qualification evidence\n";
+  }
+  const auto result = run_clock_pair_qualification(pair, counts);
   if (!result.producer_pinned || !result.consumer_pinned || !result.complete) {
     std::cerr << "q15-clock-tool: FAIL pair=" << pair_name
               << " producer_pinned=" << result.producer_pinned
@@ -228,6 +243,19 @@ auto run(int argc, char** argv) -> int {
   if (argc == 5 && std::string_view(argv[1]) == "--qualify-pair" &&
       std::string_view(argv[3]) == "--output") {
     return qualify_pair(argv[2], std::string(argv[4]));
+  }
+  if (argc == 5 && std::string_view(argv[1]) == "--qualify-pair" &&
+      std::string_view(argv[3]) == "--prime-read-count") {
+    std::size_t prime_read_count = 0U;
+    const auto [pointer, error] = std::from_chars(
+        argv[4], argv[4] + std::string_view(argv[4]).size(), prime_read_count);
+    if (error != std::errc{} || pointer != argv[4] + std::string_view(argv[4]).size()) {
+      usage(std::cerr);
+      return 2;
+    }
+    auto counts = kAcceptedClockPairQualificationCounts;
+    counts.prime_read_count = prime_read_count;
+    return qualify_pair(argv[2], std::nullopt, counts);
   }
   if (argc == 2 &&
       (std::string_view(argv[1]) == "--help" || std::string_view(argv[1]) == "-h")) {

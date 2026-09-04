@@ -187,6 +187,34 @@ auto qualify_pair(std::string_view pair_name, std::optional<std::string> output_
             << " cross_core_passes=" << cross_core.passes
             << " independent_role=EXTERNALLY_ENFORCED"
             << (output_path ? " output=" + *output_path : std::string()) << '\n';
+  // Diagnostic only (not part of the raw artifact schema): PerCoreQualificationEvidence
+  // reduces call_failure_count/invalid_timespec_count into a single read_status_passes
+  // bool, but the per-core delta-sequence stats (evaluate_clock_sequence's own real
+  // regression/tie/percentile numbers) are printed here in full so a real failure's
+  // exact cause is visible without re-deriving it from the raw timestamp stream.
+  const auto print_per_core =
+      [](std::string_view role,
+         const cpu_prefetch::timing::PerCoreQualificationEvidence& evidence) {
+        std::cout << "q15-clock-pair-qualification: per_core role=" << role
+                  << " prime_count_passes=" << evidence.prime_count_passes
+                  << " read_status_passes=" << evidence.read_status_passes
+                  << " affinity_passes=" << evidence.affinity_passes
+                  << " sequence_delta_count=" << evidence.sequence.delta_count
+                  << " sequence_regression_count=" << evidence.sequence.regression_count
+                  << " sequence_equal_count=" << evidence.sequence.equal_count
+                  << " sequence_p999_delta_picoseconds="
+                  << evidence.sequence.p999_delta_picoseconds
+                  << " sequence_p99999_delta_picoseconds="
+                  << evidence.sequence.p99999_delta_picoseconds
+                  << " sequence_maximum_delta_picoseconds="
+                  << evidence.sequence.maximum_delta_picoseconds
+                  << " sequence_accepted_policy_sample_count="
+                  << evidence.sequence.accepted_policy_sample_count
+                  << " sequence_limits_pass=" << evidence.sequence.limits_pass
+                  << " sequence_passes=" << evidence.sequence.passes << '\n';
+      };
+  print_per_core("producer", producer);
+  print_per_core("consumer", consumer);
   return result.passes ? 0 : 1;
 }
 

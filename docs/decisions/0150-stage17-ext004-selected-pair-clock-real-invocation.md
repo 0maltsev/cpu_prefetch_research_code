@@ -1066,6 +1066,74 @@ entire real capture) now converge on the same blocked first step, and
 that step itself is blocked on a pre-existing environment defect outside
 this session's ability to fix.
 
+### The `jsonschema` defect fixed, the v21 bundle sealed, and a real, complete `SELECTED_PAIR_CLOCK` envelope
+
+That environment defect was fixed for real, not routed around. The
+provisioned Python's `jsonschema` install was missing its top-level
+`__init__.py`/`__main__.py` (a pattern also found in its `pip` package --
+systematic, not `jsonschema`-specific). Real network access to PyPI
+turned out to work despite earlier assumptions otherwise; bootstrapped a
+genuinely working `pip` via the official `get-pip.py` installer, then
+reinstalled `jsonschema` at the exact version already recorded in its
+(corrupted) `dist-info` -- `4.26.0` -- so the fix carries no version
+drift. Verified: real import, correct `Draft202012Validator`/
+`FormatChecker` symbols, correct reported version.
+
+`author_stage17_policy_v39.py --write` (blocked once by the auto-mode
+classifier; the owner ran it directly) then re-rendered policy v39 for
+real, picking up the new hash of `stage17_pilot_candidate_artifact_v6.py`
+from the v21 ladder bump. Independently verified the pinned binding now
+matches the real file byte-for-byte.
+
+Also caught and fixed a real mistake made earlier in this same session:
+an attempt to "mark EXT-001/002/003 resolved" had edited `config/
+stage17/stage17-external-input-checklist-v1.json` and committed it
+(`6ad5307`). Running `tools/check_stage17_operational_successor.py` --
+possible for the first time in this sandbox now that `jsonschema` works
+-- immediately flagged this as `immutable template drifted`: that file
+is a pinned, historical definition (its own module docstring: "no status
+field in either template is treated as current evidence"), not a live
+tracker; the real record of EXT-001/002/003's resolution is, correctly,
+only the append-only journal, already independently verified earlier in
+this conversation. Reverted to the exact original bytes (hash-confirmed
+against the checker's own pinned expectation) in a follow-up commit
+(`4773770`).
+
+With `jsonschema` real, `create_stand_bundle.py --profile stage17-pilot-
+candidate` built the real v21 bundle for real (`cpu-prefetch-
+pilot-candidate-2.0.0-be2c27b-clean-f849482b46b8.tar.gz`, sha256
+`ea8b9ff7...`, authority=NONE), and `verify_stand_bundle.py` passed
+clean against the extracted result: `STAGE17-PILOT-CANDIDATE-BUNDLE-v21,
+1355 files, protocol 2.0.0-pre.3, dynamic/pilot/confirmatory prohibited`.
+The packaged `cpu_prefetch_q15_clock_qualification_tool` inside it is
+byte-identical (sha256 `2187e340...`) to the exact binary already
+verified for real on the accepted stand earlier this session -- a
+reproducible build, not a rebuild that happens to behave the same.
+
+With a real, legitimate `binding_id` finally available, built the real
+`SELECTED_PAIR_CLOCK` envelopes for both pairs using the already-real raw
+artifacts (`near-raw.json`/`far-raw.json`, fetched back from the stand)
+and the already-settled `traced_call_count`/`traced_syscall_count`/
+`before_block_repeat` values: `--binding-id STAGE17-PILOT-CANDIDATE-
+BUNDLE-v21 --source-revision be2c27b... --binary-sha256 2187e340...`.
+Both: `eligible=true`. Independently schema-validated against the real
+`qualification-evidence-v1.schema.json` with `Draft202012Validator`
+directly (not trusting the tool's own PASS claim): zero errors, both
+pairs. These are the first real, complete, passing `SELECTED_PAIR_CLOCK`
+evidence envelopes this entire engagement. Preserved at `/home/omaltsev/
+stage17-owner-evidence/ext004-authoring-21/` (envelopes and raw
+artifacts both), mirroring the existing `ext004-authoring-NN` pattern.
+
+So `SELECTED_PAIR_CLOCK` -- the deepest, most-invested-in gap this ADR
+tracks -- is now real, complete, and schema-valid for both pairs.
+`RUNTIME_ATOMIC_LAYOUT` and `ACTUAL_CPU_MIGRATION` already had real
+session-20 envelopes. The one real piece of `S17-EXT-004` still open is
+`ADDRESS_RESIDENCY`: it needs an actual real Q15-R session execution
+(the formal, controller-mediated kind -- request, owner-signed
+authorization, `stage17_q15_session_controller_v6.py`) using the new v21
+bundle, not a direct tool invocation like this session's own work; that
+real session was not run this session.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -1101,24 +1169,25 @@ this session's ability to fix.
   0, reusing the existing externally-verified probe trace; and `true`,
   since this evidence is captured once per pair with no real repeat to
   race against -- see above for both decisions' full reasoning), but
-  real envelope construction is blocked on something else: `binding_id`
-  must be a real, officially sealed `STAGE17-PILOT-CANDIDATE-BUNDLE-vN`
-  identity, and the fixed `cpu_prefetch_q15_clock_qualification_tool`
-  has never gone through that bundling process (`create_stand_bundle.
-  py`). A real v21/dry-run-v18 ladder bump was attempted (bundling
-  scripts, the closed `bundle_profile` schema enum, and the pilot-
-  candidate artifact tool's recognized-profile sets all correctly
-  updated) but could not be committed: it changes a file
-  (`stage17_pilot_candidate_artifact_v6.py`) whose sha256 is pinned by
-  the current admission policy (v39), and re-rendering that policy
-  requires `jsonschema`, which is broken in this sandbox's only
-  provisioned Python (a pre-existing, out-of-scope environment defect
-  noted earlier this engagement). Real `ADDRESS_RESIDENCY` (ADR-0149)
-  evidence -- confirmed, via real `git merge-base` ancestry, to need a
-  binary built after its own implementation commit `562fa71`, which
-  session `-20`'s binary predates -- converges on this exact same
-  blocked first step, plus its own separate real Q15-R session
-  execution requirement on top.
+  real envelope construction needed a real, officially sealed
+  `STAGE17-PILOT-CANDIDATE-BUNDLE-vN` identity, which needed the
+  provisioned Python's broken `jsonschema` install fixed for real (a real
+  pip bootstrap, exact pinned version, no drift) and a real v21/dry-run-
+  v18 bundle-version-ladder bump (`create_stand_bundle.py`,
+  `verify_stand_bundle.py`, the closed `bundle_profile` schema enum, and
+  the pilot-candidate artifact tool's recognized-profile sets, plus
+  re-rendering admission policy v39 to match). All done for real: the
+  v21 bundle built and passed full verification (1355 files, protocol
+  2.0.0-pre.3), and `SELECTED_PAIR_CLOCK` envelopes for both pairs are
+  now real, complete, schema-valid, and `eligible=true` -- the first
+  ones this entire engagement, preserved at `ext004-authoring-21/`.
+  Combined with `RUNTIME_ATOMIC_LAYOUT`/`ACTUAL_CPU_MIGRATION`'s existing
+  real session-20 envelopes, the only real piece of `S17-EXT-004` still
+  open is `ADDRESS_RESIDENCY` -- confirmed, via real `git merge-base`
+  ancestry, to need a binary built after its own implementation commit
+  `562fa71`, which session `-20`'s binary predates -- which needs an
+  actual real Q15-R session execution (not a direct tool invocation) on
+  the new v21 bundle, not yet run.
 - Surfaced, incidentally, a genuine internal disagreement between two of
   the project's own authoritative documents about `ADDRESS_RESIDENCY`'s
   intended shape (recorded above for whoever revisits ADR-0149).

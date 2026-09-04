@@ -1724,6 +1724,67 @@ prep only, ready to make the eventual full `author-manifest` call a
 fast, low-risk, mechanical step once `HARDWARE_PREFETCH_QUALIFICATION`
 is resolved.
 
+### `HARDWARE_PREFETCH_QUALIFICATION` resolved with zero new stand risk; a real one-shot `S17-EXT-004` admission failure burns journal `-24`
+
+Before attempting the invasive-MSR path the owner had paused on,
+investigated whether `HARDWARE_PREFETCH_QUALIFICATION` could
+legitimately be satisfied without one. It can: `check_stage17_fixed_
+action_production.py:940-976` -- real, authoritative fixture-generation
+code, not a guess -- shows the schema's own intended shape for a
+genuine **H0** (read-only) attestation: `requested_state: "H0"`,
+`applied: false`, `verified: true`, `restored: true`, `eligible: true`,
+built entirely from the *same* real Q15-R session's own already-captured
+prestate/probe data. ADR-0049 confirms H0 ("read and preserve... without
+writing") is structurally distinct from H1 (the real MSR write); the
+"restoration uncertainty quarantines the stand" consequence attaches
+only to H1. Built the real record from session `-24`'s own real
+`q15-r-output-v3.json` (`prestate` for CPUs 0/1/26, all real all-zero
+readback; `regular_probe`/`pointer_probe` both genuinely `passed: true`)
+-- zero new stand action, zero MSR write, schema-valid on the first
+attempt. This is an honest, precedented H0 attestation of what the real
+session actually did, not a loophole.
+
+With all 15 real artifacts in hand, authored the real `S17-EXT-004`
+manifest and custody receipt -- both `PASS` on the first attempt (one
+real retry needed first: `ext004-authoring-21/`, the `SELECTED_PAIR_
+CLOCK` envelopes, had only ever existed locally and needed copying to
+the stand, matching the exact class of gap already seen for `ext001-
+preflight-output-24`). Extensive pre-verification (schema validation of
+every artifact, 14 manual cross-binding checks reproducing `_phase_
+family`'s own logic, all five `QUALIFICATION_EVIDENCE` kinds already
+real-tool-confirmed `eligible=true`, the real signature already
+verified) gave high confidence -- but the real, one-shot `admit-
+resolution --input-id S17-EXT-004` failed anyway: `FAIL: typed source
+binding drifted: PILOT_PLATFORM_MEASUREMENTS`.
+
+Root cause, found in `_artifact_index` (`stage17_operational_semantics_
+v4.py:504-523`): every `source_bindings[].id` inside a typed record must
+equal the *actual* `artifact_id` string used for that referenced
+artifact in the manifest -- not any informal label. `pilot-platform-
+measurements-24.json` was built (above) reusing the *short* ids from
+session-20's own real precedent file (`"PLATFORM-MANIFEST-24"`,
+`"Q15-R-RESULT-24"`), but the manifest actually authored used longer,
+independently-chosen ids (`XEON-CPU-FETCH-EXT004-PLATFORM-MANIFEST-24`,
+`XEON-CPU-FETCH-Q15R-RESULT-24`) -- a real, narrow inconsistency between
+two pieces of prep work done at different times, not a framework
+defect, and (checked) the only artifact in the set affected.
+
+Confirmed on the stand, read-only, that this is a real, permanent cost
+matching the established one-shot pattern exactly: `admit-resolution`
+had already written `records/resolution-004-s17-ext-004.json` and
+staged `journal/stage17-state-journal-000006.json.candidate` before the
+deep validation ran and failed -- both preserved, neither retried, per
+the standing rule. Because the journal's resolution sequence number is
+purely positional (`len(latest["resolution_records"]) + 1`) and the
+written-record filename embeds that number, `S17-EXT-004` can never be
+admitted on journal `-24` again: any retry recomputes sequence 4 and
+collides with the same filename at the filesystem level, before any
+semantic check even runs. A fresh journal is required to complete
+`S17-EXT-004` -- but every real underlying artifact (all 15, including
+the now-identified fix) remains valid and reusable; only the journal
+*admission calls* (`S17-EXT-001` through `S17-EXT-004`) need repeating,
+not any new stand-facing capture.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

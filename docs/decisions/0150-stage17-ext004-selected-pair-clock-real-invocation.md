@@ -640,9 +640,46 @@ here has always been per-core, not cross-core), and not yet resolved by
 any of the four real remediation attempts tried against this stand's
 current hardware/OS configuration (IRQ/governor tweaks, `isolcpus`/
 `processor.max_cstate`, and three cgroup shielding attempts -- the last
-with correct pinning). The cgroup-plus-pinning-fix combination is the
-closest real result yet to the p99.9 threshold and the strongest
-candidate for further real investigation, should someone continue this.
+with correct pinning).
+
+### Combining cgroup shielding with the IRQ/governor tweaks: worse, not better
+
+Tried next: layering the earlier IRQ-affinity/governor/turbo tweaks
+(`performance` governor on CPUs 0/1, turbo off system-wide, 229/310
+movable IRQs shifted off CPUs 0/1/52/53 -- same snapshot and script as
+the original attempt) underneath the now-correctly-pinned `qual_isolated`
+cgroup partition, to see whether the two real mitigations would compound.
+Both layers applied cleanly (229 IRQs changed, partition `isolated` with
+effective set `0-1,52-53`, matching every prior application exactly).
+Real result:
+
+| | producer | consumer | threshold |
+|---|---|---|---|
+| p99.9 delta | 2.183 us | 2.199 us | <= 1.0 us |
+| p99.999 delta | 6.508 us | 6.491 us | <= 10.0 us |
+
+This is worse than cgroup shielding alone (1.472 us / 1.545 us) and
+matches the IRQ/governor-tweaks-alone result almost exactly (2.176 us /
+2.169 us from the earlier attempt) -- meaning the cgroup isolation's
+benefit is not additive with the governor/turbo change; if anything, the
+governor/turbo change dominates and actively works against p99.9
+regardless of what else is layered on top of it, consistent with the
+"tried alone" result. Both layers were reverted immediately after: the
+cgroup was removed and `cpuset` delegation disabled (root effective set
+back to `0-103`), and the IRQ/governor snapshot was restored (308/310
+IRQs, the same 2 fixed/unmovable ones as every prior revert) with a full
+per-IRQ diff against the original snapshot confirming zero remaining
+differences.
+
+So: of the five real remediation attempts and combinations tried this
+session, cgroup shielding *alone*, with the cross-core pinning fix
+applied, remains the single best real result (p99.9 1.472 us / 1.545 us,
+p99.999 comfortably under threshold on both sides) -- still short of
+the p99.9 <= 1.0 us threshold, but the closest and the only one not
+made worse by adding the governor/IRQ-affinity changes. The strongest
+candidate for further real investigation, should someone continue this,
+is refining the cgroup-only approach rather than combining it with the
+governor/turbo tweaks.
 
 ## Consequences
 
@@ -665,16 +702,18 @@ candidate for further real investigation, should someone continue this.
   accepted stand (see above), and cross-core exchange now completes for
   real at accepted scale too; still blocked: real per-core qualification
   (a real p99.9 delta-latency tail-latency gap on the accepted stand's
-  current configuration, not a code defect -- four real remediation
+  current configuration, not a code defect -- five real remediation
   attempts tried (IRQ/governor tweaks, `isolcpus`/`processor.max_cstate`
-  boot-parameter reconfiguration and revert, and three cgroup shielding
-  attempts), none clearing the p99.9 threshold; the second cgroup
-  attempt surfaced and fixed a real, separate gap -- cross-core exchange
-  threads were never pinned via `bind_current_thread`, unlike the
-  per-core capture threads -- and the third attempt, with that fix
-  applied, produced the closest real result yet (p99.999 clearing
-  comfortably on both sides, p99.9 still ~1.5x the threshold) -- see
-  above for full detail), and `before_block_repeat`'s timestamp
+  boot-parameter reconfiguration and revert, three cgroup shielding
+  attempts, and cgroup shielding combined with the IRQ/governor tweaks),
+  none clearing the p99.9 threshold; the second cgroup attempt surfaced
+  and fixed a real, separate gap -- cross-core exchange threads were
+  never pinned via `bind_current_thread`, unlike the per-core capture
+  threads -- and cgroup shielding alone with that fix applied produced
+  the closest real result yet (p99.999 clearing comfortably on both
+  sides, p99.9 still ~1.5x the threshold); combining it with the
+  governor/turbo tweaks made it worse, not better -- see above for full
+  detail), and `before_block_repeat`'s timestamp
   capture (`SelectedPairClockInput`'s own field, distinct from
   `StaticClockEvidenceInput`).
 - Surfaced, incidentally, a genuine internal disagreement between two of

@@ -986,6 +986,86 @@ stopped here rather than proceeding with an invented or misattributed
 `binding_id`; sealing a new candidate bundle that includes the fixed
 tool is a separate, formal packaging step this session did not start.
 
+### ADDRESS_RESIDENCY converges on the same blocker, plus one more real step
+
+Investigated real `ADDRESS_RESIDENCY` (ADR-0149) status while looking for
+other EXT-004 work. ADR-0149's actual code (`Q15_R_ADDRESS_RESIDENCY_RAW`
+wiring into `publish_q15_r`) landed in commit `562fa71`
+(`2026-09-03T20:02:18Z`). Real session `-20` -- the most recent real
+Q15-R session, source of the other three kinds' real envelopes -- ran on
+a binary built from commit `69f11cc`, confirmed via `git merge-base
+--is-ancestor 69f11ccea46f0a0bdc3c86c7d9894d43d8144ff6 562fa71` to be a
+real ancestor of (i.e., predates) the `ADDRESS_RESIDENCY` wiring. That is
+exactly why no real address-residency raw artifact exists anywhere in
+the evidence tree: the code that would produce it did not exist yet when
+that session ran. Getting real `ADDRESS_RESIDENCY` evidence therefore
+needs the same new sealed bundle this ADR's own `SELECTED_PAIR_CLOCK`
+gap needs, plus a further, separate, more heavily-gated step: an actual
+real Q15-R session execution on the accepted stand using that new
+bundle, not a direct tool invocation like this session's own work.
+
+### Attempting the bundle ladder bump: a second real, structural blocker
+
+Investigated `tools/create_stand_bundle.py` read-only first: pure local,
+deterministic packaging (source tarball + release binaries/libs + build
+provenance + full `config`/`docs` snapshot), no signing or stand access.
+`STAGE17_PROFILE` was still the literal string `"STAGE17-PILOT-CANDIDATE-
+BUNDLE-v20"` -- unchanged since session `-20` -- and neither the
+`stage17-pilot-candidate` nor `q15-qualification-tool` profile's required
+binaries included `cpu_prefetch_q15_clock_qualification_tool` or
+`cpu_prefetch_q15_qualification_evidence_tool`. `git log -p` on this
+script's own history confirmed version-ladder bumps (v18->v19->v20) are
+routine repository-local engineering, not an owner-only ceremony -- no
+signing involved, done by whoever implements the motivating ADR.
+
+Made the bump for real: `STAGE17_PROFILE` -> `v21`, `STAGE17_DRY_RUN_
+PROFILE` -> `v18`, both new tools added to the pilot-candidate profile's
+`required_binaries`. Propagated the same two new profile strings through
+every one of the six matching membership checks in `verify_stand_bundle.
+py` (found by diffing the prior v19->v20 bump commit exactly, since this
+ladder has a real precedent of a missed entry -- "Fix missed v18/dry-
+run-v15 entry" -- that a previous bump had to correct later), the closed
+`bundle_profile` enum in `config/schemas/stage17-runtime-release-
+provenance-v5.schema.json`, and `RECOGNIZED_PROFILES`/`DRY_RUN_PROFILES`
+in `tools/stage17_pilot_candidate_artifact_v6.py`. Deliberately mapped
+v21/dry-run-v18 into the *same* `current_v20` generation bucket in
+`verify_stand_bundle.py` rather than creating a new generation with its
+own incremented admission-policy/executor/preflight-plan version: this
+change adds two binaries to the bundle and touches nothing in the real
+Q15-R operational-admission chain (policy v39, executor v25, preflight-
+plan v27 all stay exactly as ADR-0146 left them), so inventing a v40/
+v26/v28 generation for it would have been dishonest.
+
+That edit to `stage17_pilot_candidate_artifact_v6.py` changes its own
+sha256 -- and `config/stage17/stage17-operational-evidence-admission-
+policy-v39.json` pins that exact file's hash as part of its binding
+closure (confirmed directly: `bindings.tools__stage17_pilot_candidate_
+artifact_v6_py.sha256`). The required next step, re-rendering policy v39
+via `tools/author_stage17_policy_v39.py --write` (the same lockstep
+every prior ladder bump performed), cannot run in this sandbox: the
+tool's import chain reaches `stage17_semantic_verifier_v14.py`, which
+imports `jsonschema` -- and the provisioned Python at `/tmp/cpu-prefetch-
+stage16-deps/python` has a broken `jsonschema` install (missing `__init__
+.py`, imports as an empty namespace package), the same pre-existing,
+out-of-scope environment defect noted earlier this engagement (no pip/
+internet access in this sandbox to fix it). Checked every Python
+interpreter available here; none has a working `jsonschema`.
+
+Committing the edited `stage17_pilot_candidate_artifact_v6.py` without
+re-rendering policy v39 would leave the policy's own pinned hash stale
+against the real file -- exactly the inconsistent state this framework
+exists to prevent. All four edited files (`tools/create_stand_bundle.py`,
+`tools/verify_stand_bundle.py`, `tools/stage17_pilot_candidate_
+artifact_v6.py`, `config/schemas/stage17-runtime-release-provenance-v5.
+schema.json`) were left real, correct, and complete for what a v21/
+dry-run-v18 ladder bump requires, but deliberately **not committed** --
+recoverable in the working tree, not lost, pending an environment with a
+working `jsonschema` to complete the re-render. So: both remaining real
+EXT-004 gaps (`SELECTED_PAIR_CLOCK`'s `binding_id`, `ADDRESS_RESIDENCY`'s
+entire real capture) now converge on the same blocked first step, and
+that step itself is blocked on a pre-existing environment defect outside
+this session's ability to fix.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -1025,7 +1105,20 @@ tool is a separate, formal packaging step this session did not start.
   must be a real, officially sealed `STAGE17-PILOT-CANDIDATE-BUNDLE-vN`
   identity, and the fixed `cpu_prefetch_q15_clock_qualification_tool`
   has never gone through that bundling process (`create_stand_bundle.
-  py`) -- a separate, formal packaging step not started this session.
+  py`). A real v21/dry-run-v18 ladder bump was attempted (bundling
+  scripts, the closed `bundle_profile` schema enum, and the pilot-
+  candidate artifact tool's recognized-profile sets all correctly
+  updated) but could not be committed: it changes a file
+  (`stage17_pilot_candidate_artifact_v6.py`) whose sha256 is pinned by
+  the current admission policy (v39), and re-rendering that policy
+  requires `jsonschema`, which is broken in this sandbox's only
+  provisioned Python (a pre-existing, out-of-scope environment defect
+  noted earlier this engagement). Real `ADDRESS_RESIDENCY` (ADR-0149)
+  evidence -- confirmed, via real `git merge-base` ancestry, to need a
+  binary built after its own implementation commit `562fa71`, which
+  session `-20`'s binary predates -- converges on this exact same
+  blocked first step, plus its own separate real Q15-R session
+  execution requirement on top.
 - Surfaced, incidentally, a genuine internal disagreement between two of
   the project's own authoritative documents about `ADDRESS_RESIDENCY`'s
   intended shape (recorded above for whoever revisits ADR-0149).

@@ -30,7 +30,9 @@ void usage(std::ostream& output) {
          << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair near|far "
             "[--output PATH]\n"
          << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair near|far "
-            "--prime-read-count N\n\n"
+            "--prime-read-count N\n"
+         << "  cpu_prefetch_q15_clock_qualification_tool --qualify-pair near|far "
+            "--delta-count N\n\n"
          << "ADR-0150. --qualify-pair runs the full frozen-constant "
             "per-core-then-cross-core measurement for real on this machine's "
             "CPUs (production repeat scale: "
@@ -55,11 +57,12 @@ void usage(std::ostream& output) {
             "when the measurement completes (producer_pinned, consumer_pinned, "
             "and complete all true); a completed-but-failing measurement is "
             "still written, since the raw artifact reports real facts, not a "
-            "verdict. --prime-read-count N replaces the frozen prime read "
-            "count for a diagnostic run only -- prime_count_passes will "
-            "correctly read false since N no longer matches the accepted "
-            "constant, this can never produce real qualification evidence, "
-            "and it cannot be combined with --output.\n";
+            "verdict. --prime-read-count N / --delta-count N replace the "
+            "frozen prime read count / delta read count for a diagnostic "
+            "run only -- the matching accepted_policy_sample_count check "
+            "will correctly read false since N no longer matches the "
+            "accepted constant, this can never produce real qualification "
+            "evidence, and it cannot be combined with --output.\n";
 }
 
 [[nodiscard]] auto require_selected_model() -> bool {
@@ -165,10 +168,13 @@ auto qualify_pair(std::string_view pair_name, std::optional<std::string> output_
     std::cerr << "q15-clock-tool: FAIL rule=Q15-CLOCK-PAIR-ARGV\n";
     return 2;
   }
-  if (counts.prime_read_count != kAcceptedClockPairQualificationCounts.prime_read_count) {
+  if (counts.prime_read_count != kAcceptedClockPairQualificationCounts.prime_read_count ||
+      counts.delta_count != kAcceptedClockPairQualificationCounts.delta_count) {
     std::cerr << "q15-clock-tool: NOTE diagnostic-only run, prime_read_count="
-              << counts.prime_read_count << " (accepted="
-              << kAcceptedClockPairQualificationCounts.prime_read_count
+              << counts.prime_read_count
+              << " (accepted=" << kAcceptedClockPairQualificationCounts.prime_read_count
+              << ") delta_count=" << counts.delta_count
+              << " (accepted=" << kAcceptedClockPairQualificationCounts.delta_count
               << ") -- cannot produce real qualification evidence\n";
   }
   const auto result = run_clock_pair_qualification(pair, counts);
@@ -245,16 +251,21 @@ auto run(int argc, char** argv) -> int {
     return qualify_pair(argv[2], std::string(argv[4]));
   }
   if (argc == 5 && std::string_view(argv[1]) == "--qualify-pair" &&
-      std::string_view(argv[3]) == "--prime-read-count") {
-    std::size_t prime_read_count = 0U;
-    const auto [pointer, error] = std::from_chars(
-        argv[4], argv[4] + std::string_view(argv[4]).size(), prime_read_count);
+      (std::string_view(argv[3]) == "--prime-read-count" ||
+       std::string_view(argv[3]) == "--delta-count")) {
+    std::size_t count = 0U;
+    const auto [pointer, error] =
+        std::from_chars(argv[4], argv[4] + std::string_view(argv[4]).size(), count);
     if (error != std::errc{} || pointer != argv[4] + std::string_view(argv[4]).size()) {
       usage(std::cerr);
       return 2;
     }
     auto counts = kAcceptedClockPairQualificationCounts;
-    counts.prime_read_count = prime_read_count;
+    if (std::string_view(argv[3]) == "--prime-read-count") {
+      counts.prime_read_count = count;
+    } else {
+      counts.delta_count = count;
+    }
     return qualify_pair(argv[2], std::nullopt, counts);
   }
   if (argc == 2 &&

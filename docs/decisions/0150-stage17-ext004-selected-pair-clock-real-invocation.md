@@ -681,6 +681,47 @@ candidate for further real investigation, should someone continue this,
 is refining the cgroup-only approach rather than combining it with the
 governor/turbo tweaks.
 
+### Cgroup shielding alone at the real far-pair scale
+
+Tried the same cgroup-shielding-alone configuration (no governor/IRQ
+tweaks) against the real `far` pair (`kFarWorkerPair{0, 26}` --
+producer CPU 0 on real NUMA node0, consumer CPU 26 on real NUMA node1,
+confirmed genuinely cross-socket via `lscpu`: `NUMA node0 CPU(s):
+0-25,52-77`, `NUMA node1 CPU(s): 26-51,78-103`). Real HT siblings
+confirmed via `/sys/devices/system/cpu/cpu{0,26}/topology/
+thread_siblings_list`: CPU 0 pairs with 52, CPU 26 pairs with 78 --
+so the isolated partition covered `0,26,52,78` rather than the near
+pair's `0,1,52,53`. A live mid-run check confirmed correct placement
+under the cross-core pinning fix: producer thread on `PSR=0`, consumer
+thread on `PSR=26`, distinct real cores on distinct real sockets.
+
+Real result (2:01.04 elapsed, `cross_core_passes=1` -- the pinning fix
+holds at far-pair scale too):
+
+| | producer | consumer | threshold |
+|---|---|---|---|
+| p99.9 delta | 1.857 us | 1.560 us | <= 1.0 us |
+| p99.999 delta | 10.220 us | 4.054 us | <= 10.0 us |
+
+Worse than the near pair's cgroup-alone result (1.472 us / 1.545 us):
+the producer side (on node0, same physical location as every near-pair
+run) now also misses the looser p99.999 threshold, if barely (10.220 us
+against a 10.0 us limit). Consistent with the far pair's real
+cross-NUMA-node communication path adding latency that CPU isolation
+alone cannot remove -- isolation controls scheduling contention on each
+individual core, not the real physical cost of a cross-socket
+round trip. `producer_per_core_passes=0`/`consumer_per_core_passes=0`,
+same as every other real attempt. The real output artifact
+(`far-raw.json`, 487 bytes) was preserved; the `qual_isolated` cgroup
+and `cpuset` delegation were fully reverted afterward (empty
+`cgroup.procs` before removal, root effective set back to `0-103`).
+
+So the near pair, not the far pair, is the more promising real
+candidate for ever clearing the per-core threshold under cgroup
+shielding -- the far pair's cross-socket physical distance appears to
+set a real latency floor on top of whatever scheduling-contention gap
+isolation closes.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -702,18 +743,20 @@ governor/turbo tweaks.
   accepted stand (see above), and cross-core exchange now completes for
   real at accepted scale too; still blocked: real per-core qualification
   (a real p99.9 delta-latency tail-latency gap on the accepted stand's
-  current configuration, not a code defect -- five real remediation
+  current configuration, not a code defect -- six real remediation
   attempts tried (IRQ/governor tweaks, `isolcpus`/`processor.max_cstate`
   boot-parameter reconfiguration and revert, three cgroup shielding
-  attempts, and cgroup shielding combined with the IRQ/governor tweaks),
-  none clearing the p99.9 threshold; the second cgroup attempt surfaced
-  and fixed a real, separate gap -- cross-core exchange threads were
-  never pinned via `bind_current_thread`, unlike the per-core capture
-  threads -- and cgroup shielding alone with that fix applied produced
-  the closest real result yet (p99.999 clearing comfortably on both
-  sides, p99.9 still ~1.5x the threshold); combining it with the
-  governor/turbo tweaks made it worse, not better -- see above for full
-  detail), and `before_block_repeat`'s timestamp
+  attempts, cgroup shielding combined with the IRQ/governor tweaks, and
+  cgroup shielding alone at the real far-pair scale), none clearing the
+  p99.9 threshold; the second cgroup attempt surfaced and fixed a real,
+  separate gap -- cross-core exchange threads were never pinned via
+  `bind_current_thread`, unlike the per-core capture threads -- and
+  cgroup shielding alone with that fix applied, at the near-pair scale,
+  produced the closest real result yet (p99.999 clearing comfortably on
+  both sides, p99.9 still ~1.5x the threshold); combining it with the
+  governor/turbo tweaks made it worse, and the real far pair (genuinely
+  cross-NUMA-socket) was worse still, missing even the p99.999 threshold
+  -- see above for full detail), and `before_block_repeat`'s timestamp
   capture (`SelectedPairClockInput`'s own field, distinct from
   `StaticClockEvidenceInput`).
 - Surfaced, incidentally, a genuine internal disagreement between two of

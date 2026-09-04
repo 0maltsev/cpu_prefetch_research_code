@@ -605,9 +605,54 @@ TEST(TimingCrossCoreExchange, InitiatorTimesOutWhenResponderNeverAnswers) {
   CrossCoreExchangeChannel channel;
   std::atomic<std::uint64_t> clock{0U};
   const auto now = [&] { return clock.fetch_add(1U, std::memory_order_relaxed); };
-  const auto result =
-      cpu_prefetch::timing::initiate_cross_core_round_trip(channel, 1U, now, 1'000U);
+  const auto result = cpu_prefetch::timing::initiate_cross_core_round_trip(
+      channel, 1U, now, cpu_prefetch::timing::CrossCoreExchangeTimeoutPolicy{1'000U});
   EXPECT_FALSE(result.has_value());
+}
+
+// Regression test for the real bug this fallback fixes: at accepted scale,
+// run_direction_initiator can legitimately sleep for real seconds between
+// qualification windows while the responder side has already exhausted its
+// fast spin waiting for the next window's first exchange -- without this
+// fallback, that single timeout permanently desynchronized both sides'
+// unconditionally-incremented sequence counters for the rest of the run.
+TEST(TimingCrossCoreExchange, SlotWaitForSurvivesADelayedPublishViaWallClockFallback) {
+  CrossCoreExchangeSlot slot;
+  const auto now = [] {
+    const auto reading = cpu_prefetch::timing::read_monotonic_raw_absolute();
+    return reading.status == cpu_prefetch::timing::ClockReadStatus::ok
+               ? reading.absolute_nanoseconds
+               : 0U;
+  };
+  std::thread publisher([&] {
+    std::this_thread::sleep_for(std::chrono::milliseconds(30));
+    slot.publish(9U, 333U, 444U);
+  });
+  // A deliberately tiny fast-spin bound (so the fast path reliably exhausts
+  // before the publisher above ever runs) plus a generous 2-second wall-
+  // clock budget, comfortably covering the real 30ms delay.
+  const auto payload = slot.wait_for(
+      9U, now,
+      cpu_prefetch::timing::CrossCoreExchangeTimeoutPolicy{1'000U, 2'000'000'000U});
+  publisher.join();
+  ASSERT_TRUE(payload.has_value());
+  EXPECT_EQ(payload->first, 333U);
+  EXPECT_EQ(payload->second, 444U);
+}
+
+TEST(TimingCrossCoreExchange,
+     SlotWaitForStillTimesOutWhenPeerNeverPublishesWithinMaxWaitTicks) {
+  CrossCoreExchangeSlot slot;
+  const auto now = [] {
+    const auto reading = cpu_prefetch::timing::read_monotonic_raw_absolute();
+    return reading.status == cpu_prefetch::timing::ClockReadStatus::ok
+               ? reading.absolute_nanoseconds
+               : 0U;
+  };
+  const auto payload = slot.wait_for(
+      9U, now,
+      cpu_prefetch::timing::CrossCoreExchangeTimeoutPolicy{1'000U, 30'000'000U});
+  EXPECT_FALSE(payload.has_value());
 }
 
 TEST(TimingCrossCoreExchange,

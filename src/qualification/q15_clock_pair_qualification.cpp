@@ -123,8 +123,16 @@ struct DirectionCapture final {
     capture.exchanges[window].reserve(counts.exchanges_per_window);
     for (std::size_t index = 0U; index < counts.exchanges_per_window; ++index) {
       ++sequence;
+      // max_wait_ticks = the real span this same counts value paces windows
+      // over: the initiator itself can legitimately be asleep, mid-pacing,
+      // for close to that long between window starts, and the responder
+      // side (below) must survive waiting through exactly that real gap
+      // without desynchronizing -- see CrossCoreExchangeSlot::wait_for.
       const auto sample = timing::initiate_cross_core_round_trip(
-          channel, sequence, now_absolute_nanoseconds);
+          channel, sequence, now_absolute_nanoseconds,
+          timing::CrossCoreExchangeTimeoutPolicy{
+              timing::kCrossCoreExchangeMaximumSpinIterations,
+              counts.minimum_window_start_span_nanoseconds});
       capture.exchanges[window].push_back(
           sample.value_or(timing::CrossCoreExchangeSample{0U, 0U, 0U, 0U}));
     }
@@ -136,8 +144,14 @@ void run_direction_responder(timing::CrossCoreExchangeChannel& channel,
                              const ClockPairQualificationCounts& counts) {
   const auto total = counts.window_count * counts.exchanges_per_window;
   for (std::uint64_t sequence = 1U; sequence <= total; ++sequence) {
+    // See the matching comment in run_direction_initiator: this side has no
+    // pacing schedule of its own, so it must be able to wait out the
+    // initiator's real inter-window sleeps too.
     static_cast<void>(timing::respond_to_cross_core_round_trip(
-        channel, sequence, now_absolute_nanoseconds));
+        channel, sequence, now_absolute_nanoseconds,
+        timing::CrossCoreExchangeTimeoutPolicy{
+            timing::kCrossCoreExchangeMaximumSpinIterations,
+            counts.minimum_window_start_span_nanoseconds}));
   }
 }
 

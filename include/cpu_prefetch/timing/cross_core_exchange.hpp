@@ -5,14 +5,26 @@
 #include "cpu_prefetch/timing/qualification.hpp"
 
 #include <atomic>
+#include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <optional>
+#include <thread>
 
 namespace cpu_prefetch::timing {
 
 inline constexpr std::size_t kCrossCoreExchangeCacheLineBytes = 64U;
 inline constexpr std::size_t kCrossCoreExchangeMaximumSpinIterations = 2'000'000'000U;
+
+// Bundles CrossCoreExchangeSlot::wait_for's two timeout knobs into named
+// fields rather than two positional same-width integers, so they cannot be
+// silently transposed at a call site. Default-constructed, this is exactly
+// the original (pre-ADR-0150-fix) spin-only behavior: the full fast spin,
+// then an immediate timeout with no wall-clock fallback.
+struct CrossCoreExchangeTimeoutPolicy final {
+  std::size_t fast_spin_iterations = kCrossCoreExchangeMaximumSpinIterations;
+  std::uint64_t max_wait_ticks = 0U;
+};
 
 // A minimal lock-free single-slot handoff for one leg of a round-trip clock
 // exchange (ADR-0150): unlike a queue, only the most recently published
@@ -38,12 +50,12 @@ public:
     sequence_.store(sequence, std::memory_order_release);
   }
 
-  // Busy-spins until `sequence` is observed, bounded by `max_spins`
-  // (production callers pass kCrossCoreExchangeMaximumSpinIterations; tests
-  // pass a small bound to exercise the timeout path in bounded time);
-  // returns std::nullopt on timeout rather than blocking forever on a
-  // wedged peer. Never issues a syscall itself, so it never perturbs the
-  // exchange it is timing.
+  // Busy-spins until `sequence` is observed, bounded by `max_spins`. Never
+  // issues a syscall, so it never perturbs a real, in-flight exchange's
+  // measured latency. Returns std::nullopt on timeout with no further
+  // fallback -- for callers with no interest in surviving an expected long
+  // gap (simple positive/negative unit tests); see the NowFn overload below
+  // for the one production code uses.
   [[nodiscard]] auto wait_for(
       std::uint64_t sequence,
       std::size_t max_spins = kCrossCoreExchangeMaximumSpinIterations) const noexcept
@@ -55,6 +67,66 @@ public:
       }
     }
     return std::nullopt;
+  }
+
+  // As above (identical fast-spin phase, bounded by
+  // `policy.fast_spin_iterations`, production callers pass
+  // kCrossCoreExchangeMaximumSpinIterations), but if that spin is exhausted
+  // and `policy.max_wait_ticks` is nonzero, falls back to a second, wall-
+  // clock-bounded phase: brief real sleeps between short re-checks,
+  // measured via the caller's own `now` (the same function used for the
+  // exchange's timestamps), until `policy.max_wait_ticks` have elapsed
+  // since the fast spin ended. `policy` defaults to a default-constructed
+  // CrossCoreExchangeTimeoutPolicy{} (max_wait_ticks=0, no fallback,
+  // identical to the overload above) so no existing caller's behavior
+  // changes unless it explicitly opts in. The two fields are
+  // bundled into one named-field struct, rather than two positional
+  // same-width integers, specifically so they cannot be silently
+  // transposed at a call site -- exactly the failure mode that would
+  // reintroduce the bug this fallback fixes.
+  //
+  // This exists because a legitimate peer can be genuinely, expectedly
+  // not-yet-there for real seconds at a time (ADR-0150's own window-to-
+  // window pacing sleeps at accepted scale, up to ~30 real seconds between
+  // window starts) -- far longer than kCrossCoreExchangeMaximumSpinIterations
+  // survives in real time, which previously caused a real, silent
+  // desynchronization: once one side's wait_for timed out here, both sides'
+  // unconditionally-incremented local sequence counters permanently drifted
+  // apart, and every subsequent exchange for the rest of that direction
+  // burned its entire fast-spin budget for nothing. `now` may be a
+  // synthetic/mock clock in tests; this phase's real
+  // `std::this_thread::sleep_for` calls still happen for real (they cannot
+  // be mocked), so tests that do not need this phase should leave `policy`
+  // at its default.
+  // Constrained to actually-callable NowFn: without this, a plain integer
+  // second argument (e.g. wait_for(sequence, some_size_t)) deduces
+  // NowFn=size_t as an exact match, which overload resolution prefers over
+  // the non-template overload's own required conversion to size_t --
+  // silently picking this overload (and failing to compile its body,
+  // since an integer is not callable) instead of the intended one above.
+  template <typename NowFn>
+    requires requires(NowFn now) { now(); }
+  [[nodiscard]] auto wait_for(std::uint64_t sequence, NowFn&& now,
+                              CrossCoreExchangeTimeoutPolicy policy = {}) const
+      -> std::optional<Payload> {
+    if (const auto fast = wait_for(sequence, policy.fast_spin_iterations);
+        fast.has_value()) {
+      return fast;
+    }
+    if (policy.max_wait_ticks == 0U) {
+      return std::nullopt;
+    }
+    const auto start = static_cast<std::uint64_t>(now());
+    for (;;) {
+      if (static_cast<std::uint64_t>(now()) - start >= policy.max_wait_ticks) {
+        return std::nullopt;
+      }
+      std::this_thread::sleep_for(std::chrono::milliseconds(1));
+      if (sequence_.load(std::memory_order_acquire) == sequence) {
+        return Payload{first_.load(std::memory_order_relaxed),
+                       second_.load(std::memory_order_relaxed)};
+      }
+    }
   }
 
   [[nodiscard]] auto atomic_lock_free_evidence() const noexcept
@@ -80,16 +152,18 @@ struct CrossCoreExchangeChannel final {
 // already consumes. `now` is injected (rather than calling
 // timing::read_monotonic_raw_absolute() directly) so this is deterministically
 // unit-testable with a synthetic clock; production callers pass a real
-// nanosecond-reading closure. Returns std::nullopt if the responder never
-// answers within the bounded spin.
+// nanosecond-reading closure, which also becomes the deadline clock for
+// `policy.max_wait_ticks` (see CrossCoreExchangeSlot::wait_for). Returns
+// std::nullopt if the responder never answers within `policy`'s bound.
 template <typename NowFn>
-[[nodiscard]] auto initiate_cross_core_round_trip(
-    CrossCoreExchangeChannel& channel, std::uint64_t sequence, NowFn&& now,
-    std::size_t max_spins = kCrossCoreExchangeMaximumSpinIterations)
+[[nodiscard]] auto
+initiate_cross_core_round_trip(CrossCoreExchangeChannel& channel,
+                               std::uint64_t sequence, NowFn&& now,
+                               CrossCoreExchangeTimeoutPolicy policy = {})
     -> std::optional<CrossCoreExchangeSample> {
   const auto request_send = now();
   channel.forward.publish(sequence, request_send, 0U);
-  const auto reply = channel.backward.wait_for(sequence, max_spins);
+  const auto reply = channel.backward.wait_for(sequence, now, policy);
   if (!reply.has_value()) {
     return std::nullopt;
   }
@@ -100,12 +174,14 @@ template <typename NowFn>
 
 // Responder side of one round trip: waits for `sequence` to arrive, reads
 // its own request_receive timestamp, then immediately reads its own
-// response_send timestamp and publishes both back. Returns false on timeout.
+// response_send timestamp and publishes both back. Returns false on timeout
+// (see CrossCoreExchangeSlot::wait_for for what `policy` bounds).
 template <typename NowFn>
-[[nodiscard]] auto respond_to_cross_core_round_trip(
-    CrossCoreExchangeChannel& channel, std::uint64_t sequence, NowFn&& now,
-    std::size_t max_spins = kCrossCoreExchangeMaximumSpinIterations) -> bool {
-  const auto arrived = channel.forward.wait_for(sequence, max_spins);
+[[nodiscard]] auto
+respond_to_cross_core_round_trip(CrossCoreExchangeChannel& channel,
+                                 std::uint64_t sequence, NowFn&& now,
+                                 CrossCoreExchangeTimeoutPolicy policy = {}) -> bool {
+  const auto arrived = channel.forward.wait_for(sequence, now, policy);
   if (!arrived.has_value()) {
     return false;
   }

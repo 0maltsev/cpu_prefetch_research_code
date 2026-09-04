@@ -1478,6 +1478,67 @@ ADR-0151), plus `PLATFORM_MANIFEST`/`PILOT_PLATFORM_MEASUREMENTS` and
 `S17-EXT-004` admission itself, are the next real steps, not yet done as
 of this record.
 
+### Three of the four raw-derived envelopes built for real; the fourth blocked on a real, deep environment defect
+
+Real, previously-unnoticed fact found before hand-authoring anything: a
+real, unit-tested envelope-authoring tool already exists,
+`cpu_prefetch_q15_qualification_evidence_tool` (`tools/q15_
+qualification_evidence_tool_main.cpp`, already part of the `v21`
+bundle's `required_binaries`) -- it reads one raw Q15-R artifact plus
+real, already-known session facts and calls the same typed builder
+(ADR-0147/0148/0149/0150/0152) the unit tests already verify, so none of
+`RUNTIME_ATOMIC_LAYOUT`/`ACTUAL_CPU_MIGRATION`/`ADDRESS_RESIDENCY`/
+`SOFTWARE_PREFETCH_MAPPING` should be hand-authored the way
+`SELECTED_PAIR_CLOCK` was (the standalone clock tool's own raw output
+lacks fields no tracer in this codebase can supply yet, which is why
+that one needed extra explicit CLI flags rather than being fully
+tool-derived). `--self-test` passed on the stand's real copy first.
+
+Built all three kinds sourced from journal-24's own single real Q15-R
+capture (`--worker-pair near`, since the session's real `cpu: 0`
+platform binding equals the near pair's real `producer_cpu: 0` -- the
+tool's degenerate single-CPU acceptance path, unit-tested as `ActualCpu
+MigrationAcceptsSingleCpuSeriesBoundToProducerRole`), all bound to the
+real `v21`/`be2c27b` identity and the real worker `binary_sha256`/
+`captured_at_utc` from `stage17-q15-r-result-v4.json`. Because all four
+kinds now come from the *same* real session, no cross-session rebinding
+(the concern ADR-0151 raised when the only real data was `-20`'s, on a
+different binary) was needed. All three real, on the first attempt:
+`PASS ... eligible=true` for `RUNTIME_ATOMIC_LAYOUT`,
+`ACTUAL_CPU_MIGRATION`, and `ADDRESS_RESIDENCY`, preserved at
+`ext004-authoring-24/` on the stand.
+
+`SOFTWARE_PREFETCH_MAPPING` needs a fourth, separate real input this
+tool does not derive: the real pass/fail outcome of the `software-
+prefetch-mapping-codegen-check` CMake target, for *both* the GCC and
+Clang compiler presets (each checked under both `objdump` and `llvm-
+objdump`). The GCC preset produced a real `PASS` immediately
+(`build/release-gcc`). The Clang preset hit a real, deep, pre-existing
+environment defect: `build/release-clang-libcxx`'s cached build graph
+needed a one-time reconfigure to register the (newly-added) codegen
+probe/mutant targets, and that reconfigure's `find_package(GTest 1.17.0
+EXACT CONFIG REQUIRED)` failed -- `GTest::gmock` is pinned to
+`/tmp/cpu-prefetch-stage16-deps/prefix-clang-libcxx/lib/libgmock.a`,
+which does not exist (only `libgtest.a` was ever installed there for
+this toolchain). Setting `-DBUILD_TESTING=OFF` on a fresh configure
+avoids that `find_package` call but breaks other, unrelated custom
+targets that reference test-worker binaries unconditionally. Attempting
+to build `gmock` for real from the genuine upstream v1.17.0 release
+tarball (matching the pinned version exactly, fetched over real,
+available internet access) hit a second, deeper defect: the vendored
+libc++ prefix itself is missing the `<csignal>` header entirely (real,
+reproduced directly with a one-line `clang++ -stdlib=libc++` test, not
+inferred), which GoogleTest's own `gtest-death-test-internal.h`
+transitively includes -- meaning this specific vendored libc++
+installation cannot compile GoogleTest for this toolchain at all, not
+just this one target. Touching `build.ninja`'s mtime to dodge the
+reconfigure trigger also failed; the real cause is ninja's own tracked
+dependency on `CMakeLists.txt`'s content, not a stale-mtime false
+positive. Deferred, per explicit owner decision, rather than continuing
+to dig into re-provisioning the toolchain -- `S17-EXT-004` admission
+itself (which needs all five real evidence kinds together) is blocked
+on this until it's resolved.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

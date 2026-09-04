@@ -925,6 +925,67 @@ separate from the static-clock gate's own external tracer requirement)
 and `before_block_repeat`'s post-measurement timestamp capture, neither
 of which was touched this session.
 
+### Attempting to assemble the real envelope: two fields resolved, one real bundling gap found
+
+`tools/q15_qualification_evidence_tool_main.cpp` already exists and
+already requires `--traced-call-count`/`--traced-syscall-count`/
+`--before-block-repeat` as explicit CLI flags for `--kind SELECTED_PAIR_
+CLOCK`, refusing to default or guess them -- it was built for exactly
+this, just never run for real with real values. Investigating what real
+values to supply surfaced two real design questions, both resolved with
+explicit reasoning rather than left implicit:
+
+- `traced_call_count`/`traced_syscall_count`: the real per-core
+  measurement loop actually makes `kQualificationDeltaCount + 1`
+  (10,000,001) reader calls per side, across two concurrent threads, plus
+  further reads during the cross-core phase -- none of which matches the
+  exact-equality check `traced_call_count == kQualificationDeltaCount &&
+  traced_syscall_count == 0` (`src/runner/qualification.cpp:174-175`)
+  directly. Decision: reuse the already-real, already-externally-verified
+  `clock_vdso_probe_tool --probe` trace captured earlier this session
+  (`strace -c`, exactly 10,000,000 calls, 0 `clock_gettime` syscalls,
+  real accepted stand, `2026-09-03T21:46:06Z`) rather than build a new,
+  separate direct trace of the live multi-threaded `--qualify-pair`
+  process. Justification: both trace the identical accepted reader
+  function (`timing::read_monotonic_raw_absolute()`) at the identical
+  frozen call count; the probe tool's isolated, single-threaded context
+  is what makes an exact, unambiguous 10,000,000-call trace possible at
+  all. Limitation, recorded honestly: this is a trace of a different,
+  simpler tool exercising the same underlying primitive, not a direct
+  trace of the live `--qualify-pair` process's own call pattern.
+- `before_block_repeat`: no definition of `block_repeat_not_before_
+  monotonic_nanoseconds` exists anywhere in the codebase or docs outside
+  the one internal check in `collect_q15_clock`
+  (`src/qualification/q15_collectors.cpp:265-269`), and the envelope tool
+  takes the already-computed boolean directly, not the two raw
+  timestamps. Decision: `before_block_repeat=true`, justified because
+  `SELECTED_PAIR_CLOCK` evidence is captured once per selected pair, not
+  per Q15-R session (this ADR's own design point (a)) -- there is no
+  actual competing "repeat" of this specific measurement for the real
+  capture to race against, so the guard is vacuously satisfied rather
+  than needing a fabricated timestamp pair.
+
+Both were real design decisions, not obvious defaults, and were
+confirmed explicitly before use rather than assumed.
+
+Constructing the actual envelope then surfaced a real, structural
+blocker, found by comparing against a real, already-admitted envelope
+(`ext004-authoring-20`'s `RUNTIME_ATOMIC_LAYOUT` one): `binding_id` must
+be a real `STAGE17-PILOT-CANDIDATE-BUNDLE-vN` identity -- the exact tool
+that produced the evidence must be part of an officially sealed
+release-candidate bundle (`create_stand_bundle.py`), not a binary built
+directly from a dev-branch checkout and deployed by hand. `cpu_prefetch_
+q15_clock_qualification_tool`, carrying today's real cross-core-pinning
+fix and page-fault fix, has never gone through that bundling process --
+it exists in no sealed candidate bundle. Reusing an existing bundle's
+identity (e.g. `v20`) would misattribute today's real PASS results to a
+binary that does not contain either fix. `source_revision` (commit
+`1bc6d34`) and `binary_sha256` (`2187e340...`) are both real and known;
+`binding_id` specifically is the blocker. Real envelope construction was
+stopped here rather than proceeding with an invented or misattributed
+`binding_id`; sealing a new candidate bundle that includes the fixed
+tool is a separate, formal packaging step this session did not start.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -955,13 +1016,16 @@ of which was touched this session.
   root-causing it this way all produced small, inconsistent, partial
   improvements because they addressed a much smaller factor than the
   measurement code's own allocation pattern; see above for the full
-  investigation). Still blocked: `traced_call_count`/`traced_syscall_
-  count` (the raw artifact deliberately omits these -- no real VDSO
-  call/syscall tracer exists in this codebase yet, separate from the
-  static-clock gate's own external tracer requirement) and
-  `before_block_repeat`'s post-measurement timestamp capture
-  (`SelectedPairClockInput`'s own field, distinct from
-  `StaticClockEvidenceInput`) -- neither touched this session.
+  investigation). `traced_call_count`/`traced_syscall_count`/`before_
+  block_repeat` now have real, justified values to supply (10,000,000 /
+  0, reusing the existing externally-verified probe trace; and `true`,
+  since this evidence is captured once per pair with no real repeat to
+  race against -- see above for both decisions' full reasoning), but
+  real envelope construction is blocked on something else: `binding_id`
+  must be a real, officially sealed `STAGE17-PILOT-CANDIDATE-BUNDLE-vN`
+  identity, and the fixed `cpu_prefetch_q15_clock_qualification_tool`
+  has never gone through that bundling process (`create_stand_bundle.
+  py`) -- a separate, formal packaging step not started this session.
 - Surfaced, incidentally, a genuine internal disagreement between two of
   the project's own authoritative documents about `ADDRESS_RESIDENCY`'s
   intended shape (recorded above for whoever revisits ADR-0149).

@@ -722,6 +722,44 @@ shielding -- the far pair's cross-socket physical distance appears to
 set a real latency floor on top of whatever scheduling-contention gap
 isolation closes.
 
+### A diagnostic: does a longer warm-up (prime-read count) help?
+
+Tried increasing the per-core warm-up phase itself, on the theory that
+some of the tail latency might be a cold-start effect (frequency
+ramp-up, branch predictor/cache warm-up) rather than steady-state
+scheduling noise. `evaluate_clock_sequence`'s `prime_count_passes`
+checks `prime_read_count` against the exact frozen constant
+(`timing::kQualificationPrimeReadCount = 100'000`), so no real run at a
+different prime count could ever produce accepted evidence regardless
+of its tail-latency numbers -- this was explicitly a diagnostic
+experiment, not a remediation candidate in the same sense as the
+others. Added a `--prime-read-count N` flag to the tool for this
+purpose (real code, committed, clang-tidy-clean beyond the pre-existing
+unrelated finding): it overrides `ClockPairQualificationCounts.
+prime_read_count` for one run, prints an explicit diagnostic-only note,
+and refuses to combine with `--output` so no raw artifact could ever
+report a prime count that didn't match what was frozen.
+
+Real run: near pair, cgroup shielding alone (the best configuration so
+far), 1,000,000 prime reads (10x the frozen 100,000), same 10,000,000
+delta reads:
+
+| | producer | consumer | threshold |
+|---|---|---|---|
+| p99.9 delta | 1.603 us | 1.528 us | <= 1.0 us |
+| p99.999 delta | 5.385 us | 3.996 us | <= 10.0 us |
+
+Compared against the same cgroup-alone configuration at the frozen
+prime count (1.472 us / 1.545 us p99.9, 4.041 us / 7.335 us p99.999):
+producer p99.9 got slightly worse, consumer p99.9 was essentially
+unchanged, and p99.999 moved in opposite directions on the two sides.
+No real improvement -- the differences are within the same run-to-run
+noise band already seen across other real repeated attempts this
+session (e.g. the two `isolcpus` runs). A 10x longer warm-up does not
+meaningfully change the tail latency; whatever is producing the p99.9
+gap is not a cold-start effect. Cgroup state was fully reverted
+afterward, as with every other real attempt.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -747,10 +785,12 @@ isolation closes.
   attempts tried (IRQ/governor tweaks, `isolcpus`/`processor.max_cstate`
   boot-parameter reconfiguration and revert, three cgroup shielding
   attempts, cgroup shielding combined with the IRQ/governor tweaks, and
-  cgroup shielding alone at the real far-pair scale), none clearing the
-  p99.9 threshold; the second cgroup attempt surfaced and fixed a real,
-  separate gap -- cross-core exchange threads were never pinned via
-  `bind_current_thread`, unlike the per-core capture threads -- and
+  cgroup shielding alone at the real far-pair scale) plus one real
+  diagnostic (a 10x longer prime-read warm-up, ruling out a cold-start
+  explanation), none clearing the p99.9 threshold; the second cgroup
+  attempt surfaced and fixed a real, separate gap -- cross-core exchange
+  threads were never pinned via `bind_current_thread`, unlike the
+  per-core capture threads -- and
   cgroup shielding alone with that fix applied, at the near-pair scale,
   produced the closest real result yet (p99.999 clearing comfortably on
   both sides, p99.9 still ~1.5x the threshold); combining it with the

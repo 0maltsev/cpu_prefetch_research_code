@@ -44,21 +44,25 @@ struct PerCoreCapture final {
     return {true, std::nullopt};
   }
   timing::MonotonicRawClock clock({origin.absolute_nanoseconds});
-  std::vector<std::uint64_t> timestamps;
-  timestamps.reserve(counts.delta_count + 1U);
+  // Value-initialized (not reserve()+push_back()) so every page is really
+  // written -- and so really faulted in -- before the timed loop starts,
+  // rather than lazily on each element's first touch during it; a real
+  // stand run found ~57,000 minor page faults during this loop, the same
+  // order of magnitude as first-touching this vector's ~19,500 pages.
+  std::vector<std::uint64_t> timestamps(counts.delta_count + 1U, 0U);
   for (std::size_t index = 0U; index <= counts.delta_count; ++index) {
     const auto reading = clock.read();
     switch (reading.status) {
     case timing::ClockReadStatus::ok:
-      timestamps.push_back(reading.sample.relative_picoseconds);
+      timestamps[index] = reading.sample.relative_picoseconds;
       break;
     case timing::ClockReadStatus::call_failed:
       ++call_failures;
-      timestamps.push_back(timestamps.empty() ? 0U : timestamps.back());
+      timestamps[index] = index == 0U ? 0U : timestamps[index - 1U];
       break;
     default:
       ++invalid_timespecs;
-      timestamps.push_back(timestamps.empty() ? 0U : timestamps.back());
+      timestamps[index] = index == 0U ? 0U : timestamps[index - 1U];
       break;
     }
   }

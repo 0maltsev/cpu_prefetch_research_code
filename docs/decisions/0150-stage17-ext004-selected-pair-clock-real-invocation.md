@@ -347,6 +347,78 @@ unrelated to this fix (a different code path,
 touched here). Not yet investigated; see whatever ADR/commit follows
 this one for that.
 
+## Real per-core qualification investigation: a real tail-latency gap, not a code bug
+
+Investigating that `producer_per_core_passed`/`consumer_per_core_passed
+=false` finding. `--qualify-pair`'s stdout gained a per-core diagnostic
+line (not part of the raw artifact schema) surfacing
+`evaluate_clock_sequence`'s full real numbers, which
+`PerCoreQualificationEvidence` had been reducing to a single
+`read_status_passes` bool. Real results from the accepted stand, both
+sides:
+
+| | producer | consumer | threshold |
+|---|---|---|---|
+| p99.9 delta | 1.596 us | 1.586 us | <= 1.0 us |
+| p99.999 delta | 15.94 us | 15.82 us | <= 10.0 us |
+| max delta | 137.2 us | 123.4 us | (none) |
+| regressions / ties / call failures / affinity | all clean | all clean | -- |
+
+Everything else about the real measurement is exactly right: zero call
+failures, zero regressions, zero ties, the exact accepted
+10,000,000-sample count, singleton affinity holds throughout. Only the
+delta-read tail latency exceeds Stage 8's own already-accepted
+`CLOCK-QUAL-LMRV1` thresholds -- a small, real fraction of the 10
+million consecutive `clock_gettime(CLOCK_MONOTONIC_RAW)` reads take
+longer than expected. This is not a code defect: the tool correctly
+implements the already-frozen D-009 policy exactly as documented: the
+real question is whether *this stand, in its current configuration*,
+can meet it.
+
+A real, read-only investigation of the stand found no CPU isolation at
+all: `/proc/cmdline` has no `isolcpus`/`nohz_full`/`irqaffinity`; over
+200 real hardware IRQs had `smp_affinity_list` including CPUs 0 and 1
+(the near pair) and their real HT siblings 52/53 (`0-25,52-77` or
+`0-103`); both CPUs ran the `schedutil` governor with turbo boost
+enabled. Load average was low (0.08) and no heavy background process
+was visible -- this is "not configured to protect two cores from the
+scheduler/interrupts/frequency scaling," not "the machine is busy."
+
+Tried, for real, a reversible, no-reboot mitigation: governor set to
+`performance` for CPUs 0/1, turbo disabled system-wide (no per-CPU
+control exists), and IRQ affinity moved off CPUs 0/1/52/53 wherever the
+kernel allowed it (229 of 310 real IRQs changed; the other 81 either
+already excluded those CPUs or, for 2 fixed legacy IRQs, cannot be
+reaffinitized at all). Every original setting was snapshotted first.
+Re-running `--qualify-pair near` with these tweaks in place gave a real,
+mixed result:
+
+| | producer (after) | consumer (after) | vs. before |
+|---|---|---|---|
+| p99.9 delta | 2.176 us | 2.169 us | worse |
+| p99.999 delta | 6.508 us | 6.459 us | better, now under 10.0 us |
+| max delta | 270.7 us | 135.2 us | worse (producer) |
+
+The rare, large outliers (p99.999) improved substantially; the more
+common near-threshold outliers (p99.9 -- the actual blocking criterion)
+got slightly worse, and the single worst outlier grew. Net: still
+fails, and not clearly closer to passing. All tweaks were reverted
+immediately after (governor, turbo, and all 308 restorable IRQ affinity
+entries -- 2 were never changeable in the first place); a full `diff`
+against the original snapshot confirmed zero remaining differences.
+
+Working hypothesis for the real remaining cause, not yet tried: CPU idle
+C-states (real, well-known multi-microsecond wake latency from deep
+sleep, unaffected by governor/turbo/IRQ-affinity settings) and/or
+ordinary kernel threads still being scheduled onto CPUs 0/1 -- IRQ
+affinity does not prevent the scheduler from placing unrelated kernel
+work there, only interrupt routing. Addressing either for real would
+need something more invasive than what was tried here: `isolcpus`/
+`processor.max_cstate` at the kernel command line (needs a reboot), or
+runtime cgroup-based CPU shielding (no reboot, but a materially bigger
+live change to the accepted stand than a governor/IRQ tweak). Neither
+attempted; a separate, explicit decision.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -366,10 +438,12 @@ this one for that.
   so S17-EXT-004 cannot be built until this is resolved too. Stage 8's
   entire static clock evidence gate now has a real, complete PASS on the
   accepted stand (see above), and cross-core exchange now completes for
-  real at accepted scale too; still blocked: the real per-core
-  qualification failure found in that same run (see above), and
-  `before_block_repeat`'s timestamp capture (`SelectedPairClockInput`'s
-  own field, distinct from `StaticClockEvidenceInput`).
+  real at accepted scale too; still blocked: real per-core qualification
+  (a real p99.9 delta-latency tail-latency gap on the accepted stand's
+  current configuration, not a code defect -- see above for what was
+  tried and what remains untried), and `before_block_repeat`'s timestamp
+  capture (`SelectedPairClockInput`'s own field, distinct from
+  `StaticClockEvidenceInput`).
 - Surfaced, incidentally, a genuine internal disagreement between two of
   the project's own authoritative documents about `ADDRESS_RESIDENCY`'s
   intended shape (recorded above for whoever revisits ADR-0149).

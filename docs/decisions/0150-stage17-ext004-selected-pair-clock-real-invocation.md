@@ -1539,6 +1539,69 @@ to dig into re-provisioning the toolchain -- `S17-EXT-004` admission
 itself (which needs all five real evidence kinds together) is blocked
 on this until it's resolved.
 
+### `PLATFORM_MANIFEST`/`PILOT_PLATFORM_MEASUREMENTS` built and dry-run verified; a real, higher-stakes blocker found for `HARDWARE_PREFETCH_QUALIFICATION`
+
+Confirmed `EXPECTED_ROLES["S17-EXT-004"]` (`stage17_operational_semantics_
+v4.py:746-753`) actually needs 11 roles, not the 7 already in hand --
+the six real `Q15_R_*` artifacts from the `-24` session run (need only
+correct manifest wiring, not new construction), `PLATFORM_MANIFEST`,
+`PILOT_PLATFORM_MEASUREMENTS`, and `HARDWARE_PREFETCH_QUALIFICATION`, a
+role nobody had built or discussed before this pass.
+
+`PLATFORM_MANIFEST`/`PILOT_PLATFORM_MEASUREMENTS` are hand-authored by
+design (no dedicated tool, confirmed by grep). A real, local (non-`root`-
+owned, hence directly readable) prior draft existed at `ext004-authoring-
+20/` and `-18/`, bound to session `-20`'s hardware facts -- reused
+verbatim where the facts are genuinely stand-invariant (CPU vendor/
+model/stepping/microcode, topology, cache-line size, kernel `7.0.0-30-
+generic`, GCC 16.1.1/C++20/-O3/-DNDEBUG -- the kernel and build-provenance
+compiler flags were both live-reconfirmed against the real stand/`v21`
+`admission-root/build-provenance/compile_commands.json` rather than
+assumed unchanged), with `record_sha256`/`q15_r_result_sha256` correctly
+rebound to session `-24`'s real `stage17-q15-r-result-v4.json` bytes
+(sha256 `0bd4b660...`, 3172 bytes, fetched fresh from the stand). The
+`-20` draft's own `measurements` was missing two keys (`topology_
+evidence`/`cache_capacity_evidence`) that the current schema's
+`MEASUREMENT_KEYS["PILOT_PLATFORM_MEASUREMENTS"]` requires -- a real
+instance of treating precedent as a snapshot to verify, not a source of
+truth: added both for real, cross-referencing the same already-verified
+topology/cache facts already in `platform-manifest-24.json` rather than
+inventing new ones. Both dry-run verified clean against their real
+schemas (`platform.schema.json`, `stage17-operational-typed-record-v4.
+schema.json`) and the real `S17-EXT-004` admission cross-check
+(`subject_id == stand_id`, both sha256 bindings) before being saved,
+unsigned/unadmitted, at `/home/omaltsev/stage17-owner-evidence/
+ext004-authoring-24/`.
+
+`HARDWARE_PREFETCH_QUALIFICATION` (`config/schemas/hardware-prefetch-
+qualification-v1.schema.json`, `mapping_id: INTEL-06_55H-MSR-1A4-
+DISABLE-0_3-v1`) is a materially different, higher-stakes kind of real
+action than everything else in this engagement: producing a real,
+`eligible: true` instance requires an actual, live MSR `0x1A4`
+hardware-prefetcher-disable write on the real CPU, then a verify and
+restore cycle -- confirmed via the real semantic gate in
+`tools/check_hardware_prefetch_schema.py:87-96` (`eligible` requires
+`execution_state == "COMPLETE"` and `applied`/`verified`/`restored` all
+`True`; the schema's own `PREPARED_NOT_EXECUTED` value forces `eligible:
+false` unconditionally, so there is no non-invasive path to a genuine
+`eligible: true` record). No wrapper or dry-run-only tool exists for
+this -- the real MSR-facing tool (`tools/q15_qualification_tool_main.
+cpp`) only has genuinely read-only (`--read-fixed-*`) and genuinely
+live-write (`--apply-h1-cpu`/`--restore-h0-cpu`) modes, nothing in
+between, and per ADR-0049, "restoration uncertainty quarantines the
+stand" -- a real, stated, severe consequence of an incomplete restore.
+Separately, the real `S17-EXT-004` admission code does not deep-check
+this role's `eligible` value the way it does for the five `QUALIFICATION_
+EVIDENCE` kinds (confirmed by grep: zero references to this role in
+`stage17_operational_semantics_v7.py`'s EXT-004 branch beyond manifest
+role-presence), so a schema-valid `PREPARED_NOT_EXECUTED`/`eligible:
+false` record might technically pass admission -- but doing so would not
+represent genuine H1 qualification, and nothing in the code or docs says
+that's an accepted substitute. Given the real invasiveness, the
+documented quarantine risk, and the honesty question, this was
+explicitly stopped here rather than continued, per the owner's own
+decision -- not yet investigated further, let alone attempted.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

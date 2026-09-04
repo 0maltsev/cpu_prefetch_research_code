@@ -1241,6 +1241,78 @@ currently privileged; it needs an environment where the executing
 process can read root's PID-namespace identity (e.g. running as root, or
 outside this sandbox's user restrictions).
 
+### The real EXT-002 capture, run as root by the owner: complete after three more real findings
+
+The owner ran the capture directly, as root, on their own terminal
+(`sudo`, outside this session's own restricted shell). Three more real,
+distinct blockers surfaced and were fixed in turn, each a genuine
+constraint of running the tooling as root rather than a design flaw:
+
+1. **Transport identity ownership.** `stage17_openssh_parent_snapshot_
+   v4.py` requires the pinned SSH private key file's owner to exactly
+   match the running process's effective UID. The owner's real,
+   already-`authorized_keys`-trusted key is owned by `uid 1000`; root
+   cannot use it under this check. Fix, chosen deliberately over
+   chowning the shared key (which would have broken this session's own
+   ongoing unprivileged SSH access): copied the *same* key bytes (real
+   diff-confirmed identical, no new cryptographic material, no stand-
+   side `authorized_keys` change needed) to a dedicated root-owned path
+   (`/root/xeon-cpu-fetch-ext002-transport-identity`).
+2. **`S17-EXT-001` resolves once per journal.** `append_resolution`
+   rejects re-admitting an already-resolved input, and the corrected
+   transport-identity path could only take effect in a *new* `EXT-001`
+   authorization -- meaning a fresh journal, not a fresh step within the
+   old one. `stage17-operational-evidence-21` (real, genuinely resolved
+   `EXT-001`, just pinned to the wrong key path) was superseded in place
+   (a `SUPERSEDED.txt` note, not deleted) by
+   `stage17-operational-evidence-22`.
+3. **Evidence-root ownership, the same pattern one level up.** The `v22`
+   evidence root had been `init`-ed by this session's own unprivileged
+   process before root's involvement was known to be necessary, so `uid
+   1000`-owned; `admit-resolution` requires the evidence root itself to
+   be owner-mode-0700-and-matching-effective-UID too. Fixed by `chown -R
+   root:root` on the whole tree before any further step -- folded into
+   every later script's very first real action once this was understood.
+
+With those three fixed, the real preflight *executor* itself (run from
+the correct `admission-root` copy, per the earlier finding) still failed
+twice more, both genuine gaps in what this session had actually deployed
+to the accepted stand rather than local/permission issues:
+
+- **`S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION`**
+  failed with a real remote `FileNotFoundError`: the check runs *on the
+  stand*, expecting the `v21` bundle archive at the exact same absolute
+  path as locally. The `v21` bundle had only ever existed on this
+  machine. Fixed by `scp`-ing the real archive and sidecar to the stand
+  at that exact path (hash-confirmed identical after transfer) -- a
+  real, if low-risk (additive-only), stand-facing write, done with
+  explicit confirmation.
+- **`S17-RO-PREFLIGHT-003-BUNDLE-INTERNAL-VERIFICATION`** then failed
+  the same way for a different reason: it requires the *extracted*
+  bundle directory (not just the archive) at the same absolute path on
+  the stand. Fixed by extracting the already-uploaded archive there too
+  (confirmed a real directory, not a symlink) -- again explicit,
+  additive-only.
+
+Each of these five fixes spent one more `EXT-001` attempt under the
+same one-shot rule (`stage17-operational-evidence-22` and `-23`, both
+real, both superseded in place, neither deleted). The sixth attempt,
+`stage17-operational-evidence-24`, with every real fix already in
+place, produced a real, complete result: `stage17-read-only-preflight-
+v12: PASS fixed=6 retry=0 Stage18=false`, all six observations
+completed for real (`stage17-read-only-preflight-completion-v7.json`,
+not a failure record), including a real platform inventory confirming
+the exact deployed build (`source_revision: be2c27b...`, matching this
+session's own `v21` commit exactly). The captured diagnostic evidence
+(receipts, stdout/stderr, the attempt and completion records -- no key
+material) was copied out to a location this session could read directly
+for verification, without weakening the evidence root's own required
+ownership/permissions.
+
+Real `S17-EXT-002` (author + admit from this captured evidence) and
+`S17-EXT-003` (owner acceptance) remain the next real steps; neither was
+done yet as of this record.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

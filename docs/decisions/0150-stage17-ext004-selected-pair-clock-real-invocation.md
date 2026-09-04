@@ -802,6 +802,58 @@ intrinsic property of this specific stand's `clock_gettime`/vDSO path at
 the tail, not an artifact of any of the measurement's own tunable
 parameters.
 
+### Root-causing a slow read: MSR SMI count and perf stat, both real
+
+Two concrete real hypotheses, checked directly rather than by further
+parameter sweeps: system management interrupts (SMI -- firmware-level,
+invisible to the OS and scheduler, a well-known cause of exactly this
+kind of stable microsecond-scale stall that no cgroup/isolcpus/IRQ
+tuning can touch), and first-touch minor page faults from the
+`std::vector<std::uint64_t>` each per-core thread `reserve()`s for its
+10,000,000 timestamps but never pre-faults.
+
+SMI count is Intel MSR 0x34 (`MSR_SMI_COUNT`); `rdmsr` itself isn't
+installed on the stand, but the `msr` kernel module is loaded and
+`/dev/cpu/N/msr` is readable as root, so it was read directly (`dd
+if=/dev/cpu/N/msr bs=8 count=1 skip=$((0x34)) iflag=skip_bytes`,
+confirmed working by reading it twice a second apart first). Read on
+both CPU 0 and CPU 1 immediately before and immediately after a full
+real cgroup-isolated `--qualify-pair near` run (~2m10s): **512 before,
+512 after, on both CPUs -- zero SMIs during the entire run.** This rules
+out SMI entirely as a contributor.
+
+`perf stat -e task-clock,page-faults,minor-faults,major-faults,
+context-switches,cpu-migrations,cache-misses,cache-references -p PID`
+was attached to the qualification process (still cgroup-isolated) for
+the same run. Real result: **56,940 page faults, all minor, zero
+major**; 220,880 context-switches; 1 cpu-migration; ~29.3M cache misses
+against ~60.0M cache references. The page-fault count lines up with the
+pre-fault hypothesis: two threads each `reserve()`-ing 80 MB (10,000,000
+x 8 bytes) untouched-until-written is ~19,531 pages each, ~39,062
+combined, plus the smaller cross-core exchange sample buffers -- the
+same order of magnitude as the observed 56,940. A minor page fault
+typically costs on the order of 1-10 us, consistent with the observed
+p99.9 (~1.5 us) and p99.999 (~4-8 us) tail. The context-switch count is
+not treated as evidence of interference on the per-core delta-read loop:
+`run_direction_initiator`'s own pacing (`sleep_for(1ms)` between window
+starts, up to ~30,000 real sleep/wake cycles per window across up to two
+initiator roles) is a large, expected, benign source of voluntary
+context switches during the ~118-second cross-core phase that follows
+the brief per-core phase in the same run, and this `perf stat` invocation
+spanned the whole run rather than being time-bounded to just the
+per-core phase -- attributing the aggregate count to delta-read
+interference specifically would overstate what was actually measured.
+
+So: a real, concrete, actionable lead -- first-touch page faults on the
+reserved-but-unfaulted timestamp vector -- with a real negative control
+(SMI, cleanly ruled out) and one real, honestly-caveated ambiguous
+signal (context-switches, most plausibly benign pacing sleeps, not
+re-attributed to the per-core phase without further time-bounded
+evidence). Cgroup state was fully reverted afterward. Not yet tried:
+pre-faulting the vector (e.g. `std::vector(count, 0)` instead of
+`reserve` + `push_back`, or an explicit touch pass before starting the
+timed loop) to see whether it measurably closes the p99.9 gap.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -827,11 +879,15 @@ parameters.
   attempts tried (IRQ/governor tweaks, `isolcpus`/`processor.max_cstate`
   boot-parameter reconfiguration and revert, three cgroup shielding
   attempts, cgroup shielding combined with the IRQ/governor tweaks, and
-  cgroup shielding alone at the real far-pair scale) plus two real
+  cgroup shielding alone at the real far-pair scale) plus three real
   diagnostics (a 10x longer prime-read warm-up, ruling out a cold-start
-  explanation, and a 10x larger delta sample count, ruling out a wall-
-  clock-periodic dilutable-outlier explanation), none clearing the
-  p99.9 threshold; the second cgroup
+  explanation; a 10x larger delta sample count, ruling out a wall-
+  clock-periodic dilutable-outlier explanation; and a real MSR SMI-count
+  check plus `perf stat`, ruling out SMI entirely and surfacing a real,
+  concrete, actionable lead -- ~57,000 minor page faults, plausibly from
+  the reserved-but-unfaulted 80 MB timestamp vectors, order-of-magnitude
+  consistent with the observed tail latency but not yet acted on), none
+  clearing the p99.9 threshold; the second cgroup
   attempt surfaced and fixed a real, separate gap -- cross-core exchange
   threads were never pinned via `bind_current_thread`, unlike the
   per-core capture threads -- and

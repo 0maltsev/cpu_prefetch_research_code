@@ -1785,6 +1785,43 @@ the now-identified fix) remains valid and reusable; only the journal
 *admission calls* (`S17-EXT-001` through `S17-EXT-004`) need repeating,
 not any new stand-facing capture.
 
+### A second, same-class one-shot failure on journal `-25`: hand-editing text instead of using the real construction tool
+
+Rebuilding the admission chain fresh as journal `-25` (real init via
+`init --materialize-admission-root`, not a manual `cp`, once the exact
+real requirement was confirmed by reading `initialize()`/
+`materialize_admission_root` directly) reproduced `S17-EXT-001` and its
+real read-only preflight capture cleanly on the first attempt --
+`PASS fixed=6 retry=0` again. Re-authoring `S17-EXT-002`'s four typed
+artifacts by `sed -e 's/-24/-25/g'`-renaming the real `-24` copies
+seemed safe (the renamed strings looked purely cosmetic), but `sed`
+doesn't distinguish an id occurring as a label from the same
+substring occurring as part of a value some *other* file's embedded
+hash depends on: renaming `ext002-runtime-release-provenance.json`'s
+own `receipt_id` field changed that file's real bytes (and therefore
+its real sha256), while `ext002-runtime-identity.json`'s `source_
+bindings` entry for it still carried the *old* `-24` file's hash,
+unreconciled. Real result: `admit-resolution --input-id S17-EXT-002`
+failed with `FAIL: typed source binding drifted: RUNTIME_IDENTITY` --
+the same failure class as the `-24` `PILOT_PLATFORM_MEASUREMENTS`
+mismatch, this time self-inflicted by text substitution rather than by
+copying stale short ids. Per the standing rule, not retried; confirmed
+this burns `S17-EXT-002`'s sequence-2 slot on journal `-25` the same
+permanent way `-24`'s sequence-4 slot was burned, so `-25` is now also
+unable to ever admit past `S17-EXT-002`.
+
+Real lesson, acted on immediately rather than repeated a third time:
+`ext002-runtime-release-provenance.json` was never meant to be hand-
+edited at all -- it's built by a real, existing, authoritative function
+(`build_extracted_release_receipt_v6` in `tools/stage17_pilot_candidate_
+artifact_v6.py:229-260`, taking only `bundle_root`/`receipt_id` and
+computing every real bundle hash itself) that was used correctly the
+*first* time this artifact was ever built on journal `-24`, and should
+have been called fresh again here instead of text-patched. A further
+fresh journal (`-26`) is needed, this time building every renumbered
+artifact from real tool output and freshly-computed real hashes at each
+step, not string substitution of a prior journal's files.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

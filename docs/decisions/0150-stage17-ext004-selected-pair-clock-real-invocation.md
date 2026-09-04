@@ -1131,8 +1131,69 @@ session-20 envelopes. The one real piece of `S17-EXT-004` still open is
 `ADDRESS_RESIDENCY`: it needs an actual real Q15-R session execution
 (the formal, controller-mediated kind -- request, owner-signed
 authorization, `stage17_q15_session_controller_v6.py`) using the new v21
-bundle, not a direct tool invocation like this session's own work; that
-real session was not run this session.
+bundle, not a direct tool invocation like this session's own work.
+
+### Starting the real v21 operational journal: a fresh EXT-001 cycle
+
+Getting `ADDRESS_RESIDENCY` needs a real Q15-R session running the fixed
+worker -- and that, traced directly through `stage17_phase_controller_
+v2.py::_runtime_from_context`, is structurally impossible on session
+`-20`'s existing journal: for `Q15-R`/`Q15-W` specifically, the worker
+binary identity comes from `S17-EXT-003`'s own semantic context, fixed
+at the time EXT-002/003's real preflight capture ran (2026-09-03,
+against the `v20` bundle, before ADR-0149 existed) -- not swappable via
+a later `S17-EXT-006` resolution. So a real, fresh journal was required,
+initialized against the `v21` bundle.
+
+Copied the verified `v21` bundle (extraction, archive, and sidecar) to
+permanent storage (`release-bundle-extract-v21/`, matching the
+established convention), re-verified clean at that location, then real
+`init --materialize-admission-root` against it, producing a fresh
+genesis journal at `stage17-operational-evidence-21/`.
+
+Authored a real, complete `S17-EXT-001` authorization draft
+(`author-ext001`), matching session `-20`'s exact real precedent
+structure and scope (read-only, every mutation/measurement/pilot/
+privileged permission `false`, 1-hour window, same fixed action plan and
+frozen observation IDs), reusing three already-real, already-owner-
+authored artifacts rather than fabricating anything: the pinned host key
+(`stand-pinned-host-key.pub`), the pinned known-hosts file, and the real
+`no_predecessor_attestation` record (`no-predecessor-attestation-
+20260901.json`, ADR-0124, covering D-120/D-121/D-123) that ADR-0124/0125
+established as a genuinely reusable substitute for the three per-attempt
+blocker receipts.
+
+Admitting it surfaced two real, honest one-shot failures, both handled
+the way this project's own D-120/D-121/D-123 history handles them --
+preserve the partial evidence under a clearly-labeled name, never
+silently retry in place:
+
+1. `admit-resolution` writes the resolution record and the candidate
+   journal file (both create-exclusive) *before* running final semantic
+   validation. The first real attempt hit that validation because
+   `--preflight-evidence-root` (a real directory the authorization
+   references but that only needs to exist, not yet contain anything --
+   the actual preflight capture is a later step) hadn't been created
+   yet. Both partial files were already durably written by the time the
+   error surfaced. Preserved as `*.STOPPED-ATTEMPT-1-evidence-root-
+   absent-20260904T134428Z*`; retried clean once the directory existed.
+2. `append-transition` has the identical write-before-validate shape.
+   The first real attempt used a `--timestamp-utc` that was, honestly,
+   an arithmetic mistake -- earlier than the resolution's own
+   `recorded_at_utc`, tripping `stage17_state_journal_v12.py`'s
+   `resolution.recorded_at_utc > timestamp` lineage check. Rather than
+   fabricate a timestamp, waited for real wall-clock time to actually
+   pass the resolution's recorded time, then retried with a real,
+   current timestamp. Preserved the partial `transition-001.json`/
+   candidate-journal pair as `*.STOPPED-ATTEMPT-1-lineage-time-drifted-
+   20260904T135252Z*`.
+
+Real result, independently verified via `status`: `current_state:
+AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, `resolutions: 1`, `transitions: 1`.
+The `v21`-based journal is real and moving. What remains before real
+`ADDRESS_RESIDENCY` evidence exists: the real EXT-002 read-only preflight
+capture, EXT-003 owner acceptance, then the actual Q15-R request/
+authorization/execution -- none of which happened this session.
 
 ## Consequences
 

@@ -315,6 +315,38 @@ static-probe-evidence/collect-20260903-output.log`. This is Stage 8's
 entire static clock evidence gate, real and passing, on the accepted
 stand.
 
+## A real cross-core exchange livelock, found and fixed at accepted scale
+
+The first-ever real `--qualify-pair` run at full accepted frozen scale on
+the stand did not complete in the "roughly two real minutes" estimated
+above -- it ran for 8.4+ real hours, still climbing, pegged at ~200% CPU
+with no output. This was a real, previously-undiscovered livelock: the
+initiator's own inter-window pacing sleep (up to ~30 real seconds between
+window starts at accepted scale) vastly exceeds
+`kCrossCoreExchangeMaximumSpinIterations`'s real-time budget (a few real
+seconds), and the responder side had no accommodation for that gap --
+once its spin timed out once, both sides' unconditionally-incremented
+local sequence counters permanently desynchronized, and every remaining
+exchange for the rest of that direction burned its full spin budget for
+nothing. Never caught by the unit tests: their reduced-scale pacing gap
+(200ms) is 300x shorter than accepted scale, never long enough to expose
+it.
+
+Fixed by giving `CrossCoreExchangeSlot::wait_for` a second, opt-in,
+wall-clock-bounded phase after the fast spin (see the commit and the
+primitive's own doc comments for the full design). Verified for real on
+the accepted stand with the fix: `--qualify-pair near` completed in
+**2m0.9s** real elapsed time -- matching the original estimate almost
+exactly -- with `cross_core_passed=true` for the first time ever at
+accepted scale.
+
+That same real run's `producer_per_core_passed`/
+`consumer_per_core_passed` were both `false` -- a separate, real finding,
+unrelated to this fix (a different code path,
+`evaluate_per_core_qualification`/`evaluate_clock_sequence`, never
+touched here). Not yet investigated; see whatever ADR/commit follows
+this one for that.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -333,8 +365,9 @@ stand.
   are completed -- all five `QUALIFICATION_EVIDENCE` kinds are required,
   so S17-EXT-004 cannot be built until this is resolved too. Stage 8's
   entire static clock evidence gate now has a real, complete PASS on the
-  accepted stand (see above); still blocked: real `--qualify-pair`
-  execution at full frozen scale on the accepted stand, and
+  accepted stand (see above), and cross-core exchange now completes for
+  real at accepted scale too; still blocked: the real per-core
+  qualification failure found in that same run (see above), and
   `before_block_repeat`'s timestamp capture (`SelectedPairClockInput`'s
   own field, distinct from `StaticClockEvidenceInput`).
 - Surfaced, incidentally, a genuine internal disagreement between two of

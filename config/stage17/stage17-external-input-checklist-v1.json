@@ -4,7 +4,7 @@
   "protocol_version": "2.0.0-pre.2",
   "status": "EXTERNAL_INPUTS_REQUIRED",
   "all_resolved": false,
-  "unresolved_count": 6,
+  "unresolved_count": 9,
   "items": [
     {
       "input_id": "S17-EXT-001",
@@ -12,9 +12,9 @@
       "description": "One prospective read-only preflight authorization covering the complete frozen observation set, target, bundle contract, limits, UTC window, stop/retention policy, and the disclosed pilot role collapse.",
       "required_evidence": ["canonical authorization artifact", "authorization artifact SHA-256", "explicit owner approval", "issued_at_utc and expires_at_utc"],
       "owner": "repository and platform owner",
-      "status": "RESOLVED",
-      "artifact_id": "S17-EXT-001-RESOLUTION-001",
-      "sha256": "a0b3b227d6c65f3c86af114e57b0d7de27d132ceddcad10525cd33bcd6eb8e4a",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
       "resolution_rule": "One authorization may cover all listed read-only observations; it must not authorize mutation, calibration, measurement, pilot runs, or Stage 18 access."
     },
     {
@@ -23,9 +23,9 @@
       "description": "Fresh read-only stand preflight and runtime/tool identity output obtained under S17-EXT-001, including the explicit qualification archive integration check.",
       "required_evidence": ["complete append-only preflight artifact", "command and runtime identities", "archive integration-check receipt", "artifact SHA-256 inventory", "partial-failure record if incomplete"],
       "owner": "pilot owner acting as operator and custodian",
-      "status": "RESOLVED",
-      "artifact_id": "S17-EXT-002-RESOLUTION-002",
-      "sha256": "bd561049f0c1aa0726f13cf2510ad22544f4920a1bdaad6c49ed0be8a9aaef4c",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
       "resolution_rule": "The capture is one-shot and fail-closed; incomplete evidence is retained but cannot advance the state."
     },
     {
@@ -34,9 +34,9 @@
       "description": "Single-owner pilot preflight acceptance record that independently recomputes all hashes and explicitly disclaims independent audit.",
       "required_evidence": ["preflight acceptance artifact", "source evidence hashes", "role-collapse acknowledgement", "acceptance artifact SHA-256"],
       "owner": "pilot owner acting as auditor",
-      "status": "RESOLVED",
-      "artifact_id": "S17-EXT-003-RESOLUTION-003",
-      "sha256": "f723315f991f8f4d93977d4d5f7f7e874de3a0fa6c5aa61cbbd254a8f0c4fa27",
+      "status": "EXTERNAL_REQUIRED",
+      "artifact_id": null,
+      "sha256": null,
       "resolution_rule": "The same owner may review, but the record must say distinct_auditor=false and independent_review_claimed=false."
     },
     {

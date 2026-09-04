@@ -1193,7 +1193,53 @@ AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, `resolutions: 1`, `transitions: 1`.
 The `v21`-based journal is real and moving. What remains before real
 `ADDRESS_RESIDENCY` evidence exists: the real EXT-002 read-only preflight
 capture, EXT-003 owner acceptance, then the actual Q15-R request/
-authorization/execution -- none of which happened this session.
+authorization/execution.
+
+### Attempting EXT-002: a real, hard sandbox permission wall
+
+Attempting the real preflight capture surfaced two further real findings
+before hitting a genuine hard stop:
+
+1. `docs/STAGE17_STAND_HANDOFF.md`'s own documented executor/verifier
+   version (`stage17_read_only_preflight_executor_v13.py`, `current_
+   semantic = ...v15`) is stale. `...v15`'s own docstring says so
+   directly: "it is not the production verifier for any currently
+   accepted admission path... a real policy successor is required...
+   That is explicit follow-on work, not performed here." The real,
+   currently-accepted chain, confirmed by cross-referencing the ADR-0146
+   ladder-bump commit ("advances the executor and preflight-plan-policy
+   identity to v25/v27") and `executor_v25`'s own docstring
+   ("ACCEPTED", importing `stage17_semantic_verifier_v39` -- the same
+   outer policy already re-rendered real earlier this session) is
+   `stage17_read_only_preflight_executor_v25.py`.
+2. Running even the correct `v25` executor from the git working tree
+   failed a real, meaningful integrity check: "approved and actually
+   loaded executor/collector paths differ" (`stage17_semantic_verifier_
+   v4.py::_verify_loaded_runtime`) -- it compares the actually-imported
+   module's path against an approved one, deliberately rejecting
+   execution from anywhere but the sealed `admission-root` copy the
+   bundle verification already trusted. Correct: `docs/STAGE17_STAND_
+   HANDOFF.md`'s own `$S17_REPOSITORY` is the admission-root by the time
+   this step runs, not the git checkout -- confirmed by re-running from
+   `admission-root/tools/stage17_read_only_preflight_executor_v25.py`
+   directly, which cleared this check.
+
+The real hard stop, traced to its exact root cause via a direct
+diagnostic call (not guessed): `stage17_openssh_parent_snapshot_v2.py`'s
+quiescent-OpenSSH-capability self-test (ADR-0109/0110/0111's local
+parent-procfd subreaper model) requires reading `/proc/1/ns/pid` to
+establish this process's own PID-namespace identity --
+`stage17_process_group_supervisor_v2.py::_namespace_inode`. That path is
+owned by `root`; this sandbox runs as unprivileged `uid=1000`, which
+cannot read another user's namespace symlink without `CAP_SYS_PTRACE` or
+being `root`. Confirmed directly: `readlink /proc/1/ns/pid` fails with
+`Permission denied` outside any of this project's own tooling too -- a
+genuine OS-level permission wall, not a fixable corrupted install like
+the `jsonschema` defect earlier this session. No privilege escalation
+was attempted. The real EXT-002 capture cannot run from this sandbox as
+currently privileged; it needs an environment where the executing
+process can read root's PID-namespace identity (e.g. running as root, or
+outside this sandbox's user restrictions).
 
 ## Consequences
 

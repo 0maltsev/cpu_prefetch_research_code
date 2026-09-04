@@ -480,6 +480,79 @@ option for whoever picks this up: a human (not this session) runs
 back for the post-reboot verification/real qualify-pair run/revert-and-
 reboot-again cleanup.
 
+### The `isolcpus` boot-parameter route, completed and reverted
+
+That handoff happened for real. The `/etc/default/grub` edit (unchanged
+from above) plus `update-grub` and the reboot were run directly by the
+stand's owner, using a script (`apply-isolcpus.sh`) prepared and
+reviewed here first: it backs up both `/etc/default/grub` and
+`/boot/grub/grub.cfg`, applies the single precise `GRUB_CMDLINE_LINUX`
+edit, runs `update-grub`, and prints the real generated kernel-entry
+lines for review -- deliberately not rebooting itself. Before approving
+the reboot, an imprecise verification grep in that script (`grep 'linux
+' grub.cfg`, which also matches menu-title text like `--class
+gnu-linux` as a substring) was caught here and replaced with a precise
+one (`grep -n '^[[:space:]]*linux[[:space:]]' grub.cfg`), confirming the
+real default boot entry (line 167, `vmlinuz-7.0.0-30-generic`, root UUID
+`a16cbbf7-3e5d-472a-9633-84e405f5cf39`) correctly carried
+`isolcpus=0,1,52,53 nohz_full=0,1,52,53 irqaffinity=2-51,54-103
+processor.max_cstate=1 intel_idle.max_cstate=0` before the reboot was
+approved.
+
+Post-reboot verification, all real: `/proc/cmdline` carried the new
+parameters; `/sys/devices/system/cpu/isolated` read `0-1,52-53`,
+confirming kernel-level isolation was actually active (not just present
+on the command line); all 104 CPUs stayed online (`isolcpus` excludes
+from scheduling, it does not offline); the qualification tool binary's
+sha256 was unchanged across the reboot. `systemctl is-system-running`
+reported `degraded`, traced to `systemd-networkd-wait-online.service`
+alone (`systemctl --failed`) -- a known benign quirk, confirmed
+unrelated by working SSH connectivity, not a real regression.
+
+Two real, independent `--qualify-pair near` runs with isolation active
+(~2 minutes real elapsed each):
+
+| | run 1 producer | run 1 consumer | run 2 producer | run 2 consumer | threshold |
+|---|---|---|---|---|---|
+| p99.9 delta | 2.176 us | 2.169 us | 1.753 us | 3.967 us | <= 1.0 us |
+| p99.999 delta | 6.508 us | 6.459 us | 4.927 us | 12.408 us | <= 10.0 us |
+| max delta | 270.7 us | 135.2 us | 132.2 us | 167.6 us | (none) |
+
+Both runs: `producer_per_core_passed=false`, `consumer_per_core_passed
+=false`; call failures, regressions, ties, sample count, and affinity
+all still clean on both sides. `isolcpus` reproduced the same pattern
+as the earlier IRQ/governor-only tweak -- p99.999 improves, sometimes
+substantially -- but p99.9 (the real blocking criterion) does not
+reliably clear the threshold, and run-to-run variance is large enough
+(consumer p99.999 went from 6.459us to 12.408us, back over the limit,
+between two runs under the *same* configuration) that this is not a
+marginal, nearly-passing case. Three real remediation attempts now
+(IRQ/governor tweaks, cgroup shielding blocked before producing data,
+and `isolcpus`/`nohz_full`/`irqaffinity`/`processor.max_cstate`/
+`intel_idle.max_cstate`), none clearing the p99.9 threshold.
+
+Given that, the stand was reverted to its original boot configuration:
+a second script (`revert-isolcpus.sh`), again run directly by the
+stand's owner after review here, restored `/etc/default/grub` from the
+pre-change backup, ran `update-grub`, and printed the regenerated
+kernel-entry lines for verification (confirmed byte-for-byte matching
+the pre-change originals, `isolcpus` grep count 0) before the second
+real reboot was approved. Post-second-reboot verification, all real:
+`/proc/cmdline` clean of every added parameter, `/sys/devices/system/
+cpu/isolated` empty, `nproc=104`, `/etc/default/grub` byte-identical
+to the original pre-change backup (`diff` empty), tool binary sha256
+unchanged, and the same benign `systemd-networkd-wait-online.service`
+quirk (nothing new). The stand is back in its original, unmodified
+boot configuration.
+
+Real per-core qualification at accepted scale remains an open, genuine
+blocker: not a code defect (the tool and the frozen D-009/`CLOCK-QUAL-
+LMRV1` policy are both working exactly as designed), and not resolved
+by any of the three real remediation attempts tried against this
+stand's current hardware/OS configuration. Cgroup-based CPU shielding
+remains genuinely untried (blocked by tooling policy, not found
+unhelpful) and is the one real avenue not yet exhausted.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale
@@ -501,8 +574,12 @@ reboot-again cleanup.
   accepted stand (see above), and cross-core exchange now completes for
   real at accepted scale too; still blocked: real per-core qualification
   (a real p99.9 delta-latency tail-latency gap on the accepted stand's
-  current configuration, not a code defect -- see above for what was
-  tried and what remains untried), and `before_block_repeat`'s timestamp
+  current configuration, not a code defect -- three real remediation
+  attempts tried, including a full real `isolcpus`/`processor.max_cstate`
+  boot-parameter reconfiguration and revert, none clearing the
+  threshold; cgroup-based CPU shielding remains the one untried real
+  avenue, blocked by tooling policy rather than found unhelpful -- see
+  above for full detail), and `before_block_repeat`'s timestamp
   capture (`SelectedPairClockInput`'s own field, distinct from
   `StaticClockEvidenceInput`).
 - Surfaced, incidentally, a genuine internal disagreement between two of

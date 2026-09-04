@@ -1313,6 +1313,50 @@ Real `S17-EXT-002` (author + admit from this captured evidence) and
 `S17-EXT-003` (owner acceptance) remain the next real steps; neither was
 done yet as of this record.
 
+### Real `S17-EXT-002`/`S17-EXT-003` admission and the `PREFLIGHT_ACCEPTED` transition
+
+Both were completed for real on `stage17-operational-evidence-24`, each
+verified with a dry run against the real validation code (`_validate_
+preflight_v7`, `_verify_extracted_release_v5`, the trust-anchor cross-
+check, and the `S17-EXT-003` `expected` measurements comparison) before
+any deployment, given the severe one-shot cost of a wrong admission
+attempt on this journal.
+
+`S17-EXT-002` needed all 25 artifacts `EXPECTED_ROLES` requires for it
+(the six-fold preflight observation/stdout/stderr/receipt set, plus one
+each of `PREFLIGHT_ATTEMPT`, `PREFLIGHT_COMPLETION`, `RUNTIME_IDENTITY`,
+`RUNTIME_WORKER_BINARY`, `RUNTIME_RELEASE_PROVENANCE`, `TRUST_ANCHOR`,
+`TRUST_ALLOWED_SIGNERS`). The four not already captured by the preflight
+run (`RUNTIME_IDENTITY`, `RUNTIME_RELEASE_PROVENANCE` -- built directly
+from real `v21` bundle bytes via `build_extracted_release_receipt_v6`,
+not hand-authored --, `TRUST_ANCHOR`, `TRUST_ALLOWED_SIGNERS`) were
+constructed and dry-run verified first. Its catalog `evidence_policy` is
+`EXTERNAL_CUSTODY_RECEIPT` (confirmed by reading `stage17-external-
+input-catalog-v1.json` directly, not assumed), so admission went through
+the full `author-manifest` → `author-custody-receipt` →
+`admit-resolution --receipt-evidence` chain. It admitted cleanly on the
+first real attempt.
+
+`S17-EXT-003` (owner acceptance) is a single `OWNER_ACCEPTANCE` typed
+record whose `measurements` must exactly equal a hardcoded set of
+`S17-EXT-002`-derived hashes plus `distinct_auditor: false`,
+`independent_review: false`, `role_collapse_accepted: true` (read
+directly from `_validate_admission`'s `S17-EXT-003` branch, not
+inferred). Its catalog entry is `evidence_policy: REPOSITORY_FILE`,
+`authorization_required: false` -- the same simple single-artifact shape
+as `S17-EXT-001`, confirmed the same way before writing the admission
+script, rather than assumed to need `S17-EXT-002`'s heavier custody-
+receipt wrapping just because it depends on `S17-EXT-002`. Admitted
+cleanly on the first real attempt, immediately followed in the same
+script by `append-transition`, which requires both `S17-EXT-002` and
+`S17-EXT-003` resolved.
+
+Real result: `{"current_state": "PREFLIGHT_ACCEPTED", "resolutions": 3,
+"transitions": 2}`. The next real step is preparing an actual Q15-R
+session (not a direct tool invocation) against the `v21` worker binary,
+to produce the still-open `ADDRESS_RESIDENCY` evidence for
+`S17-EXT-004`.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

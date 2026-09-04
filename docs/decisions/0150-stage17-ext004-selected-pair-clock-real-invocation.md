@@ -1668,6 +1668,62 @@ and correctly wiring all eleven roles into a real manifest for admission
 remain the only real steps left before `S17-EXT-004` can actually be
 admitted.
 
+### The seven real `Q15_R_*` artifacts verified real-byte-for-real-byte, independent of the `HARDWARE_PREFETCH_QUALIFICATION` blocker
+
+At the owner's direction, did the real manifest-wiring prep for the
+seven `Q15_R_*` roles (`EXPECTED_ROLES["S17-EXT-004"]`:
+`Q15_R_AUTHORIZATION`/`_SIGNATURE`/`_REQUEST`/`_ATTEMPT`/`_RESULT`/
+`_SESSION_WAITING`/`_READ_ONLY_PRESTATE`) ahead of resolving
+`HARDWARE_PREFETCH_QUALIFICATION`, since the two are independent -- with
+one real caveat surfaced up front: `author-manifest` validates the
+*exact* eleven-role set, so this prep cannot itself produce an admitted
+manifest until `HARDWARE_PREFETCH_QUALIFICATION` exists too; it can only
+get everything else fully verified and ready.
+
+A real transcription mistake, caught before it mattered: hand-copying
+`stage17-q15-r-result-v4.json`'s content from earlier in this session's
+own transcript (rather than re-fetching the real bytes) produced a file
+whose sha256 (`05cf7025...`) did not match the real one on the stand
+(`0bd4b660...`) -- some invisible whitespace/formatting difference from
+the copy, not a content difference, but a real reminder that hash-
+sensitive verification must always work from freshly re-fetched
+authoritative bytes, never from retyped or remembered ones. Recovered by
+running all further verification *on the stand itself*, against the
+real files directly, rather than local transcriptions.
+
+All six typed `Q15_R_*` artifacts (everything but the untyped `_SIGNATURE`
+file) validated with zero errors against their real schemas
+(`stage17-fixed-action-request-v4`, `stage17-phase-action-authorization-
+v4`, `-attempt-v4`, `-result-v4`, `stage17-q15-session-waiting-v1`,
+`stage17-q15-r-output-v3`), run directly on the stand using the real
+`admission-root`'s own pinned schema copies. Then reproduced, by hand, as
+much of `_phase_family`'s real cross-binding logic
+(`stage17_operational_semantics_v4.py:618-732`) as is possible without a
+full manifest -- every hash/id binding across authorization -> request ->
+attempt -> result -> waiting (14 real checks: request-binding hash/size,
+authorization/request-id linkage, attempt/result hash bindings, waiting-
+record session/hash/state bindings, the <=1800s authorization window) --
+all real, all passed, computed from real bytes on the stand, not
+inferred. The two pieces of `_phase_family` genuinely impossible to
+replicate outside a real manifest (the `verify_sshsig` subprocess check
+and `output_registry.validate_worker_result`'s directory-fd-based binary
+match) were not re-derived here, but the signature was already real-
+verified earlier this engagement (`verify-signature: PASS
+signature=VERIFIED`), and the result document's own `artifacts[]`
+bindings were already confirmed against real bytes while building the
+`QUALIFICATION_EVIDENCE` envelopes above.
+
+Real, caller-chosen `artifact_id`s prepared for the eventual manifest
+(reusing each document's own real internal identifier where the
+charset allows, e.g. `XEON-CPU-FETCH-Q15R-REQUEST-24` for
+`Q15_R_REQUEST`; the real `result_id` field contains a `:` the artifact-
+id charset forbids, so `Q15_R_RESULT` gets a fresh
+`XEON-CPU-FETCH-Q15R-RESULT-24` instead). Nothing here is admitted or
+even authored as a real manifest yet -- this is verification and naming
+prep only, ready to make the eventual full `author-manifest` call a
+fast, low-risk, mechanical step once `HARDWARE_PREFETCH_QUALIFICATION`
+is resolved.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

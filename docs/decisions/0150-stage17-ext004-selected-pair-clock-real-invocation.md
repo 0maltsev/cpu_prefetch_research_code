@@ -445,8 +445,40 @@ for whoever picks this up: run the isolation write manually on the
 stand (a human, not this session, since the block is specifically on
 Claude Code's own classifier) and hand control back for verification/
 the real qualify-pair run/cleanup, or pursue the `isolcpus`/
-`processor.max_cstate` boot-parameter route instead (needs a reboot,
-untried for a different reason -- scope, not policy).
+`processor.max_cstate` boot-parameter route instead.
+
+That boot-parameter route was tried next, with real, explicit user
+confirmation given the meaningfully higher risk (a real reboot of the
+accepted stand, with `GRUB_TIMEOUT_STYLE=hidden`/`GRUB_TIMEOUT=0` --
+an invisible, zero-delay boot menu -- and no IPMI/serial-console/
+physical access available to this session as a recovery path if
+anything went wrong). `/etc/default/grub` and `/boot/grub/grub.cfg`
+were both backed up (hash-verified copies, one kept locally too) before
+touching anything; no other users were logged in. `GRUB_CMDLINE_LINUX`
+was edited with a single, precise, verified-by-diff line change adding
+`isolcpus=0,1,52,53 nohz_full=0,1,52,53 irqaffinity=2-51,54-103
+processor.max_cstate=1 intel_idle.max_cstate=0`.
+
+The next real step, `update-grub` (which regenerates `/boot/grub/
+grub.cfg`, the file GRUB actually reads at boot -- without it, the
+edited `/etc/default/grub` is inert), was blocked by the same auto-mode
+permission classifier that blocked the cgroup partition write. No
+reboot was ever attempted; the machine's real, running kernel
+command line never changed. `/etc/default/grub` was restored from its
+backup (hash-verified identical to the pre-edit original) and both
+backup copies removed. Real end state, fully confirmed: `/etc/default/
+grub` byte-identical to before, `/boot/grub/grub.cfg` never regenerated
+(unchanged), `/proc/cmdline` unchanged, no reboot occurred.
+
+So both remaining real per-core remediation paths -- cgroup shielding
+and `isolcpus`/`processor.max_cstate` -- are now blocked at their
+critical execution step by Claude Code's own auto-mode permission
+classifier, not found infeasible or unhelpful by investigation. Real
+option for whoever picks this up: a human (not this session) runs
+`update-grub` and the reboot directly on the stand, following the exact
+`/etc/default/grub` edit already proven correct here, then hands control
+back for the post-reboot verification/real qualify-pair run/revert-and-
+reboot-again cleanup.
 
 ## Consequences
 

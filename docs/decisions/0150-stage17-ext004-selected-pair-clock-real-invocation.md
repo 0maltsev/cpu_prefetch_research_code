@@ -1841,6 +1841,71 @@ session (this time with `PILOT_PLATFORM_MEASUREMENTS`'s `source_
 bindings` ids matching the manifest's own artifact ids exactly), and
 admit `S17-EXT-004` for real.
 
+### Journal `-26`'s fixed manifest still failed real admission -- a genuine, previously-unexercised gap in the admission framework itself
+
+Every prior step on `-26` (fresh Q15-R session bound to its own
+resolutions, four raw-derived envelopes rebuilt via the real tool, the
+corrected `PILOT_PLATFORM_MEASUREMENTS`) went cleanly. `author-manifest`
+and `author-custody-receipt` both `PASS`ed. The real, one-shot
+`admit-resolution --input-id S17-EXT-004` failed anyway -- a third
+consecutive one-shot failure, burning `-26`'s own sequence-4 slot the
+same permanent way -- with a genuinely different, structural cause:
+`FAIL: action manifest does not list exact worker output: action=Q15-R
+file=q15-r-atomic-layout-raw-v1.json expected_role=Q15_R_ATOMIC_LAYOUT_
+RAW observed=None`.
+
+Root cause, confirmed by direct code reading, not inferred:
+`_phase_family` (`stage17_operational_semantics_v4.py`) requires every
+entry in the real Q15-R result document's own `artifacts[]` list --
+which now includes `Q15_R_ATOMIC_LAYOUT_RAW`/`Q15_R_ADDRESS_RESIDENCY_
+RAW`/`Q15_R_CPU_MIGRATION_RAW`/`Q15_R_SOFTWARE_PREFETCH_RAW`, added
+incrementally by ADR-0147/0148/0149/0152 -- to also be present as a
+top-level manifest artifact at the exact same directory as the result
+file, with the exact matching role. But `EXPECTED_ROLES["S17-EXT-004"]`
+(an exact-match role `Counter`) never listed those four roles, and
+`S17-EXT-004` has no dynamic role-expansion exception the way `S17-EXT-
+007` does -- no manifest could satisfy both checks at once. `git log`
+confirms `EXPECTED_ROLES`'s `S17-EXT-004` entry and this exact `_phase_
+family` check both trace to the same old foundational commit
+(`d4b964a`), while each of the four raw roles was added to Q15-R's real
+worker output by a separate, later commit that evidently never went
+back to reconcile the admission-side role count -- consistent with
+everything else found this engagement about `ADDRESS_RESIDENCY` (and,
+it turns out, its raw sibling artifacts) being genuinely new,
+never-really-exercised territory. Incidentally also found `check_
+stage17_operational_successor.py` already reporting a real, pre-
+existing, *unrelated* drift (`src/runner/stage17_fixed_action.cpp`) --
+confirmed via that tool's own docstring ("historical definitions...not
+treated as current evidence") and the fact that nothing else in the
+repository calls it, to be a separate, non-blocking, already-stale
+historical checker, not part of the live admission path -- left alone.
+
+Fixed for real, additively, in the same style as every other framework
+gap found this engagement: registered the four raw roles in `ROLE_
+SCHEMA` (each mapping to its own already-real, already-existing schema
+file -- `config/schemas/stage17-q15-r-{atomic-layout,address-residency,
+cpu-migration,software-prefetch}-raw-v1.schema.json`, each confirmed to
+already have a `schema_version` const exactly matching the real
+documents' own field) and added them to `EXPECTED_ROLES["S17-EXT-004"]`
+with count 1 each. Re-rendered policy v39 to pick up both this and the
+already-present `src/runner/stage17_fixed_action.cpp` drift (`author_
+stage17_policy_v39.py --check` now `PASS`es); the four new schema files
+needed their own explicit addition to `SUCCESSOR_BINDINGS` (the policy
+renderer does not auto-discover `ROLE_SCHEMA`), matching the same
+additive-successor-binding pattern the whole policy chain already uses.
+
+Verified the real fix directly rather than trusting it on paper: built
+a *test* manifest (different filename, same real `-26` data plus the
+four raw artifacts) and called the real, live `verify_manifest_v7`
+directly -- with real `pinned_repository_bytes` built the same way the
+production code does (`policy["bindings"]`/`["runtime_closure"]` via
+`pinned_binding_bytes`) -- against `-26`'s real, already-admitted `S17-
+EXT-001`-`003` resolutions. Real result: `PASS`, full context returned
+including `q15_r`/`qualification_evidence`/`pilot_platform_measurements`
+keys. Journal `-26` itself remains permanently unable to admit `S17-
+EXT-004` (its sequence-4 slot is burned); a fourth fresh journal is
+needed to actually complete the real admission with this fix in place.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

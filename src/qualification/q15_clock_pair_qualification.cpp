@@ -203,6 +203,10 @@ auto run_clock_pair_qualification(runner::WorkerPair pair,
     while (!cross_core_start.load(std::memory_order_acquire)) {
       std::this_thread::yield();
     }
+    platform::LinuxQ15PlatformOperations operations;
+    if (!operations.bind_current_thread(pair.producer_cpu).succeeded) {
+      return;
+    }
     producer_to_consumer_capture =
         run_direction_initiator(producer_to_consumer_channel, counts);
     run_direction_responder(consumer_to_producer_channel, counts);
@@ -210,6 +214,10 @@ auto run_clock_pair_qualification(runner::WorkerPair pair,
   std::thread consumer_side([&] {
     while (!cross_core_start.load(std::memory_order_acquire)) {
       std::this_thread::yield();
+    }
+    platform::LinuxQ15PlatformOperations operations;
+    if (!operations.bind_current_thread(pair.consumer_cpu).succeeded) {
+      return;
     }
     run_direction_responder(producer_to_consumer_channel, counts);
     consumer_to_producer_capture =

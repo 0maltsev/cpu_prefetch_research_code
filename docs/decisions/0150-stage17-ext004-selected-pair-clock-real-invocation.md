@@ -1357,6 +1357,81 @@ session (not a direct tool invocation) against the `v21` worker binary,
 to produce the still-open `ADDRESS_RESIDENCY` evidence for
 `S17-EXT-004`.
 
+### A real Q15-R session must run natively on the stand; the journal-24 tree was copied there instead of rebuilt
+
+Traced the real, live Q15-R session controller chain (not the highest
+version number: `stage17_phase_controller_v4.py`'s `execute_once`
+explicitly refuses `Q15-R`/`Q15-W`, redirecting to the "phase-spanning
+session controller" -- `stage17_q15_session_controller_v12.py`,
+confirmed live by `check_stage17_q15_session_execute_session_wiring_
+v12.py`). Its real `execute_session` (`v10.py`, reached through the
+`v12`/`v2`/predecessor chain) launches the worker binary via a local
+`subprocess.Popen` -- no SSH inside that Python at all -- meaning the
+controller process itself, and the journal/admission-root it reads and
+extends, must physically reside on the real stand, unlike every prior
+`EXT-001`-`003` step (which ran locally and only SSHed out for the
+read-only preflight capture).
+
+Real, working precedent for exactly this already existed on the stand
+itself, from an earlier real engagement this session had not previously
+surfaced: a separate `stage17-operational-evidence-16` through `-20`
+lineage, built and run natively there, including working scripts
+(`execute-q15r-session-20-on-stand.sh`) and a real owner-signed
+authorization (`ssh-keygen -Y sign -f /home/omaltsev/.ssh/id_ed25519
+-n stage17-owner-acceptance`, run by the owner on their own key --
+never by this session). Rather than repeat that lineage's real, multi-
+attempt one-shot admission saga (8 real attempts across `16b` through
+`20`) a third time under a new number, the already-`PREFLIGHT_ACCEPTED`
+local `stage17-operational-evidence-24` tree was copied to the stand at
+the identical absolute path instead -- additive-only, non-mutating,
+verified with a real, read-only `status` check after each step, exactly
+the same rigor already established for every other stand-facing write
+this engagement.
+
+Two real gaps surfaced, both genuine artifacts of the framework's own
+byte-pinned, host-agnostic verification design rather than anything
+wrong with the copy itself -- `validate_journal` re-verifies every
+already-admitted resolution's pinned external bindings against real
+files on whichever host is running it, not just at original admission
+time:
+
+1. **The transport-identity key file** (`/root/xeon-cpu-fetch-ext002-
+   transport-identity`) is one such pinned binding inside `S17-EXT-001`'s
+   already-sealed resolution content (`tools/stage17_semantic_verifier_
+   v3.py:161-178`: a pure filesystem check -- existence, no symlinks,
+   then a `size_bytes`/`sha256` match -- no live SSH test). Fixed by
+   copying the same byte-identical key to the identical path on the
+   stand too, root-owned, `0600` -- done only after explicitly flagging
+   to the owner that this puts a copy of their real private key on a
+   second machine (no *new* access granted, since the stand's own
+   `authorized_keys` already trusts this identity, but real incremental
+   exposure nonetheless), and getting their explicit go-ahead.
+2. **The `S17-RO-PREFLIGHT` evidence-root directory**
+   (`ext001-preflight-output-24`, holding the six real preflight
+   observation receipts/stdout/stderr plus `S17-EXT-002`'s four
+   constructed artifacts) is referenced the same way, from `S17-EXT-001`'s
+   authorization. An initial attempt to find *every* such external
+   reference by grepping the whole local tree for absolute-path strings
+   was abandoned after it produced garbage (truncated/merged matches):
+   the `while read -r ref; do ... ssh ...; done` loop fed the `ssh` calls
+   from the same pipe as the outer loop's own input, and `ssh` (reading
+   stdin by default) silently stole later lines meant for `read`, a real
+   scripting bug, not a data problem -- compounded by the grep itself
+   matching incidental strings in unrelated files (an old D-120/D-121/
+   D-123 search-record text file, for one) rather than only genuine
+   bindings. Recovered by going surgical instead: copying exactly the one
+   directory each real `status` failure named, one at a time.
+
+Real result after both fixes, from a real, read-only `status` call run
+natively on the stand against the copied tree: `{"current_state":
+"PREFLIGHT_ACCEPTED", "missing_inputs": ["S17-EXT-004", ...,
+"S17-EXT-010"], "resolutions": 3, "transitions": 2}` -- identical to the
+local result, confirming the journal is genuinely host-agnostic once its
+externally-referenced files are present. The real Q15-R authoring
+(`author-request`/`author-authorization`, real owner signature,
+`stage17_q15_session_controller_v12.py --start`) is the next real step,
+not yet done as of this record.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

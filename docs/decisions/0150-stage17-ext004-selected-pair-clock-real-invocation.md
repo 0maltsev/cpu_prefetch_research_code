@@ -1432,6 +1432,52 @@ externally-referenced files are present. The real Q15-R authoring
 `stage17_q15_session_controller_v12.py --start`) is the next real step,
 not yet done as of this record.
 
+### The real Q15-R session run: `ADDRESS_RESIDENCY` captured for real, for the first time this entire engagement
+
+`author-request`/`author-authorization` needed two real fixes, both
+caught by the tooling itself rather than assumed: the `--actor`/
+`--reviewer` values must equal the admitted `S17-EXT-003` trust anchor's
+`principal`/`reviewer_role` fields exactly (`maltsev.oiu@phystech.edu`/
+`OWNER`, not the person's own name -- confirmed against the real,
+already-verified `q15r-authorization-20.json` on the stand before
+retrying), and the authorization window is capped at exactly 1800
+seconds for any non-pilot fixed action (`stage17_operational_cli_v11.
+py:490-513`) -- also matched by the real `-20` precedent's own 30-minute
+window. The owner then signed the corrected authorization for real
+(`ssh-keygen -Y sign -f /home/omaltsev/.ssh/id_ed25519 -n stage17-owner-
+acceptance`, the same real command as the `-20` precedent), verified
+read-only first (`verify-signature`: `PASS signature=VERIFIED
+action=NOT_EXECUTED`), then ran the real, one-shot
+`stage17_q15_session_controller_v12.py --start`.
+
+It printed `H0_SEALED_WAITING_FOR_Q15_W` followed by `FAIL: timed out`.
+Read alone this looks like a failure; cross-checked against the real
+`-20` precedent's own output directory before concluding anything,
+`q15r-output-20/stage17-q15-session-failure-v2.json` is byte-for-byte
+the same size (611 bytes) as `-24`'s -- confirming this exact "seal,
+then time out waiting for a `Q15-W` that never comes" sequence is the
+documented, safe terminal state for a real Q15-R-only capture (matching
+this session's own script comment: "will therefore either complete the
+real Q15-R measurement and then block until expiry (safe, expected), or
+fail for some other reason"), not a genuine failure -- the controller
+itself auto-exits on its own internal deadline rather than needing a
+manual interrupt.
+
+Real result in `q15r-output-24/`: all four raw Q15-R outputs present --
+`q15-r-atomic-layout-raw-v1.json`, `q15-r-cpu-migration-raw-v1.json`,
+`q15-r-software-prefetch-raw-v1.json` (all three already had real `-20`
+counterparts), and, for the first time anywhere in this engagement,
+`q15-r-address-residency-raw-v1.json` (675 bytes) -- the real raw
+capture this whole `-21`-through-`-24` effort was ultimately for.
+`stage17-q15-r-result-v4.json` is correspondingly larger than `-20`'s
+(3172 vs 2887 bytes), consistent with carrying the extra kind. Building
+the real `RUNTIME_ATOMIC_LAYOUT`/`ACTUAL_CPU_MIGRATION`/`ADDRESS_
+RESIDENCY`/`SOFTWARE_PREFETCH_MAPPING` envelopes from this raw capture
+(rebound to `v21`/`be2c27b`, per the rebinding lesson already flagged in
+ADR-0151), plus `PLATFORM_MANIFEST`/`PILOT_PLATFORM_MEASUREMENTS` and
+`S17-EXT-004` admission itself, are the next real steps, not yet done as
+of this record.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

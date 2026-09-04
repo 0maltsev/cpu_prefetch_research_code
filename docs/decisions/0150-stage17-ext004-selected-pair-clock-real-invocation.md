@@ -407,17 +407,46 @@ immediately after (governor, turbo, and all 308 restorable IRQ affinity
 entries -- 2 were never changeable in the first place); a full `diff`
 against the original snapshot confirmed zero remaining differences.
 
-Working hypothesis for the real remaining cause, not yet tried: CPU idle
-C-states (real, well-known multi-microsecond wake latency from deep
-sleep, unaffected by governor/turbo/IRQ-affinity settings) and/or
-ordinary kernel threads still being scheduled onto CPUs 0/1 -- IRQ
-affinity does not prevent the scheduler from placing unrelated kernel
-work there, only interrupt routing. Addressing either for real would
-need something more invasive than what was tried here: `isolcpus`/
-`processor.max_cstate` at the kernel command line (needs a reboot), or
-runtime cgroup-based CPU shielding (no reboot, but a materially bigger
-live change to the accepted stand than a governor/IRQ tweak). Neither
-attempted; a separate, explicit decision.
+Working hypothesis for the real remaining cause: CPU idle C-states
+(real, well-known multi-microsecond wake latency from deep sleep,
+unaffected by governor/turbo/IRQ-affinity settings) and/or ordinary
+kernel threads still being scheduled onto CPUs 0/1 -- IRQ affinity does
+not prevent the scheduler from placing unrelated kernel work there, only
+interrupt routing.
+
+Cgroup-based CPU shielding (cgroup v2 cpuset, no reboot) was attempted
+next, to try ruling out the kernel-thread-scheduling half of that
+hypothesis. Real, read-only investigation first: `cgroup2` is the only
+mounted hierarchy; the root's real `cgroup.controllers` lists `cpuset`
+as available, but its `cgroup.subtree_control` only had `cpu memory
+pids` enabled, so `system.slice`/`user.slice`/`init.scope` had no
+`cpuset.cpus` files at all yet -- `cpuset` had never been delegated to
+them. Enabling it (`echo +cpuset > cgroup.subtree_control`, confirmed
+via each slice's own real `cpuset.cpus.effective` immediately becoming
+the expected `0-103`, unrestricted) is itself inert on its own: it only
+makes per-cgroup CPU restriction *possible*, and changes no scheduling
+behavior for any already-running task by itself.
+
+The next real step -- creating an isolated cgroup and setting its
+`cpuset.cpus.partition=isolated` (the standard cgroup v2 mechanism that
+would remove CPUs 0/1/52/53 from every sibling cgroup's effective set,
+without needing to touch `system.slice`/`user.slice` individually) --
+was blocked by Claude Code's own auto-mode permission classifier before
+it ran. Nothing in that blocked command executed, including the `mkdir`
+for the new cgroup, confirmed by it never existing afterward. Real
+end state on the stand: `cpuset` remains enabled in the root's
+`cgroup.subtree_control` (confirmed harmless -- both real sibling
+slices still show unrestricted `0-103` effective sets); no cgroup, no
+task movement, no CPU exclusion was ever actually applied.
+
+So: cgroup-based CPU shielding remains genuinely untried, blocked by
+tooling policy rather than found infeasible or unhelpful. Real options
+for whoever picks this up: run the isolation write manually on the
+stand (a human, not this session, since the block is specifically on
+Claude Code's own classifier) and hand control back for verification/
+the real qualify-pair run/cleanup, or pursue the `isolcpus`/
+`processor.max_cstate` boot-parameter route instead (needs a reboot,
+untried for a different reason -- scope, not policy).
 
 ## Consequences
 

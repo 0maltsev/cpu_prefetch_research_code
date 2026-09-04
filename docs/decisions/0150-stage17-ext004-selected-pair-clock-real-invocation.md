@@ -1602,6 +1602,72 @@ documented quarantine risk, and the honesty question, this was
 explicitly stopped here rather than continued, per the owner's own
 decision -- not yet investigated further, let alone attempted.
 
+### The clang/libc++ toolchain fixed for real; `SOFTWARE_PREFETCH_MAPPING` completes all five `QUALIFICATION_EVIDENCE` kinds
+
+At the owner's explicit direction, went back to the clang/libc++ blocker
+rather than leaving it deferred. Re-examined the vendored `libcxx-prefix`
+directly instead of trying to route around it again: `find | wc -l`
+showed 919 files total (not the ~100 an earlier shallow `maxdepth 1`
+listing suggested) -- a real, substantial libc++ subset, but genuinely
+missing specific headers (`csignal`, and, once that was fixed, `list`
+too) rather than being some other kind of corruption. This is
+consistent with a deliberately *trimmed* vendored copy (containing only
+what this project's own source needs) rather than a broken install --
+`GoogleTest` simply needs headers this project's own code never
+happens to use.
+
+Confirmed the exact real upstream tag exists and matches the installed
+compiler precisely: `curl` against the real GitHub API found `refs/tags/
+llvmorg-22.1.6` (object sha `e1e54c5...`), i.e. this environment's
+"Clang 22.1.6" is a real, current LLVM release, not a fictional version
+number. A first attempt hand-wrote a real, correct `<csignal>` (matching
+this exact vendored copy's own `_LIBCPP_BEGIN_NAMESPACE_STD`/`_LIBCPP_
+USING_IF_EXISTS` conventions, cross-checked against the real, already-
+present `ctime`/`cwchar` in the same directory for style) -- it compiled
+and got past the first error, but surfaced a second missing header
+(`list`), at which point continuing to hand-write files one discovery at
+a time was recognized as unbounded whack-a-mole. Switched to the correct
+fix instead: a real, sparse (`--filter=blob:none --sparse`, `libcxx/
+include` only, ~16 MB) shallow clone of `llvm/llvm-project` at exactly
+`llvmorg-22.1.6`, then overlaid *only the files genuinely missing*
+(`cp` guarded by `[ ! -e "$dest" ]`, never overwriting anything already
+vendored) into the prefix -- 762 real files added (920 -> 1682), leaving
+every already-present, possibly-intentionally-pinned file untouched.
+Replaced the hand-written `csignal` with the authentic file from the
+same real clone once it was available, rather than leaving a hand-
+reconstruction in place -- diffing the two showed the hand-written
+version had the right shape but was missing `using ::signal`/`using
+::raise`, a real, if minor, discrepancy worth not leaving live.
+
+With the real headers in place, rebuilt `gtest`+`gmock` for the clang/
+libc++ toolchain from the genuine upstream v1.17.0 release tarball
+(matching the exact pinned version this project's `find_package(GTest
+1.17.0 EXACT CONFIG REQUIRED)` demands) and installed into the real
+prefix -- `libgmock.a` now exists there for real. The previously-failing
+CMake reconfigure (`stage17_operational_semantics` unrelated, this is
+build-system-level) then succeeded cleanly, and `software-prefetch-
+mapping-codegen-check` produced a real, complete `PASS` under *both*
+disassemblers for *both* compiler presets this time (`build/release-gcc`
+already had; `build/release-clang-libcxx` now too) -- all four codegen
+flags (`gcc_codegen_passed`, `clang_codegen_passed`, `gnu_objdump_
+passed`, `llvm_objdump_passed`) real `true`, read directly from each
+preset's own `software_prefetch_mapping_codegen_report.json`, none
+assumed.
+
+Built the real `SOFTWARE_PREFETCH_MAPPING` envelope from these four real
+flags plus session `-24`'s real raw capture via the same `cpu_prefetch_
+q15_qualification_evidence_tool` used for the other three kinds: `PASS
+... eligible=true` on the first attempt, saved alongside the others at
+`ext004-authoring-24/`. All five real `QUALIFICATION_EVIDENCE` kinds
+(`SELECTED_PAIR_CLOCK`, `RUNTIME_ATOMIC_LAYOUT`, `ACTUAL_CPU_MIGRATION`,
+`ADDRESS_RESIDENCY`, `SOFTWARE_PREFETCH_MAPPING`) now exist, real and
+`eligible=true`, for the first time this entire engagement. `PLATFORM_
+MANIFEST`/`PILOT_PLATFORM_MEASUREMENTS` are also already built (above).
+`HARDWARE_PREFETCH_QUALIFICATION` (the real, invasive-MSR-write blocker)
+and correctly wiring all eleven roles into a real manifest for admission
+remain the only real steps left before `S17-EXT-004` can actually be
+admitted.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

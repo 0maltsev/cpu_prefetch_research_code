@@ -1906,6 +1906,42 @@ keys. Journal `-26` itself remains permanently unable to admit `S17-
 EXT-004` (its sequence-4 slot is burned); a fourth fresh journal is
 needed to actually complete the real admission with this fix in place.
 
+### `S17-EXT-004` admitted for real -- the first time this entire engagement
+
+Built journal `-27` the same proven way as `-26` (fresh `init
+--materialize-admission-root`, `EXT-001`/`002`/`003` all clean on the
+first attempt each, `PREFLIGHT_ACCEPTED` at `resolutions: 3`), copied it
+to the stand with both now-known external references
+(`ext001-preflight-output-27`, `ext002-manifest-27.json`) included from
+the start rather than discovered by a failed `status` call. Ran a fresh
+real Q15-R session bound to `-27`'s own resolutions -- the real
+measurement reproduced byte-identically to both prior real runs (every
+raw artifact's size matching `-24`/`-26` exactly), confirming this is
+genuine, stable hardware/software behavior, not noise. Rebuilt all four
+raw-derived `QUALIFICATION_EVIDENCE` envelopes via the real tool (all
+`eligible=true`) and `PLATFORM_MANIFEST`/`PILOT_PLATFORM_MEASUREMENTS`/
+`HARDWARE_PREFETCH_QUALIFICATION` with every cross-reference computed
+from `-27`'s own real bytes and self-checked before deployment, copying
+the fixed admission code (`stage17_operational_semantics_v4.py`, the
+re-rendered policy, the four new schema files) into `-27`'s own sealed
+`admission-root` first.
+
+Authored the real, complete 19-artifact manifest (the four raw `Q15_R_*`
+roles included this time) and custody receipt -- both `PASS`. The real,
+one-shot `admit-resolution --input-id S17-EXT-004`: **`PASS`**. Real
+result: `{"current_state": "PREFLIGHT_ACCEPTED", "missing_inputs":
+["S17-EXT-005", ..., "S17-EXT-010"], "resolutions": 4, "transitions":
+2}`. `S17-EXT-004` -- the real dynamic stand qualification this whole
+`-21`-through-`-27` effort was for, including the first-ever real
+`ADDRESS_RESIDENCY` capture -- is genuinely, permanently admitted.
+
+Three real one-shot failures were spent getting here (`-24`'s `PILOT_
+PLATFORM_MEASUREMENTS` id mismatch, `-25`'s sed-introduced hash drift,
+`-26`'s genuine framework gap), each fully root-caused and fixed rather
+than worked around, with the underlying framework left more correct
+than it was found (`EXPECTED_ROLES`/`ROLE_SCHEMA`/policy v39 now
+genuinely support a real, complete Q15-R capture for the first time).
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

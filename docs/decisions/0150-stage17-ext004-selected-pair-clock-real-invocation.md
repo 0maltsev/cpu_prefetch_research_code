@@ -2005,6 +2005,52 @@ fresh journal is needed for a real `EXT-005` attempt, this time copying
 the fixed admission code into `admission-root` *before* starting the
 live Q15-R session, not after.
 
+### Journal `-29`: the real MSR H1-apply/H0-restore cycle executed and verified safe, but a second, distinct real bug crashed the session afterward
+
+Repeated the full `-28` sequence as journal `-29`, this time copying the
+fixed admission code into `admission-root` *before* starting the live
+Q15-R session (the corrected ordering). `EXT-001`-`004` all admitted
+real and clean, including admitting `EXT-004` *while the live Q15-R
+session sat sealed and waiting* (reading its already-complete output
+files does not require the live process to still be running). The
+`--continue-q15-w` handoff this time did **not** hit the prior role-
+validation crash -- the fix held.
+
+It crashed anyway, on something new: `FAIL: empty or nonpositive
+NSpgid`. Given real hardware was now potentially in play, verified the
+actual CPU state directly and urgently rather than assuming anything
+from the error text alone. `dmesg` on the stand showed a real kernel
+line: `msr: Write to unrecognized MSR 0x1a4 by python3 (pid: 30232),
+tainting CPU_OUT_OF_SPEC` -- confirming a real MSR write did happen.
+Read the live MSR `0x1a4` directly on CPUs 0/1/26 (`os.pread` on `/dev/
+cpu/N/msr`): all three real-time `0000000000000000`, matching the
+sealed H0 prestate exactly. Cross-checked against the framework's own
+real record, `stage17-q15-session-failure-v2.json`:
+`"restoration_verified": true`, `"quarantine_operation": {"performed":
+false}`, and a real `supervisor_restore_readback` showing all three
+CPUs' post-restore MSR values matching the requested (H0) value exactly
+-- the same answer my own independent read gave. `failure_stage:
+"Q15_W_MUTATION"`, `leader_reaped: true`, `process_group_gone: true`:
+the real H1-apply-then-H0-restore cycle, and the worker process's own
+supervision/reaping, both completed correctly; the crash was in a
+*separate* piece of cleanup bookkeeping (an `NSpgid` -- namespaced
+process-group id, read from `/proc/[pid]/status` -- coming back empty
+or non-positive) that ran *after* the real, safety-critical work was
+already done and independently verified. No quarantine was needed or
+triggered; the stand is not in a degraded state (beyond the real,
+permanent, and harmless kernel taint flag any real MSR write to this
+unrecognized register sets).
+
+Real, honest limitation: the crash happened before a proper `Q15_W_
+RESULT` document could be written, so there is no real scientific
+measurement payload from the H1 window (e.g. timing behavior with
+prefetch disabled) and no valid path to admit `S17-EXT-005` from this
+specific attempt -- only proof that the real apply/verify/restore
+mechanism itself is safe. The real, distinct `NSpgid` bug needs its own
+root-causing before a clean `S17-EXT-005` admission (with real
+measurement data) can be attempted; not yet investigated as of this
+record.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

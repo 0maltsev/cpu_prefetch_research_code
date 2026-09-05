@@ -1942,6 +1942,69 @@ than worked around, with the underlying framework left more correct
 than it was found (`EXPECTED_ROLES`/`ROLE_SCHEMA`/policy v39 now
 genuinely support a real, complete Q15-R capture for the first time).
 
+### First real attempt at `S17-EXT-005` (Q15-W): the live pairing requirement, and a self-inflicted process-restart failure that touched no hardware
+
+Before attempting anything invasive, traced the real Q15-W control flow
+directly (`stage17_q15_session_controller_v10.py`'s `execute_session`,
+`v2.py`'s `run_start`/`run_continue`): a real Q15-W execution is not a
+standalone later action -- the `--start` process that runs Q15-R keeps
+listening on an abstract-namespace `SOCK_SEQPACKET` socket after
+sealing into `H0_SEALED_WAITING_FOR_Q15_W`, for roughly the real Q15-R
+authorization's own ~30-minute window, and a separate `--continue-q15-w`
+invocation must connect to that *same, still-live* process before it
+exits. All three of this session's prior real Q15-R runs (`-24`/`-26`/
+`-27`) exited via that exact timeout with nothing connected -- a real,
+valid, intentional outcome, not a bug -- meaning none of them can be
+paired with Q15-W after the fact. Real, separate `S17-EXT-005` admission
+cross-checks (`stage17_operational_semantics_v4.py:1127-1145`) also
+require the admitted `Q15_W_TRANSACTION`'s own `q15_r_attempt_sha256`/
+`q15_r_result_sha256` to match *that same journal's* admitted `S17-
+EXT-004` -- so a real `EXT-005` needs a fresh journal where Q15-R and
+Q15-W run together in one live session, and that session's own Q15-R
+output becomes the new journal's real `EXT-004` too. Separately
+confirmed the real worker's MSR-write safety behavior directly from
+`src/runner/stage17_fixed_action.cpp:995-1075`: it refuses to proceed
+at all if live CPU state has drifted from the sealed prestate, applies
+H1 one CPU at a time with per-write verification, and always attempts
+restore afterward on whatever CPUs it actually touched regardless of
+apply outcome -- CPUs never written are provably unaffected either way.
+
+Built journal `-28` (`EXT-001`-`004` all real, clean, first attempt
+each -- `EXT-004` reusing the now-fixed framework). Started the real
+live-pairing Q15-R session; it sealed correctly
+(`H0_SEALED_WAITING_FOR_Q15_W`). Built and got the owner's real
+signature on the real Q15-W request/authorization (`action_inputs`
+referencing that same live session's own real, just-produced attempt/
+result hashes and prestate, confirmed against the real cross-check
+code first) -- author-request initially failed with `action
+predecessor resolution is absent` (a real, correct rejection: Q15-W's
+fixed-action definition requires `S17-EXT-004` already admitted, which
+journal `-28` didn't have yet at that point), fixed by admitting `S17-
+EXT-004` for real *while the live session sat waiting* (reading its
+already-complete, already-written output files does not require the
+live process to still be running) -- then the Q15-W request/
+authorization built and verified cleanly.
+
+The real `--continue-q15-w` handoff itself, however, caused the live
+Terminal-1 process to crash: `FAIL: unknown production artifact role:
+Q15_R_ATOMIC_LAYOUT_RAW`. Root cause, self-inflicted: the fixed
+`stage17_operational_semantics_v4.py` was copied into journal `-28`'s
+`admission-root` only when authoring `EXT-004`'s manifest -- *after*
+Terminal 1's `--start` process had already imported the old, unfixed
+module into memory. Admitting `EXT-004` (whose manifest now legitimately
+references the four raw roles) made the *live, memory-resident* process
+re-validate the journal on continuation and choke on role names its
+stale in-memory copy didn't recognize -- a pure Python-level validation
+failure, confirmed via real, read-only evidence (no `Q15_W_*` attempt
+marker or output file anywhere, no process running) to have occurred
+*before* the real worker subprocess was ever launched: no MSR write
+happened, no CPU state was touched. This specific continuation attempt
+is unrecoverable (the listening process has exited), but journal `-28`
+itself is undamaged -- `EXT-001`-`004` remain real and admitted. A
+fresh journal is needed for a real `EXT-005` attempt, this time copying
+the fixed admission code into `admission-root` *before* starting the
+live Q15-R session, not after.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

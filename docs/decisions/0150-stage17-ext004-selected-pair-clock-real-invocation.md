@@ -2155,6 +2155,44 @@ permanent way every prior mid-flight one-shot failure this engagement
 has been; a fourth live-pairing journal would be needed for a future
 attempt once this is understood.
 
+### The real diagnostic-loss gap fixed and locally verified
+
+Root-caused the specific reason the journal `-31` worker message could not
+be found by reading `stage17_q15_session_controller_v10.py`'s own
+`execute_session` directly rather than searching stand logs further:
+the real worker process is launched with `stdout=subprocess.PIPE,
+stderr=subprocess.PIPE`, but neither stream is ever read anywhere in
+that function -- both are only closed, unread, in its own `finally`
+block -- and `_write_session_failure`'s own record schema has no field
+for worker output at all. The real diagnostic text the worker printed
+for the `-31` failure was genuinely discarded by the controller itself
+the moment it happened, not merely unsearched.
+
+Fixed by creating `stage17_q15_session_controller_v14.py`, a targeted
+copy of `v10.py`'s `execute_session`/`_write_session_failure` (following
+the same wiring precedent as `v12.py`/`v13.py`: `execute_session` is
+patched onto `stage17_q15_session_controller_v2.py`'s own module
+globals, since that is where `run_start` resolves the bare name at call
+time) adding a best-effort, non-blocking tail capture of both streams,
+taken once the worker process is already confirmed reaped, threaded into
+a new `stage17-q15-session-failure-v3.schema.json` generation via two
+new fields, `worker_stdout_tail`/`worker_stderr_tail`, each capped at
+8192 bytes so a runaway worker can never bloat the failure record.
+Capture is written so it can never itself raise or block, so it cannot
+mask or delay the real failure it exists to explain.
+
+Verified locally, without touching the stand: the fixed module imports
+cleanly and `execute_session` is confirmed patched onto `v2.py`'s own
+global (`v2.execute_session is v14.execute_session`); the CLI's argument
+parsing still matches `v13.py`'s exactly; the capture helper's
+truncation behavior was confirmed against a real OS pipe (correctly
+returns the *tail* of oversized output, `None` for an empty or absent
+stream); and the new schema was confirmed to accept a realistic
+synthetic failure record. Pinned into policy v39's `SUCCESSOR_BINDINGS`
+and re-rendered clean. Not yet exercised against a real live worker
+failure on the stand -- that would require a fresh journal `-32` live-
+pairing attempt.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

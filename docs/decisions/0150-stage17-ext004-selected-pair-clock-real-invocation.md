@@ -2051,6 +2051,43 @@ root-causing before a clean `S17-EXT-005` admission (with real
 measurement data) can be attempted; not yet investigated as of this
 record.
 
+### The real `NSpgid` fix, and a real, structural timing constraint on the live-pairing workflow
+
+Root-caused and fixed the `NSpgid` crash for real: the exact same
+"reachability gap" class already seen repeatedly in this codebase's own
+history. `stage17_process_group_supervisor_v3.py` (ADR-0131) already
+fixes this precise error -- a real, legitimate process (a kernel thread)
+reporting `NSpgid: 0` in `/proc/<pid>/status` during a full `/proc`
+cleanup scan -- but `stage17_q15_session_controller_v10.py` (the module
+`execute_session` actually runs in, per `v12.py`'s own patch) still
+imports the old, unfixed `v2` directly at its own module level.
+Created `stage17_q15_session_controller_v13.py`, patching `v10.py`'s
+own `supervisor` global to point at `v3` -- the exact same "reassign
+the attribute on the module that actually reads it" mechanism `v12.py`
+already used for `execute_session` itself, verified by direct import
+(`v10.supervisor is stage17_process_group_supervisor_v3`, confirmed)
+and a CLI-wiring sanity check, though not yet against a real live run.
+Pinned into policy v39's `SUCCESSOR_BINDINGS` and re-rendered clean.
+
+Attempted journal `-30` to test the fix for real: `EXT-001`/`002`/`003`
+all admitted cleanly again -- but the real `append-transition` call
+after `EXT-003` failed: `FAIL: transition authority is future/expired`.
+Root cause confirmed by direct arithmetic against the real stand clock
+(`date -u`: `2026-09-05T10:39:22Z`) against `S17-EXT-001`'s own real
+authorization window (issued `09:33:56Z`, a 1-hour expiry at
+`10:33:56Z`): genuine, real wall-clock elapsed time during this
+session's own interactive, human-in-the-loop execution -- confirming/
+signing/authoring/verifying each real step across many round trips --
+exceeded the fixed 1-hour `EXT-001` authorization window before the
+transition could be appended. Not a code bug; a real structural
+constraint of this collaborative workflow's pace against a fixed-
+duration real authorization. This burns journal `-30`'s own transition
+slot the same permanent way every other mid-flight one-shot failure
+this engagement has. A future live-pairing attempt needs either a
+longer real authorization window or a faster real execution cadence
+through the `EXT-001`-`003` steps before the live Q15-R+Q15-W pairing
+even begins, to leave a comfortable real margin.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

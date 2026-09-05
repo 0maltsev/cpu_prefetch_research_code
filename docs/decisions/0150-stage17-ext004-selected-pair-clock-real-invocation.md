@@ -2193,6 +2193,64 @@ and re-rendered clean. Not yet exercised against a real live worker
 failure on the stand -- that would require a fresh journal `-32` live-
 pairing attempt.
 
+### Journal `-32`: the v14 fix works for real, and the diagnostic it recovers shows the `-31`/`-32` failures were never a bug
+
+Rebuilt on journal `-32` with all three fixes pre-loaded (`EXPECTED_
+ROLES`, `NSpgid`, and the new `v14` worker-diagnostic-capture). `EXT-
+001`-`004` all admitted cleanly and fast (`PREFLIGHT_ACCEPTED` reached
+with real margin inside the 1-hour `EXT-001` window). The real Q15-R
+session sealed; the real, signed, `privileged_controls:true` Q15-W
+authorization was submitted. Terminal 1 printed the exact same message
+class as `-31`: `FAIL: Q15 session worker returned 1`.
+
+Safety re-confirmed the same way as every prior attempt: live MSR
+`0x1a4` reads on CPUs 0/1/26 all `0000000000000000`; the framework's own
+`stage17-q15-session-failure-v3.json` independently agreed --
+`restoration_verified: true`, `quarantine_operation.performed: false`,
+`supervisor_restore_readback` matching on all three CPUs,
+`cleanup_error_occurred: false`.
+
+This time the new `v14` fix did its job: the record's own
+`worker_stderr_tail` field, empty and unrecoverable on `-31`, now
+contained the real worker's own message for the first time: `"runner:
+FAIL: Q15-W transaction failed closed: S17-Q15W-TRANSACTION"`. Traced
+directly to `src/runner/stage17_fixed_action.cpp:1131-1135`: `complete =
+apply_verified && regular_accepted && pointer_accepted &&
+restoration_verified` -- and `restoration_verified`/`apply_verified` were
+both real, confirmed true (all three CPUs' H1 write-then-readback
+succeeded, matching `written.size() == prestate.size()` implied by the
+failure record's own complete 3-CPU restore). The failure is therefore
+in `regular_accepted`/`pointer_accepted`, both computed by
+`platform::evaluate_q15_probe_pair` (`src/platform/q15_probe.cpp:130-
+161`): `accepted` requires, among other conditions, `h1.counter.
+all_pf_count == 0` -- i.e. the live behavioral probe pass taken
+immediately after the real H1 MSR write must observe *zero* hardware-
+prefetch-attributed performance-counter events for the transaction to
+be certified. On this real hardware, on this real run, that probe did
+not observe zero.
+
+This means the real MSR write DID happen and WAS correctly verified via
+direct readback (`apply_verified: true`), and the CPU WAS correctly,
+safely restored to H0 afterward -- but the worker's own, by-design
+behavioral qualification gate is refusing to certify the transaction as
+`complete` because the live post-write probe pass did not measure the
+expected "hardware prefetcher fully suppressed" signature. This is not
+a software defect in the sense the prior two bugs were: it is the real
+Q15-W protocol doing exactly what ADR-0054's "one literal buffer mapping
+... survive Q15-R sealing and the later Q15-W transaction" design
+intends -- failing closed on an unconvincing behavioral result rather
+than certifying a transaction whose scientific premise (that disabling
+MSR `0x1A4` bits 0-3 suppresses the counted hardware-prefetch signal on
+this exact stepping/pair) wasn't actually confirmed live. No prior
+journal in this engagement's history has ever reached `regular_accepted`
+= `pointer_accepted` = `true` for a real, live H1 measurement -- this
+appears to be the first time this specific gate has ever been exercised
+against real hardware at all, since journals `-28`/`-29`/`-31` never
+reached this far without crashing first. Whether the acceptance
+criterion is achievable on this platform/pair at all, and if so what
+about the real measurement setup would need to change, is an open,
+substantive question for a future session, not something resolved here.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

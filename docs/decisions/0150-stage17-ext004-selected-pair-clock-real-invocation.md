@@ -2088,6 +2088,73 @@ longer real authorization window or a faster real execution cadence
 through the `EXT-001`-`003` steps before the live Q15-R+Q15-W pairing
 even begins, to leave a comfortable real margin.
 
+### Journal `-31`: a real, third-distinct Q15-W failure, and a confirmed framework gap that makes its own root cause unrecoverable after the fact
+
+Rebuilt on journal `-31` with both fixes pre-loaded (`stage17_operational_
+semantics_v4.py`'s `EXPECTED_ROLES` fix and `stage17_q15_session_
+controller_v13.py`'s `NSpgid` fix), copied into the journal's
+admission-root before any live session started this time, to avoid
+repeating the `-28` stale-in-memory-code mistake. `EXT-001`-`004` all
+admitted cleanly for real, well inside the authorization window this
+time. The real Q15-R session ran and sealed into
+`H0_SEALED_WAITING_FOR_Q15_W`; the real Q15-W request was built, signed
+by the owner, and submitted via `--continue-q15-w`. Terminal 1 then
+printed a third, genuinely new failure: `stage17-q15-session: FAIL: Q15
+session worker returned 1`.
+
+Safety was independently re-confirmed the same way as journal `-29`,
+twice over: a direct live read of MSR `0x1a4` on CPUs 0, 1, and 26 (via
+`os.pread` on `/dev/cpu/N/msr`) returned `0000000000000000` on all
+three, matching the sealed H0 prestate; and the framework's own real
+`stage17-q15-session-failure-v1.json` independently agreed --
+`restoration_verified: true`, `quarantine_operation.performed: false`,
+and `supervisor_restore_readback` showing all three CPUs' post-action
+values matching the requested H0 value exactly. `cleanup_error_occurred`
+was false this time, confirming the `NSpgid` fix held under a real
+live run. `failure_category` was `Q15SessionError`, `failure_stage` was
+`Q15_W_MUTATION` -- a new failure class from neither of the first two
+incidents.
+
+Root-caused the failure by reading `tools/stage17_q15_session_
+controller_v2.py` directly rather than searching stand logs further.
+The real worker binary (`cpu_prefetch_runner`, dispatched via `tools/
+runner_main.cpp`'s `--execute-stage17-q15-session-v1` mode) is launched
+by `execute_session` as a `subprocess.Popen` with `stdout=subprocess.
+PIPE, stderr=subprocess.PIPE` (`v2.py:486-487`). After the Q15-W control
+packet is handed off, `supervisor.cleanup_process_group(...)` waits for
+the worker's process group to exit and reports its real exit code as
+`cleanup.returncode`; a nonzero value raises exactly `f"Q15 session
+worker returned {cleanup.returncode}"` (`v2.py:626-627`) -- so `returned
+1` is the real worker process's own exit code, which `runner_main.cpp`'s
+outer `catch (const std::exception&)` sets whenever `run_q15_phase_
+session_worker` throws, printing `"runner: FAIL: <message>"` to its own
+stderr before returning 1.
+
+That `<message>` is real and was really printed by the worker process --
+but it is unrecoverable after the fact, by design. Neither `process.
+stdout` nor `process.stderr` is ever read anywhere in `v2.py`; both are
+only closed, unread, in the function's `finally` block
+(`v2.py:753-756`). `_write_session_failure`'s own record schema
+(`cpu-prefetch-stage17-q15-session-failure/1`) has no field for worker
+output at all (`v2.py:337-376`). So the real diagnostic text the worker
+process emitted for this exact failure was truly discarded by the
+controller itself, not merely unsearched -- confirming why the earlier
+real, read-only check of `journalctl -k`/`dmesg` on the stand turned up
+nothing beyond the already-known MSR-taint line: there was nothing
+further to find. Root-causing the exact C++ throw site inside
+`run_q15_phase_session_worker` responsible for this specific real
+failure would require either a source-level fix to capture and persist
+the worker's stderr into the failure record, followed by a fresh live
+re-attempt, or static tracing of every throw site in that function's
+real body reachable from the Q15-W/mutation phase specifically (as
+opposed to the two argv/fd-contract throw sites near the top of the
+function, already read and judged unlikely causes since the outer
+Python controller constructs those arguments programmatically) --
+neither has been done yet. Journal `-31`'s Q15-W slot is burned the same
+permanent way every prior mid-flight one-shot failure this engagement
+has been; a fourth live-pairing journal would be needed for a future
+attempt once this is understood.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

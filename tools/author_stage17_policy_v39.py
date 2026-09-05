@@ -71,6 +71,7 @@ SUCCESSOR_BINDINGS = (
     "config/schemas/stage17-q15-r-address-residency-raw-v1.schema.json",
     "config/schemas/stage17-q15-r-cpu-migration-raw-v1.schema.json",
     "config/schemas/stage17-q15-r-software-prefetch-raw-v1.schema.json",
+    "tools/stage17_q15_session_controller_v13.py",
 )
 
 def _find_base(module: object) -> object:

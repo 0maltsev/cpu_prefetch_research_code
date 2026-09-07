@@ -1,89 +1,255 @@
 # Architecture
 
-## Purpose and authority
+## Scope and authority
 
-This document designs component boundaries for Stage A protocol `2.0.0-pre.1`; it does not choose a language, toolchain, raw-data encoding, queue source, platform API, or executable layout. The imported protocol controls scientific behavior. Engineering choices may realize that behavior but may not reinterpret it.
+This is the accepted architecture for Stage A of protocol `2.0.0-pre.2`, with
+immutable predecessor `2.0.0-pre.1`. ADR-0007 through ADR-0040 freeze the
+owner-approved software foundation through Stage 14 synthetic orchestration
+software and ADR-0041 closes the Stage 15 synthetic analysis profile.
+ADR-0043 accepts the Q13 pair, relax, and fail-closed static runner entry
+profile without execution authority. Exact eligible-stand mappings/evidence,
+concrete Stage A freeze
+inputs, and later pilot outputs remain open. Imported
+snapshots remain authoritative under their versions; contradictions require a
+versioned protocol amendment. Stage B and Stage C are excluded.
 
-The design separates three concerns:
+The architecture has three planes:
 
-1. the benchmark data plane performs only predeclared measurement work;
-2. the controller and validation plane prepares, verifies, and records a run;
-3. the offline plane reconciles immutable streams, applies gates, and performs analysis under access control.
+1. **Benchmark data plane**: only protocol-declared producer/consumer work and thread-private observation appends.
+2. **Experiment controller**: preparation, validation, lifecycle transitions, launch/drain, platform evidence, failure recording, and immutable handoff.
+3. **Offline validation and analysis**: reconciliation, gates, summaries, inference, sealing, and authorized access after immutable raw publication.
 
-Any interface that cannot preserve a normative requirement is blocked pending an ADR or, for a scientific change, a protocol amendment.
+ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 select the implementation architecture and no-license posture. ADR-0022 fixes the Stage 3 build/CI baseline, ADR-0023 implements the imported logical contracts, and ADR-0032/0033 now supply the replaceable v1 physical codec and local durability implementation. Platform facts, measured-release pins, real storage domains, and scientific/pilot algorithms remain later evidence in the decision register.
 
-## Planned components
+## Component map
 
-| Component | Responsibility | Principal inputs and outputs | Timed-path role | Current state |
+| Plane | Component | Responsibility | Timed-horizon status | Replaceable boundary / state |
 |---|---|---|---|---|
-| Benchmark data plane | Specialized producer/consumer execution, one-attempt arrivals, polling, termination, and private observation writes | Frozen run image; producer and consumer logical observations | Yes; smallest possible owner | Blocked on language, process/thread model, clock, and storage layout |
-| Experiment controller | Lifecycle state machine, preparation, barriers, run launch, drain, evidence collection, failure/sealing coordination | Validated run plan to append-only manifest/failure/artifact records | Control only; absent during measurement except prebuilt synchronization | Architecture planned |
-| Protocol/configuration validation | Draft 2020-12 structural validation plus cross-record semantic validation | Immutable config/records to typed validation reports | Forbidden | Validator architecture unresolved |
-| Schedule generation | Seed namespace derivation, pre-generated deadlines, exact rational rates, half-open horizons, encoding envelope, checksums | Frozen seed/config to immutable schedule artifact | Reads next prepared deadline only | Algorithms/encoding unresolved |
-| Queue adapters | One stable `try_enqueue`/`try_dequeue` seam while preserving package-specific linearization, memory order, progress, prefetch, and recycler semantics | Pointer plus package configuration; operation outcome/boundaries | Yes | Blocked on provenance/license/mode and atomic mapping |
-| Record and working-set generation | One-line immutable record arena, payload/index initialization, event permutation, linked-node permutation, footprint and address-pattern evidence | Frozen seeds/platform cache facts to persistent arenas and reports | Deterministic pointer lookup and immutable record loads only | Algorithms and platform facts unresolved |
-| Timing | Monotonic cross-core tick reads, boundaries, conversion record, overhead/skew/drift evidence | Platform clock record to integer timestamps | Yes, only frozen boundary reads | Platform mapping unresolved |
-| Affinity, NUMA, and hardware-state control | Core selection, first touch, page residency, requested HW-PF actuation, independent readback/probe, environmental checks | Platform/control authorization to requested and verified state records | Verification must not touch hot lines; no dynamic control in timed path | Platform and authority unresolved |
-| Raw-stream storage | Preallocated producer-private and consumer-private buffers; post-run immutable artifact sealing | Logical rows to external immutable streams/envelopes | Private fixed-capacity append only | Physical encoding deliberately unresolved |
-| Producer/consumer reconciliation | Accepted-sequence construction, ordinal join, record-index validation, timestamp/equation checks, joined stream and join audit | Two immutable raw streams to pass/fail audit and optional joined-derived artifact | Forbidden | Planned |
-| Manifest, integrity, failure, and sealing records | Append-only identity, lifecycle, count, checksum, provenance, access, and failure relationships | Component evidence to schemas and content hashes | Forbidden except final private checksum value accumulation defined by protocol | Sealing architecture unresolved |
-| Calibration | Treatment-blind service-rate, zero-loss feasibility, ring-distance, clock, horizon, and environment procedures | Valid calibration/pilot artifacts to frozen decision records | Separate run mode, never substituted for Stage A | Deferred and unauthorized |
-| Block planning and Stage A orchestration | Exact 180-cell factorials, whole plots, immutable roles, role-compatible namespaces, randomized order, complete-block replacement | Frozen decisions/seeds to block and run plans | Forbidden | Counts, algorithms, budget, and authorities unresolved |
-| Offline statistical analysis | Inverse-ECDF summaries, effective-tail diagnostics, model/contrasts, separate H1/H2 max-T, sealed H3 sequence, derived outputs | Passed immutable artifacts and authorized access state to source-linked results | Forbidden | Deferred; no result pipeline implemented |
+| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Stage 10 implements the generic executor; Stage 11 statically binds exact capture; Q13 adds ticket-gated five-package static execution and one `PAUSE`, while the final affined combined worker remains blocked |
+| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 10 implements polling/drain; Stage 11 statically binds exact capture; Q13 adds ticket-gated static execution without exposing an execution CLI; final prefetch/platform specialization remains blocked |
+| Data | Queue/package binding | Five concrete static policies preserve ring/linked semantics and exact treatment-specific hint targets | Required | Stage 5 queue cores plus Stage 6 target seams/codegen pass; platform hint instruction and `d2` evidence remain open |
+| Controller | Runner admission / run-image builder | Parse and semantically validate config, hash every current eligibility input, allocate/touch/initialize arenas and buffers, bind identities and capacity proof | Forbidden | Q13 implements strict admission/ticket and static dispatch; final preparation adapter and every real stand/freeze record remain blocked |
+| Controller | Schedule preparation | Derive the purpose-separated stream, generate the complete open-loop schedule, publish artifact/envelopes, decode and validate immutable deadlines | Forbidden | Stage 7 implemented; all lifecycle values remain explicit and no outcome/clock input exists |
+| Controller | Workload construction | Derive domain-separated streams, build event/node order, initialize records, retain integrity inputs, bind one package type | Forbidden | Stage 6 implemented; all values explicit and no worker mutation surface |
+| Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact consequences | Outside horizon | Stage 10 lifecycle is implemented; Stage 11 adds partial-stream finalization and immutable publication without reconciliation |
+| Controller | Block planner | Prove/generate the exact Stage A product from explicit frozen roles, namespaces, keys, seed catalogs, counts, and identities | Forbidden | Stage 14 deterministic generator/pool validator implemented; concrete pilot-derived inputs remain external |
+| Controller | Platform-control adapter | Inventory/capabilities, explicit affinity/NUMA/pages/environment/HW-PF request, separate apply/readback/probe, reverse rollback, manifests | Forbidden | Stage 9 read-only Linux inventory, dry-run, strict validation, injected actuator/verifier, restoration, and manifests implemented; exact stand actuator/authority and dynamic address evidence remain external gates |
+| Controller | Clock qualification | Evaluate the accepted source, conversion, skew/drift/read cost and code boundaries from explicit platform evidence | Reads only are timed | D-009 software/codegen implemented; dynamic explicit-pair and before-block evidence pending Phase 9/16 |
+| Controller | Logical record model | Typed representation of all seven imported schema families, exact values, lifecycle/gate states, and immutable configuration | Private row construction only | Stage 4 implemented; [model contract](PROTOCOL_MODEL.md) |
+| Controller | Physical codec | Encode/decode exact logical rows/envelopes | Private fixed-row write is timed; decoding/envelopes are outside | `RAW-OBS-U64LE-LP-RUNID-v1` implemented; new formats remain replaceable under a new ID |
+| Controller | Artifact store | Immutable content-addressed publication, copy evidence, partial finalization | Forbidden | Stage 11 local no-replace/two-copy backend implemented; real failure domains and separated custody remain Phase 16 evidence |
+| Offline | Structural validator | Draft 2020-12 validation against unmodified imported schemas | Forbidden | Stage 4 implemented with pinned jsonschema and positive/negative fixtures |
+| Offline | Semantic validator | Record-local arithmetic/lifecycle, run-level immutable relationships, and block/replacement/access graph validation | Forbidden | Stage 4 local, Stage 12 run-level, and Stage 14 block/access layers implemented; final acceptance still requires concrete frozen evidence |
+| Offline | Reconciler | Build accepted producer order; exact k-th join by `(run_id, accepted_ordinal)`; validate Stage 6 mapping/index; emit audit and conditional derived join | Forbidden | Stage 12 implemented; consumes immutable sources only and derives nothing on failed audit |
+| Offline | Calibration evaluator | Validate prospective service/ring/probe plans and immutable raw evidence; compute exact minima/tails/exposure bounds; emit append-only freeze candidates | Forbidden | Stage 13 implemented with synthetic/fake inputs; stand values and final exposure remain external gates |
+| Offline | Access/replacement orchestrator | Enforce sealing chronology, authority segregation, immutable amendment lineage, and complete-block-only replacement | Forbidden | Stage 14 implemented with synthetic records; real principals/custody/budget remain Phase 16/18 evidence |
+| Offline | Statistical analysis | Fixed quantiles/diagnostics, complete-block H1/H2 families, sealed H3 chronology, source-linked reports | Forbidden | Stage 15 synthetic implementation passes; concrete authorized inputs remain Phase 16/18 evidence |
 
-## Boundary rules
+## Stable interfaces
 
-### Data-plane input
+These are semantic interfaces; they do not prescribe source-language syntax.
 
-Before worker release, the controller must provide a closed, validated run image containing all addresses, queue/package specialization, schedule, seeds, preallocated capacities, timestamp conversion identity, requested and verified hardware state evidence, and immutable run identity. Workers do not parse manifests or choose behavior dynamically.
+### `PreparedRun`
 
-### Queue seam
+An immutable, fully validated run image containing run identity, specialized package identity, pre-generated integer deadlines, record/node arenas, thread-private buffer extents, exact capacity proof, clock/conversion identity, requested and verified platform evidence references, seeds/algorithm-suite IDs, and all worker addresses. Workers neither parse nor select configuration. ADR-0043 adds a preceding `RunnerAdmission` trust boundary: only the combined current-binding and on-disk SHA-256 verification path can construct the ticket accepted by a static worker specialization. See [`PRODUCTION_RUNNER.md`](PRODUCTION_RUNNER.md).
 
-The future queue seam is behavioral rather than a license to normalize algorithms. It must expose a one-attempt outcome and the protocol-defined invocation, queue-specific linearization, and response boundaries. Package-specific code remains statically specialized so the common driver does not introduce virtual dispatch or a treatment-dependent branch. The linked adapter includes the regular recycler path. A common facade must not erase different full semantics, memory orders, prefetch sites, or refinement obligations.
+### `QueueAdapter`
 
-### Storage interface
+A package-bound seam providing one-attempt enqueue/dequeue outcomes while retaining package-specific linearization, full, recycler, memory-order, and progress semantics. Stage 5 implements separate final `RingQueueAdapter` and `LinkedQueueAdapter` types with no common virtual base or runtime family selector. Stage 6 adds concrete `R0`, `R1`, `R2`, `L0`, and `L1` policy types: their target sites are fixed and a statically bound emitter preserves the still-unselected platform encoding. Their `noexcept` operations are constant-step and contain no allocation, retry, wait, logging, exception control flow, or runtime package dispatch. API substitutability alone is not scientific equivalence.
 
-No concrete binary or columnar encoding is selected. The future storage interface must:
+### `WorkloadConstruction`
 
-- accept fixed-capacity thread-private appends without allocation or blocking;
-- represent every normative logical field and exact integer tick;
-- distinguish producer, consumer, and joined-derived stream kinds;
-- bind every row and envelope to `run_id`;
-- expose row count, byte count, encoding, time unit, endianness, compression, immutable ordering, physical-format record ID, URI, integrity reference, and SHA-256;
-- decode exactly the declared count and validate decoded logical rows;
-- seal raw source streams immutably and create corrections only as new derived artifacts;
-- compress only after measurement with a frozen lossless method.
+Consumes only explicit line/page/cache/capacity, seed, namespace, and accepted
+algorithm identifiers. It produces a base-page-aligned, fully touched immutable
+event arena, cyclic event order, `C+1` linked-node order, exact footprint
+results, content/order/delta integrity inputs, and one statically selected
+package. `RecordIndex`, `LogicalSequence`, and `AcceptedOrdinal` are distinct;
+no pointer is serialized. Platform residency and prefetch encoding remain
+outside this interface and cannot be inferred from allocation success.
 
-Before pilot, an ADR and freeze record must select the physical format, row layouts/sizes/alignment, endianness, lossless compression, copy policy, canonical serialization, and capacity proof. Selecting those items now would invent evidence not present in the protocol.
+### `SchedulePreparation`
 
-### Validation interface
+The standalone Python 3.14 producer consumes only explicit schedule identity,
+kind, master seed and seed identity, parent/child namespaces, origin, positive
+horizon, reduced rational rate, and output identities. It emits immutable
+absolute-u64be bytes, the imported logical envelope, and a self-hashed
+derivation record. The C++ decoder validates the accepted suite, exact
+derivation/runtime binding, artifact shape, half-open/nondecreasing/count rules,
+and all integrity identities before returning a `PreparedSchedule`. A separate
+validator receives explicit lifecycle roles and common-family membership; it
+never infers either from a path or name. Generation and validation cannot see
+queue completion, clock readings, or measured outcomes.
 
-Schema validation checks document shape. A separate semantic validator must check arithmetic, decoded schedules, namespaces, cross-record hashes, lifecycle chronology, count identities, timestamp equations, exact factorial coverage, replacement lineage/budget, access chronology, role membership, and authority segregation. Neither layer may silently repair an instance.
+### `CalibrationEvaluation`
 
-### Failure and append-only behavior
+Consumes a complete prospective plan plus immutable raw calibration references.
+The C++ service evaluator requires the exact 60-cell Stage A context product
+and permits only the continuous-ready workload difference. Plans require
+owner, authority, and stand-budget evidence. The ring evaluator requires six
+contexts, separate H0/H1 R0 evidence, preallocated acquire-demand series, and
+advancement-only issue intervals. Both retain per-run status/source decisions
+and emit exact typed results or explicit unresolved/ineligible blockers;
+neither retries, tops up, reads confirmatory outcomes, or selects from treatment
+effects. The offline matrix interface requires an exact 180-cell result for
+each evaluated member of the predeclared five-candidate family, accepted
+confidence, threshold, descending-prefix stopping rule, and Decimal profile.
+Canonical plan/result/freeze records publish no-replace and bind a material
+invalidation fingerprint. This interface has no default duration, count,
+capacity, rate, distance, exposure, stand, or authority.
 
-The controller records the lifecycle reached and only artifacts that actually exist. Early failure never fabricates raw data. Failed reconciliation seals a failed join audit and forbids joined-derived data. Raw producer/consumer artifacts are never overwritten. A correctness or measurement failure leaves its original block incomplete; only an authorized new complete role-compatible block can replace it.
+### `BlockOrchestration`
 
-## Timed-path allowlist and denylist
+Consumes explicit prospective precision evidence, platform/build identity,
+role namespaces, block seed catalogs, pre-derived Philox keys, authority
+assignments, immutable artifacts, and replacement budget. It proves the exact
+180-cell product and pool role counts, emits a deterministic imported block
+document, evaluates sealing/access chronology, and authorizes only complete
+role-preserving replacements. Missing inputs remain unresolved. The interface
+has no filesystem identity inference, outcome input to generation/resizing,
+artifact-reader capability, cell-repair method, or execution method. See
+[`ORCHESTRATION.md`](ORCHESTRATION.md).
 
-Only these planned operations may occur in the Stage A measurement path:
+### `OfflineAnalysis`
 
-- poll a pre-generated deadline with the frozen clock read and processor-relax mapping;
-- handle overdue logical arrivals in original order;
-- deterministic record-index/pointer lookup;
-- one specialized queue `try_enqueue` attempt and its timestamps;
-- specialized repeated `try_dequeue`, empty polling, and timestamps;
-- the protocol-fixed ring or linked queue/recycler operations and prefetch hints;
-- immutable record index/payload loads and one fixed consumer-private checksum update;
-- fixed-capacity writes to the calling worker's private raw buffer;
-- release/acquire termination using an isolated control line.
+Consumes one explicit platform/build graph only after immutable artifact
+checks, Stage 12 reconciliation evidence, exact Stage 14 block/replacement
+proof, and role-appropriate access grants. It derives non-interpolated run
+quantiles and diagnostics, verifies the 40-column full-rank balanced design,
+constructs no block from filtered cells, and resamples complete temporal blocks
+only. Separate seven/twenty H1/H2 max-T families and the H3
+training-selection-unseal-54-comparison sequence are versioned by ADR-0041.
+Every numerical freeze input remains explicit. Canonical reports bind software,
+configuration, sources, and output hashes and label synthetic evidence so it
+cannot be confused with empirical results. See [`ANALYSIS.md`](ANALYSIS.md).
 
-The measurement path forbids unplanned allocation/deallocation, buffer growth, locks, blocking I/O, file access, console logging, formatted output, dynamic configuration parsing, RNG use, permutation/sorting, manifest construction, checksum of whole artifacts, compression, reconciliation, quantile/histogram computation, statistical analysis, adaptive backoff, sleep/yield/scheduler calls, virtual dispatch, treatment-dependent driver branches, mutable event preparation, and platform-state changes.
+### `ClockSource`
 
-## Deployment and process boundary
+A qualified integer-picosecond read plus immutable clock identity/conversion
+evidence. D-009/ADR-0030 selects vDSO
+`clock_gettime(CLOCK_MONOTONIC_RAW)`, exact nanosecond-to-picosecond conversion,
+compiler-only read fences, bracketed queue boundaries, and uncorrected raw
+values. `cpu_prefetch_timing` implements the reader, raw absolute-nanosecond plus
+relative-picosecond sample, static producer/consumer boundary observers,
+offline interval equations, and fail-closed qualification evaluators.
+Qualification covers monotonicity, cross-core skew, drift, resolution,
+serialization, migration handling, read cost, overflow, syscall exclusion, and
+generated instructions. The run cannot switch source or conversion after
+preparation, and static inventory cannot substitute for explicit worker-pair
+and dynamic qualification evidence.
 
-The process/thread model is deliberately open. Any candidate must provide exactly one producer and one consumer for Stage A, isolate mutable ownership lines, support worker-local raw buffers and page placement, allow independent control/custody processes where sealing requires them, and leave no observer touching hot ownership lines. The selected model, crash behavior, privilege separation, and artifact handoff require an ADR before production architecture is finalized.
+### `PlatformControl`
 
-## Deferred scope
+`cpu_prefetch_platform` separates inventory, capability detection, requested-state validation, apply, independent verification, restoration, and manifest emission. The real Linux provider is read-only and records CPU/core/package/NUMA/cache/PCI topology, page and environment observations, and software/hardware provenance without choosing a stand or pair. Stage A validation requires explicit non-SMT near/far CPUs, producer-home shared memory, worker-local private buffers, and the inventoried base-page policy; Stage C alternatives reject.
 
-Stage B tagged-pointer MPSC and all Stage C ablations are outside this architecture. They may reuse stable infrastructure only after separate authorization; they cannot weaken or substitute any Stage A component or gate.
+Every control names an exact target/value, authority, actuation mechanism, verification mechanism, snapshot, and state epoch. Dry-run never calls an actuator. Successful apply is only an apply fact; fresh exact readback through the verifier is required separately. Partial apply restores recorded pre-state in reverse order and retains any restoration failure. Rich canonical evidence preserves partial failure, while a separate emitter produces only the immutable imported platform-schema shape. Unsupported/unauthorized/missing/stale capability fails closed. The repository does not ship a mutating stand backend: exact stand mappings, vendor HW-prefetch fields, behavioral probes, privileges, and rollback remain required evidence under [the Stage 9 contract](PLATFORM_CONTROL.md).
+
+### `RunLifecycle`
+
+`cpu_prefetch_lifecycle` owns an explicit controller phase graph whose values
+project onto, but never extend, the imported stable lifecycle enum. Each
+transition records time, actor, reason, and append/retain/absence consequences.
+Preparation and warm-up evidence require distinct schedule namespaces,
+deterministic preallocation, stopped/drained warm arrivals, and no ambiguous
+continuation. A replaceable reset interface verifies exact ring or linked
+origin while preserving allocation/mapping/data-home/permutation/payload
+identity.
+
+The start barrier release-publishes one explicit measurement origin. A generic
+compile-time executor consumes only an immutable deadline span, issues exactly
+one producer backend call per due arrival, polls the consumer, and uses a
+dedicated lock-free u32 release/acquire termination word before drain-to-empty.
+It supplies no clock, watchdog value, queue family, or platform default. Stage
+11 supplies a statically bound physical capture backend. Q13 selects one x86
+`PAUSE` and the exact candidate pairs, then adds a controller-side five-way
+static dispatch whose measured executor never reads the package enum. Exact
+watchdogs, real prefetch mapping, affinity/qualification, and the combined
+worker remain external gates. Full semantics and later gates are recorded in
+[`LIFECYCLE.md`](LIFECYCLE.md).
+
+### `LogicalModel` and `PhysicalCodec`
+
+The Stage 4 logical model preserves every imported field, exact integer,
+relationship, row ordering, and stream kind. Opaque IDs are never parsed from
+paths. Unknown versions/enums/fields fail; configuration has no mutation
+surface after load. Structural validation and record-local semantic validation
+are separate, and `JCS-I64-v1` supplies deterministic canonical bytes. A
+versioned codec declares format, endianness, row/envelope size, alignment, time
+unit, compression, decoder identity, and corruption behavior. A codec selection
+cannot change logical meaning. Q9/ADR-0032 now freezes
+`RAW-OBS-U64LE-LP-RUNID-v1`; Stage 11 implements it behind this seam without
+replacing the logical model with its byte layout. Its decoder maps into Stage
+4 logical rows and applies the record-local semantic validator.
+
+### `ArtifactStore`
+
+Publishes immutable byte objects and append-only metadata with stable IDs,
+SHA-256, byte/row counts, origin, lifecycle state, lineage, access state, and
+compatibility identifiers. Stage 11 implements unique run directories,
+exclusive staging, checked sync/readback, atomic no-replace publication, two
+explicit domain copies, copy ledgers, and recovery-only reopening of an exact
+staging object. Corrections/conversions are new derived objects. A failed step
+publishes only evidence actually produced.
+
+### `QueueProvenance`
+
+For each queue package, binds paper section/figure, official artifact search record, source hashes, license, independent mode, every adaptation, memory-order/atomic/layout map, claim boundary, refinement proof, tests, sanitizers, and generated-code status. Stage 5 records live under `config/queue-provenance/` and are fail-closed checked. Exact historical FastFlow artifact status remains unresolved but no source is reused. Missing dual-disassembler evidence blocks Stage 5 closure without changing the implementation mode.
+
+## Timed-path contract
+
+Allowed operations are limited to:
+
+- read a pre-generated deadline and qualified clock; relax-only polling;
+- process overdue logical arrivals in original order;
+- deterministic precomputed record-pointer lookup;
+- exactly one package-bound enqueue attempt with fixed timestamps;
+- package-bound dequeue polling and drain with fixed timestamps;
+- protocol-declared ring or linked/recycler operations and prefetch hints;
+- immutable record index/payload loads and one fixed private checksum update;
+- fixed-capacity append to the calling worker's private raw buffer;
+- isolated release/acquire termination.
+
+Forbidden operations include allocation/deallocation, buffer growth, locks, blocking I/O, file access, console logging, formatting, dynamic parsing, RNG/permutation, manifest construction, whole-artifact hashing, compression, reconciliation, quantiles/histograms, analysis, adaptive backoff, sleep/yield, scheduler calls, runtime queue dispatch/treatment selection, mutable record preparation, and platform-state changes.
+
+Generated-code and call-graph acceptance must prove this contract for every package specialization. Overflow never triggers aggregation, allocation, or emergency I/O; it records a measurement failure after safely leaving the horizon.
+
+## Ownership and accepted deployment
+
+ADR-0012 requires one unprivileged measurement process with a quiescent controller main thread, exactly one producer, exactly one consumer, and exclusive mutable cache-line ownership. ADR-0018 and ADR-0020 keep privileged platform control and validation custody out of process under separate principals. The implementation must prove:
+
+- worker-local raw buffers and mutable controls occupy separately evidenced cache lines/pages;
+- no observer touches hot ownership lines during the horizon;
+- affinity and page placement are commanded and independently verified;
+- crash/lifecycle states yield the exact append-only artifact set;
+- privileges are absent from the measurement process;
+- validation custody is technically separated from implementation/platform operation.
+
+## Failure and compatibility model
+
+Lifecycle transitions and partial failures are append-only. Early failure cannot fabricate raw artifacts. Producer and consumer sources remain independently immutable; failed reconciliation produces an audit and no joined-derived stream. A correction or format conversion creates a derived artifact. Replacement follows the complete-block protocol and never reuses run identity.
+
+Readers fail closed on unknown protocol/schema, artifact-kind, physical-format,
+clock, RNG, permutation, mixing, checksum, or canonicalization identifiers.
+The loader reads pre.1 and pre.2 under distinct contracts; new output is pre.2
+and Stage 12 rejects mixed graphs. There is no implicit migration, repair, or
+future-enum pass-through. Frozen ADR-0025/0029 pre.1 derivation-domain labels
+remain suite identity. Additive compatibility must be declared and tested;
+changed bytes always receive new content identity.
+
+## Accepted baselines and deferred evidence
+
+The owner selected no repository license grant in ADR-0021. ADR-0022 through
+ADR-0028 fix the development toolchain, typed model, queues, and Stage 6
+construction; ADR-0029 fixes the schedule; ADR-0030 fixes the implemented clock
+contract; and ADR-0031 fixes the Stage 10 lifecycle/termination mapping. Stage
+9 implements the accepted ADR-0018/0019 software boundary without selecting
+target facts.
+
+Q9/ADR-0032/0033 additionally freeze the raw format and no-compression/
+one-temporary/two-durable-domain policy. Stage 11 implements the codec,
+preallocated private writers, integrity/envelope/ledger records, checked
+capacity model, and local crash-aware store; cross-decoder, corruption,
+sanitizer, and dual-disassembler software evidence passes. Phase 16 real
+domain/custody/capacity/page-residency/recovery proof remains open. Concrete seeds/capacities, node
+page-frame qualification, vendor prefetch encoding/probes, calibrated `d2`,
+eligible-stand facts, and other later inputs remain unresolved and cannot be
+filled by a build or configuration default.

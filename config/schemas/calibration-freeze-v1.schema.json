@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cpu-prefetch.invalid/schemas/calibration-freeze-v1.schema.json",
+  "title": "Stage 13 append-only calibration freeze",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "protocol_version", "record_id", "state", "owner_ids", "authority", "decided_at_utc", "source_records", "invalidation_fingerprint_sha256", "proposed_outputs", "unresolved_inputs", "supersedes_record_id", "record_sha256"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-calibration-freeze/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "record_id": {"$ref": "#/$defs/id"},
+    "state": {"enum": ["NOT_EVALUATED", "PROPOSED", "FROZEN", "INVALIDATED"]},
+    "owner_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "authority": {"oneOf": [{"$ref": "#/$defs/artifact"}, {"type": "null"}]},
+    "decided_at_utc": {"type": ["string", "null"], "format": "date-time"},
+    "source_records": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/artifact"}},
+    "invalidation_fingerprint_sha256": {"$ref": "#/$defs/sha256"},
+    "proposed_outputs": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["name", "value", "unit"], "properties": {"name": {"$ref": "#/$defs/id"}, "value": {"type": "string", "minLength": 1}, "unit": {"type": "string", "minLength": 1}}}},
+    "unresolved_inputs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "supersedes_record_id": {"type": ["string", "null"], "minLength": 1, "pattern": "^[^/]+$"},
+    "record_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {"if": {"properties": {"state": {"enum": ["PROPOSED", "FROZEN"]}}}, "then": {"properties": {"authority": {"$ref": "#/$defs/artifact"}, "decided_at_utc": {"type": "string", "format": "date-time"}, "proposed_outputs": {"minItems": 1}}}},
+    {"if": {"properties": {"state": {"const": "FROZEN"}}}, "then": {"properties": {"unresolved_inputs": {"maxItems": 0}}}},
+    {"if": {"properties": {"state": {"const": "NOT_EVALUATED"}}}, "then": {"properties": {"proposed_outputs": {"maxItems": 0}, "unresolved_inputs": {"minItems": 1}}}}
+  ],
+  "$defs": {
+    "id": {"type": "string", "minLength": 1, "pattern": "^[^/]+$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {"type": "object", "additionalProperties": false, "required": ["artifact_id", "sha256"], "properties": {"artifact_id": {"$ref": "#/$defs/id"}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  }
+}

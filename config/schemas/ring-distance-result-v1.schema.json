@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cpu-prefetch.invalid/schemas/ring-distance-result-v1.schema.json",
+  "title": "Stage 13 ring-distance result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "protocol_version", "record_id", "plan", "estimator_id", "state", "assumptions", "contexts", "record_sha256"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-ring-distance-result/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "record_id": {"$ref": "#/$defs/id"},
+    "plan": {"$ref": "#/$defs/artifact"},
+    "estimator_id": {"const": "RING-D2-RUNTAIL-LTL95C95-v1"},
+    "state": {"enum": ["NOT_EVALUATED", "RESOLVED", "INELIGIBLE"]},
+    "assumptions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "contexts": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/context"}},
+    "record_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "id": {"type": "string", "minLength": 1, "pattern": "^[^/]+$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "uint": {"type": "string", "pattern": "^(0|[1-9][0-9]*)$"},
+    "artifact": {"type": "object", "additionalProperties": false, "required": ["artifact_id", "sha256"], "properties": {"artifact_id": {"$ref": "#/$defs/id"}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "nullable_artifact": {"oneOf": [{"$ref": "#/$defs/artifact"}, {"type": "null"}]},
+    "nullable_uint": {"oneOf": [{"$ref": "#/$defs/uint"}, {"type": "null"}]},
+    "run_decision": {"type": "object", "additionalProperties": false, "required": ["run_id", "hardware_state", "validity", "producer_demand_p999_ticks", "consumer_demand_p999_ticks", "producer_issue_p001_ticks", "consumer_issue_p001_ticks", "raw_run_artifacts", "integrity_artifact", "failure_artifact"], "properties": {"run_id": {"$ref": "#/$defs/id"}, "hardware_state": {"enum": ["H0", "H1"]}, "validity": {"enum": ["VALID", "INVALID"]}, "producer_demand_p999_ticks": {"$ref": "#/$defs/nullable_uint"}, "consumer_demand_p999_ticks": {"$ref": "#/$defs/nullable_uint"}, "producer_issue_p001_ticks": {"$ref": "#/$defs/nullable_uint"}, "consumer_issue_p001_ticks": {"$ref": "#/$defs/nullable_uint"}, "raw_run_artifacts": {"type": "array", "items": {"$ref": "#/$defs/artifact"}}, "integrity_artifact": {"$ref": "#/$defs/nullable_artifact"}, "failure_artifact": {"$ref": "#/$defs/nullable_artifact"}}, "allOf": [{"if": {"properties": {"validity": {"const": "VALID"}}}, "then": {"properties": {"producer_demand_p999_ticks": {"$ref": "#/$defs/uint"}, "consumer_demand_p999_ticks": {"$ref": "#/$defs/uint"}, "producer_issue_p001_ticks": {"$ref": "#/$defs/uint"}, "consumer_issue_p001_ticks": {"$ref": "#/$defs/uint"}, "raw_run_artifacts": {"minItems": 1}, "integrity_artifact": {"$ref": "#/$defs/artifact"}, "failure_artifact": {"type": "null"}}}}, {"if": {"properties": {"validity": {"const": "INVALID"}}}, "then": {"properties": {"producer_demand_p999_ticks": {"type": "null"}, "consumer_demand_p999_ticks": {"type": "null"}, "producer_issue_p001_ticks": {"type": "null"}, "consumer_issue_p001_ticks": {"type": "null"}, "failure_artifact": {"$ref": "#/$defs/artifact"}}}}]},
+    "context": {"type": "object", "additionalProperties": false, "required": ["context_id", "state", "run_decisions", "producer_demand_upper_ticks", "consumer_demand_upper_ticks", "producer_issue_lower_ticks", "consumer_issue_lower_ticks", "conservative_demand_ticks", "conservative_issue_ticks", "d1_slots", "d2_cache_lines", "producer_distance_slots", "consumer_distance_slots", "blockers"], "properties": {"context_id": {"$ref": "#/$defs/id"}, "state": {"enum": ["NOT_EVALUATED", "RESOLVED", "INELIGIBLE"]}, "run_decisions": {"type": "array", "items": {"$ref": "#/$defs/run_decision"}}, "producer_demand_upper_ticks": {"$ref": "#/$defs/nullable_uint"}, "consumer_demand_upper_ticks": {"$ref": "#/$defs/nullable_uint"}, "producer_issue_lower_ticks": {"$ref": "#/$defs/nullable_uint"}, "consumer_issue_lower_ticks": {"$ref": "#/$defs/nullable_uint"}, "conservative_demand_ticks": {"$ref": "#/$defs/nullable_uint"}, "conservative_issue_ticks": {"$ref": "#/$defs/nullable_uint"}, "d1_slots": {"$ref": "#/$defs/nullable_uint"}, "d2_cache_lines": {"$ref": "#/$defs/nullable_uint"}, "producer_distance_slots": {"$ref": "#/$defs/nullable_uint"}, "consumer_distance_slots": {"$ref": "#/$defs/nullable_uint"}, "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}}, "allOf": [{"if": {"properties": {"state": {"const": "RESOLVED"}}}, "then": {"properties": {"run_decisions": {"minItems": 118}, "producer_demand_upper_ticks": {"$ref": "#/$defs/uint"}, "consumer_demand_upper_ticks": {"$ref": "#/$defs/uint"}, "producer_issue_lower_ticks": {"$ref": "#/$defs/uint"}, "consumer_issue_lower_ticks": {"$ref": "#/$defs/uint"}, "conservative_demand_ticks": {"$ref": "#/$defs/uint"}, "conservative_issue_ticks": {"$ref": "#/$defs/uint"}, "d1_slots": {"$ref": "#/$defs/uint"}, "d2_cache_lines": {"$ref": "#/$defs/uint"}, "producer_distance_slots": {"$ref": "#/$defs/uint"}, "consumer_distance_slots": {"$ref": "#/$defs/uint"}, "blockers": {"maxItems": 0}}}}, {"if": {"properties": {"state": {"const": "NOT_EVALUATED"}}}, "then": {"properties": {"producer_demand_upper_ticks": {"type": "null"}, "consumer_demand_upper_ticks": {"type": "null"}, "producer_issue_lower_ticks": {"type": "null"}, "consumer_issue_lower_ticks": {"type": "null"}, "conservative_demand_ticks": {"type": "null"}, "conservative_issue_ticks": {"type": "null"}, "d1_slots": {"type": "null"}, "d2_cache_lines": {"type": "null"}, "producer_distance_slots": {"type": "null"}, "consumer_distance_slots": {"type": "null"}, "blockers": {"minItems": 1}}}}, {"if": {"properties": {"state": {"const": "INELIGIBLE"}}}, "then": {"properties": {"blockers": {"minItems": 1}}}}]}
+  }
+}

@@ -1,0 +1,131 @@
+name: protocol-foundation-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: protocol-foundation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gcc-foundation:
+    runs-on: [self-hosted, linux, x64, cpu-prefetch-gcc16]
+    steps:
+      - name: Checkout pinned action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Configure
+        run: cmake --preset dev-gcc
+      - name: Build
+        run: cmake --build --preset dev-gcc
+      - name: Test
+        run: ctest --preset dev-gcc
+      - name: Format check
+        run: cmake --build --preset dev-gcc --target format-check
+      - name: Static analysis
+        run: cmake --build --preset dev-gcc --target static-analysis
+      - name: Protocol and schema check
+        run: cmake --build --preset dev-gcc --target protocol-check
+      - name: Runner admission schema check
+        run: cmake --build --preset dev-gcc --target runner-schema-check
+      - name: Imported-schema fixture check
+        run: cmake --build --preset dev-gcc --target schema-fixture-check
+      - name: Canonical serialization check
+        run: cmake --build --preset dev-gcc --target canonical-check
+      - name: Deterministic schedule check
+        run: cmake --build --preset dev-gcc --target schedule-check
+      - name: Raw-storage format check
+        run: cmake --build --preset dev-gcc --target storage-format-check
+      - name: Raw-storage schema check
+        run: cmake --build --preset dev-gcc --target storage-schema-check
+      - name: Synthetic calibration contract check
+        run: cmake --build --preset dev-gcc --target calibration-check
+      - name: Synthetic orchestration contract check
+        run: cmake --build --preset dev-gcc --target orchestration-check
+      - name: Synthetic offline-analysis contract check
+        run: cmake --build --preset dev-gcc --target analysis-check
+      - name: Queue provenance check
+        run: cmake --build --preset dev-gcc --target queue-provenance-check
+      - name: Documentation check
+        run: cmake --build --preset dev-gcc --target document-check
+      - name: Dependency inventory check
+        run: cmake --build --preset dev-gcc --target dependency-check
+      - name: CI policy check
+        run: cmake --build --preset dev-gcc --target ci-check
+
+  gcc-release-package:
+    runs-on: [self-hosted, linux, x64, cpu-prefetch-gcc16]
+    steps:
+      - name: Checkout pinned action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Configure release
+        run: cmake --preset release-gcc
+      - name: Build release
+        run: cmake --build --preset release-gcc
+      - name: Test release
+        run: ctest --preset release-gcc
+      - name: Reject native and unsafe flags
+        run: cmake --build --preset release-gcc --target release-policy-check
+      - name: Queue generated-code check
+        run: cmake --build --preset release-gcc --target queue-codegen-check
+      - name: Workload generated-code check
+        run: cmake --build --preset release-gcc --target workload-codegen-check
+      - name: Timing generated-code check
+        run: cmake --build --preset release-gcc --target timing-codegen-check
+      - name: Storage generated-code check
+        run: cmake --build --preset release-gcc --target storage-codegen-check
+      - name: Runner relax generated-code check
+        run: cmake --build --preset release-gcc --target runner-relax-codegen-check
+      - name: Generate stand-foundation package
+        run: cmake --build --preset release-gcc --target package
+      - name: Generate deterministic Stage 16 stand bundle
+        run: cmake --build --preset release-gcc --target stand-bundle
+
+  clang-libcxx-foundation:
+    runs-on: [self-hosted, linux, x64, cpu-prefetch-clang22-libcxx]
+    steps:
+      - name: Checkout pinned action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Configure
+        run: cmake --preset dev-clang-libcxx
+      - name: Build
+        run: cmake --build --preset dev-clang-libcxx
+      - name: Test
+        run: ctest --preset dev-clang-libcxx
+      - name: Static analysis
+        run: cmake --build --preset dev-clang-libcxx --target static-analysis
+      - name: Configure release timing audit
+        run: cmake --preset release-clang-libcxx
+      - name: Clang timing generated-code check
+        run: cmake --build --preset release-clang-libcxx --target timing-codegen-check
+      - name: Clang storage generated-code check
+        run: cmake --build --preset release-clang-libcxx --target storage-codegen-check
+      - name: Clang runner relax generated-code check
+        run: cmake --build --preset release-clang-libcxx --target runner-relax-codegen-check
+
+  sanitizers:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: cpu-prefetch-gcc16
+            preset: asan-ubsan-gcc
+          - runner: cpu-prefetch-gcc16
+            preset: tsan-gcc
+          - runner: cpu-prefetch-clang22-libcxx
+            preset: asan-ubsan-clang-libcxx
+          - runner: cpu-prefetch-clang22-libcxx
+            preset: tsan-clang-libcxx
+    runs-on: [self-hosted, linux, x64, "${{ matrix.runner }}"]
+    steps:
+      - name: Checkout pinned action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Configure
+        run: cmake --preset "${{ matrix.preset }}"
+      - name: Build
+        run: cmake --build --preset "${{ matrix.preset }}"
+      - name: Test
+        run: ctest --preset "${{ matrix.preset }}"

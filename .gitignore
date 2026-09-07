@@ -30,6 +30,9 @@ coverage/
 *.profraw
 *.profdata
 sanitizer-output/
+__pycache__/
+*.py[cod]
+.pytest_cache/
 
 # Experimental data (protocol snapshots and test fixtures are intentionally tracked)
 data/raw/

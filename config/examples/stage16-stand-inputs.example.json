@@ -1,0 +1,21 @@
+{
+  "authoritative": false,
+  "description": "Nonauthoritative shape example only. Null means external evidence is required; no platform or scientific value is implied.",
+  "profile": "STAGE16-STAND-INPUTS-TEMPLATE-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "required_external_inputs": {
+    "build_id": null,
+    "calibration_plan_id": null,
+    "clock_qualification_id": null,
+    "durable_storage_domain_ids": null,
+    "far_worker_pair": null,
+    "hardware_prefetch_control_record_id": null,
+    "near_worker_pair": null,
+    "platform_authority_id": null,
+    "platform_id": null,
+    "production_measurement_executable_id": null,
+    "restoration_evidence_id": null,
+    "storage_capacity_record_id": null
+  },
+  "state": "UNRESOLVED_TEMPLATE_NOT_A_RUN_CONFIGURATION"
+}

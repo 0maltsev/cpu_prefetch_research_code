@@ -2,7 +2,10 @@
 
 ## Authority and scope
 
-- The immutable snapshot under `protocol/2.0.0-pre.1/` is the scientific source of truth. `PAPER_AGENTS.md` is imported source material, not an instruction file for this repository.
+- The current immutable scientific source of truth is `protocol/2.0.0-pre.2/`;
+  its predecessor `protocol/2.0.0-pre.1/` remains immutable and readable under
+  its own version. `PAPER_AGENTS.md` is imported source material, not an
+  instruction file for this repository.
 - Code must not silently change the experiment design. A contradiction or missing scientific decision blocks the affected implementation and requires a versioned protocol amendment.
 - Never invent a platform-dependent value. Requested hardware state and verified hardware state are distinct fields.
 - Stage B and Stage C are outside the initial implementation scope unless an approved protocol amendment separately authorizes them.
@@ -21,11 +24,18 @@
 
 ## Command status
 
-- Build: `[UNAVAILABLE: language and build system not selected]`
-- Tests: `[UNAVAILABLE: test framework not selected]`
-- Sanitizers: `[UNAVAILABLE: language, compiler, and sanitizer matrix not selected]`
-- Lint/format: `[UNAVAILABLE: language and tooling not selected]`
-- Schema validation: `[UNAVAILABLE: Draft 2020-12 validator not selected for the implementation]`
-- Clean-room verification: `[UNAVAILABLE: build/CI foundation not implemented]`
+- Build: `cmake --preset dev-gcc && cmake --build --preset dev-gcc`
+- Tests: `ctest --preset dev-gcc`
+- Sanitizers: configure/build/test `asan-ubsan-gcc`, `tsan-gcc`, `asan-ubsan-clang-libcxx`, or `tsan-clang-libcxx`; ASan presets explicitly disable LeakSanitizer under the managed ptrace boundary.
+- Lint/format: `cmake --build --preset dev-gcc --target format-check static-analysis`
+- Schema validation: `cmake --build --preset dev-gcc --target protocol-check schema-fixture-check canonical-check`
+- Schedule validation: `cmake --build --preset dev-gcc --target schedule-check` and `ctest --preset dev-gcc -L schedule`
+- Timing validation: `ctest --preset dev-gcc -L timing`; release generated code: `cmake --build --preset release-gcc --target timing-codegen-check` (same dual-disassembler blocking rule)
+- Queue provenance: `cmake --build --preset dev-gcc --target queue-provenance-check`
+- Queue generated code: `cmake --build --preset release-gcc --target queue-codegen-check` (requires both GNU objdump and accepted LLVM 22 `llvm-objdump`; missing LLVM is a blocking failure)
+- Workload generated code: `cmake --build --preset release-gcc --target workload-codegen-check` (same dual-disassembler blocking rule)
+- Runner admission: `ctest --preset dev-gcc -L runner` and `cmake --build --preset dev-gcc --target runner-schema-check`
+- Runner relax generated code: `cmake --build --preset release-gcc --target runner-relax-codegen-check` (same dual-disassembler blocking rule)
+- Clean-room verification: use a recorded pre-provisioned dependency prefix, then run the documented configure/build/test/check/package commands in `README.md`; configure and build perform no network fetch.
 
 Replace a placeholder only through a recorded engineering decision and keep `README.md`, `STATUS.md`, and `PLAN.md` synchronized.

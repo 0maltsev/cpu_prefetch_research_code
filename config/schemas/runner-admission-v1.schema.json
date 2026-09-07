@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:runner-admission:v1",
+  "title": "Fail-closed production-runner admission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_version",
+    "runner_profile_id",
+    "cpu_pair_selection_id",
+    "relax_mapping_id",
+    "source_revision",
+    "binary_sha256",
+    "stand_id",
+    "binding_id",
+    "package",
+    "placement",
+    "producer_cpu",
+    "consumer_cpu",
+    "execution_limits",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-runner-admission/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "runner_profile_id": {
+      "const": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v1"
+    },
+    "cpu_pair_selection_id": {
+      "const": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1"
+    },
+    "relax_mapping_id": {"const": "X86-PAUSE-ONE-PER-RELAX-SITE-v1"},
+    "source_revision": {"type": "string", "minLength": 1},
+    "binary_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "stand_id": {"type": "string", "minLength": 1},
+    "binding_id": {"type": "string", "minLength": 1},
+    "package": {"enum": ["R0", "R1", "R2", "L0", "L1"]},
+    "placement": {"enum": ["NEAR", "FAR"]},
+    "producer_cpu": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "consumer_cpu": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "execution_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controller_start_poll_limit",
+        "worker_start_poll_limit",
+        "producer_due_poll_limit_per_arrival",
+        "consumer_empty_poll_limit_before_finish",
+        "drain_poll_limit"
+      ],
+      "properties": {
+        "controller_start_poll_limit": {"$ref": "#/$defs/positive_u64"},
+        "worker_start_poll_limit": {"$ref": "#/$defs/positive_u64"},
+        "producer_due_poll_limit_per_arrival": {"$ref": "#/$defs/positive_u64"},
+        "consumer_empty_poll_limit_before_finish": {"$ref": "#/$defs/positive_u64"},
+        "drain_poll_limit": {"$ref": "#/$defs/positive_u64"}
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 20,
+      "maxItems": 20,
+      "items": {"$ref": "#/$defs/evidence_reference"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"placement": {"const": "NEAR"}}},
+      "then": {
+        "properties": {
+          "producer_cpu": {"const": 0},
+          "consumer_cpu": {"const": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"placement": {"const": "FAR"}}},
+      "then": {
+        "properties": {
+          "producer_cpu": {"const": 0},
+          "consumer_cpu": {"const": 26}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "positive_u64": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18446744073709551615
+    },
+    "evidence_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "artifact_id",
+        "path",
+        "sha256",
+        "binding_id",
+        "immutable",
+        "eligible"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "PROTOCOL_SNAPSHOT",
+            "SOURCE_RELEASE",
+            "RUN_PLAN",
+            "WARMUP_SCHEDULE",
+            "MEASUREMENT_SCHEDULE",
+            "SEED_DERIVATION",
+            "PLATFORM_INVENTORY",
+            "PLATFORM_REQUEST",
+            "PLATFORM_VERIFICATION",
+            "HARDWARE_PREFETCH_MAPPING",
+            "CLOCK_QUALIFICATION",
+            "QUEUE_PROVENANCE",
+            "RUNTIME_ATOMIC_LAYOUT",
+            "ADDRESS_RESIDENCY",
+            "STORAGE_BUDGET",
+            "DURABILITY_DOMAINS",
+            "CALIBRATION_FREEZE",
+            "EXECUTION_LIMITS",
+            "AUTHORITY_CUSTODY",
+            "PILOT_EXECUTION_AUTHORIZATION"
+          ]
+        },
+        "artifact_id": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "binding_id": {"type": "string", "minLength": 1},
+        "immutable": {"const": true},
+        "eligible": {"const": true}
+      }
+    }
+  }
+}

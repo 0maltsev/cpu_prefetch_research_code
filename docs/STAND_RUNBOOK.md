@@ -1,6 +1,243 @@
 # Stage A Stand Runbook
 
-Status: **planning document only**. This runbook does not authorize calibration, pilot, or confirmatory execution and intentionally contains no machine commands or platform values. It becomes usable only after the corresponding `PLAN.md` gates and accepted records are complete.
+Status: **planning and read-only inventory document only**. This runbook does
+not authorize a platform mutation, calibration, pilot, or confirmatory
+execution. Commands in the read-only section only observe state and do not make
+the current machine an eligible stand. It becomes operational only after the
+corresponding `PLAN.md` gates, authority records, exact mappings, and accepted
+platform records are complete.
+
+## Stage 16 operational phase map
+
+The versioned stand bundle deliberately separates these six activities. A pass
+in an earlier activity does not imply authority for a later one.
+
+### 1. Install/build verification
+
+Verify the outer archive sidecar before extraction. Extract into a new empty
+directory, run the internal verifier, `cpu_prefetch_smoke`, and the preflight
+self-test exactly as documented in [`STAND_BUNDLE.md`](STAND_BUNDLE.md). If a
+source rebuild is required, extract the bundled source archive and use the
+recorded offline dependency prefixes and README commands. Do not substitute a
+different compiler, dependency, schema, protocol snapshot, or build flag.
+
+### 2. Nonprivileged inventory
+
+Assign a new evidence ID and UTC timestamp outside the filesystem name, then
+run the bundle's read-only collector as an unprivileged account:
+
+```sh
+release/bin/cpu_prefetch_preflight \
+  --snapshot-id ASSIGNED_EVIDENCE_ID \
+  --captured-at-utc YYYY-MM-DDTHH:MM:SSZ > preflight-inventory.json
+sha256sum preflight-inventory.json > preflight-inventory.json.sha256
+```
+
+Replace both uppercase tokens explicitly. The output is always inventory-only
+and does not qualify the stand. No scientific run identity is parsed from its
+filename.
+
+The current clean-release example is append-only inventory
+[`STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02`](evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/README.md).
+Separate hashed
+[topology](evidence/stage16/STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/README.md)
+and
+[storage](evidence/stage16/STAND-STORAGE-XEON-CPU-FETCH-20260822-01/README.md)
+sets support candidate selection and blocker discovery only. They do not
+qualify a pair or domain. Q13 accepts the pair/relax/runner entry choices for
+implementation only in the
+[Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md); it grants no stand
+control or execution authority.
+
+The proposed
+[pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
+defines three non-collapsible gates: Q14 may authorize repository-local
+closure only, a later complete Q15 may authorize exact stand qualification,
+and later dependency-ready Q16a through Q16d records may authorize individual
+Stage 17 phases. While Q14 is pending, none of those actions is authorized.
+
+### 3. Privileged capability verification
+
+A separately named platform operator reviews the read-only inventory and
+creates the prospective authority/whitelist/readback/probe/restoration plan.
+There is no automatic privileged path in the bundle. Do not use `sudo`, write
+sysfs/MSRs, stop services, change boot state, or apply a control until the exact
+target/value/inverse and independent verification have been approved.
+
+### 4. Safe restoration
+
+Before the first authorized apply, capture the exact pre-state and test the
+inverse operation. Apply one whitelisted control at a time, restore successful
+steps in reverse order on failure, independently reread every restored value,
+and retain both success and failure artifacts. Quarantine the stand if
+restoration cannot be proved.
+
+### 5. Calibration/pilot preparation
+
+Only after the readiness report's `BLOCKED_BEFORE_PILOT` items are closed and
+the exact Q15 qualification has passed may owners create an explicit
+dependency-ready calibration/pilot plan and request the applicable Q16 phase
+authorization. Bundle verification, inventory, Q14, and Q15 do not authorize
+calibration or pilot. Confirmatory namespaces and outcomes remain
+inaccessible.
+
+### 6. Artifact transfer to the development repository
+
+End the session, restore authorized controls, seal actual artifacts, and create
+a manifest plus SHA-256 inventory. Transfer a byte-identical copy through the
+approved custody channel into a new append-only evidence location. Verify the
+hashes independently before any repository-side schema or semantic validator
+opens the artifacts. Never overwrite an earlier collection or infer identity
+from the transfer directory.
+
+## Safe software prerequisites
+
+Use the accepted, pre-provisioned Linux x86-64 toolchain and dependencies from
+`README.md`; stand configure/build/test must not fetch from the network. For
+inventory, the base OS must expose procfs and sysfs. `lscpu`, `getconf`,
+`findmnt`, `taskset`, and `sha256sum` are expected from Ubuntu's standard
+util-linux/coreutils packages. `numactl`, `cpupower`, `lstopo-no-graphics`, and
+`dmidecode` are optional read-only cross-checks, not substitutes for the typed
+collector or independent run-address verification.
+
+Before any actuation adapter is accepted, record the exact stand identity,
+kernel and firmware, CPU vendor/model/stepping/microcode, selected core pairs,
+NUMA/cache ancestry, measurement build and dependencies, approved platform
+operator, allowed targets/values, verification mechanisms, and rollback tests.
+Missing evidence remains missing; it is not replaced by a package default.
+
+## Privilege model
+
+The measurement process remains unprivileged and receives no `sudo`, Linux
+capabilities, writable sysfs, `/dev/cpu/*/msr`, service-management, boot-loader,
+or validation-custody access. A separate named platform operator or narrow
+audited service may act only before or after the timed horizon and only after
+its whitelist, authority, readback, probes, and restoration procedure are
+approved.
+
+Inventory and independent readback should normally run without privilege.
+Firmware or kernel-log evidence that the OS restricts may be collected by the
+platform operator as a separate artifact; granting broader access to the
+measurement process is not an acceptable workaround. Successful exit status
+from an operator command proves only that the command returned successfully.
+
+## Safe read-only verification commands
+
+The following commands do not request a state change. Review their output and
+retain it as development/stand inventory evidence with command, UTC time, exit
+status, and SHA-256. Do not prefix the whole list with `sudo`.
+
+```sh
+uname -a
+cat /etc/os-release
+lscpu --json
+lscpu --extended=CPU,NODE,SOCKET,CORE,ONLINE,MAXMHZ,MINMHZ
+getconf PAGE_SIZE
+numactl --hardware
+lstopo-no-graphics
+taskset -pc $$
+cat /proc/self/status
+cat /sys/devices/system/cpu/online
+cat /sys/devices/system/cpu/isolated
+cat /sys/devices/system/cpu/nohz_full
+cat /sys/devices/system/cpu/smt/active
+cat /sys/devices/system/cpu/smt/control
+cat /sys/devices/system/clocksource/clocksource0/current_clocksource
+cat /sys/devices/system/cpu/cpuidle/current_driver
+cat /sys/devices/system/cpu/cpuidle/current_governor_ro
+cat /sys/kernel/mm/transparent_hugepage/enabled
+cat /proc/irq/default_smp_affinity
+cpupower frequency-info
+findmnt -no TARGET,SOURCE,FSTYPE,OPTIONS /
+```
+
+Some files or optional tools may be absent. Record that fact and let capability
+detection fail closed where the evidence is mandatory. Do not use `taskset -p`,
+`numactl` launch options, `cpupower frequency-set`, writes to sysfs, `wrmsr`,
+service stops, CPU offlining, IRQ rewrites, or boot-parameter changes in this
+read-only step.
+
+## Platform evidence collection
+
+Create a new session directory rather than overwriting an earlier collection.
+One safe shell pattern for a small human-readable inventory is:
+
+```sh
+stage9_evidence_dir="evidence/stage9/SESSION_ID"
+mkdir -p -- "$stage9_evidence_dir"
+date -u +%Y-%m-%dT%H:%M:%SZ > "$stage9_evidence_dir/captured_at_utc.txt"
+uname -a > "$stage9_evidence_dir/uname.txt"
+lscpu --json > "$stage9_evidence_dir/lscpu.json"
+lscpu --extended=CPU,NODE,SOCKET,CORE,ONLINE > "$stage9_evidence_dir/cpu-map.txt"
+getconf PAGE_SIZE > "$stage9_evidence_dir/base-page-bytes.txt"
+cat /sys/devices/system/clocksource/clocksource0/current_clocksource > "$stage9_evidence_dir/clocksource.txt"
+sha256sum "$stage9_evidence_dir"/* > "$stage9_evidence_dir/SHA256SUMS"
+```
+
+Replace `SESSION_ID` with a new externally assigned identifier before running;
+do not derive scientific identity from the directory name. The typed
+`LinuxInventoryProvider` additionally reads per-CPU cache/core/package/NUMA and
+PCI locality files. Its development-host smoke test is
+`ctest --preset dev-gcc -L platform --output-on-failure`; a successful smoke
+test is not a platform record or qualification.
+
+For a candidate stand, retain the rich Stage 9 evidence manifest, the exact
+imported-schema platform record, command transcripts, binary/dependency hashes,
+authority records, pre-state, apply audit, independent readback, behavioral
+probes, reverse restoration audit, and Stage 8 clock artifacts. Bind them by
+content hashes; never paste a requested value into a verified field.
+
+## Calibration preparation and authority
+
+Stage 13 software completion does not authorize calibration on a stand. Before
+an operator schedules any calibration interval, the calibration and platform
+owners must append and approve a prospective plan naming the exact stand/build,
+all service and ring contexts, verified H0/H1 mechanisms, line/slot geometry,
+logical capacities, fixed durations, complete run IDs and counts, minimum ring
+series counts, disjoint calibration/probe namespaces and seeds, raw/durable
+storage budget, schedule family, operator authority, and stand-hours. No value
+comes from a repository default or a development fixture.
+
+Service calibration must reproduce each corresponding Stage A queue, package,
+consumer action, placement, capacity, working set, hardware state, software
+policy, clock, reset, and drain; continuous-ready producer work is the sole
+workload difference. Ring calibration uses R0 with software prefetch absent,
+separate H0/H1 plans, preallocated acquire-demand traces, and no confirmatory
+access. Zero-loss feasibility is a separate open-loop exactly-one-attempt
+probe using predeclared schedule namespaces. Operators may not top up invalid
+runs, select a cell-specific rate, or inspect treatment/confirmatory outcomes.
+
+After immutable evidence exists, run only the offline evaluators and schema
+checks described in [`CALIBRATION.md`](CALIBRATION.md). A result remains
+`NOT_EVALUATED` if a planned run, required context, hash, final `Rtotal`, or
+schedule exposure is absent. An R2 cap collapse makes that context ineligible
+or requires a prospective capacity revision before freeze. The common scale
+ladder may move downward only before freeze and only for the complete matrix.
+
+For software verification without stand output:
+
+```sh
+cmake --build --preset dev-gcc --target calibration-check
+ctest --preset dev-gcc -L calibration --output-on-failure
+```
+
+These commands use synthetic/fake evidence. They are not calibration commands
+and must not be archived as platform results.
+
+## Rollback and restoration
+
+Every authorized mutating control must have an independently observed pre-state
+and an exact inverse operation before the first apply. Apply one whitelisted
+control at a time. On partial failure, stop, restore successfully applied
+controls in reverse order, independently read back every restored value, and
+retain both the apply and restoration failures. If restoration cannot be
+proved, quarantine the stand from measurement and escalate to the platform
+owner; do not proceed with a presumed default.
+
+Persistent changes to services, boot parameters, firmware, CPU online state, or
+system-wide policy are outside any automatic repository path. This runbook does
+not provide mutation commands because their exact targets, values, and inverse
+operations are stand-specific evidence still awaiting approval.
 
 ## 1. Roles and separation
 

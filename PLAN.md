@@ -1,28 +1,37 @@
 # Stage A Implementation Plan
 
-Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `PENDING`, and `PROHIBITED`. The phases are dependency ordered; a later phase may be explored only where it cannot force an unresolved earlier choice. Stage B and Stage C are deferred future work outside this plan and require separate authorization/amendment.
+Protocol version: **`2.0.0-pre.2`** (with immutable predecessor
+`2.0.0-pre.1`). Status values are `COMPLETE`, `BLOCKED`, `PENDING`, and
+`PROHIBITED`. The phases are dependency ordered; a later phase may be explored
+only where it cannot force an unresolved earlier choice. Stage B and Stage C
+are deferred future work outside this plan and require separate
+authorization/amendment.
 
 ## Phase 1 — Protocol import and traceability
 
 - **Objective:** Freeze an exact authoritative snapshot and map normative requirements to future owners and gates.
 - **Inputs and prerequisite decisions:** Paper repository at the supplied sibling path; actual version and declared hashes established from repository evidence.
-- **Files/components:** `protocol/2.0.0-pre.1/`, import manifest, root governance/status/readme, all `docs/` planning records.
+- **Files/components:** immutable versioned `protocol/` snapshots and manifests, root governance/status/readme, all `docs/` planning records.
 - **Tests:** Source/import size and SHA-256 equality; declared-hash verification; JSON/schema validation; link/version/scope/file audits.
 - **Acceptance criteria:** Every required artifact is byte-identical and listed; all requested documents exist; all normative areas have owner/validator; no production code, result, or invented platform value exists.
 - **Explicitly excluded:** Benchmark, queues, controls, runner, analysis pipeline, calibration, pilot, confirmation.
 - **Rollback or failure behavior:** A declared-hash mismatch or normative contradiction stops bootstrap; do not repair imported bytes. Remove no source evidence; replace a bad import only from verified source and record a new timestamp/manifest.
-- **Status:** `COMPLETE`; fresh Draft 2020-12 meta-schema revalidation is explicitly tooling-blocked because no conforming validator is installed. JSON syntax and all other available Phase 1 checks pass.
+- **Status:** `COMPLETE_REVERIFIED`; Q11 preserved the original 18-artifact
+  pre.1 snapshot and added the authorized 18-artifact pre.2 snapshot. The
+  pinned jsonschema 4.26.0 check verifies all 36 sizes/hashes, both exact
+  inventories, eight authoritative hashes, and all 14 imported Draft 2020-12
+  schemas.
 
 ## Phase 2 — Implementation-decision freeze
 
 - **Objective:** Resolve the smallest engineering decisions needed to finalize production architecture without selecting pilot outputs.
 - **Inputs and prerequisite decisions:** Phase 1; queue provenance/license investigation; candidate language/atomic feasibility; storage/validator/sealing/platform capability evidence.
-- **Files/components:** Accepted ADRs for queue provenance/mode, language/standard/atomic envelope, storage/semantic-validator architecture, identity/SHA/canonical-record dependencies, sealing boundary, and credible target-platform control interface; updated status/commands.
+- **Files/components:** ADR-0001 through ADR-0021 for accepted architecture, software, queue/process/atomic/integrity/correctness, platform/custody, and no-license boundaries; synchronized architecture, flow, status, risks, tests, traceability, and decision register.
 - **Tests:** License/provenance review; architectural scenario tests for early failure, immutable raw correction, sealing, and unavailable platform control; atomic/sanitizer/tool support matrix.
 - **Acceptance criteria:** Every pre-architecture row in `docs/IMPLEMENTATION_DECISIONS.md` has an accepted evidence-backed ADR; no scientific behavior changed; contradictions have amendments, not workarounds.
 - **Explicitly excluded:** Production source, concrete physical raw encoding, platform numerical values, pilot/confirmatory decisions.
 - **Rollback or failure behavior:** Reject or supersede an unsupported ADR before code depends on it. If no eligible artifact/platform architecture exists, record `BLOCKED_BEFORE_IMPLEMENTATION` and stop.
-- **Status:** `BLOCKED` and the exact next safe phase; user decisions/evidence are required.
+- **Status:** `COMPLETE`. Q1-Q3 are recorded in ADR-0007 through ADR-0020. The owner's Q4 answer, no license grant, is recorded as D-028/ADR-0021; no `LICENSE` file or SPDX grant was added.
 
 ## Phase 3 — Build and CI foundation
 
@@ -33,29 +42,44 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Documented commands work from a clean environment; versions and hashes are captured; failures are nonzero and artifacts retained; no platform-specific constant is embedded.
 - **Explicitly excluded:** Queue and measurement implementations, performance tests, pilot.
 - **Rollback or failure behavior:** Keep previous accepted tool record; supersede build ADR/tool versions rather than silently drifting; block Phase 4 if clean reproduction fails.
-- **Status:** `PENDING`, blocked by Phase 2.
+- **Status:** `COMPLETE`. ADR-0022 and `config/dependencies.json` constrain the tool/dependency matrix. Clean GCC/libstdc++ and Clang/libc++ smoke builds/tests, both ASan/UBSan and TSan matrices, format/static checks, protocol/schema/document/dependency/CI checks, release-flag policy, metadata inspection, and package generation passed locally. LeakSanitizer is explicitly disabled under the managed ptrace boundary; external self-hosted CI execution and runner provisioning remain platform evidence, not a Phase 4 blocker. No benchmark behavior was added. The exact next safe phase is Phase 4.
 
 ## Phase 4 — Protocol/configuration model
 
-- **Objective:** Implement `2.0.0-pre.1` record types, Draft schema validation, checked identities/arithmetic, and cross-record semantic validation framework.
+- **Objective:** Implement versioned protocol record types, Draft schema validation, checked identities/arithmetic, and cross-record semantic validation framework.
 - **Inputs and prerequisite decisions:** Phase 3; storage/identity architecture; canonical serialization policy; compatibility rule.
 - **Files/components:** Protocol/config model, schema loader, semantic-validator rule registry, typed lifecycle/status/identity records, test fixtures.
 - **Tests:** Positive/negative tests for all seven schemas; `1.x` rejection; arithmetic, referenced-hash, namespace, chronology, factorial, and lifecycle semantic fixtures.
 - **Acceptance criteria:** Every imported schema has conformance coverage; semantic-invalid/schema-valid cases reject; validators never repair data; rule failures identify requirement IDs.
 - **Explicitly excluded:** Queue operations, platform mutation, raw physical codec, experiment execution.
 - **Rollback or failure behavior:** Preserve rejected fixtures and rule evidence; a schema/spec conflict stops implementation and requests amendment.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE`. ADR-0023 records the no-new-dependency typed-model
+  boundary. All seven imported schemas have Draft 2020-12 positive/negative
+  coverage; C++ types/loaders cover every stable Stage A record family;
+  record-local semantic rules, immutable configuration, exact-rate handling,
+  stable error paths/categories, `JCS-I64-v1` cross-language fixtures,
+  round-trip tests, and sanitizer/static checks pass. Phase 12 now implements
+  run-level cross-record checks; Phase 14 retains block/access chronology. Q10
+  and Q11 imported D-031 as `2.0.0-pre.2` without changing the immutable
+  predecessor.
 
 ## Phase 5 — Queue provenance and correctness
 
-- **Objective:** Implement or adapt the exact ring and linked-plus-recycler packages behind a non-distorting static seam and prove their stated semantics.
-- **Inputs and prerequisite decisions:** Phase 4; immutable queue provenance/licenses/modes; atomic width/alignment/memory-order/layout decisions.
+- **Objective:** Independently implement the exact ring and linked-plus-recycler packages behind the accepted non-distorting binding and prove their stated semantics.
+- **Inputs and prerequisite decisions:** Phase 4; ADR-0013 independent provenance/mode; ADR-0021 no-license posture; exact atomic width/alignment/memory-order/layout decisions under ADR-0014.
 - **Files/components:** Queue package sources, static adapters, provenance/refinement records, abstract FIFO/reference tests; no workload driver.
 - **Tests:** FIFO/boundary/wrap/reuse; linearization/refinement histories; delayed-worker progress; node ownership/recycler stress; lock-free atomic evidence; ASan/UBSan/TSan where compatible; generated queue-boundary inspection.
 - **Acceptance criteria:** Zero unresolved correctness/sanitizer findings; fixed-arena full refinement accepted; required atomics lock-free; no fallback allocation or silent source deviation.
 - **Explicitly excluded:** Prefetch-effect measurement, arrivals, timing, pilot.
 - **Rollback or failure behavior:** Retain failing artifact/test record; fix or supersede implementation under same proven semantics. A semantic change requires amendment.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE`. ADR-0024, two
+  source-hashed independent provenance records, direct adapters, exact
+  release/acquire mappings, fixed-arena refinement, lock-free/layout probes,
+  FIFO/model/phase-suspension/property/stress tests, and the dual-toolchain
+  sanitizer matrix pass. GNU Binutils 2.46 and LLVM 22.1.6 objdump pass four
+  release operation bodies and both reject the call mutant; both views were
+  reviewed and their hashes are bound into queue provenance. No queue
+  performance was observed.
 
 ## Phase 6 — Record and working-set construction
 
@@ -66,7 +90,13 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Both packages use identical event arena/order; linked gates are reproducible; no measured-path allocation/permutation; exact footprint method is documented.
 - **Explicitly excluded:** Platform capacity selection from uncollected evidence, performance claims, Stage C mutable records.
 - **Rollback or failure behavior:** Pre-freeze seed failure advances only under the frozen treatment-blind stream; post-freeze mismatch invalidates affected run. Never reseed from treatment outcome.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE`. Q5 and ADR-0025 through ADR-0028 freeze the
+  deterministic suite, permutation/payload domains, mixer/integrity grammars,
+  records, and package representation. The event arena, node-order plan,
+  footprint selector, exact five static packages, no-allocation hook,
+  known-answer/property/corruption tests, and dual-disassembler workload audit
+  pass. Concrete seeds, cache/page facts, capacities, platform prefetch
+  encoding, and calibrated `d2` remain later evidence and were not invented.
 
 ## Phase 7 — Schedule generation
 
@@ -77,7 +107,12 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** All semantic schedule rules pass; no implementation-defined RNG behavior; schedule generation is absent from timed path.
 - **Explicitly excluded:** Concrete confirmatory rates/horizons/seeds and any tuning from outcomes.
 - **Rollback or failure behavior:** Algorithm/version change creates new records and invalidates dependent schedules; never silently regenerate a frozen schedule.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE`. The offline Python 3.14 generator, external u64be
+  artifact, imported-schema envelope, implementation-owned derivation record,
+  C++ immutable decoder, namespace/common-family validator, append-only
+  publication, exact goldens, corruption/boundary/overflow tests, and full
+  compiler/sanitizer matrices pass. No queue outcome, clock, or performance
+  observation enters the implementation.
 
 ## Phase 8 — Timing
 
@@ -85,10 +120,22 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Inputs and prerequisite decisions:** Phases 5 and 7; target clock, integer conversion, serialization, overhead policy, acceptance limits.
 - **Files/components:** Tick reader/converter, boundary instrumentation, clock acceptance/calibration records, generated-code checks.
 - **Tests:** Monotonicity, skew/drift/resolution/read cost, conversion goldens, boundary ordering, regression/negative correction faults, disassembly for compiler motion and synchronization effects.
-- **Acceptance criteria:** Every fixed logical boundary is representable exactly; clock passes on selected cores; corrected and uncorrected values retained; queue order is unchanged.
+- **Acceptance criteria:** Every fixed logical boundary is representable exactly; clock passes on explicitly selected cores; raw values are retained without overhead correction; queue order is unchanged.
 - **Explicitly excluded:** Performance comparison and pilot until the full measurement system passes.
 - **Rollback or failure behavior:** Clock failure makes platform/build ineligible or run invalid as appropriate; no substitute source without new ADR/evidence.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_SOFTWARE`; Q7 accepted D-009 and ADR-0030. The
+  `cpu_prefetch_timing` library now implements checked raw-nanosecond and exact
+  relative-picosecond reads, every fixed producer/consumer boundary, offline
+  exact interval equations, fail-closed static/per-core/bidirectional
+  qualification evaluators, uncorrected overhead diagnostics, and dual-tool
+  generated-code rules/mutants for all five packages. Fake-clock, real-clock
+  engineering-smoke, cross-thread, failure, overflow, equation, sanitizer, and
+  release assembly checks pass locally. No worker CPU pair is inferred; the
+  exact 10-million-read, traced vDSO, three-window bidirectional selected-pair,
+  affinity/source, and before-block evidence remains an open Stage 9
+  operational/Phase 16 platform gate. Stage 9 software preserves that blocker,
+  and Stage 10 subsequently completed without using it as experimental
+  evidence. Measurement remains prohibited.
 
 ## Phase 9 — Platform control
 
@@ -99,7 +146,21 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Required controls are both requested and independently verified; no generic “disabled/local” claim; loss of verification stops the run; privileges are scoped/audited.
 - **Explicitly excluded:** Invented commands/values and confirmatory state changes before authorization.
 - **Rollback or failure behavior:** Restore authorized default safely, retain audit/failure evidence, and mark platform ineligible if mandatory control cannot be proved.
-- **Status:** `PENDING`, platform evidence required.
+- **Status:** `COMPLETE_SOFTWARE_PLATFORM_GATE_OPEN`. `cpu_prefetch_platform`
+  implements read-only Linux CPU/core/package/NUMA/cache/PCI/environment
+  inventory, capability states, exact Stage A near/far and producer-home/
+  worker-local/base-page validation, dry-run, injected external actuation,
+  independently identified fresh readback, reverse restoration, canonical rich
+  evidence, and exact imported-platform-schema emission. Topology, sibling,
+  NUMA/policy, unsupported/authority, partial apply, disagreement, stale state,
+  restoration, manifest, safe-host, sanitizer, format, static, schema/import,
+  and package checks pass locally. No host state was changed. The exact stand
+  actuator/authority/whitelist, selected pair and thread/address readback,
+  before/during/after residency, vendor HW-prefetch mapping and probes,
+  successful restoration exercise, full clock qualification, and processor
+  relax/prefetch instruction mappings remain mandatory before measurement and
+  by Phase 16. Phase 10 used only fake/dry-run platform inputs and passed its
+  software gate; measurement remains prohibited.
 
 ## Phase 10 — Run state machine
 
@@ -110,7 +171,16 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Hot path obeys allowlist; lifecycle evidence is complete; warm-up cannot leak; drain/count rules hold; generated code has no dynamic treatment dispatch.
 - **Explicitly excluded:** Real pilot/confirmation and offline analysis.
 - **Rollback or failure behavior:** Seal actual partial artifacts and failure; never resume the same run identity or synthesize missing output.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_LOCAL`; `cpu_prefetch_lifecycle` implements the exact
+  imported-enum projection, append-only transition metadata/consequences,
+  deterministic preparation/warm-up/reset evidence, one-origin start barrier,
+  one-attempt producer, polling consumer, dedicated u32 release/acquire
+  termination, drain/watchdog/failure, no-retry outcomes, and recovery records.
+  Twenty-four focused tests plus full regression/static/sanitizer checks pass.
+  Fake queue/clock/platform evidence is software-only. Stage 11 now supplies
+  the preallocated observation sinks; concrete reset/package bindings, platform relax,
+  watchdog values, stand probes, and measured-release codegen remain later
+  pre-pilot gates and do not authorize a run.
 
 ## Phase 11 — Raw storage and integrity
 
@@ -121,18 +191,37 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Longest planned horizon fits without overflow/I/O; decoded rows conform logically; raw sources cannot be overwritten; compression is lossless/post-run only.
 - **Explicitly excluded:** Quantiles/models and pilot until integration acceptance.
 - **Rollback or failure behavior:** Any overflow/corruption is a measurement failure; append corrected derived/envelope records, never mutate raw bytes.
-- **Status:** `PENDING`, physical format deliberately unresolved.
+- **Status:** `COMPLETE_LOCAL`; Q9/ADR-0032/0033 freeze the exact contract.
+  `cpu_prefetch_storage` implements independently owned preallocated streams,
+  the literal-run-ID fixed codec/decoder, capture binding, integrity and
+  imported-envelope documents, checked plan/run budgets, append-only two-copy
+  publication, copy ledgers, recovery-only crash reopening, and honest partial
+  finalization. Golden C++/Python, corruption, boundary/overflow, no-allocation,
+  concurrency, crash/recovery, large synthetic, sanitizer, static, and
+  dual-disassembler checks pass. The joined codec is compatibility-only; Stage
+  11 does not reconcile. Exact operational run-plan capacity, page residency,
+  real distinct failure domains/custody, and recovery exercise remain Phase 16
+  evidence and measurement remains prohibited.
 
 ## Phase 12 — Reconciliation and validity gates
 
 - **Objective:** Join private streams, derive exact intervals, classify statuses independently, and enforce manifest completeness.
-- **Inputs and prerequisite decisions:** Phases 4, 10, 11; frozen logical contracts and integrity algorithms.
+- **Inputs and prerequisite decisions:** Phases 4, 10, 11; frozen logical contracts and integrity algorithms; D-031 simultaneous-blocker representation/precedence.
 - **Files/components:** Join audit, accepted-sequence reconciler, joined-derived codec, status/gate evaluator, complete manifest assembler.
 - **Tests:** Count/pointer/index/identity/ordinal/loss/duplicate/reorder/timestamp/equation fault injection; failed-audit no-join; valid `FULL`; valid low `N_eff`; missing-artifact negatives.
 - **Acceptance criteria:** Latency exists only after passed audit; all equations exact; validity/zero-loss/effective-tail/block statuses remain independent; complete valid Stage A obligations enforced.
 - **Explicitly excluded:** Replacement decisions based on FULL/low count and scientific effect analysis.
 - **Rollback or failure behavior:** Seal failed audit and retain raw sources; invalid run makes original block incomplete; no in-place repair.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_LOCAL`. Q10/Q11 authorize D-031 and immutable protocol
+  `2.0.0-pre.2`; both snapshots pass inventory/hash/schema checks. ADR-0034
+  records the compatibility boundary. `cpu_prefetch_reconciliation` implements
+  exact accepted-sequence/k-th joins, conditional interval derivation,
+  classified and independently regenerated audits, immutable source/hash/count/
+  integrity/failure-evidence relationships, honest partial failures, and
+  separate lifecycle/validity/join/count/zero-loss/tail/estimability states.
+  Unit, fault-injection, generated property, round-trip/schema, and sanitizer
+  checks use synthetic data only. Final estimability remains `NOT_EVALUATED`
+  until Phase 14 injects authoritative block-completeness and access evidence.
 
 ## Phase 13 — Service-rate, zero-loss, and ring-distance calibration
 
@@ -143,7 +232,22 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Procedures are frozen before applicable results; outputs source-link valid evidence; no confirmatory outcome or cell-specific favorable adjustment enters decisions.
 - **Explicitly excluded:** Pilot/confirmatory collection in this implementation phase and empirical recommendation.
 - **Rollback or failure behavior:** Material build/platform/action/capacity change invalidates calibration freeze and requires new calibration; infeasible matrix stops confirmation.
-- **Status:** `PENDING`, numerical inputs and execution unauthorized.
+- **Status:** `COMPLETE_LOCAL_SYNTHETIC`. Q12 accepted D-035 through D-038;
+  ADR-0039 freezes the delegated Decimal/schema profile. The
+  `cpu_prefetch_calibration` library implements the exact 60-cell service
+  evaluator, prospective plan/no-top-up/context gates, owner/authority/budget
+  evidence, exact rational minima, and per-run status/source decisions;
+  preallocated ring acquire traces, advancing-only issue intervals, exact
+  run-tail/H0/H1/worker merge, and distance cap/collapse handling. The offline
+  Python layer implements the `180*5` run-cluster Hoeffding profile, prospective
+  probe decisions, mandatory candidate/exposure/threshold/global-ladder
+  validation, canonical hashing, append-only publication, and material
+  invalidation. Five Draft 2020-12 schemas and C++/Python synthetic conformance
+  tests pass. No platform
+  calibration output was created. Exact stand, duration, prospective count,
+  per-run sample minimum, seed, capacity, exposure, authority, and budget
+  inputs remain unresolved; calibration execution remains unauthorized. The
+  exact next safe software phase is Phase 14.
 
 ## Phase 14 — Stage A block planning and orchestration
 
@@ -154,7 +258,20 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Every final block is exact and immutable; all counts are evidence-derived; validation roles technically sealed; replacement workflow stops at budget.
 - **Explicitly excluded:** Executing Stage A during planner implementation; Stage B/C blocks.
 - **Rollback or failure behavior:** Discard only an unexecuted invalid plan by superseding it; executed/failed plans remain append-only. Any missing count/role/seed keeps confirmation blocked.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_LOCAL_SYNTHETIC`. ADR-0040 records the
+  implementation-owned compatibility profile. `cpu_prefetch_orchestration`
+  generates and proves the exact 180-cell/two-whole-plot structure from
+  explicit pre-derived keys and role seed catalogs; validates active-pool
+  counts/namespaces/counterbalance; pins the separate 7/20/270/540/54
+  precision registries and checked count equations; enforces exact
+  access/sealing/amendment chronology, complete role block sets, a hashed
+  precision-input/count binding at `TRAINING_OPEN`, and authority segregation;
+  and permits only new complete role-preserving replacements from exact retained
+  invalid-run/failure/authorization/budget evidence. Unit/property/schema and
+  sanitizer tests use synthetic inputs only. Concrete counts, seed values,
+  platform/build, authorities/custody, budget, and final plans remain later
+  freeze inputs. No block was executed. The exact next safe software phase is
+  Phase 15.
 
 ## Phase 15 — Offline analysis
 
@@ -165,7 +282,19 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Outputs reproduce from named immutable inputs; no event pseudo-replication; no family mixing; access chronology enforced; blocked estimands reported, not imputed.
 - **Explicitly excluded:** Empirical Results/Discussion/recommendation before valid authorized confirmation.
 - **Rollback or failure behavior:** Append corrected derived artifact linked to unchanged raw sources; access leakage is a stop/audit condition, not a rerun opportunity.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_LOCAL_SYNTHETIC`. ADR-0041 records the versioned
+  platform-conditioned analysis profile. `cpu_prefetch_analysis` validates
+  immutable version/hash/source evidence; verifies or performs exact Stage 12
+  reconciliation; derives registered inverse-ECDF summaries and diagnostics;
+  proves the full-rank 40-column balanced design; constructs only exact active
+  complete blocks; implements separate seven/twenty two-sided complete-block
+  max-T families; performs six-context training selection, immutable selection
+  hashing, authorized unseal, and 54-comparison one-sided validation; and emits
+  byte-stable canonical machine plus explicitly synthetic human reports.
+  Known-answer/fault tests use only compact synthetic distributions. No
+  empirical artifact, finding, recommendation, pilot value, or authority was
+  created. The exact next safe stage is Phase 16 pre-pilot verification without
+  measurement.
 
 ## Phase 16 — Pre-pilot verification
 
@@ -176,18 +305,49 @@ Protocol version: **`2.0.0-pre.1`**. Status values are `COMPLETE`, `BLOCKED`, `P
 - **Acceptance criteria:** Every applicable check freshly passes; no unresolved correctness issue; clean build reproducible; storage/control/custody proven; synthetic results clearly non-empirical.
 - **Explicitly excluded:** Pilot execution until a separate authorization decision after readiness review.
 - **Rollback or failure behavior:** Classify and fix software/test/environment failures; supersede build and rerun affected then broad checks. Never waive a failed gate to collect data.
-- **Status:** `PENDING`.
+- **Status:** `COMPLETE_SOFTWARE_READY_FOR_STAND_PREFLIGHT`. ADR-0042 and the
+  readiness report record fresh clean GCC/libstdc++ and Clang/libc++
+  development/release matrices, all applicable ASan/UBSan and TSan matrices,
+  protocol/schema/golden/provenance/static/generated-code and focused synthetic
+  disposition evidence. A deterministic append-only stand-preflight bundle
+  passes repeat-build identity, external/internal hashes, clean extraction, and
+  nonprivileged smoke/preflight self-tests. Component timed bodies pass source
+  and dual-disassembler audits. The production measurement executable and
+  combined-worker audit, eligible-stand platform/control/clock/residency/storage
+  evidence, and prospective calibration/pilot inputs remain explicit
+  `BLOCKED_BEFORE_PILOT` gates; no platform value or scientific outcome was
+  created. Clean revision `1b0a7f5` now has a byte-reproducible bundle with
+  SHA-256 `e8eb9150d252d38f72b56884b0bcb5026480aee00b969c736fdc124783cb6eac`;
+  its stand-side outer/internal/self-test gates and inventory pass. Detailed
+  read-only topology proves `(0,1)` and `(0,26)` as static near/far candidates,
+  while storage discovery finds only one mounted durable data namespace. The
+  Q13/ADR-0043 now accepts the evidenced `(0,1)`/`(0,26)` pair, one `PAUSE`,
+  and fail-closed static runner entry profile for implementation only. The
+  strict admission/ticket/static-dispatch core, non-executing CLI, tests, and
+  relax probe are added after the sealed Stage 16 bundle. Final affined
+  production integration, dynamic qualification, second storage domain,
+  named authority/custody, exact limits, and pilot plan remain unresolved;
+  Phase 17 execution is prohibited.
 
 ## Phase 17 — Pilot execution
 
 - **Objective:** Collect treatment-blind evidence needed to freeze platform-dependent capacities, calibration outputs, horizons, environment, precision, and feasibility.
-- **Inputs and prerequisite decisions:** Phase 16 accepted; pilot authority, namespaces, plan, durations/repetitions, controls, custody, storage, stand budget.
+- **Inputs and prerequisite decisions:** Phase 16 accepted; D-044 through D-046
+  governance accepted; local D-044 release closure complete; exact Q15
+  release/stand qualification authorized and passed; then separate
+  dependency-ready Q16a D2, Q16b service-rate, Q16c feasibility, and Q16d
+  blinded pilot/freeze-input authorizations with exact namespaces, plans,
+  durations/repetitions, controls, custody, storage, and stand budget. See the
+  [pre-Stage-17 bundle](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md).
 - **Files/components:** Immutable pilot/calibration run artifacts, failure records, blinded summaries, freeze-decision inputs; no confirmatory namespace.
 - **Tests:** Per-run runbook gates, manifest completeness, join/integrity, blinded covariance/tail/recovery/environment procedures, no-access and namespace audits.
 - **Acceptance criteria:** Evidence is complete and treatment-blind for each required freeze; no failed correctness gate; all confirmatory decisions can be justified or the study is declared infeasible/unresolved.
 - **Explicitly excluded:** Confirmatory outcomes, result-bearing claims, treatment-driven tuning, pilot substitution for Stage A.
 - **Rollback or failure behavior:** Preserve all pilot artifacts/failures. Material implementation/platform change invalidates dependent pilot evidence. Do not cherry-pick or repeat for favorable effects.
-- **Status:** `PROHIBITED` until Phase 16 and explicit authorization.
+- **Status:** `PROHIBITED`; the D-044 through D-046 bundle is prepared but Q14
+  is not accepted. Even after Q14, local implementation, a separate exact Q15
+  qualification, and separate dependency-ready Q16 phase approvals remain
+  mandatory. No omnibus Stage 17 authorization is valid.
 
 ## Phase 18 — Confirmatory execution
 

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cpu-prefetch.invalid/schemas/calibration-plan-v1.schema.json",
+  "title": "Stage 13 prospective calibration plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_version",
+    "record_id",
+    "plan_kind",
+    "estimator_id",
+    "arithmetic_profile_id",
+    "canonicalization_suite",
+    "seed_namespace_id",
+    "assumptions",
+    "owner_ids",
+    "authority",
+    "stand_budget",
+    "planned_cells",
+    "external_inputs",
+    "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-calibration-plan/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "record_id": {"$ref": "#/$defs/id"},
+    "plan_kind": {"enum": ["SERVICE_RATE", "RING_DISTANCE", "ZERO_LOSS"]},
+    "estimator_id": {"$ref": "#/$defs/id"},
+    "arithmetic_profile_id": {"type": ["string", "null"], "minLength": 1},
+    "canonicalization_suite": {"const": "JCS-I64-v1"},
+    "seed_namespace_id": {"$ref": "#/$defs/id"},
+    "assumptions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "owner_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "authority": {"$ref": "#/$defs/artifact"},
+    "stand_budget": {"$ref": "#/$defs/artifact"},
+    "planned_cells": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["cell_id", "context_fingerprint_sha256", "planned_run_ids", "duration_ticks", "minimum_observations_per_series"],
+        "properties": {
+          "cell_id": {"$ref": "#/$defs/id"},
+          "context_fingerprint_sha256": {"$ref": "#/$defs/sha256"},
+          "planned_run_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+          "duration_ticks": {"$ref": "#/$defs/positive_integer_text"},
+          "minimum_observations_per_series": {"type": ["string", "null"], "pattern": "^[1-9][0-9]*$"}
+        }
+      }
+    },
+    "external_inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "state", "artifact"],
+        "properties": {
+          "name": {"$ref": "#/$defs/id"},
+          "state": {"enum": ["PROVIDED", "UNRESOLVED"]},
+          "artifact": {"oneOf": [{"$ref": "#/$defs/artifact"}, {"type": "null"}]}
+        },
+        "allOf": [
+          {"if": {"properties": {"state": {"const": "PROVIDED"}}}, "then": {"properties": {"artifact": {"$ref": "#/$defs/artifact"}}}},
+          {"if": {"properties": {"state": {"const": "UNRESOLVED"}}}, "then": {"properties": {"artifact": {"type": "null"}}}}
+        ]
+      }
+    },
+    "record_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "id": {"type": "string", "minLength": 1, "pattern": "^[^/]+$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "positive_integer_text": {"type": "string", "pattern": "^[1-9][0-9]*$"},
+    "artifact": {"type": "object", "additionalProperties": false, "required": ["artifact_id", "sha256"], "properties": {"artifact_id": {"$ref": "#/$defs/id"}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  }
+}

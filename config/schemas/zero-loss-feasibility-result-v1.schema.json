@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cpu-prefetch.invalid/schemas/zero-loss-feasibility-result-v1.schema.json",
+  "title": "Stage 13 matrix zero-loss feasibility result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "protocol_version", "record_id", "plan", "estimator_id", "arithmetic_profile_id", "python_runtime", "state", "assumptions", "confidence", "acceptance_threshold", "candidate_index", "global_scale", "planned_blocks", "planned_runs", "planned_offered_events", "cells", "matrix_probability_lower", "passes", "blockers", "record_sha256"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-zero-loss-feasibility-result/1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "record_id": {"$ref": "#/$defs/id"},
+    "plan": {"$ref": "#/$defs/artifact"},
+    "estimator_id": {"const": "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"},
+    "arithmetic_profile_id": {"const": "HOEFFDING-DECIMAL80-GUARD160-UP-v1"},
+    "python_runtime": {"type": "string", "pattern": "^3\\.14\\.[0-9]+$"},
+    "state": {"enum": ["NOT_EVALUATED", "EVALUATED"]},
+    "assumptions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "confidence": {"$ref": "#/$defs/rational"},
+    "acceptance_threshold": {"$ref": "#/$defs/rational"},
+    "candidate_index": {"type": "integer", "minimum": 0, "maximum": 4},
+    "global_scale": {"$ref": "#/$defs/rational"},
+    "planned_blocks": {"type": "integer", "minimum": 0},
+    "planned_runs": {"type": "integer", "minimum": 0},
+    "planned_offered_events": {"$ref": "#/$defs/uint"},
+    "cells": {"type": "array", "maxItems": 180, "items": {"$ref": "#/$defs/cell"}},
+    "matrix_probability_lower": {"type": ["string", "null"], "pattern": "^(0|1|0\\.[0-9]+)$"},
+    "passes": {"type": ["boolean", "null"]},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "record_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {"if": {"properties": {"state": {"const": "NOT_EVALUATED"}}}, "then": {"properties": {"matrix_probability_lower": {"type": "null"}, "passes": {"type": "null"}, "blockers": {"minItems": 1}}}},
+    {"if": {"properties": {"state": {"const": "EVALUATED"}}}, "then": {"properties": {"planned_blocks": {"minimum": 1}, "planned_runs": {"minimum": 1}, "cells": {"minItems": 180, "maxItems": 180, "items": {"$ref": "#/$defs/evaluated_cell"}}, "matrix_probability_lower": {"type": "string"}, "passes": {"type": "boolean"}, "blockers": {"maxItems": 0}}}}
+  ],
+  "$defs": {
+    "id": {"type": "string", "minLength": 1, "pattern": "^[^/]+$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "uint": {"type": "string", "pattern": "^(0|[1-9][0-9]*)$"},
+    "artifact": {"type": "object", "additionalProperties": false, "required": ["artifact_id", "sha256"], "properties": {"artifact_id": {"$ref": "#/$defs/id"}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "rational": {"type": "object", "additionalProperties": false, "required": ["numerator", "denominator"], "properties": {"numerator": {"$ref": "#/$defs/uint"}, "denominator": {"type": "string", "pattern": "^[1-9][0-9]*$"}}},
+    "nullable_artifact": {"oneOf": [{"$ref": "#/$defs/artifact"}, {"type": "null"}]},
+    "run_decision": {"type": "object", "additionalProperties": false, "required": ["run_id", "validity", "offered_count", "full_count", "raw_run_artifact", "integrity_artifact", "failure_artifact"], "properties": {"run_id": {"$ref": "#/$defs/id"}, "validity": {"enum": ["VALID", "INVALID"]}, "offered_count": {"$ref": "#/$defs/uint"}, "full_count": {"$ref": "#/$defs/uint"}, "raw_run_artifact": {"$ref": "#/$defs/nullable_artifact"}, "integrity_artifact": {"$ref": "#/$defs/nullable_artifact"}, "failure_artifact": {"$ref": "#/$defs/nullable_artifact"}}, "allOf": [{"if": {"properties": {"validity": {"const": "VALID"}}}, "then": {"properties": {"raw_run_artifact": {"$ref": "#/$defs/artifact"}, "integrity_artifact": {"$ref": "#/$defs/artifact"}, "failure_artifact": {"type": "null"}}}}, {"if": {"properties": {"validity": {"const": "INVALID"}}}, "then": {"properties": {"failure_artifact": {"$ref": "#/$defs/artifact"}}}}]},
+    "cell": {"type": "object", "additionalProperties": false, "required": ["cell_id", "namespace_id", "schedule", "run_decisions", "offered_count", "full_count", "sum_squared_weights", "p_hat", "p_upper", "simultaneous_alpha"], "properties": {"cell_id": {"$ref": "#/$defs/id"}, "namespace_id": {"$ref": "#/$defs/id"}, "schedule": {"$ref": "#/$defs/artifact"}, "run_decisions": {"type": "array", "items": {"$ref": "#/$defs/run_decision"}}, "offered_count": {"$ref": "#/$defs/uint"}, "full_count": {"$ref": "#/$defs/uint"}, "sum_squared_weights": {"$ref": "#/$defs/rational"}, "p_hat": {"$ref": "#/$defs/rational"}, "p_upper": {"type": "string", "pattern": "^(0|1|0\\.[0-9]+)$"}, "simultaneous_alpha": {"$ref": "#/$defs/rational"}}},
+    "evaluated_run": {"allOf": [{"$ref": "#/$defs/run_decision"}, {"properties": {"validity": {"const": "VALID"}}}]},
+    "evaluated_cell": {"allOf": [{"$ref": "#/$defs/cell"}, {"properties": {"run_decisions": {"minItems": 1, "items": {"$ref": "#/$defs/evaluated_run"}}}}]}
+  }
+}

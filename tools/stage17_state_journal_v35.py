@@ -19,7 +19,7 @@ from __future__ import annotations
 import pathlib
 from typing import Any
 
-import stage17_semantic_verifier_v39 as semantic
+import stage17_semantic_verifier_v40 as semantic
 import stage17_state_journal_v16 as predecessor
 
 

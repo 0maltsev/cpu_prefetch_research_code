@@ -39,7 +39,7 @@ import stage17_exit_state_machine_v4 as exit_machine
 import stage17_phase_controller_v14 as controller
 import stage17_operational_semantics_v4 as semantics
 import stage17_operational_semantics_v6 as semantics_v6
-import stage17_pilot_candidate_artifact_v4 as pilot_artifact
+import stage17_pilot_candidate_artifact_v7 as pilot_artifact
 import stage17_state_journal as base
 import stage17_state_journal_v35 as journal_runtime
 

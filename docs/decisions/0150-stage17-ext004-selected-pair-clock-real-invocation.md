@@ -2251,6 +2251,64 @@ criterion is achievable on this platform/pair at all, and if so what
 about the real measurement setup would need to change, is an open,
 substantive question for a future session, not something resolved here.
 
+### A second, independent physical stand (`XEON-CPU-FETCH-V2`) reproduces the exact same real result
+
+Migrated the whole engagement to a second, independent bare-metal Xeon
+(`94.126.204.29`, hostname `xeon-cpu-prefetch-v2`) after losing access to
+the original stand. Confirmed the CPU is a genuine, verified match
+before investing further: family 6, model 85 (`06_55H`), stepping 7,
+microcode `0x5003901` -- identical to the original stand, not merely the
+same nominal SKU (steppings 3-4 are Skylake-SP, 5-7 are Cascade Lake-SP
+under this same CPUID; a "same Xeon" purchase could have landed on
+either). Rebuilt the entire toolchain from source on the fresh Ubuntu
+26.04 install (GCC 16.1.0, Clang 22.1.6/libc++, git 2.54.0, a vanilla
+binutils 2.46.1 since Ubuntu's own objdump reports a distro-patched
+version banner the framework's strict version regex rejects), producing
+a real, independently-verified `stage17-pilot-candidate` bundle
+(`89e7bcc...`) -- including a genuine owner re-review of the queue
+codegen provenance records against this stand's own freshly-compiled
+probe binary (same source, same algorithm, different compiler build:
+disassembly hashes differ, forbidden-instruction and mutant-rejection
+checks still pass identically).
+
+Real `EXT-001`-`004` admission and the real live Q15-R+Q15-W pairing
+were then run against this new stand under `stand_id: XEON-CPU-FETCH-V2`,
+hitting and fixing several new-stand-specific real gaps along the way:
+the journal's own re-verification needs the transport-identity private
+key and the no-predecessor attestation present on the stand itself, not
+just used from the operator's machine; the owner's real signing key had
+to be the same standing identity already baked into the admitted trust
+anchor, not a fresh one; the extracted release bundle needs to be
+root-owned on the stand for the fixed-action executor's own
+owner-regular-file check; and a first `EXT-004` attempt on this stand
+burned its own journal by omitting the `SELECTED_PAIR_CLOCK`
+qualification-evidence artifact -- required a fresh journal
+(`standv2-3`), including a fresh live Q15-R capture, since the
+`SELECTED_PAIR_CLOCK` envelope needed a real, freshly-run clock-pair
+qualification (`cpu_prefetch_q15_clock_qualification_tool --qualify-pair
+near`) and a fresh `traced_call_count`/`traced_syscall_count` trace
+(`strace -c` over `cpu_prefetch_clock_vdso_probe_tool --probe`, again
+10,000,000 calls / 0 `clock_gettime` syscalls) rather than reusing the
+old stand's own stand-scoped values.
+
+The real live Q15-W attempt on `standv2-3` hit the exact same failure as
+the original stand's last attempt: `worker_stderr_tail` (captured for
+real by the `v14` fix, deployed here from the start) reads `"runner:
+FAIL: Q15-W transaction failed closed: S17-Q15W-TRANSACTION"` --
+`apply_verified`/`restoration_verified` both real and true (all three
+CPUs' H1 write and H0 restore independently confirmed, both via direct
+live MSR read and the framework's own `supervisor_restore_readback`),
+`cleanup_error_occurred: false` (the `NSpgid` fix holding here too), and
+the same `evaluate_q15_probe_pair` `h1_zero` gate refusing to certify the
+transaction. Two independent physical machines, same CPU family/model/
+stepping/microcode, same real result: the live post-H1-write behavioral
+probe does not observe a zero hardware-prefetch counter signal. This is
+no longer a single-stand observation -- it reproduces exactly on
+genuinely different hardware, which is real evidence toward it being a
+property of this platform generation's real behavior (or of the
+measurement's own real assumptions) rather than an artifact of the one
+original machine.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

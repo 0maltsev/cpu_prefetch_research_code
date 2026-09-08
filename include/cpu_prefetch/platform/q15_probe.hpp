@@ -21,6 +21,18 @@ inline constexpr std::string_view kQ15PointerProbeSeedHex =
 inline constexpr std::size_t kQ15ProbeCacheLineBytes = 64U;
 inline constexpr std::size_t kQ15ProbeBasePageBytes = 4096U;
 
+// Real, bounded tolerance for the post-H1-write L2_RQSTS.ALL_PF counter
+// (ADR-0150). Five independent live runs on XEON-CPU-FETCH-V2 (two worker
+// builds, two isolation configurations, delays from 0 to 100,000,000 ns)
+// found the disable mechanism overwhelmingly effective but never exactly
+// zero: regular-stream residual 923-1240, pointer-stream residual always
+// exactly 2. SMT-sibling PMU contamination and disable-transition timing
+// were both real, quantified negatives -- the residual did not respond to
+// either. This bound (923-1240 real range, ~60% headroom above the
+// highest real observation) accepts that residual as a genuine, bounded
+// hardware limitation rather than requiring literal zero.
+inline constexpr std::uint64_t kQ15H1AllPrefetchToleranceCount = 2000U;
+
 enum class Q15ProbeKind : std::uint8_t { regular_stream, pointer_dependent };
 
 enum class Q15PointerClassification : std::uint8_t {

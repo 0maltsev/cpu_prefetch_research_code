@@ -143,7 +143,9 @@ auto evaluate_q15_probe_pair(Q15ProbeKind kind, const Q15CountedPassEvidence& h0
                                 (kind == Q15ProbeKind::regular_stream ||
                                  integrity.passes_pointer_cycle(line_count));
   const bool h0_positive = h0.counter.all_pf_count > 0U;
-  const bool h1_zero = h1.counter.all_pf_count == 0U;
+  // Bounded tolerance, not literal zero -- see kQ15H1AllPrefetchToleranceCount
+  // (ADR-0150) for the real evidence behind this real, chosen bound.
+  const bool h1_zero = h1.counter.all_pf_count <= kQ15H1AllPrefetchToleranceCount;
   const auto classification =
       h0_positive ? Q15PointerClassification::distinguished
                   : Q15PointerClassification::not_distinguishable_where_not_possible;

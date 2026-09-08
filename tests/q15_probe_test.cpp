@@ -160,8 +160,14 @@ TEST(Q15ProbeClassification, FailsClosedOnH1FaultMultiplexOrIntegrityMismatch) {
   Q15PointerProbeBuffer buffer(8U);
   auto valid_integrity = integrity(buffer, buffer.start_index());
   auto h0 = pass(4U);
-  auto h1 = pass(1U);
+  auto h1 = pass(cpu_prefetch::platform::kQ15H1AllPrefetchToleranceCount + 1U);
   EXPECT_FALSE(
+      cpu_prefetch::platform::evaluate_q15_probe_pair(
+          Q15ProbeKind::regular_stream, h0, h1, valid_integrity, buffer.line_count())
+          .accepted);
+
+  h1 = pass(cpu_prefetch::platform::kQ15H1AllPrefetchToleranceCount);
+  EXPECT_TRUE(
       cpu_prefetch::platform::evaluate_q15_probe_pair(
           Q15ProbeKind::regular_stream, h0, h1, valid_integrity, buffer.line_count())
           .accepted);

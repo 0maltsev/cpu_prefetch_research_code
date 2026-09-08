@@ -74,6 +74,7 @@ SUCCESSOR_BINDINGS = (
     "tools/stage17_q15_session_controller_v13.py",
     "config/schemas/stage17-q15-session-failure-v3.schema.json",
     "tools/stage17_q15_session_controller_v14.py",
+    "src/runner/stage17_fixed_action.cpp",
 )
 
 def _find_base(module: object) -> object:

@@ -2462,6 +2462,76 @@ itself (e.g. in-flight prefetches issued in the pipeline in the narrow
 window around the MSR write taking effect) -- neither yet tested for
 real.
 
+### A real test of the disable-transition-artifact hypothesis: also refuted
+
+Added a diagnostic, default-off knob (`src/runner/stage17_fixed_action.cpp`,
+`q15_w_h1_transition_delay_nanoseconds()`/`spin_wait_nanoseconds()`) that
+inserts a real, tight busy-wait -- on the platform's own monotonic clock,
+touching no probe memory -- at the exact transition point between the
+verified MSR H1 write and the start of the first (regular-stream) counted
+region, to test whether the residual is in-flight prefetches draining out
+of the pipeline rather than a hard hardware floor. First implementation
+read the delay from an environment variable; this never worked, because
+`stage17_q15_session_controller_v14.py` launches the real worker with
+`env=action_executor.FIXED_ENVIRONMENT` -- a deliberate hermetic boundary
+(`LANG`/`LC_ALL`/`PATH`/`TZ` only, `stage17_fixed_action_executor_v2.py:
+34-36`) that silently discarded the variable. Confirmed this for real
+rather than assuming it: a live `standv2-8` attempt with the env var set
+recorded `h1_transition_delay_nanoseconds=0` in its own failure
+diagnostic. Fixed by reading a fixed file path instead (filesystem access
+is unaffected by `FIXED_ENVIRONMENT`), deliberately not weakening that
+hermetic boundary just for a diagnostic; same default-off behavior
+otherwise (file absent or unparsable returns zero, byte-for-byte
+identical to every prior code path -- confirmed via `-fsyntax-only` after
+both edits, and all 21 `cpu_prefetch_runner_tests` passing on the real
+stand build after the file-based fix).
+
+Building `standv2-8` for this test surfaced one more real, disciplined
+gap: with a new worker binary, `SELECTED_PAIR_CLOCK`, the four Q15-R
+envelopes, and `PLATFORM_MANIFEST`/`PILOT_PLATFORM_MEASUREMENTS`/
+`HARDWARE_PREFETCH_QUALIFICATION` all needed fresh identity fields
+(`binary_sha256`, `source_revision`) bound to the new build -- verified
+this was really necessary, not assumed, by directly comparing `standv2-8`'s
+own fresh Q15-R output hashes against the previous journal's cached
+platform-hw artifacts and finding them genuinely different (only
+`traced_call_count`/`traced_syscall_count`, which trace a build-invariant
+primitive at a fixed call count, were confirmed safe to reuse). The real
+live Q15-W attempt on `standv2-8`, run with the env-var mechanism (so
+effectively `delay=0`), gave a third independent real data point:
+`h0_regular_all_pf_count=1242226 h1_regular_all_pf_count=1138
+h0_pointer_all_pf_count=7 h1_pointer_all_pf_count=2` -- the pointer-stream
+residual landing on exactly `2` for the third real run in a row, across
+two different worker builds and two different isolation configurations.
+
+With the file-based mechanism confirmed working (`standv2-9`'s own
+diagnostic recorded `h1_transition_delay_nanoseconds=1000000` for real),
+set a real 1 millisecond delay -- large relative to any plausible
+pipeline-drain timescale -- between the verified MSR write and the counted
+region, and ran a fresh live Q15-W attempt. Real result:
+`h0_regular_all_pf_count=1247102 h1_regular_all_pf_count=1138
+h0_pointer_all_pf_count=8 h1_pointer_all_pf_count=2
+h1_transition_delay_nanoseconds=1000000`. `h1_regular_all_pf_count` is
+exactly `1138` -- byte-for-byte identical to the same journal-generation's
+own `delay=0` baseline on `standv2-8` -- and `h1_pointer_all_pf_count` is
+`2` again. A real, substantial delay produced zero measurable change.
+CPU safety independently reconfirmed the same way as every prior attempt
+(framework `restoration_verified`/`supervisor_restore_readback` plus a
+direct live MSR `0x1A4` read, all `0x0`).
+
+This rules out the disable-to-counted-region transition artifact as
+cleanly as the SMT-sibling isolation test ruled out cross-thread
+contamination: both of the two concrete, testable explanations for the
+`h1_zero` residual proposed so far are now real, quantified negatives.
+What remains is the least testable-by-software-tweak candidate: a
+genuine, small Cascade Lake-SP hardware limitation in MSR `0x1A4`'s
+disable coverage for `L2_RQSTS.ALL_PF` -- consistent with the residual's
+own real character across every attempt so far (overwhelmingly effective
+but never exactly zero; the pointer-stream count has landed on the same
+small integer, `2`, on all four real runs where it has been captured so
+far -- `standv2-5`, `standv2-7`, `standv2-8`, `standv2-9`, all on this
+same second stand, across three different worker builds and two
+different isolation configurations).
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

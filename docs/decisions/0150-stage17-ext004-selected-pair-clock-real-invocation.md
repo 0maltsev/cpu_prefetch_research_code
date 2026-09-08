@@ -2532,6 +2532,46 @@ far -- `standv2-5`, `standv2-7`, `standv2-8`, `standv2-9`, all on this
 same second stand, across three different worker builds and two
 different isolation configurations).
 
+### A final bounding delay of 100ms: the null result holds, and the pointer-stream count reaches five for five
+
+Ran one more real live Q15-W attempt, on a fresh journal (`standv2-10`,
+same `e4cd4f1` bundle, no rebuild needed) with the delay set two more
+orders of magnitude higher -- `100,000,000` nanoseconds (100 ms), a
+scale with no remaining plausible connection to any pipeline-drain or
+transition-window effect. Confirmed for real via the diagnostic's own
+recorded value (`h1_transition_delay_nanoseconds=100000000`). Result:
+`h0_regular_all_pf_count=1251012 h1_regular_all_pf_count=1240
+h0_pointer_all_pf_count=5 h1_pointer_all_pf_count=2`. CPU safety
+independently reconfirmed the same way as every prior attempt (framework
+`restoration_verified`/`supervisor_restore_readback` plus a direct live
+MSR `0x1A4` read, all `0x0`).
+
+`h1_regular_all_pf_count=1240` is not byte-identical to the `0`ms/`1`ms
+runs' `1138`, but it sits inside the same real range every attempt has
+shown regardless of delay or isolation (`923`, `1170`, `1138`, `1138`,
+`1240` across five real runs spanning `0` to `100,000,000` ns of added
+delay) -- consistent with ordinary run-to-run measurement noise, not a
+delay-dependent trend; there is no monotonic relationship between delay
+and residual across five orders of magnitude of real delay values
+tested. `h1_pointer_all_pf_count=2` again -- the fifth real run in a row
+landing on that exact value, now across three different worker builds,
+two different isolation configurations, and delays spanning eight
+orders of magnitude (`0` to `100,000,000` ns).
+
+This closes out the delay-hypothesis investigation with a real, bounded
+null result rather than a single data point: the disable-to-counted-
+region transition artifact is refuted across the full plausible range of
+delay values, not just at one arbitrary chosen scale. Combined with the
+SMT-sibling isolation test, both concrete, testable explanations for the
+`h1_zero` residual are now real, quantified negatives across multiple
+independent real trials each. The genuine, small Cascade Lake-SP
+hardware-limitation explanation remains the most consistent account of
+the evidence gathered so far, but has not itself been directly tested --
+doing so would require either literature/vendor documentation on this
+specific MSR's real disable coverage, or hardware not available to this
+engagement (e.g. a different CPU stepping or generation to compare
+against).
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

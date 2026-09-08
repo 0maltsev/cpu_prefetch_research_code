@@ -28,6 +28,7 @@
 #include <condition_variable>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <cstring>
 #include <ctime>
 #include <fcntl.h>
@@ -978,6 +979,48 @@ private:
   });
 }
 
+// Diagnostic-only knob (ADR-0150) for testing whether the small, real,
+// nonzero h1_all_pf_count residual observed after the MSR H1 write is an
+// artifact of the narrow window between that write and the start of the
+// counted region, rather than a hard hardware floor. Unset (the default)
+// returns zero and leaves every prior code path byte-for-byte unchanged.
+[[nodiscard]] auto q15_w_h1_transition_delay_nanoseconds() noexcept -> std::uint64_t {
+  const char* raw = std::getenv("CPU_PREFETCH_Q15W_H1_DELAY_NANOS");
+  if (raw == nullptr) {
+    return 0U;
+  }
+  std::uint64_t parsed = 0U;
+  const auto* end = raw + std::strlen(raw);
+  const auto parsed_result = std::from_chars(raw, end, parsed);
+  if (parsed_result.ec != std::errc{} || parsed_result.ptr != end) {
+    return 0U;
+  }
+  return parsed;
+}
+
+// Tight busy-wait on the platform's own monotonic clock -- deliberately not
+// a sleep syscall, so the thread never gives up the CPU or risks migration,
+// and deliberately touches no probe memory, so it cannot itself perturb
+// residency or the counted traversal it precedes. Best-effort: a clock-read
+// failure ends the wait early rather than failing the whole transaction,
+// since this delay is diagnostic instrumentation, not a correctness gate.
+auto spin_wait_nanoseconds(platform::Q15PlatformOperations& platform,
+                           std::uint64_t nanoseconds) noexcept -> void {
+  if (nanoseconds == 0U) {
+    return;
+  }
+  const auto start = platform.monotonic_raw_nanoseconds();
+  if (!start) {
+    return;
+  }
+  for (;;) {
+    const auto now = platform.monotonic_raw_nanoseconds();
+    if (!now || now.value() - start.value() >= nanoseconds) {
+      return;
+    }
+  }
+}
+
 [[nodiscard]] auto q15_w(const JsonObject& input, Q15PhaseSession& session,
                          ArtifactSink& sink) -> protocol::Result<ActionOutcome> {
   constexpr std::array fields{"authorization_sha256"sv, "q15_r_attempt_sha256"sv,
@@ -1037,9 +1080,11 @@ private:
     }
     apply_readback.push_back({requested.cpu, observed.value()});
   }
+  const auto h1_transition_delay_nanoseconds = q15_w_h1_transition_delay_nanoseconds();
   std::optional<platform::Q15ProbePassObservation> h1_regular;
   std::optional<platform::Q15ProbePassObservation> h1_pointer;
   if (apply_verified) {
+    spin_wait_nanoseconds(session.platform, h1_transition_delay_nanoseconds);
     auto regular =
         platform::run_q15_probe_pass(platform::Q15ProbeKind::regular_stream,
                                      *session.memory, session.perf, session.platform);
@@ -1146,7 +1191,9 @@ private:
         " h1_regular_all_pf_count=" + count_or_absent(h1_regular) +
         " h0_pointer_all_pf_count=" +
         std::to_string(session.h0_pointer->counted.counter.all_pf_count) +
-        " h1_pointer_all_pf_count=" + count_or_absent(h1_pointer);
+        " h1_pointer_all_pf_count=" + count_or_absent(h1_pointer) +
+        " h1_transition_delay_nanoseconds=" +
+        std::to_string(h1_transition_delay_nanoseconds);
     return failure<ActionOutcome>("$/action_inputs", "S17-Q15W-TRANSACTION", diagnostic);
   }
   return publish_all(

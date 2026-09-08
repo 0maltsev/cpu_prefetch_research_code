@@ -1131,8 +1131,23 @@ private:
   const bool complete =
       apply_verified && regular_accepted && pointer_accepted && restoration_verified;
   if (!complete) {
-    return failure<ActionOutcome>("$/action_inputs", "S17-Q15W-TRANSACTION",
-                                  "Q15-W failed closed after restoration attempt");
+    const auto count_or_absent = [](const auto& observation) -> std::string {
+      return observation ? std::to_string(observation->counted.counter.all_pf_count)
+                         : std::string("ABSENT");
+    };
+    const std::string diagnostic =
+        "Q15-W failed closed after restoration attempt:"
+        " apply_verified=" + std::string(apply_verified ? "true" : "false") +
+        " restoration_verified=" + std::string(restoration_verified ? "true" : "false") +
+        " regular_accepted=" + std::string(regular_accepted ? "true" : "false") +
+        " pointer_accepted=" + std::string(pointer_accepted ? "true" : "false") +
+        " h0_regular_all_pf_count=" +
+        std::to_string(session.h0_regular->counted.counter.all_pf_count) +
+        " h1_regular_all_pf_count=" + count_or_absent(h1_regular) +
+        " h0_pointer_all_pf_count=" +
+        std::to_string(session.h0_pointer->counted.counter.all_pf_count) +
+        " h1_pointer_all_pf_count=" + count_or_absent(h1_pointer);
+    return failure<ActionOutcome>("$/action_inputs", "S17-Q15W-TRANSACTION", diagnostic);
   }
   return publish_all(
       sink,
@@ -4121,7 +4136,8 @@ auto run_q15_phase_session_worker(int argc, char** argv) -> int {
   const auto q15_w_outcome = q15_w(q15_w_bound_inputs, *session.value(), sink);
   if (!q15_w_outcome) {
     throw std::runtime_error("Q15-W transaction failed closed: " +
-                             q15_w_outcome.errors().front().rule_id);
+                             q15_w_outcome.errors().front().rule_id + ": " +
+                             q15_w_outcome.errors().front().message);
   }
   static_cast<void>(emit_action_result(
       *output_fd, "stage17-q15-w-result-v4.json", *q15_w_request, q15_w_request_bytes,

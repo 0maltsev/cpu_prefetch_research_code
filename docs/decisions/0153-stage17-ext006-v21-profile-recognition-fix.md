@@ -82,15 +82,29 @@ untouched `stage17_operational_semantics_v7.py` call site.
 ## Consequences
 
 - Journal `standv2-14` (5 resolutions admitted: `S17-EXT-001` through
-  `S17-EXT-005`) is not touched by this change and does not need to be
-  rebuilt. `v40` is purely additive -- every input this session has
-  already admitted still resolves through the same, unmodified
-  predecessor chain (`v39` down through `v22`/`v14`/etc.) it always did;
-  only `S17-EXT-006`'s own dispatch moves.
-- A fresh bundle reseal is required before a live `S17-EXT-006` attempt,
-  since the policy's own runtime-closure hash (and therefore the bundle
-  the stand must carry to match it) changes with this generation, the
-  same as every prior policy-version bump this engagement has made.
+  `S17-EXT-005`) cannot carry this fix in place. Confirmed by a real,
+  local test against a writable copy of its actual `admission-root`
+  (never the real evidence-of-record itself): moving `stage17_state_
+  journal_v35.py`'s own hardcoded `semantic` import forces `tools/
+  author_stage17_read_only_preflight_policy_v27.py` to be re-rendered
+  (it independently pins that exact file's bytes into its own
+  `IMPLEMENTATION_PATHS["state_journal"]` binding), and the re-rendered
+  policy's new bytes no longer match the `policy_sha256` `S17-EXT-001`'s
+  own already-admitted journal record was validated against at admission
+  time -- `stage17-operational: FAIL: S17-EXT-001 policy binding
+  mismatch`. This is true even though `state_journal_v35.py`'s own
+  *behavior* is completely unchanged; only its bytes moved.
+- This is not a new problem this fix introduced -- it is the same reason
+  every `S17-EXT-005` burn this session (`standv2-11`/`-12`/`-13`) was
+  followed by a *fresh* journal rather than a retry on the same one: a
+  bundle/policy-identity change always requires re-admitting the cheap
+  inputs (`S17-EXT-001` through `S17-EXT-004`) against the new identity.
+  The real Q15-W hardware evidence already captured does not need to be
+  re-measured; only its admission needs re-packaging against the new
+  bundle. The real path to `S17-EXT-006` is therefore: reseal a bundle
+  carrying this fix, start a fresh journal, replay `S17-EXT-001` through
+  `S17-EXT-004`, re-admit `S17-EXT-005` from the already-captured real
+  evidence, then attempt `S17-EXT-006`.
 - This fix was found by tracing the real `verify_input` dispatch chain
   and every `stage17_pilot_candidate_artifact_v*.py` file's actual
   function list end to end, before writing or running any live script --

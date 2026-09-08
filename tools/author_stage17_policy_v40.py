@@ -48,6 +48,7 @@ SUCCESSOR_BINDINGS = (
     "config/schemas/stage17-operational-evidence-admission-policy-v40.schema.json",
     "tools/stage17_semantic_verifier_v40.py",
     "tools/stage17_pilot_candidate_artifact_v7.py",
+    "config/schemas/stage17-pilot-candidate-external-contract-v5.schema.json",
 )
 
 

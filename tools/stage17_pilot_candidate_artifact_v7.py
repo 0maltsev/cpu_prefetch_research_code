@@ -53,7 +53,13 @@ import stage17_pilot_candidate_artifact_v6 as predecessor
 
 VERIFIER_ID = predecessor.VERIFIER_ID
 VERIFIER_VERSION = predecessor.VERIFIER_VERSION
-SCHEMA = predecessor.SCHEMA
+# The frozen v4 schema's own manifest.bundle_profile enum hardcodes just
+# the original two profile strings -- broadening RECOGNIZED_PROFILES
+# without a matching schema successor still fails build_contract_v7's own
+# schema-validation step. This new schema is otherwise byte-identical to
+# the v4 predecessor, widened only in that one enum to the same set v6's
+# RECOGNIZED_PROFILES already recognizes.
+SCHEMA = "config/schemas/stage17-pilot-candidate-external-contract-v5.schema.json"
 SUPPORTED_ACTIONS = predecessor.SUPPORTED_ACTIONS
 
 ArtifactError = predecessor.ArtifactError

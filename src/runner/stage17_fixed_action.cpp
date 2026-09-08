@@ -28,8 +28,8 @@
 #include <condition_variable>
 #include <cstddef>
 #include <cstdint>
-#include <cstdlib>
 #include <cstring>
+#include <fstream>
 #include <ctime>
 #include <fcntl.h>
 #include <iomanip>
@@ -982,17 +982,20 @@ private:
 // Diagnostic-only knob (ADR-0150) for testing whether the small, real,
 // nonzero h1_all_pf_count residual observed after the MSR H1 write is an
 // artifact of the narrow window between that write and the start of the
-// counted region, rather than a hard hardware floor. Unset (the default)
-// returns zero and leaves every prior code path byte-for-byte unchanged.
+// counted region, rather than a hard hardware floor. Absent or unparsable
+// (the default) returns zero and leaves every prior code path byte-for-byte
+// unchanged. A fixed file path, not an environment variable: the worker
+// subprocess is launched with FIXED_ENVIRONMENT (LANG/LC_ALL/PATH/TZ only,
+// see stage17_fixed_action_executor_v2.py), a deliberate hermetic boundary
+// this diagnostic must not weaken, but filesystem access is unaffected.
 [[nodiscard]] auto q15_w_h1_transition_delay_nanoseconds() noexcept -> std::uint64_t {
-  const char* raw = std::getenv("CPU_PREFETCH_Q15W_H1_DELAY_NANOS");
-  if (raw == nullptr) {
+  std::ifstream stream("/tmp/cpu-prefetch-q15w-h1-delay-nanoseconds");
+  if (!stream.is_open()) {
     return 0U;
   }
   std::uint64_t parsed = 0U;
-  const auto* end = raw + std::strlen(raw);
-  const auto parsed_result = std::from_chars(raw, end, parsed);
-  if (parsed_result.ec != std::errc{} || parsed_result.ptr != end) {
+  stream >> parsed;
+  if (stream.fail()) {
     return 0U;
   }
   return parsed;

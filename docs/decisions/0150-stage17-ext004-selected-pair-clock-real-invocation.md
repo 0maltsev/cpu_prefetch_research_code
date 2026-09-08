@@ -2309,6 +2309,57 @@ property of this platform generation's real behavior (or of the
 measurement's own real assumptions) rather than an artifact of the one
 original machine.
 
+### The diagnostic-capture fix works for real: the actual H0/H1 counter magnitudes, not just the verdict
+
+Fixed the real gap the `v14` capture couldn't reach: `run_q15_phase_session_worker`'s own throw site
+(`src/runner/stage17_fixed_action.cpp`, the `q15_w_outcome` check) discarded the real
+`ValidationError.message` entirely, using only its `rule_id`
+("S17-Q15W-TRANSACTION") -- so even with the worker's stderr now
+captured, the actual gate results and counter values were still never
+visible. Threaded `.message` through at that one throw site, and
+enriched the message built at the real `q15_w()` failure-closed path
+with the real H0/H1 `all_pf_count` values for both probes plus each
+individual gate's own pass/fail, so the information was real and
+already computed in scope -- just never serialized. Required re-pinning
+`src/runner/stage17_fixed_action.cpp` in policy v39 (stale since
+`author_stage17_policy_v11.py`, carried forward unpinned through every
+later generation until `create_stand_bundle.py`'s own binding-drift
+check caught it the moment this real edit changed the file for the
+first time since that pin was set), and burned two more journals to
+real ID-authoring mistakes of my own (`standv2-4`: a `RUNTIME_IDENTITY`
+manifest-vs-file `record_id` label mismatch introduced while renumbering
+scripts) before reaching a clean `standv2-5` admission with the fixed
+worker's own bundle (`41fd7fb`).
+
+The real live Q15-W attempt on `standv2-5` hit the exact same "failed
+closed" verdict as every prior attempt -- but this time the real
+worker_stderr_tail carried the actual numbers:
+`apply_verified=true restoration_verified=true regular_accepted=false
+pointer_accepted=false h0_regular_all_pf_count=1245897
+h1_regular_all_pf_count=923 h0_pointer_all_pf_count=8
+h1_pointer_all_pf_count=2`. CPU safety re-confirmed the same way as
+every prior attempt (direct live MSR read, all zero; framework's own
+`restoration_verified`/`supervisor_restore_readback` agreeing).
+
+This is a real, quantified result, not just a boolean: the regular-
+stream probe's real baseline shows 1,245,897 `L2_RQSTS.ALL_PF` events
+(matching a sequential-scan access pattern that should heavily engage
+the L2 streamer), and disabling all four MSR `0x1A4` prefetcher bits
+drives it down to 923 -- a real 99.93% reduction, not a no-op, but not
+the exact zero the frozen contract requires. The pointer-dependent
+probe's real baseline is already small (8, consistent with pointer-
+chasing being inherently hard to prefetch) and drops to 2. Both
+probes show the identical qualitative pattern: the disable mechanism is
+overwhelmingly effective, not broken, but leaves a small real residual
+inconsistent with the documented all-or-nothing behavior most public
+literature on this MSR (largely client-chip-derived) describes. Whether
+that residual is a real Cascade Lake-SP hardware limitation, or a
+boundary/warm-up artifact at the disable-transition or counted-pass
+start, is now a well-posed, quantified open question rather than an
+unexplained boolean failure -- and, being real numbers from real
+hardware, is itself evidence worth having regardless of which
+explanation turns out to be correct.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

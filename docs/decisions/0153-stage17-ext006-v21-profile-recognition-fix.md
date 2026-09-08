@@ -98,13 +98,30 @@ untouched `stage17_operational_semantics_v7.py` call site.
   every `S17-EXT-005` burn this session (`standv2-11`/`-12`/`-13`) was
   followed by a *fresh* journal rather than a retry on the same one: a
   bundle/policy-identity change always requires re-admitting the cheap
-  inputs (`S17-EXT-001` through `S17-EXT-004`) against the new identity.
-  The real Q15-W hardware evidence already captured does not need to be
-  re-measured; only its admission needs re-packaging against the new
-  bundle. The real path to `S17-EXT-006` is therefore: reseal a bundle
-  carrying this fix, start a fresh journal, replay `S17-EXT-001` through
-  `S17-EXT-004`, re-admit `S17-EXT-005` from the already-captured real
-  evidence, then attempt `S17-EXT-006`.
+  inputs (`S17-EXT-001` through `S17-EXT-003`) against the new identity.
+- An earlier version of this section claimed the already-captured real
+  Q15-W hardware evidence could be reused for the fresh journal without a
+  new live session. That was wrong, and reading the real captured attempt
+  file directly (not inferring from code) disproves it: `standv2-14`'s
+  own `stage17-q15_w-attempt-v4.json` embeds `release_resolution_id`/
+  `release_resolution_sha256` bound to that journal's own specific
+  `S17-EXT-003` resolution record, an `evidence_root_binding` carrying
+  that journal's exact absolute evidence path and inode, and a
+  `runtime_sha256` for the old worker binary -- which will differ from
+  the new bundle's worker binary even though no C++ changed, because the
+  binary bakes its own git commit hash into its self-attested runtime
+  identity. None of these can be satisfied by a different journal. A
+  fresh journal genuinely requires a fresh live `S17-EXT-004`
+  (qualification-evidence artifacts can reuse the same *raw* Q15-R
+  measurement bytes, just re-wrapped with the new bundle's identity, but
+  the manifest itself still needs the new journal's own Q15-R session
+  output), a fresh live Q15-R session, and a fresh live Q15-W session --
+  the same real hardware cost every prior `standv2-N` attempt already
+  paid. The real path to `S17-EXT-006` is: reseal a bundle carrying this
+  fix (done), start a fresh journal, replay `S17-EXT-001` through
+  `S17-EXT-003`, run a fresh live Q15-R session, admit `S17-EXT-004`, run
+  a fresh live Q15-W session, admit `S17-EXT-005`, then attempt
+  `S17-EXT-006`.
 - This fix was found by tracing the real `verify_input` dispatch chain
   and every `stage17_pilot_candidate_artifact_v*.py` file's actual
   function list end to end, before writing or running any live script --

@@ -2360,6 +2360,108 @@ unexplained boolean failure -- and, being real numbers from real
 hardware, is itself evidence worth having regardless of which
 explanation turns out to be correct.
 
+### A real CPU-isolation test of the SMT-sibling-contamination hypothesis: a clean negative result
+
+The residual `h1_regular_all_pf_count=923`/`h1_pointer_all_pf_count=2` above
+suggested a concrete, testable hypothesis: `L2_RQSTS.ALL_PF` is a core-level,
+not thread-partitioned, counter under SMT, and the fixed `Q15_CPUS=(0,1,26)`
+MSR-disable set never touched their real hyperthread siblings (`0`↔`52`,
+`1`↔`53`, `26`↔`78`, confirmed via `/sys/devices/system/cpu/cpuN/topology/
+thread_siblings_list`) -- if those siblings' own hardware prefetchers stayed
+enabled and the counter picks up cross-thread activity, that alone could
+explain the non-zero residual. Applied real, boot-time CPU isolation on
+`XEON-CPU-FETCH-V2` to test it directly, in two stages after confirming
+real console/IPMI recovery access existed first (unlike the original
+stand): `isolcpus=0,1,52,53 nohz_full=0,1,52,53 irqaffinity=2-51,54-103
+processor.max_cstate=1 intel_idle.max_cstate=0`, verified live after a
+real reboot (pinned via a one-time `grub-reboot` to the already-validated
+kernel, since a newer `7.0.0-31-generic` had landed via unattended
+upgrades and would otherwise have silently become a second, uncontrolled
+variable). Caught, before running any hardware test, that this first pass
+missed `26`/`78` entirely -- `q15_expected_numa_node` (`src/platform/
+q15_runtime.cpp:328-337`) confirms CPU 26 is a real, actively-measured
+Q15 probe target (NUMA node 1), not a bystander -- so extended the
+isolation to `isolcpus=0,1,26,52,53,78` (recomputing `irqaffinity`
+accordingly) and rebooted a second time. Both passes verified for real,
+not assumed: `/sys/devices/system/cpu/isolated` and `nohz_full` matched
+the requested sets exactly, modulo one confirmed, unavoidable kernel
+exception (`dmesg`: `NO_HZ: Clearing 0 from nohz_full range for
+timekeeping` -- the kernel refuses to let every CPU go tickless and kept
+CPU 0 as sole housekeeping CPU both times, also visible as CPU 0 alone
+still appearing in a few IRQs' `smp_affinity_list`), and IRQ affinity
+otherwise cleanly avoided every isolated CPU on both passes.
+
+A genuinely useful side effect: re-running `SELECTED_PAIR_CLOCK`
+qualification (`--qualify-pair near`) fresh under the fully-isolated
+config, rather than reusing the pre-isolation envelope, produced a full,
+clean `PASS` on both per-core measurements and the cross-core exchange --
+`p99.9` delta `39,000` picoseconds (0.039 us) on both producer and
+consumer, comfortably under the `CLOCK-QUAL-LMRV1` `<= 1.0 us` threshold
+that six separate partial-mitigation attempts on the *original* stand
+(governor, IRQ affinity, cgroup shielding, and combinations, recorded
+above) never cleanly cleared. Real, boot-time isolation succeeded where
+every live, no-reboot mitigation on the old stand did not -- though this
+doesn't retroactively prove *why* the old stand's own six attempts fell
+short, since the two stands' real starting conditions were never
+identical.
+
+Building the fresh journal (`standv2-7`) for the actual hardware test hit
+one more real, self-inflicted mistake worth recording honestly: the
+`EXT-002` trust-anchor artifact embeds its own `allowed_signers_path` as
+recorded fact, and copying the generator script verbatim from the prior
+journal (`standv2-5`) without updating that embedded path burned
+`standv2-6`'s entire `EXT-002` admission slot -- `admit-resolution`
+writes its exclusive `records/resolution-NNN-*.json` marker *before*
+running full semantic validation (`stage17_operational_cli_v11.py:1337-
+1368`), so the mid-validation "trust anchor bytes/stand drifted" failure
+left an orphaned, permanently-colliding marker with no safe retry inside
+that journal. A fresh journal (`standv2-7`) with the path generator fixed
+and independently self-checked before the first attempt admitted `EXT-
+001`-`004` cleanly, including a freshly-regenerated (not reused)
+`PLATFORM_MANIFEST`/`PILOT_PLATFORM_MEASUREMENTS`/
+`HARDWARE_PREFETCH_QUALIFICATION` set bound to `standv2-7`'s own real
+Q15-R output hashes, verified to genuinely differ from `standv2-5`'s
+before reuse was ruled out (`traced_call_count`/`traced_syscall_count`
+were confirmed separately still reusable, since that raw schema records
+only counts/booleans, not per-run timing values).
+
+The real live Q15-W attempt on `standv2-7`, under the full `0,1,26,52,53,
+78` isolation, hit the same "failed closed" verdict again -- and the real
+numbers refute the hypothesis directly:
+
+| | `standv2-5` (no isolation) | `standv2-7` (full SMT-sibling isolation) |
+|---|---|---|
+| `h0_regular_all_pf_count` | 1,245,897 | 1,251,775 |
+| `h1_regular_all_pf_count` | 923 | 1,170 |
+| `h0_pointer_all_pf_count` | 8 | 7 |
+| `h1_pointer_all_pf_count` | 2 | 2 |
+
+If cross-thread `L2_RQSTS.ALL_PF` contamination from the previously-
+unisolated siblings (`52`/`53`/`78`) were driving the residual, isolating
+them should have moved `h1_regular_all_pf_count`/`h1_pointer_all_pf_count`
+toward zero. Instead the regular-stream residual rose slightly (923 to
+1,170) and the pointer-stream residual is exactly unchanged (2 to 2) --
+both real, quantified, and in the wrong direction for the hypothesis to
+hold. CPU safety was independently reconfirmed twice, as with every prior
+attempt: the framework's own `restoration_verified`/
+`supervisor_restore_readback` (all three CPUs, `observed_hex` matching
+`requested_hex` exactly) and a direct, independent live read of MSR
+`0x1A4` on CPUs 0/1/26 via `/dev/cpu/N/msr`, all `0x0`.
+
+SMT-sibling PMU contamination is therefore ruled out as the explanation
+for the `h1_zero` residual -- the counter isn't measuring leftover
+sibling-thread prefetch activity that isolation would silence. The
+residual's real source remains open, but is now further narrowed: it
+survives both a full boot-time CPU isolation and (from the earlier
+investigation) a full untimed priming pass before the counted region, so
+it is neither ordinary scheduler/interrupt noise nor a warm-up artifact
+in the usual sense. The most likely remaining candidates are a genuine,
+small Cascade Lake-SP hardware limitation in this MSR's disable coverage,
+or an artifact intrinsic to the disable-to-counted-region transition
+itself (e.g. in-flight prefetches issued in the pipeline in the narrow
+window around the MSR write taking effect) -- neither yet tested for
+real.
+
 ## Consequences
 
 - The mechanism is now real, implemented, and verified at reduced scale

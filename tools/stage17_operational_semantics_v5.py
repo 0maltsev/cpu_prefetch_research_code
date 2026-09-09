@@ -79,8 +79,13 @@ verify_sshsig = predecessor.verify_sshsig
 
 ROLE_SCHEMA_v5: dict[str, str | None] = {
     **predecessor.ROLE_SCHEMA,
+    # v6.schema.json is v5's own schema_version/content shape, widened
+    # only to recognize STAGE17-PILOT-CANDIDATE-BUNDLE-v22's own
+    # bundle_profile string (ADR-0159's bundle) -- v5.schema.json
+    # itself is already policy-pinned by earlier journals and cannot
+    # be edited in place.
     "RUNTIME_RELEASE_PROVENANCE":
-        "config/schemas/stage17-runtime-release-provenance-v5.schema.json",
+        "config/schemas/stage17-runtime-release-provenance-v6.schema.json",
 }
 
 

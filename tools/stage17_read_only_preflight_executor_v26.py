@@ -75,7 +75,7 @@ from __future__ import annotations
 import pathlib
 
 import stage17_read_only_preflight_executor_v25 as base
-import stage17_semantic_verifier_v44 as _latest_semantic
+import stage17_semantic_verifier_v45 as _latest_semantic
 import stage17_state_journal_v36 as current_journal
 
 base.current_journal = current_journal

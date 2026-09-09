@@ -59,7 +59,7 @@ VERIFIER_VERSION = predecessor.VERIFIER_VERSION
 # schema-validation step. This new schema is otherwise byte-identical to
 # the v4 predecessor, widened only in that one enum to the same set v6's
 # RECOGNIZED_PROFILES already recognizes.
-SCHEMA = "config/schemas/stage17-pilot-candidate-external-contract-v5.schema.json"
+SCHEMA = "config/schemas/stage17-pilot-candidate-external-contract-v6.schema.json"
 SUPPORTED_ACTIONS = predecessor.SUPPORTED_ACTIONS
 
 ArtifactError = predecessor.ArtifactError

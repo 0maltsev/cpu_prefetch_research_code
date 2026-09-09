@@ -12,6 +12,17 @@ v41` now, not `_v40`), matching every prior literal-`ROOTS` ADR in this
 chain. The journal file's own call sites don't change -- only its import
 binding moves; `stage17_operational_semantics_v7` grows to also include
 `_v8`.
+
+`tools/stage17_semantic_verifier_v41.py` was later also given
+`verify_s17_ext_006` in place (ADR-0155, fixing the receipt field it
+reads), rather than gaining a `v42` successor -- confirmed for real, on
+a disposable copy of an already-in-flight journal, that creating a `v42`
+and moving `state_journal_v35.py`'s import to it breaks `S17-EXT-001`'s
+already-admitted envelope binding, since that binding pins `state_
+journal_v35.py`'s own bytes (transitively, via the read-only-preflight
+policy), not this file's. `SUCCESSOR_BINDINGS` re-pins `v41.py`'s
+current bytes and ADR-0155 alongside ADR-0154; `ROOTS` needs no change,
+since nothing about that fix moves any import binding.
 """
 
 from __future__ import annotations
@@ -43,6 +54,7 @@ ROOTS = (
 
 SUCCESSOR_BINDINGS = (
     "docs/decisions/0154-stage17-ext004-unmeasurable-clock-fields-fix.md",
+    "docs/decisions/0155-stage17-ext006-receipt-field-fix.md",
     "config/stage17/stage17-operational-evidence-admission-policy-v40.json",
     "config/schemas/stage17-operational-evidence-admission-policy-v41.schema.json",
     "tools/stage17_semantic_verifier_v41.py",

@@ -4,11 +4,12 @@ field instead of the stale contract_path no real v2-schema receipt ever
 carries.
 
 Proves:
-  - `stage17_semantic_verifier_v42.py`'s `verify_s17_ext_006` reads
-    `artifact_locator` (confirmed by constructing a real receipt via the
-    real `author_custody_receipt` function and checking the field it
-    actually reads is present and points at the real artifact -- not by
-    synthesizing a receipt shape by hand);
+  - `stage17_semantic_verifier_v41.py`'s `verify_s17_ext_006` (folded in
+    place, not a new `v42` -- see ADR-0155's own correction for why)
+    reads `artifact_locator` (confirmed by constructing a real receipt
+    via the real `author_custody_receipt` function and checking the
+    field it actually reads is present and points at the real artifact
+    -- not by synthesizing a receipt shape by hand);
   - a receipt shaped like the *old* `v1` schema (flat `contract_path`)
     is not what any real, current `author_custody_receipt` call
     produces -- `contract_path` is genuinely absent from real output;
@@ -16,8 +17,9 @@ Proves:
     `additionalProperties: false` would reject a receipt carrying both
     shapes at once, confirming the old field name is not just
     deprecated but schema-incompatible with real receipts;
-  - `v42` dispatches `S17-EXT-006` through its own fixed function and
-    delegates every other input to its `v41` predecessor unchanged.
+  - `v41` dispatches both `S17-EXT-004` and `S17-EXT-006` through its
+    own fixed functions and delegates every other input to its `v40`
+    predecessor unchanged.
 
 It does not create a checked-in record and does not touch SSH, the
 stand, or any credential.
@@ -32,8 +34,8 @@ import sys
 import tempfile
 
 import stage17_operational_cli_v11 as cli
+import stage17_semantic_verifier_v40 as verifier_v40
 import stage17_semantic_verifier_v41 as verifier_v41
-import stage17_semantic_verifier_v42 as verifier_v42
 import stage17_state_journal_v35 as journal_v35
 
 
@@ -84,27 +86,28 @@ def self_test(root: pathlib.Path) -> tuple[int, int]:
             raise CheckError("real receipt's artifact_locator does not match the real artifact")
         positive += 1
 
-        # Positive: v42's own verify_s17_ext_006 reads artifact_locator,
+        # Positive: v41's own verify_s17_ext_006 reads artifact_locator,
         # confirmed by source inspection of the actual running function
         # (not a re-typed copy) -- the field this fix retargets.
         import inspect
-        source = inspect.getsource(verifier_v42.verify_s17_ext_006)
+        source = inspect.getsource(verifier_v41.verify_s17_ext_006)
         if 'receipt.get("artifact_locator"' not in source:
-            raise CheckError("v42's verify_s17_ext_006 does not read artifact_locator")
+            raise CheckError("v41's verify_s17_ext_006 does not read artifact_locator")
         if 'receipt.get("contract_path"' in source:
-            raise CheckError("v42's verify_s17_ext_006 still reads the stale contract_path")
+            raise CheckError("v41's verify_s17_ext_006 still reads the stale contract_path")
         positive += 1
 
-    # Positive: v42 dispatches S17-EXT-006 through its own function,
-    # delegates every other input to its v41 predecessor unchanged, and
-    # the journal's own import chains through v42.
-    if verifier_v42.predecessor is not verifier_v41:
-        raise CheckError("v42 does not chain to v41 as its predecessor")
+    # Positive: v41 dispatches S17-EXT-006 through its own function
+    # (folded in place, not a new v42 -- ADR-0155's own correction),
+    # delegates every other input to its v40 predecessor unchanged, and
+    # the journal's own import chains through v41.
+    if verifier_v41.predecessor is not verifier_v40:
+        raise CheckError("v41 does not chain to v40 as its predecessor")
     cursor = journal_v35.semantic
-    while cursor is not verifier_v42 and hasattr(cursor, "predecessor"):
+    while cursor is not verifier_v41 and hasattr(cursor, "predecessor"):
         cursor = cursor.predecessor
-    if cursor is not verifier_v42:
-        raise CheckError("stage17_state_journal_v35 no longer chains through the v42 verifier")
+    if cursor is not verifier_v41:
+        raise CheckError("stage17_state_journal_v35 no longer chains through the v41 verifier")
     positive += 1
 
     return positive, negative

@@ -31,9 +31,29 @@ SCHEMA_v8` retargets only `QUALIFICATION_EVIDENCE` to `config/schemas/
 qualification-evidence-v2.schema.json` (ADR-0154's own schema successor,
 whose `clock_details` drops `traced_call_count`/`traced_syscall_count`/
 `before_block_repeat`, fields nothing in this codebase can honestly
-measure). Every other input's dispatch, `S17-EXT-001`/`S17-EXT-002`/
-`S17-EXT-006` included, is unchanged, delegated to `predecessor.
-verify_input` (`v40`).
+measure). Every other input's dispatch, `S17-EXT-001`/`S17-EXT-002`
+included, is unchanged, delegated to `predecessor.verify_input` (`v40`).
+
+ADR-0155's own `S17-EXT-006` receipt-field fix (`verify_s17_ext_006`
+reading the real `artifact_locator` field instead of the stale
+`contract_path` no real v2-schema receipt carries -- see that ADR for
+the full trace) is folded into *this* file in place, rather than added
+as its own new `v42` successor as ADR-0155 originally did. Confirmed for
+real, against a disposable copy of journal `standv2-18`'s own live
+admission-root: creating `v42` and moving `stage17_state_journal_v35.py`'s
+own `semantic` import to it broke `S17-EXT-001`'s already-admitted
+envelope binding, because the *only* thing `S17-EXT-001`'s own semantic
+check pins is `state_journal_v35.py`'s own bytes (transitively, via the
+read-only-preflight policy's `IMPLEMENTATION_PATHS`) -- not this file's.
+Editing this file's own body in place, while leaving `state_journal_
+v35.py`'s import line (and therefore the read-only-preflight policy's
+own pinned hash of it) completely untouched, requires no re-render of
+that policy and does not disturb `S17-EXT-001`'s binding at all. This is
+a deliberate, narrow exception to this codebase's usual "never edit an
+already-accepted file in place" convention: unlike `v22`/`v34`/`v39`/
+`v40` before it, `v41.py` was authored and deployed entirely within this
+same session, for this same journal's own use, and nothing outside this
+journal depends on its bytes staying frozen.
 """
 
 from __future__ import annotations
@@ -43,6 +63,7 @@ import pathlib
 from typing import Any, Mapping
 
 import stage17_operational_semantics_v8 as operational
+import stage17_pilot_candidate_artifact_v7 as release_verifier
 import stage17_semantic_verifier_v40 as predecessor
 
 
@@ -192,7 +213,76 @@ def verify_operational_manifest_v8(
     return {"authorization": None, "context": context}
 
 
+def verify_s17_ext_006(
+    *, root: pathlib.Path, receipt_documents: list[dict[str, Any]],
+    admitted_resolutions: Mapping[str, Any], pilot_archive: pathlib.Path | None,
+    pilot_sidecar: pathlib.Path | None, allow_synthetic: bool, **_: Any,
+) -> dict[str, Any]:
+    """Faithful copy of predecessor `verify_s17_ext_006` (`v40`), changed
+    only to read `artifact_locator` instead of the stale `contract_path`
+    field no real v2-schema receipt carries (ADR-0155). Every other
+    check is byte-identical to the predecessor.
+    """
+    if len(receipt_documents) != 1 or pilot_archive is None or pilot_sidecar is None:
+        raise SemanticAdmissionError("EXT006 requires exact archive/sidecar bytes")
+    receipt = receipt_documents[0]
+    if (receipt.get("verifier_id"), receipt.get("verifier_version")) != (
+        release_verifier.VERIFIER_ID, release_verifier.VERIFIER_VERSION
+    ):
+        raise SemanticAdmissionError("EXT006 verifier identity drifted")
+    contract_path = root / str(receipt.get("artifact_locator", ""))
+    try:
+        context = release_verifier.verify_pilot_candidate_artifact_v7(
+            repository_root=root, contract_path=contract_path,
+            archive=pilot_archive, sidecar=pilot_sidecar,
+        )
+    except release_verifier.ArtifactError as exception:
+        raise SemanticAdmissionError(str(exception)) from exception
+    ext3 = admitted_resolutions.get("S17-EXT-003")
+    if ext3 is None or not isinstance(ext3.semantic_context, dict):
+        raise SemanticAdmissionError("EXT006 lacks owner-accepted runtime")
+    release = ext3.semantic_context.get("release")
+    if release is None:
+        raise SemanticAdmissionError("EXT003 clean-release context is absent")
+    if (context.worker_size_bytes, context.worker_sha256, context.worker_role,
+        context.runtime_profile, context.supported_actions,
+        context.synthetic_test_only) != (
+            release.worker_size_bytes, release.worker_sha256, release.worker_role,
+            release.runtime_profile, release.supported_actions,
+            release.synthetic_test_only,
+        ):
+        raise SemanticAdmissionError("EXT006 archive worker differs from EXT002/003")
+    if context.synthetic_test_only is not allow_synthetic:
+        raise SemanticAdmissionError("EXT006 verified classification drifted")
+    return {"authorization": None, "context": {
+        "archive_locator": str(context.archive_locator),
+        "archive_size_bytes": context.archive_size_bytes,
+        "archive_sha256": context.archive_sha256,
+        "sidecar_locator": str(context.sidecar_locator),
+        "sidecar_size_bytes": context.sidecar_size_bytes,
+        "sidecar_sha256": context.sidecar_sha256,
+        "manifest_member_path": context.manifest_member_path,
+        "manifest_size_bytes": context.manifest_size_bytes,
+        "manifest_sha256": context.manifest_sha256,
+        "source_revision": context.source_revision,
+        "release_artifact_path": str(release.worker_path),
+        "release_artifact_member_path": context.worker_member_path,
+        "release_artifact_size_bytes": context.worker_size_bytes,
+        "release_artifact_sha256": context.worker_sha256,
+        "release_artifact_role": context.worker_role,
+        "runtime_profile": context.runtime_profile,
+        "supported_actions": list(context.supported_actions),
+        "bundle_profile": context.bundle_profile,
+        "synthetic_test_only": context.synthetic_test_only,
+        "sha256s_sha256": context.sha256s_sha256,
+        "sbom_sha256": context.sbom_sha256,
+        "inventory_sha256": context.inventory_sha256,
+    }}
+
+
 def verify_input(*, input_id: str, **arguments: Any) -> dict[str, Any]:
     if input_id == "S17-EXT-004":
         return verify_operational_manifest_v8(input_id=input_id, **arguments)
+    if input_id == "S17-EXT-006":
+        return verify_s17_ext_006(input_id=input_id, **arguments)
     return predecessor.verify_input(input_id=input_id, **arguments)

@@ -182,13 +182,20 @@ def self_test(root: pathlib.Path) -> tuple[int, int]:
 
     # Positive: v41 dispatches S17-EXT-004 through operational_semantics_v8,
     # delegates every other input to its v40 predecessor unchanged, and the
-    # journal's own import moved to v41.
+    # journal's own import chains through v41 (or a later additive
+    # successor -- walk the predecessor chain rather than asserting an
+    # exact module, matching the same pattern the EXT-006 check already
+    # uses, since the journal's own semantic import moves forward again
+    # each time a later ADR adds a new generation).
     if verifier_v41.operational is not operational_v8:
         raise CheckError("v41's verify_operational_manifest_v8 is not wired to operational_v8")
     if verifier_v41.predecessor is not verifier_v40:
         raise CheckError("v41 does not chain to v40 as its predecessor")
-    if journal_v35.semantic is not verifier_v41:
-        raise CheckError("stage17_state_journal_v35 was not moved to the v41 verifier")
+    cursor = journal_v35.semantic
+    while cursor is not verifier_v41 and hasattr(cursor, "predecessor"):
+        cursor = cursor.predecessor
+    if cursor is not verifier_v41:
+        raise CheckError("stage17_state_journal_v35 no longer chains through the v41 verifier")
     positive += 1
 
     return positive, negative

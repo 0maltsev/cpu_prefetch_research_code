@@ -167,3 +167,24 @@ def verify_policy_v28(
         raise SemanticAdmissionError("semantic policy v28 complete registry drifted")
     if policy.get("synthetic_bypass_available") is not False or policy.get("stage18_authority") is not False:
         raise SemanticAdmissionError("semantic policy v28 authority boundary drifted")
+
+
+# `stage17_semantic_verifier_v39.py`'s own `_verify_ext001` -- frozen,
+# never touched by ADR-0156/0157/0158 -- calls `preflight.verify_policy_
+# v27(...)` and `preflight.verify_s17_ext_001_semantics_v27(...)` by
+# these exact, hardcoded attribute names, not just `preflight.POLICY_
+# PATH`. Monkey-patching `v39.preflight` to this module (ADR-0158) is
+# only reachable if this module exposes those same names too -- the
+# real, live AttributeError this comment fixes, confirmed for real
+# against standv2-23's own admission root. Both are correct as plain
+# aliases: `verify_policy_v27`'s underlying logic already validates
+# whatever policy dict it is given against *this* module's own
+# `IMPLEMENTATION_PATHS`/`POLICY_SCHEMA_PATH` (aliasing to `verify_
+# policy_v28` is exactly right, not a compatibility shim), and `verify_
+# s17_ext_001_semantics_v20`'s real implementation (inherited unchanged
+# all the way from `_v20.py`) never references `IMPLEMENTATION_PATHS`/
+# `POLICY_PATH` itself -- it only compares the envelope against whatever
+# `policy_path`/`policy_sha256` its caller passes in, which `_verify_
+# ext001` already computes from `preflight.POLICY_PATH` before calling.
+verify_policy_v27 = verify_policy_v28
+verify_s17_ext_001_semantics_v27 = verify_s17_ext_001_semantics_v28

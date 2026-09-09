@@ -36,12 +36,12 @@ from referencing import Registry, Resource
 
 import stage17_output_registry_v4 as output_registry
 import stage17_exit_state_machine_v4 as exit_machine
-import stage17_phase_controller_v14 as controller
+import stage17_phase_controller_v15 as controller
 import stage17_operational_semantics_v4 as semantics
 import stage17_operational_semantics_v8 as semantics_v6
 import stage17_pilot_candidate_artifact_v7 as pilot_artifact
 import stage17_state_journal as base
-import stage17_state_journal_v35 as journal_runtime
+import stage17_state_journal_v36 as journal_runtime
 
 
 class OperationalCliError(RuntimeError):

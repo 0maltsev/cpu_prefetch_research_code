@@ -19,7 +19,7 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v21"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v22"
 STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
@@ -473,9 +473,26 @@ def main() -> int:
             # ADR-0146 moves both the outer policy (v38 -> v39) and the
             # nested preflight-plan policy (v26 -> v27) again, folding in
             # the real Q15 session execute_session wiring fix ADR-0145's
-            # own rebind never actually reached.
+            # own rebind never actually reached. This tool's own policy/
+            # controller/nested-policy references then went stale for
+            # several further ADRs never reflected here: ADR-0156 (outer
+            # policy v39 -> v42, fixed-action executor v4 -> v5, phase-
+            # controller v9 -> v15, kernel-thread-tolerant process-group
+            # supervisor), ADR-0157 (outer policy v42 -> v43, nested
+            # preflight-plan policy v27 -> v28), and ADR-0158 (outer
+            # policy v43 -> v44, S17-EXT-001's own preflight-policy
+            # binding fix). ADR-0159 (outer policy v44 -> v45, raising
+            # the compiled fixed-action worker's request-size bound so
+            # Q16b's real 3540-run matrix can be admitted) is the ADR
+            # that actually discovered this tool itself had fallen behind
+            # -- creating a new pilot-candidate bundle from any commit
+            # containing ADR-0156 through ADR-0159's own fixes would
+            # otherwise fail with "Stage 17 controller binding drifted"
+            # against this file's stale v39 references. This move
+            # catches the tool up to the real, current v45/v28/v15
+            # generation in one step.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v39.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v45.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
@@ -505,7 +522,7 @@ def main() -> int:
                         "size_bytes": binding["size_bytes"],
                         "sha256": binding["sha256"],
                     })
-            controller_suffix = "v9"
+            controller_suffix = "v15"
             stage17_controller_runtime = {
                 "controller_id":
                     f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-{controller_suffix}",
@@ -523,14 +540,15 @@ def main() -> int:
                 "authority_embedded": False,
                 "repository_evidence_roots": ["config", "docs"],
             }
-            # Policy v39 binds the complete preflight policy v27 by exact
-            # bytes. The nested policy also binds compatibility modules by
-            # pathname without importing them into the current Python closure.
-            # Carry those exact files so production admission does not depend
-            # on the wider test-only source projection.
+            # Policy v45 binds the complete preflight policy v28 by exact
+            # bytes (ADR-0159 moved v39/v27 -> v45/v28, see above). The
+            # nested policy also binds compatibility modules by pathname
+            # without importing them into the current Python closure.
+            # Carry those exact files so production admission does not
+            # depend on the wider test-only source projection.
             nested_policy_relative = pathlib.Path(
                 "config/stage17/"
-                "stage17-read-only-preflight-evidence-admission-policy-v27.json"
+                "stage17-read-only-preflight-evidence-admission-policy-v28.json"
             )
             nested_policy_path = root / nested_policy_relative
             nested_policy = json.loads(nested_policy_path.read_text(encoding="utf-8"))

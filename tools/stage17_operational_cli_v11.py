@@ -41,7 +41,7 @@ import stage17_operational_semantics_v4 as semantics
 import stage17_operational_semantics_v8 as semantics_v6
 import stage17_pilot_candidate_artifact_v7 as pilot_artifact
 import stage17_state_journal as base
-import stage17_state_journal_v38 as journal_runtime
+import stage17_state_journal_v39 as journal_runtime
 
 
 class OperationalCliError(RuntimeError):

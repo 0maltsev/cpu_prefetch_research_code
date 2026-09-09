@@ -10,15 +10,16 @@
 // schema-compliant QUALIFICATION_EVIDENCE envelope -- the same "eligible"
 // logic the unit tests already verify, never re-implemented here.
 //
-// SELECTED_PAIR_CLOCK's raw artifact is itself partial (see that tool's
-// own usage text): it carries no traced_call_count/traced_syscall_count/
-// before_block_repeat, since no real VDSO call/syscall tracer or post-
+// SELECTED_PAIR_CLOCK's own envelope previously also required
+// traced_call_count/traced_syscall_count/before_block_repeat as explicit
+// CLI flags, precisely because no VDSO call/syscall tracer or post-
 // measurement block-repeat timestamp capture exists anywhere in this
-// codebase yet. This tool therefore requires those three as explicit CLI
-// flags for that kind -- never defaulted or invented -- so a caller can
-// only produce a SELECTED_PAIR_CLOCK envelope by supplying real values
-// for them from wherever they actually come from, once that measurement
-// exists.
+// codebase to produce them for real. That safeguard worked exactly as
+// designed -- it refused to let this tool invent them -- but real S17-
+// EXT-004 admissions were made anyway by hand-typing plausible values
+// past it (ADR-0154). Those three fields are removed entirely rather
+// than left as an easy-to-defeat gate: eligibility no longer depends on
+// evidence nothing in this codebase can measure.
 
 #include "cpu_prefetch/foundation/repository_info.hpp"
 #include "cpu_prefetch/protocol/json.hpp"
@@ -28,7 +29,6 @@
 #include "cpu_prefetch/workload/deterministic.hpp"
 
 #include <array>
-#include <charconv>
 #include <cstdint>
 #include <exception>
 #include <fstream>
@@ -63,9 +63,7 @@ void usage(std::ostream& output) {
          << "      [--gcc-codegen-passed true|false --clang-codegen-passed true|false "
             "\\\n"
          << "       --gnu-objdump-passed true|false --llvm-objdump-passed true|false]  "
-            "(SOFTWARE_PREFETCH_MAPPING only)\n"
-         << "      [--traced-call-count N --traced-syscall-count N "
-            "--before-block-repeat true|false]  (SELECTED_PAIR_CLOCK only)\n\n"
+            "(SOFTWARE_PREFETCH_MAPPING only)\n\n"
          << "Every identity field must be a real, already-known fact about the real "
             "session that produced --raw (its own admitted binding_id/"
             "source_revision/binary_sha256/captured_at_utc), not a freshly derived "
@@ -75,10 +73,7 @@ void usage(std::ostream& output) {
             "the real bytes at --raw. The four codegen flags must be the real, "
             "already-passing outcome of the software-prefetch-mapping-codegen-check "
             "build target. For SELECTED_PAIR_CLOCK, --worker-pair must match --raw's "
-            "own \"pair\" field exactly; --traced-call-count/--traced-syscall-count/"
-            "--before-block-repeat have no real source anywhere in this codebase yet "
-            "(no VDSO call/syscall tracer, no block-repeat timestamp capture) and must "
-            "never be guessed or defaulted -- only pass them once real values exist.\n";
+            "own \"pair\" field exactly.\n";
 }
 
 [[noreturn]] void fail(std::string_view message) {
@@ -279,18 +274,11 @@ void require_const_string(const json::Value::Object& object, std::string_view na
           llvm_objdump_passed};
 }
 
-// The clock tool's own raw artifact is itself partial (see this file's
-// top comment): traced_call_count/traced_syscall_count/before_block_repeat
-// have no real source in either the raw artifact or anywhere else in this
-// codebase, so they arrive as caller-supplied arguments rather than being
-// read from `raw`. per_core_evaluator_passed combines both sides' real,
-// separately-reported pass/fail -- the envelope has one shared field,
-// unlike the raw artifact's two.
+// per_core_evaluator_passed combines both sides' real, separately-reported
+// pass/fail -- the envelope has one shared field, unlike the raw
+// artifact's two.
 [[nodiscard]] auto build_selected_pair_clock_input(const json::Value::Object& raw,
-                                                   std::string_view worker_pair_flag,
-                                                   std::uint64_t traced_call_count,
-                                                   std::uint64_t traced_syscall_count,
-                                                   bool before_block_repeat)
+                                                   std::string_view worker_pair_flag)
     -> runner::SelectedPairClockInput {
   require_const_string(raw, "schema_version",
                        "cpu-prefetch-stage17-q15-clock-pair-raw/1");
@@ -304,15 +292,12 @@ void require_const_string(const json::Value::Object& object, std::string_view na
        require_uint(raw, "consumer_prime_read_count")},
       {require_uint(raw, "producer_delta_count"),
        require_uint(raw, "consumer_delta_count")},
-      traced_call_count,
-      traced_syscall_count,
       require_uint(raw, "producer_to_consumer_window_count"),
       require_uint(raw, "consumer_to_producer_window_count"),
       require_uint(raw, "exchanges_per_window"),
       require_bool(raw, "producer_per_core_passed") &&
           require_bool(raw, "consumer_per_core_passed"),
       require_bool(raw, "cross_core_passed"),
-      before_block_repeat,
   };
 }
 
@@ -332,9 +317,6 @@ struct Args final {
   std::optional<std::string> clang_codegen_passed;
   std::optional<std::string> gnu_objdump_passed;
   std::optional<std::string> llvm_objdump_passed;
-  std::optional<std::string> traced_call_count;
-  std::optional<std::string> traced_syscall_count;
-  std::optional<std::string> before_block_repeat;
 };
 
 [[nodiscard]] auto parse_bool_flag(std::string_view name, std::string_view text)
@@ -346,18 +328,6 @@ struct Args final {
     return false;
   }
   fail("flag " + std::string(name) + " requires true|false, got: " + std::string(text));
-}
-
-[[nodiscard]] auto parse_uint_flag(std::string_view name, std::string_view text)
-    -> std::uint64_t {
-  std::uint64_t value = 0U;
-  const auto [position, error] =
-      std::from_chars(text.data(), text.data() + text.size(), value);
-  if (error != std::errc{} || position != text.data() + text.size()) {
-    fail("flag " + std::string(name) +
-         " requires a base-10 unsigned integer, got: " + std::string(text));
-  }
-  return value;
 }
 
 [[nodiscard]] auto parse_args(int argc, char** argv) -> Args {
@@ -400,12 +370,6 @@ struct Args final {
       args.gnu_objdump_passed = take(index);
     } else if (flag == "--llvm-objdump-passed") {
       args.llvm_objdump_passed = take(index);
-    } else if (flag == "--traced-call-count") {
-      args.traced_call_count = take(index);
-    } else if (flag == "--traced-syscall-count") {
-      args.traced_syscall_count = take(index);
-    } else if (flag == "--before-block-repeat") {
-      args.before_block_repeat = take(index);
     } else {
       fail("unrecognized flag: " + std::string(flag));
     }
@@ -468,15 +432,7 @@ struct Args final {
     return runner::make_selected_pair_clock_evidence(
         identity,
         build_selected_pair_clock_input(
-            raw, require_flag(args.worker_pair, "--worker-pair"),
-            parse_uint_flag("--traced-call-count", require_flag(args.traced_call_count,
-                                                                "--traced-call-count")),
-            parse_uint_flag(
-                "--traced-syscall-count",
-                require_flag(args.traced_syscall_count, "--traced-syscall-count")),
-            parse_bool_flag(
-                "--before-block-repeat",
-                require_flag(args.before_block_repeat, "--before-block-repeat"))));
+            raw, require_flag(args.worker_pair, "--worker-pair")));
   }
   fail("--kind must be one of RUNTIME_ATOMIC_LAYOUT, ACTUAL_CPU_MIGRATION, "
        "ADDRESS_RESIDENCY, SOFTWARE_PREFETCH_MAPPING, SELECTED_PAIR_CLOCK");
@@ -531,7 +487,7 @@ auto self_test() -> int {
   const auto repository = cpu_prefetch::foundation::repository_info();
   if (repository.protocol_version != cpu_prefetch::protocol::kProtocolVersion ||
       runner::kQualificationEvidenceSchemaVersion !=
-          "cpu-prefetch-qualification-evidence/1") {
+          "cpu-prefetch-qualification-evidence/2") {
     std::cerr << "q15-qualification-evidence-tool-self-test: FAIL build/profile "
                  "mismatch\n";
     return 1;

@@ -134,11 +134,19 @@ def self_test(root: pathlib.Path) -> tuple[int, int]:
     positive += 1
 
     # Positive: v40 delegates every other input to its v39 predecessor
-    # unchanged, and the orchestration-layer imports moved to v40/v7.
+    # unchanged, and the orchestration-layer imports moved to v40/v7 (or a
+    # later additive successor -- the journal's own semantic import moves
+    # forward again each time a later ADR adds a new generation, so this
+    # walks the predecessor chain rather than asserting an exact module,
+    # matching the same walk-until-found pattern the authoring scripts'
+    # own _find_base already uses).
     if verifier_v40.predecessor is not verifier_v39:
         raise CheckError("v40 does not chain to v39 as its predecessor")
-    if journal_v35.semantic is not verifier_v40:
-        raise CheckError("stage17_state_journal_v35 was not moved to the v40 verifier")
+    cursor = journal_v35.semantic
+    while cursor is not verifier_v40 and hasattr(cursor, "predecessor"):
+        cursor = cursor.predecessor
+    if cursor is not verifier_v40:
+        raise CheckError("stage17_state_journal_v35 no longer chains through the v40 verifier")
     if cli.pilot_artifact is not artifact_v7:
         raise CheckError("stage17_operational_cli_v11 was not moved to the v7 artifact module")
     positive += 1

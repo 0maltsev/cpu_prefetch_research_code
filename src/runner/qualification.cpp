@@ -171,17 +171,14 @@ auto make_selected_pair_clock_evidence(const QualificationIdentity& identity,
                   [](std::uint64_t value) {
                     return value == timing::kQualificationDeltaCount;
                   }) &&
-      input.traced_call_count == timing::kQualificationDeltaCount &&
-      input.traced_syscall_count == 0U &&
       input.producer_to_consumer_window_count == timing::kCrossCoreWindowCount &&
       input.consumer_to_producer_window_count == timing::kCrossCoreWindowCount &&
       input.exchanges_per_window == timing::kCrossCoreExchangeCountPerWindow;
   const bool eligible = counts_pass && input.per_core_evaluator_passed &&
-                        input.cross_core_evaluator_passed && input.before_block_repeat;
+                        input.cross_core_evaluator_passed;
   return make_artifact(
       identity, QualificationEvidenceKind::selected_pair_clock, eligible,
       protocol::json::Value(JsonObject{
-          {"before_block_repeat", protocol::json::Value(input.before_block_repeat)},
           {"consumer_delta_count", uint_value(input.delta_counts[1])},
           {"consumer_prime_read_count", uint_value(input.prime_read_counts[1])},
           {"consumer_to_producer_window_count",
@@ -195,8 +192,6 @@ auto make_selected_pair_clock_evidence(const QualificationIdentity& identity,
           {"producer_prime_read_count", uint_value(input.prime_read_counts[0])},
           {"producer_to_consumer_window_count",
            uint_value(input.producer_to_consumer_window_count)},
-          {"traced_call_count", uint_value(input.traced_call_count)},
-          {"traced_syscall_count", uint_value(input.traced_syscall_count)},
       }));
 }
 

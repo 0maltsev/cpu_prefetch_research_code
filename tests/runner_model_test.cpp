@@ -336,12 +336,9 @@ TEST(RunnerQualification, TypedArtifactProducersDeriveEligibilityAndCanonicalByt
   const auto clock =
       make_selected_pair_clock_evidence(identity, {{100'000U, 100'000U},
                                                    {10'000'000U, 10'000'000U},
-                                                   10'000'000U,
-                                                   0U,
                                                    3U,
                                                    3U,
                                                    100'000U,
-                                                   true,
                                                    true,
                                                    true});
   ASSERT_TRUE(clock.has_value());
@@ -392,12 +389,9 @@ TEST(RunnerQualification, MissingCountsMigrationsAndUnavailablePagesStayIneligib
   const auto identity = qualification_identity();
   auto clock_input = SelectedPairClockInput{{100'000U, 100'000U},
                                             {10'000'000U, 9'999'999U},
-                                            10'000'000U,
-                                            1U,
                                             3U,
                                             3U,
                                             100'000U,
-                                            true,
                                             true,
                                             true};
   const auto clock = make_selected_pair_clock_evidence(identity, clock_input);

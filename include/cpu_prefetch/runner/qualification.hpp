@@ -12,8 +12,14 @@
 
 namespace cpu_prefetch::runner {
 
+// Bumped to /2 for ADR-0154: SelectedPairClockInput dropped
+// traced_call_count/traced_syscall_count/before_block_repeat (no real
+// measurement for them exists anywhere in this codebase). The other four
+// kinds' detail shapes are unchanged; this is a whole-document version
+// bump, matching how the schema versions as one type across its "kind"
+// variants rather than per-variant.
 inline constexpr std::string_view kQualificationEvidenceSchemaVersion =
-    "cpu-prefetch-qualification-evidence/1";
+    "cpu-prefetch-qualification-evidence/2";
 
 enum class QualificationEvidenceKind : std::uint8_t {
   selected_pair_clock,
@@ -48,17 +54,21 @@ struct QualificationArtifact final {
   std::string canonical_json;
 };
 
+// traced_call_count/traced_syscall_count/before_block_repeat were removed
+// (ADR-0154): no VDSO call/syscall tracer or post-measurement block-repeat
+// timestamp capture exists anywhere in this codebase, so those fields could
+// never be populated with a real measurement -- only fabricated ones, which
+// is exactly what happened across every real S17-EXT-004 admission this
+// engagement made before the gap was found. Eligibility no longer depends
+// on evidence nothing can produce.
 struct SelectedPairClockInput final {
   std::array<std::uint64_t, 2> prime_read_counts;
   std::array<std::uint64_t, 2> delta_counts;
-  std::uint64_t traced_call_count;
-  std::uint64_t traced_syscall_count;
   std::uint64_t producer_to_consumer_window_count;
   std::uint64_t consumer_to_producer_window_count;
   std::uint64_t exchanges_per_window;
   bool per_core_evaluator_passed;
   bool cross_core_evaluator_passed;
-  bool before_block_repeat;
 };
 
 struct RuntimeAtomicLayoutInput final {

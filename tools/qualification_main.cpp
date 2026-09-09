@@ -81,7 +81,7 @@ auto run(int argc, char** argv) -> int {
     const auto repository = cpu_prefetch::foundation::repository_info();
     if (repository.protocol_version != cpu_prefetch::protocol::kProtocolVersion ||
         cpu_prefetch::runner::kQualificationEvidenceSchemaVersion !=
-            "cpu-prefetch-qualification-evidence/1" ||
+            "cpu-prefetch-qualification-evidence/2" ||
         cpu_prefetch::runner::kRunnerProfileId !=
             "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3" ||
         cpu_prefetch::runner::kSoftwarePrefetchMappingId !=

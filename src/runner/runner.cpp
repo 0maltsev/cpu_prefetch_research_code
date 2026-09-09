@@ -532,16 +532,13 @@ auto validate_admission_fields(const RunnerAdmission& admission,
   return errors;
 }
 
-auto sha256_file(const std::filesystem::path& path) -> protocol::Result<std::string> {
-  std::error_code filesystem_error;
-  const auto status = std::filesystem::symlink_status(path, filesystem_error);
-  if (filesystem_error || !std::filesystem::is_regular_file(status) ||
-      std::filesystem::is_symlink(status)) {
-    return protocol::Result<std::string>::failure(
-        error(ErrorCategory::missing_evidence, "$file", "RUN-FILE-REGULAR",
-              "evidence must be an existing non-symlink regular file"));
-  }
-  std::ifstream input(path, std::ios::binary);
+namespace {
+
+// Shared by sha256_file() (which pre-checks the path is a real,
+// non-symlink regular file before calling this) and
+// sha256_running_binary() (which reads /proc/self/exe -- always a symlink
+// on Linux, so it cannot and must not use that same pre-check).
+auto hash_stream(std::ifstream& input) -> protocol::Result<std::string> {
   if (!input) {
     return protocol::Result<std::string>::failure(
         error(ErrorCategory::missing_evidence, "$file", "RUN-FILE-OPEN",
@@ -588,6 +585,26 @@ auto sha256_file(const std::filesystem::path& path) -> protocol::Result<std::str
     output.push_back(digits[byte & 0x0fU]);
   }
   return protocol::Result<std::string>::success(output);
+}
+
+} // namespace
+
+auto sha256_file(const std::filesystem::path& path) -> protocol::Result<std::string> {
+  std::error_code filesystem_error;
+  const auto status = std::filesystem::symlink_status(path, filesystem_error);
+  if (filesystem_error || !std::filesystem::is_regular_file(status) ||
+      std::filesystem::is_symlink(status)) {
+    return protocol::Result<std::string>::failure(
+        error(ErrorCategory::missing_evidence, "$file", "RUN-FILE-REGULAR",
+              "evidence must be an existing non-symlink regular file"));
+  }
+  std::ifstream input(path, std::ios::binary);
+  return hash_stream(input);
+}
+
+auto sha256_running_binary() -> protocol::Result<std::string> {
+  std::ifstream input("/proc/self/exe", std::ios::binary);
+  return hash_stream(input);
 }
 
 auto verify_evidence_files(const RunnerAdmission& admission,

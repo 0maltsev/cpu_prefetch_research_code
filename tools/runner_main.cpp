@@ -125,7 +125,7 @@ int run(int argc, char** argv) {
     print_errors(admission.errors());
     return 1;
   }
-  const auto binary_sha256 = cpu_prefetch::runner::sha256_file("/proc/self/exe");
+  const auto binary_sha256 = cpu_prefetch::runner::sha256_running_binary();
   if (!binary_sha256) {
     print_errors(binary_sha256.errors());
     return 1;

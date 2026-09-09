@@ -284,6 +284,17 @@ private:
 [[nodiscard]] auto sha256_file(const std::filesystem::path& path)
     -> protocol::Result<std::string>;
 
+// Hashes the currently-running process's own executable image. Unlike
+// sha256_file(), this does not reject a symlink path: `/proc/self/exe` is
+// always a symlink on Linux (a kernel-provided magic link into the running
+// process's own mapped image, not an attacker-controlled evidence path), so
+// sha256_file()'s symlink rejection -- correct and load-bearing for
+// evidence files -- would make self-identity hashing impossible. Opening
+// via std::ifstream follows the symlink to the real backing executable, the
+// same effect open()/read() achieves in load_sealed_runner_ticket's own
+// self-binary check.
+[[nodiscard]] auto sha256_running_binary() -> protocol::Result<std::string>;
+
 enum class DispatchStatus : std::uint8_t { dispatched, package_mismatch };
 
 // The switch is a controller-side operation. Each branch instantiates a

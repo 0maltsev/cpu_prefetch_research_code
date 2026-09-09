@@ -29,6 +29,14 @@ SUCCESSOR_BINDINGS = (
     "tools/stage17_semantic_verifier_v45.py",
     "tools/stage17_state_journal_v39.py",
     "tools/stage17_operational_cli_v11.py",
+    # The STAGE17-PILOT-CANDIDATE-BUNDLE-v22 profile string (this same
+    # ADR-0159 bundle) is also not recognized by config/schemas/stage17-
+    # runtime-release-provenance-v5.schema.json's own frozen
+    # bundle_profile enum, discovered live via a real standv2-27
+    # author-manifest failure. -v5.schema.json is itself policy-pinned
+    # and cannot be edited in place; -v6.schema.json is a new, additive
+    # file (v5's own enum plus this one profile string).
+    "config/schemas/stage17-runtime-release-provenance-v6.schema.json",
 )
 
 

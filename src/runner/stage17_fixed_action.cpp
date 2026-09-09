@@ -61,8 +61,22 @@ using JsonArray = protocol::json::Value::Array;
 using JsonObject = protocol::json::Value::Object;
 using JsonValue = protocol::json::Value;
 
+// Q16b's real, admitted matrix (5 packages x 2 hardware_states x 2
+// placements x 3 working_set_classes x 59 repetitions = 3540 runs) must
+// embed a complete, literal runner_admission ticket (~10-11KB, 21
+// evidence entries) in every run -- package_capture/
+// load_sealed_runner_ticket read it directly from each run's own
+// object, with no shared/deduplicated reference, since the ticket's
+// bytes are re-hashed and re-verified per run. That serializes to
+// roughly 35-47MB, which the original 16MiB bound (calibrated around
+// Q16a's single-package, 708-run scale) cannot admit. Confirmed via a
+// real, live standv2-26 execution attempt: the worker exited 1 with
+// "fixed dispatcher request read failed" after the Python-side
+// request-file-size gate was separately raised past 16MiB, proving
+// this compiled bound is an independent, second gate on the same real
+// conflict. Raised to match kMaximumWorkerBytes's own existing bound.
 constexpr std::size_t kMaximumRequestBytes =
-    static_cast<std::size_t>(16U) * 1024U * 1024U;
+    static_cast<std::size_t>(64U) * 1024U * 1024U;
 constexpr std::size_t kMaximumWorkerBytes =
     static_cast<std::size_t>(64U) * 1024U * 1024U;
 constexpr std::size_t kCacheLineBytes = 64U;

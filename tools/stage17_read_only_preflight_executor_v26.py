@@ -45,6 +45,29 @@ returned dict reads a bare `__file__`; every other key already reads
 some *other* module's own `.__file__` attribute (`current_journal.
 __file__`, `current_semantic.__file__`, etc.), which already reflects
 the monkey-patch correctly.
+
+Third fix, confirmed live against standv2-25's own admission root:
+`current_journal` (`_v36.py`) must stay `_v36.py` -- `...policy-v28.
+json`'s own `implementations.state_journal` binding is pinned to that
+exact basename, and swapping `current_journal` to a later journal
+generation would re-break the very basename check ADR-0157 already
+fixed. But `_v36.py`'s own `semantic` binding (and the 5-ancestor walk
+it performs onto `stage17_state_journal_v16`'s own predecessor chain,
+`_v12.py` through `_v16.py`) is frozen at `stage17_semantic_verifier_
+v42`, which is now two generations stale: `cli_v11.py`'s own `author-
+ext001`/`journal_runtime` moved to `_v28.json`/`_v38.py` across ADR-0157
+and ADR-0158, but nothing ever told `_v36.py`'s own ancestors to follow.
+`_prospective_validation`'s own `current_journal.validate_operational_
+journal(...)` call reaches those ancestors (specifically `_v12.py`,
+which calls `semantic.verify_policy_v14(...)`), so it kept re-checking
+`cli_v11.py`'s bytes against `...policy-v42.json`'s stale binding even
+after `cli_v11.py` had moved on twice more -- the exact `bindings
+tools__stage17_operational_cli_v11_py bytes drifted` failure that
+persisted even after this file's very first fix. The correct fix here
+is the same monkey-patch technique again, but retargeting `current_
+journal`'s own `semantic` (not `current_journal` itself) to whichever
+generation is actually current -- `stage17_semantic_verifier_v44`, the
+same one `cli_v11.py`'s own `journal_runtime` now uses.
 """
 
 from __future__ import annotations
@@ -52,9 +75,21 @@ from __future__ import annotations
 import pathlib
 
 import stage17_read_only_preflight_executor_v25 as base
+import stage17_semantic_verifier_v44 as _latest_semantic
 import stage17_state_journal_v36 as current_journal
 
 base.current_journal = current_journal
+
+for _ancestor in (
+    current_journal.predecessor, current_journal.predecessor.predecessor,
+    current_journal.predecessor.predecessor.predecessor,
+    current_journal.predecessor.predecessor.predecessor.predecessor,
+    current_journal.predecessor.predecessor.predecessor.predecessor.predecessor,
+):
+    _ancestor.semantic = _latest_semantic
+    _ancestor.SEMANTIC_POLICY_PATH = _latest_semantic.POLICY_PATH
+current_journal.semantic = _latest_semantic
+current_journal.SEMANTIC_POLICY_PATH = _latest_semantic.POLICY_PATH
 
 EXECUTOR_ID = "STAGE17-READ-ONLY-PREFLIGHT-EXECUTOR-v26"
 base.EXECUTOR_ID = EXECUTOR_ID

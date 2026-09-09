@@ -86,6 +86,14 @@ ROLE_SCHEMA_v8: dict[str, str | None] = {
     "QUALIFICATION_EVIDENCE": "config/schemas/qualification-evidence-v2.schema.json",
 }
 
+# Compatibility name for `stage17_operational_cli_v11.py`'s existing
+# `author-manifest` call site, which spells this table `ROLE_SCHEMA_v6`
+# on whatever module its own `semantics_v6` import binding names -- not
+# touched beyond that import line moving, the same alias technique
+# `stage17_pilot_candidate_artifact_v7.py` already used for
+# `build_contract_v4`.
+ROLE_SCHEMA_v6 = ROLE_SCHEMA_v8
+
 
 def _read_artifacts_v8(root: pathlib.Path, manifest_path: pathlib.Path,
                        manifest: dict[str, Any],

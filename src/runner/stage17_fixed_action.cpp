@@ -28,6 +28,7 @@
 #include <condition_variable>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
 #include <cstring>
 #include <fstream>
 #include <ctime>
@@ -2041,7 +2042,9 @@ template <protocol::QueuePackage PackageKind, typename Package>
          arena.address_delta_checksum(), std::move(expected), false,
          preparation.evidence(), before.value(), preparation.during(), after.value(),
          expected_node});
-  } catch (const std::exception&) {
+  } catch (const std::exception& exception) {
+    std::fprintf(stderr, "S17-Q16B-EXECUTION: %s\n", exception.what());
+    std::fflush(stderr);
     return failure<RunCapture>("$/action_inputs", "S17-Q16B-EXECUTION",
                                "service-rate fixed action failed");
   }

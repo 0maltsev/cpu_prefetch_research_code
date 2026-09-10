@@ -67,21 +67,21 @@ enum class ExecutionFailureReason : std::uint8_t {
 };
 
 struct MeasurementExecutionReport final {
-  ExecutionFailurePhase failure_phase;
-  ExecutionFailureReason failure_reason;
-  std::uint64_t measurement_origin_ticks;
-  std::uint64_t offered;
-  std::uint64_t attempted;
-  std::uint64_t accepted;
-  std::uint64_t full;
-  std::uint64_t consumed;
-  std::uint64_t producer_wait_polls;
-  std::uint64_t consumer_empty_polls;
-  std::uint64_t drain_polls;
-  bool producer_completed;
-  bool consumer_drained;
-  bool arrivals_finished_published;
-  bool cancellation_requested;
+  ExecutionFailurePhase failure_phase{ExecutionFailurePhase::none};
+  ExecutionFailureReason failure_reason{ExecutionFailureReason::none};
+  std::uint64_t measurement_origin_ticks{0U};
+  std::uint64_t offered{0U};
+  std::uint64_t attempted{0U};
+  std::uint64_t accepted{0U};
+  std::uint64_t full{0U};
+  std::uint64_t consumed{0U};
+  std::uint64_t producer_wait_polls{0U};
+  std::uint64_t consumer_empty_polls{0U};
+  std::uint64_t drain_polls{0U};
+  bool producer_completed{false};
+  bool consumer_drained{false};
+  bool arrivals_finished_published{false};
+  bool cancellation_requested{false};
 };
 
 namespace detail {

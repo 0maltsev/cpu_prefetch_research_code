@@ -135,6 +135,25 @@ exercises the new logic. `tools/stage17_operational_cli_v11.py`'s own
 same `session_max_wall_seconds = 3600` `deadline_policy`, and its
 `controller` import is bumped to load `v18`.
 
+`prepare_action`'s own re-validation is not the only enforcement point:
+`execute_fixed_action` (defined once, in `stage17_fixed_action_executor_
+v5.py`) has its own, completely separate, hardcoded `if action ==
+"STAGE17-BLINDED-PILOT": ... else: require ONE_SHOT_ACTION ...` branch
+-- discovered live only after `verify-signature` (which exercises
+`prepare_action`) passed cleanly but the real, live `execute-action`
+attempt still failed (`ACTION_DEADLINE: one-shot action deadline
+contract drifted`), confirming this is a real, distinct gate rather
+than a hand-waved concern. `tools/stage17_fixed_action_executor_v6.py`
+is a new, additive successor with a faithful copy of `execute_fixed_
+action`, changed only to add a `Q16b`-specific branch matching the
+same fixed `Q16B_SESSION_MAX_WALL_SECONDS = 3600` bound. Unlike
+`prepare_action`, `execute_once` reaches this function via `executor.
+execute_fixed_action(...)` -- a fresh attribute lookup on the real
+`v5` module object on every call, not a bare name resolved against
+`v15.py`'s own globals -- so patching `v5`'s own attribute directly
+(as an import-time side effect of `v18.py` loading `v6.py`) is
+sufficient, with no further rebinding needed.
+
 No change is made to `Q16c`, `Q15-R`, `Q15-W`, `Q16a`, or `STAGE17-
 BLINDED-PILOT`'s own deadline behavior. If `Q16c`'s own real execution
 is later found to need more than 180 seconds, that is a separate,

@@ -34,6 +34,14 @@ import json
 import math
 import pathlib
 
+import stage17_fixed_action_executor_v6  # noqa: F401 -- side effect: patches
+# stage17_fixed_action_executor_v5.execute_fixed_action's own separate,
+# hardcoded deadline-policy check (independent of prepare_action below)
+# to also accept Q16b's DURABLE_PILOT_SESSION mode. execute_once (v15.py)
+# reaches it via `executor.execute_fixed_action(...)`, a fresh attribute
+# lookup on the real v5 module object every call, so patching that
+# module's own attribute (done in v6.py's own import-time side effect)
+# is sufficient without any further rebinding here.
 import stage17_phase_controller_v4 as base
 import stage17_phase_controller_v15 as _v15
 import stage17_phase_controller_v17 as predecessor

@@ -36,7 +36,7 @@ from referencing import Registry, Resource
 
 import stage17_output_registry_v4 as output_registry
 import stage17_exit_state_machine_v4 as exit_machine
-import stage17_phase_controller_v17 as controller
+import stage17_phase_controller_v18 as controller
 import stage17_operational_semantics_v4 as semantics
 import stage17_operational_semantics_v8 as semantics_v6
 import stage17_pilot_candidate_artifact_v8 as pilot_artifact
@@ -490,6 +490,24 @@ def author_authorization(
         session_max = 180 * 180 * repetitions + recovery_seconds * max(
             repetitions - 1, 0
         ) + 180
+        deadline_policy = {
+            "mode": "DURABLE_PILOT_SESSION",
+            "per_run_max_wall_seconds": 180,
+            "session_max_wall_seconds": session_max,
+            "implicit_extension": False,
+            "partial_session_completes": False,
+        }
+    elif request["action_id"] == "Q16b":
+        # ADR-0160: Q16b's real 3540-run matrix (measured ~0.557s/run on
+        # standv2-30, ~1972s realistic completion) structurally exceeds
+        # the fixed ONE_SHOT_ACTION GLOBAL_WALL_SECONDS=180 bound.
+        # Unlike STAGE17-BLINDED-PILOT, Q16b carries no EXT-008 pilot_plan
+        # predecessor to derive a session maximum from, so this uses a
+        # fixed, real, measured-with-margin bound instead (matching
+        # tools/stage17_phase_controller_v18.py's own
+        # Q16B_SESSION_MAX_WALL_SECONDS, which prepare_action re-validates
+        # this exact value against).
+        session_max = 3600
         deadline_policy = {
             "mode": "DURABLE_PILOT_SESSION",
             "per_run_max_wall_seconds": 180,

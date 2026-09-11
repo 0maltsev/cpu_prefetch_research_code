@@ -159,6 +159,40 @@ BLINDED-PILOT`'s own deadline behavior. If `Q16c`'s own real execution
 is later found to need more than 180 seconds, that is a separate,
 future decision under the same standard -- not assumed here.
 
+A third, independent enforcement point exists: `_phase_family`
+(defined once, in `tools/stage17_operational_semantics_v4.py`)
+cross-validates every fixed action's authorization/request/attempt/
+result/completion lineage whenever it is later referenced by another
+admission, and enforces its own hard `<=1800`-second authorization-
+lifetime bound uniformly, with no `Q16b`-specific exception --
+discovered live only while admitting `S17-EXT-007` (the calibration
+freeze), the first and only code path that ever calls `_phase_family`
+on `Q16b`'s own real authorization (`S17-EXT-004`/`S17-EXT-005`
+exercise it only for `Q15-R`/`Q15-W`, both real 30-minute windows,
+which never tripped this). `tools/stage17_operational_semantics_v9.py`
+is a new, additive successor with a faithful copy of `_phase_family`,
+changed only to accept the same fixed `Q16B_SESSION_MAX_WALL_SECONDS
+= 3600` bound for `Q16b` specifically. `_phase_family`'s own three
+real callers are all defined in `v4.py` itself and reach it via a
+bare name resolved against `v4.py`'s own module globals, so patching
+`v4`'s own attribute (as `v9.py`'s own import-time side effect) is
+sufficient, with no further rebinding needed.
+
+Unlike the two enforcement points above, `_phase_family` runs only at
+admission time, over already-completed, already-signed real evidence
+-- not inside the compiled worker's own real-time execution path, and
+not exercised by `standv2-30`'s already-sealed admission-root until
+`S17-EXT-007` was attempted. This fix is deployed to that already-
+sealed admission-root via a local wrapper script (mirroring the `q15_
+session_journal_runtime_patch_standv2-30.py` precedent already used
+this engagement for the separate Q15-session entrypoint) rather than
+a new bundle/journal: no real hardware evidence changes, only which
+authorization-lifetime bound this one Python-side admission-time
+check accepts for `Q16b` specifically. A future pilot-candidate
+bundle rebuild should still fold `v9.py` into the real import chain
+(analogous to `v18.py`/`v6.py`) so a fresh journal does not need the
+wrapper.
+
 ## Effects
 
 `standv2-30`'s existing chain cannot be salvaged by this fix in place:

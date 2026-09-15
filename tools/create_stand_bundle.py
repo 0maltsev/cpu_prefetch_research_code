@@ -492,7 +492,7 @@ def main() -> int:
             # catches the tool up to the real, current v45/v28/v15
             # generation in one step.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v45.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v46.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))

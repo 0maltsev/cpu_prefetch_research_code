@@ -76,8 +76,21 @@ using JsonValue = protocol::json::Value;
 // request-file-size gate was separately raised past 16MiB, proving
 // this compiled bound is an independent, second gate on the same real
 // conflict. Raised to match kMaximumWorkerBytes's own existing bound.
+//
+// ADR-0166: STAGE17-BLINDED-PILOT's real request embeds the complete,
+// real, admitted S17-EXT-008 pilot plan verbatim (180 cells x 3
+// repetitions = 540 runs, each carrying its own full schedule_
+// deadline_ticks/warmup_schedule_deadline_ticks arrays and a complete
+// runner_admission ticket, per the same no-shared-reference contract
+// noted above). That serializes to 68,835,354 bytes, past the 64MiB
+// bound this file's own prior raise set. Confirmed via a real, live
+// standv2-30 execute-action attempt: the worker exited 1 with "pilot
+// sealed input read failed" (run_pilot_session_worker's own
+// read_regular_fd(*request_fd) call, bound by this same constant).
+// Raised again, with real headroom, rather than exactly to the new
+// measured size, so a modest future plan variant does not repeat this.
 constexpr std::size_t kMaximumRequestBytes =
-    static_cast<std::size_t>(64U) * 1024U * 1024U;
+    static_cast<std::size_t>(128U) * 1024U * 1024U;
 constexpr std::size_t kMaximumWorkerBytes =
     static_cast<std::size_t>(64U) * 1024U * 1024U;
 constexpr std::size_t kCacheLineBytes = 64U;

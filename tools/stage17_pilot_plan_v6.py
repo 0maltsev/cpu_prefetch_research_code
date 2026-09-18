@@ -44,7 +44,14 @@ from typing import Any, Mapping
 
 from jsonschema import Draft202012Validator
 
+import stage17_pilot_plan_v4 as _v4
 import stage17_pilot_plan_v5 as base
+
+# `v5.py` only re-imports a subset of `v4.py`'s names into its own module
+# (not `ADMISSION_KINDS`/`seed_derivation_hash`); read those directly from
+# `v4.py` rather than assuming `stage17_pilot_plan_v5` carries them too.
+ADMISSION_KINDS = _v4.ADMISSION_KINDS
+seed_derivation_hash = _v4.seed_derivation_hash
 
 
 def canonical_no_newline(value: object) -> bytes:
@@ -67,7 +74,7 @@ def _validate_admission(
     if errors:
         raise base.PilotPlanError(f"runner admission schema: {errors[0].message}")
     evidence = admission["evidence"]
-    if ({item["kind"] for item in evidence} != base.ADMISSION_KINDS
+    if ({item["kind"] for item in evidence} != ADMISSION_KINDS
             or len({item["binding_id"] for item in evidence}) != 1
             or admission["binding_id"] != evidence[0]["binding_id"]):
         raise base.PilotPlanError("runner evidence family/binding is incomplete")
@@ -76,7 +83,7 @@ def _validate_admission(
         "RUN_PLAN": plan["plan_core_sha256"],
         "WARMUP_SCHEDULE": run["warmup_schedule_sha256"],
         "MEASUREMENT_SCHEDULE": run["schedule_sha256"],
-        "SEED_DERIVATION": base.seed_derivation_hash(run),
+        "SEED_DERIVATION": seed_derivation_hash(run),
     }
     for item in evidence:
         expected = special.get(item["kind"], known.get(item["artifact_id"]))

@@ -92,18 +92,28 @@ def _validate_admission(
     expected_consumer = (plan["topology_evidence"][
         "near_consumer_cpu" if run["placement"] == "NEAR" else "far_consumer_cpu"
     ])
-    if (admission["protocol_version"] != base.PROTOCOL_VERSION
-            or admission["stand_id"] != plan["stand_id"]
-            or admission["source_revision"] != ext6["source_revision"]
-            or admission["binary_sha256"] != ext6["release_artifact_sha256"]
-            or admission["package"] != run["package"]
-            or admission["placement"] != run["placement"]
-            or admission["producer_cpu"] != plan["topology_evidence"]["producer_cpu"]
-            or admission["consumer_cpu"] != expected_consumer
-            or run["runner_admission_sha256"]
-            != base.sha256(canonical_no_newline(admission))
-            or run["runner_evidence_set_sha256"]
-            != base.sha256(canonical_no_newline(evidence))):
+    checks = {
+        "protocol_version": (admission["protocol_version"], base.PROTOCOL_VERSION),
+        "stand_id": (admission["stand_id"], plan["stand_id"]),
+        "source_revision": (admission["source_revision"], ext6["source_revision"]),
+        "binary_sha256": (admission["binary_sha256"], ext6["release_artifact_sha256"]),
+        "package": (admission["package"], run["package"]),
+        "placement": (admission["placement"], run["placement"]),
+        "producer_cpu": (admission["producer_cpu"], plan["topology_evidence"]["producer_cpu"]),
+        "consumer_cpu": (admission["consumer_cpu"], expected_consumer),
+        "runner_admission_sha256": (
+            run["runner_admission_sha256"], base.sha256(canonical_no_newline(admission))
+        ),
+        "runner_evidence_set_sha256": (
+            run["runner_evidence_set_sha256"], base.sha256(canonical_no_newline(evidence))
+        ),
+    }
+    failed = {k: v for k, v in checks.items() if v[0] != v[1]}
+    if failed:
+        import sys
+        print(f"DIAG run_id={run.get('run_id')}", file=sys.stderr)
+        for name, (actual, expected) in failed.items():
+            print(f"DIAG FAIL {name}: actual={actual!r} expected={expected!r}", file=sys.stderr)
         raise base.PilotPlanError("runner admission/release/topology lineage drifted")
 
 

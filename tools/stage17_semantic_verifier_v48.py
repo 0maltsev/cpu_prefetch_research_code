@@ -127,3 +127,7 @@ def verify_policy_v48(*, root, policy, graph_sha256, catalog_sha256,
         raise SemanticAdmissionError(
             "policy v48 must pin src/runner/stage17_fixed_action.cpp"
         )
+
+
+def verify_policy_v14(**arguments):
+    verify_policy_v48(**arguments)

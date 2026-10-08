@@ -521,6 +521,12 @@ struct Q15PhaseSession final {
         "Q15-R requires its exact fixed session and platform binding");
   }
   const auto identity = platform::read_x86_family_model();
+  std::fprintf(stderr,
+               "S17-Q15R-CPU-DIAG identity_present=%d family=%u model=0x%02x "
+               "expected_family=%u expected_model=0x%02x\n",
+               identity ? 1 : 0, identity ? identity.value().family : 0U,
+               identity ? identity.value().model : 0U, platform::kIntelFamily6,
+               platform::kIntelModel55);
   if (!identity || identity.value().family != platform::kIntelFamily6 ||
       identity.value().model != platform::kIntelModel55) {
     return failure<std::shared_ptr<Q15PhaseSession>>(

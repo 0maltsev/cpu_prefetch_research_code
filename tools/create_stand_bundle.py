@@ -491,8 +491,12 @@ def main() -> int:
             # against this file's stale v39 references. This move
             # catches the tool up to the real, current v45/v28/v15
             # generation in one step.
+            # ADR-0170 moves the outer policy again (v47 -> v48, a
+            # diagnostic fprintf in the Q15-R CPU-identity check, no
+            # entry-point change) -- same class of re-pin as ADR-0159/
+            # ADR-0166/ADR-0168 before it.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v47.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v48.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))

@@ -495,8 +495,13 @@ def main() -> int:
             # diagnostic fprintf in the Q15-R CPU-identity check, no
             # entry-point change) -- same class of re-pin as ADR-0159/
             # ADR-0166/ADR-0168 before it.
+            # ADR-0171 moves the outer policy again (v48 -> v49, the real
+            # Q16b consumer-drain race fix in the same compiled worker
+            # source file) -- same class of re-pin once more, this time
+            # for a genuine correctness change rather than a diagnostic
+            # addition.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v48.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v49.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))

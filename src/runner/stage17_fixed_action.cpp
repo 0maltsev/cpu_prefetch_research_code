@@ -1999,6 +1999,23 @@ template <protocol::QueuePackage PackageKind, typename Package>
           break;
         }
         if (termination.arrivals_finished()) {
+          // Observing arrivals_finished() only guarantees no further
+          // enqueues will ever occur; it does not retroactively validate
+          // the "empty" poll immediately above, which may have raced
+          // ahead of the producer's very last enqueue. Poll once more,
+          // now that arrivals_finished is known true, before concluding
+          // drained -- the release/acquire pair on arrivals_finished
+          // establishes happens-before back through the producer's last
+          // enqueue, so this poll is guaranteed to observe it.
+          const auto final_poll = backend.try_consumer_poll(report.consumed);
+          if (final_poll.status == lifecycle::ConsumerPollStatus::item) {
+            ++report.consumed;
+            continue;
+          }
+          if (final_poll.status == lifecycle::ConsumerPollStatus::failure) {
+            cancellation.store(true, std::memory_order_release);
+            break;
+          }
           report.consumer_drained = true;
           break;
         }

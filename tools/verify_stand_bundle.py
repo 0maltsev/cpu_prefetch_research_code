@@ -1053,7 +1053,7 @@ def main() -> int:
                 else 8 if current_v4 else version
             )
             admission_policy_version = (
-                49 if current_v21
+                50 if current_v21
                 else 39 if current_v20
                 else 38 if current_v19
                 else 37 if current_v18

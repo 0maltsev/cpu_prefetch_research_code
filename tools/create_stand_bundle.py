@@ -500,8 +500,13 @@ def main() -> int:
             # source file) -- same class of re-pin once more, this time
             # for a genuine correctness change rather than a diagnostic
             # addition.
+            # ADR-0172 moves the outer policy again (v49 -> v50,
+            # generalizing the Q15-R CPU-identity gate and hardware-
+            # prefetch mapping lookup to a second registered CPU model,
+            # 06_3EH) -- same class of re-pin as ADR-0171/ADR-0170 before
+            # it.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v49.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v50.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))

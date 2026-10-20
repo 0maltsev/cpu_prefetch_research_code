@@ -343,7 +343,11 @@ def main() -> int:
         print(f"q15-authorization-check: PASS phase={document['phase']} authority=VALIDATED_NOT_ISSUED")
         return 0
 
-    positives = [q15_r(), q15_w()]
+    ivy_bridge_ep = copy.deepcopy(q15_r())
+    ivy_bridge_ep["measurement_candidate"]["hardware_prefetch_mapping_id"] = (
+        "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1"
+    )
+    positives = [q15_r(), q15_w(), ivy_bridge_ep]
     for document in positives:
         if failures := errors(validator, document):
             print(f"q15-authorization-check: FAIL positive: {failures}", file=sys.stderr)
@@ -412,7 +416,7 @@ def main() -> int:
     if not list(preparation_validator.iter_errors(authority_preparation)):
         print("q15-authorization-check: FAIL authority-bearing preparation passed", file=sys.stderr)
         return 1
-    print("q15-authorization-check: PASS (2 synthetic authorizations, 10 negative, 2 blocked preparations, no authority issued)")
+    print("q15-authorization-check: PASS (3 synthetic authorizations, 10 negative, 2 blocked preparations, no authority issued)")
     return 0
 
 

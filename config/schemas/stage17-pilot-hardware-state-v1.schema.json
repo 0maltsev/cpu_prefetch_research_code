@@ -6,7 +6,7 @@
   "required": ["schema_version", "mapping_id", "q15_w_result_sha256", "whole_plot_order", "apply_readback", "restore_readback", "cell_count", "restoration_verified", "phase18_authority"],
   "properties": {
     "schema_version": {"const": "cpu-prefetch-stage17-pilot-hardware-state/1"},
-    "mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"},
+    "mapping_id": {"enum": ["INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1", "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1"]},
     "q15_w_result_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "whole_plot_order": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"enum": ["H0", "H1"]}},
     "apply_readback": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/msr"}},

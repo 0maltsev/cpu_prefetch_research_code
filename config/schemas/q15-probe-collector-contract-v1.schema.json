@@ -14,7 +14,7 @@
     "schema_version": {"const": "cpu-prefetch-q15-probe-collector-contract/1"},
     "protocol_version": {"const": "2.0.0-pre.2"},
     "contract_id": {"const": "Q15-PROBE-COLLECTOR-CONTRACT-v1"},
-    "hardware_prefetch_mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"},
+    "hardware_prefetch_mapping_id": {"enum": ["INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1", "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1"]},
     "source_evidence": {
       "type": "array", "minItems": 4, "maxItems": 4,
       "items": {
@@ -33,7 +33,7 @@
       "required": ["cpu_family_hex", "cpu_model_hex", "cpu_order", "near_pair", "far_pair", "cache_line_bytes", "base_page_bytes"],
       "properties": {
         "cpu_family_hex": {"const": "06"},
-        "cpu_model_hex": {"const": "55"},
+        "cpu_model_hex": {"enum": ["55", "3e"]},
         "cpu_order": {"const": [0, 1, 26]},
         "near_pair": {"const": [0, 1]},
         "far_pair": {"const": [0, 26]},

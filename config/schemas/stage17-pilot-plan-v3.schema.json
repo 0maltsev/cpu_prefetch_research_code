@@ -17,7 +17,7 @@
       "additionalProperties": false,
       "required": ["mapping_id", "q15_w_result_sha256", "prestate"],
       "properties": {
-        "mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"},
+        "mapping_id": {"enum": ["INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1", "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1"]},
         "q15_w_result_sha256": {"$ref": "#/$defs/sha256"},
         "prestate": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/msr"}}
       }

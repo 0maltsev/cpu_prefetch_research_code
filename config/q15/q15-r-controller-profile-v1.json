@@ -105,7 +105,7 @@
     },
     {
       "path": "config/schemas/q15-qualification-authorization-v2.schema.json",
-      "sha256": "9004d2e6ee509aa7944520752ab34b48874f34b4e93a7c088d574c46085d2e5f"
+      "sha256": "affaf3bd9c972d38f0ca0cf0e1cf1035f18cc8838acf8faa8cffe1a7566a9cbf"
     },
     {
       "path": "config/q15/q15-r-decision-input-v1.json",

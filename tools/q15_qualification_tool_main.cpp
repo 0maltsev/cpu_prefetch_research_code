@@ -27,8 +27,10 @@ void usage(std::ostream& output) {
             "CPU0_PRESTATE_HEX CPU1_PRESTATE_HEX CPU26_PRESTATE_HEX\n"
          << "  cpu_prefetch_q15_tool --restore-h0-cpu AUTHORIZATION_SHA256 CPU "
             "CPU0_PRESTATE_HEX CPU1_PRESTATE_HEX CPU26_PRESTATE_HEX\n\n"
-         << "The dynamic commands are fixed to family 06/model 55H, MSR 0x1A4, "
-            "CPUs 0/1/26, and the accepted 0x0f mapping. They do not validate or "
+         << "The dynamic commands accept a registered CPU mapping (currently "
+            "06_55H and 06_3EH); CPU-set, MSR address, and the accepted 0x0f "
+            "mapping remain fixed to whichever mapping has an accepted CPU set "
+            "(today, 06_55H's CPUs 0/1/26 only). They do not validate or "
             "grant authority. Running them requires a separately signed exact "
             "Q15-R or Q15-W record, OS role enforcement, and external limits.\n";
 }
@@ -68,10 +70,17 @@ void usage(std::ostream& output) {
 }
 
 [[nodiscard]] auto require_selected_model() -> bool {
-  const auto identity = cpu_prefetch::platform::read_x86_family_model();
-  if (!identity || identity.value().family != cpu_prefetch::platform::kIntelFamily6 ||
-      identity.value().model != cpu_prefetch::platform::kIntelModel55) {
-    std::cerr << "q15-tool: FAIL rule=Q15-CPUID-06_55H before_msr=true\n";
+  namespace platform = cpu_prefetch::platform;
+  const auto identity = platform::read_x86_family_model();
+  const auto mapping =
+      identity ? platform::find_hardware_prefetch_mapping(identity.value()) : std::nullopt;
+  if (!identity || !mapping) {
+    std::cerr << "q15-tool: FAIL rule=Q15-CPUID-UNREGISTERED before_msr=true\n";
+    return false;
+  }
+  if (!mapping->control_cpus.has_value()) {
+    std::cerr << "q15-tool: FAIL rule=Q15-CPU-SET-UNASSIGNED before_msr=true mapping_id="
+              << mapping->mapping_id << "\n";
     return false;
   }
   return true;

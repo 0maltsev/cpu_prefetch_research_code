@@ -168,7 +168,7 @@ auto perform_hardware_prefetch_transition(const HardwarePrefetchPlan& plan,
               "transition requires a selected CPU and named writer backend"));
   }
   const auto validated = make_hardware_prefetch_plan(
-      {kIntelFamily6, kIntelModel55}, plan.requested_state, plan.prestate);
+      plan.identity, plan.requested_state, plan.prestate);
   if (!validated || !plan.mutating ||
       plan.requested_state != protocol::RequestedHardwareState::h1 ||
       plan.requested != validated.value().requested) {

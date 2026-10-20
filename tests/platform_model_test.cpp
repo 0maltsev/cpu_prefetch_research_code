@@ -618,8 +618,11 @@ TEST(HardwarePrefetchMapping, H0PreservesAndH1SetsOnlyDocumentedBits) {
 TEST(HardwarePrefetchMapping, RejectsWrongModelMissingCpuAndTreatmentCollapse) {
   using namespace cpu_prefetch::platform;
   auto prestate = hardware_prefetch_prestate();
-  EXPECT_FALSE(make_hardware_prefetch_plan({kIntelFamily6, 0x6aU},
-                                           RequestedHardwareState::h1, prestate));
+  const auto unregistered = make_hardware_prefetch_plan({kIntelFamily6, 0x6aU},
+                                                        RequestedHardwareState::h1, prestate);
+  EXPECT_FALSE(unregistered);
+  ASSERT_FALSE(unregistered.errors().empty());
+  EXPECT_EQ(unregistered.errors().front().rule_id, "HWP-CPUID-UNREGISTERED");
   prestate.pop_back();
   EXPECT_FALSE(make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
                                            RequestedHardwareState::h1, prestate));
@@ -627,6 +630,50 @@ TEST(HardwarePrefetchMapping, RejectsWrongModelMissingCpuAndTreatmentCollapse) {
   prestate[1].value |= kHardwarePrefetchDisableMask;
   EXPECT_FALSE(make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
                                            RequestedHardwareState::h1, prestate));
+}
+
+TEST(HardwarePrefetchMapping, RegistersIvyBridgeEpAsDistinctSiblingMapping) {
+  using namespace cpu_prefetch::platform;
+  const auto mapping = find_hardware_prefetch_mapping({kIntelFamily6, kIntelModel3E});
+  ASSERT_TRUE(mapping.has_value());
+  EXPECT_EQ(mapping->mapping_id, kHardwarePrefetchMappingId3E);
+  EXPECT_NE(mapping->mapping_id, kHardwarePrefetchMappingId);
+  EXPECT_FALSE(mapping->control_cpus.has_value());
+
+  const auto mapping_55 = find_hardware_prefetch_mapping({kIntelFamily6, kIntelModel55});
+  ASSERT_TRUE(mapping_55.has_value());
+  EXPECT_EQ(mapping_55->mapping_id, kHardwarePrefetchMappingId);
+  ASSERT_TRUE(mapping_55->control_cpus.has_value());
+  EXPECT_EQ(std::vector<std::uint32_t>(mapping_55->control_cpus->begin(),
+                                      mapping_55->control_cpus->end()),
+            (std::vector<std::uint32_t>{0U, 1U, 26U}));
+
+  EXPECT_FALSE(find_hardware_prefetch_mapping({kIntelFamily6, 0x6aU}).has_value());
+}
+
+TEST(HardwarePrefetchMapping, IvyBridgeEpFailsClosedOnMissingCpuSet) {
+  using namespace cpu_prefetch::platform;
+  const auto prestate = hardware_prefetch_prestate();
+  const auto h1 = make_hardware_prefetch_plan({kIntelFamily6, kIntelModel3E},
+                                              RequestedHardwareState::h1, prestate);
+  ASSERT_FALSE(h1);
+  ASSERT_FALSE(h1.errors().empty());
+  EXPECT_EQ(h1.errors().front().rule_id, "HWP-CPU-SET-UNASSIGNED");
+
+  // Even an empty prestate must not silently succeed -- this is the specific
+  // hazard the std::optional<span> design in platform.hpp guards against.
+  const auto h1_empty = make_hardware_prefetch_plan(
+      {kIntelFamily6, kIntelModel3E}, RequestedHardwareState::h1, {});
+  ASSERT_FALSE(h1_empty);
+  ASSERT_FALSE(h1_empty.errors().empty());
+  EXPECT_EQ(h1_empty.errors().front().rule_id, "HWP-CPU-SET-UNASSIGNED");
+}
+
+TEST(HardwarePrefetchMapping, MappingIdMembershipHelperAcceptsBothRegisteredIds) {
+  using namespace cpu_prefetch::platform;
+  EXPECT_TRUE(is_accepted_hardware_prefetch_mapping_id(kHardwarePrefetchMappingId));
+  EXPECT_TRUE(is_accepted_hardware_prefetch_mapping_id(kHardwarePrefetchMappingId3E));
+  EXPECT_FALSE(is_accepted_hardware_prefetch_mapping_id("INTEL-06_6AH-MSR-1A4-DISABLE-0_3-v1"));
 }
 
 TEST(HardwarePrefetchMapping, H1VerifiesProbesAndRestoresCompletePrestate) {

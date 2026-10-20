@@ -284,6 +284,20 @@ def main() -> int:
         print(f"q15-authorization-v2-check: FAIL positive: {errors}", file=sys.stderr)
         return 1
 
+    ivy_bridge_ep = copy.deepcopy(good)
+    ivy_bridge_ep["authorization_core"]["measurement_candidate"][
+        "hardware_prefetch_mapping_id"
+    ] = "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1"
+    ivy_bridge_ep["authorization_core_sha256"] = hashlib.sha256(
+        canonical_core(ivy_bridge_ep["authorization_core"])
+    ).hexdigest()
+    if errors := failures(validator, ivy_bridge_ep):
+        print(
+            f"q15-authorization-v2-check: FAIL positive (06_3EH mapping): {errors}",
+            file=sys.stderr,
+        )
+        return 1
+
     negatives: list[dict[str, Any]] = []
     mutations = (
         (lambda value: value["authorization_core"]["command_graph"].reverse(), True),
@@ -338,7 +352,7 @@ def main() -> int:
             return 1
     print(
         "q15-authorization-v2-check: PASS "
-        "(1 synthetic envelope, 12 negative, no authorization issued)"
+        "(2 synthetic envelope, 12 negative, no authorization issued)"
     )
     return 0
 

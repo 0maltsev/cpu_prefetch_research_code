@@ -16,7 +16,11 @@ MASK = 0xF
 CPUS = (0, 1, 26)
 
 
-def fixture(state: str = "H1") -> dict[str, Any]:
+def fixture(
+    state: str = "H1",
+    mapping_id: str = "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+    cpu_model_hex: str = "55",
+) -> dict[str, Any]:
     prestates = (0x123456789ABCDEF0, 0xFEDCBA9876543210, 0x0F0F0F0F0F0F0F00)
     values = []
     for cpu, prestate in zip(CPUS, prestates, strict=True):
@@ -31,9 +35,9 @@ def fixture(state: str = "H1") -> dict[str, Any]:
             }
         )
     return {
-        "schema_version": "cpu-prefetch-hardware-prefetch-qualification/1",
+        "schema_version": "cpu-prefetch-hardware-prefetch-qualification/2",
         "protocol_version": "2.0.0-pre.2",
-        "mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+        "mapping_id": mapping_id,
         "artifact_id": f"SYNTHETIC-{state}",
         "stand_id": "SYNTHETIC-NOT-A-STAND",
         "binding_id": "SYNTHETIC-BINDING",
@@ -43,7 +47,7 @@ def fixture(state: str = "H1") -> dict[str, Any]:
         "execution_state": "COMPLETE",
         "requested_state": state,
         "cpu_family_hex": "06",
-        "cpu_model_hex": "55",
+        "cpu_model_hex": cpu_model_hex,
         "msr_hex": "000001a4",
         "disable_mask_hex": "000000000000000f",
         "cpu_values": values,
@@ -103,11 +107,15 @@ def semantic_errors(document: dict[str, Any]) -> list[str]:
 def main() -> int:
     root = pathlib.Path(__file__).resolve().parents[1]
     schema = json.loads(
-        (root / "config/schemas/hardware-prefetch-qualification-v1.schema.json").read_text(encoding="utf-8")
+        (root / "config/schemas/hardware-prefetch-qualification-v2.schema.json").read_text(encoding="utf-8")
     )
     Draft202012Validator.check_schema(schema)
     validator = Draft202012Validator(schema)
-    positives = [fixture("H0"), fixture("H1")]
+    positives = [
+        fixture("H0"),
+        fixture("H1"),
+        fixture("H1", mapping_id="INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1", cpu_model_hex="3e"),
+    ]
     for document in positives:
         validator.validate(document)
         if errors := semantic_errors(document):
@@ -137,7 +145,7 @@ def main() -> int:
         if not list(validator.iter_errors(document)) and not semantic_errors(document):
             print(f"hardware-prefetch-schema-check: FAIL negative {index} passed", file=sys.stderr)
             return 1
-    print("hardware-prefetch-schema-check: PASS (2 synthetic positive, 6 negative, no MSR access)")
+    print("hardware-prefetch-schema-check: PASS (3 synthetic positive, 6 negative, no MSR access)")
     return 0
 
 

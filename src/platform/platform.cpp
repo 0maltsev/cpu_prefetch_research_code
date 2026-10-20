@@ -171,27 +171,57 @@ void require_text(std::vector<Error>& errors, std::string_view value, std::strin
 
 } // namespace
 
+auto find_hardware_prefetch_mapping(CpuFamilyModel identity)
+    -> std::optional<HardwarePrefetchMapping> {
+  for (const auto& mapping : kHardwarePrefetchMappings) {
+    if (mapping.family == identity.family && mapping.model == identity.model) {
+      return mapping;
+    }
+  }
+  return std::nullopt;
+}
+
+auto is_accepted_hardware_prefetch_mapping_id(std::string_view mapping_id) -> bool {
+  return std::any_of(kHardwarePrefetchMappings.begin(), kHardwarePrefetchMappings.end(),
+                     [mapping_id](const auto& mapping) {
+                       return mapping.mapping_id == mapping_id;
+                     });
+}
+
 auto make_hardware_prefetch_plan(CpuFamilyModel identity,
                                  protocol::RequestedHardwareState requested_state,
                                  std::span<const HardwarePrefetchMsrValue> prestate)
     -> Result<HardwarePrefetchPlan> {
   std::vector<Error> errors;
-  if (identity.family != kIntelFamily6 || identity.model != kIntelModel55) {
+  const auto mapping = find_hardware_prefetch_mapping(identity);
+  if (!mapping) {
     errors.push_back(prefetch_error(
-        ErrorCategory::unsupported_control, "HWP-CPUID-06_55H",
-        "hardware-prefetch mapping is restricted to CPUID family 06 model 55H"));
+        ErrorCategory::unsupported_control, "HWP-CPUID-UNREGISTERED",
+        "hardware-prefetch mapping has no registered entry for this CPUID family/model"));
+    return Result<HardwarePrefetchPlan>::failure(std::move(errors));
   }
+  if (!mapping->control_cpus.has_value()) {
+    errors.push_back(prefetch_error(
+        ErrorCategory::unsupported_control, "HWP-CPU-SET-UNASSIGNED",
+        "mapping " + std::string(mapping->mapping_id) +
+            " has no accepted CPU set yet; a separate pair-identity ADR (the "
+            "same kind ADR-0043 provided for 06_55H) is required for this CPU "
+            "model before any prestate or control request can be accepted"));
+    return Result<HardwarePrefetchPlan>::failure(std::move(errors));
+  }
+  const auto& control_cpus = *mapping->control_cpus;
   if (requested_state != protocol::RequestedHardwareState::h0 &&
       requested_state != protocol::RequestedHardwareState::h1) {
     errors.push_back(prefetch_error(ErrorCategory::invalid_request, "HWP-STATE",
                                     "only registered H0 and H1 are accepted"));
   }
-  if (prestate.size() != kHardwarePrefetchControlCpus.size()) {
+  if (prestate.size() != control_cpus.size()) {
     errors.push_back(
         prefetch_error(ErrorCategory::missing_evidence, "HWP-PRESTATE-COUNT",
-                       "complete 64-bit prestate is required for CPUs 0, 1, and 26"));
+                       "a complete 64-bit prestate is required for every CPU "
+                       "in the accepted set"));
   }
-  for (const auto cpu : kHardwarePrefetchControlCpus) {
+  for (const auto cpu : control_cpus) {
     const auto matches = static_cast<std::size_t>(
         std::count_if(prestate.begin(), prestate.end(),
                       [cpu](const auto& value) { return value.cpu == cpu; }));
@@ -202,12 +232,11 @@ auto make_hardware_prefetch_plan(CpuFamilyModel identity,
     }
   }
   for (const auto& value : prestate) {
-    if (std::find(kHardwarePrefetchControlCpus.begin(),
-                  kHardwarePrefetchControlCpus.end(),
-                  value.cpu) == kHardwarePrefetchControlCpus.end()) {
+    if (std::find(control_cpus.begin(), control_cpus.end(), value.cpu) ==
+        control_cpus.end()) {
       errors.push_back(prefetch_error(ErrorCategory::invalid_request,
                                       "HWP-CPU-WHITELIST",
-                                      "prestate contains a CPU outside 0, 1, and 26"));
+                                      "prestate contains a CPU outside the accepted set"));
     }
   }
   if (!errors.empty()) {
@@ -215,12 +244,12 @@ auto make_hardware_prefetch_plan(CpuFamilyModel identity,
   }
 
   HardwarePrefetchPlan plan{
-      requested_state,
+      identity, requested_state,
       std::vector<HardwarePrefetchMsrValue>(prestate.begin(), prestate.end()),
       {},
       requested_state == protocol::RequestedHardwareState::h1};
-  plan.requested.reserve(kHardwarePrefetchControlCpus.size());
-  for (const auto cpu : kHardwarePrefetchControlCpus) {
+  plan.requested.reserve(control_cpus.size());
+  for (const auto cpu : control_cpus) {
     const auto* prior = find_msr_value(prestate, cpu);
     const auto requested = requested_state == protocol::RequestedHardwareState::h1
                                ? prior->value | kHardwarePrefetchDisableMask
@@ -257,7 +286,7 @@ auto qualify_hardware_prefetch_plan(const HardwarePrefetchPlan& plan,
     return report;
   }
   const auto validated = make_hardware_prefetch_plan(
-      {kIntelFamily6, kIntelModel55}, plan.requested_state, plan.prestate);
+      plan.identity, plan.requested_state, plan.prestate);
   if (!validated || plan.requested != validated.value().requested ||
       plan.mutating != validated.value().mutating) {
     add_error(ErrorCategory::invalid_request, "HWP-PLAN-EXACT",

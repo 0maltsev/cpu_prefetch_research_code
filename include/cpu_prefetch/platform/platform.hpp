@@ -31,6 +31,13 @@ inline constexpr std::uint64_t kHardwarePrefetchDisableMask = 0x0fU;
 inline constexpr std::array<std::uint32_t, 3U> kHardwarePrefetchControlCpus{0U, 1U,
                                                                             26U};
 
+// ADR-0172: a second, honestly-distinct sibling mapping for Ivy Bridge-EP
+// (06_3EH). Same MSR, mask, and H0/H1 semantics as kIntelModel55's mapping --
+// only the accepted CPUID model and mapping_id string differ.
+inline constexpr std::uint32_t kIntelModel3E = 0x3EU;
+inline constexpr std::string_view kHardwarePrefetchMappingId3E =
+    "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1";
+
 enum class ErrorCategory : std::uint8_t {
   parse_error,
   missing_evidence,
@@ -299,6 +306,35 @@ struct CpuFamilyModel final {
   auto operator==(const CpuFamilyModel&) const -> bool = default;
 };
 
+// ADR-0172: a named, honestly-scoped per-model registry. control_cpus is
+// std::nullopt exactly when no pair-identity ADR (the same kind ADR-0043
+// provided for 06_55H) has yet assigned a CPU set for that model -- never an
+// empty-but-valid span, which would let an empty prestate vacuously "match"
+// an empty CPU set and silently succeed instead of failing closed.
+struct HardwarePrefetchMapping final {
+  std::uint32_t family;
+  std::uint32_t model;
+  std::string_view mapping_id;
+  std::optional<std::span<const std::uint32_t>> control_cpus;
+};
+
+inline constexpr std::array<HardwarePrefetchMapping, 2U> kHardwarePrefetchMappings{{
+    {kIntelFamily6, kIntelModel55, kHardwarePrefetchMappingId,
+     std::span<const std::uint32_t>(kHardwarePrefetchControlCpus)},
+    {kIntelFamily6, kIntelModel3E, kHardwarePrefetchMappingId3E, std::nullopt},
+}};
+
+// Looks up the registered mapping for a CPUID family/model, if any. Returns
+// std::nullopt for any unregistered CPU, not just the ones a caller happens
+// to reject explicitly.
+[[nodiscard]] auto find_hardware_prefetch_mapping(CpuFamilyModel identity)
+    -> std::optional<HardwarePrefetchMapping>;
+
+// True iff mapping_id names any currently registered mapping, independent of
+// whether that mapping has an accepted CPU set yet.
+[[nodiscard]] auto is_accepted_hardware_prefetch_mapping_id(std::string_view mapping_id)
+    -> bool;
+
 struct HardwarePrefetchMsrValue final {
   std::uint32_t cpu;
   std::uint64_t value;
@@ -307,6 +343,7 @@ struct HardwarePrefetchMsrValue final {
 };
 
 struct HardwarePrefetchPlan final {
+  CpuFamilyModel identity;
   protocol::RequestedHardwareState requested_state;
   std::vector<HardwarePrefetchMsrValue> prestate;
   std::vector<HardwarePrefetchMsrValue> requested;

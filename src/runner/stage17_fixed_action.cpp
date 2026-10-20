@@ -521,16 +521,26 @@ struct Q15PhaseSession final {
         "Q15-R requires its exact fixed session and platform binding");
   }
   const auto identity = platform::read_x86_family_model();
+  const auto mapping = identity ? platform::find_hardware_prefetch_mapping(identity.value())
+                                : std::nullopt;
   std::fprintf(stderr,
                "S17-Q15R-CPU-DIAG identity_present=%d family=%u model=0x%02x "
-               "expected_family=%u expected_model=0x%02x\n",
+               "mapping_registered=%d cpu_set_accepted=%d\n",
                identity ? 1 : 0, identity ? identity.value().family : 0U,
-               identity ? identity.value().model : 0U, platform::kIntelFamily6,
-               platform::kIntelModel55);
-  if (!identity || identity.value().family != platform::kIntelFamily6 ||
-      identity.value().model != platform::kIntelModel55) {
+               identity ? identity.value().model : 0U, mapping.has_value() ? 1 : 0,
+               (mapping.has_value() && mapping->control_cpus.has_value()) ? 1 : 0);
+  if (!identity || !mapping) {
     return failure<std::shared_ptr<Q15PhaseSession>>(
-        "$/action_inputs", "S17-Q15R-CPU", "Q15-R requires the accepted 06_55H CPU");
+        "$/action_inputs", "S17-Q15R-CPU",
+        "Q15-R requires a registered CPU mapping (06_55H or 06_3EH)");
+  }
+  if (!mapping->control_cpus.has_value()) {
+    return failure<std::shared_ptr<Q15PhaseSession>>(
+        "$/action_inputs", "S17-Q15R-CPU-SET",
+        "Q15-R for mapping " + std::string(mapping->mapping_id) +
+            " has no accepted CPU set yet; a separate pair-identity ADR for "
+            "this stand (the same kind ADR-0043 provided for 06_55H) is "
+            "required first");
   }
   auto session = std::make_shared<Q15PhaseSession>();
   platform::SystemPosixFileOperations files;
@@ -1517,8 +1527,8 @@ private:
       captures->empty() || hardware_control == nullptr ||
       !exact_fields(*hardware_control, hardware_fields) || !hardware_prestate ||
       string_member(*hardware_control, "mapping_id") == nullptr ||
-      *string_member(*hardware_control, "mapping_id") !=
-          platform::kHardwarePrefetchMappingId ||
+      !platform::is_accepted_hardware_prefetch_mapping_id(
+          *string_member(*hardware_control, "mapping_id")) ||
       string_member(*hardware_control, "q15_w_result_sha256") == nullptr) {
     return failure<ActionOutcome>("$/action_inputs", "S17-Q16A-PLAN-FAMILY",
                                   "Q16a requires one frozen capture family");
@@ -2854,8 +2864,8 @@ package_capture(FixedAction action, const JsonObject& input,
         string_member(*plan, "stand_id") == nullptr || hardware_control == nullptr ||
         !hardware_prestate ||
         string_member(*hardware_control, "mapping_id") == nullptr ||
-        *string_member(*hardware_control, "mapping_id") !=
-            platform::kHardwarePrefetchMappingId ||
+        !platform::is_accepted_hardware_prefetch_mapping_id(
+            *string_member(*hardware_control, "mapping_id")) ||
         string_member(*hardware_control, "q15_w_result_sha256") == nullptr ||
         bool_member(*plan, "synthetic_test_only") == nullptr ||
         *bool_member(*plan, "synthetic_test_only") ||
@@ -3111,8 +3121,8 @@ package_capture(FixedAction action, const JsonObject& input,
       runs->empty() || hardware_control == nullptr ||
       !exact_fields(*hardware_control, hardware_fields) || !hardware_prestate ||
       string_member(*hardware_control, "mapping_id") == nullptr ||
-      *string_member(*hardware_control, "mapping_id") !=
-          platform::kHardwarePrefetchMappingId ||
+      !platform::is_accepted_hardware_prefetch_mapping_id(
+          *string_member(*hardware_control, "mapping_id")) ||
       string_member(*hardware_control, "q15_w_result_sha256") == nullptr) {
     return failure<ActionOutcome>("$/action_inputs", "S17-Q16-PLAN-FAMILY",
                                   "Q16 action requires one exact frozen run family");
@@ -3284,7 +3294,8 @@ struct PilotRunEntry final {
       orders == nullptr || orders->size() != *repetitions || hardware == nullptr ||
       !prestate || recovery == nullptr || !recovery_ticks || *recovery_ticks == 0U ||
       string_member(*hardware, "mapping_id") == nullptr ||
-      *string_member(*hardware, "mapping_id") != platform::kHardwarePrefetchMappingId ||
+      !platform::is_accepted_hardware_prefetch_mapping_id(
+          *string_member(*hardware, "mapping_id")) ||
       string_member(*hardware, "q15_w_result_sha256") == nullptr) {
     return failure<ActionOutcome>("$/action_inputs/pilot_plan", "S17-PILOT-V4-SHAPE",
                                   "pilot matrix/control shape is incomplete");

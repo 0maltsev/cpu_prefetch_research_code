@@ -1,0 +1,45 @@
+{
+   "caches": [
+      {
+         "name": "L1d",
+         "one-size": "32K",
+         "all-size": "512K",
+         "ways": 8,
+         "type": "Data",
+         "level": 1,
+         "sets": 64,
+         "phy-line": 1,
+         "coherency-size": 64
+      },{
+         "name": "L1i",
+         "one-size": "32K",
+         "all-size": "512K",
+         "ways": 8,
+         "type": "Instruction",
+         "level": 1,
+         "sets": 64,
+         "phy-line": 1,
+         "coherency-size": 64
+      },{
+         "name": "L2",
+         "one-size": "256K",
+         "all-size": "4M",
+         "ways": 8,
+         "type": "Unified",
+         "level": 2,
+         "sets": 512,
+         "phy-line": 1,
+         "coherency-size": 64
+      },{
+         "name": "L3",
+         "one-size": "25M",
+         "all-size": "50M",
+         "ways": 20,
+         "type": "Unified",
+         "level": 3,
+         "sets": 20480,
+         "phy-line": 1,
+         "coherency-size": 64
+      }
+   ]
+}

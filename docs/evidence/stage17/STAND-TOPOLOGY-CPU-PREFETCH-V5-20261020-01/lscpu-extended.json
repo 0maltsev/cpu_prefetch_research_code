@@ -1,0 +1,325 @@
+{
+   "cpus": [
+      {
+         "cpu": 0,
+         "node": 0,
+         "socket": 0,
+         "core": 0,
+         "l1d:l1i:l2:l3": "1:1:1:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 1,
+         "node": 0,
+         "socket": 0,
+         "core": 1,
+         "l1d:l1i:l2:l3": "2:2:2:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2600.5510
+      },{
+         "cpu": 2,
+         "node": 0,
+         "socket": 0,
+         "core": 2,
+         "l1d:l1i:l2:l3": "3:3:3:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2653.8660
+      },{
+         "cpu": 3,
+         "node": 0,
+         "socket": 0,
+         "core": 3,
+         "l1d:l1i:l2:l3": "4:4:4:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 4,
+         "node": 0,
+         "socket": 0,
+         "core": 4,
+         "l1d:l1i:l2:l3": "8:8:8:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1301.6630
+      },{
+         "cpu": 5,
+         "node": 0,
+         "socket": 0,
+         "core": 5,
+         "l1d:l1i:l2:l3": "9:9:9:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 6,
+         "node": 0,
+         "socket": 0,
+         "core": 6,
+         "l1d:l1i:l2:l3": "10:10:10:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 7,
+         "node": 0,
+         "socket": 0,
+         "core": 7,
+         "l1d:l1i:l2:l3": "11:11:11:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 8,
+         "node": 1,
+         "socket": 1,
+         "core": 8,
+         "l1d:l1i:l2:l3": "17:17:17:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 9,
+         "node": 1,
+         "socket": 1,
+         "core": 9,
+         "l1d:l1i:l2:l3": "18:18:18:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 10,
+         "node": 1,
+         "socket": 1,
+         "core": 10,
+         "l1d:l1i:l2:l3": "19:19:19:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2700.0000
+      },{
+         "cpu": 11,
+         "node": 1,
+         "socket": 1,
+         "core": 11,
+         "l1d:l1i:l2:l3": "20:20:20:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2400.0000
+      },{
+         "cpu": 12,
+         "node": 1,
+         "socket": 1,
+         "core": 12,
+         "l1d:l1i:l2:l3": "24:24:24:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2700.0000
+      },{
+         "cpu": 13,
+         "node": 1,
+         "socket": 1,
+         "core": 13,
+         "l1d:l1i:l2:l3": "25:25:25:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2600.0000
+      },{
+         "cpu": 14,
+         "node": 1,
+         "socket": 1,
+         "core": 14,
+         "l1d:l1i:l2:l3": "26:26:26:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 15,
+         "node": 1,
+         "socket": 1,
+         "core": 15,
+         "l1d:l1i:l2:l3": "27:27:27:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2700.0000
+      },{
+         "cpu": 16,
+         "node": 0,
+         "socket": 0,
+         "core": 0,
+         "l1d:l1i:l2:l3": "1:1:1:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 17,
+         "node": 0,
+         "socket": 0,
+         "core": 1,
+         "l1d:l1i:l2:l3": "2:2:2:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 18,
+         "node": 0,
+         "socket": 0,
+         "core": 2,
+         "l1d:l1i:l2:l3": "3:3:3:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 19,
+         "node": 0,
+         "socket": 0,
+         "core": 3,
+         "l1d:l1i:l2:l3": "4:4:4:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2900.1531
+      },{
+         "cpu": 20,
+         "node": 0,
+         "socket": 0,
+         "core": 4,
+         "l1d:l1i:l2:l3": "8:8:8:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 21,
+         "node": 0,
+         "socket": 0,
+         "core": 5,
+         "l1d:l1i:l2:l3": "9:9:9:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2800.0000
+      },{
+         "cpu": 22,
+         "node": 0,
+         "socket": 0,
+         "core": 6,
+         "l1d:l1i:l2:l3": "10:10:10:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 23,
+         "node": 0,
+         "socket": 0,
+         "core": 7,
+         "l1d:l1i:l2:l3": "11:11:11:0",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1539.1710
+      },{
+         "cpu": 24,
+         "node": 1,
+         "socket": 1,
+         "core": 8,
+         "l1d:l1i:l2:l3": "17:17:17:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2500.0000
+      },{
+         "cpu": 25,
+         "node": 1,
+         "socket": 1,
+         "core": 9,
+         "l1d:l1i:l2:l3": "18:18:18:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 26,
+         "node": 1,
+         "socket": 1,
+         "core": 10,
+         "l1d:l1i:l2:l3": "19:19:19:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 27,
+         "node": 1,
+         "socket": 1,
+         "core": 11,
+         "l1d:l1i:l2:l3": "20:20:20:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 28,
+         "node": 1,
+         "socket": 1,
+         "core": 12,
+         "l1d:l1i:l2:l3": "24:24:24:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 29,
+         "node": 1,
+         "socket": 1,
+         "core": 13,
+         "l1d:l1i:l2:l3": "25:25:25:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      },{
+         "cpu": 30,
+         "node": 1,
+         "socket": 1,
+         "core": 14,
+         "l1d:l1i:l2:l3": "26:26:26:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 2600.0000
+      },{
+         "cpu": 31,
+         "node": 1,
+         "socket": 1,
+         "core": 15,
+         "l1d:l1i:l2:l3": "27:27:27:1",
+         "online": true,
+         "maxmhz": 4000.0000,
+         "minmhz": 1200.0000,
+         "mhz": 1200.0000
+      }
+   ]
+}

@@ -35,6 +35,15 @@ inline constexpr std::array<std::uint32_t, 3U> kHardwarePrefetchControlCpus{0U, 
 // (06_3EH). Same MSR, mask, and H0/H1 semantics as kIntelModel55's mapping --
 // only the accepted CPUID model and mapping_id string differ.
 inline constexpr std::uint32_t kIntelModel3E = 0x3EU;
+// ADR-0173: cpu-prefetch-v5's own real, topology-evidence-backed pair
+// identity (CPU-PREFETCH-V5-P0-NEAR-0-1-FAR-0-8-v1) -- producer CPU 0,
+// consumer CPU 1 (NEAR, same NUMA/package/LLC domain as CPU 0), consumer
+// CPU 8 (FAR, crosses NUMA/package/LLC). Not the same CPU numbers as
+// kHardwarePrefetchControlCpus by coincidence of convention only; this set
+// is independently verified for this stand's own real topology, not
+// reused from ADR-0043's.
+inline constexpr std::array<std::uint32_t, 3U> kHardwarePrefetchControlCpusV5{0U, 1U,
+                                                                              8U};
 inline constexpr std::string_view kHardwarePrefetchMappingId3E =
     "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1";
 
@@ -321,7 +330,8 @@ struct HardwarePrefetchMapping final {
 inline constexpr std::array<HardwarePrefetchMapping, 2U> kHardwarePrefetchMappings{{
     {kIntelFamily6, kIntelModel55, kHardwarePrefetchMappingId,
      std::span<const std::uint32_t>(kHardwarePrefetchControlCpus)},
-    {kIntelFamily6, kIntelModel3E, kHardwarePrefetchMappingId3E, std::nullopt},
+    {kIntelFamily6, kIntelModel3E, kHardwarePrefetchMappingId3E,
+     std::span<const std::uint32_t>(kHardwarePrefetchControlCpusV5)},
 }};
 
 // Looks up the registered mapping for a CPUID family/model, if any. Returns

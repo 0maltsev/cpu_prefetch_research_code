@@ -17,10 +17,10 @@ namespace {
   return {category, "$q15_fixed_msr", std::move(rule), std::move(message)};
 }
 
-[[nodiscard]] auto allowed_cpu(std::uint32_t cpu) noexcept -> bool {
-  return std::find(kHardwarePrefetchControlCpus.begin(),
-                   kHardwarePrefetchControlCpus.end(),
-                   cpu) != kHardwarePrefetchControlCpus.end();
+[[nodiscard]] auto allowed_cpu(std::uint32_t cpu,
+                               std::span<const std::uint32_t> accepted) noexcept
+    -> bool {
+  return std::find(accepted.begin(), accepted.end(), cpu) != accepted.end();
 }
 
 [[nodiscard]] auto device_path(std::uint32_t cpu) -> std::string {
@@ -64,18 +64,19 @@ auto SystemPosixFileOperations::close_file(int descriptor) -> int {
 }
 
 LinuxHardwarePrefetchMsrBackend::LinuxHardwarePrefetchMsrBackend(
-    PosixFileOperations& files, FixedMsrAccess access) noexcept
-    : files_(files), access_(access) {}
+    PosixFileOperations& files, FixedMsrAccess access,
+    std::span<const std::uint32_t> accepted_cpus) noexcept
+    : files_(files), access_(access), accepted_cpus_(accepted_cpus) {}
 
 auto LinuxHardwarePrefetchMsrBackend::backend_id() const -> std::string_view {
   return access_ == FixedMsrAccess::read_only ? kQ15ReadBackendId : kQ15WriteBackendId;
 }
 
 auto LinuxHardwarePrefetchMsrBackend::read(std::uint32_t cpu) -> Result<std::uint64_t> {
-  if (!allowed_cpu(cpu)) {
+  if (!allowed_cpu(cpu, accepted_cpus_)) {
     return Result<std::uint64_t>::failure(
         error(ErrorCategory::invalid_request, "Q15-MSR-CPU-WHITELIST",
-              "fixed MSR reads accept only CPUs 0, 1, and 26"));
+              "fixed MSR reads accept only this session's accepted CPU set"));
   }
   const auto path = device_path(cpu);
   const auto descriptor = files_.open_file(path.c_str(), O_RDONLY | O_CLOEXEC);
@@ -110,10 +111,10 @@ auto LinuxHardwarePrefetchMsrBackend::write(std::uint32_t cpu, std::uint64_t val
             "read-only fixed MSR backend rejected a write",
             ErrorCategory::privilege_denied};
   }
-  if (!allowed_cpu(cpu)) {
+  if (!allowed_cpu(cpu, accepted_cpus_)) {
     return {false,
             {},
-            "fixed MSR writes accept only CPUs 0, 1, and 26",
+            "fixed MSR writes accept only this session's accepted CPU set",
             ErrorCategory::invalid_request};
   }
   const auto path = device_path(cpu);
@@ -162,13 +163,15 @@ auto perform_hardware_prefetch_transition(const HardwarePrefetchPlan& plan,
                                           HardwarePrefetchTransition transition,
                                           HardwarePrefetchMsrBackend& writer)
     -> Result<HardwarePrefetchMsrValue> {
-  if (!allowed_cpu(cpu) || writer.backend_id().empty()) {
+  const auto mapping = find_hardware_prefetch_mapping(plan.identity);
+  if (!mapping || !mapping->control_cpus.has_value() ||
+      !allowed_cpu(cpu, mapping->control_cpus.value()) || writer.backend_id().empty()) {
     return Result<HardwarePrefetchMsrValue>::failure(
         error(ErrorCategory::invalid_request, "Q15-TRANSITION-IDENTITY",
               "transition requires a selected CPU and named writer backend"));
   }
-  const auto validated = make_hardware_prefetch_plan(
-      plan.identity, plan.requested_state, plan.prestate);
+  const auto validated =
+      make_hardware_prefetch_plan(plan.identity, plan.requested_state, plan.prestate);
   if (!validated || !plan.mutating ||
       plan.requested_state != protocol::RequestedHardwareState::h1 ||
       plan.requested != validated.value().requested) {

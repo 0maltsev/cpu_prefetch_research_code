@@ -551,8 +551,8 @@ struct Q15PhaseSession final {
   auto session = std::make_shared<Q15PhaseSession>();
   session->identity = identity.value();
   platform::SystemPosixFileOperations files;
-  platform::LinuxHardwarePrefetchMsrBackend reader(files,
-                                                   platform::FixedMsrAccess::read_only);
+  platform::LinuxHardwarePrefetchMsrBackend reader(
+      files, platform::FixedMsrAccess::read_only, mapping->control_cpus.value());
   for (std::size_t index = 0U; index < session->prestate.size(); ++index) {
     const auto selected_cpu = mapping->control_cpus.value()[index];
     const auto value = reader.read(selected_cpu);
@@ -885,9 +885,14 @@ class PilotWholePlotControl final {
 public:
   explicit PilotWholePlotControl(
       std::array<platform::HardwarePrefetchMsrValue, 3U> prestate)
+      // Stage B/C calibration/pilot control, still wedded to 06_55H's own
+      // identity below (enter()'s hardcoded kIntelModel55) -- the accepted
+      // set here must match that, not the session's resolved mapping.
       : prestate_(prestate),
-        writer_(writer_files_, platform::FixedMsrAccess::read_write),
-        verifier_(verifier_files_, platform::FixedMsrAccess::read_only) {
+        writer_(writer_files_, platform::FixedMsrAccess::read_write,
+                platform::kHardwarePrefetchControlCpus),
+        verifier_(verifier_files_, platform::FixedMsrAccess::read_only,
+                  platform::kHardwarePrefetchControlCpus) {
     apply_readback_.reserve(prestate_.size());
     restore_readback_.reserve(prestate_.size());
   }
@@ -1112,7 +1117,7 @@ auto spin_wait_nanoseconds(platform::Q15PlatformOperations& platform,
   }
   platform::SystemPosixFileOperations live_files;
   platform::LinuxHardwarePrefetchMsrBackend live_reader(
-      live_files, platform::FixedMsrAccess::read_only);
+      live_files, platform::FixedMsrAccess::read_only, mapping->control_cpus.value());
   for (const auto& expected : session.prestate) {
     const auto observed = live_reader.read(expected.cpu);
     if (!observed || observed.value() != expected.value) {
@@ -1129,10 +1134,12 @@ auto spin_wait_nanoseconds(platform::Q15PlatformOperations& platform,
   }
   platform::SystemPosixFileOperations writer_files;
   platform::SystemPosixFileOperations verifier_files;
-  platform::LinuxHardwarePrefetchMsrBackend writer(
-      writer_files, platform::FixedMsrAccess::read_write);
+  platform::LinuxHardwarePrefetchMsrBackend writer(writer_files,
+                                                   platform::FixedMsrAccess::read_write,
+                                                   mapping->control_cpus.value());
   platform::LinuxHardwarePrefetchMsrBackend verifier(
-      verifier_files, platform::FixedMsrAccess::read_only);
+      verifier_files, platform::FixedMsrAccess::read_only,
+      mapping->control_cpus.value());
   std::vector<platform::HardwarePrefetchMsrValue> written;
   std::vector<platform::HardwarePrefetchMsrValue> apply_readback;
   std::vector<platform::HardwarePrefetchMsrValue> restore_readback;

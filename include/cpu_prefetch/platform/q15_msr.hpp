@@ -5,6 +5,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <span>
 #include <string_view>
 
 namespace cpu_prefetch::platform {
@@ -50,8 +51,14 @@ public:
 
 class LinuxHardwarePrefetchMsrBackend final : public HardwarePrefetchMsrBackend {
 public:
-  LinuxHardwarePrefetchMsrBackend(PosixFileOperations& files,
-                                  FixedMsrAccess access) noexcept;
+  // accepted_cpus names exactly the CPUs this backend instance may touch --
+  // the session's own resolved mapping's control_cpus, never a span a caller
+  // assembles ad hoc. Bound at construction so every read()/write() on this
+  // instance is checked against the CPU set that was actually accepted for
+  // the CPU identity this session resolved, not a different model's set.
+  LinuxHardwarePrefetchMsrBackend(
+      PosixFileOperations& files, FixedMsrAccess access,
+      std::span<const std::uint32_t> accepted_cpus) noexcept;
 
   [[nodiscard]] auto backend_id() const -> std::string_view override;
   [[nodiscard]] auto read(std::uint32_t cpu) -> Result<std::uint64_t> override;
@@ -61,6 +68,7 @@ public:
 private:
   PosixFileOperations& files_;
   FixedMsrAccess access_;
+  std::span<const std::uint32_t> accepted_cpus_;
 };
 
 // Decode CPUID.01H:EAX using Intel's architectural family/model encoding. The

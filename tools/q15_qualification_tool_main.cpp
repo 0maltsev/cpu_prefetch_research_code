@@ -10,6 +10,8 @@
 #include <exception>
 #include <iomanip>
 #include <iostream>
+#include <optional>
+#include <span>
 #include <string_view>
 
 namespace {
@@ -64,33 +66,50 @@ void usage(std::ostream& output) {
   return code == std::errc{} && position == text.data() + text.size();
 }
 
-[[nodiscard]] auto selected_cpu(std::uint32_t cpu) -> bool {
-  const auto& cpus = cpu_prefetch::platform::kHardwarePrefetchControlCpus;
-  return std::find(cpus.begin(), cpus.end(), cpu) != cpus.end();
+[[nodiscard]] auto selected_cpu(std::uint32_t cpu,
+                                std::span<const std::uint32_t> accepted_cpus) -> bool {
+  return std::find(accepted_cpus.begin(), accepted_cpus.end(), cpu) !=
+         accepted_cpus.end();
 }
 
-[[nodiscard]] auto require_selected_model() -> bool {
+// Unwraps HardwarePrefetchMapping's own optional control_cpus once, at the
+// single point that validates it is present -- every caller downstream gets
+// a plain, non-optional span, so no caller-side .value() call can ever be
+// flagged as unchecked (the check happened here, across the function
+// boundary, where clang-tidy's dataflow analysis cannot otherwise see it).
+struct SelectedMapping final {
+  std::uint32_t family;
+  std::uint32_t model;
+  std::string_view mapping_id;
+  std::span<const std::uint32_t> control_cpus;
+};
+
+[[nodiscard]] auto require_selected_model() -> std::optional<SelectedMapping> {
   namespace platform = cpu_prefetch::platform;
   const auto identity = platform::read_x86_family_model();
-  const auto mapping =
-      identity ? platform::find_hardware_prefetch_mapping(identity.value()) : std::nullopt;
+  const auto mapping = identity
+                           ? platform::find_hardware_prefetch_mapping(identity.value())
+                           : std::nullopt;
   if (!identity || !mapping) {
     std::cerr << "q15-tool: FAIL rule=Q15-CPUID-UNREGISTERED before_msr=true\n";
-    return false;
+    return std::nullopt;
   }
   if (!mapping->control_cpus.has_value()) {
-    std::cerr << "q15-tool: FAIL rule=Q15-CPU-SET-UNASSIGNED before_msr=true mapping_id="
-              << mapping->mapping_id << "\n";
-    return false;
+    std::cerr
+        << "q15-tool: FAIL rule=Q15-CPU-SET-UNASSIGNED before_msr=true mapping_id="
+        << mapping->mapping_id << "\n";
+    return std::nullopt;
   }
-  return true;
+  return SelectedMapping{mapping->family, mapping->model, mapping->mapping_id,
+                         mapping->control_cpus.value()};
 }
 
-[[nodiscard]] auto parse_plan(int argc, char** argv, std::uint32_t& cpu)
+[[nodiscard]] auto parse_plan(int argc, char** argv, std::uint32_t& cpu,
+                              const SelectedMapping& mapping)
     -> cpu_prefetch::platform::Result<cpu_prefetch::platform::HardwarePrefetchPlan> {
   using namespace cpu_prefetch::platform;
   if (argc != 7 || !valid_sha256(argv[2]) || !parse_u32(argv[3], cpu) ||
-      !selected_cpu(cpu)) {
+      !selected_cpu(cpu, mapping.control_cpus)) {
     return Result<HardwarePrefetchPlan>::failure(Error{
         ErrorCategory::invalid_request, "$q15_tool/argv", "Q15-ARGV",
         "exact authorization hash, selected CPU, and three prestates are required"});
@@ -103,9 +122,9 @@ void usage(std::ostream& output) {
           Error{ErrorCategory::parse_error, "$q15_tool/argv", "Q15-PRESTATE-HEX",
                 "each complete prestate must be exactly 16 lowercase hex digits"});
     }
-    prestate[index] = {kHardwarePrefetchControlCpus[index], value};
+    prestate[index] = {mapping.control_cpus[index], value};
   }
-  return make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
+  return make_hardware_prefetch_plan({mapping.family, mapping.model},
                                      cpu_prefetch::protocol::RequestedHardwareState::h1,
                                      prestate);
 }
@@ -116,21 +135,24 @@ auto read_fixed_values(int argc, char** argv) -> int {
     std::cerr << "q15-tool: FAIL rule=Q15-AUTHORIZATION-HASH\n";
     return 2;
   }
-  if (!require_selected_model()) {
+  const auto mapping = require_selected_model();
+  if (!mapping) {
     return 1;
   }
+  const auto accepted_cpus = mapping->control_cpus;
   SystemPosixFileOperations files;
-  LinuxHardwarePrefetchMsrBackend reader(files, FixedMsrAccess::read_only);
+  LinuxHardwarePrefetchMsrBackend reader(files, FixedMsrAccess::read_only,
+                                         accepted_cpus);
   std::array<HardwarePrefetchMsrValue, 3U> values{};
   for (std::size_t index = 0U; index < values.size(); ++index) {
-    const auto value = reader.read(kHardwarePrefetchControlCpus[index]);
+    const auto value = reader.read(accepted_cpus[index]);
     if (!value) {
       std::cerr << "q15-tool: FAIL rule=" << value.errors().front().rule_id << '\n';
       return 1;
     }
-    values[index] = {kHardwarePrefetchControlCpus[index], value.value()};
+    values[index] = {accepted_cpus[index], value.value()};
   }
-  std::cout << "q15-fixed-values: COMPLETE mapping=" << kHardwarePrefetchMappingId
+  std::cout << "q15-fixed-values: COMPLETE mapping=" << mapping->mapping_id
             << " authorization_sha256=" << argv[2]
             << " independent_role=EXTERNALLY_ENFORCED\n";
   for (const auto& value : values) {
@@ -143,22 +165,24 @@ auto read_fixed_values(int argc, char** argv) -> int {
 auto read_fixed_cpu(int argc, char** argv) -> int {
   using namespace cpu_prefetch::platform;
   std::uint32_t cpu = 0U;
+  const auto mapping = require_selected_model();
+  if (!mapping) {
+    return 1;
+  }
   if (argc != 4 || !valid_sha256(argv[2]) || !parse_u32(argv[3], cpu) ||
-      !selected_cpu(cpu)) {
+      !selected_cpu(cpu, mapping->control_cpus)) {
     std::cerr << "q15-tool: FAIL rule=Q15-READ-CPU-ARGV\n";
     return 2;
   }
-  if (!require_selected_model()) {
-    return 1;
-  }
   SystemPosixFileOperations files;
-  LinuxHardwarePrefetchMsrBackend reader(files, FixedMsrAccess::read_only);
+  LinuxHardwarePrefetchMsrBackend reader(files, FixedMsrAccess::read_only,
+                                         mapping->control_cpus);
   const auto value = reader.read(cpu);
   if (!value) {
     std::cerr << "q15-tool: FAIL rule=" << value.errors().front().rule_id << '\n';
     return 1;
   }
-  std::cout << "q15-fixed-value: COMPLETE mapping=" << kHardwarePrefetchMappingId
+  std::cout << "q15-fixed-value: COMPLETE mapping=" << mapping->mapping_id
             << " authorization_sha256=" << argv[2] << " cpu=" << cpu
             << " value=" << std::hex << std::setw(16) << std::setfill('0')
             << value.value() << std::dec << " independent_role=EXTERNALLY_ENFORCED\n";
@@ -168,17 +192,19 @@ auto read_fixed_cpu(int argc, char** argv) -> int {
 auto transition(int argc, char** argv,
                 cpu_prefetch::platform::HardwarePrefetchTransition direction) -> int {
   using namespace cpu_prefetch::platform;
+  const auto mapping = require_selected_model();
+  if (!mapping) {
+    return 1;
+  }
   std::uint32_t cpu = 0U;
-  const auto plan = parse_plan(argc, argv, cpu);
+  const auto plan = parse_plan(argc, argv, cpu, mapping.value());
   if (!plan) {
     std::cerr << "q15-tool: FAIL rule=" << plan.errors().front().rule_id << '\n';
     return 2;
   }
-  if (!require_selected_model()) {
-    return 1;
-  }
   SystemPosixFileOperations files;
-  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write);
+  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write,
+                                         mapping->control_cpus);
   const auto result =
       perform_hardware_prefetch_transition(plan.value(), cpu, direction, writer);
   if (!result) {

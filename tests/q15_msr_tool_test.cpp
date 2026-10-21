@@ -79,6 +79,7 @@ public:
       {0U, 0x1234'5678'9abc'def0ULL},
       {1U, 0xfedc'ba98'7654'3210ULL},
       {26U, 0x0f0f'0f0f'0f0f'0f00ULL},
+      {8U, 0x0f0f'0f0f'0f0f'0f00ULL},
   };
   bool fail_open{false};
   bool fail_read{false};
@@ -103,6 +104,9 @@ private:
     if (path == "/dev/cpu/26/msr") {
       return 26U;
     }
+    if (path == "/dev/cpu/8/msr") {
+      return 8U;
+    }
     return std::numeric_limits<std::uint32_t>::max();
   }
 
@@ -116,9 +120,16 @@ private:
           {26U, 0x0f0f'0f0f'0f0f'0f00ULL}};
 }
 
+[[nodiscard]] auto prestate_v5() -> std::vector<HardwarePrefetchMsrValue> {
+  return {{0U, 0x1234'5678'9abc'def0ULL},
+          {1U, 0xfedc'ba98'7654'3210ULL},
+          {8U, 0x0f0f'0f0f'0f0f'0f00ULL}};
+}
+
 TEST(Q15FixedMsrAdapter, ReadsOnlyFixedPathsAndOffset) {
   FakePosixFiles files;
-  LinuxHardwarePrefetchMsrBackend reader(files, FixedMsrAccess::read_only);
+  LinuxHardwarePrefetchMsrBackend reader(files, FixedMsrAccess::read_only,
+                                         kHardwarePrefetchControlCpus);
   EXPECT_EQ(reader.backend_id(), kQ15ReadBackendId);
   ASSERT_TRUE(reader.read(0U));
   ASSERT_TRUE(reader.read(1U));
@@ -137,7 +148,8 @@ TEST(Q15FixedMsrAdapter, ReadsOnlyFixedPathsAndOffset) {
 
 TEST(Q15FixedMsrAdapter, FailsClosedOnEveryIoBoundary) {
   FakePosixFiles files;
-  LinuxHardwarePrefetchMsrBackend reader(files, FixedMsrAccess::read_only);
+  LinuxHardwarePrefetchMsrBackend reader(files, FixedMsrAccess::read_only,
+                                         kHardwarePrefetchControlCpus);
   files.fail_open = true;
   EXPECT_FALSE(reader.read(0U));
   files.fail_open = false;
@@ -148,13 +160,37 @@ TEST(Q15FixedMsrAdapter, FailsClosedOnEveryIoBoundary) {
   EXPECT_FALSE(reader.read(0U));
 
   FakePosixFiles write_files;
-  LinuxHardwarePrefetchMsrBackend writer(write_files, FixedMsrAccess::read_write);
+  LinuxHardwarePrefetchMsrBackend writer(write_files, FixedMsrAccess::read_write,
+                                         kHardwarePrefetchControlCpus);
   write_files.short_write = true;
   EXPECT_FALSE(writer.write(0U, 0U).succeeded);
   write_files.short_write = false;
   write_files.fail_open = true;
   EXPECT_FALSE(writer.write(0U, 0U).succeeded);
   EXPECT_FALSE(writer.write(9U, 0U).succeeded);
+}
+
+TEST(Q15FixedMsrAdapter, AcceptsAdr0173CpuSetAndRejectsOtherMappingsCpus) {
+  // The whitelist is now bound per backend instance to whatever CPU set the
+  // caller's own resolved mapping accepted -- not a single global constant.
+  // This is the regression test for the real bug this ADR-0173 attempt hit:
+  // CPU 8 (06_3EH's own accepted set) must now succeed, and CPU 26 (06_55H's
+  // set, never valid for this instance) must still be rejected.
+  FakePosixFiles files;
+  LinuxHardwarePrefetchMsrBackend reader(files, FixedMsrAccess::read_only,
+                                         kHardwarePrefetchControlCpusV5);
+  EXPECT_TRUE(reader.read(0U));
+  EXPECT_TRUE(reader.read(1U));
+  EXPECT_TRUE(reader.read(8U));
+  EXPECT_FALSE(reader.read(26U));
+  EXPECT_EQ(
+      files.opened_paths,
+      (std::vector<std::string>{"/dev/cpu/0/msr", "/dev/cpu/1/msr", "/dev/cpu/8/msr"}));
+
+  FakePosixFiles write_files;
+  LinuxHardwarePrefetchMsrBackend old_writer(write_files, FixedMsrAccess::read_write,
+                                             kHardwarePrefetchControlCpus);
+  EXPECT_FALSE(old_writer.write(8U, 0U).succeeded);
 }
 
 TEST(Q15FixedMsrAdapter, DecodesSelectedFamilyAndModel) {
@@ -167,7 +203,8 @@ TEST(Q15FixedMsrAdapter, DecodesSelectedFamilyAndModel) {
 
 TEST(Q15FixedMsrAdapter, AppliesAndRestoresOneExactTransitionWithoutSelfReadback) {
   FakePosixFiles files;
-  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write);
+  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write,
+                                         kHardwarePrefetchControlCpus);
   const auto plan = make_hardware_prefetch_plan(
       {kIntelFamily6, kIntelModel55},
       cpu_prefetch::protocol::RequestedHardwareState::h1, prestate());
@@ -188,9 +225,28 @@ TEST(Q15FixedMsrAdapter, AppliesAndRestoresOneExactTransitionWithoutSelfReadback
   EXPECT_EQ(files.values.at(1U), restored.value().value);
 }
 
+TEST(Q15FixedMsrAdapter, AppliesAdr0173TransitionOnItsOwnResolvedMapping) {
+  // perform_hardware_prefetch_transition resolves its own mapping from
+  // plan.identity now (not a hardcoded allowed_cpu()), so an 06_3EH plan
+  // touching CPU 8 must succeed here exactly as the 06_55H/CPU-26 case does.
+  FakePosixFiles files;
+  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write,
+                                         kHardwarePrefetchControlCpusV5);
+  const auto plan = make_hardware_prefetch_plan(
+      {kIntelFamily6, kIntelModel3E},
+      cpu_prefetch::protocol::RequestedHardwareState::h1, prestate_v5());
+  ASSERT_TRUE(plan);
+
+  const auto applied = perform_hardware_prefetch_transition(
+      plan.value(), 8U, HardwarePrefetchTransition::apply_h1, writer);
+  ASSERT_TRUE(applied);
+  EXPECT_EQ(files.values.at(8U), applied.value().value);
+}
+
 TEST(Q15FixedMsrAdapter, RejectsStaleOrUnregisteredTransition) {
   FakePosixFiles files;
-  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write);
+  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write,
+                                         kHardwarePrefetchControlCpus);
   const auto plan = make_hardware_prefetch_plan(
       {kIntelFamily6, kIntelModel55},
       cpu_prefetch::protocol::RequestedHardwareState::h1, prestate());

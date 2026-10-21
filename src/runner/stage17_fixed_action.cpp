@@ -30,9 +30,9 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
-#include <fstream>
 #include <ctime>
 #include <fcntl.h>
+#include <fstream>
 #include <iomanip>
 #include <limits>
 #include <map>
@@ -457,6 +457,11 @@ struct Q15PhaseSession final {
   std::optional<platform::Q15ProbePassObservation> h0_regular;
   std::optional<platform::Q15ProbePassObservation> h0_pointer;
   std::string session_id;
+  // Real CPU identity Q15-R resolved via read_x86_family_model(); Q15-W
+  // reuses it (rather than re-reading CPUID or hardcoding one model) so
+  // both halves of the same session agree on which registered mapping's
+  // control_cpus applies, matching ADR-0172/0173's per-model registry.
+  platform::CpuFamilyModel identity{};
 };
 
 [[nodiscard]] auto probe_observation(const platform::Q15ProbePassObservation& value,
@@ -521,8 +526,9 @@ struct Q15PhaseSession final {
         "Q15-R requires its exact fixed session and platform binding");
   }
   const auto identity = platform::read_x86_family_model();
-  const auto mapping = identity ? platform::find_hardware_prefetch_mapping(identity.value())
-                                : std::nullopt;
+  const auto mapping = identity
+                           ? platform::find_hardware_prefetch_mapping(identity.value())
+                           : std::nullopt;
   std::fprintf(stderr,
                "S17-Q15R-CPU-DIAG identity_present=%d family=%u model=0x%02x "
                "mapping_registered=%d cpu_set_accepted=%d\n",
@@ -543,11 +549,12 @@ struct Q15PhaseSession final {
             "required first");
   }
   auto session = std::make_shared<Q15PhaseSession>();
+  session->identity = identity.value();
   platform::SystemPosixFileOperations files;
   platform::LinuxHardwarePrefetchMsrBackend reader(files,
                                                    platform::FixedMsrAccess::read_only);
   for (std::size_t index = 0U; index < session->prestate.size(); ++index) {
-    const auto selected_cpu = platform::kHardwarePrefetchControlCpus[index];
+    const auto selected_cpu = mapping->control_cpus.value()[index];
     const auto value = reader.read(selected_cpu);
     if (!value) {
       return failure<std::shared_ptr<Q15PhaseSession>>(
@@ -595,6 +602,15 @@ struct Q15PhaseSession final {
         "$/action_inputs/probe_platform_binding", "S17-Q15R-PROBE-MISSING",
         "Q15-R requires both completed H0 probe observations");
   }
+  // Reuse the exact mapping load_q15_phase_session already resolved and
+  // sealed into this session, so the emitted cpu_family/cpu_model/
+  // mapping_id honestly reflect which registered model this real run
+  // actually executed on, not a hardcoded literal.
+  const auto mapping = platform::find_hardware_prefetch_mapping(session.identity);
+  if (!mapping || !mapping->control_cpus.has_value()) {
+    return failure<ActionOutcome>("$/action_inputs", "S17-Q15R-CPU",
+                                  "Q15-R session has no accepted CPU mapping");
+  }
   const auto& regular_observation = session.h0_regular.value();
   const auto& pointer_observation = session.h0_pointer.value();
   const auto observation_passes = [&session](const auto& observation) {
@@ -631,9 +647,9 @@ struct Q15PhaseSession final {
        string_value(*string_member(input, "authorization_sha256"))},
       {"attempt_id", string_value(*string_member(input, "attempt_id"))},
       {"session_id", string_value(session.session_id)},
-      {"cpu_family", uint_value(platform::kIntelFamily6)},
-      {"cpu_model", uint_value(platform::kIntelModel55)},
-      {"mapping_id", string_value(platform::kHardwarePrefetchMappingId)},
+      {"cpu_family", uint_value(session.identity.family)},
+      {"cpu_model", uint_value(session.identity.model)},
+      {"mapping_id", string_value(mapping->mapping_id)},
       {"prestate", JsonValue(std::move(values))},
       {"buffer_size_bytes", uint_value(session.memory->byte_count())},
       {"buffer_content_sha256", string_value(session.memory->prepared_sha256().hex())},
@@ -827,11 +843,12 @@ struct Q15PhaseSession final {
       false, false, "Q15_R_READ_ONLY_COMPLETE");
 }
 
-[[nodiscard]] auto parse_prestate(const JsonObject& input)
+[[nodiscard]] auto parse_prestate(const JsonObject& input,
+                                  std::span<const std::uint32_t> expected_cpus)
     -> protocol::Result<std::array<platform::HardwarePrefetchMsrValue, 3U>> {
   const auto* value = member(input, "prestate");
   const auto* array = value == nullptr ? nullptr : value->as_array();
-  if (array == nullptr || array->size() != 3U) {
+  if (array == nullptr || array->size() != 3U || expected_cpus.size() != 3U) {
     return failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
         "$/action_inputs/prestate", "S17-Q15W-PRESTATE",
         "Q15-W requires three complete prestate values");
@@ -839,8 +856,7 @@ struct Q15PhaseSession final {
   std::array<platform::HardwarePrefetchMsrValue, 3U> result{};
   for (std::size_t index = 0U; index < result.size(); ++index) {
     const auto* object = (*array)[index].as_object();
-    if (object == nullptr ||
-        uint_member(*object, "cpu") != platform::kHardwarePrefetchControlCpus[index]) {
+    if (object == nullptr || uint_member(*object, "cpu") != expected_cpus[index]) {
       return failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
           "$/action_inputs/prestate", "S17-Q15W-PRESTATE-CPU",
           "Q15-W prestate CPU order drifted");
@@ -859,7 +875,7 @@ struct Q15PhaseSession final {
           "$/action_inputs/prestate", "S17-Q15W-PRESTATE-HEX",
           "Q15-W complete prestate is malformed");
     }
-    result[index] = {platform::kHardwarePrefetchControlCpus[index], parsed};
+    result[index] = {expected_cpus[index], parsed};
   }
   return protocol::Result<std::array<platform::HardwarePrefetchMsrValue, 3U>>::success(
       result);
@@ -1072,7 +1088,16 @@ auto spin_wait_nanoseconds(platform::Q15PlatformOperations& platform,
                          ArtifactSink& sink) -> protocol::Result<ActionOutcome> {
   constexpr std::array fields{"authorization_sha256"sv, "q15_r_attempt_sha256"sv,
                               "q15_r_result_sha256"sv, "session_id"sv, "prestate"sv};
-  const auto prestate = parse_prestate(input);
+  // Reuse the exact mapping Q15-R already resolved and sealed into this
+  // session, rather than re-reading CPUID or hardcoding one model -- Q15-R
+  // already fail-closed on an unregistered/unassigned mapping, so this is
+  // provably re-resolvable here.
+  const auto mapping = platform::find_hardware_prefetch_mapping(session.identity);
+  if (!mapping || !mapping->control_cpus.has_value()) {
+    return failure<ActionOutcome>("$/action_inputs", "S17-Q15W-CPU",
+                                  "Q15-W session has no accepted CPU mapping");
+  }
+  const auto prestate = parse_prestate(input, mapping->control_cpus.value());
   const auto* authorization = string_member(input, "authorization_sha256");
   const auto* q15_r_attempt = string_member(input, "q15_r_attempt_sha256");
   const auto* q15_r_result = string_member(input, "q15_r_result_sha256");
@@ -1097,8 +1122,7 @@ auto spin_wait_nanoseconds(platform::Q15PlatformOperations& platform,
     }
   }
   const auto plan = platform::make_hardware_prefetch_plan(
-      {platform::kIntelFamily6, platform::kIntelModel55},
-      protocol::RequestedHardwareState::h1, prestate.value());
+      session.identity, protocol::RequestedHardwareState::h1, prestate.value());
   if (!plan) {
     return failure<ActionOutcome>("$/action_inputs/prestate", "S17-Q15W-PLAN",
                                   "Q15-W fixed plan is invalid");
@@ -1229,8 +1253,9 @@ auto spin_wait_nanoseconds(platform::Q15PlatformOperations& platform,
     };
     const std::string diagnostic =
         "Q15-W failed closed after restoration attempt:"
-        " apply_verified=" + std::string(apply_verified ? "true" : "false") +
-        " restoration_verified=" + std::string(restoration_verified ? "true" : "false") +
+        " apply_verified=" +
+        std::string(apply_verified ? "true" : "false") + " restoration_verified=" +
+        std::string(restoration_verified ? "true" : "false") +
         " regular_accepted=" + std::string(regular_accepted ? "true" : "false") +
         " pointer_accepted=" + std::string(pointer_accepted ? "true" : "false") +
         " h0_regular_all_pf_count=" +
@@ -1241,7 +1266,8 @@ auto spin_wait_nanoseconds(platform::Q15PlatformOperations& platform,
         " h1_pointer_all_pf_count=" + count_or_absent(h1_pointer) +
         " h1_transition_delay_nanoseconds=" +
         std::to_string(h1_transition_delay_nanoseconds);
-    return failure<ActionOutcome>("$/action_inputs", "S17-Q15W-TRANSACTION", diagnostic);
+    return failure<ActionOutcome>("$/action_inputs", "S17-Q15W-TRANSACTION",
+                                  diagnostic);
   }
   return publish_all(
       sink,
@@ -1519,7 +1545,7 @@ private:
           ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
                 "$/action_inputs/hardware_control", "S17-Q16A-HARDWARE",
                 "Q16a hardware-control binding is absent")
-          : parse_prestate(*hardware_control);
+          : parse_prestate(*hardware_control, platform::kHardwarePrefetchControlCpus);
   const auto* captures_value = member(input, "captures");
   const auto* captures =
       captures_value == nullptr ? nullptr : captures_value->as_array();
@@ -2850,7 +2876,7 @@ package_capture(FixedAction action, const JsonObject& input,
             ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
                   "$/action_inputs/pilot_plan/hardware_control", "S17-PILOT-HARDWARE",
                   "pilot hardware control is absent")
-            : parse_prestate(*hardware_control);
+            : parse_prestate(*hardware_control, platform::kHardwarePrefetchControlCpus);
     if (!exact_fields(input, input_fields) || plan_sha == nullptr || plan == nullptr ||
         !exact_fields(*plan, plan_fields) ||
         string_member(*plan, "schema_version") == nullptr ||
@@ -3110,7 +3136,7 @@ package_capture(FixedAction action, const JsonObject& input,
           ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
                 "$/action_inputs/hardware_control", "S17-Q16-HARDWARE",
                 "Q16 hardware-control binding is absent")
-          : parse_prestate(*hardware_control);
+          : parse_prestate(*hardware_control, platform::kHardwarePrefetchControlCpus);
   const auto* runs_value = member(input, "runs");
   const auto* runs = runs_value == nullptr ? nullptr : runs_value->as_array();
   const bool exact_plan = action == FixedAction::q16b
@@ -3282,10 +3308,11 @@ struct PilotRunEntry final {
   const auto* orders = orders_value == nullptr ? nullptr : orders_value->as_array();
   const auto* hardware = require_object(*plan, "hardware_control");
   const auto prestate =
-      hardware == nullptr ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
-                                "$/pilot_plan/hardware_control",
-                                "S17-PILOT-V4-HARDWARE", "hardware binding absent")
-                          : parse_prestate(*hardware);
+      hardware == nullptr
+          ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
+                "$/pilot_plan/hardware_control", "S17-PILOT-V4-HARDWARE",
+                "hardware binding absent")
+          : parse_prestate(*hardware, platform::kHardwarePrefetchControlCpus);
   const auto* recovery = require_object(*plan, "recovery");
   const auto recovery_ticks = recovery == nullptr
                                   ? std::optional<std::uint64_t>{}
@@ -4264,9 +4291,9 @@ auto run_q15_phase_session_worker(int argc, char** argv) -> int {
       string_value(*string_member(*q15_w_context, "authorization_sha256")));
   const auto q15_w_outcome = q15_w(q15_w_bound_inputs, *session.value(), sink);
   if (!q15_w_outcome) {
-    throw std::runtime_error("Q15-W transaction failed closed: " +
-                             q15_w_outcome.errors().front().rule_id + ": " +
-                             q15_w_outcome.errors().front().message);
+    throw std::runtime_error(
+        "Q15-W transaction failed closed: " + q15_w_outcome.errors().front().rule_id +
+        ": " + q15_w_outcome.errors().front().message);
   }
   static_cast<void>(emit_action_result(
       *output_fd, "stage17-q15-w-result-v4.json", *q15_w_request, q15_w_request_bytes,

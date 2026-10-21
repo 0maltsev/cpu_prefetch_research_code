@@ -505,8 +505,14 @@ def main() -> int:
             # prefetch mapping lookup to a second registered CPU model,
             # 06_3EH) -- same class of re-pin as ADR-0171/ADR-0170 before
             # it.
+            # ADR-0173's implementation note 3 moves the outer policy
+            # again (v50 -> v51, re-pinning the same compiled worker
+            # source file after fixing Q15-R/Q15-W's real MSR read/write
+            # path to use the resolved per-model mapping instead of
+            # hardcoded 06_55H literals) -- same class of re-pin once
+            # more.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v50.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v51.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))

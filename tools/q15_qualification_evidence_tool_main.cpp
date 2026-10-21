@@ -59,6 +59,7 @@ void usage(std::ostream& output) {
             "--source-revision REV \\\n"
          << "      --binary-sha256 HEX64 --captured-at-utc TIMESTAMP "
             "--worker-pair near|far \\\n"
+         << "      [--cpu-pair-selection-id ID] \\\n"
          << "      --source-artifact-id ID \\\n"
          << "      [--gcc-codegen-passed true|false --clang-codegen-passed true|false "
             "\\\n"
@@ -70,7 +71,12 @@ void usage(std::ostream& output) {
             "value -- this tool performs no live hardware or clock access. "
             "--source-artifact-id must be the raw artifact's own real artifact_id "
             "from that session's journal/manifest; its sha256 is computed here from "
-            "the real bytes at --raw. The four codegen flags must be the real, "
+            "the real bytes at --raw. --cpu-pair-selection-id names which registered "
+            "pair identity --worker-pair far resolves to (ADR-0043's "
+         << runner::kCpuPairSelectionId << " by default, or ADR-0173's "
+         << runner::kCpuPairSelectionIdV5
+         << "); --worker-pair near is the same real CPUs under either identity. "
+            "The four codegen flags must be the real, "
             "already-passing outcome of the software-prefetch-mapping-codegen-check "
             "build target. For SELECTED_PAIR_CLOCK, --worker-pair must match --raw's "
             "own \"pair\" field exactly.\n";
@@ -312,6 +318,7 @@ struct Args final {
   std::optional<std::string> binary_sha256;
   std::optional<std::string> captured_at_utc;
   std::optional<std::string> worker_pair;
+  std::optional<std::string> cpu_pair_selection_id;
   std::optional<std::string> source_artifact_id;
   std::optional<std::string> gcc_codegen_passed;
   std::optional<std::string> clang_codegen_passed;
@@ -360,6 +367,8 @@ struct Args final {
       args.captured_at_utc = take(index);
     } else if (flag == "--worker-pair") {
       args.worker_pair = take(index);
+    } else if (flag == "--cpu-pair-selection-id") {
+      args.cpu_pair_selection_id = take(index);
     } else if (flag == "--source-artifact-id") {
       args.source_artifact_id = take(index);
     } else if (flag == "--gcc-codegen-passed") {
@@ -385,12 +394,22 @@ struct Args final {
   return *value;
 }
 
-[[nodiscard]] auto parse_worker_pair(std::string_view text) -> runner::WorkerPair {
+// Call sites pass --worker-pair and --cpu-pair-selection-id by name, not
+// position, so a swap here would already have failed a flag lookup upstream.
+// NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
+[[nodiscard]] auto parse_worker_pair(std::string_view text,
+                                     std::string_view cpu_pair_selection_id)
+    -> runner::WorkerPair {
+  if (!runner::is_accepted_cpu_pair_selection_id(cpu_pair_selection_id)) {
+    fail("--cpu-pair-selection-id does not name a registered pair identity: " +
+         std::string(cpu_pair_selection_id));
+  }
+  const bool is_v5 = cpu_pair_selection_id == runner::kCpuPairSelectionIdV5;
   if (text == "near") {
     return runner::kNearWorkerPair;
   }
   if (text == "far") {
-    return runner::kFarWorkerPair;
+    return is_v5 ? runner::kFarWorkerPairV5 : runner::kFarWorkerPair;
   }
   fail("--worker-pair must be near|far, got: " + std::string(text));
 }
@@ -430,9 +449,8 @@ struct Args final {
   }
   if (kind_text == "SELECTED_PAIR_CLOCK") {
     return runner::make_selected_pair_clock_evidence(
-        identity,
-        build_selected_pair_clock_input(
-            raw, require_flag(args.worker_pair, "--worker-pair")));
+        identity, build_selected_pair_clock_input(
+                      raw, require_flag(args.worker_pair, "--worker-pair")));
   }
   fail("--kind must be one of RUNTIME_ATOMIC_LAYOUT, ACTUAL_CPU_MIGRATION, "
        "ADDRESS_RESIDENCY, SOFTWARE_PREFETCH_MAPPING, SELECTED_PAIR_CLOCK");
@@ -460,7 +478,9 @@ auto author(const Args& args) -> int {
       require_flag(args.source_revision, "--source-revision"),
       require_flag(args.binary_sha256, "--binary-sha256"),
       require_flag(args.captured_at_utc, "--captured-at-utc"),
-      parse_worker_pair(require_flag(args.worker_pair, "--worker-pair")),
+      parse_worker_pair(require_flag(args.worker_pair, "--worker-pair"),
+                        args.cpu_pair_selection_id.value_or(
+                            std::string(runner::kCpuPairSelectionId))),
       {{require_flag(args.source_artifact_id, "--source-artifact-id"), raw_sha256}},
   };
 

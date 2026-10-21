@@ -56,8 +56,8 @@ using JsonObject = protocol::json::Value::Object;
                                       "$/binary_sha256", "Q15-COLLECTOR-BINARY",
                                       "binary SHA-256 must be lowercase hexadecimal"));
   }
-  if (identity.workers != runner::kNearWorkerPair &&
-      identity.workers != runner::kFarWorkerPair) {
+  if (!runner::is_accepted_worker_pair(protocol::Placement::near, identity.workers) &&
+      !runner::is_accepted_worker_pair(protocol::Placement::far, identity.workers)) {
     errors.push_back(validation_error(protocol::ErrorCategory::reference_mismatch,
                                       "$/workers", "Q15-COLLECTOR-PAIR",
                                       "collector requires one accepted Q13 pair"));

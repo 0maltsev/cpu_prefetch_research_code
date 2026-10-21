@@ -52,7 +52,7 @@
     "source_revision": {"$ref": "#/$defs/nonempty"},
     "binary_sha256": {"$ref": "#/$defs/sha256"},
     "runner_profile_id": {"const": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v2"},
-    "cpu_pair_selection_id": {"const": "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1"},
+    "cpu_pair_selection_id": {"enum": ["XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1", "CPU-PREFETCH-V5-P0-NEAR-0-1-FAR-0-8-v1"]},
     "relax_mapping_id": {"const": "X86-PAUSE-ONE-PER-RELAX-SITE-v1"},
     "prerequisite_artifacts": {
       "type": "array",

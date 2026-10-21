@@ -21,6 +21,7 @@ using cpu_prefetch::qualification::ClockPairQualificationResult;
 using cpu_prefetch::qualification::kAcceptedClockPairQualificationCounts;
 using cpu_prefetch::qualification::run_clock_pair_qualification;
 using cpu_prefetch::runner::kFarWorkerPair;
+using cpu_prefetch::runner::kFarWorkerPairV5;
 using cpu_prefetch::runner::kNearWorkerPair;
 using cpu_prefetch::runner::WorkerPair;
 
@@ -43,7 +44,8 @@ void usage(std::ostream& output) {
          << " exchanges per direction, spanning at least "
          << cpu_prefetch::timing::kMinimumCrossCoreWindowStartSpanNanoseconds /
                 1'000'000'000ULL
-         << " real seconds). It requires family 06 model 55H and does not "
+         << " real seconds). It requires a registered CPU mapping with an "
+            "accepted CPU set (currently family 06 model 55H or 3EH) and does not "
             "validate or grant authority; real qualification evidence also "
             "requires this to run on the accepted stand. --output writes a raw, "
             "partial pre-envelope artifact (schema stage17-q15-clock-pair-raw-v1) "
@@ -65,14 +67,25 @@ void usage(std::ostream& output) {
             "evidence, and it cannot be combined with --output.\n";
 }
 
-[[nodiscard]] auto require_selected_model() -> bool {
+// Returns the real CPU's far worker pair iff a hardware-prefetch mapping is
+// registered for it AND that mapping has an accepted CPU set (ADR-0043's or
+// ADR-0173's pair-identity ADR) -- i.e. iff a real Q15 clock-pair
+// qualification is possible at all on this machine right now.
+[[nodiscard]] auto require_selected_model() -> std::optional<WorkerPair> {
   const auto identity = cpu_prefetch::platform::read_x86_family_model();
-  if (!identity || identity.value().family != cpu_prefetch::platform::kIntelFamily6 ||
-      identity.value().model != cpu_prefetch::platform::kIntelModel55) {
-    std::cerr << "q15-clock-tool: FAIL rule=Q15-CPUID-06_55H before_hardware=true\n";
-    return false;
+  const auto mapping =
+      identity
+          ? cpu_prefetch::platform::find_hardware_prefetch_mapping(identity.value())
+          : std::nullopt;
+  if (!identity || !mapping || !mapping->control_cpus.has_value()) {
+    std::cerr
+        << "q15-clock-tool: FAIL rule=Q15-CPUID-REGISTERED before_hardware=true\n";
+    return std::nullopt;
   }
-  return true;
+  if (identity.value().model == cpu_prefetch::platform::kIntelModel3E) {
+    return kFarWorkerPairV5;
+  }
+  return kFarWorkerPair;
 }
 
 auto self_test() -> int {
@@ -158,17 +171,19 @@ write_raw_output(const std::string& path, std::string_view pair_name, WorkerPair
 auto qualify_pair(std::string_view pair_name, std::optional<std::string> output_path,
                   ClockPairQualificationCounts counts =
                       kAcceptedClockPairQualificationCounts) -> int {
-  if (!require_selected_model()) {
+  const auto far_pair = require_selected_model();
+  if (!far_pair) {
     return 1;
   }
   const auto pair = pair_name == "near"  ? kNearWorkerPair
-                    : pair_name == "far" ? kFarWorkerPair
+                    : pair_name == "far" ? far_pair.value()
                                          : cpu_prefetch::runner::WorkerPair{0U, 0U};
   if (pair_name != "near" && pair_name != "far") {
     std::cerr << "q15-clock-tool: FAIL rule=Q15-CLOCK-PAIR-ARGV\n";
     return 2;
   }
-  if (counts.prime_read_count != kAcceptedClockPairQualificationCounts.prime_read_count ||
+  if (counts.prime_read_count !=
+          kAcceptedClockPairQualificationCounts.prime_read_count ||
       counts.delta_count != kAcceptedClockPairQualificationCounts.delta_count) {
     std::cerr << "q15-clock-tool: NOTE diagnostic-only run, prime_read_count="
               << counts.prime_read_count

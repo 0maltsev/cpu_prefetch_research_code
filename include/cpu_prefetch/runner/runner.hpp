@@ -29,6 +29,12 @@ inline constexpr std::string_view kRunnerProfileId =
     "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3";
 inline constexpr std::string_view kCpuPairSelectionId =
     "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1";
+// ADR-0173: cpu-prefetch-v5's own real, topology-evidence-backed pair
+// identity. Near pair is unchanged ({0,1}); only the far pair differs,
+// since it is the one that crosses package/NUMA/LLC boundaries and those
+// boundaries are a real property of each stand's own silicon.
+inline constexpr std::string_view kCpuPairSelectionIdV5 =
+    "CPU-PREFETCH-V5-P0-NEAR-0-1-FAR-0-8-v1";
 inline constexpr std::string_view kRelaxMappingId = "X86-PAUSE-ONE-PER-RELAX-SITE-v1";
 
 struct WorkerPair final {
@@ -40,9 +46,23 @@ struct WorkerPair final {
 
 inline constexpr WorkerPair kNearWorkerPair{0U, 1U};
 inline constexpr WorkerPair kFarWorkerPair{0U, 26U};
+// ADR-0173: cpu-prefetch-v5's own real far pair ({0,1,8}, not {0,1,26}
+// reused from ADR-0043 on different silicon).
+inline constexpr WorkerPair kFarWorkerPairV5{0U, 8U};
 
 [[nodiscard]] auto selected_worker_pair(protocol::Placement placement) noexcept
     -> WorkerPair;
+
+// True iff id names any currently registered pair identity (ADR-0043's or
+// ADR-0173's), independent of which stand is actually running.
+[[nodiscard]] auto is_accepted_cpu_pair_selection_id(std::string_view id) noexcept
+    -> bool;
+
+// True iff workers is a registered pair for the given placement, under any
+// currently registered pair identity -- near is shared ({0,1}); far accepts
+// either ADR-0043's {0,26} or ADR-0173's {0,8}.
+[[nodiscard]] auto is_accepted_worker_pair(protocol::Placement placement,
+                                           WorkerPair workers) noexcept -> bool;
 
 // Q13 selects exactly one architectural PAUSE at each executor relax site. The
 // type is deliberately stateless because one instance is shared by the
@@ -367,7 +387,7 @@ template <protocol::QueuePackage Package, typename Clock, typename Backend,
   static_assert(Backend::package_kind == Package,
                 "admission package and capture backend must be identical");
   if (ticket.package() != Package ||
-      ticket.workers() != selected_worker_pair(ticket.placement())) {
+      !is_accepted_worker_pair(ticket.placement(), ticket.workers())) {
     return lifecycle::detail::failure_report(
         lifecycle::ExecutionFailurePhase::pre_run,
         lifecycle::ExecutionFailureReason::worker_preparation,

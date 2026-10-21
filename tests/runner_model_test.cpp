@@ -190,6 +190,42 @@ TEST(RunnerQ13Policy, ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen) {
   emitter.successor_header(target.data());
 }
 
+TEST(RunnerQ13Policy, AcceptedCpuPairSelectionIdsCoverAdr0043AndAdr0173Only) {
+  using cpu_prefetch::runner::is_accepted_cpu_pair_selection_id;
+  EXPECT_TRUE(
+      is_accepted_cpu_pair_selection_id(cpu_prefetch::runner::kCpuPairSelectionId));
+  EXPECT_TRUE(
+      is_accepted_cpu_pair_selection_id(cpu_prefetch::runner::kCpuPairSelectionIdV5));
+  EXPECT_FALSE(is_accepted_cpu_pair_selection_id("NOT-A-REGISTERED-PAIR-IDENTITY-v1"));
+  EXPECT_FALSE(is_accepted_cpu_pair_selection_id(""));
+}
+
+TEST(RunnerQ13Policy, AcceptedWorkerPairsCoverAdr0043AndAdr0173NearAndFarOnly) {
+  using cpu_prefetch::runner::is_accepted_worker_pair;
+  using cpu_prefetch::runner::kFarWorkerPair;
+  using cpu_prefetch::runner::kFarWorkerPairV5;
+  using cpu_prefetch::runner::kNearWorkerPair;
+  EXPECT_EQ(kFarWorkerPairV5, (cpu_prefetch::runner::WorkerPair{0U, 8U}));
+  EXPECT_TRUE(is_accepted_worker_pair(Placement::near, kNearWorkerPair));
+  EXPECT_TRUE(is_accepted_worker_pair(Placement::far, kFarWorkerPair));
+  EXPECT_TRUE(is_accepted_worker_pair(Placement::far, kFarWorkerPairV5));
+  // ADR-0173's near pair is the same real CPUs as ADR-0043's.
+  EXPECT_FALSE(is_accepted_worker_pair(Placement::near, kFarWorkerPairV5));
+  EXPECT_FALSE(is_accepted_worker_pair(Placement::far, kNearWorkerPair));
+  EXPECT_FALSE(is_accepted_worker_pair(Placement::near,
+                                       (cpu_prefetch::runner::WorkerPair{9U, 9U})));
+}
+
+TEST(RunnerAdmission, SyntheticFixtureUsingAdr0173FarPairPassesFieldValidation) {
+  auto admission = complete_admission();
+  admission.cpu_pair_selection_id =
+      std::string(cpu_prefetch::runner::kCpuPairSelectionIdV5);
+  admission.placement = Placement::far;
+  admission.workers = cpu_prefetch::runner::kFarWorkerPairV5;
+  EXPECT_TRUE(cpu_prefetch::runner::validate_admission_fields(admission, trust_anchor())
+                  .empty());
+}
+
 TEST(RunnerAdmission, CompleteSyntheticFixturePassesFieldValidation) {
   const auto admission = complete_admission();
   EXPECT_TRUE(cpu_prefetch::runner::validate_admission_fields(admission, trust_anchor())
@@ -333,14 +369,9 @@ TEST(RunnerPreparation, AdmittedStaticPathUsesAffinedPreparationBeforeEmptyRun) 
 TEST(RunnerQualification, TypedArtifactProducersDeriveEligibilityAndCanonicalBytes) {
   using namespace cpu_prefetch::runner;
   const auto identity = qualification_identity();
-  const auto clock =
-      make_selected_pair_clock_evidence(identity, {{100'000U, 100'000U},
-                                                   {10'000'000U, 10'000'000U},
-                                                   3U,
-                                                   3U,
-                                                   100'000U,
-                                                   true,
-                                                   true});
+  const auto clock = make_selected_pair_clock_evidence(
+      identity,
+      {{100'000U, 100'000U}, {10'000'000U, 10'000'000U}, 3U, 3U, 100'000U, true, true});
   ASSERT_TRUE(clock.has_value());
   EXPECT_TRUE(clock.value().eligible);
 
@@ -387,13 +418,8 @@ TEST(RunnerQualification, TypedArtifactProducersDeriveEligibilityAndCanonicalByt
 TEST(RunnerQualification, MissingCountsMigrationsAndUnavailablePagesStayIneligible) {
   using namespace cpu_prefetch::runner;
   const auto identity = qualification_identity();
-  auto clock_input = SelectedPairClockInput{{100'000U, 100'000U},
-                                            {10'000'000U, 9'999'999U},
-                                            3U,
-                                            3U,
-                                            100'000U,
-                                            true,
-                                            true};
+  auto clock_input = SelectedPairClockInput{
+      {100'000U, 100'000U}, {10'000'000U, 9'999'999U}, 3U, 3U, 100'000U, true, true};
   const auto clock = make_selected_pair_clock_evidence(identity, clock_input);
   ASSERT_TRUE(clock.has_value());
   EXPECT_FALSE(clock.value().eligible);

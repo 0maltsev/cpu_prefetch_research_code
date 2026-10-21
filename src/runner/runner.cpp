@@ -143,6 +143,21 @@ auto selected_worker_pair(protocol::Placement placement) noexcept -> WorkerPair 
           std::numeric_limits<std::uint32_t>::max()};
 }
 
+auto is_accepted_cpu_pair_selection_id(std::string_view id) noexcept -> bool {
+  return id == kCpuPairSelectionId || id == kCpuPairSelectionIdV5;
+}
+
+auto is_accepted_worker_pair(protocol::Placement placement, WorkerPair workers) noexcept
+    -> bool {
+  if (placement == protocol::Placement::near) {
+    return workers == kNearWorkerPair;
+  }
+  if (placement == protocol::Placement::far) {
+    return workers == kFarWorkerPair || workers == kFarWorkerPairV5;
+  }
+  return false;
+}
+
 auto LinuxCurrentThreadBindingBackend::bind_and_verify(
     std::uint32_t requested_cpu) noexcept -> ThreadBindingObservation {
   ThreadBindingObservation observation{
@@ -437,8 +452,10 @@ auto validate_admission_fields(const RunnerAdmission& admission,
         "RUN-PROTOCOL");
   exact(admission.runner_profile_id, kRunnerProfileId, "$/runner_profile_id",
         "RUN-PROFILE");
-  exact(admission.cpu_pair_selection_id, kCpuPairSelectionId, "$/cpu_pair_selection_id",
-        "RUN-CPU-PROFILE");
+  if (!is_accepted_cpu_pair_selection_id(admission.cpu_pair_selection_id)) {
+    add_mismatch(errors, "$/cpu_pair_selection_id", "RUN-CPU-PROFILE",
+                 "value does not match the accepted/current binding");
+  }
   exact(admission.relax_mapping_id, kRelaxMappingId, "$/relax_mapping_id", "RUN-RELAX");
   require_nonempty(admission.source_revision, "$/source_revision", "RUN-SOURCE-EMPTY");
   require_nonempty(admission.stand_id, "$/stand_id", "RUN-STAND-EMPTY");
@@ -467,7 +484,7 @@ auto validate_admission_fields(const RunnerAdmission& admission,
       admission.placement != protocol::Placement::far) {
     errors.push_back(error(ErrorCategory::unknown_enum, "$/placement", "RUN-PLACEMENT",
                            "only the accepted NEAR and FAR placements are supported"));
-  } else if (admission.workers != selected_worker_pair(admission.placement)) {
+  } else if (!is_accepted_worker_pair(admission.placement, admission.workers)) {
     add_mismatch(errors, "$/producer_cpu", "RUN-CPU-PAIR",
                  "worker CPUs do not match the Q13 placement pair");
   }

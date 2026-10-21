@@ -44,7 +44,8 @@ using JsonArray = protocol::json::Value::Array;
                            "QUAL-BINARY-HASH",
                            "binary SHA-256 must be lowercase hexadecimal"));
   }
-  if (identity.workers != kNearWorkerPair && identity.workers != kFarWorkerPair) {
+  if (!is_accepted_worker_pair(protocol::Placement::near, identity.workers) &&
+      !is_accepted_worker_pair(protocol::Placement::far, identity.workers)) {
     errors.push_back(error(protocol::ErrorCategory::reference_mismatch, "$/workers",
                            "QUAL-PAIR",
                            "qualification must use one accepted Q13 pair"));

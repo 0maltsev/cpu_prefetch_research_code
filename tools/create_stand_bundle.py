@@ -511,8 +511,16 @@ def main() -> int:
             # path to use the resolved per-model mapping instead of
             # hardcoded 06_55H literals) -- same class of re-pin once
             # more.
+            # ADR-0173's implementation note 4 moves the outer policy
+            # again (v51 -> v52, re-pinning the same compiled worker
+            # source file after fixing LinuxHardwarePrefetchMsrBackend's
+            # own CPU whitelist -- previously hardcoded to 06_55H's
+            # {0,1,26} regardless of which mapping a session actually
+            # resolved, now bound per instance to the session's own
+            # resolved mapping's control_cpus) -- same class of re-pin
+            # once more.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v51.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v52.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))

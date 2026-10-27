@@ -2779,6 +2779,14 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking q15-session-controller v16's _parse_prestate fix accepts both registered CPU mappings (ADR-0173, ACCEPTED; grants no authority)")
 add_custom_target(
+  stage17-output-registry-v6-msr-map-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_output_registry_v6_msr_map.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking output-registry v6's _msr_map fix accepts both registered CPU mappings (ADR-0173, ACCEPTED; grants no authority)")
+add_custom_target(
   stage17-phase-controller-v14-journal-reachability-check
   COMMAND
     "${Python3_EXECUTABLE}"

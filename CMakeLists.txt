@@ -2771,6 +2771,14 @@ add_custom_target(
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking the real Q15 session execute_session wiring fix (ADR-0146, ACCEPTED; grants no authority)")
 add_custom_target(
+  stage17-q15-session-controller-v16-parse-prestate-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_q15_session_controller_v16_parse_prestate.py"
+    --self-test
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+  COMMENT "Checking q15-session-controller v16's _parse_prestate fix accepts both registered CPU mappings (ADR-0173, ACCEPTED; grants no authority)")
+add_custom_target(
   stage17-phase-controller-v14-journal-reachability-check
   COMMAND
     "${Python3_EXECUTABLE}"

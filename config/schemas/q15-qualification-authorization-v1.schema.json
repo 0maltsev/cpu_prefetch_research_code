@@ -165,7 +165,7 @@
       "type": "object", "additionalProperties": false,
       "required": ["cpu", "prestate_hex", "h1_requested_hex"],
       "properties": {
-        "cpu": {"enum": [0, 1, 26]},
+        "cpu": {"enum": [0, 1, 8, 26]},
         "prestate_hex": {"$ref": "#/$defs/u64hex"},
         "h1_requested_hex": {"$ref": "#/$defs/u64hex"}
       }

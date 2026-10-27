@@ -8,7 +8,7 @@
     "schema_version": {"const": "cpu-prefetch-stage17-calibration-hardware-state/1"},
     "action_id": {"enum": ["Q16a", "Q16b", "Q16c"]},
     "plan_sha256": {"$ref": "#/$defs/sha256"},
-    "mapping_id": {"const": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1"},
+    "mapping_id": {"enum": ["INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1", "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1"]},
     "q15_w_result_sha256": {"$ref": "#/$defs/sha256"},
     "whole_plot_order": {"const": ["H0", "H1"]},
     "apply_readback": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/msr"}},
@@ -19,6 +19,6 @@
   },
   "$defs": {
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "msr": {"type": "object", "additionalProperties": false, "required": ["cpu", "complete_value_hex"], "properties": {"cpu": {"enum": [0, 1, 26]}, "complete_value_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"}}}
+    "msr": {"type": "object", "additionalProperties": false, "required": ["cpu", "complete_value_hex"], "properties": {"cpu": {"enum": [0, 1, 8, 26]}, "complete_value_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"}}}
   }
 }

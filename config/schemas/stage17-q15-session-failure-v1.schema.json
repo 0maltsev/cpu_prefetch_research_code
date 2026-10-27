@@ -21,7 +21,7 @@
         "type": "object", "additionalProperties": false,
         "required": ["cpu", "requested_hex", "observed_hex", "matches"],
         "properties": {
-          "cpu": {"enum": [0, 1, 26]},
+          "cpu": {"enum": [0, 1, 8, 26]},
           "requested_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
           "observed_hex": {"type": ["string", "null"], "pattern": "^[0-9a-f]{16}$"},
           "matches": {"type": "boolean"}

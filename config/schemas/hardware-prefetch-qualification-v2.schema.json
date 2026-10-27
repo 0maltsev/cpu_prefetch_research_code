@@ -40,7 +40,7 @@
           "restore_readback_hex"
         ],
         "properties": {
-          "cpu": {"enum": [0, 1, 26]},
+          "cpu": {"enum": [0, 1, 8, 26]},
           "prestate_hex": {"$ref": "#/$defs/u64hex"},
           "requested_hex": {"$ref": "#/$defs/u64hex"},
           "apply_readback_hex": {"$ref": "#/$defs/u64hex"},

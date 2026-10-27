@@ -19,6 +19,6 @@
   },
   "$defs": {
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "msr": {"type": "object", "additionalProperties": false, "required": ["cpu", "complete_value_hex"], "properties": {"cpu": {"enum": [0, 1, 26]}, "complete_value_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"}}}
+    "msr": {"type": "object", "additionalProperties": false, "required": ["cpu", "complete_value_hex"], "properties": {"cpu": {"enum": [0, 1, 8, 26]}, "complete_value_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"}}}
   }
 }

@@ -33,6 +33,12 @@ SUCCESSOR_BINDINGS = (
     "config/schemas/stage17-operational-evidence-admission-policy-v53.schema.json",
     "src/runner/stage17_fixed_action.cpp",
     "tools/stage17_semantic_verifier_v53.py",
+    "config/schemas/qualification-evidence-v3.schema.json",
+    "config/schemas/stage17-q15-r-software-prefetch-raw-v2.schema.json",
+    "config/schemas/stage17-fixed-phase-actions-v5.schema.json",
+    "config/stage17/stage17-fixed-phase-actions-v5.json",
+    "tools/stage17_output_registry_v7.py",
+    "tools/stage17_state_journal_v47.py",
 )
 
 

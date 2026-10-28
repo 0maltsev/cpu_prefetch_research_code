@@ -259,8 +259,15 @@ void require_const_string(const json::Value::Object& object, std::string_view na
                                                          bool gnu_objdump_passed,
                                                          bool llvm_objdump_passed)
     -> runner::SoftwarePrefetchMappingInput {
-  require_const_string(raw, "schema_version",
-                       "cpu-prefetch-stage17-q15-r-software-prefetch-raw/1");
+  // ADR-0175: a report naming either registered software-prefetch mapping
+  // (schema /1, the original PRFCHW-based mapping, or /2, also accepting
+  // the PRFCHW-free T0-only mapping) is a valid raw capture.
+  const auto& schema_version = require_string(raw, "schema_version");
+  if (schema_version != "cpu-prefetch-stage17-q15-r-software-prefetch-raw/1"
+      && schema_version != "cpu-prefetch-stage17-q15-r-software-prefetch-raw/2") {
+    fail("unexpected schema_version: " + schema_version +
+         " (expected .../1 or .../2)");
+  }
   const runner::SoftwarePrefetchCapabilityObservation producer{
       static_cast<std::uint32_t>(require_uint(raw, "producer_maximum_extended_leaf")),
       static_cast<std::uint32_t>(require_uint(raw, "producer_extended_leaf_ecx")),

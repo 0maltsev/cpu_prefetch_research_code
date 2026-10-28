@@ -293,9 +293,18 @@ auto make_address_residency_evidence(const QualificationIdentity& identity,
 auto make_software_prefetch_mapping_evidence(const QualificationIdentity& identity,
                                              const SoftwarePrefetchMappingInput& input)
     -> protocol::Result<QualificationArtifact> {
-  const bool eligible = input.mapping_id == kSoftwarePrefetchMappingId &&
-                        input.producer_capability.passes() &&
-                        input.consumer_capability.passes() &&
+  const bool is_original = input.mapping_id == kSoftwarePrefetchMappingId;
+  const bool is_t0_only = input.mapping_id == kSoftwarePrefetchMappingIdT0Only;
+  // ADR-0175: the T0-only mapping never issues PRFCHW, so it requires nothing
+  // beyond the baseline PREFETCHT0 support every accepted Linux x86-64 target
+  // already has (this header's own #error guard) -- gated behind is_t0_only,
+  // i.e. behind the mapping id actually being one of the two registered
+  // identities, never an unconditional pass for an unrecognized mapping id.
+  const bool capability_requirement_passes =
+      is_original
+          ? (input.producer_capability.passes() && input.consumer_capability.passes())
+          : true;
+  const bool eligible = (is_original || is_t0_only) && capability_requirement_passes &&
                         input.gcc_codegen_passed && input.clang_codegen_passed &&
                         input.gnu_objdump_passed && input.llvm_objdump_passed;
   return make_artifact(
@@ -323,7 +332,7 @@ auto make_software_prefetch_mapping_evidence(const QualificationIdentity& identi
           {"ring_consumer_instruction",
            protocol::json::Value(std::string("PREFETCHT0"))},
           {"ring_producer_instruction",
-           protocol::json::Value(std::string("PREFETCHW"))},
+           protocol::json::Value(std::string(is_t0_only ? "PREFETCHT0" : "PREFETCHW"))},
       }));
 }
 

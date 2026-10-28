@@ -71,7 +71,9 @@
         "runner_profile_id": {"const": "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3"},
         "cpu_pair_selection_id": {"enum": ["XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1", "CPU-PREFETCH-V5-P0-NEAR-0-1-FAR-0-8-v1"]},
         "relax_mapping_id": {"const": "X86-PAUSE-ONE-PER-RELAX-SITE-v1"},
-        "software_prefetch_mapping_id": {"const": "X86-64-PREFETCHW-PREFETCHT0-v1"},
+        "software_prefetch_mapping_id": {
+          "enum": ["X86-64-PREFETCHW-PREFETCHT0-v1", "X86-64-PREFETCHT0-ONLY-v1"]
+        },
         "hardware_prefetch_mapping_id": {"enum": ["INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1", "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1"]}
       }
     },

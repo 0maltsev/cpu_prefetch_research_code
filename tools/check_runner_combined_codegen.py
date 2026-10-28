@@ -17,11 +17,16 @@ OPERATIONS = tuple(
     f"cpu_prefetch_combined_{package}_{role}"
     for package in ("r0", "r1", "r2", "l0", "l1")
     for role in ("producer", "consumer")
+) + tuple(
+    f"cpu_prefetch_combined_{package}_{role}"
+    for package in ("t0only_r1", "t0only_r2", "t0only_l1")
+    for role in ("producer", "consumer")
 )
 MUTANT = "cpu_prefetch_combined_forbidden_mutant"
 WRONG_WRITE_MUTANT = "cpu_prefetch_combined_wrong_write_prefetch_mutant"
 WRONG_READ_MUTANT = "cpu_prefetch_combined_wrong_read_prefetch_mutant"
 DUPLICATE_READ_MUTANT = "cpu_prefetch_combined_duplicate_read_prefetch_mutant"
+WRONG_PRODUCER_T0ONLY_MUTANT = "cpu_prefetch_combined_wrong_producer_t0only_mutant"
 SYMBOL_LINE = re.compile(r"^[0-9a-fA-F]+ <(.+)>:$")
 CALL_TARGET = re.compile(r"\bcallq?\b[^<]*<(.+)>", re.I)
 PREFETCH_INSTRUCTION = re.compile(
@@ -124,6 +129,18 @@ def expected_prefetches(operation: str) -> list[str]:
         "cpu_prefetch_combined_l1_consumer",
     ):
         return ["prefetcht0"]
+    # ADR-0175: the PRFCHW-free mapping uses PREFETCHT0 for every role,
+    # including the producer role (unlike the original mapping, which uses
+    # PREFETCHW there) -- there is no write-intent instruction to lose on a
+    # CPU that never had one.
+    if operation in (
+        "cpu_prefetch_combined_t0only_r1_producer",
+        "cpu_prefetch_combined_t0only_r2_producer",
+        "cpu_prefetch_combined_t0only_r1_consumer",
+        "cpu_prefetch_combined_t0only_r2_consumer",
+        "cpu_prefetch_combined_t0only_l1_consumer",
+    ):
+        return ["prefetcht0"]
     return []
 
 
@@ -176,6 +193,7 @@ def inspect_mutant(disassembly: str) -> dict[str, object]:
         (WRONG_WRITE_MUTANT, ["prefetchw"]),
         (WRONG_READ_MUTANT, ["prefetcht0"]),
         (DUPLICATE_READ_MUTANT, ["prefetcht0"]),
+        (WRONG_PRODUCER_T0ONLY_MUTANT, ["prefetcht0"]),
     )
     rejected: dict[str, str] = {}
     for marker, expected in prefetch_mutants:
@@ -211,8 +229,8 @@ def inspect_sources(root: pathlib.Path) -> dict[str, object]:
     linked_text = linked.read_text(encoding="utf-8")
     if emitter_text.count('asm volatile("prefetchw %0"') != 1:
         raise RuntimeError("source audit requires exactly one PREFETCHW emitter")
-    if emitter_text.count('asm volatile("prefetcht0 %0"') != 2:
-        raise RuntimeError("source audit requires exactly two PREFETCHT0 emitters")
+    if emitter_text.count('asm volatile("prefetcht0 %0"') != 5:
+        raise RuntimeError("source audit requires exactly five PREFETCHT0 emitters")
     if '"memory"' in emitter_text:
         raise RuntimeError("software-prefetch emitter must not add a compiler fence")
     if package_text.count(
@@ -236,6 +254,13 @@ def inspect_sources(root: pathlib.Path) -> dict[str, object]:
     return {
         "status": "PASS",
         "mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",
+        # ADR-0175: both registered software-prefetch mappings' codegen is
+        # audited in this one report; the singular field above is kept
+        # unchanged for any existing reader, this one is additive.
+        "software_prefetch_mapping_ids": [
+            "X86-64-PREFETCHW-PREFETCHT0-v1",
+            "X86-64-PREFETCHT0-ONLY-v1",
+        ],
         "emitter_sha256": sha256(emitter),
         "packages_sha256": sha256(packages),
         "linked_queue_sha256": sha256(linked),
@@ -273,9 +298,13 @@ def main() -> int:
     }
     missing = [name for name, path in tools.items() if path is None]
     report: dict[str, object] = {
-        "schema_version": "cpu-prefetch-runner-combined-codegen/2",
+        "schema_version": "cpu-prefetch-runner-combined-codegen/3",
         "scope": "correctness-only; no performance observation",
         "software_prefetch_mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",
+        "software_prefetch_mapping_ids": [
+            "X86-64-PREFETCHW-PREFETCHT0-v1",
+            "X86-64-PREFETCHT0-ONLY-v1",
+        ],
         "binary_sha256": sha256(args.binary),
         "mutant_sha256": sha256(args.mutant),
         "rule_set_sha256": sha256(pathlib.Path(__file__).resolve()),
@@ -318,7 +347,7 @@ def main() -> int:
         return 3
     print(
         "runner-combined-codegen-check: PASS "
-        "(two disassemblers, 10 operations, exact D-047 mapping, four mutants)"
+        "(two disassemblers, 16 operations, exact D-047/ADR-0175 mappings, five mutants)"
     )
     return 0
 

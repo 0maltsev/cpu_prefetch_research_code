@@ -51,6 +51,7 @@
 #include <tuple>
 #include <unistd.h>
 #include <utility>
+#include <variant>
 #include <vector>
 
 namespace cpu_prefetch::runner::stage17 {
@@ -700,12 +701,23 @@ struct Q15PhaseSession final {
   // one observation on that CPU honestly stands for both schema fields below.
   const auto prefetch_capability =
       X86CurrentCpuSoftwarePrefetchCapabilityBackend{}.observe();
+  // ADR-0175: reuse the exact mapping already sealed into this session (the
+  // same pattern already used for the hardware-prefetch mapping two lines
+  // below), so a real run on a PRFCHW-free CPU honestly records its own
+  // registered mapping id instead of a hardcoded literal naming the other
+  // mapping.
+  const auto software_mapping = find_software_prefetch_mapping(session.identity);
+  if (!software_mapping) {
+    return failure<ActionOutcome>(
+        "$/action_inputs", "S17-Q15R-SOFTWARE-PREFETCH-CPU",
+        "Q15-R session has no accepted software-prefetch mapping");
+  }
   auto software_prefetch_raw = canonical(JsonObject{
       {"schema_version",
-       string_value("cpu-prefetch-stage17-q15-r-software-prefetch-raw/1")},
+       string_value("cpu-prefetch-stage17-q15-r-software-prefetch-raw/2")},
       {"session_id", string_value(session.session_id)},
       {"qualification_id", string_value(*string_member(input, "qualification_id"))},
-      {"mapping_id", string_value(std::string(kSoftwarePrefetchMappingId))},
+      {"mapping_id", string_value(std::string(software_mapping->mapping_id))},
       {"observed_cpu", uint_value(session.memory->cpu())},
       {"producer_maximum_extended_leaf",
        uint_value(prefetch_capability.maximum_extended_leaf)},
@@ -835,7 +847,7 @@ struct Q15PhaseSession final {
         "cpu-prefetch-stage17-q15-r-address-residency-raw/1", "application/json",
         "q15-r-address-residency-raw-v1.json", bytes(address_residency_raw.value())},
        {"Q15_R_SOFTWARE_PREFETCH_RAW",
-        "cpu-prefetch-stage17-q15-r-software-prefetch-raw/1", "application/json",
+        "cpu-prefetch-stage17-q15-r-software-prefetch-raw/2", "application/json",
         "q15-r-software-prefetch-raw-v1.json", bytes(software_prefetch_raw.value())},
        {"Q15_R_CPU_MIGRATION_RAW", "cpu-prefetch-stage17-q15-r-cpu-migration-raw/1",
         "application/json", "q15-r-cpu-migration-raw-v1.json",
@@ -2436,7 +2448,28 @@ package_capture(FixedAction action, const JsonObject& input,
     auto& arena = persistent != nullptr ? persistent->arena() : *run_arena;
     auto& event_operations =
         persistent != nullptr ? persistent->operations() : run_memory->operations();
-    runner::X86RetainingPrefetchEmitter emitter;
+    // ADR-0175: resolve this run's own real software-prefetch mapping instead
+    // of unconditionally constructing the original, PRFCHW-requiring emitter
+    // -- R0/L0 never take an emitter at all, so this is only consulted below
+    // for R1/R2/L1.
+    const auto cpu_identity = platform::read_x86_family_model();
+    const auto software_mapping =
+        cpu_identity ? runner::find_software_prefetch_mapping(cpu_identity.value())
+                     : std::nullopt;
+    if (*package_name == "R1" || *package_name == "R2" || *package_name == "L1") {
+      if (!software_mapping) {
+        return failure<RunCapture>(
+            "$/action_inputs", "S17-RUN-SOFTWARE-PREFETCH-CPU",
+            "run session has no accepted software-prefetch mapping");
+      }
+    }
+    using EmitterVariant = std::variant<runner::X86RetainingPrefetchEmitter,
+                                        runner::X86PrefetchT0OnlyEmitter>;
+    const EmitterVariant emitter_variant =
+        (software_mapping &&
+         software_mapping->mapping_id == runner::kSoftwarePrefetchMappingIdT0Only)
+            ? EmitterVariant{runner::X86PrefetchT0OnlyEmitter{}}
+            : EmitterVariant{runner::X86RetainingPrefetchEmitter{}};
     if (*package_name == "R0") {
       std::unique_ptr<queue::RingSpscQueue> run_queue;
       if (persistent == nullptr) {
@@ -2474,29 +2507,38 @@ package_capture(FixedAction action, const JsonObject& input,
             queue::CacheLineBytes{static_cast<std::size_t>(*cache_line)});
       }
       auto& queue = persistent != nullptr ? persistent->ring() : *run_queue;
-      workload::R1Package package(
-          queue, emitter,
-          workload::ring_one_line_distance(
-              {size, static_cast<std::size_t>(*cache_line), sizeof(void*)}));
-      if (is_pilot) {
-        if (!queue.reset_quiescent()) {
-          return failure<RunCapture>("$/action_inputs", "S17-PILOT-RING-RESET",
-                                     "persistent ring did not reset before warm-up");
-        }
-        return capture_pilot_after_warmup<protocol::QueuePackage::r1>(
-            ticket.value(), queue, package, arena, parsed_warmup_run_id.value(),
-            {*warmup_deadlines, *warmup_origin, *warmup_horizon, *warmup_horizon,
-             warmup_deadlines->size(), static_cast<std::size_t>(*cache_line)},
-            parsed_run_id.value(),
-            {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
-             static_cast<std::size_t>(*cache_line)},
-            event_operations, static_cast<std::uint32_t>(*shared_node));
-      }
-      return capture_by_mode<protocol::QueuePackage::r1>(
-          action, ticket.value(), package, arena, parsed_run_id.value(),
-          {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
-           static_cast<std::size_t>(*cache_line)},
-          event_operations, static_cast<std::uint32_t>(*shared_node));
+      const auto one_line_distance = workload::ring_one_line_distance(
+          {size, static_cast<std::size_t>(*cache_line), sizeof(void*)});
+      // ADR-0175: visited once per real emitter type, so the compiler
+      // genuinely instantiates R1Package<X86RetainingPrefetchEmitter> and
+      // R1Package<X86PrefetchT0OnlyEmitter> as two separate, real code
+      // paths -- exactly what tools/runner_combined_codegen_probe.cpp
+      // disassembles, never a third, unverified configuration.
+      return std::visit(
+          [&](auto& emitter) -> protocol::Result<RunCapture> {
+            workload::R1Package package(queue, emitter, one_line_distance);
+            if (is_pilot) {
+              if (!queue.reset_quiescent()) {
+                return failure<RunCapture>(
+                    "$/action_inputs", "S17-PILOT-RING-RESET",
+                    "persistent ring did not reset before warm-up");
+              }
+              return capture_pilot_after_warmup<protocol::QueuePackage::r1>(
+                  ticket.value(), queue, package, arena, parsed_warmup_run_id.value(),
+                  {*warmup_deadlines, *warmup_origin, *warmup_horizon, *warmup_horizon,
+                   warmup_deadlines->size(), static_cast<std::size_t>(*cache_line)},
+                  parsed_run_id.value(),
+                  {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
+                   static_cast<std::size_t>(*cache_line)},
+                  event_operations, static_cast<std::uint32_t>(*shared_node));
+            }
+            return capture_by_mode<protocol::QueuePackage::r1>(
+                action, ticket.value(), package, arena, parsed_run_id.value(),
+                {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
+                 static_cast<std::size_t>(*cache_line)},
+                event_operations, static_cast<std::uint32_t>(*shared_node));
+          },
+          emitter_variant);
     }
     if (*package_name == "R2") {
       std::unique_ptr<queue::RingSpscQueue> run_queue;
@@ -2509,26 +2551,32 @@ package_capture(FixedAction action, const JsonObject& input,
       const auto calibrated = workload::resolve_calibrated_ring_distance(
           {size, static_cast<std::size_t>(*cache_line), sizeof(void*)},
           static_cast<std::size_t>(*distance), "admitted-q16a-freeze");
-      workload::R2Package package(queue, emitter, calibrated);
-      if (is_pilot) {
-        if (!queue.reset_quiescent()) {
-          return failure<RunCapture>("$/action_inputs", "S17-PILOT-RING-RESET",
-                                     "persistent ring did not reset before warm-up");
-        }
-        return capture_pilot_after_warmup<protocol::QueuePackage::r2>(
-            ticket.value(), queue, package, arena, parsed_warmup_run_id.value(),
-            {*warmup_deadlines, *warmup_origin, *warmup_horizon, *warmup_horizon,
-             warmup_deadlines->size(), static_cast<std::size_t>(*cache_line)},
-            parsed_run_id.value(),
-            {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
-             static_cast<std::size_t>(*cache_line)},
-            event_operations, static_cast<std::uint32_t>(*shared_node));
-      }
-      return capture_by_mode<protocol::QueuePackage::r2>(
-          action, ticket.value(), package, arena, parsed_run_id.value(),
-          {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
-           static_cast<std::size_t>(*cache_line)},
-          event_operations, static_cast<std::uint32_t>(*shared_node));
+      // ADR-0175: see the R1 branch's own comment above.
+      return std::visit(
+          [&](auto& emitter) -> protocol::Result<RunCapture> {
+            workload::R2Package package(queue, emitter, calibrated);
+            if (is_pilot) {
+              if (!queue.reset_quiescent()) {
+                return failure<RunCapture>(
+                    "$/action_inputs", "S17-PILOT-RING-RESET",
+                    "persistent ring did not reset before warm-up");
+              }
+              return capture_pilot_after_warmup<protocol::QueuePackage::r2>(
+                  ticket.value(), queue, package, arena, parsed_warmup_run_id.value(),
+                  {*warmup_deadlines, *warmup_origin, *warmup_horizon, *warmup_horizon,
+                   warmup_deadlines->size(), static_cast<std::size_t>(*cache_line)},
+                  parsed_run_id.value(),
+                  {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
+                   static_cast<std::size_t>(*cache_line)},
+                  event_operations, static_cast<std::uint32_t>(*shared_node));
+            }
+            return capture_by_mode<protocol::QueuePackage::r2>(
+                action, ticket.value(), package, arena, parsed_run_id.value(),
+                {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
+                 static_cast<std::size_t>(*cache_line)},
+                event_operations, static_cast<std::uint32_t>(*shared_node));
+          },
+          emitter_variant);
     }
     std::unique_ptr<workload::NodeOrderPlan> run_order;
     std::unique_ptr<queue::LinkedSpscQueue> run_queue;
@@ -2569,27 +2617,33 @@ package_capture(FixedAction action, const JsonObject& input,
           event_operations, static_cast<std::uint32_t>(*shared_node));
     }
     if (*package_name == "L1") {
-      workload::L1Package package(linked_queue, emitter);
-      if (is_pilot) {
-        if (!linked_queue.reset_quiescent()) {
-          return failure<RunCapture>(
-              "$/action_inputs", "S17-PILOT-LINKED-RESET",
-              "persistent linked queue did not reset before warm-up");
-        }
-        return capture_pilot_after_warmup<protocol::QueuePackage::l1>(
-            ticket.value(), linked_queue, package, arena, parsed_warmup_run_id.value(),
-            {*warmup_deadlines, *warmup_origin, *warmup_horizon, *warmup_horizon,
-             warmup_deadlines->size(), static_cast<std::size_t>(*cache_line)},
-            parsed_run_id.value(),
-            {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
-             static_cast<std::size_t>(*cache_line)},
-            event_operations, static_cast<std::uint32_t>(*shared_node));
-      }
-      return capture_by_mode<protocol::QueuePackage::l1>(
-          action, ticket.value(), package, arena, parsed_run_id.value(),
-          {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
-           static_cast<std::size_t>(*cache_line)},
-          event_operations, static_cast<std::uint32_t>(*shared_node));
+      // ADR-0175: see the R1 branch's own comment above.
+      return std::visit(
+          [&](auto& emitter) -> protocol::Result<RunCapture> {
+            workload::L1Package package(linked_queue, emitter);
+            if (is_pilot) {
+              if (!linked_queue.reset_quiescent()) {
+                return failure<RunCapture>(
+                    "$/action_inputs", "S17-PILOT-LINKED-RESET",
+                    "persistent linked queue did not reset before warm-up");
+              }
+              return capture_pilot_after_warmup<protocol::QueuePackage::l1>(
+                  ticket.value(), linked_queue, package, arena,
+                  parsed_warmup_run_id.value(),
+                  {*warmup_deadlines, *warmup_origin, *warmup_horizon, *warmup_horizon,
+                   warmup_deadlines->size(), static_cast<std::size_t>(*cache_line)},
+                  parsed_run_id.value(),
+                  {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
+                   static_cast<std::size_t>(*cache_line)},
+                  event_operations, static_cast<std::uint32_t>(*shared_node));
+            }
+            return capture_by_mode<protocol::QueuePackage::l1>(
+                action, ticket.value(), package, arena, parsed_run_id.value(),
+                {*deadlines, *schedule_origin, *schedule_horizon, *duration, *events,
+                 static_cast<std::size_t>(*cache_line)},
+                event_operations, static_cast<std::uint32_t>(*shared_node));
+          },
+          emitter_variant);
     }
   } catch (const std::exception&) {
     return failure<RunCapture>("$/action_inputs", "S17-RUN-EXECUTION",

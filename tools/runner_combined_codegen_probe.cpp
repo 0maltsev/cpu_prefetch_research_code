@@ -13,6 +13,13 @@ using R2 = cpu_prefetch::workload::R2Package<Emitter>;
 using L0 = cpu_prefetch::workload::L0Package;
 using L1 = cpu_prefetch::workload::L1Package<Emitter>;
 
+// ADR-0175: the PRFCHW-free sibling mapping's own real package instantiations
+// -- disassembled by the same check, in the same binary, as the original.
+using EmitterT0 = cpu_prefetch::runner::X86PrefetchT0OnlyEmitter;
+using R1T0 = cpu_prefetch::workload::R1Package<EmitterT0>;
+using R2T0 = cpu_prefetch::workload::R2Package<EmitterT0>;
+using L1T0 = cpu_prefetch::workload::L1Package<EmitterT0>;
+
 template <typename Package>
 using Backend = cpu_prefetch::storage::CapturingObservationBackend<Clock, Package>;
 
@@ -49,6 +56,9 @@ CPU_PREFETCH_COMBINED_PROBES(r1, R1)
 CPU_PREFETCH_COMBINED_PROBES(r2, R2)
 CPU_PREFETCH_COMBINED_PROBES(l0, L0)
 CPU_PREFETCH_COMBINED_PROBES(l1, L1)
+CPU_PREFETCH_COMBINED_PROBES(t0only_r1, R1T0)
+CPU_PREFETCH_COMBINED_PROBES(t0only_r2, R2T0)
+CPU_PREFETCH_COMBINED_PROBES(t0only_l1, L1T0)
 
 #undef CPU_PREFETCH_COMBINED_PROBES
 

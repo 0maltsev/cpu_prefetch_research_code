@@ -1,6 +1,6 @@
 # 0174. Stage 17 `cpu-prefetch-v5` lacks PRFCHW: `SOFTWARE_PREFETCH_MAPPING` evidence is genuinely ineligible
 
-Status: PROPOSED
+Status: ACCEPTED (Option 2 chosen; implemented in ADR-0175)
 
 ## Context
 

@@ -18,8 +18,13 @@ namespace cpu_prefetch::runner {
 // kinds' detail shapes are unchanged; this is a whole-document version
 // bump, matching how the schema versions as one type across its "kind"
 // variants rather than per-variant.
+// Bumped to /3 for ADR-0175: software_prefetch_mapping_details' mapping_id
+// widened to accept the second, PRFCHW-free mapping, with
+// ring_producer_instruction conditional on which mapping_id is present
+// (PREFETCHW for the original, PREFETCHT0 for the new one). Every other
+// kind's detail shape is unchanged.
 inline constexpr std::string_view kQualificationEvidenceSchemaVersion =
-    "cpu-prefetch-qualification-evidence/2";
+    "cpu-prefetch-qualification-evidence/3";
 
 enum class QualificationEvidenceKind : std::uint8_t {
   selected_pair_clock,

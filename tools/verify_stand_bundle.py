@@ -705,11 +705,11 @@ def main() -> int:
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v22"):
-        if (
-            manifest.get("software_prefetch_mapping_id")
-            != "X86-64-PREFETCHW-PREFETCHT0-v1"
+        if manifest.get("software_prefetch_mapping_id") not in (
+            "X86-64-PREFETCHW-PREFETCHT0-v1",
+            "X86-64-PREFETCHT0-ONLY-v1",
         ):
-            failures.append("pilot candidate has no accepted D-047 mapping identity")
+            failures.append("pilot candidate has no accepted D-047/ADR-0175 mapping identity")
         if manifest.get("debug_symbol_strategy") != (
             "UNSTRIPPED_RELEASE_BINARIES_WITH_EXACT_BUILD_PROVENANCE"
         ):
@@ -741,11 +741,19 @@ def main() -> int:
                 failures.append(f"pilot candidate codegen report is not strict: {report}")
             if report == "runner_combined_codegen_report.json" and (
                 report_document.get("schema_version")
-                != "cpu-prefetch-runner-combined-codegen/2"
+                not in (
+                    "cpu-prefetch-runner-combined-codegen/2",
+                    "cpu-prefetch-runner-combined-codegen/3",
+                )
                 or report_document.get("software_prefetch_mapping_id")
-                != "X86-64-PREFETCHW-PREFETCHT0-v1"
+                not in (
+                    "X86-64-PREFETCHW-PREFETCHT0-v1",
+                    "X86-64-PREFETCHT0-ONLY-v1",
+                )
             ):
-                failures.append("pilot candidate combined report lacks D-047 identity")
+                failures.append(
+                    "pilot candidate combined report lacks D-047/ADR-0175 identity"
+                )
         if profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v2":
             runtime = manifest.get("stage17_fixed_action_runtime")
             expected_actions = ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
@@ -1053,7 +1061,7 @@ def main() -> int:
                 else 8 if current_v4 else version
             )
             admission_policy_version = (
-                52 if current_v21
+                53 if current_v21
                 else 39 if current_v20
                 else 38 if current_v19
                 else 37 if current_v18

@@ -205,6 +205,22 @@ auto X86CurrentCpuSoftwarePrefetchCapabilityBackend::observe() noexcept
   return {maximum_extended_leaf, ecx, (ecx & kPrfchwEcxMask) != 0U};
 }
 
+auto find_software_prefetch_mapping(platform::CpuFamilyModel identity)
+    -> std::optional<SoftwarePrefetchMapping> {
+  for (const auto& mapping : kSoftwarePrefetchMappings) {
+    if (mapping.family == identity.family && mapping.model == identity.model) {
+      return mapping;
+    }
+  }
+  return std::nullopt;
+}
+
+auto is_accepted_software_prefetch_mapping_id(std::string_view mapping_id) -> bool {
+  return std::any_of(
+      kSoftwarePrefetchMappings.begin(), kSoftwarePrefetchMappings.end(),
+      [mapping_id](const auto& mapping) { return mapping.mapping_id == mapping_id; });
+}
+
 auto AffinedObservationPreparation::prepare_producer() noexcept -> bool {
   producer_result_.binding = binding_backend_.bind_and_verify(workers_.producer_cpu);
   if (!producer_result_.binding.passes()) {

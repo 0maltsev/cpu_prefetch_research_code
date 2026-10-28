@@ -519,8 +519,13 @@ def main() -> int:
             # resolved, now bound per instance to the session's own
             # resolved mapping's control_cpus) -- same class of re-pin
             # once more.
+            # ADR-0175 moves the outer policy again (v52 -> v53,
+            # re-pinning the same compiled worker source file after
+            # adding a second, PRFCHW-free software-prefetch mapping and
+            # its own per-run resolution/dispatch in package_capture) --
+            # same class of re-pin once more.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v52.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v53.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))

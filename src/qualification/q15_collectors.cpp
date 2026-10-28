@@ -173,9 +173,14 @@ struct CodegenReportAssessment final {
   const auto* llvm = object_member(*tools, "LLVM_OBJDUMP");
   const auto* source_status = string_member(*source, "status");
   const auto* source_mapping = string_member(*source, "mapping_id");
+  // ADR-0175: a report naming either registered software-prefetch mapping
+  // (schema /2, the original mapping only, or /3, both mappings) validates
+  // honestly -- the codegen check that produced it already proved whichever
+  // mapping it names actually emits the right instructions for real.
   const bool passes =
-      *schema == "cpu-prefetch-runner-combined-codegen/2" &&
-      *mapping == runner::kSoftwarePrefetchMappingId && *status == "PASS" &&
+      (*schema == "cpu-prefetch-runner-combined-codegen/2" ||
+       *schema == "cpu-prefetch-runner-combined-codegen/3") &&
+      runner::is_accepted_software_prefetch_mapping_id(*mapping) && *status == "PASS" &&
       protocol::Sha256::parse(*binary, "$/binary_sha256") &&
       missing->second.as_array()->empty() && gnu != nullptr && llvm != nullptr &&
       string_member(*gnu, "status") != nullptr &&
@@ -183,7 +188,7 @@ struct CodegenReportAssessment final {
       string_member(*llvm, "status") != nullptr &&
       *string_member(*llvm, "status") == "PASS" && source_status != nullptr &&
       *source_status == "PASS" && source_mapping != nullptr &&
-      *source_mapping == runner::kSoftwarePrefetchMappingId;
+      runner::is_accepted_software_prefetch_mapping_id(*source_mapping);
   return {true, passes, *binary, text_sha256(document)};
 }
 

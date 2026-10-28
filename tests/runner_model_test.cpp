@@ -190,6 +190,44 @@ TEST(RunnerQ13Policy, ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen) {
   emitter.successor_header(target.data());
 }
 
+TEST(RunnerQ13Policy, SoftwarePrefetchT0OnlyMappingIsFrozenAndEmitsOnlyPrefetchT0) {
+  EXPECT_EQ(cpu_prefetch::runner::kSoftwarePrefetchMappingIdT0Only,
+            "X86-64-PREFETCHT0-ONLY-v1");
+  alignas(64) std::array<char, 64U> target{};
+  const cpu_prefetch::runner::X86PrefetchT0OnlyEmitter emitter;
+  emitter.ring_producer_write(target.data());
+  emitter.ring_consumer_read(target.data());
+  emitter.successor_header(target.data());
+}
+
+TEST(RunnerQ13Policy, SoftwarePrefetchMappingRegistryCoversAdr0047AndAdr0175Only) {
+  using cpu_prefetch::platform::CpuFamilyModel;
+  using cpu_prefetch::platform::kIntelFamily6;
+  using cpu_prefetch::platform::kIntelModel3E;
+  using cpu_prefetch::platform::kIntelModel55;
+  using cpu_prefetch::runner::find_software_prefetch_mapping;
+  using cpu_prefetch::runner::is_accepted_software_prefetch_mapping_id;
+  using cpu_prefetch::runner::kSoftwarePrefetchMappingId;
+  using cpu_prefetch::runner::kSoftwarePrefetchMappingIdT0Only;
+
+  const auto original = find_software_prefetch_mapping({kIntelFamily6, kIntelModel55});
+  ASSERT_TRUE(original.has_value());
+  EXPECT_EQ(original.value().mapping_id, kSoftwarePrefetchMappingId);
+
+  const auto t0_only = find_software_prefetch_mapping({kIntelFamily6, kIntelModel3E});
+  ASSERT_TRUE(t0_only.has_value());
+  EXPECT_EQ(t0_only.value().mapping_id, kSoftwarePrefetchMappingIdT0Only);
+
+  EXPECT_FALSE(
+      find_software_prefetch_mapping(CpuFamilyModel{kIntelFamily6, 0x6AU}).has_value());
+
+  EXPECT_TRUE(is_accepted_software_prefetch_mapping_id(kSoftwarePrefetchMappingId));
+  EXPECT_TRUE(
+      is_accepted_software_prefetch_mapping_id(kSoftwarePrefetchMappingIdT0Only));
+  EXPECT_FALSE(is_accepted_software_prefetch_mapping_id("NOT-A-REGISTERED-MAPPING-v1"));
+  EXPECT_FALSE(is_accepted_software_prefetch_mapping_id(""));
+}
+
 TEST(RunnerQ13Policy, AcceptedCpuPairSelectionIdsCoverAdr0043AndAdr0173Only) {
   using cpu_prefetch::runner::is_accepted_cpu_pair_selection_id;
   EXPECT_TRUE(
@@ -444,6 +482,32 @@ TEST(RunnerQualification, MissingCountsMigrationsAndUnavailablePagesStayIneligib
                  true, true, true});
   ASSERT_TRUE(software_prefetch.has_value());
   EXPECT_FALSE(software_prefetch.value().eligible);
+}
+
+TEST(RunnerQualification, SoftwarePrefetchT0OnlyMappingIsEligibleWithoutPrfchw) {
+  using namespace cpu_prefetch::runner;
+  const auto identity = qualification_identity();
+  // Real cpu-prefetch-v5 capture shape: PRFCHW genuinely absent (ADR-0175).
+  const SoftwarePrefetchCapabilityObservation no_prfchw{0x80000008U, 0x021U, false};
+  const auto eligible_without_prfchw = make_software_prefetch_mapping_evidence(
+      identity, {std::string(kSoftwarePrefetchMappingIdT0Only), no_prfchw, no_prfchw,
+                 true, true, true, true});
+  ASSERT_TRUE(eligible_without_prfchw.has_value());
+  EXPECT_TRUE(eligible_without_prfchw.value().eligible);
+
+  // The T0-only mapping id never bypasses the real codegen attestation.
+  const auto ineligible_without_codegen = make_software_prefetch_mapping_evidence(
+      identity, {std::string(kSoftwarePrefetchMappingIdT0Only), no_prfchw, no_prfchw,
+                 false, true, true, true});
+  ASSERT_TRUE(ineligible_without_codegen.has_value());
+  EXPECT_FALSE(ineligible_without_codegen.value().eligible);
+
+  // An unregistered mapping id is never eligible regardless of other fields.
+  const auto ineligible_unregistered_mapping = make_software_prefetch_mapping_evidence(
+      identity, {std::string("NOT-A-REGISTERED-MAPPING-v1"), no_prfchw, no_prfchw, true,
+                 true, true, true});
+  ASSERT_TRUE(ineligible_unregistered_mapping.has_value());
+  EXPECT_FALSE(ineligible_unregistered_mapping.value().eligible);
 }
 
 TEST(RunnerQualification, ActualCpuMigrationAcceptsSingleCpuSeriesBoundToProducerRole) {

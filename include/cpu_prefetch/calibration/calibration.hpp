@@ -212,6 +212,9 @@ struct RingCaptureResult final {
   RingAttemptOutcome outcome;
   timing::ClockReadStatus before_status;
   timing::ClockReadStatus after_status;
+  // The queue call has already happened when a clock/trace failure is found.
+  // Keep that operation's actual outcome independently for reconciliation.
+  std::optional<RingAttemptOutcome> operation_outcome{};
 };
 
 template <typename Clock>
@@ -227,20 +230,20 @@ capture_producer_ring_demand(Clock& clock, queue::RingSpscQueue& queue,
     void after_slot_acquire() noexcept { after = clock.read(); }
   } observer{clock};
   const auto result = queue.try_enqueue_with_slot_demand_observer(event, observer);
-  if (observer.before.status != timing::ClockReadStatus::ok ||
-      observer.after.status != timing::ClockReadStatus::ok) {
-    return {RingAttemptOutcome::clock_failure, observer.before.status,
-            observer.after.status};
-  }
   const auto outcome = result == queue::EnqueueResult::accepted
                            ? RingAttemptOutcome::advanced
                            : RingAttemptOutcome::full;
+  if (observer.before.status != timing::ClockReadStatus::ok ||
+      observer.after.status != timing::ClockReadStatus::ok) {
+    return {RingAttemptOutcome::clock_failure, observer.before.status,
+            observer.after.status, outcome};
+  }
   if (!trace.record(RingWorker::producer, observer.before.sample.relative_picoseconds,
                     observer.after.sample.relative_picoseconds, outcome)) {
     return {RingAttemptOutcome::trace_failure, observer.before.status,
-            observer.after.status};
+            observer.after.status, outcome};
   }
-  return {outcome, observer.before.status, observer.after.status};
+  return {outcome, observer.before.status, observer.after.status, outcome};
 }
 
 template <typename Clock>
@@ -256,20 +259,20 @@ template <typename Clock>
     void after_slot_acquire() noexcept { after = clock.read(); }
   } observer{clock};
   const auto result = queue.try_dequeue_with_slot_demand_observer(observer);
-  if (observer.before.status != timing::ClockReadStatus::ok ||
-      observer.after.status != timing::ClockReadStatus::ok) {
-    return {RingAttemptOutcome::clock_failure, observer.before.status,
-            observer.after.status};
-  }
   const auto outcome = result.status == queue::DequeueStatus::item
                            ? RingAttemptOutcome::advanced
                            : RingAttemptOutcome::empty;
+  if (observer.before.status != timing::ClockReadStatus::ok ||
+      observer.after.status != timing::ClockReadStatus::ok) {
+    return {RingAttemptOutcome::clock_failure, observer.before.status,
+            observer.after.status, outcome};
+  }
   if (!trace.record(RingWorker::consumer, observer.before.sample.relative_picoseconds,
                     observer.after.sample.relative_picoseconds, outcome)) {
     return {RingAttemptOutcome::trace_failure, observer.before.status,
-            observer.after.status};
+            observer.after.status, outcome};
   }
-  return {outcome, observer.before.status, observer.after.status};
+  return {outcome, observer.before.status, observer.after.status, outcome};
 }
 
 struct RingContextKey final {

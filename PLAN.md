@@ -348,6 +348,8 @@ authorization/amendment.
   The 66 affected C++ tests pass with GCC and restored pinned Clang/libc++;
   affected suites also pass both compiler ASan/UBSan and TSan matrices.
   Preserve this verification separately from qualified stand evidence.
+  ADR-0181 retains actual queue-operation results after clock/trace failure;
+  preserve these counts through the pending bounded drain integration.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

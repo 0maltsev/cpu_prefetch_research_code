@@ -36,6 +36,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
+| [ADR-0181](0181-stage17-capture-failure-operation-accounting.md) | `ACCEPTED` | Preserve independently observed queue advances and FULL/empty results when timing/trace capture fails; retain mandatory failure and cancellation. |
 | [ADR-0180](0180-stage17-discovery-worker-window.md) | `ACCEPTED` | Implement a fixed-deadline, bounded discovery worker and owner-prefaulted trace adapter; preserve partial evidence and keep execution behind separate diagnostic admission. |
 | [ADR-0179](0179-stage17-discovery-design-selector.md) | `ACCEPTED` | Enumerate the approved discovery grid and implement a count-only selector that rejects incomplete, extended, reordered, or failed campaigns; no execution authority. |
 | [ADR-0178](0178-stage17-q16a-duration-discovery-proposal.md) | `ACCEPTED` | Owner approved the separate 36-capture diagnostic study and count-based selection rule; formal collection and execution authority remain separate. |

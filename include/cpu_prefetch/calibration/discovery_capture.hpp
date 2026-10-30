@@ -36,6 +36,7 @@ struct DiscoveryWorkerResult final {
   std::uint64_t empty{0U};
   std::optional<std::uint64_t> last_observed_tick{};
   std::optional<RingAttemptOutcome> last_attempt_outcome{};
+  std::optional<RingAttemptOutcome> last_operation_outcome{};
   std::optional<timing::ClockReadStatus> last_attempt_before_status{};
   std::optional<timing::ClockReadStatus> last_attempt_after_status{};
   std::optional<timing::ClockReadStatus> failed_clock_status{};
@@ -92,15 +93,17 @@ template <typename Clock, typename CaptureAttempt>
     const auto captured = capture_attempt();
     ++result.attempts;
     result.last_attempt_outcome = captured.outcome;
+    result.last_operation_outcome = captured.operation_outcome;
     result.last_attempt_before_status = captured.before_status;
     result.last_attempt_after_status = captured.after_status;
-    bool valid_outcome = true;
-    if (captured.outcome == RingAttemptOutcome::advanced) {
+    const auto operation = captured.operation_outcome.value_or(captured.outcome);
+    bool valid_outcome = captured.outcome == operation;
+    if (operation == RingAttemptOutcome::advanced) {
       ++result.advanced;
-    } else if (captured.outcome == RingAttemptOutcome::full &&
+    } else if (operation == RingAttemptOutcome::full &&
                window.worker == RingWorker::producer) {
       ++result.full;
-    } else if (captured.outcome == RingAttemptOutcome::empty &&
+    } else if (operation == RingAttemptOutcome::empty &&
                window.worker == RingWorker::consumer) {
       ++result.empty;
     } else {

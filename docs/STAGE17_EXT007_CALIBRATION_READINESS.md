@@ -33,6 +33,15 @@ watchdog, raw publication/custody, and qualified diagnostic admission still
 need integration before the 36-capture study can run. The old formal Q16a
 sample-count loop remains unchanged; it must not be used under a new label.
 
+ADR-0181 separately retains actual queue-operation outcomes when a clock or
+trace failure is discovered after the queue call. Producer/consumer advances
+and FULL/empty counts therefore remain available for drain reconciliation,
+while the original capture failure and peer cancellation stay mandatory.
+Three real-ring regression tests reproduced six missing-count failures
+before the fix. The corrected calibration suite passes 28/28 under GCC and
+Clang development, and under both compiler ASan/UBSan and TSan matrices. This does not supply
+the missing drain/coordinator or qualify a diagnostic release.
+
 ## Implemented prerequisites
 
 ADR-0177 integrates the existing hardware mappings into a testable whole-plot

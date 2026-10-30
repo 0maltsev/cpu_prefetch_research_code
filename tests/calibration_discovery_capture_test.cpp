@@ -191,6 +191,110 @@ TEST(DiscoveryCaptureWindow, CaptureFailureAndWrongWorkerOutcomeStopPeers) {
   }
 }
 
+TEST(DiscoveryCaptureWindow, ClockFailureRetainsTheAlreadyCompletedQueueAdvance) {
+  for (const auto worker :
+       {calibration::RingWorker::producer, calibration::RingWorker::consumer}) {
+    queue::RingSpscQueue ring({1U}, {64U});
+    int event = 7;
+    const auto pointer = event_pointer_for(&event);
+    if (worker == calibration::RingWorker::consumer) {
+      ASSERT_EQ(ring.try_enqueue(pointer), queue::EnqueueResult::accepted);
+    }
+    calibration::RingDemandTrace trace{4U};
+    ASSERT_TRUE(trace.prepare_worker(worker));
+    SequenceClock clock({0U, 1U});
+    std::atomic<bool> stop{false};
+    auto attempt = [&]() noexcept {
+      return worker == calibration::RingWorker::producer
+                 ? calibration::capture_producer_ring_demand(clock, ring, pointer,
+                                                             trace)
+                 : calibration::capture_consumer_ring_demand(clock, ring, trace);
+    };
+    const auto result = calibration::capture_prepared_discovery_worker(
+        {worker, 0U, 100U, 4U}, clock, attempt, trace, stop);
+    EXPECT_EQ(result.stop, calibration::DiscoveryWorkerStop::capture_failure);
+    EXPECT_EQ(result.last_attempt_outcome,
+              calibration::RingAttemptOutcome::clock_failure);
+    EXPECT_EQ(result.failed_clock_status, timing::ClockReadStatus::call_failed);
+    EXPECT_EQ(result.attempts, 1U);
+    EXPECT_EQ(result.advanced, 1U);
+    EXPECT_EQ(result.last_operation_outcome, calibration::RingAttemptOutcome::advanced);
+    EXPECT_TRUE(trace.series().producer_demand_ticks.empty());
+    EXPECT_TRUE(trace.series().consumer_demand_ticks.empty());
+    EXPECT_EQ(ring.audit_quiescent().occupied_slots,
+              worker == calibration::RingWorker::producer ? 1U : 0U);
+    EXPECT_TRUE(stop.load());
+  }
+}
+
+TEST(DiscoveryCaptureWindow, TraceFailureRetainsTheAlreadyCompletedQueueAdvance) {
+  for (const auto worker :
+       {calibration::RingWorker::producer, calibration::RingWorker::consumer}) {
+    queue::RingSpscQueue ring({1U}, {64U});
+    int event = 7;
+    const auto pointer = event_pointer_for(&event);
+    if (worker == calibration::RingWorker::consumer) {
+      ASSERT_EQ(ring.try_enqueue(pointer), queue::EnqueueResult::accepted);
+    }
+    calibration::RingDemandTrace trace{4U};
+    ASSERT_TRUE(trace.prepare_worker(worker));
+    SequenceClock clock({0U, 2U, 1U});
+    std::atomic<bool> stop{false};
+    auto attempt = [&]() noexcept {
+      return worker == calibration::RingWorker::producer
+                 ? calibration::capture_producer_ring_demand(clock, ring, pointer,
+                                                             trace)
+                 : calibration::capture_consumer_ring_demand(clock, ring, trace);
+    };
+    const auto result = calibration::capture_prepared_discovery_worker(
+        {worker, 0U, 100U, 4U}, clock, attempt, trace, stop);
+    EXPECT_EQ(result.stop, calibration::DiscoveryWorkerStop::capture_failure);
+    EXPECT_EQ(result.last_attempt_outcome,
+              calibration::RingAttemptOutcome::trace_failure);
+    EXPECT_EQ(result.attempts, 1U);
+    EXPECT_EQ(result.advanced, 1U);
+    EXPECT_FALSE(result.failed_clock_status.has_value());
+    EXPECT_EQ(result.last_operation_outcome, calibration::RingAttemptOutcome::advanced);
+    EXPECT_EQ(ring.audit_quiescent().occupied_slots,
+              worker == calibration::RingWorker::producer ? 1U : 0U);
+    EXPECT_TRUE(stop.load());
+  }
+}
+
+TEST(DiscoveryCaptureWindow, ClockFailureRetainsFullAndEmptyWithoutInventingAnAdvance) {
+  for (const auto worker :
+       {calibration::RingWorker::producer, calibration::RingWorker::consumer}) {
+    queue::RingSpscQueue ring({1U}, {64U});
+    int event = 7;
+    const auto pointer = event_pointer_for(&event);
+    if (worker == calibration::RingWorker::producer) {
+      ASSERT_EQ(ring.try_enqueue(pointer), queue::EnqueueResult::accepted);
+    }
+    calibration::RingDemandTrace trace{4U};
+    ASSERT_TRUE(trace.prepare_worker(worker));
+    SequenceClock clock({0U, 1U});
+    std::atomic<bool> stop{false};
+    auto attempt = [&]() noexcept {
+      return worker == calibration::RingWorker::producer
+                 ? calibration::capture_producer_ring_demand(clock, ring, pointer,
+                                                             trace)
+                 : calibration::capture_consumer_ring_demand(clock, ring, trace);
+    };
+    const auto result = calibration::capture_prepared_discovery_worker(
+        {worker, 0U, 100U, 4U}, clock, attempt, trace, stop);
+    EXPECT_EQ(result.stop, calibration::DiscoveryWorkerStop::capture_failure);
+    EXPECT_EQ(result.attempts, 1U);
+    EXPECT_EQ(result.advanced, 0U);
+    EXPECT_EQ(result.full, worker == calibration::RingWorker::producer ? 1U : 0U);
+    EXPECT_EQ(result.empty, worker == calibration::RingWorker::consumer ? 1U : 0U);
+    EXPECT_EQ(result.last_operation_outcome,
+              worker == calibration::RingWorker::producer
+                  ? calibration::RingAttemptOutcome::full
+                  : calibration::RingAttemptOutcome::empty);
+    EXPECT_TRUE(stop.load());
+  }
+}
+
 TEST(DiscoveryCaptureWindow, RealRingTraceRetainsFullAttemptsWithoutGrowingStorage) {
   queue::RingSpscQueue ring({1U}, {64U});
   int event = 7;

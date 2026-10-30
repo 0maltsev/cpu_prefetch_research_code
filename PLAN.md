@@ -350,6 +350,9 @@ authorization/amendment.
   Preserve this verification separately from qualified stand evidence.
   ADR-0181 retains actual queue-operation results after clock/trace failure;
   preserve these counts through the pending bounded drain integration.
+  ADR-0182 now implements the bounded drain/reset primitive and exercises
+  it after concurrent real-ring capture. Integrate it into the prepared
+  warm-up/start coordinator while preserving every original failure.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

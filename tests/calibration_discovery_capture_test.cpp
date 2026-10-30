@@ -452,15 +452,183 @@ TEST(DiscoveryCaptureWindow, ConcurrentRealQueueWorkersStopAndReconcileAfterDrai
       calibration::RingWorker::consumer, consumer_result, trace);
   EXPECT_EQ(producer_result.stop, calibration::DiscoveryWorkerStop::fixed_deadline);
   EXPECT_EQ(consumer_result.stop, calibration::DiscoveryWorkerStop::fixed_deadline);
-  std::uint64_t drained = 0U;
-  while (ring.try_dequeue().status == queue::DequeueStatus::item) {
-    ++drained;
-  }
-  EXPECT_EQ(producer_result.advanced, consumer_result.advanced + drained);
+  AtomicClock drain_clock;
+  auto consume = [&](const void* pointer) noexcept { return pointer == &event; };
+  ASSERT_GE(producer_result.advanced, consumer_result.advanced);
+  const auto drained = calibration::drain_discovery_ring_quiescent(
+      {0U, 1'000U, 65U, producer_result.advanced - consumer_result.advanced, true},
+      drain_clock, ring, consume);
+  EXPECT_EQ(drained.stop, calibration::DiscoveryDrainStop::complete);
+  EXPECT_TRUE(drained.reset_verified);
+  EXPECT_EQ(producer_result.advanced, consumer_result.advanced + drained.dequeued);
   EXPECT_EQ(trace.series().producer_demand_ticks.size(), producer_result.attempts);
   EXPECT_EQ(trace.series().consumer_demand_ticks.size(), consumer_result.attempts);
   EXPECT_EQ(ring.audit_quiescent().occupied_slots, 0U);
   EXPECT_TRUE(ring.reset_quiescent());
+}
+
+TEST(DiscoveryDrain, ReconcilesAcceptedEventsBeforeResettingTheSameRing) {
+  queue::RingSpscQueue ring({4U}, {64U});
+  std::array<int, 2U> events{7, 9};
+  ASSERT_EQ(ring.try_enqueue(event_pointer_for(&events[0])),
+            queue::EnqueueResult::accepted);
+  ASSERT_EQ(ring.try_enqueue(event_pointer_for(&events[1])),
+            queue::EnqueueResult::accepted);
+  std::size_t position = 0U;
+  auto consume = [&](const void* pointer) noexcept {
+    const bool valid = position < events.size() && pointer == &events[position];
+    ++position;
+    return valid;
+  };
+  SequenceClock clock({10U, 11U, 12U});
+  const auto result = calibration::drain_discovery_ring_quiescent(
+      {10U, 10U, 3U, 2U, true}, clock, ring, consume);
+  EXPECT_EQ(result.stop, calibration::DiscoveryDrainStop::complete);
+  EXPECT_EQ(result.attempts, 3U);
+  EXPECT_EQ(result.dequeued, 2U);
+  EXPECT_EQ(position, 2U);
+  EXPECT_TRUE(result.reset_verified);
+  ASSERT_TRUE(result.final_audit.has_value());
+  EXPECT_EQ(ring.audit_quiescent().occupied_slots, 0U);
+  EXPECT_EQ(ring.audit_quiescent().producer_position, 0U);
+  EXPECT_EQ(ring.audit_quiescent().consumer_position, 0U);
+}
+
+TEST(DiscoveryDrain, ConsumerFailureRetainsTheDequeueAndPreventsReset) {
+  queue::RingSpscQueue ring({4U}, {64U});
+  int event = 7;
+  const auto pointer = event_pointer_for(&event);
+  ASSERT_EQ(ring.try_enqueue(pointer), queue::EnqueueResult::accepted);
+  ASSERT_EQ(ring.try_enqueue(pointer), queue::EnqueueResult::accepted);
+  auto consume = [](const void*) noexcept { return false; };
+  SequenceClock clock({0U});
+  const auto result = calibration::drain_discovery_ring_quiescent(
+      {0U, 10U, 3U, 2U, true}, clock, ring, consume);
+  EXPECT_EQ(result.stop, calibration::DiscoveryDrainStop::consumer_failure);
+  EXPECT_EQ(result.dequeued, 1U);
+  EXPECT_FALSE(result.reset_verified);
+  EXPECT_EQ(ring.audit_quiescent().occupied_slots, 1U);
+}
+
+TEST(DiscoveryDrain, CountMismatchCannotResetEvenWhenTheQueueBecameEmpty) {
+  for (const auto expected : {0U, 2U}) {
+    queue::RingSpscQueue ring({4U}, {64U});
+    int event = 7;
+    ASSERT_EQ(ring.try_enqueue(event_pointer_for(&event)),
+              queue::EnqueueResult::accepted);
+    auto consume = [&](const void* pointer) noexcept { return pointer == &event; };
+    SequenceClock clock({0U, 1U});
+    const auto result = calibration::drain_discovery_ring_quiescent(
+        {0U, 10U, 3U, expected, true}, clock, ring, consume);
+    EXPECT_EQ(result.stop, calibration::DiscoveryDrainStop::count_mismatch);
+    EXPECT_EQ(result.dequeued, 1U);
+    EXPECT_FALSE(result.reset_verified);
+    EXPECT_EQ(ring.audit_quiescent().occupied_slots, 0U);
+    EXPECT_EQ(ring.audit_quiescent().producer_position, 1U);
+    EXPECT_EQ(ring.audit_quiescent().consumer_position, 1U);
+  }
+}
+
+TEST(DiscoveryDrain, ResourceAndClockStopsRetainPartialDrainWithoutReset) {
+  struct Case final {
+    std::vector<std::uint64_t> ticks;
+    std::uint64_t origin;
+    std::uint64_t capacity;
+    calibration::DiscoveryDrainStop stop;
+    std::uint64_t dequeued;
+  };
+  const std::array cases{
+      Case{{}, 0U, 3U, calibration::DiscoveryDrainStop::clock_failure, 0U},
+      Case{{0U}, 0U, 3U, calibration::DiscoveryDrainStop::clock_failure, 1U},
+      Case{{0U, 10U}, 0U, 3U, calibration::DiscoveryDrainStop::fixed_deadline, 1U},
+      Case{{5U, 4U}, 5U, 3U, calibration::DiscoveryDrainStop::clock_reversal, 1U},
+      Case{{4U}, 5U, 3U, calibration::DiscoveryDrainStop::clock_reversal, 0U},
+      Case{{0U, 1U}, 0U, 1U, calibration::DiscoveryDrainStop::attempt_capacity, 1U}};
+  for (const auto& entry : cases) {
+    SCOPED_TRACE(static_cast<unsigned int>(entry.stop));
+    queue::RingSpscQueue ring({4U}, {64U});
+    int event = 7;
+    const auto pointer = event_pointer_for(&event);
+    ASSERT_EQ(ring.try_enqueue(pointer), queue::EnqueueResult::accepted);
+    ASSERT_EQ(ring.try_enqueue(pointer), queue::EnqueueResult::accepted);
+    auto consume = [&](const void* value) noexcept { return value == &event; };
+    SequenceClock clock(entry.ticks);
+    const auto result = calibration::drain_discovery_ring_quiescent(
+        {entry.origin, 10U, entry.capacity, 2U, true}, clock, ring, consume);
+    EXPECT_EQ(result.stop, entry.stop);
+    EXPECT_EQ(result.dequeued, entry.dequeued);
+    EXPECT_FALSE(result.reset_verified);
+    EXPECT_EQ(ring.audit_quiescent().occupied_slots, 2U - entry.dequeued);
+    EXPECT_EQ(ring.audit_quiescent().producer_position, 2U);
+    if (entry.stop == calibration::DiscoveryDrainStop::clock_failure) {
+      EXPECT_EQ(result.failed_clock_status, timing::ClockReadStatus::call_failed);
+    } else {
+      EXPECT_FALSE(result.failed_clock_status.has_value());
+    }
+  }
+}
+
+TEST(DiscoveryDrain, InvalidBudgetsMakeNoQueueOrClockAttempt) {
+  const std::array windows{
+      calibration::DiscoveryDrainWindow{0U, 0U, 3U, 1U, true},
+      calibration::DiscoveryDrainWindow{0U, 10U, 0U, 1U, true},
+      calibration::DiscoveryDrainWindow{std::numeric_limits<std::uint64_t>::max(), 1U,
+                                        3U, 1U, true}};
+  for (const auto window : windows) {
+    queue::RingSpscQueue ring({4U}, {64U});
+    int event = 7;
+    ASSERT_EQ(ring.try_enqueue(event_pointer_for(&event)),
+              queue::EnqueueResult::accepted);
+    SequenceClock clock({});
+    std::uint64_t consumed = 0U;
+    auto consume = [&](const void*) noexcept {
+      ++consumed;
+      return true;
+    };
+    const auto result =
+        calibration::drain_discovery_ring_quiescent(window, clock, ring, consume);
+    EXPECT_EQ(result.stop, calibration::DiscoveryDrainStop::invalid_plan);
+    EXPECT_EQ(result.attempts, 0U);
+    EXPECT_EQ(consumed, 0U);
+    EXPECT_FALSE(result.last_observed_tick.has_value());
+    EXPECT_FALSE(result.failed_clock_status.has_value());
+    EXPECT_EQ(ring.audit_quiescent().occupied_slots, 1U);
+  }
+}
+
+TEST(DiscoveryDrain, ExhaustedBudgetDoesNotInferAnObservedEmptyFromCounts) {
+  queue::RingSpscQueue ring({4U}, {64U});
+  int event = 7;
+  const auto pointer = event_pointer_for(&event);
+  ASSERT_EQ(ring.try_enqueue(pointer), queue::EnqueueResult::accepted);
+  ASSERT_EQ(ring.try_enqueue(pointer), queue::EnqueueResult::accepted);
+  SequenceClock clock({0U, 1U, 2U});
+  auto consume = [&](const void* value) noexcept { return value == &event; };
+  const auto result = calibration::drain_discovery_ring_quiescent(
+      {0U, 10U, 2U, 2U, true}, clock, ring, consume);
+  EXPECT_EQ(result.stop, calibration::DiscoveryDrainStop::attempt_capacity);
+  EXPECT_EQ(result.dequeued, 2U);
+  EXPECT_FALSE(result.final_audit.has_value());
+  EXPECT_FALSE(result.reset_verified);
+  EXPECT_EQ(ring.audit_quiescent().producer_position, 2U);
+  EXPECT_EQ(ring.audit_quiescent().consumer_position, 2U);
+}
+
+TEST(DiscoveryDrain, FinalDrainPreservesCursorsWhenResetWasNotRequested) {
+  queue::RingSpscQueue ring({4U}, {64U});
+  int event = 7;
+  ASSERT_EQ(ring.try_enqueue(event_pointer_for(&event)),
+            queue::EnqueueResult::accepted);
+  SequenceClock clock({0U, 1U});
+  auto consume = [&](const void* value) noexcept { return value == &event; };
+  const auto result = calibration::drain_discovery_ring_quiescent(
+      {0U, 10U, 2U, 1U, false}, clock, ring, consume);
+  EXPECT_EQ(result.stop, calibration::DiscoveryDrainStop::complete);
+  EXPECT_EQ(result.dequeued, 1U);
+  EXPECT_FALSE(result.reset_verified);
+  EXPECT_EQ(ring.audit_quiescent().occupied_slots, 0U);
+  EXPECT_EQ(ring.audit_quiescent().producer_position, 1U);
+  EXPECT_EQ(ring.audit_quiescent().consumer_position, 1U);
 }
 
 } // namespace

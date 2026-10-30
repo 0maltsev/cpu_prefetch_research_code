@@ -15,6 +15,9 @@ Clang/libc++; the affected suites also pass both compiler ASan/UBSan and
 TSan matrices. These checks contribute no experimental observations.
 ADR-0181 corrects failure-path accounting: completed queue operations remain
 counted even when demand timing fails. The capture still stops as invalid.
+ADR-0182 supplies time/attempt-bounded consumer drain with exact count and
+empty-state checks before optional ring reset. The diagnostic coordinator,
+NUMA checks, watchdog, persistence, and operational admission remain open.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

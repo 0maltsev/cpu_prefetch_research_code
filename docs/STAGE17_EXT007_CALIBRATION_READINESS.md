@@ -39,8 +39,18 @@ and FULL/empty counts therefore remain available for drain reconciliation,
 while the original capture failure and peer cancellation stay mandatory.
 Three real-ring regression tests reproduced six missing-count failures
 before the fix. The corrected calibration suite passes 28/28 under GCC and
-Clang development, and under both compiler ASan/UBSan and TSan matrices. This does not supply
-the missing drain/coordinator or qualify a diagnostic release.
+Clang development, and under both compiler ASan/UBSan and TSan matrices.
+This does not supply the missing coordinator or qualify a diagnostic release.
+
+ADR-0182 implements time/attempt-bounded quiescent consumer drain and optional
+ring reset. It requires observed empty, zero audited occupancy, and exact
+pending-event reconciliation; failures retain partial counts and do not
+reset. The concurrent capture test now uses this real primitive. The suite
+passes all 35 C++ cases, including seven drain cases, under GCC and
+Clang/libc++ development, both ASan/UBSan presets, and both TSan presets.
+Changed-file clang-tidy and formatting checks pass. The separate warm-up/start
+coordinator, consumer integrity observations, placement verification, outer
+watchdog, durable raw retention, and exact diagnostic admission remain open.
 
 ## Implemented prerequisites
 

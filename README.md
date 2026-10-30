@@ -17,6 +17,8 @@ ASan/UBSan and TSan matrices; these are software checks, not stand measurements.
 ADR-0181 additionally preserves actual queue outcomes when a timing or trace
 failure occurs after the operation. Its real-ring regressions keep such
 captures invalid while retaining advances and FULL/empty counts for drain.
+ADR-0182 adds bounded consumer drain and verified quiescent ring reset;
+clock, budget, integrity, or reconciliation failure prevents a reset.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

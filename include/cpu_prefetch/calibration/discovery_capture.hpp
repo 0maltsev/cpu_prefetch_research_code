@@ -179,6 +179,116 @@ validate_quiescent_discovery_trace(RingWorker worker, DiscoveryWorkerResult resu
   return result;
 }
 
+enum class DiscoveryDrainStop : std::uint8_t {
+  complete,
+  invalid_plan,
+  clock_failure,
+  clock_reversal,
+  fixed_deadline,
+  attempt_capacity,
+  consumer_failure,
+  count_mismatch,
+  reset_failure,
+};
+
+struct DiscoveryDrainWindow final {
+  std::uint64_t origin_ticks;
+  std::uint64_t duration_ticks;
+  std::uint64_t attempt_capacity;
+  std::uint64_t expected_pending;
+  bool reset_after_drain;
+};
+
+struct DiscoveryDrainResult final {
+  DiscoveryDrainStop stop;
+  std::uint64_t attempts{0U};
+  std::uint64_t dequeued{0U};
+  std::optional<std::uint64_t> last_observed_tick{};
+  std::optional<timing::ClockReadStatus> failed_clock_status{};
+  std::optional<queue::RingQuiescentAudit> final_audit{};
+  bool reset_verified{false};
+};
+
+// Both capture workers must be quiescent before this consumer-owned drain.
+// consume must preserve the ordinary event validation/checksum action.
+template <typename Clock, typename Consume>
+[[nodiscard]] auto
+drain_discovery_ring_quiescent(DiscoveryDrainWindow window, Clock& clock,
+                               queue::RingSpscQueue& ring, Consume& consume) noexcept
+    -> DiscoveryDrainResult {
+  static_assert(noexcept(clock.read()));
+  static_assert(noexcept(consume(static_cast<const void*>(nullptr))));
+  DiscoveryDrainResult result{DiscoveryDrainStop::invalid_plan};
+  if (window.duration_ticks == 0U || window.attempt_capacity == 0U ||
+      window.origin_ticks >
+          std::numeric_limits<std::uint64_t>::max() - window.duration_ticks) {
+    return result;
+  }
+  const auto deadline = window.origin_ticks + window.duration_ticks;
+  auto previous_tick = window.origin_ticks;
+  for (;;) {
+    const auto observed = clock.read();
+    if (observed.status != timing::ClockReadStatus::ok) {
+      result.stop = DiscoveryDrainStop::clock_failure;
+      result.failed_clock_status = observed.status;
+      return result;
+    }
+    const auto now = observed.sample.relative_picoseconds;
+    result.last_observed_tick = now;
+    if (now < previous_tick) {
+      result.stop = DiscoveryDrainStop::clock_reversal;
+      return result;
+    }
+    previous_tick = now;
+    if (now >= deadline) {
+      result.stop = DiscoveryDrainStop::fixed_deadline;
+      return result;
+    }
+    if (result.attempts == window.attempt_capacity) {
+      result.stop = DiscoveryDrainStop::attempt_capacity;
+      return result;
+    }
+    const auto dequeued = ring.try_dequeue();
+    ++result.attempts;
+    if (dequeued.status == queue::DequeueStatus::item) {
+      ++result.dequeued;
+      if (!consume(dequeued.event)) {
+        result.stop = DiscoveryDrainStop::consumer_failure;
+        return result;
+      }
+      if (result.dequeued > window.expected_pending) {
+        result.stop = DiscoveryDrainStop::count_mismatch;
+        return result;
+      }
+      continue;
+    }
+    result.final_audit = ring.audit_quiescent();
+    if (dequeued.status != queue::DequeueStatus::empty ||
+        result.dequeued != window.expected_pending ||
+        result.final_audit->occupied_slots != 0U ||
+        !result.final_audit->positions_in_range) {
+      result.stop = DiscoveryDrainStop::count_mismatch;
+      return result;
+    }
+    if (window.reset_after_drain) {
+      if (!ring.reset_quiescent()) {
+        result.stop = DiscoveryDrainStop::reset_failure;
+        return result;
+      }
+      const auto reset_audit = ring.audit_quiescent();
+      result.reset_verified =
+          reset_audit.occupied_slots == 0U && reset_audit.positions_in_range &&
+          reset_audit.producer_position == 0U && reset_audit.consumer_position == 0U;
+      if (!result.reset_verified) {
+        result.stop = DiscoveryDrainStop::reset_failure;
+        return result;
+      }
+    }
+    result.stop = DiscoveryDrainStop::complete;
+    return result;
+  }
+}
+
 } // namespace cpu_prefetch::calibration
 
 #endif

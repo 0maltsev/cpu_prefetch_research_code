@@ -227,7 +227,8 @@ auto AffinedObservationPreparation::prepare_producer() noexcept -> bool {
     return false;
   }
   producer_result_.software_prefetch_capability = capability_backend_.observe();
-  if (!producer_result_.software_prefetch_capability.passes()) {
+  if (!producer_result_.software_prefetch_capability.passes_for_mapping(
+          software_prefetch_mapping_id_)) {
     return false;
   }
   producer_result_.private_stream_prepared = producer_stream_.prepare_for_owner();
@@ -240,7 +241,8 @@ auto AffinedObservationPreparation::prepare_consumer() noexcept -> bool {
     return false;
   }
   consumer_result_.software_prefetch_capability = capability_backend_.observe();
-  if (!consumer_result_.software_prefetch_capability.passes()) {
+  if (!consumer_result_.software_prefetch_capability.passes_for_mapping(
+          software_prefetch_mapping_id_)) {
     return false;
   }
   consumer_result_.private_stream_prepared = consumer_stream_.prepare_for_owner();
@@ -254,7 +256,8 @@ auto AffinedObservationPreparation::evidence() const noexcept
           producer_result_.software_prefetch_capability,
           consumer_result_.software_prefetch_capability,
           producer_result_.private_stream_prepared,
-          consumer_result_.private_stream_prepared};
+          consumer_result_.private_stream_prepared,
+          software_prefetch_mapping_id_};
 }
 
 auto to_string(EvidenceKind kind) noexcept -> std::string_view {

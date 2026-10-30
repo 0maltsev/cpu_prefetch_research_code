@@ -475,6 +475,36 @@ RingDemandTrace::RingDemandTrace(std::size_t max_attempts_per_worker)
   series_.consumer_issue_ticks.reserve(max_attempts_per_worker_);
 }
 
+auto RingDemandTrace::prepare_worker(RingWorker worker) -> bool {
+  if ((worker != RingWorker::producer && worker != RingWorker::consumer) ||
+      worker_prepared(worker)) {
+    return false;
+  }
+  auto& demand = worker == RingWorker::producer ? series_.producer_demand_ticks
+                                                : series_.consumer_demand_ticks;
+  auto& issue = worker == RingWorker::producer ? series_.producer_issue_ticks
+                                               : series_.consumer_issue_ticks;
+  if (!demand.empty() || !issue.empty()) {
+    return false;
+  }
+  const auto prepare = [this](auto& values) {
+    values.resize(max_attempts_per_worker_);
+    for (auto& value : values) {
+      volatile std::uint64_t* touched = &value;
+      *touched = 0U;
+    }
+    values.clear();
+  };
+  prepare(demand);
+  prepare(issue);
+  if (worker == RingWorker::producer) {
+    producer_prepared_ = true;
+  } else {
+    consumer_prepared_ = true;
+  }
+  return true;
+}
+
 auto RingDemandTrace::record(RingWorker worker, std::uint64_t demand_start,
                              std::uint64_t demand_end,
                              RingAttemptOutcome outcome) noexcept -> bool {

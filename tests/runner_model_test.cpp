@@ -325,6 +325,31 @@ TEST(RunnerPreparation, AffinityMismatchFailsBeforePrivateFirstTouch) {
   EXPECT_FALSE(preparation.evidence().passes());
 }
 
+TEST(RunnerPreparation, T0OnlyPreparationPreservesAbsentPrfchwObservation) {
+  using namespace cpu_prefetch::runner;
+  const auto run_id =
+      cpu_prefetch::protocol::RunId::parse("runner-t0-only", "$/run_id");
+  ASSERT_TRUE(run_id);
+  for (const auto mapping_id :
+       {kSoftwarePrefetchMappingIdT0Only, std::string_view{"UNKNOWN"}}) {
+    cpu_prefetch::storage::ProducerObservationStream producer(run_id.value(), 1U);
+    cpu_prefetch::storage::ConsumerObservationStream consumer(run_id.value(), 1U);
+    FakeBindingBackend binding;
+    FakeSoftwarePrefetchCapabilityBackend capability;
+    capability.supported = false;
+    AffinedObservationPreparation preparation(binding, capability, kNearWorkerPair,
+                                              producer, consumer, mapping_id);
+    const bool accepted = mapping_id == kSoftwarePrefetchMappingIdT0Only;
+    EXPECT_EQ(preparation.prepare_producer(), accepted);
+    EXPECT_EQ(preparation.prepare_consumer(), accepted);
+    EXPECT_EQ(preparation.evidence().passes(), accepted);
+    EXPECT_FALSE(
+        preparation.evidence().producer_software_prefetch_capability.prfchw_supported);
+    EXPECT_FALSE(
+        preparation.evidence().consumer_software_prefetch_capability.prfchw_supported);
+  }
+}
+
 TEST(RunnerPreparation, MissingPrfchwFailsBeforePrivateFirstTouch) {
   const auto run_id =
       cpu_prefetch::protocol::RunId::parse("runner-prfchw-fail", "$/run_id");

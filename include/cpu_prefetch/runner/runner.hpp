@@ -162,12 +162,15 @@ struct AffinedPreparationEvidence final {
   SoftwarePrefetchCapabilityObservation consumer_software_prefetch_capability;
   bool producer_stream_prepared;
   bool consumer_stream_prepared;
+  std::string_view software_prefetch_mapping_id{kSoftwarePrefetchMappingId};
 
   [[nodiscard]] auto passes() const noexcept -> bool {
     return producer_binding.passes() && consumer_binding.passes() &&
-           producer_software_prefetch_capability.passes() &&
-           consumer_software_prefetch_capability.passes() && producer_stream_prepared &&
-           consumer_stream_prepared;
+           producer_software_prefetch_capability.passes_for_mapping(
+               software_prefetch_mapping_id) &&
+           consumer_software_prefetch_capability.passes_for_mapping(
+               software_prefetch_mapping_id) &&
+           producer_stream_prepared && consumer_stream_prepared;
   }
 };
 
@@ -177,10 +180,13 @@ public:
       CurrentThreadBindingBackend& binding_backend,
       CurrentCpuSoftwarePrefetchCapabilityBackend& capability_backend,
       WorkerPair workers, storage::ProducerObservationStream& producer_stream,
-      storage::ConsumerObservationStream& consumer_stream) noexcept
+      storage::ConsumerObservationStream& consumer_stream,
+      std::string_view software_prefetch_mapping_id =
+          kSoftwarePrefetchMappingId) noexcept
       : binding_backend_(binding_backend), capability_backend_(capability_backend),
         workers_(workers), producer_stream_(producer_stream),
-        consumer_stream_(consumer_stream) {}
+        consumer_stream_(consumer_stream),
+        software_prefetch_mapping_id_(software_prefetch_mapping_id) {}
 
   [[nodiscard]] auto prepare_producer() noexcept -> bool;
   [[nodiscard]] auto prepare_consumer() noexcept -> bool;
@@ -192,6 +198,7 @@ private:
   WorkerPair workers_;
   storage::ProducerObservationStream& producer_stream_;
   storage::ConsumerObservationStream& consumer_stream_;
+  std::string_view software_prefetch_mapping_id_;
   detail::OwnerPreparationResult producer_result_{};
   detail::OwnerPreparationResult consumer_result_{};
 };

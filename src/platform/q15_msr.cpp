@@ -44,6 +44,100 @@ namespace {
 
 } // namespace
 
+HardwarePrefetchWholePlotControl::HardwarePrefetchWholePlotControl(
+    CpuFamilyModel identity, std::span<const HardwarePrefetchMsrValue> prestate,
+    HardwarePrefetchControlBackends backends)
+    : identity_(identity), prestate_(prestate.begin(), prestate.end()),
+      writer_(backends.writer), verifier_(backends.verifier) {
+  written_.reserve(prestate_.size());
+  apply_readback_.reserve(prestate_.size());
+  restore_readback_.reserve(prestate_.size());
+}
+
+HardwarePrefetchWholePlotControl::~HardwarePrefetchWholePlotControl() noexcept {
+  static_cast<void>(leave());
+}
+
+auto HardwarePrefetchWholePlotControl::enter(CpuFamilyModel observed_identity,
+                                             protocol::RequestedHardwareState state)
+    -> bool {
+  if (entered_ || restoration_failed_ || observed_identity != identity_) {
+    return false;
+  }
+  const auto plan = make_hardware_prefetch_plan(identity_, state, prestate_);
+  if (!plan) {
+    return false;
+  }
+  for (const auto& expected : prestate_) {
+    const auto observed = verifier_.read(expected.cpu);
+    if (!observed || observed.value() != expected.value) {
+      return false;
+    }
+  }
+  if (plan.value().mutating) {
+    for (const auto& requested : plan.value().requested) {
+      written_.push_back(requested);
+      const auto applied = writer_.write(requested.cpu, requested.value);
+      const auto observed = verifier_.read(requested.cpu);
+      if (!applied.succeeded || !observed || observed.value() != requested.value) {
+        static_cast<void>(leave());
+        return false;
+      }
+      apply_readback_.push_back({requested.cpu, observed.value()});
+    }
+  }
+  entered_ = true;
+  return true;
+}
+
+auto HardwarePrefetchWholePlotControl::leave() noexcept -> bool {
+  bool restored = !restoration_failed_;
+  for (auto position = written_.rbegin(); position != written_.rend(); ++position) {
+    try {
+      const auto* prior = plan_value(prestate_, position->cpu);
+      if (prior == nullptr) {
+        restored = false;
+        continue;
+      }
+      const auto written = writer_.write(prior->cpu, prior->value);
+      const auto observed = verifier_.read(prior->cpu);
+      if (!written.succeeded || !observed || observed.value() != prior->value) {
+        restored = false;
+      } else {
+        restore_readback_.push_back({prior->cpu, observed.value()});
+      }
+    } catch (...) {
+      restored = false;
+    }
+  }
+  if (entered_ && written_.empty()) {
+    for (const auto& expected : prestate_) {
+      try {
+        const auto observed = verifier_.read(expected.cpu);
+        if (!observed || observed.value() != expected.value) {
+          restored = false;
+        }
+      } catch (...) {
+        restored = false;
+      }
+    }
+  }
+  entered_ = false;
+  written_.clear();
+  restoration_failed_ = !restored;
+  return restored;
+}
+
+auto HardwarePrefetchWholePlotControl::apply_readback() const noexcept
+    -> std::span<const HardwarePrefetchMsrValue> {
+  return apply_readback_;
+}
+
+auto HardwarePrefetchWholePlotControl::restore_readback() const noexcept
+    -> std::span<const HardwarePrefetchMsrValue> {
+  return restore_readback_;
+}
+
 auto SystemPosixFileOperations::open_file(const char* path, int flags) -> int {
   return ::open(path, flags);
 }

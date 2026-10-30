@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <span>
 #include <string_view>
+#include <vector>
 
 namespace cpu_prefetch::platform {
 
@@ -76,6 +77,41 @@ private:
 [[nodiscard]] auto decode_x86_family_model(std::uint32_t leaf1_eax) noexcept
     -> CpuFamilyModel;
 [[nodiscard]] auto read_x86_family_model() -> Result<CpuFamilyModel>;
+
+struct HardwarePrefetchControlBackends final {
+  HardwarePrefetchMsrBackend& writer;
+  HardwarePrefetchMsrBackend& verifier;
+};
+
+class HardwarePrefetchWholePlotControl final {
+public:
+  HardwarePrefetchWholePlotControl(CpuFamilyModel identity,
+                                   std::span<const HardwarePrefetchMsrValue> prestate,
+                                   HardwarePrefetchControlBackends backends);
+  ~HardwarePrefetchWholePlotControl() noexcept;
+  HardwarePrefetchWholePlotControl(const HardwarePrefetchWholePlotControl&) = delete;
+  auto operator=(const HardwarePrefetchWholePlotControl&)
+      -> HardwarePrefetchWholePlotControl& = delete;
+
+  [[nodiscard]] auto enter(CpuFamilyModel observed_identity,
+                           protocol::RequestedHardwareState state) -> bool;
+  [[nodiscard]] auto leave() noexcept -> bool;
+  [[nodiscard]] auto apply_readback() const noexcept
+      -> std::span<const HardwarePrefetchMsrValue>;
+  [[nodiscard]] auto restore_readback() const noexcept
+      -> std::span<const HardwarePrefetchMsrValue>;
+
+private:
+  CpuFamilyModel identity_;
+  std::vector<HardwarePrefetchMsrValue> prestate_;
+  HardwarePrefetchMsrBackend& writer_;
+  HardwarePrefetchMsrBackend& verifier_;
+  std::vector<HardwarePrefetchMsrValue> written_;
+  std::vector<HardwarePrefetchMsrValue> apply_readback_;
+  std::vector<HardwarePrefetchMsrValue> restore_readback_;
+  bool entered_{false};
+  bool restoration_failed_{false};
+};
 
 // Perform exactly one already-planned CPU transition. This helper checks the
 // current complete value before writing but intentionally does not self-verify;

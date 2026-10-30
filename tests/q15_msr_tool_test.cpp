@@ -10,6 +10,8 @@
 #include <fcntl.h>
 #include <limits>
 #include <map>
+#include <span>
+#include <stdexcept>
 #include <string>
 #include <utility>
 #include <vector>
@@ -60,6 +62,9 @@ public:
     }
     std::uint64_t value = 0U;
     std::memcpy(&value, buffer, size);
+    if (position->second == throw_on_restore_cpu && (value & 15U) == 0U) {
+      throw std::runtime_error("synthetic restore error");
+    }
     values[position->second] = value;
     return short_write ? static_cast<std::ptrdiff_t>(size - 1U)
                        : static_cast<std::ptrdiff_t>(size);
@@ -87,6 +92,7 @@ public:
   bool fail_close{false};
   bool short_read{false};
   bool short_write{false};
+  std::uint32_t throw_on_restore_cpu{std::numeric_limits<std::uint32_t>::max()};
   std::vector<std::string> opened_paths;
   std::vector<int> open_flags;
   std::vector<std::uint64_t> read_offsets;
@@ -144,6 +150,118 @@ TEST(Q15FixedMsrAdapter, ReadsOnlyFixedPathsAndOffset) {
   const auto denied = reader.write(0U, 0U);
   EXPECT_FALSE(denied.succeeded);
   EXPECT_EQ(files.opened_paths.size(), 3U);
+}
+
+TEST(Q15WholePlotControl, BothMappingsApplyAndRestoreOnlyTheirOwnCpus) {
+  for (const auto model : {kIntelModel55, kIntelModel3E}) {
+    FakePosixFiles files;
+    const auto cpus =
+        model == kIntelModel55
+            ? std::span<const std::uint32_t>(kHardwarePrefetchControlCpus)
+            : std::span<const std::uint32_t>(kHardwarePrefetchControlCpusV5);
+    const auto initial = model == kIntelModel55 ? prestate() : prestate_v5();
+    LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write, cpus);
+    LinuxHardwarePrefetchMsrBackend verifier(files, FixedMsrAccess::read_only, cpus);
+    HardwarePrefetchWholePlotControl control({kIntelFamily6, model}, initial,
+                                             {.writer = writer, .verifier = verifier});
+    ASSERT_TRUE(control.enter({kIntelFamily6, model},
+                              cpu_prefetch::protocol::RequestedHardwareState::h0));
+    EXPECT_TRUE(files.write_offsets.empty());
+    ASSERT_TRUE(control.leave());
+    ASSERT_TRUE(control.enter({kIntelFamily6, model},
+                              cpu_prefetch::protocol::RequestedHardwareState::h1));
+    for (const auto& value : initial) {
+      EXPECT_EQ(files.values.at(value.cpu), value.value | 0x0fU);
+    }
+    ASSERT_EQ(control.apply_readback().size(), 3U);
+    ASSERT_TRUE(control.leave());
+    ASSERT_EQ(control.restore_readback().size(), 3U);
+    for (std::size_t index = 0U; index < initial.size(); ++index) {
+      EXPECT_EQ(files.values.at(initial[index].cpu), initial[index].value);
+      EXPECT_EQ(control.restore_readback()[index], initial[2U - index]);
+    }
+    const auto forbidden =
+        model == kIntelModel55 ? "/dev/cpu/8/msr" : "/dev/cpu/26/msr";
+    EXPECT_EQ(std::ranges::find(files.opened_paths, forbidden),
+              files.opened_paths.end());
+  }
+}
+
+TEST(Q15WholePlotControl, CpuIdentityDriftAndCrossedPrestateFailBeforeIo) {
+  FakePosixFiles files;
+  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write,
+                                         kHardwarePrefetchControlCpusV5);
+  LinuxHardwarePrefetchMsrBackend verifier(files, FixedMsrAccess::read_only,
+                                           kHardwarePrefetchControlCpusV5);
+  HardwarePrefetchWholePlotControl control({kIntelFamily6, kIntelModel3E},
+                                           prestate_v5(),
+                                           {.writer = writer, .verifier = verifier});
+  EXPECT_FALSE(control.enter({kIntelFamily6, kIntelModel55},
+                             cpu_prefetch::protocol::RequestedHardwareState::h1));
+  HardwarePrefetchWholePlotControl crossed({kIntelFamily6, kIntelModel3E}, prestate(),
+                                           {.writer = writer, .verifier = verifier});
+  EXPECT_FALSE(crossed.enter({kIntelFamily6, kIntelModel3E},
+                             cpu_prefetch::protocol::RequestedHardwareState::h1));
+  EXPECT_TRUE(files.opened_paths.empty());
+}
+
+TEST(Q15WholePlotControl, DestructionRestoresSuccessfulH1WithoutExplicitLeave) {
+  FakePosixFiles files;
+  const auto initial = files.values;
+  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write,
+                                         kHardwarePrefetchControlCpusV5);
+  LinuxHardwarePrefetchMsrBackend verifier(files, FixedMsrAccess::read_only,
+                                           kHardwarePrefetchControlCpusV5);
+  {
+    HardwarePrefetchWholePlotControl control({kIntelFamily6, kIntelModel3E},
+                                             prestate_v5(),
+                                             {.writer = writer, .verifier = verifier});
+    ASSERT_TRUE(control.enter({kIntelFamily6, kIntelModel3E},
+                              cpu_prefetch::protocol::RequestedHardwareState::h1));
+  }
+  EXPECT_EQ(files.values, initial);
+}
+
+TEST(Q15WholePlotControl, AmbiguousWriteIsRestoredAndFailureRemainsBlocking) {
+  FakePosixFiles files;
+  const auto initial = files.values;
+  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write,
+                                         kHardwarePrefetchControlCpusV5);
+  LinuxHardwarePrefetchMsrBackend verifier(files, FixedMsrAccess::read_only,
+                                           kHardwarePrefetchControlCpusV5);
+  HardwarePrefetchWholePlotControl control({kIntelFamily6, kIntelModel3E},
+                                           prestate_v5(),
+                                           {.writer = writer, .verifier = verifier});
+  files.short_write = true;
+  EXPECT_FALSE(control.enter({kIntelFamily6, kIntelModel3E},
+                             cpu_prefetch::protocol::RequestedHardwareState::h1));
+  EXPECT_EQ(files.values, initial);
+  EXPECT_FALSE(control.leave());
+  files.short_write = false;
+  EXPECT_FALSE(control.enter({kIntelFamily6, kIntelModel3E},
+                             cpu_prefetch::protocol::RequestedHardwareState::h1));
+}
+
+TEST(Q15WholePlotControl, RestoreExceptionDoesNotSkipOtherCpusOrClearFailure) {
+  FakePosixFiles files;
+  LinuxHardwarePrefetchMsrBackend writer(files, FixedMsrAccess::read_write,
+                                         kHardwarePrefetchControlCpusV5);
+  LinuxHardwarePrefetchMsrBackend verifier(files, FixedMsrAccess::read_only,
+                                           kHardwarePrefetchControlCpusV5);
+  HardwarePrefetchWholePlotControl control({kIntelFamily6, kIntelModel3E},
+                                           prestate_v5(),
+                                           {.writer = writer, .verifier = verifier});
+  ASSERT_TRUE(control.enter({kIntelFamily6, kIntelModel3E},
+                            cpu_prefetch::protocol::RequestedHardwareState::h1));
+  files.throw_on_restore_cpu = 1U;
+  EXPECT_FALSE(control.leave());
+  EXPECT_EQ(files.values.at(8U), prestate_v5()[2].value);
+  EXPECT_EQ(files.values.at(0U), prestate_v5()[0].value);
+  EXPECT_EQ(files.values.at(1U), prestate_v5()[1].value | 15U);
+  files.throw_on_restore_cpu = std::numeric_limits<std::uint32_t>::max();
+  EXPECT_FALSE(control.leave());
+  EXPECT_FALSE(control.enter({kIntelFamily6, kIntelModel3E},
+                             cpu_prefetch::protocol::RequestedHardwareState::h0));
 }
 
 TEST(Q15FixedMsrAdapter, FailsClosedOnEveryIoBoundary) {

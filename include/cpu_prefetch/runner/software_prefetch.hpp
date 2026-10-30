@@ -29,6 +29,8 @@ struct SoftwarePrefetchCapabilityObservation final {
     return maximum_extended_leaf >= kPrfchwExtendedLeaf &&
            (extended_leaf_ecx & kPrfchwEcxMask) != 0U && prfchw_supported;
   }
+  [[nodiscard]] auto passes_for_mapping(std::string_view mapping_id) const noexcept
+      -> bool;
 };
 
 class CurrentCpuSoftwarePrefetchCapabilityBackend {
@@ -90,6 +92,13 @@ public:
 
 inline constexpr std::string_view kSoftwarePrefetchMappingIdT0Only =
     "X86-64-PREFETCHT0-ONLY-v1";
+
+inline auto SoftwarePrefetchCapabilityObservation::passes_for_mapping(
+    std::string_view mapping_id) const noexcept -> bool {
+  return mapping_id == kSoftwarePrefetchMappingId
+             ? passes()
+             : mapping_id == kSoftwarePrefetchMappingIdT0Only;
+}
 
 // ADR-0175: a named, honestly-scoped per-model registry mirroring
 // platform.hpp's kHardwarePrefetchMappings pattern exactly -- CPU identity is

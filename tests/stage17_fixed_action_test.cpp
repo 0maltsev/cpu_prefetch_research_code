@@ -69,6 +69,49 @@ TEST(Stage17FixedAction, CalibrationAndPilotRejectPathWithoutTicketAndSchedule) 
   }
 }
 
+TEST(Stage17FixedAction, CalibrationPrestateMatchesNamedMapping) {
+  LinuxFixedActionOperations operations;
+  UnusedSink sink;
+  for (const auto* mapping : {"INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+                              "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1", "UNKNOWN"}) {
+    for (const auto last_cpu : {8U, 26U}) {
+      const std::string input =
+          std::string(
+              R"({"plan_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","hardware_control":{"mapping_id":")") +
+          mapping +
+          R"(","q15_w_result_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","prestate":[{"cpu":0,"complete_value_hex":"0000000000000000"},{"cpu":1,"complete_value_hex":"0000000000000000"},{"cpu":)" +
+          std::to_string(last_cpu) +
+          R"(,"complete_value_hex":"0000000000000000"}]},"captures":[{}]})";
+      const bool matched =
+          (std::string_view(mapping) == "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1" &&
+           last_cpu == 26U) ||
+          (std::string_view(mapping) == "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1" &&
+           last_cpu == 8U);
+      for (const auto action :
+           {FixedAction::q16a, FixedAction::q16b, FixedAction::q16c}) {
+        auto document = object(input);
+        if (action != FixedAction::q16a) {
+          document.erase("captures");
+          document.emplace("runs", object(R"({"runs":[{}]})").at("runs"));
+          document.emplace("q16a_result_sha256", std::string(64U, 'a'));
+          if (action == FixedAction::q16c) {
+            document.emplace("q16b_result_sha256", std::string(64U, 'b'));
+          }
+        }
+        const auto result = operations.execute(action, document, sink);
+        ASSERT_FALSE(result.has_value());
+        ASSERT_FALSE(result.errors().empty());
+        const auto* expected =
+            action == FixedAction::q16a
+                ? (matched ? "S17-Q16A-CAPTURE-FAMILY" : "S17-Q16A-PLAN-FAMILY")
+                : (matched ? "S17-Q16-RUN-FAMILY" : "S17-Q16-PLAN-FAMILY");
+        EXPECT_EQ(result.errors().front().rule_id, expected)
+            << mapping << " CPU " << last_cpu;
+      }
+    }
+  }
+}
+
 TEST(Stage17FixedAction, ExpandedOrMalformedScientificInputFailsClosed) {
   LinuxFixedActionOperations operations;
   UnusedSink sink;

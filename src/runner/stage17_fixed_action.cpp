@@ -893,121 +893,89 @@ struct Q15PhaseSession final {
       result);
 }
 
+struct ResolvedHardwareMapping final {
+  platform::CpuFamilyModel identity;
+  std::string_view mapping_id;
+  std::span<const std::uint32_t> control_cpus;
+};
+
+[[nodiscard]] auto mapping_from_hardware(const JsonObject& input)
+    -> std::optional<ResolvedHardwareMapping> {
+  const auto* mapping_id = string_member(input, "mapping_id");
+  for (const auto& mapping : platform::kHardwarePrefetchMappings) {
+    if (mapping_id != nullptr && mapping.mapping_id == *mapping_id &&
+        mapping.control_cpus.has_value()) {
+      return ResolvedHardwareMapping{{mapping.family, mapping.model},
+                                     mapping.mapping_id,
+                                     mapping.control_cpus.value()};
+    }
+  }
+  return std::nullopt;
+}
+
+[[nodiscard]] auto parse_mapped_prestate(const JsonObject& input)
+    -> protocol::Result<std::array<platform::HardwarePrefetchMsrValue, 3U>> {
+  const auto mapping = mapping_from_hardware(input);
+  if (mapping) {
+    return parse_prestate(input, mapping->control_cpus);
+  }
+  return failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
+      "$/action_inputs/hardware_control/mapping_id", "S17-HARDWARE-MAPPING",
+      "hardware prestate requires a registered mapping with assigned CPUs");
+}
+
+[[nodiscard]] auto require_hardware_mapping(const JsonObject& input)
+    -> ResolvedHardwareMapping {
+  const auto mapping = mapping_from_hardware(input);
+  if (!mapping) {
+    throw std::invalid_argument("hardware mapping is not registered");
+  }
+  return mapping.value();
+}
+
 class PilotWholePlotControl final {
 public:
-  explicit PilotWholePlotControl(
-      std::array<platform::HardwarePrefetchMsrValue, 3U> prestate)
-      // Stage B/C calibration/pilot control, still wedded to 06_55H's own
-      // identity below (enter()'s hardcoded kIntelModel55) -- the accepted
-      // set here must match that, not the session's resolved mapping.
-      : prestate_(prestate),
+  PilotWholePlotControl(std::array<platform::HardwarePrefetchMsrValue, 3U> prestate,
+                        const JsonObject& hardware)
+      : mapping_(require_hardware_mapping(hardware)),
         writer_(writer_files_, platform::FixedMsrAccess::read_write,
-                platform::kHardwarePrefetchControlCpus),
+                mapping_.control_cpus),
         verifier_(verifier_files_, platform::FixedMsrAccess::read_only,
-                  platform::kHardwarePrefetchControlCpus) {
-    apply_readback_.reserve(prestate_.size());
-    restore_readback_.reserve(prestate_.size());
-  }
-
-  ~PilotWholePlotControl() noexcept { static_cast<void>(leave()); }
-
-  PilotWholePlotControl(const PilotWholePlotControl&) = delete;
-  auto operator=(const PilotWholePlotControl&) -> PilotWholePlotControl& = delete;
+                  mapping_.control_cpus),
+        control_(mapping_.identity, prestate,
+                 {.writer = writer_, .verifier = verifier_}) {}
 
   [[nodiscard]] auto enter(std::string_view state) -> bool {
-    if (entered_ || (state != "H0" && state != "H1")) {
+    if (state != "H0" && state != "H1") {
       return false;
     }
-    for (const auto& expected : prestate_) {
-      const auto observed = verifier_.read(expected.cpu);
-      if (!observed || observed.value() != expected.value) {
-        return false;
-      }
-    }
-    requested_state_ = std::string(state);
-    if (state == "H1") {
-      const auto plan = platform::make_hardware_prefetch_plan(
-          {platform::kIntelFamily6, platform::kIntelModel55},
-          protocol::RequestedHardwareState::h1, prestate_);
-      if (!plan) {
-        return false;
-      }
-      for (const auto& requested : plan.value().requested) {
-        const auto applied = writer_.write(requested.cpu, requested.value);
-        if (!applied.succeeded) {
-          static_cast<void>(leave());
-          return false;
-        }
-        written_.push_back(requested);
-        const auto observed = verifier_.read(requested.cpu);
-        if (!observed || observed.value() != requested.value) {
-          static_cast<void>(leave());
-          return false;
-        }
-        apply_readback_.push_back({requested.cpu, observed.value()});
-      }
-    }
-    entered_ = true;
-    return true;
+    const auto observed = platform::read_x86_family_model();
+    return observed &&
+           control_.enter(observed.value(), state == "H0"
+                                                ? protocol::RequestedHardwareState::h0
+                                                : protocol::RequestedHardwareState::h1);
   }
 
-  // Operational callers check this result explicitly. The destructor invokes
-  // the same path as a fail-stop fallback, so an unexpected exception must not
-  // be converted into apparent restoration success.
-  [[nodiscard]] auto leave() noexcept -> bool {
-    bool restored = true;
-    for (auto position = written_.rbegin(); position != written_.rend(); ++position) {
-      const auto prior = std::ranges::find_if(prestate_, [position](const auto& value) {
-        return value.cpu == position->cpu;
-      });
-      if (prior == prestate_.end()) {
-        restored = false;
-        continue;
-      }
-      const auto written = writer_.write(prior->cpu, prior->value);
-      const auto observed = verifier_.read(prior->cpu);
-      const auto* observed_value = observed.value_if();
-      if (!written.succeeded || observed_value == nullptr ||
-          *observed_value != prior->value) {
-        restored = false;
-      } else {
-        restore_readback_.push_back({prior->cpu, *observed_value});
-      }
-    }
-    if (entered_ && requested_state_ == "H0") {
-      for (const auto& expected : prestate_) {
-        const auto observed = verifier_.read(expected.cpu);
-        const auto* observed_value = observed.value_if();
-        if (observed_value == nullptr || *observed_value != expected.value) {
-          restored = false;
-        }
-      }
-    }
-    entered_ = false;
-    written_.clear();
-    return restored;
+  [[nodiscard]] auto leave() noexcept -> bool { return control_.leave(); }
+  [[nodiscard]] auto mapping_id() const noexcept -> std::string_view {
+    return mapping_.mapping_id;
   }
-
   [[nodiscard]] auto apply_readback() const noexcept
       -> std::span<const platform::HardwarePrefetchMsrValue> {
-    return apply_readback_;
+    return control_.apply_readback();
   }
   [[nodiscard]] auto restore_readback() const noexcept
       -> std::span<const platform::HardwarePrefetchMsrValue> {
-    return restore_readback_;
+    return control_.restore_readback();
   }
 
 private:
-  std::array<platform::HardwarePrefetchMsrValue, 3U> prestate_;
+  ResolvedHardwareMapping mapping_;
   platform::SystemPosixFileOperations writer_files_;
   platform::SystemPosixFileOperations verifier_files_;
   platform::LinuxHardwarePrefetchMsrBackend writer_;
   platform::LinuxHardwarePrefetchMsrBackend verifier_;
-  std::vector<platform::HardwarePrefetchMsrValue> written_;
-  std::vector<platform::HardwarePrefetchMsrValue> apply_readback_;
-  std::vector<platform::HardwarePrefetchMsrValue> restore_readback_;
-  std::string requested_state_;
-  bool entered_{false};
+  platform::HardwarePrefetchWholePlotControl control_;
 };
 
 [[nodiscard]] auto publish_calibration_hardware_evidence(
@@ -1031,10 +999,10 @@ private:
   const auto action_id = std::string(to_string(action));
   auto document = canonical(JsonObject{
       {"schema_version",
-       string_value("cpu-prefetch-stage17-calibration-hardware-state/1")},
+       string_value("cpu-prefetch-stage17-calibration-hardware-state/2")},
       {"action_id", string_value(action_id)},
       {"plan_sha256", string_value(plan_sha)},
-      {"mapping_id", string_value(platform::kHardwarePrefetchMappingId)},
+      {"mapping_id", string_value(control.mapping_id())},
       {"q15_w_result_sha256", string_value(q15_w_result_sha)},
       {"whole_plot_order",
        JsonValue(JsonArray{string_value("H0"), string_value("H1")})},
@@ -1049,9 +1017,9 @@ private:
   }
   return sink.publish({
       "STAGE17_CALIBRATION_HARDWARE_STATE",
-      "cpu-prefetch-stage17-calibration-hardware-state/1",
+      "cpu-prefetch-stage17-calibration-hardware-state/2",
       "application/json",
-      std::string("stage17-") + action_id + "-hardware-state-v1.json",
+      std::string("stage17-") + action_id + "-hardware-state-v2.json",
       bytes(document.value()),
   });
 }
@@ -1378,6 +1346,16 @@ private:
       {std::string(*admission_sha), std::string(*evidence_sha)});
 }
 
+[[nodiscard]] auto current_software_prefetch_mapping_id() -> std::string_view {
+  const auto identity = platform::read_x86_family_model();
+  const auto* observed_identity = identity.value_if();
+  if (observed_identity == nullptr) {
+    return {};
+  }
+  const auto mapping = find_software_prefetch_mapping(*observed_identity);
+  return mapping ? mapping->mapping_id : std::string_view{};
+}
+
 [[nodiscard]] auto q16a_capture(const JsonObject& input, const std::string& prefix)
     -> protocol::Result<std::vector<ArtifactPayload>> {
   constexpr std::array fields{"capacity"sv,
@@ -1443,7 +1421,8 @@ private:
   const auto count = static_cast<std::size_t>(*samples);
   std::thread producer([&] {
     if (!binding.bind_and_verify(ticket.value().workers().producer_cpu).passes() ||
-        !capability.observe().passes()) {
+        !capability.observe().passes_for_mapping(
+            current_software_prefetch_mapping_id())) {
       failed.store(true, std::memory_order_release);
       return;
     }
@@ -1465,7 +1444,8 @@ private:
   });
   std::thread consumer([&] {
     if (!binding.bind_and_verify(ticket.value().workers().consumer_cpu).passes() ||
-        !capability.observe().passes()) {
+        !capability.observe().passes_for_mapping(
+            current_software_prefetch_mapping_id())) {
       failed.store(true, std::memory_order_release);
       return;
     }
@@ -1564,7 +1544,7 @@ private:
           ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
                 "$/action_inputs/hardware_control", "S17-Q16A-HARDWARE",
                 "Q16a hardware-control binding is absent")
-          : parse_prestate(*hardware_control, platform::kHardwarePrefetchControlCpus);
+          : parse_mapped_prestate(*hardware_control);
   const auto* captures_value = member(input, "captures");
   const auto* captures =
       captures_value == nullptr ? nullptr : captures_value->as_array();
@@ -1585,7 +1565,8 @@ private:
   std::set<std::string> run_ids;
   std::vector<ArtifactBinding> bindings;
   bindings.reserve(captures->size() * 2U + 1U);
-  PilotWholePlotControl whole_plot_control(hardware_prestate.value());
+  PilotWholePlotControl whole_plot_control(hardware_prestate.value(),
+                                           *hardware_control);
   std::string active_state;
   std::set<std::string> completed_states;
   for (std::size_t index = 0U; index < captures->size(); ++index) {
@@ -1805,8 +1786,9 @@ public:
                               storage::ConsumerObservationStream& consumer,
                               platform::Q15PlatformOperations& platform,
                               const workload::EventArena& arena,
-                              std::uint32_t expected_node) noexcept
-      : affined_(binding_backend, capability, workers, producer, consumer),
+                              std::uint32_t expected_node)
+      : affined_(binding_backend, capability, workers, producer, consumer,
+                 current_software_prefetch_mapping_id()),
         platform_(platform), arena_(arena), expected_node_(expected_node) {}
 
   [[nodiscard]] auto prepare_producer() noexcept -> bool {
@@ -2937,7 +2919,7 @@ package_capture(FixedAction action, const JsonObject& input,
             ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
                   "$/action_inputs/pilot_plan/hardware_control", "S17-PILOT-HARDWARE",
                   "pilot hardware control is absent")
-            : parse_prestate(*hardware_control, platform::kHardwarePrefetchControlCpus);
+            : parse_mapped_prestate(*hardware_control);
     if (!exact_fields(input, input_fields) || plan_sha == nullptr || plan == nullptr ||
         !exact_fields(*plan, plan_fields) ||
         string_member(*plan, "schema_version") == nullptr ||
@@ -2997,7 +2979,8 @@ package_capture(FixedAction action, const JsonObject& input,
     bindings.reserve(static_cast<std::size_t>(*repetitions) * 1800U + 1U);
     PilotPersistentContexts persistent_contexts;
     std::uint64_t execution_ordinal = 0U;
-    PilotWholePlotControl whole_plot_control(hardware_prestate.value());
+    PilotWholePlotControl whole_plot_control(hardware_prestate.value(),
+                                             *hardware_control);
     std::string active_whole_plot;
     for (const auto& cell_value : *cells) {
       const auto* cell = cell_value.as_object();
@@ -3120,7 +3103,7 @@ package_capture(FixedAction action, const JsonObject& input,
     }
     auto hardware_evidence = canonical(JsonObject{
         {"schema_version", string_value("cpu-prefetch-stage17-pilot-hardware-state/1")},
-        {"mapping_id", string_value(platform::kHardwarePrefetchMappingId)},
+        {"mapping_id", string_value(whole_plot_control.mapping_id())},
         {"q15_w_result_sha256",
          string_value(*string_member(*hardware_control, "q15_w_result_sha256"))},
         {"whole_plot_order", JsonValue(*whole)},
@@ -3197,7 +3180,7 @@ package_capture(FixedAction action, const JsonObject& input,
           ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
                 "$/action_inputs/hardware_control", "S17-Q16-HARDWARE",
                 "Q16 hardware-control binding is absent")
-          : parse_prestate(*hardware_control, platform::kHardwarePrefetchControlCpus);
+          : parse_mapped_prestate(*hardware_control);
   const auto* runs_value = member(input, "runs");
   const auto* runs = runs_value == nullptr ? nullptr : runs_value->as_array();
   const bool exact_plan = action == FixedAction::q16b
@@ -3223,7 +3206,8 @@ package_capture(FixedAction action, const JsonObject& input,
   std::set<std::string> run_ids;
   std::vector<ArtifactBinding> bindings;
   bindings.reserve(runs->size() * 10U + 1U);
-  PilotWholePlotControl whole_plot_control(hardware_prestate.value());
+  PilotWholePlotControl whole_plot_control(hardware_prestate.value(),
+                                           *hardware_control);
   std::string active_state;
   std::set<std::string> completed_states;
   for (std::size_t index = 0U; index < runs->size(); ++index) {
@@ -3369,11 +3353,10 @@ struct PilotRunEntry final {
   const auto* orders = orders_value == nullptr ? nullptr : orders_value->as_array();
   const auto* hardware = require_object(*plan, "hardware_control");
   const auto prestate =
-      hardware == nullptr
-          ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
-                "$/pilot_plan/hardware_control", "S17-PILOT-V4-HARDWARE",
-                "hardware binding absent")
-          : parse_prestate(*hardware, platform::kHardwarePrefetchControlCpus);
+      hardware == nullptr ? failure<std::array<platform::HardwarePrefetchMsrValue, 3U>>(
+                                "$/pilot_plan/hardware_control",
+                                "S17-PILOT-V4-HARDWARE", "hardware binding absent")
+                          : parse_mapped_prestate(*hardware);
   const auto* recovery = require_object(*plan, "recovery");
   const auto recovery_ticks = recovery == nullptr
                                   ? std::optional<std::uint64_t>{}
@@ -3491,7 +3474,7 @@ struct PilotRunEntry final {
   attempt_hashes.reserve(run_order.size());
   completion_hashes.reserve(run_order.size());
   PilotPersistentContexts persistent_contexts;
-  PilotWholePlotControl hardware_control(prestate.value());
+  PilotWholePlotControl hardware_control(prestate.value(), *hardware);
   std::string active_state;
   const auto session_started_at = utc_now();
   for (std::size_t index = 0U; index < run_order.size(); ++index) {
@@ -3673,7 +3656,7 @@ struct PilotRunEntry final {
   }
   auto hardware_document = canonical(JsonObject{
       {"schema_version", string_value("cpu-prefetch-stage17-pilot-hardware-state/2")},
-      {"mapping_id", string_value(platform::kHardwarePrefetchMappingId)},
+      {"mapping_id", string_value(hardware_control.mapping_id())},
       {"q15_w_result_sha256",
        string_value(*string_member(*hardware, "q15_w_result_sha256"))},
       {"whole_plot_orders", JsonValue(*orders)},

@@ -1,0 +1,63 @@
+{
+  "audit_scope": "READ_ONLY",
+  "capture_count": 708,
+  "capture_fields": [
+    "base_page_bytes",
+    "cache_line_bytes",
+    "calibration_plan_sha256",
+    "capacity",
+    "context_ordinal",
+    "hardware_state",
+    "placement",
+    "repetition_ordinal",
+    "runner_admission",
+    "runner_admission_sha256",
+    "runner_evidence_set_sha256",
+    "sample_count",
+    "seed_hex",
+    "seed_id",
+    "working_set_class"
+  ],
+  "captured_at_utc": "2026-10-30T10:08:40.425486+00:00",
+  "duration_ticks_present_in_all_captures": false,
+  "files": [
+    {
+      "name": "q16a-action-inputs-1.json",
+      "sha256": "6be60c5abae6cbdf3008f5328f1a8838e7ad325ee06e160feaa814d74c7d896a",
+      "size_bytes": 6442271
+    },
+    {
+      "name": "warmup-schedule-1.json",
+      "sha256": "516156360b2539036393639cecfad8412626aff176f207f1e09e89b2167d2ddb",
+      "size_bytes": 477
+    },
+    {
+      "name": "measurement-schedule-1.json",
+      "sha256": "733da65685f489d1a768804f9180e7a0d2f76c77573f2bdb81a90ac6204a36fd",
+      "size_bytes": 600
+    },
+    {
+      "name": "calibration-freeze-1.json",
+      "sha256": "1ac36115f3585950b1cd9a1cca3340c767b17a26d82e975330f11b9576c4d9c8",
+      "size_bytes": 565
+    }
+  ],
+  "freeze_state": "NOT_EVALUATED",
+  "freeze_unresolved_inputs": [
+    "q16a_result",
+    "q16b_result",
+    "q16c_result"
+  ],
+  "minimum_observations_per_series_present_in_all_captures": false,
+  "root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/q16a-authoring-1",
+  "sample_counts": [
+    100000
+  ],
+  "warmup_record": {
+    "basis": "real q16a_timing_trial_main.cpp observation on cpu-prefetch-v5 (near/far ring-off exchange, steady state): worst observed single-event outlier was 54199ns (near) / 43678ns (far); 10ms gives roughly 180x margin over that for settling after a real H0/H1 MSR transition",
+    "duration_ns": 10000000,
+    "queried_at_utc": "2026-10-28T21:45:04Z",
+    "record_id": "CPU-PREFETCH-V5-Q16A-WARMUP-SCHEDULE-1",
+    "record_sha256": "80282dbc0da505b79730ea730e869d5e98d179ac66d309c35e5d1d34348ca498"
+  }
+}

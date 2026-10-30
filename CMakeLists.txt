@@ -729,6 +729,23 @@ if(BUILD_TESTING)
       PASS_REGULAR_EXPRESSION
         "SELF-TEST PASS.*fake failures.*no network")
   add_test(
+    NAME calibration.q16a_discovery_design
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_q16a_discovery.py")
+  set_tests_properties(calibration.q16a_discovery_design PROPERTIES
+    LABELS "calibration;diagnostic;synthetic"
+    TIMEOUT 60)
+
+  add_test(
+    NAME runner.stage17_calibration_mapping
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_calibration_mapping.py"
+            --root "${PROJECT_SOURCE_DIR}")
+  set_tests_properties(runner.stage17_calibration_mapping PROPERTIES
+    LABELS "runner;calibration;synthetic"
+    TIMEOUT 60)
+
+  add_test(
     NAME runner.stage17_operational_successor
     COMMAND "${Python3_EXECUTABLE}"
             "${PROJECT_SOURCE_DIR}/tools/check_stage17_operational_successor.py"
@@ -1280,7 +1297,8 @@ if(BUILD_TESTING)
     PREFIX "reconciliation."
     PROPERTIES LABELS "reconciliation")
 
-  add_executable(cpu_prefetch_calibration_tests tests/calibration_model_test.cpp)
+  add_executable(cpu_prefetch_calibration_tests
+    tests/calibration_model_test.cpp tests/calibration_discovery_capture_test.cpp)
   target_link_libraries(
     cpu_prefetch_calibration_tests
     PRIVATE cpu_prefetch::calibration cpu_prefetch_project_options
@@ -1648,6 +1666,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_fixed_action.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/software_prefetch.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/calibration.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_capture.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/executor.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/runtime.hpp"
@@ -1738,6 +1757,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/analysis_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_phase_test_access.hpp"
@@ -1860,6 +1880,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/analysis_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"
@@ -2778,6 +2799,29 @@ add_custom_target(
     --self-test
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
   COMMENT "Checking q15-session-controller v16's _parse_prestate fix accepts both registered CPU mappings (ADR-0173, ACCEPTED; grants no authority)")
+add_custom_target(
+  q16a-discovery-design-check
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_q16a_discovery.py"
+  VERBATIM)
+
+add_custom_target(
+  stage17-calibration-mapping-check
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_calibration_mapping.py"
+    --root "${PROJECT_SOURCE_DIR}"
+  VERBATIM)
+
+add_custom_target(
+  stage17-calibration-policy-check
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/author_stage17_policy_v54.py"
+    --root "${PROJECT_SOURCE_DIR}" --check
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_calibration_mapping.py"
+    --root "${PROJECT_SOURCE_DIR}" --check-policy
+  VERBATIM)
+
 add_custom_target(
   stage17-output-registry-v6-msr-map-check
   COMMAND

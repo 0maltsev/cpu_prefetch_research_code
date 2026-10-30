@@ -332,6 +332,39 @@ authorization/amendment.
 
 ## Phase 17 — Pilot execution
 
+- **Q16a discovery design accepted:** the owner approved ADR-0178's separate bounded diagnostic
+  pass to support duration/minimum-count selection before a new formal D-037
+  plan. Its accepted candidate design still needs corrected
+  capture/preparation behavior, a qualified release, exact budgets, and
+  separate authority before execution. Formal runs cannot be extended or
+  topped up using the diagnostic study.
+  ADR-0179 now supplies the tested offline grid/selector and a retained
+  resource inventory. The capture/admission implementation, fresh resource
+  budgets, release, and exact diagnostic authority remain the next work.
+  ADR-0180 now implements the bounded worker loop and trace-prefaulting
+  component. Integrate warm-up/start/drain coordination, shared-memory
+  placement verification, watchdog, raw publication, and diagnostic admission
+  before attempting any stand capture; do not relabel the existing Q16a loop.
+  The 66 affected C++ tests pass with GCC and restored pinned Clang/libc++;
+  affected suites also pass both compiler ASan/UBSan and TSan matrices.
+  Preserve this verification separately from qualified stand evidence.
+
+- **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
+  mappings through whole-plot control, preparation, and prospective policy v54.
+  Next obtain the typed D-037 duration/minimum-observation/warm-up inputs,
+  implement their exact capture/residency semantics, complete the new release
+  and dependent qualification, then authorize Q16a/b/c in order. The external
+  journal remains unchanged; see [EXT007 readiness](docs/STAGE17_EXT007_CALIBRATION_READINESS.md).
+
+- **2026-10-30 operational checkpoint:** the real v5-12 journal freshly validates
+  EXT001-006 and two transitions, remaining at `PREFLIGHT_ACCEPTED` with
+  EXT007-010 missing. Stage 17 remains incomplete. Complete the integrated
+  06_3EH whole-plot/evidence path, Q16a capability and memory-preparation review,
+  fresh release/authority, calibration freeze, complete plan/storage admission,
+  blinded pilot, and derived exit chain in that order. ADR-0176 closes only the
+  local mapping/prestate validation defect. See the
+  [stand audit](docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261030-01/README.md).
+
 - **Objective:** Collect treatment-blind evidence needed to freeze platform-dependent capacities, calibration outputs, horizons, environment, precision, and feasibility.
 - **Inputs and prerequisite decisions:** Phase 16 accepted; D-044 through D-046
   governance accepted; D-047 physical mapping implemented and strict combined

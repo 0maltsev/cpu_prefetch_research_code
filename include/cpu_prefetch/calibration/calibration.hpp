@@ -183,6 +183,15 @@ struct RingDemandSeries final {
 class RingDemandTrace final {
 public:
   explicit RingDemandTrace(std::size_t max_attempts_per_worker);
+  [[nodiscard]] auto prepare_worker(RingWorker worker) -> bool;
+  [[nodiscard]] auto worker_prepared(RingWorker worker) const noexcept -> bool {
+    return worker == RingWorker::producer   ? producer_prepared_
+           : worker == RingWorker::consumer ? consumer_prepared_
+                                            : false;
+  }
+  [[nodiscard]] auto attempt_capacity() const noexcept -> std::size_t {
+    return max_attempts_per_worker_;
+  }
   [[nodiscard]] auto record(RingWorker worker, std::uint64_t demand_start,
                             std::uint64_t demand_end,
                             RingAttemptOutcome outcome) noexcept -> bool;
@@ -195,6 +204,8 @@ private:
   std::optional<std::uint64_t> previous_producer_advance_start_;
   std::optional<std::uint64_t> previous_consumer_advance_start_;
   std::size_t max_attempts_per_worker_;
+  bool producer_prepared_{false};
+  bool consumer_prepared_{false};
 };
 
 struct RingCaptureResult final {

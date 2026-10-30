@@ -1,5 +1,34 @@
 # CPU Prefetch Research Code
 
+Q16a setup discovery is accepted in
+[ADR-0178](docs/decisions/0178-stage17-q16a-duration-discovery-proposal.md):
+learn setup parameters in a separate bounded diagnostic study, then freeze
+the formal plan before collection. The owner approved the design on
+2026-10-30; exact execution authority and readiness gates remain required.
+ADR-0179's offline design/selector tooling passes thirteen synthetic tests;
+`python3 -B tools/stage17_q16a_discovery_v1.py --describe-design` shows the
+36 planned capture keys without authorizing or executing them.
+ADR-0180 supplies the bounded C++ worker loop and owner-prefaulted trace
+component. Diagnostic coordination, residency, persistence, and qualified
+execution admission remain open; EXT007 is still unresolved.
+All 66 affected C++ tests pass with both GCC and the restored pinned
+Clang/libc++ dependency prefix. The affected suites also pass both compiler
+ASan/UBSan and TSan matrices; these are software checks, not stand measurements.
+
+EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
+control, preparation, and prospective admission. Calibration is still blocked
+on the typed D-037 plan and its duration/minimum-observation/warm-up/residency
+implementation, plus a fresh qualified release. See
+[EXT007 readiness](docs/STAGE17_EXT007_CALIBRATION_READINESS.md).
+
+Operational update (2026-10-30): the real `cpu-prefetch-v5` v5-12 journal
+freshly validates six admitted inputs (EXT001-006), two transitions, and state
+`PREFLIGHT_ACCEPTED`; EXT007-010 remain missing and pilot readiness is false.
+See the [stand audit](docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261030-01/README.md)
+for exact evidence, remaining mapping/residency/release blockers, and ADR-0176's
+local validation correction. The zero-resolution state below is the checked-in
+genesis; it does not describe that external operational journal.
+
 This repository has completed the **Stage 16 independent pre-pilot software
 verification slice** and the repository-local Stage 17B.2 implementation for
 protocol **`2.0.0-pre.3`**. Its current disposition is

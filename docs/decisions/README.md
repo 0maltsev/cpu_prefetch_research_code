@@ -36,6 +36,11 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
+| [ADR-0180](0180-stage17-discovery-worker-window.md) | `ACCEPTED` | Implement a fixed-deadline, bounded discovery worker and owner-prefaulted trace adapter; preserve partial evidence and keep execution behind separate diagnostic admission. |
+| [ADR-0179](0179-stage17-discovery-design-selector.md) | `ACCEPTED` | Enumerate the approved discovery grid and implement a count-only selector that rejects incomplete, extended, reordered, or failed campaigns; no execution authority. |
+| [ADR-0178](0178-stage17-q16a-duration-discovery-proposal.md) | `ACCEPTED` | Owner approved the separate 36-capture diagnostic study and count-based selection rule; formal collection and execution authority remain separate. |
+| [ADR-0177](0177-stage17-calibration-mapping-and-capability.md) | `ACCEPTED` | Integrate the accepted hardware/software mappings through Stage A calibration control and prospective admission; retain explicit scientific/release execution blockers. |
+| [ADR-0176](0176-stage17-calibration-prestate-mapping-validation.md) | `ACCEPTED` | Bind calibration/pilot prestate parsing to the existing named mapping; local engineering correction only, pending release. |
 | [ADR-0001](0001-plane-separation-and-timed-boundary.md) | `ACCEPTED` | Separate the benchmark data plane, experiment controller, and offline analysis; keep non-measurement work outside the timed loop. |
 | [ADR-0002](0002-logical-model-and-replaceable-physical-storage.md) | `ACCEPTED` | Preserve the imported logical data model behind replaceable codec and storage interfaces. |
 | [ADR-0003](0003-semantics-preserving-queue-adapters.md) | `ACCEPTED` | Use queue adapters without erasing algorithm-specific semantics. |

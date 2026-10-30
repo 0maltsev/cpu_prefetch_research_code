@@ -1,5 +1,35 @@
 # Repository Status
 
+Q16a parameter discovery: `ACCEPTED_DESIGN_NOT_EXECUTED` (ADR-0178). A separate
+finite diagnostic study can support prospective parameter selection; it does
+not permit adaptive formal calibration or resolve EXT007. No scientific
+formal duration or execution authority has been frozen by that approval.
+ADR-0179 implements the offline design and count-only selector (13 synthetic
+tests pass). A read-only stand resource inventory is retained; no capture,
+resource-budget freeze, operational resolution, or measurement has occurred.
+ADR-0180 implements the fixed-deadline C++ discovery worker and trace
+prefaulting component. It has no standalone action endpoint; live discovery
+and formal calibration remain blocked on integration and qualification.
+The 66 affected C++ tests pass under development GCC and restored pinned
+Clang/libc++; the affected suites also pass both compiler ASan/UBSan and
+TSan matrices. These checks contribute no experimental observations.
+
+EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
+ADR-0177 adds tested mapping-aware control/capability/admission successors;
+prospective policy v54 is not promoted or released. Missing D-037 prospective
+inputs and capture warm-up/duration/residency implementation still block
+Q16a. The [EXT007 readiness record](docs/STAGE17_EXT007_CALIBRATION_READINESS.md)
+records the exact open work. No new external resolution or stand run occurred.
+
+Operational update, 2026-10-30: `cpu-prefetch-v5`'s retained v5-12 journal
+freshly replays as `PREFLIGHT_ACCEPTED`, six resolutions (EXT001-006), two
+transitions, missing EXT007-010, `pilot_ready=false`. Stage 17 is incomplete.
+The [read-only stand audit](docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261030-01/README.md)
+records hashes and remaining whole-plot, software-prefetch, memory-preparation,
+and release blockers. ADR-0176 fixes only local mapping/prestate validation;
+it is not released or deployed. Historical zero-resolution claims below refer
+to checked-in genesis and earlier verification, not the external v5-12 journal.
+
 Protocol snapshot: **`2.0.0-pre.3`**; immutable predecessors
 **`2.0.0-pre.1`** and **`2.0.0-pre.2`** retained
 

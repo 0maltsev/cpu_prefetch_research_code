@@ -1,0 +1,28 @@
+{
+  "captured_at_utc": "2026-10-30T10:25:39Z",
+  "stand_hostname": "cpu-prefetch-v5",
+  "ssh_target": "root@94.126.205.83",
+  "scope": "READ_ONLY_RESOURCE_INVENTORY",
+  "observed_memory_kib": {
+    "MemTotal": 259621280,
+    "MemAvailable": 256170004,
+    "SwapTotal": 4876284,
+    "SwapFree": 4876284
+  },
+  "observed_filesystem_bytes": {
+    "queried_path": "/home/omaltsev/stage17-owner-evidence",
+    "filesystem": "/dev/md3",
+    "mounted_on": "/",
+    "total": 7601879351296,
+    "used": 11748253696,
+    "available": 7206941057024
+  },
+  "observed_online_cpus": "0-31",
+  "observed_base_page_bytes": 4096,
+  "observed_locked_memory_limit_kib": 8192,
+  "locked_memory_limit_scope": "root SSH shell, not verification of a future measurement owner",
+  "resource_budget_frozen": false,
+  "execution_authority": false,
+  "measurement_performed": false,
+  "fresh_readback_required_before_execution": true
+}

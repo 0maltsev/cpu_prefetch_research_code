@@ -1,0 +1,181 @@
+#ifndef CPU_PREFETCH_CALIBRATION_DISCOVERY_CAPTURE_HPP
+#define CPU_PREFETCH_CALIBRATION_DISCOVERY_CAPTURE_HPP
+
+#include "cpu_prefetch/calibration/calibration.hpp"
+
+#include <algorithm>
+#include <atomic>
+#include <cstdint>
+#include <limits>
+#include <optional>
+
+namespace cpu_prefetch::calibration {
+
+enum class DiscoveryWorkerStop : std::uint8_t {
+  fixed_deadline,
+  trace_capacity,
+  invalid_plan,
+  clock_failure,
+  clock_reversal,
+  capture_failure,
+  peer_stopped,
+};
+
+struct DiscoveryWorkerWindow final {
+  RingWorker worker;
+  std::uint64_t origin_ticks;
+  std::uint64_t duration_ticks;
+  std::uint64_t attempt_capacity;
+};
+
+struct DiscoveryWorkerResult final {
+  DiscoveryWorkerStop stop;
+  std::uint64_t attempts{0U};
+  std::uint64_t advanced{0U};
+  std::uint64_t full{0U};
+  std::uint64_t empty{0U};
+  std::optional<std::uint64_t> last_observed_tick{};
+  std::optional<RingAttemptOutcome> last_attempt_outcome{};
+  std::optional<timing::ClockReadStatus> last_attempt_before_status{};
+  std::optional<timing::ClockReadStatus> last_attempt_after_status{};
+  std::optional<timing::ClockReadStatus> failed_clock_status{};
+};
+
+template <typename Clock, typename CaptureAttempt>
+[[nodiscard]] auto capture_discovery_worker(DiscoveryWorkerWindow window, Clock& clock,
+                                            CaptureAttempt& capture_attempt,
+                                            std::atomic<bool>& stop_requested) noexcept
+    -> DiscoveryWorkerResult {
+  static_assert(noexcept(clock.read()));
+  static_assert(noexcept(capture_attempt()));
+  static_assert(std::atomic<bool>::is_always_lock_free);
+  DiscoveryWorkerResult result{DiscoveryWorkerStop::invalid_plan};
+  if ((window.worker != RingWorker::producer &&
+       window.worker != RingWorker::consumer) ||
+      window.duration_ticks == 0U || window.attempt_capacity == 0U ||
+      window.origin_ticks >
+          std::numeric_limits<std::uint64_t>::max() - window.duration_ticks) {
+    stop_requested.store(true, std::memory_order_release);
+    return result;
+  }
+  const auto deadline = window.origin_ticks + window.duration_ticks;
+  auto previous_tick = window.origin_ticks;
+  for (;;) {
+    if (stop_requested.load(std::memory_order_acquire)) {
+      result.stop = DiscoveryWorkerStop::peer_stopped;
+      return result;
+    }
+    const auto observed = clock.read();
+    if (observed.status != timing::ClockReadStatus::ok) {
+      result.stop = DiscoveryWorkerStop::clock_failure;
+      result.failed_clock_status = observed.status;
+      stop_requested.store(true, std::memory_order_release);
+      return result;
+    }
+    const auto now = observed.sample.relative_picoseconds;
+    result.last_observed_tick = now;
+    if (now < previous_tick) {
+      result.stop = DiscoveryWorkerStop::clock_reversal;
+      stop_requested.store(true, std::memory_order_release);
+      return result;
+    }
+    previous_tick = now;
+    if (now >= deadline) {
+      result.stop = DiscoveryWorkerStop::fixed_deadline;
+      return result;
+    }
+    if (result.attempts == window.attempt_capacity) {
+      result.stop = DiscoveryWorkerStop::trace_capacity;
+      stop_requested.store(true, std::memory_order_release);
+      return result;
+    }
+    const auto captured = capture_attempt();
+    ++result.attempts;
+    result.last_attempt_outcome = captured.outcome;
+    result.last_attempt_before_status = captured.before_status;
+    result.last_attempt_after_status = captured.after_status;
+    bool valid_outcome = true;
+    if (captured.outcome == RingAttemptOutcome::advanced) {
+      ++result.advanced;
+    } else if (captured.outcome == RingAttemptOutcome::full &&
+               window.worker == RingWorker::producer) {
+      ++result.full;
+    } else if (captured.outcome == RingAttemptOutcome::empty &&
+               window.worker == RingWorker::consumer) {
+      ++result.empty;
+    } else {
+      valid_outcome = false;
+    }
+    if (!valid_outcome || captured.before_status != timing::ClockReadStatus::ok ||
+        captured.after_status != timing::ClockReadStatus::ok) {
+      result.stop = DiscoveryWorkerStop::capture_failure;
+      if (captured.before_status != timing::ClockReadStatus::ok) {
+        result.failed_clock_status = captured.before_status;
+      } else if (captured.after_status != timing::ClockReadStatus::ok) {
+        result.failed_clock_status = captured.after_status;
+      }
+      stop_requested.store(true, std::memory_order_release);
+      return result;
+    }
+  }
+}
+
+template <typename Clock, typename CaptureAttempt>
+[[nodiscard]] auto capture_prepared_discovery_worker(
+    DiscoveryWorkerWindow window, Clock& clock, CaptureAttempt& capture_attempt,
+    RingDemandTrace& trace, std::atomic<bool>& stop_requested) noexcept
+    -> DiscoveryWorkerResult {
+  if (!trace.worker_prepared(window.worker) ||
+      window.attempt_capacity != trace.attempt_capacity()) {
+    stop_requested.store(true, std::memory_order_release);
+    return {DiscoveryWorkerStop::invalid_plan};
+  }
+  const auto& series = trace.series();
+  const auto& demand = window.worker == RingWorker::producer
+                           ? series.producer_demand_ticks
+                           : series.consumer_demand_ticks;
+  const auto& issue = window.worker == RingWorker::producer
+                          ? series.producer_issue_ticks
+                          : series.consumer_issue_ticks;
+  if (!demand.empty() || !issue.empty()) {
+    stop_requested.store(true, std::memory_order_release);
+    return {DiscoveryWorkerStop::invalid_plan};
+  }
+  return capture_discovery_worker(window, clock, capture_attempt, stop_requested);
+}
+
+[[nodiscard]] inline auto
+validate_quiescent_discovery_trace(RingWorker worker, DiscoveryWorkerResult result,
+                                   const RingDemandTrace& trace) noexcept
+    -> DiscoveryWorkerResult {
+  if (!trace.worker_prepared(worker)) {
+    result.stop = DiscoveryWorkerStop::invalid_plan;
+    return result;
+  }
+  const auto& series = trace.series();
+  const auto& demand = worker == RingWorker::producer ? series.producer_demand_ticks
+                                                      : series.consumer_demand_ticks;
+  const auto& issue = worker == RingWorker::producer ? series.producer_issue_ticks
+                                                     : series.consumer_issue_ticks;
+  if (result.stop == DiscoveryWorkerStop::fixed_deadline ||
+      result.stop == DiscoveryWorkerStop::trace_capacity ||
+      result.stop == DiscoveryWorkerStop::peer_stopped) {
+    const auto expected_issues = result.advanced == 0U ? 0U : result.advanced - 1U;
+    const auto observed_nonadvances = worker == RingWorker::producer
+                                          ? series.producer_full_count
+                                          : series.consumer_empty_count;
+    if (demand.size() != result.attempts || issue.size() != expected_issues ||
+        observed_nonadvances != result.full + result.empty ||
+        std::any_of(demand.begin(), demand.end(),
+                    [](auto value) { return value == 0U; }) ||
+        std::any_of(issue.begin(), issue.end(),
+                    [](auto value) { return value == 0U; })) {
+      result.stop = DiscoveryWorkerStop::capture_failure;
+    }
+  }
+  return result;
+}
+
+} // namespace cpu_prefetch::calibration
+
+#endif

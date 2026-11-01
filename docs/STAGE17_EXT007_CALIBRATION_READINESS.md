@@ -75,6 +75,20 @@ host's glibc 2.44 still prevents claiming full release dependency conformity.
 Fresh read-only stand status attempts timed out during SSH banner exchange;
 they produced no new journal validation, action, or experiment result.
 
+ADR-0184 repairs the baseline formatting and focused runner checked-access
+diagnostics reproduced during that verification. This changes source bytes
+bound by prospective v54; its committed record is intentionally preserved
+and its author check must fail until a successor binds the repaired source.
+The earlier v54 PASS above is historical, not a current source-qualification
+claim after this repair. No release or operational authority follows.
+The subsequent [2026-11-02 runtime verification](evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/README.md)
+restores accepted glibc 2.43 and tool versions in an isolated tree, with no
+host-system change. All 20 timing/clock-pair cases pass both compiler
+sanitizer matrices. Global formatting and focused strict static checks pass;
+the full static check remains pending. Historical source-fixture and external
+archive requirements still prevent a full-suite pass. The latest read-only
+SSH attempt again times out before login. No stand action was performed.
+
 ## Implemented prerequisites
 
 ADR-0177 integrates the existing hardware mappings into a testable whole-plot
@@ -175,10 +189,13 @@ The global
 format target fails on untouched baseline files; the `HEAD` version of
 `tests/platform_model_test.cpp` independently reproduces its formatting
 errors. These failures were not bypassed or reported as passing.
-Static analysis also retains the baseline `spin_wait_nanoseconds` exception
+That is historical verification before ADR-0184's repairs. Static analysis
+then retained the baseline `spin_wait_nanoseconds` exception
 diagnostic and the two baseline optional-access diagnostics in
 `tests/runner_model_test.cpp`; the affected code is unchanged, and the same
-diagnostics exist in the earlier baseline logs. They remain release blockers.
+diagnostics exist in the earlier baseline logs. ADR-0184 now repairs those
+diagnostics; the pending full static result and other release prerequisites
+remain separate gates.
 
 The immutable pre.3 Section 5.4 and D-116 amendment already require exactly
 five seconds for pre-freeze formal calibration/pilot warm-up. The external

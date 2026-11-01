@@ -595,10 +595,10 @@ TEST(TimingCrossCoreExchange,
      SlotWaitForReturnsAlreadyPublishedPayloadWithoutSpinning) {
   CrossCoreExchangeSlot slot;
   slot.publish(7U, 111U, 222U);
-  const auto payload = slot.wait_for(7U, /*max_spins=*/1U);
-  ASSERT_TRUE(payload.has_value());
-  EXPECT_EQ(payload->first, 111U);
-  EXPECT_EQ(payload->second, 222U);
+  const auto payload =
+      slot.wait_for(7U, cpu_prefetch::timing::CrossCoreExchangeSpinLimit{1U});
+  EXPECT_EQ(require_optional(payload).first, 111U);
+  EXPECT_EQ(require_optional(payload).second, 222U);
 }
 
 TEST(TimingCrossCoreExchange, InitiatorTimesOutWhenResponderNeverAnswers) {
@@ -635,9 +635,8 @@ TEST(TimingCrossCoreExchange, SlotWaitForSurvivesADelayedPublishViaWallClockFall
       9U, now,
       cpu_prefetch::timing::CrossCoreExchangeTimeoutPolicy{1'000U, 2'000'000'000U});
   publisher.join();
-  ASSERT_TRUE(payload.has_value());
-  EXPECT_EQ(payload->first, 333U);
-  EXPECT_EQ(payload->second, 444U);
+  EXPECT_EQ(require_optional(payload).first, 333U);
+  EXPECT_EQ(require_optional(payload).second, 444U);
 }
 
 TEST(TimingCrossCoreExchange,

@@ -29,6 +29,15 @@ are restored in `build/ext007-toolchain-20261101/`. Host glibc 2.44 remains
 outside the accepted release matrix; no clean release is qualified by this
 recovery. Fresh stand status attempts fail during SSH banner exchange.
 The six-resolution operational state below was last validated on 2026-10-30.
+ADR-0184 repairs the reproduced baseline format/static diagnostics. The
+committed prospective policy v54 remains unchanged and is now stale against
+the repaired runner source; successor policy/release work remains required.
+The [2026-11-02 isolated runtime evidence](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/README.md)
+records accepted glibc 2.43 and tool versions, with no host-system changes.
+Timing/clock-pair cases pass 20/20 in both compiler sanitizer matrices.
+Full-suite historical fixture/external-archive failures remain; full static
+analysis is pending. The latest read-only SSH refresh still times out before
+the banner. No qualified release, capture, or external resolution is claimed.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

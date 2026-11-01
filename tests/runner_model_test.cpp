@@ -211,12 +211,18 @@ TEST(RunnerQ13Policy, SoftwarePrefetchMappingRegistryCoversAdr0047AndAdr0175Only
   using cpu_prefetch::runner::kSoftwarePrefetchMappingIdT0Only;
 
   const auto original = find_software_prefetch_mapping({kIntelFamily6, kIntelModel55});
-  ASSERT_TRUE(original.has_value());
-  EXPECT_EQ(original.value().mapping_id, kSoftwarePrefetchMappingId);
+  if (original.has_value()) {
+    EXPECT_EQ(original.value().mapping_id, kSoftwarePrefetchMappingId);
+  } else {
+    FAIL() << "registered original software-prefetch mapping is missing";
+  }
 
   const auto t0_only = find_software_prefetch_mapping({kIntelFamily6, kIntelModel3E});
-  ASSERT_TRUE(t0_only.has_value());
-  EXPECT_EQ(t0_only.value().mapping_id, kSoftwarePrefetchMappingIdT0Only);
+  if (t0_only.has_value()) {
+    EXPECT_EQ(t0_only.value().mapping_id, kSoftwarePrefetchMappingIdT0Only);
+  } else {
+    FAIL() << "registered T0-only software-prefetch mapping is missing";
+  }
 
   EXPECT_FALSE(
       find_software_prefetch_mapping(CpuFamilyModel{kIntelFamily6, 0x6AU}).has_value());

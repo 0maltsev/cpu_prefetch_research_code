@@ -28,6 +28,15 @@ On 2026-11-01, accepted build tools were restored under
 `build/ext007-toolchain-20261101/`; newer host glibc still blocks full release
 dependency qualification. Fresh stand status attempts timed out during SSH
 banner exchange; the operational state below is the last validated checkpoint.
+ADR-0184 repairs baseline release-check formatting and checked-access issues.
+Its runner source change intentionally invalidates prospective policy v54's
+source pin; a successor must bind the repaired source before qualification.
+The subsequent [isolated runtime recovery](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/README.md)
+also restores accepted glibc 2.43 without changing the host. All 20 affected
+timing/clock-pair cases pass in both compiler sanitizer matrices. Historical
+fixture/external-archive failures and the pending full static check still
+prevent claiming a qualified release. The latest SSH refresh still fails
+before the banner; no stand work or new resolution occurred.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

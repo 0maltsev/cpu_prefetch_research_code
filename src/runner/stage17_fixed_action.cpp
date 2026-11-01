@@ -1058,12 +1058,14 @@ auto spin_wait_nanoseconds(platform::Q15PlatformOperations& platform,
     return;
   }
   const auto start = platform.monotonic_raw_nanoseconds();
-  if (!start) {
+  const auto* start_value = start.value_if();
+  if (start_value == nullptr) {
     return;
   }
   for (;;) {
     const auto now = platform.monotonic_raw_nanoseconds();
-    if (!now || now.value() - start.value() >= nanoseconds) {
+    const auto* now_value = now.value_if();
+    if (now_value == nullptr || *now_value - *start_value >= nanoseconds) {
       return;
     }
   }

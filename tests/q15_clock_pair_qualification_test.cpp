@@ -2,11 +2,22 @@
 
 #include "cpu_prefetch/qualification/q15_clock_pair_qualification.hpp"
 
+#include <optional>
+#include <stdexcept>
+
 namespace {
 
 using cpu_prefetch::qualification::ClockPairQualificationCounts;
 using cpu_prefetch::qualification::run_clock_pair_qualification;
 using cpu_prefetch::runner::WorkerPair;
+
+template <typename Value>
+[[nodiscard]] auto require_optional(const std::optional<Value>& value) -> const Value& {
+  if (!value.has_value()) {
+    throw std::logic_error("required clock qualification observation is absent");
+  }
+  return value.value();
+}
 
 // CPUs 0 and 1 are both valid on any machine this test runs on (unlike the
 // real FAR pair's CPU 26, which only exists on the accepted Xeon stand).
@@ -39,29 +50,29 @@ TEST(Q15ClockPairQualification,
   ASSERT_TRUE(result.consumer_pinned);
   ASSERT_TRUE(result.complete);
 
-  ASSERT_TRUE(result.producer_per_core.has_value());
-  EXPECT_EQ(result.producer_per_core->sequence.regression_count, 0U);
-  EXPECT_TRUE(result.producer_per_core->read_status_passes);
-  EXPECT_TRUE(result.producer_per_core->affinity_passes);
+  const auto& producer = require_optional(result.producer_per_core);
+  EXPECT_EQ(producer.sequence.regression_count, 0U);
+  EXPECT_TRUE(producer.read_status_passes);
+  EXPECT_TRUE(producer.affinity_passes);
 
-  ASSERT_TRUE(result.consumer_per_core.has_value());
-  EXPECT_EQ(result.consumer_per_core->sequence.regression_count, 0U);
-  EXPECT_TRUE(result.consumer_per_core->read_status_passes);
-  EXPECT_TRUE(result.consumer_per_core->affinity_passes);
+  const auto& consumer = require_optional(result.consumer_per_core);
+  EXPECT_EQ(consumer.sequence.regression_count, 0U);
+  EXPECT_TRUE(consumer.read_status_passes);
+  EXPECT_TRUE(consumer.affinity_passes);
 
-  ASSERT_TRUE(result.cross_core.has_value());
-  EXPECT_EQ(result.cross_core->producer_to_consumer.causal_regressions, 0U);
-  EXPECT_EQ(result.cross_core->consumer_to_producer.causal_regressions, 0U);
-  EXPECT_TRUE(result.cross_core->producer_to_consumer.interval_limits_pass);
-  EXPECT_TRUE(result.cross_core->consumer_to_producer.interval_limits_pass);
+  const auto& cross_core = require_optional(result.cross_core);
+  EXPECT_EQ(cross_core.producer_to_consumer.causal_regressions, 0U);
+  EXPECT_EQ(cross_core.consumer_to_producer.causal_regressions, 0U);
+  EXPECT_TRUE(cross_core.producer_to_consumer.interval_limits_pass);
+  EXPECT_TRUE(cross_core.consumer_to_producer.interval_limits_pass);
 
   // Frozen thresholds (10,000,000 deltas; 100,000 exchanges per window; a
   // 60-real-second window span) are not met at this reduced scale, so these
   // aggregate accept booleans are expected false here -- see the comment
   // above.
-  EXPECT_FALSE(result.producer_per_core->prime_count_passes);
-  EXPECT_FALSE(result.cross_core->producer_to_consumer.accepted_policy_sample_count);
-  EXPECT_FALSE(result.cross_core->producer_to_consumer.window_span_passes);
+  EXPECT_FALSE(producer.prime_count_passes);
+  EXPECT_FALSE(cross_core.producer_to_consumer.accepted_policy_sample_count);
+  EXPECT_FALSE(cross_core.producer_to_consumer.window_span_passes);
   EXPECT_FALSE(result.passes);
 }
 

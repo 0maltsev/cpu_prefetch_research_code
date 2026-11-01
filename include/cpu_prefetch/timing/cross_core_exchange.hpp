@@ -16,6 +16,10 @@ namespace cpu_prefetch::timing {
 inline constexpr std::size_t kCrossCoreExchangeCacheLineBytes = 64U;
 inline constexpr std::size_t kCrossCoreExchangeMaximumSpinIterations = 2'000'000'000U;
 
+struct CrossCoreExchangeSpinLimit final {
+  std::size_t maximum_iterations{kCrossCoreExchangeMaximumSpinIterations};
+};
+
 // Bundles CrossCoreExchangeSlot::wait_for's two timeout knobs into named
 // fields rather than two positional same-width integers, so they cannot be
 // silently transposed at a call site. Default-constructed, this is exactly
@@ -50,17 +54,16 @@ public:
     sequence_.store(sequence, std::memory_order_release);
   }
 
-  // Busy-spins until `sequence` is observed, bounded by `max_spins`. Never
+  // Busy-spins until `sequence` is observed, bounded by `limit`. Never
   // issues a syscall, so it never perturbs a real, in-flight exchange's
   // measured latency. Returns std::nullopt on timeout with no further
   // fallback -- for callers with no interest in surviving an expected long
   // gap (simple positive/negative unit tests); see the NowFn overload below
   // for the one production code uses.
-  [[nodiscard]] auto wait_for(
-      std::uint64_t sequence,
-      std::size_t max_spins = kCrossCoreExchangeMaximumSpinIterations) const noexcept
+  [[nodiscard]] auto wait_for(std::uint64_t sequence,
+                              CrossCoreExchangeSpinLimit limit = {}) const noexcept
       -> std::optional<Payload> {
-    for (std::size_t spins = 0U; spins < max_spins; ++spins) {
+    for (std::size_t spins = 0U; spins < limit.maximum_iterations; ++spins) {
       if (sequence_.load(std::memory_order_acquire) == sequence) {
         return Payload{first_.load(std::memory_order_relaxed),
                        second_.load(std::memory_order_relaxed)};
@@ -98,18 +101,15 @@ public:
   // `std::this_thread::sleep_for` calls still happen for real (they cannot
   // be mocked), so tests that do not need this phase should leave `policy`
   // at its default.
-  // Constrained to actually-callable NowFn: without this, a plain integer
-  // second argument (e.g. wait_for(sequence, some_size_t)) deduces
-  // NowFn=size_t as an exact match, which overload resolution prefers over
-  // the non-template overload's own required conversion to size_t --
-  // silently picking this overload (and failing to compile its body,
-  // since an integer is not callable) instead of the intended one above.
+  // Constrained to callable clocks. The spin-only overload takes an explicit
+  // CrossCoreExchangeSpinLimit, keeping sequence and spin count distinct.
   template <typename NowFn>
     requires requires(NowFn now) { now(); }
   [[nodiscard]] auto wait_for(std::uint64_t sequence, NowFn&& now,
                               CrossCoreExchangeTimeoutPolicy policy = {}) const
       -> std::optional<Payload> {
-    if (const auto fast = wait_for(sequence, policy.fast_spin_iterations);
+    if (const auto fast =
+            wait_for(sequence, CrossCoreExchangeSpinLimit{policy.fast_spin_iterations});
         fast.has_value()) {
       return fast;
     }

@@ -361,6 +361,13 @@ authorization/amendment.
   The 2026-11-01 SSH status refresh is blocked by banner-exchange timeouts.
   The 46-case calibration suite passes both development compilers and both
   ASan/UBSan and TSan matrices; retained local evidence grants no run authority.
+  ADR-0184 repairs baseline release checks; bind the repaired source in a new
+  policy successor rather than rewriting the committed v54 record.
+  The subsequent isolated runtime now includes accepted glibc 2.43; 20
+  timing/clock-pair cases pass both compiler sanitizer matrices. Finish the
+  full static check and resolve historical fixture/external-archive failures;
+  retain the nonmatching D-100 reproduction separately. Current evidence is
+  [recorded here](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/README.md).
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

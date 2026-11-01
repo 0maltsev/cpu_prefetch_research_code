@@ -1,0 +1,1377 @@
+{
+  "record_id": "EXT007-ISOLATED-RUNTIME-20261102-01",
+  "authority": "NONE",
+  "empirical_results": false,
+  "protocol_version": "2.0.0-pre.3",
+  "source_base_commit": "d49af32",
+  "source_state": "D184 repairs uncommitted at verification",
+  "package_count": 116,
+  "packages": [
+    {
+      "name": "acl",
+      "version": "2.3.2-2",
+      "archive": "/var/cache/pacman/pkg/acl-2.3.2-2-x86_64.pkg.tar.zst",
+      "sha256": "9bf86d3e2d7792e3e721aa293d772bbc4d99e3fb885467a3e16189dbea819432",
+      "signature_verified": true,
+      "licenses": [
+        "LGPL-2.1-or-later AND GPL-2.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "attr",
+      "version": "2.5.2-2",
+      "archive": "/var/cache/pacman/pkg/attr-2.5.2-2-x86_64.pkg.tar.zst",
+      "sha256": "a261a43fb2dea7dc0ac1d389bee113781ce71fc5d176a98504494d034557e5b3",
+      "signature_verified": true,
+      "licenses": [
+        "LGPL-2.1-or-later AND GPL-2.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "audit",
+      "version": "4.1.4-2",
+      "archive": "/var/cache/pacman/pkg/audit-4.1.4-2-x86_64.pkg.tar.zst",
+      "sha256": "386f585b7e3f6560cb97b5c472d632b682f2aee7c92a0f5045ead6ea96f072a2",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later",
+        "LGPL-2.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "bash",
+      "version": "5.3.9-1",
+      "archive": "/var/cache/pacman/pkg/bash-5.3.9-1-x86_64.pkg.tar.zst",
+      "sha256": "7fee7535609ccfab4a7174883d31effb68ee2efd909ae827c9d66e51c55e6b65",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "binutils",
+      "version": "2.46+r70+g155188ea10a7-1",
+      "archive": "/var/cache/pacman/pkg/binutils-2.46+r70+g155188ea10a7-1-x86_64.pkg.tar.zst",
+      "sha256": "052b161bf8d5419932c60e0da4999b1fbc4093970fe9d72a6be267f942d2387a",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later",
+        "GPL-3.0-or-later",
+        "LGPL-2.0-or-later",
+        "LGPL-3.0-or-later",
+        "GFDL-1.3",
+        "FSFAP"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "brotli",
+      "version": "1.2.0-1",
+      "archive": "/var/cache/pacman/pkg/brotli-1.2.0-1-x86_64.pkg.tar.zst",
+      "sha256": "4a0c95d5967476d0efdaf76d344b61e3eee02cd7920a315e457f3fd96311b7ec",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "bzip2",
+      "version": "1.0.8-6",
+      "archive": "/var/cache/pacman/pkg/bzip2-1.0.8-6-x86_64.pkg.tar.zst",
+      "sha256": "8779003d659c441b952095c19907603a738c1366f25cc51be3fd139fa4e95748",
+      "signature_verified": true,
+      "licenses": [
+        "BSD"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "ca-certificates",
+      "version": "20240618-1",
+      "archive": "/var/cache/pacman/pkg/ca-certificates-20240618-1-any.pkg.tar.zst",
+      "sha256": "982005bd5ecc998c05f561b57bb58b4457407779727e3c3d59e926d34a8b0712",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later"
+      ],
+      "usr_payload_present": false
+    },
+    {
+      "name": "ca-certificates-mozilla",
+      "version": "3.124-1",
+      "archive": "/var/cache/pacman/pkg/ca-certificates-mozilla-3.124-1-x86_64.pkg.tar.zst",
+      "sha256": "c49f67b4f05ada768f9c3304a089b3d36a4ce0de4263d6889178a733f9d9a6ae",
+      "signature_verified": true,
+      "licenses": [
+        "MPL-2.0"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "ca-certificates-utils",
+      "version": "20240618-1",
+      "archive": "/var/cache/pacman/pkg/ca-certificates-utils-20240618-1-any.pkg.tar.zst",
+      "sha256": "aabd5b2b7030716ccdd465d607e734e851fe4a01adf8293a3968fe22eb89ce9b",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "clang",
+      "version": "22.1.6-1",
+      "archive": "/var/cache/pacman/pkg/clang-22.1.6-1-x86_64.pkg.tar.zst",
+      "sha256": "85ab6fcefbe196cb72e029038242cc003c92262a61a337597bbc2f5da4dba66c",
+      "signature_verified": true,
+      "licenses": [
+        "Apache-2.0 WITH LLVM-exception"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "cmake",
+      "version": "4.3.3-1",
+      "archive": "/var/cache/pacman/pkg/cmake-4.3.3-1-x86_64.pkg.tar.zst",
+      "sha256": "aee1950f84e7f509d5ceb9d52f3214f9307ee7f6455fd4165d59a000740be9be",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "compiler-rt",
+      "version": "22.1.6-1",
+      "archive": "/var/cache/pacman/pkg/compiler-rt-22.1.6-1-x86_64.pkg.tar.zst",
+      "sha256": "7b5e7ad63bd4cf58cbe7cbdb4bccb2df7b3f6186868fe08000faa2432e0fe5f6",
+      "signature_verified": true,
+      "licenses": [
+        "Apache-2.0 WITH LLVM-exception"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "coreutils",
+      "version": "9.11-1",
+      "archive": "/var/cache/pacman/pkg/coreutils-9.11-1-x86_64.pkg.tar.zst",
+      "sha256": "1358e5c8d4466abd2fd8b3beae066d4fef93180355ef46a68c1cbdc9981dca90",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "cppdap",
+      "version": "1.58.0-3",
+      "archive": "/var/cache/pacman/pkg/cppdap-1.58.0-3-x86_64.pkg.tar.zst",
+      "sha256": "5c8bd9b3881ba9b2bea98eefa95df21d92b026f0c7537105d943857b22388be3",
+      "signature_verified": true,
+      "licenses": [
+        "Apache-2.0"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "curl",
+      "version": "8.20.0-7",
+      "archive": "/var/cache/pacman/pkg/curl-8.20.0-7-x86_64.pkg.tar.zst",
+      "sha256": "9a09dc5796e83f129d032b1d831a85b276f8fba50f430ba143993a9ed02351c1",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "db5.3",
+      "version": "5.3.28-7",
+      "archive": "/var/cache/pacman/pkg/db5.3-5.3.28-7-x86_64.pkg.tar.zst",
+      "sha256": "abac3474e766fa8a36fcae945f5e8c8e818665fc41a56daff92db81cd176d389",
+      "signature_verified": true,
+      "licenses": [
+        "Sleepycat"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "e2fsprogs",
+      "version": "1.47.4-1",
+      "archive": "/var/cache/pacman/pkg/e2fsprogs-1.47.4-1-x86_64.pkg.tar.zst",
+      "sha256": "a78971bbbe0ae89d15a0cbbc952e64462edc5a6f991c1bb9cefd0539ca548bd4",
+      "signature_verified": true,
+      "licenses": [
+        "GPL",
+        "LGPL",
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "expat",
+      "version": "2.8.1-1",
+      "archive": "/var/cache/pacman/pkg/expat-2.8.1-1-x86_64.pkg.tar.zst",
+      "sha256": "6dc98b2806cc8f7cd1e2e02b0ea83c2f209c2823eec1108f726bbf88b37ab563",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "filesystem",
+      "version": "2025.10.12-1",
+      "archive": "/var/cache/pacman/pkg/filesystem-2025.10.12-1-any.pkg.tar.zst",
+      "sha256": "6b6c3fee7432204840d3b6afc9bc1a68c28f591a47fb220071715c40cca956df",
+      "signature_verified": true,
+      "licenses": [
+        "0BSD"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "findutils",
+      "version": "4.10.0-3",
+      "archive": "/var/cache/pacman/pkg/findutils-4.10.0-3-x86_64.pkg.tar.zst",
+      "sha256": "689e1be701e9b20a650f012793e8a79ee62d8a61ddce84c79e940068f9b713c9",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "gcc",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/gcc-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "80ecc89c7ca567a2c1d460803e1efa434040861f824c34d8fe7000bf27ad82c0",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "gcc-libs",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/gcc-libs-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "6e1e94eced9459789a5b9193b2f11937d6192e26b7caf6d2e5a47edb0cc69351",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": false
+    },
+    {
+      "name": "gdbm",
+      "version": "1.26-2",
+      "archive": "/var/cache/pacman/pkg/gdbm-1.26-2-x86_64.pkg.tar.zst",
+      "sha256": "7bb8768fc7f617c580ae4c7902aed5413984a8374915da42beeecbb085c2a29e",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "git",
+      "version": "2.54.0-1",
+      "archive": "/var/cache/pacman/pkg/git-2.54.0-1-x86_64.pkg.tar.zst",
+      "sha256": "e9bdaf65025b379016a280ea5586f4c6325aae006a6e2faf802f461d667694c9",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-only"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "glibc",
+      "version": "2.43+r22+g8362e8ce10b2-2",
+      "archive": "/var/cache/pacman/pkg/glibc-2.43+r22+g8362e8ce10b2-2-x86_64.pkg.tar.zst",
+      "sha256": "2c20828b3a571b272697671c90b1e3a8c426d6a7e7fb99a242099373f2710fe1",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later",
+        "LGPL-2.1-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "gmp",
+      "version": "6.3.0-3",
+      "archive": "/var/cache/pacman/pkg/gmp-6.3.0-3-x86_64.pkg.tar.zst",
+      "sha256": "2969061e117d2a8c19d89427b0b88e1c956a6269bc0602087d41aecd15097064",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later",
+        "LGPL-3.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "gnutls",
+      "version": "3.8.13-2",
+      "archive": "/var/cache/pacman/pkg/gnutls-3.8.13-2-x86_64.pkg.tar.zst",
+      "sha256": "381e8679ec096bba9d25e6bf8de1d186b1f46e892215aa2a63e1582c34a036f1",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later AND LGPL-2.1-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "grep",
+      "version": "3.12-2",
+      "archive": "/var/cache/pacman/pkg/grep-3.12-2-x86_64.pkg.tar.zst",
+      "sha256": "9dd8a5dad99e8d388b1fb1406919de218d30c7e49924f615a12d3f2deaaecfe2",
+      "signature_verified": true,
+      "licenses": [
+        "GPL3"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "gtest",
+      "version": "1.17.0-2",
+      "archive": "/var/cache/pacman/pkg/gtest-1.17.0-2-x86_64.pkg.tar.zst",
+      "sha256": "fe0603bf90c88de529881dafa5e348259ed663da4c680c5025efb11edd17e943",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "hicolor-icon-theme",
+      "version": "0.18-1",
+      "archive": "/var/cache/pacman/pkg/hicolor-icon-theme-0.18-1-any.pkg.tar.zst",
+      "sha256": "22ec69012b9a55e276b5891f916366f692541dce3793bff3e85a28a10b91990a",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "iana-etc",
+      "version": "20260530-1",
+      "archive": "/var/cache/pacman/pkg/iana-etc-20260530-1-any.pkg.tar.zst",
+      "sha256": "023d4bd30530ac507c297286b307a86432483c237c11569ad827406e19767604",
+      "signature_verified": true,
+      "licenses": [
+        "custom:none"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "icu",
+      "version": "78.3-1",
+      "archive": "/var/cache/pacman/pkg/icu-78.3-1-x86_64.pkg.tar.zst",
+      "sha256": "118fe41efa6c550f3fe67893946dcea2c6cbb5272299a6ddf4160fb17f3e4bb0",
+      "signature_verified": true,
+      "licenses": [
+        "LicenseRef-Unicode-3.0",
+        "BSD-2-Clause",
+        "BSD-3-Clause",
+        "NAIST-2003"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "jansson",
+      "version": "2.15.0-1",
+      "archive": "/var/cache/pacman/pkg/jansson-2.15.0-1-x86_64.pkg.tar.zst",
+      "sha256": "d58e6b36a8a8dcd81ae4a943b859d9b7b9d72c77455aef4f82226aa8909dadb0",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "json-c",
+      "version": "0.18-2",
+      "archive": "/var/cache/pacman/pkg/json-c-0.18-2-x86_64.pkg.tar.zst",
+      "sha256": "5900c861de5cdacb14d040bf77db6e785708ba31fab5d4824e3a98983ccce790",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "jsoncpp",
+      "version": "1.9.6-3",
+      "archive": "/var/cache/pacman/pkg/jsoncpp-1.9.6-3-x86_64.pkg.tar.zst",
+      "sha256": "2aa066e1840850aad3b901dec9e8aaa047afcd1835576378f6ba16285c268fcb",
+      "signature_verified": true,
+      "licenses": [
+        "MIT",
+        "custom:Public_Domain"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "keyutils",
+      "version": "1.6.3-4",
+      "archive": "/var/cache/pacman/pkg/keyutils-1.6.3-4-x86_64.pkg.tar.zst",
+      "sha256": "e3e5d4226bb7d213a6baddb997bf679a2b1106d95b5c2845b79bf8df1c3ef5fe",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later",
+        "LGPL-2.1-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "krb5",
+      "version": "1.22.2-1",
+      "archive": "/var/cache/pacman/pkg/krb5-1.22.2-1-x86_64.pkg.tar.zst",
+      "sha256": "38dcaf86512559c47e9b084ce78f417b5e8b0634feb8cb80b5edeab2c40b704f",
+      "signature_verified": true,
+      "licenses": [
+        "custom"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "leancrypto",
+      "version": "1.7.2-1",
+      "archive": "/var/cache/pacman/pkg/leancrypto-1.7.2-1-x86_64.pkg.tar.zst",
+      "sha256": "7faf01950707e893d47192d4c3549e317aaada898babf524ccc5aa08fa402f3b",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later",
+        "LicenseRef-BSDvariant",
+        "LicenseRef-leancrypto"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libarchive",
+      "version": "3.8.7-1",
+      "archive": "/var/cache/pacman/pkg/libarchive-3.8.7-1-x86_64.pkg.tar.zst",
+      "sha256": "904c83f19359eb677ba1d9c4309aa2edcacdb97bc0462edf31f6e3629d4db774",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-2-Clause"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libasan",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libasan-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "515b059542bac82337f931bad32b07fd04e3a68fe9643244c5c555a66040d1c3",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libatomic",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libatomic-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "63f385b4b6b3a34ac9c7b85030e91872fedbe18caa6d7cefaef57469f7811ced",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libcap",
+      "version": "2.78-1",
+      "archive": "/var/cache/pacman/pkg/libcap-2.78-1-x86_64.pkg.tar.zst",
+      "sha256": "3e984fe1d323b1c5a5fc60fef005776a4882fbca913d6fe3c41ad11128929ed1",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause OR GPL-2.0-only"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libcap-ng",
+      "version": "0.9.3-1",
+      "archive": "/var/cache/pacman/pkg/libcap-ng-0.9.3-1-x86_64.pkg.tar.zst",
+      "sha256": "858f3b207f2601f1ed32756bd8a46eaa266376efa6dd9c7ba16350c08908e41b",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later",
+        "LGPL-2.1-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libedit",
+      "version": "20260512_3.1-1",
+      "archive": "/var/cache/pacman/pkg/libedit-20260512_3.1-1-x86_64.pkg.tar.zst",
+      "sha256": "70cb736e4fdee330cd0dfab45875f6ea378ae819958dd15748c300b8d7285b42",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libelf",
+      "version": "0.195-1",
+      "archive": "/var/cache/pacman/pkg/libelf-0.195-1-x86_64.pkg.tar.zst",
+      "sha256": "e7faf9dc2d9dab8975a4a95ce0804c45b3fe69c1551ccb4c05c52003cb2e75c1",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later OR LGPL-3.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libevent",
+      "version": "2.1.12-5",
+      "archive": "/var/cache/pacman/pkg/libevent-2.1.12-5-x86_64.pkg.tar.zst",
+      "sha256": "234dbb723781f7ef194c3ba10d119bae94b20b7c1040214a160028f4a144c62c",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause-Modification"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libffi",
+      "version": "3.5.2-1",
+      "archive": "/var/cache/pacman/pkg/libffi-3.5.2-1-x86_64.pkg.tar.zst",
+      "sha256": "6855aa68ae506c124f9e62c6be3dd40dd750a050d7126d5265118128638da5c3",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libgcc",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libgcc-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "01fbf0e50872c2f4538ea067f97b143124963e9037ca8eb69cdc8b693779c11b",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libgcrypt",
+      "version": "1.12.2-1",
+      "archive": "/var/cache/pacman/pkg/libgcrypt-1.12.2-1-x86_64.pkg.tar.zst",
+      "sha256": "27429de23607abb32994f589574d6e680ca3ddf0fdebae82b23fddb4f66ec64c",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause",
+        "BSD-3-Clause OR GPL-2.0-only",
+        "GPL-2.0-or-later",
+        "LGPL-2.0-or-later",
+        "LGPL-2.1-or-later",
+        "X11",
+        "LicenseRef-scancode-public-domain",
+        "LicenseRef-OCB1"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libgfortran",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libgfortran-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "a32b6ce43a4f8420dbc717f767fa7ef15e23c6978ebade6dc1722e8da98fa9d5",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libgomp",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libgomp-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "023fc47852e517aa3de59630bda0d66fdf73a1044519e0db8bc976fbde8473c1",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libgpg-error",
+      "version": "1.61-1",
+      "archive": "/var/cache/pacman/pkg/libgpg-error-1.61-1-x86_64.pkg.tar.zst",
+      "sha256": "7d5a5b39f588b275558f5e13bd792bff84cf89abb6d48e3e494d6c30e8ea9ca4",
+      "signature_verified": true,
+      "licenses": [
+        "LGPL-2.1-or-later",
+        "BSD-3-Clause OR LGPL-2.1-or-later",
+        "FSFULLR",
+        "GPL-2.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libidn2",
+      "version": "2.3.8-1",
+      "archive": "/var/cache/pacman/pkg/libidn2-2.3.8-1-x86_64.pkg.tar.zst",
+      "sha256": "1749bdd4c395913df18c57fdd42820d3de88738b7163b7aa254d13e3da7b1d9d",
+      "signature_verified": true,
+      "licenses": [
+        "GPL2",
+        "LGPL3"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libisl",
+      "version": "0.27-1",
+      "archive": "/var/cache/pacman/pkg/libisl-0.27-1-x86_64.pkg.tar.zst",
+      "sha256": "55a36e8195e6d9ce2efeb4276c60df6b6e7d94812fa36f8423d5ce664a5d34df",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libldap",
+      "version": "2.6.13-1",
+      "archive": "/var/cache/pacman/pkg/libldap-2.6.13-1-x86_64.pkg.tar.zst",
+      "sha256": "9d37ed49d0da014fbdf89e8b1c5e55b2d58fbffc850d79ddda5f8d1d151ba3b6",
+      "signature_verified": true,
+      "licenses": [
+        "custom"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "liblsan",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/liblsan-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "3b30d7c82d03d92723705a4987bf0c0ed7dd54141b265c8bb6e6dd27d62e107e",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libmpc",
+      "version": "1.4.1-1",
+      "archive": "/var/cache/pacman/pkg/libmpc-1.4.1-1-x86_64.pkg.tar.zst",
+      "sha256": "880bdba957ebe5136449c7b61821e92628d7bdd43f370e5a0818d229372d3851",
+      "signature_verified": true,
+      "licenses": [
+        "LGPL-3.0-only"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libnghttp2",
+      "version": "1.69.0-1",
+      "archive": "/var/cache/pacman/pkg/libnghttp2-1.69.0-1-x86_64.pkg.tar.zst",
+      "sha256": "18846de3571b98cf657098e2f77d9c9b38d6af0c0497cff665f8b80472d0c62a",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libnghttp3",
+      "version": "1.16.0-1",
+      "archive": "/var/cache/pacman/pkg/libnghttp3-1.16.0-1-x86_64.pkg.tar.zst",
+      "sha256": "2408d538203143904d110ab3596916fad28931919d1d4428e471c92cb4c9b567",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libngtcp2",
+      "version": "1.23.0-1",
+      "archive": "/var/cache/pacman/pkg/libngtcp2-1.23.0-1-x86_64.pkg.tar.zst",
+      "sha256": "3d942b0d97c9bdc502ad6c4a1b10afceffd23f2ee0f0f029666f6f97c4725a00",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libnsl",
+      "version": "2.0.1-2",
+      "archive": "/var/cache/pacman/pkg/libnsl-2.0.1-2-x86_64.pkg.tar.zst",
+      "sha256": "4ba7b85b42fbda5a1f07e15b8f91c60faa4c5f9168cc27d49fcd20e3a3be8bd8",
+      "signature_verified": true,
+      "licenses": [
+        "LGPL-2.1-only"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libobjc",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libobjc-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "b6c9d6939b71ed35186a0b5ae2b4225c1f110ab53b6ef49ccc6c3f8570cae4d2",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libp11-kit",
+      "version": "0.26.2-1",
+      "archive": "/var/cache/pacman/pkg/libp11-kit-0.26.2-1-x86_64.pkg.tar.zst",
+      "sha256": "32b9fcfaa3e54fc0f19a07864fff69f19a0d43a47bac5b06c88703b84c767141",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libpsl",
+      "version": "0.21.5-2",
+      "archive": "/var/cache/pacman/pkg/libpsl-0.21.5-2-x86_64.pkg.tar.zst",
+      "sha256": "e07925c2487bd7deffdd57808b19561e80a4cb25a33e51dbd94efb673bc81944",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libquadmath",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libquadmath-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "4d3ec0fea319cda5634352a9461996ddc58dfdd041b18b56fbafd8257ba0eff3",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libsasl",
+      "version": "2.1.28-5",
+      "archive": "/var/cache/pacman/pkg/libsasl-2.1.28-5-x86_64.pkg.tar.zst",
+      "sha256": "113e1676371544e5142a46ee046a6179ace201c4f0a0d56b618a984b5c764463",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause-Attribution"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libssh2",
+      "version": "1.11.1-1",
+      "archive": "/var/cache/pacman/pkg/libssh2-1.11.1-1-x86_64.pkg.tar.zst",
+      "sha256": "c13dba4c4786918ec25f4ccdf1c4567c8063a4caae8565c2a241488584621bad",
+      "signature_verified": true,
+      "licenses": [
+        "BSD"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libstdc++",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libstdc++-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "5eb8ab787086682875805e7eaad8728e73bad687aba00c9460ecb261c3762aeb",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libtasn1",
+      "version": "4.21.0-1",
+      "archive": "/var/cache/pacman/pkg/libtasn1-4.21.0-1-x86_64.pkg.tar.zst",
+      "sha256": "00e50489d3c00951380d578cf89ebd7d7a38d97269e7ca9ccc9cde146f1e21da",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later",
+        "LGPL-2.1-or-later",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libtirpc",
+      "version": "1.3.7-1",
+      "archive": "/var/cache/pacman/pkg/libtirpc-1.3.7-1-x86_64.pkg.tar.zst",
+      "sha256": "2d43a2bab8dbe99fa817d327bdf23ec559a337ebd25b48c691cff73f3eb138ec",
+      "signature_verified": true,
+      "licenses": [
+        "SISSL",
+        "BSD-3-Clause"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libtsan",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libtsan-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "4526e2f7dae3de2638f4c053c3f6588d4fdc1cdf6e3ddd37728e24e4277640ac",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libubsan",
+      "version": "16.1.1+r12+g301eb08fa2c5-1",
+      "archive": "/var/cache/pacman/pkg/libubsan-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "sha256": "51c91ebba200364376a0aff40203646fc2e2b60feffc5f2b0912217f2d2b0497",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libunistring",
+      "version": "1.4.2-1",
+      "archive": "/var/cache/pacman/pkg/libunistring-1.4.2-1-x86_64.pkg.tar.zst",
+      "sha256": "582625bc02e710b587f4ed319e5c7ad29fd5d4d424b6384f125fc094f07ce590",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later",
+        "LGPL-3.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libuv",
+      "version": "1.52.1-1",
+      "archive": "/var/cache/pacman/pkg/libuv-1.52.1-1-x86_64.pkg.tar.zst",
+      "sha256": "a77eec1bc392f68df6b199d4eb912e0720a40eed214f1ce09b8cbaf00a382dcc",
+      "signature_verified": true,
+      "licenses": [
+        "custom"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libverto",
+      "version": "0.3.2-6",
+      "archive": "/var/cache/pacman/pkg/libverto-0.3.2-6-x86_64.pkg.tar.zst",
+      "sha256": "d0965b1b256e330e300c2bc3c699afa24f2d800dc476541039d452b606309496",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libxcrypt",
+      "version": "4.5.2-1",
+      "archive": "/var/cache/pacman/pkg/libxcrypt-4.5.2-1-x86_64.pkg.tar.zst",
+      "sha256": "7d324b88963786491391468203701efd2c812798a9c3fbcc4ff8a4ddb2d9f276",
+      "signature_verified": true,
+      "licenses": [
+        "LGPL"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "libxml2",
+      "version": "2.15.3-1",
+      "archive": "/var/cache/pacman/pkg/libxml2-2.15.3-1-x86_64.pkg.tar.zst",
+      "sha256": "51807c20a300bf85db48ae7f2f8967bec291439764b29279e3297dff3247ed4f",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "linux-api-headers",
+      "version": "7.0-1",
+      "archive": "/var/cache/pacman/pkg/linux-api-headers-7.0-1-x86_64.pkg.tar.zst",
+      "sha256": "28b5e823765ba1db8173a9b2bd78becd646f804f8d4306ac36cc5a0061fd1a63",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-only"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "llvm",
+      "version": "22.1.6-1",
+      "archive": "/var/cache/pacman/pkg/llvm-22.1.6-1-x86_64.pkg.tar.zst",
+      "sha256": "272b342b7ad7432595ec440df3b6cbd75cfc72dc73e35f57acb8de836eb6c128",
+      "signature_verified": true,
+      "licenses": [
+        "Apache-2.0 WITH LLVM-exception"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "llvm-libs",
+      "version": "22.1.6-1",
+      "archive": "/var/cache/pacman/pkg/llvm-libs-22.1.6-1-x86_64.pkg.tar.zst",
+      "sha256": "6ced8a3e24c933e7b4c1c37cbaf26e497fe4a1f9f891ffe249fde0521900e339",
+      "signature_verified": true,
+      "licenses": [
+        "Apache-2.0 WITH LLVM-exception"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "lmdb",
+      "version": "0.9.35-1",
+      "archive": "/var/cache/pacman/pkg/lmdb-0.9.35-1-x86_64.pkg.tar.zst",
+      "sha256": "50ae8083860e1ffadf4fab3c173a043fd97be41f5ceda7d2e77c528cd84d2386",
+      "signature_verified": true,
+      "licenses": [
+        "custom:OpenLDAP"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "lz4",
+      "version": "1:1.10.0-2",
+      "archive": "/var/cache/pacman/pkg/lz4-1:1.10.0-2-x86_64.pkg.tar.zst",
+      "sha256": "c6200c776440678fe8c26adae6c104194b425d9393a9e3fc09f934363f0c39a6",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "mpdecimal",
+      "version": "4.0.1-3",
+      "archive": "/var/cache/pacman/pkg/mpdecimal-4.0.1-3-x86_64.pkg.tar.zst",
+      "sha256": "8679f71ed9a982c91883adfaaf0f87a1b74d92d4060283180c4a105a6c7afb19",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-2-Clause"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "mpfr",
+      "version": "4.2.2-1",
+      "archive": "/var/cache/pacman/pkg/mpfr-4.2.2-1-x86_64.pkg.tar.zst",
+      "sha256": "e765082b2c3260550887ccf34f6f0d24289fc5ca8c0949eb5c2e9937272ea80f",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later",
+        "LGPL-3.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "ncurses",
+      "version": "6.6-2",
+      "archive": "/var/cache/pacman/pkg/ncurses-6.6-2-x86_64.pkg.tar.zst",
+      "sha256": "9b80390fd681121443a45a51b74e2e2ade245ce22af8769915d63165b727e27c",
+      "signature_verified": true,
+      "licenses": [
+        "MIT-open-group"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "nettle",
+      "version": "4.0-1",
+      "archive": "/var/cache/pacman/pkg/nettle-4.0-1-x86_64.pkg.tar.zst",
+      "sha256": "679138a8405ca383aba7836d54fdc282db9394b7dc23c097b8965f70119adf13",
+      "signature_verified": true,
+      "licenses": [
+        "LGPL-3.0-or-later OR GPL-2.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "ninja",
+      "version": "1.13.2-3",
+      "archive": "/var/cache/pacman/pkg/ninja-1.13.2-3-x86_64.pkg.tar.zst",
+      "sha256": "19e12c1a169d27e427c3fa678ed3573825ac2a1043c6d47dd96e76ec3d34236c",
+      "signature_verified": true,
+      "licenses": [
+        "Apache-2.0"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "openssh",
+      "version": "10.3p1-1",
+      "archive": "/var/cache/pacman/pkg/openssh-10.3p1-1-x86_64.pkg.tar.zst",
+      "sha256": "f75a4744b45922ec9b9e637a38e0f8f6fb4a94a3354c54c888a6939932d811a6",
+      "signature_verified": true,
+      "licenses": [
+        "0BSD",
+        "BSD-2-Clause",
+        "BSD-3-Clause",
+        "ISC",
+        "LicenseRef-Public-Domain",
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "openssl",
+      "version": "3.6.2-2",
+      "archive": "/var/cache/pacman/pkg/openssl-3.6.2-2-x86_64.pkg.tar.zst",
+      "sha256": "e8425f1086ce9b4da43f8d02f06eea9f08aebd9f6d25fb6b81cd7bd567db7828",
+      "signature_verified": true,
+      "licenses": [
+        "Apache-2.0"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "p11-kit",
+      "version": "0.26.2-1",
+      "archive": "/var/cache/pacman/pkg/p11-kit-0.26.2-1-x86_64.pkg.tar.zst",
+      "sha256": "235de7641e1bc1a443472f482dfd6a37daabe056b55d501a584d8a5a3b14ceec",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "pam",
+      "version": "1.7.2-2",
+      "archive": "/var/cache/pacman/pkg/pam-1.7.2-2-x86_64.pkg.tar.zst",
+      "sha256": "49f54d6b632d0e83cde032eb01f903b71ac09e7dc9bbafbd64fea70227337d48",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-only"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "pambase",
+      "version": "20250719-1",
+      "archive": "/var/cache/pacman/pkg/pambase-20250719-1-any.pkg.tar.zst",
+      "sha256": "30c95795caf0c17f98897f96e96a03c6999f2682c160c13a0d6e82d768938c22",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later"
+      ],
+      "usr_payload_present": false
+    },
+    {
+      "name": "pcre2",
+      "version": "10.47-1",
+      "archive": "/var/cache/pacman/pkg/pcre2-10.47-1-x86_64.pkg.tar.zst",
+      "sha256": "54e0d8c998d2748f47fead1926b04357719bdd00fa1cea84901c3af501aab002",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-2-Clause",
+        "BSD-3-Clause WITH PCRE2-exception"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "perl",
+      "version": "5.42.2-1",
+      "archive": "/var/cache/pacman/pkg/perl-5.42.2-1-x86_64.pkg.tar.zst",
+      "sha256": "a324d4c08853ba0dd0062dd7b5f0a3ae15868200fb65e837b332adbb81605cdc",
+      "signature_verified": true,
+      "licenses": [
+        "Artistic-1.0-Perl",
+        "GPL-1.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "perl-error",
+      "version": "0.17030-3",
+      "archive": "/var/cache/pacman/pkg/perl-error-0.17030-3-any.pkg.tar.zst",
+      "sha256": "2a6df48b14b3ea0cd6154b46825b4d056b9525a9a3e9afe761decda1d115d196",
+      "signature_verified": true,
+      "licenses": [
+        "PerlArtistic",
+        "GPL"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "perl-mailtools",
+      "version": "2.22-3",
+      "archive": "/var/cache/pacman/pkg/perl-mailtools-2.22-3-any.pkg.tar.zst",
+      "sha256": "d93f6c122fa2301c2bd02095b8aaf9c225b5f26f64bb25d2199bfa9a1d3f47ba",
+      "signature_verified": true,
+      "licenses": [
+        "PerlArtistic",
+        "GPL"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "perl-timedate",
+      "version": "2.35-1",
+      "archive": "/var/cache/pacman/pkg/perl-timedate-2.35-1-any.pkg.tar.zst",
+      "sha256": "225b05f5d301b7e168299240b9369cece8d0bddee8627117ce23a57880679715",
+      "signature_verified": true,
+      "licenses": [
+        "PerlArtistic"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "python",
+      "version": "3.14.5-1",
+      "archive": "/var/cache/pacman/pkg/python-3.14.5-1-x86_64.pkg.tar.zst",
+      "sha256": "f0b91e356217b660c2ce3c4dff666a3a5fb642a7bcb3ccad02740b32a0c44343",
+      "signature_verified": true,
+      "licenses": [
+        "PSF-2.0"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "python-attrs",
+      "version": "26.1.0-1",
+      "archive": "/var/cache/pacman/pkg/python-attrs-26.1.0-1-any.pkg.tar.zst",
+      "sha256": "197dc210fd563c3a721a7b4d0f19cb8bef6db7b3ca868d85571a2ecf6a3eaf50",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "python-jsonschema",
+      "version": "4.26.0-1",
+      "archive": "/var/cache/pacman/pkg/python-jsonschema-4.26.0-1-any.pkg.tar.zst",
+      "sha256": "f41f47d9916ba1afdcb46dfe0788f8dd1b463230537b149927ff223d0c113af2",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "python-jsonschema-specifications",
+      "version": "2025.9.1-2",
+      "archive": "/var/cache/pacman/pkg/python-jsonschema-specifications-2025.9.1-2-any.pkg.tar.zst",
+      "sha256": "f523249021d380e0823b53b35b94a23de373255e3140288790e07dbe08cfd0f2",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "python-referencing",
+      "version": "0.37.0-3",
+      "archive": "/var/cache/pacman/pkg/python-referencing-0.37.0-3-any.pkg.tar.zst",
+      "sha256": "bb87cdd393dde3565952c859d6eab43d78c6b2b0d6d7f34604090d5a5f5ae9da",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "python-rpds-py",
+      "version": "2026.5.1-1",
+      "archive": "/var/cache/pacman/pkg/python-rpds-py-2026.5.1-1-x86_64.pkg.tar.zst",
+      "sha256": "e653f1e59319cdae065d3adbb66d0b2619aab7127a80e67e5d4f8dfbca39ed6c",
+      "signature_verified": true,
+      "licenses": [
+        "MIT"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "readline",
+      "version": "8.3.003-1",
+      "archive": "/var/cache/pacman/pkg/readline-8.3.003-1-x86_64.pkg.tar.zst",
+      "sha256": "a4e861378069dcb15c6fbd52a1f5d9ed01b4bce5fb208268c7c182341f5f3960",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-3.0-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "rhash",
+      "version": "1.4.6-1",
+      "archive": "/var/cache/pacman/pkg/rhash-1.4.6-1-x86_64.pkg.tar.zst",
+      "sha256": "6f791b676347898dc72d20cd94be0da2228a26339e6bc511b17f1278d8110706",
+      "signature_verified": true,
+      "licenses": [
+        "0BSD"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "shadow",
+      "version": "4.18.0-1",
+      "archive": "/var/cache/pacman/pkg/shadow-4.18.0-1-x86_64.pkg.tar.zst",
+      "sha256": "4aaee1e60d263afa755504bc35a28c785a54cdb0f9c0fa33b559642f7a2f49b4",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "sqlite",
+      "version": "3.53.1-1",
+      "archive": "/var/cache/pacman/pkg/sqlite-3.53.1-1-x86_64.pkg.tar.zst",
+      "sha256": "22a1cbbfb507506959c29e8f352c378add53cea35963465bd1a783bd7a3f7262",
+      "signature_verified": true,
+      "licenses": [
+        "LicenseRef-Sqlite"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "systemd-libs",
+      "version": "260.2-2",
+      "archive": "/var/cache/pacman/pkg/systemd-libs-260.2-2-x86_64.pkg.tar.zst",
+      "sha256": "cd88889891d0b80ff03a61751f376701921a4f7e142a2ce6538c4c6b61b95465",
+      "signature_verified": true,
+      "licenses": [
+        "LGPL-2.1-or-later",
+        "CC0-1.0",
+        "GPL-2.0-or-later WITH Linux-syscall-note"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "tzdata",
+      "version": "2026b-1",
+      "archive": "/var/cache/pacman/pkg/tzdata-2026b-1-x86_64.pkg.tar.zst",
+      "sha256": "66501ab147dd891795b5a17d51b3141bd8a643c923efc1445bbd3ed493c65f32",
+      "signature_verified": true,
+      "licenses": [
+        "LicenseRef-tz"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "util-linux-libs",
+      "version": "2.42.1-1",
+      "archive": "/var/cache/pacman/pkg/util-linux-libs-2.42.1-1-x86_64.pkg.tar.zst",
+      "sha256": "b9e4fd7656256bcc4d225b384a07d54023018ab53185d6e1caf141dbf462e8b0",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-2-Clause",
+        "BSD-3-Clause",
+        "BSD-4-Clause-UC",
+        "GPL-2.0-only",
+        "GPL-2.0-or-later",
+        "GPL-3.0-or-later",
+        "ISC",
+        "LGPL-2.1-or-later",
+        "LicenseRef-PublicDomain"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "xz",
+      "version": "5.8.3-1",
+      "archive": "/var/cache/pacman/pkg/xz-5.8.3-1-x86_64.pkg.tar.zst",
+      "sha256": "03b9eefeb02c27c4f30fce4481cb5bd2922c0391f628665911c156970285d5d9",
+      "signature_verified": true,
+      "licenses": [
+        "GPL-2.0-or-later AND 0BSD AND LicenseRef-Public-Domain AND LGPL-2.1-or-later"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "zlib",
+      "version": "1:1.3.2-3",
+      "archive": "/var/cache/pacman/pkg/zlib-1:1.3.2-3-x86_64.pkg.tar.zst",
+      "sha256": "41cf0bb5df14e18f7fb868a97da3feb7c4127fba99bb332ad54b14322faac1b1",
+      "signature_verified": true,
+      "licenses": [
+        "Zlib"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "zlib-ng",
+      "version": "2.3.3-1",
+      "archive": "/var/cache/pacman/pkg/zlib-ng-2.3.3-1-x86_64.pkg.tar.zst",
+      "sha256": "52971dcf5ca5e763a070518da9d615be52ea8f645fd44ee323211b6251d1cc67",
+      "signature_verified": true,
+      "licenses": [
+        "Zlib"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "zsh",
+      "version": "5.9.1-1",
+      "archive": "/var/cache/pacman/pkg/zsh-5.9.1-1-x86_64.pkg.tar.zst",
+      "sha256": "64333f6e05467935a8d3573d124d1cbaa3f737dd1758117cc39570001cdd5de6",
+      "signature_verified": true,
+      "licenses": [
+        "custom"
+      ],
+      "usr_payload_present": true
+    },
+    {
+      "name": "zstd",
+      "version": "1.5.7-3",
+      "archive": "/var/cache/pacman/pkg/zstd-1.5.7-3-x86_64.pkg.tar.zst",
+      "sha256": "d4cf0049137124c8a025eedfad267a3e8a02310c9efb9d1ae4a61aa1d02789fc",
+      "signature_verified": true,
+      "licenses": [
+        "BSD-3-Clause",
+        "GPL-2.0-only"
+      ],
+      "usr_payload_present": true
+    }
+  ],
+  "provisioner_sha256": "54358f609ba8dc4752d92e76129917f1c4874ddbce3657b521e8ee427d3e01cc",
+  "runtime_launcher_sha256": "b8844ba500444f3d36acf35bbe8209caabb572beca38c0048734e8e6ac518a37",
+  "observed_versions": {
+    "glibc": "2.43",
+    "gcc": "16.1.1 20260430",
+    "clang": "22.1.6",
+    "cmake": "4.3.3",
+    "git": "2.54.0",
+    "python": "3.14.5",
+    "gnu_objdump": "2.46.0",
+    "openssh": "10.3p1",
+    "openssl": "3.6.2"
+  },
+  "isolation": {
+    "mechanism": "bubblewrap user/pid namespaces, read-only runtime /usr, writable workspace, read-only workspace .git/.agents/.codex/.aws",
+    "network_namespace": false,
+    "network_restrictions": "inherited from managed environment",
+    "host_system_changed": false,
+    "configure_build_network_fetch": false
+  },
+  "release_qualified": false,
+  "stand_refreshed": false
+}

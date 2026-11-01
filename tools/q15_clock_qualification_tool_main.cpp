@@ -98,9 +98,11 @@ auto self_test() -> int {
     return synthetic_clock.fetch_add(1U, std::memory_order_relaxed);
   };
   channel.forward.publish(1U, 100U, 0U);
-  const auto request = channel.forward.wait_for(1U, /*max_spins=*/1U);
+  const auto request = channel.forward.wait_for(
+      1U, cpu_prefetch::timing::CrossCoreExchangeSpinLimit{1U});
   channel.backward.publish(1U, 200U, 300U);
-  const auto reply = channel.backward.wait_for(1U, /*max_spins=*/1U);
+  const auto reply = channel.backward.wait_for(
+      1U, cpu_prefetch::timing::CrossCoreExchangeSpinLimit{1U});
   const auto evidence = channel.forward.atomic_lock_free_evidence();
   static_cast<void>(now());
   if (!request.has_value() || request->first != 100U || !reply.has_value() ||

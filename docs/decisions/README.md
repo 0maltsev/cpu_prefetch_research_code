@@ -36,6 +36,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
+| [ADR-0184](0184-stage17-release-check-baseline-repair.md) | `ACCEPTED` | Repair baseline formatting and checked-access diagnostics without changing timing semantics; preserve frozen policy v54 and require a new source-bound successor. |
 | [ADR-0183](0183-stage17-persistent-discovery-session.md) | `ACCEPTED` | Coordinate persistent discovery workers through prepared warm-up, reconciled drain/reset, and a separate measurement origin; retain failed prefixes and require a qualified live backend. |
 | [ADR-0182](0182-stage17-bounded-discovery-drain-reset.md) | `ACCEPTED` | Bound quiescent consumer drain by time and attempts; require observed empty and exact reconciliation before optional verified ring reset. |
 | [ADR-0181](0181-stage17-capture-failure-operation-accounting.md) | `ACCEPTED` | Preserve independently observed queue advances and FULL/empty results when timing/trace capture fails; retain mandatory failure and cancellation. |

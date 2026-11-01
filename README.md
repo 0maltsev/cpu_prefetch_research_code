@@ -41,6 +41,11 @@ ADR-0185 restores the complete source context for four historical policy-18
 regressions and separately checks current preserved-record bytes. All original
 assertions and six preservation/failure cases pass through the harness;
 this does not qualify the current source or supply the missing D-100 archive.
+ADR-0186 makes the D-100 synthetic proposal check explicitly hermetic, as its
+existing archive contract requires. The default integration check still fails
+without the exact archive. The fresh integrated Clang/libc++ suite now passes
+410/410 in the accepted runtime. Current source policy, strict release checks,
+and live diagnostic integration remain open.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

@@ -36,6 +36,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
+| [ADR-0186](0186-d100-hermetic-proposal-check.md) | `ACCEPTED` | Give the D-100 synthetic proposal test an explicit hermetic mode; retain exact external archive checks for default integration and actions. |
 | [ADR-0185](0185-stage17-historical-policy-test-context.md) | `ACCEPTED` | Run four policy-18 historical regressions in their exact source snapshot while independently rejecting current preserved-record drift; keep current qualification separate. |
 | [ADR-0184](0184-stage17-release-check-baseline-repair.md) | `ACCEPTED` | Repair baseline formatting and checked-access diagnostics without changing timing semantics; preserve frozen policy v54 and require a new source-bound successor. |
 | [ADR-0183](0183-stage17-persistent-discovery-session.md) | `ACCEPTED` | Coordinate persistent discovery workers through prepared warm-up, reconciled drain/reset, and a separate measurement origin; retain failed prefixes and require a qualified live backend. |

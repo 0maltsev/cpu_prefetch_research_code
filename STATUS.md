@@ -42,6 +42,11 @@ ADR-0185 adds an exact-snapshot fixture harness for four policy-18 historical
 regressions. All four original checks and six preservation/failure cases pass. The
 harness rejects current preserved-record drift before replay; it grants no
 current qualification and leaves the external archive requirement unchanged.
+ADR-0186 separates the D-100 hermetic proposal check from the unchanged default
+external integration gate. Nineteen proposal mutants and two boundary cases
+pass; the default still rejects the absent archive/sidecar. The fresh integrated
+Clang/libc++ CTest suite passes 410/410 in the accepted runtime. This supplies
+software verification, not current policy/release or stand qualification.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

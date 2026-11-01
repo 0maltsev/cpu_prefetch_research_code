@@ -62,6 +62,28 @@ python3 build/ext007-runtime-20261101/run.py -- ctest \
 This repairs the four fixture-context failures; a complete current full-suite
 pass is still not claimed, and the exact external D-100 archive remains absent.
 
+ADR-0186 subsequently separates D-100's hermetic proposal self-test from its
+default external archive integration check, following the existing external
+contract. The self-test passes all nineteen negative cases without accessing
+the external release bytes; two boundary regressions pass. The default checker
+still fails (exit 1) on the missing exact archive and sidecar. No missing byte
+is fabricated or waived.
+
+After both fixture repairs, the integrated Clang/libc++ build and full CTest
+suite pass **410/410**, exit 0, in the isolated accepted runtime. Commands:
+
+```sh
+python3 build/ext007-runtime-20261101/run.py -- cmake \
+  --build build/accepted-dev-clang-libcxx -j3
+python3 build/ext007-runtime-20261101/run.py -- ctest \
+  --test-dir build/accepted-dev-clang-libcxx --output-on-failure -j2
+```
+
+The full-suite result supersedes the earlier local CTest failures above. It
+does not claim the separate external archive integration passed, replace
+current policy checks, or authorize measurement. Full static analysis remains
+in progress and strict release code-generation/package checks remain required.
+
 An isolated clean checkout of historical commit
 `34da95d002e912069c959bfef8e88a23b4880cea` rebuilt the old Q15 bundle with
 its original source path. Its collector binary exactly matches recorded SHA-256

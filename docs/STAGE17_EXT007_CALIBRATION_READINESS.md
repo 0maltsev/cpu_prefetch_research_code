@@ -93,6 +93,13 @@ policy-18 regressions. Their original assertions and six preservation/failure ca
 pass through the harness, which also checks current immutable records before
 replay. This is historical compatibility only; current qualification and the
 missing external D-100 archive remain separate requirements.
+ADR-0186 adds an explicit hermetic D-100 proposal self-test, retaining all
+existing negative cases and adding seven archive-identity mutants plus two
+boundary cases. The default integration checker still rejects missing actual
+archive/sidecar bytes. The integrated Clang/libc++ CTest suite now passes all
+410 entries in the accepted runtime. The historical external artifact is
+still absent for its separate integration/action gate; synthetic success
+does not supply it or qualify the current policy/release.
 
 ## Implemented prerequisites
 

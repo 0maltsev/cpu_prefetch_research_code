@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import copy
 import hashlib
 import json
@@ -13,6 +14,8 @@ import tarfile
 from typing import Any
 
 from jsonschema import Draft202012Validator
+
+from check_q15_qualification_archive import load_contract
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -135,8 +138,27 @@ def safe_archive_errors(path: pathlib.Path, expected_size: int, expected_hash: s
     return errors
 
 
-def semantic_errors(record: dict[str, Any], verify_files: bool = True) -> list[str]:
+def external_binding_errors(record: dict[str, Any]) -> list[str]:
+    contract = load_contract()
+    inputs = record.get("immutable_inputs", {})
+    prefix = "build/release-gcc/q15-qualification-tool-bundle/"
+    expected = {
+        "archive_path": prefix + contract["archive"]["filename"],
+        "archive_size": contract["archive"]["bytes"],
+        "archive_sha256": contract["archive"]["sha256"],
+        "archive_sidecar_path": prefix + contract["sidecar"]["filename"],
+        "archive_sidecar_sha256": contract["sidecar"]["sha256"],
+        "collector_binary_sha256": contract["release_identity"]["collector_sha256"],
+        "collector_contract_sha256": contract["release_identity"]["collector_contract_sha256"],
+    }
+    return [f"external archive contract binding drift: {field}"
+            for field, value in expected.items() if inputs.get(field) != value]
+
+
+def semantic_errors(record: dict[str, Any], verify_files: bool = True,
+                    verify_external_archive: bool = True) -> list[str]:
     errors: list[str] = []
+    errors.extend(external_binding_errors(record))
     decisions = record.get("conflicts_requiring_decision", [])
     identifiers = [item.get("decision_id") for item in decisions if isinstance(item, dict)]
     if identifiers != list(EXPECTED_DECISIONS):
@@ -183,6 +205,8 @@ def semantic_errors(record: dict[str, Any], verify_files: bool = True) -> list[s
             ("transport_public_evidence_path", "transport_public_evidence_sha256"),
         )
         for path_field, digest_field in local_bindings:
+            if not verify_external_archive and path_field == "archive_sidecar_path":
+                continue
             path_value = inputs.get(path_field)
             expected = inputs.get(digest_field)
             if not isinstance(path_value, str) or not isinstance(expected, str):
@@ -192,7 +216,7 @@ def semantic_errors(record: dict[str, Any], verify_files: bool = True) -> list[s
             if not path.is_file() or sha256(path) != expected:
                 errors.append(f"immutable input mismatch: {path_field}")
         archive_value = inputs.get("archive_path")
-        if isinstance(archive_value, str):
+        if verify_external_archive and isinstance(archive_value, str):
             errors.extend(
                 safe_archive_errors(
                     ROOT / archive_value,
@@ -204,9 +228,13 @@ def semantic_errors(record: dict[str, Any], verify_files: bool = True) -> list[s
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--self-test", action="store_true",
+                        help="verify proposal/retained inputs and external identities without reading external archive bytes")
+    arguments = parser.parse_args()
     record = load(RECORD_PATH)
     errors = schema_errors(record)
-    errors.extend(semantic_errors(record))
+    errors.extend(semantic_errors(record, verify_external_archive=not arguments.self_test))
     d099 = subprocess.run(
         [sys.executable, str(ROOT / "tools/check_d099_p4_r_i_complete.py")],
         check=False,
@@ -249,6 +277,13 @@ def main() -> int:
     statement_drift = copy.deepcopy(record)
     statement_drift["exact_owner_acceptance_template"] = "accept everything"
     mutants.append(statement_drift)
+    for field in ("archive_path", "archive_size", "archive_sha256",
+                  "archive_sidecar_path", "archive_sidecar_sha256",
+                  "collector_binary_sha256", "collector_contract_sha256"):
+        mutant = copy.deepcopy(record)
+        original = mutant["immutable_inputs"][field]
+        mutant["immutable_inputs"][field] = original + 1 if isinstance(original, int) else "0" * 64
+        mutants.append(mutant)
 
     for index, mutant in enumerate(mutants):
         if not schema_errors(mutant) and not semantic_errors(mutant, verify_files=False):
@@ -260,7 +295,9 @@ def main() -> int:
         return 1
     print(
         "d100-p4-r-c-decision-check: PASS "
-        "(D-100..D-103 proposed, 12 negative, action authority=NONE)"
+        f"(D-100..D-103 proposed, {len(mutants)} negative, "
+        f"external_archive={'NOT_ACCESSED' if arguments.self_test else 'VERIFIED'}, "
+        "action authority=NONE)"
     )
     return 0
 

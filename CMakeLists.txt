@@ -1234,10 +1234,18 @@ if(BUILD_TESTING)
   add_test(
     NAME q15.r_p4_r_c_d100_decision
     COMMAND "${Python3_EXECUTABLE}"
-            "${PROJECT_SOURCE_DIR}/tools/check_d100_p4_r_c_decision.py")
+            "${PROJECT_SOURCE_DIR}/tools/check_d100_p4_r_c_decision.py"
+            --self-test)
   set_tests_properties(
     q15.r_p4_r_c_d100_decision
     PROPERTIES LABELS "q15;qualification;security;custody;decision;authorization;schema;pre-pilot;synthetic")
+  add_test(
+    NAME q15.d100_self_test_boundary
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_d100_self_test_boundary.py")
+  set_tests_properties(q15.d100_self_test_boundary PROPERTIES
+    LABELS "q15;qualification;synthetic;hermetic"
+    TIMEOUT 30)
   add_test(
     NAME q15.fixed_controller_authorization_v2
     COMMAND "${Python3_EXECUTABLE}"

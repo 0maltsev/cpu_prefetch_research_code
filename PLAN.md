@@ -372,6 +372,10 @@ authorization/amendment.
   policy or preserved input. All four original checks and six preservation/
   failure cases pass through the harness. Fresh CTest integration passes all
   five entries; retain independent current-source qualification.
+  ADR-0186 separates D-100's synthetic test from its external integration gate;
+  the latter still fails without exact bytes. The fresh complete Clang/libc++
+  suite passes 410/410. Finish current source policy/release gates and the live
+  diagnostic backend; no stand execution follows from synthetic tests.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

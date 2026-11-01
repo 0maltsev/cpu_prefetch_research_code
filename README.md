@@ -37,6 +37,10 @@ timing/clock-pair cases pass in both compiler sanitizer matrices. Historical
 fixture/external-archive failures and the pending full static check still
 prevent claiming a qualified release. The latest SSH refresh still fails
 before the banner; no stand work or new resolution occurred.
+ADR-0185 restores the complete source context for four historical policy-18
+regressions and separately checks current preserved-record bytes. All original
+assertions and six preservation/failure cases pass through the harness;
+this does not qualify the current source or supply the missing D-100 archive.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

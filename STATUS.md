@@ -38,6 +38,10 @@ Timing/clock-pair cases pass 20/20 in both compiler sanitizer matrices.
 Full-suite historical fixture/external-archive failures remain; full static
 analysis is pending. The latest read-only SSH refresh still times out before
 the banner. No qualified release, capture, or external resolution is claimed.
+ADR-0185 adds an exact-snapshot fixture harness for four policy-18 historical
+regressions. All four original checks and six preservation/failure cases pass. The
+harness rejects current preserved-record drift before replay; it grants no
+current qualification and leaves the external archive requirement unchanged.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

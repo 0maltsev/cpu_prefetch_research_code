@@ -88,6 +88,11 @@ sanitizer matrices. Global formatting and focused strict static checks pass;
 the full static check remains pending. Historical source-fixture and external
 archive requirements still prevent a full-suite pass. The latest read-only
 SSH attempt again times out before login. No stand action was performed.
+ADR-0185 supplies a complete pinned historical source fixture for four old
+policy-18 regressions. Their original assertions and six preservation/failure cases
+pass through the harness, which also checks current immutable records before
+replay. This is historical compatibility only; current qualification and the
+missing external D-100 archive remain separate requirements.
 
 ## Implemented prerequisites
 

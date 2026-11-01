@@ -368,6 +368,10 @@ authorization/amendment.
   full static check and resolve historical fixture/external-archive failures;
   retain the nonmatching D-100 reproduction separately. Current evidence is
   [recorded here](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/README.md).
+  ADR-0185 supplies exact historical fixture context without rewriting any
+  policy or preserved input. All four original checks and six preservation/
+  failure cases pass through the harness. Fresh CTest integration passes all
+  five entries; retain independent current-source qualification.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

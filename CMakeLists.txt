@@ -749,47 +749,54 @@ if(BUILD_TESTING)
   add_test(
     NAME runner.stage17_operational_successor
     COMMAND "${Python3_EXECUTABLE}"
-            "${PROJECT_SOURCE_DIR}/tools/check_stage17_operational_successor.py"
-            --self-test)
+            -B "${PROJECT_SOURCE_DIR}/tools/check_stage17_historical_fixture.py"
+            successor)
   set_tests_properties(
     runner.stage17_operational_successor
     PROPERTIES
-      LABELS "runner;authorization;governance;pre-pilot;synthetic"
+      LABELS "runner;authorization;governance;pre-pilot;synthetic;historical;policy18"
       PASS_REGULAR_EXPRESSION
         "PASS.*legacy_template=true.*state=PREPARED.*transitions=0.*external_inputs=10.*pilot_ready=false.*stand=NOT_ACCESSED")
   add_test(
     NAME runner.stage17_state_journal
     COMMAND "${Python3_EXECUTABLE}"
-            "${PROJECT_SOURCE_DIR}/tools/check_stage17_state_journal.py"
-            --self-test)
+            -B "${PROJECT_SOURCE_DIR}/tools/check_stage17_historical_fixture.py"
+            journal)
   set_tests_properties(
     runner.stage17_state_journal
     PROPERTIES
-      LABELS "runner;authorization;governance;state-journal;pre-pilot;synthetic"
+      LABELS "runner;authorization;governance;state-journal;pre-pilot;synthetic;historical;policy18"
       PASS_REGULAR_EXPRESSION
         "PASS.*state=PREPARED.*resolved=0.*missing=10.*pilot_ready=false.*semantic_positive=1/1.*mechanics_positive=10/3.*runtime_positive=2.*stage17a4_positive=7.*stage17a4_negative=5.*negative=79.*nonexistent_evidence=REJECTED.*generic_evidence=REJECTED.*reload=PASS.*Stage18=false.*stand=NOT_ACCESSED")
   add_test(
     NAME runner.stage17_external_journal_preflight
     COMMAND "${Python3_EXECUTABLE}"
-            "${PROJECT_SOURCE_DIR}/tools/check_stage17_external_journal_preflight.py"
-            --self-test)
+            -B "${PROJECT_SOURCE_DIR}/tools/check_stage17_historical_fixture.py"
+            preflight)
   set_tests_properties(
     runner.stage17_external_journal_preflight
     PROPERTIES
-      LABELS "runner;authorization;external-journal;preflight;pre-pilot;synthetic"
+      LABELS "runner;authorization;external-journal;preflight;pre-pilot;synthetic;historical;policy18"
       PASS_REGULAR_EXPRESSION
         "PASS positive=2 negative=3 transport=0 marker=0")
   add_test(
     NAME runner.stage17_external_journal_preflight_v2
     COMMAND "${Python3_EXECUTABLE}"
-            "${PROJECT_SOURCE_DIR}/tools/check_stage17_external_journal_preflight_v2.py"
-            --self-test)
+            -B "${PROJECT_SOURCE_DIR}/tools/check_stage17_historical_fixture.py"
+            preflight-v2)
   set_tests_properties(
     runner.stage17_external_journal_preflight_v2
     PROPERTIES
-      LABELS "runner;authorization;external-journal;preflight;pre-pilot;synthetic"
+      LABELS "runner;authorization;external-journal;preflight;pre-pilot;synthetic;historical;policy18"
       PASS_REGULAR_EXPRESSION
         "PASS positive=4 negative=5 transport=0 marker=0")
+  add_test(
+    NAME runner.stage17_historical_fixture_preservation
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_historical_fixture_test.py")
+  set_tests_properties(runner.stage17_historical_fixture_preservation PROPERTIES
+    LABELS "runner;governance;synthetic;historical;policy18"
+    TIMEOUT 30)
   add_test(
     NAME runner.stage17_pre_marker_runtime_cardinality
     COMMAND "${Python3_EXECUTABLE}"

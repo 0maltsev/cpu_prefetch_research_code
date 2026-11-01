@@ -47,6 +47,21 @@ current policy v54 qualified. The D-100 decision check still requires its
 historical external archive and sidecar. These remaining failures are retained,
 not waived or reported as a passing full suite.
 
+ADR-0185 subsequently integrates those four historical tests through
+`tools/check_stage17_historical_fixture.py`, retaining their original CTest
+assertions and checking current preserved inputs before replay. Six additional
+cases reject changed, missing, or symlinked current evidence and failed-child
+success output. All five CTest entries pass in the isolated runtime:
+
+```sh
+python3 build/ext007-runtime-20261101/run.py -- ctest \
+  --test-dir build/ext007-historical-fixture-check --output-on-failure \
+  -R '^runner.stage17_(operational_successor|state_journal|external_journal_preflight|external_journal_preflight_v2|historical_fixture_preservation)$'
+```
+
+This repairs the four fixture-context failures; a complete current full-suite
+pass is still not claimed, and the exact external D-100 archive remains absent.
+
 An isolated clean checkout of historical commit
 `34da95d002e912069c959bfef8e88a23b4880cea` rebuilt the old Q15 bundle with
 its original source path. Its collector binary exactly matches recorded SHA-256

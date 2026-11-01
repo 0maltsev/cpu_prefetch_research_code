@@ -267,6 +267,7 @@ target_link_libraries(
     cpu_prefetch::queue
     cpu_prefetch::timing
     cpu_prefetch::workload
+    cpu_prefetch::lifecycle
   PRIVATE cpu_prefetch_project_options)
 target_include_directories(
   cpu_prefetch_calibration
@@ -1298,7 +1299,8 @@ if(BUILD_TESTING)
     PROPERTIES LABELS "reconciliation")
 
   add_executable(cpu_prefetch_calibration_tests
-    tests/calibration_model_test.cpp tests/calibration_discovery_capture_test.cpp)
+    tests/calibration_model_test.cpp tests/calibration_discovery_capture_test.cpp
+    tests/calibration_discovery_session_test.cpp)
   target_link_libraries(
     cpu_prefetch_calibration_tests
     PRIVATE cpu_prefetch::calibration cpu_prefetch_project_options
@@ -1667,6 +1669,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/software_prefetch.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/calibration.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_capture.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_session.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/executor.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/runtime.hpp"
@@ -1758,6 +1761,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_capture_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_phase_test_access.hpp"
@@ -1881,6 +1885,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_capture_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"

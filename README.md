@@ -9,16 +9,25 @@ ADR-0179's offline design/selector tooling passes thirteen synthetic tests;
 `python3 -B tools/stage17_q16a_discovery_v1.py --describe-design` shows the
 36 planned capture keys without authorizing or executing them.
 ADR-0180 supplies the bounded C++ worker loop and owner-prefaulted trace
-component. Diagnostic coordination, residency, persistence, and qualified
+component. Live diagnostic integration, residency, persistence, and qualified
 execution admission remain open; EXT007 is still unresolved.
-All 66 affected C++ tests pass with both GCC and the restored pinned
-Clang/libc++ dependency prefix. The affected suites also pass both compiler
-ASan/UBSan and TSan matrices; these are software checks, not stand measurements.
+The earlier mapping/preparation changes passed 66 affected C++ tests across
+both compilers and sanitizer matrices; these are software checks, not stand measurements.
 ADR-0181 additionally preserves actual queue outcomes when a timing or trace
 failure occurs after the operation. Its real-ring regressions keep such
 captures invalid while retaining advances and FULL/empty counts for drain.
 ADR-0182 adds bounded consumer drain and verified quiescent ring reset;
 clock, budget, integrity, or reconciliation failure prevents a reset.
+ADR-0183 adds persistent worker coordination through warm-up, drain/reset,
+and measurement. Its eleven real-ring tests use synthetic time. The live
+stand backend, qualification, watchdog, custody, and admission remain open.
+The current 46-case calibration suite passes both compiler development,
+ASan/UBSan, and TSan matrices; see the
+[2026-11-01 verification](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261101-01/README.md).
+On 2026-11-01, accepted build tools were restored under
+`build/ext007-toolchain-20261101/`; newer host glibc still blocks full release
+dependency qualification. Fresh stand status attempts timed out during SSH
+banner exchange; the operational state below is the last validated checkpoint.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

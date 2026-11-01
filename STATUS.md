@@ -16,8 +16,19 @@ TSan matrices. These checks contribute no experimental observations.
 ADR-0181 corrects failure-path accounting: completed queue operations remain
 counted even when demand timing fails. The capture still stops as invalid.
 ADR-0182 supplies time/attempt-bounded consumer drain with exact count and
-empty-state checks before optional ring reset. The diagnostic coordinator,
-NUMA checks, watchdog, persistence, and operational admission remain open.
+empty-state checks before optional ring reset. ADR-0183 adds persistent
+warm-up/reset/measurement coordination with eleven real-ring tests using
+synthetic time. The live backend, NUMA checks, watchdog, persistence, and
+operational admission remain open.
+The calibration suite now passes 46/46 under both development compilers and
+both ASan/UBSan and TSan matrices. See the
+[fresh software evidence](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261101-01/README.md).
+
+2026-11-01 development recovery: accepted compiler/build/test dependencies
+are restored in `build/ext007-toolchain-20261101/`. Host glibc 2.44 remains
+outside the accepted release matrix; no clean release is qualified by this
+recovery. Fresh stand status attempts fail during SSH banner exchange.
+The six-resolution operational state below was last validated on 2026-10-30.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

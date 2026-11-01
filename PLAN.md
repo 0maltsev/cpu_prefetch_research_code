@@ -353,6 +353,14 @@ authorization/amendment.
   ADR-0182 now implements the bounded drain/reset primitive and exercises
   it after concurrent real-ring capture. Integrate it into the prepared
   warm-up/start coordinator while preserving every original failure.
+  ADR-0183 now coordinates the same two worker threads through warm-up,
+  consumer-owned drain and verified reset, then a separate measurement
+  origin. Complete the real stand backend and its NUMA/integrity/custody
+  path, restore a fully accepted release environment including glibc, and
+  refresh stand evidence before freezing/executing the diagnostic action.
+  The 2026-11-01 SSH status refresh is blocked by banner-exchange timeouts.
+  The 46-case calibration suite passes both development compilers and both
+  ASan/UBSan and TSan matrices; retained local evidence grants no run authority.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

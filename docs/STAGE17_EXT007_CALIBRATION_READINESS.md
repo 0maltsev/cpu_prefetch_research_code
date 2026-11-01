@@ -48,9 +48,32 @@ pending-event reconciliation; failures retain partial counts and do not
 reset. The concurrent capture test now uses this real primitive. The suite
 passes all 35 C++ cases, including seven drain cases, under GCC and
 Clang/libc++ development, both ASan/UBSan presets, and both TSan presets.
-Changed-file clang-tidy and formatting checks pass. The separate warm-up/start
-coordinator, consumer integrity observations, placement verification, outer
-watchdog, durable raw retention, and exact diagnostic admission remain open.
+Changed-file clang-tidy and formatting checks pass.
+
+ADR-0183 implements the backend-driven warm-up/start coordinator in
+`include/cpu_prefetch/calibration/discovery_session.hpp`. The same two
+threads prepare once, capture warm-up, publish independent results, drain
+and reset, then enter measurement through a separate barrier. Validation
+and drain occur only when both capture workers are quiescent; threads
+remain alive across the reset. Both private resets must pass before the
+measurement origin is released. Failed starts retain observed clocks
+separately from released origins, and post-capture exceptions retain the
+worker results. Eleven session tests bring the calibration suite to 46
+cases. The real stand backend, consumer integrity observations, placement
+verification, outer watchdog, durable raw retention, and exact diagnostic
+admission remain open.
+All 46 cases pass in both development compilers and both ASan/UBSan and TSan
+matrices. [Fresh verification and restored inputs](evidence/stage17/LOCAL-VERIFICATION-EXT007-20261101-01/README.md)
+record the exact scope and release limitations.
+
+On 2026-11-01, the previous temporary prefix had disappeared and system
+GCC/LLVM/CMake/Git versions had moved outside the accepted ranges. Official
+cached package signatures and the frozen libc++/test-source hashes were
+verified before restoration to `build/ext007-toolchain-20261101/`. This
+recovers accepted compiler/build frontends for local software checks; the
+host's glibc 2.44 still prevents claiming full release dependency conformity.
+Fresh read-only stand status attempts timed out during SSH banner exchange;
+they produced no new journal validation, action, or experiment result.
 
 ## Implemented prerequisites
 

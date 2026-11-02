@@ -332,6 +332,13 @@ authorization/amendment.
 
 ## Phase 17 — Pilot execution
 
+The current dependency-ordered roadmap for all remaining requirements is
+[Stage 17 completion plan](docs/STAGE17_COMPLETION_PLAN.md). It covers runtime
+integration, fresh qualification, discovery and EXT007, EXT008–010, pilot,
+final freezes and validated exit. Current owner questions concern exclusive
+stand availability/resource constraints and the primary practical-effect bound;
+software integration can continue independently.
+
 - **Q16a discovery design accepted:** the owner approved ADR-0178's separate bounded diagnostic
   pass to support duration/minimum-count selection before a new formal D-037
   plan. Its accepted candidate design still needs corrected

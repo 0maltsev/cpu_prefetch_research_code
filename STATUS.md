@@ -1,5 +1,11 @@
 # Repository Status
 
+Current Stage 17 completion roadmap:
+[all remaining requirements and exit gates](docs/STAGE17_COMPLETION_PLAN.md).
+Stage 17 is incomplete. Exclusive stand availability/resource constraints and
+the primary practical-effect bound are pending owner inputs; remaining software
+integration is authorized and can continue independently.
+
 Q16a parameter discovery: `ACCEPTED_DESIGN_NOT_EXECUTED` (ADR-0178). A separate
 finite diagnostic study can support prospective parameter selection; it does
 not permit adaptive formal calibration or resolve EXT007. No scientific

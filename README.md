@@ -144,6 +144,10 @@ See [mapped-stack verification](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-
 Complete mapped runtime-object/control coverage, publication/watchdog and
 qualified diagnostic admission remain required before the duration study.
 
+The [Stage 17 completion plan](docs/STAGE17_COMPLETION_PLAN.md) tracks the
+remaining runtime, qualification, calibration, pilot, storage and freeze/exit
+requirements through the Stage 18 readiness handoff.
+
 ADR-0199 integrates owner-prepared mappings for the arena/ring, independent
 trace and primary-stream objects/buffers, phase state and drain retention.
 Records/order become read-only before readiness. A bounded worker handoff

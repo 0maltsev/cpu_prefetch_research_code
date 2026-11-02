@@ -56,6 +56,18 @@ SSH was restored by the owner on 2026-11-02. Existing journal hashes are
 unchanged, but its temporary wrapper disappeared after reboot and the retained
 CLI rejects a schema identity mismatch. Fresh journal validation is pending;
 no capture, operational resolution, or release authority is claimed.
+ADR-0188 supplies caller-owned ring storage for dedicated producer-home maps;
+constructor success is not residency verification. The 67 queue/calibration
+cases and queue stress pass both compiler sanitizer matrices. Fresh strict
+queue codegen and provenance checks pass with unchanged operation evidence.
+[The fresh stand audit](docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261102-01/README.md)
+retains nine journal-file and six artifact hashes. The latest journal and all
+six artifacts match the prior audit. Retained v47 replay additionally fails
+on a missing v46 dependency; no check was bypassed. The existing linked reset
+allocates scratch vectors, violating the logical-reset allocation gate; fix
+that lifecycle issue before qualifying the calibration worker.
+After ADR-0188, the integrated GCC CTest suite passes 419/419 and all six strict
+dual-disassembler codegen gates pass. No experimental observations follow.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

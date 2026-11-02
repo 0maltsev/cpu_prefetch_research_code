@@ -1,0 +1,23 @@
+{
+  "scope": "READ_ONLY_NO_AUTHORITY_NO_EXPERIMENT",
+  "captured_at_utc": "2026-11-02T10:45:32.496560+00:00",
+  "inventory_sha256": "c32a9d558e8a7783629f6e3c3399871694a23209af4006881fe01f8e3b1c423d",
+  "collector_sha256": "beb0d4d37b5d088f33f65779c03710dd6e481ad7346dae0aff57caaa24c68099",
+  "prior_latest_journal_sha256": "46e6fa35f7393e136e8169e19e1c3ee7c49a8c2f82acc65322dd813b73e21c84",
+  "compared_retained_artifacts": "ALL_PRIOR_PATHS_PRESENT_IN_THIS_INVENTORY_MATCH",
+  "current_operational_replay_verified": false,
+  "default_cli_replay": {
+    "exit_code": 1,
+    "error": "bindings config__schemas__hardware-prefetch-qualification-v1_schema_json file identity/size drifted"
+  },
+  "retained_v47_read_only_selector": {
+    "exit_code": 1,
+    "error": "ModuleNotFoundError: No module named stage17_state_journal_v46"
+  },
+  "temporary_previous_wrapper_present": false,
+  "stand_mutation_performed": false,
+  "hardware_state_qualified": false,
+  "resource_budget_frozen": false,
+  "new_external_resolutions": 0,
+  "last_validated_operational_checkpoint": "2026-10-30 v5-12 PREFLIGHT_ACCEPTED; six resolutions; two transitions; EXT007-010 missing; pilot_ready=false"
+}

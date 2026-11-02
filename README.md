@@ -56,6 +56,18 @@ On 2026-11-02 the owner restored SSH. The retained journal hashes match the
 previous audit, but its temporary wrapper is gone after reboot and replay with
 the retained CLI rejects a schema identity mismatch. Fresh validation remains
 open; no capture or new resolution has occurred.
+ADR-0188 adds exact-size caller-owned ring storage with checked geometry,
+alignment, overlap, and lifetime rules. The queue/calibration suites and queue
+stress pass both compiler sanitizer matrices; measured queue operation code
+and member layout remain unchanged. Live page binding/residency is still a
+backend obligation. The new
+[stand refresh](docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261102-01/README.md)
+records topology/resources and exact retained artifact hashes. Replay with the
+retained v47 runtime also fails because its v46 dependency is missing. The
+existing linked reset's scratch allocations remain a separate lifecycle blocker
+to repair before qualification.
+The integrated GCC suite passes 419/419 after this change, and all six strict
+dual-disassembler codegen gates pass. These remain software checks.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

@@ -105,6 +105,19 @@ The temporary wrapper is absent after reboot; the retained CLI rejects schema
 identity drift. That rejection is retained without bypass; a fresh validated
 operational state is not claimed. No experiment or stand mutation occurred.
 
+ADR-0188 adds the caller-owned ring storage interface. Its final integrated
+GCC CTest run passes **419/419**, exit 0. The queue (17) and calibration (50)
+cases plus queue stress pass all four compiler sanitizer configurations.
+Development Clang also passes those suites/stress and six RapidCheck properties
+with 100 cases each. The five new external-storage cases pass with nonzero
+sentinels that expose writes during rejected construction. Global formatting,
+focused strict static analysis, queue source provenance, and all six strict
+release codegen gates pass. The queue probe binary and each operation body
+under both disassemblers are unchanged from the preceding recorded probe.
+[external-ring-checks.json](external-ring-checks.json) binds the source and
+result scope. This does not close the separate linked-reset allocation blocker,
+complete a backend, qualify a release, or admit experimental evidence.
+
 An isolated clean checkout of historical commit
 `34da95d002e912069c959bfef8e88a23b4880cea` rebuilt the old Q15 bundle with
 its original source path. Its collector binary exactly matches recorded SHA-256

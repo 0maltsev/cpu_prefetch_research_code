@@ -380,6 +380,134 @@ TEST(QueueLayout, RequiredPointerAtomicsAreLockFreeAndOwnershipIsSeparated) {
             0U);
 }
 
+TEST(RingExternalStorage, MatchesTheBoundedFifoModelAcrossWrapsAndFullReturns) {
+  alignas(64) std::array<std::byte, 64U> slots{};
+  alignas(64) std::array<std::byte, 128U> cursors{};
+  RingSpscQueue ring({8U}, kSyntheticCacheLine, {slots, cursors});
+  RingQueueAdapter adapter(ring);
+  std::vector<std::uint8_t> actions(4'096U);
+  for (std::size_t index = 0U; index < actions.size(); ++index) {
+    actions[index] = static_cast<std::uint8_t>((index * 73U) % 251U);
+  }
+  check_sequential_model(adapter, 8U, actions);
+  const RingSpscQueue owned({8U}, kSyntheticCacheLine);
+  EXPECT_EQ(ring.layout_evidence().storage_bytes,
+            owned.layout_evidence().storage_bytes);
+  EXPECT_TRUE(ring.layout_evidence().bases_aligned);
+  EXPECT_TRUE(ring.layout_evidence().ownership_lines_separated);
+}
+
+TEST(RingExternalStorage, CallerCanReuseStorageAfterQueueDestructionAndReset) {
+  alignas(64) std::array<std::byte, 64U> slots{};
+  alignas(64) std::array<std::byte, 128U> cursors{};
+  std::array<std::uint64_t, 8U> events{};
+  for (unsigned generation = 0U; generation < 2U; ++generation) {
+    slots.fill(std::byte{0x5A});
+    cursors.fill(std::byte{0x6B});
+    RingSpscQueue ring({8U}, kSyntheticCacheLine, {slots, cursors});
+    EXPECT_EQ(ring.audit_quiescent().occupied_slots, 0U);
+    EXPECT_EQ(ring.audit_quiescent().producer_position, 0U);
+    EXPECT_EQ(ring.audit_quiescent().consumer_position, 0U);
+    for (const auto& event : events) {
+      EXPECT_EQ(ring.try_enqueue(event_pointer(&event)), EnqueueResult::accepted);
+    }
+    EXPECT_EQ(ring.try_enqueue(event_pointer(&events[0])), EnqueueResult::full);
+    for (const auto& event : events) {
+      const auto popped = ring.try_dequeue();
+      EXPECT_EQ(popped.status, DequeueStatus::item);
+      EXPECT_EQ(popped.event, &event);
+    }
+    EXPECT_TRUE(ring.reset_quiescent());
+    EXPECT_EQ(ring.try_dequeue().status, DequeueStatus::empty);
+    EXPECT_TRUE(ring.atomic_lock_free_evidence().runtime_lock_free);
+  }
+}
+
+TEST(RingExternalStorage, RejectsWrongSizeUnalignedAndOverlappingStorage) {
+  alignas(64) std::array<std::byte, 256U> backing{};
+  backing.fill(std::byte{0xA5});
+  const std::span<std::byte> bytes(backing);
+  const auto slots = bytes.first(64U);
+  const auto cursors = bytes.subspan(64U, 128U);
+  using cpu_prefetch::queue::RingStorageView;
+  EXPECT_THROW((RingSpscQueue({8U}, kSyntheticCacheLine,
+                              RingStorageView{slots.first(63U), cursors})),
+               QueueSetupError);
+  EXPECT_THROW((RingSpscQueue({8U}, kSyntheticCacheLine,
+                              RingStorageView{slots, cursors.first(127U)})),
+               QueueSetupError);
+  EXPECT_THROW((RingSpscQueue({8U}, kSyntheticCacheLine,
+                              RingStorageView{bytes.subspan(1U, 64U), cursors})),
+               QueueSetupError);
+  EXPECT_THROW((RingSpscQueue({8U}, kSyntheticCacheLine,
+                              RingStorageView{slots, bytes.first(128U)})),
+               QueueSetupError);
+  EXPECT_THROW((RingSpscQueue({8U}, kSyntheticCacheLine, RingStorageView{})),
+               QueueSetupError);
+  // No object is initialized while rejecting these spans.
+  EXPECT_EQ(backing[0], std::byte{0xA5});
+  EXPECT_EQ(backing[64], std::byte{0xA5});
+}
+
+TEST(RingExternalStorage,
+     RequirementsRejectInvalidGeometryAndOverflowBeforeAllocation) {
+  const auto required = RingSpscQueue::storage_requirements({8U}, kSyntheticCacheLine);
+  EXPECT_EQ(required.slot_bytes, 8U * sizeof(std::atomic<const void*>));
+  EXPECT_EQ(required.cursor_bytes, 128U);
+  EXPECT_THROW(
+      static_cast<void>(RingSpscQueue::storage_requirements({0U}, kSyntheticCacheLine)),
+      QueueSetupError);
+  EXPECT_THROW(static_cast<void>(RingSpscQueue::storage_requirements({8U}, {0U})),
+               QueueSetupError);
+  const auto maximum = std::numeric_limits<std::size_t>::max();
+  EXPECT_THROW(static_cast<void>(
+                   RingSpscQueue::storage_requirements({maximum}, kSyntheticCacheLine)),
+               QueueSetupError);
+  EXPECT_THROW(static_cast<void>(RingSpscQueue::storage_requirements(
+                   {maximum / sizeof(std::atomic<const void*>)}, kSyntheticCacheLine)),
+               QueueSetupError);
+}
+
+TEST(RingExternalStorage, IndependentThreadsTransferEveryEventInOrder) {
+  alignas(64) std::array<std::byte, 64U> slots{};
+  alignas(64) std::array<std::byte, 128U> cursors{};
+  RingSpscQueue ring({8U}, kSyntheticCacheLine, {slots, cursors});
+  std::vector<std::uint64_t> events(20'000U);
+  for (std::size_t index = 0U; index < events.size(); ++index) {
+    events[index] = index;
+  }
+  std::atomic<bool> bad{false};
+  std::thread producer([&] {
+    for (const auto& event : events) {
+      while (ring.try_enqueue(event_pointer(&event)) == EnqueueResult::full) {
+        if (bad.load()) {
+          return;
+        }
+        std::this_thread::yield();
+      }
+    }
+  });
+  std::thread consumer([&] {
+    for (const auto& event : events) {
+      cpu_prefetch::queue::DequeueResult popped{DequeueStatus::empty, nullptr};
+      do {
+        popped = ring.try_dequeue();
+        if (popped.status == DequeueStatus::empty) {
+          std::this_thread::yield();
+        }
+      } while (popped.status == DequeueStatus::empty);
+      if (popped.status != DequeueStatus::item || popped.event != &event) {
+        bad.store(true);
+        return;
+      }
+    }
+  });
+  producer.join();
+  consumer.join();
+  EXPECT_FALSE(bad.load());
+  EXPECT_EQ(ring.audit_quiescent().occupied_slots, 0U);
+}
+
 TEST(QueueSetup, InvalidCapacityLineSizeAndNodeOrdersFailBeforeOperations) {
   EXPECT_THROW((RingSpscQueue{QueueCapacity{0U}, kSyntheticCacheLine}),
                QueueSetupError);

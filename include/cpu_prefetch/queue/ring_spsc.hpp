@@ -5,6 +5,7 @@
 
 #include <atomic>
 #include <cstddef>
+#include <span>
 
 namespace cpu_prefetch::queue {
 
@@ -15,9 +16,28 @@ struct RingQuiescentAudit final {
   bool positions_in_range;
 };
 
+struct RingStorageView final {
+  std::span<std::byte> slots;
+  std::span<std::byte> cursors;
+};
+
+struct RingStorageRequirements final {
+  std::size_t slot_bytes;
+  std::size_t cursor_bytes;
+};
+
 class RingSpscQueue final {
 public:
+  [[nodiscard]] static auto storage_requirements(QueueCapacity capacity,
+                                                 CacheLineBytes cache_line_bytes)
+      -> RingStorageRequirements;
   RingSpscQueue(QueueCapacity capacity, CacheLineBytes cache_line_bytes);
+  // Caller-owned raw storage, prepared before construction. Its lifetime must
+  // enclose this queue's lifetime. The queue destroys objects but never frees
+  // these regions. Sizes are exact logical storage sizes, excluding any
+  // caller-owned mapping/page padding.
+  RingSpscQueue(QueueCapacity capacity, CacheLineBytes cache_line_bytes,
+                RingStorageView storage);
   ~RingSpscQueue();
 
   RingSpscQueue(const RingSpscQueue&) = delete;
@@ -115,6 +135,8 @@ public:
 
 private:
   friend struct testing::QueuePhaseTestAccess;
+
+  void initialize_storage(RingStorageView storage);
 
   template <typename Observer>
   [[nodiscard]] EnqueueResult try_enqueue_observed(EventPointer event,

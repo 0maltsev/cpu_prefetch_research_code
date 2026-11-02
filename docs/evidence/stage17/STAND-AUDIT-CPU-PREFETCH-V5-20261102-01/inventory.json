@@ -1,0 +1,461 @@
+{
+  "scope": "READ_ONLY_NO_EXPERIMENT_NO_MSR_READ_OR_WRITE",
+  "captured_at_utc": "2026-11-02T10:45:32.496560+00:00",
+  "hostname": "cpu-prefetch-v5",
+  "effective_uid": 0,
+  "boot_id": {
+    "observed": "4c08cd05-b362-49dd-b37f-629e9c7ad79a"
+  },
+  "uptime": {
+    "observed": "52866.79 1691138.17"
+  },
+  "kernel_release": "7.0.0-38-generic",
+  "online_cpus": {
+    "observed": "0-31"
+  },
+  "requested_cpu_queries": [
+    0,
+    1,
+    8
+  ],
+  "observed_cpus": {
+    "0": {
+      "topology": {
+        "physical_package_id": {
+          "observed": "0"
+        },
+        "core_id": {
+          "observed": "1"
+        },
+        "thread_siblings_list": {
+          "observed": "0,16"
+        },
+        "core_siblings_list": {
+          "observed": "0-7,16-23"
+        }
+      },
+      "numa_node_links": [
+        "node0"
+      ],
+      "caches": [
+        {
+          "index": "index0",
+          "id": {
+            "observed": "1"
+          },
+          "level": {
+            "observed": "1"
+          },
+          "type": {
+            "observed": "Data"
+          },
+          "size": {
+            "observed": "32K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "0,16"
+          }
+        },
+        {
+          "index": "index1",
+          "id": {
+            "observed": "1"
+          },
+          "level": {
+            "observed": "1"
+          },
+          "type": {
+            "observed": "Instruction"
+          },
+          "size": {
+            "observed": "32K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "0,16"
+          }
+        },
+        {
+          "index": "index2",
+          "id": {
+            "observed": "1"
+          },
+          "level": {
+            "observed": "2"
+          },
+          "type": {
+            "observed": "Unified"
+          },
+          "size": {
+            "observed": "256K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "0,16"
+          }
+        },
+        {
+          "index": "index3",
+          "id": {
+            "observed": "0"
+          },
+          "level": {
+            "observed": "3"
+          },
+          "type": {
+            "observed": "Unified"
+          },
+          "size": {
+            "observed": "25600K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "0-7,16-23"
+          }
+        }
+      ]
+    },
+    "1": {
+      "topology": {
+        "physical_package_id": {
+          "observed": "0"
+        },
+        "core_id": {
+          "observed": "2"
+        },
+        "thread_siblings_list": {
+          "observed": "1,17"
+        },
+        "core_siblings_list": {
+          "observed": "0-7,16-23"
+        }
+      },
+      "numa_node_links": [
+        "node0"
+      ],
+      "caches": [
+        {
+          "index": "index0",
+          "id": {
+            "observed": "2"
+          },
+          "level": {
+            "observed": "1"
+          },
+          "type": {
+            "observed": "Data"
+          },
+          "size": {
+            "observed": "32K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "1,17"
+          }
+        },
+        {
+          "index": "index1",
+          "id": {
+            "observed": "2"
+          },
+          "level": {
+            "observed": "1"
+          },
+          "type": {
+            "observed": "Instruction"
+          },
+          "size": {
+            "observed": "32K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "1,17"
+          }
+        },
+        {
+          "index": "index2",
+          "id": {
+            "observed": "2"
+          },
+          "level": {
+            "observed": "2"
+          },
+          "type": {
+            "observed": "Unified"
+          },
+          "size": {
+            "observed": "256K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "1,17"
+          }
+        },
+        {
+          "index": "index3",
+          "id": {
+            "observed": "0"
+          },
+          "level": {
+            "observed": "3"
+          },
+          "type": {
+            "observed": "Unified"
+          },
+          "size": {
+            "observed": "25600K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "0-7,16-23"
+          }
+        }
+      ]
+    },
+    "8": {
+      "topology": {
+        "physical_package_id": {
+          "observed": "1"
+        },
+        "core_id": {
+          "observed": "1"
+        },
+        "thread_siblings_list": {
+          "observed": "8,24"
+        },
+        "core_siblings_list": {
+          "observed": "8-15,24-31"
+        }
+      },
+      "numa_node_links": [
+        "node1"
+      ],
+      "caches": [
+        {
+          "index": "index0",
+          "id": {
+            "observed": "17"
+          },
+          "level": {
+            "observed": "1"
+          },
+          "type": {
+            "observed": "Data"
+          },
+          "size": {
+            "observed": "32K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "8,24"
+          }
+        },
+        {
+          "index": "index1",
+          "id": {
+            "observed": "17"
+          },
+          "level": {
+            "observed": "1"
+          },
+          "type": {
+            "observed": "Instruction"
+          },
+          "size": {
+            "observed": "32K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "8,24"
+          }
+        },
+        {
+          "index": "index2",
+          "id": {
+            "observed": "17"
+          },
+          "level": {
+            "observed": "2"
+          },
+          "type": {
+            "observed": "Unified"
+          },
+          "size": {
+            "observed": "256K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "8,24"
+          }
+        },
+        {
+          "index": "index3",
+          "id": {
+            "observed": "1"
+          },
+          "level": {
+            "observed": "3"
+          },
+          "type": {
+            "observed": "Unified"
+          },
+          "size": {
+            "observed": "25600K"
+          },
+          "coherency_line_size": {
+            "observed": "64"
+          },
+          "shared_cpu_list": {
+            "observed": "8-15,24-31"
+          }
+        }
+      ]
+    }
+  },
+  "observed_numa_nodes": {
+    "node0": {
+      "observed": "0-7,16-23"
+    },
+    "node1": {
+      "observed": "8-15,24-31"
+    }
+  },
+  "base_page_bytes": 4096,
+  "memory_raw": {
+    "MemTotal": "259621220 kB",
+    "MemAvailable": "256746416 kB",
+    "SwapTotal": "4876284 kB",
+    "SwapFree": "4876284 kB"
+  },
+  "filesystem_available_bytes": 7206964584448,
+  "filesystem_queried_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12",
+  "root_shell_memlock_limit_bytes": [
+    8388608,
+    8388608
+  ],
+  "memlock_scope": "READ_ONLY_ROOT_SHELL_NOT_FUTURE_MEASUREMENT_OWNER",
+  "msr_device_metadata_only": {
+    "0": {
+      "mode": "0o600",
+      "uid": 0,
+      "gid": 0
+    },
+    "1": {
+      "mode": "0o600",
+      "uid": 0,
+      "gid": 0
+    },
+    "8": {
+      "mode": "0o600",
+      "uid": 0,
+      "gid": 0
+    }
+  },
+  "journal_files": [
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000000.json",
+      "size_bytes": 2791,
+      "sha256": "da9ba7f6072b2e4555db98db8d7c886c133c7f5e98c4f2964b5ef67ba438fafe"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000001.json",
+      "size_bytes": 2731,
+      "sha256": "71ff510593199ccbbdbf138b6802cdc43cba0a176f1601c554fc2b2b75702f90"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000002.json",
+      "size_bytes": 2845,
+      "sha256": "56379a28b54d9b1ccf4b9bdeb0975892d350dd7e1c9a2e8d77dc730163f20a48"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000003.json",
+      "size_bytes": 2972,
+      "sha256": "b79e576c45f4c245a7c7f83f7fb937f974549e972305b713e3ab3f9a35941987"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000004.json",
+      "size_bytes": 3099,
+      "sha256": "36a3947bb50d4d3b13a79e2d11af46b8c21161dcf498ff74e86647c6af2bf0df"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000005.json",
+      "size_bytes": 3226,
+      "sha256": "f541611a464d274bab1fb8937b8e2469cda53b53b08dbe3ceb6b3d3cafa3c5f6"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000006.json",
+      "size_bytes": 3341,
+      "sha256": "ca4b7f874ce76cba05eeea846ddd5ac7211ed568115e538a451641c553627462"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000007.json",
+      "size_bytes": 3468,
+      "sha256": "f87e9a434cff9e1269d09bb3fb5ea88ffbc8e5b9be737543f69453760b5b1f05"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000008.json",
+      "size_bytes": 3595,
+      "sha256": "46e6fa35f7393e136e8169e19e1c3ee7c49a8c2f82acc65322dd813b73e21c84"
+    }
+  ],
+  "retained_artifacts": [
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/q15-r-output-v3.json",
+      "size_bytes": 1069,
+      "sha256": "ffedcedc91b199a93183b2a4629b7ff6c764e397ea648400c017a3c9387b4f7c"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/q15-w-output-v3.json",
+      "size_bytes": 1017,
+      "sha256": "aa7f24d2a0cfe0c803ede02863c04aebc13d939119cb38e656f288259a4d5295"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/q16a-authoring-1/q16a-action-inputs-1.json",
+      "size_bytes": 6442271,
+      "sha256": "6be60c5abae6cbdf3008f5328f1a8838e7ad325ee06e160feaa814d74c7d896a"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/q16a-authoring-1/matrix-spec-1.json",
+      "size_bytes": 1580,
+      "sha256": "7e21845aa4fcad5395103aeb39fd26e7dbcba7162c1852b568da776fa6df8b01"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-a820e6e-clean-9ee9e64490e5.tar.gz",
+      "size_bytes": 73525339,
+      "sha256": "bd9d023536932e88c99c8589dfba7cc70f900a8e5f3df1a35d4e5463e9a0e7b5"
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-a820e6e-clean-9ee9e64490e5.tar.gz.sha256",
+      "size_bytes": 135,
+      "sha256": "41346f3271969ef47a87c38ebe9a76919380139e24986bb4f57871e503b950de"
+    }
+  ],
+  "temporary_validator_present": false,
+  "resource_budget_frozen": false,
+  "hardware_state_qualified": false,
+  "execution_authority": false,
+  "measurement_performed": false
+}

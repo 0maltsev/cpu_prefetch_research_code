@@ -21,10 +21,10 @@
     "repository_source_license": "NO-LICENSE-GRANT",
     "implementation_files": [
       {"path": "include/cpu_prefetch/queue/common.hpp", "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7"},
-      {"path": "include/cpu_prefetch/queue/linked_spsc.hpp", "sha256": "e9ea56ba35c0e42544ef42adefb7212c76b6a845c448bcf6ed29ab9503af730e"},
+      {"path": "include/cpu_prefetch/queue/linked_spsc.hpp", "sha256": "273bcae35f82bc928c1e4ffbd373e3fe07b301bdcee43c948642dcc340b54dd9"},
       {"path": "include/cpu_prefetch/queue/adapters.hpp", "sha256": "1a7a28562be0ab2ab7e8f608b52470702e038b8d79d1fa738e6a5dc28ae14e49"},
       {"path": "src/queue/common.cpp", "sha256": "c3fd566fe9c4de12f2a2e06075e4fdd9e23e495ffbd3798d1e6648ddf7fbd524"},
-      {"path": "src/queue/linked_spsc.cpp", "sha256": "b71edd7a37a549c0effc84bb14826ce04b97e9d3e492f17a32e4ea764c416ba7"}
+      {"path": "src/queue/linked_spsc.cpp", "sha256": "7e9ae329f27c82d1e46ead755750326856e1e36fc3aa8410ea0d6437deb03fc4"}
     ]
   },
   "semantic_adaptations": [

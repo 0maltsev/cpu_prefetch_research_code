@@ -114,6 +114,23 @@ On 2026-11-02 the owner restored SSH. The retained v5-12 journal hashes match
 the preceding audit. Its temporary wrapper disappeared after reboot; using
 the retained CLI directly rejects a hardware-prefetch schema identity mismatch.
 Fresh replay is pending, and no gate was bypassed or old attempt retried.
+The [fresh read-only inventory](evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261102-01/README.md)
+records actual topology/cache and resource observations plus nine journal-file
+and six artifact hashes. The latest journal and all six retained artifact
+hashes match the earlier audit. Its retained versioned v47 runtime also fails
+to import a missing v46 dependency. Preserve this incomplete old context;
+qualify a complete new runtime rather than suppressing source/closure gates.
+
+ADR-0188 adds exact-size caller-owned ring storage and checked requirements
+derived from the real private types. It rejects invalid size/alignment/overlap
+before initialization, preserves caller ownership, and keeps the same member
+layout and measured operations. All 67 queue/calibration cases plus queue
+stress pass both compiler sanitizer matrices; strict queue codegen and updated
+first-party source provenance pass. The live backend must still establish and
+verify the mappings. The same provenance review exposes an earlier linked
+reset implementation that allocates through audits/temporary vectors. The
+logical-reset validator requires zero allocation delta, so that existing
+lifecycle issue must be repaired before formal linked calibration.
 
 ## Implemented prerequisites
 

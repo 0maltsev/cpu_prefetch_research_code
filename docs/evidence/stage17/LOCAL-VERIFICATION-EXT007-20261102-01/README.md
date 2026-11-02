@@ -207,3 +207,21 @@ scope. Those codegen gates do not constitute new stand qualification of the
 combined clock-boundary sequence. Primary stream placement, the complete live
 backend/action, durable partial evidence, actual residency and exact boundary
 qualification remain pending. No experimental capture ran.
+
+ADR-0194 adds caller-owned primary stream buffers with unchanged golden bytes
+and decoding. Both integrated development suites pass **456/456**, exit 0.
+All 20 storage cases pass all four sanitizer configurations, and both storage
+allocation-hook cases pass supported matrices; Clang TSan retains its existing
+hook exclusion. The first static pass rejected padding introduced by the new
+ownership flag. Placing it in existing padding fixes that issue, and the final
+strict analysis of three affected translation units passes. Global formatting,
+source provenance and all six strict codegen gates pass.
+
+[Compiler layout evidence](primary-stream-layout.json) compares the actual
+debug member locations before/after under GCC and Clang/libc++. Both stream
+objects remain 192 bytes; every prior hot member offset matches the baseline.
+The [verification record](external-primary-checks.json) binds source and scope.
+The backend must still construct/prepare these objects on their actual owners,
+verify mappings, capture observed drain rows, reconcile independent sequences,
+and complete monitoring/publication/admission and exact-boundary qualification.
+No new stand capture or operational resolution is claimed.

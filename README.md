@@ -96,6 +96,12 @@ clock/trace failure; unobserved clocks are absent. Both integrated suites pass
 451/451, all 65 calibration cases pass four sanitizer configurations, and all
 six existing strict codegen gates pass. Primary stream placement, the complete
 live backend/action, and exact boundary-sequence qualification remain open.
+ADR-0194 supplies caller-owned primary stream buffers with the same golden
+codec and owner preparation. Compiler layout evidence preserves both stream
+sizes and prior hot offsets. Both integrated suites pass 456/456, 20 storage
+cases pass four sanitizer configurations, and all six strict codegen gates
+pass. Live phase integration, observed drain/reconciliation, and qualification
+remain open; no experimental capture ran.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

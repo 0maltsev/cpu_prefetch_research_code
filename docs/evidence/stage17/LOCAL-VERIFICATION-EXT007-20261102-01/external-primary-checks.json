@@ -1,0 +1,94 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "source_base_commit": "99753f3",
+  "source_state": "ADR0194 pending commit",
+  "source_sha256": {
+    "include/cpu_prefetch/storage/raw_observations.hpp": "545ec589c35af46bd32fc5aa6e47a93e619ce7ee2e07cff368d395629bfebba2",
+    "src/storage/raw_observations.cpp": "1d1fe4251586ed15923abc34a84ed4e4f05e9447f3855f1ecce7df0e91c65932",
+    "tests/storage_model_test.cpp": "acffd8007b86cb67c7aa05fc1aaa93284d1fa914884d64a47e9570d20ce50c0c",
+    "tests/storage_noalloc_test.cpp": "c93cbc2aff68703c864d4b0a9f59e5c303cb4c1f48c111fafed78c496fd2d4c0"
+  },
+  "full_ctest": {
+    "gcc": {
+      "cases": 456,
+      "exit_code": 0,
+      "log_sha256": "2ebb997abe461dc35ae754a58e26c81dc9d2b4f0464f7ae7fefa42458b72e745"
+    },
+    "clang-libcxx": {
+      "cases": 456,
+      "exit_code": 0,
+      "log_sha256": "3118a11810b9380be980aa00620b908fd16791ac725057e3fd0f5551bf304299"
+    }
+  },
+  "storage_cases": 20,
+  "sanitizers": {
+    "asan-ubsan-gcc": {
+      "storage_cases": 20,
+      "storage_allocation_counter_cases": 2,
+      "exit_code": 0,
+      "log_sha256": "dc02d452dda412c0ea535f620b9accae387f50cac9eb6d427d6c8eefe5e0de99"
+    },
+    "tsan-gcc": {
+      "storage_cases": 20,
+      "storage_allocation_counter_cases": 2,
+      "exit_code": 0,
+      "log_sha256": "109b9e42020a7573fa6f84438ef585ff64903bf062f18fbdae2629e5055b2348"
+    },
+    "asan-ubsan-clang-libcxx": {
+      "storage_cases": 20,
+      "storage_allocation_counter_cases": 2,
+      "exit_code": 0,
+      "log_sha256": "be46e22bf364cb1d1c89a0dd5a6b4bb802102a0b2e59193e70aa2f144e1335a5"
+    },
+    "tsan-clang-libcxx": {
+      "storage_cases": 20,
+      "storage_allocation_counter_cases": null,
+      "exit_code": 0,
+      "log_sha256": "c3d1f4e3423bf76b42340325a98ebf5fc6bfe5686f030ebef858c156c7b2a2a6"
+    }
+  },
+  "storage_allocation_counter_cases": 2,
+  "clang_tsan_allocation_counter": "EXCLUDED_BY_EXISTING_CMAKE_POLICY_INTERCEPTOR_CONFLICT",
+  "format_exit_code": 0,
+  "focused_static_translation_units": 3,
+  "focused_static_exit_code": 0,
+  "initial_static": "REJECTED_EXCESSIVE_PADDING; ownership flag moved into existing padding before final verification",
+  "layout_evidence_sha256": "fa6c943f3423b24e6d779321c4c7c16614202127a01a4acae4632fa029d40b00",
+  "provenance_exit_code": 0,
+  "strict_existing_codegen_exit_code": 0,
+  "strict_existing_codegen_reports": [
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "e7ba716eccaab3c55bce8f82d679dd1ab67d95ebe61160f95584fc6c437eb7d8",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "5dd838a4b6e4c6719136d2d496b1f01bcc32d4fef95a3733413f1332cf402c32",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "08d394ff34d3023e955f460988b97d7a219810f6946b969bb313203b896df4f1",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "7d009760cb44496a28c5678df285d05c5b7e2300aeb2a57426a675c1af5a8e58",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "a6831ef0f1b974db892e04d6deca1b853fc1483190f2cc38efbfc27af4d4979f",
+      "status": "PASS"
+    }
+  ],
+  "stand_capture_performed": false,
+  "release_qualified": false
+}

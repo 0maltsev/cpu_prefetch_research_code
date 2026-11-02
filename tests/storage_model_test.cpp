@@ -10,6 +10,7 @@
 #include "cpu_prefetch/workload/deterministic.hpp"
 #include "cpu_prefetch/workload/packages.hpp"
 
+#include <algorithm>
 #include <array>
 #include <atomic>
 #include <cstddef>
@@ -18,6 +19,7 @@
 #include <fstream>
 #include <iterator>
 #include <limits>
+#include <new>
 #include <optional>
 #include <span>
 #include <stdexcept>
@@ -227,6 +229,138 @@ TEST(StorageFormat, AcceptedGoldenProducerConsumerAndJoinedVectorsMatch) {
       std::get<std::vector<protocol::JoinedRecord>>(decoded_joined.value().rows)[0]
           .end_to_end_latency,
       7500U);
+}
+
+TEST(StorageFormat, CallerOwnedBuffersPreserveGoldenBytesAndDecoding) {
+  const auto id = run_id();
+  const auto requirements = storage::raw_stream_storage_requirements(id, 2U, 1U);
+  EXPECT_EQ(requirements.producer_bytes, 256U);
+  EXPECT_EQ(requirements.consumer_bytes, 88U);
+  alignas(64) std::array<std::byte, 256U> producer_bytes{};
+  alignas(64) std::array<std::byte, 88U> consumer_bytes{};
+  producer_bytes.fill(std::byte{0xA5});
+  consumer_bytes.fill(std::byte{0xA5});
+  storage::ProducerObservationStream producer(id, 2U, producer_bytes);
+  storage::ConsumerObservationStream consumer(id, 1U, consumer_bytes);
+  EXPECT_EQ(producer.buffer_address(), producer_bytes.data());
+  EXPECT_EQ(consumer.buffer_address(), consumer_bytes.data());
+  EXPECT_TRUE(std::all_of(producer_bytes.begin(), producer_bytes.end(),
+                          [](auto value) { return value == std::byte{0xA5}; }));
+  EXPECT_TRUE(std::all_of(consumer_bytes.begin(), consumer_bytes.end(),
+                          [](auto value) { return value == std::byte{0xA5}; }));
+  ASSERT_TRUE(producer.prepare_for_owner());
+  ASSERT_TRUE(consumer.prepare_for_owner());
+  ASSERT_EQ(producer.append(accepted_observation()), storage::AppendStatus::appended);
+  ASSERT_EQ(producer.append(full_observation()), storage::AppendStatus::appended);
+  ASSERT_EQ(consumer.append(consumer_observation()), storage::AppendStatus::appended);
+  ASSERT_TRUE(producer.seal_complete());
+  ASSERT_TRUE(consumer.seal_complete());
+  const auto p = producer.snapshot();
+  const auto c = consumer.snapshot();
+  EXPECT_EQ(digest(p.bytes),
+            "c6b47e3a4e73fa26e913ccd9101bd68e72bc3de4a488c3e3332fc65c7c61787c");
+  EXPECT_EQ(digest(c.bytes),
+            "0ed5a56f76a293b344eca47c684558d7fe6e46cebffd06981a446fd2c667a888");
+  const auto p_envelope =
+      external_envelope(protocol::StreamKind::producer, "r", p.bytes, 2U);
+  const auto c_envelope =
+      external_envelope(protocol::StreamKind::consumer, "r", c.bytes, 1U);
+  EXPECT_TRUE(storage::decode_external_raw(p_envelope.envelope, p.bytes));
+  EXPECT_TRUE(storage::decode_external_raw(c_envelope.envelope, c.bytes));
+}
+
+TEST(StorageFormat, InvalidCallerBuffersRejectBeforeAnyExternalWrite) {
+  const auto id = run_id();
+  alignas(64) std::array<std::byte, 512U> buffer{};
+  buffer.fill(std::byte{0xA5});
+  const std::span<std::byte> bytes(buffer);
+  EXPECT_THROW((storage::ProducerObservationStream(id, 2U, bytes.first(255U))),
+               storage::StorageSetupError);
+  EXPECT_THROW((storage::ProducerObservationStream(id, 2U, bytes.first(257U))),
+               storage::StorageSetupError);
+  EXPECT_THROW((storage::ProducerObservationStream(id, 2U, bytes.subspan(1U, 256U))),
+               storage::StorageSetupError);
+  EXPECT_THROW((storage::ConsumerObservationStream(id, 1U, bytes.first(87U))),
+               storage::StorageSetupError);
+  EXPECT_THROW((storage::ConsumerObservationStream(id, 1U, bytes.first(89U))),
+               storage::StorageSetupError);
+  EXPECT_THROW((storage::ConsumerObservationStream(id, 1U, bytes.subspan(1U, 88U))),
+               storage::StorageSetupError);
+  constexpr auto maximum = std::numeric_limits<std::uint64_t>::max();
+  EXPECT_THROW((void)storage::raw_stream_storage_requirements(id, maximum, 0U),
+               storage::StorageSetupError);
+  EXPECT_THROW((void)storage::raw_stream_storage_requirements(id, 0U, maximum),
+               storage::StorageSetupError);
+  EXPECT_THROW((storage::ProducerObservationStream(id, maximum, {})),
+               storage::StorageSetupError);
+  EXPECT_THROW((storage::ConsumerObservationStream(id, maximum, {})),
+               storage::StorageSetupError);
+  EXPECT_TRUE(std::all_of(buffer.begin(), buffer.end(),
+                          [](auto value) { return value == std::byte{0xA5}; }));
+}
+
+TEST(StorageFormat, MetadataOverlapRejectsBeforeInitializingEitherRegion) {
+  const auto id = run_id();
+  alignas(64) std::array<std::byte, 1024U> memory{};
+  static_assert(sizeof(storage::ProducerObservationStream) <= 1024U);
+  static_assert(sizeof(storage::ConsumerObservationStream) <= 1024U);
+  memory.fill(std::byte{0xA5});
+  const std::span<std::byte> bytes(memory);
+  EXPECT_THROW((::new (static_cast<void*>(memory.data()))
+                    storage::ProducerObservationStream(id, 2U, bytes.first(256U))),
+               storage::StorageSetupError);
+  EXPECT_TRUE(std::all_of(memory.begin(), memory.end(),
+                          [](auto value) { return value == std::byte{0xA5}; }));
+  EXPECT_THROW((::new (static_cast<void*>(memory.data()))
+                    storage::ConsumerObservationStream(id, 1U, bytes.first(88U))),
+               storage::StorageSetupError);
+  EXPECT_TRUE(std::all_of(memory.begin(), memory.end(),
+                          [](auto value) { return value == std::byte{0xA5}; }));
+}
+
+TEST(StorageFormat, CallerOwnershipZeroCapacityAndExhaustionRemainUnchanged) {
+  const auto id = run_id();
+  alignas(64) std::array<std::byte, 128U> producer_bytes{};
+  alignas(64) std::array<std::byte, 88U> consumer_bytes{};
+  for (unsigned generation = 0U; generation < 2U; ++generation) {
+    {
+      storage::ProducerObservationStream producer(id, 1U, producer_bytes);
+      storage::ConsumerObservationStream consumer(id, 1U, consumer_bytes);
+      ASSERT_TRUE(producer.prepare_for_owner());
+      ASSERT_TRUE(consumer.prepare_for_owner());
+      ASSERT_EQ(producer.append(accepted_observation()),
+                storage::AppendStatus::appended);
+      ASSERT_EQ(consumer.append(consumer_observation()),
+                storage::AppendStatus::appended);
+      const auto saved_producer = producer_bytes;
+      const auto saved_consumer = consumer_bytes;
+      EXPECT_EQ(producer.append(full_observation()),
+                storage::AppendStatus::buffer_overflow);
+      EXPECT_EQ(consumer.append(consumer_observation(1U)),
+                storage::AppendStatus::buffer_overflow);
+      EXPECT_EQ(producer_bytes, saved_producer);
+      EXPECT_EQ(consumer_bytes, saved_consumer);
+      EXPECT_EQ(producer.snapshot().completeness,
+                storage::StreamCompleteness::sealed_incomplete);
+      EXPECT_EQ(consumer.snapshot().completeness,
+                storage::StreamCompleteness::sealed_incomplete);
+      EXPECT_FALSE(producer.seal_complete());
+      EXPECT_FALSE(consumer.seal_complete());
+    }
+    producer_bytes.fill(std::byte{0xA5});
+    consumer_bytes.fill(std::byte{0xA5});
+  }
+  const auto empty = storage::raw_stream_storage_requirements(id, 0U, 0U);
+  EXPECT_EQ(empty.producer_bytes, 0U);
+  EXPECT_EQ(empty.consumer_bytes, 0U);
+  storage::ProducerObservationStream zero_producer(id, 0U, {});
+  storage::ConsumerObservationStream zero_consumer(id, 0U, {});
+  ASSERT_TRUE(zero_producer.prepare_for_owner());
+  ASSERT_TRUE(zero_consumer.prepare_for_owner());
+  ASSERT_TRUE(zero_producer.seal_complete());
+  ASSERT_TRUE(zero_consumer.seal_complete());
+  EXPECT_TRUE(zero_producer.snapshot().bytes.empty());
+  EXPECT_TRUE(zero_consumer.snapshot().bytes.empty());
 }
 
 TEST(StorageFormat, ExactCapacityZeroRowsAndOverflowFailClosed) {

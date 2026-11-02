@@ -33,6 +33,27 @@ constexpr std::uint64_t kProducerFullFlags = 1U;
   return true;
 }
 
+void validate_external_raw_buffer(std::span<std::byte> storage,
+                                  std::uint64_t required_bytes, const void* metadata,
+                                  std::size_t metadata_bytes) {
+  if (storage.size() != required_bytes) {
+    throw StorageSetupError("external raw buffer requires exact logical bytes");
+  }
+  if (required_bytes == 0U) {
+    return;
+  }
+  const auto begin = reinterpret_cast<std::uintptr_t>(storage.data());
+  const auto control = reinterpret_cast<std::uintptr_t>(metadata);
+  if (begin == 0U || begin % kRawBufferAlignment != 0U ||
+      required_bytes > std::numeric_limits<std::uintptr_t>::max() - begin ||
+      metadata_bytes > std::numeric_limits<std::uintptr_t>::max() - control) {
+    throw StorageSetupError("external raw buffer requires aligned bounded storage");
+  }
+  if (begin < control + metadata_bytes && control < begin + required_bytes) {
+    throw StorageSetupError("external raw buffer overlaps stream metadata");
+  }
+}
+
 [[nodiscard]] auto valid_utf8(std::string_view text) noexcept -> bool {
   for (std::size_t index = 0U; index < text.size();) {
     const auto first = static_cast<unsigned char>(text[index]);
@@ -166,6 +187,21 @@ template <typename T>
   return 0U;
 }
 
+[[nodiscard]] auto
+validated_external_run_id(const protocol::RunId& run_id, std::uint64_t row_capacity,
+                          protocol::StreamKind kind, std::span<std::byte> storage,
+                          const void* metadata, std::size_t metadata_bytes)
+    -> std::string_view {
+  const auto layout = make_row_layout(run_id.value());
+  std::uint64_t required = 0U;
+  if (!checked_multiply(row_capacity, expected_row_bytes(kind, layout), required) ||
+      required > std::numeric_limits<std::size_t>::max()) {
+    throw StorageSetupError("external raw buffer size overflows host size_t");
+  }
+  validate_external_raw_buffer(storage, required, metadata, metadata_bytes);
+  return run_id.value();
+}
+
 [[nodiscard]] auto verify_prefix(const std::byte* row, const RowLayout& layout,
                                  std::string_view expected_run_id) noexcept -> bool {
   if (load_u32_le(row) != layout.run_id_bytes) {
@@ -259,6 +295,23 @@ auto to_string(StreamCompleteness state) noexcept -> std::string_view {
   return "UNKNOWN";
 }
 
+auto raw_stream_storage_requirements(const protocol::RunId& run_id,
+                                     std::uint64_t producer_rows,
+                                     std::uint64_t consumer_rows)
+    -> RawStreamStorageRequirements {
+  const auto layout = make_row_layout(run_id.value());
+  std::uint64_t producer_bytes = 0U;
+  std::uint64_t consumer_bytes = 0U;
+  if (!checked_multiply(producer_rows, layout.producer_row_bytes, producer_bytes) ||
+      !checked_multiply(consumer_rows, layout.consumer_row_bytes, consumer_bytes) ||
+      producer_bytes > std::numeric_limits<std::size_t>::max() ||
+      consumer_bytes > std::numeric_limits<std::size_t>::max()) {
+    throw StorageSetupError("raw stream requirements overflow host size_t");
+  }
+  return {static_cast<std::size_t>(producer_bytes),
+          static_cast<std::size_t>(consumer_bytes)};
+}
+
 ProducerObservationStream::ProducerObservationStream(const protocol::RunId& run_id,
                                                      std::uint64_t row_capacity)
     : run_id_(run_id.value()), layout_(make_row_layout(run_id_)) {
@@ -275,8 +328,24 @@ ProducerObservationStream::ProducerObservationStream(const protocol::RunId& run_
   }
 }
 
+ProducerObservationStream::ProducerObservationStream(
+    const protocol::RunId& run_id, std::uint64_t row_capacity,
+    std::span<std::byte> external_storage)
+    : run_id_(validated_external_run_id(run_id, row_capacity,
+                                        protocol::StreamKind::producer,
+                                        external_storage, this, sizeof(*this))),
+      layout_(make_row_layout(run_id_)), storage_(external_storage.data()),
+      owns_storage_(false) {
+  if (!checked_multiply(row_capacity, layout_.producer_row_bytes, allocated_bytes_) ||
+      allocated_bytes_ > std::numeric_limits<std::size_t>::max()) {
+    throw StorageSetupError("producer raw buffer size overflows host size_t");
+  }
+  control_.row_capacity = row_capacity;
+  control_.row_bytes = layout_.producer_row_bytes;
+}
+
 ProducerObservationStream::~ProducerObservationStream() {
-  if (storage_ != nullptr) {
+  if (storage_ != nullptr && owns_storage_) {
     ::operator delete(storage_, std::align_val_t{kRawBufferAlignment});
   }
 }
@@ -384,8 +453,24 @@ ConsumerObservationStream::ConsumerObservationStream(const protocol::RunId& run_
   }
 }
 
+ConsumerObservationStream::ConsumerObservationStream(
+    const protocol::RunId& run_id, std::uint64_t row_capacity,
+    std::span<std::byte> external_storage)
+    : run_id_(validated_external_run_id(run_id, row_capacity,
+                                        protocol::StreamKind::consumer,
+                                        external_storage, this, sizeof(*this))),
+      layout_(make_row_layout(run_id_)), storage_(external_storage.data()),
+      owns_storage_(false) {
+  if (!checked_multiply(row_capacity, layout_.consumer_row_bytes, allocated_bytes_) ||
+      allocated_bytes_ > std::numeric_limits<std::size_t>::max()) {
+    throw StorageSetupError("consumer raw buffer size overflows host size_t");
+  }
+  control_.row_capacity = row_capacity;
+  control_.row_bytes = layout_.consumer_row_bytes;
+}
+
 ConsumerObservationStream::~ConsumerObservationStream() {
-  if (storage_ != nullptr) {
+  if (storage_ != nullptr && owns_storage_) {
     ::operator delete(storage_, std::align_val_t{kRawBufferAlignment});
   }
 }

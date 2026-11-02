@@ -2,11 +2,13 @@
 
 #include "cpu_prefetch/storage/raw_observations.hpp"
 
+#include <array>
 #include <atomic>
 #include <cstddef>
 #include <cstdlib>
 #include <new>
 #include <optional>
+#include <span>
 #include <stdexcept>
 #include <string>
 
@@ -132,6 +134,46 @@ TEST(StorageHotWriter, ProducerAndConsumerAppendAllocateNothingAfterPreparation)
   EXPECT_EQ(consumer_status, cpu_prefetch::storage::AppendStatus::appended);
   EXPECT_EQ(producer_snapshot.row_count, 1U);
   EXPECT_EQ(consumer_snapshot.row_count, 1U);
+  EXPECT_EQ(after, before);
+}
+
+TEST(StorageHotWriter, CallerOwnedPreparationAppendSealSnapshotAllocateNothing) {
+  namespace storage = cpu_prefetch::storage;
+  const auto id = run_id();
+  const auto requirements = storage::raw_stream_storage_requirements(id, 1U, 1U);
+  alignas(64) std::array<std::byte, 1024U> producer_bytes{};
+  alignas(64) std::array<std::byte, 1024U> consumer_bytes{};
+  storage::ProducerObservationStream producer(
+      id, 1U, std::span(producer_bytes).first(requirements.producer_bytes));
+  storage::ConsumerObservationStream consumer(
+      id, 1U, std::span(consumer_bytes).first(requirements.consumer_bytes));
+  const cpu_prefetch::timing::ProducerObservation producer_row{
+      {0U},
+      {7U},
+      1U,
+      {1U, 2U},
+      {2U, 3U},
+      {3U, 4U},
+      cpu_prefetch::timing::ClockSample{4U, 5U},
+      {5U, 6U},
+      cpu_prefetch::protocol::ProducerOutcome::accepted,
+      cpu_prefetch::workload::AcceptedOrdinal{0U}};
+  const cpu_prefetch::timing::ConsumerObservation consumer_row{
+      {0U}, {7U}, {6U, 7U}, {7U, 8U}, {8U, 9U}, {9U, 10U}};
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  const bool prepared = producer.prepare_for_owner() && consumer.prepare_for_owner();
+  const auto p_status = producer.append(producer_row);
+  const auto c_status = consumer.append(consumer_row);
+  const bool sealed = producer.seal_complete() && consumer.seal_complete();
+  const auto p = producer.snapshot();
+  const auto c = consumer.snapshot();
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_TRUE(prepared);
+  EXPECT_TRUE(sealed);
+  EXPECT_EQ(p_status, storage::AppendStatus::appended);
+  EXPECT_EQ(c_status, storage::AppendStatus::appended);
+  EXPECT_EQ(p.bytes.data(), producer_bytes.data());
+  EXPECT_EQ(c.bytes.data(), consumer_bytes.data());
   EXPECT_EQ(after, before);
 }
 

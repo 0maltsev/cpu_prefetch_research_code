@@ -423,6 +423,14 @@ authorization/amendment.
   six existing codegen gates pass. Next provide caller-owned primary streams
   and integrate these captures with independent ordinals, observed drains,
   persistent worker preparation, and durable failure/snapshot publication.
+  ADR-0194 now supplies caller-owned primary raw buffers with exact checked
+  requirements, unchanged golden bytes and owner preparation. Compiler debug
+  layouts verify unchanged stream object sizes and prior hot offsets in both
+  supported ABIs. Both integrated suites pass 456/456; 20 storage cases pass
+  four sanitizer configurations, supported storage allocation counters and
+  all six strict codegen gates pass. Integrate independent ordinals and
+  primary streams with observed drains, exact phase reconciliation, persistent
+  mapped preparation and finite monitoring/publication before qualification.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

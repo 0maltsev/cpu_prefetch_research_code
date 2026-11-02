@@ -98,6 +98,13 @@ pass 451/451; all 65 calibration cases pass all four sanitizer configurations,
 eight allocation-hook cases pass supported matrices, strict focused analysis
 and all six existing codegen gates pass. This is not a complete live backend
 or a qualification of the new exact clock-boundary sequence; no experiment ran.
+ADR-0194 adds exact-size caller-owned primary stream storage and byte
+requirements without changing the codec. Both supported compiler layouts
+preserve the original 192-byte stream objects and prior hot offsets. Both
+integrated suites pass 456/456; 20 storage cases pass all four sanitizer
+configurations, two storage allocation-hook cases pass supported matrices,
+and strict analysis plus all six codegen gates pass. Live worker preparation,
+observed drain/reconciliation and qualified execution remain open.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

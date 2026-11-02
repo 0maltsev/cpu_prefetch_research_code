@@ -175,6 +175,16 @@ and all six existing codegen gates pass. The backend still needs caller-owned
 primary streams, independent ordinals and exact reconciliation, observed drain
 capture, live owner preparation/residency, watchdog/publication/admission, and
 qualification of its exact combined clock-boundary sequence before execution.
+ADR-0194 adds caller-owned primary stream storage with the existing raw codec,
+golden hashes, literal row run IDs and owner preparation. Invalid/overlapping
+regions reject before external writes; caller bytes remain untouched until
+preparation. Compiler debug evidence independently preserves both stream
+object sizes and all prior hot offsets in both supported ABIs. Both integrated
+suites pass 456/456; 20 storage cases pass all four sanitizer configurations,
+two storage allocation-hook cases pass supported matrices, strict analysis and
+all six codegen gates pass. Actual mapped owner construction and residency,
+independent ordinals, observed drain rows and exact phase reconciliation,
+watchdog/publication/admission and exact-boundary qualification remain open.
 
 ## Implemented prerequisites
 

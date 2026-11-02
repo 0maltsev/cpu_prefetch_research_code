@@ -101,3 +101,32 @@ capture, control change, current operational replay or new resolution.
 Complete mapped runtime objects/controller context, retained live controls,
 prospective finite budgets, publication/watchdog and qualified diagnostic
 admission remain required. Stage 17 is incomplete; Stage 18 has not started.
+
+ADR-0199 integrates owner-prepared runtime objects with the real persistent
+backend and mapped pthread stacks.
+[mapped-runtime-object-checks.json](mapped-runtime-object-checks.json) binds
+the exact source, commands and logs. Both full development suites pass
+**513/513**, exit 0. All **104 calibration** cases pass all four sanitizer
+configurations. Strict analysis of the affected translation unit and global
+format checking pass. Existing queue/timing/storage/runner source is unchanged;
+this is not generated-code qualification of the complete discovery worker.
+
+Seven integration/boundary cases cover native mapping preparation, actual
+producer/consumer thread identities, object and buffer containment, immutable
+records/order, both persistent phases, actual raw streams and exact drained
+joins. Failed owner mapping/protection prevents warmup; an already failed peer
+prevents new mapping or affinity mutation. Missing peers exhaust a finite
+budget. Invalid/overflowing geometry and mismatched owner regions reject;
+mutating the caller's original plan cannot change the provider's frozen copy.
+Partial construction is destroyed after worker join, before mapping release.
+Only NUMA binding is injected, with synthetic clocks; successful local tests
+are not stand residency, hardware qualification or experimental evidence.
+
+The first strict analysis rejected ambiguous layout size/alignment arguments.
+A typed request repairs the diagnostic without suppression. Final verification
+includes the subsequent early-peer-cancellation regression. The restored SSH
+refresh retains unchanged boot and operational journal-file identity, excluding
+bundled fixture journals; it grants no semantic replay or execution authority.
+Complete controller/runtime/TLS coverage, live control monitoring, finite
+resource admission, publication/watchdog and exact qualified release remain
+open before the approved discovery study. Stage 17 remains incomplete.

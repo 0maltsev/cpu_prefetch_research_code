@@ -148,6 +148,19 @@ publication/watchdog and qualified diagnostic admission/release remain open.
 Fresh SSH access again times out during banner exchange; the earlier retained
 stand observations are not a current operational replay.
 
+ADR-0199 integrates mapped arena/ring, owner-local trace/primary objects and
+buffers, phase state and drain retention with the persistent mapped workers.
+Producer construction protects records/order read-only. Bounded handoff and
+frozen geometry reject failed/missing peers and caller plan mutation. Both
+full compiler suites pass 513/513; 104 calibration cases pass all four
+sanitizer configurations. Focused strict analysis and global format pass.
+Injected binding and synthetic time grant no stand placement or run authority.
+The development PC's server-only VPN bypass restored SSH. A fresh read-only
+check finds the same boot ID and nine operational journals with unchanged
+head hash. This is not a fresh semantic replay. Complete controller/runtime
+footprint, live controls, publication/watchdog and qualified diagnostic
+admission remain open; no experimental capture has run.
+
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;
 prospective policy v54 is not promoted or released. Missing D-037 prospective

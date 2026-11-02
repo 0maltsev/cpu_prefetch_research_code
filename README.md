@@ -144,6 +144,17 @@ See [mapped-stack verification](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-
 Complete mapped runtime-object/control coverage, publication/watchdog and
 qualified diagnostic admission remain required before the duration study.
 
+ADR-0199 integrates owner-prepared mappings for the arena/ring, independent
+trace and primary-stream objects/buffers, phase state and drain retention.
+Records/order become read-only before readiness. A bounded worker handoff
+rejects failed/missing peers, and a frozen plan copy prevents geometry drift.
+Both full compiler suites pass 513/513; all 104 calibration cases pass the
+four sanitizer configurations. Focused strict analysis and global format pass.
+These are software tests with injected NUMA binding and synthetic time.
+SSH is restored through the local VPN bypass; the operational journal hash
+is unchanged. Complete controller/runtime footprint, actual control monitoring,
+publication/watchdog and qualified diagnostic admission remain open.
+
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked
 on the typed D-037 plan and its duration/minimum-observation/warm-up/residency

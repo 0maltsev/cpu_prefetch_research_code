@@ -1,0 +1,122 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "release_qualified": false,
+  "recorded_utc": "2026-11-02T22:51:52.166996+00:00",
+  "source_base_commit": "6a370ead53f6f88ef6b8472867e814879272c006",
+  "source_state": "ADR0199 changes before local commit; exact source digests below",
+  "source_sha256": {
+    "CMakeLists.txt": "cd6f9585c9576ed1c4a30f21c3d25ae42cf137e9521822fbfee041f606bbe508",
+    "include/cpu_prefetch/calibration/mapped_discovery_preparation.hpp": "c37642f6dfc1aee855b5177046bbfd88f2abb1e1fc614e3bb77f6b99cb71b461",
+    "tests/calibration_mapped_discovery_test.cpp": "7b5e4894f1e8668fc32018907ee58afd7205191b12d8807921f086ae28aa8b2e"
+  },
+  "protocol_version": "2.0.0-pre.3",
+  "runtime_manifest": {
+    "path": "docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/runtime-restoration.json",
+    "sha256": "4ecb9df69719223ae15bb337896ebf5c91faa3df653c2af3253216e2d9ace7a0"
+  },
+  "full_ctest": {
+    "dev-gcc": {
+      "path": "build/ext007-runtime-20261101/mapped-preparation-final-dev-gcc-tests.log",
+      "sha256": "cfdeb57d6264251ba171f4ad4be39261e4952e1c63aa0e9819a1bd5194e5d659",
+      "exit_code": 0,
+      "cases": 513,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/mapped-preparation-final-dev-gcc-build.log",
+        "sha256": "fce2c50f9537df9ce39448e03873c05e0a8edb411342284f5fbecfe0c3618334"
+      },
+      "command": "cmake --build build/accepted-dev-gcc -j2 && ctest --test-dir build/accepted-dev-gcc --output-on-failure -j2"
+    },
+    "dev-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/mapped-preparation-final-dev-clang-libcxx-tests.log",
+      "sha256": "78e1dd074f0e7758e9f7b6e8142f83dff0cc9abbd02e3b24b52991d3b8228d74",
+      "exit_code": 0,
+      "cases": 513,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/mapped-preparation-final-dev-clang-libcxx-build.log",
+        "sha256": "fce2c50f9537df9ce39448e03873c05e0a8edb411342284f5fbecfe0c3618334"
+      },
+      "command": "cmake --build build/accepted-dev-clang-libcxx -j2 && ctest --test-dir build/accepted-dev-clang-libcxx --output-on-failure -j2"
+    }
+  },
+  "sanitizers": {
+    "asan-ubsan-gcc": {
+      "path": "build/ext007-runtime-20261101/mapped-preparation-final-asan-ubsan-gcc-tests.log",
+      "sha256": "da6d12e7a9db01e670da883454a1fd32cb2c7e2c5542a24800b91f08870693b5",
+      "exit_code": 0,
+      "calibration_cases": 104,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/mapped-preparation-final-asan-ubsan-gcc-build.log",
+        "sha256": "fce2c50f9537df9ce39448e03873c05e0a8edb411342284f5fbecfe0c3618334"
+      },
+      "command": "cmake --build build/accepted-asan-ubsan-gcc --target cpu_prefetch_calibration_tests -j2 && build/accepted-asan-ubsan-gcc/cpu_prefetch_calibration_tests"
+    },
+    "tsan-gcc": {
+      "path": "build/ext007-runtime-20261101/mapped-preparation-final-tsan-gcc-tests.log",
+      "sha256": "0fd6e2cf54db94b2d5355a3c8e27a0afad7e1e5f68626383bb80bc046410bfbe",
+      "exit_code": 0,
+      "calibration_cases": 104,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/mapped-preparation-final-tsan-gcc-build.log",
+        "sha256": "fce2c50f9537df9ce39448e03873c05e0a8edb411342284f5fbecfe0c3618334"
+      },
+      "command": "cmake --build build/accepted-tsan-gcc --target cpu_prefetch_calibration_tests -j2 && build/accepted-tsan-gcc/cpu_prefetch_calibration_tests"
+    },
+    "asan-ubsan-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/mapped-preparation-final-asan-ubsan-clang-libcxx-tests.log",
+      "sha256": "b4bad792c77c5027adc9debe4ee1035024516e1a25e6fac994da26258830d71a",
+      "exit_code": 0,
+      "calibration_cases": 104,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/mapped-preparation-final-asan-ubsan-clang-libcxx-build.log",
+        "sha256": "fce2c50f9537df9ce39448e03873c05e0a8edb411342284f5fbecfe0c3618334"
+      },
+      "command": "cmake --build build/accepted-asan-ubsan-clang-libcxx --target cpu_prefetch_calibration_tests -j2 && build/accepted-asan-ubsan-clang-libcxx/cpu_prefetch_calibration_tests"
+    },
+    "tsan-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/mapped-preparation-final-tsan-clang-libcxx-tests.log",
+      "sha256": "9793b9ec4f30ddaaf397822b7db7efbfc6df2bd31278d05235c22f94d18e9c86",
+      "exit_code": 0,
+      "calibration_cases": 104,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/mapped-preparation-final-tsan-clang-libcxx-build.log",
+        "sha256": "fce2c50f9537df9ce39448e03873c05e0a8edb411342284f5fbecfe0c3618334"
+      },
+      "command": "cmake --build build/accepted-tsan-clang-libcxx --target cpu_prefetch_calibration_tests -j2 && build/accepted-tsan-clang-libcxx/cpu_prefetch_calibration_tests"
+    }
+  },
+  "strict_analysis": {
+    "path": "build/ext007-runtime-20261101/mapped-preparation-tidy-final.log",
+    "sha256": "3b11b65ddb2c3fd0ac256e0cdb8ed65b0ebb328823bd119214d34f7c733733c6",
+    "exit_code": 0,
+    "translation_units": 1,
+    "command": "clang-tidy -p build/accepted-dev-gcc --warnings-as-errors=\"*\" tests/calibration_mapped_discovery_test.cpp"
+  },
+  "format": {
+    "exit_code": 0,
+    "command": "cmake --build build/accepted-release-gcc --target format-check",
+    "observed_output": "[1/2] Checking C++ formatting",
+    "output_source": "exec session 45518 completion; no standalone log was written"
+  },
+  "initial_rejected_check": {
+    "path": "build/ext007-runtime-20261101/mapped-preparation-tidy.log",
+    "sha256": "1cc7891736719a93e73b357cb9e0156df51c4ec4910905f2d40c5e1275e39136",
+    "exit_code": 1,
+    "resolution": "Replace ambiguous size/alignment parameters with one typed layout request; no suppression"
+  },
+  "stand_refresh": {
+    "path": "docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261102-01/connectivity-restored-20261102.json",
+    "sha256": "69df4664a893a0e8fa46b546c129ba0cff2851d358b4aea1da68e963718543f1"
+  },
+  "test_scope": "Real native owner mappings, protected records/order, mapped pthread stacks, ring/arena/raw streams, bounded drain and exact joins. NUMA binding injected; clock synthetic. No stand placement/lock or empirical claim.",
+  "exact_discovery_boundary_qualification": "NOT_PERFORMED",
+  "existing_codegen": "Queue/runner/timing/workload/storage source unchanged in this increment; prior reports are not qualification of the complete discovery worker.",
+  "remaining": [
+    "Complete provider/backend/clock/controller coordination and TLS/runtime footprint declaration",
+    "Actual control and residency monitoring with finite prospective coverage/resources",
+    "Durable publication and bounded outer watchdog",
+    "Fresh source-bound diagnostic admission/release and dependent/exact-boundary qualification",
+    "Approved 36-key study, then prospectively frozen fresh formal calibration",
+    "EXT008-010 and accepted Stage17 exit before Stage18 execution"
+  ]
+}

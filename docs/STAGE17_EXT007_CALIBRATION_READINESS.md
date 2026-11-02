@@ -2,15 +2,19 @@
 
 State: **LOCAL_ENGINEERING_PROGRESS; NOT_AUTHORIZED_FOR_CALIBRATION_EXECUTION**.
 
-Current implementation checkpoint: ADR-0198 integrates guarded mapped worker
-stacks with session preparation and cancellation. Both full development suites
-pass 506/506; 41 platform and 97 calibration cases pass all four sanitizer
-configurations. Native stack/affinity checks use injected NUMA binding and
-grant no stand qualification. The actual mapped arena/ring, private traces
-and primary streams, shared controller context, complete control monitoring,
-publication/watchdog, finite budgets and qualified diagnostic admission remain
-open. SSH again times out during banner exchange. Stage 17 remains incomplete;
-Stage 18 requires the subsequent accepted calibration, pilot and freeze chain.
+Current implementation checkpoint: ADR-0199 integrates owner mappings for the
+arena/ring, private traces and primary streams, phase state and drain retention
+with ADR-0198's persistent mapped workers. Records/order become read-only;
+bounded construction handoff and copied controls reject failed/missing peers
+and geometry drift. Both full development suites pass 513/513; 104 calibration
+cases pass all four sanitizer configurations. Strict focused analysis and
+global format pass. Tests inject NUMA binding and synthetic time, granting no
+stand qualification. Complete controller/runtime/TLS footprint, live control
+monitoring, publication/watchdog, finite budgets and qualified diagnostic
+admission remain open. SSH is restored through the local VPN bypass, and a
+fresh file-identity check finds the same boot and operational journal head.
+This is not a fresh semantic replay. Stage 17 remains incomplete; Stage 18
+requires the subsequent accepted calibration, pilot and freeze chain.
 
 Protocol: `2.0.0-pre.3`, unchanged. The external v5-12 journal retains its six
 resolutions; EXT007 is not resolved by software tests or prospective policy.

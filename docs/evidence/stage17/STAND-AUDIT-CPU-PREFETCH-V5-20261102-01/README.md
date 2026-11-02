@@ -57,3 +57,14 @@ a proof of global machine quiescence. Resource availability is not a frozen
 budget. The JSON records actual remote values without asserting fresh replay,
 qualification, MSR state or execution authority. No stand files, controls or
 captures were changed.
+
+[Connectivity restoration](connectivity-restored-20261102.json) records a
+subsequent successful SSH read after adding a persistent server-only VPN bypass
+to the development PC's NetworkManager Wi-Fi profile. The stand boot ID is
+unchanged. The operational `journal/` directory still contains nine records;
+`stage17-state-journal-000008.json` retains SHA-256
+`46e6fa35f7393e136e8169e19e1c3ee7c49a8c2f82acc65322dd813b73e21c84`.
+An initial recursive listing also included bundled fixture journals; it was
+not used to identify operational head. The retained refresh explicitly scopes
+the real journal directory. This is file identity, not semantic replay or
+current qualification. No stand file, control or experiment was changed.

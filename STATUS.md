@@ -47,6 +47,15 @@ external integration gate. Nineteen proposal mutants and two boundary cases
 pass; the default still rejects the absent archive/sidecar. The fresh integrated
 Clang/libc++ CTest suite passes 410/410 in the accepted runtime. This supplies
 software verification, not current policy/release or stand qualification.
+ADR-0187 adds discovery dequeue-result retention for the ordinary consumer
+action, including after timing/trace failure. All 50 calibration cases pass
+both development compilers and both compiler sanitizer matrices. The prior
+111-unit static check completed successfully; the new unit passes strict
+focused analysis. All six dual-disassembler release codegen gates pass.
+SSH was restored by the owner on 2026-11-02. Existing journal hashes are
+unchanged, but its temporary wrapper disappeared after reboot and the retained
+CLI rejects a schema identity mismatch. Fresh journal validation is pending;
+no capture, operational resolution, or release authority is claimed.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

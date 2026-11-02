@@ -100,6 +100,20 @@ archive/sidecar bytes. The integrated Clang/libc++ CTest suite now passes all
 410 entries in the accepted runtime. The historical external artifact is
 still absent for its separate integration/action gate; synthetic success
 does not supply it or qualify the current policy/release.
+ADR-0187 adds a discovery-only consumer helper returning the real event/status
+alongside timing and trace validity. The backend can therefore perform the
+ordinary immutable-record action even after a failed capture; it must still
+retain independent consumer ordinals and reconcile after drain. Four real-ring
+cases bring the suite to 50, passing both development compilers and both
+compiler sanitizer matrices. The previous full static check passes all 111
+units; the added unit passes focused strict analysis. All six required strict
+release codegen gates pass with GNU and accepted LLVM disassemblers. These
+checks still do not supply the live backend or a source-qualified release.
+
+On 2026-11-02 the owner restored SSH. The retained v5-12 journal hashes match
+the preceding audit. Its temporary wrapper disappeared after reboot; using
+the retained CLI directly rejects a hardware-prefetch schema identity mismatch.
+Fresh replay is pending, and no gate was bypassed or old attempt retried.
 
 ## Implemented prerequisites
 

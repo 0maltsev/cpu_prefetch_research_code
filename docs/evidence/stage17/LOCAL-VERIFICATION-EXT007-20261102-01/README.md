@@ -84,6 +84,27 @@ does not claim the separate external archive integration passed, replace
 current policy checks, or authorize measurement. Full static analysis remains
 in progress and strict release code-generation/package checks remain required.
 
+Subsequent completion: the original full static check passes all 111 input
+translation units, exit 0. ADR-0187 adds one consumer unit/header; its focused
+strict clang-tidy check and current global format target pass. The calibration
+suite now passes 50/50 in both development compilers and all four compiler
+sanitizer configurations. This is targeted verification after the preceding
+410-entry full suite, not a claim that a 414-entry full suite was run.
+
+All six strict release codegen checks pass on clean source `6232fee`: queue,
+workload, timing, storage, runner relax, and runner combined. Each report uses
+both GNU Binutils 2.46.0 and LLVM 22.1.6 and retains its required mutants.
+The reports predate ADR-0187's additive helper, which is not yet integrated
+into a live worker. [The compact result record](consumer-and-release-checks.json)
+records report/source hashes and the exact scope. A prospective policy and
+qualified executable remain outstanding.
+
+The owner restored SSH on 2026-11-02. Fresh read-only inspection confirms the
+retained journal hashes match the older audit, including record 000008.
+The temporary wrapper is absent after reboot; the retained CLI rejects schema
+identity drift. That rejection is retained without bypass; a fresh validated
+operational state is not claimed. No experiment or stand mutation occurred.
+
 An isolated clean checkout of historical commit
 `34da95d002e912069c959bfef8e88a23b4880cea` rebuilt the old Q15 bundle with
 its original source path. Its collector binary exactly matches recorded SHA-256

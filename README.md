@@ -46,6 +46,16 @@ existing archive contract requires. The default integration check still fails
 without the exact archive. The fresh integrated Clang/libc++ suite now passes
 410/410 in the accepted runtime. Current source policy, strict release checks,
 and live diagnostic integration remain open.
+ADR-0187 retains the actual discovery dequeue result, including on later clock
+or trace failure, for the backend's consumer action. Four real-ring tests bring
+the calibration suite to 50 cases; all pass under both development compilers
+and both compiler sanitizer matrices. The earlier full static check completed
+successfully for 111 units; the added unit passes focused strict analysis.
+All six strict release codegen gates pass with GNU and LLVM disassemblers.
+On 2026-11-02 the owner restored SSH. The retained journal hashes match the
+previous audit, but its temporary wrapper is gone after reboot and replay with
+the retained CLI rejects a schema identity mismatch. Fresh validation remains
+open; no capture or new resolution has occurred.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

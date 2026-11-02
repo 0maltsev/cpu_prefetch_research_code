@@ -376,6 +376,13 @@ authorization/amendment.
   the latter still fails without exact bytes. The fresh complete Clang/libc++
   suite passes 410/410. Finish current source policy/release gates and the live
   diagnostic backend; no stand execution follows from synthetic tests.
+  ADR-0187 exposes the actual dequeue result independently of timing/trace
+  validity. Use it for the backend's ordinary consumer action and independent
+  observations. The 50-case suite passes both development compilers and both
+  compiler sanitizer matrices; baseline 111-unit static analysis, the added
+  unit's focused analysis, and all six strict codegen gates pass. The owner
+  restored SSH on 2026-11-02; finish fresh journal validation without bypassing
+  the retained CLI's schema identity rejection or reusing stopped attempts.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

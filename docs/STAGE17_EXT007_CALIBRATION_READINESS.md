@@ -2,19 +2,25 @@
 
 State: **LOCAL_ENGINEERING_PROGRESS; NOT_AUTHORIZED_FOR_CALIBRATION_EXECUTION**.
 
-Current implementation checkpoint: ADR-0199 integrates owner mappings for the
-arena/ring, private traces and primary streams, phase state and drain retention
-with ADR-0198's persistent mapped workers. Records/order become read-only;
-bounded construction handoff and copied controls reject failed/missing peers
-and geometry drift. Both full development suites pass 513/513; 104 calibration
-cases pass all four sanitizer configurations. Strict focused analysis and
-global format pass. Tests inject NUMA binding and synthetic time, granting no
-stand qualification. Complete controller/runtime/TLS footprint, live control
-monitoring, publication/watchdog, finite budgets and qualified diagnostic
-admission remain open. SSH is restored through the local VPN bypass, and a
-fresh file-identity check finds the same boot and operational journal head.
-This is not a fresh semantic replay. Stage 17 remains incomplete; Stage 18
-requires the subsequent accepted calibration, pilot and freeze chain.
+Current implementation checkpoint: ADR-0200 adds caller-owned one-shot shared
+coordination/results and exercises the complete R0 session on a mapped
+controller stack, mapped runtime objects and both persistent worker stacks.
+It also retains native cold TLS payload ranges, owner identity, FS base and
+loader generation, rejecting truncated or mismatched observations. Actual TLS
+payloads do not describe the entire libc/runtime footprint. Tests inject NUMA
+binding and synthetic capture time; no stand qualification follows. Complete
+runtime coverage, live control monitoring, publication/watchdog, finite budgets
+and qualified diagnostic admission remain open. SSH works through the local VPN
+bypass; the refreshed inventory finds the same boot and operational journal
+head. This is not a fresh semantic replay. The stand is dedicated to these
+experiments. Final precision `delta_star` remains unresolved without blocking
+independent engineering or the approved duration study. Stage 17 remains
+incomplete; Stage 18 requires the subsequent accepted calibration, pilot and
+freeze chain.
+
+Both integrated development suites pass 519/519; all 107 calibration and 44
+platform cases pass the four sanitizer configurations. Evidence is retained in
+the [local verification record](evidence/stage17/LOCAL-VERIFICATION-EXT007-20261103-01/README.md).
 
 Protocol: `2.0.0-pre.3`, unchanged. The external v5-12 journal retains its six
 resolutions; EXT007 is not resolved by software tests or prospective policy.
@@ -292,12 +298,30 @@ producer-home NUMA residency or implement the proposed warm-up record.
 These gaps must be corrected against an approved prospective plan before
 calibration; they cannot be repaired by relabeling a completed capture.
 
-Before any stand execution:
+The 2026-11-03 downstream source audit also confirms that replacing Q16a alone
+will not finish the runtime requirements. In
+[`stage17_fixed_action.cpp`](../src/runner/stage17_fixed_action.cpp),
+`capture_ticketed_service_rate` stops the producer at the fixed duration but
+continues incrementing `report.consumed` through drain. `run_artifacts` exports
+that total as `consumed_count`; it supplies no separate completion count
+restricted to the measurement interval. Preserve the full total for integrity,
+but do not use it as fixed-interval throughput. The new service path needs its
+explicit interval count and observed boundary evidence before Q16b admission.
+`package_capture` currently parses warmup inputs only for `blinded_pilot`, while
+`run_artifacts` sets `warmup_reset_verified=true` for nonpilot actions without
+such execution. This flag cannot establish Q16b/Q16c warmup. Correct the live
+path and version its output/admission contracts before formal data collection;
+do not retrofit these meanings onto retained historical outputs.
 
-1. Supply the approved D-037 duration and minimum observations for each
-   context, and bind them in a typed prospective plan. Confirm the intended
-   warm-up/reset behavior in the same record. If a different scientific method
-   is desired, obtain the required versioned protocol amendment first.
+Before diagnostic or formal stand execution:
+
+1. Complete the already-approved D-178 diagnostic action's exact prospective
+   run set, controls, capacities, validity checks and finite budgets. Its 36
+   fixed-duration captures can establish the missing common duration. Then
+   bind that result and minimum observations in a fresh formal D-037 plan,
+   including persistent five-second warmup/drain/reset and fresh IDs/seeds.
+   Formal inputs do not have to be invented before their separate discovery
+   study. A different scientific method still requires a protocol amendment.
 2. Implement and test those exact capture/termination/preparation semantics,
    verify class-specific memory residency, and check the failure/quarantine
    path under restoration uncertainty. Preserve every invalid capture.

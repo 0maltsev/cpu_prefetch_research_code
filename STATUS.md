@@ -167,6 +167,20 @@ head hash. This is not a fresh semantic replay. Complete controller/runtime
 footprint, live controls, publication/watchdog and qualified diagnostic
 admission remain open; no experimental capture has run.
 
+ADR-0200 adds one-shot caller-owned controller coordination/results and a
+complete mapped-controller/mapped-worker R0 integration test. Native cold TLS
+inventory retains actual per-thread payload ranges, FS base, loader generation
+and failures; truncated or mismatched snapshots cannot pass. This does not
+complete libc/runtime coverage or live qualification. The owner confirms
+exclusive stand use for these experiments; no extra deadline/storage cap was
+specified. `delta_star` remains unresolved for final precision sizing, without
+blocking independent engineering or the approved duration study. The latest
+read-only stand inventory again retains the same boot and operational journal
+head. No new semantic replay or capture is claimed.
+Both full development suites pass 519/519; all 107 calibration and 44 platform
+cases pass GCC and Clang/libc++ ASan/UBSan and TSan. These are local software
+checks, with no release or exact discovery-boundary qualification claim.
+
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;
 prospective policy v54 is not promoted or released. Missing D-037 prospective

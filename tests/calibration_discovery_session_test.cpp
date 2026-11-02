@@ -191,6 +191,50 @@ TEST(DiscoverySession, PersistentWorkersWarmupDrainResetMeasureAndReconcile) {
   }
 }
 
+TEST(DiscoverySession, CallerStorageRetainsResultsAndRejectsReuseWithoutMutation) {
+  SessionClock clock;
+  RealRingBackend backend(clock);
+  YieldRelax relax;
+  calibration::NoDiscoveryControllerObserver observer;
+  calibration::StandardDiscoveryThreads threads;
+  calibration::DiscoverySessionStorage storage;
+  const auto result = calibration::run_discovery_session(kPlan, clock, backend, relax,
+                                                         observer, threads, storage);
+  ASSERT_EQ(result.stop, calibration::DiscoverySessionStop::complete);
+  EXPECT_EQ(storage.result.stop, result.stop);
+  EXPECT_EQ(storage.result.origins, result.origins);
+  EXPECT_EQ(storage.measurement_finished.load(), 3U);
+  EXPECT_EQ(storage.warmup_finished.load(), 3U);
+  EXPECT_EQ(storage.measurement_barrier.measurement_origin(), result.origins[1U]);
+  const auto rejected = calibration::run_discovery_session(kPlan, clock, backend, relax,
+                                                           observer, threads, storage);
+  EXPECT_EQ(rejected.stop, calibration::DiscoverySessionStop::storage_already_used);
+  EXPECT_EQ(storage.result.stop, calibration::DiscoverySessionStop::complete);
+  EXPECT_EQ(storage.result.origins, result.origins);
+  EXPECT_EQ(storage.result.measurement[0U].attempts, result.measurement[0U].attempts);
+  EXPECT_EQ(rejected.measurement[0U].attempts, 0U);
+}
+
+TEST(DiscoverySession, InvalidPlanConsumesItsStorageWithoutStartingWorkers) {
+  SessionClock clock;
+  RealRingBackend backend(clock);
+  YieldRelax relax;
+  calibration::NoDiscoveryControllerObserver observer;
+  calibration::StandardDiscoveryThreads threads;
+  calibration::DiscoverySessionStorage storage;
+  auto invalid = kPlan;
+  invalid.warmup_duration_ticks = 0U;
+  const auto result = calibration::run_discovery_session(invalid, clock, backend, relax,
+                                                         observer, threads, storage);
+  EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::invalid_plan);
+  const auto rejected = calibration::run_discovery_session(kPlan, clock, backend, relax,
+                                                           observer, threads, storage);
+  EXPECT_EQ(rejected.stop, calibration::DiscoverySessionStop::storage_already_used);
+  EXPECT_EQ(storage.result.stop, calibration::DiscoverySessionStop::invalid_plan);
+  EXPECT_FALSE(storage.result.origins[0U].has_value());
+  EXPECT_EQ(storage.warmup_finished.load(), 0U);
+}
+
 TEST(DiscoverySession, MappedWorkersPersistAcrossBothPhases) {
   SessionClock clock;
   RealRingBackend backend(clock);

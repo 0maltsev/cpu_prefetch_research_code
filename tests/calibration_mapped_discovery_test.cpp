@@ -82,6 +82,11 @@ struct Fixture final {
       backend{plan.session, clock, preparation};
 
   auto run() -> calibration::DiscoverySessionResult {
+    calibration::DiscoverySessionStorage storage;
+    return run(storage);
+  }
+  auto run(calibration::DiscoverySessionStorage& storage)
+      -> calibration::DiscoverySessionResult {
     test::SoftwareStackOperations producer_stack_ops;
     test::SoftwareStackOperations consumer_stack_ops;
     platform::MappedWorkerThread producer_stack(owner, producer_stack_ops);
@@ -90,7 +95,7 @@ struct Fixture final {
         calibration::DiscoveryWorkerStacks{producer_stack, consumer_stack});
     calibration::NoDiscoveryControllerObserver observer;
     return calibration::run_discovery_session(plan.session, clock, backend, relax,
-                                              observer, threads);
+                                              observer, threads, storage);
   }
 };
 
@@ -98,6 +103,73 @@ auto contains(std::span<std::byte> region, const void* address) -> bool {
   const auto begin = reinterpret_cast<std::uintptr_t>(region.data());
   const auto value = reinterpret_cast<std::uintptr_t>(address);
   return value >= begin && value < begin + region.size();
+}
+
+TEST(MappedDiscovery, MappedControllerOwnsContextAndRetainedCoordinationStorage) {
+  auto owner = test::software_stack_plan();
+  const auto stack_plan = owner;
+  using State = calibration::DiscoverySessionStorage;
+  const auto objects_offset =
+      (sizeof(State) + alignof(Fixture) - 1U) & ~(alignof(Fixture) - 1U);
+  const auto page = owner.verified_base_page_bytes;
+  owner.bytes = (objects_offset + sizeof(Fixture) + page - 1U) & ~(page - 1U);
+  MemoryOperations operations;
+  platform::OwnerMapping control_mapping(owner, operations);
+  test::SoftwareStackOperations stack_operations;
+  platform::MappedWorkerThread controller(stack_plan, stack_operations);
+  struct Context final {
+    platform::OwnerMapping<MemoryOperations>& mapping;
+    platform::MappedWorkerThread<test::SoftwareStackOperations>& controller;
+    std::size_t objects_offset;
+    State* state{nullptr};
+    Fixture* objects{nullptr};
+    bool controller_frame_in_stack{false};
+    bool exception{false};
+    calibration::DiscoverySessionResult returned{};
+
+    static void run(void* pointer) noexcept {
+      auto& self = *static_cast<Context*>(pointer);
+      try {
+        if (!self.controller.prepared() || !self.mapping.prepare()) {
+          return;
+        }
+        self.controller_frame_in_stack =
+            contains(self.controller.body(), __builtin_frame_address(0));
+        const auto bytes = self.mapping.mapped_bytes();
+        self.state = std::construct_at(reinterpret_cast<State*>(bytes.data()));
+        self.objects = std::construct_at(
+            reinterpret_cast<Fixture*>(bytes.data() + self.objects_offset));
+        self.returned = self.objects->run(*self.state);
+      } catch (...) {
+        self.exception = true;
+      }
+    }
+  } context{control_mapping, controller, objects_offset};
+  ASSERT_TRUE(controller.start(&Context::run, &context));
+  controller.join();
+  const auto destroy_state = [](State* state) { std::destroy_at(state); };
+  const auto destroy_objects = [](Fixture* objects) { std::destroy_at(objects); };
+  std::unique_ptr<State, decltype(destroy_state)> state(context.state, destroy_state);
+  std::unique_ptr<Fixture, decltype(destroy_objects)> objects(context.objects,
+                                                              destroy_objects);
+  EXPECT_FALSE(context.exception);
+  EXPECT_TRUE(context.controller_frame_in_stack);
+  ASSERT_NE(state, nullptr);
+  ASSERT_NE(objects, nullptr);
+  EXPECT_EQ(context.returned.stop, calibration::DiscoverySessionStop::complete);
+  EXPECT_EQ(state->result.stop, context.returned.stop);
+  EXPECT_EQ(state->result.origins, context.returned.origins);
+  const auto bytes = control_mapping.mapped_bytes();
+  EXPECT_TRUE(contains(bytes, &objects->preparation));
+  EXPECT_TRUE(contains(bytes, &objects->backend));
+  EXPECT_TRUE(contains(bytes, &objects->clock));
+  EXPECT_TRUE(contains(bytes, &state->result));
+  EXPECT_TRUE(contains(bytes, &state->warmup_barrier));
+  EXPECT_TRUE(contains(bytes, &state->measurement_stop));
+  EXPECT_TRUE(contains(bytes, &state->measurement_finished));
+  EXPECT_EQ(state->measurement_finished.load(), 3U);
+  EXPECT_EQ(objects->preparation.consumer_phase(false).last_join.status,
+            calibration::DiscoveryJoinStatus::exact);
 }
 
 TEST(MappedDiscovery, RealOwnerMappingsAndStacksCompleteBothPhasesAndExactJoin) {

@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-Updated 2026-11-03. Implementation baseline: `e59c4e0`.
+Updated 2026-11-03. Implementation baseline: `398ec7c`, with D-200 continuation.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
 This roadmap is not an execution authorization or a scientific amendment.
 
@@ -13,9 +13,14 @@ This roadmap is not an execution authorization or a scientific amendment.
   same boot and journal head; it does not substitute for semantic replay.
 - Persistent worker stacks, owner-mapped arena/ring/traces/primary streams,
   bounded drain/reset, exact joins and retained residency-observer components
-  are implemented. Both compiler suites pass 513/513; 104 calibration cases
-  pass all four sanitizer configurations. These are software checks.
+  are implemented. With D-200, both compiler suites pass 519/519; 107 calibration
+  and 44 platform cases pass all four sanitizers. These are software checks.
 - No capture from the approved 36-run discovery study has executed.
+- D-200 adds caller-owned session coordination/results, full mapped-controller
+  software integration and native owner-thread TLS payload observations. Full
+  libc/runtime footprint, actual control monitoring, publication/watchdog and
+  exact qualified diagnostic admission remain open. The stand is dedicated to
+  these experiments; final primary precision bound `delta_star` is unresolved.
 - The prior release/qualification cannot automatically qualify changed source.
   Preserve prospective policy v54 and all earlier records; create a complete
   versioned successor when the integrated source is ready.
@@ -52,20 +57,26 @@ Finish material formal-calibration source changes before formal collection.
 If a separate diagnostic build is necessary, retain its identity and explicitly
 establish applicability to the final formal build. A material change invalidates
 dependent evidence; it cannot be concealed by keeping the same record label.
+The downstream source audit confirms that the current Q16b summary includes
+drain in its total consumer count and supplies no separate fixed-interval
+completion count. Nonpilot `warmup_reset_verified` is also currently a literal
+success rather than execution evidence. Both require actual implementation and
+versioned output/admission changes before formal collection; the old summaries
+cannot establish those requirements.
 
 ## Owner inputs and existing authorization
 
-Two questions are currently pending:
+The owner answered on 2026-11-03:
 
-1. Is the stand dedicated and available exclusively for these runs? What hard
-   deadline or storage restriction applies beyond measured resources? Derive
-   conservative proposed budgets from actual resources, then bind finite limits
-   before each action; absence of a deadline does not authorize an infinite run.
-2. What primary practical latency effect and application rationale should define
-   `delta_star`, or where is its already-approved record? No approved value was
-   found in the reviewed repository/current authoring records. The imported
-   freeze checklist explicitly reserves `log(1.05)` for sensitivity analysis.
-   Do not choose the primary threshold from observed treatment effects.
+1. “only to this exps”: the stand is dedicated to these experiments. No additional
+   deadline or storage cap was specified. Derive conservative budgets from
+   actual resources and bind finite limits before each action; absence of a
+   deadline does not authorize an infinite run.
+2. “anything”: no positive primary practical latency bound or application
+   rationale was selected. Keep `delta_star` unresolved for final precision
+   planning. This does not block engineering, qualification or the approved
+   duration discovery. The imported freeze checklist reserves `log(1.05)` for
+   sensitivity analysis; do not choose the primary bound from observed effects.
 
 Reuse the user's existing authorization for autonomous engineering, SSH/stand
 setup and verified local commits without pushing. The accepted pilot owner-role

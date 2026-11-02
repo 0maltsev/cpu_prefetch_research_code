@@ -130,3 +130,35 @@ bundled fixture journals; it grants no semantic replay or execution authority.
 Complete controller/runtime/TLS coverage, live control monitoring, finite
 resource admission, publication/watchdog and exact qualified release remain
 open before the approved discovery study. Stage 17 remains incomplete.
+
+ADR-0200 moves shared session barriers, flags and retained results into
+caller-owned one-shot storage. Reuse, including reuse after invalid admission,
+cannot mutate prior results or launch workers. A native integration test runs
+the full existing R0 session with provider/backend/clock/control objects in a
+controller-owned mapping, a mapped controller stack and both persistent mapped
+worker stacks. Both phases complete and independently retained primary streams
+join exactly. Binding remains injected and capture clocks synthetic.
+
+The cold native TLS inventory records actual per-thread payload ranges, FS base,
+loader generations and return statuses in finite caller storage. It identifies
+real executable TLS and libc `errno`, including on a mapped worker. Short
+output retains its prefix and rejects; owner, generation and address changes
+reject snapshot equivalence. This is not a complete libc/runtime inventory or
+placement qualification; no loader walk belongs in a measured interval.
+
+Both final full development suites pass **519/519**, exit 0. All **107
+calibration** and **44 platform** cases pass all four sanitizer configurations.
+The first strict analysis rejected four optional-access diagnostics; explicit
+checks repair them without suppression. Initial controller test compilation
+also required explicit default initialization of the retained result field.
+These failures were corrected before the final checks.
+[controller-storage-tls-checks.json](controller-storage-tls-checks.json) binds
+the exact source, runtime, commands and logs. All four affected translation
+units pass final strict analysis. Global format, immutable protocol/schema
+integrity, schema fixtures, canonical fixtures and document checks pass.
+
+The [fresh stand inventory](../STAND-AUDIT-CPU-PREFETCH-V5-20261103-01/README.md)
+again finds unchanged boot and real operational journal identity. The owner
+confirms dedicated use. No new semantic replay, phase authority, qualification
+or capture follows. Full live footprint/control monitoring, publication and
+watchdog, exact-boundary qualification and diagnostic admission remain open.

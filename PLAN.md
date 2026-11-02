@@ -499,6 +499,17 @@ software integration can continue independently.
   footprint, live control monitoring, publication/watchdog and exact qualified
   diagnostic action. No empirical capture or operational resolution follows.
 
+  ADR-0200 adds caller-owned one-shot session coordination/results and exercises
+  the entire R0 session on the mapped controller and worker stacks. Native cold
+  TLS snapshots retain actual owner/module addresses and loader generations;
+  truncated/mismatched observations reject. Complete libc/runtime coverage,
+  actual control monitoring, publication/watchdog and exact qualified action
+  remain next. The owner confirms dedicated use; derive finite budgets from
+  actual resources. Final precision `delta_star` remains unresolved, without
+  blocking this independent engineering or the approved duration study.
+  Both integrated development suites pass 519/519; 107 calibration and 44
+  platform cases pass all four sanitizer configurations. No capture has run.
+
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.
   Next obtain the typed D-037 duration/minimum-observation/warm-up inputs,

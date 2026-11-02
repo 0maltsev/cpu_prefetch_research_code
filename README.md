@@ -159,6 +159,19 @@ SSH is restored through the local VPN bypass; the operational journal hash
 is unchanged. Complete controller/runtime footprint, actual control monitoring,
 publication/watchdog and qualified diagnostic admission remain open.
 
+ADR-0200 adds caller-owned one-shot session coordination/results and exercises
+the complete R0 session on a mapped controller stack with mapped runtime
+objects and both persistent workers. Cold native TLS observations retain each
+owner's actual payload ranges and FS base; short output and mismatched snapshots
+cannot pass. TLS payloads alone do not declare the entire libc/runtime footprint.
+See [D-200](docs/decisions/0200-stage17-controller-storage-and-thread-tls-observations.md).
+The owner confirms the stand is dedicated to these experiments. Final precision
+input `delta_star` remains unresolved; independent engineering and the approved
+duration study can proceed once their own runtime/admission gates pass.
+Both full development suites pass 519/519; 107 calibration and 44 platform
+cases pass all four sanitizer configurations. See
+[verification evidence](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261103-01/README.md).
+
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked
 on the typed D-037 plan and its duration/minimum-observation/warm-up/residency

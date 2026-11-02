@@ -38,6 +38,7 @@ enum class DiscoverySessionStop : std::uint8_t {
   trace_capacity,
   complete,
   observation_failure,
+  storage_already_used,
 };
 
 enum class DiscoveryPreparationStatus : std::uint8_t {
@@ -100,6 +101,31 @@ struct DiscoverySessionResult final {
   bool measurement_verified{false};
 };
 
+// Caller constructs this once in explicitly prepared, declared control memory.
+// All barriers, shared flags and retained results live here; the controller
+// invocation frame/closures, clock, backend and launcher have separate lifetimes
+// and must also be covered by live runtime placement/monitoring. Inspect result
+// only after run_discovery_session returns. Never reset/reuse this storage.
+struct DiscoverySessionStorage final {
+  [[nodiscard]] auto claim() noexcept -> bool {
+    return !claimed_.exchange(true, std::memory_order_acq_rel);
+  }
+  lifecycle::WorkerStartBarrier warmup_barrier;
+  lifecycle::WorkerStartBarrier measurement_barrier;
+  std::atomic<bool> fatal{false};
+  std::atomic<bool> warmup_stop{false};
+  std::atomic<bool> measurement_stop{false};
+  std::atomic<std::uint32_t> warmup_finished{0U};
+  std::atomic<std::uint32_t> measurement_finished{0U};
+  std::atomic<bool> warmup_reset_ready{false};
+  std::array<std::atomic<bool>, 2U> observations_finished{};
+  std::array<std::atomic<bool>, 2U> observations_accepted{};
+  DiscoverySessionResult result;
+
+private:
+  std::atomic<bool> claimed_{false};
+};
+
 // This coordinates already-frozen controls, not run admission. Backend owns
 // prepared persistent storage, owner-thread binding/prefaulting, actual event
 // validation/checksum actions, and private logical reset. Clock and Relax must
@@ -113,27 +139,33 @@ template <typename Clock, typename Backend, typename Relax, typename Observer,
           typename Threads>
 [[nodiscard]] auto run_discovery_session(DiscoverySessionPlan plan, Clock& clock,
                                          Backend& backend, Relax& relax,
-                                         Observer& observer, Threads& threads)
+                                         Observer& observer, Threads& threads,
+                                         DiscoverySessionStorage& storage)
     -> DiscoverySessionResult {
   static_assert(noexcept(clock.read()));
   static_assert(noexcept(relax.relax()));
-  DiscoverySessionResult result;
+  if (!storage.claim()) {
+    DiscoverySessionResult rejected;
+    rejected.stop = DiscoverySessionStop::storage_already_used;
+    return rejected;
+  }
+  auto& result = storage.result;
   if (plan.warmup_duration_ticks == 0U || plan.measurement_duration_ticks == 0U ||
       plan.warmup_attempt_capacity == 0U || plan.measurement_attempt_capacity == 0U ||
       plan.drain_duration_ticks == 0U || plan.drain_attempt_capacity == 0U ||
       plan.barrier_poll_limit == 0U) {
     return result;
   }
-  lifecycle::WorkerStartBarrier warmup_barrier;
-  lifecycle::WorkerStartBarrier measurement_barrier;
-  std::atomic<bool> fatal{false};
-  std::atomic<bool> warmup_stop{false};
-  std::atomic<bool> measurement_stop{false};
-  std::atomic<std::uint32_t> warmup_finished{0U};
-  std::atomic<std::uint32_t> measurement_finished{0U};
-  std::atomic<bool> warmup_reset_ready{false};
-  std::array<std::atomic<bool>, 2U> observations_finished{};
-  std::array<std::atomic<bool>, 2U> observations_accepted{};
+  auto& warmup_barrier = storage.warmup_barrier;
+  auto& measurement_barrier = storage.measurement_barrier;
+  auto& fatal = storage.fatal;
+  auto& warmup_stop = storage.warmup_stop;
+  auto& measurement_stop = storage.measurement_stop;
+  auto& warmup_finished = storage.warmup_finished;
+  auto& measurement_finished = storage.measurement_finished;
+  auto& warmup_reset_ready = storage.warmup_reset_ready;
+  auto& observations_finished = storage.observations_finished;
+  auto& observations_accepted = storage.observations_accepted;
   const auto cancel = [&]() noexcept {
     fatal.store(true, std::memory_order_release);
     warmup_stop.store(true, std::memory_order_release);
@@ -472,6 +504,16 @@ template <typename Clock, typename Backend, typename Relax, typename Observer,
     }
   }
   return result;
+}
+
+template <typename Clock, typename Backend, typename Relax, typename Observer,
+          typename Threads>
+[[nodiscard]] auto run_discovery_session(DiscoverySessionPlan plan, Clock& clock,
+                                         Backend& backend, Relax& relax,
+                                         Observer& observer, Threads& threads)
+    -> DiscoverySessionResult {
+  DiscoverySessionStorage storage;
+  return run_discovery_session(plan, clock, backend, relax, observer, threads, storage);
 }
 
 template <typename Clock, typename Backend, typename Relax, typename Observer>

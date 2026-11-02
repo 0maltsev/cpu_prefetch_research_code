@@ -199,6 +199,23 @@ Linux owner construction/binding/monitoring, durable publication, finite outer
 watchdog, versioned diagnostic admission/release and fresh dependent/exact-clock
 qualification remain required. No diagnostic or formal capture has run.
 
+ADR-0196 supplies explicit Linux preparation for new private owner mappings:
+verified page geometry, pre-touch node binding/no-huge request, independent
+affinity/CPU/thread/fault observations, owner prefault, lock and one-shot
+cleanup with retained results. It does not wrap/erase borrowed stacks or infer
+page residency from accepted syscalls. Native mask tests preserve node zero
+and the top supported bit. Controller observers now gate each phase before
+release, during capture and after both workers stop. Failures retain bounded
+drain and independent raw integrity, prohibit warm reset/measurement release,
+and cannot become success after a late report. Missing monitoring is explicit.
+Both full compiler suites pass 487/487; 37 platform and 83 calibration cases
+pass all four sanitizer configurations. Five affected translation units,
+global format, provenance and six existing codegen gates pass. These local checks do not qualify
+stand placement or the new boundary sequence. Actual mapped object/stack
+composition, retained all-page/control monitoring, finite resource controls,
+publication/watchdog/admission and fresh qualified release remain open.
+See the [bound verification record](evidence/stage17/LOCAL-VERIFICATION-EXT007-20261103-01/README.md).
+
 ## Implemented prerequisites
 
 ADR-0177 integrates the existing hardware mappings into a testable whole-plot

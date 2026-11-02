@@ -115,6 +115,17 @@ focused strict analysis and all six existing codegen gates pass. Tests use a
 software-only preparation provider. The actual Linux owner/mapping/monitoring
 provider, durable publication, watchdog/admission and qualification remain open.
 
+ADR-0196 adds explicit Linux owner mapping controls/readbacks and one-shot
+prefault/lock/cleanup, retaining actual failures separately from requested
+placement. Controller observations gate both phases and preserve bounded drain
+after failure. Late failures still prevent completion; complete raw integrity
+is retained separately. Both integrated suites pass 487/487; 37 platform and
+83 calibration cases pass all four sanitizer configurations. Five affected
+translation units, global format, provenance and six existing codegen gates
+pass. These are local software checks. Full mapped object/stack preparation and retained live
+residency/control monitoring still require integration before publication,
+watchdog/admission and qualified stand execution. No capture has run.
+
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;
 prospective policy v54 is not promoted or released. Missing D-037 prospective

@@ -36,6 +36,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
+| [ADR-0196](0196-linux-owner-mapping-and-controller-observation.md) | `ACCEPTED` | Prepare one-shot owner-prefaulted Linux mappings with actual control/readback/cleanup facts; gate discovery phases on explicit controller observations while retaining bounded drain and raw integrity. |
 | [ADR-0195](0195-integrated-discovery-ring-phase-backend.md) | `ACCEPTED` | Compose real event streams, observed drain and allocation-free exact joins with persistent discovery workers; preserve partial identities and prevent reset after failed integrity. |
 | [ADR-0194](0194-caller-owned-primary-stream-storage.md) | `ACCEPTED` | Prepare the unchanged primary raw codec in caller-owned buffers; preserve ownership, capacity failures, hot offsets and stream object size in supported ABIs. |
 | [ADR-0193](0193-discovery-event-and-demand-capture.md) | `ACCEPTED` | Capture ordinary event boundaries and exact demand brackets together; retain real operations/actions after failure and distinguish absent clocks and pre-operation failures. |

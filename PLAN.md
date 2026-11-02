@@ -443,6 +443,20 @@ authorization/amendment.
   accepted 36-key study. Finish all material formal-source work before formal
   Q16a collection.
 
+  ADR-0196 adds the native owner-mapping lifecycle and explicit controller
+  observations around discovery phases. Actual controls, affinity/CPU/thread
+  and fault readbacks, one-shot preparation and cleanup are retained. Failed
+  observations preserve bounded drain and exact raw integrity; warmup failure
+  prohibits reset/measurement, and late measurement failure prohibits success.
+  Both full compiler suites pass 487/487; 37 platform and 83 calibration cases
+  pass all four sanitizer configurations; focused strict analysis of five
+  translation units, global format, provenance and six existing codegen gates
+  also pass. Next compose all actual owner objects,
+  borrowed-stack preparation and retained all-page/control snapshots in the
+  Linux provider, then finish publication/watchdog, prospective finite resource
+  controls and versioned diagnostic admission/release. No hardware state or
+  numeric capture/monitoring budget is inferred from software verification.
+
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.
   Next obtain the typed D-037 duration/minimum-observation/warm-up inputs,

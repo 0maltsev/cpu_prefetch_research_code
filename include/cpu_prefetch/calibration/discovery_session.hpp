@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <optional>
 #include <thread>
+#include <type_traits>
 #include <utility>
 
 namespace cpu_prefetch::calibration {
@@ -35,6 +36,7 @@ enum class DiscoverySessionStop : std::uint8_t {
   drain_failure,
   trace_capacity,
   complete,
+  observation_failure,
 };
 
 enum class DiscoveryPreparationStatus : std::uint8_t {
@@ -42,6 +44,38 @@ enum class DiscoveryPreparationStatus : std::uint8_t {
   ready,
   rejected,
   exception,
+};
+
+enum class DiscoverySessionPhase : std::uint8_t { warmup, measurement };
+
+enum class DiscoveryObservationStatus : std::uint8_t {
+  not_started,
+  not_configured,
+  accepted,
+  rejected,
+  exception,
+};
+
+struct DiscoveryPhaseObservations final {
+  DiscoveryObservationStatus before{DiscoveryObservationStatus::not_started};
+  DiscoveryObservationStatus during{DiscoveryObservationStatus::not_started};
+  DiscoveryObservationStatus after{DiscoveryObservationStatus::not_started};
+};
+
+struct DiscoveryObservationWindow final {
+  std::uint64_t origin_ticks;
+  std::uint64_t duration_ticks;
+};
+
+// Legacy software-only sessions do not imply that platform monitoring passed.
+// A qualified live action must supply its explicit, finite controller observer.
+struct NoDiscoveryControllerObserver final {
+  auto before_phase(DiscoverySessionPhase) const noexcept -> bool { return true; }
+  auto during_phase(DiscoverySessionPhase, DiscoveryObservationWindow,
+                    const std::atomic<std::uint32_t>&) const noexcept -> bool {
+    return true;
+  }
+  auto after_phase(DiscoverySessionPhase) const noexcept -> bool { return true; }
 };
 
 struct DiscoverySessionResult final {
@@ -60,6 +94,7 @@ struct DiscoverySessionResult final {
   std::array<std::optional<std::uint64_t>, 2U> origins{};
   std::array<std::optional<std::uint64_t>, 2U> observed_origins{};
   std::array<std::optional<timing::ClockReadStatus>, 2U> origin_status{};
+  std::array<DiscoveryPhaseObservations, 2U> observations{};
   bool warmup_verified{false};
   bool measurement_verified{false};
 };
@@ -68,10 +103,15 @@ struct DiscoverySessionResult final {
 // prepared persistent storage, owner-thread binding/prefaulting, actual event
 // validation/checksum actions, and private logical reset. Clock and Relax must
 // support concurrent use. Capture callbacks must not allocate, block, or throw.
-template <typename Clock, typename Backend, typename Relax>
+// Observer runs on the controller only: before release, during the fixed phase,
+// and after both workers stop but before validation/drain/reset. Its own frozen
+// schedule and retained page/status/timestamp scratch must be finite. The during
+// hook receives the released origin/duration and a read-only completion mask;
+// it must not access mutable worker observations. No observation grants admission.
+template <typename Clock, typename Backend, typename Relax, typename Observer>
 [[nodiscard]] auto run_discovery_session(DiscoverySessionPlan plan, Clock& clock,
-                                         Backend& backend, Relax& relax)
-    -> DiscoverySessionResult {
+                                         Backend& backend, Relax& relax,
+                                         Observer& observer) -> DiscoverySessionResult {
   static_assert(noexcept(clock.read()));
   static_assert(noexcept(relax.relax()));
   DiscoverySessionResult result;
@@ -89,6 +129,8 @@ template <typename Clock, typename Backend, typename Relax>
   std::atomic<std::uint32_t> warmup_finished{0U};
   std::atomic<std::uint32_t> measurement_finished{0U};
   std::atomic<bool> warmup_reset_ready{false};
+  std::array<std::atomic<bool>, 2U> observations_finished{};
+  std::array<std::atomic<bool>, 2U> observations_accepted{};
   const auto cancel = [&]() noexcept {
     fatal.store(true, std::memory_order_release);
     warmup_stop.store(true, std::memory_order_release);
@@ -122,7 +164,8 @@ template <typename Clock, typename Backend, typename Relax>
     const DiscoveryDrainWindow window{
         origin.sample.relative_picoseconds, plan.drain_duration_ticks,
         plan.drain_attempt_capacity, workers[0].advanced - workers[1].advanced,
-        warmup && result.warmup_verified};
+        warmup && result.warmup_verified &&
+            observations_accepted[0U].load(std::memory_order_acquire)};
     if constexpr (requires {
                     backend.drain_warmup(window);
                     backend.drain_measurement(window);
@@ -185,7 +228,8 @@ template <typename Clock, typename Backend, typename Relax>
       warmup_finished.fetch_or(bit, std::memory_order_acq_rel);
       if constexpr (Role == RingWorker::consumer) {
         if (!wait([&]() noexcept {
-              return warmup_finished.load(std::memory_order_acquire) == 3U;
+              return warmup_finished.load(std::memory_order_acquire) == 3U &&
+                     observations_finished[0U].load(std::memory_order_acquire);
             })) {
           return;
         }
@@ -195,6 +239,7 @@ template <typename Clock, typename Backend, typename Relax>
             backend.validate_warmup(std::as_const(result.warmup));
         result.warmup_drain = drain(result.warmup, true);
         if (!result.warmup_verified ||
+            !observations_accepted[0U].load(std::memory_order_acquire) ||
             result.warmup_drain.stop != DiscoveryDrainStop::complete ||
             !result.warmup_drain.reset_verified) {
           cancel();
@@ -250,7 +295,8 @@ template <typename Clock, typename Backend, typename Relax>
       measurement_finished.fetch_or(bit, std::memory_order_acq_rel);
       if constexpr (Role == RingWorker::consumer) {
         if (!wait([&]() noexcept {
-              return measurement_finished.load(std::memory_order_acquire) == 3U;
+              return measurement_finished.load(std::memory_order_acquire) == 3U &&
+                     observations_finished[1U].load(std::memory_order_acquire);
             })) {
           return;
         }
@@ -285,12 +331,34 @@ template <typename Clock, typename Backend, typename Relax>
     result.stop = DiscoverySessionStop::thread_start_failure;
     return result;
   }
-  enum class Phase : std::uint8_t { warmup, measurement };
-  const auto release = [&](auto& barrier, Phase phase, std::uint64_t duration) {
+  const auto observe = [&](auto&& callback) noexcept {
+    if constexpr (std::is_same_v<Observer, NoDiscoveryControllerObserver>) {
+      return DiscoveryObservationStatus::not_configured;
+    } else {
+      try {
+        return callback() ? DiscoveryObservationStatus::accepted
+                          : DiscoveryObservationStatus::rejected;
+      } catch (...) {
+        return DiscoveryObservationStatus::exception;
+      }
+    }
+  };
+  const auto accepted = [](DiscoveryObservationStatus status) noexcept {
+    return status == DiscoveryObservationStatus::accepted ||
+           status == DiscoveryObservationStatus::not_configured;
+  };
+  const auto release = [&](auto& barrier, DiscoverySessionPhase phase,
+                           std::uint64_t duration) {
     const auto phase_index = static_cast<std::size_t>(phase);
     if (barrier.controller_wait(plan.barrier_poll_limit, [&]() noexcept {
           relax.relax();
         }) != lifecycle::StartBarrierStatus::ready) {
+      cancel();
+      return false;
+    }
+    auto& before = result.observations[phase_index].before;
+    before = observe([&] { return observer.before_phase(phase); });
+    if (!accepted(before)) {
       cancel();
       return false;
     }
@@ -313,16 +381,63 @@ template <typename Clock, typename Backend, typename Relax>
     result.origins[phase_index] = origin.sample.relative_picoseconds;
     return true;
   };
+  const auto monitor = [&](DiscoverySessionPhase phase, std::uint64_t duration,
+                           const auto& finished, auto& phase_stop) {
+    const auto index = static_cast<std::size_t>(phase);
+    auto& observed = result.observations[index];
+    if (!result.origins[index].has_value()) {
+      return false;
+    }
+    const auto origin = *result.origins[index];
+    observed.during = observe([&] {
+      return observer.during_phase(
+          phase,
+          DiscoveryObservationWindow{.origin_ticks = origin,
+                                     .duration_ticks = duration},
+          finished);
+    });
+    if (!accepted(observed.during)) {
+      // Stop capture, not the consumer's bounded drain. Full cancellation here
+      // would lose real pending events and skip the final sequence audit.
+      phase_stop.store(true, std::memory_order_release);
+    }
+    if (!wait([&]() noexcept {
+          return finished.load(std::memory_order_acquire) == 3U;
+        })) {
+      return false;
+    }
+    observed.after = observe([&] { return observer.after_phase(phase); });
+    const bool passed = accepted(observed.during) && accepted(observed.after);
+    observations_accepted[index].store(passed, std::memory_order_release);
+    observations_finished[index].store(true, std::memory_order_release);
+    return passed;
+  };
   const bool started =
-      release(warmup_barrier, Phase::warmup, plan.warmup_duration_ticks) &&
-      release(measurement_barrier, Phase::measurement, plan.measurement_duration_ticks);
+      release(warmup_barrier, DiscoverySessionPhase::warmup,
+              plan.warmup_duration_ticks) &&
+      monitor(DiscoverySessionPhase::warmup, plan.warmup_duration_ticks,
+              warmup_finished, warmup_stop) &&
+      release(measurement_barrier, DiscoverySessionPhase::measurement,
+              plan.measurement_duration_ticks) &&
+      monitor(DiscoverySessionPhase::measurement, plan.measurement_duration_ticks,
+              measurement_finished, measurement_stop);
   join();
+  bool observation_failed = false;
+  for (const auto& phase : result.observations) {
+    for (const auto status : {phase.before, phase.during, phase.after}) {
+      observation_failed = observation_failed ||
+                           status == DiscoveryObservationStatus::rejected ||
+                           status == DiscoveryObservationStatus::exception;
+    }
+  }
   result.stop = DiscoverySessionStop::measurement_failure;
   if (result.preparation[0] != DiscoveryPreparationStatus::ready ||
       result.preparation[1] != DiscoveryPreparationStatus::ready) {
     result.stop = DiscoverySessionStop::preparation_failure;
   } else if (result.worker_exception[0] || result.worker_exception[1]) {
     result.stop = DiscoverySessionStop::worker_exception;
+  } else if (observation_failed) {
+    result.stop = DiscoverySessionStop::observation_failure;
   } else if (!result.warmup_verified || !result.warmup_drain.reset_verified ||
              !result.private_reset_verified[0] || !result.private_reset_verified[1]) {
     result.stop = result.origins[0] ? DiscoverySessionStop::warmup_failure
@@ -347,6 +462,14 @@ template <typename Clock, typename Backend, typename Relax>
     }
   }
   return result;
+}
+
+template <typename Clock, typename Backend, typename Relax>
+[[nodiscard]] auto run_discovery_session(DiscoverySessionPlan plan, Clock& clock,
+                                         Backend& backend, Relax& relax)
+    -> DiscoverySessionResult {
+  NoDiscoveryControllerObserver observer;
+  return run_discovery_session(plan, clock, backend, relax, observer);
 }
 
 } // namespace cpu_prefetch::calibration

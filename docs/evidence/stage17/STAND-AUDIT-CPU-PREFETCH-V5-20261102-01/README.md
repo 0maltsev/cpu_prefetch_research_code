@@ -46,3 +46,14 @@ and OpenSSL 3.5.5. `g++`, `clang++` and CMake were absent from the queried
 process's normal PATH. It only invoked version commands with Python bytecode
 writes disabled; no configuration, MSR or capture action occurred. These
 version facts do not qualify the new binary or its loaded dependency closure.
+
+A further [resource snapshot](resources-20261102T211554Z.json) at 21:15:54 UTC
+(November 3 locally) also used SSH stdin with `python3 -B -`. It read uname,
+boot ID, `/proc/loadavg`, selected `/proc/meminfo` entries, evidence-filesystem
+`statvfs`, process `comm` names, and the latest retained journal bytes. The
+latest journal SHA-256 remains unchanged, with nine journal files present.
+No process `comm` matched `prefetch` or `discovery` at that instant; this is not
+a proof of global machine quiescence. Resource availability is not a frozen
+budget. The JSON records actual remote values without asserting fresh replay,
+qualification, MSR state or execution authority. No stand files, controls or
+captures were changed.

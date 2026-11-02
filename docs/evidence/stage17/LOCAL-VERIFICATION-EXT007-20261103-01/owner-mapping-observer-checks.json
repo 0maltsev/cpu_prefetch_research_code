@@ -1,0 +1,164 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "release_qualified": false,
+  "source_base_commit": "f8713e7",
+  "source_state": "ADR0196 changes before local commit; exact source digests below",
+  "source_sha256": {
+    "CMakeLists.txt": "6743ddedc61bea0646ac54f9dfffe5de291520971f7165641b0c2c420a8d8da2",
+    "include/cpu_prefetch/platform/owner_mapping.hpp": "f459751f0f5adb06c46601cbab00a9d12ff5a3379ff6496164afe80e03c71df6",
+    "src/platform/owner_mapping.cpp": "0ff07b31d2df70f3a919b1df75063789ea72333e6954efa29a1d1cef7421a1fd",
+    "tests/platform_owner_mapping_test.cpp": "bb4858e252fac082b9bd267ac63bf2c19062d6f51e453fb33271f95ab91b4247",
+    "include/cpu_prefetch/calibration/discovery_session.hpp": "ea69c3a60b6257b0305593e32aa7a53dd04335ca90f92826eb281111d49a61ba",
+    "tests/calibration_discovery_session_test.cpp": "95d342f04fa66192def945fc95b4e1e4b04917455c54e4c5078776efc3dc31ed",
+    "tests/calibration_discovery_backend_test.cpp": "08323edba1edf2a8bb33cb7474248f684798f42480babe0d429f075ac59ca163"
+  },
+  "protocol_version": "2.0.0-pre.3",
+  "runtime_manifest": {
+    "path": "docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/runtime-restoration.json",
+    "sha256": "4ecb9df69719223ae15bb337896ebf5c91faa3df653c2af3253216e2d9ace7a0"
+  },
+  "full_ctest": {
+    "gcc": {
+      "path": "build/ext007-runtime-20261101/owner-observer-full-gcc-tests.log",
+      "sha256": "b6ff90004c4be40fd2b7a04767c715f2fc5d9a60f462ffb936a292319f9ed826",
+      "exit_code": 0,
+      "cases": 487,
+      "build_directory": "build/accepted-dev-gcc",
+      "command": "cmake --build build/accepted-dev-gcc -j2 && ctest --test-dir build/accepted-dev-gcc --output-on-failure -j2"
+    },
+    "clang": {
+      "path": "build/ext007-runtime-20261101/owner-observer-full-clang-tests.log",
+      "sha256": "b0cde12f925e63d13a505152c75458085cd14271930e8247e3a3fe7f1eb8c28c",
+      "exit_code": 0,
+      "cases": 487,
+      "build_directory": "build/accepted-dev-clang-libcxx",
+      "command": "cmake --build build/accepted-dev-clang-libcxx -j2 && ctest --test-dir build/accepted-dev-clang-libcxx --output-on-failure -j2"
+    }
+  },
+  "sanitizers": {
+    "accepted-asan-ubsan-gcc": {
+      "path": "build/ext007-runtime-20261101/owner-observer-accepted-asan-ubsan-gcc-tests.log",
+      "sha256": "10b82cc671641f39a82695dd5a3b377fc8ce4f695063d07e613ff39cac6ebca9",
+      "exit_code": 0,
+      "platform_cases": 37,
+      "calibration_cases": 83,
+      "storage_allocation_cases": 3,
+      "build_targets": [
+        "cpu_prefetch_platform_tests",
+        "cpu_prefetch_calibration_tests",
+        "cpu_prefetch_storage_noalloc"
+      ]
+    },
+    "accepted-tsan-gcc": {
+      "path": "build/ext007-runtime-20261101/owner-observer-accepted-tsan-gcc-tests.log",
+      "sha256": "396e15b93d56696d5a3d986c6c28a9b03a6ff0efc1fcaf46ef4775913c7ce57d",
+      "exit_code": 0,
+      "platform_cases": 37,
+      "calibration_cases": 83,
+      "storage_allocation_cases": 3,
+      "build_targets": [
+        "cpu_prefetch_platform_tests",
+        "cpu_prefetch_calibration_tests",
+        "cpu_prefetch_storage_noalloc"
+      ]
+    },
+    "accepted-asan-ubsan-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/owner-observer-accepted-asan-ubsan-clang-libcxx-tests.log",
+      "sha256": "a2470e01ca011688b22a2da62a1bc1c787dbf1022dda9a4cb2c1ca505c336b9f",
+      "exit_code": 0,
+      "platform_cases": 37,
+      "calibration_cases": 83,
+      "storage_allocation_cases": 3,
+      "build_targets": [
+        "cpu_prefetch_platform_tests",
+        "cpu_prefetch_calibration_tests",
+        "cpu_prefetch_storage_noalloc"
+      ]
+    },
+    "accepted-tsan-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/owner-observer-accepted-tsan-clang-libcxx-tests.log",
+      "sha256": "1566135ea6e7cc58a9f84712d8b56d9d3a9b4c2dfb6c104075d0d973ff1dc2dd",
+      "exit_code": 0,
+      "platform_cases": 37,
+      "calibration_cases": 83,
+      "storage_allocation_cases": null,
+      "build_targets": [
+        "cpu_prefetch_platform_tests",
+        "cpu_prefetch_calibration_tests"
+      ]
+    }
+  },
+  "clang_tsan_allocation_counter": "EXCLUDED_BY_EXISTING_CMAKE_POLICY_INTERCEPTOR_CONFLICT",
+  "allocation_scope": "Existing capture, observed drain, exact join and reset checks; preparation is cold, not a no-allocation experiment claim",
+  "native_linux_test_scope": [
+    "Actual local page-size query, mmap, MADV_NOHUGEPAGE, read/write and mprotect/munmap lifecycle",
+    "Actual local worker singleton affinity/current CPU/thread ID/fault readback; no inferred topology",
+    "Native mbind request contract including kernel maxnode convention and no migration flags",
+    "Injected control, lock, readback and cleanup success/failure boundaries; no stand binding or residency claimed"
+  ],
+  "controller_scope": "Software observer hooks with real arena/ring/raw streams; all before/during/after failure and exception boundaries, early stop and late failure, retained drain/integrity, no warm reset/measurement after failed warm observations",
+  "static_analysis": {
+    "path": "build/ext007-runtime-20261101/owner-observer-tidy-final.log",
+    "sha256": "b3d8015a82e53ee7b9f1e59d91b2f16f8eab42aedc9197924fe54ba6b39eeadd",
+    "exit_code": 0,
+    "translation_units": [
+      "src/platform/owner_mapping.cpp",
+      "tests/platform_owner_mapping_test.cpp",
+      "tests/calibration_discovery_session_test.cpp",
+      "tests/calibration_discovery_backend_test.cpp",
+      "tests/storage_noalloc_test.cpp"
+    ],
+    "command": "clang-tidy -p build/accepted-dev-gcc --warnings-as-errors=\"*\" src/platform/owner_mapping.cpp tests/platform_owner_mapping_test.cpp tests/calibration_discovery_session_test.cpp tests/calibration_discovery_backend_test.cpp tests/storage_noalloc_test.cpp"
+  },
+  "format": {
+    "path": "build/ext007-runtime-20261101/owner-observer-format.log",
+    "sha256": "2a2dfb33385f763495a7752721d7f4bcf54c5fe8cfbf144c88c3f1601c5a6653",
+    "exit_code": 0
+  },
+  "provenance_and_existing_codegen": {
+    "path": "build/ext007-runtime-20261101/owner-observer-codegen.log",
+    "sha256": "0ff5fa7d9a61e778d09943ed137becc9761545ceb34a07d1fdae5a2ee90d91d3",
+    "exit_code": 0
+  },
+  "existing_codegen_reports": [
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "1af9a706048eb4a3daf572adcc643458995bbfa3c720fcfc9cdf9312d07ee971",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "5dd838a4b6e4c6719136d2d496b1f01bcc32d4fef95a3733413f1332cf402c32",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "0462d356139602aa0f743469b3e05ed9ab77ee10410165c6b51b0cc1926551bd",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "7d009760cb44496a28c5678df285d05c5b7e2300aeb2a57426a675c1af5a8e58",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "a6831ef0f1b974db892e04d6deca1b853fc1483190f2cc38efbfc27af4d4979f",
+      "status": "PASS"
+    }
+  ],
+  "exact_discovery_boundary_qualification": "NOT_PERFORMED",
+  "live_mapped_object_stack_and_residency_provider": "INCOMPLETE; native mapping foundation and controller hook only",
+  "stand_snapshot": {
+    "path": "docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261102-01/resources-20261102T211554Z.json",
+    "sha256": "b7468e51540f2ac5d38860f244724fd29c21173158757f4462b76a58e4710cfd",
+    "scope": "READ_ONLY; no MSR/control/capture action; not a replay or qualification"
+  },
+  "preserved_predecessors": "No protocol, scientific design, policy v54, historical source/archive or journal identities changed"
+}

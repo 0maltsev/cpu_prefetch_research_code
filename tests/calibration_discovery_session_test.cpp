@@ -183,6 +183,11 @@ TEST(DiscoverySession, PersistentWorkersWarmupDrainResetMeasureAndReconcile) {
   EXPECT_EQ(backend.measurement_trace().series().producer_demand_ticks.size(),
             result.measurement[0].attempts);
   EXPECT_EQ(backend.ring().audit_quiescent().occupied_slots, 0U);
+  for (const auto& phase : result.observations) {
+    EXPECT_EQ(phase.before, calibration::DiscoveryObservationStatus::not_configured);
+    EXPECT_EQ(phase.during, calibration::DiscoveryObservationStatus::not_configured);
+    EXPECT_EQ(phase.after, calibration::DiscoveryObservationStatus::not_configured);
+  }
 }
 
 TEST(DiscoverySession, RejectedOrThrowingPreparationCannotStartEitherPhase) {
@@ -320,6 +325,182 @@ TEST(DiscoverySession, PostCaptureExceptionJoinsWorkersAndRetainsTheirResults) {
             calibration::DiscoveryWorkerStop::fixed_deadline);
   EXPECT_EQ(result.measurement_drain.stop,
             calibration::DiscoveryDrainStop::invalid_plan);
+}
+
+class ControllerObserver final {
+public:
+  std::array<std::size_t, 6U> calls{};
+  std::array<std::uint64_t, 2U> origins{};
+  std::array<std::uint64_t, 2U> durations{};
+  std::array<std::uint32_t, 2U> completion_masks{};
+  std::size_t count{0U};
+  std::size_t failed_hook{6U};
+  bool throwing{false};
+  bool wait_for_completion{true};
+  bool controller_only{true};
+
+  auto before_phase(calibration::DiscoverySessionPhase phase) -> bool {
+    return observe(phase, 0U);
+  }
+  auto during_phase(calibration::DiscoverySessionPhase phase,
+                    calibration::DiscoveryObservationWindow window,
+                    const std::atomic<std::uint32_t>& finished) -> bool {
+    const auto index = static_cast<std::size_t>(phase);
+    origins[index] = window.origin_ticks;
+    durations[index] = window.duration_ticks;
+    if (wait_for_completion) {
+      for (std::uint64_t poll = 0U; poll < kPlan.barrier_poll_limit; ++poll) {
+        if (finished.load(std::memory_order_acquire) == 3U) {
+          break;
+        }
+        std::this_thread::yield();
+      }
+    }
+    completion_masks[index] = finished.load(std::memory_order_acquire);
+    return observe(phase, 1U);
+  }
+  auto after_phase(calibration::DiscoverySessionPhase phase) -> bool {
+    return observe(phase, 2U);
+  }
+
+private:
+  auto observe(calibration::DiscoverySessionPhase phase, std::size_t boundary) -> bool {
+    controller_only = controller_only && std::this_thread::get_id() == controller_;
+    const auto hook = static_cast<std::size_t>(phase) * 3U + boundary;
+    calls[count++] = hook;
+    if (throwing && hook == failed_hook) {
+      throw std::runtime_error("injected controller observation failure");
+    }
+    return hook != failed_hook;
+  }
+  std::thread::id controller_{std::this_thread::get_id()};
+};
+
+TEST(DiscoverySession, ControllerObservesBothFixedPhasesAndRetainsActualHookStatus) {
+  SessionClock clock;
+  RealRingBackend backend(clock);
+  YieldRelax relax;
+  ControllerObserver observer;
+  const auto result =
+      calibration::run_discovery_session(kPlan, clock, backend, relax, observer);
+  EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::complete);
+  EXPECT_TRUE(observer.controller_only);
+  EXPECT_EQ(observer.count, 6U);
+  EXPECT_EQ(observer.calls, (std::array<std::size_t, 6U>{0U, 1U, 2U, 3U, 4U, 5U}));
+  for (std::size_t phase = 0U; phase < 2U; ++phase) {
+    EXPECT_EQ(result.observations[phase].before,
+              calibration::DiscoveryObservationStatus::accepted);
+    EXPECT_EQ(result.observations[phase].during,
+              calibration::DiscoveryObservationStatus::accepted);
+    EXPECT_EQ(result.observations[phase].after,
+              calibration::DiscoveryObservationStatus::accepted);
+    EXPECT_EQ(result.origins[phase], observer.origins[phase]);
+    EXPECT_EQ(observer.completion_masks[phase], 3U);
+  }
+  EXPECT_EQ(observer.durations[0U], kPlan.warmup_duration_ticks);
+  EXPECT_EQ(observer.durations[1U], kPlan.measurement_duration_ticks);
+  EXPECT_TRUE(result.warmup_drain.reset_verified);
+  EXPECT_TRUE(backend.resets_on_owners());
+}
+
+TEST(DiscoverySession, EveryRejectedOrThrowingObservationBlocksSuccessAndRetainsDrain) {
+  for (const bool throwing : {false, true}) {
+    for (std::size_t failed_hook = 0U; failed_hook < 6U; ++failed_hook) {
+      SessionClock clock;
+      RealRingBackend backend(clock);
+      YieldRelax relax;
+      ControllerObserver observer;
+      observer.failed_hook = failed_hook;
+      observer.throwing = throwing;
+      const auto result =
+          calibration::run_discovery_session(kPlan, clock, backend, relax, observer);
+      EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::observation_failure);
+      EXPECT_TRUE(observer.controller_only);
+      const auto& observed = result.observations[failed_hook / 3U];
+      const std::array statuses{observed.before, observed.during, observed.after};
+      EXPECT_EQ(statuses[failed_hook % 3U],
+                throwing ? calibration::DiscoveryObservationStatus::exception
+                         : calibration::DiscoveryObservationStatus::rejected);
+      if (failed_hook <= 3U) {
+        EXPECT_FALSE(result.origins[1U].has_value());
+        EXPECT_EQ(result.measurement[0U].attempts, 0U);
+        EXPECT_EQ(result.measurement[1U].attempts, 0U);
+      }
+      if (failed_hook == 0U) {
+        EXPECT_FALSE(result.origins[0U].has_value());
+        EXPECT_EQ(observer.count, 1U);
+        EXPECT_EQ(result.warmup[0U].attempts, 0U);
+        EXPECT_EQ(result.warmup[1U].attempts, 0U);
+      } else {
+        EXPECT_TRUE(result.warmup_verified);
+        EXPECT_EQ(result.warmup_drain.stop, calibration::DiscoveryDrainStop::complete);
+        EXPECT_EQ(result.warmup[0U].advanced,
+                  result.warmup[1U].advanced + result.warmup_drain.dequeued);
+        EXPECT_EQ(result.warmup_drain.reset_verified, failed_hook >= 3U);
+      }
+      if (failed_hook >= 4U) {
+        // The failed observation is deliberately reported after both workers
+        // have already reached their deadlines. It still invalidates the run.
+        EXPECT_EQ(observer.completion_masks[1U], 3U);
+        EXPECT_EQ(result.measurement[0U].stop,
+                  calibration::DiscoveryWorkerStop::fixed_deadline);
+        EXPECT_EQ(result.measurement[1U].stop,
+                  calibration::DiscoveryWorkerStop::fixed_deadline);
+        EXPECT_TRUE(result.measurement_verified);
+        EXPECT_EQ(result.measurement_drain.stop,
+                  calibration::DiscoveryDrainStop::complete);
+        EXPECT_EQ(result.measurement[0U].advanced,
+                  result.measurement[1U].advanced + result.measurement_drain.dequeued);
+      }
+      EXPECT_EQ(backend.ring().audit_quiescent().occupied_slots, 0U);
+    }
+  }
+}
+
+TEST(DiscoverySession,
+     EarlyControllerRejectionStopsCaptureWithoutSkippingBoundedDrain) {
+  SessionClock clock;
+  RealRingBackend backend(clock);
+  YieldRelax relax;
+  ControllerObserver observer;
+  observer.wait_for_completion = false;
+  observer.failed_hook = 4U;
+  const auto result =
+      calibration::run_discovery_session(kPlan, clock, backend, relax, observer);
+  EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::observation_failure);
+  EXPECT_TRUE(result.warmup_verified);
+  EXPECT_TRUE(result.warmup_drain.reset_verified);
+  EXPECT_TRUE(result.origins[1U].has_value());
+  EXPECT_EQ(result.measurement_drain.stop, calibration::DiscoveryDrainStop::complete);
+  EXPECT_EQ(result.measurement[0U].advanced,
+            result.measurement[1U].advanced + result.measurement_drain.dequeued);
+  EXPECT_LE(result.measurement[0U].attempts, kPlan.measurement_attempt_capacity);
+  EXPECT_LE(result.measurement[1U].attempts, kPlan.measurement_attempt_capacity);
+  EXPECT_EQ(backend.ring().audit_quiescent().occupied_slots, 0U);
+}
+
+TEST(DiscoverySession, PreparationAndInvalidPlanFailuresDoNotInventObservations) {
+  for (const bool invalid_plan : {false, true}) {
+    SessionClock clock;
+    RealRingBackend backend(clock, {.reject_producer = true});
+    YieldRelax relax;
+    ControllerObserver observer;
+    auto plan = kPlan;
+    if (invalid_plan) {
+      plan.drain_attempt_capacity = 0U;
+    }
+    const auto result =
+        calibration::run_discovery_session(plan, clock, backend, relax, observer);
+    EXPECT_EQ(result.stop,
+              invalid_plan ? calibration::DiscoverySessionStop::invalid_plan
+                           : calibration::DiscoverySessionStop::preparation_failure);
+    EXPECT_EQ(observer.count, 0U);
+    for (const auto& phase : result.observations) {
+      EXPECT_EQ(phase.before, calibration::DiscoveryObservationStatus::not_started);
+      EXPECT_EQ(phase.during, calibration::DiscoveryObservationStatus::not_started);
+      EXPECT_EQ(phase.after, calibration::DiscoveryObservationStatus::not_started);
+    }
+  }
 }
 
 } // namespace

@@ -80,6 +80,52 @@ TEST(DiscoveryRingBackend, PreparationAndPrivateResetRejectionDoNotReleaseMeasur
   }
 }
 
+TEST(DiscoveryRingBackend,
+     LateObservationFailureRetainsExactRawButBlocksPhaseValidity) {
+  for (const auto failed_phase : {calibration::DiscoverySessionPhase::warmup,
+                                  calibration::DiscoverySessionPhase::measurement}) {
+    auto preparation =
+        std::make_unique<support::SoftwareOnlyDiscoveryPreparation<20'000U>>();
+    support::DiscoveryTestClock clock;
+    support::DiscoveryTestRelax relax;
+    calibration::DiscoveryRingPhaseBackend backend(support::kDiscoveryTestPlan, clock,
+                                                   *preparation);
+    struct Observer final {
+      calibration::DiscoverySessionPhase rejected;
+      auto before_phase(calibration::DiscoverySessionPhase) const noexcept -> bool {
+        return true;
+      }
+      auto during_phase(calibration::DiscoverySessionPhase,
+                        calibration::DiscoveryObservationWindow,
+                        const std::atomic<std::uint32_t>&) const noexcept -> bool {
+        return true;
+      }
+      auto after_phase(calibration::DiscoverySessionPhase phase) const noexcept
+          -> bool {
+        return phase != rejected;
+      }
+    } observer{failed_phase};
+    const auto result = calibration::run_discovery_session(
+        support::kDiscoveryTestPlan, clock, backend, relax, observer);
+    EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::observation_failure);
+    EXPECT_EQ(result.warmup_drain.stop, calibration::DiscoveryDrainStop::complete);
+    EXPECT_TRUE(result.warmup_verified);
+    const bool failed_warmup =
+        failed_phase == calibration::DiscoverySessionPhase::warmup;
+    EXPECT_EQ(result.warmup_drain.reset_verified, !failed_warmup);
+    EXPECT_EQ(result.origins[1U].has_value(), !failed_warmup);
+    auto& consumer = preparation->consumer_phase(failed_warmup);
+    const auto& producer = preparation->producer_phase(failed_warmup);
+    EXPECT_EQ(consumer.last_join.status, calibration::DiscoveryJoinStatus::exact);
+    EXPECT_EQ(producer.accepted, consumer.consumed);
+    EXPECT_EQ(producer.primary.snapshot().completeness,
+              storage::StreamCompleteness::sealed_complete);
+    EXPECT_EQ(consumer.primary.snapshot().completeness,
+              storage::StreamCompleteness::sealed_complete);
+    EXPECT_EQ(preparation->ring().audit_quiescent().occupied_slots, 0U);
+  }
+}
+
 TEST(DiscoveryRingBackend, FullAttemptsAndRepeatedIndicesJoinOnlyByActualOrdinals) {
   auto preparation = std::make_unique<support::SoftwareOnlyDiscoveryPreparation<64U>>();
   support::DiscoveryTestClock clock;

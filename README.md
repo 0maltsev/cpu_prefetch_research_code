@@ -110,6 +110,19 @@ four sanitizer configurations, supported allocation checks and six existing
 codegen gates pass. Actual Linux mapped preparation/monitoring, durable
 publication, watchdog/admission and qualification remain open.
 
+ADR-0196 adds one-shot Linux owner mapping preparation with actual affinity,
+fault, memory-control and cleanup facts, plus controller observations before,
+during and after each discovery phase. Monitoring failure preserves bounded
+drain and independent raw integrity. Warmup observation failure prevents reset
+and measurement release; a late measurement failure still prohibits success.
+Software-only sessions explicitly
+report missing monitoring. Both integrated suites pass 487/487; 37 platform and
+83 calibration cases pass all four sanitizer configurations.
+Five affected translation units, global format, provenance and six existing
+codegen gates also pass. Complete mapped object/stack preparation, retained live
+residency/control monitoring, durable publication, watchdog/admission and fresh
+release qualification remain open.
+
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked
 on the typed D-037 plan and its duration/minimum-observation/warm-up/residency

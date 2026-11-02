@@ -245,3 +245,7 @@ integrity cannot reset the queue. Existing external raw admission remains
 separate from the new in-process, no-allocation readers. No actual Linux
 mapping/monitoring provider, qualified diagnostic action or stand capture is
 claimed by these software-only preparation tests.
+
+The [November 3 continuation](../LOCAL-VERIFICATION-EXT007-20261103-01/README.md)
+records ADR-0196 owner-mapping and controller-observation checks. These results
+remain software verification and do not resolve EXT007 or qualify a stand run.

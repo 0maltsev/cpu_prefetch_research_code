@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "cpu_prefetch/calibration/discovery_residency_observer.hpp"
 #include "cpu_prefetch/storage/raw_observations.hpp"
 #include "discovery_backend_test_support.hpp"
 
@@ -225,6 +226,71 @@ TEST(StorageHotWriter, DiscoveryPhaseCaptureDrainJoinAndResetAllocateNothing) {
   EXPECT_EQ(preparation->warmup.consumer.last_join.status,
             calibration::DiscoveryJoinStatus::exact);
   EXPECT_EQ(preparation->warmup.consumer.consumed, 17U);
+}
+
+TEST(StorageHotWriter, PlannedResidencySnapshotsAllocateNothing) {
+  namespace calibration = cpu_prefetch::calibration;
+  namespace platform = cpu_prefetch::platform;
+  using Phase = calibration::DiscoverySessionPhase;
+  using Moment = calibration::DiscoveryResidencyMoment;
+  alignas(4096) std::array<std::byte, 4096U> mapping{};
+  std::array<void*, 6U> addresses{};
+  std::array<int, 6U> nodes{};
+  auto prepare_query = [&](std::size_t index) {
+    return platform::PreparedPageResidencyQuery(mapping, 4096U,
+                                                std::span(addresses).subspan(index, 1U),
+                                                std::span(nodes).subspan(index, 1U));
+  };
+  std::array queries{prepare_query(0U), prepare_query(1U), prepare_query(2U),
+                     prepare_query(3U), prepare_query(4U), prepare_query(5U)};
+  std::array<calibration::DiscoveryResidencySample, 6U> samples{
+      calibration::DiscoveryResidencySample{{Phase::warmup, Moment::before, 0U, 0U},
+                                            queries[0U]},
+      calibration::DiscoveryResidencySample{{Phase::warmup, Moment::during, 0U, 0U},
+                                            queries[1U]},
+      calibration::DiscoveryResidencySample{{Phase::warmup, Moment::after, 0U, 0U},
+                                            queries[2U]},
+      calibration::DiscoveryResidencySample{
+          {Phase::measurement, Moment::before, 0U, 0U}, queries[3U]},
+      calibration::DiscoveryResidencySample{
+          {Phase::measurement, Moment::during, 0U, 0U}, queries[4U]},
+      calibration::DiscoveryResidencySample{{Phase::measurement, Moment::after, 0U, 0U},
+                                            queries[5U]}};
+  const std::array<calibration::DiscoveryResidencyRegion, 1U> regions{{{mapping, 1U}}};
+  cpu_prefetch::test_support::DiscoveryTestClock clock;
+  cpu_prefetch::test_support::DiscoveryTestRelax relax;
+  struct Query final {
+    auto query_pages(std::span<void* const>, std::span<int> status) const noexcept
+        -> platform::PageResidencyQueryResult {
+      for (auto& node : status) {
+        node = 1;
+      }
+      return {0, 0};
+    }
+  } query;
+  auto plan = cpu_prefetch::test_support::kDiscoveryTestPlan;
+  calibration::PreparedDiscoveryResidencyObserver observer(
+      plan, calibration::DiscoveryResidencyControls{4096U, 10U}, regions, samples,
+      clock, query, relax);
+  const std::atomic<std::uint32_t> finished{0U};
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  bool valid = true;
+  for (const auto phase : {Phase::warmup, Phase::measurement}) {
+    valid = observer.before_phase(phase) && valid;
+    const auto origin = clock.read();
+    valid = observer.during_phase(
+                phase, {origin.sample.relative_picoseconds, plan.warmup_duration_ticks},
+                finished) &&
+            valid;
+    valid = observer.after_phase(phase) && valid;
+  }
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_TRUE(valid);
+  EXPECT_EQ(after, before);
+  for (const auto& sample : samples) {
+    EXPECT_EQ(sample.stop, calibration::DiscoveryResidencyStop::sampled);
+    EXPECT_TRUE(sample.query.has_value());
+  }
 }
 
 } // namespace

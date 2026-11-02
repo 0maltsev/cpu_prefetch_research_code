@@ -457,6 +457,18 @@ authorization/amendment.
   controls and versioned diagnostic admission/release. No hardware state or
   numeric capture/monitoring budget is inferred from software verification.
 
+  ADR-0197 composes prepared page queries with controller hooks, retaining
+  separate status/clock snapshots and rejecting late, missed, aliased or
+  incomplete observations. Every declared region requires full before/after
+  coverage and explicit during queries; partial during coverage grants no
+  inference about unqueried pages. Both full compiler suites pass 499/499;
+  94 calibration and 37 platform cases pass all four sanitizer configurations,
+  supported allocation-hook cases, focused strict analysis, global format,
+  provenance and six existing codegen gates pass. Compose
+  the actual mapped runtime objects and worker stacks, bind the full footprint
+  and finite monitoring/resource controls, then complete durable publication,
+  watchdog and qualified diagnostic admission/release before any capture.
+
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.
   Next obtain the typed D-037 duration/minimum-observation/warm-up inputs,

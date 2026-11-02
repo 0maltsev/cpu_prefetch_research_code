@@ -1324,7 +1324,8 @@ if(BUILD_TESTING)
     tests/calibration_discovery_consumer_test.cpp
     tests/calibration_caller_owned_trace_test.cpp
     tests/calibration_discovery_event_test.cpp
-    tests/calibration_discovery_backend_test.cpp)
+    tests/calibration_discovery_backend_test.cpp
+    tests/calibration_discovery_residency_test.cpp)
   target_link_libraries(
     cpu_prefetch_calibration_tests
     PRIVATE cpu_prefetch::calibration cpu_prefetch_project_options
@@ -1700,6 +1701,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_reconciliation.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_ring_backend.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_session.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_residency_observer.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/executor.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/runtime.hpp"
@@ -1800,6 +1802,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_event_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_backend_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_residency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/discovery_backend_test_support.hpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
@@ -1933,6 +1936,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_event_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_backend_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_residency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"

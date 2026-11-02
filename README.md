@@ -123,6 +123,16 @@ codegen gates also pass. Complete mapped object/stack preparation, retained live
 residency/control monitoring, durable publication, watchdog/admission and fresh
 release qualification remain open.
 
+ADR-0197 connects prepared page queries to those controller hooks. It retains
+independent raw status/clock snapshots, requires full before/after coverage,
+and keeps planned partial during coverage explicit. Late queries, finished
+workers, errors and missed observations cannot establish placement. Both full
+compiler suites pass 499/499; 94 calibration and 37 platform cases pass all
+four sanitizer configurations. Four supported storage allocation checks and
+focused strict analysis pass, as do global format, provenance and six existing
+codegen gates. The live provider, complete control monitoring,
+publication/watchdog and qualified diagnostic action remain open.
+
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked
 on the typed D-037 plan and its duration/minimum-observation/warm-up/residency

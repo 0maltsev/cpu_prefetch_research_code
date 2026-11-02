@@ -42,3 +42,27 @@ snapshots and frozen monitoring/resource budgets, durable publication,
 watchdog/admission and clean qualified release remain required before the
 approved 36-capture study. Existing codegen checks do not qualify the new exact
 combined clock-boundary sequence. No stopped stand attempt was retried.
+
+ADR-0197 adds retained residency observations to those controller hooks.
+[retained-residency-observer-checks.json](retained-residency-observer-checks.json)
+binds the exact subsequent source, commands, logs and reports. Both full
+compiler suites pass **499/499**, exit 0; all **94 calibration** and **37 platform**
+cases pass all four sanitizer configurations. Four storage allocation-hook
+cases pass both development suites and supported sanitizers, including all six
+residency hooks without allocation after preparation. The existing Clang TSan
+hook exclusion is unchanged. Two affected translation units pass strict
+analysis; global format, provenance and six existing codegen gates pass.
+
+Tests retain independent raw page status, query return/errno, bracketed clock
+and completion observations. They reject bad/aliased coverage and reused rows,
+wrong nodes, partial writes, failed/regressing clocks, late queries, finite
+wait exhaustion and finished workers. A real arena/ring/stream session refuses
+initial release on rejected page readback. These page results are injected;
+they are not actual stand residency. Partial during queries remain explicit
+and do not prove anything about unqueried pages. Full live region coverage,
+monitoring/resource admission and the complete owner/stack/control provider
+still require integration. No live query, capture or new authority was issued.
+
+The first static pass rejected unchecked member-optionals and implicit
+multilevel pointer conversions. Local retained values and explicit casts repair
+those diagnostics without suppressions; the final strict pass is clean.

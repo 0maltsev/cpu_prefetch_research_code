@@ -82,6 +82,9 @@ public:
   [[nodiscard]] auto page_status() const noexcept -> std::span<const int> {
     return status_;
   }
+  [[nodiscard]] auto page_addresses() const noexcept -> std::span<void* const> {
+    return pages_;
+  }
   [[nodiscard]] auto all_pages_on(PageResidencyQueryResult result,
                                   std::uint32_t expected_node) const noexcept -> bool {
     if (!result.succeeded() ||

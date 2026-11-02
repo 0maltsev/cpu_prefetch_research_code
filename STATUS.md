@@ -126,6 +126,17 @@ pass. These are local software checks. Full mapped object/stack preparation and 
 residency/control monitoring still require integration before publication,
 watchdog/admission and qualified stand execution. No capture has run.
 
+ADR-0197 now retains planned residency observations through the controller
+hooks, with raw page status, syscall/errno and actual clock brackets. Full
+before/after coverage and explicit during-range coverage remain distinct;
+late/missed queries and worker completion invalidate observations. Both full
+compiler suites pass 499/499; 94 calibration and 37 platform cases pass all
+four sanitizer configurations. Four supported allocation-hook cases and strict
+analysis, global format, provenance and six existing codegen gates pass.
+No actual stand page query, new qualification or capture is
+claimed. Complete owner object/stack composition, other live controls,
+publication/watchdog and source-bound admission/release remain open.
+
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;
 prospective policy v54 is not promoted or released. Missing D-037 prospective

@@ -216,6 +216,20 @@ composition, retained all-page/control monitoring, finite resource controls,
 publication/watchdog/admission and fresh qualified release remain open.
 See the [bound verification record](evidence/stage17/LOCAL-VERIFICATION-EXT007-20261103-01/README.md).
 
+ADR-0197 implements the retained residency observer behind those hooks.
+Declared regions require full before/after coverage and explicit during-range
+queries. Status scratch is distinct per snapshot, page addresses remain
+observable, and partial queries cannot establish unqueried placement. Raw
+return/errno, node/status errors, clock brackets, wait clocks/polls and completion
+masks are retained. Late/missed queries and clock failures cannot pass. Both
+full compiler suites pass 499/499; 94 calibration and 37 platform cases pass
+four sanitizer configurations, four supported storage allocation-hook cases
+and focused strict analysis pass. Global format, provenance and six existing
+codegen gates pass. This is software/injected-query evidence;
+the actual mapped owner/stack provider, complete live controls, approved finite
+monitoring/resources, durable publication/watchdog and qualified action remain
+required. No stand residency or experimental result is inferred.
+
 ## Implemented prerequisites
 
 ADR-0177 integrates the existing hardware mappings into a testable whole-plot

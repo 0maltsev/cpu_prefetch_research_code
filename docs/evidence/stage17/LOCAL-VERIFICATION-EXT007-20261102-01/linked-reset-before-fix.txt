@@ -1,0 +1,50 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+/home/omaltsev/research/cpu_prefetch_research_code/tests/workload_noalloc_test.cpp:134: Failure
+Expected equality of these values:
+  after
+    Which is: 270
+  before
+    Which is: 262
+logical reset allocated scratch storage
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/workload_noalloc_test.cpp:134: Failure
+Expected equality of these values:
+  after
+    Which is: 326
+  before
+    Which is: 318
+logical reset allocated scratch storage
+
+[  FAILED  ] PreparedWorkload.LinkedWarmStartResetPreservesStorageAndAllocatesNothing (0 ms)
+/home/omaltsev/research/cpu_prefetch_research_code/tests/workload_noalloc_test.cpp:159: Failure
+Expected equality of these values:
+  after
+    Which is: 384
+  before
+    Which is: 381
+rejected logical reset allocated scratch storage
+
+[  FAILED  ] PreparedWorkload.LinkedResetRejectsPendingEventsWithoutAllocationOrMutation (0 ms)
+/home/omaltsev/research/cpu_prefetch_research_code/tests/workload_noalloc_test.cpp:178: Failure
+Value of: reset
+  Actual: true
+Expected: false
+logical reset concealed a corrupted frozen node cycle
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/workload_noalloc_test.cpp:179: Failure
+Expected equality of these values:
+  after
+    Which is: 445
+  before
+    Which is: 437
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/workload_noalloc_test.cpp:180: Failure
+Expected equality of these values:
+  queue.audit_quiescent().recycler_order
+    Which is: { 1, 8, 3, 0, 7, 4, 2, 6 }
+  corrupted.recycler_order
+    Which is: { 8, 1, 3, 0, 7, 4, 2, 6 }
+
+[  FAILED  ] PreparedWorkload.LinkedResetRejectsCorruptCycleWithoutAllocationOrMutation (0 ms)
+[==========] 3 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 0 tests.

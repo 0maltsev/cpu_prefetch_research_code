@@ -3,12 +3,15 @@
 #include "cpu_prefetch/workload/packages.hpp"
 #include "cpu_prefetch/workload/records.hpp"
 #include "cpu_prefetch/workload/working_set.hpp"
+#include "queue_phase_test_access.hpp"
 
 #include <array>
 #include <atomic>
 #include <cstddef>
 #include <cstdlib>
 #include <new>
+#include <span>
+#include <vector>
 
 namespace {
 std::atomic<std::size_t> allocation_count{0U};
@@ -107,6 +110,110 @@ cpu_prefetch::queue::EventPointer required_pointer(const void* pointer) {
     std::terminate();
   }
   return *result;
+}
+
+TEST(PreparedWorkload, LinkedWarmStartResetPreservesStorageAndAllocatesNothing) {
+  constexpr cpu_prefetch::queue::CacheLineBytes line{64U};
+  constexpr cpu_prefetch::queue::ArenaAlignmentBytes page{4096U};
+  const std::array<std::size_t, 9U> order{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
+  cpu_prefetch::queue::LinkedSpscQueue queue({8U}, line, page, order);
+  const auto* arena_before = queue.node_arena_base();
+  const auto layout_before = queue.layout_evidence();
+  int event{17};
+  const auto pointer = required_pointer(&event);
+  for (std::size_t index = 0U; index < 37U; ++index) {
+    ASSERT_EQ(queue.try_enqueue(pointer), cpu_prefetch::queue::EnqueueResult::accepted);
+    ASSERT_EQ(queue.try_dequeue().event, &event);
+  }
+  EXPECT_EQ(queue.audit_quiescent().reachable_order,
+            std::vector<std::size_t>{order[1U]});
+  for (unsigned reset_number = 0U; reset_number < 2U; ++reset_number) {
+    const auto before = allocation_count.load(std::memory_order_relaxed);
+    const bool reset = queue.reset_quiescent();
+    const auto after = allocation_count.load(std::memory_order_relaxed);
+    ASSERT_TRUE(reset);
+    EXPECT_EQ(after, before) << "logical reset allocated scratch storage";
+    EXPECT_EQ(queue.node_arena_base(), arena_before);
+    EXPECT_EQ(queue.layout_evidence().storage_bytes, layout_before.storage_bytes);
+    const auto audit = queue.audit_quiescent();
+    EXPECT_EQ(audit.queued_events, 0U);
+    EXPECT_EQ(audit.reachable_order, std::vector<std::size_t>{order[0U]});
+    EXPECT_EQ(audit.recycler_order,
+              std::vector<std::size_t>(order.begin() + 1, order.end()));
+    EXPECT_TRUE(audit.every_node_owned_once);
+    EXPECT_TRUE(audit.recycler_fifo_shape);
+  }
+}
+
+TEST(PreparedWorkload, LinkedResetRejectsPendingEventsWithoutAllocationOrMutation) {
+  constexpr cpu_prefetch::queue::CacheLineBytes line{64U};
+  constexpr cpu_prefetch::queue::ArenaAlignmentBytes page{4096U};
+  const std::array<std::size_t, 9U> order{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
+  cpu_prefetch::queue::LinkedSpscQueue queue({8U}, line, page, order);
+  int event{19};
+  ASSERT_EQ(queue.try_enqueue(required_pointer(&event)),
+            cpu_prefetch::queue::EnqueueResult::accepted);
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  const bool reset = queue.reset_quiescent();
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_FALSE(reset);
+  EXPECT_EQ(after, before) << "rejected logical reset allocated scratch storage";
+  const auto consumed = queue.try_dequeue();
+  EXPECT_EQ(consumed.status, cpu_prefetch::queue::DequeueStatus::item);
+  EXPECT_EQ(consumed.event, &event);
+}
+
+TEST(PreparedWorkload, LinkedResetRejectsCorruptCycleWithoutAllocationOrMutation) {
+  constexpr cpu_prefetch::queue::CacheLineBytes line{64U};
+  constexpr cpu_prefetch::queue::ArenaAlignmentBytes page{4096U};
+  const std::array<std::size_t, 9U> order{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
+  cpu_prefetch::queue::LinkedSpscQueue queue({8U}, line, page, order);
+  cpu_prefetch::queue::testing::QueuePhaseTestAccess::swap_first_linked_recycler_nodes(
+      queue);
+  const auto corrupted = queue.audit_quiescent();
+  ASSERT_TRUE(corrupted.every_node_owned_once);
+  ASSERT_TRUE(corrupted.recycler_fifo_shape);
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  const bool reset = queue.reset_quiescent();
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_FALSE(reset) << "logical reset concealed a corrupted frozen node cycle";
+  EXPECT_EQ(after, before);
+  EXPECT_EQ(queue.audit_quiescent().recycler_order, corrupted.recycler_order);
+}
+
+TEST(PreparedWorkload, LinkedResetHandlesEverySentinelAndRecyclerRotation) {
+  const auto check = [](std::span<const std::size_t> order) {
+    constexpr cpu_prefetch::queue::CacheLineBytes line{64U};
+    constexpr cpu_prefetch::queue::ArenaAlignmentBytes page{4096U};
+    const auto capacity = order.size() - 1U;
+    cpu_prefetch::queue::LinkedSpscQueue queue({capacity}, line, page, order);
+    int event{23};
+    const auto pointer = required_pointer(&event);
+    // Consecutive C and C+1 are coprime: these transfer counts cover every
+    // pair of recycler-cursor and sentinel-cycle positions independently.
+    for (std::size_t transfers = 0U; transfers < capacity * order.size(); ++transfers) {
+      for (std::size_t count = 0U; count < transfers; ++count) {
+        ASSERT_EQ(queue.try_enqueue(pointer),
+                  cpu_prefetch::queue::EnqueueResult::accepted);
+        ASSERT_EQ(queue.try_dequeue().event, &event);
+      }
+      const auto before = allocation_count.load(std::memory_order_relaxed);
+      const bool reset = queue.reset_quiescent();
+      const auto after = allocation_count.load(std::memory_order_relaxed);
+      ASSERT_TRUE(reset) << "transfers=" << transfers;
+      EXPECT_EQ(after, before);
+      EXPECT_EQ(event, 23);
+      const auto audit = queue.audit_quiescent();
+      EXPECT_EQ(audit.reachable_order, std::vector<std::size_t>{order[0U]});
+      EXPECT_EQ(audit.recycler_order,
+                std::vector<std::size_t>(order.begin() + 1, order.end()));
+      EXPECT_TRUE(audit.every_node_owned_once);
+    }
+  };
+  const std::array<std::size_t, 2U> one_slot{1U, 0U};
+  const std::array<std::size_t, 9U> eight_slots{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
+  check(one_slot);
+  check(eight_slots);
 }
 
 TEST(PreparedWorkload, LookupRecordActionAndAllPackageOperationsAllocateNothing) {

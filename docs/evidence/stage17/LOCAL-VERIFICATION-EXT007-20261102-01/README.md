@@ -118,6 +118,25 @@ under both disassemblers are unchanged from the preceding recorded probe.
 result scope. This does not close the separate linked-reset allocation blocker,
 complete a backend, qualify a release, or admit experimental evidence.
 
+ADR-0189 subsequently repairs that linked-reset allocation. The
+[before-fix record](linked-reset-before-fix.json) and
+[actual test output](linked-reset-before-fix.txt) retain three failing cases:
+eight allocations on each successful reset, three on nonempty rejection, and
+silent normalization of an incorrect frozen node cycle. The final tests also
+cover every sentinel/cursor combination for capacities one and eight.
+
+Both integrated GCC and Clang/libc++ CTest suites now pass **424/424**, exit 0.
+Five allocation-hook workload cases and 18 queue cases plus queue stress pass
+GCC ASan/UBSan, GCC TSan, and Clang/libc++ ASan/UBSan. The existing CMake policy
+excludes global-new hooks under Clang TSan; its 18 functional queue cases,
+including reset/corruption coverage, and queue stress pass. No allocation delta
+is claimed for that excluded configuration. Global formatting, focused strict
+analysis, source provenance, and all six strict codegen gates pass. The measured
+queue probe binary remains unchanged. [The result record](linked-reset-checks.json)
+binds the final source and verification scope. This remains local software
+evidence; no new stand capture, operational resolution, or execution authority
+is claimed.
+
 An isolated clean checkout of historical commit
 `34da95d002e912069c959bfef8e88a23b4880cea` rebuilt the old Q15 bundle with
 its original source path. Its collector binary exactly matches recorded SHA-256

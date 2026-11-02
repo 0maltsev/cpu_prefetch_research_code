@@ -508,6 +508,35 @@ TEST(RingExternalStorage, IndependentThreadsTransferEveryEventInOrder) {
   EXPECT_EQ(ring.audit_quiescent().occupied_slots, 0U);
 }
 
+TEST(LinkedWarmStart, RestoresEveryCycleRotationAndRejectsCorruption) {
+  const std::array<std::size_t, 9U> order{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
+  const std::vector<std::size_t> expected_recycler(order.begin() + 1, order.end());
+  LinkedSpscQueue queue({8U}, kSyntheticCacheLine, kSyntheticPage, order);
+  int event{17};
+  const auto pointer = event_pointer(&event);
+  for (std::size_t transfers = 0U; transfers < 72U; ++transfers) {
+    for (std::size_t count = 0U; count < transfers; ++count) {
+      ASSERT_EQ(queue.try_enqueue(pointer), EnqueueResult::accepted);
+      ASSERT_EQ(queue.try_dequeue().event, &event);
+    }
+    ASSERT_TRUE(queue.reset_quiescent());
+    const auto audit = queue.audit_quiescent();
+    EXPECT_EQ(audit.reachable_order, std::vector<std::size_t>{order[0U]});
+    EXPECT_EQ(audit.recycler_order, expected_recycler);
+    EXPECT_TRUE(audit.every_node_owned_once);
+  }
+  ASSERT_EQ(queue.try_enqueue(pointer), EnqueueResult::accepted);
+  EXPECT_FALSE(queue.reset_quiescent());
+  EXPECT_EQ(queue.try_dequeue().event, &event);
+  ASSERT_TRUE(queue.reset_quiescent());
+  cpu_prefetch::queue::testing::QueuePhaseTestAccess::swap_first_linked_recycler_nodes(
+      queue);
+  const auto corrupted = queue.audit_quiescent();
+  EXPECT_FALSE(queue.reset_quiescent());
+  EXPECT_EQ(queue.audit_quiescent().recycler_order, corrupted.recycler_order);
+  EXPECT_EQ(event, 17);
+}
+
 TEST(QueueSetup, InvalidCapacityLineSizeAndNodeOrdersFailBeforeOperations) {
   EXPECT_THROW((RingSpscQueue{QueueCapacity{0U}, kSyntheticCacheLine}),
                QueueSetupError);

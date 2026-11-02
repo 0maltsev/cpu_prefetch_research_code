@@ -387,13 +387,15 @@ authorization/amendment.
   producer-home mapping and later residency checks. Its 67 queue/calibration
   cases plus stress pass both compiler sanitizer matrices, and strict queue
   codegen/provenance checks pass. The fresh stand inventory is retained; v47
-  replay also finds a missing v46 dependency. Use a complete qualified runtime,
-  preserve the old context, and repair the linked reset's existing scratch
-  allocation before any formal linked calibration.
+  replay also finds a missing v46 dependency. Use a complete qualified runtime
+  and preserve the old context. ADR-0189 now removes the linked reset's scratch
+  allocation and rejects corrupted state before mutation.
   The integrated GCC suite passes 419/419 and all six strict codegen gates pass
-  after ADR-0188. Next remove the linked reset's allocation, integrate dedicated
-  worker-local trace/order/observation mappings and actual consumer actions,
-  then finish the qualified diagnostic action and its prospective controls.
+  after ADR-0188. After ADR-0189, both compilers pass the integrated 424-entry
+  suite, supported allocation counters and all six codegen gates pass. Next
+  integrate dedicated worker-local trace/order/observation mappings and actual
+  consumer actions, then finish the qualified diagnostic action and its
+  prospective controls.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

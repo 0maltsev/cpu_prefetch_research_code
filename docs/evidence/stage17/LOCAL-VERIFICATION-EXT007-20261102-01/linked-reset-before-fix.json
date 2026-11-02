@@ -1,0 +1,16 @@
+{
+  "source_base_commit": "8f12fb6",
+  "old_linked_source_sha256": "7e9ae329f27c82d1e46ead755750326856e1e36fc3aa8410ea0d6437deb03fc4",
+  "regression_version": "initial three new reset cases; exhaustive rotation case added afterward",
+  "exit_code": 1,
+  "failed_cases": 3,
+  "allocations_per_successful_reset": [
+    8,
+    8
+  ],
+  "allocations_on_nonempty_rejection": 3,
+  "corrupt_cycle_was_silently_reset": true,
+  "log_sha256": "a6d2b104d5fffa441757e5134d1d06a0695222e69a956b596d87c4b123c30dcd",
+  "empirical_results": false,
+  "authority": "NONE"
+}

@@ -64,10 +64,15 @@ backend obligation. The new
 [stand refresh](docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261102-01/README.md)
 records topology/resources and exact retained artifact hashes. Replay with the
 retained v47 runtime also fails because its v46 dependency is missing. The
-existing linked reset's scratch allocations remain a separate lifecycle blocker
-to repair before qualification.
+review also found linked-reset scratch allocations; ADR-0189 below repairs
+that lifecycle prerequisite.
 The integrated GCC suite passes 419/419 after this change, and all six strict
 dual-disassembler codegen gates pass. These remain software checks.
+ADR-0189 removes linked-reset allocation and rejects corrupted cycles before
+mutation. Both development compilers now pass 424/424 CTest entries. Allocation
+counters pass in their supported matrices; Clang TSan retains functional reset
+coverage under its existing allocator-hook exclusion. The live mapped-buffer
+backend and qualified diagnostic action remain unfinished; no experiment ran.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

@@ -226,39 +226,61 @@ LinkedQuiescentAudit LinkedSpscQueue::audit_quiescent() const {
 }
 
 bool LinkedSpscQueue::reset_quiescent() noexcept {
-  try {
-    const auto before = audit_quiescent();
-    if (before.queued_events != 0U || !before.chain_acyclic || !before.tail_reachable ||
-        !before.every_node_owned_once || !before.recycler_fifo_shape ||
-        !before.positions_in_range || initial_node_order_.size() != capacity_ + 1U) {
+  const auto node_count = capacity_ + 1U;
+  const auto valid_empty_cycle = [this, node_count]() noexcept {
+    if (initial_node_order_.size() != node_count ||
+        producer_->tail != consumer_->head ||
+        recycler_producer_->position >= capacity_ ||
+        recycler_consumer_->position >= capacity_ ||
+        recycler_producer_->position != recycler_consumer_->position) {
       return false;
     }
-    for (std::size_t index = 0U; index < capacity_ + 1U; ++index) {
-      auto* node = node_at(index);
-      node->next.store(nullptr, std::memory_order_relaxed);
-      node->event = nullptr;
+    const auto sentinel_index = index_of(consumer_->head);
+    if (!sentinel_index.has_value() ||
+        consumer_->head->next.load(std::memory_order_relaxed) != nullptr) {
+      return false;
     }
-    for (std::size_t index = 0U; index < capacity_; ++index) {
-      recycler_slots_[index].value.store(node_at(initial_node_order_[index + 1U]),
-                                         std::memory_order_relaxed);
+    for (const auto index : initial_node_order_) {
+      if (index >= node_count) {
+        return false;
+      }
     }
-    auto* sentinel = node_at(initial_node_order_.front());
-    producer_->tail = sentinel;
-    consumer_->head = sentinel;
-    recycler_producer_->position = 0U;
-    recycler_consumer_->position = 0U;
-    const auto after = audit_quiescent();
-    return after.queued_events == 0U &&
-           after.reachable_order ==
-               std::vector<std::size_t>{initial_node_order_.front()} &&
-           after.recycler_order ==
-               std::vector<std::size_t>(initial_node_order_.begin() + 1,
-                                        initial_node_order_.end()) &&
-           after.chain_acyclic && after.tail_reachable && after.every_node_owned_once &&
-           after.recycler_fifo_shape && after.positions_in_range;
-  } catch (...) {
+    const auto found = std::find(initial_node_order_.begin(), initial_node_order_.end(),
+                                 *sentinel_index);
+    if (found == initial_node_order_.end()) {
+      return false;
+    }
+    auto order_position = static_cast<std::size_t>(found - initial_node_order_.begin());
+    auto recycler_position = recycler_consumer_->position;
+    for (std::size_t count = 0U; count < capacity_; ++count) {
+      order_position = order_position + 1U == node_count ? 0U : order_position + 1U;
+      const auto* expected = node_at(initial_node_order_[order_position]);
+      if (expected == consumer_->head || recycler_slots_[recycler_position].value.load(
+                                             std::memory_order_relaxed) != expected) {
+        return false;
+      }
+      recycler_position = next_position(recycler_position);
+    }
+    return true;
+  };
+  if (!valid_empty_cycle()) {
     return false;
   }
+  for (std::size_t index = 0U; index < node_count; ++index) {
+    auto* node = node_at(index);
+    node->next.store(nullptr, std::memory_order_relaxed);
+    node->event = nullptr;
+  }
+  for (std::size_t index = 0U; index < capacity_; ++index) {
+    recycler_slots_[index].value.store(node_at(initial_node_order_[index + 1U]),
+                                       std::memory_order_relaxed);
+  }
+  auto* sentinel = node_at(initial_node_order_.front());
+  producer_->tail = sentinel;
+  consumer_->head = sentinel;
+  recycler_producer_->position = 0U;
+  recycler_consumer_->position = 0U;
+  return valid_empty_cycle();
 }
 
 } // namespace cpu_prefetch::queue

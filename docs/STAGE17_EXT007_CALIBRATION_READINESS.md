@@ -130,7 +130,14 @@ first-party source provenance pass. The live backend must still establish and
 verify the mappings. The same provenance review exposes an earlier linked
 reset implementation that allocates through audits/temporary vectors. The
 logical-reset validator requires zero allocation delta, so that existing
-lifecycle issue must be repaired before formal linked calibration.
+lifecycle issue is now repaired by ADR-0189. Three regressions first observed
+eight allocations per successful reset, three on nonempty rejection, and a
+corrupted cycle silently normalized. The replacement verifies the frozen
+rotation without scratch storage and rejects invalid state before mutation.
+Both development compilers pass all 424 CTest entries; supported allocation
+counter matrices and all six strict codegen gates pass. Clang TSan retains
+functional reset coverage under its existing allocator-hook exclusion. This
+closes that reset prerequisite, not live backend integration or qualification.
 
 ## Implemented prerequisites
 

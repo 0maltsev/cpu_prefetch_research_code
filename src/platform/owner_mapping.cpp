@@ -124,6 +124,28 @@ auto LinuxOwnerMemoryOperations::protect_read_only(
   return observed_call(::mprotect(bytes.data(), bytes.size(), PROT_READ));
 }
 
+auto LinuxOwnerMemoryOperations::protect_no_access(
+    std::span<std::byte> bytes) const noexcept -> LinuxCallResult {
+  if (invalid_range(bytes)) {
+    return {-1, EINVAL};
+  }
+  return observed_call(::mprotect(bytes.data(), bytes.size(), PROT_NONE));
+}
+
+auto LinuxOwnerMemoryOperations::populate_write(
+    std::span<std::byte> bytes) const noexcept -> LinuxCallResult {
+  if (invalid_range(bytes)) {
+    return {-1, EINVAL};
+  }
+  return observed_call(::madvise(bytes.data(), bytes.size(), MADV_POPULATE_WRITE));
+}
+
+auto LinuxOwnerMemoryOperations::minimum_thread_stack_bytes() const noexcept
+    -> LinuxCallResult {
+  errno = 0;
+  return observed_call(::sysconf(_SC_THREAD_STACK_MIN));
+}
+
 auto LinuxOwnerMemoryOperations::unlock_pages(std::span<std::byte> bytes) const noexcept
     -> LinuxCallResult {
   if (invalid_range(bytes)) {

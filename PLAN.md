@@ -469,6 +469,17 @@ authorization/amendment.
   and finite monitoring/resource controls, then complete durable publication,
   watchdog and qualified diagnostic admission/release before any capture.
 
+  ADR-0198 now integrates guarded caller-mapped worker stacks and pthread
+  affinity into the persistent session. Actual owner readback, nonoverwriting
+  writable prefault and locking gate backend preparation; partial launch
+  failure cancels and joins existing workers. Both full compiler suites pass
+  506/506; 41 platform and 97 calibration cases pass all four sanitizer
+  configurations. Native local stack checks inject NUMA binding and do not
+  establish stand placement. Next compose the mapped arena/ring, owner-local
+  traces/primary streams and shared controller context, declare complete
+  region/control coverage, then finish publication/watchdog and exact qualified
+  diagnostic admission. Fresh SSH access again times out during banner exchange.
+
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.
   Next obtain the typed D-037 duration/minimum-observation/warm-up inputs,

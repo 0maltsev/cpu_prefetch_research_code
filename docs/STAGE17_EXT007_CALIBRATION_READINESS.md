@@ -1,6 +1,17 @@
 # EXT007 calibration continuation
 
 State: **LOCAL_ENGINEERING_PROGRESS; NOT_AUTHORIZED_FOR_CALIBRATION_EXECUTION**.
+
+Current implementation checkpoint: ADR-0198 integrates guarded mapped worker
+stacks with session preparation and cancellation. Both full development suites
+pass 506/506; 41 platform and 97 calibration cases pass all four sanitizer
+configurations. Native stack/affinity checks use injected NUMA binding and
+grant no stand qualification. The actual mapped arena/ring, private traces
+and primary streams, shared controller context, complete control monitoring,
+publication/watchdog, finite budgets and qualified diagnostic admission remain
+open. SSH again times out during banner exchange. Stage 17 remains incomplete;
+Stage 18 requires the subsequent accepted calibration, pilot and freeze chain.
+
 Protocol: `2.0.0-pre.3`, unchanged. The external v5-12 journal retains its six
 resolutions; EXT007 is not resolved by software tests or prospective policy.
 

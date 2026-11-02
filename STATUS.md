@@ -137,6 +137,17 @@ No actual stand page query, new qualification or capture is
 claimed. Complete owner object/stack composition, other live controls,
 publication/watchdog and source-bound admission/release remain open.
 
+ADR-0198 integrates guarded caller-mapped pthread stacks with session
+preparation admission. Failed stack preparation cannot release warmup; a
+partial launch cancels and joins the existing worker. Actual local affinity,
+stack geometry, guard and live-frame preservation checks pass. NUMA binding
+is injected in tests and is not stand evidence. Both full compiler suites
+pass 506/506; 41 platform and 97 calibration cases pass all four sanitizer
+configurations. Complete mapped runtime objects, remaining live controls,
+publication/watchdog and qualified diagnostic admission/release remain open.
+Fresh SSH access again times out during banner exchange; the earlier retained
+stand observations are not a current operational replay.
+
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;
 prospective policy v54 is not promoted or released. Missing D-037 prospective

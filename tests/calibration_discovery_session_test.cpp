@@ -1,4 +1,5 @@
 #include "cpu_prefetch/calibration/discovery_session.hpp"
+#include "worker_stack_test_support.hpp"
 
 #include <gtest/gtest.h>
 
@@ -188,6 +189,85 @@ TEST(DiscoverySession, PersistentWorkersWarmupDrainResetMeasureAndReconcile) {
     EXPECT_EQ(phase.during, calibration::DiscoveryObservationStatus::not_configured);
     EXPECT_EQ(phase.after, calibration::DiscoveryObservationStatus::not_configured);
   }
+}
+
+TEST(DiscoverySession, MappedWorkersPersistAcrossBothPhases) {
+  SessionClock clock;
+  RealRingBackend backend(clock);
+  YieldRelax relax;
+  cpu_prefetch::test::SoftwareStackOperations producer_ops;
+  cpu_prefetch::test::SoftwareStackOperations consumer_ops;
+  const auto plan = cpu_prefetch::test::software_stack_plan();
+  cpu_prefetch::platform::MappedWorkerThread producer(plan, producer_ops);
+  cpu_prefetch::platform::MappedWorkerThread consumer(plan, consumer_ops);
+  calibration::MappedDiscoveryThreads threads(
+      calibration::DiscoveryWorkerStacks{producer, consumer});
+  calibration::NoDiscoveryControllerObserver observer;
+  const auto result = calibration::run_discovery_session(kPlan, clock, backend, relax,
+                                                         observer, threads);
+  EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::complete);
+  EXPECT_TRUE(backend.resets_on_owners());
+  EXPECT_TRUE(producer.prepared());
+  EXPECT_TRUE(consumer.prepared());
+  EXPECT_EQ(producer.evidence().thread.join, 0);
+  EXPECT_EQ(consumer.evidence().thread.join, 0);
+  EXPECT_EQ(producer_ops.observations, 2U);
+  EXPECT_EQ(consumer_ops.observations, 2U);
+}
+
+TEST(DiscoverySession, StackPreparationFailureCancelsBeforeBackendAndPhaseRelease) {
+  for (const auto role :
+       {calibration::RingWorker::producer, calibration::RingWorker::consumer}) {
+    SessionClock clock;
+    RealRingBackend backend(clock);
+    YieldRelax relax;
+    cpu_prefetch::test::SoftwareStackOperations producer_ops;
+    cpu_prefetch::test::SoftwareStackOperations consumer_ops;
+    auto& failed =
+        role == calibration::RingWorker::producer ? producer_ops : consumer_ops;
+    failed.failure = cpu_prefetch::test::SoftwareStackOperations::Failure::populate;
+    const auto plan = cpu_prefetch::test::software_stack_plan();
+    cpu_prefetch::platform::MappedWorkerThread producer(plan, producer_ops);
+    cpu_prefetch::platform::MappedWorkerThread consumer(plan, consumer_ops);
+    calibration::MappedDiscoveryThreads threads(
+        calibration::DiscoveryWorkerStacks{producer, consumer});
+    calibration::NoDiscoveryControllerObserver observer;
+    const auto result = calibration::run_discovery_session(kPlan, clock, backend, relax,
+                                                           observer, threads);
+    EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::preparation_failure);
+    EXPECT_EQ(result.preparation[role == calibration::RingWorker::producer ? 0U : 1U],
+              calibration::DiscoveryPreparationStatus::rejected);
+    EXPECT_FALSE(result.origins[0U].has_value());
+    EXPECT_FALSE(result.origins[1U].has_value());
+    EXPECT_EQ(result.warmup[0U].attempts, 0U);
+    EXPECT_EQ(result.warmup[1U].attempts, 0U);
+    EXPECT_EQ(producer.evidence().thread.join, 0);
+    EXPECT_EQ(consumer.evidence().thread.join, 0);
+  }
+}
+
+TEST(DiscoverySession, SecondThreadLaunchFailureCancelsAndJoinsFirstWorker) {
+  SessionClock clock;
+  RealRingBackend backend(clock);
+  YieldRelax relax;
+  cpu_prefetch::test::SoftwareStackOperations producer_ops;
+  cpu_prefetch::test::SoftwareStackOperations consumer_ops;
+  const auto plan = cpu_prefetch::test::software_stack_plan();
+  auto bad = plan;
+  bad.owner_cpu = std::numeric_limits<std::uint32_t>::max();
+  cpu_prefetch::platform::MappedWorkerThread producer(plan, producer_ops);
+  cpu_prefetch::platform::MappedWorkerThread consumer(bad, consumer_ops);
+  calibration::MappedDiscoveryThreads threads(
+      calibration::DiscoveryWorkerStacks{producer, consumer});
+  calibration::NoDiscoveryControllerObserver observer;
+  const auto result = calibration::run_discovery_session(kPlan, clock, backend, relax,
+                                                         observer, threads);
+  EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::thread_start_failure);
+  EXPECT_EQ(producer.evidence().thread.join, 0);
+  EXPECT_FALSE(consumer.evidence().thread.create.has_value());
+  EXPECT_FALSE(result.origins[0U].has_value());
+  EXPECT_FALSE(result.origins[1U].has_value());
+  EXPECT_TRUE(producer.release());
 }
 
 TEST(DiscoverySession, RejectedOrThrowingPreparationCannotStartEitherPhase) {

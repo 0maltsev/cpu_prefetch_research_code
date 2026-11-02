@@ -77,6 +77,11 @@ public:
       -> LinuxCallResult;
   [[nodiscard]] auto protect_read_only(std::span<std::byte> bytes) const noexcept
       -> LinuxCallResult;
+  [[nodiscard]] auto protect_no_access(std::span<std::byte> bytes) const noexcept
+      -> LinuxCallResult;
+  [[nodiscard]] auto populate_write(std::span<std::byte> bytes) const noexcept
+      -> LinuxCallResult;
+  [[nodiscard]] auto minimum_thread_stack_bytes() const noexcept -> LinuxCallResult;
   [[nodiscard]] auto unlock_pages(std::span<std::byte> bytes) const noexcept
       -> LinuxCallResult;
   [[nodiscard]] auto unmap(std::span<std::byte> bytes) const noexcept

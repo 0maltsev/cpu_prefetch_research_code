@@ -146,11 +146,12 @@ add_library(
   src/platform/q15_msr.cpp
   src/platform/q15_runtime.cpp
   src/platform/prepared_residency.cpp
-  src/platform/owner_mapping.cpp)
+  src/platform/owner_mapping.cpp
+  src/platform/worker_stack.cpp)
 add_library(cpu_prefetch::platform ALIAS cpu_prefetch_platform)
 target_link_libraries(
   cpu_prefetch_platform
-  PUBLIC cpu_prefetch::protocol cpu_prefetch::workload
+  PUBLIC cpu_prefetch::protocol cpu_prefetch::workload Threads::Threads
   PRIVATE cpu_prefetch_project_options)
 target_include_directories(
   cpu_prefetch_platform
@@ -265,6 +266,7 @@ add_library(cpu_prefetch::calibration ALIAS cpu_prefetch_calibration)
 target_link_libraries(
   cpu_prefetch_calibration
   PUBLIC
+    cpu_prefetch::platform
     cpu_prefetch::storage
     cpu_prefetch::protocol
     cpu_prefetch::queue
@@ -529,7 +531,8 @@ if(BUILD_TESTING)
 
   add_executable(cpu_prefetch_platform_tests tests/platform_model_test.cpp
     tests/platform_prepared_residency_test.cpp
-    tests/platform_owner_mapping_test.cpp)
+    tests/platform_owner_mapping_test.cpp
+    tests/platform_worker_stack_test.cpp)
   target_link_libraries(
     cpu_prefetch_platform_tests
     PRIVATE
@@ -1701,6 +1704,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_reconciliation.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_ring_backend.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_session.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_thread_launcher.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_residency_observer.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/executor.hpp"
@@ -1709,6 +1713,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/linux_inventory.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/platform.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/owner_mapping.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/worker_stack.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/prepared_residency.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_probe.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_msr.hpp"
@@ -1759,6 +1764,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/prepared_residency.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/owner_mapping.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/worker_stack.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_clock_pair_qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
@@ -1813,6 +1819,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_prepared_residency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_owner_mapping_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/platform_worker_stack_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/worker_stack_test_support.hpp"
   "${PROJECT_SOURCE_DIR}/tests/p4_k_a_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
@@ -1893,6 +1901,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/prepared_residency.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/owner_mapping.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/worker_stack.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_clock_pair_qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
@@ -1945,6 +1954,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_prepared_residency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_owner_mapping_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/platform_worker_stack_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/p4_k_a_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"

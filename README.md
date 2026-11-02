@@ -133,6 +133,17 @@ focused strict analysis pass, as do global format, provenance and six existing
 codegen gates. The live provider, complete control monitoring,
 publication/watchdog and qualified diagnostic action remain open.
 
+ADR-0198 integrates explicit guarded worker stacks and pthread affinity into
+the persistent discovery session. Owner readback, writable prefault and locking
+must pass before backend preparation or warmup release; failed launches cancel
+and join existing workers. Native local tests preserve live frames and verify
+actual stack/affinity observations. The NUMA binding in these tests is injected,
+so this is software evidence only. Both full compiler suites pass 506/506;
+41 platform and 97 calibration cases pass all four sanitizer configurations.
+See [mapped-stack verification](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261103-01/README.md).
+Complete mapped runtime-object/control coverage, publication/watchdog and
+qualified diagnostic admission remain required before the duration study.
+
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked
 on the typed D-037 plan and its duration/minimum-observation/warm-up/residency

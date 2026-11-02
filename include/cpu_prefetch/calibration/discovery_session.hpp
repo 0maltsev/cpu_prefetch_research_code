@@ -2,6 +2,7 @@
 #define CPU_PREFETCH_CALIBRATION_DISCOVERY_SESSION_HPP
 
 #include "cpu_prefetch/calibration/discovery_capture.hpp"
+#include "cpu_prefetch/calibration/discovery_thread_launcher.hpp"
 #include "cpu_prefetch/lifecycle/runtime.hpp"
 
 #include <array>
@@ -108,10 +109,12 @@ struct DiscoverySessionResult final {
 // schedule and retained page/status/timestamp scratch must be finite. The during
 // hook receives the released origin/duration and a read-only completion mask;
 // it must not access mutable worker observations. No observation grants admission.
-template <typename Clock, typename Backend, typename Relax, typename Observer>
+template <typename Clock, typename Backend, typename Relax, typename Observer,
+          typename Threads>
 [[nodiscard]] auto run_discovery_session(DiscoverySessionPlan plan, Clock& clock,
                                          Backend& backend, Relax& relax,
-                                         Observer& observer) -> DiscoverySessionResult {
+                                         Observer& observer, Threads& threads)
+    -> DiscoverySessionResult {
   static_assert(noexcept(clock.read()));
   static_assert(noexcept(relax.relax()));
   DiscoverySessionResult result;
@@ -183,7 +186,7 @@ template <typename Clock, typename Backend, typename Relax, typename Observer>
       return drain_discovery_ring_quiescent(window, clock, backend.ring(), consume);
     }
   };
-  const auto worker = [&]<RingWorker Role>() {
+  auto worker = [&]<RingWorker Role>() noexcept {
     constexpr std::size_t index = Role == RingWorker::producer ? 0U : 1U;
     constexpr auto role = Role == RingWorker::producer
                               ? lifecycle::WorkerRole::producer
@@ -191,6 +194,9 @@ template <typename Clock, typename Backend, typename Relax, typename Observer>
     constexpr auto bit = std::uint32_t{1U} << index;
     try {
       const bool prepared = [&] {
+        if (!threads.prepared(Role)) {
+          return false;
+        }
         if constexpr (Role == RingWorker::producer) {
           return backend.prepare_producer();
         } else {
@@ -312,19 +318,23 @@ template <typename Clock, typename Backend, typename Relax, typename Observer>
       cancel();
     }
   };
-  std::thread producer;
-  std::thread consumer;
-  const auto join = [&] {
-    if (producer.joinable()) {
-      producer.join();
-    }
-    if (consumer.joinable()) {
-      consumer.join();
-    }
-  };
+  const auto join = [&] { threads.join(); };
   try {
-    producer = std::thread([&] { worker.template operator()<RingWorker::producer>(); });
-    consumer = std::thread([&] { worker.template operator()<RingWorker::consumer>(); });
+    const auto producer_entry = +[](void* context) noexcept {
+      static_cast<decltype(worker)*>(context)
+          ->template operator()<RingWorker::producer>();
+    };
+    const auto consumer_entry = +[](void* context) noexcept {
+      static_cast<decltype(worker)*>(context)
+          ->template operator()<RingWorker::consumer>();
+    };
+    if (!threads.start(RingWorker::producer, producer_entry, &worker) ||
+        !threads.start(RingWorker::consumer, consumer_entry, &worker)) {
+      cancel();
+      join();
+      result.stop = DiscoverySessionStop::thread_start_failure;
+      return result;
+    }
   } catch (...) {
     cancel();
     join();
@@ -462,6 +472,14 @@ template <typename Clock, typename Backend, typename Relax, typename Observer>
     }
   }
   return result;
+}
+
+template <typename Clock, typename Backend, typename Relax, typename Observer>
+[[nodiscard]] auto run_discovery_session(DiscoverySessionPlan plan, Clock& clock,
+                                         Backend& backend, Relax& relax,
+                                         Observer& observer) -> DiscoverySessionResult {
+  StandardDiscoveryThreads threads;
+  return run_discovery_session(plan, clock, backend, relax, observer, threads);
 }
 
 template <typename Clock, typename Backend, typename Relax>

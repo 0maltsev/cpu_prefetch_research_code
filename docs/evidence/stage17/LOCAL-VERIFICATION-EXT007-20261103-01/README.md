@@ -66,3 +66,38 @@ still require integration. No live query, capture or new authority was issued.
 The first static pass rejected unchecked member-optionals and implicit
 multilevel pointer conversions. Local retained values and explicit casts repair
 those diagnostics without suppressions; the final strict pass is clean.
+
+ADR-0198 integrates explicitly mapped worker stacks into the persistent
+discovery session. [mapped-worker-stack-checks.json](mapped-worker-stack-checks.json)
+binds the source, accepted runtime, commands, logs and existing codegen reports.
+Both full development suites pass **506/506**, exit 0. All **41 platform** and
+**97 calibration** cases pass GCC and Clang/libc++ ASan/UBSan and TSan. Four
+affected translation units pass strict analysis, and global formatting,
+provenance and all six existing dual-disassembler codegen gates pass.
+
+Native local tests verify pthread stack geometry and actual worker frames,
+singleton affinity, an explicit inaccessible guard, live-byte preservation,
+one-shot launch/cleanup, every owner/control failure, refusal to unmap a live
+stack, partial launch cancellation, and both persistent phases. Only NUMA
+binding is injected in these tests; no actual stand residency is established.
+Sanitizer runs verify instrumented software behavior, not physical locking or
+platform qualification. Pthread startup may touch metadata from the creator;
+the implementation does not claim worker first touch for those bytes.
+
+The initial ASan check rejected using an address-taken local as a physical
+stack witness: ASan can relocate it. The corrected assertion checks the
+actual frame address and independent pthread stack attributes. Initial static
+checks also rejected ambiguous role arguments, unchecked test optionals, an
+oversized enum and implicit multiplication widening; all were corrected without
+suppressions. An initial label-selected sanitizer run included an unrelated
+unbuilt runner executable. Final sanitizer checks explicitly execute the two
+affected C++ suites. Review corrected the Threads dependency onto the platform
+target, followed by final builds and verification.
+
+Two authorized read-only SSH attempts to `root@94.126.205.83` timed out during
+banner exchange with 15- and 20-second connection limits, both exit 255.
+Neither reached the requested remote read. There was no stand command,
+capture, control change, current operational replay or new resolution.
+Complete mapped runtime objects/controller context, retained live controls,
+prospective finite budgets, publication/watchdog and qualified diagnostic
+admission remain required. Stage 17 is incomplete; Stage 18 has not started.

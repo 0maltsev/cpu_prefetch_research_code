@@ -1,0 +1,221 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "release_qualified": false,
+  "recorded_utc": "2026-11-02T22:23:16.649384+00:00",
+  "source_base_commit": "a21ae048027699c0892f8c63b53d2d24f183936d",
+  "source_state": "ADR0198 changes before local commit; exact source digests below",
+  "source_sha256": {
+    "CMakeLists.txt": "353b80d57afaa0ad8543ebf2426be1b8c77468dec1e27a83d2dc59dd4406ac73",
+    "include/cpu_prefetch/calibration/discovery_session.hpp": "53f1aded82d592c1484089dad1ba6dfbc6c9f3600b56dbe4b832e5302ed90eef",
+    "include/cpu_prefetch/calibration/discovery_thread_launcher.hpp": "1403559b3dfbe1ad1312b4017967efc90dc7347cf5f8a46606ad5aee2c7d046c",
+    "include/cpu_prefetch/platform/owner_mapping.hpp": "0bddf94771a0d5cbc49caaf9ec157a044abdad30055faaf1bb1a470ea559f085",
+    "include/cpu_prefetch/platform/worker_stack.hpp": "8a629f64f4906aa842135ed0299c49c670eb486a70120b964f4e22ae46a74bb1",
+    "src/platform/owner_mapping.cpp": "c36770e9b7354ccb1a7a9aa78dc911bf14d1c4d9e10a1b29d30cc3b2464cf55b",
+    "src/platform/worker_stack.cpp": "08ca857092f52d3a0a5b4eb23e35dabf555840e86e7c44a79cf7eaeefdbb3003",
+    "tests/calibration_discovery_session_test.cpp": "2b1cba754debcad68b0cc69feb1f59b64341b00ed68126a4b1ccc3d17376859c",
+    "tests/platform_worker_stack_test.cpp": "a5e40f75c269fd318db457ab6fb87d231f63ebcaa1f886e5a85b7bdf918dd285",
+    "tests/worker_stack_test_support.hpp": "741b680d5070557187bb2b7fa38e85b38c57926e36150e369a946e9db59e7973"
+  },
+  "protocol_version": "2.0.0-pre.3",
+  "runtime_manifest": {
+    "path": "docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/runtime-restoration.json",
+    "sha256": "4ecb9df69719223ae15bb337896ebf5c91faa3df653c2af3253216e2d9ace7a0"
+  },
+  "runtime_wrapper": {
+    "path": "build/ext007-runtime-20261101/run.py",
+    "sha256": "b8844ba500444f3d36acf35bbe8209caabb572beca38c0048734e8e6ac518a37"
+  },
+  "full_ctest": {
+    "dev-gcc": {
+      "path": "build/ext007-runtime-20261101/worker-stack-final-dev-gcc-tests.log",
+      "sha256": "7e93d83e88b6acd8d62e22640c46c37a84e995506a4116bbcfc9c3b86c16f876",
+      "exit_code": 0,
+      "cases": 506,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-dev-gcc-build.log",
+        "sha256": "97948e147082d193e457293140751f91cc30c409f6fe5e5481096b497465d503"
+      },
+      "command": "cmake --build build/accepted-dev-gcc -j2 && ctest --test-dir build/accepted-dev-gcc --output-on-failure -j2"
+    },
+    "dev-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/worker-stack-final-dev-clang-libcxx-tests.log",
+      "sha256": "f5c92419fccd4430927e56cc998414ed6359dc01909432fcd99988eefaaa859a",
+      "exit_code": 0,
+      "cases": 506,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-dev-clang-libcxx-build.log",
+        "sha256": "02e749c2d5822a6df00fa1615f082be340aad213bcd6efbd83773f686753d7fa"
+      },
+      "command": "cmake --build build/accepted-dev-clang-libcxx -j2 && ctest --test-dir build/accepted-dev-clang-libcxx --output-on-failure -j2"
+    }
+  },
+  "sanitizers": {
+    "asan-ubsan-gcc": {
+      "exit_code": 0,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-asan-ubsan-gcc-build.log",
+        "sha256": "c8b052ca4c3ad0cde7fb0e3c099a66399900969c01c1f998ba843c895ddc9fba"
+      },
+      "command": "cmake --build build/accepted-asan-ubsan-gcc --target cpu_prefetch_platform_tests cpu_prefetch_calibration_tests -j2; run both executables through accepted runtime",
+      "platform": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-asan-ubsan-gcc-platform.log",
+        "sha256": "12677e5677214868cbf3cd4b9ec935325d95d0ff1fb4a9f9994ec5388b038af4",
+        "cases": 41
+      },
+      "calibration": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-asan-ubsan-gcc-calibration.log",
+        "sha256": "29b8fd448944b76e7cf3568b4edecdebb9bd78c9aad9012cbdc363ba35562d1e",
+        "cases": 97
+      }
+    },
+    "tsan-gcc": {
+      "exit_code": 0,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-tsan-gcc-build.log",
+        "sha256": "354293160e53ea3a3e428d0ecd3b1a7bf7224e3ce6c06cbd8046d9fe873c724f"
+      },
+      "command": "cmake --build build/accepted-tsan-gcc --target cpu_prefetch_platform_tests cpu_prefetch_calibration_tests -j2; run both executables through accepted runtime",
+      "platform": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-tsan-gcc-platform.log",
+        "sha256": "e39ddc4c0a397331ca9f264645d08403a65c5ae1060455cff0ef0b3f4f5c7493",
+        "cases": 41
+      },
+      "calibration": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-tsan-gcc-calibration.log",
+        "sha256": "75234b366ef558001d412166ac7031a72066365beda8bb65508098b6d9c27d42",
+        "cases": 97
+      }
+    },
+    "asan-ubsan-clang-libcxx": {
+      "exit_code": 0,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-asan-ubsan-clang-libcxx-build.log",
+        "sha256": "3e567b9f24724513b9f841d0841e40ac9831b62cf56a8c8f6dbab9fede776b2f"
+      },
+      "command": "cmake --build build/accepted-asan-ubsan-clang-libcxx --target cpu_prefetch_platform_tests cpu_prefetch_calibration_tests -j2; run both executables through accepted runtime",
+      "platform": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-asan-ubsan-clang-libcxx-platform.log",
+        "sha256": "dcb8c4e406763c24e63c88ca86678f1a25fdbe5202975e5eee5aa26f394ad2e8",
+        "cases": 41
+      },
+      "calibration": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-asan-ubsan-clang-libcxx-calibration.log",
+        "sha256": "28dfe9f37ebf5d3610d83c5e2516870494fc3d79fdb7e0d7313f2ba68d035b2e",
+        "cases": 97
+      }
+    },
+    "tsan-clang-libcxx": {
+      "exit_code": 0,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-tsan-clang-libcxx-build.log",
+        "sha256": "8e16683f9671d3f35d5bb39cf71006ea21b8bf0fb3023a3a1dbf6818baa92248"
+      },
+      "command": "cmake --build build/accepted-tsan-clang-libcxx --target cpu_prefetch_platform_tests cpu_prefetch_calibration_tests -j2; run both executables through accepted runtime",
+      "platform": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-tsan-clang-libcxx-platform.log",
+        "sha256": "87a919b8b9149b13d8200d9270f58b1f4505535d3fd6381718eaf1fc063ed068",
+        "cases": 41
+      },
+      "calibration": {
+        "path": "build/ext007-runtime-20261101/worker-stack-final-tsan-clang-libcxx-calibration.log",
+        "sha256": "93ec5dced007fd0acab9ab419a86d56ac862dfea1e80684148227849b443b019",
+        "cases": 97
+      }
+    }
+  },
+  "strict_analysis": {
+    "path": "build/ext007-runtime-20261101/worker-stack-tidy-final.log",
+    "sha256": "1b7bc55026fd7804b858019c422fb8deb30168f9b0f1e4a43d9d4cb74ca72ef6",
+    "exit_code": 0,
+    "translation_units": 4,
+    "command": "clang-tidy -p build/accepted-dev-gcc --warnings-as-errors=\"*\" src/platform/owner_mapping.cpp src/platform/worker_stack.cpp tests/platform_worker_stack_test.cpp tests/calibration_discovery_session_test.cpp"
+  },
+  "format": {
+    "path": "build/ext007-runtime-20261101/worker-stack-format-final.log",
+    "sha256": "2a2dfb33385f763495a7752721d7f4bcf54c5fe8cfbf144c88c3f1601c5a6653",
+    "exit_code": 0,
+    "command": "cmake --build build/accepted-dev-gcc --target format-check"
+  },
+  "codegen_and_provenance": {
+    "path": "build/ext007-runtime-20261101/worker-stack-codegen.log",
+    "sha256": "69123f0e958c596084ee206ce9c8cebcc0bc7783d87cde1097310d8e3860cb1a",
+    "exit_code": 0,
+    "command": "cmake --build build/accepted-release-gcc --target queue-provenance-check queue-codegen-check workload-codegen-check timing-codegen-check runner-combined-codegen-check runner-relax-codegen-check storage-codegen-check -j2"
+  },
+  "existing_codegen_reports": [
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "1af9a706048eb4a3daf572adcc643458995bbfa3c720fcfc9cdf9312d07ee971",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "5dd838a4b6e4c6719136d2d496b1f01bcc32d4fef95a3733413f1332cf402c32",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "0462d356139602aa0f743469b3e05ed9ab77ee10410165c6b51b0cc1926551bd",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "7d009760cb44496a28c5678df285d05c5b7e2300aeb2a57426a675c1af5a8e58",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "a6831ef0f1b974db892e04d6deca1b853fc1483190f2cc38efbfc27af4d4979f",
+      "status": "PASS"
+    }
+  ],
+  "initial_rejected_checks": [
+    {
+      "path": "build/ext007-runtime-20261101/worker-stack-tidy.log",
+      "sha256": "8fee07d6751df86bfe341dd5354ddda2754f43b9eed3f1e17960493df4c5f8ea",
+      "exit_code": 1,
+      "resolution": "Typed role pair, explicit optional checks, narrow enum and size_t multiplication; no suppression"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/worker-stack-asan-ubsan-gcc-tests.log",
+      "sha256": "05644d38b7c65e72041b2e34890643893074ab043b2afea1663401650e359c3a",
+      "exit_code": 8,
+      "resolution": "Use actual frame instead of ASan-relocatable local; explicitly build/run affected test executables"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/worker-stack-tsan-gcc-tests.log",
+      "sha256": "639e488fb0f699ff96e6c642ebf0195683564c11762356074fc50e121bf1bda8",
+      "exit_code": 8,
+      "resolution": "Explicitly build/run affected test executables; initial label selection included unrelated unbuilt runner"
+    }
+  ],
+  "stand_access": {
+    "attempts": 2,
+    "connection_timeouts_seconds": [
+      15,
+      20
+    ],
+    "exit_codes": [
+      255,
+      255
+    ],
+    "error": "Connection timed out during banner exchange",
+    "remote_command_executed": false,
+    "operational_replay": false
+  },
+  "exact_discovery_boundary_qualification": "NOT_PERFORMED",
+  "remaining": [
+    "Actual mapped arena/ring and private trace/primary objects with complete context/TLS footprint",
+    "Live residency/control coverage and finite monitoring/resource plan",
+    "Durable publication and bounded outer watchdog",
+    "Source-bound release and fresh dependent/exact-boundary qualification",
+    "Approved diagnostic study and formal prospective calibration",
+    "EXT008-010 pilot/freeze/exit chain before Stage18 authority"
+  ]
+}

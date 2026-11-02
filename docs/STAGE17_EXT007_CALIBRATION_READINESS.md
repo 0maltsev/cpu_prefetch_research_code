@@ -163,6 +163,18 @@ pass all four sanitizer configurations, seven allocation-hook cases pass
 supported matrices, and all six strict codegen gates pass. Tests use injected
 results; no live residency or stand execution is claimed. The backend still
 needs its frozen monitoring schedule and retained clock/status snapshots.
+ADR-0193 adds joint event/demand capture with the ordinary primary observation
+types. The ring exposes both existing observer boundaries without changing
+its private algorithm or member layout. Every actual item receives the record
+action even after clock/trace failure. Partial actual readings stay separate
+from complete primary rows, absent demand clocks remain absent, and a
+pre-operation failure does not add a phantom attempt. Both integrated suites
+pass 451/451; 65 calibration cases pass all four sanitizer configurations,
+eight allocation-hook cases pass supported matrices, focused strict analysis
+and all six existing codegen gates pass. The backend still needs caller-owned
+primary streams, independent ordinals and exact reconciliation, observed drain
+capture, live owner preparation/residency, watchdog/publication/admission, and
+qualification of its exact combined clock-boundary sequence before execution.
 
 ## Implemented prerequisites
 

@@ -170,6 +170,7 @@ enum class RingAttemptOutcome : std::uint8_t {
   empty,
   clock_failure,
   trace_failure,
+  record_failure,
 };
 
 struct RingDemandSeries final {
@@ -230,11 +231,15 @@ private:
 
 struct RingCaptureResult final {
   RingAttemptOutcome outcome;
-  timing::ClockReadStatus before_status;
-  timing::ClockReadStatus after_status;
-  // The queue call has already happened when a clock/trace failure is found.
-  // Keep that operation's actual outcome independently for reconciliation.
+  // Absence means the demand clock was not read, rather than a failed read.
+  std::optional<timing::ClockReadStatus> before_status;
+  std::optional<timing::ClockReadStatus> after_status;
+  // Keep any performed operation's actual outcome independently of validity.
+  // Demand-only helpers have already called the queue; integrated capture
+  // explicitly reports false when a failure prevented the queue call.
   std::optional<RingAttemptOutcome> operation_outcome{};
+  bool operation_performed{true};
+  std::optional<timing::ClockReadStatus> failed_clock_status{};
 };
 
 template <typename Clock, typename Trace>

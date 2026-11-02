@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "cpu_prefetch/calibration/caller_owned_trace.hpp"
+#include "cpu_prefetch/calibration/discovery_event_capture.hpp"
 #include "cpu_prefetch/platform/prepared_residency.hpp"
 #include "cpu_prefetch/workload/packages.hpp"
 #include "cpu_prefetch/workload/records.hpp"
@@ -331,6 +332,62 @@ TEST(WorkloadNoAllocation, PreparedResidencyQueriesDoNotAllocate) {
   const auto after = allocation_count.load(std::memory_order_relaxed);
   EXPECT_TRUE(valid);
   EXPECT_EQ(after, before);
+}
+
+TEST(WorkloadNoAllocation, DiscoveryEventAndDemandCaptureDoNotAllocate) {
+  namespace calibration = cpu_prefetch::calibration;
+  namespace workload = cpu_prefetch::workload;
+  std::array<std::uint64_t, 64U> producer_demand{};
+  std::array<std::uint64_t, 64U> producer_issue{};
+  std::array<std::uint64_t, 64U> consumer_demand{};
+  std::array<std::uint64_t, 64U> consumer_issue{};
+  calibration::CallerOwnedRingDemandWorker producer(calibration::RingWorker::producer,
+                                                    producer_demand, producer_issue);
+  calibration::CallerOwnedRingDemandWorker consumer(calibration::RingWorker::consumer,
+                                                    consumer_demand, consumer_issue);
+  calibration::CallerOwnedRingDemandTrace trace(producer, consumer);
+  ASSERT_TRUE(trace.prepare_worker(calibration::RingWorker::producer));
+  ASSERT_TRUE(trace.prepare_worker(calibration::RingWorker::consumer));
+  workload::EventArena arena({8U, 64U, 4096U,
+                              workload::MasterSeed::from_hex(std::string(64U, '0')),
+                              "discovery-event-noalloc-test"});
+  cpu_prefetch::queue::RingSpscQueue ring({8U}, {64U});
+  struct Clock final {
+    std::uint64_t tick{0U};
+    auto read() noexcept -> cpu_prefetch::timing::ClockReadResult {
+      tick += 10U;
+      return {cpu_prefetch::timing::ClockReadStatus::ok, {0U, tick}};
+    }
+  } clock;
+  calibration::DiscoveryProducerEventCapture producer_row;
+  calibration::DiscoveryConsumerEventCapture consumer_row;
+  workload::ConsumerState state{17U};
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  bool valid = true;
+  for (std::uint64_t sequence = 0U; sequence < 32U; ++sequence) {
+    const auto produced = calibration::capture_discovery_producer_event(
+        clock, arena, ring, trace, {sequence}, 0U, {sequence}, producer_row);
+    const auto consumed = calibration::capture_discovery_consumer_event(
+        clock, arena, ring, trace, state, {sequence}, consumer_row);
+    valid = produced.outcome == calibration::RingAttemptOutcome::advanced &&
+            consumed.outcome == calibration::RingAttemptOutcome::advanced &&
+            producer_row.primary.has_value() && consumer_row.primary.has_value() &&
+            valid;
+  }
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_TRUE(valid);
+  EXPECT_EQ(after, before);
+  workload::ConsumerState expected{17U};
+  for (std::uint64_t sequence = 0U; sequence < 32U; ++sequence) {
+    const auto event = arena.select({sequence});
+    expected = workload::mix_consumer_state(expected, event.record_index,
+                                            event.record->payload);
+  }
+  EXPECT_EQ(state, expected);
+  EXPECT_EQ(trace.worker_series(calibration::RingWorker::producer).demand_ticks.size(),
+            32U);
+  EXPECT_EQ(trace.worker_series(calibration::RingWorker::consumer).issue_ticks.size(),
+            31U);
 }
 
 } // namespace

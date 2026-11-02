@@ -90,6 +90,12 @@ Failed/partial queries cannot inherit earlier placement; actual syscall and
 page errors remain distinct. Both integrated suites pass 442/442, all 26
 platform cases pass four sanitizer configurations, and all six strict codegen
 gates pass. Live residency observations still require the qualified backend.
+ADR-0193 adds joint event/demand capture using the existing primary observation
+types and queue boundaries. Actual advances and checksum actions survive
+clock/trace failure; unobserved clocks are absent. Both integrated suites pass
+451/451, all 65 calibration cases pass four sanitizer configurations, and all
+six existing strict codegen gates pass. Primary stream placement, the complete
+live backend/action, and exact boundary-sequence qualification remain open.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

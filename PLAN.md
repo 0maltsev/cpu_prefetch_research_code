@@ -415,6 +415,14 @@ authorization/amendment.
   allocation counters and all six strict codegen gates pass. The backend must
   freeze its finite monitoring schedule, prepare the scratch, retain each raw
   snapshot, and obtain actual stand observations through the qualified action.
+  ADR-0193 now captures ordinary producer/consumer rows and exact demand
+  brackets together, retaining actual operations and checksum actions after
+  failure. Missing clocks are explicit and pre-operation failures do not count
+  as attempts. Both integrated suites pass 451/451, all 65 calibration cases
+  pass four sanitizer configurations, supported allocation counters and all
+  six existing codegen gates pass. Next provide caller-owned primary streams
+  and integrate these captures with independent ordinals, observed drains,
+  persistent worker preparation, and durable failure/snapshot publication.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

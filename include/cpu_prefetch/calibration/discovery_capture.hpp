@@ -91,9 +91,18 @@ template <typename Clock, typename CaptureAttempt>
       return result;
     }
     const auto captured = capture_attempt();
-    ++result.attempts;
     result.last_attempt_outcome = captured.outcome;
     result.last_operation_outcome = captured.operation_outcome;
+    if (!captured.operation_performed) {
+      result.last_operation_outcome.reset();
+      result.last_attempt_before_status.reset();
+      result.last_attempt_after_status.reset();
+      result.stop = DiscoveryWorkerStop::capture_failure;
+      result.failed_clock_status = captured.failed_clock_status;
+      stop_requested.store(true, std::memory_order_release);
+      return result;
+    }
+    ++result.attempts;
     result.last_attempt_before_status = captured.before_status;
     result.last_attempt_after_status = captured.after_status;
     const auto operation = captured.operation_outcome.value_or(captured.outcome);
@@ -112,7 +121,9 @@ template <typename Clock, typename CaptureAttempt>
     if (!valid_outcome || captured.before_status != timing::ClockReadStatus::ok ||
         captured.after_status != timing::ClockReadStatus::ok) {
       result.stop = DiscoveryWorkerStop::capture_failure;
-      if (captured.before_status != timing::ClockReadStatus::ok) {
+      if (captured.failed_clock_status.has_value()) {
+        result.failed_clock_status = captured.failed_clock_status;
+      } else if (captured.before_status != timing::ClockReadStatus::ok) {
         result.failed_clock_status = captured.before_status;
       } else if (captured.after_status != timing::ClockReadStatus::ok) {
         result.failed_clock_status = captured.after_status;

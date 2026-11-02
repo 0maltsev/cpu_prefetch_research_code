@@ -90,6 +90,14 @@ development suites pass 442/442; 26 platform cases pass all four sanitizer
 configurations, seven allocation-hook cases pass supported matrices, and all
 six strict codegen gates pass. The new query has not supplied stand placement
 evidence; live integration and current release qualification remain open.
+ADR-0193 adds joint event/demand capture with actual partial readings and
+ordinary primary rows. It preserves completed queue operations/checksum
+actions after failure and prevents counting a pre-operation failure as an
+attempt. Unobserved clock statuses are optional facts. Both integrated suites
+pass 451/451; all 65 calibration cases pass all four sanitizer configurations,
+eight allocation-hook cases pass supported matrices, strict focused analysis
+and all six existing codegen gates pass. This is not a complete live backend
+or a qualification of the new exact clock-boundary sequence; no experiment ran.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

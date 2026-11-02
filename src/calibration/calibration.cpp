@@ -509,7 +509,8 @@ auto RingDemandTrace::record(RingWorker worker, std::uint64_t demand_start,
                              std::uint64_t demand_end,
                              RingAttemptOutcome outcome) noexcept -> bool {
   if (outcome == RingAttemptOutcome::clock_failure ||
-      outcome == RingAttemptOutcome::trace_failure || demand_end < demand_start) {
+      outcome == RingAttemptOutcome::trace_failure ||
+      outcome == RingAttemptOutcome::record_failure || demand_end < demand_start) {
     return false;
   }
   if ((outcome == RingAttemptOutcome::full && worker != RingWorker::producer) ||

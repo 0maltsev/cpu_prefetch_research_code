@@ -192,3 +192,18 @@ and scope. The new query's tests inject page/syscall outcomes and exercise
 Linux adapter argument rejection; they do not supply live NUMA observations.
 Actual stand residency, a frozen monitor schedule, durable snapshots, the
 live backend, and qualified action remain pending. No experiment ran.
+
+ADR-0193 subsequently adds joint event/demand capture. Both integrated
+development suites pass **451/451**, exit 0. All 65 calibration cases pass
+all four sanitizer configurations; eight allocation-hook cases pass supported
+matrices, including joint capture with caller-owned demand buffers and the
+ordinary record action. Exact failed boundaries and worker counts/statuses
+are checked across pre/post-operation failures. The first static pass rejected
+unchecked optional accesses; the final guarded, nullable-status representation
+passes strict analysis of four affected translation units. Global formatting,
+source provenance and all six existing strict codegen gates pass.
+[discovery-event-checks.json](discovery-event-checks.json) binds source and
+scope. Those codegen gates do not constitute new stand qualification of the
+combined clock-boundary sequence. Primary stream placement, the complete live
+backend/action, durable partial evidence, actual residency and exact boundary
+qualification remain pending. No experimental capture ran.

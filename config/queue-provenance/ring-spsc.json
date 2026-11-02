@@ -21,7 +21,7 @@
     "repository_source_license": "NO-LICENSE-GRANT",
     "implementation_files": [
       {"path": "include/cpu_prefetch/queue/common.hpp", "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7"},
-      {"path": "include/cpu_prefetch/queue/ring_spsc.hpp", "sha256": "dba17f1ff68bff418270566618a35c65fe5362c199c160edad94230f234d470b"},
+      {"path": "include/cpu_prefetch/queue/ring_spsc.hpp", "sha256": "ba91404fe69120f79ed00e303c8666d7b042870a264ad10f9253c2309f560dad"},
       {"path": "include/cpu_prefetch/queue/adapters.hpp", "sha256": "1a7a28562be0ab2ab7e8f608b52470702e038b8d79d1fa738e6a5dc28ae14e49"},
       {"path": "src/queue/common.cpp", "sha256": "c3fd566fe9c4de12f2a2e06075e4fdd9e23e495ffbd3798d1e6648ddf7fbd524"},
       {"path": "src/queue/ring_spsc.cpp", "sha256": "1a218f6a1933435db4538ea9992158a17c608b4d8a27fbc9c9d3b8700c5c43c3"}
@@ -35,7 +35,8 @@
     "Stage 8 adds statically specialized fail-closed observers at the accepted p-before-release-publication and q-after-acquire-before-reuse boundaries; ordinary queue operations retain the original path and memory orders",
     "Stage 13 adds a calibration-only observer immediately before and after the same acquire load that decides slot availability; ordinary operations use an inlined no-op observer and retain the algorithm and memory orders",
     "Platform software-prefetch instruction encoding remains outside the queue; D-047 later binds the runner emitter without changing this queue",
-    "ADR-0188 adds exact-size nonoverlapping caller-owned slot/cursor storage and internal-type-derived setup requirements; initialization, member layout, queue operations, memory orders, and logical hot storage bytes remain unchanged"
+    "ADR-0188 adds exact-size nonoverlapping caller-owned slot/cursor storage and internal-type-derived setup requirements; initialization, member layout, queue operations, memory orders, and logical hot storage bytes remain unchanged",
+    "ADR-0193 exposes the existing demand and event-boundary observers together for diagnostic capture; the private queue algorithm, member layout, ordinary operations and release/acquire mapping remain unchanged"
   ],
   "memory_order_mapping": [
     "producer acquire-loads a slot before reuse and release-stores an accepted pointer",

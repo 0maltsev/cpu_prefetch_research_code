@@ -363,6 +363,41 @@ TEST(StorageFormat, CallerOwnershipZeroCapacityAndExhaustionRemainUnchanged) {
   EXPECT_TRUE(zero_consumer.snapshot().bytes.empty());
 }
 
+TEST(StorageFormat, PreparedReadersReproduceEveryGoldenPrimaryByte) {
+  const auto id = run_id();
+  const auto layout = storage::make_row_layout(id.value());
+  storage::ProducerObservationStream producer(id, 2U);
+  storage::ConsumerObservationStream consumer(id, 1U);
+  storage::ProducerObservationStream producer_copy(id, 2U);
+  storage::ConsumerObservationStream consumer_copy(id, 1U);
+  ASSERT_TRUE(producer.prepare_for_owner());
+  ASSERT_TRUE(consumer.prepare_for_owner());
+  ASSERT_TRUE(producer_copy.prepare_for_owner());
+  ASSERT_TRUE(consumer_copy.prepare_for_owner());
+  ASSERT_EQ(producer.append(accepted_observation()), storage::AppendStatus::appended);
+  ASSERT_EQ(producer.append(full_observation()), storage::AppendStatus::appended);
+  ASSERT_EQ(consumer.append(consumer_observation()), storage::AppendStatus::appended);
+  for (std::uint64_t index = 0U; index < 2U; ++index) {
+    const auto row =
+        storage::read_prepared_producer_row(producer.snapshot(), layout, index);
+    if (!row.has_value()) {
+      FAIL() << "prepared producer row was not readable";
+      return;
+    }
+    EXPECT_EQ(producer_copy.append(*row), storage::AppendStatus::appended);
+  }
+  const auto row = storage::read_prepared_consumer_row(consumer.snapshot(), layout, 0U);
+  if (!row.has_value()) {
+    FAIL() << "prepared consumer row was not readable";
+    return;
+  }
+  EXPECT_EQ(consumer_copy.append(*row), storage::AppendStatus::appended);
+  EXPECT_EQ(digest(producer_copy.snapshot().bytes),
+            "c6b47e3a4e73fa26e913ccd9101bd68e72bc3de4a488c3e3332fc65c7c61787c");
+  EXPECT_EQ(digest(consumer_copy.snapshot().bytes),
+            "0ed5a56f76a293b344eca47c684558d7fe6e46cebffd06981a446fd2c667a888");
+}
+
 TEST(StorageFormat, ExactCapacityZeroRowsAndOverflowFailClosed) {
   const auto id = run_id("capacity-run");
   storage::ProducerObservationStream producer(id, 1U);

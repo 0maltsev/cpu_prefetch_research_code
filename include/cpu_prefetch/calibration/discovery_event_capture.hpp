@@ -27,10 +27,17 @@ struct DiscoveryDemandObservation final {
   std::optional<timing::ClockReadResult> after;
 };
 
+struct DiscoveryProducerAttemptIdentity final {
+  workload::LogicalSequence logical_sequence;
+  std::uint64_t scheduled_arrival;
+  workload::AcceptedOrdinal candidate_accepted_ordinal;
+};
+
 struct DiscoveryProducerEventCapture final {
   RingCaptureResult capture{RingAttemptOutcome::trace_failure, std::nullopt,
                             std::nullopt, std::nullopt, false};
   std::optional<DiscoveryCaptureBoundary> failed_boundary;
+  std::optional<DiscoveryProducerAttemptIdentity> requested_attempt;
   std::optional<workload::EventSelection> selected;
   std::optional<timing::ClockReadResult> handle_begin;
   std::optional<timing::ClockReadResult> lookup_completion;
@@ -45,6 +52,7 @@ struct DiscoveryConsumerEventCapture final {
   RingCaptureResult capture{RingAttemptOutcome::trace_failure, std::nullopt,
                             std::nullopt, std::nullopt, false};
   std::optional<DiscoveryCaptureBoundary> failed_boundary;
+  std::optional<workload::AcceptedOrdinal> candidate_consumed_ordinal;
   std::optional<timing::ClockReadResult> dequeue_invocation;
   DiscoveryDemandObservation demand;
   std::optional<timing::ClockReadResult> dequeue_observation;
@@ -123,8 +131,10 @@ template <typename Clock, typename Trace>
     workload::AcceptedOrdinal ordinal, DiscoveryProducerEventCapture& row) noexcept
     -> RingCaptureResult {
   static_assert(noexcept(clock.read()));
-  row = {};
   const auto handle_begin = clock.read();
+  row = {};
+  row.requested_attempt =
+      DiscoveryProducerAttemptIdentity{sequence, scheduled_arrival, ordinal};
   row.handle_begin = handle_begin;
   if (!detail::discovery_clock_ok(row, handle_begin,
                                   DiscoveryCaptureBoundary::producer_handle_begin)) {
@@ -202,8 +212,9 @@ template <typename Clock, typename Trace>
     Trace& trace, workload::ConsumerState& state, workload::AcceptedOrdinal ordinal,
     DiscoveryConsumerEventCapture& row) noexcept -> RingCaptureResult {
   static_assert(noexcept(clock.read()));
-  row = {};
   const auto invocation = clock.read();
+  row = {};
+  row.candidate_consumed_ordinal = ordinal;
   row.dequeue_invocation = invocation;
   if (!detail::discovery_clock_ok(row, invocation,
                                   DiscoveryCaptureBoundary::dequeue_invocation)) {

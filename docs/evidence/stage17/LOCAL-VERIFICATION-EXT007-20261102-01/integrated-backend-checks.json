@@ -1,0 +1,111 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "source_base_commit": "8cd9695",
+  "source_state": "ADR0195 pending commit",
+  "source_sha256": {
+    "CMakeLists.txt": "ce61758ba9050e08a2331a52d918eec3021bcee8832d5b92ddc0ddfcf921ba9e",
+    "include/cpu_prefetch/calibration/discovery_capture.hpp": "de083ff97b2068a7820785d54dd6592bc2a319d95a2bfef7dfa9b7f41f17d8d4",
+    "include/cpu_prefetch/calibration/discovery_event_capture.hpp": "1af1b311b4c7deb731e2d7f839fb391dcde0413177d47c919d8cb8e8c4ff97c1",
+    "include/cpu_prefetch/calibration/discovery_session.hpp": "a2afc5b7b344c6d1a683924c53cf906cfeb6e0edf51d07ef0795d29a612fa981",
+    "include/cpu_prefetch/calibration/discovery_observed_drain.hpp": "b754ccdab5526df921a6ec18887a07ea046318b2c09dd4b0fbd220b23214ff88",
+    "include/cpu_prefetch/calibration/discovery_reconciliation.hpp": "46c5d1cf94df9d15cdabbf71fe298e0147c5c738edeb8a4ef7b2e5a6d1bb1169",
+    "include/cpu_prefetch/calibration/discovery_ring_backend.hpp": "bff35ed96f38de880186cb473bf286fccff0dc8aa2114c0d0e82c533543d04aa",
+    "include/cpu_prefetch/storage/raw_observations.hpp": "d95022bddda7e20a44f3c870a44cef1394dbd44535c39b9e1ec92cbb1d4f809c",
+    "src/storage/raw_observations.cpp": "e0f38f893a328674e776ba8e69c40a03a57657df520eafc2647bbebee4658acb",
+    "tests/calibration_discovery_backend_test.cpp": "d4340fbf6485d8f64f785011ed2a23f59c3f2f8492e29d6e14a1e1f78d5081fc",
+    "tests/discovery_backend_test_support.hpp": "01746803c1f5d7cfc0cbda69525beebd7f4123711a2163ee67442eb20a0a0bff",
+    "tests/storage_model_test.cpp": "26022969f0f377da8dfdd982d3bb7d2cd7297142ce7dfd30180c0b70016fca51",
+    "tests/storage_noalloc_test.cpp": "5b289b5d5f89abdd5a1984dc47ab1b96478f6b9faf9bd5fd680d78ab0d16960c"
+  },
+  "preparation_scope": "SOFTWARE_ONLY; no actual Linux placement, residency or admission",
+  "full_ctest": {
+    "gcc": {
+      "cases": 471,
+      "exit_code": 0,
+      "log_sha256": "3afc63aeeca45eae8f345d4bb9de1fac39990f659801f359e066f6d5691dd8fd"
+    },
+    "clang-libcxx": {
+      "cases": 471,
+      "exit_code": 0,
+      "log_sha256": "e19bbacc84af7220942417e55e9b1e89e31c8baebf16367ea60575469e12f7d8"
+    }
+  },
+  "calibration_cases": 78,
+  "storage_cases": 21,
+  "sanitizers": {
+    "asan-ubsan-gcc": {
+      "calibration_cases": 78,
+      "storage_cases": 21,
+      "storage_allocation_counter_cases": 3,
+      "exit_code": 0,
+      "log_sha256": "9a5ec27985bd0907545b584ad91b3db8a250b5d04b5ace1103ff67bb56df714f"
+    },
+    "tsan-gcc": {
+      "calibration_cases": 78,
+      "storage_cases": 21,
+      "storage_allocation_counter_cases": 3,
+      "exit_code": 0,
+      "log_sha256": "b7c20cb762c7c44225bf2a81133fa9b1a8326da112fd69180c6648df7a4541e6"
+    },
+    "asan-ubsan-clang-libcxx": {
+      "calibration_cases": 78,
+      "storage_cases": 21,
+      "storage_allocation_counter_cases": 3,
+      "exit_code": 0,
+      "log_sha256": "b50e047f7c65629bcac19d8fe36930aad025a30d4e35d2df06ee1cbeaee9eaf0"
+    },
+    "tsan-clang-libcxx": {
+      "calibration_cases": 78,
+      "storage_cases": 21,
+      "storage_allocation_counter_cases": null,
+      "exit_code": 0,
+      "log_sha256": "5d34f83e8a9e601be59800d6d391003700e8c1b80d6f4da6e4bc3969acd619d5"
+    }
+  },
+  "storage_allocation_counter_cases": 3,
+  "allocation_scope": "capture, observed drain, exact join and reset; preallocated caller-owned software fixtures",
+  "clang_tsan_allocation_counter": "EXCLUDED_BY_EXISTING_CMAKE_POLICY_INTERCEPTOR_CONFLICT",
+  "format_exit_code": 0,
+  "focused_static_translation_units": 6,
+  "focused_static_exit_code": 0,
+  "initial_static": "REJECTED_AMBIGUOUS_CHECKSUM_PARAMETERS_TEST_WIDENING_AND_FIXTURE_PADDING; corrected before final verification",
+  "provenance_exit_code": 0,
+  "strict_existing_codegen_exit_code": 0,
+  "strict_existing_codegen_reports": [
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "1af9a706048eb4a3daf572adcc643458995bbfa3c720fcfc9cdf9312d07ee971",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "5dd838a4b6e4c6719136d2d496b1f01bcc32d4fef95a3733413f1332cf402c32",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "0462d356139602aa0f743469b3e05ed9ab77ee10410165c6b51b0cc1926551bd",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "7d009760cb44496a28c5678df285d05c5b7e2300aeb2a57426a675c1af5a8e58",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "a6831ef0f1b974db892e04d6deca1b853fc1483190f2cc38efbfc27af4d4979f",
+      "status": "PASS"
+    }
+  ],
+  "external_raw_admission_replaced": false,
+  "combined_boundary_sequence_stand_qualification": false,
+  "stand_capture_performed": false,
+  "release_qualified": false
+}

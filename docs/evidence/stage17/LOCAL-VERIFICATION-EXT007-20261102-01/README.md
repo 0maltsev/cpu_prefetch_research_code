@@ -225,3 +225,23 @@ The backend must still construct/prepare these objects on their actual owners,
 verify mappings, capture observed drain rows, reconcile independent sequences,
 and complete monitoring/publication/admission and exact-boundary qualification.
 No new stand capture or operational resolution is claimed.
+
+ADR-0195 integrates the R0 phase backend with the real arena, queue, caller-owned
+primary/demand buffers and persistent workers. Both integrated development
+suites pass **471/471**, exit 0. All 78 calibration and 21 storage cases pass
+all four sanitizer configurations; three storage allocation-hook cases pass
+supported matrices, including capture, observed drain, exact join and reset.
+Clang TSan retains its existing allocator-hook exclusion. The first static
+pass rejected ambiguous checksum parameters, narrow test multiplication and
+fixture padding; the repaired named checksum witness and fixture layout pass
+strict analysis of six affected translation units. Global formatting, source
+provenance and all six existing strict codegen gates pass.
+
+[integrated-backend-checks.json](integrated-backend-checks.json) binds source
+and verification scope. Failure tests retain actual queue/action counts and
+candidate identities, reject malformed/time/ordinal/checksum witnesses, keep
+later drain ordinals after a missing primary row, and prove that failed final
+integrity cannot reset the queue. Existing external raw admission remains
+separate from the new in-process, no-allocation readers. No actual Linux
+mapping/monitoring provider, qualified diagnostic action or stand capture is
+claimed by these software-only preparation tests.

@@ -105,6 +105,15 @@ integrated suites pass 456/456; 20 storage cases pass all four sanitizer
 configurations, two storage allocation-hook cases pass supported matrices,
 and strict analysis plus all six codegen gates pass. Live worker preparation,
 observed drain/reconciliation and qualified execution remain open.
+ADR-0195 now composes those primitives into a real R0 phase backend. It joins
+independent primary sequences and replays the checksum without allocation,
+captures real drain boundaries, and refuses reset after failed final integrity.
+Failure prefixes and later drain ordinals remain distinct. Both integrated
+suites pass 471/471; 78 calibration and 21 storage cases pass four sanitizer
+configurations, three storage allocation-hook cases pass supported matrices,
+focused strict analysis and all six existing codegen gates pass. Tests use a
+software-only preparation provider. The actual Linux owner/mapping/monitoring
+provider, durable publication, watchdog/admission and qualification remain open.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

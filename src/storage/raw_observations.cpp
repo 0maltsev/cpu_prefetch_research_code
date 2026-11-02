@@ -222,6 +222,49 @@ validated_external_run_id(const protocol::RunId& run_id, std::uint64_t row_capac
   return true;
 }
 
+[[nodiscard]] auto prepared_shape_valid(const RawStreamSnapshot& snapshot,
+                                        const RowLayout& layout,
+                                        protocol::StreamKind kind) noexcept -> bool {
+  if (snapshot.stream_kind != kind || snapshot.run_id.empty() ||
+      snapshot.run_id.size() > std::numeric_limits<std::uint32_t>::max() ||
+      layout.run_id_bytes != snapshot.run_id.size() ||
+      snapshot.row_count > snapshot.row_capacity ||
+      (!snapshot.bytes.empty() && snapshot.bytes.data() == nullptr)) {
+    return false;
+  }
+  const auto prefix =
+      (sizeof(std::uint32_t) + layout.run_id_bytes + 7U) & ~std::uint64_t{7U};
+  const auto body_bytes =
+      kind == protocol::StreamKind::producer ? kProducerBodyBytes : kConsumerBodyBytes;
+  std::uint64_t row_bytes = 0U;
+  std::uint64_t total_bytes = 0U;
+  if ((kind != protocol::StreamKind::producer &&
+       kind != protocol::StreamKind::consumer) ||
+      layout.prefix_bytes != prefix || !checked_add(prefix, body_bytes, row_bytes) ||
+      expected_row_bytes(kind, layout) != row_bytes ||
+      snapshot.row_bytes != row_bytes ||
+      !checked_multiply(snapshot.row_count, row_bytes, total_bytes) ||
+      total_bytes != snapshot.bytes.size()) {
+    return false;
+  }
+  return true;
+}
+
+[[nodiscard]] auto prepared_row_body(const RawStreamSnapshot& snapshot,
+                                     const RowLayout& layout, protocol::StreamKind kind,
+                                     std::uint64_t index) noexcept -> const std::byte* {
+  std::uint64_t offset = 0U;
+  if (!prepared_shape_valid(snapshot, layout, kind) || index >= snapshot.row_count ||
+      !checked_multiply(index, snapshot.row_bytes, offset) ||
+      offset > std::numeric_limits<std::size_t>::max()) {
+    return nullptr;
+  }
+  const auto* row = snapshot.bytes.data() + static_cast<std::size_t>(offset);
+  return verify_prefix(row, layout, snapshot.run_id)
+             ? row + static_cast<std::size_t>(layout.prefix_bytes)
+             : nullptr;
+}
+
 [[nodiscard]] auto joined_words(const protocol::JoinedRecord& row)
     -> std::array<std::uint64_t, 24> {
   return {row.accepted_ordinal,
@@ -310,6 +353,69 @@ auto raw_stream_storage_requirements(const protocol::RunId& run_id,
   }
   return {static_cast<std::size_t>(producer_bytes),
           static_cast<std::size_t>(consumer_bytes)};
+}
+
+auto prepared_primary_stream_shape(const RawStreamSnapshot& snapshot,
+                                   const RowLayout& layout,
+                                   protocol::StreamKind kind) noexcept -> bool {
+  return prepared_shape_valid(snapshot, layout, kind);
+}
+
+auto read_prepared_producer_row(const RawStreamSnapshot& snapshot,
+                                const RowLayout& layout, std::uint64_t index) noexcept
+    -> std::optional<timing::ProducerObservation> {
+  const auto* body =
+      prepared_row_body(snapshot, layout, protocol::StreamKind::producer, index);
+  if (body == nullptr) {
+    return std::nullopt;
+  }
+  std::array<std::uint64_t, 15U> words{};
+  for (std::size_t word = 0U; word < words.size(); ++word) {
+    words[word] = load_u64_le(body + word * sizeof(std::uint64_t));
+  }
+  if (words[0U] != index ||
+      (words[14U] != kProducerAcceptedFlags && words[14U] != kProducerFullFlags)) {
+    return std::nullopt;
+  }
+  const bool accepted = words[14U] == kProducerAcceptedFlags;
+  if (!accepted && (words[9U] != 0U || words[10U] != 0U || words[13U] != 0U)) {
+    return std::nullopt;
+  }
+  return timing::ProducerObservation{
+      {words[0U]},
+      {words[1U]},
+      words[2U],
+      {words[3U], words[4U]},
+      {words[5U], words[6U]},
+      {words[7U], words[8U]},
+      accepted ? std::optional<timing::ClockSample>{{words[9U], words[10U]}}
+               : std::nullopt,
+      {words[11U], words[12U]},
+      accepted ? protocol::ProducerOutcome::accepted : protocol::ProducerOutcome::full,
+      accepted ? std::optional<workload::AcceptedOrdinal>{{words[13U]}} : std::nullopt};
+}
+
+auto read_prepared_consumer_row(const RawStreamSnapshot& snapshot,
+                                const RowLayout& layout, std::uint64_t index) noexcept
+    -> std::optional<timing::ConsumerObservation> {
+  const auto* body =
+      prepared_row_body(snapshot, layout, protocol::StreamKind::consumer, index);
+  if (body == nullptr) {
+    return std::nullopt;
+  }
+  std::array<std::uint64_t, 10U> words{};
+  for (std::size_t word = 0U; word < words.size(); ++word) {
+    words[word] = load_u64_le(body + word * sizeof(std::uint64_t));
+  }
+  if (words[0U] != index) {
+    return std::nullopt;
+  }
+  return timing::ConsumerObservation{{words[0U]},
+                                     {words[1U]},
+                                     {words[2U], words[3U]},
+                                     {words[4U], words[5U]},
+                                     {words[6U], words[7U]},
+                                     {words[8U], words[9U]}};
 }
 
 ProducerObservationStream::ProducerObservationStream(const protocol::RunId& run_id,

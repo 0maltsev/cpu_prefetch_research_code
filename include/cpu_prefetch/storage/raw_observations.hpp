@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <span>
 #include <stdexcept>
 #include <string>
@@ -79,6 +80,23 @@ struct RawStreamSnapshot final {
   StreamCompleteness completeness;
   bool overflowed;
 };
+
+// Read only after the stream owner is quiescent. Layout is precomputed during
+// preparation with make_row_layout. These allocation-free in-process readers
+// check physical row shape/identity; they do not replace external artifact
+// hash/envelope/semantic admission or cross-stream reconciliation.
+[[nodiscard]] auto prepared_primary_stream_shape(const RawStreamSnapshot& snapshot,
+                                                 const RowLayout& layout,
+                                                 protocol::StreamKind kind) noexcept
+    -> bool;
+[[nodiscard]] auto read_prepared_producer_row(const RawStreamSnapshot& snapshot,
+                                              const RowLayout& layout,
+                                              std::uint64_t index) noexcept
+    -> std::optional<timing::ProducerObservation>;
+[[nodiscard]] auto read_prepared_consumer_row(const RawStreamSnapshot& snapshot,
+                                              const RowLayout& layout,
+                                              std::uint64_t index) noexcept
+    -> std::optional<timing::ConsumerObservation>;
 
 class ProducerObservationStream final {
 public:

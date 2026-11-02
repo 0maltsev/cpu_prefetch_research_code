@@ -39,3 +39,10 @@ qualification continuity.
 [collect-read-only.py](collect-read-only.py) is the exact inventory program;
 its hash is recorded in the audit. It ran via SSH stdin with `python3 -B -`.
 It neither installs files on the stand nor changes its hardware configuration.
+
+A supplemental [runtime check](runtime-versions-20261102T202604Z.json) at
+20:26 UTC confirms working SSH and reports native glibc 2.43, Python 3.14.4
+and OpenSSL 3.5.5. `g++`, `clang++` and CMake were absent from the queried
+process's normal PATH. It only invoked version commands with Python bytecode
+writes disabled; no configuration, MSR or capture action occurred. These
+version facts do not qualify the new binary or its loaded dependency closure.

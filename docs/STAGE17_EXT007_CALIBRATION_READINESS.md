@@ -185,6 +185,19 @@ two storage allocation-hook cases pass supported matrices, strict analysis and
 all six codegen gates pass. Actual mapped owner construction and residency,
 independent ordinals, observed drain rows and exact phase reconciliation,
 watchdog/publication/admission and exact-boundary qualification remain open.
+ADR-0195 implements the R0 phase composition with independently maintained
+logical/accepted/consumed ordinals. Prepared raw readers retain the old codec;
+exact prefix/full joins check literal identity, deterministic mapping, ordinals,
+within/across-row time order and replayed checksum without allocation. Observed
+drain retains real boundary/record facts and requires final integrity before
+reset. Invalid primary prefixes are not renumbered or filled from later drain
+rows. Both integrated suites pass 471/471; 78 calibration and 21 storage cases
+pass all four sanitizer configurations, three storage allocation-hook cases
+pass supported matrices, strict focused analysis and six existing codegen
+gates pass. This uses software-only preparation, not actual stand placement.
+Linux owner construction/binding/monitoring, durable publication, finite outer
+watchdog, versioned diagnostic admission/release and fresh dependent/exact-clock
+qualification remain required. No diagnostic or formal capture has run.
 
 ## Implemented prerequisites
 

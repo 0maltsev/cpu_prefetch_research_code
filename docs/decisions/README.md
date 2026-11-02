@@ -36,6 +36,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
+| [ADR-0195](0195-integrated-discovery-ring-phase-backend.md) | `ACCEPTED` | Compose real event streams, observed drain and allocation-free exact joins with persistent discovery workers; preserve partial identities and prevent reset after failed integrity. |
 | [ADR-0194](0194-caller-owned-primary-stream-storage.md) | `ACCEPTED` | Prepare the unchanged primary raw codec in caller-owned buffers; preserve ownership, capacity failures, hot offsets and stream object size in supported ABIs. |
 | [ADR-0193](0193-discovery-event-and-demand-capture.md) | `ACCEPTED` | Capture ordinary event boundaries and exact demand brackets together; retain real operations/actions after failure and distinguish absent clocks and pre-operation failures. |
 | [ADR-0192](0192-preallocated-page-residency-query.md) | `ACCEPTED` | Sample Linux page residency using caller-owned scratch, retaining syscall/page failures without allocation, migration, retry, or stale-success reuse. |

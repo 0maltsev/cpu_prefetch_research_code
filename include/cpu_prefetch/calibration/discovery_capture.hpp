@@ -42,13 +42,26 @@ struct DiscoveryWorkerResult final {
   std::optional<timing::ClockReadStatus> failed_clock_status{};
 };
 
+namespace detail {
+template <typename Attempt>
+[[nodiscard]] auto invoke_discovery_attempt(Attempt& attempt,
+                                            std::uint64_t observed_tick) noexcept {
+  if constexpr (requires { attempt(observed_tick); }) {
+    static_assert(noexcept(attempt(observed_tick)));
+    return attempt(observed_tick);
+  } else {
+    static_assert(noexcept(attempt()));
+    return attempt();
+  }
+}
+} // namespace detail
+
 template <typename Clock, typename CaptureAttempt>
 [[nodiscard]] auto capture_discovery_worker(DiscoveryWorkerWindow window, Clock& clock,
                                             CaptureAttempt& capture_attempt,
                                             std::atomic<bool>& stop_requested) noexcept
     -> DiscoveryWorkerResult {
   static_assert(noexcept(clock.read()));
-  static_assert(noexcept(capture_attempt()));
   static_assert(std::atomic<bool>::is_always_lock_free);
   DiscoveryWorkerResult result{DiscoveryWorkerStop::invalid_plan};
   if ((window.worker != RingWorker::producer &&
@@ -90,7 +103,7 @@ template <typename Clock, typename CaptureAttempt>
       stop_requested.store(true, std::memory_order_release);
       return result;
     }
-    const auto captured = capture_attempt();
+    const auto captured = detail::invoke_discovery_attempt(capture_attempt, now);
     result.last_attempt_outcome = captured.outcome;
     result.last_operation_outcome = captured.operation_outcome;
     if (!captured.operation_performed) {

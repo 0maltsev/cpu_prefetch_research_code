@@ -74,14 +74,6 @@ template <typename Clock, typename Backend, typename Relax>
     -> DiscoverySessionResult {
   static_assert(noexcept(clock.read()));
   static_assert(noexcept(relax.relax()));
-  static_assert(noexcept(backend.warmup_producer_attempt()));
-  static_assert(noexcept(backend.warmup_consumer_attempt()));
-  static_assert(noexcept(backend.measurement_producer_attempt()));
-  static_assert(noexcept(backend.measurement_consumer_attempt()));
-  static_assert(
-      noexcept(backend.consume_warmup_drain(static_cast<const void*>(nullptr))));
-  static_assert(
-      noexcept(backend.consume_measurement_drain(static_cast<const void*>(nullptr))));
   DiscoverySessionResult result;
   if (plan.warmup_duration_ticks == 0U || plan.measurement_duration_ticks == 0U ||
       plan.warmup_attempt_capacity == 0U || plan.measurement_attempt_capacity == 0U ||
@@ -127,15 +119,26 @@ template <typename Clock, typename Backend, typename Relax>
       failure.failed_clock_status = origin.status;
       return failure;
     }
-    auto consume = [&](const void* event) noexcept {
-      return warmup ? backend.consume_warmup_drain(event)
-                    : backend.consume_measurement_drain(event);
-    };
-    return drain_discovery_ring_quiescent(
-        {origin.sample.relative_picoseconds, plan.drain_duration_ticks,
-         plan.drain_attempt_capacity, workers[0].advanced - workers[1].advanced,
-         warmup && result.warmup_verified},
-        clock, backend.ring(), consume);
+    const DiscoveryDrainWindow window{
+        origin.sample.relative_picoseconds, plan.drain_duration_ticks,
+        plan.drain_attempt_capacity, workers[0].advanced - workers[1].advanced,
+        warmup && result.warmup_verified};
+    if constexpr (requires {
+                    backend.drain_warmup(window);
+                    backend.drain_measurement(window);
+                  }) {
+      return warmup ? backend.drain_warmup(window) : backend.drain_measurement(window);
+    } else {
+      static_assert(
+          noexcept(backend.consume_warmup_drain(static_cast<const void*>(nullptr))));
+      static_assert(noexcept(
+          backend.consume_measurement_drain(static_cast<const void*>(nullptr))));
+      auto consume = [&](const void* event) noexcept {
+        return warmup ? backend.consume_warmup_drain(event)
+                      : backend.consume_measurement_drain(event);
+      };
+      return drain_discovery_ring_quiescent(window, clock, backend.ring(), consume);
+    }
   };
   const auto worker = [&]<RingWorker Role>() {
     constexpr std::size_t index = Role == RingWorker::producer ? 0U : 1U;
@@ -161,10 +164,17 @@ template <typename Clock, typename Backend, typename Relax>
         cancel();
         return;
       }
-      auto warmup_attempt = [&]() noexcept {
+      auto warmup_attempt = [&](std::uint64_t observed_tick) noexcept {
         if constexpr (Role == RingWorker::producer) {
-          return backend.warmup_producer_attempt();
+          if constexpr (requires { backend.warmup_producer_attempt(observed_tick); }) {
+            static_assert(noexcept(backend.warmup_producer_attempt(observed_tick)));
+            return backend.warmup_producer_attempt(observed_tick);
+          } else {
+            static_assert(noexcept(backend.warmup_producer_attempt()));
+            return backend.warmup_producer_attempt();
+          }
         } else {
+          static_assert(noexcept(backend.warmup_consumer_attempt()));
           return backend.warmup_consumer_attempt();
         }
       };
@@ -216,10 +226,20 @@ template <typename Clock, typename Backend, typename Relax>
         cancel();
         return;
       }
-      auto measurement_attempt = [&]() noexcept {
+      auto measurement_attempt = [&](std::uint64_t observed_tick) noexcept {
         if constexpr (Role == RingWorker::producer) {
-          return backend.measurement_producer_attempt();
+          if constexpr (requires {
+                          backend.measurement_producer_attempt(observed_tick);
+                        }) {
+            static_assert(
+                noexcept(backend.measurement_producer_attempt(observed_tick)));
+            return backend.measurement_producer_attempt(observed_tick);
+          } else {
+            static_assert(noexcept(backend.measurement_producer_attempt()));
+            return backend.measurement_producer_attempt();
+          }
         } else {
+          static_assert(noexcept(backend.measurement_consumer_attempt()));
           return backend.measurement_consumer_attempt();
         }
       };

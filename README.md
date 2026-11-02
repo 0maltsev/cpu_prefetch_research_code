@@ -102,6 +102,13 @@ sizes and prior hot offsets. Both integrated suites pass 456/456, 20 storage
 cases pass four sanitizer configurations, and all six strict codegen gates
 pass. Live phase integration, observed drain/reconciliation, and qualification
 remain open; no experimental capture ran.
+ADR-0195 integrates the R0 phase backend with independent ordinals, primary
+streams, observed drain and exact sequence/checksum joins before reset. It
+retains failed primary prefixes and real drain ordinals without renumbering.
+Both integrated suites pass 471/471; 78 calibration and 21 storage cases pass
+four sanitizer configurations, supported allocation checks and six existing
+codegen gates pass. Actual Linux mapped preparation/monitoring, durable
+publication, watchdog/admission and qualification remain open.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

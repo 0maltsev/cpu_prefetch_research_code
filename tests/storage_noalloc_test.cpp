@@ -1,11 +1,13 @@
 #include <gtest/gtest.h>
 
 #include "cpu_prefetch/storage/raw_observations.hpp"
+#include "discovery_backend_test_support.hpp"
 
 #include <array>
 #include <atomic>
 #include <cstddef>
 #include <cstdlib>
+#include <memory>
 #include <new>
 #include <optional>
 #include <span>
@@ -175,6 +177,54 @@ TEST(StorageHotWriter, CallerOwnedPreparationAppendSealSnapshotAllocateNothing) 
   EXPECT_EQ(p.bytes.data(), producer_bytes.data());
   EXPECT_EQ(c.bytes.data(), consumer_bytes.data());
   EXPECT_EQ(after, before);
+}
+
+TEST(StorageHotWriter, DiscoveryPhaseCaptureDrainJoinAndResetAllocateNothing) {
+  namespace support = cpu_prefetch::test_support;
+  namespace calibration = cpu_prefetch::calibration;
+  auto preparation = std::make_unique<support::SoftwareOnlyDiscoveryPreparation<64U>>();
+  support::DiscoveryTestClock clock;
+  auto plan = support::kDiscoveryTestPlan;
+  plan.warmup_attempt_capacity = 64U;
+  plan.measurement_attempt_capacity = 64U;
+  calibration::DiscoveryRingPhaseBackend backend(plan, clock, *preparation);
+  ASSERT_TRUE(backend.prepare_producer());
+  ASSERT_TRUE(backend.prepare_consumer());
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  bool valid = true;
+  for (unsigned index = 0U; index < 16U; ++index) {
+    valid = backend.warmup_producer_attempt(0U).outcome ==
+                calibration::RingAttemptOutcome::advanced &&
+            valid;
+    valid = backend.warmup_consumer_attempt().outcome ==
+                calibration::RingAttemptOutcome::advanced &&
+            valid;
+  }
+  valid = backend.warmup_producer_attempt(0U).outcome ==
+              calibration::RingAttemptOutcome::advanced &&
+          valid;
+  std::array<calibration::DiscoveryWorkerResult, 2U> workers{
+      calibration::DiscoveryWorkerResult{
+          calibration::DiscoveryWorkerStop::fixed_deadline},
+      calibration::DiscoveryWorkerResult{
+          calibration::DiscoveryWorkerStop::fixed_deadline}};
+  workers[0U].attempts = 17U;
+  workers[0U].advanced = 17U;
+  workers[1U].attempts = 16U;
+  workers[1U].advanced = 16U;
+  valid = backend.validate_warmup(workers) && valid;
+  const auto origin = clock.read();
+  const auto drain = backend.drain_warmup(
+      {origin.sample.relative_picoseconds, 1'000'000U, 9U, 1U, true});
+  valid = drain.stop == calibration::DiscoveryDrainStop::complete &&
+          drain.reset_verified && valid;
+  valid = backend.reset_consumer() && backend.reset_producer() && valid;
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_TRUE(valid);
+  EXPECT_EQ(after, before);
+  EXPECT_EQ(preparation->warmup.consumer.last_join.status,
+            calibration::DiscoveryJoinStatus::exact);
+  EXPECT_EQ(preparation->warmup.consumer.consumed, 17U);
 }
 
 } // namespace

@@ -431,6 +431,17 @@ authorization/amendment.
   all six strict codegen gates pass. Integrate independent ordinals and
   primary streams with observed drains, exact phase reconciliation, persistent
   mapped preparation and finite monitoring/publication before qualification.
+  ADR-0195 now integrates the R0 phase backend: independent ordinals, ordinary
+  primary streams, observed drain, no-allocation exact prefix/full joins and
+  checksum replay, and no reset on failed final integrity. Failed primary
+  prefixes retain real subsequent drain ordinals as separate evidence. Both
+  integrated suites pass 471/471, 78 calibration and 21 storage cases pass
+  four sanitizer configurations, supported allocation counters and all six
+  existing codegen gates pass. Next implement the actual Linux preparation
+  and monitoring provider, then durable publication/watchdog and versioned
+  diagnostic admission/release with fresh dependent qualification before the
+  accepted 36-key study. Finish all material formal-source work before formal
+  Q16a collection.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

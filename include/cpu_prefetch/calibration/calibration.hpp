@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <optional>
+#include <span>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -180,6 +181,12 @@ struct RingDemandSeries final {
   std::uint64_t consumer_empty_count{0U};
 };
 
+struct RingWorkerDemandView final {
+  std::span<const std::uint64_t> demand_ticks;
+  std::span<const std::uint64_t> issue_ticks;
+  std::uint64_t nonadvancing_count;
+};
+
 class RingDemandTrace final {
 public:
   explicit RingDemandTrace(std::size_t max_attempts_per_worker);
@@ -197,6 +204,19 @@ public:
                             RingAttemptOutcome outcome) noexcept -> bool;
   [[nodiscard]] auto series() const noexcept -> const RingDemandSeries& {
     return series_;
+  }
+  // Read only this worker's state while the other worker may still be active.
+  [[nodiscard]] auto worker_series(RingWorker worker) const noexcept
+      -> RingWorkerDemandView {
+    if (worker == RingWorker::producer) {
+      return {series_.producer_demand_ticks, series_.producer_issue_ticks,
+              series_.producer_full_count};
+    }
+    if (worker == RingWorker::consumer) {
+      return {series_.consumer_demand_ticks, series_.consumer_issue_ticks,
+              series_.consumer_empty_count};
+    }
+    return {};
   }
 
 private:
@@ -217,10 +237,10 @@ struct RingCaptureResult final {
   std::optional<RingAttemptOutcome> operation_outcome{};
 };
 
-template <typename Clock>
+template <typename Clock, typename Trace>
 [[nodiscard]] auto
 capture_producer_ring_demand(Clock& clock, queue::RingSpscQueue& queue,
-                             queue::EventPointer event, RingDemandTrace& trace) noexcept
+                             queue::EventPointer event, Trace& trace) noexcept
     -> RingCaptureResult {
   struct Observer final {
     Clock& clock;

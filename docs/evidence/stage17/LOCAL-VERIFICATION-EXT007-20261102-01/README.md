@@ -166,3 +166,16 @@ focused strict analysis, source provenance, and all six strict dual-disassembler
 codegen gates pass. [external-order-checks.json](external-order-checks.json)
 binds the source and result scope. No residency or release authority follows,
 and no stand capture occurred.
+
+ADR-0191 supplies caller-owned demand/issue buffers and separate worker-local
+trace state. Both integrated development suites pass **435/435**, exit 0.
+All 57 calibration cases pass both development compilers and all four
+sanitizer configurations. Six allocation-hook cases, including construction,
+preparation and bounded recording of caller-owned traces, pass development
+GCC/Clang, GCC ASan/UBSan and TSan, and Clang ASan/UBSan; Clang TSan retains
+the existing hook exclusion and passes functional/concurrent trace coverage.
+Global formatting, strict focused analysis of five affected translation units,
+source provenance and all six strict codegen gates pass.
+[caller-trace-checks.json](caller-trace-checks.json) binds the source and scope.
+These checks do not establish actual placement, qualify a release, authorize
+execution, or supply an empirical observation.

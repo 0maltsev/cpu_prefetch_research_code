@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "cpu_prefetch/calibration/caller_owned_trace.hpp"
 #include "cpu_prefetch/workload/packages.hpp"
 #include "cpu_prefetch/workload/records.hpp"
 #include "cpu_prefetch/workload/working_set.hpp"
@@ -272,6 +273,37 @@ TEST(PreparedWorkload, LookupRecordActionAndAllPackageOperationsAllocateNothing)
   const auto after = allocation_count.load(std::memory_order_relaxed);
   EXPECT_EQ(after, before);
   EXPECT_NE(emitter.last_target, nullptr);
+}
+
+TEST(WorkloadNoAllocation, CallerOwnedTracePreparationAndRecordingDoNotAllocate) {
+  namespace calibration = cpu_prefetch::calibration;
+  std::array<std::uint64_t, 64U> producer_demand{};
+  std::array<std::uint64_t, 64U> producer_issue{};
+  std::array<std::uint64_t, 64U> consumer_demand{};
+  std::array<std::uint64_t, 64U> consumer_issue{};
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  calibration::CallerOwnedRingDemandWorker producer(calibration::RingWorker::producer,
+                                                    producer_demand, producer_issue);
+  calibration::CallerOwnedRingDemandWorker consumer(calibration::RingWorker::consumer,
+                                                    consumer_demand, consumer_issue);
+  calibration::CallerOwnedRingDemandTrace trace(producer, consumer);
+  bool ok = trace.prepare_worker(calibration::RingWorker::producer) &&
+            trace.prepare_worker(calibration::RingWorker::consumer);
+  for (std::uint64_t sequence = 0U; sequence < 64U; ++sequence) {
+    for (const auto role :
+         {calibration::RingWorker::producer, calibration::RingWorker::consumer}) {
+      ok = trace.record(role, 3U * sequence, 3U * sequence + 1U,
+                        calibration::RingAttemptOutcome::advanced) &&
+           ok;
+    }
+  }
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_TRUE(ok);
+  EXPECT_EQ(after, before);
+  EXPECT_EQ(trace.worker_series(calibration::RingWorker::producer).issue_ticks.size(),
+            63U);
+  EXPECT_EQ(trace.worker_series(calibration::RingWorker::consumer).issue_ticks.size(),
+            63U);
 }
 
 } // namespace

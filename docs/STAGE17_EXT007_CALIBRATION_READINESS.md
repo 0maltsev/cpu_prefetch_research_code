@@ -146,6 +146,15 @@ sanitizer configurations, supported allocation-counter checks and all six
 strict codegen gates pass. The live backend must still owner-prepare and
 verify these mappings, integrate worker-local trace/observation storage, and
 complete diagnostic qualification before any capture.
+ADR-0191 adds caller-owned worker trace metadata and sample buffers, rejecting
+overlapping regions before preparation. Producer and discovery-consumer
+capture accept this storage interface, and prepared-window/validation helpers
+use own-worker views rather than copying peer counts during capture. Both
+integrated development suites pass 435/435; all 57 calibration cases pass the
+four sanitizer configurations, six allocation-hook cases pass their supported
+matrices, and all six strict codegen gates pass. Actual owner construction,
+mapping/residency, independent event streams, the watchdog/publication path,
+and exact diagnostic admission still need live backend integration.
 
 ## Implemented prerequisites
 

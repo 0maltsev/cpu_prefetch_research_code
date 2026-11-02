@@ -123,52 +123,43 @@ template <typename Clock, typename CaptureAttempt>
   }
 }
 
-template <typename Clock, typename CaptureAttempt>
-[[nodiscard]] auto capture_prepared_discovery_worker(
-    DiscoveryWorkerWindow window, Clock& clock, CaptureAttempt& capture_attempt,
-    RingDemandTrace& trace, std::atomic<bool>& stop_requested) noexcept
+template <typename Clock, typename CaptureAttempt, typename Trace>
+[[nodiscard]] auto
+capture_prepared_discovery_worker(DiscoveryWorkerWindow window, Clock& clock,
+                                  CaptureAttempt& capture_attempt, Trace& trace,
+                                  std::atomic<bool>& stop_requested) noexcept
     -> DiscoveryWorkerResult {
   if (!trace.worker_prepared(window.worker) ||
       window.attempt_capacity != trace.attempt_capacity()) {
     stop_requested.store(true, std::memory_order_release);
     return {DiscoveryWorkerStop::invalid_plan};
   }
-  const auto& series = trace.series();
-  const auto& demand = window.worker == RingWorker::producer
-                           ? series.producer_demand_ticks
-                           : series.consumer_demand_ticks;
-  const auto& issue = window.worker == RingWorker::producer
-                          ? series.producer_issue_ticks
-                          : series.consumer_issue_ticks;
-  if (!demand.empty() || !issue.empty()) {
+  const auto series = trace.worker_series(window.worker);
+  if (!series.demand_ticks.empty() || !series.issue_ticks.empty()) {
     stop_requested.store(true, std::memory_order_release);
     return {DiscoveryWorkerStop::invalid_plan};
   }
   return capture_discovery_worker(window, clock, capture_attempt, stop_requested);
 }
 
-[[nodiscard]] inline auto
-validate_quiescent_discovery_trace(RingWorker worker, DiscoveryWorkerResult result,
-                                   const RingDemandTrace& trace) noexcept
+template <typename Trace>
+[[nodiscard]] auto validate_quiescent_discovery_trace(RingWorker worker,
+                                                      DiscoveryWorkerResult result,
+                                                      const Trace& trace) noexcept
     -> DiscoveryWorkerResult {
   if (!trace.worker_prepared(worker)) {
     result.stop = DiscoveryWorkerStop::invalid_plan;
     return result;
   }
-  const auto& series = trace.series();
-  const auto& demand = worker == RingWorker::producer ? series.producer_demand_ticks
-                                                      : series.consumer_demand_ticks;
-  const auto& issue = worker == RingWorker::producer ? series.producer_issue_ticks
-                                                     : series.consumer_issue_ticks;
+  const auto series = trace.worker_series(worker);
+  const auto demand = series.demand_ticks;
+  const auto issue = series.issue_ticks;
   if (result.stop == DiscoveryWorkerStop::fixed_deadline ||
       result.stop == DiscoveryWorkerStop::trace_capacity ||
       result.stop == DiscoveryWorkerStop::peer_stopped) {
     const auto expected_issues = result.advanced == 0U ? 0U : result.advanced - 1U;
-    const auto observed_nonadvances = worker == RingWorker::producer
-                                          ? series.producer_full_count
-                                          : series.consumer_empty_count;
     if (demand.size() != result.attempts || issue.size() != expected_issues ||
-        observed_nonadvances != result.full + result.empty ||
+        series.nonadvancing_count != result.full + result.empty ||
         std::any_of(demand.begin(), demand.end(),
                     [](auto value) { return value == 0U; }) ||
         std::any_of(issue.begin(), issue.end(),

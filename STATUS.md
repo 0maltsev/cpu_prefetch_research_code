@@ -78,6 +78,12 @@ suites pass 427/427; all 14 workload cases pass all four sanitizer
 configurations, supported allocation-counter checks pass, and all six strict
 codegen gates pass. Actual mapping preparation/residency and the live capture
 backend remain open; no experimental capture occurred.
+ADR-0191 adds caller-owned sample buffers and separately placed mutable trace
+state, with nonoverlap checks before buffer preparation and own-worker views.
+Both integrated development suites pass 435/435, all 57 calibration cases
+pass all four sanitizer configurations, six supported allocation-hook cases
+and all six strict codegen gates pass. This does not supply observed page
+residency, the live backend, a qualified release, or experimental results.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

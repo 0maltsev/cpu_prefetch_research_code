@@ -1316,7 +1316,8 @@ if(BUILD_TESTING)
   add_executable(cpu_prefetch_calibration_tests
     tests/calibration_model_test.cpp tests/calibration_discovery_capture_test.cpp
     tests/calibration_discovery_session_test.cpp
-    tests/calibration_discovery_consumer_test.cpp)
+    tests/calibration_discovery_consumer_test.cpp
+    tests/calibration_caller_owned_trace_test.cpp)
   target_link_libraries(
     cpu_prefetch_calibration_tests
     PRIVATE cpu_prefetch::calibration cpu_prefetch_project_options
@@ -1684,7 +1685,9 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_fixed_action.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/software_prefetch.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/calibration.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/caller_owned_trace.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_capture.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_consumer_capture.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_session.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/executor.hpp"
@@ -1779,6 +1782,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_phase_test_access.hpp"
@@ -1904,6 +1908,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"

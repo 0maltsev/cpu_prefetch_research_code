@@ -13,10 +13,10 @@ struct DiscoveryConsumerCapture final {
 // The backend must apply its ordinary event validation/checksum action to each
 // actual item, including when timing or trace retention fails after dequeue.
 // Keep the pointer/status separate from the validity of the demand observation.
-template <typename Clock>
-[[nodiscard]] auto
-capture_discovery_consumer_ring_demand(Clock& clock, queue::RingSpscQueue& ring,
-                                       RingDemandTrace& trace) noexcept
+template <typename Clock, typename Trace>
+[[nodiscard]] auto capture_discovery_consumer_ring_demand(Clock& clock,
+                                                          queue::RingSpscQueue& ring,
+                                                          Trace& trace) noexcept
     -> DiscoveryConsumerCapture {
   static_assert(noexcept(clock.read()));
   struct Observer final {

@@ -402,6 +402,13 @@ authorization/amendment.
   sanitizer configurations, and all six strict codegen gates pass. Next
   integrate caller-owned worker-local trace buffers with owner preparation
   and independent observation storage in the live session.
+  ADR-0191 now supplies caller-owned worker trace state and sample buffers;
+  own-worker views avoid reading peer counters while capture is active.
+  Both integrated suites pass 435/435; 57 calibration cases pass all four
+  sanitizer configurations, supported allocation counters and all six codegen
+  gates pass. Integrate these regions with actual owner-thread preparation,
+  independent event observations and checksum action, and the persistent
+  warmup/drain/reset session before authoring the diagnostic action/release.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

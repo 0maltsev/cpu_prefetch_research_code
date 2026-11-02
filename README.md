@@ -79,6 +79,12 @@ All three arena storage forms preserve seeded lookup, payload, and checksums.
 Both integrated development suites pass 427/427; the 14 workload cases pass
 all four sanitizer configurations, and all six strict codegen gates pass.
 This supplies a storage prerequisite, not observed placement or qualification.
+ADR-0191 supplies caller-owned demand/issue buffers and independent worker
+trace state. The capture helpers read only their own role's sample counts.
+Both integrated development suites pass 435/435; 57 calibration cases pass
+all four sanitizer configurations, supported allocation checks and all six
+strict codegen gates pass. The actual mapped backend, qualification, and
+diagnostic execution remain open.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

@@ -144,7 +144,8 @@ add_library(
   src/platform/q15_counted_region.cpp
   src/platform/q15_probe.cpp
   src/platform/q15_msr.cpp
-  src/platform/q15_runtime.cpp)
+  src/platform/q15_runtime.cpp
+  src/platform/prepared_residency.cpp)
 add_library(cpu_prefetch::platform ALIAS cpu_prefetch_platform)
 target_link_libraries(
   cpu_prefetch_platform
@@ -524,7 +525,8 @@ if(BUILD_TESTING)
     PREFIX "timing."
     PROPERTIES LABELS "timing")
 
-  add_executable(cpu_prefetch_platform_tests tests/platform_model_test.cpp)
+  add_executable(cpu_prefetch_platform_tests tests/platform_model_test.cpp
+    tests/platform_prepared_residency_test.cpp)
   target_link_libraries(
     cpu_prefetch_platform_tests
     PRIVATE
@@ -1695,6 +1697,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/lifecycle/state_machine.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/linux_inventory.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/platform.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/prepared_residency.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_probe.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_msr.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_runtime.hpp"
@@ -1742,6 +1745,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_probe.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/prepared_residency.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_clock_pair_qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
@@ -1790,6 +1794,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/platform_prepared_residency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/p4_k_a_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"
@@ -1868,6 +1873,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/q15_probe.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_msr.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/q15_runtime.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/prepared_residency.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_clock_pair_qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_collectors.cpp"
@@ -1915,6 +1921,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
   "${PROJECT_SOURCE_DIR}/tests/protocol_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/platform_prepared_residency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/p4_k_a_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_runtime_test.cpp"

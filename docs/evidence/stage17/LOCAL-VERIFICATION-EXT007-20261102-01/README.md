@@ -179,3 +179,16 @@ source provenance and all six strict codegen gates pass.
 [caller-trace-checks.json](caller-trace-checks.json) binds the source and scope.
 These checks do not establish actual placement, qualify a release, authorize
 execution, or supply an empirical observation.
+
+ADR-0192 supplies the preallocated Linux page-query path. Both integrated
+development suites pass **442/442**, exit 0. All 26 platform cases pass
+GCC/Clang ASan/UBSan and TSan; seven allocation-hook cases pass their supported
+matrices, including repeated prepared queries using an injected sampler.
+Clang TSan retains its existing allocator-hook exclusion. Global formatting,
+strict focused analysis of three affected translation units, source provenance,
+and all six strict dual-disassembler codegen gates pass.
+[prepared-residency-checks.json](prepared-residency-checks.json) binds source
+and scope. The new query's tests inject page/syscall outcomes and exercise
+Linux adapter argument rejection; they do not supply live NUMA observations.
+Actual stand residency, a frozen monitor schedule, durable snapshots, the
+live backend, and qualified action remain pending. No experiment ran.

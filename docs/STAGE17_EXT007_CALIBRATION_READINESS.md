@@ -155,6 +155,14 @@ four sanitizer configurations, six allocation-hook cases pass their supported
 matrices, and all six strict codegen gates pass. Actual owner construction,
 mapping/residency, independent event streams, the watchdog/publication path,
 and exact diagnostic admission still need live backend integration.
+ADR-0192 adds preallocated page-query scratch and an allocation-free Linux
+adapter. Geometry/overlap checks precede scratch writes; query failures and
+per-page errors remain distinct and stale successes are cleared before every
+query. Both integrated development suites pass 442/442; 26 platform cases
+pass all four sanitizer configurations, seven allocation-hook cases pass
+supported matrices, and all six strict codegen gates pass. Tests use injected
+results; no live residency or stand execution is claimed. The backend still
+needs its frozen monitoring schedule and retained clock/status snapshots.
 
 ## Implemented prerequisites
 

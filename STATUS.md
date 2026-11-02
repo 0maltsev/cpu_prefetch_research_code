@@ -84,6 +84,12 @@ Both integrated development suites pass 435/435, all 57 calibration cases
 pass all four sanitizer configurations, six supported allocation-hook cases
 and all six strict codegen gates pass. This does not supply observed page
 residency, the live backend, a qualified release, or experimental results.
+ADR-0192 supplies an allocation-free Linux residency-query path with exact
+caller-owned scratch and retained syscall/page failures. Both integrated
+development suites pass 442/442; 26 platform cases pass all four sanitizer
+configurations, seven allocation-hook cases pass supported matrices, and all
+six strict codegen gates pass. The new query has not supplied stand placement
+evidence; live integration and current release qualification remain open.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

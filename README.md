@@ -85,6 +85,11 @@ Both integrated development suites pass 435/435; 57 calibration cases pass
 all four sanitizer configurations, supported allocation checks and all six
 strict codegen gates pass. The actual mapped backend, qualification, and
 diagnostic execution remain open.
+ADR-0192 adds a Linux residency query with preallocated caller-owned scratch.
+Failed/partial queries cannot inherit earlier placement; actual syscall and
+page errors remain distinct. Both integrated suites pass 442/442, all 26
+platform cases pass four sanitizer configurations, and all six strict codegen
+gates pass. Live residency observations still require the qualified backend.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

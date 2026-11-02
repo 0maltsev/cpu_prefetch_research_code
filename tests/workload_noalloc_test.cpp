@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "cpu_prefetch/calibration/caller_owned_trace.hpp"
+#include "cpu_prefetch/platform/prepared_residency.hpp"
 #include "cpu_prefetch/workload/packages.hpp"
 #include "cpu_prefetch/workload/records.hpp"
 #include "cpu_prefetch/workload/working_set.hpp"
@@ -304,6 +305,32 @@ TEST(WorkloadNoAllocation, CallerOwnedTracePreparationAndRecordingDoNotAllocate)
             63U);
   EXPECT_EQ(trace.worker_series(calibration::RingWorker::consumer).issue_ticks.size(),
             63U);
+}
+
+TEST(WorkloadNoAllocation, PreparedResidencyQueriesDoNotAllocate) {
+  namespace platform = cpu_prefetch::platform;
+  alignas(4096) std::array<std::byte, 8192U> mapping{};
+  std::array<void*, 2U> pages{};
+  std::array<int, 2U> status{};
+  struct Query final {
+    auto query_pages(std::span<void* const> addresses,
+                     std::span<int> statuses) const noexcept
+        -> platform::PageResidencyQueryResult {
+      for (std::size_t index = 0U; index < addresses.size(); ++index) {
+        statuses[index] = 3;
+      }
+      return {0, 0};
+    }
+  } query;
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  platform::PreparedPageResidencyQuery prepared(mapping, 4096U, pages, status);
+  bool valid = true;
+  for (std::size_t observation = 0U; observation < 1000U; ++observation) {
+    valid = prepared.all_pages_on(prepared.sample(query), 3U) && valid;
+  }
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_TRUE(valid);
+  EXPECT_EQ(after, before);
 }
 
 } // namespace

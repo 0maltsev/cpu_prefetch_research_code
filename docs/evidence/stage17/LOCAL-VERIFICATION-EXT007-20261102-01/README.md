@@ -148,9 +148,21 @@ under `build/ext007-d100-repro/`; no expected input was overwritten. The
 collector was not run. An exact custody copy is still needed for that legacy
 integration check.
 
-The latest read-only SSH attempt to the authorized stand timed out during
-banner exchange (exit 255), before any remote command. The last validated
+Earlier read-only SSH attempts to the authorized stand timed out during
+banner exchange (exit 255), before any remote command. The subsequent fresh
+audit above records the restored connection and retained-runtime failures.
+The last validated
 external journal remains the 2026-10-30 v5-12 checkpoint with six resolutions.
 Prospective policy v54 is intentionally preserved and stale against the
 D-184 runner source. A new policy, qualified release, real backend, complete
 capture controls and exact diagnostic authority remain required.
+
+ADR-0190 supplies caller-owned active event-order storage for later producer
+mapping preparation. Both integrated GCC and Clang/libc++ suites pass
+**427/427**, exit 0. All 14 workload cases pass GCC and Clang/libc++
+ASan/UBSan and TSan; the five allocation-hook cases pass the supported
+configurations (the existing Clang TSan exclusion remains). Global formatting,
+focused strict analysis, source provenance, and all six strict dual-disassembler
+codegen gates pass. [external-order-checks.json](external-order-checks.json)
+binds the source and result scope. No residency or release authority follows,
+and no stand capture occurred.

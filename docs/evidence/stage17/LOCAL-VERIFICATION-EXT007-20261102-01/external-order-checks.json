@@ -1,0 +1,89 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "source_base_commit": "ac683c0",
+  "source_state": "ADR0190 pending commit",
+  "source_sha256": {
+    "include/cpu_prefetch/workload/records.hpp": "13e3c99df1d24ffee9025010e376a23f743968a6d7f504a5c170fcea94b414c0",
+    "src/workload/records.cpp": "37b274a28e4d29eafaa50a0367b7b401b9306f54c2bfddfc92b3fb61dd40a026",
+    "tests/workload_model_test.cpp": "e7db4a9222a7abb458deecab80658a83887f2d168fc37eba0419200210c86c72"
+  },
+  "full_ctest": {
+    "gcc": {
+      "cases": 427,
+      "exit_code": 0,
+      "log_sha256": "793c5aa2a1abab50650b806174d4616e6a51e53556c11edfc0c8bb17ed74ea1e"
+    },
+    "clang-libcxx": {
+      "cases": 427,
+      "exit_code": 0,
+      "log_sha256": "909327a88ca1e8044ca5226b8e6749bce19650269c477ba0eb3d9e294fcf7566"
+    }
+  },
+  "sanitizers": {
+    "asan-ubsan-gcc": {
+      "workload_cases": 14,
+      "allocation_counter_cases": 5,
+      "exit_code": 0,
+      "log_sha256": "794a30c2111b6354ee71a34a4d75726ad25adec11dbc393c96beef6de842bfa5"
+    },
+    "tsan-gcc": {
+      "workload_cases": 14,
+      "allocation_counter_cases": 5,
+      "exit_code": 0,
+      "log_sha256": "a526ad9b5a09216de333746ba772590a1b871905789935765d23c7c0693944d6"
+    },
+    "asan-ubsan-clang-libcxx": {
+      "workload_cases": 14,
+      "allocation_counter_cases": 5,
+      "exit_code": 0,
+      "log_sha256": "3f6c5355049defb29303c22df2ce1d4a4b8d8d58b9ddc9bed4087e0dfc219e82"
+    },
+    "tsan-clang-libcxx": {
+      "workload_cases": 14,
+      "allocation_counter_cases": null,
+      "exit_code": 0,
+      "log_sha256": "6cb9e2ad0da8ea4ef449beac158bd81ba2c2479b2f42eb60288f6029ade911e1"
+    }
+  },
+  "allocation_counter_cases": 5,
+  "clang_tsan_allocation_counter": "EXCLUDED_BY_EXISTING_CMAKE_POLICY_INTERCEPTOR_CONFLICT",
+  "format_exit_code": 0,
+  "focused_static_exit_code": 0,
+  "provenance_exit_code": 0,
+  "strict_codegen_exit_code": 0,
+  "strict_codegen_reports": [
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "e8e9a999984f9ae388340eaa7827b1a0a41c72f37e4f698cd5f5240886865a75",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "5dd838a4b6e4c6719136d2d496b1f01bcc32d4fef95a3733413f1332cf402c32",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "264f5237c492be339e7a3fb48702e7f24e8f473e0e9643bd63e373e6e5a5af95",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "1553ef6cbf0fef34c61a6751cb4977b1674f30e9feb47b8755d7cc777311b51d",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "a6831ef0f1b974db892e04d6deca1b853fc1483190f2cc38efbfc27af4d4979f",
+      "status": "PASS"
+    }
+  ],
+  "stand_capture_performed": false,
+  "release_qualified": false
+}

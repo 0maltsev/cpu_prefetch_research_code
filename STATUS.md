@@ -72,6 +72,12 @@ preserves the frozen cycle without allocation and rejects corruption before
 mutation. All six strict codegen gates and supported allocation-counter checks
 pass; Clang TSan passes functional queue/reset coverage without conflicting
 allocator hooks. Live backend integration and current qualification remain open.
+ADR-0190 supplies caller-owned active event-order storage without changing
+seeded lookup or the ordinary consumer action. Both integrated development
+suites pass 427/427; all 14 workload cases pass all four sanitizer
+configurations, supported allocation-counter checks pass, and all six strict
+codegen gates pass. Actual mapping preparation/residency and the live capture
+backend remain open; no experimental capture occurred.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0177 adds tested mapping-aware control/capability/admission successors;

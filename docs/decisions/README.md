@@ -36,6 +36,7 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
+| [ADR-0190](0190-caller-owned-event-order-storage.md) | `ACCEPTED` | Keep the active event permutation in caller-owned producer-local storage; preserve seeded records, lookup, checksums, and caller ownership. |
 | [ADR-0189](0189-linked-reset-without-allocation.md) | `ACCEPTED` | Verify and restore the linked warm-start cycle without allocation; reject invalid state before mutation and preserve the existing measured operations. |
 | [ADR-0188](0188-ring-caller-owned-storage.md) | `ACCEPTED` | Initialize the unchanged ring in exact-size caller-owned mappings for producer-home preparation; retain caller ownership and separate logical storage bytes from mapping resources. |
 | [ADR-0187](0187-discovery-consumer-event-retention.md) | `ACCEPTED` | Return the actual dequeued event independently of demand timing/trace validity so discovery can perform ordinary consumer validation and checksum even after capture failure. |

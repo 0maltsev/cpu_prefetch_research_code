@@ -73,6 +73,12 @@ mutation. Both development compilers now pass 424/424 CTest entries. Allocation
 counters pass in their supported matrices; Clang TSan retains functional reset
 coverage under its existing allocator-hook exclusion. The live mapped-buffer
 backend and qualified diagnostic action remain unfinished; no experiment ran.
+ADR-0190 adds caller-owned active event-order storage, so the backend can
+prepare and verify its producer-local mapping alongside the record arena.
+All three arena storage forms preserve seeded lookup, payload, and checksums.
+Both integrated development suites pass 427/427; the 14 workload cases pass
+all four sanitizer configurations, and all six strict codegen gates pass.
+This supplies a storage prerequisite, not observed placement or qualification.
 
 EXT007 continuation: ADR-0177 implements and tests mapping-aware whole-plot
 control, preparation, and prospective admission. Calibration is still blocked

@@ -396,6 +396,12 @@ authorization/amendment.
   integrate dedicated worker-local trace/order/observation mappings and actual
   consumer actions, then finish the qualified diagnostic action and its
   prospective controls.
+  ADR-0190 now supplies caller-owned active event-order storage, preserving
+  all three arena forms' seeded records, lookup, and checksums. Both integrated
+  development suites pass 427/427, the 14 workload cases pass all four
+  sanitizer configurations, and all six strict codegen gates pass. Next
+  integrate caller-owned worker-local trace buffers with owner preparation
+  and independent observation storage in the live session.
 
 - **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.

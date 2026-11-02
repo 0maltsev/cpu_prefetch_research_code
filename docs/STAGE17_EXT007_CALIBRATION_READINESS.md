@@ -138,6 +138,14 @@ Both development compilers pass all 424 CTest entries; supported allocation
 counter matrices and all six strict codegen gates pass. Clang TSan retains
 functional reset coverage under its existing allocator-hook exclusion. This
 closes that reset prerequisite, not live backend integration or qualification.
+ADR-0190 adds caller-owned typed storage for the arena's active permutation.
+All three storage forms preserve seeded records, lookup, and checksums;
+invalid storage is rejected before writing either supplied region. Both
+integrated development suites pass 427/427; 14 workload cases pass all four
+sanitizer configurations, supported allocation-counter checks and all six
+strict codegen gates pass. The live backend must still owner-prepare and
+verify these mappings, integrate worker-local trace/observation storage, and
+complete diagnostic qualification before any capture.
 
 ## Implemented prerequisites
 

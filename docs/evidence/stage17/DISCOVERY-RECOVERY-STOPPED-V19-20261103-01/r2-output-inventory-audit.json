@@ -1,0 +1,12 @@
+{
+  "root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-r2-1",
+  "inventory_sha256": "c6666c71165e3f1afbf51316d35d833e005f84396048ab7df112dab182a31b17",
+  "supervisor_result_sha256": "e115a9dd37755998c569a703413dd2b6363b31f44eabab581c451df7e42b08a5",
+  "observed_at_utc": "2026-11-03T10:53:16.877606+00:00",
+  "post_quiescence": true,
+  "complete": true,
+  "regular_files_only": true,
+  "no_symlinks": true,
+  "errors": [],
+  "scope": "Complete output inventory after recorded supervisor and controller are gone and partition restored; no scientific validation"
+}

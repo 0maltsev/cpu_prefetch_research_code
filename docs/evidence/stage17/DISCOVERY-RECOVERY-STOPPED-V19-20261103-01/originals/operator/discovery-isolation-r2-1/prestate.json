@@ -1,0 +1,128 @@
+{
+  "msr_readback": [
+    {
+      "complete_value_hex": "0000000000000000",
+      "cpu": 0
+    },
+    {
+      "complete_value_hex": "0000000000000000",
+      "cpu": 1
+    },
+    {
+      "complete_value_hex": "0000000000000000",
+      "cpu": 8
+    }
+  ],
+  "new_clock_capture_authority": false,
+  "original_clock_plan_sha256": "b1e5c68d25228002aae5ecf478cf437a7c7248f4419bb6e89c1d7474d8cd40f9",
+  "prestate": {
+    "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+    "cgroup.subtree_control": "cpu memory pids",
+    "cpuset.cpus.effective": "0-31",
+    "cpuset.cpus.isolated": "",
+    "cpuset.mems.effective": "0-1"
+  },
+  "recorded_at_utc": "2026-11-03T10:25:40Z",
+  "stable_controls": [
+    {
+      "path": "/proc/sys/kernel/numa_balancing",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "/proc/sys/kernel/random/boot_id",
+      "sha256": "e81bb404b2e8577881a6000bfc234681ffc61e6eabe7c67d45cd81c8cebfa1f6"
+    },
+    {
+      "path": "/sys/devices/system/clocksource/clocksource0/current_clocksource",
+      "sha256": "53038def32a9c25e6d962a247d9b3dfe213ce648d291ced6939d60ed92f1d6d8"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_driver",
+      "sha256": "2ab6482db3641992771c38a7af006bb24af2cfa556348ca6966127f50d89ede2"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
+      "sha256": "370afcec441b514ced2d8c7a6dce776d58ec2fd19d52cc3efe8e80eea1875140"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
+      "sha256": "a92373742eac3ba9e17aa3c09b8bcb19aefda9be4f665a6a94048ab1ae6247c8"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+      "sha256": "55cd3e65c3d972cef88ad6c016d1cd4f91138c0da18344d7ec8c35e38755d330"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu1/cpufreq/scaling_driver",
+      "sha256": "2ab6482db3641992771c38a7af006bb24af2cfa556348ca6966127f50d89ede2"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor",
+      "sha256": "370afcec441b514ced2d8c7a6dce776d58ec2fd19d52cc3efe8e80eea1875140"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq",
+      "sha256": "a92373742eac3ba9e17aa3c09b8bcb19aefda9be4f665a6a94048ab1ae6247c8"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq",
+      "sha256": "55cd3e65c3d972cef88ad6c016d1cd4f91138c0da18344d7ec8c35e38755d330"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu2/cpufreq/scaling_driver",
+      "sha256": "2ab6482db3641992771c38a7af006bb24af2cfa556348ca6966127f50d89ede2"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor",
+      "sha256": "370afcec441b514ced2d8c7a6dce776d58ec2fd19d52cc3efe8e80eea1875140"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq",
+      "sha256": "a92373742eac3ba9e17aa3c09b8bcb19aefda9be4f665a6a94048ab1ae6247c8"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq",
+      "sha256": "55cd3e65c3d972cef88ad6c016d1cd4f91138c0da18344d7ec8c35e38755d330"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu8/cpufreq/scaling_driver",
+      "sha256": "2ab6482db3641992771c38a7af006bb24af2cfa556348ca6966127f50d89ede2"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu8/cpufreq/scaling_governor",
+      "sha256": "370afcec441b514ced2d8c7a6dce776d58ec2fd19d52cc3efe8e80eea1875140"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu8/cpufreq/scaling_max_freq",
+      "sha256": "a92373742eac3ba9e17aa3c09b8bcb19aefda9be4f665a6a94048ab1ae6247c8"
+    },
+    {
+      "path": "/sys/devices/system/cpu/cpu8/cpufreq/scaling_min_freq",
+      "sha256": "55cd3e65c3d972cef88ad6c016d1cd4f91138c0da18344d7ec8c35e38755d330"
+    },
+    {
+      "path": "/sys/devices/system/cpu/online",
+      "sha256": "2dd7c31aaeb6b872858839ef552b488b3da94db79d5cbf53a52016c621d9c0ca"
+    },
+    {
+      "path": "/sys/kernel/mm/transparent_hugepage/defrag",
+      "sha256": "199f77a796a1ec6a652fe343a4089644ba83b039af106e94c4f059fc7cb275d3"
+    },
+    {
+      "path": "/sys/kernel/mm/transparent_hugepage/enabled",
+      "sha256": "4ca7db7e514787a42c69893c196cd4f7ed14154bda6d690fc2f7771b7ae497d1"
+    }
+  ],
+  "status": {
+    "current_state": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+    "missing_inputs": [
+      "S17-EXT-007",
+      "S17-EXT-008",
+      "S17-EXT-009",
+      "S17-EXT-010"
+    ],
+    "pilot_ready": false,
+    "resolutions": 6,
+    "transitions": 3
+  }
+}

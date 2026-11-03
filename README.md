@@ -1,7 +1,7 @@
 # CPU Prefetch Research Code
 
 Current EXT007 status (2026-11-03): **Step 2 DONE; R1 STOPPED at its first
-warmup; R2 RUNNING since 10:33:27 UTC.** R1 had no measurement phase or formal
+warmup; R2 STOPPED at 10:49 UTC, custody in progress.** R1 had no measurement phase or formal
 calibration. R1 MSR and cgroup restoration was verified. All 12 files
 (1,142,655,488 bytes) have SHA-verified two-copy custody. Independent validation
 reports `FAILED_STUDY_PREFIX_RECONCILED`: the consumer reached five million
@@ -16,11 +16,15 @@ under the approved nominal-cache/sharing interpretation. Exact R2 bindings are
 prepared and live author-request validation passed. Isolation reapplication
 passed with the same boot and required controls. Exact signature verification
 passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-byte
-requirement, and its custody probe passed. **R2 is RUNNING**, started
-2026-11-03 at 10:33:27 UTC under the single approved authority; independent
-validation has not yet occurred. The forthcoming
+requirement, and its custody probe passed. **R2 STOPPED at 10:49 UTC on
+2026-11-03 with exit 1**, after starting at 10:33:27 UTC under the single approved
+authority. Ten controls and 75 files totaling 52,465,834,715 bytes were retained;
+the restoration result reports true. Inventory hashing and two-copy custody
+are in progress. Scientific validity and duration selection remain unresolved;
+independent validation has not yet occurred. No retry authority remains. The forthcoming
 [R2 preparation and results record](docs/evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
 will retain the evidence. No new clock capture or automatic retry is authorized.
+[R2 stopped-attempt and custody record](docs/evidence/stage17/DISCOVERY-RECOVERY-STOPPED-V19-20261103-01/README.md).
 
 The implementation checkpoints below preserve their historical status. Claims
 that no discovery capture had run refer to those earlier checkpoints, not the
@@ -1357,9 +1361,12 @@ under the approved nominal-cache/sharing interpretation. Exact R2 bindings are
 prepared and live author-request validation passed. Isolation reapplication
 passed with the same boot and required controls. Exact signature verification
 passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-byte
-requirement, and its custody probe passed. **R2 is RUNNING**, started
-2026-11-03 at 10:33:27 UTC under the single approved authority; independent
-validation has not yet occurred. The forthcoming
+requirement, and its custody probe passed. **R2 STOPPED at 10:49 UTC on
+2026-11-03 with exit 1**, after starting at 10:33:27 UTC under the single approved
+authority. Ten controls and 75 files totaling 52,465,834,715 bytes were retained;
+the restoration result reports true. Inventory hashing and two-copy custody
+are in progress. Scientific validity and duration selection remain unresolved;
+independent validation has not yet occurred. No retry authority remains. The forthcoming
 [R2 preparation and results record](docs/evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
 will retain the evidence. No new clock capture or automatic retry is authorized.
 EXT007 and Stage 17 remain incomplete.

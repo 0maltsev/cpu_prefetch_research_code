@@ -1,9 +1,10 @@
 # Stage 17 completion plan
 
 Updated 2026-11-03. Step 2 DONE: release `ac64633`, clock and Q15-R/W qualified.
-Step 3: R1 STOPPED at its first warmup; R2 RUNNING since 10:33:27 UTC on
-2026-11-03 under the single approved authority. R2 independent validation has
-not yet occurred. R1 had no measurement phase or formal calibration, and its
+Step 3: R1 STOPPED at its first warmup; R2 STOPPED at 10:49 UTC on
+2026-11-03 with exit 1. R2 partial evidence is retained; inventory hashing and
+two-copy custody are in progress. Scientific validity and duration selection
+remain unresolved; independent validation has not yet occurred. R1 had no measurement phase or formal calibration, and its
 MSR/cgroup restoration was verified. R2 isolation reapplication passed with
 the same boot and required controls; exact signature and fresh PC checks passed.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
@@ -32,8 +33,11 @@ Stage 18 work. Finish only already-started checks and necessary calibration work
    The bounded stand helper confirmed capacities 512 / 65,536 / 1,048,576.
    Exact R2 bindings are prepared and live author-request validation passed.
    Exact signature verification and fresh PC capacity/custody checks passed.
-   R2 started at 10:33:27 UTC on 2026-11-03 under the single approved authority;
-   it is running and independent validation has not yet occurred.
+   R2 ran from 10:33:27 UTC until its reported stop at 10:49 UTC on 2026-11-03,
+   exit 1. Ten controls and 75 files (52,465,834,715 bytes) are retained;
+   restoration result reports true. Inventory hashing and two-copy custody are
+   in progress; independent validation must wait. No automatic new run or retry
+   is authorized.
 5. Complete required formal-calibration fixes, freeze the prospective plans,
    then execute Q16a (708 fresh captures), Q16b (3,540 runs) and Q16c in order.
 6. Validate and seal calibration evidence, derive the freeze, and admit EXT-007.
@@ -66,8 +70,11 @@ Report each completed step or changed blocker against this six-step plan.
   capacity was 392,758,439,936 bytes against the 388,544,851,990-byte requirement,
   and its custody probe passed. R2 started at 10:33:27 UTC on 2026-11-03 under
   the single approved authority (supervisor PID 24845, child PID 24847; fresh
-  attempt marker 944 bytes). R2 is running; independent validation has not yet
-  occurred. The forthcoming [R2 preparation and results record](evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
+  attempt marker 944 bytes). R2 stopped at 10:49 UTC with exit 1. Ten controls
+  and 75 files totaling 52,465,834,715 bytes were retained; restoration result
+  reports true. Inventory hashing and two-copy custody are in progress.
+  Scientific validity remains unresolved; no controls or raw data are to be
+  analyzed before whole-copy verification. The forthcoming [R2 preparation and results record](evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
   will retain the evidence. No new clock capture or automatic retry is authorized.
 - Current release `ac64633` passes seven strict codegen gates and local/stand
   package verification (1,826 files). Both v2 clock pairs pass, and actual
@@ -81,6 +88,7 @@ Report each completed step or changed blocker against this six-step plan.
   errors and zero matching typed receipts within the declared public scope.
   Fresh stand (33,022 files) and Git-history searches are retained with their
   exact scope and exclusions. The resulting attestation passed admission.
+[R2 stopped-attempt and custody record](evidence/stage17/DISCOVERY-RECOVERY-STOPPED-V19-20261103-01/README.md).
 
 ## Earlier checkpoints (historical)
 
@@ -165,7 +173,7 @@ is now blocked at the far-pair software affinity defect in v5-18 as recorded abo
 |---|---|---|
 | 1. Complete the executable runtime | Place and declare provider/backend/clock/controller coordination, worker TLS and other relevant runtime memory; connect actual before/during/after residency, affinity, fault, clock, hardware-state and environmental checks; complete watchdog, independent raw publication, partial-failure retention and restoration. Review formal Q16a, Q16b, Q16c and pilot paths together, including persistent warmup and service counts restricted to the fixed interval. | Integrated success and mandatory-failure tests; no forbidden work in measured intervals; exact complete-worker generated-code checks under both accepted disassemblers; supported compiler/sanitizer/static/schema/canonical checks. |
 | 2. Qualify a clean release and current stand | Build a complete source-bound runtime and policy successor; verify archive, binary and dependency identities; repair the missing runtime closure through the new release, not an improvised old wrapper. Replay the real journal and refresh all evidence invalidated by source, boot or platform changes. Reverify CPU pairs, mapping, clocks, atomics, memory, privileges, storage and restoration. | Clean release/custody records and a semantically admitted current predecessor chain. Historical EXT001–006 stay preserved; reuse only evidence whose dependency validity is demonstrated. |
-| 3. Freeze and run duration discovery | First family stopped at its first warmup. All 12 files have verified two-copy custody; independent failed-prefix reconciliation passes, but full-capture validation rejects the mandatory session stop. Duration selection is unresolved. Preserve R1 failure/restoration evidence. The amendment and one R2 family are owner accepted; stand footprints and live author-request validation pass. Exact signature verification and fresh PC checks passed. R2 is running since 2026-11-03 10:33:27 UTC under the single approved authority; independent validation is pending. | Retained raw/control/failure records and count-only selection of a common duration, or an explicit unresolved result. No diagnostic data enters formal calibration. |
+| 3. Freeze and run duration discovery | First family stopped at its first warmup. All 12 files have verified two-copy custody; independent failed-prefix reconciliation passes, but full-capture validation rejects the mandatory session stop. Duration selection is unresolved. Preserve R1 failure/restoration evidence. The amendment and one R2 family are owner accepted; stand footprints and live author-request validation pass. Exact signature verification and fresh PC checks passed. R2 stopped on 2026-11-03 at 10:49 UTC with exit 1; ten controls and 75 files (52,465,834,715 bytes) are retained, restoration result true. Whole-copy custody is in progress; scientific validity is unresolved and no retry is authorized. | Retained raw/control/failure records and count-only selection of a common duration, or an explicit unresolved result. No diagnostic data enters formal calibration. |
 | 4. Close EXT007 | Freeze a new D-037 formal plan using discovery evidence; collect the required 708 fresh Q16a runs, then Q16b service calibration and Q16c feasibility in dependency order. Derive exact distance, service-rate and load outputs using accepted methods. | Phase-bound requests/authorizations, raw evidence, typed results, custody and calibration freeze accepted by the operational verifier. Any feasibility result awaiting final matrix exposure remains explicitly provisional. |
 | 5. Close EXT008 and EXT009 | Generate the exact prospective pilot matrix, schedules, IDs, seeds, repetitions, horizons, warmup/recovery, admission tickets and stop rules from accepted calibration. Prove buffers and durable capacity for that exact plan, both custody domains, transfer receipts, partial retention and recovery rehearsal. | Current-stand EXT008 plan and checked EXT009 storage/custody/recovery evidence. Old stand-v2 values are not defaults for stand v5. |
 | 6. Close EXT010 and execute the pilot | Bind all nine accepted predecessor resolutions into the exact finite Stage 17 pilot authorization. Execute only its permitted runs, retaining ordered primary streams, control observations, manifests, joins and failures. Produce treatment-blind pilot summaries. | Admitted EXT010, complete controller/worker output lineage, verified restoration, accepted custody and the required pilot output set. Ten catalog resolutions alone do not establish successful pilot completion. |
@@ -184,7 +192,7 @@ operational completion validator. In particular, unresolved application-based
 The base design below remains approved. The separate
 [accepted amendment](STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_ACCEPTANCE.md)
 approves the corrected full-footprint interpretation and one R2 family;
-R2 has now started under its exact signed authority; independent validation remains pending:
+R2 consumed its single signed attempt and stopped; independent validation awaits completed custody. No retry or automatic new family is authorized:
 
 - 12 H0/H1 × near/far × working-set contexts, each with 100 ms, 1 s and 5 s:
   36 prospectively enumerated diagnostic captures.
@@ -237,15 +245,19 @@ scientific decisions only when existing protocol/approval does not resolve them.
 
 ## Working method and completion claim
 
-Step 3 remains unresolved: R1 stopped; R2 is running under its single approved authority.
-Full raw two-copy custody and independent failed-prefix reconciliation are complete;
+Step 3 remains unresolved: both R1 and R2 stopped; no retry is authorized.
+For R1, full raw two-copy custody and independent failed-prefix reconciliation are complete;
 full-capture validation rejects the mandatory session stop. No valid-study or
 duration-selection result follows from that reconciliation.
-Audit downstream plan, custody and freeze contracts in parallel only where they
-do not depend on new data. Preserve the accepted amendment and exact R2
-bindings. Main monitors the single approved R2 family, started at 10:33:27 UTC
-on 2026-11-03; retain its outcome and complete custody and independent validation
-before making any validity or duration-selection claim.
+The narrow formal-calibration source audit is frozen at its current findings.
+Preserve the accepted amendment, exact R2 bindings and failed partial family.
+Complete whole-copy hashing and custody before reading R2 controls or raw data.
+After custody, use the existing capture validator for completed-prefix captures
+0–8 and phase validation for the actual retained failure prefix of capture 9;
+its failed phase and cause must come from the evidence, not an assumption.
+The full-36-study wrapper is inapplicable to this partial family and remains
+unchanged. Prefix validation cannot establish a valid full study or select a
+common duration; scientific validity remains unresolved until that audit.
 Report completed milestones, exact evidence, remaining blockers and the next
 gate. Component tests are supporting evidence, not the project completion goal.
 Estimate stand time and durable bytes once prospective run counts and durations

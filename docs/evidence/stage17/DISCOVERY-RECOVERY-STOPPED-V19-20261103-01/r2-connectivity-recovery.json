@@ -1,0 +1,29 @@
+{
+  "recorded_at_utc": "2026-11-03T10:47:39.703781+00:00",
+  "scope": "PC_SERVER_ONLY_CONNECTIVITY_RECOVERY_NO_STAND_EXPERIMENT_RESTART",
+  "cause_observation": "route to94.126.205.83 selected VPN tun4/table2022; SSH monitor reset and two banner timeouts",
+  "operation": [
+    "nmcli",
+    "device",
+    "modify",
+    "wlp1s0",
+    "+ipv4.routing-rules",
+    "priority 8000 to 94.126.205.83/32 table 254"
+  ],
+  "persistence": "active device only; connection profile unchanged",
+  "result_route": "94.126.205.83 via192.168.0.1 devwlp1s0 src192.168.0.116",
+  "restored_ssh_observed_at_utc": "2026-11-03T10:46:58.363927+00:00",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "published_control_documents": 8,
+  "failure_present": false,
+  "completion_present": false,
+  "experiment_restarted": false,
+  "rollback": [
+    "nmcli",
+    "device",
+    "modify",
+    "wlp1s0",
+    "-ipv4.routing-rules",
+    "priority 8000 to 94.126.205.83/32 table 254"
+  ]
+}

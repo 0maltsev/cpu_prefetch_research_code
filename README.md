@@ -55,8 +55,61 @@ implemented and targeted verification passes, including four sanitizer configura
 [Verification evidence](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-D210-D213-20261103-01/README.md)
 records one explicit Clang TSan allocation-hook skip. Formal integration remains required. They grant no
 new experiment and do not change D207. [D212](docs/decisions/0212-stage17-q16a-demand-window.md)
-is the separately owner-accepted Q16a demand-membership clarification; its formal
-implementation is now authorized, with no new experiment authority.
+is the separately owner-accepted Q16a demand-membership clarification. Its raw
+trace/independent decoder and persistent mapped runtime now have targeted
+software checks; the formal native input/publication boundary is implemented
+and undergoing verification. [D214](docs/decisions/0214-q16a-demand-trace-contract.md),
+[D215](docs/decisions/0215-caller-owned-termination-storage.md),
+[D216](docs/decisions/0216-shared-native-cold-observation-storage.md), and
+[D217](docs/decisions/0217-formal-native-input-contract.md) record those necessary
+engineering changes. The component checkpoint passed 185 development checks and
+all four sanitizer configurations (two explicit allocation-hook skips under
+Clang TSan). This checkpoint does not qualify later integration edits.
+[D224](docs/decisions/0224-parallel-retained-discovery-validation.md) adds bounded
+parallel reanalysis of the same discovery bytes; its independent 13-test suite
+passes. The corrected launcher (15 tests) and wrapper (13 tests) passed;
+[stand startup](docs/evidence/stage17/DISCOVERY-D224-PARALLEL-START-20261103-01/README.md)
+passed resource admission at 16:28:46 UTC. Full validation and selection are pending.
+[D226](docs/decisions/0226-q16c-native-input-and-retention.md) and
+[D227](docs/decisions/0227-formal-family-dispatch-boundary.md) integrate scheduled
+capture publication and explicit formal-family dispatch. The integration checkpoint
+passed 121 initial development checks and 120 checks under each ThreadSanitizer.
+Clang ASan passed its 117 native checks plus 52 process-boundary cases using a
+verified debug-stripped copy with identical allocated sections. GCC ASan passed
+118 integration checks and 21 later parser/family checks; three process-boundary
+checks remain blocked by instrumented worker size. This is not a full preset or
+qualified-release pass. All four sanitizer configurations passed both six-case
+publication bridges. [D230](docs/decisions/0230-formal-calibration-from-bound-capture-reports.md)
+adds exact bound-report calibration; [D231](docs/decisions/0231-formal-admission-custody-successor.md)
+and [D232](docs/decisions/0232-q16c-original-schedule-source-provenance.md)
+add signed formal execution/custody and accepted schedule provenance. Targeted
+Python and signed-process checks pass; successor release/policy integration is
+being verified. D224 stopped at 17:29 UTC after 18/36 capture checks because its
+monitor raced an exiting worker; all owned children were reaped and no duration
+was selected. [D234](docs/decisions/0234-offline-analysis-exit-race-and-bounded-pool.md)
+repairs that race. Its 20 supervisor tests and 13 wrapper tests pass; a bounded
+16-worker revalidation of all 36 original captures passed fresh stand admission
+and started at 17:45:42 UTC. At 19:02:00 UTC, 27/36 captures had validated;
+full validation and duration selection remain pending. The owner accepted
+[D233](docs/decisions/0233-stage17-formal-lossless-archive-proposal.md): future formal
+captures may use verified lossless archives under one shared 6 TB quota, with
+512 GiB workspace, 256 GiB analysis scratch and 16 GiB reserve. Implementation
+and qualification are in progress; historical raw remains unchanged. One qualified
+complete release, feasible exact resource/retention plans, phase authority and
+formal collection remain required. These components authorize no experiment.
+D233 implementation checks now include exact C++ encoder/Python reconstruction
+against original publisher fixtures, bounded custody and ledger failure cases,
+versioned physical-storage plans with unchanged canonical output bounds, and
+durable per-capture final receipts. The integrated native checkpoint/channel slice
+passed 30 development checks and the same 30 under all four sanitizer configurations.
+The actual executor-to-broker-to-codec handoff passed four cases, including failure
+retention and deadline reaping; retained archive readback passed with nine archives
+and nine independent decoder jobs. Package/profile and registered archive checks
+also pass. These are software verification only: final policy closure, clean-release
+code-generation/package checks and stand qualification remain. No formal family
+has started. The optional Q16c sealed-source extension is deferred under D238;
+all three existing inline paths must qualify together. Future actual schedule size
+and memory must fit their existing bounds before Q16c can execute.
 [R2 stopped-attempt and custody record](docs/evidence/stage17/DISCOVERY-RECOVERY-STOPPED-V19-20261103-01/README.md).
 
 The implementation checkpoints below preserve their historical status. Claims

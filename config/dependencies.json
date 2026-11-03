@@ -111,12 +111,12 @@
     },
     {
       "id": "zstd",
-      "version_rule": ">=1.5.7,<1.6.0",
+      "version_rule": "==1.5.7",
       "observed_version": "1.5.7-3",
       "source": "https://facebook.github.io/zstd/",
       "license": "BSD-3-Clause AND GPL-2.0-only",
-      "purpose": "Provisioned libcrypto runtime dependency; not used as a Stage 6 codec",
-      "scope": "runtime-transitive"
+      "purpose": "D233 future-formal cold archive codec, exact 1.5.7 shared-library API; historical Stage 6 remains uncompressed. Also provisioned libcrypto runtime dependency.",
+      "scope": "runtime"
     },
     {
       "id": "git",

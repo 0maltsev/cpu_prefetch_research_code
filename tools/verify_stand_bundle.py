@@ -380,6 +380,20 @@ def main() -> int:
 
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     profile = manifest.get("bundle_profile")
+    formal = profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v26", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"}
+    if formal:
+        import stage17_archive_bundle_profile_v1 as archive_profile
+        try:
+            document = archive_profile.verify_profile(bundle_root=root)
+            if manifest.get("stage17_archive_implementation") != archive_profile.manifest_binding(
+                    bundle_root=root, document=document):
+                raise ValueError("archive implementation manifest binding differs")
+            sbom = json.loads((root / "SBOM.spdx.json").read_text())
+            if not any(p.get("name") == "zstd" and "1.5.7" in p.get("versionInfo", "")
+                       for p in sbom.get("packages", [])):
+                raise ValueError("archive zstd1.5.7 SBOM dependency missing")
+        except (ValueError, OSError, KeyError, TypeError) as exception:
+            failures.append("formal archive profile rejected: " + str(exception))
     expected = {
         "STAGE16-STAND-BUNDLE-v1": (
             "cpu-prefetch-stand-bundle/1",
@@ -569,6 +583,14 @@ def main() -> int:
             "cpu-prefetch-pilot-candidate-bundle/14",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
         ),
+        "STAGE17-PILOT-CANDIDATE-BUNDLE-v26": (
+            "cpu-prefetch-pilot-candidate-bundle/14",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
+        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22": (
+            "cpu-prefetch-pilot-candidate-bundle/14",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
             "cpu-prefetch-q15-qualification-tool-bundle/1",
             "Q15_TOOL_RELEASE_NO_AUTHORITY",
@@ -627,8 +649,8 @@ def main() -> int:
             "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v22",
-            "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25",
-            "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21",
+            "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25", "STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
+            "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22",
         } else "2.0.0-pre.2"
     )
     if manifest.get("protocol_version") != expected_protocol:
@@ -690,8 +712,8 @@ def main() -> int:
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v22",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25",
-                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21") and value is not False:
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25", "STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22") and value is not False:
             failures.append(f"pilot candidate must explicitly prohibit {description}")
         elif profile == "STAGE16-STAND-BUNDLE-v1" and value not in (None, False):
             failures.append(f"Stage 16 bundle unexpectedly enables {description}")
@@ -773,8 +795,8 @@ def main() -> int:
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v22",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25",
-                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21"):
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25", "STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"):
         if manifest.get("software_prefetch_mapping_id") not in (
             "X86-64-PREFETCHW-PREFETCHT0-v1",
             "X86-64-PREFETCHT0-ONLY-v1",
@@ -793,6 +815,7 @@ def main() -> int:
             if required not in release_paths:
                 failures.append(f"pilot candidate misses {required}")
         for report in (
+            *(("formal_codegen_report.json",) if formal else ()),
             "queue_codegen_report.json",
             "workload_codegen_report.json",
             "timing_codegen_report.json",
@@ -800,7 +823,7 @@ def main() -> int:
             "runner_relax_codegen_report.json",
             "runner_combined_codegen_report.json",
             *(("discovery_codegen_report.json",) if profile in {
-                "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21"} else ()),
+                "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25", "STAGE17-PILOT-CANDIDATE-BUNDLE-v26", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"} else ()),
         ):
             report_relative = pathlib.Path("build-provenance") / report
             if report_relative not in declared:
@@ -811,6 +834,13 @@ def main() -> int:
                 "missing_tools"
             ) != []:
                 failures.append(f"pilot candidate codegen report is not strict: {report}")
+            if report == "formal_codegen_report.json":
+                import check_formal_codegen as formal_codegen
+                try:
+                    formal_codegen.validate_report_bindings(report_document,
+                        binary=root / "release/bin/cpu_prefetch_runner", source_root=root)
+                except (formal_codegen.AuditError, OSError, ValueError, KeyError) as exception:
+                    failures.append("formal codegen actual-worker/source binding failed: " + str(exception))
             if report == "discovery_codegen_report.json":
                 import check_discovery_codegen as discovery_codegen
                 try:
@@ -961,8 +991,8 @@ def main() -> int:
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v22",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25",
-                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21"):
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25", "STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"):
             runtime = manifest.get("stage17_fixed_action_runtime")
             expected_actions = ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
                                 "STAGE17-BLINDED-PILOT"]
@@ -1046,8 +1076,8 @@ def main() -> int:
             current_v21 = profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v22"
             current_v25 = profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v25", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21"}
             current_v24 = profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20"}
-            diagnostic = profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25",
-                                     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21"}
+            diagnostic = profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-PILOT-CANDIDATE-BUNDLE-v24", "STAGE17-PILOT-CANDIDATE-BUNDLE-v25", "STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
+                                     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"}
             if diagnostic:
                 expected_actions.append("Q16A-DURATION-DISCOVERY")
             # The compiled worker binary (release/bin/cpu_prefetch_runner) is
@@ -1140,7 +1170,7 @@ def main() -> int:
             )
             version = 4 if current_v4 else 3
             controller_version = (
-                24 if current_v25 else 23 if current_v24 else 22 if diagnostic else 15 if current_v21
+                26 if formal else 24 if current_v25 else 23 if current_v24 else 22 if diagnostic else 15 if current_v21
                 else 9 if (current_v6 or current_v7 or current_v8 or current_v9
                       or current_v10 or current_v11 or current_v12 or current_v13
                       or current_v14 or current_v15 or current_v16 or current_v17
@@ -1148,7 +1178,7 @@ def main() -> int:
                 else 8 if current_v4 else version
             )
             admission_policy_version = (
-                57 if current_v25 else 56 if current_v24 else 55 if diagnostic else 53 if current_v21
+                58 if formal else 57 if current_v25 else 56 if current_v24 else 55 if diagnostic else 53 if current_v21
                 else 39 if current_v20
                 else 38 if current_v19
                 else 37 if current_v18
@@ -1169,7 +1199,7 @@ def main() -> int:
                 else 11
             )
             nested_policy_version = (
-                31 if current_v25 else 30 if current_v24 else 28 if (current_v21 or diagnostic)
+                32 if formal else 31 if current_v25 else 30 if current_v24 else 28 if (current_v21 or diagnostic)
                 else 27 if current_v20
                 else 26 if current_v19
                 else 25 if current_v18
@@ -1185,7 +1215,7 @@ def main() -> int:
                 else 15 if (current_v5 or current_v6 or current_v7) else 14
             )
             executor_version = (
-                31 if current_v25 else 30 if current_v24 else 26 if (current_v21 or diagnostic)
+                32 if formal else 31 if current_v25 else 30 if current_v24 else 26 if (current_v21 or diagnostic)
                 else 25 if current_v20
                 else 24 if current_v19
                 else 23 if current_v18
@@ -1200,7 +1230,7 @@ def main() -> int:
                 else 14 if current_v8
                 else 13 if (current_v5 or current_v6 or current_v7) else 12
             )
-            expected_synthetic = profile in {"STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21"} or profile in {
+            expected_synthetic = profile in {"STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"} or profile in {
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
@@ -1234,7 +1264,8 @@ def main() -> int:
             for token in (f"--execute-fixed-stage17-action-v{version}".encode(),
                           f"STAGE17-FIXED-ACTION-WORKER-v{version}".encode(),
                           *( (b"--execute-fixed-stage17-action-v5",) if diagnostic else () ),
-                          *( (b"--describe-stage17-discovery-layout-v2",) if current_v25 else () ),
+                          *( (b"--describe-stage17-discovery-layout-v2",) if (current_v25 or formal) else () ),
+                          *((b"--execute-fixed-stage17-action-v6",) if formal else ()),
                           *( (b"--execute-stage17-pilot-session-v1",)
                              if current_v4 else () ),
                           *(item.encode("ascii") for item in expected_actions)):

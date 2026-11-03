@@ -1,0 +1,20 @@
+{
+  "analysis_scratch_bytes": 274877906944,
+  "approval_source": "Current conversation structured reply to the complete D233 storage proposal",
+  "archive_quota_bytes": 6000000000000,
+  "automatic_retry_authority": false,
+  "exact_user_reply": "Approve D233 smaller-storage plan",
+  "historical_raw_mutation_authority": false,
+  "implementation_authorized": true,
+  "new_experiment_authority": false,
+  "policy_id": "EXT007-FORMAL-LOSSLESS-STAND-PRIMARY-v1",
+  "proposal_sha256": "e0afc7010b7c0ee84adccf25eaf00679dbc79f51d1970fce3f42f8223ab91c02",
+  "proposal_size_bytes": 19501,
+  "quota_stop_may_leave_family_incomplete": true,
+  "record_id": "CPU-PREFETCH-V5-EXT007-D233-OWNER-ACCEPTANCE-1",
+  "recorded_at_utc": "2026-11-03T17:38:38.337731+00:00",
+  "reserve_bytes": 17179869184,
+  "scope": "FUTURE_FORMAL_EXT007_ONLY",
+  "working_copy_release": "ONLY_AFTER_DURABLE_VERIFIED_ARCHIVE_AND_LEDGER",
+  "workspace_bytes": 549755813888
+}

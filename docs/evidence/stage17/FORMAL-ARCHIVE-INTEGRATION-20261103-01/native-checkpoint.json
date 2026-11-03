@@ -1,0 +1,66 @@
+{
+  "scope": "Changed runner family/fixed-action/checkpoint/archive-channel only; software verification, no qualification",
+  "native_tests_per_configuration": 30,
+  "configs": [
+    "asan-ubsan-gcc",
+    "tsan-gcc",
+    "asan-ubsan-clang-libcxx",
+    "tsan-clang-libcxx"
+  ],
+  "source_pins": {
+    "CMakeLists.txt": "bec13f51f39c1838fd6c63560b66e1096bd5b3074c6d006d63dd25ad43dfc34c",
+    "include/cpu_prefetch/runner/stage17_archive_channel.hpp": "800f25452badaff887c11fdd827b23f3a712ab73754c01b2f17f9fa62d8f2649",
+    "src/runner/stage17_archive_channel.cpp": "79aa5950259a5c92c6f4b447f9d5b6ac28329edd7c984eb1597243449105fe82",
+    "tests/stage17_archive_channel_test.cpp": "86d84ac2086cfedaaf0e7da671106ee11ca60a8eb045374d33c63f4446af6792",
+    "include/cpu_prefetch/runner/stage17_formal_checkpoint.hpp": "3579911430dd834607e2ac93c3ea99a18d1faf8acc786463fa86520fb2dc0618",
+    "src/runner/stage17_formal_checkpoint.cpp": "9972674286b8aca36bd9b9825f6099436c2f76b07a70bcb7f1b70d835da1f8fe",
+    "tests/stage17_formal_checkpoint_test.cpp": "1c0f628bd49ae8d6262974efb40d73f28b33dcee86455cbec086c86c9cc4a5a5",
+    "include/cpu_prefetch/runner/stage17_formal_family.hpp": "6305daa582fbc3abfa09dca023a164d51baad06174307b0cc2a7021513c79709",
+    "src/runner/stage17_formal_family.cpp": "1d0ef28930fded370abc3d9ad112bc9450bf6e5d3f123c7877f1e83847f60862",
+    "tests/stage17_formal_family_test.cpp": "c07f932213fd9917ccc354a6f5ca62a490a3e1448fd9f958ac86d992826dfefc",
+    "include/cpu_prefetch/runner/stage17_fixed_action.hpp": "143352fb743586f9270c2dca2ac9c144f117201ad0b5edd44a41ab373ea06ce0",
+    "src/runner/stage17_fixed_action.cpp": "0128159b4f94c770891451c6879232fe6fdf0b6af5a07e159700dbbf32c61b6c"
+  },
+  "evidence": [
+    {
+      "path": "build/stage17-step5-prep/d235-channel-verification/matrix-tests-final.json",
+      "size_bytes": 5344,
+      "sha256": "767ba40d8c56109caacffd0e815362b606f377b13e5fb2bcfb8aac34057ef7a8"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-channel-verification/matrix-build-final.json",
+      "size_bytes": 7710,
+      "sha256": "adf6e687d48521301186720e63871886cd4c00d798419f1fc9deb936049ae76e"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-channel-verification/dev-tests-outside-2.log",
+      "size_bytes": 7278,
+      "sha256": "1193ebe1a1a20a322f07c62181cd0b7dd1c4e051ca44a73082d1def4b1742075"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-channel-verification/tidy-2.log",
+      "size_bytes": 892,
+      "sha256": "38133a8a2f5a2c513f0dfeb52b957152da6be964f740c19145c8e90e924549fb"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-channel-verification/asan-ubsan-gcc-tests-final.log",
+      "size_bytes": 7285,
+      "sha256": "5752796111030704c85683e741d547d390de2564c4eef6b335076f76c63cd6fa"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-channel-verification/tsan-gcc-tests-final.log",
+      "size_bytes": 7279,
+      "sha256": "f8068862b61c2d502f0ec27e7ea25d8d6393657b57212c9ac8acb47f712a3b32"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-channel-verification/asan-ubsan-clang-libcxx-tests-final.log",
+      "size_bytes": 7294,
+      "sha256": "c28ad1d622c2308a5580fe5f929bf71b9a3c1f329b3f0f5c815b125c3f2624f3"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-channel-verification/tsan-clang-libcxx-tests-final.log",
+      "size_bytes": 7288,
+      "sha256": "2f1bb0d93fd94f181c324a49ffeeedf523d9fa3461dce173cbd342145a942c61"
+    }
+  ]
+}

@@ -36,6 +36,32 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
+| [ADR-0232](0232-q16c-original-schedule-source-provenance.md) | `ACCEPTED` | Verify original schedule bytes, accepted generator and exact calibrated rate; no experiment authority. |
+| [ADR-0233](0233-stage17-formal-lossless-archive-proposal.md) | `ACCEPTED` | Owner-approved future formal lossless archival custody; qualification required. |
+| [ADR-0234](0234-offline-analysis-exit-race-and-bounded-pool.md) | `ACCEPTED` | Repair offline process-exit monitoring and bound the retained-data pool to 16 workers. |
+| [ADR-0235](0235-stage17-formal-archive-wire-format.md) | `ACCEPTED` | Exact lossless archive format, bounded native encoding and independent reconstruction. |
+| [ADR-0236](0236-formal-archive-checkpoint-and-resource-contract.md) | `ACCEPTED` | Durable per-capture original final receipts and explicit D233 resource contracts; qualification required. |
+| [ADR-0237](0237-stage17-calibration-export-boundary.md) | `ACCEPTED` | Recomputed calibration export with explicit unresolved provenance and final-exposure gates. |
+| [ADR-0238](0238-q16c-sealed-original-schedule-sources.md) | `ACCEPTED` | Bounded cold loading of sealed original Q16c schedules; transport integration required. |
+| [ADR-0239](0239-archive-aware-calibration-export-lineage.md) | `ACCEPTED` | Original archive-plan and signed lifecycle lineage; custody alone gives no scientific credit. |
+| [ADR-0231](0231-formal-admission-custody-successor.md) | `ACCEPTED` | Explicit formal admission, expiry-bounded execution, custody and successor release integration; verification in progress. |
+| [ADR-0230](0230-formal-calibration-from-bound-capture-reports.md) | `ACCEPTED` | Exact calibration arithmetic and planned-family coverage from bound independent capture reports. |
+| [ADR-0229](0229-formal-service-and-scheduled-capture-validation.md) | `ACCEPTED` | Independent service/scheduled raw reconciliation and original execution-evidence validation. |
+| [ADR-0228](0228-formal-service-scheduled-family-contract.md) | `ACCEPTED` | Complete prospective service and scheduled families with finite resource declarations. |
+| [ADR-0227](0227-formal-family-dispatch-boundary.md) | `ACCEPTED` | Explicit persistent formal-family dispatch; scoped engineering work, no experiment authority. |
+| [ADR-0226](0226-q16c-native-input-and-retention.md) | `ACCEPTED` | Q16c native input and retention boundary; scoped engineering work, no experiment authority. |
+| [ADR-0225](0225-formal-native-generated-code-verification.md) | `ACCEPTED` | Actual formal native generated-code verification; scoped engineering work, no experiment authority. |
+| [ADR-0224](0224-parallel-retained-discovery-validation.md) | `ACCEPTED` | Bounded parallel validation of retained D207 captures; scoped engineering work, no experiment authority. |
+| [ADR-0223](0223-formal-service-native-contract.md) | `ACCEPTED` | Typed formal service input and original evidence publication; scoped engineering work, no experiment authority. |
+| [ADR-0222](0222-calibration-allocation-bound-verification.md) | `ACCEPTED` | Calibration allocation-bound verification repair; scoped engineering work, no experiment authority. |
+| [ADR-0221](0221-formal-ring-prospective-family-contract.md) | `ACCEPTED` | Prospective D212 family and finite resource accounting; scoped engineering work, no experiment authority. |
+| [ADR-0220](0220-stage17-q16a-independent-capture-validation.md) | `ACCEPTED` | Independent formal Q16a per-capture validation; scoped engineering work, no experiment authority. |
+| [ADR-0219](0219-persistent-scheduled-feasibility-session.md) | `ACCEPTED` | Persistent scheduled feasibility session; scoped engineering work, no experiment authority. |
+| [ADR-0218](0218-typed-persistent-service-backend.md) | `ACCEPTED` | Typed five-package service backend with independently retained primary streams, persistent phase reset and D211 completion counting; no new timing semantics or experiment authority. |
+| [ADR-0217](0217-formal-native-input-contract.md) | `ACCEPTED` | Explicit D212 native capture bounds and original raw/control publication, with recomputed layouts and separate final cleanup evidence. |
+| [ADR-0216](0216-shared-native-cold-observation-storage.md) | `ACCEPTED` | Reuse native cold observation storage for typed formal runtime while preserving the diagnostic API and evidence. |
+| [ADR-0215](0215-caller-owned-termination-storage.md) | `ACCEPTED` | Caller-owned termination storage supports declared placement without changing the existing owning interface. |
+| [ADR-0214](0214-q16a-demand-trace-contract.md) | `ACCEPTED` | Original acquire-demand codec and independent D212 fixed-window decoding; exact quantiles and separate method identity. |
 | [ADR-0213](0213-discovery-whole-plot-readback-validation.md) | `ACCEPTED` | Repair independent discovery validation for actual H0 no-write logs and reverse-order H1 restoration; preserve original data and rejected analysis, no recollection. |
 | [ADR-0212](0212-stage17-q16a-demand-window.md) | `ACCEPTED` | Owner-approved formal Q16a demand-start window and advancing-pair membership, with retained drain and a versioned method; no new experiment authority. |
 | [ADR-0211](0211-stage17-q16b-completion-interval.md) | `ACCEPTED` | Owner-approved half-open consumer-completion window for the later Q16b numerator; preserve drain reconciliation, no new experimental authority. |

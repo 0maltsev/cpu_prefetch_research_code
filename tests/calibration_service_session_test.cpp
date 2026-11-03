@@ -373,6 +373,23 @@ void check_package(Queue& queue, Package& package) {
 #endif
 }
 
+TEST(ServiceSession, BorrowedTerminationConstructionDoesNotAllocate) {
+#if CPU_PREFETCH_SERVICE_ALLOCATION_HOOK
+  alignas(64) std::array<std::byte, 64U> bytes{};
+  const auto before = allocations.load();
+  watch_allocations = true;
+  {
+    l::TerminationControl control({64U}, bytes);
+    control.publish_arrivals_finished();
+  }
+  watch_allocations = false;
+  EXPECT_EQ(allocations.load(), before);
+#else
+  GTEST_SKIP()
+      << "Clang TSan does not support the allocation replacement instrumentation";
+#endif
+}
+
 TEST(ServiceSession, AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement) {
   Emitter emitter;
   q::RingSpscQueue ring{{64U}, {64U}};

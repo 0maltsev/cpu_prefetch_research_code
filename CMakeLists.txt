@@ -19,6 +19,7 @@ find_package(Git 2.54 REQUIRED)
 find_package(OpenSSL 3.0...<4.0 REQUIRED COMPONENTS Crypto)
 find_package(Python3 3.14 REQUIRED COMPONENTS Interpreter)
 find_package(Threads REQUIRED)
+find_package(zstd 1.5.7 EXACT CONFIG REQUIRED)
 
 option(CPU_PREFETCH_USE_LIBCXX "Pair Clang with libc++" OFF)
 option(CPU_PREFETCH_WARNINGS_AS_ERRORS "Treat project warnings as errors" ON)
@@ -100,7 +101,7 @@ add_library(cpu_prefetch::workload ALIAS cpu_prefetch_workload)
 target_link_libraries(
   cpu_prefetch_workload
   PUBLIC cpu_prefetch::protocol cpu_prefetch::queue
-  PRIVATE cpu_prefetch_project_options OpenSSL::Crypto)
+  PRIVATE cpu_prefetch_project_options OpenSSL::Crypto zstd::libzstd_shared)
 target_include_directories(
   cpu_prefetch_workload
   PUBLIC
@@ -183,6 +184,13 @@ add_library(
   src/runner/qualification.cpp
   src/runner/runner.cpp
   src/runner/stage17_discovery_action.cpp
+  src/runner/stage17_formal_ring_action.cpp
+  src/runner/stage17_formal_service_action.cpp
+  src/runner/stage17_formal_family.cpp
+  src/runner/stage17_formal_checkpoint.cpp
+  src/runner/stage17_schedule_source.cpp
+  src/runner/stage17_archive_channel.cpp
+  src/runner/stage17_formal_scheduled_action.cpp
   src/runner/stage17_discovery_publication.cpp
   src/runner/stage17_fixed_action.cpp)
 add_library(cpu_prefetch::runner ALIAS cpu_prefetch_runner_core)
@@ -226,7 +234,8 @@ add_library(
   src/storage/artifacts.cpp
   src/storage/budget.cpp
   src/storage/finalization.cpp
-  src/storage/raw_observations.cpp)
+  src/storage/raw_observations.cpp
+  src/storage/post_measure_archive.cpp)
 add_library(cpu_prefetch::storage ALIAS cpu_prefetch_storage)
 target_link_libraries(
   cpu_prefetch_storage
@@ -241,6 +250,13 @@ target_include_directories(
   PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+# D233 cold-only archive encoder. Its fd-only CLI enforces the separately
+# admitted process ceiling; no capture path invokes it here.
+add_executable(cpu_prefetch_stage17_archive_encoder tools/stage17_archive_encoder_main.cpp)
+target_link_libraries(cpu_prefetch_stage17_archive_encoder PRIVATE
+  cpu_prefetch::storage cpu_prefetch_project_options OpenSSL::Crypto
+  zstd::libzstd_shared ${CMAKE_DL_LIBS})
 
 # ADR-0044's owner-thread preparation uses the already-allocated Stage 11
 # private streams. The dependency is declared only after the storage target is
@@ -269,8 +285,13 @@ target_link_libraries(cpu_prefetch_runner_core PUBLIC cpu_prefetch::reconciliati
 
 add_library(cpu_prefetch_calibration STATIC src/calibration/calibration.cpp
   src/calibration/service_session.cpp
+  src/calibration/scheduled_session.cpp
+  src/calibration/ring_demand_window.cpp
   src/calibration/service_interval_count.cpp
-  src/calibration/native_discovery_capture.cpp)
+  src/calibration/native_discovery_capture.cpp
+  src/calibration/native_formal_ring_capture.cpp
+  src/calibration/native_formal_service_capture.cpp
+  src/calibration/native_formal_scheduled_capture.cpp)
 add_library(cpu_prefetch::calibration ALIAS cpu_prefetch_calibration)
 target_link_libraries(
   cpu_prefetch_calibration
@@ -668,6 +689,7 @@ if(BUILD_TESTING)
   add_executable(
     cpu_prefetch_lifecycle_tests
     tests/lifecycle_concurrency_test.cpp
+    tests/lifecycle_borrowed_termination_test.cpp
     tests/lifecycle_state_machine_test.cpp)
   target_link_libraries(
     cpu_prefetch_lifecycle_tests
@@ -683,6 +705,13 @@ if(BUILD_TESTING)
   add_executable(cpu_prefetch_runner_tests
                  tests/runner_model_test.cpp
                  tests/stage17_discovery_action_test.cpp
+                 tests/stage17_formal_ring_action_test.cpp
+                 tests/stage17_formal_service_action_test.cpp
+                 tests/stage17_formal_scheduled_action_test.cpp
+                 tests/stage17_formal_family_test.cpp
+                 tests/stage17_formal_ring_publication_test.cpp
+                 tests/stage17_formal_service_publication_test.cpp
+                 tests/stage17_formal_scheduled_publication_test.cpp
                  tests/stage17_discovery_publication_test.cpp
                  tests/stage17_fixed_action_test.cpp)
   target_link_libraries(
@@ -840,6 +869,30 @@ if(BUILD_TESTING)
             "${PROJECT_SOURCE_DIR}/tests/test_stage17_discovery_metadata.py")
   set_tests_properties(calibration.discovery_metadata_validation PROPERTIES
     LABELS "calibration;diagnostic;synthetic" TIMEOUT 180)
+  add_executable(cpu_prefetch_stage17_formal_ring_fixture
+    tools/stage17_formal_ring_fixture_main.cpp)
+  target_link_libraries(cpu_prefetch_stage17_formal_ring_fixture PRIVATE
+    cpu_prefetch::runner cpu_prefetch::calibration cpu_prefetch_project_options)
+  add_test(
+    NAME calibration.formal_ring_cpp_publication_validation
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_ring_cpp_bridge.py"
+      --binary "$<TARGET_FILE:cpu_prefetch_stage17_formal_ring_fixture>")
+  set_tests_properties(calibration.formal_ring_cpp_publication_validation PROPERTIES
+    LABELS "calibration;synthetic;python" TIMEOUT 120)
+  add_test(
+    NAME runner.formal_service_cpp_bridge
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_service_cpp_bridge.py"
+      --binary "$<TARGET_FILE:cpu_prefetch_stage17_formal_ring_fixture>")
+  set_tests_properties(runner.formal_service_cpp_bridge PROPERTIES
+    LABELS "runner;calibration;synthetic;python" TIMEOUT 120)
+  add_test(
+    NAME runner.formal_service_capture_validation
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_service_capture_validation_v1.py")
+  set_tests_properties(runner.formal_service_capture_validation PROPERTIES
+    LABELS "runner;calibration;synthetic;python" TIMEOUT 120)
   add_executable(cpu_prefetch_stage17_discovery_fixture
     tools/stage17_discovery_fixture_main.cpp)
   target_link_libraries(cpu_prefetch_stage17_discovery_fixture PRIVATE
@@ -1038,6 +1091,72 @@ if(BUILD_TESTING)
     PROPERTIES
       LABELS "runner;controller;stage17b2;pilot;raw;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION "PASS \\(3 positive, 4 negative\\)")
+  add_test(
+    NAME runner.stage17_formal_worker_boundary
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_worker_boundary.py"
+      --worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>")
+  set_tests_properties(runner.stage17_formal_worker_boundary PROPERTIES
+    LABELS "runner;calibration;synthetic;python" TIMEOUT 120)
+
+  add_test(
+    NAME calibration.formal_native_codegen_rules
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_formal_codegen.py")
+  set_tests_properties(calibration.formal_native_codegen_rules PROPERTIES
+    LABELS "calibration;codegen;synthetic;python" TIMEOUT 60)
+
+  add_test(
+    NAME runner.stage17_q16a_capture_validation_v1
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tests/test_stage17_q16a_capture_validation_v1.py")
+  set_tests_properties(runner.stage17_q16a_capture_validation_v1 PROPERTIES
+    LABELS "runner;calibration;synthetic;python")
+
+  add_test(
+    NAME runner.stage17_formal_ring_plan_v1
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_ring_plan_v1.py")
+  set_tests_properties(runner.stage17_formal_ring_plan_v1 PROPERTIES
+    LABELS "runner;calibration;synthetic;python")
+  add_test(
+    NAME runner.stage17_formal_plan_v1
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_plan_v1.py")
+  set_tests_properties(runner.stage17_formal_plan_v1 PROPERTIES
+    LABELS "runner;calibration;synthetic;python" TIMEOUT 180)
+  add_test(
+    NAME runner.stage17_output_registry_v11
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_output_registry_v11.py")
+  set_tests_properties(runner.stage17_output_registry_v11 PROPERTIES
+    LABELS "runner;calibration;synthetic;python" TIMEOUT 180)
+  add_test(
+    NAME runner.stage17_bundle_v26
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_bundle_v26.py")
+  set_tests_properties(runner.stage17_bundle_v26 PROPERTIES
+    LABELS "runner;release;synthetic;python" TIMEOUT 60)
+  add_test(
+    NAME runner.operational_cli_v18
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_operational_cli_v18.py")
+  set_tests_properties(runner.operational_cli_v18 PROPERTIES
+    LABELS "runner;synthetic;python" TIMEOUT 240)
+  add_test(
+    NAME runner.fixed_action_executor_v10
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_fixed_action_executor_v10.py")
+  set_tests_properties(runner.fixed_action_executor_v10 PROPERTIES
+    LABELS "runner;synthetic;python" TIMEOUT 180)
+
+  add_test(
+    NAME runner.stage17_q16a_demand_decoder_v1
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tests/test_stage17_q16a_demand_decoder_v1.py")
+  set_tests_properties(runner.stage17_q16a_demand_decoder_v1 PROPERTIES
+    LABELS "runner;calibration;raw;synthetic;python")
+
   add_test(
     NAME runner.stage17_raw_stream_decoder_v2
     COMMAND "${Python3_EXECUTABLE}"
@@ -1412,6 +1531,132 @@ if(BUILD_TESTING)
     q15.dynamic_implementation_profile
     PROPERTIES LABELS "q15;qualification;contract;schema;pre-pilot;synthetic")
 
+  add_executable(cpu_prefetch_archive_tests tests/storage_post_measure_archive_test.cpp)
+  target_link_libraries(cpu_prefetch_archive_tests PRIVATE cpu_prefetch::storage
+    cpu_prefetch_project_options zstd::libzstd_shared GTest::gtest_main)
+  gtest_discover_tests(cpu_prefetch_archive_tests TEST_PREFIX "storage.archive."
+    PROPERTIES LABELS "storage;archive;synthetic")
+
+  add_executable(cpu_prefetch_archive_channel_tests tests/stage17_archive_channel_test.cpp)
+  target_link_libraries(cpu_prefetch_archive_channel_tests PRIVATE cpu_prefetch::runner
+    cpu_prefetch_project_options GTest::gtest_main)
+  gtest_discover_tests(cpu_prefetch_archive_channel_tests TEST_PREFIX "runner.archive_channel."
+    PROPERTIES LABELS "runner" TIMEOUT 30)
+
+  add_executable(cpu_prefetch_schedule_source_tests tests/stage17_schedule_source_test.cpp)
+  target_link_libraries(cpu_prefetch_schedule_source_tests PRIVATE cpu_prefetch::runner
+    cpu_prefetch_project_options GTest::gtest_main)
+  gtest_discover_tests(cpu_prefetch_schedule_source_tests TEST_PREFIX "runner.schedule_source."
+    PROPERTIES LABELS "runner")
+
+  add_executable(cpu_prefetch_formal_checkpoint_tests tests/stage17_formal_checkpoint_test.cpp)
+  target_link_libraries(cpu_prefetch_formal_checkpoint_tests PRIVATE cpu_prefetch::runner
+    cpu_prefetch_project_options GTest::gtest_main)
+  gtest_discover_tests(cpu_prefetch_formal_checkpoint_tests TEST_PREFIX "runner.checkpoint."
+    PROPERTIES LABELS "runner;archive;synthetic")
+
+  add_test(NAME runner.formal_archive_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_v1.py")
+  set_tests_properties(runner.formal_archive_v1 PROPERTIES
+    LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.formal_archive_custody_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_custody_v1.py")
+  set_tests_properties(runner.formal_archive_custody_v1 PROPERTIES
+    LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.formal_storage_budget_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_storage_budget_v1.py")
+  set_tests_properties(runner.formal_storage_budget_v1 PROPERTIES
+    LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.formal_plan_v2
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_plan_v2.py")
+  set_tests_properties(runner.formal_plan_v2 PROPERTIES
+    LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+  # ASan/TSan reserve virtual address space beyond the approved 2-GiB
+  # standalone codec ceiling. Instrumented core tests exercise encoding independently;
+  # the real CLI bridge requires an ordinary development/release executable.
+  if(CPU_PREFETCH_SANITIZER STREQUAL "NONE")
+    add_test(NAME runner.formal_archive_cpp_bridge
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_cpp_bridge.py"
+        --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>"
+        --fixture "$<TARGET_FILE:cpu_prefetch_stage17_formal_ring_fixture>")
+    set_tests_properties(runner.formal_archive_cpp_bridge PROPERTIES
+      LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+    add_test(NAME runner.formal_archive_runtime_v1
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_runtime_v1.py"
+        --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>")
+    set_tests_properties(runner.formal_archive_runtime_v1 PROPERTIES
+      LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+    file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/stage17-archive-jobs-tmp")
+    add_test(NAME runner.formal_archive_broker_v1
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_broker_v1.py"
+        --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>")
+    set_tests_properties(runner.formal_archive_broker_v1 PROPERTIES
+      LABELS "runner;archive;synthetic;python" TIMEOUT 180
+      ENVIRONMENT "TMPDIR=${PROJECT_BINARY_DIR}/stage17-archive-jobs-tmp")
+    add_test(NAME runner.formal_archive_jobs_v1
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_jobs_v1.py"
+        --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>")
+    set_tests_properties(runner.formal_archive_jobs_v1 PROPERTIES
+      LABELS "runner;archive;synthetic;python" TIMEOUT 180
+      ENVIRONMENT "TMPDIR=${PROJECT_BINARY_DIR}/stage17-archive-jobs-tmp")
+  endif()
+
+  add_test(NAME runner.archive_plan_identity_v2
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_archive_plan_identity_v2.py")
+  set_tests_properties(runner.archive_plan_identity_v2 PROPERTIES
+    LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.archive_bundle_profile_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_archive_bundle_profile_v1.py")
+  set_tests_properties(runner.archive_bundle_profile_v1 PROPERTIES
+    LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+
+  add_test(NAME runner.formal_checkpoint_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_checkpoint_v1.py")
+  set_tests_properties(runner.formal_checkpoint_v1 PROPERTIES
+    LABELS "runner;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.calibration_export_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_calibration_export_v1.py")
+  set_tests_properties(runner.calibration_export_v1 PROPERTIES
+    LABELS "runner;synthetic;python" TIMEOUT 300)
+  add_test(NAME runner.calibration_export_v2
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_calibration_export_v2.py")
+  set_tests_properties(runner.calibration_export_v2 PROPERTIES
+    LABELS "runner;synthetic;python" TIMEOUT 300)
+  add_test(NAME runner.archive_channel_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_archive_channel_v1.py")
+  set_tests_properties(runner.archive_channel_v1 PROPERTIES
+    LABELS "runner;synthetic;python" TIMEOUT 180)
+
+  file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/stage17-registry-tmp")
+  add_test(NAME runner.formal_archive_registry_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_registry_v1.py")
+  set_tests_properties(runner.formal_archive_registry_v1 PROPERTIES
+    LABELS "runner;qualification;synthetic;python" TIMEOUT 180
+    ENVIRONMENT "TMPDIR=${PROJECT_BINARY_DIR}/stage17-registry-tmp")
+  add_test(NAME runner.output_registry_v12
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_output_registry_v12.py")
+  set_tests_properties(runner.output_registry_v12 PROPERTIES
+    LABELS "runner;qualification;synthetic;python" TIMEOUT 180
+    ENVIRONMENT "TMPDIR=${PROJECT_BINARY_DIR}/stage17-registry-tmp")
+
+  add_test(NAME runner.phase_controller_v26
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_phase_controller_v26.py")
+  set_tests_properties(runner.phase_controller_v26 PROPERTIES
+    LABELS "runner;qualification;synthetic;python" TIMEOUT 180)
+
+  add_test(NAME runner.formal_policy_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_policy_v1.py")
+  set_tests_properties(runner.formal_policy_v1 PROPERTIES
+    LABELS "runner;qualification;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.discovery_validation_parallel_v2
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_discovery_validation_parallel_v2.py")
+  set_tests_properties(runner.discovery_validation_parallel_v2 PROPERTIES
+    LABELS "runner;analysis;synthetic;python" TIMEOUT 180)
+
   add_executable(cpu_prefetch_storage_tests tests/storage_model_test.cpp)
   target_link_libraries(
     cpu_prefetch_storage_tests
@@ -1450,6 +1695,10 @@ if(BUILD_TESTING)
     tests/calibration_model_test.cpp tests/calibration_discovery_capture_test.cpp
     tests/calibration_discovery_session_test.cpp
     tests/calibration_service_interval_count_test.cpp
+    tests/calibration_formal_ring_session_test.cpp
+    tests/calibration_formal_service_session_test.cpp
+    tests/calibration_scheduled_session_test.cpp
+    tests/calibration_ring_demand_window_test.cpp
     tests/calibration_discovery_consumer_test.cpp
     tests/calibration_caller_owned_trace_test.cpp
     tests/calibration_discovery_event_test.cpp
@@ -1457,6 +1706,9 @@ if(BUILD_TESTING)
     tests/calibration_discovery_residency_test.cpp
     tests/calibration_discovery_control_test.cpp
     tests/calibration_native_discovery_test.cpp
+    tests/calibration_native_formal_ring_test.cpp
+    tests/calibration_mapped_service_test.cpp
+    tests/calibration_mapped_scheduled_test.cpp
     tests/calibration_mapped_discovery_test.cpp)
   target_link_libraries(
     cpu_prefetch_calibration_tests
@@ -1762,6 +2014,10 @@ add_executable(
 target_link_libraries(
   cpu_prefetch_software_prefetch_mapping_codegen_mutant
   PRIVATE cpu_prefetch_project_options)
+add_executable(cpu_prefetch_formal_codegen_probe EXCLUDE_FROM_ALL
+  tools/formal_codegen_probe.cpp)
+target_link_libraries(cpu_prefetch_formal_codegen_probe PRIVATE
+  cpu_prefetch::calibration cpu_prefetch_project_options)
 add_executable(
   cpu_prefetch_runner_combined_codegen_probe EXCLUDE_FROM_ALL
   tools/runner_combined_codegen_probe.cpp)
@@ -1824,7 +2080,18 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/runner.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_fixed_action.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_discovery_publication.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_ring_publication.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_service_publication.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_scheduled_publication.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_discovery_action.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_ring_action.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_service_action.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_scheduled_action.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_family.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_checkpoint.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_schedule_source.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_archive_channel.hpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_input_detail.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/software_prefetch.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/calibration.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/caller_owned_trace.hpp"
@@ -1836,7 +2103,25 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_ring_backend.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_session.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/service_session.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/detail/native_service_envelope.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/detail/native_capture_monitor.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/native_formal_ring_capture.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/native_formal_service_capture.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_formal_service_preparation.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/formal_service_plan.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/formal_scheduled_plan.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_formal_scheduled_preparation.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_formal_scheduled_runtime.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/native_formal_scheduled_capture.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_formal_ring_runtime.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_formal_ring_preparation.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/native_capture_plan.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/formal_ring_session.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/formal_service_session.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/scheduled_session.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/detail/scheduled_session_impl.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/service_interval_count.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/ring_demand_window.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_thread_launcher.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_discovery_preparation.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_discovery_runtime.hpp"
@@ -1880,6 +2165,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/capture_backend.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/finalization.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/raw_observations.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/storage/post_measure_archive.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/capture.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/clock.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/timing/cross_core_exchange.hpp"
@@ -1896,7 +2182,12 @@ set(
   "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/native_discovery_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_ring_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_service_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_scheduled_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/service_session.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/scheduled_session.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/ring_demand_window.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/service_interval_count.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
@@ -1930,6 +2221,13 @@ set(
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_fixed_action.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_discovery_publication.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_discovery_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_ring_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_service_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_scheduled_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_family.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_checkpoint.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_schedule_source.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_archive_channel.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -1939,6 +2237,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/storage/budget.cpp"
   "${PROJECT_SOURCE_DIR}/src/storage/finalization.cpp"
   "${PROJECT_SOURCE_DIR}/src/storage/raw_observations.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/post_measure_archive.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/clock.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/cross_core_exchange.cpp"
@@ -1957,6 +2256,10 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_service_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_service_interval_count_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_formal_ring_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_formal_service_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_scheduled_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_ring_demand_window_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_event_test.cpp"
@@ -1965,8 +2268,12 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_control_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_discovery_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_native_discovery_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_native_formal_ring_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_service_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_scheduled_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/discovery_backend_test_support.hpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/lifecycle_borrowed_termination_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_phase_test_access.hpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"
@@ -1995,9 +2302,20 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/runner_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_fixed_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_publication_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_ring_publication_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_service_publication_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_scheduled_publication_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_ring_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_service_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_scheduled_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_family_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_checkpoint_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_schedule_source_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_archive_channel_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/storage_post_measure_archive_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_stress.cpp"
   "${PROJECT_SOURCE_DIR}/tests/timing_model_test.cpp"
@@ -2016,8 +2334,11 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/runner_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/formal_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_archive_encoder_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_discovery_fixture_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_formal_ring_fixture_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_no_result_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_test_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
@@ -2055,7 +2376,12 @@ set(
   "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/native_discovery_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_ring_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_service_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_scheduled_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/service_session.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/scheduled_session.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/ring_demand_window.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/service_interval_count.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
@@ -2089,6 +2415,13 @@ set(
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_fixed_action.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_discovery_publication.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_discovery_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_ring_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_service_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_scheduled_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_family.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_checkpoint.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_schedule_source.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_archive_channel.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -2098,6 +2431,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/storage/budget.cpp"
   "${PROJECT_SOURCE_DIR}/src/storage/finalization.cpp"
   "${PROJECT_SOURCE_DIR}/src/storage/raw_observations.cpp"
+  "${PROJECT_SOURCE_DIR}/src/storage/post_measure_archive.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/clock.cpp"
   "${PROJECT_SOURCE_DIR}/src/timing/cross_core_exchange.cpp"
@@ -2116,6 +2450,10 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_service_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_service_interval_count_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_formal_ring_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_formal_service_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_scheduled_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_ring_demand_window_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_event_test.cpp"
@@ -2124,7 +2462,11 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_control_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_discovery_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_native_discovery_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_native_formal_ring_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_service_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_scheduled_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/lifecycle_borrowed_termination_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"
   "${PROJECT_SOURCE_DIR}/tests/rapidcheck_smoke.cpp"
@@ -2151,9 +2493,20 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/runner_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_fixed_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_publication_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_ring_publication_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_service_publication_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_scheduled_publication_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_ring_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_service_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_scheduled_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_family_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_formal_checkpoint_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_schedule_source_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_archive_channel_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/storage_post_measure_archive_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_stress.cpp"
   "${PROJECT_SOURCE_DIR}/tests/timing_model_test.cpp"
@@ -2172,8 +2525,11 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/runner_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_probe.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/formal_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_archive_encoder_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_discovery_fixture_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_formal_ring_fixture_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_no_result_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_test_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
@@ -2375,6 +2731,16 @@ add_custom_target(
     --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
   DEPENDS cpu_prefetch_runner
   COMMENT "Requiring both disassemblers to qualify the actual native discovery worker")
+add_custom_target(
+  formal-codegen-check
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_formal_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_runner>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/formal_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS cpu_prefetch_runner
+  COMMENT "Requiring both disassemblers to audit actual formal native active-phase code")
 add_custom_target(
   q15-probe-codegen-check
   COMMAND
@@ -3386,6 +3752,10 @@ add_custom_target(
     cpu_prefetch_workload
   COMMENT "Creating the append-only Stage 16 stand-preflight bundle")
 
+# These are prospective package inputs, not inferred host/runtime defaults.
+set(CPU_PREFETCH_ARCHIVE_RUNTIME_ROOT "" CACHE PATH "Explicit accepted archive Python/zstd runtime root")
+set(CPU_PREFETCH_ARCHIVE_WINDOW_LOG "" CACHE STRING "Explicit archive zstd window_log (10..31)")
+
 add_custom_target(
   pilot-candidate-bundle
   COMMAND
@@ -3394,7 +3764,12 @@ add_custom_target(
     --build-dir "${PROJECT_BINARY_DIR}"
     --output-dir "${PROJECT_BINARY_DIR}/pilot-candidate-bundle"
     --profile stage17-pilot-candidate
+    --archive-runtime-root "${CPU_PREFETCH_ARCHIVE_RUNTIME_ROOT}"
+    --archive-window-log "${CPU_PREFETCH_ARCHIVE_WINDOW_LOG}"
   DEPENDS
+    cpu_prefetch_stage17_archive_encoder
+    cpu_prefetch_q15_clock_qualification_tool
+    cpu_prefetch_q15_qualification_evidence_tool
     cpu_prefetch_analysis
     cpu_prefetch_calibration
     cpu_prefetch_foundation
@@ -3415,6 +3790,7 @@ add_custom_target(
     cpu_prefetch_workload
     queue-codegen-check
     discovery-codegen-check
+    formal-codegen-check
     runner-combined-codegen-check
     runner-relax-codegen-check
     storage-codegen-check
@@ -3425,12 +3801,27 @@ add_custom_target(
 
 add_custom_target(
   stage17-hermetic-handoff-check
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_discovery_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/stage17-hermetic-codegen/discovery_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_formal_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/stage17-hermetic-codegen/formal_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
   COMMAND
     "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/tools/create_stand_bundle.py"
     --source-root "${PROJECT_SOURCE_DIR}"
     --build-dir "${PROJECT_BINARY_DIR}"
     --output-dir "${PROJECT_BINARY_DIR}/stage17-hermetic-handoff-bundle/${CPU_PREFETCH_GIT_REVISION_SHORT}"
     --profile stage17-hermetic-dry-run
+    --archive-runtime-root "${CPU_PREFETCH_ARCHIVE_RUNTIME_ROOT}"
+    --archive-window-log "${CPU_PREFETCH_ARCHIVE_WINDOW_LOG}"
+    --native-codegen-report-dir "${PROJECT_BINARY_DIR}/stage17-hermetic-codegen"
     --test-linked-worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>"
     --no-result-worker "$<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>"
   COMMAND
@@ -3439,6 +3830,9 @@ add_custom_target(
     --bundle-root "${PROJECT_SOURCE_DIR}"
     --bundle-directory "${PROJECT_BINARY_DIR}/stage17-hermetic-handoff-bundle/${CPU_PREFETCH_GIT_REVISION_SHORT}"
   DEPENDS
+    cpu_prefetch_stage17_archive_encoder
+    cpu_prefetch_q15_clock_qualification_tool
+    cpu_prefetch_q15_qualification_evidence_tool
     cpu_prefetch_analysis
     cpu_prefetch_calibration
     cpu_prefetch_foundation
@@ -3460,6 +3854,7 @@ add_custom_target(
     cpu_prefetch_workload
     queue-codegen-check
     discovery-codegen-check
+    formal-codegen-check
     runner-combined-codegen-check
     runner-relax-codegen-check
     storage-codegen-check

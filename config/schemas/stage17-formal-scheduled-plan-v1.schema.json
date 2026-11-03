@@ -1,0 +1,888 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:formal-scheduled-plan:v1",
+  "title": "D228 prospective Q16c complete family and finite budgets",
+  "description": "Declared prospective plan only. Semantic coverage and resource arithmetic are separate from qualified layout, seed ledger, evidence validity and execution authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_id",
+    "protocol_version",
+    "action_id",
+    "method_id",
+    "source_revision",
+    "clean_source",
+    "stand_id",
+    "measurement_ns",
+    "warmup_namespace",
+    "measurement_namespace",
+    "custody_policy_id",
+    "captures",
+    "budget",
+    "repetitions_per_cell",
+    "scale_ordinal"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-formal-scheduled-plan/1"
+    },
+    "plan_id": {
+      "$ref": "#/$defs/id"
+    },
+    "protocol_version": {
+      "const": "2.0.0-pre.3"
+    },
+    "action_id": {
+      "const": "Q16c"
+    },
+    "method_id": {
+      "const": "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"
+    },
+    "source_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "clean_source": {
+      "const": true
+    },
+    "stand_id": {
+      "$ref": "#/$defs/id"
+    },
+    "measurement_ns": {
+      "$ref": "#/$defs/positive"
+    },
+    "warmup_namespace": {
+      "$ref": "#/$defs/id"
+    },
+    "measurement_namespace": {
+      "$ref": "#/$defs/id"
+    },
+    "custody_policy_id": {
+      "const": "EXT007-RAW-NONE-STAND-PRIMARY-v1"
+    },
+    "captures": {
+      "type": "array",
+      "minItems": 180,
+      "items": {
+        "$ref": "#/$defs/family_capture"
+      }
+    },
+    "budget": {
+      "$ref": "#/$defs/family_budget"
+    },
+    "repetitions_per_cell": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18446744073709551615
+    },
+    "scale_ordinal": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}$"
+    },
+    "uint": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "positive": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18446744073709551615
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "seed_id",
+        "seed_hex",
+        "namespace_id"
+      ],
+      "properties": {
+        "run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "seed_id": {
+          "$ref": "#/$defs/id"
+        },
+        "seed_hex": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "namespace_id": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_cpu",
+        "consumer_cpu",
+        "producer_node",
+        "consumer_node",
+        "shared_node",
+        "capacity",
+        "cache_line_bytes",
+        "base_page_bytes"
+      ],
+      "properties": {
+        "producer_cpu": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "consumer_cpu": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "producer_node": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "consumer_node": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "shared_node": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "cache_line_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "base_page_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinal",
+        "hardware_state",
+        "placement",
+        "working_set_class",
+        "warmup_ns",
+        "measurement_ns",
+        "warmup",
+        "measurement",
+        "geometry",
+        "budget",
+        "arena_seed",
+        "seed_use",
+        "schema_version",
+        "method_id",
+        "package",
+        "repetition_ordinal",
+        "cell_ordinal",
+        "software_prefetch_mapping_id",
+        "linked_order",
+        "ring_distance",
+        "load_level",
+        "scale_ordinal",
+        "schedules"
+      ],
+      "properties": {
+        "ordinal": {
+          "$ref": "#/$defs/uint"
+        },
+        "hardware_state": {
+          "enum": [
+            "H0",
+            "H1"
+          ]
+        },
+        "placement": {
+          "enum": [
+            "NEAR",
+            "FAR"
+          ]
+        },
+        "working_set_class": {
+          "enum": [
+            "L2_RESIDENT",
+            "LLC_RESIDENT",
+            "BEYOND_LLC"
+          ]
+        },
+        "warmup_ns": {
+          "const": 5000000000
+        },
+        "measurement_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "warmup": {
+          "$ref": "#/$defs/identity"
+        },
+        "measurement": {
+          "$ref": "#/$defs/identity"
+        },
+        "geometry": {
+          "$ref": "#/$defs/geometry"
+        },
+        "budget": {
+          "$ref": "#/$defs/capture_budget"
+        },
+        "arena_seed": {
+          "$ref": "#/$defs/identity"
+        },
+        "seed_use": {
+          "const": "ONE_PERSISTENT_ARENA_MEASUREMENT_SEED_WARMUP_RESERVED_NO_DRAWS"
+        },
+        "schema_version": {
+          "const": "cpu-prefetch-stage17-formal-scheduled-capture/1"
+        },
+        "method_id": {
+          "const": "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"
+        },
+        "package": {
+          "enum": [
+            "R0",
+            "R1",
+            "R2",
+            "L0",
+            "L1"
+          ]
+        },
+        "repetition_ordinal": {
+          "$ref": "#/$defs/uint"
+        },
+        "cell_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 179
+        },
+        "software_prefetch_mapping_id": {
+          "$ref": "#/$defs/id"
+        },
+        "linked_order": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "seed_id",
+                "seed_hex",
+                "namespace_id",
+                "arena_alignment_bytes"
+              ],
+              "properties": {
+                "seed_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "seed_hex": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "namespace_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "arena_alignment_bytes": {
+                  "$ref": "#/$defs/positive"
+                }
+              }
+            }
+          ]
+        },
+        "ring_distance": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "cache_lines",
+                "calibration_evidence_id"
+              ],
+              "properties": {
+                "cache_lines": {
+                  "$ref": "#/$defs/positive"
+                },
+                "calibration_evidence_id": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/id"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "load_level": {
+          "enum": [
+            "L025",
+            "L050",
+            "L075"
+          ]
+        },
+        "scale_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "schedules": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/schedule"
+          }
+        }
+      }
+    },
+    "phase_bound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_attempt_limit",
+        "consumer_poll_limit",
+        "drain_ns"
+      ],
+      "properties": {
+        "producer_attempt_limit": {
+          "$ref": "#/$defs/positive"
+        },
+        "consumer_poll_limit": {
+          "$ref": "#/$defs/positive"
+        },
+        "drain_ns": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "capture_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phases",
+        "barrier_poll_limit",
+        "memory_bytes"
+      ],
+      "properties": {
+        "phases": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/phase_bound"
+          }
+        },
+        "barrier_poll_limit": {
+          "$ref": "#/$defs/positive"
+        },
+        "memory_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "phase_capacity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_primary_rows",
+        "consumer_primary_rows"
+      ],
+      "properties": {
+        "producer_primary_rows": {
+          "$ref": "#/$defs/positive"
+        },
+        "consumer_primary_rows": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "stack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "verified_base_page_bytes",
+        "owner_cpu",
+        "requested_node"
+      ],
+      "properties": {
+        "bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "verified_base_page_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "owner_cpu": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "requested_node": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinal",
+        "workers",
+        "controller_stack",
+        "core_bytes",
+        "monitor_bytes",
+        "total_mapping_bytes",
+        "region_bytes",
+        "tls_module_capacity",
+        "thread_stat_bytes",
+        "thread_status_bytes",
+        "thread_affinity_words",
+        "initial_consumer_state",
+        "phase_capacity"
+      ],
+      "properties": {
+        "ordinal": {
+          "$ref": "#/$defs/uint"
+        },
+        "workers": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "producer_stack",
+            "consumer_stack"
+          ],
+          "properties": {
+            "producer_stack": {
+              "$ref": "#/$defs/stack"
+            },
+            "consumer_stack": {
+              "$ref": "#/$defs/stack"
+            }
+          }
+        },
+        "controller_stack": {
+          "$ref": "#/$defs/stack"
+        },
+        "core_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "monitor_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "total_mapping_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "region_bytes": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "$ref": "#/$defs/positive"
+          }
+        },
+        "tls_module_capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "thread_stat_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "thread_status_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "thread_affinity_words": {
+          "$ref": "#/$defs/positive"
+        },
+        "initial_consumer_state": {
+          "$ref": "#/$defs/uint"
+        },
+        "phase_capacity": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/phase_capacity"
+          }
+        }
+      }
+    },
+    "counter_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minor_faults",
+        "major_faults",
+        "voluntary_switches",
+        "involuntary_switches"
+      ],
+      "properties": {
+        "minor_faults": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/uint"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "major_faults": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/uint"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "voluntary_switches": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/uint"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "involuntary_switches": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/uint"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "environment_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "byte_capacity",
+        "chunk_bytes",
+        "max_data_reads",
+        "requested"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "byte_capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "chunk_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "max_data_reads": {
+          "$ref": "#/$defs/positive"
+        },
+        "requested": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "monitoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinal",
+        "during_first_page",
+        "during_page_count",
+        "during_offset_ticks",
+        "observer_wait_poll_limit",
+        "control_region_index",
+        "counter_limits",
+        "hardware_identity",
+        "environment_sources"
+      ],
+      "properties": {
+        "ordinal": {
+          "$ref": "#/$defs/uint"
+        },
+        "during_first_page": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "$ref": "#/$defs/uint"
+          }
+        },
+        "during_page_count": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "$ref": "#/$defs/positive"
+          }
+        },
+        "during_offset_ticks": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/uint"
+          }
+        },
+        "observer_wait_poll_limit": {
+          "$ref": "#/$defs/positive"
+        },
+        "control_region_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        },
+        "counter_limits": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "$ref": "#/$defs/counter_limits"
+            }
+          }
+        },
+        "hardware_identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "family",
+            "model"
+          ],
+          "properties": {
+            "family": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "model": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            }
+          }
+        },
+        "environment_sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/environment_source"
+          }
+        }
+      }
+    },
+    "schedule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule_id",
+        "seed_id",
+        "namespace_id",
+        "seed_hex",
+        "source_origin_ticks",
+        "source_horizon_ticks",
+        "offered_count",
+        "deadline_ticks",
+        "source_artifact"
+      ],
+      "properties": {
+        "schedule_id": {
+          "$ref": "#/$defs/id"
+        },
+        "seed_id": {
+          "$ref": "#/$defs/id"
+        },
+        "namespace_id": {
+          "$ref": "#/$defs/id"
+        },
+        "seed_hex": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "source_origin_ticks": {
+          "$ref": "#/$defs/uint"
+        },
+        "source_horizon_ticks": {
+          "$ref": "#/$defs/uint"
+        },
+        "offered_count": {
+          "$ref": "#/$defs/uint"
+        },
+        "deadline_ticks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/uint"
+          }
+        },
+        "source_artifact": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "artifact_id",
+            "sha256"
+          ],
+          "properties": {
+            "artifact_id": {
+              "$ref": "#/$defs/id"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "family_capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capture",
+        "resources",
+        "monitoring",
+        "execution_budget"
+      ],
+      "properties": {
+        "capture": {
+          "$ref": "#/$defs/capture"
+        },
+        "resources": {
+          "$ref": "#/$defs/resources"
+        },
+        "monitoring": {
+          "$ref": "#/$defs/monitoring"
+        },
+        "execution_budget": {
+          "$ref": "#/$defs/execution_budget"
+        }
+      }
+    },
+    "execution_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setup_ns",
+        "publication_ns",
+        "cleanup_ns",
+        "watchdog_ns",
+        "publication_memory_bytes",
+        "other_memory_bytes",
+        "memory_bytes",
+        "metadata_output_bytes",
+        "max_output_bytes"
+      ],
+      "properties": {
+        "setup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "publication_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "cleanup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "watchdog_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "publication_memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "other_memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "metadata_output_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "max_output_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "family_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setup_ns",
+        "cleanup_ns",
+        "watchdog_ns",
+        "controller_memory_bytes",
+        "memory_bytes",
+        "metadata_output_bytes",
+        "max_output_bytes",
+        "analysis_scratch_bytes",
+        "disk_reserve_bytes",
+        "required_free_disk_bytes"
+      ],
+      "properties": {
+        "setup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "cleanup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "watchdog_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "controller_memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "metadata_output_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "max_output_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "analysis_scratch_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "disk_reserve_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "required_free_disk_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    }
+  }
+}

@@ -395,6 +395,49 @@ TEST(CalibrationRingDistance, AppliesQuarterCapAndDetectsCollapse) {
             calibration::EvaluationState::ineligible);
 }
 
+TEST(CalibrationRingDistance, WindowedMethodRequiresItsOwnIdentity) {
+  auto fixture = ring_fixture();
+  EXPECT_FALSE(
+      calibration::evaluate_windowed_ring_distance(fixture.plan, fixture.runs));
+  fixture.plan.estimator_id = calibration::kRingDistanceWindowMethodId;
+  EXPECT_FALSE(calibration::evaluate_ring_distance(fixture.plan, fixture.runs));
+  const auto result =
+      calibration::evaluate_windowed_ring_distance(fixture.plan, fixture.runs);
+  ASSERT_TRUE(result);
+  EXPECT_EQ(result.value().state, calibration::EvaluationState::resolved);
+  EXPECT_EQ(result.value().contexts.front().conservative_demand_ticks, 100U);
+  EXPECT_EQ(result.value().contexts.front().conservative_issue_ticks, 4U);
+  EXPECT_EQ(result.value().contexts.front().d2_cache_lines, 4U);
+  EXPECT_EQ(result.value().contexts.front().producer_distance_slots, 32U);
+  EXPECT_EQ(result.value().contexts.front().consumer_distance_slots, 32U);
+  fixture.plan.estimator_id = "unapproved-window-method";
+  EXPECT_FALSE(
+      calibration::evaluate_windowed_ring_distance(fixture.plan, fixture.runs));
+}
+
+TEST(CalibrationRingDistance, WindowedMethodPreservesValidityAndNoTopUpRules) {
+  auto fixture = ring_fixture();
+  fixture.plan.estimator_id = calibration::kRingDistanceWindowMethodId;
+  fixture.runs.front().validity = calibration::CalibrationRunValidity::invalid;
+  fixture.runs.front().failure_artifact = reference("windowed-ring-failure");
+  const auto incomplete =
+      calibration::evaluate_windowed_ring_distance(fixture.plan, fixture.runs);
+  ASSERT_TRUE(incomplete);
+  EXPECT_EQ(incomplete.value().state, calibration::EvaluationState::not_evaluated);
+  EXPECT_EQ(incomplete.value().contexts.front().run_decisions.front().validity,
+            calibration::CalibrationRunValidity::invalid);
+
+  fixture = ring_fixture();
+  fixture.plan.estimator_id = calibration::kRingDistanceWindowMethodId;
+  fixture.runs.front().series.consumer_issue_ticks.front() = 0U;
+  EXPECT_FALSE(
+      calibration::evaluate_windowed_ring_distance(fixture.plan, fixture.runs));
+  fixture.runs.front().series.consumer_issue_ticks.front() = 4U;
+  fixture.runs.front().run_id = run_id("unplanned-window-run");
+  EXPECT_FALSE(
+      calibration::evaluate_windowed_ring_distance(fixture.plan, fixture.runs));
+}
+
 TEST(CalibrationRingDistance, InvalidCellAndForbiddenOutcomeFailClosed) {
   auto fixture = ring_fixture();
   fixture.runs.front().validity = calibration::CalibrationRunValidity::invalid;
@@ -431,6 +474,25 @@ TEST(CalibrationRingDistance, InverseEcdfUsesExactCeilingRank) {
   EXPECT_EQ(upper.value(), 999U);
   EXPECT_EQ(lower.value(), 1U);
   EXPECT_FALSE(calibration::inverse_ecdf({}, 999U, 1000U));
+}
+
+TEST(CalibrationRingTrace, RejectsMissingPhysicalCapacityWithoutGrowingCopiedTrace) {
+  calibration::RingDemandTrace original{3U};
+  ASSERT_TRUE(original.record(calibration::RingWorker::producer, 10U, 11U,
+                              calibration::RingAttemptOutcome::advanced));
+  auto copied = original;
+  // Copy construction need only preserve size, not the prospective reserve.
+  // Fill the physical capacity if this standard library preserves spare space.
+  const auto capacity = copied.series().producer_demand_ticks.capacity();
+  for (std::size_t i = 1U; i < capacity; ++i) {
+    static_cast<void>(copied.record(calibration::RingWorker::producer, 20U, 21U,
+                                    calibration::RingAttemptOutcome::full));
+  }
+  EXPECT_FALSE(copied.record(calibration::RingWorker::producer, 30U, 31U,
+                             calibration::RingAttemptOutcome::advanced));
+  EXPECT_EQ(copied.series().producer_demand_ticks.capacity(), capacity);
+  EXPECT_TRUE(copied.series().producer_issue_ticks.empty());
+  EXPECT_EQ(original.series().producer_demand_ticks.size(), 1U);
 }
 
 } // namespace

@@ -10,8 +10,17 @@
 #include "cpu_prefetch/reconciliation/reconciliation.hpp"
 #include "cpu_prefetch/runner/runner.hpp"
 #include "cpu_prefetch/runner/software_prefetch.hpp"
+#include "cpu_prefetch/runner/stage17_archive_channel.hpp"
 #include "cpu_prefetch/runner/stage17_discovery_action.hpp"
 #include "cpu_prefetch/runner/stage17_discovery_publication.hpp"
+#include "cpu_prefetch/runner/stage17_formal_checkpoint.hpp"
+#include "cpu_prefetch/runner/stage17_formal_family.hpp"
+#include "cpu_prefetch/runner/stage17_formal_ring_action.hpp"
+#include "cpu_prefetch/runner/stage17_formal_ring_publication.hpp"
+#include "cpu_prefetch/runner/stage17_formal_scheduled_action.hpp"
+#include "cpu_prefetch/runner/stage17_formal_scheduled_publication.hpp"
+#include "cpu_prefetch/runner/stage17_formal_service_action.hpp"
+#include "cpu_prefetch/runner/stage17_formal_service_publication.hpp"
 #include "cpu_prefetch/storage/artifacts.hpp"
 #include "cpu_prefetch/storage/capture_backend.hpp"
 #include "cpu_prefetch/timing/clock.hpp"
@@ -343,6 +352,66 @@ public:
   explicit DirectoryArtifactSink(int directory_fd) noexcept
       : directory_fd_(directory_fd) {}
 
+  void configure_archive(FormalArchiveChannelContext channel, std::uint64_t timeout_ns,
+                         std::uint64_t receipt_limit) {
+    const auto valid = validate_formal_archive_channel(channel);
+    if (!valid || timeout_ns == 0U || receipt_limit == 0U)
+      throw std::runtime_error(
+          "archive channel cannot be admitted before hardware access");
+    channel_ = std::move(channel);
+    archive_timeout_ns_ = timeout_ns;
+    archive_receipt_limit_ = receipt_limit;
+  }
+
+  auto has_archive_checkpoint() const noexcept -> bool override {
+    return channel_.has_value();
+  }
+
+  auto archive_checkpoint(const ArtifactBinding& checkpoint,
+                          std::uint64_t deadline_monotonic_ns)
+      -> protocol::Result<ArtifactBinding> override {
+    try {
+      if (!channel_)
+        return ArtifactSink::archive_checkpoint(checkpoint, deadline_monotonic_ns);
+      const auto now = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                           std::chrono::steady_clock::now().time_since_epoch())
+                           .count();
+      if (now < 0 || deadline_monotonic_ns <= static_cast<std::uint64_t>(now) ||
+          deadline_monotonic_ns - static_cast<std::uint64_t>(now) > archive_timeout_ns_)
+        throw std::runtime_error("archive checkpoint deadline expired or exceeds its bound");
+      auto acknowledgement = exchange_formal_archive_checkpoint(
+          *channel_, checkpoint,
+          FormalArchiveExchangeLimits{.ordinal = next_archive_ordinal_,
+                                      .deadline_monotonic_ns = deadline_monotonic_ns});
+      if (!acknowledgement)
+        return acknowledgement;
+      const auto& binding = acknowledgement.value();
+      if (binding.size_bytes > archive_receipt_limit_ ||
+          archive_receipt_limit_ > std::numeric_limits<std::size_t>::max())
+        throw std::runtime_error("archive receipt exceeds its prospective bound");
+      const int descriptor = ::openat(directory_fd_, binding.file_name.c_str(),
+                                      O_RDONLY | O_NOFOLLOW | O_CLOEXEC);
+      if (descriptor < 0)
+        throw std::runtime_error("archive acknowledgement lacks its durable receipt");
+      const auto receipt =
+          read_regular_fd(descriptor, static_cast<std::size_t>(archive_receipt_limit_));
+      const bool closed = ::close(descriptor) == 0;
+      if (!receipt || !closed || receipt.value().size() != binding.size_bytes ||
+          sha256(receipt.value()) != binding.sha256)
+        throw std::runtime_error("archive acknowledgement receipt bytes differ");
+      const auto completed = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                                 std::chrono::steady_clock::now().time_since_epoch())
+                                 .count();
+      if (completed < 0 || static_cast<std::uint64_t>(completed) >= deadline_monotonic_ns)
+        throw std::runtime_error("archive receipt verification exceeded its deadline");
+      ++next_archive_ordinal_;
+      return acknowledgement;
+    } catch (const std::exception& exception) {
+      return failure<ArtifactBinding>("$/formal/archive", "S17-ARCHIVE-ACKNOWLEDGEMENT",
+                                      exception.what());
+    }
+  }
+
   [[nodiscard]] auto publish(ArtifactPayload artifact)
       -> protocol::Result<ArtifactBinding> override {
     try {
@@ -361,6 +430,10 @@ public:
 
 private:
   int directory_fd_;
+  std::optional<FormalArchiveChannelContext> channel_;
+  std::uint64_t archive_timeout_ns_{0U};
+  std::uint64_t archive_receipt_limit_{0U};
+  std::uint64_t next_archive_ordinal_{0U};
 };
 
 [[nodiscard]] auto
@@ -1665,6 +1738,22 @@ public:
   };
   DiscoveryBudgetedSink(ArtifactSink& sink, Limits limits)
       : sink_(sink), remaining_(limits.total), metadata_remaining_(limits.metadata) {}
+  DiscoveryBudgetedSink(DiscoveryBudgetedSink& sink, Limits limits)
+      : sink_(sink), remaining_(limits.total), metadata_remaining_(limits.metadata),
+        parent_budget_(&sink) {}
+  // A broker has already published and the directory sink verified these exact
+  // bytes. Charge their metadata before the next capture can begin.
+  auto account_existing(const ArtifactBinding& binding) -> bool {
+    const bool metadata = binding.media_type == "application/json";
+    if (binding.size_bytes > remaining_ ||
+        (metadata && binding.size_bytes > metadata_remaining_) ||
+        (parent_budget_ != nullptr && !parent_budget_->account_existing(binding)))
+      return false;
+    remaining_ -= binding.size_bytes;
+    if (metadata)
+      metadata_remaining_ -= binding.size_bytes;
+    return true;
+  }
   auto publish(ArtifactPayload artifact) -> protocol::Result<ArtifactBinding> override {
     const auto size = artifact.bytes.size();
     const bool metadata = artifact.media_type == "application/json";
@@ -1687,6 +1776,7 @@ private:
   ArtifactSink& sink_;
   std::uint64_t remaining_;
   std::uint64_t metadata_remaining_;
+  DiscoveryBudgetedSink* parent_budget_{nullptr};
 };
 
 struct DiscoveryPublicationContext final {
@@ -1942,6 +2032,246 @@ struct DiscoveryPublicationContext final {
   bindings.push_back(std::move(report_binding.value()));
   return protocol::Result<ActionOutcome>::success(
       {std::move(bindings), true, false, "DIAGNOSTIC_ARTIFACTS_RETAINED_UNASSESSED"});
+}
+
+template <typename View, typename Publish> struct FormalPublicationContext final {
+  ArtifactSink& sink;
+  std::size_t ordinal;
+  const JsonObject& capture;
+  Publish& writer;
+  std::vector<ArtifactBinding> artifacts;
+  static auto publish(void* opaque, const View& view) noexcept -> bool {
+    auto& self = *static_cast<FormalPublicationContext*>(opaque);
+    try {
+      FormalPublicationTrackingSink tracked(self.sink, self.artifacts);
+      auto output = self.writer(tracked, self.ordinal, self.capture, view);
+      if (!output)
+        return false;
+      return true;
+    } catch (...) {
+      return false;
+    }
+  }
+};
+
+template <typename Plan, typename Result, typename View, typename Parse, typename Run,
+          typename Encode, typename Publish, typename Controls>
+[[nodiscard]] auto
+formal_family_action(FixedAction action, const JsonObject& inputs, ArtifactSink& sink,
+                     std::size_t artifacts_per_capture, Parse parse, Run run,
+                     Encode encode, Publish publish, Controls controls)
+    -> protocol::Result<ActionOutcome> {
+  constexpr std::array fields{"plan"sv, "hardware_control"sv,
+                              "prerequisite_bindings"sv};
+  constexpr std::array hardware_fields{"mapping_id"sv, "q15_w_result_sha256"sv,
+                                       "prestate"sv};
+  const auto* plan = require_object(inputs, "plan");
+  const auto* hardware = require_object(inputs, "hardware_control");
+  const auto* prerequisites = require_object(inputs, "prerequisite_bindings");
+  const auto repository = foundation::repository_info();
+  if (!exact_fields(inputs, fields) || plan == nullptr || hardware == nullptr ||
+      prerequisites == nullptr || repository.source_dirty ||
+      !exact_fields(*hardware, hardware_fields)) {
+    return failure<ActionOutcome>("$/formal", "S17-FORMAL-INPUTS",
+                                  "formal inputs require a clean source-bound family");
+  }
+  const auto family = validate_formal_family(action, *plan, repository.source_revision);
+  const auto prestate = parse_mapped_prestate(*hardware);
+  const auto mapping = mapping_from_hardware(*hardware);
+  const auto plan_bytes = canonical(*plan);
+  if (!family || !prestate || !mapping || !plan_bytes) {
+    return failure<ActionOutcome>(
+        "$/formal", "S17-FORMAL-PREFLIGHT",
+        "formal family/prestate validation failed before hardware access");
+  }
+  if (family.value().storage && !sink.has_archive_checkpoint()) {
+    return failure<ActionOutcome>("$/formal/archive", "S17-ARCHIVE-BROKER-ABSENT",
+                                  "archival family requires a qualified checkpoint "
+                                  "broker before hardware access");
+  }
+  const auto& captures = *member(*plan, "captures")->as_array();
+  std::vector<Plan> parsed;
+  parsed.reserve(captures.size());
+  for (const auto& entry : captures) {
+    const auto& item = *entry.as_object();
+    const auto* capture = require_object(item, "capture");
+    const auto* resources = require_object(item, "resources");
+    const auto* monitoring = require_object(item, "monitoring");
+    auto native = parse(*capture, *resources, *monitoring, prestate.value());
+    if (!native)
+      return protocol::Result<ActionOutcome>::failure(native.errors());
+    if (controls(native.value()).hardware_identity != mapping->identity) {
+      return failure<ActionOutcome>("$/formal", "S17-FORMAL-HARDWARE-IDENTITY",
+                                    "formal native and whole-plot identities differ");
+    }
+    parsed.push_back(std::move(native.value()));
+  }
+  // No hardware state is entered until the whole prospective family and every
+  // native layout have passed. Execution order is the declared H0/H1 whole plots.
+  PilotWholePlotControl control(prestate.value(), *hardware);
+  DiscoveryBudgetedSink family_sink(sink,
+                                    {.total = family.value().max_output_bytes,
+                                     .metadata = family.value().max_output_bytes});
+  std::vector<ArtifactBinding> bindings;
+  JsonArray retained;
+  JsonArray final_results;
+  JsonArray whole_plots;
+  std::string active_state;
+  bool mandatory_failure = false;
+  bool restoration_verified = true;
+  const auto values = [](std::span<const platform::HardwarePrefetchMsrValue> observed) {
+    JsonArray result;
+    for (const auto& value : observed)
+      result.emplace_back(
+          JsonObject{{"cpu", uint_value(value.cpu)},
+                     {"complete_value_hex", string_value(hex_u64(value.value))}});
+    return JsonValue(std::move(result));
+  };
+  const auto leave = [&] {
+    const bool restored = control.leave();
+    restoration_verified = restoration_verified && restored;
+    whole_plots.emplace_back(
+        JsonObject{{"state", string_value(active_state)},
+                   {"apply_readback", values(control.apply_readback())},
+                   {"restore_readback", values(control.restore_readback())},
+                   {"restoration_verified", JsonValue(restored)}});
+    active_state.clear();
+    return restored;
+  };
+  for (std::size_t ordinal = 0U; ordinal < parsed.size(); ++ordinal) {
+    const auto& capture = *require_object(*captures[ordinal].as_object(), "capture");
+    const auto& state = *string_member(capture, "hardware_state");
+    if (state != active_state) {
+      if (!active_state.empty() && !leave()) {
+        mandatory_failure = true;
+        break;
+      }
+      active_state = state;
+      if (!control.enter(state)) {
+        mandatory_failure = true;
+        break;
+      }
+    }
+    const auto& budget = family.value().captures[ordinal];
+    DiscoveryBudgetedSink bounded(
+        family_sink,
+        {.total = budget.max_output_bytes, .metadata = budget.metadata_output_bytes});
+    FormalPublicationContext<View, Publish> publication{
+        bounded, ordinal, capture, publish, {}};
+    Result result;
+    try {
+      const auto seconds = budget.watchdog_ns / 1'000'000'000U +
+                           (budget.watchdog_ns % 1'000'000'000U != 0U ? 1U : 0U);
+      PilotRunDeadline watchdog{std::chrono::seconds(seconds)};
+      result = run(parsed[ordinal], &publication,
+                   &FormalPublicationContext<View, Publish>::publish);
+    } catch (...) {
+      result.stop = calibration::NativeCaptureStop::exception;
+    }
+    const auto final_native = encode(result);
+    final_results.push_back(final_native);
+    JsonArray artifacts;
+    for (const auto& binding : publication.artifacts) {
+      artifacts.push_back(file_reference(binding));
+      bindings.push_back(binding);
+    }
+    const bool complete = result.stop == calibration::NativeCaptureStop::complete &&
+                          result.publication_succeeded &&
+                          publication.artifacts.size() == artifacts_per_capture;
+    JsonObject capture_receipt{{"ordinal", uint_value(ordinal)},
+                               {"artifacts", JsonValue(std::move(artifacts))},
+                               {"native_complete", JsonValue(complete)}};
+    if (family.value().storage) {
+      // The native call has returned after joining workers and releasing its
+      // mappings. Durably publish those final facts before entering any codec.
+      // The broker separately checks live quiescence and archival byte custody.
+      const auto& storage = *family.value().storage;
+      capture_receipt.emplace("checkpoint", JsonValue());
+      capture_receipt.emplace("archive_custody", JsonValue());
+      try {
+        // A kernel timer keeps the parked native process single-threaded while
+        // bounding blocked publication and reads. The controller owns reaping
+        // and hardware recovery after any expiration.
+        const auto start = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                               std::chrono::steady_clock::now().time_since_epoch())
+                               .count();
+        if (start < 0 || storage.per_capture_archive_ns >
+                             std::numeric_limits<std::uint64_t>::max() -
+                                 static_cast<std::uint64_t>(start))
+          throw std::runtime_error("archive interval deadline overflows");
+        const auto archive_deadline =
+            static_cast<std::uint64_t>(start) + storage.per_capture_archive_ns;
+        FormalArchiveDeadline archive_watchdog{
+            FormalArchiveAbsoluteDeadline{.monotonic_ns = archive_deadline}};
+        DiscoveryBudgetedSink checkpoint_sink(
+            bounded,
+            {.total = storage.checkpoint_bytes, .metadata = storage.checkpoint_bytes});
+        auto checkpoint = publish_formal_checkpoint(
+            checkpoint_sink, action, sha256(plan_bytes.value()), capture, final_native,
+            publication.artifacts, complete);
+        if (!checkpoint) {
+          mandatory_failure = true;
+        } else {
+          bindings.push_back(checkpoint.value());
+          capture_receipt.at("checkpoint") = file_reference(checkpoint.value());
+          auto custody = sink.archive_checkpoint(checkpoint.value(), archive_deadline);
+          if (!custody) {
+            mandatory_failure = true;
+          } else {
+            bindings.push_back(custody.value());
+            capture_receipt.at("archive_custody") = file_reference(custody.value());
+            if (!bounded.account_existing(custody.value()))
+              mandatory_failure = true;
+          }
+        }
+      } catch (...) {
+        mandatory_failure = true;
+      }
+    }
+    retained.emplace_back(std::move(capture_receipt));
+    if (!complete || mandatory_failure) {
+      mandatory_failure = true;
+      break;
+    }
+  }
+  if (!active_state.empty() && !leave())
+    mandatory_failure = true;
+  DiscoveryBudgetedSink metadata(family_sink,
+                                 {.total = family.value().metadata_output_bytes,
+                                  .metadata = family.value().metadata_output_bytes});
+  const auto document = canonical(
+      JsonObject{{"schema_version",
+                  string_value(family.value().storage
+                                   ? "cpu-prefetch-stage17-formal-retention-report/2"
+                                   : "cpu-prefetch-stage17-formal-retention-report/1")},
+                 {"action_id", string_value(to_string(action))},
+                 {"plan_sha256", string_value(sha256(plan_bytes.value()))},
+                 {"mapping_id", string_value(control.mapping_id())},
+                 {"whole_plots", JsonValue(std::move(whole_plots))},
+                 {"native_results_after_cleanup", JsonValue(std::move(final_results))},
+                 {"captures", JsonValue(std::move(retained))},
+                 {"restoration_verified", JsonValue(restoration_verified)},
+                 {"mandatory_failure", JsonValue(mandatory_failure)},
+                 {"scientific_validity", string_value("NOT_ASSESSED")},
+                 {"execution_authority", JsonValue(false)},
+                 {"phase18_authority", JsonValue(false)}});
+  if (!document)
+    return protocol::Result<ActionOutcome>::failure(document.errors());
+  auto report = metadata.publish(
+      {"FORMAL_CALIBRATION_RETENTION_REPORT",
+       family.value().storage ? "cpu-prefetch-stage17-formal-retention-report/2"
+                              : "cpu-prefetch-stage17-formal-retention-report/1",
+       "application/json", "formal-retention-report.json", bytes(document.value())});
+  if (!report)
+    return protocol::Result<ActionOutcome>::failure(report.errors());
+  bindings.push_back(std::move(report.value()));
+  if (mandatory_failure || !restoration_verified) {
+    return failure<ActionOutcome>("$/formal", "S17-FORMAL-MANDATORY-FAILURE",
+                                  "formal family stopped; partial raw/control and "
+                                  "final cleanup evidence retained");
+  }
+  return protocol::Result<ActionOutcome>::success(
+      {std::move(bindings), true, false, "FORMAL_ARTIFACTS_RETAINED_UNASSESSED"});
 }
 
 struct RunCapture final {
@@ -4058,7 +4388,8 @@ struct PilotRunEntry final {
 }
 
 [[nodiscard]] auto validate_request(const JsonObject& request, FixedAction action,
-                                    bool synthetic_backend)
+                                    bool synthetic_backend,
+                                    bool formal_successor = false)
     -> protocol::Result<const JsonObject*> {
   constexpr std::array fields{
       "schema_version"sv,
@@ -4079,7 +4410,8 @@ struct PilotRunEntry final {
   if (!exact_fields(request, fields) ||
       string_member(request, "schema_version") == nullptr ||
       *string_member(request, "schema_version") !=
-          (action == FixedAction::q16a_duration_discovery
+          (formal_successor ? "cpu-prefetch-stage17-fixed-action-request/6"
+           : action == FixedAction::q16a_duration_discovery
                ? "cpu-prefetch-stage17-fixed-action-request/5"
                : kFixedActionRequestSchema) ||
       string_member(request, "action_id") == nullptr ||
@@ -4156,11 +4488,72 @@ struct PilotRunEntry final {
                                       "synthetic_test_only"sv,
                                       "phase18_authority"sv};
   const bool diagnostic = action == FixedAction::q16a_duration_discovery;
+  const bool formal_successor = string_member(request, "schema_version") != nullptr &&
+                                *string_member(request, "schema_version") ==
+                                    "cpu-prefetch-stage17-fixed-action-request/6";
+  if (formal_successor) {
+    const auto* runtime = require_object(request, "runtime_binding");
+    const auto* release = require_object(request, "release_binding");
+    const auto* synthetic = bool_member(context, "synthetic_test_only");
+    const auto* requested_synthetic = bool_member(request, "synthetic_test_only");
+    const auto* runtime_hash =
+        runtime == nullptr ? nullptr : string_member(*runtime, "sha256");
+    const auto* release_hash =
+        release == nullptr ? nullptr : string_member(*release, "worker_sha256");
+    const auto* context_runtime = string_member(context, "runtime_sha256");
+    const auto* context_release = string_member(context, "release_sha256");
+    if (synthetic == nullptr || requested_synthetic == nullptr ||
+        *synthetic != *requested_synthetic || runtime_hash == nullptr ||
+        release_hash == nullptr || context_runtime == nullptr ||
+        context_release == nullptr || *context_runtime != *runtime_hash ||
+        *context_release != *release_hash)
+      return false;
+  }
   auto base_context = context;
-  if (diagnostic) {
+  if (diagnostic || formal_successor) {
     base_context.erase("session_deadline_seconds");
   }
   bool deadline_matches = uint_member(context, "per_run_deadline_seconds") == 180U;
+  if (formal_successor) {
+    deadline_matches = false;
+    const auto* inputs = require_object(request, "action_inputs");
+    const auto* plan = inputs == nullptr ? nullptr : require_object(*inputs, "plan");
+    const auto* source =
+        plan == nullptr ? nullptr : string_member(*plan, "source_revision");
+    if (plan != nullptr && source != nullptr) {
+      const auto family = validate_formal_family(action, *plan, *source);
+      if (family) {
+        if (family.value().storage) {
+          const auto* channel = require_object(context, "archive_channel");
+          constexpr std::array fields{"descriptor"sv, "controller_pid"sv,
+                                      "program_scope_sha256"sv};
+          if (channel == nullptr || !exact_fields(*channel, fields))
+            return false;
+          const auto descriptor = uint_member(*channel, "descriptor");
+          const auto controller = uint_member(*channel, "controller_pid");
+          const auto* scope = string_member(*channel, "program_scope_sha256");
+          if (!descriptor || *descriptor <= 2U ||
+              *descriptor >
+                  static_cast<std::uint64_t>(std::numeric_limits<int>::max()) ||
+              !controller || *controller != static_cast<std::uint64_t>(::getppid()) ||
+              scope == nullptr ||
+              *scope != family.value().storage->program_scope_sha256)
+            return false;
+          base_context.erase("archive_channel");
+        }
+        std::uint64_t maximum_ns = 0U;
+        for (const auto& capture : family.value().captures)
+          maximum_ns = std::max(maximum_ns, capture.watchdog_ns);
+        const auto seconds = [](std::uint64_t ns) {
+          return ns / 1'000'000'000U + (ns % 1'000'000'000U != 0U ? 1U : 0U);
+        };
+        deadline_matches =
+            uint_member(context, "per_run_deadline_seconds") == seconds(maximum_ns) &&
+            uint_member(context, "session_deadline_seconds") ==
+                seconds(family.value().watchdog_ns);
+      }
+    }
+  }
   if (diagnostic) {
     deadline_matches = false;
     const auto* inputs = require_object(request, "action_inputs");
@@ -4201,8 +4594,9 @@ struct PilotRunEntry final {
   return exact_fields(base_context, context_fields) &&
          string_member(context, "schema_version") != nullptr &&
          *string_member(context, "schema_version") ==
-             (diagnostic ? "cpu-prefetch-stage17-fixed-action-context/5"
-                         : kFixedActionContextSchema) &&
+             (formal_successor ? "cpu-prefetch-stage17-fixed-action-context/6"
+              : diagnostic     ? "cpu-prefetch-stage17-fixed-action-context/5"
+                               : kFixedActionContextSchema) &&
          string_member(context, "authorization_id") != nullptr &&
          string_member(context, "authorization_sha256") != nullptr &&
          string_member(context, "request_id") != nullptr &&
@@ -4254,9 +4648,13 @@ struct PilotRunEntry final {
                             std::chrono::steady_clock::now() - started)
                             .count();
   JsonObject result{
-      {"schema_version", string_value(action == FixedAction::q16a_duration_discovery
-                                          ? "cpu-prefetch-stage17-phase-action-result/5"
-                                          : kFixedActionResultSchema)},
+      {"schema_version",
+       string_value(*string_member(request, "schema_version") ==
+                            "cpu-prefetch-stage17-fixed-action-request/6"
+                        ? "cpu-prefetch-stage17-phase-action-result/6"
+                    : action == FixedAction::q16a_duration_discovery
+                        ? "cpu-prefetch-stage17-phase-action-result/5"
+                        : kFixedActionResultSchema)},
       {"result_id", string_value(*string_member(request, "attempt_id") + ":result")},
       {"request_id", string_value(*string_member(request, "request_id"))},
       {"request_sha256", string_value(sha256(request_bytes))},
@@ -4422,6 +4820,70 @@ auto LinuxFixedActionOperations::execute(
                                 "fixed action dispatcher is incomplete");
 }
 
+auto FixedActionOperations::execute_formal_family(FixedAction,
+                                                  const protocol::json::Value::Object&,
+                                                  ArtifactSink&)
+    -> protocol::Result<ActionOutcome> {
+  return failure<ActionOutcome>(
+      "$/action_id", "S17-FORMAL-FAMILY-UNIMPLEMENTED",
+      "this backend has no versioned formal family implementation");
+}
+
+auto LinuxFixedActionOperations::execute_formal_family(FixedAction action,
+                                                       const JsonObject& inputs,
+                                                       ArtifactSink& sink)
+    -> protocol::Result<ActionOutcome> {
+  switch (action) {
+  case FixedAction::q16a:
+    return formal_family_action<calibration::NativeFormalRingCapturePlan,
+                                calibration::NativeFormalRingCaptureResult,
+                                calibration::NativeFormalRingPublicationView>(
+        action, inputs, sink, 9U, parse_native_formal_ring_capture,
+        [](const auto& plan, void* context, auto callback) {
+          return calibration::run_native_formal_ring_capture(plan, {context, callback});
+        },
+        formal_ring_capture_result_json,
+        [](ArtifactSink& output, std::size_t ordinal, const JsonObject& capture,
+           const auto& view) {
+          return publish_formal_ring_capture(
+              output, ordinal, *uint_member(capture, "minimum_observations_per_series"),
+              view);
+        },
+        [](const auto& plan) -> const auto& { return plan.controls; });
+  case FixedAction::q16b:
+    return formal_family_action<calibration::NativeFormalServiceCapturePlan,
+                                calibration::NativeFormalServiceCaptureResult,
+                                calibration::NativeFormalServicePublicationView>(
+        action, inputs, sink, 6U, parse_native_formal_service_capture,
+        [](const auto& plan, void* context, auto callback) {
+          return calibration::run_native_formal_service_capture(plan,
+                                                                {context, callback});
+        },
+        formal_service_capture_result_json,
+        [](ArtifactSink& output, std::size_t ordinal, const JsonObject&,
+           const auto& view) {
+          return publish_formal_service_capture(output, ordinal, view);
+        },
+        [](const auto& plan) -> const auto& { return plan.controls; });
+  case FixedAction::q16c:
+    return formal_family_action<ParsedNativeFormalScheduledCapture,
+                                calibration::NativeFormalScheduledCaptureResult,
+                                calibration::NativeFormalScheduledPublicationView>(
+        action, inputs, sink, 8U, parse_native_formal_scheduled_capture,
+        [](const auto& parsed, void* context, auto callback) {
+          const auto plan = parsed.plan();
+          return calibration::run_native_formal_scheduled_capture(plan,
+                                                                  {context, callback});
+        },
+        formal_scheduled_capture_result_json, publish_formal_scheduled_capture,
+        [](const auto& parsed) { return parsed.plan().controls; });
+  default:
+    return failure<ActionOutcome>(
+        "$/action_id", "S17-FORMAL-FAMILY-ACTION",
+        "versioned formal execution accepts only Q16a/Q16b/Q16c");
+  }
+}
+
 auto FixedActionOperations::execute_pilot_session(const protocol::json::Value::Object&,
                                                   ArtifactSink&,
                                                   const PilotSessionAuthority&)
@@ -4440,7 +4902,8 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
     -> int {
   if (argc != 10 ||
       (std::string_view(argv[1]) != "--execute-fixed-stage17-action-v4" &&
-       std::string_view(argv[1]) != "--execute-fixed-stage17-action-v5") ||
+       std::string_view(argv[1]) != "--execute-fixed-stage17-action-v5" &&
+       std::string_view(argv[1]) != "--execute-fixed-stage17-action-v6") ||
       std::string_view(argv[3]) != "--request-fd" ||
       std::string_view(argv[5]) != "--context-fd" ||
       std::string_view(argv[7]) != "--output-dir-fd" ||
@@ -4454,6 +4917,11 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
   if (!action || !request_fd || !context_fd || !output_fd) {
     throw std::runtime_error("fixed dispatcher action/fd contract rejected");
   }
+  const bool formal_successor =
+      std::string_view(argv[1]) == "--execute-fixed-stage17-action-v6";
+  if (formal_successor && action.value() != FixedAction::q16a &&
+      action.value() != FixedAction::q16b && action.value() != FixedAction::q16c)
+    throw std::runtime_error("formal successor accepts only Q16a/Q16b/Q16c");
   if ((action.value() == FixedAction::q16a_duration_discovery) !=
       (std::string_view(argv[1]) == "--execute-fixed-stage17-action-v5")) {
     throw std::runtime_error("diagnostic/formal worker entrypoint mismatch");
@@ -4470,8 +4938,8 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
     throw std::runtime_error("fixed dispatcher request JSON rejected");
   }
   const auto& request = *parsed.value().as_object();
-  const auto inputs =
-      validate_request(request, action.value(), operations.synthetic_test_only());
+  const auto inputs = validate_request(
+      request, action.value(), operations.synthetic_test_only(), formal_successor);
   if (!inputs || inputs.value() == nullptr) {
     throw std::runtime_error("fixed dispatcher request semantics rejected");
   }
@@ -4487,7 +4955,7 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
       !validate_context(*context, request, request_bytes.value(), action.value())) {
     throw std::runtime_error("fixed dispatcher authority context rejected");
   }
-  if (action.value() == FixedAction::q16a_duration_discovery) {
+  if (action.value() == FixedAction::q16a_duration_discovery || formal_successor) {
     const auto issued = uint_member(*context, "issued_at_epoch_seconds");
     const auto expires = uint_member(*context, "expires_at_epoch_seconds");
     const auto now = epoch_seconds_now();
@@ -4497,7 +4965,34 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
     }
   }
   DirectoryArtifactSink sink(*output_fd);
-  const auto outcome = operations.execute(action.value(), *inputs.value(), sink);
+  if (formal_successor && member(*context, "archive_channel") != nullptr) {
+    const auto* channel = require_object(*context, "archive_channel");
+    const auto* plan = require_object(*inputs.value(), "plan");
+    const auto* storage = plan == nullptr ? nullptr : require_object(*plan, "storage");
+    if (channel == nullptr || storage == nullptr)
+      throw std::runtime_error("archive channel has no prospective storage plan");
+    const auto descriptor = uint_member(*channel, "descriptor");
+    const auto controller = uint_member(*channel, "controller_pid");
+    const auto duration = uint_member(*storage, "per_capture_archive_ns");
+    const auto receipt_limit = uint_member(*storage, "checkpoint_bytes");
+    const auto* scope = string_member(*channel, "program_scope_sha256");
+    if (!descriptor || !controller || !duration || !receipt_limit || scope == nullptr ||
+        *descriptor > static_cast<std::uint64_t>(std::numeric_limits<int>::max()) ||
+        *controller > static_cast<std::uint64_t>(std::numeric_limits<int>::max()) ||
+        static_cast<int>(*descriptor) == *request_fd ||
+        static_cast<int>(*descriptor) == *context_fd ||
+        static_cast<int>(*descriptor) == *output_fd)
+      throw std::runtime_error(
+          "archive channel descriptor/limits are invalid or aliased");
+    sink.configure_archive({static_cast<int>(*descriptor),
+                            static_cast<int>(*controller),
+                            sha256(request_bytes.value()), *scope},
+                           *duration, *receipt_limit);
+  }
+  const auto outcome =
+      formal_successor
+          ? operations.execute_formal_family(action.value(), *inputs.value(), sink)
+          : operations.execute(action.value(), *inputs.value(), sink);
   if (!outcome) {
     throw std::runtime_error(
         "fixed action operation failed closed: " + outcome.errors().front().rule_id +
@@ -4505,7 +5000,8 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
   }
   static_cast<void>(emit_action_result(
       *output_fd,
-      action.value() == FixedAction::q16a_duration_discovery
+      formal_successor ? "stage17-action-result-v6.json"
+      : action.value() == FixedAction::q16a_duration_discovery
           ? "stage17-action-result-v5.json"
           : kResultFileName,
       request, request_bytes.value(), *context, action.value(), outcome.value(),

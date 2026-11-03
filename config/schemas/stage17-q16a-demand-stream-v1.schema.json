@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:q16a-demand-stream:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "method_id",
+    "physical_format",
+    "run_id",
+    "role",
+    "phase",
+    "phase_window",
+    "minimum_observations_per_series",
+    "stream"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-q16a-demand-stream/1"
+    },
+    "method_id": {
+      "const": "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2"
+    },
+    "physical_format": {
+      "const": "Q16A-DEMAND-U64LE-LP-RUNID-v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "enum": [
+        "producer",
+        "consumer"
+      ]
+    },
+    "phase": {
+      "enum": [
+        "warmup",
+        "measurement"
+      ]
+    },
+    "phase_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clock_suite_id",
+        "time_unit",
+        "ticks_per_second",
+        "clock_origin_absolute_nanoseconds",
+        "phase_origin",
+        "duration_ticks"
+      ],
+      "properties": {
+        "clock_suite_id": {
+          "const": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1"
+        },
+        "time_unit": {
+          "const": "PICOSECONDS"
+        },
+        "ticks_per_second": {
+          "const": 1000000000000
+        },
+        "clock_origin_absolute_nanoseconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "phase_origin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "absolute_nanoseconds",
+            "relative_picoseconds"
+          ],
+          "properties": {
+            "absolute_nanoseconds": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "relative_picoseconds": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            }
+          }
+        },
+        "duration_ticks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        }
+      }
+    },
+    "minimum_observations_per_series": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        }
+      ]
+    },
+    "stream": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "size_bytes",
+        "sha256",
+        "row_count"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "phase": {
+            "const": "warmup"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "minimum_observations_per_series": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "minimum_observations_per_series": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 18446744073709551615
+          }
+        }
+      }
+    }
+  ]
+}

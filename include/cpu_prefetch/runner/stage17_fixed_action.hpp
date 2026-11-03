@@ -60,6 +60,19 @@ public:
   virtual ~ArtifactSink() = default;
   [[nodiscard]] virtual auto publish(ArtifactPayload artifact)
       -> protocol::Result<ArtifactBinding> = 0;
+  // A qualified cold broker is required before an archival family can touch
+  // hardware. Historical sinks deliberately have no such capability.
+  [[nodiscard]] virtual auto has_archive_checkpoint() const noexcept -> bool {
+    return false;
+  }
+  [[nodiscard]] virtual auto archive_checkpoint(const ArtifactBinding&,
+                                              std::uint64_t deadline_monotonic_ns)
+      -> protocol::Result<ArtifactBinding> {
+    static_cast<void>(deadline_monotonic_ns);
+    return protocol::Result<ArtifactBinding>::failure(
+        {protocol::ErrorCategory::missing_evidence, "$/formal/archive",
+         "S17-ARCHIVE-BROKER-ABSENT", "no qualified archive checkpoint broker"});
+  }
 };
 
 struct ActionOutcome final {
@@ -94,6 +107,10 @@ public:
                                      ArtifactSink& sink)
       -> protocol::Result<ActionOutcome> = 0;
   [[nodiscard]] virtual auto
+  execute_formal_family(FixedAction action,
+                        const protocol::json::Value::Object& action_inputs,
+                        ArtifactSink& sink) -> protocol::Result<ActionOutcome>;
+  [[nodiscard]] virtual auto
   execute_pilot_session(const protocol::json::Value::Object& action_inputs,
                         ArtifactSink& sink, const PilotSessionAuthority& authority)
       -> protocol::Result<ActionOutcome>;
@@ -106,6 +123,10 @@ public:
                              const protocol::json::Value::Object& action_inputs,
                              ArtifactSink& sink)
       -> protocol::Result<ActionOutcome> override;
+  [[nodiscard]] auto
+  execute_formal_family(FixedAction action,
+                        const protocol::json::Value::Object& action_inputs,
+                        ArtifactSink& sink) -> protocol::Result<ActionOutcome> override;
   [[nodiscard]] auto
   execute_pilot_session(const protocol::json::Value::Object& action_inputs,
                         ArtifactSink& sink, const PilotSessionAuthority& authority)

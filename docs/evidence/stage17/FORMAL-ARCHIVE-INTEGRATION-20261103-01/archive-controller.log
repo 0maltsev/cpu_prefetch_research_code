@@ -1,0 +1,10 @@
+test_absent_or_unqualified_profile_has_no_host_fallback (__main__.ArchiveControllerTests.test_absent_or_unqualified_profile_has_no_host_fallback) ... ok
+test_archive_validator_does_not_mutate_historical_globals (__main__.ArchiveControllerTests.test_archive_validator_does_not_mutate_historical_globals) ... ok
+test_complete_original_plan_and_actual_profile_admitted_without_execution (__main__.ArchiveControllerTests.test_complete_original_plan_and_actual_profile_admitted_without_execution) ... ok
+test_profile_path_cannot_escape_qualified_bundle_or_extend_deadline (__main__.ArchiveControllerTests.test_profile_path_cannot_escape_qualified_bundle_or_extend_deadline) ... ok
+test_signed_profile_original_bytes_and_local_closure_must_match (__main__.ArchiveControllerTests.test_signed_profile_original_bytes_and_local_closure_must_match) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 6.244s
+
+OK

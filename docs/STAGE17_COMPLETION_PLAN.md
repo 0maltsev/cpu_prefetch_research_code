@@ -18,7 +18,12 @@ This roadmap is not an execution authorization or a scientific amendment.
 
 The owner directs fastest completion of EXT-007, with no new optional work,
 and requests an update after every step. Defer EXT008–010, pilot execution and
-Stage 18 work. Finish only already-started checks and necessary calibration work.
+Stage 18 work. Finish only already-started checks and necessary calibration work. The owner's
+latest priority is a clean run as soon as possible: omit redundant checks and
+optional extensions. If the current validation fails, diagnose the concrete
+failure first; repair/reanalyse existing bytes for a checker defect. A reduced
+measurement design must be recorded prospectively and cannot silently receive
+credit for the unchanged formal EXT007 requirements.
 
 1. **Complete:** finish current verification and freeze the discovery implementation.
 2. **Complete:** clean successor release `a1ade11`, both clock pairs and Q15-R/W pass.
@@ -37,17 +42,57 @@ Stage 18 work. Finish only already-started checks and necessary calibration work
    entire original retained family, preserving the rejected report.
    Select the common duration only if the complete study validates; file counts
    and native success alone cannot select it. Return only small reports and
-   provenance to the PC. Duration selection is currently unresolved.
+   provenance to the PC. Duration selection is currently unresolved. Bounded eight-worker
+   reanalysis under [D224](decisions/0224-parallel-retained-discovery-validation.md)
+   passed 13 independent software tests. Its corrected launcher passed 15 tests
+   and wrapper 13 tests; fresh stand resource admission and startup passed at
+   16:28:46 UTC. Full validation and duration selection remain pending.
+   D224 stopped at 17:29 UTC after 18/36 capture checks on a worker-exit procfs
+   race; all owned children were reaped, with no final duration selection.
+   [D234](decisions/0234-offline-analysis-exit-race-and-bounded-pool.md) repairs the
+   monitor and revalidates all 36 originals with 16 bounded workers. Its launcher
+   passed 20 tests, wrapper 13 tests, and fresh stand admission at 17:45:42 UTC.
+   At 19:02:00 UTC, 27/36 captures had validated, with no stderr output.
+   The original serial analysis and all raw evidence remain preserved.
 5. Complete required formal-calibration fixes (including actual persistent warmup/reset;
    Q16b interval counting now has accepted [D211](decisions/0211-stage17-q16b-completion-interval.md);
-   Q16a demand-window [D212](decisions/0212-stage17-q16a-demand-window.md) is owner accepted), freeze the prospective plans,
-   then execute Q16a (708 fresh captures), Q16b (3,540 runs) and Q16c in order.
+   Q16a demand-window [D212](decisions/0212-stage17-q16a-demand-window.md) is owner accepted).
+   Raw trace/decoder and mapped lifecycle components have targeted software checks;
+   formal input/publication and the five-package service path are being verified.
+   Finish persistent scheduled Q16c, independent evidence validation and explicit
+   formal dispatch; qualify all three in one complete release before Q16a.
+   Freeze exact prospective durations, bounds, disk/memory and retention budgets,
+   then obtain the corresponding phase authority and execute Q16a (708 fresh
+   captures), Q16b (3,540 runs) and Q16c in order.
+   The persistent native implementations, original publication bridges, exact
+   calibration arithmetic, signed executor/CLI and schedule provenance now have
+   targeted verification. Both ThreadSanitizers pass 120 integration checks;
+   three GCC ASan process-boundary checks remain blocked by instrumented worker
+   size, with equivalent Clang ASan coverage passing on an allocated-byte-identical
+   debug-stripped copy. This does not yet qualify a clean release.
+   **Storage prerequisite:** the owner accepted
+   [D233](decisions/0233-stage17-formal-lossless-archive-proposal.md), permitting
+   verified lossless archives for future formal data under one shared 6 TB quota,
+   512 GiB workspace, 256 GiB analysis scratch and 16 GiB reserve. Implement and
+   qualify the encoder, independent inverse, ledger, per-capture checkpoint and
+   resource admission before use. Release a working copy only after durable
+   archive publication and full reconstruction/hash verification. Preserve all
+   observations, failed evidence and historical raw. Quota exhaustion stops the
+   family incomplete; sample ratios do not guarantee completion.
+   Encoder/inverse, custody, resource-plan and checkpoint checks pass. The native
+   checkpoint/channel slice passes 30 development checks and 30 under each of four
+   sanitizers. Four actual executor/broker handoff cases and nine-archive independent
+   retained readback pass. Final policy closure, clean release/package checks and
+   stand qualification remain. Defer D238's optional sealed-source Q16c extension;
+   qualify the existing three inline paths together and verify actual future Q16c
+   request size/memory before execution. No formal family has started.
 6. Validate and seal calibration evidence, derive the freeze, and admit EXT-007.
 
 The owner accepted [D206](decisions/0206-stage17-ext007-stand-primary-custody.md)
 and its [recorded custody-policy approval](evidence/stage17/STAND-CUSTODY-D206-20261103-01/owner-acceptance.json).
 For EXT007 diagnostic and calibration data only, including R1 and R2, retain
-one authoritative uncompressed raw/control copy on the stand (`m_dur=1`).
+one authoritative raw/control copy on the stand (`m_dur=1`). Historical data
+remains uncompressed; accepted D233 permits only future qualified formal archives.
 There is no independent raw backup; RAID redundancy is not another custody
 domain. This explicitly supersedes D-033's second raw-copy requirement in that
 scope, not its scientific validity rules or pilot/Stage 18 custody requirements.
@@ -271,25 +316,26 @@ scientific decisions only when existing protocol/approval does not resolve them.
 
 ## Working method and completion claim
 
-Step 3 remains unresolved: both R1 and R2 stopped. D207 approves one new family only after its prerequisites.
-For R1, the historical two-copy verification and independent failed-prefix reconciliation remain recorded;
-full-capture validation rejects the mandatory session stop. No valid-study or
-duration-selection result follows from that reconciliation.
-The narrow formal-calibration source audit is frozen at its current findings.
-Preserve the accepted amendment, exact R2 bindings and failed partial family.
-The analysis gate is now accepted D206 plus verified stand-primary evidence:
-exact original sizes/SHA-256, manifest bindings, quiescence and restoration.
-That gate passed for the completed stand-side capture-9 diagnosis and independent
-phase validation. The required monitoring operation overran the 100 ms window;
-both phases reconcile, but full capture remains invalid for mandatory session stop.
-Captures 0–8 remain unassessed. PC copying is cancelled and cleanup complete;
-small reports/provenance and cleanup receipts are retained on the PC, while
-failed raw/control data remains on the stand.
-The full-36-study wrapper is inapplicable to this partial family and remains
-unchanged. Prefix validation cannot establish a valid full study or select a
-common duration. No selector ran; selection remains unresolved. Implement and qualify
-accepted ADR0207, then obtain exact operational admission before
-any new 36-capture 1 s/2 s/5 s family.
+Step 3 is complete for D207 R3: all 36 captures were retained, the native
+process exited successfully, and restoration and custody admission passed.
+Step 4 remains in progress. D213 repaired the independent whole-plot checker;
+D224's parallel analysis stopped after 18/36 checks because its monitor raced
+an exiting worker. D234's repaired 16-worker analysis passed fresh admission and
+started at 17:45:42 UTC on 2026-11-03. At 18:45:45 UTC it had validated
+17/36 captures. Full validation and common-duration selection are still pending. The serial analysis and both failed parallel
+attempt records remain preserved. No formal Q16a/Q16b/Q16c family has started.
+
+R1 and R2 are failed historical attempts. Their partial raw/control evidence,
+restoration records and independent prefix reconciliations remain retained;
+none supplies formal calibration credit or selects a duration. D206 permits
+stand-primary custody for this EXT007 scope. Analyze original raw data on the
+stand and return only small reports/provenance to the PC.
+
+Step 5 proceeds concurrently on necessary formal software integration. Component
+and combined software checks do not replace complete release qualification,
+exact prospective resource plans, signed phase authority, actual formal
+collection or independent evidence validation. Preserve the fixed plan and
+stop on the first mandatory execution failure; do not retry or top up runs.
 Report completed milestones, exact evidence, remaining blockers and the next
 gate. Component tests are supporting evidence, not the project completion goal.
 Estimate stand time and durable bytes once prospective run counts and durations

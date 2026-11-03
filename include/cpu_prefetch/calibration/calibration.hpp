@@ -23,6 +23,8 @@ inline constexpr std::string_view kServiceRateMethodId =
 inline constexpr std::string_view kMatrixFeasibilityMethodId =
     "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1";
 inline constexpr std::string_view kRingDistanceMethodId = "RING-D2-RUNTAIL-LTL95C95-v1";
+inline constexpr std::string_view kRingDistanceWindowMethodId =
+    "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2";
 inline constexpr std::string_view kCalibrationRecordFamily =
     "cpu-prefetch-calibration/1";
 inline constexpr std::size_t kMinimumValidIndependentRuns = 59U;
@@ -388,6 +390,15 @@ struct RingDistanceResult final {
     -> protocol::Result<std::uint64_t>;
 [[nodiscard]] auto evaluate_ring_distance(const RingDistancePlan& plan,
                                           const std::vector<RingRunEvidence>& runs)
+    -> protocol::Result<RingDistanceResult>;
+
+// D212 successor: supplied series must already have independently validated
+// demand-window membership and bound original raw/execution evidence. This
+// numerical evaluator cannot establish that provenance or authorize collection.
+// The legacy entry point continues to reject this successor's method identity.
+[[nodiscard]] auto
+evaluate_windowed_ring_distance(const RingDistancePlan& plan,
+                                const std::vector<RingRunEvidence>& runs)
     -> protocol::Result<RingDistanceResult>;
 
 } // namespace cpu_prefetch::calibration

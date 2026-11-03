@@ -1,0 +1,9 @@
+test_actual_native_handoff_broker_codec_cleanup_and_receipt (__main__.ArchivedWorkerTests.test_actual_native_handoff_broker_codec_cleanup_and_receipt) ... ok
+test_failed_evidence_is_archived_but_worker_receives_no_continue (__main__.ArchivedWorkerTests.test_failed_evidence_is_archived_but_worker_receives_no_continue) ... ok
+test_final_authority_rejection_has_no_created_process (__main__.ArchivedWorkerTests.test_final_authority_rejection_has_no_created_process) ... ok
+test_hung_worker_deadline_has_actual_reap_proof (__main__.ArchivedWorkerTests.test_hung_worker_deadline_has_actual_reap_proof) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 9.531s
+
+OK

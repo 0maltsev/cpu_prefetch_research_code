@@ -25,15 +25,43 @@ void add_error(std::vector<ValidationError>& errors, ErrorCategory category,
 
 } // namespace
 
-TerminationControl::TerminationControl(queue::CacheLineBytes cache_line_bytes)
-    : storage_(cache_line_bytes.value, cache_line_bytes.value),
-      cache_line_bytes_(cache_line_bytes.value) {
-  queue::detail::validate_cache_line_bytes(cache_line_bytes_);
-  if (storage_.size() < sizeof(std::atomic<std::uint32_t>)) {
-    throw queue::QueueSetupError(
-        "termination cache line is smaller than its atomic value");
+auto TerminationControl::storage_requirements(queue::CacheLineBytes cache_line_bytes)
+    -> std::size_t {
+  queue::detail::validate_cache_line_bytes(cache_line_bytes.value);
+  if (cache_line_bytes.value < sizeof(std::atomic<std::uint32_t>) ||
+      cache_line_bytes.value < alignof(std::atomic<std::uint32_t>) ||
+      cache_line_bytes.value >
+          static_cast<std::size_t>(std::numeric_limits<std::ptrdiff_t>::max())) {
+    throw queue::QueueSetupError("termination cache line extent is invalid");
   }
-  value_ = ::new (static_cast<void*>(storage_.data())) std::atomic<std::uint32_t>{0U};
+  return cache_line_bytes.value;
+}
+
+TerminationControl::TerminationControl(queue::CacheLineBytes cache_line_bytes)
+    : storage_(storage_requirements(cache_line_bytes), cache_line_bytes.value),
+      cache_line_bytes_(cache_line_bytes.value) {
+  initialize({storage_.data(), storage_.size()});
+}
+
+TerminationControl::TerminationControl(queue::CacheLineBytes cache_line_bytes,
+                                       std::span<std::byte> external_storage)
+    : cache_line_bytes_(cache_line_bytes.value) {
+  initialize(external_storage);
+}
+
+void TerminationControl::initialize(std::span<std::byte> bytes) {
+  const auto required = storage_requirements({cache_line_bytes_});
+  const auto begin = reinterpret_cast<std::uintptr_t>(bytes.data());
+  const auto object = reinterpret_cast<std::uintptr_t>(this);
+  if (bytes.size() != required || bytes.data() == nullptr ||
+      !queue::detail::is_aligned(bytes.data(), cache_line_bytes_) ||
+      bytes.size() > std::numeric_limits<std::uintptr_t>::max() - begin ||
+      sizeof(*this) > std::numeric_limits<std::uintptr_t>::max() - object ||
+      (begin < object + sizeof(*this) && object < begin + bytes.size())) {
+    throw queue::QueueSetupError(
+        "termination storage must be exact, aligned and disjoint");
+  }
+  value_ = ::new (static_cast<void*>(bytes.data())) std::atomic<std::uint32_t>{0U};
 }
 
 TerminationControl::~TerminationControl() {
@@ -57,8 +85,7 @@ auto TerminationControl::evidence() const noexcept -> TerminationEvidence {
           cache_line_bytes_,
           std::atomic<std::uint32_t>::is_always_lock_free,
           value_->is_lock_free(),
-          storage_.size() == cache_line_bytes_ &&
-              queue::detail::is_aligned(storage_.data(), cache_line_bytes_)};
+          queue::detail::is_aligned(value_, cache_line_bytes_)};
 }
 
 auto WorkerStartBarrier::arrive(WorkerRole role) noexcept -> StartBarrierStatus {

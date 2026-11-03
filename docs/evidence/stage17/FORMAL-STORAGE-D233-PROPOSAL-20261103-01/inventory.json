@@ -1,0 +1,34 @@
+{
+  "created_at_utc": "2026-11-03T17:32:39.299411+00:00",
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "storage-roundtrip-samples-1.py",
+      "sha256": "2d4ed8ab40936297c586ba133767b91614828bb20716937eefd26d2904f53841",
+      "size_bytes": 2363
+    },
+    {
+      "path": "storage-roundtrip-samples-1.jsonl",
+      "sha256": "8aee1283b705c8d72a031c347b9d658e63293b42bb73241a78a58dec8518d1f2",
+      "size_bytes": 42399
+    },
+    {
+      "path": "storage-column-roundtrip-samples-1.py",
+      "sha256": "4ddb032ab297845081e2708762c93c0e503af4bbcf2450c0c1b21ffa1402965d",
+      "size_bytes": 3643
+    },
+    {
+      "path": "storage-column-roundtrip-samples-1.jsonl",
+      "sha256": "15244c68b88e72a72cc2d796c074a6d6518431f6600539618792de8765b22710",
+      "size_bytes": 40794
+    },
+    {
+      "path": "proposal.md",
+      "sha256": "e0afc7010b7c0ee84adccf25eaf00679dbc79f51d1970fce3f42f8223ab91c02",
+      "size_bytes": 19501
+    }
+  ],
+  "phase18_authority": false,
+  "schema_version": "cpu-prefetch-local-evidence-inventory/1",
+  "scope": "READ_ONLY_STORAGE_PROPOSAL_NO_RAW_CUSTODY_OR_EXECUTION_AUTHORITY"
+}

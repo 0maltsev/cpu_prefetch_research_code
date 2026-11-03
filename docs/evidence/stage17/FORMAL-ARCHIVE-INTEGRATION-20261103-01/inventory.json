@@ -1,0 +1,66 @@
+{
+  "files": [
+    {
+      "original_path": "build/stage17-step5-prep/d235-channel-verification/verification-checkpoint-v1.json",
+      "path": "native-checkpoint.json",
+      "sha256": "77b077018ac92f3859cfa9f8ead2d492f976086c39022ede044e7a163e7fea9f",
+      "size_bytes": 3459
+    },
+    {
+      "original_path": "build/stage17-step5-prep/d235-package-verification/verification-checkpoint-v1.json",
+      "path": "package-checkpoint.json",
+      "sha256": "2e4cf314c527bc245ec5373059de3889710291bb0942fa4810df2cd9594a913c",
+      "size_bytes": 3661
+    },
+    {
+      "original_path": "build/stage17-step5-prep/formal-integration/archive-executor-tests-3.log",
+      "path": "executor-integration.log",
+      "sha256": "164487463242370b5ccfbbce23c0eafaf6e1c6e67c84864fe28abfbb297d78f1",
+      "size_bytes": 704
+    },
+    {
+      "original_path": "build/stage17-step5-prep/d214-verification/d239-registry12-actual-broker-integration-2.log",
+      "path": "retained-readback.log",
+      "sha256": "c554e394e66767820bdcbea832e7d350ca8b29e59b2983ee00ddec2ab1f74831",
+      "size_bytes": 169
+    },
+    {
+      "original_path": "build/stage17-step5-prep/d235-package-verification/ctest-1.log",
+      "path": "package-registered-checks.log",
+      "sha256": "899ad6f575a2ef1f1f481776300551e782026156cb10adcae719271b33a0e346",
+      "size_bytes": 986
+    },
+    {
+      "original_path": "build/stage17-step5-prep/formal-integration/archive-controller-tests-2.log",
+      "path": "archive-controller.log",
+      "sha256": "eb93fa29022b050629d0be51274f5e01019fe8ffa2c82eec179b6dd20563fede",
+      "size_bytes": 943
+    },
+    {
+      "original_path": "build/stage17-step5-prep/formal-integration/archive-channel-python-tests-3.log",
+      "path": "credential-channel.log",
+      "sha256": "2a4f1131c1c196b4c698f4f225408bdf79ad8bb04691958e4f423d7e42ff1ea7",
+      "size_bytes": 972
+    },
+    {
+      "original_path": "build/stage17-step5-prep/formal-integration/archive-jobs-tests-3.log",
+      "path": "archive-jobs.log",
+      "sha256": "fe56fb62c3522690db934a7e563ce7e644830916ea76567acda6bc43a4a3b1a9",
+      "size_bytes": 926
+    },
+    {
+      "original_path": "build/stage17-step5-prep/d214-verification/formal-policy-final-tests-1.log",
+      "path": "formal-policy.log",
+      "sha256": "3da9ef715e19a6a3447f02c5026cf5a460c320efc028bc4d0425ec879cf3cc56",
+      "size_bytes": 2508
+    },
+    {
+      "original_path": "build/stage17-step5-prep/d214-verification/qualified-archive-context-tests-1.log",
+      "path": "qualified-context.log",
+      "sha256": "c0062d319036e5a40c7e8a2f55afe00bdfad6ca6d78c271fc8ad1ab7da07f872",
+      "size_bytes": 1122
+    }
+  ],
+  "formal_runs": 0,
+  "scope": "SOFTWARE_VERIFICATION_ONLY"
+}

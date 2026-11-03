@@ -155,7 +155,8 @@ int run(int argc, char** argv) {
     return 0;
   }
   if (argc >= 2 && (std::string_view(argv[1]) == "--execute-fixed-stage17-action-v4" ||
-                    std::string_view(argv[1]) == "--execute-fixed-stage17-action-v5")) {
+                    std::string_view(argv[1]) == "--execute-fixed-stage17-action-v5" ||
+                    std::string_view(argv[1]) == "--execute-fixed-stage17-action-v6")) {
     cpu_prefetch::runner::stage17::LinuxFixedActionOperations operations;
     return cpu_prefetch::runner::stage17::run_fixed_action_worker(argc, argv,
                                                                   operations);

@@ -19,10 +19,11 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v25"
-STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v21"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v26"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
+    "formal_codegen_report.json": ("cpu_prefetch_runner", "check_formal_codegen.py"),
     "discovery_codegen_report.json": ("cpu_prefetch_runner", "check_discovery_codegen.py"),
     "queue_codegen_report.json": (
         "cpu_prefetch_queue_codegen_probe",
@@ -276,6 +277,43 @@ def copy_policy_bound_files(root: pathlib.Path, staging: pathlib.Path, policy_do
     return controller_files
 
 
+def materialize_archive_profile(*, root, staging, runtime_root, window_log):
+    """Copy the explicit accepted zstd image/license and exact local module graph."""
+    import ctypes
+    import stage17_archive_bundle_profile_v1 as archive_profile
+    runtime_root = archive_profile.explicit_root(runtime_root)
+    library = archive_profile.regular(runtime_root, "usr/lib/libzstd.so.1.5.7")
+    library_binding = archive_profile.binding(runtime_root, "usr/lib/libzstd.so.1.5.7")
+    zstd = ctypes.CDLL(str(library))
+    zstd.ZSTD_versionNumber.restype = ctypes.c_uint
+    if zstd.ZSTD_versionNumber() != 10507:
+        raise ValueError("archive runtime zstd is not exact 1.5.7")
+    target = staging / archive_profile.ZSTD_PATH
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(library, target)
+    if sha256(target) != library_binding["sha256"]:
+        raise ValueError("zstd image changed during copy")
+    license_path = archive_profile.regular(runtime_root, "usr/share/licenses/zstd/LICENSE")
+    target_license = staging / "licenses/zstd/LICENSE"
+    target_license.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(license_path, target_license)
+    for module in (*archive_profile.local_source_closure(root / "tools"),
+                   "stage17_archive_bundle_profile_v1"):
+        source = root / "tools" / (module + ".py")
+        target = staging / "tools" / source.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists() and sha256(target) != sha256(source):
+            raise ValueError("archive module conflicts with policy projection: " + module)
+        shutil.copyfile(source, target)
+    document = archive_profile.build_profile(bundle_root=staging,
+        runtime_root=runtime_root, window_log=window_log)
+    target = staging / archive_profile.PROFILE_PATH
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(archive_profile.canonical(document))
+    archive_profile.verify_profile(bundle_root=staging, runtime_root=runtime_root)
+    return archive_profile.manifest_binding(bundle_root=staging, document=document)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source-root", type=pathlib.Path, required=True)
@@ -293,6 +331,10 @@ def main() -> int:
     )
     parser.add_argument("--test-linked-worker", type=pathlib.Path)
     parser.add_argument("--no-result-worker", type=pathlib.Path)
+    parser.add_argument("--native-codegen-report-dir", type=pathlib.Path,
+                        help="Hermetic-only native reports bound to the substituted test worker")
+    parser.add_argument("--archive-runtime-root", type=pathlib.Path)
+    parser.add_argument("--archive-window-log", type=int)
     args = parser.parse_args()
     root = args.source_root.resolve()
     build = args.build_dir.resolve()
@@ -308,6 +350,12 @@ def main() -> int:
     )
     stage17_dry_run = args.profile == "stage17-hermetic-dry-run"
     q15_tool = args.profile == "q15-qualification-tool"
+    if args.native_codegen_report_dir is not None and not stage17_dry_run:
+        raise ValueError("native report directory override is restricted to the hermetic profile")
+    if stage17 and (args.archive_runtime_root is None or args.archive_window_log is None):
+        raise ValueError("current Stage17 bundles require explicit archive runtime root and window log")
+    native_report_directory = (args.native_codegen_report_dir.resolve()
+                               if args.native_codegen_report_dir is not None else build)
     profile = (
         (STAGE17_DRY_RUN_PROFILE if stage17_dry_run else STAGE17_PROFILE)
         if stage17
@@ -347,6 +395,7 @@ def main() -> int:
                 "cpu_prefetch_qualification",
                 "cpu_prefetch_q15_clock_qualification_tool",
                 "cpu_prefetch_q15_qualification_evidence_tool",
+                "cpu_prefetch_stage17_archive_encoder",
             ]
         )
     if q15_tool:
@@ -385,10 +434,16 @@ def main() -> int:
     codegen_reports: list[pathlib.Path] = []
     if stage17:
         for name, (probe_name, rule_name) in STAGE17_CODEGEN_INPUTS.items():
-            path = build / name
+            path = ((native_report_directory if name in ("formal_codegen_report.json",
+                    "discovery_codegen_report.json") else build) / name)
             if not path.is_file():
                 raise ValueError(f"missing pilot-candidate codegen report: {name}")
-            if name == "discovery_codegen_report.json":
+            if name == "formal_codegen_report.json":
+                import check_formal_codegen as formal_codegen
+                formal_codegen.validate_report_bindings(json.loads(path.read_text()),
+                    binary=test_worker if stage17_dry_run else build / "cpu_prefetch_runner",
+                    source_root=root)
+            elif name == "discovery_codegen_report.json":
                 verify_discovery_codegen_report(root,
                     test_worker if stage17_dry_run else build / "cpu_prefetch_runner", path)
             else:
@@ -566,12 +621,12 @@ def main() -> int:
             # its own per-run resolution/dispatch in package_capture) --
             # same class of re-pin once more.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v57.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v58.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
             controller_files = copy_policy_bound_files(root, staging, policy_document)
-            controller_suffix = "v24"
+            controller_suffix = "v26"
             stage17_controller_runtime = {
                 "controller_id":
                     f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-{controller_suffix}",
@@ -597,7 +652,7 @@ def main() -> int:
             # depend on the wider test-only source projection.
             nested_policy_relative = pathlib.Path(
                 "config/stage17/"
-                "stage17-read-only-preflight-evidence-admission-policy-v31.json"
+                "stage17-read-only-preflight-evidence-admission-policy-v32.json"
             )
             nested_policy_path = root / nested_policy_relative
             nested_policy = json.loads(nested_policy_path.read_text(encoding="utf-8"))
@@ -761,7 +816,19 @@ def main() -> int:
                 ]
             )
         if stage17:
-            validator_names.append("check_discovery_codegen.py")
+            validator_names.extend(("check_discovery_codegen.py", "check_formal_codegen.py",
+                                    "stage17_archive_bundle_profile_v1.py"))
+            # Retain the exact closed source evidence needed by the two native gates.
+            import check_discovery_codegen as discovery_codegen
+            import check_formal_codegen as formal_codegen
+            for relative in sorted(set(discovery_codegen.SOURCE_PATHS) | set(formal_codegen.SOURCE_PATHS) | {"tools/check_formal_codegen.py"}):
+                source = root / relative
+                target = staging / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                if target.exists() and sha256(target) != sha256(source):
+                    raise ValueError("native codegen source projection conflict: " + relative)
+                if not target.exists():
+                    shutil.copyfile(source, target)
         validators = staging / "validators"
         validators.mkdir()
         for name in validator_names:
@@ -776,6 +843,11 @@ def main() -> int:
             staging / "SBOM.spdx.json",
             make_sbom(root, dependencies, revision, profile),
         )
+
+        archive_implementation = None
+        if stage17:
+            archive_implementation = materialize_archive_profile(root=root, staging=staging,
+                runtime_root=args.archive_runtime_root, window_log=args.archive_window_log)
 
         release_artifacts = []
         for path in sorted((staging / "release").rglob("*")):
@@ -865,6 +937,7 @@ def main() -> int:
             }
             assert stage17_controller_runtime is not None
             manifest["stage17_controller_runtime"] = stage17_controller_runtime
+            manifest["stage17_archive_implementation"] = archive_implementation
         if q15_tool:
             probe_contract_path = (
                 root / "config" / "q15" / "q15-probe-collector-contract-v1.json"

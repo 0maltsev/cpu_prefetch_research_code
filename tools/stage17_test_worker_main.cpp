@@ -21,9 +21,13 @@
 #include <vector>
 
 #if defined(__SANITIZE_ADDRESS__)
+// The sanitizer runtime requires this exact ABI symbol under the managed ptrace
+// boundary. NOLINTNEXTLINE(bugprone-reserved-identifier)
 extern "C" const char* __asan_default_options() { return "detect_leaks=0"; }
 #elif defined(__has_feature)
 #if __has_feature(address_sanitizer)
+// The sanitizer runtime requires this exact ABI symbol under the managed ptrace
+// boundary. NOLINTNEXTLINE(bugprone-reserved-identifier)
 extern "C" const char* __asan_default_options() { return "detect_leaks=0"; }
 #endif
 #endif
@@ -523,6 +527,25 @@ publish_calibration_hardware(FixedAction action, const JsonObject& inputs,
 
 class TestLinkedOperations final : public FixedActionOperations {
 public:
+  [[nodiscard]] auto execute_formal_family(FixedAction action, const JsonObject&,
+                                           ArtifactSink& sink)
+      -> Result<ActionOutcome> override {
+    // Boundary fixture only. No capture, hardware access or scientific credit.
+    auto artifact = publish(
+        sink, "SOFTWARE_FORMAL_BOUNDARY_FIXTURE",
+        "cpu-prefetch-software-formal-boundary/1", "application/json",
+        "software-formal-boundary.json",
+        encoded({{"schema_version",
+                  string_value("cpu-prefetch-software-formal-boundary/1")},
+                 {"action_id",
+                  string_value(cpu_prefetch::runner::stage17::to_string(action))},
+                 {"synthetic_test_only", JsonValue(true)},
+                 {"execution_authority", JsonValue(false)}}));
+    if (!artifact)
+      return Result<ActionOutcome>::failure(artifact.errors());
+    return Result<ActionOutcome>::success(
+        {{artifact.value()}, true, false, "SOFTWARE_FORMAL_BOUNDARY_ONLY"});
+  }
   [[nodiscard]] auto
   execute(FixedAction action,
           const cpu_prefetch::protocol::json::Value::Object& action_inputs,

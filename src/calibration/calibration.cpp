@@ -60,8 +60,7 @@ template <typename T>
   return valid_opaque_id(reference.artifact_id) && valid_sha256(reference.sha256);
 }
 
-[[nodiscard]] auto valid_governance(const CalibrationGovernance& governance) noexcept
-    -> bool {
+[[nodiscard]] auto valid_governance(const CalibrationGovernance& governance) -> bool {
   const std::set<std::string> unique_owners(governance.owner_ids.begin(),
                                             governance.owner_ids.end());
   return !governance.owner_ids.empty() &&
@@ -110,12 +109,12 @@ same_ring_context_except_hardware(const StageAContext& left,
          std::to_string(static_cast<unsigned int>(key.working_set));
 }
 
-[[nodiscard]] auto expected_service_key(const ServiceCellKey& key) noexcept -> bool {
+[[nodiscard]] auto expected_service_key(const ServiceCellKey& key) -> bool {
   const auto expected = required_service_cells();
   return std::find(expected.begin(), expected.end(), key) != expected.end();
 }
 
-[[nodiscard]] auto expected_ring_key(const RingContextKey& key) noexcept -> bool {
+[[nodiscard]] auto expected_ring_key(const RingContextKey& key) -> bool {
   const auto expected = required_ring_contexts();
   return std::find(expected.begin(), expected.end(), key) != expected.end();
 }
@@ -505,6 +504,10 @@ auto RingDemandTrace::prepare_worker(RingWorker worker) -> bool {
   return true;
 }
 
+// Both vector sizes are checked against actual capacities before either append;
+// uint64_t construction cannot throw. This also rejects a copied/moved-from
+// trace whose vectors no longer retain the original constructor's reserve.
+// NOLINTNEXTLINE(bugprone-exception-escape)
 auto RingDemandTrace::record(RingWorker worker, std::uint64_t demand_start,
                              std::uint64_t demand_end,
                              RingAttemptOutcome outcome) noexcept -> bool {
@@ -523,9 +526,10 @@ auto RingDemandTrace::record(RingWorker worker, std::uint64_t demand_start,
                                                   : previous_consumer_advance_start_;
   auto& issue = worker == RingWorker::producer ? series_.producer_issue_ticks
                                                : series_.consumer_issue_ticks;
-  if (demand.size() >= max_attempts_per_worker_ ||
+  if (demand.size() >= max_attempts_per_worker_ || demand.size() >= demand.capacity() ||
       (outcome == RingAttemptOutcome::advanced && previous.has_value() &&
-       issue.size() >= max_attempts_per_worker_)) {
+       (issue.size() >= max_attempts_per_worker_ ||
+        issue.size() >= issue.capacity()))) {
     return false;
   }
   if (outcome == RingAttemptOutcome::advanced && previous.has_value() &&
@@ -605,15 +609,17 @@ auto inverse_ecdf(std::vector<std::uint64_t> values,
       values[static_cast<std::size_t>(rank - 1U)]);
 }
 
-auto evaluate_ring_distance(const RingDistancePlan& plan,
-                            const std::vector<RingRunEvidence>& runs)
+namespace {
+
+auto evaluate_ring_distance_for_method(const RingDistancePlan& plan,
+                                       const std::vector<RingRunEvidence>& runs,
+                                       std::string_view required_method)
     -> protocol::Result<RingDistanceResult> {
   if (!valid_opaque_id(plan.record_id) || !valid_opaque_id(plan.seed_namespace_id) ||
       plan.assumptions.empty() ||
       std::any_of(plan.assumptions.begin(), plan.assumptions.end(),
                   [](const std::string& assumption) { return assumption.empty(); }) ||
-      !valid_governance(plan.governance) ||
-      plan.estimator_id != kRingDistanceMethodId) {
+      !valid_governance(plan.governance) || plan.estimator_id != required_method) {
     return fail<RingDistanceResult>(
         protocol::ErrorCategory::missing_field, "$/ring_plan", "CAL-RING-PLAN-IDENTITY",
         "plan requires explicit identity, namespace, and accepted estimator");
@@ -890,6 +896,20 @@ auto evaluate_ring_distance(const RingDistancePlan& plan,
     result.blockers.push_back("ring plan is not the exact six-context product");
   }
   return protocol::Result<RingDistanceResult>::success(result);
+}
+
+} // namespace
+
+auto evaluate_ring_distance(const RingDistancePlan& plan,
+                            const std::vector<RingRunEvidence>& runs)
+    -> protocol::Result<RingDistanceResult> {
+  return evaluate_ring_distance_for_method(plan, runs, kRingDistanceMethodId);
+}
+
+auto evaluate_windowed_ring_distance(const RingDistancePlan& plan,
+                                     const std::vector<RingRunEvidence>& runs)
+    -> protocol::Result<RingDistanceResult> {
+  return evaluate_ring_distance_for_method(plan, runs, kRingDistanceWindowMethodId);
 }
 
 } // namespace cpu_prefetch::calibration

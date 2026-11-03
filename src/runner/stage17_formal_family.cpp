@@ -1,0 +1,383 @@
+#include "cpu_prefetch/runner/stage17_formal_family.hpp"
+
+#include "stage17_formal_input_detail.hpp"
+
+#include <array>
+#include <map>
+#include <set>
+
+namespace cpu_prefetch::runner::stage17 {
+namespace {
+namespace input = formal_input_detail;
+using Object = protocol::json::Value::Object;
+using Value = protocol::json::Value;
+
+void require(bool condition, std::string_view message) {
+  if (!condition)
+    throw std::invalid_argument(std::string(message));
+}
+auto add(std::uint64_t a, std::uint64_t b) -> std::uint64_t {
+  require(b <= std::numeric_limits<std::uint64_t>::max() - a,
+          "formal family sum overflow");
+  return a + b;
+}
+auto multiply(std::uint64_t a, std::uint64_t b) -> std::uint64_t {
+  require(a == 0U || b <= std::numeric_limits<std::uint64_t>::max() / a,
+          "formal family product overflow");
+  return a * b;
+}
+auto positive(const Object& object, std::string_view field) -> std::uint64_t {
+  const auto n = input::number(object, field);
+  require(n > 0U, "formal budget must be positive");
+  return n;
+}
+auto encode(const Value& value) -> std::string {
+  const auto canonical = protocol::json::canonicalize(value);
+  require(canonical.has_value(), "formal value is not canonicalizable");
+  return canonical.value();
+}
+void same(const Value& a, const Value& b) {
+  require(encode(a) == encode(b), "formal family repeated declaration differs");
+}
+auto bounded_watchdog(const Object& object) -> std::uint64_t {
+  const auto ns = positive(object, "watchdog_ns");
+  require(ns <= static_cast<std::uint64_t>(std::numeric_limits<std::int64_t>::max()),
+          "formal watchdog exceeds signed native duration");
+  return ns;
+}
+struct RawExtentInput final {
+  const Object& capture;
+  const Object& resources;
+};
+auto raw_extent(RawExtentInput inputs, bool demand)
+    -> std::pair<std::uint64_t, std::uint64_t> {
+  const auto& capture = inputs.capture;
+  const auto& resources = inputs.resources;
+  std::uint64_t total = 0U;
+  std::uint64_t largest = 0U;
+  constexpr std::array phase_names{"warmup", "measurement"};
+  constexpr std::array names{"producer_primary_rows", "consumer_primary_rows",
+                             "producer_demand_rows", "consumer_demand_rows"};
+  constexpr std::array<std::uint64_t, 4U> bodies{120U, 80U, 72U, 72U};
+  const auto& capacities = input::array(resources, "phase_capacity", 2U);
+  const auto& limits = input::array(input::object(capture, "budget"), "phases", 2U);
+  for (std::size_t phase = 0U; phase < 2U; ++phase) {
+    const auto& id = input::text(input::object(capture, phase_names[phase]), "run_id");
+    const auto prefix = multiply(add(4U, add(id.size(), 7U)) / 8U, 8U);
+    const auto* rows = capacities[phase].as_object();
+    const auto* bounds = limits[phase].as_object();
+    require(rows != nullptr && bounds != nullptr, "formal row bounds absent");
+    for (std::size_t index = 0U; index < (demand ? 4U : 2U); ++index) {
+      const auto count = positive(*rows, names[index]);
+      const auto minimum = positive(*bounds, index == 3U ? "consumer_poll_limit"
+                                                         : "producer_attempt_limit");
+      require(count >= minimum, "formal raw capacity omits prospective attempts");
+      const auto bytes = multiply(count, add(prefix, bodies[index]));
+      total = add(total, bytes);
+      largest = std::max(largest, bytes);
+    }
+  }
+  return {total, largest};
+}
+
+auto validate(FixedAction action, const Object& plan, std::string_view revision)
+    -> FormalFamilyBudget {
+  const bool ring = action == FixedAction::q16a;
+  const bool scheduled = action == FixedAction::q16c;
+  require(ring || scheduled || action == FixedAction::q16b,
+          "formal family action is unsupported");
+  auto common = plan;
+  const auto& schema_version = input::text(plan, "schema_version");
+  const bool archived = schema_version.ends_with("/2");
+  if (archived)
+    common.erase("storage");
+  common.erase(ring ? "repetitions_per_context" : "repetitions_per_cell");
+  if (ring)
+    common.erase("minimum_observations_per_series");
+  if (scheduled)
+    common.erase("scale_ordinal");
+  input::fields(common, {"schema_version", "plan_id", "protocol_version", "action_id",
+                         "method_id", "source_revision", "clean_source", "stand_id",
+                         "measurement_ns", "warmup_namespace", "measurement_namespace",
+                         "custody_policy_id", "captures", "budget"});
+  const auto expected_schema =
+      std::string(ring        ? "cpu-prefetch-stage17-formal-ring-plan/"
+                  : scheduled ? "cpu-prefetch-stage17-formal-scheduled-plan/"
+                              : "cpu-prefetch-stage17-formal-service-plan/") +
+      (archived ? "2" : "1");
+  const auto expected_method = ring ? "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2"
+                               : scheduled
+                                   ? "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"
+                                   : "SERVICE-RATE-NP-LTL95C95-MIN-v1";
+  require(input::text(plan, "schema_version") == expected_schema &&
+              input::text(plan, "method_id") == expected_method &&
+              input::text(plan, "protocol_version") == "2.0.0-pre.3" &&
+              input::text(plan, "action_id") == to_string(action) &&
+              input::text(plan, "source_revision") == revision &&
+              revision.size() == 40U &&
+              input::text(plan, "custody_policy_id") ==
+                  (archived ? "EXT007-FORMAL-LOSSLESS-STAND-PRIMARY-v1"
+                            : "EXT007-RAW-NONE-STAND-PRIMARY-v1"),
+          "formal family identity/source/method differs");
+  const auto* clean = input::member(plan, "clean_source").as_bool();
+  require(std::all_of(
+              revision.begin(), revision.end(),
+              [](char c) { return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f'); }),
+          "formal source revision is not lowercase hexadecimal");
+  require(clean != nullptr && *clean, "formal family source is not clean");
+  for (const auto field :
+       {"plan_id", "stand_id", "warmup_namespace", "measurement_namespace"})
+    static_cast<void>(input::opaque_text(plan, field));
+  require(input::text(plan, "warmup_namespace") !=
+              input::text(plan, "measurement_namespace"),
+          "formal phase namespaces coincide");
+  const auto repetitions =
+      positive(plan, ring ? "repetitions_per_context" : "repetitions_per_cell");
+  require(repetitions >= (scheduled ? 1U : 59U),
+          "formal family has too few planned runs");
+  const auto duration = positive(plan, "measurement_ns");
+  static_cast<void>(input::ticks(duration));
+  const auto minimum = ring ? positive(plan, "minimum_observations_per_series") : 0U;
+  const auto scale = scheduled ? input::number(plan, "scale_ordinal") : 0U;
+  require(scale < 5U, "formal scale is outside the accepted ladder");
+  const auto cells = ring ? 12U : scheduled ? 180U : 60U;
+  const auto count = multiply(cells, repetitions);
+  require(count <= std::numeric_limits<std::size_t>::max(),
+          "formal family size overflow");
+  const auto& captures =
+      input::array(plan, "captures", static_cast<std::size_t>(count));
+  constexpr std::array packages{"R0", "R1", "R2", "L0", "L1"};
+  constexpr std::array classes{"L2_RESIDENT", "LLC_RESIDENT", "BEYOND_LLC"};
+  constexpr std::array loads{"L025", "L050", "L075"};
+  std::array<std::set<std::string>, 3U> seen;
+  std::map<std::size_t, std::string> geometries;
+  std::map<std::size_t, std::string> repeated_bounds;
+  FormalFamilyBudget result{};
+  result.captures.reserve(captures.size());
+  const auto& family = input::object(plan, "budget");
+  input::fields(family,
+                {"setup_ns", "cleanup_ns", "watchdog_ns", "controller_memory_bytes",
+                 "memory_bytes", "metadata_output_bytes", "max_output_bytes",
+                 "analysis_scratch_bytes", "disk_reserve_bytes",
+                 "required_free_disk_bytes"});
+  auto time = add(positive(family, "setup_ns"), positive(family, "cleanup_ns"));
+  auto output = positive(family, "metadata_output_bytes");
+  std::uint64_t peak = 0U;
+  for (std::size_t ordinal = 0U; ordinal < captures.size(); ++ordinal) {
+    const auto* item = captures[ordinal].as_object();
+    require(item != nullptr, "formal capture entry is not an object");
+    input::fields(*item, {"capture", "resources", "monitoring", "execution_budget"});
+    const auto& capture = input::object(*item, "capture");
+    const auto& resources = input::object(*item, "resources");
+    const auto& monitoring = input::object(*item, "monitoring");
+    const auto repetition = ordinal % repetitions;
+    const auto position = ordinal / repetitions;
+    const auto state = position / (cells / 2U);
+    const auto in_state = position % (cells / 2U);
+    const auto load = scheduled ? in_state % 3U : 0U;
+    const auto service_position = scheduled ? in_state / 3U : in_state;
+    const auto package = ring ? 0U : service_position / 6U;
+    const auto context_in_state = service_position % 6U;
+    const auto context = state * 6U + context_in_state;
+    const auto cell = ring        ? context
+                      : scheduled ? (package * 12U + context) * 3U + load
+                                  : package * 12U + context;
+    require(input::number(capture, "ordinal") == ordinal &&
+                input::number(resources, "ordinal") == ordinal &&
+                input::number(monitoring, "ordinal") == ordinal &&
+                input::number(capture, ring ? "context_ordinal" : "cell_ordinal") ==
+                    cell &&
+                input::number(capture, "repetition_ordinal") == repetition &&
+                input::text(capture, "package") == packages[package] &&
+                input::text(capture, "hardware_state") == (state == 0U ? "H0" : "H1") &&
+                input::text(capture, "placement") ==
+                    (context_in_state < 3U ? "NEAR" : "FAR") &&
+                input::text(capture, "working_set_class") ==
+                    classes[context_in_state % 3U] &&
+                input::number(capture, "measurement_ns") == duration &&
+                input::number(capture, "warmup_ns") == 5'000'000'000U &&
+                input::text(capture, "method_id") == expected_method,
+            "formal family order/context/duration differs");
+    if (ring)
+      require(input::number(capture, "minimum_observations_per_series") == minimum,
+              "formal demand minimum differs");
+    if (scheduled)
+      require(input::number(capture, "scale_ordinal") == scale &&
+                  input::text(capture, "load_level") == loads[load],
+              "formal scheduled cell/scale differs");
+    for (const auto phase : {"warmup", "measurement"}) {
+      const auto& identity = input::object(capture, phase);
+      input::phase_identity(identity);
+      require(input::text(identity, "namespace_id") ==
+                  input::text(plan, std::string(phase) + "_namespace"),
+              "formal run namespace differs");
+      std::size_t index = 0U;
+      for (const auto field : {"run_id", "seed_id", "seed_hex"})
+        require(seen[index++].insert(input::text(identity, field)).second,
+                "formal family reuses a run or seed");
+    }
+    same(input::member(capture, "arena_seed"), input::member(capture, "measurement"));
+    const auto geometry = encode(input::member(capture, "geometry"));
+    const auto [g, inserted] =
+        geometries.emplace(package * 6U + context_in_state, geometry);
+    require(inserted || g->second == geometry, "formal paired geometry differs");
+    auto resource_bounds = resources;
+    auto monitor_bounds = monitoring;
+    resource_bounds.erase("ordinal");
+    monitor_bounds.erase("ordinal");
+    const auto invariant =
+        encode(Value(Object{{"budget", input::member(capture, "budget")},
+                            {"resources", Value(std::move(resource_bounds))},
+                            {"monitoring", Value(std::move(monitor_bounds))}}));
+    const auto [b, first] = repeated_bounds.emplace(cell, invariant);
+    require(first || b->second == invariant, "formal repeated cell bounds differ");
+    const auto& budget = input::object(*item, "execution_budget");
+    input::fields(budget,
+                  {"setup_ns", "publication_ns", "cleanup_ns", "watchdog_ns",
+                   "publication_memory_bytes", "other_memory_bytes", "memory_bytes",
+                   "metadata_output_bytes", "max_output_bytes"});
+    auto capture_time =
+        add(add(positive(budget, "setup_ns"), 5'000'000'000U), duration);
+    for (const auto& phase :
+         input::array(input::object(capture, "budget"), "phases", 2U)) {
+      require(phase.as_object() != nullptr, "formal phase limits are absent");
+      capture_time = add(capture_time, positive(*phase.as_object(), "drain_ns"));
+    }
+    capture_time = add(capture_time, add(positive(budget, "publication_ns"),
+                                         positive(budget, "cleanup_ns")));
+    const auto [raw, largest] =
+        raw_extent({.capture = capture, .resources = resources}, ring);
+    auto extra_raw = std::uint64_t{0U};
+    if (!ring && package >= 3U)
+      extra_raw = multiply(
+          add(positive(input::object(capture, "geometry"), "capacity"), 1U), 8U);
+    if (scheduled) {
+      for (const auto& phase : input::array(capture, "schedules", 2U)) {
+        require(phase.as_object() != nullptr, "formal schedule is absent");
+        extra_raw =
+            add(extra_raw,
+                multiply(input::number(*phase.as_object(), "offered_count"), 8U));
+      }
+    }
+    const auto publication = positive(budget, "publication_memory_bytes");
+    require(publication >= std::max(largest, extra_raw),
+            "formal publication allocation is unbudgeted");
+    FormalCaptureBudget declared{bounded_watchdog(budget),
+                                 positive(budget, "memory_bytes"),
+                                 positive(budget, "metadata_output_bytes"),
+                                 positive(budget, "max_output_bytes")};
+    require(declared.watchdog_ns >= capture_time &&
+                declared.memory_bytes >=
+                    add(positive(resources, "total_mapping_bytes"),
+                        add(publication, positive(budget, "other_memory_bytes"))) &&
+                declared.max_output_bytes >=
+                    add(add(raw, extra_raw), declared.metadata_output_bytes),
+            "formal capture budget omits time/memory/output");
+    time = add(time, declared.watchdog_ns);
+    output = add(output, declared.max_output_bytes);
+    peak = std::max(peak, declared.memory_bytes);
+    result.captures.push_back(declared);
+  }
+  const auto controller_memory = positive(family, "controller_memory_bytes");
+  require(controller_memory >= encode(Value(plan)).size(),
+          "formal controller cannot hold plan bytes");
+  result.watchdog_ns = bounded_watchdog(family);
+  result.memory_bytes = positive(family, "memory_bytes");
+  result.metadata_output_bytes = positive(family, "metadata_output_bytes");
+  result.max_output_bytes = positive(family, "max_output_bytes");
+  result.required_free_disk_bytes = positive(family, "required_free_disk_bytes");
+  auto memory = add(controller_memory, peak);
+  auto disk =
+      add(result.max_output_bytes, add(positive(family, "analysis_scratch_bytes"),
+                                       positive(family, "disk_reserve_bytes")));
+  if (archived) {
+    constexpr std::uint64_t quota = 6'000'000'000'000U;
+    constexpr std::uint64_t gib = std::uint64_t{1024U} * 1024U * 1024U;
+    constexpr auto workspace = 512U * gib;
+    constexpr auto scratch = 256U * gib;
+    constexpr auto reserve = 16U * gib;
+    constexpr auto codec_memory = 2U * gib;
+    const auto& storage = input::object(plan, "storage");
+    input::fields(storage,
+                  {"schema_version", "program_id", "policy_id",
+                   "implementation_profile_sha256", "program_scope_sha256",
+                   "archive_quota_bytes", "workspace_bytes", "analysis_scratch_bytes",
+                   "disk_reserve_bytes", "codec_address_space_bytes", "codec_processes",
+                   "broker_address_space_bytes", "per_capture_archive_ns",
+                   "archive_staging_bytes", "capture_workspace_overhead_bytes",
+                   "checkpoint_bytes", "analysis_capture_workspace_bytes"});
+    require(input::text(storage, "schema_version") ==
+                    "cpu-prefetch-stage17-formal-storage-plan/1" &&
+                input::text(storage, "policy_id") ==
+                    "EXT007-FORMAL-LOSSLESS-STAND-PRIMARY-v1" &&
+                positive(storage, "archive_quota_bytes") == quota &&
+                positive(storage, "workspace_bytes") == workspace &&
+                positive(storage, "analysis_scratch_bytes") == scratch &&
+                positive(storage, "disk_reserve_bytes") == reserve &&
+                positive(storage, "codec_address_space_bytes") == codec_memory &&
+                positive(storage, "codec_processes") == 1U &&
+                positive(family, "analysis_scratch_bytes") == scratch &&
+                positive(family, "disk_reserve_bytes") == reserve,
+            "formal storage differs from the accepted D233 constants");
+    FormalStorageBudget declared{input::opaque_text(storage, "program_id"),
+                                 input::text(storage, "implementation_profile_sha256"),
+                                 input::text(storage, "program_scope_sha256"),
+                                 positive(storage, "broker_address_space_bytes"),
+                                 positive(storage, "per_capture_archive_ns"),
+                                 positive(storage, "archive_staging_bytes"),
+                                 positive(storage, "capture_workspace_overhead_bytes"),
+                                 positive(storage, "checkpoint_bytes"),
+                                 positive(storage, "analysis_capture_workspace_bytes")};
+    require(declared.broker_address_space_bytes <= codec_memory &&
+                declared.program_scope_sha256.size() == 64U &&
+                std::all_of(declared.program_scope_sha256.begin(),
+                            declared.program_scope_sha256.end(),
+                            [](char c) {
+                              return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f');
+                            }) &&
+                declared.implementation_profile_sha256.size() == 64U &&
+                std::all_of(declared.implementation_profile_sha256.begin(),
+                            declared.implementation_profile_sha256.end(),
+                            [](char c) {
+                              return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f');
+                            }),
+            "formal archive implementation profile hash is malformed");
+    std::uint64_t largest = 0U;
+    for (const auto& capture : result.captures) {
+      largest = std::max(largest, capture.max_output_bytes);
+      require(capture.metadata_output_bytes >= declared.checkpoint_bytes,
+              "formal capture metadata omits its final checkpoint");
+    }
+    require(declared.archive_staging_bytes <= quota &&
+                add(largest, add(declared.archive_staging_bytes,
+                                 declared.capture_workspace_overhead_bytes)) <=
+                    workspace &&
+                largest <= declared.analysis_capture_workspace_bytes &&
+                declared.analysis_capture_workspace_bytes <= scratch,
+            "formal capture/staging/analysis exceeds its physical workspace");
+    time = add(time, multiply(count, declared.per_capture_archive_ns));
+    memory = add(memory, add(codec_memory, declared.broker_address_space_bytes));
+    disk = add(quota, add(workspace, add(scratch, reserve)));
+    result.storage = std::move(declared);
+  }
+  require(result.watchdog_ns >= time && result.memory_bytes >= memory &&
+              result.max_output_bytes >= output &&
+              result.required_free_disk_bytes >= disk,
+          "formal family budget omits declared components");
+  return result;
+}
+} // namespace
+
+auto validate_formal_family(FixedAction action, const Object& plan,
+                            std::string_view expected_source_revision)
+    -> protocol::Result<FormalFamilyBudget> {
+  try {
+    return protocol::Result<FormalFamilyBudget>::success(
+        validate(action, plan, expected_source_revision));
+  } catch (const std::exception& error) {
+    return protocol::Result<FormalFamilyBudget>::failure(
+        {protocol::ErrorCategory::cross_field, "$/formal/plan", "S17-FORMAL-FAMILY",
+         error.what()});
+  }
+}
+} // namespace cpu_prefetch::runner::stage17

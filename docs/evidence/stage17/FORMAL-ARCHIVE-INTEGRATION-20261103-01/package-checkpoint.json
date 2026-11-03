@@ -1,0 +1,102 @@
+{
+  "scope": "Draft v26/v22 archive package/profile and v12 qualification runtime provenance. No release generated or qualified.",
+  "source_files": [
+    {
+      "path": "CMakeLists.txt",
+      "size_bytes": 175481,
+      "sha256": "58d5180d07fc93a98c4681d365aea095ab18255854b45a886ed6b6c94a46f9ea"
+    },
+    {
+      "path": "tools/stage17_archive_bundle_profile_v1.py",
+      "size_bytes": 8782,
+      "sha256": "aa1ef1d60a97eac9f6ed1c1bad70749d9c8640b3cba69dd5d684564242147057"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v12.py",
+      "size_bytes": 19675,
+      "sha256": "33635b81166951fa10c1fc7de5fe97cd8f08411b35aefe466b52a9f3f36b7164"
+    },
+    {
+      "path": "tools/create_stand_bundle.py",
+      "size_bytes": 56188,
+      "sha256": "49ad920b74bf32046acdca9b79bb066e386ab5024ed3d173a5924f024f7a79ab"
+    },
+    {
+      "path": "tools/verify_stand_bundle.py",
+      "size_bytes": 78808,
+      "sha256": "033beb2ddfa49b82032094d6c127d543332425da0e348a85517be0ce4339ae23"
+    },
+    {
+      "path": "tools/check_formal_codegen.py",
+      "size_bytes": 37080,
+      "sha256": "90e732318e57410d1d95fc7164e176b0dd16b02d049fd79beda50033fdd2c668"
+    },
+    {
+      "path": "tests/test_stage17_archive_bundle_profile_v1.py",
+      "size_bytes": 7218,
+      "sha256": "87a6fe587f7c0d24554d46754fc6f99f9191f94a474ed4216c9501660edba977"
+    },
+    {
+      "path": "tests/test_stage17_bundle_v26.py",
+      "size_bytes": 13930,
+      "sha256": "6a82ece6a606d1d9ffb30f3518e908c720a2da53ece4025b36d63e4a7327fb3e"
+    },
+    {
+      "path": "config/schemas/stage17-formal-archive-implementation-profile-v1.schema.json",
+      "size_bytes": 2693,
+      "sha256": "3b14c50a7890ec5f59f3dde3b32cdc42cb91841ca7e1e5826891d63476690870"
+    },
+    {
+      "path": "config/schemas/stage17-runtime-release-provenance-v10.schema.json",
+      "size_bytes": 4085,
+      "sha256": "e35fc10bd3d7823a1dc38946508792826b2bc97ffa5975e8a6c6b83da63536e3"
+    },
+    {
+      "path": "docs/decisions/0235-stage17-formal-archive-wire-format.md",
+      "size_bytes": 12508,
+      "sha256": "dcf32f6a1b777ace3766fcae05c1a286862bbedf21cd856f85db7475b2dd6155"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "build/stage17-step5-prep/d235-package-verification/codegen-rules-1.log",
+      "size_bytes": 110,
+      "sha256": "34a82a30511a2175a5286cff0751874e9220ce5fb08cab87b09cc04e220f6b31"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-package-verification/configure-1.log",
+      "size_bytes": 164,
+      "sha256": "e4d17b1d62f3213eb94096671eef0442ec76b06d675fde4901e6059720ec1fd5"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-package-verification/ctest-1.log",
+      "size_bytes": 986,
+      "sha256": "899ad6f575a2ef1f1f481776300551e782026156cb10adcae719271b33a0e346"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-package-verification/profile-tests-1.log",
+      "size_bytes": 104,
+      "sha256": "33aca778ba9c15add0f6d64f04aa9b638cfb0db848aa9e9c0d58e9ebc1968c12"
+    },
+    {
+      "path": "build/stage17-step5-prep/d235-package-verification/schema-1.log",
+      "size_bytes": 122,
+      "sha256": "5abcc9b4dd6fd44066bb2cf5f6ce43882cc30fe92b86b944ac43693637b78a3a"
+    }
+  ],
+  "native_checkpoint": {
+    "path": "build/stage17-step5-prep/d235-channel-verification/verification-checkpoint-v1.json",
+    "size_bytes": 3459,
+    "sha256": "77b077018ac92f3859cfa9f8ead2d492f976086c39022ede044e7a163e7fea9f"
+  },
+  "ctest": {
+    "entries": 5,
+    "cases": 27,
+    "result": "PASS"
+  },
+  "codegen_rules": {
+    "cases": 11,
+    "result": "PASS",
+    "native_release_reports": "not regenerated; final clean source required"
+  }
+}

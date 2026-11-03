@@ -372,10 +372,12 @@ stopped the session. Both retained phases reconcile: warmup accepted/consumed
 187,535 with FULL=0. **Full capture remains invalid: `mandatory session stop`.**
 Captures 0–8 remain unassessed, no selector ran, and duration selection remains
 unresolved. Next gate: [ACCEPTED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
-36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and local verification are complete; clean-release
-qualification is next. No new invocation has started.
-[Local verification](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-D207-20261103-01/README.md)
-retains the initial failures, corrections, and successful affected reruns. D207 permits only its bounded
+36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and qualification are complete at clean release
+`a1ade11`. Both clock pairs and Q15-R/W passed; EXT001–006 are accepted at
+v5-20 journal 000009. The single D207 36-capture family launched at
+12:29:53 UTC on 2026-11-03 and is in progress; no formal calibration credit.
+[Qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V20-20261103-01/README.md)
+retains the new release and accepted prerequisite records. D207 permits only its bounded
 conditional qualification and one new family after exact admission. No automatic retry.
 [R2 stopped-attempt and custody record](docs/evidence/stage17/DISCOVERY-RECOVERY-STOPPED-V19-20261103-01/README.md).
 
@@ -969,9 +971,11 @@ stopped the session. Both retained phases reconcile: warmup accepted/consumed
 187,535 with FULL=0. **Full capture remains invalid: `mandatory session stop`.**
 Captures 0–8 remain unassessed, no selector ran, and duration selection remains
 unresolved. Next gate: [ACCEPTED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
-36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and local verification are complete; clean-release
-qualification is next. No new invocation has started.
-[Local verification](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-D207-20261103-01/README.md)
-retains the initial failures, corrections, and successful affected reruns. D207 permits only its bounded
+36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and qualification are complete at clean release
+`a1ade11`. Both clock pairs and Q15-R/W passed; EXT001–006 are accepted at
+v5-20 journal 000009. The single D207 36-capture family launched at
+12:29:53 UTC on 2026-11-03 and is in progress; no formal calibration credit.
+[Qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V20-20261103-01/README.md)
+retains the new release and accepted prerequisite records. D207 permits only its bounded
 conditional qualification and one new family after exact admission. No automatic retry.
 EXT007 and Stage 17 remain incomplete.

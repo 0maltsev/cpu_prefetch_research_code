@@ -1,0 +1,24 @@
+{
+  "recorded_at_utc": "2026-11-03T12:13:38.116500+00:00",
+  "new_release": {
+    "source_revision": "a1ade11bc5596ad4050ba9b4ae6c4031ebd6dfde",
+    "archive_sha256": "ab3dfcf7a2e3fbf99fe78584d29b0d967b50f5275dc5f2c99f69b5d4833771d7",
+    "clock_sha256": "1e6bde398d7188e97c05b2293a596c64612b39f54a0c81aec430faa152f784ba",
+    "bundle_name": "cpu-prefetch-pilot-candidate-2.0.0-a1ade11-clean-532854d74928"
+  },
+  "predecessor_source_revision": "ac64633662c4e61c8dd98e332dc70f77085e2e48",
+  "d207_acceptance_sha256": "d9fe9556aca9cbacc55157b0c82eb03427aa8958868102da5d28e652534451d6",
+  "condition_satisfied": "D207 changes the native discovery worker, action contract, policy, and source-bound release. Existing qualification manifests bind ac64633, whereas new EXT003 and EXT006 admit a1ade11. Fresh Q15 and clock envelopes must bind the new qualified release; old observations are not relabeled.",
+  "clock_binary_bytes_unchanged": true,
+  "finite_scope": {
+    "discovery_families": 1,
+    "near_clock_max": 1,
+    "far_clock_max": 1,
+    "far_requires_near_pass": true,
+    "q15_read_max": 1,
+    "q15_write_max": 1,
+    "qualification_only_if_required": true,
+    "automatic_retries": 0
+  },
+  "cleanup": "Root operator remains available. On first qualification failure stop, establish owned-child quiescence, restore hardware via existing supervisor and restore recorded cgroup prestate. No automatic retry."
+}

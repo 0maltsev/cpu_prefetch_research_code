@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-Updated 2026-11-03. Step 2 DONE: release `ac64633`, clock and Q15-R/W qualified.
+Updated 2026-11-03. Step 2 DONE: successor release `a1ade11`, clock and Q15-R/W qualified.
 Step 3: R1 STOPPED at its first warmup; R2 STOPPED at 10:49 UTC on
 2026-11-03 with exit 1. Failed R2 raw/control evidence is retained on the stand
 under accepted D206 (`m_dur=1`, EXT007 only). PC raw copying is cancelled and
@@ -8,7 +8,7 @@ scoped PC cleanup is complete; only small results/provenance go to the PC.
 Stand-side capture-9 diagnosis and phase validation are complete: both phases
 reconcile, but full-capture validation rejects the mandatory session stop.
 Duration selection remains unresolved. Next gate is ACCEPTED ADR0207's
-36-capture 1 s/2 s/5 s grid, owner approved; implementation and local verification are complete; clean-release qualification is next before exact admission. R1 had no measurement phase or formal calibration, and its
+36-capture 1 s/2 s/5 s grid, owner approved; implementation and qualification are complete at `a1ade11`. Both clock pairs and Q15-R/W passed; EXT001–006 are accepted in fresh v5-20. The single D207 family launched at 12:29:53 UTC and is in progress. R1 had no measurement phase or formal calibration, and its
 MSR/cgroup restoration was verified. R2 isolation reapplication passed with
 the same boot and required controls; exact signature and fresh PC checks passed.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
@@ -21,8 +21,8 @@ and requests an update after every step. Defer EXT008–010, pilot execution and
 Stage 18 work. Finish only already-started checks and necessary calibration work.
 
 1. **Complete:** finish current verification and freeze the discovery implementation.
-2. **Complete:** clean release `ac64633`, both clock pairs and Q15-R/W pass.
-   EXT001–006 are admitted at v5-19 journal 000009, six resolutions and three
+2. **Complete:** clean successor release `a1ade11`, both clock pairs and Q15-R/W pass.
+   EXT001–006 are admitted at v5-20 journal 000009, six resolutions and three
    transitions, READY_FOR_STAGE17_PHASE_AUTHORIZATION. Q15-W restored hardware.
 3. **Stopped, unresolved:** the first 36-capture family stopped during capture 0
    warmup. The consumer reached five million attempts; the independently reconciled
@@ -46,8 +46,10 @@ Stage 18 work. Finish only already-started checks and necessary calibration work
    full-capture validation rejects `mandatory session stop`. Earlier captures
    remain unassessed and no duration selector ran. Next gate is
    [ACCEPTED ADR0207](decisions/0207-stage17-ext007-discovery-duration-revision.md):
-   36 fresh captures across 1 s/2 s/5 s, approved by the owner. Versioned implementation and local verification are complete; clean-release qualification is next;
-   collection remains gated on exact admission, with no automatic retry.
+   36 fresh captures across 1 s/2 s/5 s, approved by the owner. Versioned implementation and qualification are complete at `a1ade11`;
+   both clock pairs and Q15-R/W passed. EXT001–006 are accepted at v5-20
+   journal 000009. The exact signed D207 family launched at 12:29:53 UTC
+   on 2026-11-03 and is in progress, with no automatic retry.
 5. Complete required formal-calibration fixes, freeze the prospective plans,
    then execute Q16a (708 fresh captures), Q16b (3,540 runs) and Q16c in order.
 6. Validate and seal calibration evidence, derive the freeze, and admit EXT-007.
@@ -107,10 +109,10 @@ Report each completed step or changed blocker against this six-step plan.
   was isolated by this diagnosis. Only small reports/provenance returned to the PC.
 - Next gate: [ACCEPTED ADR0207](decisions/0207-stage17-ext007-discovery-duration-revision.md),
   36 fresh captures across 1 s/2 s/5 s, with unchanged five-second warmup and
-  approved 30-million-attempt buffers for both phases. Owner approval is recorded;
-  a qualified versioned implementation is required before any new execution;
-  R2 observations do not select a duration for the proposed family.
-- Current release `ac64633` passes seven strict codegen gates and local/stand
+  approved 30-million-attempt buffers for both phases. Owner approval is recorded; clean release `a1ade11` is qualified and the
+  exact signed family launched at 12:29:53 UTC. Selection is pending full
+  retained-study validation. R2 observations do not select its duration.
+- Predecessor release `ac64633` passes seven strict codegen gates and local/stand
   package verification (1,826 files). Both v2 clock pairs pass, and actual
   Q15-R/W passes with verified W restoration. EXT001–006 are admitted at v5-19
   journal 000009 with three transitions. The original EXT005 admission draft

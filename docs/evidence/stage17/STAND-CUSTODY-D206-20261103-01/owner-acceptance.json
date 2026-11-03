@@ -1,0 +1,20 @@
+{
+  "record_id": "CPU-PREFETCH-V5-EXT007-D206-OWNER-ACCEPTANCE-1",
+  "recorded_at_utc": "2026-11-03T11:06:37.322407+00:00",
+  "exact_user_reply": "Approve stand-only raw storage and PC cleanup",
+  "approval_source": "Current conversation explicit answer to proposed EXT007 custody policy question",
+  "proposal_sha256": "c1d4d9cd0ec53b3aea9a4d8dd7b13c7b3f73552f1b475a4476b3b8a6ca10b92f",
+  "proposal_size_bytes": 3696,
+  "policy_id": "EXT007-RAW-NONE-STAND-PRIMARY-v1",
+  "scope": "Stage17 EXT007 diagnostic and calibration raw data, including v19 first attempt and R2",
+  "m_dur": 1,
+  "compression": "NONE",
+  "analysis_location": "stand",
+  "pc_products": "Reports, manifests, signed authorities, failure/restoration/validation records and final results",
+  "failed_raw_retained_on_stand": true,
+  "pc_verified_duplicates_and_partial_transfer_cleanup_authorized": true,
+  "new_experiment_authority": false,
+  "automatic_retry_authority": false,
+  "phase18_authority": false,
+  "independent_raw_backup": false
+}

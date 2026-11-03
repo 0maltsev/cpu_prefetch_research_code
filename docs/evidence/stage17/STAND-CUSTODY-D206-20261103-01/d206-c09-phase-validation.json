@@ -1,0 +1,59 @@
+{
+  "started_at_utc": "2026-11-03T11:17:59.281911+00:00",
+  "scope": "FAILED_CAPTURE_09_PHASE_INTEGRITY_ONLY",
+  "custody_policy": "EXT007-RAW-NONE-STAND-PRIMARY-v1",
+  "owner_acceptance_sha256": "caa447f368053076b23cf296185cebe93c4318e93dcf99fd7480c89314b143c7",
+  "request_sha256": "5c2da9d3712bd7051706f8ce4767d280438d1765354d7133aeaecd71cb75a871",
+  "validator_sha256": "ec5dd7250fa682465ae49ab97ccdf58799611b01f551b2b8da4547a295f5510a",
+  "duration_selection": "UNRESOLVED_INVALID_PARTIAL_STUDY",
+  "formal_runs_contributed": 0,
+  "execution_authority": false,
+  "phases": [
+    {
+      "phase": "warmup",
+      "status": "PASS",
+      "result": {
+        "attempted": 9639939,
+        "accepted": 9635880,
+        "full": 4059,
+        "consumed": 9635880,
+        "counts": {
+          "producer_demand": 9639939,
+          "consumer_demand": 14157089,
+          "producer_issue": 9635879,
+          "consumer_issue": 9635876
+        },
+        "elapsed_ns": 5000000063,
+        "capacity_limited": false,
+        "drain_begin_tick": 10428064596000,
+        "drain_end_tick": 10428118796000
+      }
+    },
+    {
+      "phase": "measurement",
+      "status": "PASS",
+      "result": {
+        "attempted": 187535,
+        "accepted": 187535,
+        "full": 0,
+        "consumed": 187535,
+        "counts": {
+          "producer_demand": 187535,
+          "consumer_demand": 265890,
+          "producer_issue": 187534,
+          "consumer_issue": 187533
+        },
+        "elapsed_ns": 100000203,
+        "capacity_limited": false,
+        "drain_begin_tick": 12728272859000,
+        "drain_end_tick": 12728276252000
+      }
+    }
+  ],
+  "full_capture_validation": {
+    "status": "REJECTED",
+    "reason": "mandatory session stop"
+  },
+  "status": "FAILED_CAPTURE_PHASES_RECONCILED_NOT_VALID_CAPTURE",
+  "finished_at_utc": "2026-11-03T11:23:52.314854+00:00"
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "pc_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-discovery-v19-copy1/discovery-output-r2-1.custody/invocation-adc561fcafb24eb380ff6f1133fc7811/discovery-c07-control.json.partial",
+    "pc_size_bytes": 1607454720,
+    "source_file": "discovery-c07-control.json",
+    "source_size_bytes": 2686396725,
+    "source_sha256": "be18201f81bd21c619a927d5390952686345759b758e08d431b99a7a24cf320a"
+  },
+  {
+    "pc_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-discovery-v19-copy1/discovery-output-r2-1.custody/invocation-adc561fcafb24eb380ff6f1133fc7811/discovery-c08-control.json.partial",
+    "pc_size_bytes": 1829667840,
+    "source_file": "discovery-c08-control.json",
+    "source_size_bytes": 3237990175,
+    "source_sha256": "b89f2253fbcb44f43c8a0bc350ff85392a8f71e70510c85d8a1a8206e7d6bf65"
+  },
+  {
+    "pc_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-discovery-v19-copy1/discovery-output-r2-1.custody/invocation-adc561fcafb24eb380ff6f1133fc7811/discovery-c07-warmup-producer.bin.partial",
+    "pc_size_bytes": 1540346880,
+    "source_file": "discovery-c07-warmup-producer.bin",
+    "source_size_bytes": 2092098608,
+    "source_sha256": "7d8af8ebf4de9f41eab365b747f4ff5faf2b104f1e36eb68104c7b245d19a4bd"
+  },
+  {
+    "pc_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-discovery-v19-copy1/discovery-output-r2-1.custody/invocation-adc561fcafb24eb380ff6f1133fc7811/discovery-c06-warmup-producer.bin.partial",
+    "pc_size_bytes": 1805905920,
+    "source_file": "discovery-c06-warmup-producer.bin",
+    "source_size_bytes": 2092315120,
+    "source_sha256": "2f133680b0e81fd4263b849468960927003d6e06899e3f1f1bc92cc65e645755"
+  }
+]

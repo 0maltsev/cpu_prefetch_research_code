@@ -1,9 +1,9 @@
 # CPU Prefetch Research Code
 
 Current EXT007 status (2026-11-03): **Step 2 DONE; R1 STOPPED at its first
-warmup; R2 STOPPED at 10:49 UTC, custody in progress.** R1 had no measurement phase or formal
+warmup; R2 STOPPED at 10:49 UTC, D206 stand-primary custody; PC cleanup complete.** R1 had no measurement phase or formal
 calibration. R1 MSR and cgroup restoration was verified. All 12 files
-(1,142,655,488 bytes) have SHA-verified two-copy custody. Independent validation
+(1,142,655,488 bytes) had SHA-verified two-copy custody. Independent validation
 reports `FAILED_STUDY_PREFIX_RECONCILED`: the consumer reached five million
 attempts; the reconciled prefix spans 1,472,506,585 ns, with 4,199,692 accepted
 and consumed events including one drained event, and FULL=0. Full-capture
@@ -19,11 +19,25 @@ passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-
 requirement, and its custody probe passed. **R2 STOPPED at 10:49 UTC on
 2026-11-03 with exit 1**, after starting at 10:33:27 UTC under the single approved
 authority. Ten controls and 75 files totaling 52,465,834,715 bytes were retained;
-the restoration result reports true. Inventory hashing and two-copy custody
-are in progress. Scientific validity and duration selection remain unresolved;
-independent validation has not yet occurred. No retry authority remains. The forthcoming
-[R2 preparation and results record](docs/evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
-will retain the evidence. No new clock capture or automatic retry is authorized.
+the restoration result reports true. The owner accepted
+[D206: EXT007 stand-primary raw custody](docs/decisions/0206-stage17-ext007-stand-primary-custody.md),
+with [the proposal and explicit acceptance retained](docs/evidence/stage17/STAND-CUSTODY-D206-20261103-01/owner-acceptance.json).
+For EXT007 diagnostic and calibration data only, one uncompressed stand raw copy
+(`m_dur=1`) replaces the second independent raw-copy requirement. Failed raw/control
+evidence remains on the stand; only small results and provenance go to the PC.
+There is no independent raw backup. PC raw copying is cancelled and scoped PC
+cleanup completed at 11:12:37 UTC: 16 PC files totaling 7,926,030,848 bytes
+were removed after stand-original verification; no stand raw file was deleted.
+The [D206 cleanup and capture-9 validation evidence](docs/evidence/stage17/STAND-CUSTODY-D206-20261103-01/README.md)
+records a required observation starting at 25.005774 ms and ending at
+188.537605 ms, beyond the 100 ms measurement window. The observer gate correctly
+stopped the session. Both retained phases reconcile: warmup accepted/consumed
+9,635,880 with FULL=4,059 and actual reset verified; measurement accepted/consumed
+187,535 with FULL=0. **Full capture remains invalid: `mandatory session stop`.**
+Captures 0–8 remain unassessed, no selector ran, and duration selection remains
+unresolved. Next gate: [PROPOSED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
+36 fresh captures across 1 s/2 s/5 s, awaiting owner design approval and a
+versioned implementation. No new run, clock capture or automatic retry is authorized.
 [R2 stopped-attempt and custody record](docs/evidence/stage17/DISCOVERY-RECOVERY-STOPPED-V19-20261103-01/README.md).
 
 The implementation checkpoints below preserve their historical status. Claims
@@ -227,7 +241,8 @@ ADR-0203 supplies caller-owned linked storage; its allocation test is explicitly
 skipped under Clang TSan, while the other eleven functional cases pass.
 These remain software checks. The clean qualified release and finite stand plan
 precede actual collection. The owner's active priority is EXT-007 only, using
-the existing PC for the second uncompressed durable copy.
+the existing PC for the second uncompressed durable copy at that checkpoint.
+D206 now supersedes that raw-copy requirement for EXT007 only.
 
 Operational update (2026-10-30): the real `cpu-prefetch-v5` v5-12 journal
 freshly validates six admitted inputs (EXT001-006), two transitions, and state
@@ -1347,7 +1362,7 @@ uses the same actual Q15-W evidence without repeating hardware operations.
 records this completed Step 2. Step 3's first 36-capture family stopped during
 capture 0 warmup; no measurement phase or formal calibration ran. Native exit
 was nonzero, partial evidence was retained, and MSR/cgroup restoration was
-verified. All 12 retained files (1,142,655,488 bytes) have SHA-verified two-copy
+verified. All 12 retained files (1,142,655,488 bytes) had SHA-verified two-copy
 custody. Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`:
 five million consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and
 consumed both 4,199,692 including one drained event; FULL=0. Full-capture
@@ -1364,9 +1379,23 @@ passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-
 requirement, and its custody probe passed. **R2 STOPPED at 10:49 UTC on
 2026-11-03 with exit 1**, after starting at 10:33:27 UTC under the single approved
 authority. Ten controls and 75 files totaling 52,465,834,715 bytes were retained;
-the restoration result reports true. Inventory hashing and two-copy custody
-are in progress. Scientific validity and duration selection remain unresolved;
-independent validation has not yet occurred. No retry authority remains. The forthcoming
-[R2 preparation and results record](docs/evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
-will retain the evidence. No new clock capture or automatic retry is authorized.
+the restoration result reports true. The owner accepted
+[D206: EXT007 stand-primary raw custody](docs/decisions/0206-stage17-ext007-stand-primary-custody.md),
+with [the proposal and explicit acceptance retained](docs/evidence/stage17/STAND-CUSTODY-D206-20261103-01/owner-acceptance.json).
+For EXT007 diagnostic and calibration data only, one uncompressed stand raw copy
+(`m_dur=1`) replaces the second independent raw-copy requirement. Failed raw/control
+evidence remains on the stand; only small results and provenance go to the PC.
+There is no independent raw backup. PC raw copying is cancelled and scoped PC
+cleanup completed at 11:12:37 UTC: 16 PC files totaling 7,926,030,848 bytes
+were removed after stand-original verification; no stand raw file was deleted.
+The [D206 cleanup and capture-9 validation evidence](docs/evidence/stage17/STAND-CUSTODY-D206-20261103-01/README.md)
+records a required observation starting at 25.005774 ms and ending at
+188.537605 ms, beyond the 100 ms measurement window. The observer gate correctly
+stopped the session. Both retained phases reconcile: warmup accepted/consumed
+9,635,880 with FULL=4,059 and actual reset verified; measurement accepted/consumed
+187,535 with FULL=0. **Full capture remains invalid: `mandatory session stop`.**
+Captures 0–8 remain unassessed, no selector ran, and duration selection remains
+unresolved. Next gate: [PROPOSED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
+36 fresh captures across 1 s/2 s/5 s, awaiting owner design approval and a
+versioned implementation. No new run, clock capture or automatic retry is authorized.
 EXT007 and Stage 17 remain incomplete.

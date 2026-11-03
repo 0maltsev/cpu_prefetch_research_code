@@ -1,0 +1,106 @@
+{
+  "status": "PASS_STAND_ORIGINALS_VERIFIED_FOR_PC_CLEANUP",
+  "observed_at_utc": "2026-11-03T11:11:01.562689+00:00",
+  "policy_id": "EXT007-RAW-NONE-STAND-PRIMARY-v1",
+  "owner_acceptance_sha256": "caa447f368053076b23cf296185cebe93c4318e93dcf99fd7480c89314b143c7",
+  "cleanup_request_sha256": "af409de2b313f7a9cfccc8e83721c65e13bc47d050381cca240241cb40b7e0b2",
+  "verified": [
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/discovery-c00-control.json",
+      "path": "discovery-c00-control.json",
+      "size_bytes": 27519778,
+      "sha256": "1214f2a9f7887bad16474301a86dccb20984be1da2226032fbdcf29f445cb108"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/discovery-c00-measurement-consumer.bin",
+      "path": "discovery-c00-measurement-consumer.bin",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/discovery-c00-measurement-demand.bin",
+      "path": "discovery-c00-measurement-demand.bin",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/discovery-c00-measurement-producer.bin",
+      "path": "discovery-c00-measurement-producer.bin",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/discovery-c00-warmup-consumer.bin",
+      "path": "discovery-c00-warmup-consumer.bin",
+      "size_bytes": 403170432,
+      "sha256": "848639003c3f764e04c850a24d5339e07a3c7f250d57466c9a91b10ba28baccb"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/discovery-c00-warmup-demand.bin",
+      "path": "discovery-c00-warmup-demand.bin",
+      "size_bytes": 140792584,
+      "sha256": "a01fdc4f643b06219931cf5f33b843eff02499fbf3e97d023254b318cce52e13"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/discovery-c00-warmup-producer.bin",
+      "path": "discovery-c00-warmup-producer.bin",
+      "size_bytes": 571158112,
+      "sha256": "b86ba2faa76a9d088c3b820e14f44aab05bb781febb512c3df73d80fa8d975fb"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/stage17-q16a_duration_discovery-attempt-v5.json",
+      "path": "stage17-q16a_duration_discovery-attempt-v5.json",
+      "size_bytes": 935,
+      "sha256": "51f602d699c823722bfbcd3b0da5e9bed39cea40074c0c314e4852cc933b2d3e"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/stage17-q16a_duration_discovery-failure-v5.json",
+      "path": "stage17-q16a_duration_discovery-failure-v5.json",
+      "size_bytes": 1093,
+      "sha256": "5abb428b420d444f35963ff62a337004a6e11a201a2dd2235b59e571ab27bc3f"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/stage17-q16a_duration_discovery-stderr-v5.bin",
+      "path": "stage17-q16a_duration_discovery-stderr-v5.bin",
+      "size_bytes": 165,
+      "sha256": "509d167313fe043e3a3aa3b1f4f0a3ca850e758a5703fd1014858dbf46be0f69"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/stage17-q16a_duration_discovery-stdout-v5.bin",
+      "path": "stage17-q16a_duration_discovery-stdout-v5.bin",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1/studyhardware.json",
+      "path": "studyhardware.json",
+      "size_bytes": 12389,
+      "sha256": "8c840d29141a3070153fc47b07dbcecfaee65b7a0420e8afef09be3a9024bc1f"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-r2-1/discovery-c07-control.json",
+      "path": "discovery-c07-control.json",
+      "size_bytes": 2686396725,
+      "sha256": "be18201f81bd21c619a927d5390952686345759b758e08d431b99a7a24cf320a"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-r2-1/discovery-c08-control.json",
+      "path": "discovery-c08-control.json",
+      "size_bytes": 3237990175,
+      "sha256": "b89f2253fbcb44f43c8a0bc350ff85392a8f71e70510c85d8a1a8206e7d6bf65"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-r2-1/discovery-c07-warmup-producer.bin",
+      "path": "discovery-c07-warmup-producer.bin",
+      "size_bytes": 2092098608,
+      "sha256": "7d8af8ebf4de9f41eab365b747f4ff5faf2b104f1e36eb68104c7b245d19a4bd"
+    },
+    {
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-r2-1/discovery-c06-warmup-producer.bin",
+      "path": "discovery-c06-warmup-producer.bin",
+      "size_bytes": 2092315120,
+      "sha256": "2f133680b0e81fd4263b849468960927003d6e06899e3f1f1bc92cc65e645755"
+    }
+  ],
+  "raw_deleted_on_stand": false
+}

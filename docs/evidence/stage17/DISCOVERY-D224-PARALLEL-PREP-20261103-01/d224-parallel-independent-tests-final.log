@@ -1,0 +1,18 @@
+test_full36_exact_serial_equality_eight_workers_and_original_selection_order (__main__.ParallelValidationTests.test_full36_exact_serial_equality_eight_workers_and_original_selection_order) ... ok
+test_full36_single_worker_preserves_result_and_checks_memory_limit (__main__.ParallelValidationTests.test_full36_single_worker_preserves_result_and_checks_memory_limit) ... ok
+test_global_whole_plot_and_bound_input_checks_preserved (__main__.ParallelValidationTests.test_global_whole_plot_and_bound_input_checks_preserved) ... ok
+test_incomplete_duplicate_and_unsuccessful_worker_receipts_rejected (__main__.ParallelValidationTests.test_incomplete_duplicate_and_unsuccessful_worker_receipts_rejected) ... ok
+test_invalid_process_controls_and_changed_base_hash_rejected_before_fork (__main__.ParallelValidationTests.test_invalid_process_controls_and_changed_base_hash_rejected_before_fork) ... ok
+test_last_capture_actual_msr_and_final_cleanup_rejected (__main__.ParallelValidationTests.test_last_capture_actual_msr_and_final_cleanup_rejected) ... ok
+test_last_capture_control_raw_binding_mismatch_rejected (__main__.ParallelValidationTests.test_last_capture_control_raw_binding_mismatch_rejected) ... ok
+test_last_capture_primary_raw_hash_rejected (__main__.ParallelValidationTests.test_last_capture_primary_raw_hash_rejected) ... ok
+test_last_capture_rebound_raw_ordinal_still_rejected (__main__.ParallelValidationTests.test_last_capture_rebound_raw_ordinal_still_rejected) ... ok
+test_missing_duplicate_and_false_retention_claims_rejected (__main__.ParallelValidationTests.test_missing_duplicate_and_false_retention_claims_rejected) ... ok
+test_process_start_failure_reaps_already_started_workers_without_retry (__main__.ParallelValidationTests.test_process_start_failure_reaps_already_started_workers_without_retry) ... ok
+test_progress_callback_failure_cleans_workers_and_skips_selection (__main__.ParallelValidationTests.test_progress_callback_failure_cleans_workers_and_skips_selection) ... ok
+test_worker_exception_death_and_timeout_reap_every_started_child (__main__.ParallelValidationTests.test_worker_exception_death_and_timeout_reap_every_started_child) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 61.710s
+
+OK

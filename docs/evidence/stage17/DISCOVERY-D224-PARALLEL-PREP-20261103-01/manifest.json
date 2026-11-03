@@ -1,0 +1,79 @@
+{
+  "status": "SOFTWARE_PREPARATION_VERIFIED_STAND_LAUNCH_PENDING",
+  "files": [
+    {
+      "path": "run_parallel_analysis.py",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/run_parallel_analysis.py",
+      "size_bytes": 19211,
+      "sha256": "9c22a76d68482c2a8d54f25964e4b52a2996f9237218ff3505295454d8493ad8"
+    },
+    {
+      "path": "prepare_install.py",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/prepare_install.py",
+      "size_bytes": 7543,
+      "sha256": "66370f7ec41a829d2397db59ced14c485b2f5bbeb1bc3a6e0d0ef59f766ae91e"
+    },
+    {
+      "path": "prepare_wrapper.py",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/prepare_wrapper.py",
+      "size_bytes": 3264,
+      "sha256": "63ccbc5be9be51fce6f3a347e5c6e014b4ca919ca827aee7f0de28ee720a9c46"
+    },
+    {
+      "path": "validate_d207_retained_study_parallel_v1.py",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/validate_d207_retained_study_parallel_v1.py",
+      "size_bytes": 20371,
+      "sha256": "2e7960081e2f43009f3836bbee22708b3a1511651020b20661f8c899b004bf87"
+    },
+    {
+      "path": "test_parallel_launcher.py",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/test_parallel_launcher.py",
+      "size_bytes": 16514,
+      "sha256": "eed92e1ef8905bcfc0b4cb11fdf1003dc8d31cde0cdf47993912be879a13b96a"
+    },
+    {
+      "path": "test_wrapper_parallel.py",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/test_wrapper_parallel.py",
+      "size_bytes": 2811,
+      "sha256": "be74015655d9f682fe8b915a585977d0426bd345b1be88df4abbf5bd71339652"
+    },
+    {
+      "path": "launcher-test-2.log",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/launcher-test-2.log",
+      "size_bytes": 2147,
+      "sha256": "966f4741098ccf27e8f196565fce41ba20f8c82d67fad77ee995b41e3c10c022"
+    },
+    {
+      "path": "wrapper-test-final.log",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/wrapper-test-final.log",
+      "size_bytes": 1755,
+      "sha256": "b6e8b1e7297286e3d168e87eb186180605b1ebb4e44808d0e5a751026469f240"
+    },
+    {
+      "path": "installed-bindings.json",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/installation-1/installed-bindings.json",
+      "size_bytes": 4825,
+      "sha256": "9e247c63010b5e6169f76875018bbb1967efc6f4d6ff884dc117d02d70c8c416"
+    },
+    {
+      "path": "preparation-summary.json",
+      "original_path": "build/stage17-step4-prep/d224-parallel-analysis/installation-1/preparation-summary.json",
+      "size_bytes": 1614,
+      "sha256": "f6d97b7dee39e1f73f1f0b75994788d5512035316948a8e28ea77e0564833c44"
+    },
+    {
+      "path": "d224-parallel-independent-tests-final.log",
+      "original_path": "build/stage17-step5-prep/d214-verification/d224-parallel-independent-tests-final.log",
+      "size_bytes": 2268,
+      "sha256": "59b9aef34b1ab65e4f1cc31fa518a50d408c77dccbf824ca7f03c6eb2c7ead1e"
+    },
+    {
+      "path": "run_reanalysis.py",
+      "original_path": "build/stage17-step4-prep/d213-reanalysis/run_reanalysis.py",
+      "size_bytes": 4274,
+      "sha256": "3c7072202e4b8dd5a42fed1d83531e4fb2c57a282570e1d95a3b0fdb14a78e94"
+    }
+  ],
+  "raw_data_copied": false,
+  "experiment_authority": false
+}

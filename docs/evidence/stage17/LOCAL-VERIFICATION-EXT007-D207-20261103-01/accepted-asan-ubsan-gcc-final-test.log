@@ -1,0 +1,131 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 52 tests from 7 test suites.
+[----------] Global test environment set-up.
+[----------] 5 tests from RunnerQ13Policy
+[ RUN      ] RunnerQ13Policy.ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen
+[       OK ] RunnerQ13Policy.ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen (0 ms)
+[ RUN      ] RunnerQ13Policy.SoftwarePrefetchT0OnlyMappingIsFrozenAndEmitsOnlyPrefetchT0
+[       OK ] RunnerQ13Policy.SoftwarePrefetchT0OnlyMappingIsFrozenAndEmitsOnlyPrefetchT0 (0 ms)
+[ RUN      ] RunnerQ13Policy.SoftwarePrefetchMappingRegistryCoversAdr0047AndAdr0175Only
+[       OK ] RunnerQ13Policy.SoftwarePrefetchMappingRegistryCoversAdr0047AndAdr0175Only (0 ms)
+[ RUN      ] RunnerQ13Policy.AcceptedCpuPairSelectionIdsCoverAdr0043AndAdr0173Only
+[       OK ] RunnerQ13Policy.AcceptedCpuPairSelectionIdsCoverAdr0043AndAdr0173Only (0 ms)
+[ RUN      ] RunnerQ13Policy.AcceptedWorkerPairsCoverAdr0043AndAdr0173NearAndFarOnly
+[       OK ] RunnerQ13Policy.AcceptedWorkerPairsCoverAdr0043AndAdr0173NearAndFarOnly (0 ms)
+[----------] 5 tests from RunnerQ13Policy (0 ms total)
+
+[----------] 10 tests from RunnerAdmission
+[ RUN      ] RunnerAdmission.SyntheticFixtureUsingAdr0173FarPairPassesFieldValidation
+[       OK ] RunnerAdmission.SyntheticFixtureUsingAdr0173FarPairPassesFieldValidation (0 ms)
+[ RUN      ] RunnerAdmission.CompleteSyntheticFixturePassesFieldValidation
+[       OK ] RunnerAdmission.CompleteSyntheticFixturePassesFieldValidation (0 ms)
+[ RUN      ] RunnerAdmission.SealedControllerProofProducesTicketWithoutPathReread
+[       OK ] RunnerAdmission.SealedControllerProofProducesTicketWithoutPathReread (0 ms)
+[ RUN      ] RunnerAdmission.EveryEvidenceKindIsMandatoryAndUnique
+[       OK ] RunnerAdmission.EveryEvidenceKindIsMandatoryAndUnique (12 ms)
+[ RUN      ] RunnerAdmission.MissingStaleMutableOrIneligibleInputsFailClosed
+[       OK ] RunnerAdmission.MissingStaleMutableOrIneligibleInputsFailClosed (0 ms)
+[ RUN      ] RunnerAdmission.EmptyIdentityAndMalformedBinaryHashFailClosed
+[       OK ] RunnerAdmission.EmptyIdentityAndMalformedBinaryHashFailClosed (0 ms)
+[ RUN      ] RunnerAdmission.PairProfilePackageAndBuildDriftFailClosed
+[       OK ] RunnerAdmission.PairProfilePackageAndBuildDriftFailClosed (0 ms)
+[ RUN      ] RunnerAdmission.StaticDispatcherInstantiatesExactlyTheSelectedPackage
+[       OK ] RunnerAdmission.StaticDispatcherInstantiatesExactlyTheSelectedPackage (14 ms)
+[ RUN      ] RunnerAdmission.FileHashVerificationRejectsMismatchAndSymlink
+[       OK ] RunnerAdmission.FileHashVerificationRejectsMismatchAndSymlink (4 ms)
+[ RUN      ] RunnerAdmission.StrictJsonRejectsUnknownFieldsAndUnknownEvidence
+[       OK ] RunnerAdmission.StrictJsonRejectsUnknownFieldsAndUnknownEvidence (12 ms)
+[----------] 10 tests from RunnerAdmission (48 ms total)
+
+[----------] 5 tests from RunnerPreparation
+[ RUN      ] RunnerPreparation.AffinityReadbackPrecedesOwnerPrivateFirstTouch
+[       OK ] RunnerPreparation.AffinityReadbackPrecedesOwnerPrivateFirstTouch (1 ms)
+[ RUN      ] RunnerPreparation.AffinityMismatchFailsBeforePrivateFirstTouch
+[       OK ] RunnerPreparation.AffinityMismatchFailsBeforePrivateFirstTouch (0 ms)
+[ RUN      ] RunnerPreparation.T0OnlyPreparationPreservesAbsentPrfchwObservation
+[       OK ] RunnerPreparation.T0OnlyPreparationPreservesAbsentPrfchwObservation (0 ms)
+[ RUN      ] RunnerPreparation.MissingPrfchwFailsBeforePrivateFirstTouch
+[       OK ] RunnerPreparation.MissingPrfchwFailsBeforePrivateFirstTouch (0 ms)
+[ RUN      ] RunnerPreparation.AdmittedStaticPathUsesAffinedPreparationBeforeEmptyRun
+[       OK ] RunnerPreparation.AdmittedStaticPathUsesAffinedPreparationBeforeEmptyRun (4 ms)
+[----------] 5 tests from RunnerPreparation (6 ms total)
+
+[----------] 4 tests from RunnerQualification
+[ RUN      ] RunnerQualification.TypedArtifactProducersDeriveEligibilityAndCanonicalBytes
+[       OK ] RunnerQualification.TypedArtifactProducersDeriveEligibilityAndCanonicalBytes (29 ms)
+[ RUN      ] RunnerQualification.MissingCountsMigrationsAndUnavailablePagesStayIneligible
+[       OK ] RunnerQualification.MissingCountsMigrationsAndUnavailablePagesStayIneligible (9 ms)
+[ RUN      ] RunnerQualification.SoftwarePrefetchT0OnlyMappingIsEligibleWithoutPrfchw
+[       OK ] RunnerQualification.SoftwarePrefetchT0OnlyMappingIsEligibleWithoutPrfchw (7 ms)
+[ RUN      ] RunnerQualification.ActualCpuMigrationAcceptsSingleCpuSeriesBoundToProducerRole
+[       OK ] RunnerQualification.ActualCpuMigrationAcceptsSingleCpuSeriesBoundToProducerRole (3 ms)
+[----------] 4 tests from RunnerQualification (49 ms total)
+
+[----------] 11 tests from DiscoveryNativeInput
+[ RUN      ] DiscoveryNativeInput.ConvertsExactDurationsAndExplicitSeedWithoutHardwareAccess
+[       OK ] DiscoveryNativeInput.ConvertsExactDurationsAndExplicitSeedWithoutHardwareAccess (4 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsUnqualifiedLayoutSizesBeforeAnyMapping
+[       OK ] DiscoveryNativeInput.RejectsUnqualifiedLayoutSizesBeforeAnyMapping (19 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsScientificContextDriftAndNonIntegerInputs
+[       OK ] DiscoveryNativeInput.RejectsScientificContextDriftAndNonIntegerInputs (22 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsImplicitArenaSeedAndUnknownControlFields
+[       OK ] DiscoveryNativeInput.RejectsImplicitArenaSeedAndUnknownControlFields (9 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsCpuOverflowAndAbsentLimits
+[       OK ] DiscoveryNativeInput.RejectsCpuOverflowAndAbsentLimits (9 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsAbsentMalformedAndDuplicateEnvironmentSources
+[       OK ] DiscoveryNativeInput.RejectsAbsentMalformedAndDuplicateEnvironmentSources (38 ms)
+[ RUN      ] DiscoveryNativeInput.SizingBindsEnvironmentalStorageWithoutAdmittingPlaceholders
+[       OK ] DiscoveryNativeInput.SizingBindsEnvironmentalStorageWithoutAdmittingPlaceholders (6 ms)
+[ RUN      ] DiscoveryNativeInput.ResolvesOnlyExactVersionAndDesignPairs
+[       OK ] DiscoveryNativeInput.ResolvesOnlyExactVersionAndDesignPairs (0 ms)
+[ RUN      ] DiscoveryNativeInput.BothDesignsPreserveAll36OrderedContextSlots
+[       OK ] DiscoveryNativeInput.BothDesignsPreserveAll36OrderedContextSlots (458 ms)
+[ RUN      ] DiscoveryNativeInput.V1DefaultRejectsTwoSecondsAndV2RejectsOldGrid
+[       OK ] DiscoveryNativeInput.V1DefaultRejectsTwoSecondsAndV2RejectsOldGrid (11 ms)
+[ RUN      ] DiscoveryNativeInput.V2RejectsBufferWarmupAndDeclaredLayoutDrift
+[       OK ] DiscoveryNativeInput.V2RejectsBufferWarmupAndDeclaredLayoutDrift (22 ms)
+[----------] 11 tests from DiscoveryNativeInput (602 ms total)
+
+[----------] 12 tests from Stage17DiscoveryPublication
+[ RUN      ] Stage17DiscoveryPublication.PreservesRawCodecRunIdsAndFourVectorOffsets
+[       OK ] Stage17DiscoveryPublication.PreservesRawCodecRunIdsAndFourVectorOffsets (54 ms)
+[ RUN      ] Stage17DiscoveryPublication.MissingOwnersRetainSevenFilesAndNullFacts
+[       OK ] Stage17DiscoveryPublication.MissingOwnersRetainSevenFilesAndNullFacts (34 ms)
+[ RUN      ] Stage17DiscoveryPublication.ConsumerIdentityIsRetainedWhenProducerMissing
+[       OK ] Stage17DiscoveryPublication.ConsumerIdentityIsRetainedWhenProducerMissing (47 ms)
+[ RUN      ] Stage17DiscoveryPublication.RetainsFailedCurrentEventDrainAndSessionWithoutCompletenessClaim
+[       OK ] Stage17DiscoveryPublication.RetainsFailedCurrentEventDrainAndSessionWithoutCompletenessClaim (62 ms)
+[ RUN      ] Stage17DiscoveryPublication.SinkFailureStopsImmediatelyWithoutRetryOrSuccess
+[       OK ] Stage17DiscoveryPublication.SinkFailureStopsImmediatelyWithoutRetryOrSuccess (37 ms)
+[ RUN      ] Stage17DiscoveryPublication.InvalidOrdinalPublishesNothing
+[       OK ] Stage17DiscoveryPublication.InvalidOrdinalPublishesNothing (0 ms)
+[ RUN      ] Stage17DiscoveryPublication.FinalResultRetainsCleanupFailuresAndMissingObservations
+[       OK ] Stage17DiscoveryPublication.FinalResultRetainsCleanupFailuresAndMissingObservations (4 ms)
+[ RUN      ] Stage17DiscoveryPublication.RetainsPartialSyscallsMonitorPreparationTlsAndMappingFacts
+[       OK ] Stage17DiscoveryPublication.RetainsPartialSyscallsMonitorPreparationTlsAndMappingFacts (69 ms)
+[ RUN      ] Stage17DiscoveryPublication.RetainsPageErrorsAndArenaIntegrityAtPublication
+[       OK ] Stage17DiscoveryPublication.RetainsPageErrorsAndArenaIntegrityAtPublication (58 ms)
+[ RUN      ] Stage17DiscoveryPublication.CorruptArenaOrderRetainsControlAndRawArtifacts
+[       OK ] Stage17DiscoveryPublication.CorruptArenaOrderRetainsControlAndRawArtifacts (61 ms)
+[ RUN      ] Stage17DiscoveryPublication.EnvironmentalSnapshotsRetainBytesPartialReadsAndGroupIdentity
+[       OK ] Stage17DiscoveryPublication.EnvironmentalSnapshotsRetainBytesPartialReadsAndGroupIdentity (84 ms)
+[ RUN      ] Stage17DiscoveryPublication.EnvironmentalStorageExtentCannotBeInvented
+[       OK ] Stage17DiscoveryPublication.EnvironmentalStorageExtentCannotBeInvented (8 ms)
+[----------] 12 tests from Stage17DiscoveryPublication (525 ms total)
+
+[----------] 5 tests from Stage17FixedAction
+[ RUN      ] Stage17FixedAction.RingDistanceCaptureRequiresSealedRunnerAdmission
+[       OK ] Stage17FixedAction.RingDistanceCaptureRequiresSealedRunnerAdmission (1 ms)
+[ RUN      ] Stage17FixedAction.CalibrationAndPilotRejectPathWithoutTicketAndSchedule
+[       OK ] Stage17FixedAction.CalibrationAndPilotRejectPathWithoutTicketAndSchedule (11 ms)
+[ RUN      ] Stage17FixedAction.CalibrationPrestateMatchesNamedMapping
+[       OK ] Stage17FixedAction.CalibrationPrestateMatchesNamedMapping (20 ms)
+[ RUN      ] Stage17FixedAction.ExpandedOrMalformedScientificInputFailsClosed
+[       OK ] Stage17FixedAction.ExpandedOrMalformedScientificInputFailsClosed (0 ms)
+[ RUN      ] Stage17FixedAction.Q15OneShotDispatcherIsUnconditionallyRejected
+[       OK ] Stage17FixedAction.Q15OneShotDispatcherIsUnconditionallyRejected (0 ms)
+[----------] 5 tests from Stage17FixedAction (34 ms total)
+
+[----------] Global test environment tear-down
+[==========] 52 tests from 7 test suites ran. (1269 ms total)
+[  PASSED  ] 52 tests.

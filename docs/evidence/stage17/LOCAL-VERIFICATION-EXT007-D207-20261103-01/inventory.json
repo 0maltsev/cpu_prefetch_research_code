@@ -1,0 +1,110 @@
+{
+  "recorded_at_utc": "2026-11-03T12:05:46.088832+00:00",
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 1464,
+      "sha256": "03e522e08878b6ebd62643773f82aee978627d28e22e6834e4ebcf0ef40f4d79"
+    },
+    {
+      "path": "accepted-asan-ubsan-clang-libcxx-final-test.log",
+      "size_bytes": 10164,
+      "sha256": "467c24e92070fa0294483104d64c76a2ff6a78a08b4fd4179c33b6b5648f0c08"
+    },
+    {
+      "path": "accepted-asan-ubsan-gcc-final-test.log",
+      "size_bytes": 10100,
+      "sha256": "60594f0d657b4896a7186e44b3d529301501586a42d25b839256352fe36e1884"
+    },
+    {
+      "path": "accepted-tsan-clang-libcxx-final-test.log",
+      "size_bytes": 10165,
+      "sha256": "be9dc4f7ec2f804e2914f6fe716ed51f7d4449d34da483ca33cc7890e5794cd1"
+    },
+    {
+      "path": "accepted-tsan-gcc-final-test.log",
+      "size_bytes": 10098,
+      "sha256": "8ede17554b1793eb2ad9abf4e2569fe762011128d6600ff61e011ead6004b102"
+    },
+    {
+      "path": "d207-native-gcc-final-test.log",
+      "size_bytes": 10074,
+      "sha256": "1b9c031162710bbd3fe539cf00930c66c0d4ee90740e59c363218f382f5db8c6"
+    },
+    {
+      "path": "d209-esrch-before.log",
+      "size_bytes": 429,
+      "sha256": "0f88acad4e59cef268e1b2a9d36bdde62af8b377057ee4cfd14cfdb2abfa69de"
+    },
+    {
+      "path": "d209-policy-rerun.log",
+      "size_bytes": 618,
+      "sha256": "5e78c2b0c16e2f8dd3a8abefc4e6e27a28cee44242834a293ce73f5b3d6aeb58"
+    },
+    {
+      "path": "d209-preflight-renderer-green.log",
+      "size_bytes": 1306,
+      "sha256": "1bcdd287329da5a88af07b503cb1630430e3972a5a2a78abb7a7e25b3377b28e"
+    },
+    {
+      "path": "d209-preflight-renderer-red.log",
+      "size_bytes": 3192,
+      "sha256": "43d468f50141e6eadf96a2af2dede12d8a370cfbeff31d28911f310c78ab4c90"
+    },
+    {
+      "path": "d209-source-bindings.json",
+      "size_bytes": 456,
+      "sha256": "7209b6a02c3662271c3ce4c542cb630e8a9ceea9b30475dad3af3fdd64ee6361"
+    },
+    {
+      "path": "d209-supervisor-after.log",
+      "size_bytes": 1135,
+      "sha256": "169eb32c7707ab52e45a1b2ad42256b440399a7d28151a065aca89ba5dd52932"
+    },
+    {
+      "path": "dev-gcc-full-after-d209.log",
+      "size_bytes": 143974,
+      "sha256": "d8031f3f83327499c8dfdcbb4b3c720ccc3930997dc2d3856e69d5b78acc61d5"
+    },
+    {
+      "path": "dev-gcc-full-ctest.log",
+      "size_bytes": 143037,
+      "sha256": "40ad9ed143455e72d370deca70568e04f35a7c85b84598b7565bbd325898e1de"
+    },
+    {
+      "path": "final-matrix-results.json",
+      "size_bytes": 1321,
+      "sha256": "bc113960dc007e13ec31c4e70250f1f83dcdf987a495a6079a8d5045f8633bd2"
+    },
+    {
+      "path": "format-final.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "layout-cli-checks.json",
+      "size_bytes": 741,
+      "sha256": "d1a4a60a7e1939122a1adfacb91d61a256c57b919d6168a4ade570229a91c4a8"
+    },
+    {
+      "path": "source-bindings.json",
+      "size_bytes": 1200,
+      "sha256": "6df50e9dc9757468b2eb0071c794620798246c342895893787571d94c56c1ab1"
+    },
+    {
+      "path": "tidy-test-final.log",
+      "size_bytes": 228,
+      "sha256": "649c31ee4c1deb0b4facc7fab6500cf3eef39fc1cac71613312e3b96cc6ad9ee"
+    },
+    {
+      "path": "tidy.log",
+      "size_bytes": 22730,
+      "sha256": "945b52063bb4f11e0887c97869c2b71a9a4037e474db939f744f2663c4a82b80"
+    },
+    {
+      "path": "verification-summary.json",
+      "size_bytes": 788,
+      "sha256": "44403e4a9ee51e6b83f15c159686a2d203c438910a834883816837e0d5595410"
+    }
+  ]
+}

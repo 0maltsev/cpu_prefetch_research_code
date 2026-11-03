@@ -10,7 +10,9 @@ No socket, DNS, SSH, or external process is used.
 from __future__ import annotations
 
 import argparse
+import contextlib
 import errno
+import inspect
 import os
 import pathlib
 import signal
@@ -21,7 +23,7 @@ import time
 from unittest import mock
 
 import stage17_process_group_supervisor_v1 as predecessor
-import stage17_process_group_supervisor_v2 as supervisor
+import stage17_process_group_supervisor_v3 as supervisor
 
 
 class CheckError(RuntimeError):
@@ -203,6 +205,88 @@ def _procfs_denied_rejected() -> None:
     raise CheckError("denied procfs was admitted")
 
 
+@contextlib.contextmanager
+def _candidate_read_fault(root: pathlib.Path, visible_pid: int, field: str,
+                          error: OSError):
+    """Inject the kernel error beneath the real status/ns/stat wrapper."""
+    target = root / str(visible_pid) / field
+    read_text = pathlib.Path.read_text
+    readlink = os.readlink
+    calls = []
+
+    def text(path, *args, **kwargs):
+        if path == target:
+            calls.append(str(path))
+            raise error
+        return read_text(path, *args, **kwargs)
+
+    def link(path, *args, **kwargs):
+        if pathlib.Path(path) == target:
+            calls.append(str(path))
+            raise error
+        return readlink(path, *args, **kwargs)
+
+    with mock.patch.object(pathlib.Path, "read_text", autospec=True, side_effect=text), \
+         mock.patch.object(os, "readlink", side_effect=link), \
+         mock.patch.object(os, "getpid", return_value=7), \
+         mock.patch.object(os, "getpgrp", return_value=7):
+        yield calls
+
+
+def _vanishing_unrelated_candidate() -> None:
+    for field in ("status", "ns/pid", "stat"):
+        with tempfile.TemporaryDirectory(prefix="stage17-pid-esrch-") as temporary:
+            root = pathlib.Path(temporary) / "proc"
+            model = _fixture(root)
+            _write_process(root, visible_pid=42009, local_pid=9, visible_pgid=42009,
+                           local_pgid=9, namespace_inode=12345, start=103)
+            with _candidate_read_fault(root, 42009, field,
+                                       ProcessLookupError(errno.ESRCH, "exited fixture")) as calls:
+                if model.identity_for_local_pid(8).visible_pid != 41008:
+                    raise CheckError("unrelated disappearance changed the required identity")
+                if tuple(model.process_group_members(8)) != (8,):
+                    raise CheckError("unrelated disappearance changed process-group membership")
+                if len(calls) != 2:
+                    raise CheckError("disappearance was not observed exactly once per scan")
+
+
+def _required_identity_disappearance_rejected() -> None:
+    for field in ("status", "ns/pid", "stat"):
+        with tempfile.TemporaryDirectory(prefix="stage17-pid-required-esrch-") as temporary:
+            root = pathlib.Path(temporary) / "proc"
+            model = _fixture(root)
+            with _candidate_read_fault(root, 41008, field,
+                                       ProcessLookupError(errno.ESRCH, "exited fixture")) as calls:
+                for lookup in (lambda: model.identity_for_local_pid(8), model.direct_children):
+                    try:
+                        lookup()
+                    except supervisor.SupervisorError:
+                        pass
+                    else:
+                        raise CheckError("missing target or ambiguous owned child was admitted")
+                if len(calls) != 2:
+                    raise CheckError("required identity disappearance was not exercised")
+
+
+def _other_candidate_read_errors_rejected() -> None:
+    for field in ("status", "ns/pid", "stat"):
+        for code in (errno.EACCES, errno.EIO):
+            with tempfile.TemporaryDirectory(prefix="stage17-pid-read-error-") as temporary:
+                root = pathlib.Path(temporary) / "proc"
+                model = _fixture(root)
+                _write_process(root, visible_pid=42009, local_pid=9, visible_pgid=42009,
+                               local_pgid=9, namespace_inode=12345, start=103)
+                injected = OSError(code, "fixture read failure")
+                with _candidate_read_fault(root, 42009, field, injected) as calls:
+                    try:
+                        model.identity_for_local_pid(8)
+                    except supervisor.SupervisorError as error:
+                        if error.__cause__ is not injected or len(calls) != 1:
+                            raise CheckError("read error cause was hidden or retried") from error
+                    else:
+                        raise CheckError("non-disappearance procfs read error was admitted")
+
+
 def _actual_group_cleanup(*, ignore_term: bool = False) -> None:
     child_source = (
         "import signal,time;"
@@ -283,7 +367,7 @@ def _transient_procfs_scan() -> None:
 
 
 def _leader_identity_is_held_against_reuse() -> None:
-    source = pathlib.Path(supervisor.__file__).read_text(encoding="utf-8")
+    source = inspect.getsource(supervisor.cleanup_process_group)
     reap = source.find("returncode = _waitpid_leader_fail_stop")
     last_group_scan = source.rfind("_process_group_members_fail_stop", 0, reap)
     last_signal = source.rfind("_send_group", 0, reap)
@@ -302,6 +386,7 @@ def self_test() -> tuple[int, int]:
         ("waitid_echild_transient", lambda: _wait_faults(ChildProcessError(errno.ECHILD, "fixture"))),
         ("transient_procfs_scan", _transient_procfs_scan),
         ("held_leader_blocks_pid_pgid_reuse", _leader_identity_is_held_against_reuse),
+        ("unrelated_candidate_esrch_status_namespace_stat", _vanishing_unrelated_candidate),
     )
     negatives = (
         ("predecessor_mixed_id_characterization", _predecessor_characterization),
@@ -310,6 +395,8 @@ def self_test() -> tuple[int, int]:
         ("malformed_mapping", _malformed_mapping_rejected),
         ("namespace_drift", _namespace_drift_rejected),
         ("procfs_access_denied", _procfs_denied_rejected),
+        ("required_identity_disappearance", _required_identity_disappearance_rejected),
+        ("other_candidate_read_errors", _other_candidate_read_errors_rejected),
     )
     for label, check in positives + negatives:
         check()

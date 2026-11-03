@@ -1,6 +1,6 @@
 # ADR-0207: Prospective discovery duration revision after R2 monitoring failure
 
-- Status: `PROPOSED` — awaiting explicit owner acceptance
+- Status: `ACCEPTED` — explicit owner approval recorded on 2026-11-03
 - Date: 2026-11-03
 - Amendment ID: `AMEND-2.0.0-pre.3-EXT007-DISCOVERY-DURATION-v2`
 - Scope: EXT007 diagnostic duration discovery only
@@ -148,5 +148,9 @@ would authorize the following bounded sequence, conditional on every gate:
 
 ## Acceptance
 
-Pending. Preserve this exact proposal and its hash when recording the owner's
-answer. D206 storage approval does not approve this scientific change.
+The owner replied **“i approve”** to the D207 proposal and its finite execution
+scope. The [original proposal and exact acceptance](../evidence/stage17/DISCOVERY-D207-ACCEPTANCE-20261103-01/owner-acceptance.json)
+are retained separately. Original proposal SHA-256:
+`a1accac3f8683a74a5744c676da907666b95a7b908fe725b0fca2725c8a2e559`.
+This accepts the decision and conditional finite scope above; all exact
+release, qualification, resource and signed admission gates remain required.

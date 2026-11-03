@@ -40,6 +40,9 @@ def render_preflight(root):
         adr_0204=_BASE.binding(root, preflight.ADR_0204_PATH))
     policy["implementations"] = {key: _BASE.binding(root, path)
                                 for key, path in preflight.IMPLEMENTATION_PATHS.items()}
+    policy["operational_implementations"] = {
+        key: _BASE.binding(root, binding["path"])
+        for key, binding in policy["operational_implementations"].items()}
     return policy
 
 

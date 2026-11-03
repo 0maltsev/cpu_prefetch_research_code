@@ -782,6 +782,32 @@ if(BUILD_TESTING)
   set_tests_properties(runner.discovery_action_admission PROPERTIES
     LABELS "runner;diagnostic;synthetic" TIMEOUT 180)
   add_test(
+    NAME calibration.discovery_v2_contract
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_discovery_v2.py")
+  set_tests_properties(calibration.discovery_v2_contract PROPERTIES
+    LABELS "calibration;diagnostic;synthetic" TIMEOUT 60)
+  add_test(
+    NAME runner.discovery_v2_action_admission
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_discovery_action_v2.py"
+            --worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>")
+  set_tests_properties(runner.discovery_v2_action_admission PROPERTIES
+    LABELS "runner;diagnostic;synthetic" TIMEOUT 180)
+  add_test(
+    NAME calibration.discovery_v2_retained_validation
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_discovery_validation_v2.py")
+  set_tests_properties(calibration.discovery_v2_retained_validation PROPERTIES
+    LABELS "calibration;diagnostic;synthetic" TIMEOUT 120)
+  add_test(
+    NAME runner.stage17_discovery_v2_policy
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_preflight_successor_v2.py"
+            --root "${PROJECT_SOURCE_DIR}")
+  set_tests_properties(runner.stage17_discovery_v2_policy PROPERTIES
+    LABELS "runner;qualification;diagnostic;synthetic" TIMEOUT 180)
+  add_test(
     NAME runner.stage17_preflight_successor
     COMMAND "${Python3_EXECUTABLE}" -B
             "${PROJECT_SOURCE_DIR}/tools/check_stage17_preflight_successor.py"
@@ -954,7 +980,7 @@ if(BUILD_TESTING)
     PROPERTIES
       LABELS "runner;authorization;process-group;pid-namespace;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION
-        "PASS positive=7 negative=6 stand=NOT_ACCESSED")
+        "PASS positive=8 negative=8 stand=NOT_ACCESSED")
   if(CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_ARCHIVE
       AND CPU_PREFETCH_STAGE17_PILOT_CANDIDATE_SIDECAR)
     add_test(

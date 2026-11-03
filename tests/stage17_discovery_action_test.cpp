@@ -8,6 +8,7 @@ namespace {
 using namespace cpu_prefetch;
 using Object = protocol::json::Value::Object;
 using Value = protocol::json::Value;
+using Design = runner::stage17::DiscoveryNativeDesign;
 
 auto value(std::uint64_t integer) -> Value {
   return Value(protocol::json::Number{protocol::json::Number::Kind::unsigned_integer,
@@ -91,9 +92,59 @@ struct Fixture final {
     }
     resources.at("region_bytes") = Value(std::move(sizes));
   }
-  auto parse() const {
-    return runner::stage17::parse_native_discovery_capture(capture, resources,
-                                                           monitoring, kPrestate);
+  auto parse(Design design = Design::d178_v1) const {
+    return runner::stage17::parse_native_discovery_capture(
+        capture, resources, monitoring, kPrestate, design);
+  }
+  void configure(Design design, std::uint64_t ordinal) {
+    const bool revised = design == Design::d207_v2;
+    const std::array<std::uint64_t, 3U> durations{
+        revised ? 1'000'000'000U : 100'000'000U,
+        revised ? 2'000'000'000U : 1'000'000'000U, 5'000'000'000U};
+    const std::array<std::string, 3U> classes{"L2_RESIDENT", "LLC_RESIDENT",
+                                              "BEYOND_LLC"};
+    const bool far = (ordinal / 9U) % 2U != 0U;
+    capture.at("ordinal") = value(ordinal);
+    capture.at("context_ordinal") = value(ordinal / 3U);
+    capture.at("measurement_ns") = value(durations[ordinal % 3U]);
+    capture.at("hardware_state") = Value(std::string(ordinal < 18U ? "H0" : "H1"));
+    capture.at("placement") = Value(std::string(far ? "FAR" : "NEAR"));
+    capture.at("working_set_class") = Value(classes[(ordinal / 3U) % 3U]);
+    auto geometry = *capture.at("geometry").as_object();
+    geometry.at("consumer_cpu") = value(far ? 8U : 1U);
+    geometry.at("consumer_node") = value(far ? 1U : 0U);
+    capture.at("geometry") = Value(std::move(geometry));
+    auto workers = *resources.at("workers").as_object();
+    auto consumer = *workers.at("consumer_stack").as_object();
+    consumer.at("owner_cpu") = value(far ? 8U : 1U);
+    consumer.at("requested_node") = value(far ? 1U : 0U);
+    workers.at("consumer_stack") = Value(std::move(consumer));
+    resources.at("workers") = Value(std::move(workers));
+    resources.at("ordinal") = value(ordinal);
+    monitoring.at("ordinal") = value(ordinal);
+    if (revised) {
+      auto budget = *capture.at("budget").as_object();
+      budget.at("warmup_attempt_capacity") = value(30'000'000U);
+      budget.at("measurement_attempt_capacity") = value(30'000'000U);
+      capture.at("budget") = Value(std::move(budget));
+    }
+    const auto described = runner::stage17::describe_native_discovery_layout(
+        capture, resources, monitoring, kPrestate, design);
+    if (!described) {
+      throw std::logic_error("test prospective layout invalid");
+    }
+    const auto& layout = described.value();
+    resources.at("core_bytes") = value(layout.core_bytes);
+    resources.at("monitor_bytes") = value(layout.monitor_bytes);
+    resources.at("total_mapping_bytes") = value(layout.total_mapping_bytes);
+    Value::Array sizes;
+    for (const auto bytes : layout.region_bytes) {
+      sizes.push_back(value(bytes));
+    }
+    resources.at("region_bytes") = Value(std::move(sizes));
+    auto budget = *capture.at("budget").as_object();
+    budget.at("memory_bytes") = value(layout.total_mapping_bytes);
+    capture.at("budget") = Value(std::move(budget));
   }
 };
 
@@ -208,5 +259,93 @@ TEST(DiscoveryNativeInput,
       EXPECT_TRUE(parsed.value().environment_sources[0U].requested[5U]);
     }
   }
+}
+
+TEST(DiscoveryNativeInput, ResolvesOnlyExactVersionAndDesignPairs) {
+  for (const bool revised : {false, true}) {
+    auto plan = object(
+        revised
+            ? R"({"schema_version":"cpu-prefetch-stage17-discovery-plan/2","design_id":"D207-Q16A-SETUP-DISCOVERY-v2","amendment_id":"AMEND-2.0.0-pre.3-EXT007-DISCOVERY-DURATION-v2","custody_policy_id":"EXT007-RAW-NONE-STAND-PRIMARY-v1"})"
+            : R"({"schema_version":"cpu-prefetch-stage17-discovery-plan/1","design_id":"D178-Q16A-SETUP-DISCOVERY-v1"})");
+    EXPECT_EQ(runner::stage17::native_discovery_design(plan),
+              revised ? Design::d207_v2 : Design::d178_v1);
+    if (revised) {
+      for (const auto key : {"amendment_id", "custody_policy_id"}) {
+        auto mutated = plan;
+        mutated.erase(key);
+        EXPECT_FALSE(runner::stage17::native_discovery_design(mutated));
+        mutated = plan;
+        mutated.at(key) = Value(std::string("unapproved"));
+        EXPECT_FALSE(runner::stage17::native_discovery_design(mutated));
+      }
+    }
+    plan.at("design_id") = Value(std::string(revised ? "D178-Q16A-SETUP-DISCOVERY-v1"
+                                                     : "D207-Q16A-SETUP-DISCOVERY-v2"));
+    EXPECT_FALSE(runner::stage17::native_discovery_design(plan));
+    plan.at("design_id") = Value(true);
+    EXPECT_FALSE(runner::stage17::native_discovery_design(plan));
+    plan.erase("design_id");
+    EXPECT_FALSE(runner::stage17::native_discovery_design(plan));
+  }
+  EXPECT_FALSE(runner::stage17::native_discovery_design(Object{}));
+}
+
+TEST(DiscoveryNativeInput, BothDesignsPreserveAll36OrderedContextSlots) {
+  for (const auto design : {Design::d178_v1, Design::d207_v2}) {
+    for (std::uint64_t ordinal = 0U; ordinal < 36U; ++ordinal) {
+      Fixture fixture;
+      fixture.configure(design, ordinal);
+      const auto parsed = fixture.parse(design);
+      ASSERT_TRUE(parsed);
+      const std::array<std::uint64_t, 3U> expected =
+          design == Design::d178_v1
+              ? std::array<std::uint64_t, 3U>{100'000'000'000U, 1'000'000'000'000U,
+                                              5'000'000'000'000U}
+              : std::array<std::uint64_t, 3U>{1'000'000'000'000U, 2'000'000'000'000U,
+                                              5'000'000'000'000U};
+      EXPECT_EQ(parsed.value().discovery.session.measurement_duration_ticks,
+                expected[ordinal % 3U]);
+      if (design == Design::d207_v2) {
+        EXPECT_EQ(parsed.value().discovery.session.warmup_attempt_capacity,
+                  30'000'000U);
+        EXPECT_EQ(parsed.value().discovery.session.measurement_attempt_capacity,
+                  30'000'000U);
+      }
+    }
+  }
+}
+
+TEST(DiscoveryNativeInput, V1DefaultRejectsTwoSecondsAndV2RejectsOldGrid) {
+  Fixture revised;
+  revised.configure(Design::d207_v2, 1U);
+  EXPECT_TRUE(revised.parse(Design::d207_v2));
+  EXPECT_FALSE(revised.parse());
+  EXPECT_FALSE(runner::stage17::describe_native_discovery_layout(
+      revised.capture, revised.resources, revised.monitoring, kPrestate));
+  Fixture historical;
+  EXPECT_TRUE(historical.parse());
+  EXPECT_FALSE(historical.parse(Design::d207_v2));
+}
+
+TEST(DiscoveryNativeInput, V2RejectsBufferWarmupAndDeclaredLayoutDrift) {
+  for (const auto field : {"warmup_attempt_capacity", "measurement_attempt_capacity"}) {
+    Fixture fixture;
+    fixture.configure(Design::d207_v2, 0U);
+    auto budget = *fixture.capture.at("budget").as_object();
+    budget.at(field) = value(29'999'999U);
+    fixture.capture.at("budget") = Value(std::move(budget));
+    EXPECT_FALSE(fixture.parse(Design::d207_v2));
+    EXPECT_FALSE(runner::stage17::describe_native_discovery_layout(
+        fixture.capture, fixture.resources, fixture.monitoring, kPrestate,
+        Design::d207_v2));
+  }
+  Fixture warmup;
+  warmup.configure(Design::d207_v2, 0U);
+  warmup.capture.at("warmup_ns") = value(4'000'000'000U);
+  EXPECT_FALSE(warmup.parse(Design::d207_v2));
+  Fixture sizes;
+  sizes.configure(Design::d207_v2, 0U);
+  sizes.resources.at("monitor_bytes") = value(1U);
+  EXPECT_FALSE(sizes.parse(Design::d207_v2));
 }
 } // namespace

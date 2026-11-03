@@ -1,0 +1,15 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+    Start 554: runner.stage17_discovery_v2_policy
+    Start 555: runner.stage17_preflight_successor
+1/2 Test #555: runner.stage17_preflight_successor ...   Passed   42.00 sec
+2/2 Test #554: runner.stage17_discovery_v2_policy ...   Passed   52.51 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Label Time Summary:
+diagnostic       =  52.51 sec*proc (1 test)
+qualification    =  94.51 sec*proc (2 tests)
+runner           =  94.51 sec*proc (2 tests)
+synthetic        =  94.51 sec*proc (2 tests)
+
+Total Test time (real) =  52.54 sec

@@ -18,6 +18,7 @@ void usage(std::ostream& output) {
   output << "Usage:\n"
          << "  cpu_prefetch_runner --self-test\n"
          << "  cpu_prefetch_runner --describe-stage17-discovery-layout-v1 FILE\n"
+         << "  cpu_prefetch_runner --describe-stage17-discovery-layout-v2 FILE\n"
          << "  cpu_prefetch_runner --execute-fixed-stage17-action-v4 ACTION "
             "--request-fd FD --context-fd FD --output-dir-fd FD "
             "--fixed-dispatch-end\n"
@@ -59,7 +60,12 @@ void print_errors(std::span<const cpu_prefetch::protocol::ValidationError> error
 
 int run(int argc, char** argv) {
   if (argc == 3 &&
-      std::string_view(argv[1]) == "--describe-stage17-discovery-layout-v1") {
+      (std::string_view(argv[1]) == "--describe-stage17-discovery-layout-v1" ||
+       std::string_view(argv[1]) == "--describe-stage17-discovery-layout-v2")) {
+    const auto design =
+        std::string_view(argv[1]) == "--describe-stage17-discovery-layout-v2"
+            ? cpu_prefetch::runner::stage17::DiscoveryNativeDesign::d207_v2
+            : cpu_prefetch::runner::stage17::DiscoveryNativeDesign::d178_v1;
     const auto input = cpu_prefetch::protocol::json::parse(read_file(argv[2]));
     if (!input || input.value().as_object() == nullptr) {
       throw std::runtime_error("discovery layout input is not a JSON object");
@@ -103,7 +109,7 @@ int run(int argc, char** argv) {
            std::get<std::uint64_t>(observed->value)});
     }
     const auto layout = cpu_prefetch::runner::stage17::describe_native_discovery_layout(
-        *capture, *resources, *monitoring, prestate);
+        *capture, *resources, *monitoring, prestate, design);
     const auto identity = cpu_prefetch::runner::stage17::self_executable_sha256();
     if (!layout || !identity) {
       print_errors(!layout ? layout.errors() : identity.errors());

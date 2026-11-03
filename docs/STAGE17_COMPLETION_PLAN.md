@@ -7,8 +7,8 @@ under accepted D206 (`m_dur=1`, EXT007 only). PC raw copying is cancelled and
 scoped PC cleanup is complete; only small results/provenance go to the PC.
 Stand-side capture-9 diagnosis and phase validation are complete: both phases
 reconcile, but full-capture validation rejects the mandatory session stop.
-Duration selection remains unresolved. Next gate is PROPOSED ADR0207's
-36-capture 1 s/2 s/5 s grid, awaiting owner design approval; no new run is authorized. R1 had no measurement phase or formal calibration, and its
+Duration selection remains unresolved. Next gate is ACCEPTED ADR0207's
+36-capture 1 s/2 s/5 s grid, owner approved; implementation and local verification are complete; clean-release qualification is next before exact admission. R1 had no measurement phase or formal calibration, and its
 MSR/cgroup restoration was verified. R2 isolation reapplication passed with
 the same boot and required controls; exact signature and fresh PC checks passed.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
@@ -45,9 +45,9 @@ Stage 18 work. Finish only already-started checks and necessary calibration work
    overran its 100 ms measurement window; both retained phases reconcile, but
    full-capture validation rejects `mandatory session stop`. Earlier captures
    remain unassessed and no duration selector ran. Next gate is
-   [PROPOSED ADR0207](decisions/0207-stage17-ext007-discovery-duration-revision.md):
-   36 fresh captures across 1 s/2 s/5 s, awaiting owner design approval and a
-   versioned implementation. No new run or retry is authorized.
+   [ACCEPTED ADR0207](decisions/0207-stage17-ext007-discovery-duration-revision.md):
+   36 fresh captures across 1 s/2 s/5 s, approved by the owner. Versioned implementation and local verification are complete; clean-release qualification is next;
+   collection remains gated on exact admission, with no automatic retry.
 5. Complete required formal-calibration fixes, freeze the prospective plans,
    then execute Q16a (708 fresh captures), Q16b (3,540 runs) and Q16c in order.
 6. Validate and seal calibration evidence, derive the freeze, and admit EXT-007.
@@ -105,10 +105,10 @@ Report each completed step or changed blocker against this six-step plan.
   `mandatory session stop`; no selector ran, captures 0–8 remain unassessed,
   and duration selection is unresolved. No individual slow file or syscall
   was isolated by this diagnosis. Only small reports/provenance returned to the PC.
-- Next gate: [PROPOSED ADR0207](decisions/0207-stage17-ext007-discovery-duration-revision.md),
+- Next gate: [ACCEPTED ADR0207](decisions/0207-stage17-ext007-discovery-duration-revision.md),
   36 fresh captures across 1 s/2 s/5 s, with unchanged five-second warmup and
-  proposed 30-million-attempt buffers for both phases. Owner design approval
-  and a versioned implementation are required before any new execution;
+  approved 30-million-attempt buffers for both phases. Owner approval is recorded;
+  a qualified versioned implementation is required before any new execution;
   R2 observations do not select a duration for the proposed family.
 - Current release `ac64633` passes seven strict codegen gates and local/stand
   package verification (1,826 files). Both v2 clock pairs pass, and actual
@@ -207,7 +207,7 @@ is now blocked at the far-pair software affinity defect in v5-18 as recorded abo
 |---|---|---|
 | 1. Complete the executable runtime | Place and declare provider/backend/clock/controller coordination, worker TLS and other relevant runtime memory; connect actual before/during/after residency, affinity, fault, clock, hardware-state and environmental checks; complete watchdog, independent raw publication, partial-failure retention and restoration. Review formal Q16a, Q16b, Q16c and pilot paths together, including persistent warmup and service counts restricted to the fixed interval. | Integrated success and mandatory-failure tests; no forbidden work in measured intervals; exact complete-worker generated-code checks under both accepted disassemblers; supported compiler/sanitizer/static/schema/canonical checks. |
 | 2. Qualify a clean release and current stand | Build a complete source-bound runtime and policy successor; verify archive, binary and dependency identities; repair the missing runtime closure through the new release, not an improvised old wrapper. Replay the real journal and refresh all evidence invalidated by source, boot or platform changes. Reverify CPU pairs, mapping, clocks, atomics, memory, privileges, storage and restoration. | Clean release/custody records and a semantically admitted current predecessor chain. Historical EXT001–006 stay preserved; reuse only evidence whose dependency validity is demonstrated. |
-| 3. Freeze and run duration discovery | First family stopped at its first warmup. All 12 R1 files had verified two-copy custody at that checkpoint; independent failed-prefix reconciliation passes, but full-capture validation rejects the mandatory session stop. Duration selection is unresolved. Preserve R1 failure/restoration evidence. The amendment and one R2 family are owner accepted; stand footprints and live author-request validation pass. Exact signature verification and fresh PC checks passed. R2 stopped on 2026-11-03 at 10:49 UTC with exit 1; ten controls and 75 files (52,465,834,715 bytes) are retained, restoration result true. D206 cleanup and capture-9 phase validation are complete. Both phases reconcile; full capture is invalid for mandatory session stop caused by monitoring-window overrun. Captures 0–8 remain unassessed; duration selection is unresolved. Proposed ADR0207 changes the fresh36 grid to 1 s/2 s/5 s and awaits owner design approval; no new run is authorized. | Retained raw/control/failure records and count-only selection of a common duration, or an explicit unresolved result. No diagnostic data enters formal calibration. |
+| 3. Freeze and run duration discovery | First family stopped at its first warmup. All 12 R1 files had verified two-copy custody at that checkpoint; independent failed-prefix reconciliation passes, but full-capture validation rejects the mandatory session stop. Duration selection is unresolved. Preserve R1 failure/restoration evidence. The amendment and one R2 family are owner accepted; stand footprints and live author-request validation pass. Exact signature verification and fresh PC checks passed. R2 stopped on 2026-11-03 at 10:49 UTC with exit 1; ten controls and 75 files (52,465,834,715 bytes) are retained, restoration result true. D206 cleanup and capture-9 phase validation are complete. Both phases reconcile; full capture is invalid for mandatory session stop caused by monitoring-window overrun. Captures 0–8 remain unassessed; duration selection is unresolved. Accepted ADR0207 changes the fresh36 grid to 1 s/2 s/5 s and is owner approved; implementation and qualification precede exact admission. | Retained raw/control/failure records and count-only selection of a common duration, or an explicit unresolved result. No diagnostic data enters formal calibration. |
 | 4. Close EXT007 | Freeze a new D-037 formal plan using discovery evidence; collect the required 708 fresh Q16a runs, then Q16b service calibration and Q16c feasibility in dependency order. Derive exact distance, service-rate and load outputs using accepted methods. | Phase-bound requests/authorizations, raw evidence, typed results, custody and calibration freeze accepted by the operational verifier. Any feasibility result awaiting final matrix exposure remains explicitly provisional. |
 | 5. Close EXT008 and EXT009 | Generate the exact prospective pilot matrix, schedules, IDs, seeds, repetitions, horizons, warmup/recovery, admission tickets and stop rules from accepted calibration. Prove buffers and durable capacity for that exact plan, both custody domains, transfer receipts, partial retention and recovery rehearsal. | Current-stand EXT008 plan and checked EXT009 storage/custody/recovery evidence. Old stand-v2 values are not defaults for stand v5. |
 | 6. Close EXT010 and execute the pilot | Bind all nine accepted predecessor resolutions into the exact finite Stage 17 pilot authorization. Execute only its permitted runs, retaining ordered primary streams, control observations, manifests, joins and failures. Produce treatment-blind pilot summaries. | Admitted EXT010, complete controller/worker output lineage, verified restoration, accepted custody and the required pilot output set. Ten catalog resolutions alone do not establish successful pilot completion. |
@@ -279,7 +279,7 @@ scientific decisions only when existing protocol/approval does not resolve them.
 
 ## Working method and completion claim
 
-Step 3 remains unresolved: both R1 and R2 stopped; no retry is authorized.
+Step 3 remains unresolved: both R1 and R2 stopped. D207 approves one new family only after its prerequisites.
 For R1, the historical two-copy verification and independent failed-prefix reconciliation remain recorded;
 full-capture validation rejects the mandatory session stop. No valid-study or
 duration-selection result follows from that reconciliation.
@@ -295,8 +295,8 @@ small reports/provenance and cleanup receipts are retained on the PC, while
 failed raw/control data remains on the stand.
 The full-36-study wrapper is inapplicable to this partial family and remains
 unchanged. Prefix validation cannot establish a valid full study or select a
-common duration. No selector ran; selection remains unresolved. Await owner
-design approval of PROPOSED ADR0207 and its versioned implementation before
+common duration. No selector ran; selection remains unresolved. Implement and qualify
+accepted ADR0207, then obtain exact operational admission before
 any new 36-capture 1 s/2 s/5 s family.
 Report completed milestones, exact evidence, remaining blockers and the next
 gate. Component tests are supporting evidence, not the project completion goal.
@@ -312,7 +312,7 @@ B/C work is included.
 ## Governing references
 
 - [Current EXT007 readiness](STAGE17_EXT007_CALIBRATION_READINESS.md)
-- [PROPOSED ADR0207 duration revision — owner approval pending](decisions/0207-stage17-ext007-discovery-duration-revision.md)
+- [ACCEPTED ADR0207 duration revision — owner approved](decisions/0207-stage17-ext007-discovery-duration-revision.md)
 - [Completed D206 cleanup and capture-9 validation](evidence/stage17/STAND-CUSTODY-D206-20261103-01/README.md)
 - [D206 accepted EXT007 stand-primary custody](decisions/0206-stage17-ext007-stand-primary-custody.md)
 - [D206 original proposal and owner acceptance](evidence/stage17/STAND-CUSTODY-D206-20261103-01/owner-acceptance.json)

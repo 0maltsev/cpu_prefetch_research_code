@@ -2,6 +2,10 @@
 """PID-namespace-safe held-leader/subreaper lifecycle proof for Stage 17,
 tolerating kernel threads during a full `/proc` scan (ADR-0131).
 
+ADR-0209 also classifies ESRCH from the status/namespace/stat reads as a
+vanished scan candidate, like ENOENT. Required identities and owned-child
+ambiguity still fail in the inherited callers; other read errors propagate.
+
 This is a new, additive file. It does not modify `stage17_process_group_
 supervisor_v2.py`'s bytes, so any already-accepted closure hash for that
 file remains valid and unchanged.
@@ -76,7 +80,8 @@ class ProcfsIdentityModel(predecessor.ProcfsIdentityModel):
     """Faithful copy of predecessor `_identity_at`, tolerating a kernel
     thread's `NSpgid: 0` as "not a process-group member" instead of
     letting the underlying `SupervisorError` propagate. Every other check
-    is byte-identical to the predecessor; `_capture_self` (used for the
+    remains unchanged except for the ADR-0209 disappearance classification;
+    `_capture_self` (used for the
     calling process's own identity, which is never a kernel thread) is
     unchanged and inherited as-is.
     """
@@ -88,7 +93,7 @@ class ProcfsIdentityModel(predecessor.ProcfsIdentityModel):
             namespace_inode = _namespace_inode(root / "ns/pid")
             start_time = _start_time_ticks(root / "stat")
         except SupervisorError as exception:
-            if isinstance(exception.__cause__, FileNotFoundError):
+            if isinstance(exception.__cause__, (FileNotFoundError, ProcessLookupError)):
                 return None
             raise
         if namespace_inode != self.snapshot.namespace_inode:

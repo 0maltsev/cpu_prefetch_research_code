@@ -371,9 +371,12 @@ stopped the session. Both retained phases reconcile: warmup accepted/consumed
 9,635,880 with FULL=4,059 and actual reset verified; measurement accepted/consumed
 187,535 with FULL=0. **Full capture remains invalid: `mandatory session stop`.**
 Captures 0–8 remain unassessed, no selector ran, and duration selection remains
-unresolved. Next gate: [PROPOSED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
-36 fresh captures across 1 s/2 s/5 s, awaiting owner design approval and a
-versioned implementation. No new run, clock capture or automatic retry is authorized.
+unresolved. Next gate: [ACCEPTED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
+36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and local verification are complete; clean-release
+qualification is next. No new invocation has started.
+[Local verification](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-D207-20261103-01/README.md)
+retains the initial failures, corrections, and successful affected reruns. D207 permits only its bounded
+conditional qualification and one new family after exact admission. No automatic retry.
 [R2 stopped-attempt and custody record](docs/evidence/stage17/DISCOVERY-RECOVERY-STOPPED-V19-20261103-01/README.md).
 
 The implementation/release checkpoints below retain their historical state;
@@ -965,7 +968,10 @@ stopped the session. Both retained phases reconcile: warmup accepted/consumed
 9,635,880 with FULL=4,059 and actual reset verified; measurement accepted/consumed
 187,535 with FULL=0. **Full capture remains invalid: `mandatory session stop`.**
 Captures 0–8 remain unassessed, no selector ran, and duration selection remains
-unresolved. Next gate: [PROPOSED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
-36 fresh captures across 1 s/2 s/5 s, awaiting owner design approval and a
-versioned implementation. No new run, clock capture or automatic retry is authorized.
+unresolved. Next gate: [ACCEPTED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
+36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and local verification are complete; clean-release
+qualification is next. No new invocation has started.
+[Local verification](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-D207-20261103-01/README.md)
+retains the initial failures, corrections, and successful affected reruns. D207 permits only its bounded
+conditional qualification and one new family after exact admission. No automatic retry.
 EXT007 and Stage 17 remain incomplete.

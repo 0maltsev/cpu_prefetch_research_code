@@ -1,0 +1,22 @@
+{
+  "observed_at_utc": "2026-11-03T11:58:59.588080+00:00",
+  "status": "PASS_LOCAL_SOFTWARE_VERIFICATION",
+  "source_bindings_sha256": "6df50e9dc9757468b2eb0071c794620798246c342895893787571d94c56c1ab1",
+  "runner_tests_per_configuration": 52,
+  "configurations": [
+    "d207-native-gcc",
+    "accepted-asan-ubsan-gcc",
+    "accepted-tsan-gcc",
+    "accepted-asan-ubsan-clang-libcxx",
+    "accepted-tsan-clang-libcxx"
+  ],
+  "actual_read_only_layout_cli_cases": 9,
+  "procfs_before_defect_reproductions": 3,
+  "procfs_positive_checks": 8,
+  "procfs_negative_checks": 8,
+  "format": "PASS",
+  "tidy": "PASS_PRODUCTION_TUS_INITIAL_RUN_PLUS_FINAL_CHANGED_TEST_TU",
+  "native_production_changed_after_first_sanitizer_matrix": false,
+  "stand_accessed": false,
+  "experiment_executed": false
+}

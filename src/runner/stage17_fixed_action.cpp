@@ -1731,15 +1731,13 @@ struct DiscoveryPublicationContext final {
   const auto* native_value = member(inputs, "native_captures");
   const auto* native = native_value == nullptr ? nullptr : native_value->as_array();
   const auto repository = foundation::repository_info();
+  const auto design = plan == nullptr ? std::nullopt : native_discovery_design(*plan);
   if (plan == nullptr || hardware == nullptr || captures == nullptr ||
       captures->size() != 36U || native == nullptr || native->size() != 36U ||
       string_member(*plan, "source_revision") == nullptr ||
       *string_member(*plan, "source_revision") != repository.source_revision ||
       repository.source_dirty || bool_member(*plan, "clean_source") == nullptr ||
-      !*bool_member(*plan, "clean_source") ||
-      string_member(*plan, "schema_version") == nullptr ||
-      *string_member(*plan, "schema_version") !=
-          "cpu-prefetch-stage17-discovery-plan/1") {
+      !*bool_member(*plan, "clean_source") || !design.has_value()) {
     return failure<ActionOutcome>(
         "$/discovery", "S17-DISCOVERY-PLAN",
         "discovery requires a clean source-bound 36-capture plan");
@@ -1793,7 +1791,7 @@ struct DiscoveryPublicationContext final {
                                     "native capture or finite budget is absent");
     }
     auto native_plan = parse_native_discovery_capture(*capture, *resources, *monitoring,
-                                                      prestate.value());
+                                                      prestate.value(), *design);
     if (!native_plan) {
       return protocol::Result<ActionOutcome>::failure(native_plan.errors());
     }
@@ -4175,7 +4173,8 @@ struct PilotRunEntry final {
         budget == nullptr ? std::nullopt : uint_member(*budget, "watchdog_ns");
     std::uint64_t maximum_ns = 0U;
     bool valid = session_ns.has_value() && *session_ns > 0U && captures != nullptr &&
-                 captures->size() == 36U;
+                 captures->size() == 36U && plan != nullptr &&
+                 native_discovery_design(*plan).has_value();
     if (valid) {
       for (const auto& capture : *captures) {
         const auto* object = capture.as_object();

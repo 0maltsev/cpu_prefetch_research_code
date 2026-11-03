@@ -36,7 +36,9 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
-| [ADR-0207](0207-stage17-ext007-discovery-duration-revision.md) | `PROPOSED` | New 36-capture diagnostic grid at 1/2/5 seconds after the R2 monitoring overrun; unchanged mandatory monitoring and count-only selection, stand-primary resources, and conditional finite qualification/discovery scope. Awaiting owner acceptance. |
+| [ADR-0209](0209-stage17-procfs-disappearing-process.md) | `ACCEPTED` | Classify ESRCH from a disappearing procfs scan candidate without weakening target identity, namespace, error or quiescence checks; retain the original failing test evidence. |
+| [ADR-0208](0208-stage17-discovery-v2-implementation.md) | `ACCEPTED` | Versioned D207 plan, native parsing, validation and source-bound release/admission successors; preserve historical grids and unchanged measurement/retention formats. |
+| [ADR-0207](0207-stage17-ext007-discovery-duration-revision.md) | `ACCEPTED` | Owner approved the new 36-capture diagnostic grid at 1/2/5 seconds, unchanged mandatory monitoring and count-only selection, stand-primary resources, and conditional finite qualification/discovery scope. |
 | [ADR-0206](0206-stage17-ext007-stand-primary-custody.md) | `ACCEPTED` | Owner-approved EXT007-only stand-primary raw custody and stand-side analysis; retain failed raw on the stand, keep reports/provenance on the PC, and remove verified PC duplicates. Explicitly supersedes D-033's independent second-copy requirement only in this scope. |
 | [ADR-0197](0197-retained-discovery-residency-observations.md) | `ACCEPTED` | Retain caller-planned before/during/after page snapshots with raw query/status/clock facts; reject incomplete coverage, stale scratch, late queries and finished workers without inferring unqueried residency. |
 | [ADR-0196](0196-linux-owner-mapping-and-controller-observation.md) | `ACCEPTED` | Prepare one-shot owner-prefaulted Linux mappings with actual control/readback/cleanup facts; gate discovery phases on explicit controller observations while retaining bounded drain and raw integrity. |

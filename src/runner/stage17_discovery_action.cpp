@@ -110,7 +110,7 @@ auto run_id(const Object& value) -> protocol::RunId {
 auto parse_capture(const Object& capture, const Object& resources,
                    const Object& monitoring,
                    std::span<const platform::HardwarePrefetchMsrValue> prestate,
-                   bool verify_declared_layout)
+                   bool verify_declared_layout, DiscoveryNativeDesign design)
     -> protocol::Result<calibration::NativeDiscoveryCapturePlan> {
   try {
     fields(resources,
@@ -124,8 +124,14 @@ auto parse_capture(const Object& capture, const Object& resources,
             "hardware_identity", "environment_sources"});
     const auto ordinal = number(capture, "ordinal");
     const auto duration = number(capture, "measurement_ns");
-    constexpr std::array<std::uint64_t, 3U> durations{100'000'000U, 1'000'000'000U,
-                                                      5'000'000'000U};
+    if (design != DiscoveryNativeDesign::d178_v1 &&
+        design != DiscoveryNativeDesign::d207_v2) {
+      throw std::invalid_argument("unknown native discovery design");
+    }
+    const bool revised = design == DiscoveryNativeDesign::d207_v2;
+    const std::array<std::uint64_t, 3U> durations{
+        revised ? 1'000'000'000U : 100'000'000U,
+        revised ? 2'000'000'000U : 1'000'000'000U, 5'000'000'000U};
     constexpr std::array<std::string_view, 3U> classes{"L2_RESIDENT", "LLC_RESIDENT",
                                                        "BEYOND_LLC"};
     if (ordinal >= 36U || number(resources, "ordinal") != ordinal ||
@@ -137,10 +143,15 @@ auto parse_capture(const Object& capture, const Object& resources,
         text(capture, "placement") != ((ordinal / 9U) % 2U == 0U ? "NEAR" : "FAR") ||
         text(capture, "working_set_class") != classes[(ordinal / 3U) % 3U]) {
       throw std::invalid_argument(
-          "native capture differs from the exact ordered D178 design");
+          "native capture differs from the exact ordered discovery design");
     }
     const auto& geometry = object(capture, "geometry");
     const auto& budget = object(capture, "budget");
+    if (revised && (number(budget, "warmup_attempt_capacity") != 30'000'000U ||
+                    number(budget, "measurement_attempt_capacity") != 30'000'000U)) {
+      throw std::invalid_argument(
+          "D207 requires 30000000 attempts per worker per phase");
+    }
     const auto& warmup = object(capture, "warmup");
     const auto& measurement = object(capture, "measurement");
     if (object(capture, "arena_seed") != measurement ||
@@ -275,18 +286,50 @@ auto parse_capture(const Object& capture, const Object& resources,
 }
 } // namespace
 
+auto native_discovery_design(const Object& plan)
+    -> std::optional<DiscoveryNativeDesign> {
+  const auto schema = plan.find("schema_version");
+  const auto design = plan.find("design_id");
+  if (schema == plan.end() || design == plan.end() ||
+      schema->second.as_string() == nullptr || design->second.as_string() == nullptr) {
+    return std::nullopt;
+  }
+  if (*schema->second.as_string() == "cpu-prefetch-stage17-discovery-plan/1" &&
+      *design->second.as_string() == "D178-Q16A-SETUP-DISCOVERY-v1") {
+    return DiscoveryNativeDesign::d178_v1;
+  }
+  if (*schema->second.as_string() == "cpu-prefetch-stage17-discovery-plan/2" &&
+      *design->second.as_string() == "D207-Q16A-SETUP-DISCOVERY-v2") {
+    const auto amendment = plan.find("amendment_id");
+    const auto custody = plan.find("custody_policy_id");
+    if (amendment == plan.end() || custody == plan.end() ||
+        amendment->second.as_string() == nullptr ||
+        custody->second.as_string() == nullptr ||
+        *amendment->second.as_string() !=
+            "AMEND-2.0.0-pre.3-EXT007-DISCOVERY-DURATION-v2" ||
+        *custody->second.as_string() != "EXT007-RAW-NONE-STAND-PRIMARY-v1") {
+      return std::nullopt;
+    }
+    return DiscoveryNativeDesign::d207_v2;
+  }
+  return std::nullopt;
+}
+
 auto parse_native_discovery_capture(
     const Object& capture, const Object& resources, const Object& monitoring,
-    std::span<const platform::HardwarePrefetchMsrValue> prestate)
+    std::span<const platform::HardwarePrefetchMsrValue> prestate,
+    DiscoveryNativeDesign design)
     -> protocol::Result<calibration::NativeDiscoveryCapturePlan> {
-  return parse_capture(capture, resources, monitoring, prestate, true);
+  return parse_capture(capture, resources, monitoring, prestate, true, design);
 }
 
 auto describe_native_discovery_layout(
     const Object& capture, const Object& resources, const Object& monitoring,
-    std::span<const platform::HardwarePrefetchMsrValue> prestate)
+    std::span<const platform::HardwarePrefetchMsrValue> prestate,
+    DiscoveryNativeDesign design)
     -> protocol::Result<calibration::NativeDiscoveryCaptureLayout> {
-  const auto parsed = parse_capture(capture, resources, monitoring, prestate, false);
+  const auto parsed =
+      parse_capture(capture, resources, monitoring, prestate, false, design);
   if (!parsed) {
     return protocol::Result<calibration::NativeDiscoveryCaptureLayout>::failure(
         parsed.errors());

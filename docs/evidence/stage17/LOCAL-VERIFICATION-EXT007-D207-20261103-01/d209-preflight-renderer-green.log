@@ -1,0 +1,12 @@
+test_declared_operational_paths_rehash_and_old_policies_stay_immutable (check_stage17_discovery_policy_v2.PreflightRendererTests.test_declared_operational_paths_rehash_and_old_policies_stay_immutable) ... ok
+test_bundle_verifier_new_and_legacy_surfaces (check_stage17_discovery_policy_v2.SuccessorReleaseTests.test_bundle_verifier_new_and_legacy_surfaces) ... ok
+test_ext002_provenance_schema_and_clean_release_binding (check_stage17_discovery_policy_v2.SuccessorReleaseTests.test_ext002_provenance_schema_and_clean_release_binding) ... ok
+test_full_verifier_and_dirty_native_identity_rejected (check_stage17_discovery_policy_v2.SuccessorReleaseTests.test_full_verifier_and_dirty_native_identity_rejected) ... ok
+test_old_contract_dispatch_remains_predecessor (check_stage17_discovery_policy_v2.SuccessorReleaseTests.test_old_contract_dispatch_remains_predecessor) ... ok
+test_seven_action_archive_ext006_and_predecessor_mismatch (check_stage17_discovery_policy_v2.SuccessorReleaseTests.test_seven_action_archive_ext006_and_predecessor_mismatch) ... ok
+test_successor_requires_native_v2_capability (check_stage17_discovery_policy_v2.SuccessorReleaseTests.test_successor_requires_native_v2_capability) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.423s
+
+OK

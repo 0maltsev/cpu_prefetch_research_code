@@ -1,6 +1,6 @@
 #include "cpu_prefetch/qualification/q15_clock_pair_qualification.hpp"
 
-#include "cpu_prefetch/platform/q15_runtime.hpp"
+#include "cpu_prefetch/platform/owner_mapping.hpp"
 #include "cpu_prefetch/timing/clock.hpp"
 #include "cpu_prefetch/timing/cross_core_exchange.hpp"
 
@@ -16,18 +16,27 @@ struct PerCoreCapture final {
   std::optional<timing::PerCoreQualificationEvidence> evidence;
 };
 
+// Pair authorization belongs to the caller. Preserve the clock qualification's
+// affinity/actual-CPU checks without importing the probe's legacy CPU domain or
+// adding the owner's unrelated thread-ID/fault acceptance requirements.
+[[nodiscard]] auto affinity_matches(const platform::OwnerThreadObservation& observed,
+                                    std::uint32_t cpu) noexcept -> bool {
+  return observed.affinity.zero_return() && observed.affinity_cpu_count == 1 &&
+         observed.requested_cpu_in_affinity &&
+         observed.current_cpu.nonnegative_return() &&
+         observed.current_cpu.return_value == static_cast<std::int64_t>(cpu);
+}
+
 [[nodiscard]] auto capture_per_core(std::uint32_t cpu,
                                     const ClockPairQualificationCounts& counts)
     -> PerCoreCapture {
-  platform::LinuxQ15PlatformOperations operations;
+  platform::LinuxOwnerMemoryOperations operations;
   const auto bound = operations.bind_current_thread(cpu);
-  if (!bound.succeeded) {
+  if (!bound.zero_return()) {
     return {false, std::nullopt};
   }
-  const auto affinity_before = operations.singleton_affinity_matches(cpu);
-  const auto cpu_before = operations.current_cpu();
-  if (!affinity_before || !affinity_before.value() || !cpu_before ||
-      cpu_before.value() != cpu) {
+  const auto before = operations.observe_current_thread(cpu);
+  if (!affinity_matches(before, cpu)) {
     return {true, std::nullopt};
   }
 
@@ -67,10 +76,8 @@ struct PerCoreCapture final {
     }
   }
 
-  const auto affinity_after = operations.singleton_affinity_matches(cpu);
-  const auto cpu_after = operations.current_cpu();
-  const bool affinity_held =
-      affinity_after && affinity_after.value() && cpu_after && cpu_after.value() == cpu;
+  const auto after = operations.observe_current_thread(cpu);
+  const bool affinity_held = affinity_matches(after, cpu);
 
   const timing::PerCoreQualificationInput input{
       timestamps,        counts.prime_read_count, call_failures,
@@ -207,8 +214,8 @@ auto run_clock_pair_qualification(runner::WorkerPair pair,
     while (!cross_core_start.load(std::memory_order_acquire)) {
       std::this_thread::yield();
     }
-    platform::LinuxQ15PlatformOperations operations;
-    if (!operations.bind_current_thread(pair.producer_cpu).succeeded) {
+    platform::LinuxOwnerMemoryOperations operations;
+    if (!operations.bind_current_thread(pair.producer_cpu).zero_return()) {
       return;
     }
     producer_to_consumer_capture =
@@ -219,8 +226,8 @@ auto run_clock_pair_qualification(runner::WorkerPair pair,
     while (!cross_core_start.load(std::memory_order_acquire)) {
       std::this_thread::yield();
     }
-    platform::LinuxQ15PlatformOperations operations;
-    if (!operations.bind_current_thread(pair.consumer_cpu).succeeded) {
+    platform::LinuxOwnerMemoryOperations operations;
+    if (!operations.bind_current_thread(pair.consumer_cpu).zero_return()) {
       return;
     }
     run_direction_responder(producer_to_consumer_channel, counts);

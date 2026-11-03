@@ -19,8 +19,8 @@ template <typename Value>
   return value.value();
 }
 
-// CPUs 0 and 1 are both valid on any machine this test runs on (unlike the
-// real FAR pair's CPU 26, which only exists on the accepted Xeon stand).
+// These local integration tests require CPUs 0, 1 and 8 in the allowed affinity
+// set. CPU availability alone supplies no stand or scientific qualification.
 // kQualificationPrimeReadCount/kQualificationDeltaCount/
 // kCrossCoreExchangeCountPerWindow/kMinimumCrossCoreWindowStartSpanNanoseconds
 // are frozen constants baked directly into evaluate_clock_sequence/
@@ -76,12 +76,33 @@ TEST(Q15ClockPairQualification,
   EXPECT_FALSE(result.passes);
 }
 
-TEST(Q15ClockPairQualification, PinningFailsClosedForACpuOutsideTheFixedQ15Domain) {
+TEST(Q15ClockPairQualification, PinningFailsClosedForACpuOutsideTheAffinityRange) {
   const auto result =
       run_clock_pair_qualification(WorkerPair{0U, 4'000'000U}, kReducedCounts);
   EXPECT_TRUE(result.producer_pinned);
   EXPECT_FALSE(result.consumer_pinned);
   EXPECT_FALSE(result.complete);
+  EXPECT_FALSE(result.passes);
+}
+
+TEST(Q15ClockPairQualification, RegisteredV5PairCompletesBothCapturePhases) {
+  const auto result = run_clock_pair_qualification(WorkerPair{0U, 8U}, kReducedCounts);
+  ASSERT_TRUE(result.producer_pinned);
+  ASSERT_TRUE(result.consumer_pinned);
+  ASSERT_TRUE(result.complete);
+  EXPECT_TRUE(require_optional(result.producer_per_core).affinity_passes);
+  EXPECT_TRUE(require_optional(result.consumer_per_core).affinity_passes);
+  EXPECT_TRUE(require_optional(result.producer_per_core).read_status_passes);
+  EXPECT_TRUE(require_optional(result.consumer_per_core).read_status_passes);
+  EXPECT_EQ(require_optional(result.producer_per_core).sequence.regression_count, 0U);
+  EXPECT_EQ(require_optional(result.consumer_per_core).sequence.regression_count, 0U);
+  EXPECT_EQ(require_optional(result.producer_per_core).sequence.delta_count, 5'000U);
+  EXPECT_EQ(require_optional(result.consumer_per_core).sequence.delta_count, 5'000U);
+  const auto& cross = require_optional(result.cross_core);
+  EXPECT_EQ(cross.producer_to_consumer.causal_regressions, 0U);
+  EXPECT_EQ(cross.consumer_to_producer.causal_regressions, 0U);
+  EXPECT_EQ(cross.producer_to_consumer.exchange_count_per_window, 200U);
+  EXPECT_EQ(cross.consumer_to_producer.exchange_count_per_window, 200U);
   EXPECT_FALSE(result.passes);
 }
 

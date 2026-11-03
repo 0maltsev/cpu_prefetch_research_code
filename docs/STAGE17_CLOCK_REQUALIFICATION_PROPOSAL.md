@@ -1,6 +1,11 @@
 # Prospective V5 clock requalification proposal
 
-Status: **PENDING_OWNER_DECISION — NOT EXECUTION AUTHORITY**.
+Status: **OWNER_APPROVED_FINITE_PLAN — IMPLEMENTATION CHECKS REQUIRED**.
+
+The owner approved this exact plan in the conversation on 2026-11-03:
+“yes, I approve the requalification plan”. Approval was recorded before
+any isolation mutation or fresh qualification capture. It authorizes the
+finite work below; it does not waive a feasibility, validity or stop gate.
 
 The retained 2026-11-03 capture failed the unchanged D009 p99.999 limit on
 both CPUs. [Evidence and exact results](evidence/stage17/STAND-QUALIFICATION-EXT007-20261103-01/README.md)
@@ -57,3 +62,12 @@ existing failed capture cannot be relabeled or silently repeated under
 those records. This explicit prospective decision is required before a
 new capture under a changed stand configuration. Clock policy and its
 scientific acceptance thresholds remain unchanged.
+
+## Execution result
+
+Executed 2026-11-03. The near pair passed; the far invocation failed on a
+software affinity guard before completing collection. Both permitted
+invocations are consumed. The operator restored the exact stand prestate,
+confirmed by an independent read-only check. See the
+[retained result](evidence/stage17/STAND-CLOCK-REQUALIFICATION-20261103-01/README.md).
+This completed approval does not authorize another capture after D-205.

@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-Updated 2026-11-03. D-204 release `817c652` deployed; fresh v5-18 clock qualification failed its accepted tail bound.
+Updated 2026-11-03. D-204 release `817c652` deployed; approved isolated near qualification passed; far hit a software affinity defect.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
 This roadmap is not an execution authorization or a scientific amendment.
 
@@ -13,8 +13,9 @@ Stage 18 work. Finish only already-started checks and necessary calibration work
 1. **Complete:** finish current verification and freeze the discovery implementation.
 2. **Active:** clean replacement release `817c652` is deployed and verified.
    The privileged local search is complete. EXT001/002/003/006 are admitted;
-   clock qualification failed. Resolve the prospective remediation decision
-   before any new qualification capture or Q15-R/W execution.
+   the approved isolated near capture passed and far stopped on a software
+   affinity defect. Verify D-205, qualify a new clean release, and obtain
+   fresh prospective capture authority before further measurement.
 3. Freeze the approved 36-capture discovery plan within verified PC storage,
    then execute it once under its exact finite authority.
 4. Independently validate retained evidence and apply the approved count-only
@@ -39,16 +40,16 @@ Report each completed step or changed blocker against this six-step plan.
   exact scope and exclusions. The resulting attestation passed admission.
 - Fresh v5-18 passed all six read-only preflight observations. EXT001/002/003/006
   are admitted at journal 000006, PREFLIGHT_ACCEPTED, two transitions.
-  The single fixed-count near-pair clock qualification failed: p99.999 was
-  12.579/12.593 us on CPU0/1, above the accepted 10 us limit. Other clock
-  checks passed. Cause is not established; operator preparation overlapped
-  the capture on an unshielded stand. Q15-R was signed but not executed.
-  [Exact retained evidence](evidence/stage17/STAND-QUALIFICATION-EXT007-20261103-01/README.md)
-  is verified on the PC as well as retained on the stand. No discovery or
-  formal calibration capture has run. A prospective remediation/requalification
-  decision is required before any fresh clock capture. The
-  [finite requalification proposal](STAGE17_CLOCK_REQUALIFICATION_PROPOSAL.md)
-  is pending owner decision; it grants no current execution authority.
+  The first unisolated clock check failed its tail bound. The owner-approved
+  finite isolated requalification then passed near (p99.999 2.284/2.877 us),
+  but far failed before complete collection because a legacy software guard
+  rejects CPU 8. Both permitted invocations are consumed. The stand was
+  restored and independently checked; no Q15 hardware execution followed.
+  [Exact retained results](evidence/stage17/STAND-CLOCK-REQUALIFICATION-20261103-01/README.md)
+  have verified stand/PC copies. D-205 repairs clock-collector affinity using
+  the existing generic owner-binding mechanism, with unchanged CLI pair gates
+  and clock rules. Verify and freeze a clean release before requesting any
+  additional capture authority. No discovery or formal calibration has run.
 - Preserve v5-17's rejected authoring/admission drafts (fractional authority
   timestamp, then commented known-hosts input); v5-18 uses whole-second
   authority and the exact same host key in the required single-line form.
@@ -107,7 +108,7 @@ release compatibility, metadata and retained-data regressions. The largest
 31,944,212-value metadata test uses about 285 MiB peak RSS. Its clean successor `817c652` is now deployed. The owner completed the
 privileged public-evidence search; its scope, exclusions and zero-match result
 are retained, together with stand and Git-history searches. Fresh qualification
-is blocked at the measured clock tail limit in v5-18 as recorded above.
+is now blocked at the far-pair software affinity defect in v5-18 as recorded above.
 
 ## Ordered work and acceptance gates
 

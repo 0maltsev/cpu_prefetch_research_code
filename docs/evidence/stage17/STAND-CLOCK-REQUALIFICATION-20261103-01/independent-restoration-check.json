@@ -1,0 +1,9 @@
+{
+  "utc": "2026-11-03T08:36:43.695379+00:00",
+  "partition_absent": true,
+  "root_subtree_control": "cpu memory pids",
+  "root_effective_cpus": "0-31",
+  "root_isolated_cpus": "",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "q15_execution_artifacts": []
+}

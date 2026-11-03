@@ -1,0 +1,5 @@
+{
+  "error": "RuntimeError('clock qualification failed: far')",
+  "retry_allowed": false,
+  "utc": "2026-11-03T08:06:57Z"
+}

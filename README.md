@@ -1304,16 +1304,15 @@ The replacement clean release remains to be qualified. Historical local
 evidence search needs access to owner-inaccessible old directories; no claim
 of an exhaustive negative search or experimental completion has been made.
 
-Latest EXT007 checkpoint (2026-11-03): release source `817c652` is deployed and
-verified on the stand (1,759 files). Seven clean release gates and qualification
-prefetch checks for both GCC and Clang under both disassemblers pass. The owner's
-privileged local search completed without errors or matching D124 receipts in
-its declared public scope; fresh stand and Git searches are retained too.
-Fresh v5-18 passed all six preflight observations and admitted EXT001/002/003/006
-(journal 000006, two transitions, PREFLIGHT_ACCEPTED). The one fixed-count
-near-pair clock qualification failed: CPU0/1 p99.999 = 12.579/12.593 us exceeds
-the accepted 10 us limit. Other clock checks passed; cause is not established.
-Q15-R was signed but not executed. No fresh capture followed the failure.
-Step 2 is blocked pending a prospective remediation/requalification decision.
-See the [retained stand evidence](docs/evidence/stage17/STAND-QUALIFICATION-EXT007-20261103-01/README.md).
-Discovery and formal calibration have not started; release `817c652` is unchanged.
+Latest EXT007 checkpoint (2026-11-03): release `817c652` has fresh
+EXT001/002/003/006 admitted in v5-18. The first unisolated clock check failed
+its tail bound. The owner then approved one finite isolated near/far family.
+Near passed (p99.999 2.284/2.877 us); far stopped before complete collection
+because the legacy affinity helper rejects the accepted CPU 8. The two-call
+budget is consumed. Isolation was removed and exact restoration independently
+verified. No Q15 hardware action, discovery or formal calibration has run.
+[Retained results](docs/evidence/stage17/STAND-CLOCK-REQUALIFICATION-20261103-01/README.md)
+include verified stand/PC copies. D-205 repairs only clock-collector affinity;
+targeted checks pass under both compilers and all four sanitizers. A fresh
+clean release is being prepared. Step 2 remains active;
+new prospective authority is required before another clock capture.

@@ -1,0 +1,57 @@
+[
+  {
+    "path": "affinity-domain-before-test.log",
+    "size_bytes": 993,
+    "sha256": "c6dea7bfa0237dd3393db32917d938ab404467b777eb288525189fd336bd60c2"
+  },
+  {
+    "path": "clock-affinity-dev-tests.log",
+    "size_bytes": 1096,
+    "sha256": "07f5b28d35f7ffa2390e27c258f77f85f2b7416c285a4c70991702a3c3b18d11"
+  },
+  {
+    "path": "clock-affinity-asan-tests.log",
+    "size_bytes": 999,
+    "sha256": "40933039c4e2805a3c6d82c3b63e5fbc918d500d679afd9cdd795a259a8b2f29"
+  },
+  {
+    "path": "clock-affinity-tsan-tests.log",
+    "size_bytes": 999,
+    "sha256": "9c16e824903480a07ec162425410fda82838e744e11dd3a39a14e1addfb7f885"
+  },
+  {
+    "path": "clock-affinity-format.log",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "clock-affinity-tidy.log",
+    "size_bytes": 497,
+    "sha256": "37b6d50a0d6bb76ded01a9874fd3eabf9a5a250f9b3fe1c9a28d7ed0150e8a96"
+  },
+  {
+    "path": "d205-dev-clang-libcxx.log",
+    "size_bytes": 1416,
+    "sha256": "b959077cae80da9c68db60f210a1013a8f501abecd81ce1f6aa3017443b66da5"
+  },
+  {
+    "path": "d205-asan-ubsan-clang-libcxx.log",
+    "size_bytes": 1431,
+    "sha256": "214eb2beae85589f76593e394d7d4bb2b7b470ad5eba7524749d2252f50150ea"
+  },
+  {
+    "path": "d205-tsan-clang-libcxx.log",
+    "size_bytes": 1419,
+    "sha256": "9eecffe39e8a3da80735620875e9d331e875a9a7cf9b902f066ea06a8a9eb9ca"
+  },
+  {
+    "path": "d205-policy56-check.log",
+    "size_bytes": 95,
+    "sha256": "57c8c88b89dc55d0209aff350b8ec05ce6a9acb1dbd76b8edc43e20f29b43aec"
+  },
+  {
+    "path": "d205-preflight30-check.log",
+    "size_bytes": 103,
+    "sha256": "b7d1055f7d6afd50259fb81024c44ffd8223fce3aa17c001d9866cd5ee742207"
+  }
+]

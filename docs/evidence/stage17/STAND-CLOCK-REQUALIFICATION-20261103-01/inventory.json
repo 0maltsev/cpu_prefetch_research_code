@@ -1,0 +1,141 @@
+[
+  {
+    "path": "stand/failure.json",
+    "sha256": "b83977530d34453a6f8fca4daba1fe1a0ca5138c2895c3bc2be02d7c6fb3f6db",
+    "size_bytes": 124,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/failure.json"
+  },
+  {
+    "path": "stand/far/clock-capture-intent.json",
+    "sha256": "735c2f0b7103c01fcae7d545be844cb2d069acf462073fad5c77af4d58798572",
+    "size_bytes": 928,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/far/clock-capture-intent.json"
+  },
+  {
+    "path": "stand/far/clock-capture-result.json",
+    "sha256": "ec0322e5b4f1e82ceb60931f977bd867226a7c2dac5dc93a141f286f8e9fe76a",
+    "size_bytes": 1277,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/far/clock-capture-result.json"
+  },
+  {
+    "path": "stand/far/clock-stderr.txt",
+    "sha256": "868de09cf354c46306d2e3a0d0ced7314ba6ec7d71363fc283f9ab7f8ed99ef6",
+    "size_bytes": 77,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/far/clock-stderr.txt"
+  },
+  {
+    "path": "stand/far/clock-stdout.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "size_bytes": 0,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/far/clock-stdout.txt"
+  },
+  {
+    "path": "stand/far/control-after.json",
+    "sha256": "a5108c129a36db7dbfe37112d523032da41a24a9f52f30f76bb00964512da4ec",
+    "size_bytes": 816,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/far/control-after.json"
+  },
+  {
+    "path": "stand/far/control-before.json",
+    "sha256": "e57832028b496cf33f04124504b13f42a7f1b204d353d869f132d644692bf823",
+    "size_bytes": 816,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/far/control-before.json"
+  },
+  {
+    "path": "stand/far/launcher-readback.json",
+    "sha256": "477716ce98ee0219d51a9fc61165a4f4d4482f28507e7cb4b26e358e96e303e8",
+    "size_bytes": 668,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/far/launcher-readback.json"
+  },
+  {
+    "path": "stand/isolation-verified.json",
+    "sha256": "f57adfe9f2d2468f9afc77b5e1bf9f1d2909f62a5af49abc19c17b110d0a2ae3",
+    "size_bytes": 816,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/isolation-verified.json"
+  },
+  {
+    "path": "stand/near/clock-capture-intent.json",
+    "sha256": "3c29ed444c055d13b9a02307a53f6cf0af178ddc803bd86eb7e26cd47c020579",
+    "size_bytes": 931,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/near/clock-capture-intent.json"
+  },
+  {
+    "path": "stand/near/clock-capture-result.json",
+    "sha256": "cd7b81e5c54a4461aac2b11ab501d753f0085c911664283abb9f6fc0e85d1792",
+    "size_bytes": 1413,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/near/clock-capture-result.json"
+  },
+  {
+    "path": "stand/near/clock-raw.json",
+    "sha256": "a02cecc776c43aef4969ef40cc1f6b6aac170e5117947fd0afa5341d6916632c",
+    "size_bytes": 485,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/near/clock-raw.json"
+  },
+  {
+    "path": "stand/near/clock-stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "size_bytes": 0,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/near/clock-stderr.txt"
+  },
+  {
+    "path": "stand/near/clock-stdout.txt",
+    "sha256": "8553545fb5f9b0f416e34c1435ef594bdd17b2e1ecbf5554b6a3402d651a4b1e",
+    "size_bytes": 1108,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/near/clock-stdout.txt"
+  },
+  {
+    "path": "stand/near/control-after.json",
+    "sha256": "e57832028b496cf33f04124504b13f42a7f1b204d353d869f132d644692bf823",
+    "size_bytes": 816,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/near/control-after.json"
+  },
+  {
+    "path": "stand/near/control-before.json",
+    "sha256": "f57adfe9f2d2468f9afc77b5e1bf9f1d2909f62a5af49abc19c17b110d0a2ae3",
+    "size_bytes": 816,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/near/control-before.json"
+  },
+  {
+    "path": "stand/near/launcher-readback.json",
+    "sha256": "0a6356232b894a280c83b84a40316af04056a2e8c0b2fd737144089ea524a615",
+    "size_bytes": 670,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/near/launcher-readback.json"
+  },
+  {
+    "path": "stand/prospective-plan.json",
+    "sha256": "92f0ae504e8c3fc215d78296dca06669ba2e482c65100a0aefe8ee0b24f649cd",
+    "size_bytes": 2572,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/prospective-plan.json"
+  },
+  {
+    "path": "stand/restoration.json",
+    "sha256": "2cba649f7a35e076bb9a89a456795479ec496f464d7125836cf43edca92fc108",
+    "size_bytes": 332,
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/restoration.json"
+  },
+  {
+    "path": "approved-plan.md",
+    "size_bytes": 3884,
+    "sha256": "29a682a1da16fcdcf1ca315795f11819cdf6ebb947820bfd4d80d0224b6f66c7"
+  },
+  {
+    "path": "operator-script.py",
+    "size_bytes": 14010,
+    "sha256": "75e290eadf2cd5a56518aedfe1cba5da56b6c6da5e56f726570c3aac630723f1"
+  },
+  {
+    "path": "operator.log",
+    "size_bytes": 1267,
+    "sha256": "4b07b5eeec5167855422eca07194389b8e06fa2c5cd6f0a2e0361cc122342fa6"
+  },
+  {
+    "path": "prestate.json",
+    "size_bytes": 795,
+    "sha256": "d45a05477dd9567fc92d8890b82c8ea125ab967082f4f07b6fa0e9ce196ebfd8"
+  },
+  {
+    "path": "independent-restoration-check.json",
+    "size_bytes": 268,
+    "sha256": "ccd6cf287cbcf290166f98c1ce4e110796aa645a1a9c3da2a8d2c9455b6a87f5"
+  }
+]

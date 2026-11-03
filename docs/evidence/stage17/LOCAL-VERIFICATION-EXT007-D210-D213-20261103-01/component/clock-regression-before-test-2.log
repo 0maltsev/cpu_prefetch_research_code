@@ -1,0 +1,82 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure:ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from ServiceSession
+[ RUN      ] ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:604: Failure
+Expected equality of these values:
+  result.stop
+    Which is: 1-byte object <01>
+  fault == 1U ? c::ServiceSessionStop::drain_timeout : c::ServiceSessionStop::clock_failure
+    Which is: 1-byte object <0D>
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:606: Failure
+Value of: result.phases[1U].consumer.drained
+  Actual: true
+Expected: false
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:607: Failure
+Value of: result.phases[1U].validated
+  Actual: true
+Expected: false
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:604: Failure
+Expected equality of these values:
+  result.stop
+    Which is: 1-byte object <01>
+  fault == 1U ? c::ServiceSessionStop::drain_timeout : c::ServiceSessionStop::clock_failure
+    Which is: 1-byte object <07>
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:606: Failure
+Value of: result.phases[1U].consumer.drained
+  Actual: true
+Expected: false
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:607: Failure
+Value of: result.phases[1U].validated
+  Actual: true
+Expected: false
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:604: Failure
+Expected equality of these values:
+  result.stop
+    Which is: 1-byte object <01>
+  fault == 1U ? c::ServiceSessionStop::drain_timeout : c::ServiceSessionStop::clock_failure
+    Which is: 1-byte object <07>
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:606: Failure
+Value of: result.phases[1U].consumer.drained
+  Actual: true
+Expected: false
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:607: Failure
+Value of: result.phases[1U].validated
+  Actual: true
+Expected: false
+
+[  FAILED  ] ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure (11 ms)
+[ RUN      ] ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:616: Failure
+Expected equality of these values:
+  result.stop
+    Which is: 1-byte object <01>
+  c::ServiceSessionStop::clock_failure
+    Which is: 1-byte object <07>
+
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp:618: Failure
+Value of: result.phases[1U].released
+  Actual: true
+Expected: false
+
+[  FAILED  ] ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain (0 ms)
+[----------] 2 tests from ServiceSession (12 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (12 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 2 tests, listed below:
+[  FAILED  ] ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure
+[  FAILED  ] ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain
+
+ 2 FAILED TESTS

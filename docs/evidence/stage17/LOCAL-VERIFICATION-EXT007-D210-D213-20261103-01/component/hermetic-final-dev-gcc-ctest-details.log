@@ -1,0 +1,765 @@
+Start testing: Nov 03 17:43 MSK
+----------------------------------------------------------
+360/670 Testing: ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement
+360/670 Test: ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement
+[       OK ] ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement (73 ms)
+[----------] 1 test from ServiceSession (73 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (73 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement" end time: Nov 03 17:43 MSK
+"ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement" time elapsed: 00:00:00
+----------------------------------------------------------
+
+361/670 Testing: ServiceSession.NoHotOrLogicalResetAllocation
+361/670 Test: ServiceSession.NoHotOrLogicalResetAllocation
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.NoHotOrLogicalResetAllocation" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.NoHotOrLogicalResetAllocation" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.NoHotOrLogicalResetAllocation
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.NoHotOrLogicalResetAllocation
+[       OK ] ServiceSession.NoHotOrLogicalResetAllocation (17 ms)
+[----------] 1 test from ServiceSession (17 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (17 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.NoHotOrLogicalResetAllocation" end time: Nov 03 17:43 MSK
+"ServiceSession.NoHotOrLogicalResetAllocation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+362/670 Testing: ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup
+362/670 Test: ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup
+[       OK ] ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup (22 ms)
+[----------] 1 test from ServiceSession (22 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (22 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup" end time: Nov 03 17:43 MSK
+"ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup" time elapsed: 00:00:00
+----------------------------------------------------------
+
+363/670 Testing: ServiceSession.ValidationAndEveryResetFailurePreventMeasurement
+363/670 Test: ServiceSession.ValidationAndEveryResetFailurePreventMeasurement
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.ValidationAndEveryResetFailurePreventMeasurement" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.ValidationAndEveryResetFailurePreventMeasurement" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.ValidationAndEveryResetFailurePreventMeasurement
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.ValidationAndEveryResetFailurePreventMeasurement
+[       OK ] ServiceSession.ValidationAndEveryResetFailurePreventMeasurement (46 ms)
+[----------] 1 test from ServiceSession (46 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (46 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.ValidationAndEveryResetFailurePreventMeasurement" end time: Nov 03 17:43 MSK
+"ServiceSession.ValidationAndEveryResetFailurePreventMeasurement" time elapsed: 00:00:00
+----------------------------------------------------------
+
+364/670 Testing: ServiceSession.ObservationFailuresCancelBeforeNextPhase
+364/670 Test: ServiceSession.ObservationFailuresCancelBeforeNextPhase
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.ObservationFailuresCancelBeforeNextPhase" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.ObservationFailuresCancelBeforeNextPhase" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.ObservationFailuresCancelBeforeNextPhase
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.ObservationFailuresCancelBeforeNextPhase
+[       OK ] ServiceSession.ObservationFailuresCancelBeforeNextPhase (36 ms)
+[----------] 1 test from ServiceSession (36 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (36 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.ObservationFailuresCancelBeforeNextPhase" end time: Nov 03 17:43 MSK
+"ServiceSession.ObservationFailuresCancelBeforeNextPhase" time elapsed: 00:00:00
+----------------------------------------------------------
+
+365/670 Testing: ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture
+365/670 Test: ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture
+[       OK ] ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture (12 ms)
+[----------] 1 test from ServiceSession (12 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (12 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture" end time: Nov 03 17:43 MSK
+"ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture" time elapsed: 00:00:00
+----------------------------------------------------------
+
+366/670 Testing: ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers
+366/670 Test: ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers
+[       OK ] ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers (1 ms)
+[----------] 1 test from ServiceSession (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers" end time: Nov 03 17:43 MSK
+"ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers" time elapsed: 00:00:00
+----------------------------------------------------------
+
+367/670 Testing: ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup
+367/670 Test: ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup
+[       OK ] ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup (23 ms)
+[----------] 1 test from ServiceSession (23 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (23 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup" end time: Nov 03 17:43 MSK
+"ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup" time elapsed: 00:00:00
+----------------------------------------------------------
+
+368/670 Testing: ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup
+368/670 Test: ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup
+[       OK ] ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup (25 ms)
+[----------] 1 test from ServiceSession (25 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (25 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup" end time: Nov 03 17:43 MSK
+"ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup" time elapsed: 00:00:00
+----------------------------------------------------------
+
+369/670 Testing: ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain
+369/670 Test: ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain
+[       OK ] ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain (2 ms)
+[----------] 1 test from ServiceSession (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (2 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain" end time: Nov 03 17:43 MSK
+"ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain" time elapsed: 00:00:00
+----------------------------------------------------------
+
+370/670 Testing: ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement
+370/670 Test: ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement
+[       OK ] ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement (1 ms)
+[----------] 1 test from ServiceSession (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement" end time: Nov 03 17:43 MSK
+"ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement" time elapsed: 00:00:00
+----------------------------------------------------------
+
+371/670 Testing: ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure
+371/670 Test: ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure
+[       OK ] ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure (1 ms)
+[----------] 1 test from ServiceSession (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure" end time: Nov 03 17:43 MSK
+"ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure" time elapsed: 00:00:00
+----------------------------------------------------------
+
+372/670 Testing: ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain
+372/670 Test: ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain
+[       OK ] ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain (1 ms)
+[----------] 1 test from ServiceSession (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain" end time: Nov 03 17:43 MSK
+"ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain" time elapsed: 00:00:00
+----------------------------------------------------------
+
+373/670 Testing: ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow
+373/670 Test: ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_service_session_tests" "--gtest_filter=ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceSession
+[ RUN      ] ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow
+[       OK ] ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow (0 ms)
+[----------] 1 test from ServiceSession (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow" end time: Nov 03 17:43 MSK
+"ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow" time elapsed: 00:00:00
+----------------------------------------------------------
+
+429/670 Testing: ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow
+429/670 Test: ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow
+[       OK ] ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow" time elapsed: 00:00:00
+----------------------------------------------------------
+
+430/670 Testing: ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows
+430/670 Test: ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows
+[       OK ] ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows" time elapsed: 00:00:00
+----------------------------------------------------------
+
+431/670 Testing: ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator
+431/670 Test: ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator
+[       OK ] ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+432/670 Testing: ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration
+432/670 Test: ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration
+[       OK ] ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration" time elapsed: 00:00:00
+----------------------------------------------------------
+
+433/670 Testing: ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount
+433/670 Test: ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount
+[       OK ] ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount" time elapsed: 00:00:00
+----------------------------------------------------------
+
+434/670 Testing: ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption
+434/670 Test: ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption
+[       OK ] ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption" time elapsed: 00:00:00
+----------------------------------------------------------
+
+435/670 Testing: ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout
+435/670 Test: ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout
+[       OK ] ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout" time elapsed: 00:00:00
+----------------------------------------------------------
+
+436/670 Testing: ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal
+436/670 Test: ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal
+[       OK ] ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal" time elapsed: 00:00:00
+----------------------------------------------------------
+
+437/670 Testing: ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale
+437/670 Test: ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale
+[       OK ] ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale" time elapsed: 00:00:00
+----------------------------------------------------------
+
+438/670 Testing: ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow
+438/670 Test: ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow
+[       OK ] ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow" time elapsed: 00:00:00
+----------------------------------------------------------
+
+439/670 Testing: ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream
+439/670 Test: ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream
+[       OK ] ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream" time elapsed: 00:00:00
+----------------------------------------------------------
+
+440/670 Testing: ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows
+440/670 Test: ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows
+[       OK ] ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows" time elapsed: 00:00:00
+----------------------------------------------------------
+
+441/670 Testing: ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal
+441/670 Test: ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/cpu_prefetch_calibration_tests" "--gtest_filter=ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal
+[       OK ] ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal (0 ms)
+[----------] 1 test from ServiceIntervalCount (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal" end time: Nov 03 17:43 MSK
+"ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal" time elapsed: 00:00:00
+----------------------------------------------------------
+
+603/670 Testing: runner.stage17_raw_stream_decoder_v2
+603/670 Test: runner.stage17_raw_stream_decoder_v2
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/python3" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_raw_stream_decoder_v2.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+"runner.stage17_raw_stream_decoder_v2" start time: Nov 03 17:43 MSK
+Output:
+----------------------------------------------------------
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 0.152s
+
+OK
+<end of output>
+Test time =   0.25 sec
+----------------------------------------------------------
+Test Passed.
+"runner.stage17_raw_stream_decoder_v2" end time: Nov 03 17:43 MSK
+"runner.stage17_raw_stream_decoder_v2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 03 17:43 MSK
+
+calibration =   0.65 sec*proc
+
+python =   0.25 sec*proc
+
+raw =   0.25 sec*proc
+
+runner =   0.25 sec*proc
+
+service =   0.25 sec*proc
+
+synthetic =   0.25 sec*proc
+

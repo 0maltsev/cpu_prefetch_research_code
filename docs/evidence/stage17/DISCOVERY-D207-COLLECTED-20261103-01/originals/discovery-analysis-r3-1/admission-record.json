@@ -1,0 +1,42 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root/tools/stage17_operational_cli_v17.py",
+    "admit-discovery-retention",
+    "--repository-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root",
+    "--evidence-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20",
+    "--authorization",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root/evidence/discovery-r3-fresh/authorization.json",
+    "--signature",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root/evidence/discovery-r3-fresh/authorization.json.sig",
+    "--output-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-output-r3-1",
+    "--pilot-archive",
+    "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-a1ade11-clean-532854d74928.tar.gz",
+    "--pilot-sidecar",
+    "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-a1ade11-clean-532854d74928.tar.gz.sha256"
+  ],
+  "exit_code": 0,
+  "repository_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root",
+  "output_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-output-r3-1",
+  "bindings": {
+    "plan_sha256": "b513b6a7592fe010bc9a4fa256a7b214252504920636b286ad1f0edb8bdb6fcf",
+    "request_sha256": "94e15475dd2a6d418fa1fc988f56a118028478b77f209f518489f01f16eb3012",
+    "authorization_sha256": "fa9443d7af1b6b35f36d0b0c21e22f9bfcc7a10e6d7b6f1614bb2d4d305421c6",
+    "result_sha256": "1c06f680ec090b23c462af697d93aadf298dba4d68ec5cf04df01517274ad898",
+    "supervisor_sha256": "e9bf48ce2020a4d0fb8c93f90d7330383882002bbb35715df3050b74d8c81bd0"
+  },
+  "stdout": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/admission-stdout.txt",
+    "size_bytes": 71,
+    "sha256": "1ef2167dd7f7cc31835f1c53a86c61f923e236dffedf5eb797c4f1db06f5703a"
+  },
+  "stderr": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/admission-stderr.txt",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

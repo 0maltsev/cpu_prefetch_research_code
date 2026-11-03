@@ -1,0 +1,14 @@
+{
+  "record_id": "CPU-PREFETCH-V5-EXT007-D211-OWNER-ACCEPTANCE-1",
+  "recorded_at_utc": "2026-11-03T12:52:42.714525+00:00",
+  "exact_user_reply": "Approve D211 counting rule",
+  "approval_source": "Current conversation structured reply to the exact D211 proposal and SHA256",
+  "proposal_sha256": "0f38dcbea5ce9c6d9e1d82e82f72945f9ee86543d621a68e35667f0f8bb0fd10",
+  "proposal_size_bytes": 4250,
+  "amendment_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+  "completion_window": "t0 <= consumer_action_finish < t0 + T",
+  "all_drain_events_retained_for_reconciliation": true,
+  "new_experiment_authority": false,
+  "automatic_retry_authority": false,
+  "changes_current_D207_family": false
+}

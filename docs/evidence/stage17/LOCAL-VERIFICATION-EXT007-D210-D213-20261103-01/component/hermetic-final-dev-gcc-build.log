@@ -1,0 +1,11 @@
+[0/1] Re-running CMake...
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+[1/8] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/service_session.cpp.o
+[2/8] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/service_interval_count.cpp.o
+[3/8] Linking CXX static library libcpu_prefetch_calibration.a
+[4/8] Building CXX object CMakeFiles/cpu_prefetch_service_session_tests.dir/tests/calibration_service_session_test.cpp.o
+[5/8] Building CXX object CMakeFiles/cpu_prefetch_calibration_tests.dir/tests/calibration_service_interval_count_test.cpp.o
+[6/8] Linking CXX executable cpu_prefetch_service_session_tests
+[7/8] Linking CXX executable cpu_prefetch_calibration_tests

@@ -36,6 +36,10 @@ An ADR must not use confirmatory outcomes to settle an open decision. If the cho
 
 | ADR | Status | Decision |
 |---|---|---|
+| [ADR-0213](0213-discovery-whole-plot-readback-validation.md) | `ACCEPTED` | Repair independent discovery validation for actual H0 no-write logs and reverse-order H1 restoration; preserve original data and rejected analysis, no recollection. |
+| [ADR-0212](0212-stage17-q16a-demand-window.md) | `ACCEPTED` | Owner-approved formal Q16a demand-start window and advancing-pair membership, with retained drain and a versioned method; no new experiment authority. |
+| [ADR-0211](0211-stage17-q16b-completion-interval.md) | `ACCEPTED` | Owner-approved half-open consumer-completion window for the later Q16b numerator; preserve drain reconciliation, no new experimental authority. |
+| [ADR-0210](0210-persistent-service-session-core.md) | `ACCEPTED` | Persistent service warmup, drain, parked reset and fresh measurement barrier as an independently tested component; formal dispatch and stand qualification remain separate. |
 | [ADR-0209](0209-stage17-procfs-disappearing-process.md) | `ACCEPTED` | Classify ESRCH from a disappearing procfs scan candidate without weakening target identity, namespace, error or quiescence checks; retain the original failing test evidence. |
 | [ADR-0208](0208-stage17-discovery-v2-implementation.md) | `ACCEPTED` | Versioned D207 plan, native parsing, validation and source-bound release/admission successors; preserve historical grids and unchanged measurement/retention formats. |
 | [ADR-0207](0207-stage17-ext007-discovery-duration-revision.md) | `ACCEPTED` | Owner approved the new 36-capture diagnostic grid at 1/2/5 seconds, unchanged mandatory monitoring and count-only selection, stand-primary resources, and conditional finite qualification/discovery scope. |

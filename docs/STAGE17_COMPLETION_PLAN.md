@@ -8,7 +8,7 @@ scoped PC cleanup is complete; only small results/provenance go to the PC.
 Stand-side capture-9 diagnosis and phase validation are complete: both phases
 reconcile, but full-capture validation rejects the mandatory session stop.
 Duration selection remains unresolved. Next gate is ACCEPTED ADR0207's
-36-capture 1 s/2 s/5 s grid, owner approved; implementation and qualification are complete at `a1ade11`. Both clock pairs and Q15-R/W passed; EXT001–006 are accepted in fresh v5-20. The single D207 family launched at 12:29:53 UTC and is in progress. R1 had no measurement phase or formal calibration, and its
+36-capture 1 s/2 s/5 s grid, owner approved; implementation and qualification are complete at `a1ade11`. Both clock pairs and Q15-R/W passed; EXT001–006 are accepted in fresh v5-20. The single D207 family completed all 36 captures at 13:55:31 UTC, exit 0 with verified CPU-isolation restoration. Custody admission passed; independent validation rejected the native whole-plot action-log shape. D213 records the checker repair; duration selection awaits reanalysis of the same retained bytes. R1 had no measurement phase or formal calibration, and its
 MSR/cgroup restoration was verified. R2 isolation reapplication passed with
 the same boot and required controls; exact signature and fresh PC checks passed.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
@@ -24,33 +24,23 @@ Stage 18 work. Finish only already-started checks and necessary calibration work
 2. **Complete:** clean successor release `a1ade11`, both clock pairs and Q15-R/W pass.
    EXT001–006 are admitted at v5-20 journal 000009, six resolutions and three
    transitions, READY_FOR_STAGE17_PHASE_AUTHORIZATION. Q15-W restored hardware.
-3. **Stopped, unresolved:** the first 36-capture family stopped during capture 0
-   warmup. The consumer reached five million attempts; the independently reconciled
-   prefix spans 1,472,506,585 ns. No measurement phase ran. Retain the
-   failure and verified restoration; do not retry or extend this family.
-4. **R1 failed-prefix validation complete:** all 12 files (1,142,655,488 bytes)
-   had SHA-verified two-copy custody at that checkpoint; independent validation reports
-   `FAILED_STUDY_PREFIX_RECONCILED`. Full-capture validation is rejected for the
-   mandatory session stop; the 36-capture study is not valid and duration
-   selection remains unresolved. The owner
-   [accepted the working-set amendment and one R2 family](STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_ACCEPTANCE.md).
-   The bounded stand helper confirmed capacities 512 / 65,536 / 1,048,576.
-   Exact R2 bindings are prepared and live author-request validation passed.
-   Exact signature verification and fresh PC capacity/custody checks passed.
-   R2 ran from 10:33:27 UTC until its reported stop at 10:49 UTC on 2026-11-03,
-   exit 1. Ten controls and 75 files (52,465,834,715 bytes) are retained;
-   restoration result reports true. D206 replaces the PC raw-copy gate with
-   verified stand-primary custody for EXT007 only. PC copying is cancelled and
-   cleanup is complete after stand-original verification. Capture 9's monitoring
-   overran its 100 ms measurement window; both retained phases reconcile, but
-   full-capture validation rejects `mandatory session stop`. Earlier captures
-   remain unassessed and no duration selector ran. Next gate is
-   [ACCEPTED ADR0207](decisions/0207-stage17-ext007-discovery-duration-revision.md):
-   36 fresh captures across 1 s/2 s/5 s, approved by the owner. Versioned implementation and qualification are complete at `a1ade11`;
-   both clock pairs and Q15-R/W passed. EXT001–006 are accepted at v5-20
-   journal 000009. The exact signed D207 family launched at 12:29:53 UTC
-   on 2026-11-03 and is in progress, with no automatic retry.
-5. Complete required formal-calibration fixes, freeze the prospective plans,
+3. **Complete:** collected the one owner-approved [D207](decisions/0207-stage17-ext007-discovery-duration-revision.md)
+   family of 36 fresh captures across 1 s/2 s/5 s. The exact signed family
+   ran from 12:29:53 to 13:55:31 UTC on 2026-11-03 using qualified source `a1ade11`.
+   All 36 captures were collected; exit 0, process reaped and CPU isolation restored.
+   Stand output totals 215,177,813,577 bytes. No automatic retry.
+   R1 and R2 remain failed historical attempts, retained under D206 as detailed below.
+4. **In progress:** stand-side custody admission passed. Independent v2 validation
+   rejected the native whole-plot action-log shape before capture validation.
+   [D213](decisions/0213-discovery-whole-plot-readback-validation.md) corrects the
+   checker for H0 no-write logs and H1 reverse-order restoration. Revalidate the
+   entire original retained family, preserving the rejected report.
+   Select the common duration only if the complete study validates; file counts
+   and native success alone cannot select it. Return only small reports and
+   provenance to the PC. Duration selection is currently unresolved.
+5. Complete required formal-calibration fixes (including actual persistent warmup/reset;
+   Q16b interval counting now has accepted [D211](decisions/0211-stage17-q16b-completion-interval.md);
+   Q16a demand-window [D212](decisions/0212-stage17-q16a-demand-window.md) is owner accepted), freeze the prospective plans,
    then execute Q16a (708 fresh captures), Q16b (3,540 runs) and Q16c in order.
 6. Validate and seal calibration evidence, derive the freeze, and admit EXT-007.
 

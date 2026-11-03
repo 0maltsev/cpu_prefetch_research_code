@@ -1,0 +1,187 @@
+{
+  "basis": "frozen native resources, two phases and before/during/after address/status arrays; no observed timings or values",
+  "max_packed_page_bytes": 266076160,
+  "existing_maximum": 268435456,
+  "captures": [
+    {
+      "ordinal": 0,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 1,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 2,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 3,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 4,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 5,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 6,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 7,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 8,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 9,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 10,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 11,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 12,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 13,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 14,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 15,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 16,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 17,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 18,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 19,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 20,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 21,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 22,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 23,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 24,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 25,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 26,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 27,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 28,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 29,
+      "packed_page_bytes": 252444672,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 30,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 31,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 32,
+      "packed_page_bytes": 252968960,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 33,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 34,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    },
+    {
+      "ordinal": 35,
+      "packed_page_bytes": 266076160,
+      "within_existing_bound": true
+    }
+  ]
+}

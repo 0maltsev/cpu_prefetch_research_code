@@ -1,0 +1,39 @@
+{
+  "admission_sha256": "ae5ab7f2ee13740cd539ccaa5aea9acd034dd0a3e8bbfa46ea2b22dc8dd765d3",
+  "analysis_location": "stand",
+  "authorization_sha256": "fa9443d7af1b6b35f36d0b0c21e22f9bfcc7a10e6d7b6f1614bb2d4d305421c6",
+  "custody_policy_id": "EXT007-RAW-NONE-STAND-PRIMARY-v1",
+  "d206_acceptance_sha256": "caa447f368053076b23cf296185cebe93c4318e93dcf99fd7480c89314b143c7",
+  "d206_proposal_sha256": "c1d4d9cd0ec53b3aea9a4d8dd7b13c7b3f73552f1b475a4476b3b8a6ca10b92f",
+  "error": "whole plot restore prestate: differs",
+  "execution_authority": false,
+  "finished_at_utc": "2026-11-03T14:15:18.765447+00:00",
+  "formal_runs_contributed": 0,
+  "implementation_sha256": {
+    "tools/stage17_discovery_contract_v2.py": "edbb8eef431219815e8f4a9c4d84f1ad80658995a18af34a0f44ffbdb57cb7ca",
+    "tools/stage17_discovery_environment_v1.py": "75f12429addf06c0159c996374f2666fa38e6ac4ed512c6c0bc906a699551820",
+    "tools/stage17_discovery_validation_v2.py": "ada4fdce46c83366e7a86eb574f3364131fff496333599a6201223a2d15a3e68",
+    "tools/stage17_operational_cli_v17.py": "164a23d36af1709e5f8683e9bc071eed67d0e1b7f36ef64e1d0e77e5cc34b99d",
+    "tools/stage17_output_registry_v10.py": "c492c512439770b407b2fc97dbfdfd34c88809f0252369f83e1204ca86e7875b",
+    "tools/stage17_q16a_discovery_v2.py": "7aa418ca1b871d62283a83dd97ec423ea3c39e2b695ff14d490c4848fb6fac9b",
+    "tools/stage17_raw_stream_decoder_v1.py": "6a393bbd7c6721f715cd7b23c5a5c59368365ad3e77d950f2337d52089bfcab3"
+  },
+  "independent_raw_backup": false,
+  "m_dur": 1,
+  "output_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-output-r3-1",
+  "phase18_authority": false,
+  "plan_sha256": "b513b6a7592fe010bc9a4fa256a7b214252504920636b286ad1f0edb8bdb6fcf",
+  "repository_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root",
+  "request_sha256": "94e15475dd2a6d418fa1fc988f56a118028478b77f209f518489f01f16eb3012",
+  "result_sha256": "1c06f680ec090b23c462af697d93aadf298dba4d68ec5cf04df01517274ad898",
+  "retention_binding": {
+    "file_name": "retention-report.json",
+    "sha256": "89c5ce6c123195aba3831cc62972bb7c671e07110aa2c051bcb59366c7ceddc0",
+    "size_bytes": 44282
+  },
+  "scope": "D207_EXISTING_INDEPENDENT_FULL_STUDY_VALIDATOR",
+  "scratch_directory": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/scratch",
+  "started_at_utc": "2026-11-03T14:15:17.534061+00:00",
+  "status": "FULL_STUDY_VALIDATION_REJECTED",
+  "supervisor_sha256": "e9bf48ce2020a4d0fb8c93f90d7330383882002bbb35715df3050b74d8c81bd0"
+}

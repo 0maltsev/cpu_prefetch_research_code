@@ -268,6 +268,8 @@ target_include_directories(
 target_link_libraries(cpu_prefetch_runner_core PUBLIC cpu_prefetch::reconciliation)
 
 add_library(cpu_prefetch_calibration STATIC src/calibration/calibration.cpp
+  src/calibration/service_session.cpp
+  src/calibration/service_interval_count.cpp
   src/calibration/native_discovery_capture.cpp)
 add_library(cpu_prefetch::calibration ALIAS cpu_prefetch_calibration)
 target_link_libraries(
@@ -801,6 +803,12 @@ if(BUILD_TESTING)
   set_tests_properties(calibration.discovery_v2_retained_validation PROPERTIES
     LABELS "calibration;diagnostic;synthetic" TIMEOUT 120)
   add_test(
+    NAME calibration.discovery_v3_retained_validation
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_discovery_validation_v3.py")
+  set_tests_properties(calibration.discovery_v3_retained_validation PROPERTIES
+    LABELS "calibration;diagnostic;synthetic" TIMEOUT 120)
+  add_test(
     NAME runner.stage17_discovery_v2_policy
     COMMAND "${Python3_EXECUTABLE}" -B
             "${PROJECT_SOURCE_DIR}/tools/check_stage17_preflight_successor_v2.py"
@@ -1030,6 +1038,13 @@ if(BUILD_TESTING)
     PROPERTIES
       LABELS "runner;controller;stage17b2;pilot;raw;pre-pilot;synthetic"
       PASS_REGULAR_EXPRESSION "PASS \\(3 positive, 4 negative\\)")
+  add_test(
+    NAME runner.stage17_raw_stream_decoder_v2
+    COMMAND "${Python3_EXECUTABLE}"
+            "${PROJECT_SOURCE_DIR}/tests/test_stage17_raw_stream_decoder_v2.py")
+  set_tests_properties(
+    runner.stage17_raw_stream_decoder_v2
+    PROPERTIES LABELS "runner;calibration;raw;service;synthetic;python")
   add_test(NAME q15.controller_no_authority_execute
            COMMAND cpu_prefetch_q15_controller --execute-q15-r
                    /nonexistent/authorization.json /nonexistent/authorization.sshsig)
@@ -1420,9 +1435,21 @@ if(BUILD_TESTING)
     PREFIX "reconciliation."
     PROPERTIES LABELS "reconciliation")
 
+  add_executable(cpu_prefetch_service_session_tests tests/calibration_service_session_test.cpp)
+  target_link_libraries(cpu_prefetch_service_session_tests
+    PRIVATE cpu_prefetch::calibration cpu_prefetch_project_options GTest::gtest_main)
+  if(CPU_PREFETCH_SANITIZER STREQUAL "THREAD" AND
+     CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    target_compile_definitions(cpu_prefetch_service_session_tests
+      PRIVATE CPU_PREFETCH_SERVICE_ALLOCATION_HOOK=0)
+  endif()
+  gtest_discover_tests(cpu_prefetch_service_session_tests PREFIX "calibration.service."
+    PROPERTIES LABELS "calibration;synthetic;service")
+
   add_executable(cpu_prefetch_calibration_tests
     tests/calibration_model_test.cpp tests/calibration_discovery_capture_test.cpp
     tests/calibration_discovery_session_test.cpp
+    tests/calibration_service_interval_count_test.cpp
     tests/calibration_discovery_consumer_test.cpp
     tests/calibration_caller_owned_trace_test.cpp
     tests/calibration_discovery_event_test.cpp
@@ -1808,6 +1835,8 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_reconciliation.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_ring_backend.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_session.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/service_session.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/service_interval_count.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_thread_launcher.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_discovery_preparation.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_discovery_runtime.hpp"
@@ -1867,6 +1896,8 @@ set(
   "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/native_discovery_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/service_session.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/service_interval_count.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
@@ -1924,6 +1955,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_service_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_service_interval_count_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_event_test.cpp"
@@ -2022,6 +2055,8 @@ set(
   "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/native_discovery_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/service_session.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/service_interval_count.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
@@ -2079,6 +2114,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_service_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_service_interval_count_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_event_test.cpp"
@@ -3027,6 +3064,12 @@ add_custom_target(
   q16a-discovery-design-check
   COMMAND "${Python3_EXECUTABLE}" -B
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_q16a_discovery.py"
+  VERBATIM)
+
+add_custom_target(
+  stage17-discovery-validation-v3-check
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_discovery_validation_v3.py"
   VERBATIM)
 
 add_custom_target(

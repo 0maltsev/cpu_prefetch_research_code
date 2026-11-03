@@ -1,0 +1,76 @@
+{
+  "acceptance_bindings": {
+    "d206-owner-acceptance.json": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-preparation-r3-1/preparation/d206-owner-acceptance.json",
+      "sha256": "caa447f368053076b23cf296185cebe93c4318e93dcf99fd7480c89314b143c7",
+      "size_bytes": 1014
+    },
+    "d207-owner-acceptance.json": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-preparation-r3-1/preparation/d207-owner-acceptance.json",
+      "sha256": "d9fe9556aca9cbacc55157b0c82eb03427aa8958868102da5d28e652534451d6",
+      "size_bytes": 1075
+    }
+  },
+  "authorization": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root/evidence/discovery-r3-fresh/authorization.json",
+    "sha256": "fa9443d7af1b6b35f36d0b0c21e22f9bfcc7a10e6d7b6f1614bb2d4d305421c6",
+    "size_bytes": 2661
+  },
+  "clock_prestate": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/clock-requalification-d207-1/prospective-plan.json",
+    "sha256": "a1a0613f1d6d02a66f7c7e18302d2cec3c81e10effca18e10aa75ca58548fe77",
+    "size_bytes": 2971
+  },
+  "custody_policy_id": "EXT007-RAW-NONE-STAND-PRIMARY-v1",
+  "isolation": {
+    "captured_at_utc": "2026-11-03T12:29:53Z",
+    "partition": {
+      "cgroup.events": "populated 0\nfrozen 0",
+      "cgroup.procs": "",
+      "cgroup.subtree_control": "",
+      "cgroup.type": "domain",
+      "cpuset.cpus": "0-2,8,16-18,24",
+      "cpuset.cpus.effective": "0-2,8,16-18,24",
+      "cpuset.cpus.exclusive": "0-2,8,16-18,24",
+      "cpuset.cpus.exclusive.effective": "0-2,8,16-18,24",
+      "cpuset.cpus.partition": "isolated",
+      "cpuset.mems": "0-1",
+      "cpuset.mems.effective": "0-1"
+    },
+    "root": {
+      "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+      "cgroup.subtree_control": "cpuset cpu memory pids",
+      "cpuset.cpus.effective": "3-7,9-15,19-23,25-31",
+      "cpuset.cpus.isolated": "0-2,8,16-18,24",
+      "cpuset.mems.effective": "0-1"
+    },
+    "supervisor_affinity": [
+      3
+    ]
+  },
+  "launcher": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-preparation-r3-1/preparation/discovery-launch-224gib-v2.py",
+    "sha256": "a6d8196ce659f41f9eff16b9d4cc51155a06d6f7f177e9ee1947028479f10fb7",
+    "size_bytes": 6447
+  },
+  "pc_raw_capacity_required": false,
+  "plan": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-preparation-r3-1/plan.json",
+    "sha256": "b513b6a7592fe010bc9a4fa256a7b214252504920636b286ad1f0edb8bdb6fcf",
+    "size_bytes": 57640
+  },
+  "raw_custody": "one uncompressed stand copy; analysis on stand; reports only on PC",
+  "request": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root/evidence/discovery-r3-fresh/request.json",
+    "sha256": "94e15475dd2a6d418fa1fc988f56a118028478b77f209f518489f01f16eb3012",
+    "size_bytes": 3093100
+  },
+  "signature": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root/evidence/discovery-r3-fresh/authorization.json.sig",
+    "sha256": "0250abd6767799a31cbe3ff404e5afac2c0065b3e27a8193db72ba5f45c720d4",
+    "size_bytes": 322
+  },
+  "stand_disk_available_bytes": 7151368523776,
+  "stand_memavailable_bytes": 261563314176,
+  "utc": "2026-11-03T12:29:53.514327+00:00"
+}

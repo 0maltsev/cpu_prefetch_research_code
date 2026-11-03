@@ -1,0 +1,373 @@
+{
+  "schema_version": "local-software-verification-inventory/2",
+  "qualification_claim": false,
+  "summary": "verification-summary-with-d213.json",
+  "prior_inventory": "evidence-inventory.json",
+  "files": [
+    {
+      "path": "asan-ubsan-clang-libcxx-build.log",
+      "size_bytes": 853,
+      "sha256": "a79eab03e8929c44f95a0a81f545bd3e3de6022b4fb8f23744d72065bf763db9"
+    },
+    {
+      "path": "asan-ubsan-clang-libcxx-test.log",
+      "size_bytes": 5049,
+      "sha256": "bf049cb784439601613b1f013d42e3cc6aa7b07d9ffa0b54bfc919441138634e"
+    },
+    {
+      "path": "asan-ubsan-gcc-build.log",
+      "size_bytes": 844,
+      "sha256": "83b1d311d6217df97dda25f06453f772cdae7062c6a9320c4745d5efeef7f513"
+    },
+    {
+      "path": "asan-ubsan-gcc-test.log",
+      "size_bytes": 5040,
+      "sha256": "34294694c06bc8ca30c27a922f97b1bc0152ece9e649160c0f20bd49d42a682e"
+    },
+    {
+      "path": "clock-regression-after-test.log",
+      "size_bytes": 922,
+      "sha256": "d4c84ecf16420230aac5547ceacf7dc1d7a18444c0fa849affa04a2376659629"
+    },
+    {
+      "path": "clock-regression-before-build-2.log",
+      "size_bytes": 185,
+      "sha256": "d26c0775d52f9da52db912941161c87d6806a721aaff81750251e64a8936757e"
+    },
+    {
+      "path": "clock-regression-before-build.log",
+      "size_bytes": 238,
+      "sha256": "e152494fd41402a3421280fccd4433fefc539a8694045fed131a39e9e3fdc574"
+    },
+    {
+      "path": "clock-regression-before-test-2.log",
+      "size_bytes": 3612,
+      "sha256": "7a68ef2bc3f1c30605cf91a6c63b95cfc13655f87da277bb7385201fddd07fd7"
+    },
+    {
+      "path": "clock-regression-before-test.log",
+      "size_bytes": 588,
+      "sha256": "5aed77f0c3efc05dc922efbd488bd9353030eb82bebb43bae77f6b183a0d9aba"
+    },
+    {
+      "path": "combined-dev-gcc-build.log",
+      "size_bytes": 1687,
+      "sha256": "97085bc26a205dcba55d643315a3cb18590c709225dbba7a95602b4874b600ee"
+    },
+    {
+      "path": "combined-dev-gcc-final-build.log",
+      "size_bytes": 611,
+      "sha256": "4e66dd45f57d5ed3a99cea9e8cf0a0661c7e5294678e7c9a96e015d956e4f8a0"
+    },
+    {
+      "path": "combined-dev-gcc-final-test.log",
+      "size_bytes": 6156,
+      "sha256": "8136f0436ac8c9f28f389872af0562a5a73209a87d20c3ad70eab404061a788a"
+    },
+    {
+      "path": "combined-dev-gcc-test.log",
+      "size_bytes": 4828,
+      "sha256": "392cbd8ad6eb215e26cd3a008b4cab9e11643b19b158b6e3a4ff71dfc1b01170"
+    },
+    {
+      "path": "combined-format-final.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "d213-v3-configure.log",
+      "size_bytes": 164,
+      "sha256": "e4d17b1d62f3213eb94096671eef0442ec76b06d675fde4901e6059720ec1fd5"
+    },
+    {
+      "path": "d213-v3-ctest.log",
+      "size_bytes": 1503,
+      "sha256": "0986fe8834b79ae2d22e8736c0cd6392d1e99e8161e58beaa45e0136af03014d"
+    },
+    {
+      "path": "dev-gcc-build-3.log",
+      "size_bytes": 352,
+      "sha256": "c01a485dda93ee1394e0d4222b45a06ea5e0e857c216cb855ffc2c37e0dbf1f8"
+    },
+    {
+      "path": "dev-gcc-build-4.log",
+      "size_bytes": 352,
+      "sha256": "c01a485dda93ee1394e0d4222b45a06ea5e0e857c216cb855ffc2c37e0dbf1f8"
+    },
+    {
+      "path": "dev-gcc-build.log",
+      "size_bytes": 1052,
+      "sha256": "ba51df42b4076ecde587c116467011da14236af89ce5a48b805825de117cebf1"
+    },
+    {
+      "path": "dev-gcc-final-build.log",
+      "size_bytes": 548,
+      "sha256": "0e6b73aa26a1fcf06663b4cf36bf3e896b9f02122731896c262cc419f029ef90"
+    },
+    {
+      "path": "dev-gcc-final-test.log",
+      "size_bytes": 2326,
+      "sha256": "2698769271027214dc162eb61ec676880f88aa2378093b42dd1e0fe68fa52c2f"
+    },
+    {
+      "path": "dev-gcc-tests-3.log",
+      "size_bytes": 1971,
+      "sha256": "89a615fcde0f7533744dbfd3a7189c6dcacf9cafcb0e0d2b80fd31dd3e35dafd"
+    },
+    {
+      "path": "dev-gcc-tests-4.log",
+      "size_bytes": 2325,
+      "sha256": "8e12c78f6aff15bddbb2b0a2461c7746e3c5aebaa72fa4566f95b13f0f95fa12"
+    },
+    {
+      "path": "dev-gcc-tests-initial.log",
+      "size_bytes": 2252,
+      "sha256": "118c97e55b6f7974d25ecabbb1a9563fab866905274d3609bb985070ba38a39f"
+    },
+    {
+      "path": "evidence-inventory.json",
+      "size_bytes": 14058,
+      "sha256": "831bcc6640f64fbb75bbb301c26cd37c4de3ab475506a16484e79c52541a5785"
+    },
+    {
+      "path": "format.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "hermetic-asan-ubsan-gcc-build.log",
+      "size_bytes": 219,
+      "sha256": "c8b052ca4c3ad0cde7fb0e3c099a66399900969c01c1f998ba843c895ddc9fba"
+    },
+    {
+      "path": "hermetic-asan-ubsan-gcc-test.log",
+      "size_bytes": 6103,
+      "sha256": "8c512489bc0b20be2bcc7a932f4345502ac90a3f722d26671d786f5e0624b1b5"
+    },
+    {
+      "path": "hermetic-dev-gcc-build.log",
+      "size_bytes": 341,
+      "sha256": "29ec9bce8ac75789a952494bc85363455680b71680b8bdb9cd449b6bdbc1b789"
+    },
+    {
+      "path": "hermetic-dev-gcc-test.log",
+      "size_bytes": 6095,
+      "sha256": "a382e0018a5f12d1ddbcd9bdac6ed6f385793e1db57d53e401a1cc91e8711edb"
+    },
+    {
+      "path": "hermetic-final-asan-ubsan-clang-libcxx-build.log",
+      "size_bytes": 853,
+      "sha256": "a79eab03e8929c44f95a0a81f545bd3e3de6022b4fb8f23744d72065bf763db9"
+    },
+    {
+      "path": "hermetic-final-asan-ubsan-clang-libcxx-ctest-details.log",
+      "size_bytes": 48985,
+      "sha256": "68f1ff4f16fc1f82b2531a3cf3d76a4f4f903a8762af341f55cc48347696bda8"
+    },
+    {
+      "path": "hermetic-final-asan-ubsan-clang-libcxx-test.log",
+      "size_bytes": 6112,
+      "sha256": "521646aa04a307f6ecb8e0f6c6c73ac5c7c8e0b953c311dcb65562931138dc5a"
+    },
+    {
+      "path": "hermetic-final-asan-ubsan-gcc-build.log",
+      "size_bytes": 412,
+      "sha256": "067ff1d6e85a4f859948d12e7bafcb7a1eed5520e55c13aaab59a99971d07f49"
+    },
+    {
+      "path": "hermetic-final-asan-ubsan-gcc-ctest-details.log",
+      "size_bytes": 46600,
+      "sha256": "1cd8a90e69d65889dbb5dc91d84ad95b45b7ff56b51276bf361a83bf73c84b6a"
+    },
+    {
+      "path": "hermetic-final-asan-ubsan-gcc-test.log",
+      "size_bytes": 6103,
+      "sha256": "32fc1a152870f34552766c436f24f813454c990543218333c5dde04be46a967f"
+    },
+    {
+      "path": "hermetic-final-dev-gcc-build.log",
+      "size_bytes": 837,
+      "sha256": "63222c25d386e50f0a3f09b1e51afee684d2fa5a5b0ad284c0210d052fbcbd38"
+    },
+    {
+      "path": "hermetic-final-dev-gcc-ctest-details.log",
+      "size_bytes": 46209,
+      "sha256": "3ba93fab5b94c7489a265dbb39cb37b7936e687bd36ad7c62e188ab161874331"
+    },
+    {
+      "path": "hermetic-final-dev-gcc-test.log",
+      "size_bytes": 6096,
+      "sha256": "c66901530400602096576442d6e36ea2548f2738d62f370d9b16ef7b9ab0c8e7"
+    },
+    {
+      "path": "hermetic-final-format.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "hermetic-final-static.log",
+      "size_bytes": 768,
+      "sha256": "e3f01f7227f8c28987e48f4ea61cd5686fffb0cedcf01ecf702a27365e6556aa"
+    },
+    {
+      "path": "hermetic-final-tsan-clang-libcxx-build.log",
+      "size_bytes": 990,
+      "sha256": "e7a2b95728253796808cd5b600ddff4348ad03ea56fa7a12597ab6b4752451f1"
+    },
+    {
+      "path": "hermetic-final-tsan-clang-libcxx-ctest-details.log",
+      "size_bytes": 49009,
+      "sha256": "5fbbc985575ccfb41194a594209724af9864834c8532c76de12d138744f02789"
+    },
+    {
+      "path": "hermetic-final-tsan-clang-libcxx-test.log",
+      "size_bytes": 6202,
+      "sha256": "55fb75597bf86e96f4b452e6da76f928a3a31f2220dac13df1a8d8c4147cf3a9"
+    },
+    {
+      "path": "hermetic-final-tsan-gcc-build.log",
+      "size_bytes": 838,
+      "sha256": "5c7e602117f258c6145194b9f590ea46b9e81a82f66a3ca994e5fa5fcfe05029"
+    },
+    {
+      "path": "hermetic-final-tsan-gcc-ctest-details.log",
+      "size_bytes": 46285,
+      "sha256": "ff2255d5c6d81daa9c33e6a17fe281dc822de6d3d6a338c7615d22917cfb894e"
+    },
+    {
+      "path": "hermetic-final-tsan-gcc-test.log",
+      "size_bytes": 6097,
+      "sha256": "ed9e42751a65623da067bccd79cf11ea068bc1c5cb96785f0df17e50479577b7"
+    },
+    {
+      "path": "hermetic-format.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "hermetic-runtime-attempt.log",
+      "size_bytes": 1586,
+      "sha256": "739727a4010504d9660a592ef68c2187af23cbed51950b335ef18a7377b0d9c0"
+    },
+    {
+      "path": "hermetic-tidy.log",
+      "size_bytes": 2620,
+      "sha256": "a5f6dd2ea402ffae86006a750cee70988e8b2062b0cba1d1032b965ae17f353e"
+    },
+    {
+      "path": "isolated-dev-gcc-build-2.log",
+      "size_bytes": 352,
+      "sha256": "c01a485dda93ee1394e0d4222b45a06ea5e0e857c216cb855ffc2c37e0dbf1f8"
+    },
+    {
+      "path": "isolated-dev-gcc-build.log",
+      "size_bytes": 6748,
+      "sha256": "2c9d427b713259691042eaaaae0da3d049b0ded3cb7af0e9722b50ab0c5928ea"
+    },
+    {
+      "path": "python-host-environment-check.log",
+      "size_bytes": 164,
+      "sha256": "fa83b3cc2fd729d4c9c0570baeab8f3606f8259191796a50aeaaa6db20362d9d"
+    },
+    {
+      "path": "review-fix-asan-ubsan-gcc-build.log",
+      "size_bytes": 844,
+      "sha256": "83b1d311d6217df97dda25f06453f772cdae7062c6a9320c4745d5efeef7f513"
+    },
+    {
+      "path": "review-fix-asan-ubsan-gcc-test.log",
+      "size_bytes": 6103,
+      "sha256": "675c81326f2ff2a743b761db987a68417248c89d4924ef1739384f9ab6207a6a"
+    },
+    {
+      "path": "review-fix-dev-gcc-build.log",
+      "size_bytes": 725,
+      "sha256": "1aa6b2d805da7f489da6e73ace906a600caa9c195f8cc7939c54bf9a9400bc66"
+    },
+    {
+      "path": "review-fix-dev-gcc-test.log",
+      "size_bytes": 6095,
+      "sha256": "f24972740c28835ca85cd07c7e1433fe6fdbfcfa9c588b6722f059318ea3a6d7"
+    },
+    {
+      "path": "review-fix-format.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "review-fix-tidy.log",
+      "size_bytes": 769,
+      "sha256": "679853fc3cd60a176877e4814c2452e3a3357fda6a2f32b3f694259277984f09"
+    },
+    {
+      "path": "source-bindings-before-matrix.json",
+      "size_bytes": 1549,
+      "sha256": "42824e542fa88be654b3186e25fa4e74927d3fad0367f9acac75d57ed0d069c7"
+    },
+    {
+      "path": "source-bindings-final.json",
+      "size_bytes": 1944,
+      "sha256": "2660939710f1655de0c57e4dabb309f1860c25a51c91ac84a70712a77687cff3"
+    },
+    {
+      "path": "source-bindings-hermetic-final.json",
+      "size_bytes": 1944,
+      "sha256": "aed8bf6a89ff952129173c68bb8c68520b5797db82f218a22d9fa6c530208754"
+    },
+    {
+      "path": "source-bindings-with-d213.json",
+      "size_bytes": 2501,
+      "sha256": "88b3db5ccb5093fb7be1d10014841d9e16c9d8ad00012e57567e5c45a4ff1d62"
+    },
+    {
+      "path": "tidy-combined-final.log",
+      "size_bytes": 33092,
+      "sha256": "3deb089bd60aea05edc0ba441dd89b44318d97d7e5bb990ba1de345779767995"
+    },
+    {
+      "path": "tidy-counter-test-final.log",
+      "size_bytes": 228,
+      "sha256": "6c8de065fbfc53240f139eecbbfbae1791994fbfd4d63ee73c56a8ddf0fdb6bc"
+    },
+    {
+      "path": "tidy-test-final.log",
+      "size_bytes": 3275,
+      "sha256": "02c94bb81aa752b83c0d311633c0ca450d22b9fef803fbbb6b6cbf9aa559ea3b"
+    },
+    {
+      "path": "tidy.log",
+      "size_bytes": 10412,
+      "sha256": "c2903fdf71459d36155472b29985483f2a93f486d85a4c3ec8ea338649fc8b0f"
+    },
+    {
+      "path": "tsan-clang-libcxx-build.log",
+      "size_bytes": 990,
+      "sha256": "e7a2b95728253796808cd5b600ddff4348ad03ea56fa7a12597ab6b4752451f1"
+    },
+    {
+      "path": "tsan-clang-libcxx-test.log",
+      "size_bytes": 5139,
+      "sha256": "31d07628100840b13a7dd558c57b20fc20b06f0bdfd4cc847dd5a8b9fd6a3f0f"
+    },
+    {
+      "path": "tsan-gcc-build.log",
+      "size_bytes": 838,
+      "sha256": "5c7e602117f258c6145194b9f590ea46b9e81a82f66a3ca994e5fa5fcfe05029"
+    },
+    {
+      "path": "tsan-gcc-test.log",
+      "size_bytes": 5034,
+      "sha256": "bdce62539a16a3c1d7f46248087f571ef7513877bb5455d805796a9f17e32a73"
+    },
+    {
+      "path": "verification-summary-with-d213.json",
+      "size_bytes": 11234,
+      "sha256": "8655fe006aae528fb5948855cf649f67403a3fec3c6d3102b0db09a04412fb52"
+    },
+    {
+      "path": "verification-summary.json",
+      "size_bytes": 10192,
+      "sha256": "886c1dd4efc9f512a9ce9c26bc1e05978a8e1ed56e6a70c164d1be7751b5f3d2"
+    }
+  ]
+}

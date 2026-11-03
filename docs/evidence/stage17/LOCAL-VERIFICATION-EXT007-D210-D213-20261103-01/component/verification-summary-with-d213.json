@@ -1,0 +1,391 @@
+{
+  "status": "FINAL_HERMETIC_TARGETED_SOFTWARE_CHECKS_PASS",
+  "recorded_at_utc": "2026-11-03T14:48:19.378706+00:00",
+  "qualification_claim": false,
+  "experiment_authority": false,
+  "stand_access": false,
+  "source_bindings": "source-bindings-with-d213.json",
+  "runtime": {
+    "python": "3.14.5 (main, May 10 2026, 18:26:20) [GCC 16.1.1 20260430]",
+    "executable": "/usr/bin/python3",
+    "libc": [
+      "glibc",
+      "2.43"
+    ],
+    "commands": [
+      {
+        "argv": [
+          "cmake",
+          "--version"
+        ],
+        "output": [
+          "cmake version 4.3.3",
+          "",
+          "CMake suite maintained and supported by Kitware (kitware.com/cmake)."
+        ]
+      },
+      {
+        "argv": [
+          "ctest",
+          "--version"
+        ],
+        "output": [
+          "ctest version 4.3.3",
+          "",
+          "CMake suite maintained and supported by Kitware (kitware.com/cmake)."
+        ]
+      },
+      {
+        "argv": [
+          "g++",
+          "--version"
+        ],
+        "output": [
+          "g++ (GCC) 16.1.1 20260430",
+          "Copyright (C) 2026 Free Software Foundation, Inc.",
+          "This is free software; see the source for copying conditions.  There is NO"
+        ]
+      },
+      {
+        "argv": [
+          "clang++",
+          "--version"
+        ],
+        "output": [
+          "clang version 22.1.6",
+          "Target: x86_64-pc-linux-gnu",
+          "Thread model: posix"
+        ]
+      },
+      {
+        "argv": [
+          "clang-tidy",
+          "--version"
+        ],
+        "output": [
+          "LLVM (http://llvm.org/):",
+          "  LLVM version 22.1.6",
+          "  Optimized build."
+        ]
+      },
+      {
+        "argv": [
+          "ldd",
+          "--version"
+        ],
+        "output": [
+          "ldd (GNU libc) 2.43",
+          "Copyright (C) 2024 Free Software Foundation, Inc.",
+          "This is free software; see the source for copying conditions.  There is NO"
+        ]
+      }
+    ]
+  },
+  "runtime_bindings": [
+    {
+      "path": "build/ext007-runtime-20261101/run.py",
+      "sha256": "b8844ba500444f3d36acf35bbe8209caabb572beca38c0048734e8e6ac518a37"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/verified-runtime-inputs.json",
+      "sha256": "a9ac4d8ab8d6f0173b473ae56826652b80f7cae11c4a43e123e3faded6a1d887"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "dev-gcc",
+      "ctest_cases": 28,
+      "passed": 28,
+      "skipped": [],
+      "service_session_cases": 14,
+      "interval_counter_cases": 13,
+      "python_ctest_cases": 1,
+      "python_unittest_cases": 17,
+      "build_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "cmake",
+        "--build",
+        "build/accepted-dev-gcc",
+        "--target",
+        "cpu_prefetch_service_session_tests",
+        "cpu_prefetch_calibration_tests",
+        "-j1"
+      ],
+      "test_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "ctest",
+        "--test-dir",
+        "build/accepted-dev-gcc",
+        "-R",
+        "ServiceSession\\.|ServiceIntervalCount\\.|runner.stage17_raw_stream_decoder_v2",
+        "--no-tests=error",
+        "--output-on-failure"
+      ],
+      "build_exit_code": 0,
+      "test_exit_code": 0,
+      "build_log": "hermetic-final-dev-gcc-build.log",
+      "test_log": "hermetic-final-dev-gcc-test.log"
+    },
+    {
+      "configuration": "asan-ubsan-gcc",
+      "ctest_cases": 28,
+      "passed": 28,
+      "skipped": [],
+      "service_session_cases": 14,
+      "interval_counter_cases": 13,
+      "python_ctest_cases": 1,
+      "python_unittest_cases": 17,
+      "build_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "cmake",
+        "--build",
+        "build/accepted-asan-ubsan-gcc",
+        "--target",
+        "cpu_prefetch_service_session_tests",
+        "cpu_prefetch_calibration_tests",
+        "-j1"
+      ],
+      "test_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "ctest",
+        "--test-dir",
+        "build/accepted-asan-ubsan-gcc",
+        "-R",
+        "ServiceSession\\.|ServiceIntervalCount\\.|runner.stage17_raw_stream_decoder_v2",
+        "--no-tests=error",
+        "--output-on-failure"
+      ],
+      "build_exit_code": 0,
+      "test_exit_code": 0,
+      "build_log": "hermetic-final-asan-ubsan-gcc-build.log",
+      "test_log": "hermetic-final-asan-ubsan-gcc-test.log"
+    },
+    {
+      "configuration": "tsan-gcc",
+      "ctest_cases": 28,
+      "passed": 28,
+      "skipped": [],
+      "service_session_cases": 14,
+      "interval_counter_cases": 13,
+      "python_ctest_cases": 1,
+      "python_unittest_cases": 17,
+      "build_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "cmake",
+        "--build",
+        "build/accepted-tsan-gcc",
+        "--target",
+        "cpu_prefetch_service_session_tests",
+        "cpu_prefetch_calibration_tests",
+        "-j1"
+      ],
+      "test_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "ctest",
+        "--test-dir",
+        "build/accepted-tsan-gcc",
+        "-R",
+        "ServiceSession\\.|ServiceIntervalCount\\.|runner.stage17_raw_stream_decoder_v2",
+        "--no-tests=error",
+        "--output-on-failure"
+      ],
+      "build_exit_code": 0,
+      "test_exit_code": 0,
+      "build_log": "hermetic-final-tsan-gcc-build.log",
+      "test_log": "hermetic-final-tsan-gcc-test.log"
+    },
+    {
+      "configuration": "asan-ubsan-clang-libcxx",
+      "ctest_cases": 28,
+      "passed": 28,
+      "skipped": [],
+      "service_session_cases": 14,
+      "interval_counter_cases": 13,
+      "python_ctest_cases": 1,
+      "python_unittest_cases": 17,
+      "build_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "cmake",
+        "--build",
+        "build/accepted-asan-ubsan-clang-libcxx",
+        "--target",
+        "cpu_prefetch_service_session_tests",
+        "cpu_prefetch_calibration_tests",
+        "-j1"
+      ],
+      "test_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "ctest",
+        "--test-dir",
+        "build/accepted-asan-ubsan-clang-libcxx",
+        "-R",
+        "ServiceSession\\.|ServiceIntervalCount\\.|runner.stage17_raw_stream_decoder_v2",
+        "--no-tests=error",
+        "--output-on-failure"
+      ],
+      "build_exit_code": 0,
+      "test_exit_code": 0,
+      "build_log": "hermetic-final-asan-ubsan-clang-libcxx-build.log",
+      "test_log": "hermetic-final-asan-ubsan-clang-libcxx-test.log"
+    },
+    {
+      "configuration": "tsan-clang-libcxx",
+      "ctest_cases": 28,
+      "passed": 27,
+      "skipped": [
+        "ServiceSession.NoHotOrLogicalResetAllocation"
+      ],
+      "service_session_cases": 14,
+      "interval_counter_cases": 13,
+      "python_ctest_cases": 1,
+      "python_unittest_cases": 17,
+      "build_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "cmake",
+        "--build",
+        "build/accepted-tsan-clang-libcxx",
+        "--target",
+        "cpu_prefetch_service_session_tests",
+        "cpu_prefetch_calibration_tests",
+        "-j1"
+      ],
+      "test_command": [
+        "python3",
+        "-B",
+        "build/ext007-runtime-20261101/run.py",
+        "--",
+        "ctest",
+        "--test-dir",
+        "build/accepted-tsan-clang-libcxx",
+        "-R",
+        "ServiceSession\\.|ServiceIntervalCount\\.|runner.stage17_raw_stream_decoder_v2",
+        "--no-tests=error",
+        "--output-on-failure"
+      ],
+      "build_exit_code": 0,
+      "test_exit_code": 0,
+      "build_log": "hermetic-final-tsan-clang-libcxx-build.log",
+      "test_log": "hermetic-final-tsan-clang-libcxx-test.log"
+    }
+  ],
+  "static_analysis": {
+    "exit_code": 0,
+    "log": "hermetic-final-static.log",
+    "command": [
+      "python3",
+      "-B",
+      "build/ext007-runtime-20261101/run.py",
+      "--",
+      "python3",
+      "tools/run_clang_tidy.py",
+      "--clang-tidy",
+      "/usr/bin/clang-tidy",
+      "--build-directory",
+      "build/accepted-asan-ubsan-clang-libcxx",
+      "src/calibration/service_session.cpp",
+      "src/calibration/service_interval_count.cpp",
+      "tests/calibration_service_session_test.cpp",
+      "tests/calibration_service_interval_count_test.cpp"
+    ]
+  },
+  "format": {
+    "exit_code": 0,
+    "log": "hermetic-final-format.log",
+    "command": [
+      "python3",
+      "-B",
+      "build/ext007-runtime-20261101/run.py",
+      "--",
+      "clang-format",
+      "--dry-run",
+      "--Werror",
+      "include/cpu_prefetch/calibration/service_session.hpp",
+      "src/calibration/service_session.cpp",
+      "tests/calibration_service_session_test.cpp",
+      "include/cpu_prefetch/calibration/service_interval_count.hpp",
+      "src/calibration/service_interval_count.cpp",
+      "tests/calibration_service_interval_count_test.cpp"
+    ]
+  },
+  "regressions": {
+    "before_log": "clock-regression-before-test-2.log",
+    "before_exit_code": 1,
+    "before_failed_cases": 2,
+    "after_log": "clock-regression-after-test.log",
+    "after_exit_code": 0,
+    "after_passed_cases": 2
+  },
+  "limitations": [
+    "Standalone component only; existing formal dispatch is unchanged.",
+    "No native footprint composition or release/codegen qualification is established.",
+    "Clang TSan allocation replacement instrumentation is unsupported: one test explicitly skipped; all functional cases run.",
+    "Earlier logs without hermetic-final prefix are retained history, not final hermetic matrix evidence.",
+    "clock-regression-before-test.log ran zero tests after a test-authoring failure and is not regression evidence.",
+    "Temporary test-specific LD_LIBRARY_PATH workaround was removed; Python CTest uses the original repository command pattern inside run.py."
+  ],
+  "prior_summary": "verification-summary.json",
+  "addendum": "D213 registration only after native matrix. Native sources unchanged and not rerun. Corrected display-only escaping of CTest regex in this successor summary.",
+  "d213": {
+    "ctest_name": "calibration.discovery_v3_retained_validation",
+    "custom_target": "stage17-discovery-validation-v3-check",
+    "unittest_cases": 22,
+    "exit_code": 0,
+    "configure_command": [
+      "python3",
+      "-B",
+      "build/ext007-runtime-20261101/run.py",
+      "--",
+      "cmake",
+      "-S",
+      ".",
+      "-B",
+      "build/accepted-dev-gcc"
+    ],
+    "test_command": [
+      "python3",
+      "-B",
+      "build/ext007-runtime-20261101/run.py",
+      "--",
+      "ctest",
+      "--test-dir",
+      "build/accepted-dev-gcc",
+      "-R",
+      "^calibration.discovery_v3_retained_validation$",
+      "--no-tests=error",
+      "--output-on-failure",
+      "-V"
+    ],
+    "logs": [
+      "d213-v3-configure.log",
+      "d213-v3-ctest.log"
+    ],
+    "custom_target_executed": false
+  }
+}

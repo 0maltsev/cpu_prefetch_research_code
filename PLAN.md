@@ -375,10 +375,24 @@ unresolved. Next gate: [ACCEPTED ADR0207](docs/decisions/0207-stage17-ext007-dis
 36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and qualification are complete at clean release
 `a1ade11`. Both clock pairs and Q15-R/W passed; EXT001–006 are accepted at
 v5-20 journal 000009. The single D207 36-capture family launched at
-12:29:53 UTC on 2026-11-03 and is in progress; no formal calibration credit.
+12:29:53 UTC on 2026-11-03 and completed all 36 captures at 13:55:31 UTC,
+exit 0 with verified CPU-isolation restoration. CLI17 custody admission passed.
+Independent validation rejected the native whole-plot action-log shape;
+[D213](docs/decisions/0213-discovery-whole-plot-readback-validation.md) records the
+checker repair and reanalysis of unchanged bytes. Duration selection remains unresolved;
+no formal calibration credit. [Original completion and rejection records](docs/evidence/stage17/DISCOVERY-D207-COLLECTED-20261103-01/README.md)
+retain this checkpoint.
 [Qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V20-20261103-01/README.md)
 retains the new release and accepted prerequisite records. D207 permits only its bounded
 conditional qualification and one new family after exact admission. No automatic retry.
+The owner accepted the narrow [D211 completion-window clarification](docs/decisions/0211-stage17-q16b-completion-interval.md)
+for the later Q16b numerator. Native and independent raw-decoder components are
+implemented and targeted verification passes, including four sanitizer configurations.
+[Verification evidence](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-D210-D213-20261103-01/README.md)
+records one explicit Clang TSan allocation-hook skip. Formal integration remains required. They grant no
+new experiment and do not change D207. [D212](docs/decisions/0212-stage17-q16a-demand-window.md)
+is the separately owner-accepted Q16a demand-membership clarification; its formal
+implementation is now authorized, with no new experiment authority.
 [R2 stopped-attempt and custody record](docs/evidence/stage17/DISCOVERY-RECOVERY-STOPPED-V19-20261103-01/README.md).
 
 The implementation/release checkpoints below retain their historical state;
@@ -974,7 +988,13 @@ unresolved. Next gate: [ACCEPTED ADR0207](docs/decisions/0207-stage17-ext007-dis
 36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and qualification are complete at clean release
 `a1ade11`. Both clock pairs and Q15-R/W passed; EXT001–006 are accepted at
 v5-20 journal 000009. The single D207 36-capture family launched at
-12:29:53 UTC on 2026-11-03 and is in progress; no formal calibration credit.
+12:29:53 UTC on 2026-11-03 and completed all 36 captures at 13:55:31 UTC,
+exit 0 with verified CPU-isolation restoration. CLI17 custody admission passed.
+Independent validation rejected the native whole-plot action-log shape;
+[D213](docs/decisions/0213-discovery-whole-plot-readback-validation.md) records the
+checker repair and reanalysis of unchanged bytes. Duration selection remains unresolved;
+no formal calibration credit. [Original completion and rejection records](docs/evidence/stage17/DISCOVERY-D207-COLLECTED-20261103-01/README.md)
+retain this checkpoint.
 [Qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V20-20261103-01/README.md)
 retains the new release and accepted prerequisite records. D207 permits only its bounded
 conditional qualification and one new family after exact admission. No automatic retry.

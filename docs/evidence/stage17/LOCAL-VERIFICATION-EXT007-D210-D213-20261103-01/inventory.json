@@ -1,0 +1,204 @@
+{
+  "recorded_at_utc": "2026-11-03T14:53:11.975179+00:00",
+  "software_verification_only": true,
+  "files": [
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/clock-regression-after-test.log",
+      "path": "component/clock-regression-after-test.log",
+      "size_bytes": 922,
+      "sha256": "d4c84ecf16420230aac5547ceacf7dc1d7a18444c0fa849affa04a2376659629"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/clock-regression-before-test-2.log",
+      "path": "component/clock-regression-before-test-2.log",
+      "size_bytes": 3612,
+      "sha256": "7a68ef2bc3f1c30605cf91a6c63b95cfc13655f87da277bb7385201fddd07fd7"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/d213-v3-configure.log",
+      "path": "component/d213-v3-configure.log",
+      "size_bytes": 164,
+      "sha256": "e4d17b1d62f3213eb94096671eef0442ec76b06d675fde4901e6059720ec1fd5"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/d213-v3-ctest.log",
+      "path": "component/d213-v3-ctest.log",
+      "size_bytes": 1503,
+      "sha256": "0986fe8834b79ae2d22e8736c0cd6392d1e99e8161e58beaa45e0136af03014d"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/evidence-inventory-v2.json",
+      "path": "component/evidence-inventory-v2.json",
+      "size_bytes": 12501,
+      "sha256": "7054dd9064243e7d976012ced56cee325032b1f4f7d60ee3cfd7b7e8b46bb84b"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-asan-ubsan-clang-libcxx-build.log",
+      "path": "component/hermetic-final-asan-ubsan-clang-libcxx-build.log",
+      "size_bytes": 853,
+      "sha256": "a79eab03e8929c44f95a0a81f545bd3e3de6022b4fb8f23744d72065bf763db9"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-asan-ubsan-clang-libcxx-ctest-details.log",
+      "path": "component/hermetic-final-asan-ubsan-clang-libcxx-ctest-details.log",
+      "size_bytes": 48985,
+      "sha256": "68f1ff4f16fc1f82b2531a3cf3d76a4f4f903a8762af341f55cc48347696bda8"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-asan-ubsan-clang-libcxx-test.log",
+      "path": "component/hermetic-final-asan-ubsan-clang-libcxx-test.log",
+      "size_bytes": 6112,
+      "sha256": "521646aa04a307f6ecb8e0f6c6c73ac5c7c8e0b953c311dcb65562931138dc5a"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-asan-ubsan-gcc-build.log",
+      "path": "component/hermetic-final-asan-ubsan-gcc-build.log",
+      "size_bytes": 412,
+      "sha256": "067ff1d6e85a4f859948d12e7bafcb7a1eed5520e55c13aaab59a99971d07f49"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-asan-ubsan-gcc-ctest-details.log",
+      "path": "component/hermetic-final-asan-ubsan-gcc-ctest-details.log",
+      "size_bytes": 46600,
+      "sha256": "1cd8a90e69d65889dbb5dc91d84ad95b45b7ff56b51276bf361a83bf73c84b6a"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-asan-ubsan-gcc-test.log",
+      "path": "component/hermetic-final-asan-ubsan-gcc-test.log",
+      "size_bytes": 6103,
+      "sha256": "32fc1a152870f34552766c436f24f813454c990543218333c5dde04be46a967f"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-dev-gcc-build.log",
+      "path": "component/hermetic-final-dev-gcc-build.log",
+      "size_bytes": 837,
+      "sha256": "63222c25d386e50f0a3f09b1e51afee684d2fa5a5b0ad284c0210d052fbcbd38"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-dev-gcc-ctest-details.log",
+      "path": "component/hermetic-final-dev-gcc-ctest-details.log",
+      "size_bytes": 46209,
+      "sha256": "3ba93fab5b94c7489a265dbb39cb37b7936e687bd36ad7c62e188ab161874331"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-dev-gcc-test.log",
+      "path": "component/hermetic-final-dev-gcc-test.log",
+      "size_bytes": 6096,
+      "sha256": "c66901530400602096576442d6e36ea2548f2738d62f370d9b16ef7b9ab0c8e7"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-format.log",
+      "path": "component/hermetic-final-format.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-static.log",
+      "path": "component/hermetic-final-static.log",
+      "size_bytes": 768,
+      "sha256": "e3f01f7227f8c28987e48f4ea61cd5686fffb0cedcf01ecf702a27365e6556aa"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-tsan-clang-libcxx-build.log",
+      "path": "component/hermetic-final-tsan-clang-libcxx-build.log",
+      "size_bytes": 990,
+      "sha256": "e7a2b95728253796808cd5b600ddff4348ad03ea56fa7a12597ab6b4752451f1"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-tsan-clang-libcxx-ctest-details.log",
+      "path": "component/hermetic-final-tsan-clang-libcxx-ctest-details.log",
+      "size_bytes": 49009,
+      "sha256": "5fbbc985575ccfb41194a594209724af9864834c8532c76de12d138744f02789"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-tsan-clang-libcxx-test.log",
+      "path": "component/hermetic-final-tsan-clang-libcxx-test.log",
+      "size_bytes": 6202,
+      "sha256": "55fb75597bf86e96f4b452e6da76f928a3a31f2220dac13df1a8d8c4147cf3a9"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-tsan-gcc-build.log",
+      "path": "component/hermetic-final-tsan-gcc-build.log",
+      "size_bytes": 838,
+      "sha256": "5c7e602117f258c6145194b9f590ea46b9e81a82f66a3ca994e5fa5fcfe05029"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-tsan-gcc-ctest-details.log",
+      "path": "component/hermetic-final-tsan-gcc-ctest-details.log",
+      "size_bytes": 46285,
+      "sha256": "ff2255d5c6d81daa9c33e6a17fe281dc822de6d3d6a338c7615d22917cfb894e"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/hermetic-final-tsan-gcc-test.log",
+      "path": "component/hermetic-final-tsan-gcc-test.log",
+      "size_bytes": 6097,
+      "sha256": "ed9e42751a65623da067bccd79cf11ea068bc1c5cb96785f0df17e50479577b7"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/source-bindings-hermetic-final.json",
+      "path": "component/source-bindings-hermetic-final.json",
+      "size_bytes": 1944,
+      "sha256": "aed8bf6a89ff952129173c68bb8c68520b5797db82f218a22d9fa6c530208754"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/source-bindings-with-d213.json",
+      "path": "component/source-bindings-with-d213.json",
+      "size_bytes": 2501,
+      "sha256": "88b3db5ccb5093fb7be1d10014841d9e16c9d8ad00012e57567e5c45a4ff1d62"
+    },
+    {
+      "source_path": "build/stage17-step3-prep/d210-verification/verification-summary-with-d213.json",
+      "path": "component/verification-summary-with-d213.json",
+      "size_bytes": 11234,
+      "sha256": "8655fe006aae528fb5948855cf649f67403a3fec3c6d3102b0db09a04412fb52"
+    },
+    {
+      "source_path": "build/stage17-step4-prep/d213-reanalysis/install-and-start.log",
+      "path": "analysis/install-and-start.log",
+      "size_bytes": 232,
+      "sha256": "4fe666280899e7f968e6f28c85df4d5dabd5956244574070a9e29d69dab56f6a"
+    },
+    {
+      "source_path": "build/stage17-step4-prep/d213-reanalysis/local-install-bindings.json",
+      "path": "analysis/local-install-bindings.json",
+      "size_bytes": 658,
+      "sha256": "d34a2c9fafb04dbfba9ed7c540835a319b3f12d29afab798c1b58b0bc70c4808"
+    },
+    {
+      "source_path": "build/stage17-step4-prep/d213-reanalysis/packed-parser-capacity-check.json",
+      "path": "analysis/packed-parser-capacity-check.json",
+      "size_bytes": 4099,
+      "sha256": "6bd4da3cb7d54ad1f9ec0acb70f022c139bbd52ede2e7c31569a6de4c7a55f8f"
+    },
+    {
+      "source_path": "build/stage17-step4-prep/d213-reanalysis/run_reanalysis.py",
+      "path": "analysis/run_reanalysis.py",
+      "size_bytes": 4274,
+      "sha256": "3c7072202e4b8dd5a42fed1d83531e4fb2c57a282570e1d95a3b0fdb14a78e94"
+    },
+    {
+      "source_path": "build/stage17-step4-prep/d213-reanalysis/test_wrapper_v2.py",
+      "path": "analysis/test_wrapper_v2.py",
+      "size_bytes": 2653,
+      "sha256": "c1768e1031cae2194450a6b9ca4b4c794d3bff1d794c893012cb5f0a89853bf2"
+    },
+    {
+      "source_path": "build/stage17-step4-prep/d213-reanalysis/validate_d207_retained_study_v2.py",
+      "path": "analysis/validate_d207_retained_study_v2.py",
+      "size_bytes": 18667,
+      "sha256": "0c6013b6125df298c2937498842ead24aeaa0592a398cf76865f32347e102c29"
+    },
+    {
+      "source_path": "build/stage17-step4-prep/d213-reanalysis/validator-v3-accepted-runtime-tests.log",
+      "path": "analysis/validator-v3-accepted-runtime-tests.log",
+      "size_bytes": 3382,
+      "sha256": "2b2c9296c7da6320c9009e9fb5ca4ed4433ab85a29e0c17cc26d0e62e2e6f960"
+    },
+    {
+      "source_path": "build/stage17-step4-prep/d213-reanalysis/wrapper-v2-tests.log",
+      "path": "analysis/wrapper-v2-tests.log",
+      "size_bytes": 1755,
+      "sha256": "bb59c18657c78ffa298a4a477a3ede426cc6500a073e6ee72f7af96ab2cf0b83"
+    }
+  ]
+}

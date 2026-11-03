@@ -1,0 +1,62 @@
+{
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "cpus": [
+    {
+      "core": "1",
+      "cpu": 0,
+      "nodes": [
+        "node0"
+      ],
+      "package": "0",
+      "siblings": "0,16"
+    },
+    {
+      "core": "2",
+      "cpu": 1,
+      "nodes": [
+        "node0"
+      ],
+      "package": "0",
+      "siblings": "1,17"
+    },
+    {
+      "core": "3",
+      "cpu": 2,
+      "nodes": [
+        "node0"
+      ],
+      "package": "0",
+      "siblings": "2,18"
+    },
+    {
+      "core": "1",
+      "cpu": 8,
+      "nodes": [
+        "node1"
+      ],
+      "package": "1",
+      "siblings": "8,24"
+    }
+  ],
+  "execution_authority": false,
+  "memlock_soft_hard_bytes": [
+    8388608,
+    8388608
+  ],
+  "observed_at": "2026-11-03T00:14:38.508469+00:00",
+  "public_trust_records": [
+    {
+      "content": "{\"measurements\":{\"allowed_signers_path\":\"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/ext002-authoring-1/ext002-allowed-signers\",\"allowed_signers_sha256\":\"13071fb005c65eaaacd25bd1bf935a6edab0ea1d13a275f8ef09d91223ad0d48\",\"allowed_signers_size_bytes\":106,\"principal\":\"maltsev.oiu@phystech.edu\",\"reviewer_role\":\"OWNER\",\"signer_role\":\"OWNER\",\"sshsig_namespace\":\"stage17-owner-acceptance\",\"stand_anchor_sha256\":\"ad5995f25d8c419926b547a3463003589ee9411a7c97de6b571a9da27c871ccb\",\"stand_id\":\"CPU-PREFETCH-V5\"},\"outcome\":\"VERIFIED\",\"phase18_authority\":false,\"record_id\":\"CPU-PREFETCH-V5-EXT002-TRUST-ANCHOR-1\",\"record_role\":\"TRUST_ANCHOR\",\"recorded_at_utc\":\"2026-10-28T20:33:30.951978388Z\",\"schema_version\":\"cpu-prefetch-stage17-operational-typed-record/4\",\"source_bindings\":[{\"id\":\"TRUST-SIGNERS-1\",\"sha256\":\"13071fb005c65eaaacd25bd1bf935a6edab0ea1d13a275f8ef09d91223ad0d48\",\"size_bytes\":106}],\"subject_id\":\"CPU-PREFETCH-V5\",\"synthetic_test_only\":false}",
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/ext002-authoring-1/ext002-trust-anchor.json",
+      "sha256": "df7434bfc397fa12d954e6bd6c98b86525fe4c0ac488061dcb09eb3097ca7410",
+      "size_bytes": 973
+    },
+    {
+      "content": "maltsev.oiu@phystech.edu ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjX0MdCUMKWwrWREogRkAylnjK4xP1nGbx9W6hrxfR6\n",
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/ext002-authoring-1/ext002-allowed-signers",
+      "sha256": "13071fb005c65eaaacd25bd1bf935a6edab0ea1d13a275f8ef09d91223ad0d48",
+      "size_bytes": 106
+    }
+  ],
+  "read_only": true
+}

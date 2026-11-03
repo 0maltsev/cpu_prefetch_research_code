@@ -1,10 +1,13 @@
 #include "cpu_prefetch/calibration/mapped_discovery_preparation.hpp"
+#include "cpu_prefetch/calibration/mapped_discovery_runtime.hpp"
+#include "cpu_prefetch/platform/thread_monitor.hpp"
 #include "discovery_backend_test_support.hpp"
 #include "worker_stack_test_support.hpp"
 
 #include <gtest/gtest.h>
 
 #include <cerrno>
+#include <chrono>
 
 namespace {
 using namespace cpu_prefetch;
@@ -99,6 +102,21 @@ struct Fixture final {
   }
 };
 
+struct RuntimeFixture final {
+  using Modules = std::array<platform::ThreadTlsModule, 128U>;
+  std::array<Modules, 4U> tls{};
+  test_support::DiscoveryTestClock clock;
+  test_support::DiscoveryTestRelax relax;
+  using Runtime = calibration::MappedDiscoveryRuntime<
+      test_support::DiscoveryTestClock, test_support::DiscoveryTestRelax,
+      MemoryOperations, test::SoftwareStackOperations>;
+  Runtime runtime{software_plan(),
+                  {test::software_stack_plan(), test::software_stack_plan()},
+                  {{{tls[0U], tls[1U]}}, {{tls[2U], tls[3U]}}},
+                  clock,
+                  relax};
+};
+
 auto contains(std::span<std::byte> region, const void* address) -> bool {
   const auto begin = reinterpret_cast<std::uintptr_t>(region.data());
   const auto value = reinterpret_cast<std::uintptr_t>(address);
@@ -170,6 +188,158 @@ TEST(MappedDiscovery, MappedControllerOwnsContextAndRetainedCoordinationStorage)
   EXPECT_EQ(state->measurement_finished.load(), 3U);
   EXPECT_EQ(objects->preparation.consumer_phase(false).last_join.status,
             calibration::DiscoveryJoinStatus::exact);
+}
+
+TEST(MappedDiscovery, RuntimeCompositionRunsOnMappedControllerAndRetainsOwnerTls) {
+  auto plan = test::software_stack_plan();
+  MemoryOperations operations;
+  const auto page = plan.verified_base_page_bytes;
+  auto object_plan = plan;
+  object_plan.bytes = (sizeof(RuntimeFixture) + page - 1U) & ~(page - 1U);
+  platform::OwnerMapping mapping(object_plan, operations);
+  test::SoftwareStackOperations stack_operations;
+  platform::MappedWorkerThread controller(plan, stack_operations);
+  struct Context final {
+    platform::OwnerMapping<MemoryOperations>& mapping;
+    platform::MappedWorkerThread<test::SoftwareStackOperations>& controller;
+    RuntimeFixture* objects{nullptr};
+    bool exception{false};
+    calibration::DiscoverySessionResult result{};
+    static void run(void* pointer) noexcept {
+      auto& self = *static_cast<Context*>(pointer);
+      try {
+        if (!self.controller.prepared() || !self.mapping.prepare()) {
+          return;
+        }
+        self.objects = std::construct_at(
+            reinterpret_cast<RuntimeFixture*>(self.mapping.mapped_bytes().data()));
+        calibration::NoDiscoveryControllerObserver observer;
+        self.result = self.objects->runtime.run(observer);
+      } catch (...) {
+        self.exception = true;
+      }
+    }
+  } context{mapping, controller};
+  ASSERT_TRUE(controller.start(&Context::run, &context));
+  controller.join();
+  const auto destroy = [](RuntimeFixture* objects) { std::destroy_at(objects); };
+  std::unique_ptr<RuntimeFixture, decltype(destroy)> objects(context.objects, destroy);
+  ASSERT_FALSE(context.exception);
+  ASSERT_NE(objects, nullptr);
+  auto& runtime = objects->runtime;
+  EXPECT_EQ(context.result.stop, calibration::DiscoverySessionStop::complete);
+  EXPECT_EQ(runtime.session().result.origins, context.result.origins);
+  EXPECT_TRUE(contains(mapping.mapped_bytes(), &runtime.session().warmup_barrier));
+  for (std::size_t role = 0U; role < 2U; ++role) {
+    EXPECT_EQ(runtime.tls_before_warmup()[role].stop,
+              platform::ThreadTlsStop::complete);
+    EXPECT_TRUE(platform::same_thread_tls(
+        runtime.tls_before_warmup()[role], objects->tls[role],
+        runtime.tls_before_measurement()[role], objects->tls[role + 2U]));
+  }
+  EXPECT_NE(runtime.tls_before_warmup()[0U].fs_base,
+            runtime.tls_before_warmup()[1U].fs_base);
+  for (const auto region : runtime.worker_regions()) {
+    EXPECT_FALSE(region.mapping.empty());
+    EXPECT_EQ(region.expected_node, plan.requested_node);
+  }
+  EXPECT_EQ(runtime.preparation().consumer_phase(false).last_join.status,
+            calibration::DiscoveryJoinStatus::exact);
+  calibration::NoDiscoveryControllerObserver observer;
+  EXPECT_EQ(runtime.run(observer).stop,
+            calibration::DiscoverySessionStop::storage_already_used);
+}
+
+TEST(MappedDiscovery, RuntimeRejectsAliasedTlsStorageAndDisagreedGeometry) {
+  RuntimeFixture fixture;
+  auto plan = software_plan();
+  auto owner = test::software_stack_plan();
+  calibration::DiscoveryRuntimeTlsStorage tls{{{fixture.tls[0U], fixture.tls[1U]}},
+                                              {{fixture.tls[2U], fixture.tls[3U]}}};
+  auto aliased = tls;
+  aliased.before_measurement[1U] = aliased.before_warmup[0U];
+  EXPECT_THROW((RuntimeFixture::Runtime(plan, {owner, owner}, aliased, fixture.clock,
+                                        fixture.relax)),
+               std::invalid_argument);
+  auto wrong = owner;
+  wrong.verified_base_page_bytes *= 2U;
+  EXPECT_THROW((RuntimeFixture::Runtime(plan, {owner, wrong}, tls, fixture.clock,
+                                        fixture.relax)),
+               std::invalid_argument);
+}
+
+TEST(MappedDiscovery, RuntimePreservesPreparationFailureWithoutWarmupOrRetry) {
+  RuntimeFixture fixture;
+  fixture.runtime.mapping_operations(0U).reject_binding = true;
+  calibration::NoDiscoveryControllerObserver observer;
+  const auto result = fixture.runtime.run(observer);
+  EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::preparation_failure);
+  EXPECT_FALSE(result.origins[0U].has_value());
+  EXPECT_FALSE(fixture.runtime.records().ready());
+  EXPECT_EQ(fixture.runtime.run(observer).stop,
+            calibration::DiscoverySessionStop::storage_already_used);
+}
+
+TEST(MappedDiscovery, RuntimeRetainsWorkersThroughFinalControlReadback) {
+  RuntimeFixture fixture;
+  struct Scratch final {
+    std::array<char, 4096U> before{};
+    std::array<char, 8192U> status{};
+    std::array<char, 4096U> after{};
+    std::array<unsigned long, 16U> mask{};
+    auto view() noexcept -> platform::ThreadMonitorScratch {
+      return {before, status, after, mask};
+    }
+  };
+  struct Observer final {
+    RuntimeFixture::Runtime& runtime;
+    std::array<platform::LinuxThreadMonitorOperations, 2U> operations;
+    std::array<platform::PreparedThreadMonitor, 2U> monitors{
+        platform::PreparedThreadMonitor(operations[0U]),
+        platform::PreparedThreadMonitor(operations[1U])};
+    std::array<Scratch, 2U> preparation{};
+    std::array<std::array<Scratch, 2U>, 2U> scratch{};
+    std::array<std::array<platform::ThreadControlSample, 2U>, 2U> samples{};
+    auto before_phase(calibration::DiscoverySessionPhase phase) noexcept -> bool {
+      if (phase == calibration::DiscoverySessionPhase::measurement) {
+        return true;
+      }
+      for (std::size_t role = 0U; role < 2U; ++role) {
+        const auto identity = runtime.tls_before_warmup()[role].thread_before;
+        if (!identity.has_value() || !identity->nonnegative_return() ||
+            identity->return_value <= 0 ||
+            identity->return_value > std::numeric_limits<int>::max() ||
+            !monitors[role].prepare(static_cast<int>(identity->return_value),
+                                    preparation[role].view())) {
+          return false;
+        }
+      }
+      return true;
+    }
+    auto during_phase(calibration::DiscoverySessionPhase,
+                      calibration::DiscoveryObservationWindow,
+                      const std::atomic<std::uint32_t>&) const noexcept -> bool {
+      return true;
+    }
+    auto after_phase(calibration::DiscoverySessionPhase phase) noexcept -> bool {
+      // Model a delayed controller readback after both capture loops stopped.
+      std::this_thread::sleep_for(std::chrono::milliseconds(1));
+      const auto index = static_cast<std::size_t>(phase);
+      bool passed = true;
+      for (std::size_t role = 0U; role < 2U; ++role) {
+        samples[index][role] = monitors[role].sample(scratch[index][role].view());
+        passed = samples[index][role].succeeded() && passed;
+      }
+      return passed;
+    }
+  } observer{fixture.runtime, {}};
+  const auto result = fixture.runtime.run(observer);
+  EXPECT_EQ(result.stop, calibration::DiscoverySessionStop::complete);
+  for (const auto& phase : observer.samples) {
+    for (const auto& sample : phase) {
+      EXPECT_TRUE(sample.succeeded());
+    }
+  }
 }
 
 TEST(MappedDiscovery, RealOwnerMappingsAndStacksCompleteBothPhasesAndExactJoin) {

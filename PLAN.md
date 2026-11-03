@@ -510,7 +510,16 @@ software integration can continue independently.
   Both integrated development suites pass 519/519; 107 calibration and 44
   platform cases pass all four sanitizer configurations. No capture has run.
 
-- **EXT007 continuation:** ADR-0177 integrates and locally tests the accepted
+- **EXT007 continuation:**
+  ADR-0201 adds mapped runtime composition, native thread/hardware control
+  readback and the final-worker-lifetime fix. Both development suites pass
+  563/563; 124 calibration and 71 platform cases pass all four sanitizers.
+  Continue native publication, finite diagnostic admission, clean release and
+  qualification into actual collection. Do not stop at the component commit.
+  Final scientific freezes are Stage 18 prerequisites; Stage 17 completion
+  follows the D-115 operational pilot/exit graph.
+
+- **Earlier EXT007 checkpoint:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.
   Next obtain the typed D-037 duration/minimum-observation/warm-up inputs,
   implement their exact capture/residency semantics, complete the new release

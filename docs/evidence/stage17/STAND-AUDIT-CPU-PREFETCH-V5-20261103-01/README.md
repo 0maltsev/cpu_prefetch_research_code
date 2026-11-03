@@ -21,3 +21,11 @@ owner's resource limits. Derive finite run, memory, lock, storage and watchdog
 limits from the final runtime/plan and verify them under the actual launch
 identity before admission. The boot/source/dependency and hardware-readback
 requirements remain in force.
+
+[controller-topology-trust.json](controller-topology-trust.json) retains a further
+read-only observation at `2026-11-03T00:14:38.508469+00:00`. CPU 2 is node 0,
+package 0, core 3, siblings 2/18; it is distinct from workers 0/1/8 and their
+SMT siblings. This is a controller candidate, not an isolation qualification.
+The retained public EXT002 trust record identifies the existing OWNER signer
+and `stage17-owner-acceptance` namespace. No private key was read, no authority
+was issued, and the root-shell memory-lock limit remains 8 MiB.

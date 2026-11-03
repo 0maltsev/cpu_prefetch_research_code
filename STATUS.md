@@ -182,6 +182,15 @@ cases pass GCC and Clang/libc++ ASan/UBSan and TSan. These are local software
 checks, with no release or exact discovery-boundary qualification claim.
 
 EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
+ADR-0201 integrates mapped runtime composition and native thread/hardware
+control readback. A reproduced producer-exit race is fixed: both workers remain
+alive through final observations. Both development suites pass 563/563; 124
+calibration and 71 platform cases pass all four sanitizers. Native publication
+and the separately authorized finite diagnostic action are being connected.
+No discovery capture has executed. D-115's operational Stage 17 exit remains
+the target; final scientific freezes, including `delta_star`, belong to the
+separate Stage 18 readiness gate.
+
 ADR-0177 adds tested mapping-aware control/capability/admission successors;
 prospective policy v54 is not promoted or released. Missing D-037 prospective
 inputs and capture warm-up/duration/residency implementation still block

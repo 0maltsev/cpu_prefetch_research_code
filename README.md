@@ -145,8 +145,9 @@ Complete mapped runtime-object/control coverage, publication/watchdog and
 qualified diagnostic admission remain required before the duration study.
 
 The [Stage 17 completion plan](docs/STAGE17_COMPLETION_PLAN.md) tracks the
-remaining runtime, qualification, calibration, pilot, storage and freeze/exit
-requirements through the Stage 18 readiness handoff.
+remaining runtime, qualification, calibration, pilot, storage and operational
+exit requirements. Final scientific freezes, including `delta_star`, are
+separate Stage 18 readiness requirements, not additional Stage 17 exit gates.
 
 ADR-0199 integrates owner-prepared mappings for the arena/ring, independent
 trace and primary-stream objects/buffers, phase state and drain retention.
@@ -177,6 +178,13 @@ control, preparation, and prospective admission. Calibration is still blocked
 on the typed D-037 plan and its duration/minimum-observation/warm-up/residency
 implementation, plus a fresh qualified release. See
 [EXT007 readiness](docs/STAGE17_EXT007_CALIBRATION_READINESS.md).
+
+ADR-0201 composes the mapped runtime with native thread/hardware readbacks and
+timed controller control groups. Both workers stay alive through final readback;
+failed controls retain independent page-query evidence. Both development suites
+pass 563/563, and 124 calibration plus 71 platform cases pass all four sanitizers.
+These are software checks. Native publication, diagnostic admission and fresh
+release/qualification remain active work before the approved discovery starts.
 
 Operational update (2026-10-30): the real `cpu-prefetch-v5` v5-12 journal
 freshly validates six admitted inputs (EXT001-006), two transitions, and state

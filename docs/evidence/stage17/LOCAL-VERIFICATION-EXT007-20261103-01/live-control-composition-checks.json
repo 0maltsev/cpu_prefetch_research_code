@@ -1,0 +1,296 @@
+{
+  "recorded_utc": "2026-11-03T00:24:54.394462+00:00",
+  "authority": "NONE",
+  "empirical_results": false,
+  "release_qualified": false,
+  "source_base_commit": "f1520236d70443ef10a734b79cdaea6fe11d877e",
+  "source_files": [
+    {
+      "path": "CMakeLists.txt",
+      "size_bytes": 142391,
+      "sha256": "57b3a8485a07a6068141a9dcaa9003871784aa02b0cafd33de1401e7f5b42efd"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/discovery_session.hpp",
+      "size_bytes": 23279,
+      "sha256": "b1e9657e4058dd15be145fea0aeb36db47e549dc93c5775712efd849224eb9fe"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/discovery_residency_observer.hpp",
+      "size_bytes": 19181,
+      "sha256": "a8f18a5f4c3787e0f6cc090ac3be3b6ba4990b6de44bef0068e211eeaadadaed"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/discovery_control_query.hpp",
+      "size_bytes": 11372,
+      "sha256": "b33e5f51b579a38874a2fd0ebc0ae30893938000cc976b2be7dfe3409f2b52fc"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/mapped_discovery_runtime.hpp",
+      "size_bytes": 9029,
+      "sha256": "b58c3d3f58ca4048b43de1d9f9961d5afe2c1c3a263c0451a41d48387f7e0dcf"
+    },
+    {
+      "path": "include/cpu_prefetch/platform/thread_monitor.hpp",
+      "size_bytes": 6852,
+      "sha256": "7f4e31a5b5bcf6e22934dd31dea6d8f1fcb8b8eea266a8e5ea4758d11d8c291e"
+    },
+    {
+      "path": "src/platform/thread_monitor.cpp",
+      "size_bytes": 15077,
+      "sha256": "7bf7c7a96f4df374373e689d9ba1a05e750684a5025e17a00e36989b0eaddf95"
+    },
+    {
+      "path": "tests/platform_thread_monitor_test.cpp",
+      "size_bytes": 20107,
+      "sha256": "79ebdb51f75159fec05f054f1b97ce7c78aaecf665122def9709a6888799dc24"
+    },
+    {
+      "path": "include/cpu_prefetch/platform/prepared_prefetch_readback.hpp",
+      "size_bytes": 6072,
+      "sha256": "693669955e1bb5877298f81b4a38815aa49b68a925c23e6d956cded8559d40b6"
+    },
+    {
+      "path": "src/platform/prepared_prefetch_readback.cpp",
+      "size_bytes": 7099,
+      "sha256": "6afeb235c8bee61536ef7a080cad82b15bc4d5572e4485048c5de9d789e19dd4"
+    },
+    {
+      "path": "tests/platform_prepared_prefetch_readback_test.cpp",
+      "size_bytes": 15578,
+      "sha256": "87d0a424a4cee95728d0e71ee0c16ded4a474edd9ce3cdfe8f90a637b6c8f722"
+    },
+    {
+      "path": "tests/calibration_discovery_control_test.cpp",
+      "size_bytes": 9256,
+      "sha256": "f50d1a739d5d01454a370511531053705346cac6701745ad84b14492c725be90"
+    },
+    {
+      "path": "tests/calibration_discovery_residency_test.cpp",
+      "size_bytes": 18730,
+      "sha256": "ddda53114f1c3ab34261094cc5142eb1f44b9cda05bb610fd70ebc99fc853931"
+    },
+    {
+      "path": "tests/calibration_mapped_discovery_test.cpp",
+      "size_bytes": 23048,
+      "sha256": "050418d5406c887c585b4c89ae8fbb62007a60a40a8b953bfffc965d73ca387d"
+    },
+    {
+      "path": "tools/stage17_discovery_contract_v1.py",
+      "size_bytes": 17432,
+      "sha256": "f8e4fb5ccb2570cd4c45dec45c319e5720454f41fbd9a393019278b41e168b82"
+    },
+    {
+      "path": "tools/check_stage17_discovery_contract.py",
+      "size_bytes": 15368,
+      "sha256": "b16cdb4ef394ad06d1642a52935961d9e721746f1bb3890f6ec8f61e09d329c1"
+    },
+    {
+      "path": "config/schemas/stage17-discovery-plan-v1.schema.json",
+      "size_bytes": 12190,
+      "sha256": "ffe49f08a8b51b1ecbc40760dd8855b46937bd3628baf9faec7f481a4d3fa175"
+    }
+  ],
+  "full_development": {
+    "accepted-dev-gcc": {
+      "cases": 563,
+      "exit_code": 0,
+      "build": {
+        "path": "build/ext007-runtime-20261101/controls-accepted-dev-gcc-build.log",
+        "size_bytes": 1496,
+        "sha256": "a426cbb93debf70f04f3b4eaad856934d5643133125c4dedf62d040fd71da7a0"
+      },
+      "tests": {
+        "path": "build/ext007-runtime-20261101/controls-accepted-dev-gcc-tests.log",
+        "size_bytes": 124872,
+        "sha256": "0ed30353761f64ef2ea63914e416ea1f111c74a21c0fe4a81b02b102fc5abdfc"
+      }
+    },
+    "accepted-dev-clang-libcxx": {
+      "cases": 563,
+      "exit_code": 0,
+      "build": {
+        "path": "build/ext007-runtime-20261101/controls-accepted-dev-clang-libcxx-build.log",
+        "size_bytes": 2930,
+        "sha256": "4138d14c38760620a241cab286e143d4284e1445ef807db5e542193f0496f5d5"
+      },
+      "tests": {
+        "path": "build/ext007-runtime-20261101/controls-accepted-dev-clang-libcxx-tests.log",
+        "size_bytes": 124881,
+        "sha256": "ece5815d86532c1e3cfdf7507ccc7ac5cf86320b77bf60c200148363da06e574"
+      }
+    }
+  },
+  "sanitizers": {
+    "accepted-asan-ubsan-gcc": {
+      "exit_code": 0,
+      "build": {
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-asan-ubsan-gcc-build.log",
+        "size_bytes": 22,
+        "sha256": "8c35b1682f73592d30612d7b0fabdb384fcfff35cb5a076cb48b85b1368aa794"
+      },
+      "calibration": {
+        "cases": 124,
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-asan-ubsan-gcc-calibration.log",
+        "size_bytes": 23527,
+        "sha256": "c0e5783360edac5a104f2f1555c5fecebd27919d3f4655483b59f48ed7d2e0da"
+      },
+      "platform": {
+        "cases": 71,
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-asan-ubsan-gcc-platform.log",
+        "size_bytes": 13830,
+        "sha256": "8f06a8129743ea7d575c5785019df426a8b0f6b273aa4809d41ae289cd62b869"
+      }
+    },
+    "accepted-tsan-gcc": {
+      "exit_code": 0,
+      "build": {
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-tsan-gcc-build.log",
+        "size_bytes": 1417,
+        "sha256": "e58c4eaa63b0ae437d98e12bf0d4a193bd83f35ea7f4e4b9d3946262b2eecfaf"
+      },
+      "calibration": {
+        "cases": 124,
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-tsan-gcc-calibration.log",
+        "size_bytes": 23534,
+        "sha256": "e9fab741740f05af0eb10d2a2b8019053715a83d27d0d2a8550e2aca6c313ad4"
+      },
+      "platform": {
+        "cases": 71,
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-tsan-gcc-platform.log",
+        "size_bytes": 13828,
+        "sha256": "b026d3c7ae947de652e7369485522e263c2edc904633142286c9182808f2ec39"
+      }
+    },
+    "accepted-asan-ubsan-clang-libcxx": {
+      "exit_code": 0,
+      "build": {
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-asan-ubsan-clang-libcxx-build.log",
+        "size_bytes": 1432,
+        "sha256": "df7adcffadf3f5b9a60c9ce145e902104e0379124b761df186b533f4868be478"
+      },
+      "calibration": {
+        "cases": 124,
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-asan-ubsan-clang-libcxx-calibration.log",
+        "size_bytes": 23592,
+        "sha256": "f07eca397e2bcf0afdb63143357fa4f47a54870d947d064545ed7dd6a0ad3574"
+      },
+      "platform": {
+        "cases": 71,
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-asan-ubsan-clang-libcxx-platform.log",
+        "size_bytes": 13899,
+        "sha256": "520f5b55c7a869584a3995c8766573dd91e5ac5b94629e07eecfafcd665a8201"
+      }
+    },
+    "accepted-tsan-clang-libcxx": {
+      "exit_code": 0,
+      "build": {
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-tsan-clang-libcxx-build.log",
+        "size_bytes": 1569,
+        "sha256": "80412ac3f23546a072af0ad082e72d7a4f843f4462f1c610b8830d2796e863ce"
+      },
+      "calibration": {
+        "cases": 124,
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-tsan-clang-libcxx-calibration.log",
+        "size_bytes": 23604,
+        "sha256": "d7c10c2d31be8f783ed2c0b8e153dd9bcbd590c1c23f5f548c98cbe63cf4afe3"
+      },
+      "platform": {
+        "cases": 71,
+        "path": "build/ext007-runtime-20261101/controls-direct-accepted-tsan-clang-libcxx-platform.log",
+        "size_bytes": 13898,
+        "sha256": "c906bd36368ac611bb0a22054a3e044dab14077777a4b3ac257d4bf7367ad3de"
+      }
+    }
+  },
+  "final_assertion_test_checks": {
+    "accepted-dev-gcc": {
+      "cases": 9,
+      "exit_code": 0,
+      "path": "build/ext007-runtime-20261101/controls-final-accepted-dev-gcc-tests.log",
+      "size_bytes": 1921,
+      "sha256": "435f3721be9d0ec1db4d1d2f85ea0aa22304372f793f83a61d40248ae11c39b3"
+    },
+    "accepted-dev-clang-libcxx": {
+      "cases": 9,
+      "exit_code": 0,
+      "path": "build/ext007-runtime-20261101/controls-final-accepted-dev-clang-libcxx-tests.log",
+      "size_bytes": 1991,
+      "sha256": "58e5906bece23f85500570aaf5ffe6f9fa4bdecd7eda948ecd2bf68c5f80565e"
+    },
+    "accepted-asan-ubsan-gcc": {
+      "cases": 9,
+      "exit_code": 0,
+      "path": "build/ext007-runtime-20261101/controls-final-accepted-asan-ubsan-gcc-tests.log",
+      "size_bytes": 1921,
+      "sha256": "c577c4a04cc1451dd896b74cbcb00099a777aec6e4e317d242575d1329543a5f"
+    },
+    "accepted-tsan-gcc": {
+      "cases": 9,
+      "exit_code": 0,
+      "path": "build/ext007-runtime-20261101/controls-final-accepted-tsan-gcc-tests.log",
+      "size_bytes": 1921,
+      "sha256": "0be355651305c03d00a6463e206a6112545d94955c432ee0f291c99e36f55cdb"
+    },
+    "accepted-asan-ubsan-clang-libcxx": {
+      "cases": 9,
+      "exit_code": 0,
+      "path": "build/ext007-runtime-20261101/controls-final-accepted-asan-ubsan-clang-libcxx-tests.log",
+      "size_bytes": 1991,
+      "sha256": "b912e877e81dd51efdc756aaaa9778da44198290a317e4962e0ef1c7fca553c4"
+    },
+    "accepted-tsan-clang-libcxx": {
+      "cases": 9,
+      "exit_code": 0,
+      "path": "build/ext007-runtime-20261101/controls-final-accepted-tsan-clang-libcxx-tests.log",
+      "size_bytes": 1991,
+      "sha256": "89b8e61d919a9d83624b6909f128bf3ebde88a3a3b9db535cd5acd2938abb7fb"
+    }
+  },
+  "notes": [
+    "Full development suites ran before registration of the additional Python contract CTest; that contract was checked separately.",
+    "After full suites, only test optional guards and an intentional invalid-enum test annotation changed; DiscoveryControls cases were rebuilt and rerun in all six configurations.",
+    "Initial label-selected sanitizer invocation included an unbuilt unrelated runner executable. Final sanitizer commands directly ran both built affected suites.",
+    "Initial eight-TU strict analysis found four diagnostics in the new control test. Other seven TUs had no project diagnostics; the corrected control TU passed strict recheck."
+  ],
+  "worker_lifetime_regression": {
+    "red_exit_code": 1,
+    "red": {
+      "path": "build/ext007-runtime-20261101/runtime-lifetime-red-tests.log",
+      "size_bytes": 1227,
+      "sha256": "eba438be240c8d66b1bdd72beae524048ee992ba2e5c7ec25833cd4c44efd4af"
+    },
+    "green_exit_code": 0,
+    "green": {
+      "path": "build/ext007-runtime-20261101/runtime-lifetime-green-tests.log",
+      "size_bytes": 8789,
+      "sha256": "133effdbe1c083525567413c833c547d55d02762835b757bd1a95f33dfc17ae8"
+    }
+  },
+  "strict_analysis": {
+    "initial_exit_code": 1,
+    "initial": {
+      "path": "build/ext007-runtime-20261101/controls-static-analysis.log",
+      "size_bytes": 6320,
+      "sha256": "dd3fcebef1c117a4a4fac5c8a4d4fc1880948d1aab42e0da5d8a70b055f82fb6"
+    },
+    "final_exit_code": 0,
+    "corrected_control_test": {
+      "path": "build/ext007-runtime-20261101/controls-static-analysis-fixed.log",
+      "size_bytes": 238,
+      "sha256": "5d7dcc7a7f00aca6c3c1aaf0a2bf844758b78eb384d38985ed632dab6945b413"
+    }
+  },
+  "format": {
+    "path": "build/ext007-runtime-20261101/controls-format.log",
+    "size_bytes": 30,
+    "sha256": "2a2dfb33385f763495a7752721d7f4bcf54c5fe8cfbf144c88c3f1601c5a6653"
+  },
+  "contract": {
+    "cases": 14,
+    "exit_code": 0,
+    "path": "build/ext007-runtime-20261101/discovery-contract-tests.log",
+    "size_bytes": 113,
+    "sha256": "038c426e3c4fcdcd167c8857c65f8db1d5fe9ed29cadfde4d623f84fe187d4d1"
+  }
+}

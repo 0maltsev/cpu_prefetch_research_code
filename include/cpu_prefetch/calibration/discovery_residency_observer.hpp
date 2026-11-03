@@ -39,6 +39,7 @@ enum class DiscoveryResidencyStop : std::uint8_t {
   workers_finished,
   wait_exhausted,
   sampled,
+  control_failure,
 };
 
 struct DiscoveryResidencySample final {
@@ -52,6 +53,7 @@ struct DiscoveryResidencySample final {
   std::optional<timing::ClockReadResult> begin;
   std::optional<timing::ClockReadResult> end;
   std::optional<platform::PageResidencyQueryResult> query;
+  DiscoveryObservationStatus controls{DiscoveryObservationStatus::not_configured};
   std::optional<std::uint64_t> prior_controller_tick;
   std::optional<std::uint32_t> finished_before;
   std::optional<std::uint32_t> finished_after;
@@ -88,7 +90,8 @@ public:
 
   [[nodiscard]] auto before_phase(DiscoverySessionPhase phase) noexcept -> bool {
     return enter(phase, DiscoveryResidencyMoment::before) &&
-           sample_group(phase, DiscoveryResidencyMoment::before);
+           sample_group(phase, DiscoveryResidencyMoment::before) &&
+           controls_complete(phase, DiscoveryResidencyMoment::before);
   }
   [[nodiscard]] auto during_phase(DiscoverySessionPhase phase,
                                   DiscoveryObservationWindow window,
@@ -159,11 +162,12 @@ public:
         return false;
       }
     }
-    return true;
+    return controls_complete(phase, DiscoveryResidencyMoment::during);
   }
   [[nodiscard]] auto after_phase(DiscoverySessionPhase phase) noexcept -> bool {
     return enter(phase, DiscoveryResidencyMoment::after) &&
-           sample_group(phase, DiscoveryResidencyMoment::after);
+           sample_group(phase, DiscoveryResidencyMoment::after) &&
+           controls_complete(phase, DiscoveryResidencyMoment::after);
   }
   [[nodiscard]] auto sequence_rejected() const noexcept -> bool {
     return sequence_rejected_;
@@ -174,6 +178,15 @@ public:
   }
 
 private:
+  [[nodiscard]] auto controls_complete(DiscoverySessionPhase phase,
+                                       DiscoveryResidencyMoment moment) const noexcept
+      -> bool {
+    if constexpr (requires { query_.control_group_complete(phase, moment); }) {
+      static_assert(noexcept(query_.control_group_complete(phase, moment)));
+      return query_.control_group_complete(phase, moment);
+    }
+    return true;
+  }
   struct Range final {
     std::uintptr_t begin;
     std::size_t bytes;
@@ -250,6 +263,7 @@ private:
           sample.stop != DiscoveryResidencyStop::not_started ||
           sample.begin.has_value() || sample.end.has_value() ||
           sample.query.has_value() || sample.wait_first.has_value() ||
+          sample.controls != DiscoveryObservationStatus::not_configured ||
           sample.wait_last.has_value() || sample.wait_polls != 0U ||
           sample.prior_controller_tick.has_value() ||
           sample.finished_before.has_value() || sample.finished_after.has_value()) {
@@ -359,6 +373,13 @@ private:
     return true;
   }
   [[nodiscard]] auto observe_pages(DiscoveryResidencySample& row) noexcept -> bool {
+    // One prospective schedule drives both controls and residency. A prepared
+    // query may retain its independent control observations under this exact
+    // request; no second scheduler can silently miss the same during window.
+    if constexpr (requires { query_.observe_controls(row.request); }) {
+      static_assert(noexcept(query_.observe_controls(row.request)));
+      row.controls = query_.observe_controls(row.request);
+    }
     const auto queried = row.pages.sample(query_);
     row.query = queried;
     const auto end = clock_.read();
@@ -373,6 +394,11 @@ private:
     if (!row.pages.all_pages_on(queried,
                                 regions_[row.request.region_index].expected_node)) {
       row.stop = DiscoveryResidencyStop::wrong_node;
+      return false;
+    }
+    if (row.controls != DiscoveryObservationStatus::accepted &&
+        row.controls != DiscoveryObservationStatus::not_configured) {
+      row.stop = DiscoveryResidencyStop::control_failure;
       return false;
     }
     row.stop = DiscoveryResidencyStop::sampled;

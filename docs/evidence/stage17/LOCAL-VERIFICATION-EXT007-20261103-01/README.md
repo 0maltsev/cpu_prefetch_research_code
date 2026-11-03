@@ -1,5 +1,18 @@
 # EXT007 owner mapping and controller observation verification
 
+ADR-0201: [live-control-composition-checks.json](live-control-composition-checks.json)
+records the mapped runtime, final-worker-lifetime regression/fix, native thread
+and hardware-prefetch monitors, timed control groups and prospective discovery
+contract. Both full development suites pass **563/563**; **124 calibration** and
+**71 platform** cases pass all four sanitizer configurations. The subsequently
+registered Python contract passes 14 cases. Strict analysis passes the affected
+eight translation units after explicit optional guards in the new control test;
+its intentionally invalid enum input has a narrowly documented analyzer
+annotation. All nine control tests were rebuilt and rerun in all six
+configurations after those test-only corrections. Formatting passes. These
+checks do not cover the still-developing native publication/dispatcher or
+qualify a live experimental run.
+
 ADR-0196, local engineering only. Execution authority: **NONE**. No empirical
 performance result, stand control/MSR operation, release qualification,
 diagnostic capture or formal calibration is claimed.

@@ -343,4 +343,117 @@ TEST(DiscoveryResidency, WrongPageReadbackBlocksRealSessionBeforeAnyQueueAttempt
   EXPECT_EQ(fixture.samples[1U].stop, Stop::not_started);
 }
 
+struct ControlledQuery final {
+  Query& pages;
+  Clock& clock;
+  calibration::DiscoveryObservationStatus status{
+      calibration::DiscoveryObservationStatus::accepted};
+  std::optional<calibration::DiscoveryResidencyRequest> observed;
+  std::optional<std::uint64_t> advance_to;
+  std::size_t controls{0U};
+  bool group_complete{true};
+  auto control_group_complete(Phase, Moment) const noexcept -> bool {
+    return group_complete;
+  }
+  auto observe_controls(calibration::DiscoveryResidencyRequest request) noexcept
+      -> calibration::DiscoveryObservationStatus {
+    ++controls;
+    observed = request;
+    if (advance_to.has_value()) {
+      clock.next_tick = *advance_to;
+    }
+    return status;
+  }
+  auto query_pages(std::span<void* const> addresses, std::span<int> nodes) noexcept
+      -> platform::PageResidencyQueryResult {
+    return pages.query_pages(addresses, nodes);
+  }
+};
+
+TEST(DiscoveryResidency, ControlsShareExactRequestAndRetainIndependentPageEvidence) {
+  for (const auto status : {calibration::DiscoveryObservationStatus::accepted,
+                            calibration::DiscoveryObservationStatus::rejected}) {
+    Fixture fixture;
+    ControlledQuery query{fixture.query, fixture.clock, status, {}, {}};
+    calibration::PreparedDiscoveryResidencyObserver observer(
+        kPlan, calibration::DiscoveryResidencyControls{4096U, 10U}, fixture.regions,
+        fixture.samples, fixture.clock, query, fixture.relax);
+    EXPECT_EQ(observer.before_phase(Phase::warmup),
+              status == calibration::DiscoveryObservationStatus::accepted);
+    EXPECT_EQ(query.controls, 1U);
+    EXPECT_EQ(fixture.query.calls, 1U);
+    const auto observed = query.observed;
+    ASSERT_TRUE(observed.has_value());
+    if (observed.has_value()) {
+      EXPECT_EQ(observed->moment, Moment::before);
+      EXPECT_EQ(observed->phase, Phase::warmup);
+      EXPECT_EQ(observed->region_index, 0U);
+    }
+    EXPECT_EQ(fixture.samples[0U].controls, status);
+    EXPECT_TRUE(fixture.samples[0U].query.has_value());
+    EXPECT_TRUE(fixture.samples[0U].end.has_value());
+    EXPECT_EQ(fixture.samples[0U].stop,
+              status == calibration::DiscoveryObservationStatus::accepted
+                  ? Stop::sampled
+                  : Stop::control_failure);
+  }
+}
+
+TEST(DiscoveryResidency, ControlTimeIsIncludedInTheDuringWindowCheck) {
+  Fixture fixture;
+  ControlledQuery query{fixture.query,
+                        fixture.clock,
+                        calibration::DiscoveryObservationStatus::accepted,
+                        {},
+                        {}};
+  calibration::PreparedDiscoveryResidencyObserver observer(
+      kPlan, calibration::DiscoveryResidencyControls{4096U, 10U}, fixture.regions,
+      fixture.samples, fixture.clock, query, fixture.relax);
+  ASSERT_TRUE(observer.before_phase(Phase::warmup));
+  fixture.clock.next_tick = 15U;
+  query.advance_to = 110U;
+  EXPECT_FALSE(observer.during_phase(Phase::warmup, {10U, 100U}, fixture.finished));
+  EXPECT_EQ(fixture.samples[1U].controls,
+            calibration::DiscoveryObservationStatus::accepted);
+  EXPECT_TRUE(fixture.samples[1U].query.has_value());
+  EXPECT_EQ(fixture.samples[1U].stop, Stop::outside_window);
+  EXPECT_EQ(query.controls, 2U);
+}
+
+TEST(DiscoveryResidency, PriorControlResultCannotBeReusedAsFreshEvidence) {
+  Fixture fixture;
+  fixture.samples[0U].controls = calibration::DiscoveryObservationStatus::accepted;
+  EXPECT_THROW(static_cast<void>(fixture.observer()), std::invalid_argument);
+  EXPECT_EQ(fixture.query.calls, 0U);
+}
+
+TEST(DiscoveryResidency, MissingMandatoryControlGroupPreventsPhaseAcceptance) {
+  for (const auto missing : {Moment::before, Moment::during, Moment::after}) {
+    Fixture fixture;
+    ControlledQuery query{fixture.query,
+                          fixture.clock,
+                          calibration::DiscoveryObservationStatus::not_configured,
+                          {},
+                          {}};
+    calibration::PreparedDiscoveryResidencyObserver observer(
+        kPlan, calibration::DiscoveryResidencyControls{4096U, 10U}, fixture.regions,
+        fixture.samples, fixture.clock, query, fixture.relax);
+    query.group_complete = missing != Moment::before;
+    EXPECT_EQ(observer.before_phase(Phase::warmup), missing != Moment::before);
+    if (missing == Moment::before) {
+      continue;
+    }
+    fixture.clock.next_tick = 15U;
+    query.group_complete = missing != Moment::during;
+    EXPECT_EQ(observer.during_phase(Phase::warmup, {10U, 100U}, fixture.finished),
+              missing != Moment::during);
+    if (missing == Moment::during) {
+      continue;
+    }
+    fixture.clock.next_tick = 120U;
+    query.group_complete = false;
+    EXPECT_FALSE(observer.after_phase(Phase::warmup));
+  }
+}
+
 } // namespace

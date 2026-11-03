@@ -331,13 +331,16 @@ template <typename Clock, typename Backend, typename Relax, typename Observer,
            plan.measurement_duration_ticks, plan.measurement_attempt_capacity},
           clock, measurement_attempt, measurement_stop);
       measurement_finished.fetch_or(bit, std::memory_order_acq_rel);
+      // Keep both native owners alive until the controller has retained final
+      // thread/control observations. A producer that exits here loses its
+      // procfs/TLS identity before the after-phase hook can inspect it.
+      if (!wait([&]() noexcept {
+            return measurement_finished.load(std::memory_order_acquire) == 3U &&
+                   observations_finished[1U].load(std::memory_order_acquire);
+          })) {
+        return;
+      }
       if constexpr (Role == RingWorker::consumer) {
-        if (!wait([&]() noexcept {
-              return measurement_finished.load(std::memory_order_acquire) == 3U &&
-                     observations_finished[1U].load(std::memory_order_acquire);
-            })) {
-          return;
-        }
         result.measurement_verified =
             backend.validate_measurement(std::as_const(result.measurement));
         result.measurement_drain = drain(result.measurement, false);

@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-Updated 2026-11-03. Implementation baseline: `398ec7c`, with D-200 continuation.
+Updated 2026-11-03. Implementation baseline: `f152023` (D-200).
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
 This roadmap is not an execution authorization or a scientific amendment.
 
@@ -18,12 +18,19 @@ This roadmap is not an execution authorization or a scientific amendment.
 - No capture from the approved 36-run discovery study has executed.
 - D-200 adds caller-owned session coordination/results, full mapped-controller
   software integration and native owner-thread TLS payload observations. Full
-  libc/runtime footprint, actual control monitoring, publication/watchdog and
+  relevant live runtime footprint, actual control monitoring, publication/watchdog and
   exact qualified diagnostic admission remain open. The stand is dedicated to
   these experiments; final primary precision bound `delta_star` is unresolved.
 - The prior release/qualification cannot automatically qualify changed source.
   Preserve prospective policy v54 and all earlier records; create a complete
   versioned successor when the integrated source is ready.
+- D-201 integrates the mapped runtime and native thread/hardware readback
+  components. Both owners remain alive through final control observations;
+  timed before/during/after groups enforce explicit per-phase disturbance
+  limits and retain independent page results. Both development suites pass
+  563/563, with 124 calibration and 71 platform cases passing all four
+  sanitizer configurations. Native publication and diagnostic admission are
+  being connected next; these checks do not qualify a stand capture.
 
 ## Ordered work and acceptance gates
 
@@ -35,7 +42,15 @@ This roadmap is not an execution authorization or a scientific amendment.
 | 4. Close EXT007 | Freeze a new D-037 formal plan using discovery evidence; collect the required 708 fresh Q16a runs, then Q16b service calibration and Q16c feasibility in dependency order. Derive exact distance, service-rate and load outputs using accepted methods. | Phase-bound requests/authorizations, raw evidence, typed results, custody and calibration freeze accepted by the operational verifier. Any feasibility result awaiting final matrix exposure remains explicitly provisional. |
 | 5. Close EXT008 and EXT009 | Generate the exact prospective pilot matrix, schedules, IDs, seeds, repetitions, horizons, warmup/recovery, admission tickets and stop rules from accepted calibration. Prove buffers and durable capacity for that exact plan, both custody domains, transfer receipts, partial retention and recovery rehearsal. | Current-stand EXT008 plan and checked EXT009 storage/custody/recovery evidence. Old stand-v2 values are not defaults for stand v5. |
 | 6. Close EXT010 and execute the pilot | Bind all nine accepted predecessor resolutions into the exact finite Stage 17 pilot authorization. Execute only its permitted runs, retaining ordered primary streams, control observations, manifests, joins and failures. Produce treatment-blind pilot summaries. | Admitted EXT010, complete controller/worker output lineage, verified restoration, accepted custody and the required pilot output set. Ten catalog resolutions alone do not establish successful pilot completion. |
-| 7. Freeze the study and validate Stage 17 exit | Derive settling/warmup, measurement horizon, dependence/block-length diagnostics, covariance and environmental limits from the prescribed blinded evidence. Use the independently justified primary practical bound for precision sizing; derive role counts, final matrix/schedules, replacement/stand/storage budgets and re-evaluate final matrix zero-loss feasibility. Validate all applicable freeze items and the derived Stage 17 completion chain. | Accepted append-only freeze and Stage 17 exit evidence, with no applicable unresolved blocker. Produce a Stage 18 readiness handoff; its independent authority/access/sealing requirements remain separate. |
+| 7. Validate Stage 17 exit and hand off Stage 18 readiness | Run the D-115 completion validator against the exact ten resolutions/three transitions, admitted EXT010, matching pilot attempt/result/completion, every planned run, sealed manifest, restoration and process quiescence. Preserve and transfer the pilot artifacts and identify the scientific freezes still needed for Stage 18. | Accepted Stage 17 completion record derived from actual pilot evidence. Stage 18 remains separately blocked until its scientific freezes, independent trust, authority and access chronology pass. |
+
+The prior roadmap combined operational Stage 17 completion with final scientific
+readiness. D-115 and `validate_stage17_completion()` distinguish them. Final
+settling/warmup, measurement horizon, covariance/precision, role counts, final
+matrix/schedules, exposure-based feasibility and stand/storage budgets must be
+frozen before Stage 18 admission; they are not additional fields of the Stage 17
+operational completion validator. In particular, unresolved application-based
+`delta_star` does not block Stage 17 discovery, calibration or pilot collection.
 
 ## Discovery controls already approved
 
@@ -100,9 +115,10 @@ Estimate stand time and durable bytes once prospective run counts and durations
 are concrete; do not invent an end date from the current software test count.
 
 A failed mandatory gate is retained and reported as infeasible/unresolved under
-the protocol, not converted to success. Stage 17 is complete only when the
-accepted pilot/freeze/exit graph demonstrates it. Stage 18 execution requires
-its separate authority and access chronology; no Stage B/C work is included.
+the protocol, not converted to success. Stage 17 is complete only when its
+accepted pilot/exit graph demonstrates it. Stage 18 execution requires all
+scientific freezes plus its separate authority and access chronology; no Stage
+B/C work is included.
 
 ## Governing references
 

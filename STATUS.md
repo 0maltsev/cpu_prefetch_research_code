@@ -4,22 +4,30 @@ Current Stage 17 completion roadmap:
 [all remaining requirements and exit gates](docs/STAGE17_COMPLETION_PLAN.md).
 Stage 17 is incomplete. The current owner priority is EXT007 only. The stand
 is dedicated to these experiments and the existing PC supplies secondary
-storage. **Step 2 is DONE; Step 3's first 36-capture family is STOPPED at its
-first warmup.** No measurement phase or formal calibration ran. MSR and cgroup
-restoration are verified. All 12 files (1,142,655,488 bytes) have SHA-verified
+storage. **Step 2 is DONE; R1 STOPPED at its first warmup; R2 RUNNING since
+10:33:27 UTC on 2026-11-03.** R1 had no measurement phase or formal calibration;
+its MSR and cgroup restoration was verified. All 12 files (1,142,655,488 bytes) have SHA-verified
 two-copy custody. Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`:
 five million consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and
 consumed both 4,199,692 including one drained event; FULL=0. Full-capture
 validation is rejected for the mandatory session stop. The failed prefix is
 reconciled, not a valid 36-capture study; duration selection remains unresolved.
 The [stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md)
-retains the failure. The [working-set amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
-addresses the full-footprint contradiction and is pending approval. R2 and its
-helper remain an unexecuted study proposal; local cold layout checks are not
-execution authority.
+retains the failure.
+The owner [accepted the working-set amendment and one R2 recovery family](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_ACCEPTANCE.md).
+The bounded stand footprint helper confirmed capacities 512 / 65,536 / 1,048,576
+under the approved nominal-cache/sharing interpretation. Exact R2 bindings are
+prepared and live author-request validation passed. Isolation reapplication
+passed with the same boot and required controls. Exact signature verification
+passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-byte
+requirement, and its custody probe passed. **R2 is RUNNING**, started
+2026-11-03 at 10:33:27 UTC under the single approved authority; independent
+validation has not yet occurred. The forthcoming
+[R2 preparation and results record](docs/evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
+will retain the evidence. No new clock capture or automatic retry is authorized.
 The Stage 18 primary practical-effect bound does not block EXT007.
 
-Q16a parameter discovery: `STOPPED_FIRST_WARMUP; SELECTION_UNRESOLVED`.
+Q16a parameter discovery: `R1_STOPPED_FIRST_WARMUP; R2_RUNNING_VALIDATION_PENDING; SELECTION_UNRESOLVED`.
 ADR-0178's accepted design remains distinct from authority for another study.
 A separate finite diagnostic study can support prospective parameter selection; it does
 not permit adaptive formal calibration or resolve EXT007. No scientific
@@ -1156,8 +1164,15 @@ validation is rejected for the mandatory session stop. This reconciles the
 failed prefix, not the 36-capture study; duration selection is unresolved and
 formal runs contributed remain zero. See the
 [stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md).
-The [working-set amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
-addresses a newly identified conflict with immutable full-footprint capacity
-rules and remains pending approval. R2 is an unapproved, unexecuted recovery
-proposal; its helper/cold layout checks grant no authority. No retry or new
-study is authorized by this status update. EXT007 and Stage 17 remain incomplete.
+The owner [accepted the working-set amendment and one R2 recovery family](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_ACCEPTANCE.md).
+The bounded stand footprint helper confirmed capacities 512 / 65,536 / 1,048,576
+under the approved nominal-cache/sharing interpretation. Exact R2 bindings are
+prepared and live author-request validation passed. Isolation reapplication
+passed with the same boot and required controls. Exact signature verification
+passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-byte
+requirement, and its custody probe passed. **R2 is RUNNING**, started
+2026-11-03 at 10:33:27 UTC under the single approved authority; independent
+validation has not yet occurred. The forthcoming
+[R2 preparation and results record](docs/evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
+will retain the evidence. No new clock capture or automatic retry is authorized.
+EXT007 and Stage 17 remain incomplete.

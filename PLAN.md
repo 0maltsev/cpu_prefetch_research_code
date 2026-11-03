@@ -336,8 +336,9 @@ The current dependency-ordered roadmap for all remaining requirements is
 [Stage 17 completion plan](docs/STAGE17_COMPLETION_PLAN.md). It covers runtime
 integration, fresh qualification, discovery and EXT007, EXT008–010, pilot,
 final freezes and validated exit. Current EXT007 status: **Step 2 DONE;
-Step 3 STOPPED at the first warmup of the first 36-capture family.** No
-measurement phase or formal calibration ran; MSR and cgroup state was restored.
+R1 STOPPED at its first warmup; R2 RUNNING since 10:33:27 UTC on 2026-11-03.**
+R1 had no measurement phase or formal calibration; its MSR/cgroup restoration
+was verified.
 All 12 retained files (1,142,655,488 bytes) have SHA-verified two-copy custody.
 Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`: five million
 consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and consumed both
@@ -345,10 +346,17 @@ consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and consumed both
 rejected for the mandatory session stop; the failed prefix is reconciled,
 not a valid 36-capture study. Duration selection remains unresolved. Preserve the
 [stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md).
-The [working-set amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
-is pending approval because of the immutable full-footprint contradiction.
-R2 and its helper remain an unexecuted study proposal; local cold layout checks
-grant no authority. No new study or retry is selected here.
+The owner [accepted the working-set amendment and one R2 recovery family](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_ACCEPTANCE.md).
+The bounded stand footprint helper confirmed capacities 512 / 65,536 / 1,048,576
+under the approved nominal-cache/sharing interpretation. Exact R2 bindings are
+prepared and live author-request validation passed. Isolation reapplication
+passed with the same boot and required controls. Exact signature verification
+passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-byte
+requirement, and its custody probe passed. **R2 is RUNNING**, started
+2026-11-03 at 10:33:27 UTC under the single approved authority; independent
+validation has not yet occurred. The forthcoming
+[R2 preparation and results record](docs/evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
+will retain the evidence. No new clock capture or automatic retry is authorized.
 
 The implementation/release checkpoints below retain their historical state;
 their no-capture statements do not describe the current stopped attempt.
@@ -912,8 +920,15 @@ validation is rejected for the mandatory session stop. This reconciles the
 failed prefix, not the 36-capture study; duration selection is unresolved and
 formal runs contributed remain zero. See the
 [stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md).
-The [working-set amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
-addresses a newly identified conflict with immutable full-footprint capacity
-rules and remains pending approval. R2 is an unapproved, unexecuted recovery
-proposal; its helper/cold layout checks grant no authority. No retry or new
-study is authorized by this status update. EXT007 and Stage 17 remain incomplete.
+The owner [accepted the working-set amendment and one R2 recovery family](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_ACCEPTANCE.md).
+The bounded stand footprint helper confirmed capacities 512 / 65,536 / 1,048,576
+under the approved nominal-cache/sharing interpretation. Exact R2 bindings are
+prepared and live author-request validation passed. Isolation reapplication
+passed with the same boot and required controls. Exact signature verification
+passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-byte
+requirement, and its custody probe passed. **R2 is RUNNING**, started
+2026-11-03 at 10:33:27 UTC under the single approved authority; independent
+validation has not yet occurred. The forthcoming
+[R2 preparation and results record](docs/evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/README.md)
+will retain the evidence. No new clock capture or automatic retry is authorized.
+EXT007 and Stage 17 remain incomplete.

@@ -1,0 +1,30 @@
+{
+  "record_id": "CPU-PREFETCH-V5-V19-D178-R2-OWNER-ACCEPTANCE-1",
+  "amendment_id": "AMEND-2.0.0-pre.3-EXT007-WORKING-SET-v1",
+  "status": "OWNER_APPROVED_PENDING_EXACT_OPERATIONAL_ADMISSION",
+  "recorded_at_utc": "2026-11-03T10:18:43.267336+00:00",
+  "approval_source": "Current conversation user reply to linked amendment and recovery-plan approval question",
+  "exact_user_reply": "yes, approve",
+  "proposal_path": "docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md",
+  "proposal_sha256": "44f1cc2e533b1832f5c341fb89953b42b9827cc858763551613dc85293f6731a",
+  "approved_scope": [
+    "Versioned full-footprint reconciliation and documented nominal cache/sharing inputs",
+    "One bounded setup-only stand footprint helper invocation with 1GiB AS,60 CPU seconds,120 wall seconds",
+    "One fresh R2 36-capture D178 family, conditional on matching footprint observation and all exact admission gates",
+    "Previously qualified CPU isolation reapplication and readback, stop and restoration on first mandatory failure"
+  ],
+  "capacities": [
+    512,
+    65536,
+    1048576
+  ],
+  "warmup_attempt_capacity": 30000000,
+  "worker_as_bytes": 240518168576,
+  "worker_memlock_bytes": 12884901888,
+  "new_clock_capture_authority": false,
+  "automatic_retry_authority": false,
+  "formal_q16a_authority": false,
+  "pilot_authority": false,
+  "phase18_authority": false,
+  "operational_execution_authority": false
+}

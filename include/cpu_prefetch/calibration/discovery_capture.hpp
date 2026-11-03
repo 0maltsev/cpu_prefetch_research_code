@@ -56,10 +56,14 @@ template <typename Attempt>
 }
 } // namespace detail
 
+// Keep the actual measured loop identifiable in the production binary for the
+// dual-disassembler qualification gate. This is one call per owner/phase, not
+// an added call inside an attempt or timestamp bracket.
 template <typename Clock, typename CaptureAttempt>
-[[nodiscard]] auto capture_discovery_worker(DiscoveryWorkerWindow window, Clock& clock,
-                                            CaptureAttempt& capture_attempt,
-                                            std::atomic<bool>& stop_requested) noexcept
+[[nodiscard, gnu::noinline]] auto
+capture_discovery_worker(DiscoveryWorkerWindow window, Clock& clock,
+                         CaptureAttempt& capture_attempt,
+                         std::atomic<bool>& stop_requested) noexcept
     -> DiscoveryWorkerResult {
   static_assert(noexcept(clock.read()));
   static_assert(std::atomic<bool>::is_always_lock_free);

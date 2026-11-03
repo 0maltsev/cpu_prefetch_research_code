@@ -150,6 +150,7 @@ add_library(
   src/platform/worker_stack.cpp
   src/platform/thread_tls.cpp
   src/platform/thread_monitor.cpp
+  src/platform/prepared_file_snapshot.cpp
   src/platform/prepared_prefetch_readback.cpp)
 add_library(cpu_prefetch::platform ALIAS cpu_prefetch_platform)
 target_link_libraries(
@@ -181,6 +182,8 @@ add_library(
   cpu_prefetch_runner_core STATIC
   src/runner/qualification.cpp
   src/runner/runner.cpp
+  src/runner/stage17_discovery_action.cpp
+  src/runner/stage17_discovery_publication.cpp
   src/runner/stage17_fixed_action.cpp)
 add_library(cpu_prefetch::runner ALIAS cpu_prefetch_runner_core)
 target_link_libraries(
@@ -264,7 +267,8 @@ target_include_directories(
 # outside the timed data plane.
 target_link_libraries(cpu_prefetch_runner_core PUBLIC cpu_prefetch::reconciliation)
 
-add_library(cpu_prefetch_calibration STATIC src/calibration/calibration.cpp)
+add_library(cpu_prefetch_calibration STATIC src/calibration/calibration.cpp
+  src/calibration/native_discovery_capture.cpp)
 add_library(cpu_prefetch::calibration ALIAS cpu_prefetch_calibration)
 target_link_libraries(
   cpu_prefetch_calibration
@@ -441,6 +445,17 @@ if(BUILD_TESTING)
     PRIVATE cpu_prefetch::queue cpu_prefetch_project_options GTest::gtest_main)
   gtest_discover_tests(cpu_prefetch_queue_tests PREFIX "queue.")
 
+  add_executable(cpu_prefetch_linked_storage_tests tests/queue_linked_storage_test.cpp)
+  target_link_libraries(cpu_prefetch_linked_storage_tests
+    PRIVATE cpu_prefetch::workload cpu_prefetch_project_options GTest::gtest_main)
+  if(CPU_PREFETCH_SANITIZER STREQUAL "THREAD" AND
+     CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    target_compile_definitions(cpu_prefetch_linked_storage_tests
+      PRIVATE CPU_PREFETCH_LINKED_ALLOCATION_HOOK=0)
+  endif()
+  gtest_discover_tests(cpu_prefetch_linked_storage_tests PREFIX "queue.linked_storage."
+    PROPERTIES LABELS "queue;storage;synthetic")
+
   add_executable(cpu_prefetch_queue_stress tests/queue_stress.cpp)
   target_link_libraries(
     cpu_prefetch_queue_stress
@@ -538,6 +553,7 @@ if(BUILD_TESTING)
     tests/platform_worker_stack_test.cpp
     tests/platform_thread_tls_test.cpp
     tests/platform_thread_monitor_test.cpp
+    tests/platform_prepared_file_snapshot_test.cpp
     tests/platform_prepared_prefetch_readback_test.cpp)
   target_link_libraries(
     cpu_prefetch_platform_tests
@@ -664,6 +680,8 @@ if(BUILD_TESTING)
 
   add_executable(cpu_prefetch_runner_tests
                  tests/runner_model_test.cpp
+                 tests/stage17_discovery_action_test.cpp
+                 tests/stage17_discovery_publication_test.cpp
                  tests/stage17_fixed_action_test.cpp)
   target_link_libraries(
     cpu_prefetch_runner_tests
@@ -756,6 +774,36 @@ if(BUILD_TESTING)
             "${PROJECT_SOURCE_DIR}/tools/check_stage17_discovery_contract.py")
   set_tests_properties(calibration.discovery_plan_contract PROPERTIES
     LABELS "calibration;diagnostic;synthetic" TIMEOUT 60)
+  add_test(
+    NAME runner.discovery_action_admission
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_discovery_action.py"
+            --worker "$<TARGET_FILE:cpu_prefetch_stage17_test_worker>")
+  set_tests_properties(runner.discovery_action_admission PROPERTIES
+    LABELS "runner;diagnostic;synthetic" TIMEOUT 180)
+  add_test(
+    NAME calibration.discovery_environment_validation
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tests/test_stage17_discovery_environment.py")
+  set_tests_properties(calibration.discovery_environment_validation PROPERTIES
+    LABELS "calibration;diagnostic;synthetic" TIMEOUT 60)
+  add_test(
+    NAME calibration.discovery_retained_validation
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_discovery_validation.py")
+  set_tests_properties(calibration.discovery_retained_validation PROPERTIES
+    LABELS "calibration;diagnostic;synthetic" TIMEOUT 120)
+  add_executable(cpu_prefetch_stage17_discovery_fixture
+    tools/stage17_discovery_fixture_main.cpp)
+  target_link_libraries(cpu_prefetch_stage17_discovery_fixture PRIVATE
+    cpu_prefetch::runner cpu_prefetch::calibration cpu_prefetch_project_options)
+  add_test(
+    NAME calibration.discovery_cpp_publication_validation
+    COMMAND "${Python3_EXECUTABLE}" -B
+      "${PROJECT_SOURCE_DIR}/tests/test_stage17_discovery_cpp_bridge.py"
+      --binary "$<TARGET_FILE:cpu_prefetch_stage17_discovery_fixture>")
+  set_tests_properties(calibration.discovery_cpp_publication_validation PROPERTIES
+    LABELS "calibration;diagnostic;synthetic" TIMEOUT 120)
 
   add_test(
     NAME runner.stage17_calibration_mapping
@@ -1342,6 +1390,7 @@ if(BUILD_TESTING)
     tests/calibration_discovery_backend_test.cpp
     tests/calibration_discovery_residency_test.cpp
     tests/calibration_discovery_control_test.cpp
+    tests/calibration_native_discovery_test.cpp
     tests/calibration_mapped_discovery_test.cpp)
   target_link_libraries(
     cpu_prefetch_calibration_tests
@@ -1708,6 +1757,8 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/qualification.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/runner.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_fixed_action.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_discovery_publication.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_discovery_action.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/software_prefetch.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/calibration.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/caller_owned_trace.hpp"
@@ -1721,6 +1772,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_thread_launcher.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_discovery_preparation.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_discovery_runtime.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/native_discovery_capture.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_residency_observer.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/discovery_control_query.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/foundation/repository_info.hpp"
@@ -1733,6 +1785,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/worker_stack.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/thread_tls.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/thread_monitor.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/prepared_file_snapshot.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/prepared_prefetch_readback.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/prepared_residency.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/platform/q15_probe.hpp"
@@ -1774,6 +1827,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/orchestration/block_planning.cpp"
   "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_discovery_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
@@ -1787,6 +1841,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/worker_stack.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/thread_tls.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/thread_monitor.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/prepared_file_snapshot.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/prepared_prefetch_readback.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_clock_pair_qualification.cpp"
@@ -1803,6 +1858,8 @@ set(
   "${PROJECT_SOURCE_DIR}/src/runner/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/runner.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_fixed_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_discovery_publication.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_discovery_action.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -1822,6 +1879,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/queue_linked_storage_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/analysis_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
@@ -1834,6 +1892,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_residency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_control_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_discovery_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_native_discovery_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/discovery_backend_test_support.hpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
@@ -1847,6 +1906,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/platform_worker_stack_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_thread_tls_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_thread_monitor_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/platform_prepared_file_snapshot_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_prepared_prefetch_readback_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/worker_stack_test_support.hpp"
   "${PROJECT_SOURCE_DIR}/tests/p4_k_a_controller_test.cpp"
@@ -1862,6 +1922,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/runner_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_fixed_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_publication_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
@@ -1883,6 +1945,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_discovery_fixture_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_no_result_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_test_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
@@ -1919,6 +1982,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/orchestration/block_planning.cpp"
   "${PROJECT_SOURCE_DIR}/src/orchestration/precision.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/calibration.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_discovery_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/runtime.cpp"
   "${PROJECT_SOURCE_DIR}/src/lifecycle/state_machine.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/linux_inventory.cpp"
@@ -1932,6 +1996,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/platform/worker_stack.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/thread_tls.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/thread_monitor.cpp"
+  "${PROJECT_SOURCE_DIR}/src/platform/prepared_file_snapshot.cpp"
   "${PROJECT_SOURCE_DIR}/src/platform/prepared_prefetch_readback.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/p4_k_a_controller.cpp"
   "${PROJECT_SOURCE_DIR}/src/qualification/q15_clock_pair_qualification.cpp"
@@ -1948,6 +2013,8 @@ set(
   "${PROJECT_SOURCE_DIR}/src/runner/qualification.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/runner.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_fixed_action.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_discovery_publication.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_discovery_action.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/ring_spsc.cpp"
@@ -1967,6 +2034,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/workload/records.cpp"
   "${PROJECT_SOURCE_DIR}/src/workload/working_set.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_model_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/queue_linked_storage_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/analysis_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/orchestration_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_model_test.cpp"
@@ -1979,6 +2047,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_residency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_control_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_discovery_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_native_discovery_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_concurrency_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/lifecycle_state_machine_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/queue_stress.cpp"
@@ -1990,6 +2059,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/platform_worker_stack_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_thread_tls_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_thread_monitor_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/platform_prepared_file_snapshot_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_prepared_prefetch_readback_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/p4_k_a_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
@@ -2004,6 +2074,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/reconciliation_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/runner_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_fixed_action_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_publication_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/schedule_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_model_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/storage_noalloc_test.cpp"
@@ -2025,6 +2097,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_mutant.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_combined_codegen_probe.cpp"
   "${PROJECT_SOURCE_DIR}/tools/runner_main.cpp"
+  "${PROJECT_SOURCE_DIR}/tools/stage17_discovery_fixture_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_no_result_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/stage17_test_worker_main.cpp"
   "${PROJECT_SOURCE_DIR}/tools/qualification_main.cpp"
@@ -2217,6 +2290,16 @@ add_custom_target(
     cpu_prefetch_runner_combined_codegen_mutant
   COMMENT "Requiring resolved Q14 combined-operation generated code")
 add_custom_target(
+  discovery-codegen-check
+  COMMAND "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_discovery_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_runner>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/discovery_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS cpu_prefetch_runner
+  COMMENT "Requiring both disassemblers to qualify the actual native discovery worker")
+add_custom_target(
   q15-probe-codegen-check
   COMMAND
     "${Python3_EXECUTABLE}"
@@ -2274,13 +2357,11 @@ add_custom_target(
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_stage17_authorization_schema.py"
   COMMAND
-    "${Python3_EXECUTABLE}"
-    "${PROJECT_SOURCE_DIR}/tools/check_stage17_operational_successor.py"
-    --self-test
+    "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_historical_fixture.py" successor
   COMMAND
-    "${Python3_EXECUTABLE}"
-    "${PROJECT_SOURCE_DIR}/tools/check_stage17_state_journal.py"
-    --self-test
+    "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_stage17_historical_fixture.py" journal
   COMMAND
     "${Python3_EXECUTABLE}"
     "${PROJECT_SOURCE_DIR}/tools/check_q15_authorization_schema.py"
@@ -3251,6 +3332,7 @@ add_custom_target(
     cpu_prefetch_timing
     cpu_prefetch_workload
     queue-codegen-check
+    discovery-codegen-check
     runner-combined-codegen-check
     runner-relax-codegen-check
     storage-codegen-check
@@ -3295,6 +3377,7 @@ add_custom_target(
     cpu_prefetch_timing
     cpu_prefetch_workload
     queue-codegen-check
+    discovery-codegen-check
     runner-combined-codegen-check
     runner-relax-codegen-check
     storage-codegen-check

@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:discovery-retention-report:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_sha256",
+    "captures",
+    "hardware_state",
+    "diagnostic_only",
+    "scientific_validity",
+    "eligible_for_duration_selection",
+    "formal_runs_contributed",
+    "execution_authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-discovery-retention-report/1"
+    },
+    "plan_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "captures": {
+      "type": "array",
+      "minItems": 36,
+      "maxItems": 36,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ordinal",
+          "warmup_run_id",
+          "measurement_run_id",
+          "artifacts",
+          "native_stop",
+          "native_validity",
+          "failure_reasons"
+        ],
+        "properties": {
+          "ordinal": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 35
+          },
+          "warmup_run_id": {
+            "type": "string"
+          },
+          "measurement_run_id": {
+            "type": "string"
+          },
+          "artifacts": {
+            "type": "array",
+            "minItems": 7,
+            "maxItems": 7,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file_name",
+                "size_bytes",
+                "sha256"
+              ],
+              "properties": {
+                "file_name": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9_.-]+$"
+                },
+                "size_bytes": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 18446744073709551615
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              }
+            }
+          },
+          "native_stop": {
+            "enum": ["complete", "trace_capacity"]
+          },
+          "native_validity": {
+            "enum": [
+              "VALID",
+              "INSUFFICIENT"
+            ]
+          },
+          "failure_reasons": {
+            "type": "array",
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "if": {"properties": {"native_stop": {"const": "trace_capacity"}}},
+        "then": {"properties": {"native_validity": {"const": "INSUFFICIENT"}}}
+      }
+    },
+    "hardware_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_name",
+        "size_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "file_name": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+$"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "diagnostic_only": {
+      "const": true
+    },
+    "scientific_validity": {
+      "const": "NOT_ASSESSED"
+    },
+    "eligible_for_duration_selection": {
+      "const": false
+    },
+    "formal_runs_contributed": {
+      "const": 0
+    },
+    "execution_authority": {
+      "const": false
+    }
+  }
+}

@@ -30,6 +30,7 @@ enum class FixedAction : std::uint8_t {
   q16b,
   q16c,
   blinded_pilot,
+  q16a_duration_discovery,
 };
 
 [[nodiscard]] auto to_string(FixedAction action) noexcept -> std::string_view;

@@ -29,3 +29,12 @@ SMT siblings. This is a controller candidate, not an isolation qualification.
 The retained public EXT002 trust record identifies the existing OWNER signer
 and `stage17-owner-acceptance` namespace. No private key was read, no authority
 was issued, and the root-shell memory-lock limit remains 8 MiB.
+
+[environment-sources.json](environment-sources.json) retains the subsequent
+read-only temperature/frequency/procfs inventory. The selected CPUs report
+`intel_cpufreq` with `schedutil`; coretemp exposes actual package/core readings,
+critical values and alarm files. These are observed conditions, not a claim of
+a performance governor or frozen environmental acceptance limits. The procfs
+EOF probes demonstrate that one short positive read is not proof of a complete
+snapshot; the native reader therefore uses prospectively bounded advancing
+reads and retains EOF/truncation evidence.

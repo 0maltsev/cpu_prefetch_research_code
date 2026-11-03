@@ -18,6 +18,8 @@ struct MemoryOperations final {
   platform::LinuxOwnerMemoryOperations native;
   bool reject_binding{false};
   bool reject_protection{false};
+  bool reject_unlock{false};
+  std::size_t unlock_calls{0U};
   auto base_page_bytes() noexcept { return native.base_page_bytes(); }
   auto map_private(std::size_t size) noexcept { return native.map_private(size); }
   auto bind_pages(std::span<std::byte>, std::uint32_t) noexcept
@@ -42,7 +44,9 @@ struct MemoryOperations final {
                              : native.protect_read_only(bytes);
   }
   auto unlock_pages(std::span<std::byte> bytes) noexcept {
-    return native.unlock_pages(bytes);
+    ++unlock_calls;
+    return reject_unlock ? platform::LinuxCallResult{-1, EPERM}
+                         : native.unlock_pages(bytes);
   }
   auto unmap(std::span<std::byte> bytes) noexcept { return native.unmap(bytes); }
 };
@@ -280,6 +284,45 @@ TEST(MappedDiscovery, RuntimePreservesPreparationFailureWithoutWarmupOrRetry) {
             calibration::DiscoverySessionStop::storage_already_used);
 }
 
+TEST(MappedDiscovery, RuntimeCloseRetainsEveryCleanupAndCannotRunAgain) {
+  for (const bool fail_unlock : {false, true}) {
+    RuntimeFixture fixture;
+    calibration::NoDiscoveryControllerObserver observer;
+    ASSERT_EQ(fixture.runtime.run(observer).stop,
+              calibration::DiscoverySessionStop::complete);
+    fixture.runtime.mapping_operations(1U).reject_unlock = fail_unlock;
+    EXPECT_EQ(fixture.runtime.close(), !fail_unlock);
+    for (const auto* evidence : {&fixture.runtime.records().evidence(),
+                                 &fixture.runtime.producer_memory().evidence(),
+                                 &fixture.runtime.consumer_memory().evidence()}) {
+      EXPECT_TRUE(evidence->cleanup_attempted);
+      const auto unmapped = evidence->unmap;
+      ASSERT_TRUE(unmapped.has_value());
+      if (unmapped.has_value()) {
+        EXPECT_TRUE(unmapped->zero_return());
+      }
+    }
+    EXPECT_TRUE(fixture.runtime.producer_stack().evidence().cleanup_attempted);
+    EXPECT_TRUE(fixture.runtime.consumer_stack().evidence().cleanup_attempted);
+    EXPECT_TRUE(fixture.runtime.records().mapped_bytes().empty());
+    EXPECT_EQ(fixture.runtime.close(), !fail_unlock);
+    EXPECT_EQ(fixture.runtime.mapping_operations(1U).unlock_calls, 1U);
+    EXPECT_EQ(fixture.runtime.run(observer).stop,
+              calibration::DiscoverySessionStop::invalid_plan);
+    EXPECT_THROW(static_cast<void>(fixture.runtime.preparation()), std::logic_error);
+  }
+}
+
+TEST(MappedDiscovery, RuntimeCanCloseWithoutStartingWorkers) {
+  RuntimeFixture fixture;
+  EXPECT_TRUE(fixture.runtime.close());
+  calibration::NoDiscoveryControllerObserver observer;
+  EXPECT_EQ(fixture.runtime.run(observer).stop,
+            calibration::DiscoverySessionStop::invalid_plan);
+  EXPECT_EQ(fixture.runtime.mapping_operations(0U).unlock_calls, 0U);
+  EXPECT_FALSE(fixture.runtime.producer_stack().evidence().thread.create.has_value());
+}
+
 TEST(MappedDiscovery, RuntimeRetainsWorkersThroughFinalControlReadback) {
   RuntimeFixture fixture;
   struct Scratch final {
@@ -393,6 +436,14 @@ TEST(MappedDiscovery, RealOwnerMappingsAndStacksCompleteBothPhasesAndExactJoin) 
               storage::StreamCompleteness::sealed_complete);
   }
   EXPECT_EQ(fixture.preparation.ring().audit_quiescent().occupied_slots, 0U);
+}
+
+TEST(MappedDiscovery, ColdStatusRejectsUnknownOwnerWithoutTerminating) {
+  Fixture fixture;
+  EXPECT_THROW(static_cast<void>(fixture.preparation.status(2U)), std::out_of_range);
+  EXPECT_THROW(static_cast<void>(
+                   fixture.preparation.status(std::numeric_limits<std::size_t>::max())),
+               std::out_of_range);
 }
 
 TEST(MappedDiscovery, FailedOwnerMappingOrProtectionCancelsPeerBeforeWarmup) {

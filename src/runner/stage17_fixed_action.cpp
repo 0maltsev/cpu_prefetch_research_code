@@ -10,6 +10,8 @@
 #include "cpu_prefetch/reconciliation/reconciliation.hpp"
 #include "cpu_prefetch/runner/runner.hpp"
 #include "cpu_prefetch/runner/software_prefetch.hpp"
+#include "cpu_prefetch/runner/stage17_discovery_action.hpp"
+#include "cpu_prefetch/runner/stage17_discovery_publication.hpp"
 #include "cpu_prefetch/storage/artifacts.hpp"
 #include "cpu_prefetch/storage/capture_backend.hpp"
 #include "cpu_prefetch/timing/clock.hpp"
@@ -1653,6 +1655,295 @@ private:
   bindings.push_back(std::move(hardware.value()));
   return protocol::Result<ActionOutcome>::success(
       {std::move(bindings), true, false, "Q16A_CAPTURE_COMPLETE"});
+}
+
+class DiscoveryBudgetedSink final : public ArtifactSink {
+public:
+  struct Limits final {
+    std::uint64_t total;
+    std::uint64_t metadata;
+  };
+  DiscoveryBudgetedSink(ArtifactSink& sink, Limits limits)
+      : sink_(sink), remaining_(limits.total), metadata_remaining_(limits.metadata) {}
+  auto publish(ArtifactPayload artifact) -> protocol::Result<ArtifactBinding> override {
+    const auto size = artifact.bytes.size();
+    const bool metadata = artifact.media_type == "application/json";
+    if (size > remaining_ || (metadata && size > metadata_remaining_)) {
+      return failure<ArtifactBinding>("$/discovery/budget",
+                                      "S17-DISCOVERY-OUTPUT-BUDGET",
+                                      "artifact exceeds prospective output budget");
+    }
+    auto result = sink_.publish(std::move(artifact));
+    if (result) {
+      remaining_ -= size;
+      if (metadata) {
+        metadata_remaining_ -= size;
+      }
+    }
+    return result;
+  }
+
+private:
+  ArtifactSink& sink_;
+  std::uint64_t remaining_;
+  std::uint64_t metadata_remaining_;
+};
+
+struct DiscoveryPublicationContext final {
+  ArtifactSink& sink;
+  std::size_t ordinal;
+  std::vector<ArtifactBinding> artifacts;
+  bool counts_sufficient{false};
+  static auto publish(void* opaque,
+                      const calibration::NativeDiscoveryPublicationView& view) noexcept
+      -> bool {
+    auto& context = *static_cast<DiscoveryPublicationContext*>(opaque);
+    try {
+      if (view.producer[1U] != nullptr && view.consumer[1U] != nullptr) {
+        const auto producer =
+            view.producer[1U]->trace.worker_series(calibration::RingWorker::producer);
+        const auto consumer =
+            view.consumer[1U]->trace.worker_series(calibration::RingWorker::consumer);
+        context.counts_sufficient = producer.demand_ticks.size() >= 100'000U &&
+                                    producer.issue_ticks.size() >= 100'000U &&
+                                    consumer.demand_ticks.size() >= 100'000U &&
+                                    consumer.issue_ticks.size() >= 100'000U;
+      }
+      auto result = publish_discovery_capture(context.sink, context.ordinal, view);
+      if (!result) {
+        return false;
+      }
+      context.artifacts = std::move(result.value());
+      return true;
+    } catch (...) {
+      return false;
+    }
+  }
+};
+
+[[nodiscard]] auto discovery_action(const JsonObject& inputs, ArtifactSink& sink)
+    -> protocol::Result<ActionOutcome> {
+  const auto* plan = require_object(inputs, "plan");
+  const auto* hardware = require_object(inputs, "hardware_control");
+  const auto* captures_value = plan == nullptr ? nullptr : member(*plan, "captures");
+  const auto* captures =
+      captures_value == nullptr ? nullptr : captures_value->as_array();
+  const auto* native_value = member(inputs, "native_captures");
+  const auto* native = native_value == nullptr ? nullptr : native_value->as_array();
+  const auto repository = foundation::repository_info();
+  if (plan == nullptr || hardware == nullptr || captures == nullptr ||
+      captures->size() != 36U || native == nullptr || native->size() != 36U ||
+      string_member(*plan, "source_revision") == nullptr ||
+      *string_member(*plan, "source_revision") != repository.source_revision ||
+      repository.source_dirty || bool_member(*plan, "clean_source") == nullptr ||
+      !*bool_member(*plan, "clean_source") ||
+      string_member(*plan, "schema_version") == nullptr ||
+      *string_member(*plan, "schema_version") !=
+          "cpu-prefetch-stage17-discovery-plan/1") {
+    return failure<ActionOutcome>(
+        "$/discovery", "S17-DISCOVERY-PLAN",
+        "discovery requires a clean source-bound 36-capture plan");
+  }
+  const auto prestate = parse_mapped_prestate(*hardware);
+  const auto mapping = mapping_from_hardware(*hardware);
+  const auto plan_bytes = canonical(*plan);
+  const auto* study_budget = require_object(*plan, "budget");
+  const auto study_metadata = study_budget == nullptr
+                                  ? std::nullopt
+                                  : uint_member(*study_budget, "metadata_output_bytes");
+  if (!prestate || !mapping || !plan_bytes || !study_metadata ||
+      *study_metadata == 0U) {
+    return failure<ActionOutcome>(
+        "$/discovery", "S17-DISCOVERY-PRESTATE",
+        "discovery mapping, prestate or metadata budget is absent");
+  }
+  std::vector<calibration::NativeDiscoveryCapturePlan> parsed;
+  parsed.reserve(36U);
+  std::array<std::uint64_t, 36U> watchdogs{};
+  std::array<std::uint64_t, 36U> output_budgets{};
+  std::array<std::uint64_t, 36U> metadata_budgets{};
+  for (std::size_t index = 0U; index < 36U; ++index) {
+    const auto* capture = (*captures)[index].as_object();
+    const auto* specification = (*native)[index].as_object();
+    const auto* resources = specification == nullptr
+                                ? nullptr
+                                : require_object(*specification, "resources");
+    const auto* monitoring = specification == nullptr
+                                 ? nullptr
+                                 : require_object(*specification, "monitoring");
+    const auto* budget =
+        capture == nullptr ? nullptr : require_object(*capture, "budget");
+    const auto watchdog =
+        budget == nullptr ? std::nullopt : uint_member(*budget, "watchdog_ns");
+    const auto output =
+        budget == nullptr ? std::nullopt : uint_member(*budget, "max_output_bytes");
+    const auto metadata = budget == nullptr
+                              ? std::nullopt
+                              : uint_member(*budget, "metadata_output_bytes");
+    if (capture == nullptr || resources == nullptr || monitoring == nullptr ||
+        uint_member(*capture, "ordinal") != index ||
+        uint_member(*specification, "ordinal") != index || !watchdog ||
+        *watchdog == 0U ||
+        *watchdog >
+            static_cast<std::uint64_t>(std::numeric_limits<std::int64_t>::max()) /
+                1'000'000'000U * 1'000'000'000U ||
+        !output || *output == 0U || !metadata || *metadata == 0U) {
+      return failure<ActionOutcome>("$/discovery/native_captures",
+                                    "S17-DISCOVERY-NATIVE-INPUTS",
+                                    "native capture or finite budget is absent");
+    }
+    auto native_plan = parse_native_discovery_capture(*capture, *resources, *monitoring,
+                                                      prestate.value());
+    if (!native_plan) {
+      return protocol::Result<ActionOutcome>::failure(native_plan.errors());
+    }
+    if (native_plan.value().hardware_identity != mapping->identity) {
+      return failure<ActionOutcome>(
+          "$/discovery/hardware", "S17-DISCOVERY-HARDWARE-IDENTITY",
+          "native readback identity differs from whole-plot mapping");
+    }
+    parsed.push_back(std::move(native_plan.value()));
+    watchdogs[index] = *watchdog;
+    output_budgets[index] = *output;
+    metadata_budgets[index] = *metadata;
+  }
+  const auto plan_sha = sha256(plan_bytes.value());
+  PilotWholePlotControl control(prestate.value(), *hardware);
+  JsonArray retained;
+  JsonArray final_native_results;
+  JsonArray whole_plots;
+  std::vector<ArtifactBinding> bindings;
+  std::string active_state;
+  bool mandatory_failed = false;
+  bool restoration_verified = true;
+  const auto values = [](std::span<const platform::HardwarePrefetchMsrValue> observed) {
+    JsonArray result;
+    for (const auto& value : observed) {
+      result.emplace_back(
+          JsonObject{{"cpu", uint_value(value.cpu)},
+                     {"complete_value_hex", string_value(hex_u64(value.value))}});
+    }
+    return JsonValue(std::move(result));
+  };
+  const auto leave = [&] {
+    const bool restored = control.leave();
+    restoration_verified = restoration_verified && restored;
+    whole_plots.emplace_back(
+        JsonObject{{"state", string_value(active_state)},
+                   {"apply_readback", values(control.apply_readback())},
+                   {"restore_readback", values(control.restore_readback())},
+                   {"restoration_verified", JsonValue(restored)}});
+    active_state.clear();
+    return restored;
+  };
+  for (std::size_t index = 0U; index < parsed.size(); ++index) {
+    const auto state = index < 18U ? "H0"sv : "H1"sv;
+    if (active_state != state) {
+      if (!active_state.empty() && !leave()) {
+        mandatory_failed = true;
+        break;
+      }
+      active_state = state;
+      if (!control.enter(state)) {
+        mandatory_failed = true;
+        break;
+      }
+    }
+    DiscoveryBudgetedSink bounded(
+        sink, {.total = output_budgets[index], .metadata = metadata_budgets[index]});
+    DiscoveryPublicationContext publication{bounded, index, {}, false};
+    const auto deadline = watchdogs[index] / 1'000'000'000U +
+                          (watchdogs[index] % 1'000'000'000U != 0U ? 1U : 0U);
+    calibration::NativeDiscoveryCaptureResult result;
+    try {
+      PilotRunDeadline watchdog{std::chrono::seconds(deadline)};
+      result = calibration::run_native_discovery_capture(
+          parsed[index], {&publication, &DiscoveryPublicationContext::publish});
+    } catch (...) {
+      result.stop = calibration::NativeDiscoveryCaptureStop::exception;
+    }
+    final_native_results.push_back(discovery_capture_result_json(result));
+    JsonArray capture_artifacts;
+    for (const auto& binding : publication.artifacts) {
+      capture_artifacts.push_back(file_reference(binding));
+      bindings.push_back(binding);
+    }
+    const bool capacity_limited =
+        result.stop == calibration::NativeDiscoveryCaptureStop::trace_capacity;
+    const bool complete =
+        (result.stop == calibration::NativeDiscoveryCaptureStop::complete ||
+         capacity_limited) &&
+        result.publication_succeeded && publication.artifacts.size() == 7U;
+    if (!complete) {
+      mandatory_failed = true;
+      break;
+    }
+    retained.emplace_back(JsonObject{
+        {"ordinal", uint_value(index)},
+        {"warmup_run_id", string_value(parsed[index].discovery.run_ids[0U].value())},
+        {"measurement_run_id",
+         string_value(parsed[index].discovery.run_ids[1U].value())},
+        {"artifacts", JsonValue(std::move(capture_artifacts))},
+        {"native_stop", string_value(capacity_limited ? "trace_capacity" : "complete")},
+        {"native_validity",
+         string_value(!capacity_limited && publication.counts_sufficient
+                          ? "VALID"
+                          : "INSUFFICIENT")},
+        {"failure_reasons", JsonValue(JsonArray{})}});
+  }
+  if (!active_state.empty() && !leave()) {
+    mandatory_failed = true;
+  }
+  DiscoveryBudgetedSink metadata_sink(
+      sink, {.total = *study_metadata, .metadata = *study_metadata});
+  const auto hardware_bytes = canonical(JsonObject{
+      {"schema_version", string_value("cpu-prefetch-stage17-discovery-hardware/1")},
+      {"plan_sha256", string_value(plan_sha)},
+      {"mapping_id", string_value(control.mapping_id())},
+      {"whole_plots", JsonValue(std::move(whole_plots))},
+      {"native_results_after_cleanup", JsonValue(std::move(final_native_results))},
+      {"restoration_verified", JsonValue(restoration_verified)},
+      {"mandatory_failure", JsonValue(mandatory_failed)},
+      {"phase18_authority", JsonValue(false)}});
+  if (!hardware_bytes) {
+    return protocol::Result<ActionOutcome>::failure(hardware_bytes.errors());
+  }
+  auto hardware_binding = metadata_sink.publish(
+      {"DISCOVERY_HARDWARE_STATE", "cpu-prefetch-stage17-discovery-hardware/1",
+       "application/json", "studyhardware.json", bytes(hardware_bytes.value())});
+  if (!hardware_binding) {
+    return protocol::Result<ActionOutcome>::failure(hardware_binding.errors());
+  }
+  bindings.push_back(hardware_binding.value());
+  if (mandatory_failed || !restoration_verified || retained.size() != 36U) {
+    return failure<ActionOutcome>("$/discovery", "S17-DISCOVERY-MANDATORY-FAILURE",
+                                  "discovery stopped; retained evidence is incomplete "
+                                  "and cannot select a duration");
+  }
+  const auto report = canonical(
+      JsonObject{{"schema_version",
+                  string_value("cpu-prefetch-stage17-discovery-retention-report/1")},
+                 {"plan_sha256", string_value(plan_sha)},
+                 {"captures", JsonValue(std::move(retained))},
+                 {"hardware_state", file_reference(hardware_binding.value())},
+                 {"diagnostic_only", JsonValue(true)},
+                 {"scientific_validity", string_value("NOT_ASSESSED")},
+                 {"eligible_for_duration_selection", JsonValue(false)},
+                 {"formal_runs_contributed", uint_value(0U)},
+                 {"execution_authority", JsonValue(false)}});
+  if (!report) {
+    return protocol::Result<ActionOutcome>::failure(report.errors());
+  }
+  auto report_binding = metadata_sink.publish(
+      {"DISCOVERY_RETENTION_REPORT",
+       "cpu-prefetch-stage17-discovery-retention-report/1", "application/json",
+       "retention-report.json", bytes(report.value())});
+  if (!report_binding) {
+    return protocol::Result<ActionOutcome>::failure(report_binding.errors());
+  }
+  bindings.push_back(std::move(report_binding.value()));
+  return protocol::Result<ActionOutcome>::success(
+      {std::move(bindings), true, false, "DIAGNOSTIC_ARTIFACTS_RETAINED_UNASSESSED"});
 }
 
 struct RunCapture final {
@@ -3789,7 +4080,10 @@ struct PilotRunEntry final {
   };
   if (!exact_fields(request, fields) ||
       string_member(request, "schema_version") == nullptr ||
-      *string_member(request, "schema_version") != kFixedActionRequestSchema ||
+      *string_member(request, "schema_version") !=
+          (action == FixedAction::q16a_duration_discovery
+               ? "cpu-prefetch-stage17-fixed-action-request/5"
+               : kFixedActionRequestSchema) ||
       string_member(request, "action_id") == nullptr ||
       *string_member(request, "action_id") != to_string(action) ||
       string_member(request, "request_id") == nullptr ||
@@ -3863,9 +4157,53 @@ struct PilotRunEntry final {
                                       "per_run_deadline_seconds"sv,
                                       "synthetic_test_only"sv,
                                       "phase18_authority"sv};
-  return exact_fields(context, context_fields) &&
+  const bool diagnostic = action == FixedAction::q16a_duration_discovery;
+  auto base_context = context;
+  if (diagnostic) {
+    base_context.erase("session_deadline_seconds");
+  }
+  bool deadline_matches = uint_member(context, "per_run_deadline_seconds") == 180U;
+  if (diagnostic) {
+    deadline_matches = false;
+    const auto* inputs = require_object(request, "action_inputs");
+    const auto* plan = inputs == nullptr ? nullptr : require_object(*inputs, "plan");
+    const auto* budget = plan == nullptr ? nullptr : require_object(*plan, "budget");
+    const auto* captures_value = plan == nullptr ? nullptr : member(*plan, "captures");
+    const auto* captures =
+        captures_value == nullptr ? nullptr : captures_value->as_array();
+    const auto session_ns =
+        budget == nullptr ? std::nullopt : uint_member(*budget, "watchdog_ns");
+    std::uint64_t maximum_ns = 0U;
+    bool valid = session_ns.has_value() && *session_ns > 0U && captures != nullptr &&
+                 captures->size() == 36U;
+    if (valid) {
+      for (const auto& capture : *captures) {
+        const auto* object = capture.as_object();
+        const auto* run_budget =
+            object == nullptr ? nullptr : require_object(*object, "budget");
+        const auto ns = run_budget == nullptr ? std::nullopt
+                                              : uint_member(*run_budget, "watchdog_ns");
+        if (!ns.has_value() || *ns == 0U) {
+          valid = false;
+          break;
+        }
+        maximum_ns = std::max(maximum_ns, *ns);
+      }
+    }
+    const auto seconds = [](std::uint64_t ns) noexcept {
+      return ns / 1'000'000'000U + (ns % 1'000'000'000U != 0U ? 1U : 0U);
+    };
+    if (valid && session_ns.has_value()) {
+      deadline_matches =
+          uint_member(context, "per_run_deadline_seconds") == seconds(maximum_ns) &&
+          uint_member(context, "session_deadline_seconds") == seconds(*session_ns);
+    }
+  }
+  return exact_fields(base_context, context_fields) &&
          string_member(context, "schema_version") != nullptr &&
-         *string_member(context, "schema_version") == kFixedActionContextSchema &&
+         *string_member(context, "schema_version") ==
+             (diagnostic ? "cpu-prefetch-stage17-fixed-action-context/5"
+                         : kFixedActionContextSchema) &&
          string_member(context, "authorization_id") != nullptr &&
          string_member(context, "authorization_sha256") != nullptr &&
          string_member(context, "request_id") != nullptr &&
@@ -3880,8 +4218,7 @@ struct PilotRunEntry final {
          member(context, "predecessor_sha256s")->as_array() != nullptr &&
          uint_member(context, "issued_at_epoch_seconds").has_value() &&
          uint_member(context, "expires_at_epoch_seconds").has_value() &&
-         uint_member(context, "per_run_deadline_seconds") == 180U &&
-         bool_member(context, "synthetic_test_only") != nullptr &&
+         deadline_matches && bool_member(context, "synthetic_test_only") != nullptr &&
          bool_member(context, "phase18_authority") != nullptr &&
          !*bool_member(context, "phase18_authority") &&
          *string_member(context, "authorization_id") ==
@@ -3918,7 +4255,9 @@ struct PilotRunEntry final {
                             std::chrono::steady_clock::now() - started)
                             .count();
   JsonObject result{
-      {"schema_version", string_value(kFixedActionResultSchema)},
+      {"schema_version", string_value(action == FixedAction::q16a_duration_discovery
+                                          ? "cpu-prefetch-stage17-phase-action-result/5"
+                                          : kFixedActionResultSchema)},
       {"result_id", string_value(*string_member(request, "attempt_id") + ":result")},
       {"request_id", string_value(*string_member(request, "request_id"))},
       {"request_sha256", string_value(sha256(request_bytes))},
@@ -4039,6 +4378,8 @@ auto to_string(FixedAction action) noexcept -> std::string_view {
     return "Q16c";
   case FixedAction::blinded_pilot:
     return "STAGE17-BLINDED-PILOT";
+  case FixedAction::q16a_duration_discovery:
+    return "Q16A-DURATION-DISCOVERY";
   }
   return "UNKNOWN";
 }
@@ -4046,7 +4387,8 @@ auto to_string(FixedAction action) noexcept -> std::string_view {
 auto parse_fixed_action(std::string_view value) -> protocol::Result<FixedAction> {
   for (const auto action :
        {FixedAction::q15_r, FixedAction::q15_w, FixedAction::q16a, FixedAction::q16b,
-        FixedAction::q16c, FixedAction::blinded_pilot}) {
+        FixedAction::q16c, FixedAction::blinded_pilot,
+        FixedAction::q16a_duration_discovery}) {
     if (to_string(action) == value) {
       return protocol::Result<FixedAction>::success(action);
     }
@@ -4067,6 +4409,8 @@ auto LinuxFixedActionOperations::execute(
         "session entrypoint");
   case FixedAction::q16a:
     return q16a_plan(action_inputs, sink);
+  case FixedAction::q16a_duration_discovery:
+    return discovery_action(action_inputs, sink);
   case FixedAction::q16b:
   case FixedAction::q16c:
     return q16_or_pilot(action, action_inputs, sink);
@@ -4095,7 +4439,9 @@ auto LinuxFixedActionOperations::execute_pilot_session(
 
 auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& operations)
     -> int {
-  if (argc != 10 || std::string_view(argv[1]) != "--execute-fixed-stage17-action-v4" ||
+  if (argc != 10 ||
+      (std::string_view(argv[1]) != "--execute-fixed-stage17-action-v4" &&
+       std::string_view(argv[1]) != "--execute-fixed-stage17-action-v5") ||
       std::string_view(argv[3]) != "--request-fd" ||
       std::string_view(argv[5]) != "--context-fd" ||
       std::string_view(argv[7]) != "--output-dir-fd" ||
@@ -4109,6 +4455,10 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
   if (!action || !request_fd || !context_fd || !output_fd) {
     throw std::runtime_error("fixed dispatcher action/fd contract rejected");
   }
+  if ((action.value() == FixedAction::q16a_duration_discovery) !=
+      (std::string_view(argv[1]) == "--execute-fixed-stage17-action-v5")) {
+    throw std::runtime_error("diagnostic/formal worker entrypoint mismatch");
+  }
   validate_output_fd(*output_fd);
   const auto started_at = utc_now();
   const auto started = std::chrono::steady_clock::now();
@@ -4121,6 +4471,11 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
     throw std::runtime_error("fixed dispatcher request JSON rejected");
   }
   const auto& request = *parsed.value().as_object();
+  const auto inputs =
+      validate_request(request, action.value(), operations.synthetic_test_only());
+  if (!inputs || inputs.value() == nullptr) {
+    throw std::runtime_error("fixed dispatcher request semantics rejected");
+  }
   const auto context_bytes = read_regular_fd(*context_fd);
   if (!context_bytes) {
     throw std::runtime_error("fixed dispatcher context read failed");
@@ -4133,12 +4488,14 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
       !validate_context(*context, request, request_bytes.value(), action.value())) {
     throw std::runtime_error("fixed dispatcher authority context rejected");
   }
-  const auto inputs =
-      validate_request(request, action.value(), operations.synthetic_test_only());
-  if (!inputs) {
-    throw std::runtime_error("fixed dispatcher request semantics rejected: " +
-                             inputs.errors().front().rule_id + ": " +
-                             inputs.errors().front().message);
+  if (action.value() == FixedAction::q16a_duration_discovery) {
+    const auto issued = uint_member(*context, "issued_at_epoch_seconds");
+    const auto expires = uint_member(*context, "expires_at_epoch_seconds");
+    const auto now = epoch_seconds_now();
+    if (!issued.has_value() || !expires.has_value() || now < *issued ||
+        now >= *expires) {
+      throw std::runtime_error("fixed dispatcher authority context is not current");
+    }
   }
   DirectoryArtifactSink sink(*output_fd);
   const auto outcome = operations.execute(action.value(), *inputs.value(), sink);
@@ -4147,10 +4504,13 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
         "fixed action operation failed closed: " + outcome.errors().front().rule_id +
         ": " + outcome.errors().front().message);
   }
-  static_cast<void>(
-      emit_action_result(*output_fd, kResultFileName, request, request_bytes.value(),
-                         *context, action.value(), outcome.value(),
-                         operations.synthetic_test_only(), started_at, started));
+  static_cast<void>(emit_action_result(
+      *output_fd,
+      action.value() == FixedAction::q16a_duration_discovery
+          ? "stage17-action-result-v5.json"
+          : kResultFileName,
+      request, request_bytes.value(), *context, action.value(), outcome.value(),
+      operations.synthetic_test_only(), started_at, started));
   return 0;
 }
 

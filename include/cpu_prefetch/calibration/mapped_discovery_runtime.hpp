@@ -41,8 +41,11 @@ public:
                   memory_operations_[2U]),
         producer_stack_(placement_.producer_stack, stack_operations_[0U]),
         consumer_stack_(placement_.consumer_stack, stack_operations_[1U]),
-        mapped_(plan_, {records_, producer_, consumer_}, relax), preparation_(*this),
-        backend_(plan_.session, clock, preparation_),
+        mapped_(
+            std::in_place, plan_,
+            MappedDiscoveryRegions<MemoryOperations>{records_, producer_, consumer_},
+            relax),
+        preparation_(*this), backend_(plan_.session, clock, preparation_),
         threads_(
             DiscoveryWorkerStacks<StackOperations>{producer_stack_, consumer_stack_}),
         clock_(clock), relax_(relax) {
@@ -53,15 +56,36 @@ public:
       throw std::invalid_argument("runtime owners disagree on verified page size");
     }
     validate_tls_storage();
+    if (!mapped_.has_value()) {
+      throw std::logic_error("runtime provider was not constructed");
+    }
+    mapped_live_ = &*mapped_;
   }
-  ~MappedDiscoveryRuntime() { threads_.join(); }
+  ~MappedDiscoveryRuntime() { static_cast<void>(close()); }
   MappedDiscoveryRuntime(const MappedDiscoveryRuntime&) = delete;
   auto operator=(const MappedDiscoveryRuntime&) -> MappedDiscoveryRuntime& = delete;
 
   template <typename Observer>
   [[nodiscard]] auto run(Observer& observer) -> DiscoverySessionResult {
+    if (mapped_live_ == nullptr) {
+      return {};
+    }
     return run_discovery_session(plan_.session, clock_, backend_, relax_, observer,
                                  threads_, session_);
+  }
+  // Controller-only after publication. Join first, then destroy typed objects
+  // before releasing their storage. Every release is attempted even if another
+  // fails; underlying one-shot release records preserve the first outcome.
+  [[nodiscard]] auto close() noexcept -> bool {
+    threads_.join();
+    mapped_live_ = nullptr;
+    mapped_.reset();
+    const bool records = records_.release();
+    const bool producer = producer_.release();
+    const bool consumer = consumer_.release();
+    const bool producer_stack = producer_stack_.release();
+    const bool consumer_stack = consumer_stack_.release();
+    return records && producer && consumer && producer_stack && consumer_stack;
   }
   [[nodiscard]] auto worker_regions() const noexcept
       -> std::array<DiscoveryResidencyRegion, 5U> {
@@ -71,8 +95,11 @@ public:
              {producer_stack_.body(), placement_.producer_stack.requested_node},
              {consumer_stack_.body(), placement_.consumer_stack.requested_node}}};
   }
-  auto preparation() noexcept -> MappedDiscoveryPreparation<MemoryOperations, Relax>& {
-    return mapped_;
+  auto preparation() -> MappedDiscoveryPreparation<MemoryOperations, Relax>& {
+    if (mapped_live_ == nullptr) {
+      throw std::logic_error("runtime provider is closed");
+    }
+    return *mapped_live_;
   }
   auto session() const noexcept -> const DiscoverySessionStorage& { return session_; }
   auto mapping_operations(std::size_t index) -> MemoryOperations& {
@@ -150,10 +177,12 @@ private:
     explicit Preparation(MappedDiscoveryRuntime& runtime) noexcept
         : runtime_(runtime) {}
     auto prepare_producer() noexcept -> bool {
-      return runtime_.mapped_.prepare_producer() && runtime_.observe_tls(0U, false);
+      return runtime_.mapped_live_->prepare_producer() &&
+             runtime_.observe_tls(0U, false);
     }
     auto prepare_consumer() noexcept -> bool {
-      return runtime_.mapped_.prepare_consumer() && runtime_.observe_tls(1U, false);
+      return runtime_.mapped_live_->prepare_consumer() &&
+             runtime_.observe_tls(1U, false);
     }
     auto before_measurement_producer() noexcept -> bool {
       return runtime_.observe_tls(0U, true);
@@ -162,14 +191,16 @@ private:
       return runtime_.observe_tls(1U, true);
     }
     auto producer_phase(bool warmup) noexcept -> MappedProducerPhase& {
-      return runtime_.mapped_.producer_phase(warmup);
+      return runtime_.mapped_live_->producer_phase(warmup);
     }
     auto consumer_phase(bool warmup) noexcept -> MappedConsumerPhase& {
-      return runtime_.mapped_.consumer_phase(warmup);
+      return runtime_.mapped_live_->consumer_phase(warmup);
     }
-    auto ring() noexcept -> queue::RingSpscQueue& { return runtime_.mapped_.ring(); }
+    auto ring() noexcept -> queue::RingSpscQueue& {
+      return runtime_.mapped_live_->ring();
+    }
     auto arena() const noexcept -> const workload::EventArena& {
-      return runtime_.mapped_.arena();
+      return runtime_.mapped_live_->arena();
     }
 
   private:
@@ -187,7 +218,8 @@ private:
   platform::OwnerMapping<MemoryOperations> consumer_;
   platform::MappedWorkerThread<StackOperations> producer_stack_;
   platform::MappedWorkerThread<StackOperations> consumer_stack_;
-  MappedDiscoveryPreparation<MemoryOperations, Relax> mapped_;
+  std::optional<MappedDiscoveryPreparation<MemoryOperations, Relax>> mapped_;
+  MappedDiscoveryPreparation<MemoryOperations, Relax>* mapped_live_{nullptr};
   Preparation preparation_;
   DiscoveryRingPhaseBackend<Clock, Preparation> backend_;
   MappedDiscoveryThreads<StackOperations> threads_;

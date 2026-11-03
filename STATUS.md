@@ -191,6 +191,17 @@ No discovery capture has executed. D-115's operational Stage 17 exit remains
 the target; final scientific freezes, including `delta_star`, belong to the
 separate Stage 18 readiness gate.
 
+ADR-0202's two full development suites pass 631/631; all four sanitizers pass
+142 calibration, 85 platform and 24 targeted runner cases. Independent retained
+data validation and the C++ publisher bridge are implemented and tested, including
+deadline-crossing and capacity-limited in-flight consumer actions. Seven strict
+codegen gates pass against the current verification build. ADR-0203 adds tested
+caller-owned linked storage, with the allocation hook explicitly skipped only
+under Clang TSan. Clean release, current stand qualification and the finite
+36-capture plan remain before execution. No discovery capture has started.
+The owner now prioritizes EXT-007 only, requests an update after each of its
+six steps, and selects the existing PC for the second uncompressed durable copy.
+
 ADR-0177 adds tested mapping-aware control/capability/admission successors;
 prospective policy v54 is not promoted or released. Missing D-037 prospective
 inputs and capture warm-up/duration/residency implementation still block

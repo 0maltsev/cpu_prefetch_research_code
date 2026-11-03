@@ -19,10 +19,11 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v22"
-STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v23"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
+    "discovery_codegen_report.json": ("cpu_prefetch_runner", "check_discovery_codegen.py"),
     "queue_codegen_report.json": (
         "cpu_prefetch_queue_codegen_probe",
         "check_queue_codegen.py",
@@ -180,6 +181,12 @@ def verify_codegen_report(
     return report
 
 
+def verify_discovery_codegen_report(root: pathlib.Path, binary: pathlib.Path, report_path: pathlib.Path) -> None:
+    import check_discovery_codegen as discovery_codegen
+    discovery_codegen.validate_report_bindings(json.loads(report_path.read_text()),
+        binary=binary, source_root=root)
+
+
 def make_sbom(
     root: pathlib.Path, dependencies: dict[str, Any], revision: str, profile: str
 ) -> dict[str, Any]:
@@ -237,6 +244,36 @@ def make_sbom(
         "relationships": relationships,
         "spdxVersion": "SPDX-2.3",
     }
+
+
+def copy_policy_bound_files(root: pathlib.Path, staging: pathlib.Path, policy_document: dict) -> list[dict[str, Any]]:
+    controller_files: list[dict[str, Any]] = []
+    for group_name in ("bindings", "runtime_closure"):
+        for key, binding in policy_document[group_name].items():
+            relative = pathlib.Path(binding["path"])
+            if relative.is_absolute() or ".." in relative.parts:
+                raise ValueError(f"unsafe Stage 17 controller binding: {relative}")
+            source = root / relative
+            if (not source.is_file() or source.is_symlink()
+                    or source.stat().st_size != binding["size_bytes"]
+                    or sha256(source) != binding["sha256"]):
+                raise ValueError(f"Stage 17 controller binding drifted: {relative}")
+            target = staging / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, target)
+            # Policy-bound Python entrypoints are executed at the exact
+            # path admitted by S17-EXT-001.  Preserve the repository's
+            # executable bit instead of silently turning those paths
+            # into non-executable regular files in the clean bundle.
+            target.chmod(0o755 if os.access(source, os.X_OK) else 0o644)
+            controller_files.append({
+                "group": group_name,
+                "key": key,
+                "path": relative.as_posix(),
+                "size_bytes": binding["size_bytes"],
+                "sha256": binding["sha256"],
+            })
+    return controller_files
 
 
 def main() -> int:
@@ -351,7 +388,11 @@ def main() -> int:
             path = build / name
             if not path.is_file():
                 raise ValueError(f"missing pilot-candidate codegen report: {name}")
-            verify_codegen_report(root, build, path, probe_name, rule_name)
+            if name == "discovery_codegen_report.json":
+                verify_discovery_codegen_report(root,
+                    test_worker if stage17_dry_run else build / "cpu_prefetch_runner", path)
+            else:
+                verify_codegen_report(root, build, path, probe_name, rule_name)
             codegen_reports.append(path)
     if q15_tool:
         for name, (probe_name, rule_name) in Q15_CODEGEN_INPUTS.items():
@@ -525,37 +566,12 @@ def main() -> int:
             # its own per-run resolution/dispatch in package_capture) --
             # same class of re-pin once more.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v53.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v55.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
-            controller_files: list[dict[str, Any]] = []
-            for group_name in ("bindings", "runtime_closure"):
-                for key, binding in policy_document[group_name].items():
-                    relative = pathlib.Path(binding["path"])
-                    if relative.is_absolute() or ".." in relative.parts:
-                        raise ValueError(f"unsafe Stage 17 controller binding: {relative}")
-                    source = root / relative
-                    if (not source.is_file() or source.is_symlink()
-                            or source.stat().st_size != binding["size_bytes"]
-                            or sha256(source) != binding["sha256"]):
-                        raise ValueError(f"Stage 17 controller binding drifted: {relative}")
-                    target = staging / relative
-                    target.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copyfile(source, target)
-                    # Policy-bound Python entrypoints are executed at the exact
-                    # path admitted by S17-EXT-001.  Preserve the repository's
-                    # executable bit instead of silently turning those paths
-                    # into non-executable regular files in the clean bundle.
-                    target.chmod(0o755 if os.access(source, os.X_OK) else 0o644)
-                    controller_files.append({
-                        "group": group_name,
-                        "key": key,
-                        "path": relative.as_posix(),
-                        "size_bytes": binding["size_bytes"],
-                        "sha256": binding["sha256"],
-                    })
-            controller_suffix = "v15"
+            controller_files = copy_policy_bound_files(root, staging, policy_document)
+            controller_suffix = "v22"
             stage17_controller_runtime = {
                 "controller_id":
                     f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-{controller_suffix}",
@@ -744,6 +760,8 @@ def main() -> int:
                     "check_stage17_authorization_schema.py",
                 ]
             )
+        if stage17:
+            validator_names.append("check_discovery_codegen.py")
         validators = staging / "validators"
         validators.mkdir()
         for name in validator_names:
@@ -841,7 +859,7 @@ def main() -> int:
                 "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v4",
                 "supported_actions": [
                     "Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
-                    "STAGE17-BLINDED-PILOT",
+                    "STAGE17-BLINDED-PILOT", "Q16A-DURATION-DISCOVERY",
                 ],
                 "synthetic_test_only": stage17_dry_run,
             }

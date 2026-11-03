@@ -250,7 +250,7 @@ public:
   auto arena() const noexcept -> const workload::EventArena& { return *arena_; }
   auto ring() noexcept -> queue::RingSpscQueue& { return *ring_; }
   auto layout() const noexcept -> const MappedDiscoveryLayout& { return layout_; }
-  auto status(std::size_t worker) const noexcept -> MappedDiscoveryPreparationStop {
+  auto status(std::size_t worker) const -> MappedDiscoveryPreparationStop {
     return stop_.at(worker).load(std::memory_order_acquire);
   }
 

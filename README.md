@@ -186,6 +186,19 @@ pass 563/563, and 124 calibration plus 71 platform cases pass all four sanitizer
 These are software checks. Native publication, diagnostic admission and fresh
 release/qualification remain active work before the approved discovery starts.
 
+ADR-0202 connects the native diagnostic worker, bounded environmental snapshots,
+raw publication, observable cleanup, signed v5 admission and independent retained
+data validation. Both full development suites pass 631/631. All four sanitizer
+configurations pass 142 calibration, 85 platform and 24 targeted runner cases.
+Five C++-publisher-to-Python tests also pass with GCC ASan/UBSan and TSan;
+26 admission checks include five compiled sealed-descriptor worker cases.
+All seven generated-code gates pass, including the actual discovery worker.
+ADR-0203 supplies caller-owned linked storage; its allocation test is explicitly
+skipped under Clang TSan, while the other eleven functional cases pass.
+These remain software checks. The clean qualified release and finite stand plan
+precede actual collection. The owner's active priority is EXT-007 only, using
+the existing PC for the second uncompressed durable copy.
+
 Operational update (2026-10-30): the real `cpu-prefetch-v5` v5-12 journal
 freshly validates six admitted inputs (EXT001-006), two transitions, and state
 `PREFLIGHT_ACCEPTED`; EXT007-010 remain missing and pilot readiness is false.

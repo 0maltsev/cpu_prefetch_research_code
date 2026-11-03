@@ -1,11 +1,13 @@
 #include "cpu_prefetch/foundation/repository_info.hpp"
 #include "cpu_prefetch/runner/runner.hpp"
+#include "cpu_prefetch/runner/stage17_discovery_action.hpp"
 #include "cpu_prefetch/runner/stage17_fixed_action.hpp"
 
 #include <exception>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <limits>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -15,9 +17,13 @@ namespace {
 void usage(std::ostream& output) {
   output << "Usage:\n"
          << "  cpu_prefetch_runner --self-test\n"
+         << "  cpu_prefetch_runner --describe-stage17-discovery-layout-v1 FILE\n"
          << "  cpu_prefetch_runner --execute-fixed-stage17-action-v4 ACTION "
             "--request-fd FD --context-fd FD --output-dir-fd FD "
             "--fixed-dispatch-end\n"
+         << "  cpu_prefetch_runner --execute-fixed-stage17-action-v5 "
+            "Q16A-DURATION-DISCOVERY "
+            "--request-fd FD --context-fd FD --output-dir-fd FD --fixed-dispatch-end\n"
          << "  cpu_prefetch_runner --execute-stage17-q15-session-v1 "
             "--q15-r-request-fd FD --q15-r-context-fd FD "
             "--q15-w-control-fd FD --output-dir-fd FD --fixed-dispatch-end\n"
@@ -27,7 +33,7 @@ void usage(std::ostream& output) {
          << "  cpu_prefetch_runner --validate-admission FILE --stand-id ID "
             "--binding-id ID\n\n"
          << "The Stage 17 action entry is an internal fd-only dispatcher. It accepts "
-            "only six compiled actions and no command, plugin, path-based request, "
+            "only seven compiled actions and no command, plugin, path-based request, "
             "stdin, output name, fake backend, or Phase 18 authority.\n";
 }
 
@@ -52,6 +58,76 @@ void print_errors(std::span<const cpu_prefetch::protocol::ValidationError> error
 }
 
 int run(int argc, char** argv) {
+  if (argc == 3 &&
+      std::string_view(argv[1]) == "--describe-stage17-discovery-layout-v1") {
+    const auto input = cpu_prefetch::protocol::json::parse(read_file(argv[2]));
+    if (!input || input.value().as_object() == nullptr) {
+      throw std::runtime_error("discovery layout input is not a JSON object");
+    }
+    const auto& document = *input.value().as_object();
+    if (document.size() != 4U || !document.contains("capture") ||
+        !document.contains("resources") || !document.contains("monitoring") ||
+        !document.contains("hardware_prestate")) {
+      throw std::runtime_error("discovery layout input field set differs");
+    }
+    const auto* capture = document.at("capture").as_object();
+    const auto* resources = document.at("resources").as_object();
+    const auto* monitoring = document.at("monitoring").as_object();
+    if (capture == nullptr || resources == nullptr || monitoring == nullptr) {
+      throw std::runtime_error("discovery layout input components are not objects");
+    }
+    const auto* values = document.at("hardware_prestate").as_array();
+    if (values == nullptr) {
+      throw std::runtime_error("discovery layout prestate is not an array");
+    }
+    std::vector<cpu_prefetch::platform::HardwarePrefetchMsrValue> prestate;
+    for (const auto& value : *values) {
+      const auto* item = value.as_object();
+      if (item == nullptr || item->size() != 2U || !item->contains("cpu") ||
+          !item->contains("value")) {
+        throw std::runtime_error("discovery layout prestate field set differs");
+      }
+      const auto* cpu = item->at("cpu").as_number();
+      const auto* observed = item->at("value").as_number();
+      using Kind = cpu_prefetch::protocol::json::Number::Kind;
+      if (cpu == nullptr || observed == nullptr ||
+          cpu->kind != Kind::unsigned_integer ||
+          observed->kind != Kind::unsigned_integer ||
+          std::get<std::uint64_t>(cpu->value) >
+              std::numeric_limits<std::uint32_t>::max()) {
+        throw std::runtime_error(
+            "discovery layout prestate requires unsigned integers");
+      }
+      prestate.push_back(
+          {static_cast<std::uint32_t>(std::get<std::uint64_t>(cpu->value)),
+           std::get<std::uint64_t>(observed->value)});
+    }
+    const auto layout = cpu_prefetch::runner::stage17::describe_native_discovery_layout(
+        *capture, *resources, *monitoring, prestate);
+    const auto identity = cpu_prefetch::runner::stage17::self_executable_sha256();
+    if (!layout || !identity) {
+      print_errors(!layout ? layout.errors() : identity.errors());
+      return 1;
+    }
+    const auto repository = cpu_prefetch::foundation::repository_info();
+    std::cout << "{\"schema_version\":\"cpu-prefetch-discovery-layout/1\","
+                 "\"execution_authority\":false,\"binary_sha256\":\""
+              << identity.value() << "\",\"source_revision\":\""
+              << repository.source_revision
+              << "\",\"source_dirty\":" << (repository.source_dirty ? "true" : "false")
+              << ",\"core_bytes\":" << layout.value().core_bytes
+              << ",\"monitor_bytes\":" << layout.value().monitor_bytes
+              << ",\"total_mapping_bytes\":" << layout.value().total_mapping_bytes
+              << ",\"region_bytes\":[";
+    for (std::size_t index = 0U; index < layout.value().region_bytes.size(); ++index) {
+      if (index != 0U) {
+        std::cout << ',';
+      }
+      std::cout << layout.value().region_bytes[index];
+    }
+    std::cout << "]}\n";
+    return 0;
+  }
   if (argc == 2 && std::string_view(argv[1]) == "--stage17-runtime-identity-v4") {
     const auto repository = cpu_prefetch::foundation::repository_info();
     const auto binary_sha256 = cpu_prefetch::runner::stage17::self_executable_sha256();
@@ -59,20 +135,21 @@ int run(int argc, char** argv) {
       print_errors(binary_sha256.errors());
       return 1;
     }
-    std::cout << "{\"binary_sha256\":\"" << binary_sha256.value()
-              << "\",\"protocol_version\":\"" << repository.protocol_version
-              << "\",\"role\":\""
-              << cpu_prefetch::runner::stage17::kFixedActionWorkerRole
-              << "\",\"runtime_profile\":\""
-              << cpu_prefetch::runner::stage17::kFixedActionRuntimeProfile
-              << "\",\"source_dirty\":" << (repository.source_dirty ? "true" : "false")
-              << ",\"source_revision\":\"" << repository.source_revision
-              << "\",\"supported_actions\":[\"Q15-R\",\"Q15-W\",\"Q16a\","
-                 "\"Q16b\",\"Q16c\",\"STAGE17-BLINDED-PILOT\"],"
-                 "\"synthetic_test_only\":false}\n";
+    std::cout
+        << "{\"binary_sha256\":\"" << binary_sha256.value()
+        << "\",\"protocol_version\":\"" << repository.protocol_version
+        << "\",\"role\":\"" << cpu_prefetch::runner::stage17::kFixedActionWorkerRole
+        << "\",\"runtime_profile\":\""
+        << cpu_prefetch::runner::stage17::kFixedActionRuntimeProfile
+        << "\",\"source_dirty\":" << (repository.source_dirty ? "true" : "false")
+        << ",\"source_revision\":\"" << repository.source_revision
+        << "\",\"supported_actions\":[\"Q15-R\",\"Q15-W\",\"Q16a\","
+           "\"Q16b\",\"Q16c\",\"STAGE17-BLINDED-PILOT\",\"Q16A-DURATION-DISCOVERY\"],"
+           "\"synthetic_test_only\":false}\n";
     return 0;
   }
-  if (argc >= 2 && std::string_view(argv[1]) == "--execute-fixed-stage17-action-v4") {
+  if (argc >= 2 && (std::string_view(argv[1]) == "--execute-fixed-stage17-action-v4" ||
+                    std::string_view(argv[1]) == "--execute-fixed-stage17-action-v5")) {
     cpu_prefetch::runner::stage17::LinuxFixedActionOperations operations;
     return cpu_prefetch::runner::stage17::run_fixed_action_worker(argc, argv,
                                                                   operations);

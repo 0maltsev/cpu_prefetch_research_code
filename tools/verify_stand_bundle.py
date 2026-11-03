@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import json
 import os
@@ -18,6 +19,45 @@ def sha256(path: pathlib.Path) -> str:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def diagnostic_runtime_closure_errors(root, policy):
+    """Check the exact local import graph and import the bundled projection alone."""
+    failures = []
+    declared = {item["path"] for item in policy["runtime_closure"].values()}
+    pending = list(policy["runtime_import_roots"])
+    discovered = set()
+    while pending:
+        name = pending.pop()
+        relative = "tools/" + name + ".py"
+        if relative in discovered:
+            continue
+        path = root / relative
+        if not path.is_file() or path.is_symlink():
+            return ["diagnostic runtime import absent: " + relative]
+        discovered.add(relative)
+        for node in ast.walk(ast.parse(path.read_text(), filename=relative)):
+            names = ([item.name.split(".")[0] for item in node.names]
+                     if isinstance(node, ast.Import) else
+                     [node.module.split(".")[0]] if isinstance(node, ast.ImportFrom) and node.module else [])
+            for child in names:
+                if child.startswith("stage17_") or (root / "tools" / (child + ".py")).is_file():
+                    pending.append(child)
+    if discovered != declared:
+        return ["diagnostic runtime closure differs from all local imports"]
+    code = ("import importlib,json,pathlib,sys; "
+            "sys.path.insert(0,sys.argv[1]); "
+            "[importlib.import_module(name) for name in json.loads(sys.argv[2])]")
+    try:
+        completed = subprocess.run([sys.executable, "-I", "-B", "-c", code,
+            str(root / "tools"), json.dumps(sorted(pathlib.PurePosixPath(path).stem for path in declared))],
+            cwd=root, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            timeout=45, check=False)
+    except (OSError, subprocess.SubprocessError) as exception:
+        return ["diagnostic isolated runtime import failed: " + str(exception)]
+    if completed.returncode:
+        failures.append("diagnostic isolated runtime import failed: " + completed.stderr.decode(errors="replace")[-2000:])
+    return failures
 
 
 def q15_profile_errors(
@@ -505,6 +545,14 @@ def main() -> int:
             "cpu-prefetch-pilot-candidate-bundle/14",
             "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
         ),
+        "STAGE17-PILOT-CANDIDATE-BUNDLE-v23": (
+            "cpu-prefetch-pilot-candidate-bundle/14",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
+        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19": (
+            "cpu-prefetch-pilot-candidate-bundle/14",
+            "RELEASE_INPUT_READY_FOR_Q15_PREPARATION",
+        ),
         "Q15-QUALIFICATION-TOOL-BUNDLE-v1": (
             "cpu-prefetch-q15-qualification-tool-bundle/1",
             "Q15_TOOL_RELEASE_NO_AUTHORITY",
@@ -563,6 +611,8 @@ def main() -> int:
             "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
             "STAGE17-PILOT-CANDIDATE-BUNDLE-v22",
+            "STAGE17-PILOT-CANDIDATE-BUNDLE-v23",
+            "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19",
         } else "2.0.0-pre.2"
     )
     if manifest.get("protocol_version") != expected_protocol:
@@ -623,7 +673,9 @@ def main() -> int:
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v20",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v22") and value is not False:
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v22",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v23",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19") and value is not False:
             failures.append(f"pilot candidate must explicitly prohibit {description}")
         elif profile == "STAGE16-STAND-BUNDLE-v1" and value not in (None, False):
             failures.append(f"Stage 16 bundle unexpectedly enables {description}")
@@ -704,7 +756,9 @@ def main() -> int:
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v20",
                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
                    "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
-                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v22"):
+                   "STAGE17-PILOT-CANDIDATE-BUNDLE-v22",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v23",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19"):
         if manifest.get("software_prefetch_mapping_id") not in (
             "X86-64-PREFETCHW-PREFETCHT0-v1",
             "X86-64-PREFETCHT0-ONLY-v1",
@@ -729,6 +783,8 @@ def main() -> int:
             "storage_codegen_report.json",
             "runner_relax_codegen_report.json",
             "runner_combined_codegen_report.json",
+            *(("discovery_codegen_report.json",) if profile in {
+                "STAGE17-PILOT-CANDIDATE-BUNDLE-v23", "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19"} else ()),
         ):
             report_relative = pathlib.Path("build-provenance") / report
             if report_relative not in declared:
@@ -739,6 +795,13 @@ def main() -> int:
                 "missing_tools"
             ) != []:
                 failures.append(f"pilot candidate codegen report is not strict: {report}")
+            if report == "discovery_codegen_report.json":
+                import check_discovery_codegen as discovery_codegen
+                try:
+                    discovery_codegen.validate_report_bindings(report_document,
+                        binary=root / "release/bin/cpu_prefetch_runner", source_root=root)
+                except (discovery_codegen.AuditError, OSError, ValueError, KeyError) as exception:
+                    failures.append("discovery codegen actual-worker/source binding failed: " + str(exception))
             if report == "runner_combined_codegen_report.json" and (
                 report_document.get("schema_version")
                 not in (
@@ -881,7 +944,9 @@ def main() -> int:
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v20",
                        "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v18",
                        "STAGE17-PILOT-CANDIDATE-BUNDLE-v21",
-                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v22"):
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v22",
+                       "STAGE17-PILOT-CANDIDATE-BUNDLE-v23",
+                       "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19"):
             runtime = manifest.get("stage17_fixed_action_runtime")
             expected_actions = ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
                                 "STAGE17-BLINDED-PILOT"]
@@ -963,6 +1028,10 @@ def main() -> int:
             # ADR-0158's own moves). No matching dry-run bundle profile
             # exists yet for this generation.
             current_v21 = profile == "STAGE17-PILOT-CANDIDATE-BUNDLE-v22"
+            diagnostic = profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v23",
+                                     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19"}
+            if diagnostic:
+                expected_actions.append("Q16A-DURATION-DISCOVERY")
             # The compiled worker binary (release/bin/cpu_prefetch_runner) is
             # unaffected by the D-124/D-125/D-126/D-127/D-128/D-130/D-131/
             # D-132/D-133/D-134/D-135/D-136/D-137/D-138/D-139/D-140/D-141/
@@ -1045,7 +1114,7 @@ def main() -> int:
                 or current_v9 or current_v10 or current_v11 or current_v12
                 or current_v13 or current_v14 or current_v15 or current_v16
                 or current_v17 or current_v18 or current_v19 or current_v20
-                or current_v21
+                or current_v21 or diagnostic
                 or profile in {
                     "STAGE17-PILOT-CANDIDATE-BUNDLE-v4",
                     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
@@ -1053,7 +1122,7 @@ def main() -> int:
             )
             version = 4 if current_v4 else 3
             controller_version = (
-                15 if current_v21
+                22 if diagnostic else 15 if current_v21
                 else 9 if (current_v6 or current_v7 or current_v8 or current_v9
                       or current_v10 or current_v11 or current_v12 or current_v13
                       or current_v14 or current_v15 or current_v16 or current_v17
@@ -1061,7 +1130,7 @@ def main() -> int:
                 else 8 if current_v4 else version
             )
             admission_policy_version = (
-                53 if current_v21
+                55 if diagnostic else 53 if current_v21
                 else 39 if current_v20
                 else 38 if current_v19
                 else 37 if current_v18
@@ -1082,7 +1151,7 @@ def main() -> int:
                 else 11
             )
             nested_policy_version = (
-                28 if current_v21
+                28 if (current_v21 or diagnostic)
                 else 27 if current_v20
                 else 26 if current_v19
                 else 25 if current_v18
@@ -1098,7 +1167,7 @@ def main() -> int:
                 else 15 if (current_v5 or current_v6 or current_v7) else 14
             )
             executor_version = (
-                26 if current_v21
+                26 if (current_v21 or diagnostic)
                 else 25 if current_v20
                 else 24 if current_v19
                 else 23 if current_v18
@@ -1113,7 +1182,7 @@ def main() -> int:
                 else 14 if current_v8
                 else 13 if (current_v5 or current_v6 or current_v7) else 12
             )
-            expected_synthetic = profile in {
+            expected_synthetic = profile == "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19" or profile in {
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v1",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v2",
                 "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v3",
@@ -1146,6 +1215,7 @@ def main() -> int:
             payload = worker.read_bytes()
             for token in (f"--execute-fixed-stage17-action-v{version}".encode(),
                           f"STAGE17-FIXED-ACTION-WORKER-v{version}".encode(),
+                          *( (b"--execute-fixed-stage17-action-v5",) if diagnostic else () ),
                           *( (b"--execute-stage17-pilot-session-v1",)
                              if current_v4 else () ),
                           *(item.encode("ascii") for item in expected_actions)):
@@ -1259,6 +1329,8 @@ def main() -> int:
                                 "nested preflight bound file is absent or drifted"
                             )
                             break
+                if diagnostic:
+                    failures.extend(diagnostic_runtime_closure_errors(root, policy))
                 for relative in (
                     f"tools/stage17_read_only_preflight_executor_v{executor_version}.py",
                     "tools/stage17_read_only_preflight_collector_v2.py",

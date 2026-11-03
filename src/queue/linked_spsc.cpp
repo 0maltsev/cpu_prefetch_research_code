@@ -1,15 +1,17 @@
 #include "cpu_prefetch/queue/linked_spsc.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cstdint>
+#include <limits>
 #include <memory>
 
 namespace cpu_prefetch::queue {
 
-LinkedSpscQueue::LinkedSpscQueue(QueueCapacity capacity,
-                                 CacheLineBytes cache_line_bytes,
-                                 ArenaAlignmentBytes arena_alignment_bytes,
-                                 std::span<const std::size_t> node_order) {
+auto LinkedSpscQueue::storage_requirements(QueueCapacity capacity,
+                                           CacheLineBytes cache_line_bytes,
+                                           ArenaAlignmentBytes arena_alignment_bytes)
+    -> LinkedStorageRequirements {
   detail::validate_cache_line_bytes(cache_line_bytes.value);
   detail::validate_cache_line_bytes(arena_alignment_bytes.value);
   if (arena_alignment_bytes.value < cache_line_bytes.value) {
@@ -20,36 +22,120 @@ LinkedSpscQueue::LinkedSpscQueue(QueueCapacity capacity,
     throw QueueSetupError("linked capacity must be nonzero");
   }
   const auto node_count = detail::checked_add(capacity.value, 1U);
-  if (node_order.size() != node_count) {
+  const auto stride = detail::round_up(sizeof(Node), cache_line_bytes.value);
+  const auto node_bytes = detail::checked_multiply(node_count, stride);
+  const auto recycler_bytes =
+      detail::checked_multiply(capacity.value, sizeof(RecyclerSlot));
+  const auto ownership_bytes = detail::checked_multiply(4U, cache_line_bytes.value);
+  const auto order_bytes = detail::checked_multiply(node_count, sizeof(std::size_t));
+  auto total = detail::checked_add(node_bytes, recycler_bytes);
+  total = detail::checked_add(total, ownership_bytes);
+  total = detail::checked_add(total, order_bytes);
+  total = detail::checked_add(total, node_count);
+  if (total > static_cast<std::size_t>(std::numeric_limits<std::ptrdiff_t>::max())) {
+    throw QueueSetupError("linked storage exceeds addressable object extent");
+  }
+  return {node_bytes, recycler_bytes, ownership_bytes, stride, node_count, node_count};
+}
+
+LinkedSpscQueue::LinkedSpscQueue(QueueCapacity capacity,
+                                 CacheLineBytes cache_line_bytes,
+                                 ArenaAlignmentBytes arena_alignment_bytes,
+                                 std::span<const std::size_t> node_order)
+    : capacity_(capacity.value), cache_line_bytes_(cache_line_bytes.value),
+      node_arena_alignment_bytes_(arena_alignment_bytes.value) {
+  const auto required =
+      storage_requirements(capacity, cache_line_bytes, arena_alignment_bytes);
+  if (node_order.size() != required.order_count) {
     throw QueueSetupError("linked node order must contain capacity plus one nodes");
   }
+  owned_initial_node_order_.resize(required.order_count);
+  std::vector<std::byte> scratch(required.validation_bytes);
+  node_storage_ =
+      detail::AlignedBlock(required.node_bytes, node_arena_alignment_bytes_);
+  recycler_storage_ = detail::AlignedBlock(required.recycler_bytes, cache_line_bytes_);
+  ownership_storage_ =
+      detail::AlignedBlock(required.ownership_bytes, cache_line_bytes_);
+  initialize_storage(node_order,
+                     {{node_storage_.data(), node_storage_.size()},
+                      {recycler_storage_.data(), recycler_storage_.size()},
+                      {ownership_storage_.data(), ownership_storage_.size()},
+                      owned_initial_node_order_,
+                      scratch});
+}
 
-  std::vector<bool> seen(node_count, false);
+LinkedSpscQueue::LinkedSpscQueue(QueueCapacity capacity,
+                                 CacheLineBytes cache_line_bytes,
+                                 ArenaAlignmentBytes arena_alignment_bytes,
+                                 std::span<const std::size_t> node_order,
+                                 LinkedStorageView storage)
+    : capacity_(capacity.value), cache_line_bytes_(cache_line_bytes.value),
+      node_arena_alignment_bytes_(arena_alignment_bytes.value) {
+  initialize_storage(node_order, storage);
+}
+
+void LinkedSpscQueue::initialize_storage(std::span<const std::size_t> node_order,
+                                         LinkedStorageView storage) {
+  const auto required = storage_requirements({capacity_}, {cache_line_bytes_},
+                                             {node_arena_alignment_bytes_});
+  if (node_order.size() != required.order_count ||
+      storage.nodes.size() != required.node_bytes ||
+      storage.recycler.size() != required.recycler_bytes ||
+      storage.ownership.size() != required.ownership_bytes ||
+      storage.initial_order.size() != required.order_count ||
+      storage.permutation_scratch.size() != required.validation_bytes) {
+    throw QueueSetupError("linked storage and order must have exact sizes");
+  }
+  struct Range final {
+    const void* pointer;
+    std::size_t bytes;
+    std::size_t alignment;
+  };
+  const std::array ranges{
+      Range{this, sizeof(*this), alignof(LinkedSpscQueue)},
+      Range{node_order.data(), node_order.size_bytes(), alignof(std::size_t)},
+      Range{storage.nodes.data(), storage.nodes.size(), node_arena_alignment_bytes_},
+      Range{storage.recycler.data(), storage.recycler.size(), cache_line_bytes_},
+      Range{storage.ownership.data(), storage.ownership.size(), cache_line_bytes_},
+      Range{storage.initial_order.data(), storage.initial_order.size_bytes(),
+            alignof(std::size_t)},
+      Range{storage.permutation_scratch.data(), storage.permutation_scratch.size(),
+            alignof(std::byte)}};
+  for (std::size_t index = 0U; index < ranges.size(); ++index) {
+    const auto current = ranges[index];
+    const auto begin = reinterpret_cast<std::uintptr_t>(current.pointer);
+    if (current.pointer == nullptr ||
+        !detail::is_aligned(current.pointer, current.alignment) ||
+        current.bytes > std::numeric_limits<std::uintptr_t>::max() - begin) {
+      throw QueueSetupError("linked storage alignment/address extent is invalid");
+    }
+    for (std::size_t prior = 0U; prior < index; ++prior) {
+      const auto other = reinterpret_cast<std::uintptr_t>(ranges[prior].pointer);
+      if (begin < other + ranges[prior].bytes && other < begin + current.bytes) {
+        throw QueueSetupError("linked storage ranges must not overlap");
+      }
+    }
+  }
+  std::fill(storage.permutation_scratch.begin(), storage.permutation_scratch.end(),
+            std::byte{});
   for (const auto index : node_order) {
-    if (index >= node_count || seen[index]) {
+    if (index >= required.order_count ||
+        storage.permutation_scratch[index] != std::byte{}) {
       throw QueueSetupError("linked node order must be a permutation");
     }
-    seen[index] = true;
+    storage.permutation_scratch[index] = std::byte{1U};
   }
-
-  capacity_ = capacity.value;
-  cache_line_bytes_ = cache_line_bytes.value;
-  node_arena_alignment_bytes_ = arena_alignment_bytes.value;
-  node_stride_bytes_ = detail::round_up(sizeof(Node), cache_line_bytes_);
-  initial_node_order_.assign(node_order.begin(), node_order.end());
-  node_storage_ =
-      detail::AlignedBlock(detail::checked_multiply(node_count, node_stride_bytes_),
-                           node_arena_alignment_bytes_);
-  recycler_storage_ = detail::AlignedBlock(
-      detail::checked_multiply(capacity_, sizeof(RecyclerSlot)), cache_line_bytes_);
-  ownership_storage_ = detail::AlignedBlock(
-      detail::checked_multiply(4U, cache_line_bytes_), cache_line_bytes_);
+  std::copy(node_order.begin(), node_order.end(), storage.initial_order.begin());
+  initial_node_order_ = storage.initial_order;
+  node_bytes_ = storage.nodes;
+  node_stride_bytes_ = required.node_stride_bytes;
+  const auto node_count = required.order_count;
 
   for (std::size_t index = 0; index < node_count; ++index) {
     auto* node = std::construct_at(node_at(index));
     node->arena_index = index;
   }
-  recycler_slots_ = reinterpret_cast<RecyclerSlot*>(recycler_storage_.data());
+  recycler_slots_ = reinterpret_cast<RecyclerSlot*>(storage.recycler.data());
   for (std::size_t index = 0; index < capacity_; ++index) {
     auto* slot = std::construct_at(&recycler_slots_[index]);
     slot->value.store(node_at(node_order[index + 1U]), std::memory_order_relaxed);
@@ -57,15 +143,15 @@ LinkedSpscQueue::LinkedSpscQueue(QueueCapacity capacity,
 
   auto* sentinel = node_at(node_order[0]);
   producer_ =
-      std::construct_at(reinterpret_cast<ProducerState*>(ownership_storage_.data()));
+      std::construct_at(reinterpret_cast<ProducerState*>(storage.ownership.data()));
   producer_->tail = sentinel;
   consumer_ = std::construct_at(
-      reinterpret_cast<ConsumerState*>(ownership_storage_.data() + cache_line_bytes_));
+      reinterpret_cast<ConsumerState*>(storage.ownership.data() + cache_line_bytes_));
   consumer_->head = sentinel;
   recycler_producer_ = std::construct_at(reinterpret_cast<RecyclerPosition*>(
-      ownership_storage_.data() + (2U * cache_line_bytes_)));
+      storage.ownership.data() + (2U * cache_line_bytes_)));
   recycler_consumer_ = std::construct_at(reinterpret_cast<RecyclerPosition*>(
-      ownership_storage_.data() + (3U * cache_line_bytes_)));
+      storage.ownership.data() + (3U * cache_line_bytes_)));
 }
 
 LinkedSpscQueue::~LinkedSpscQueue() {
@@ -74,7 +160,7 @@ LinkedSpscQueue::~LinkedSpscQueue() {
       std::destroy_at(&recycler_slots_[index]);
     }
   }
-  if (node_storage_.data() != nullptr) {
+  if (node_bytes_.data() != nullptr) {
     for (std::size_t index = 0; index < capacity_ + 1U; ++index) {
       std::destroy_at(node_at(index));
     }
@@ -94,17 +180,17 @@ LinkedSpscQueue::~LinkedSpscQueue() {
 }
 
 LinkedSpscQueue::Node* LinkedSpscQueue::node_at(std::size_t index) noexcept {
-  return reinterpret_cast<Node*>(node_storage_.data() + (index * node_stride_bytes_));
+  return reinterpret_cast<Node*>(node_bytes_.data() + (index * node_stride_bytes_));
 }
 
 const LinkedSpscQueue::Node*
 LinkedSpscQueue::node_at(std::size_t index) const noexcept {
-  return reinterpret_cast<const Node*>(node_storage_.data() +
+  return reinterpret_cast<const Node*>(node_bytes_.data() +
                                        (index * node_stride_bytes_));
 }
 
 std::optional<std::size_t> LinkedSpscQueue::index_of(const Node* node) const noexcept {
-  const auto base = reinterpret_cast<std::uintptr_t>(node_storage_.data());
+  const auto base = reinterpret_cast<std::uintptr_t>(node_bytes_.data());
   const auto address = reinterpret_cast<std::uintptr_t>(node);
   if (address < base) {
     return std::nullopt;
@@ -150,7 +236,8 @@ LayoutEvidence LinkedSpscQueue::layout_evidence() const noexcept {
         nodes_aligned && detail::is_aligned(node_at(index), cache_line_bytes_);
   }
   return {cache_line_bytes_, 4U,
-          node_storage_.size() + recycler_storage_.size() + ownership_storage_.size(),
+          node_bytes_.size() + capacity_ * sizeof(RecyclerSlot) +
+              4U * cache_line_bytes_,
           nodes_aligned && detail::is_aligned(recycler_slots_, cache_line_bytes_) &&
               detail::is_aligned(producer_, cache_line_bytes_) &&
               detail::is_aligned(consumer_, cache_line_bytes_) &&

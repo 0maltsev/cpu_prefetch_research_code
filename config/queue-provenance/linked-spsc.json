@@ -21,10 +21,10 @@
     "repository_source_license": "NO-LICENSE-GRANT",
     "implementation_files": [
       {"path": "include/cpu_prefetch/queue/common.hpp", "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7"},
-      {"path": "include/cpu_prefetch/queue/linked_spsc.hpp", "sha256": "273bcae35f82bc928c1e4ffbd373e3fe07b301bdcee43c948642dcc340b54dd9"},
+      {"path": "include/cpu_prefetch/queue/linked_spsc.hpp", "sha256": "5513659adbe1d6da2c3c039ec9e47453a5d74e394c3fc4b13aea77710d11b291"},
       {"path": "include/cpu_prefetch/queue/adapters.hpp", "sha256": "1a7a28562be0ab2ab7e8f608b52470702e038b8d79d1fa738e6a5dc28ae14e49"},
       {"path": "src/queue/common.cpp", "sha256": "c3fd566fe9c4de12f2a2e06075e4fdd9e23e495ffbd3798d1e6648ddf7fbd524"},
-      {"path": "src/queue/linked_spsc.cpp", "sha256": "be21b2ede5b5ea9b3a6b7410af682df022e3f256714e1d43728eaa0c1e4fc2db"}
+      {"path": "src/queue/linked_spsc.cpp", "sha256": "3117a03c990f36ad0124f3532301453c2d0a087856a845cdabe056fffea263ae"}
     ]
   },
   "semantic_adaptations": [
@@ -37,7 +37,8 @@
     "Stage 6 adds a statically bound successor-header policy seam immediately after the consumer acquire and before the successor event-field demand",
     "Stage 8 adds statically specialized fail-closed observers at the accepted p-before-successor-release and q-after-successor-acquire-before-prefetch/recycler boundaries; a p capture failure is a terminal run failure and is never continued or retried",
     "The off package compiles the successor seam away; platform software-prefetch instruction encoding remains outside the queue and is later bound by D-047",
-    "ADR-0189 verifies the drained frozen node cycle and restores its sentinel/recycler without scratch allocation; invalid warm-up state is rejected before mutation and ordinary measured operations remain unchanged"
+    "ADR-0189 verifies the drained frozen node cycle and restores its sentinel/recycler without scratch allocation; invalid warm-up state is rejected before mutation and ordinary measured operations remain unchanged",
+    "ADR-0203 adds exact caller-owned node, recycler, ownership and retained-order storage with finite permutation scratch; successful borrowed preparation and destruction allocate/free nothing, and the measured operations and logical-reset algorithm remain unchanged"
   ],
   "memory_order_mapping": [
     "producer acquire-removes a recycler node and release-clears the recycler slot",
@@ -62,7 +63,7 @@
   },
   "refinement_record": "docs/QUEUE_CORRECTNESS.md#fixed-arena-refinement",
   "correctness_evidence": {
-    "test_targets": ["cpu_prefetch_queue_tests", "cpu_prefetch_rapidcheck_smoke", "cpu_prefetch_queue_stress"],
+    "test_targets": ["cpu_prefetch_queue_tests", "cpu_prefetch_rapidcheck_smoke", "cpu_prefetch_queue_stress", "cpu_prefetch_linked_storage_tests"],
     "coverage": ["empty/full/FIFO/capacity", "exact C+1 cycle and repeated recycler reuse", "exclusive node ownership/acyclic/reachable tail", "one-attempt outcomes", "phase suspension", "abstract-model comparison", "duplicate/omission/corruption/reorder detection", "Stage 8 p-before-publication and q-before-L1-prefetch/reuse failure/order tests"],
     "gcc_libstdcxx": {"unit_property_stress": "PASS", "asan_ubsan": "PASS_ZERO_FINDINGS", "tsan": "PASS_ZERO_FINDINGS"},
     "clang_libcxx": {"unit_property_stress": "PASS", "asan_ubsan": "PASS_ZERO_FINDINGS", "tsan": "PASS_ZERO_FINDINGS"},

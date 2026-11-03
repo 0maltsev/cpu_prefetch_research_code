@@ -519,6 +519,18 @@ software integration can continue independently.
   Final scientific freezes are Stage 18 prerequisites; Stage 17 completion
   follows the D-115 operational pilot/exit graph.
 
+- **ADR-0202 integration:** native execution, bounded file observations,
+  seven-artifact publication, cleanup retention and signed diagnostic v5
+  admission and independent raw/control validation are connected. Both full
+  suites pass 631/631; all four sanitizers pass 142 calibration, 85 platform
+  and 24 targeted runner cases. The actual production worker passes all seven
+  codegen gates. ADR-0203 adds caller-owned linked storage for required later
+  service calibration. Follow the owner's six-step EXT-007-only priority in
+  the completion plan: freeze source, release/qualify, run the approved study,
+  select the duration, collect formal calibration, and admit EXT-007. Use the
+  existing PC storage, keep D-033 uncompressed two-copy custody, and report
+  each completed step or changed blocker. No capture or completion is claimed.
+
 - **Earlier EXT007 checkpoint:** ADR-0177 integrates and locally tests the accepted
   mappings through whole-plot control, preparation, and prospective policy v54.
   Next obtain the typed D-037 duration/minimum-observation/warm-up inputs,

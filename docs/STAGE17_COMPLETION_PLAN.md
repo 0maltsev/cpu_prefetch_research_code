@@ -1,8 +1,29 @@
 # Stage 17 completion plan
 
-Updated 2026-11-03. Implementation baseline: `f152023` (D-200).
+Updated 2026-11-03. D-202/D-203 software verification complete; clean release next.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
 This roadmap is not an execution authorization or a scientific amendment.
+
+## Active owner priority: EXT-007 only
+
+The owner directs fastest completion of EXT-007, with no new optional work,
+and requests an update after every step. Defer EXT008–010, pilot execution and
+Stage 18 work. Finish only already-started checks and necessary calibration work.
+
+1. **Complete:** finish current verification and freeze the discovery implementation.
+2. **Active:** build a clean release, deploy it and refresh required stand qualification.
+3. Freeze the approved 36-capture discovery plan within verified PC storage,
+   then execute it once under its exact finite authority.
+4. Independently validate retained evidence and apply the approved count-only
+   duration selector. Preserve an unresolved result if no candidate qualifies.
+5. Complete required formal-calibration fixes, freeze the prospective plans,
+   then execute Q16a (708 fresh captures), Q16b (3,540 runs) and Q16c in order.
+6. Validate and seal calibration evidence, derive the freeze, and admit EXT-007.
+
+The owner selected the existing development PC for the second durable copy;
+there is no additional storage endpoint. Verify free space and reserve before
+each finite plan. Do not introduce compression or waive D-033 custody limits.
+Report each completed step or changed blocker against this six-step plan.
 
 ## Current position
 
@@ -31,6 +52,13 @@ This roadmap is not an execution authorization or a scientific amendment.
   563/563, with 124 calibration and 71 platform cases passing all four
   sanitizer configurations. Native publication and diagnostic admission are
   being connected next; these checks do not qualify a stand capture.
+- D-202 now connects native execution, environmental file snapshots, raw
+  publication, diagnostic v5 admission and independent raw/control validation.
+  Both full suites pass 631/631; all four sanitizer configurations pass 142
+  calibration, 85 platform and 24 targeted runner cases. The production worker
+  passes seven codegen gates. D-203 supplies caller-owned linked storage for
+  later required service calibration. Source freeze and clean release/stand
+  qualification are the immediate next gates. No discovery capture has run.
 
 ## Ordered work and acceptance gates
 
@@ -107,7 +135,7 @@ scientific decisions only when existing protocol/approval does not resolve them.
 
 ## Working method and completion claim
 
-Keep step 1 as the active integration milestone. Audit downstream plan,
+Step 2 is the active milestone after the verified source freeze. Audit downstream plan,
 custody and freeze contracts in parallel where they do not depend on new data.
 Report completed milestones, exact evidence, remaining blockers and the next
 gate. Component tests are supporting evidence, not the project completion goal.

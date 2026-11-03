@@ -1,5 +1,23 @@
 # EXT007 owner mapping and controller observation verification
 
+ADR-0202/0203: [native-diagnostic-checks.json](native-diagnostic-checks.json)
+records native diagnostic execution, retained environmental/control observations,
+seven-file publication, the compiled admission boundary, independent validation,
+and caller-owned linked storage. Both final development suites pass **631/631**.
+All four sanitizer configurations pass **142 calibration**, **85 platform** and
+**24 targeted runner** cases. Linked storage passes 12 cases except the existing
+Clang TSan allocation-hook exclusion (11 pass, one explicit skip). The actual
+production worker passes all seven dual-disassembler gates; this dirty-source
+verification must be repeated for the clean release. The C++ publisher/Python
+validator bridge passes five cases in normal, GCC ASan/UBSan and GCC TSan builds.
+
+The aggregate qualification check now invokes the existing historical fixture
+for its two policy-18 checks, matching CTest and D-185. Current policy-55 is
+verified independently. These results establish software readiness for the
+clean release, not stand qualification, discovery counts, duration selection or
+EXT007 completion. No discovery capture has run. Earlier paragraphs below
+retain their historical scope and limitations.
+
 ADR-0201: [live-control-composition-checks.json](live-control-composition-checks.json)
 records the mapped runtime, final-worker-lifetime regression/fix, native thread
 and hardware-prefetch monitors, timed control groups and prospective discovery

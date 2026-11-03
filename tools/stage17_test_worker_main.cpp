@@ -385,12 +385,151 @@ publish_calibration_hardware(FixedAction action, const JsonObject& inputs,
       result);
 }
 
+// Synthetic custody fixture only. Production never links or selects this backend.
+[[nodiscard]] auto synthetic_discovery(const JsonObject& inputs, ArtifactSink& sink)
+    -> Result<ActionOutcome> {
+  const auto* plan_value = member(inputs, "plan");
+  const auto* plan = plan_value == nullptr ? nullptr : plan_value->as_object();
+  const auto* captures_value = plan == nullptr ? nullptr : member(*plan, "captures");
+  const auto* captures =
+      captures_value == nullptr ? nullptr : captures_value->as_array();
+  if (plan == nullptr || captures == nullptr || captures->size() != 36U) {
+    return Result<ActionOutcome>::failure(
+        ValidationError{ErrorCategory::cross_field, "$/plan", "S17-TEST-DISCOVERY",
+                        "synthetic discovery requires the exact 36-capture plan"});
+  }
+  const auto plan_sha = cpu_prefetch::workload::sha256(encoded(*plan)).hex();
+  std::vector<cpu_prefetch::runner::stage17::ArtifactBinding> artifacts;
+  JsonArray retained;
+  auto reference = [](const auto& item) {
+    return JsonValue(JsonObject{{"file_name", string_value(item.file_name)},
+                                {"size_bytes", uint_value(item.size_bytes)},
+                                {"sha256", string_value(item.sha256)}});
+  };
+  for (std::size_t index = 0U; index < captures->size(); ++index) {
+    const auto* capture = (*captures)[index].as_object();
+    if (capture == nullptr || uint_member(*capture, "ordinal") != index) {
+      throw std::runtime_error("synthetic discovery capture order differs");
+    }
+    std::ostringstream prefix;
+    prefix << "discovery-c" << std::setw(2) << std::setfill('0') << index;
+    JsonArray bindings;
+    JsonArray phases;
+    std::array<std::string, 2U> run_ids;
+    std::size_t phase_index = 0U;
+    for (const auto phase : {"warmup"sv, "measurement"sv}) {
+      const auto* identity_value = member(*capture, phase);
+      const auto* identity =
+          identity_value == nullptr ? nullptr : identity_value->as_object();
+      const auto* run_id =
+          identity == nullptr ? nullptr : string_member(*identity, "run_id");
+      if (run_id == nullptr) {
+        throw std::runtime_error("synthetic discovery phase ID is absent");
+      }
+      run_ids[phase_index++] = *run_id;
+      auto raw = synthetic_raw_rows(*run_id, 2U);
+      for (std::size_t role = 0U; role < 2U; ++role) {
+        const auto owner = role == 0U ? "producer" : "consumer";
+        auto emitted = publish(
+            sink, role == 0U ? "DISCOVERY_PRODUCER_RAW" : "DISCOVERY_CONSUMER_RAW",
+            "RAW-OBS-U64LE-LP-RUNID-v1", "application/octet-stream",
+            prefix.str() + "-" + std::string(phase) + "-" + owner + ".bin",
+            std::move(raw[role]));
+        if (!emitted) {
+          return Result<ActionOutcome>::failure(emitted.errors());
+        }
+        bindings.push_back(reference(emitted.value()));
+        artifacts.push_back(emitted.value());
+      }
+      std::vector<std::byte> demand;
+      JsonArray vectors;
+      for (const auto name : {"producer_demand"sv, "producer_issue"sv,
+                              "consumer_demand"sv, "consumer_issue"sv}) {
+        vectors.emplace_back(JsonObject{{"name", string_value(name)},
+                                        {"available", JsonValue(true)},
+                                        {"offset_bytes", uint_value(demand.size())},
+                                        {"count", uint_value(2U)}});
+        append_u64(demand, 3U);
+        append_u64(demand, 4U);
+      }
+      auto emitted = publish(
+          sink, "DISCOVERY_DEMAND_RAW", "DISCOVERY-FOUR-U64LE-VECTORS-v1",
+          "application/octet-stream",
+          prefix.str() + "-" + std::string(phase) + "-demand.bin", std::move(demand));
+      if (!emitted) {
+        return Result<ActionOutcome>::failure(emitted.errors());
+      }
+      bindings.push_back(reference(emitted.value()));
+      artifacts.push_back(emitted.value());
+      phases.emplace_back(
+          JsonObject{{"phase", string_value(phase)},
+                     {"run_id", string_value(*run_id)},
+                     {"demand_vectors", JsonValue(std::move(vectors))}});
+    }
+    auto control = publish(
+        sink, "DISCOVERY_CAPTURE_CONTROL", "cpu-prefetch-stage17-discovery-control/1",
+        "application/json", prefix.str() + "-control.json",
+        encoded({{"schema_version",
+                  string_value("cpu-prefetch-stage17-discovery-control/1")},
+                 {"ordinal", uint_value(index)},
+                 {"phases", JsonValue(std::move(phases))},
+                 {"synthetic_test_only", JsonValue(true)},
+                 {"scientific_validity", string_value("NOT_ASSESSED")}}));
+    if (!control) {
+      return Result<ActionOutcome>::failure(control.errors());
+    }
+    bindings.push_back(reference(control.value()));
+    artifacts.push_back(control.value());
+    retained.emplace_back(JsonObject{{"ordinal", uint_value(index)},
+                                     {"warmup_run_id", string_value(run_ids[0])},
+                                     {"measurement_run_id", string_value(run_ids[1])},
+                                     {"artifacts", JsonValue(std::move(bindings))},
+                                     {"native_stop", string_value("complete")},
+                                     {"native_validity", string_value("INSUFFICIENT")},
+                                     {"failure_reasons", JsonValue(JsonArray{})}});
+  }
+  auto hardware = publish(
+      sink, "DISCOVERY_HARDWARE_STATE", "cpu-prefetch-stage17-discovery-hardware/1",
+      "application/json", "studyhardware.json",
+      encoded({{"schema_version",
+                string_value("cpu-prefetch-stage17-discovery-hardware/1")},
+               {"synthetic_test_only", JsonValue(true)},
+               {"hardware_accessed", JsonValue(false)}}));
+  if (!hardware) {
+    return Result<ActionOutcome>::failure(hardware.errors());
+  }
+  artifacts.push_back(hardware.value());
+  auto report = publish(
+      sink, "DISCOVERY_RETENTION_REPORT",
+      "cpu-prefetch-stage17-discovery-retention-report/1", "application/json",
+      "retention-report.json",
+      encoded({{"schema_version",
+                string_value("cpu-prefetch-stage17-discovery-retention-report/1")},
+               {"plan_sha256", string_value(plan_sha)},
+               {"captures", JsonValue(std::move(retained))},
+               {"hardware_state", reference(hardware.value())},
+               {"diagnostic_only", JsonValue(true)},
+               {"scientific_validity", string_value("NOT_ASSESSED")},
+               {"eligible_for_duration_selection", JsonValue(false)},
+               {"formal_runs_contributed", uint_value(0U)},
+               {"execution_authority", JsonValue(false)}}));
+  if (!report) {
+    return Result<ActionOutcome>::failure(report.errors());
+  }
+  artifacts.push_back(report.value());
+  return Result<ActionOutcome>::success(
+      {std::move(artifacts), true, false, "DIAGNOSTIC_ARTIFACTS_RETAINED_UNASSESSED"});
+}
+
 class TestLinkedOperations final : public FixedActionOperations {
 public:
   [[nodiscard]] auto
   execute(FixedAction action,
           const cpu_prefetch::protocol::json::Value::Object& action_inputs,
           ArtifactSink& sink) -> Result<ActionOutcome> override {
+    if (action == FixedAction::q16a_duration_discovery) {
+      return synthetic_discovery(action_inputs, sink);
+    }
     const auto hash = fake_hash('a');
     if (action == FixedAction::q15_r) {
       const auto* authorization = string_member(action_inputs, "authorization_sha256");
@@ -1011,18 +1150,17 @@ int main(int argc, char** argv) {
       if (!binary_sha256) {
         throw std::runtime_error("test worker cannot hash its executable");
       }
-      std::cout << "{\"binary_sha256\":\"" << binary_sha256.value()
-                << "\",\"protocol_version\":\"" << repository.protocol_version
-                << "\",\"role\":\""
-                << cpu_prefetch::runner::stage17::kFixedActionWorkerRole
-                << "\",\"runtime_profile\":\""
-                << cpu_prefetch::runner::stage17::kFixedActionRuntimeProfile
-                << "\",\"source_dirty\":"
-                << (repository.source_dirty ? "true" : "false")
-                << ",\"source_revision\":\"" << repository.source_revision
-                << "\",\"supported_actions\":[\"Q15-R\",\"Q15-W\",\"Q16a\","
-                   "\"Q16b\",\"Q16c\",\"STAGE17-BLINDED-PILOT\"],"
-                   "\"synthetic_test_only\":true}\n";
+      std::cout
+          << "{\"binary_sha256\":\"" << binary_sha256.value()
+          << "\",\"protocol_version\":\"" << repository.protocol_version
+          << "\",\"role\":\"" << cpu_prefetch::runner::stage17::kFixedActionWorkerRole
+          << "\",\"runtime_profile\":\""
+          << cpu_prefetch::runner::stage17::kFixedActionRuntimeProfile
+          << "\",\"source_dirty\":" << (repository.source_dirty ? "true" : "false")
+          << ",\"source_revision\":\"" << repository.source_revision
+          << "\",\"supported_actions\":[\"Q15-R\",\"Q15-W\",\"Q16a\","
+             "\"Q16b\",\"Q16c\",\"STAGE17-BLINDED-PILOT\",\"Q16A-DURATION-DISCOVERY\"],"
+             "\"synthetic_test_only\":true}\n";
       return 0;
     }
     TestLinkedOperations operations;

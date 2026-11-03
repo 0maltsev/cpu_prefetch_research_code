@@ -1,0 +1,155 @@
+{
+  "archives_and_git_objects_scanned": false,
+  "bytes_read": 1420243484,
+  "candidate_parse_rejections": 0,
+  "complete_within_declared_scope": true,
+  "effective_uid": 0,
+  "elapsed_seconds": 14.35,
+  "error_count": 0,
+  "errors": [],
+  "excluded_directory_names": [
+    ".agents",
+    ".aws",
+    ".cache",
+    ".codex",
+    ".config",
+    ".docker",
+    ".git",
+    ".gnupg",
+    ".kube",
+    ".pki",
+    ".ssh",
+    "credentials",
+    "keyrings",
+    "node_modules",
+    "private",
+    "private-keys",
+    "secrets"
+  ],
+  "excluded_directory_prefixes": [
+    "systemd-private-",
+    "codex-daemon-"
+  ],
+  "excluded_entries": 26,
+  "excluded_filename_substrings": [
+    "credential",
+    "private-key",
+    "private_key",
+    "secret",
+    "token",
+    "id_ed25519",
+    "id_rsa",
+    "id_ecdsa"
+  ],
+  "files_read": 98268,
+  "finished_at_utc": "2026-11-03T06:57:01.021470+00:00",
+  "follow_symlinks": false,
+  "interpretation": "Candidate records require provenance/admissibility review. A negative result covers only listed roots/exclusions and is not an owner attestation.",
+  "limit_reached": false,
+  "limits": {
+    "candidate_json_bytes": 16777216,
+    "error_details": 1000,
+    "file_bytes": 1073741824,
+    "files": 1000000,
+    "matching_records": 1000,
+    "total_bytes": 17179869184,
+    "wall_seconds": 300
+  },
+  "matches": [],
+  "matching_record_count": 0,
+  "nonregular_skipped": 0,
+  "omitted_error_details": 0,
+  "only_extension": ".json",
+  "receipt_schema_identities": [
+    "cpu-prefetch-stage17-preflight-action-revalidation-blocker/1",
+    "cpu-prefetch-stage17-preflight-post-marker-blocker/1",
+    "cpu-prefetch-stage17-preflight-pre-marker-blocker/1"
+  ],
+  "report_kind": "D124_PUBLIC_RECEIPT_SEARCH_NOT_AN_ATTESTATION",
+  "requested_roots": [
+    "/home/omaltsev/stage17-owner-evidence",
+    "/home/omaltsev/research/cpu_prefetch_research_code",
+    "/home/omaltsev/.local/share/cpu-prefetch-q15",
+    "/tmp",
+    "/var/tmp",
+    "/opt",
+    "/srv",
+    "/root"
+  ],
+  "roots": [
+    {
+      "errors": 0,
+      "exists": true,
+      "files_read": 94279,
+      "gid": 1000,
+      "mode": "0755",
+      "path": "/home/omaltsev/stage17-owner-evidence",
+      "uid": 1000
+    },
+    {
+      "errors": 0,
+      "exists": true,
+      "files_read": 3970,
+      "gid": 1000,
+      "mode": "0755",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code",
+      "uid": 1000
+    },
+    {
+      "errors": 0,
+      "exists": true,
+      "files_read": 13,
+      "gid": 1000,
+      "mode": "0700",
+      "path": "/home/omaltsev/.local/share/cpu-prefetch-q15",
+      "uid": 1000
+    },
+    {
+      "errors": 0,
+      "exists": true,
+      "files_read": 6,
+      "gid": 0,
+      "mode": "1777",
+      "path": "/tmp",
+      "uid": 0
+    },
+    {
+      "errors": 0,
+      "exists": true,
+      "files_read": 0,
+      "gid": 0,
+      "mode": "1777",
+      "path": "/var/tmp",
+      "uid": 0
+    },
+    {
+      "errors": 0,
+      "exists": true,
+      "files_read": 0,
+      "gid": 0,
+      "mode": "0755",
+      "path": "/opt",
+      "uid": 0
+    },
+    {
+      "errors": 0,
+      "exists": true,
+      "files_read": 0,
+      "gid": 0,
+      "mode": "0755",
+      "path": "/srv",
+      "uid": 0
+    },
+    {
+      "errors": 0,
+      "exists": true,
+      "files_read": 0,
+      "gid": 0,
+      "mode": "0750",
+      "path": "/root",
+      "uid": 0
+    }
+  ],
+  "started_at_utc": "2026-11-03T06:56:46.671765+00:00",
+  "symlinks_skipped": 7648
+}

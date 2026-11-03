@@ -1120,8 +1120,14 @@ of an exhaustive negative search or experimental completion has been made.
 
 Latest EXT007 checkpoint (2026-11-03): release source `817c652` is deployed and
 verified on the stand (1,759 files). Seven clean release gates and qualification
-prefetch checks for both GCC and Clang under both disassemblers pass. Fresh
-v5-17 remains PREPARED with no resolutions or attempts. Qualification is waiting
-for the owner's privileged local historical-evidence search; its exact read-only
-command is in the completion plan. Discovery and formal calibration have not
-started. The deployed runtime remains the immutable `817c652` release.
+prefetch checks for both GCC and Clang under both disassemblers pass. The owner's
+privileged local search completed without errors or matching D124 receipts in
+its declared public scope; fresh stand and Git searches are retained too.
+Fresh v5-18 passed all six preflight observations and admitted EXT001/002/003/006
+(journal 000006, two transitions, PREFLIGHT_ACCEPTED). The one fixed-count
+near-pair clock qualification failed: CPU0/1 p99.999 = 12.579/12.593 us exceeds
+the accepted 10 us limit. Other clock checks passed; cause is not established.
+Q15-R was signed but not executed. No fresh capture followed the failure.
+Step 2 is blocked pending a prospective remediation/requalification decision.
+See the [retained stand evidence](docs/evidence/stage17/STAND-QUALIFICATION-EXT007-20261103-01/README.md).
+Discovery and formal calibration have not started; release `817c652` is unchanged.

@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "setpriv",
+    "--reuid=1000",
+    "--regid=1000",
+    "--clear-groups",
+    "--inh-caps=+sys_ptrace",
+    "--ambient-caps=+sys_ptrace",
+    "--",
+    "/usr/bin/python3.14",
+    "-I",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/operator-preparation-v21/check_runtime.py",
+    "--bundle-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731",
+    "--profile-sha256",
+    "b9e12215cfcb37e8af765107e895fc12fec3345ecc253b6701788fa5c3d86e06",
+    "--profile-size-bytes",
+    "5959",
+    "--workspace",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/archive-runtime-check-2",
+    "--wall-seconds",
+    "120"
+  ],
+  "reason": "Use existing supervisor PID-namespace inspection capability; attempt 1 stopped before child launch",
+  "execution_authority": false,
+  "scientific_credit": false
+}

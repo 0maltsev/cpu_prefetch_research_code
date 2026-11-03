@@ -1,0 +1,51 @@
+{
+  "files": [
+    {
+      "path": "archive-runtime-check-2/result.json",
+      "sha256": "c9a214b4fe392ed6c99e1af3af676c60642eb44978be2a9e8a67bda589b56f19",
+      "size_bytes": 605
+    },
+    {
+      "path": "archive-runtime-check-2/intent.json",
+      "sha256": "5604c79ea0ae0f2d43ebb6a4b7f8f4f222ccf2e00946639454419e5205e30bd0",
+      "size_bytes": 12623
+    },
+    {
+      "path": "archive-runtime-check-2/parked-worker-cleanup.json",
+      "sha256": "9844c48ecdcca30c6a7e94d797619823dbcc686b3facfad128157629269c495c",
+      "size_bytes": 614
+    },
+    {
+      "path": "archive-runtime-check-2/retained-readback.json",
+      "sha256": "4b6afd0425d09b6f9ef49920ae0ebf53f3025701c771a690e306ec68b99644fa",
+      "size_bytes": 6622
+    },
+    {
+      "path": "archive-runtime-check-2/sealed-python-observation.json",
+      "sha256": "40b810e71e3e40933b16800fa8c262ef371121e70d18a988ee262f5b1f128f3c",
+      "size_bytes": 48719
+    },
+    {
+      "path": "archive-runtime-check-2/archive-outcome.json",
+      "sha256": "904b6a07256c7f35c8a6270e2a205891987295875b7daef21f905f308b7f3b47",
+      "size_bytes": 1078
+    },
+    {
+      "path": "archive-runtime-check-1/failure.json",
+      "sha256": "24444c200d6a66d7c87fc87595de470de78bdf4a542163bc0b784ef3200e3896",
+      "size_bytes": 2617
+    },
+    {
+      "path": "archive-runtime-check-launch-1.json",
+      "sha256": "8a115559870d1c8768fbbdc4de63d2657782345dbd794a82cfe77b762bb3889e",
+      "size_bytes": 770
+    },
+    {
+      "path": "archive-runtime-check-launch-2.json",
+      "sha256": "e79b872ca4ffd35e8dd04f0f93c1872248ff8982f05a7b1d66d028fbd4abf035",
+      "size_bytes": 984
+    }
+  ],
+  "raw_data_transferred": false,
+  "stand_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21"
+}

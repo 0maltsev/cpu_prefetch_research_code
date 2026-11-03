@@ -22,6 +22,10 @@ deadline_policy = previous.deadline_policy
 activate = previous.activate
 support = previous.support
 runtime_from_context = previous.runtime_from_context
+# CLI11's preserved Q15 request route uses these legacy callback signatures.
+# Keep EXT003 runtime selection and typed Q15 input checks exactly as in v25.
+_runtime_from_context = previous._runtime_from_context
+_validate_action_inputs = previous._validate_action_inputs
 MAX_PROFILE_BYTES = 16 * 1024**2
 
 _contract = types.SimpleNamespace(**{**vars(previous.contract),

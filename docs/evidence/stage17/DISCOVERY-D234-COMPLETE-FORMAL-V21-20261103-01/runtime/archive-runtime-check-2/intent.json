@@ -1,0 +1,239 @@
+{
+  "broker_as_bytes": 2147483648,
+  "codec_as_bytes": 2147483648,
+  "conservative_aggregate_as_bytes": 8589934592,
+  "deadline_monotonic_ns": 170452519200371,
+  "execution_authority": false,
+  "helper_sha256": "34ff9915c076aeca6210798370e88e4a135976858a7372c5095781c96cd69ea1",
+  "max_simultaneous_codec_children": 1,
+  "observed_free_bytes": 6935757918208,
+  "parent_as_bytes": 2147483648,
+  "parent_pid": 37107,
+  "parked_probe_as_bytes": 2147483648,
+  "profile": {
+    "decoder": {
+      "decoder_executable_path": "/usr/bin/python3.14",
+      "decoder_executable_sha256": "52e0a13e60a981d8c4b6478be2ba5176f69da07948a056bf49cf6f077e30cb41",
+      "encoder_sha256": "c34056b6059c3936499fca3156b981ecfe7903b80153a917f76e9193987988ea",
+      "implementation_profile_sha256": "b9e12215cfcb37e8af765107e895fc12fec3345ecc253b6701788fa5c3d86e06",
+      "window_log": 22,
+      "zstd_library_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/release/runtime/lib/libzstd.so.1",
+      "zstd_library_sha256": "f023d49e85fb22057bfdd21857263d2638b73356c06f3b342f678a75212379f8"
+    },
+    "encoder": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/release/bin/cpu_prefetch_stage17_archive_encoder",
+      "sha256": "c34056b6059c3936499fca3156b981ecfe7903b80153a917f76e9193987988ea",
+      "size_bytes": 291424
+    },
+    "python": {
+      "path": "/usr/bin/python3.14",
+      "sha256": "52e0a13e60a981d8c4b6478be2ba5176f69da07948a056bf49cf6f077e30cb41",
+      "size_bytes": 7477160
+    },
+    "source_closure": [
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/check_canonical.py",
+          "sha256": "68a914c321d6a5f03e5e1aca687eb9bf09c4245dc074adb5fe116341b0b8b044",
+          "size_bytes": 3741
+        },
+        "module": "check_canonical"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_discovery_contract_v2.py",
+          "sha256": "edbb8eef431219815e8f4a9c4d84f1ad80658995a18af34a0f44ffbdb57cb7ca",
+          "size_bytes": 18181
+        },
+        "module": "stage17_discovery_contract_v2"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_archive_broker_v1.py",
+          "sha256": "6461604437e12b17512fd923f33dba89a6b55c83941d28f3ad553970ceddf108",
+          "size_bytes": 22534
+        },
+        "module": "stage17_formal_archive_broker_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_archive_custody_v1.py",
+          "sha256": "ea3f936c08637b960bf8cae57941cee7a96dcbaf569c5ceff60c92db974375bd",
+          "size_bytes": 45641
+        },
+        "module": "stage17_formal_archive_custody_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_archive_jobs_v1.py",
+          "sha256": "eee84a989593274659c23324af16eefe1ae698c0991f5c276715553f31958049",
+          "size_bytes": 6950
+        },
+        "module": "stage17_formal_archive_jobs_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_archive_registry_v1.py",
+          "sha256": "14938dba6ec82ada8fbb1c50058189064fc788bdef210e3eb81fd6a699c9f5c3",
+          "size_bytes": 11600
+        },
+        "module": "stage17_formal_archive_registry_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_archive_runtime_v1.py",
+          "sha256": "77f28bde7d7ce10735ccc57cabb240478487d0bafe428414a840a7ac9f215646",
+          "size_bytes": 36493
+        },
+        "module": "stage17_formal_archive_runtime_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_archive_v1.py",
+          "sha256": "31cd041dba72d185e63d73fa6b28af0816d944328745e57217f4e14d5568457a",
+          "size_bytes": 22552
+        },
+        "module": "stage17_formal_archive_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_checkpoint_v1.py",
+          "sha256": "6a67994844e71073f32802391750447c8de7ffd6b8b0b4bcae8eeeaed31b2358",
+          "size_bytes": 7637
+        },
+        "module": "stage17_formal_checkpoint_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_plan_v1.py",
+          "sha256": "adcf6da2c4256ed55dba66d267827feaf2162608baa9bb0eba5583f244038ae5",
+          "size_bytes": 18067
+        },
+        "module": "stage17_formal_plan_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_ring_plan_v1.py",
+          "sha256": "27535be87e6d3d03bbd6d590723cfe46a578deecddd01f39536f63caa2b64cd4",
+          "size_bytes": 13769
+        },
+        "module": "stage17_formal_ring_plan_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_formal_storage_budget_v1.py",
+          "sha256": "1546ca67db96cd6e8f65fb2dfe976ce24d1ef4cf3cd896d0f8ea24b214bfabf4",
+          "size_bytes": 6108
+        },
+        "module": "stage17_formal_storage_budget_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_output_registry_v10.py",
+          "sha256": "c492c512439770b407b2fc97dbfdfd34c88809f0252369f83e1204ca86e7875b",
+          "size_bytes": 8461
+        },
+        "module": "stage17_output_registry_v10"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_output_registry_v11.py",
+          "sha256": "3104432bc126e29664836ab3892581a378e5322bc6516ee8c790bdfb729d2e96",
+          "size_bytes": 12132
+        },
+        "module": "stage17_output_registry_v11"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_output_registry_v4.py",
+          "sha256": "782fdf42ecc330115e156293437cf5d5ad37cb60545895024ad838c0090c5763",
+          "size_bytes": 37444
+        },
+        "module": "stage17_output_registry_v4"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_output_registry_v5.py",
+          "sha256": "8c30451fe5c01cbd954bc83da0cb3029dd060d4ae7aa1f16fa0989f2a1f4f815",
+          "size_bytes": 9570
+        },
+        "module": "stage17_output_registry_v5"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_output_registry_v6.py",
+          "sha256": "9c18bd5d3e71e6bddc6e2989193d7d346d706435b7cb55ba031396b65a0384a5",
+          "size_bytes": 2513
+        },
+        "module": "stage17_output_registry_v6"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_output_registry_v7.py",
+          "sha256": "466e7121b9025fed0fcf5a69bec9d9ee1dcf77cd580b9da514e85d045869bd81",
+          "size_bytes": 1907
+        },
+        "module": "stage17_output_registry_v7"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_output_registry_v8.py",
+          "sha256": "f6abaab10a73c2621b10e5465d1cc01b66d92ff7226d8439773b0fdd88beba6c",
+          "size_bytes": 3914
+        },
+        "module": "stage17_output_registry_v8"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_process_group_supervisor_v2.py",
+          "sha256": "e32016e241822c5066519b66dff7553eaa57b2f487dbc605f8c7aff95f1cccc9",
+          "size_bytes": 21022
+        },
+        "module": "stage17_process_group_supervisor_v2"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_process_group_supervisor_v3.py",
+          "sha256": "37e3fb93fe2176f24d560608fd6d8fb3bcb02ef744ea6afa75db44b1d7be553b",
+          "size_bytes": 8354
+        },
+        "module": "stage17_process_group_supervisor_v3"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_q16a_discovery_v1.py",
+          "sha256": "5af8082cc9c76c5d2f73aa465719946ee7bd9b7df73fbd549b0f95b4bd995750",
+          "size_bytes": 6720
+        },
+        "module": "stage17_q16a_discovery_v1"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_q16a_discovery_v2.py",
+          "sha256": "7aa418ca1b871d62283a83dd97ec423ea3c39e2b695ff14d490c4848fb6fac9b",
+          "size_bytes": 5536
+        },
+        "module": "stage17_q16a_discovery_v2"
+      },
+      {
+        "image": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/tools/stage17_raw_stream_decoder_v1.py",
+          "sha256": "6a393bbd7c6721f715cd7b23c5a5c59368365ad3e77d950f2337d52089bfcab3",
+          "size_bytes": 15706
+        },
+        "module": "stage17_raw_stream_decoder_v1"
+      }
+    ]
+  },
+  "profile_binding": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/config/stage17/formal-archive-implementation-profile-v1.json",
+    "sha256": "b9e12215cfcb37e8af765107e895fc12fec3345ecc253b6701788fa5c3d86e06",
+    "size_bytes": 5959
+  },
+  "runtime_root": "/",
+  "schema_version": "software-stand-archive-runtime-check/1",
+  "scientific_credit": false,
+  "scope": "tiny software originals only; synthetic native-complete checkpoint is NOT a real capture",
+  "synthetic_test_only": true,
+  "wall_seconds": 120
+}

@@ -1,0 +1,68 @@
+{
+  "archive": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-release-gcc/pilot-candidate-bundle-stand-python-d45258f-1/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731.tar.gz",
+    "size_bytes": 80392589,
+    "sha256": "3ee3dfbc3a7a613383960db9feb3855e6ee66110941053822a72c8f7101145a4"
+  },
+  "bundle_root": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/d235-package-verification/clean-d45258f187ae33dbfcb7cda9459134509eb7cc78/extracted-stand-python-1/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731",
+  "bundle_profile": "STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
+  "source_revision": "d45258f187ae33dbfcb7cda9459134509eb7cc78",
+  "worker_sha256": "03407683627caa719b66f943b15db799b2d6465d83789db35ab5ce13fe43f4ad",
+  "archive_profile_binding": {
+    "path": "config/stage17/formal-archive-implementation-profile-v1.json",
+    "size_bytes": 5959,
+    "sha256": "b9e12215cfcb37e8af765107e895fc12fec3345ecc253b6701788fa5c3d86e06"
+  },
+  "runtime_python": {
+    "location": "runtime",
+    "path": "usr/bin/python3.14",
+    "sha256": "52e0a13e60a981d8c4b6478be2ba5176f69da07948a056bf49cf6f077e30cb41",
+    "size_bytes": 7477160
+  },
+  "window_log": 22,
+  "full_extracted_verifier": "PASS",
+  "eight_gate_reports": [
+    {
+      "path": "build/accepted-release-gcc/formal_codegen_report.json",
+      "sha256": "8bc1fde5a32ed8085f5280b1be73e4d4e1baf443c2d4398528fa58326b3b003a",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/discovery_codegen_report.json",
+      "sha256": "d3edf89e360816255cfa41bcbd1c63f96a0eb33555f69a3b0927e91d362e6d10",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "f810e05fcc1fe02bb3a127511856a4618bada13ba38161888dae0e2dc1b7f4e8",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "72038976fdbeb06a08d1a5c2e24d779926820a697964097f0823d836cb346087",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "8a3adc698538a85d225aeafea95cd6c0602510ab60bb6364ec2904bad2c672d4",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "1e98e96f7a8119d63da70e58b176182532561ceb8b1d7009b4d22a562401c833",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "3fd76cfeb4d880e96fc54bcd405ff1356022f5d1184ba25d2b93a17257d9cce8",
+      "status": "PASS"
+    }
+  ],
+  "stand_runtime_qualification": "PENDING actual root=/ and sealed Python/decoder functional qualification",
+  "authority": "NONE"
+}

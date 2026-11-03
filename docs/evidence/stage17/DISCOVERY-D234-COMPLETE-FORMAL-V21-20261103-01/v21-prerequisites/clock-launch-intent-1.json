@@ -1,0 +1,10 @@
+{
+  "started_at_utc": "2026-11-03T19:38:20.169894+00:00",
+  "maximum_launches": 1,
+  "finite_plan_sha256": "c45ea0f453177ff0f1b46837cf17a02ac2e697c4259f496854555e62ed8db21a",
+  "script_sha256": "041a220a99c3d4b38eb962dbaa85c67c35a4ef6425f9ad62531d991b5230fc67",
+  "operator_basis": "Standing owner instruction to finish Stage 17 autonomously; one near then conditional far and one Q15 session under unchanged finite bounds",
+  "formal_capture_authority": false,
+  "pilot_authority": false,
+  "phase18_authority": false
+}

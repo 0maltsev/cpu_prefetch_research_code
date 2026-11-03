@@ -1,0 +1,213 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "original_local_path": "build/stage17-step4-prep/d234-completion/reports/full-study-validation-parallel-v2.json",
+      "path": "d234/full-study-validation-parallel-v2.json",
+      "sha256": "3e129bca9fda358de857a813beecddbcc2c96ab3d0a9613ba93eac3ef06a8967",
+      "size_bytes": 54710
+    },
+    {
+      "original_local_path": "build/stage17-step4-prep/d234-completion/reports/analysis-process-result.json",
+      "path": "d234/analysis-process-result.json",
+      "sha256": "91657ef540d8c3c28ee6dec79ad666de7b98c354c95dfb65b77abb0bc3730d10",
+      "size_bytes": 477
+    },
+    {
+      "original_local_path": "build/stage17-step4-prep/d234-completion/reports/analysis-stdout.log",
+      "path": "d234/analysis-stdout.log",
+      "sha256": "de582d3fa1760ddd434302c7c94962c1008b5f5c0695e68964cde497183d6d41",
+      "size_bytes": 4330
+    },
+    {
+      "original_local_path": "build/stage17-step4-prep/d234-completion/reports/analysis-stderr.log",
+      "path": "d234/analysis-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/d235-package-verification/clean-d45258f187ae33dbfcb7cda9459134509eb7cc78/package-verification-1.json",
+      "path": "release/package-verification-1.json",
+      "sha256": "f15fcd838aea5e131621b3b7422e482dafa17ff7025cb3e1f30cbbed46203065",
+      "size_bytes": 2986
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/formal-v21-qualification/release-bindings.json",
+      "path": "release/release-bindings.json",
+      "sha256": "e1ae949e9e8e574761b7eee0998c60c42edee1bb51f1dffc2cc317d5ee57174f",
+      "size_bytes": 533
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/inventory.json",
+      "path": "runtime/inventory.json",
+      "sha256": "7ae0e4a07997c91ab2e7a4e51b1c50706f005d24a8adc469912f32bcd4f1d66a",
+      "size_bytes": 1771
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/archive-runtime-check-2/result.json",
+      "path": "runtime/archive-runtime-check-2/result.json",
+      "sha256": "c9a214b4fe392ed6c99e1af3af676c60642eb44978be2a9e8a67bda589b56f19",
+      "size_bytes": 605
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/archive-runtime-check-2/intent.json",
+      "path": "runtime/archive-runtime-check-2/intent.json",
+      "sha256": "5604c79ea0ae0f2d43ebb6a4b7f8f4f222ccf2e00946639454419e5205e30bd0",
+      "size_bytes": 12623
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/archive-runtime-check-2/parked-worker-cleanup.json",
+      "path": "runtime/archive-runtime-check-2/parked-worker-cleanup.json",
+      "sha256": "9844c48ecdcca30c6a7e94d797619823dbcc686b3facfad128157629269c495c",
+      "size_bytes": 614
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/archive-runtime-check-2/retained-readback.json",
+      "path": "runtime/archive-runtime-check-2/retained-readback.json",
+      "sha256": "4b6afd0425d09b6f9ef49920ae0ebf53f3025701c771a690e306ec68b99644fa",
+      "size_bytes": 6622
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/archive-runtime-check-2/sealed-python-observation.json",
+      "path": "runtime/archive-runtime-check-2/sealed-python-observation.json",
+      "sha256": "40b810e71e3e40933b16800fa8c262ef371121e70d18a988ee262f5b1f128f3c",
+      "size_bytes": 48719
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/archive-runtime-check-2/archive-outcome.json",
+      "path": "runtime/archive-runtime-check-2/archive-outcome.json",
+      "sha256": "904b6a07256c7f35c8a6270e2a205891987295875b7daef21f905f308b7f3b47",
+      "size_bytes": 1078
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/archive-runtime-check-1/failure.json",
+      "path": "runtime/archive-runtime-check-1/failure.json",
+      "sha256": "24444c200d6a66d7c87fc87595de470de78bdf4a542163bc0b784ef3200e3896",
+      "size_bytes": 2617
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/archive-runtime-check-launch-1.json",
+      "path": "runtime/archive-runtime-check-launch-1.json",
+      "sha256": "8a115559870d1c8768fbbdc4de63d2657782345dbd794a82cfe77b762bb3889e",
+      "size_bytes": 770
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/stand-runtime-evidence-1/archive-runtime-check-launch-2.json",
+      "path": "runtime/archive-runtime-check-launch-2.json",
+      "sha256": "e79b872ca4ffd35e8dd04f0f93c1872248ff8982f05a7b1d66d028fbd4abf035",
+      "size_bytes": 984
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-prerequisite-checkpoint-1/inventory.json",
+      "path": "v21-prerequisites/inventory.json",
+      "sha256": "518a0d08347f5a901e0b3e2ad9c38e99ae3c10c86f6cab10917961f5ec4973fd",
+      "size_bytes": 2401
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-prerequisite-checkpoint-1/serial-stop-intent.json",
+      "path": "v21-prerequisites/serial-stop-intent.json",
+      "sha256": "864aa0d34bf67b24826b45c2a0e79783578c7e1c6c0fc1ad0fc794d10991886d",
+      "size_bytes": 498
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-prerequisite-checkpoint-1/serial-stop-result.json",
+      "path": "v21-prerequisites/serial-stop-result.json",
+      "sha256": "1e52f5f246c471e2fd119dd05828b2c51c7de71df9f57a1ccf4ced6a47d4cf69",
+      "size_bytes": 843
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-prerequisite-checkpoint-1/serial-original-terminal.json",
+      "path": "v21-prerequisites/serial-original-terminal.json",
+      "sha256": "d619ca4b987e6a9d6eb6a91bcaaa5aea7fc0b245daba4a7a7fdbe4ad94d73a03",
+      "size_bytes": 109
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-prerequisite-checkpoint-1/journal-000006.json",
+      "path": "v21-prerequisites/journal-000006.json",
+      "sha256": "26643bbe88f2f318dab2e1ccee6e8c848b00960a1422551a54b751e33cef4527",
+      "size_bytes": 3341
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-prerequisite-checkpoint-1/ext001-v21.log",
+      "path": "v21-prerequisites/ext001-v21.log",
+      "sha256": "fbda88d433e64c56ce5da1c91545eceaabecde8f72573b3e00dbe31c43bda8e7",
+      "size_bytes": 6956
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-prerequisite-checkpoint-1/ext002-003-006-v21.log",
+      "path": "v21-prerequisites/ext002-003-006-v21.log",
+      "sha256": "77fb3e0743d9c7b847df626a9bbbdd4e0f2d4c345c5e31ece17f32f541416e7e",
+      "size_bytes": 9522
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-prerequisite-checkpoint-1/clock-launch-intent-1.json",
+      "path": "v21-prerequisites/clock-launch-intent-1.json",
+      "sha256": "437709feb7b971928fff65f5d514379834fc023b313928fe758b0ded13aedde0",
+      "size_bytes": 521
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-prerequisite-checkpoint-1/clock-launch-pid-1.json",
+      "path": "v21-prerequisites/clock-launch-pid-1.json",
+      "sha256": "6445d8ef7843b26ae02248ad033a556b03e74022be3a0d610fcf5cb09915468d",
+      "size_bytes": 39
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-q15-preparation-failure-1/prepare-q15r-v21.log",
+      "path": "q15-preparation-failure/prepare-q15r-v21.log",
+      "sha256": "39a5ba5828c02c413c4f617d76f6c1687e6c977105557f0ac4468aae63db0f02",
+      "size_bytes": 5804
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-q15-preparation-failure-1/clock-qualification-v21-1/complete.json",
+      "path": "q15-preparation-failure/clock-qualification-v21-1/complete.json",
+      "sha256": "24281a5256034878424851561cc6cd1db33ff221db216db367c81ce7aa005295",
+      "size_bytes": 984
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-q15-preparation-failure-1/clock-qualification-v21-1/restoration.json",
+      "path": "q15-preparation-failure/clock-qualification-v21-1/restoration.json",
+      "sha256": "763f9f158dc043fc7f6ea7595a48094345c8a522b32058d4dd71345b35ea568c",
+      "size_bytes": 332
+    },
+    {
+      "original_local_path": "build/stage17-step5-prep/v21-q15-preparation-failure-1/inventory.json",
+      "path": "q15-preparation-failure/inventory.json",
+      "sha256": "030f2b539b4e87bc8bf75176223620394db82953f896cdae6ecb40dd04261202",
+      "size_bytes": 492
+    }
+  ],
+  "pending_original_records": [
+    "Fresh clean successor release qualification and later Q15 receipts; no relabeling of d452 clock results"
+  ],
+  "phase18_authority": false,
+  "schema_version": "cpu-prefetch-stage17-d234-v21-checkpoint-inventory/1",
+  "scope": "Original small diagnostic-validation and release/runtime metadata; no raw streams or binaries",
+  "step4": {
+    "captures": 36,
+    "formal_runs_contributed": 0,
+    "selected_duration_ns": 1000000000,
+    "status": "COMPLETE",
+    "supervisor_finished_at_utc": "2026-11-03T19:32:20.088875+00:00"
+  },
+  "step5": {
+    "admitted_inputs": [
+      "S17-EXT-001",
+      "S17-EXT-002",
+      "S17-EXT-003",
+      "S17-EXT-006"
+    ],
+    "archive_runtime_fixture": "PASS",
+    "clock_q15_qualification": "BOTH_CLOCK_PAIRS_PASS_Q15_NOT_STARTED",
+    "journal_sequence_number": 6,
+    "package_verifier": "PASS",
+    "q15_preparation": "FAILED_BEFORE_REQUEST_SIGNATURE_OR_WORKER",
+    "restoration_verified": true,
+    "restored_at_utc": "2026-11-03T19:44:55Z",
+    "source_revision": "d45258f187ae33dbfcb7cda9459134509eb7cc78",
+    "status": "COLD_ROUTING_FIX_REQUIRES_CLEAN_SUCCESSOR"
+  },
+  "step6": {
+    "ext007_admitted": false,
+    "status": "PENDING"
+  }
+}

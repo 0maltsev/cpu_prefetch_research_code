@@ -1,5 +1,24 @@
 # Stage A Implementation Plan
 
+**Current EXT007 checkpoint (2026-11-03): Step 4 COMPLETE; Step 5 release
+qualification IN PROGRESS; Step 6 PENDING.** D234 independently validated all
+36 retained D207 captures and selected **1 s** for prospective formal planning.
+The analysis supervisor exited successfully at 19:32:20 UTC with all owned
+children reaped and no raw mutation. Diagnostic formal-run contribution is zero.
+Clean release `d45258f` passed full package verification; the actual stand archive
+fixture passed all nine artifacts in 18.655 s. Fresh v21 EXT001/002/003/006 are
+admitted at journal 000006. Both clock pairs passed on source `d45258f`.
+Q15-R preparation then failed on missing controller26 legacy callbacks, before
+request publication, authorization/signature or worker invocation; Q15-W did
+not start. Cgroup restoration was verified at 19:44:55 UTC. The minimal cold
+routing fix restores the two existing callbacks, with no scientific method
+change. A fresh clean successor release and source-bound qualification are
+required; the original clock passes remain bound to `d45258f` and are not relabeled. The superseded serial reader
+was stopped with SIGINT after bound full success at 19:37:29 UTC; its original
+exit -2 result is preserved. No formal family has started; exact prospective
+plans, phase authority, actual collection, independent calibration validation
+and EXT007 admission remain. See [the original reports and inventory](docs/evidence/stage17/DISCOVERY-D234-COMPLETE-FORMAL-V21-20261103-01/README.md).
+
 Protocol version: **`2.0.0-pre.3`** (with immutable predecessors
 `2.0.0-pre.1` and `2.0.0-pre.2`). Status values are `COMPLETE`, `BLOCKED`, `PENDING`, and
 `PROHIBITED`. The phases are dependency ordered; a later phase may be explored
@@ -335,7 +354,7 @@ authorization/amendment.
 The current dependency-ordered roadmap for all remaining requirements is
 [Stage 17 completion plan](docs/STAGE17_COMPLETION_PLAN.md). It covers runtime
 integration, fresh qualification, discovery and EXT007, EXT008–010, pilot,
-final freezes and validated exit. Current EXT007 status: **Step 2 DONE;
+final freezes and validated exit. Historical EXT007 checkpoint (superseded by the current summary): **Step 2 DONE;
 R1 STOPPED at its first warmup; R2 STOPPED at 10:49 UTC on 2026-11-03, D206 stand-primary custody; PC cleanup complete.**
 R1 had no measurement phase or formal calibration; its MSR/cgroup restoration
 was verified.
@@ -425,8 +444,8 @@ monitor raced an exiting worker; all owned children were reaped and no duration
 was selected. [D234](docs/decisions/0234-offline-analysis-exit-race-and-bounded-pool.md)
 repairs that race. Its 20 supervisor tests and 13 wrapper tests pass; a bounded
 16-worker revalidation of all 36 original captures passed fresh stand admission
-and started at 17:45:42 UTC. At 19:02:00 UTC, 27/36 captures had validated;
-full validation and duration selection remain pending. The owner accepted
+and started at 17:45:42 UTC. At the historical 19:02:00 UTC checkpoint, 27/36 captures had validated;
+D234 subsequently completed all 36 and selected 1 s at 19:32:20 UTC. The owner accepted
 [D233](docs/decisions/0233-stage17-formal-lossless-archive-proposal.md): future formal
 captures may use verified lossless archives under one shared 6 TB quota, with
 512 GiB workspace, 256 GiB analysis scratch and 16 GiB reserve. Implementation
@@ -441,8 +460,10 @@ passed 30 development checks and the same 30 under all four sanitizer configurat
 The actual executor-to-broker-to-codec handoff passed four cases, including failure
 retention and deadline reaping; retained archive readback passed with nine archives
 and nine independent decoder jobs. Package/profile and registered archive checks
-also pass. These are software verification only: final policy closure, clean-release
-code-generation/package checks and stand qualification remain. No formal family
+also pass. These were the pre-release software checks. Clean `d45258f` subsequently
+passed full package verification and the actual stand archive fixture;
+both clocks passed on that source, followed by the pre-action Q15 preparation
+failure documented above; a clean corrected successor is pending. No formal family
 has started. The optional Q16c sealed-source extension is deferred under D238;
 all three existing inline paths must qualify together. Future actual schedule size
 and memory must fit their existing bounds before Q16c can execute.

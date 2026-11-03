@@ -1,5 +1,26 @@
 # Stage 17 completion plan
 
+**Current EXT007 checkpoint (2026-11-03): Step 4 COMPLETE; Step 5 release
+qualification IN PROGRESS; Step 6 PENDING.** D234 independently validated all
+36 retained D207 captures and selected **1 s** for prospective formal planning.
+The analysis supervisor exited successfully at 19:32:20 UTC with all owned
+children reaped and no raw mutation. Diagnostic formal-run contribution is zero.
+Clean release `d45258f` passed full package verification; the actual stand archive
+fixture passed all nine artifacts in 18.655 s. Fresh v21 EXT001/002/003/006 are
+admitted at journal 000006. Both clock pairs passed on source `d45258f`.
+Q15-R preparation then failed on missing controller26 legacy callbacks, before
+request publication, authorization/signature or worker invocation; Q15-W did
+not start. Cgroup restoration was verified at 19:44:55 UTC. The minimal cold
+routing fix restores the two existing callbacks, with no scientific method
+change. A fresh clean successor release and source-bound qualification are
+required; the original clock passes remain bound to `d45258f` and are not relabeled. The superseded serial reader
+was stopped with SIGINT after bound full success at 19:37:29 UTC; its original
+exit -2 result is preserved. No formal family has started; exact prospective
+plans, phase authority, actual collection, independent calibration validation
+and EXT007 admission remain. See [the original reports and inventory](evidence/stage17/DISCOVERY-D234-COMPLETE-FORMAL-V21-20261103-01/README.md).
+
+Historical discovery checkpoints (their unresolved selections apply at those times):
+
 Updated 2026-11-03. Step 2 DONE: successor release `a1ade11`, clock and Q15-R/W qualified.
 Step 3: R1 STOPPED at its first warmup; R2 STOPPED at 10:49 UTC on
 2026-11-03 with exit 1. Failed R2 raw/control evidence is retained on the stand
@@ -35,58 +56,63 @@ credit for the unchanged formal EXT007 requirements.
    All 36 captures were collected; exit 0, process reaped and CPU isolation restored.
    Stand output totals 215,177,813,577 bytes. No automatic retry.
    R1 and R2 remain failed historical attempts, retained under D206 as detailed below.
-4. **In progress:** stand-side custody admission passed. Independent v2 validation
-   rejected the native whole-plot action-log shape before capture validation.
-   [D213](decisions/0213-discovery-whole-plot-readback-validation.md) corrects the
-   checker for H0 no-write logs and H1 reverse-order restoration. Revalidate the
-   entire original retained family, preserving the rejected report.
-   Select the common duration only if the complete study validates; file counts
-   and native success alone cannot select it. Return only small reports and
-   provenance to the PC. Duration selection is currently unresolved. Bounded eight-worker
-   reanalysis under [D224](decisions/0224-parallel-retained-discovery-validation.md)
-   passed 13 independent software tests. Its corrected launcher passed 15 tests
-   and wrapper 13 tests; fresh stand resource admission and startup passed at
-   16:28:46 UTC. Full validation and duration selection remain pending.
-   D224 stopped at 17:29 UTC after 18/36 capture checks on a worker-exit procfs
-   race; all owned children were reaped, with no final duration selection.
-   [D234](decisions/0234-offline-analysis-exit-race-and-bounded-pool.md) repairs the
-   monitor and revalidates all 36 originals with 16 bounded workers. Its launcher
-   passed 20 tests, wrapper 13 tests, and fresh stand admission at 17:45:42 UTC.
-   At 19:02:00 UTC, 27/36 captures had validated, with no stderr output.
-   The original serial analysis and all raw evidence remain preserved.
-5. Complete required formal-calibration fixes (including actual persistent warmup/reset;
-   Q16b interval counting now has accepted [D211](decisions/0211-stage17-q16b-completion-interval.md);
-   Q16a demand-window [D212](decisions/0212-stage17-q16a-demand-window.md) is owner accepted).
-   Raw trace/decoder and mapped lifecycle components have targeted software checks;
-   formal input/publication and the five-package service path are being verified.
-   Finish persistent scheduled Q16c, independent evidence validation and explicit
-   formal dispatch; qualify all three in one complete release before Q16a.
-   Freeze exact prospective durations, bounds, disk/memory and retention budgets,
-   then obtain the corresponding phase authority and execute Q16a (708 fresh
-   captures), Q16b (3,540 runs) and Q16c in order.
-   The persistent native implementations, original publication bridges, exact
-   calibration arithmetic, signed executor/CLI and schedule provenance now have
-   targeted verification. Both ThreadSanitizers pass 120 integration checks;
-   three GCC ASan process-boundary checks remain blocked by instrumented worker
-   size, with equivalent Clang ASan coverage passing on an allocated-byte-identical
-   debug-stripped copy. This does not yet qualify a clean release.
-   **Storage prerequisite:** the owner accepted
-   [D233](decisions/0233-stage17-formal-lossless-archive-proposal.md), permitting
-   verified lossless archives for future formal data under one shared 6 TB quota,
-   512 GiB workspace, 256 GiB analysis scratch and 16 GiB reserve. Implement and
-   qualify the encoder, independent inverse, ledger, per-capture checkpoint and
-   resource admission before use. Release a working copy only after durable
-   archive publication and full reconstruction/hash verification. Preserve all
-   observations, failed evidence and historical raw. Quota exhaustion stops the
-   family incomplete; sample ratios do not guarantee completion.
-   Encoder/inverse, custody, resource-plan and checkpoint checks pass. The native
-   checkpoint/channel slice passes 30 development checks and 30 under each of four
-   sanitizers. Four actual executor/broker handoff cases and nine-archive independent
-   retained readback pass. Final policy closure, clean release/package checks and
-   stand qualification remain. Defer D238's optional sealed-source Q16c extension;
-   qualify the existing three inline paths together and verify actual future Q16c
-   request size/memory before execution. No formal family has started.
-6. Validate and seal calibration evidence, derive the freeze, and admit EXT-007.
+4. **Complete:** D234 validated all 36 original D207 captures and selected
+   1 s for prospective formal planning. The supervisor exited 0 at 19:32:20 UTC,
+   with all owned children reaped and no raw mutation. Preserve the original
+   v2 rejection and D224 monitor-failure records; D213/D234 reanalysis supplies
+   the successful full-study result. All diagnostic formal-run contributions
+   remain zero. Original reports and exact hashes are linked above.
+5. **In progress — release qualification:** clean source `d45258f` passed
+   full package verification and the actual stand archive fixture (nine artifacts,
+   18.655 s). Fresh v21 EXT001/002/003/006 are admitted at journal 000006.
+   Both clock pairs passed on `d45258f`; Q15-R preparation failed before request,
+   signature or worker invocation because two legacy callbacks were absent.
+   Cgroup restoration passed at 19:44:55 UTC. The minimal cold routing fix
+   requires a fresh clean successor and its source-bound qualification before
+   Q15-R/W and formal execution; prior clock passes remain preserved. Finish the exact prospective 1 s-based
+   formal plan, release-applicability checks, bounds and shared D233 storage
+   budgets, then admit each dependency-ready phase. No formal family has started.
+   Q16a requires 708 fresh captures, followed by Q16b's 3,540 runs and Q16c in
+   order; diagnostic data supplies no formal credit. D238's optional sealed
+   Q16c transport remains deferred. Existing inline schedule size and memory
+   limits still apply. Archive quota exhaustion retains an incomplete family;
+   no implicit retry, top-up or guarantee from sample compression ratios.
+6. **Pending:** validate and seal actual formal calibration evidence, derive the scoped freeze, and admit EXT-007.
+
+Earlier Step 5 software checkpoint (superseded by the current release status):
+
+> 5. **In progress — release qualification:** required formal-calibration fixes (including actual persistent warmup/reset;
+>    Q16b interval counting now has accepted [D211](decisions/0211-stage17-q16b-completion-interval.md);
+>    Q16a demand-window [D212](decisions/0212-stage17-q16a-demand-window.md) is owner accepted).
+>    Raw trace/decoder and mapped lifecycle components have targeted software checks;
+>    formal input/publication and the five-package service path are being verified.
+>    Finish persistent scheduled Q16c, independent evidence validation and explicit
+>    formal dispatch; qualify all three in one complete release before Q16a.
+>    Freeze exact prospective durations, bounds, disk/memory and retention budgets,
+>    then obtain the corresponding phase authority and execute Q16a (708 fresh
+>    captures), Q16b (3,540 runs) and Q16c in order.
+>    The persistent native implementations, original publication bridges, exact
+>    calibration arithmetic, signed executor/CLI and schedule provenance now have
+>    targeted verification. Both ThreadSanitizers pass 120 integration checks;
+>    three GCC ASan process-boundary checks remain blocked by instrumented worker
+>    size, with equivalent Clang ASan coverage passing on an allocated-byte-identical
+>    debug-stripped copy. This does not yet qualify a clean release.
+>    **Storage prerequisite:** the owner accepted
+>    [D233](decisions/0233-stage17-formal-lossless-archive-proposal.md), permitting
+>    verified lossless archives for future formal data under one shared 6 TB quota,
+>    512 GiB workspace, 256 GiB analysis scratch and 16 GiB reserve. Implement and
+>    qualify the encoder, independent inverse, ledger, per-capture checkpoint and
+>    resource admission before use. Release a working copy only after durable
+>    archive publication and full reconstruction/hash verification. Preserve all
+>    observations, failed evidence and historical raw. Quota exhaustion stops the
+>    family incomplete; sample ratios do not guarantee completion.
+>    Encoder/inverse, custody, resource-plan and checkpoint checks pass. The native
+>    checkpoint/channel slice passes 30 development checks and 30 under each of four
+>    sanitizers. Four actual executor/broker handoff cases and nine-archive independent
+>    retained readback pass. Final policy closure, clean release/package checks and
+>    stand qualification remain. Defer D238's optional sealed-source Q16c extension;
+>    qualify the existing three inline paths together and verify actual future Q16c
+>    request size/memory before execution. No formal family has started.
 
 The owner accepted [D206](decisions/0206-stage17-ext007-stand-primary-custody.md)
 and its [recorded custody-policy approval](evidence/stage17/STAND-CUSTODY-D206-20261103-01/owner-acceptance.json).
@@ -106,6 +132,9 @@ D206 grants no experimental invocation or retry.
 Report each completed step or changed blocker against this six-step plan.
 
 ## Current position
+
+The current six-step status is stated above. The following retained R1/R2 and
+discovery-release checkpoints describe their historical state.
 
 - Step 3's first warmup stopped with native exit 1; partial warmup/control
   evidence was retained, with no measurement or formal collection. MSR and
@@ -244,7 +273,7 @@ is now blocked at the far-pair software affinity defect in v5-18 as recorded abo
 |---|---|---|
 | 1. Complete the executable runtime | Place and declare provider/backend/clock/controller coordination, worker TLS and other relevant runtime memory; connect actual before/during/after residency, affinity, fault, clock, hardware-state and environmental checks; complete watchdog, independent raw publication, partial-failure retention and restoration. Review formal Q16a, Q16b, Q16c and pilot paths together, including persistent warmup and service counts restricted to the fixed interval. | Integrated success and mandatory-failure tests; no forbidden work in measured intervals; exact complete-worker generated-code checks under both accepted disassemblers; supported compiler/sanitizer/static/schema/canonical checks. |
 | 2. Qualify a clean release and current stand | Build a complete source-bound runtime and policy successor; verify archive, binary and dependency identities; repair the missing runtime closure through the new release, not an improvised old wrapper. Replay the real journal and refresh all evidence invalidated by source, boot or platform changes. Reverify CPU pairs, mapping, clocks, atomics, memory, privileges, storage and restoration. | Clean release/custody records and a semantically admitted current predecessor chain. Historical EXT001–006 stay preserved; reuse only evidence whose dependency validity is demonstrated. |
-| 3. Freeze and run duration discovery | First family stopped at its first warmup. All 12 R1 files had verified two-copy custody at that checkpoint; independent failed-prefix reconciliation passes, but full-capture validation rejects the mandatory session stop. Duration selection is unresolved. Preserve R1 failure/restoration evidence. The amendment and one R2 family are owner accepted; stand footprints and live author-request validation pass. Exact signature verification and fresh PC checks passed. R2 stopped on 2026-11-03 at 10:49 UTC with exit 1; ten controls and 75 files (52,465,834,715 bytes) are retained, restoration result true. D206 cleanup and capture-9 phase validation are complete. Both phases reconcile; full capture is invalid for mandatory session stop caused by monitoring-window overrun. Captures 0–8 remain unassessed; duration selection is unresolved. Accepted ADR0207 changes the fresh36 grid to 1 s/2 s/5 s and is owner approved; implementation and qualification precede exact admission. | Retained raw/control/failure records and count-only selection of a common duration, or an explicit unresolved result. No diagnostic data enters formal calibration. |
+| 3. Freeze and run duration discovery | Complete for D207 R3: all 36 captures retained and independently validated under D234; 1 s selected for prospective formal planning. Failed R1/R2 and earlier checker/monitor records remain preserved. | Bound full-study validation and count-only selection; zero diagnostic contributions to formal calibration. |
 | 4. Close EXT007 | Freeze a new D-037 formal plan using discovery evidence; collect the required 708 fresh Q16a runs, then Q16b service calibration and Q16c feasibility in dependency order. Derive exact distance, service-rate and load outputs using accepted methods. | Phase-bound requests/authorizations, raw evidence, typed results, custody and calibration freeze accepted by the operational verifier. Any feasibility result awaiting final matrix exposure remains explicitly provisional. |
 | 5. Close EXT008 and EXT009 | Generate the exact prospective pilot matrix, schedules, IDs, seeds, repetitions, horizons, warmup/recovery, admission tickets and stop rules from accepted calibration. Prove buffers and durable capacity for that exact plan, both custody domains, transfer receipts, partial retention and recovery rehearsal. | Current-stand EXT008 plan and checked EXT009 storage/custody/recovery evidence. Old stand-v2 values are not defaults for stand v5. |
 | 6. Close EXT010 and execute the pilot | Bind all nine accepted predecessor resolutions into the exact finite Stage 17 pilot authorization. Execute only its permitted runs, retaining ordered primary streams, control observations, manifests, joins and failures. Produce treatment-blind pilot summaries. | Admitted EXT010, complete controller/worker output lineage, verified restoration, accepted custody and the required pilot output set. Ten catalog resolutions alone do not establish successful pilot completion. |
@@ -318,12 +347,11 @@ scientific decisions only when existing protocol/approval does not resolve them.
 
 Step 3 is complete for D207 R3: all 36 captures were retained, the native
 process exited successfully, and restoration and custody admission passed.
-Step 4 remains in progress. D213 repaired the independent whole-plot checker;
-D224's parallel analysis stopped after 18/36 checks because its monitor raced
-an exiting worker. D234's repaired 16-worker analysis passed fresh admission and
-started at 17:45:42 UTC on 2026-11-03. At 18:45:45 UTC it had validated
-17/36 captures. Full validation and common-duration selection are still pending. The serial analysis and both failed parallel
-attempt records remain preserved. No formal Q16a/Q16b/Q16c family has started.
+Step 4 is complete: D234 independently validated all 36 captures and selected
+1 s for prospective formal planning. Its supervisor exited 0 at 19:32:20 UTC
+with all owned children reaped and no raw mutation. Preserve earlier serial,
+rejected-validator and failed parallel-analysis records. No formal
+Q16a/Q16b/Q16c family has started; Step 6 remains pending.
 
 R1 and R2 are failed historical attempts. Their partial raw/control evidence,
 restoration records and independent prefix reconciliations remain retained;
@@ -331,7 +359,9 @@ none supplies formal calibration credit or selects a duration. D206 permits
 stand-primary custody for this EXT007 scope. Analyze original raw data on the
 stand and return only small reports/provenance to the PC.
 
-Step 5 proceeds concurrently on necessary formal software integration. Component
+Step 5 is preparing the minimal corrected successor to `d45258f` after its
+pre-action Q15 routing failure; its package, archive fixture and clock passes
+remain bound to that original release. Component
 and combined software checks do not replace complete release qualification,
 exact prospective resource plans, signed phase authority, actual formal
 collection or independent evidence validation. Preserve the fixed plan and

@@ -1,0 +1,25 @@
+{
+  "cleanup_deadline_overrun": false,
+  "cleanup_diagnostics": [],
+  "descendants_detected_after_leader_exit": false,
+  "leader_reaped": true,
+  "leader_wait_timed_out": false,
+  "maximum_descendant_count": 0,
+  "namespace_snapshot": {
+    "local_pgid": 37106,
+    "local_pid": 37107,
+    "namespace_inode": "4026531836",
+    "nspgid": [
+      37106
+    ],
+    "nspid": [
+      37107
+    ],
+    "procfs_namespace_inode": "4026531836",
+    "visible_pgid": 37106,
+    "visible_pid": 37107
+  },
+  "process_group_gone": true,
+  "returncode": 0,
+  "terminal_cleanup_outcome": "SIGTERM_LEADER_REAPED_GROUP_QUIESCENT"
+}

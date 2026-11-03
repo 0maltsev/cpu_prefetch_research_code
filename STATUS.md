@@ -1117,3 +1117,11 @@ memory: the largest 31,944,212-value check uses 298,307,584 bytes peak RSS.
 The replacement clean release remains to be qualified. Historical local
 evidence search needs access to owner-inaccessible old directories; no claim
 of an exhaustive negative search or experimental completion has been made.
+
+Latest EXT007 checkpoint (2026-11-03): release source `817c652` is deployed and
+verified on the stand (1,759 files). Seven clean release gates and qualification
+prefetch checks for both GCC and Clang under both disassemblers pass. Fresh
+v5-17 remains PREPARED with no resolutions or attempts. Qualification is waiting
+for the owner's privileged local historical-evidence search; its exact read-only
+command is in the completion plan. Discovery and formal calibration have not
+started. The deployed runtime remains the immutable `817c652` release.

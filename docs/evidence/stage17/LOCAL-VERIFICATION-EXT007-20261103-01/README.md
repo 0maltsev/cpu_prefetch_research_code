@@ -204,3 +204,10 @@ bytes of packed capacity with 298,307,584 bytes peak RSS. Generic JSON limits
 and artifact format remain unchanged. Current policy30/56 checks pass; native
 measurement source is unchanged. Clean release, stand qualification, prospective
 resource allocation and actual historical-evidence access remain separate gates.
+
+[Release 817c652 deployment](release-817c652-deployment.json) records seven clean
+release gates, actual local/stand bundle verification (1,759 files), and fresh
+GCC/Clang standalone and combined prefetch checks under both disassemblers.
+The v5-17 stand journal is PREPARED with zero resolutions/attempts. The local
+privileged D124 evidence search is pending; no qualification or capture has run.
+The smaller resource allocation is a proposal, not an admitted execution plan.

@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-Updated 2026-11-03. D-202/D-203 frozen in `2ff7667`; release deployed, preflight compatibility repair active.
+Updated 2026-11-03. D-204 release `817c652` deployed; fresh qualification awaits local evidence access.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
 This roadmap is not an execution authorization or a scientific amendment.
 
@@ -11,8 +11,8 @@ and requests an update after every step. Defer EXT008–010, pilot execution and
 Stage 18 work. Finish only already-started checks and necessary calibration work.
 
 1. **Complete:** finish current verification and freeze the discovery implementation.
-2. **Active:** clean release `2ff7667` built and deployed; repair the reproduced
-   legacy preflight-policy mismatch, then qualify its clean successor.
+2. **Active:** clean replacement release `817c652` is deployed and verified.
+   Complete the privileged local evidence search, then refresh stand qualification.
 3. Freeze the approved 36-capture discovery plan within verified PC storage,
    then execute it once under its exact finite authority.
 4. Independently validate retained evidence and apply the approved count-only
@@ -27,6 +27,23 @@ each finite plan. Do not introduce compression or waive D-033 custody limits.
 Report each completed step or changed blocker against this six-step plan.
 
 ## Current position
+
+- Current release `817c652` passes seven strict codegen gates and actual
+  local/stand bundle verification (1,759 files). GCC and Clang qualification
+  prefetch checks pass under both disassemblers. The compatibility blocker is
+  repaired; fresh v5-17 is PREPARED, zero resolutions, zero attempts.
+- Immediate prerequisite: owner-assisted read access for the D124 historical
+  local evidence search. The tested command below only reads public JSON and
+  writes its report; it does not change permissions or run experiments.
+
+```sh
+cd /home/omaltsev/research/cpu_prefetch_research_code && (set -o noclobber; sudo /usr/bin/python3 -B build/stage17-step2-prep/search_d124_public_receipts.py > build/stage17-step2-prep/d124-root-search-report.json)
+```
+
+A smaller buffer proposal fits modeled storage and active-memory budgets;
+full environmental sizing, fresh resources and finite limits remain to freeze.
+The proposal does not guarantee the full warmup or sufficient capture counts.
+Earlier checkpoints below retain their historical scope.
 
 - Step 1 is complete at local commit `2ff7667`. Its clean release passed all
   seven codegen gates and both local/stand package verification (1,732 files).
@@ -72,8 +89,7 @@ Report each completed step or changed blocker against this six-step plan.
 
 The D-204 local fix now passes real authoring/admission/executor readiness,
 release compatibility, metadata and retained-data regressions. The largest
-31,944,212-value metadata test uses about 285 MiB peak RSS. Freeze and build
-its clean successor next. Historical local evidence remains inaccessible to
+31,944,212-value metadata test uses about 285 MiB peak RSS. Its clean successor `817c652` is now deployed. Historical local evidence remains inaccessible to
 the current account; a tested read-only search command has been sent to the
 owner. No fresh absence claim substitutes for that search.
 

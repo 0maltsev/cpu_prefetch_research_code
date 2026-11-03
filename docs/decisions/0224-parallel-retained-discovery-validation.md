@@ -53,3 +53,37 @@ failures, hardware readback failures, worker exception/death/timeout, complete
 cleanup and absence of selector calls on any failed family. Record the adapter,
 wrapper, decision and dependency hashes in a fresh exclusive analysis intent.
 The qualified experiment source and completed custody admission are unchanged.
+
+## Pre-admission rejection and corrected resource allowance
+
+The first D224 launcher in `discovery-analysis-r3-d224-1` rejected before
+creating an analysis intent or starting the wrapper. The 281439954-byte control
+ceiling above came from a partial summary and did not cover the complete family.
+This was a launcher resource-admission rejection; it performed no experiment
+and no independent raw reconciliation. Preserve that installed directory,
+its code, manifest and rejection receipt without modification.
+
+The complete original retention report has SHA256
+`89c5ce6c123195aba3831cc62972bb7c671e07110aa2c051bcb59366c7ceddc0`.
+Its largest control is capture 08, 3373611301 bytes, SHA256
+`0c96a6c62553469ed74a9b8270f19ab83cee28296b32dfb526d7d19ec541abaa`;
+the eight largest controls total 25811843355 bytes. These are original retained
+size bindings, not new observations or a scientific interpretation of the raw.
+
+For the fresh exclusive `discovery-analysis-r3-d224-2` preparation, replace the
+control ceiling with 3373611301 bytes and the scratch allowance with 256 GiB.
+Keep the separate 16 GiB free-space reserve, requiring at least 272 GiB free
+disk at fresh admission. The hard address-space limits remain 8 GiB for each
+worker, the parent and the supervisor; MemAvailable must still be at least
+80 GiB and affinity must expose at least eight CPUs under the expected boot.
+The revised conservative scratch estimate is
+`8 * 3373611301 * 6 = 161933342448` bytes, below 256 GiB. The sixfold expansion
+remains an estimate, not a proved serializer bound. Scratch remains monitored
+once per second, including unlinked spools, with possible between-poll overshoot;
+it is not a filesystem quota. The whole-analysis deadline remains 86400 seconds.
+
+This accepted offline engineering correction changes neither validator bytes,
+capture membership, selector ordering nor scientific acceptance. The new wrapper
+and installation manifest bind this revised ADR. Independent launcher tests must
+accept a control above the old ceiling when within the new original-byte bound,
+and reject a control above the corrected ceiling. No old serial process is killed.

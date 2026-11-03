@@ -11,6 +11,7 @@ import array
 import contextlib
 import hashlib
 import hmac
+import itertools
 import json
 import os
 import pathlib
@@ -32,6 +33,29 @@ MAX_JSON_NODES = 10_000_000
 MAX_TOKEN_BYTES = CHUNK
 MAX_RESIDENT_TEXT = 256 * CHUNK
 MAX_ARENA_BYTES = 128 * CHUNK
+MAX_PACKED_PAGE_BYTES = 256 * CHUNK
+PAGE_BLOCK_ITEMS = 8192
+PAGE_DELIMITER = re.compile(r'[,\]\s]')
+
+
+class PackedPages:
+    """Fixed 64-KiB numeric blocks; reader charges capacity before allocation.
+
+    No retained Python int per page, no append-growth allocation, and no
+    conversion of these arrays back to lists. Final block slack is charged too.
+    """
+    def __init__(self, signed):
+        self.typecode = 'q' if signed else 'Q'
+        self.blocks = []
+        self.count = 0
+
+    def __len__(self):
+        return self.count
+
+    def __iter__(self):
+        for ordinal, block in enumerate(self.blocks):
+            yield from itertools.islice(block, min(PAGE_BLOCK_ITEMS,
+                                                   self.count - ordinal * PAGE_BLOCK_ITEMS))
 
 
 class ValidationError(ValueError):
@@ -76,10 +100,49 @@ class Spool:
 
 
 class JsonReader:
-    """Strict incremental JSON; only drain_rows may exceed resident-node bound."""
+    """Strict JSON: drains spooled, page integers packed, other metadata bounded."""
     def __init__(self, stream, stack):
         self.stream, self.stack = stream, stack
         self.buffer, self.pos, self.nodes, self.text_bytes = '', 0, 0, 0
+        self.packed_bytes = 0
+
+    def packed_pages(self, key, depth):
+        signed = key == 'page_status'
+        result = PackedPages(signed)
+        require(array.array(result.typecode).itemsize == 8, 'unsupported packed integer ABI')
+        low, high = (-(1 << 63), (1 << 63) - 1) if signed else (0, U64)
+        self.ws()
+        if self.peek() == ']':
+            self.take(); return result
+        require(depth + 1 < 64, 'unsupported JSON resident metadata size/depth')
+        while True:
+            self.ws()
+            token = ''
+            while self.peek():
+                delimiter = PAGE_DELIMITER.search(self.buffer, self.pos)
+                end = delimiter.start() if delimiter else len(self.buffer)
+                token += self.buffer[self.pos:end]
+                self.pos = end
+                require(len(token) <= 20, 'packed page integer token size')
+                if delimiter:
+                    break
+            require(re.fullmatch(r'-?(?:0|[1-9][0-9]*)', token) is not None,
+                    'packed page value must be a JSON integer')
+            value = int(token)
+            require(low <= value <= high, 'packed page integer range')
+            offset = result.count % PAGE_BLOCK_ITEMS
+            if offset == 0:
+                capacity = PAGE_BLOCK_ITEMS * 8
+                require(self.packed_bytes + capacity <= MAX_PACKED_PAGE_BYTES,
+                        'unsupported cumulative packed page capacity')
+                self.packed_bytes += capacity
+                result.blocks.append(array.array(result.typecode, [0]) * PAGE_BLOCK_ITEMS)
+            result.blocks[-1][offset] = value
+            result.count += 1
+            self.ws(); end = self.take()
+            if end == ']':
+                return result
+            require(end == ',', 'JSON packed page array delimiter')
 
     def peek(self):
         if self.pos == len(self.buffer):
@@ -116,6 +179,8 @@ class JsonReader:
                 if end == '}': return result
                 require(end == ',', 'JSON object delimiter')
         if char == '[':
+            if key in ('page_addresses', 'page_status'):
+                return self.packed_pages(key, depth)
             result = Spool(self.stack) if key == 'drain_rows' else []
             self.ws()
             if self.peek() == ']':

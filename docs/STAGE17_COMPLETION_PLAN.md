@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-Updated 2026-11-03. D-202/D-203 software verification complete; clean release next.
+Updated 2026-11-03. D-202/D-203 frozen in `2ff7667`; release deployed, preflight compatibility repair active.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
 This roadmap is not an execution authorization or a scientific amendment.
 
@@ -11,7 +11,8 @@ and requests an update after every step. Defer EXT008–010, pilot execution and
 Stage 18 work. Finish only already-started checks and necessary calibration work.
 
 1. **Complete:** finish current verification and freeze the discovery implementation.
-2. **Active:** build a clean release, deploy it and refresh required stand qualification.
+2. **Active:** clean release `2ff7667` built and deployed; repair the reproduced
+   legacy preflight-policy mismatch, then qualify its clean successor.
 3. Freeze the approved 36-capture discovery plan within verified PC storage,
    then execute it once under its exact finite authority.
 4. Independently validate retained evidence and apply the approved count-only
@@ -27,6 +28,15 @@ Report each completed step or changed blocker against this six-step plan.
 
 ## Current position
 
+- Step 1 is complete at local commit `2ff7667`. Its clean release passed all
+  seven codegen gates and both local/stand package verification (1,732 files).
+  Fresh stand context v5-16 contains only the initialized genesis journal.
+- Step 2 found a blocker before qualification: the policy-29 preflight executor
+  imports a legacy journal binding and changes semantic policy 55 to 47.
+  An independent local reproduction then rejects current schema hashes.
+  Preserve that release and genesis; repair only this prerequisite through a
+  versioned successor and qualify a fresh context. No qualification attempt,
+  discovery capture, or formal calibration followed from this release.
 - SSH to `root@94.126.205.83` works through the development PC's persistent
   server-only VPN bypass.
 - Last semantically validated stand state: EXT001–006 accepted, two
@@ -59,6 +69,13 @@ Report each completed step or changed blocker against this six-step plan.
   passes seven codegen gates. D-203 supplies caller-owned linked storage for
   later required service calibration. Source freeze and clean release/stand
   qualification are the immediate next gates. No discovery capture has run.
+
+The D-204 local fix now passes real authoring/admission/executor readiness,
+release compatibility, metadata and retained-data regressions. The largest
+31,944,212-value metadata test uses about 285 MiB peak RSS. Freeze and build
+its clean successor next. Historical local evidence remains inaccessible to
+the current account; a tested read-only search command has been sent to the
+owner. No fresh absence claim substitutes for that search.
 
 ## Ordered work and acceptance gates
 

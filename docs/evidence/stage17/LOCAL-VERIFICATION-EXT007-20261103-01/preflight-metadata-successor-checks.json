@@ -1,0 +1,175 @@
+{
+  "recorded_utc": "2026-11-03T02:18:19.416899+00:00",
+  "source_base_commit": "2ff76672a653ba1ae9bf5217ff3bcd7726b8ea03",
+  "authority": "NONE",
+  "native_measurement_source_changed": false,
+  "stand_qualification_attempts": 0,
+  "experiment_captures": 0,
+  "source_files": [
+    {
+      "path": "CMakeLists.txt",
+      "size_bytes": 147913,
+      "sha256": "29ce34c7548a7b77d96afa1ca62585074109dc7f8ccb1aca3b16009f04ae8c44"
+    },
+    {
+      "path": "config/schemas/stage17-operational-evidence-admission-policy-v56.schema.json",
+      "size_bytes": 3959,
+      "sha256": "ec673818e0c69ed7e48c6afa70275122d66b2e4ca9421387c23f610bb1179d38"
+    },
+    {
+      "path": "config/schemas/stage17-pilot-candidate-external-contract-v8.schema.json",
+      "size_bytes": 4921,
+      "sha256": "00abc96eaafbc37d5ad6983cbb4b2e54ce2e3237e7a2d6d74fc6b5bc4c1a3d15"
+    },
+    {
+      "path": "config/schemas/stage17-read-only-preflight-evidence-admission-policy-v30.schema.json",
+      "size_bytes": 4478,
+      "sha256": "fb3ab7e458134a651ac3f928afd0320a72baf4ca047471a6e3938dcebae61664"
+    },
+    {
+      "path": "config/schemas/stage17-runtime-release-provenance-v8.schema.json",
+      "size_bytes": 3376,
+      "sha256": "a21bffe7aae241ad3d35577143ba9fbfa8ff35f979625466a53dafee1f0f16bb"
+    },
+    {
+      "path": "config/stage17/stage17-operational-evidence-admission-policy-v56.json",
+      "size_bytes": 152292,
+      "sha256": "6e6b2656ef5be1e1dfbe4f42b7d1cb16b4fa94a9843cdc92cbe64c953357ca86"
+    },
+    {
+      "path": "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v30.json",
+      "size_bytes": 15473,
+      "sha256": "677d1cbcc97e0cd919d558a5b2239f0428cebd116861945c09a51d35b4a0dc0a"
+    },
+    {
+      "path": "tests/test_stage17_discovery_metadata.py",
+      "size_bytes": 6973,
+      "sha256": "19ade9a59187f5e92bd89a02307055077c6d1c6c73be4f3bf722f339eef13fd2"
+    },
+    {
+      "path": "tools/author_stage17_policy_v56.py",
+      "size_bytes": 3976,
+      "sha256": "160de8c515364f81324a6385f67481dcfc3eb5b048e6087effbcff721ac5d146"
+    },
+    {
+      "path": "tools/check_stage17_preflight_successor.py",
+      "size_bytes": 25335,
+      "sha256": "104d8cd6bffea7b0a9c2e4098b0cea0490babf3d75018894026189807c810f63"
+    },
+    {
+      "path": "tools/create_stand_bundle.py",
+      "size_bytes": 51436,
+      "sha256": "b115cc9d25554fd1ed1a8d0a5c7906778d1a0831b890d0bdadcf3d5d00cac28a"
+    },
+    {
+      "path": "tools/stage17_discovery_validation_v1.py",
+      "size_bytes": 68916,
+      "sha256": "ec5dd7250fa682465ae49ab97ccdf58799611b01f551b2b8da4547a295f5510a"
+    },
+    {
+      "path": "tools/stage17_operational_cli_v16.py",
+      "size_bytes": 18321,
+      "sha256": "2da359c1d2b662a6fb6cfebf09662f833c992909e0070b0294fa3257752d7c4b"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v14.py",
+      "size_bytes": 2342,
+      "sha256": "a954fbcd347cf6d717d9d13590593d6613844d8e66adedd9bfc20121a150e55b"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v23.py",
+      "size_bytes": 1253,
+      "sha256": "2ab8388d8ed426a51d04c2ade779468a492fc502151dcf4696f30de80106fde2"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v10.py",
+      "size_bytes": 17684,
+      "sha256": "140f3c05d08ff04ba00ab85e6a819d43ffc89451b74307423b2606810a9be090"
+    },
+    {
+      "path": "tools/stage17_q15_session_controller_v18.py",
+      "size_bytes": 928,
+      "sha256": "4388e1e020a4508e2e5e7e7fb591d839c3b9759869a9ce0f0df78896f435373a"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_executor_v30.py",
+      "size_bytes": 1217,
+      "sha256": "8c26e117ee6170ebc3bf1d391c11b81a5f5d0645612904e5607361dc9b4024c1"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v30.py",
+      "size_bytes": 5245,
+      "sha256": "ac2dbe89a0fb419c196bcc53ea9e744e5b90d12d5114c7d018c731ebf5813bb1"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v56.py",
+      "size_bytes": 3597,
+      "sha256": "769f2e038eedba33a5943e49edcc942004dbdf6f38b064ff2fcb593c38727459"
+    },
+    {
+      "path": "tools/stage17_state_journal_v50.py",
+      "size_bytes": 1302,
+      "sha256": "9bb9af9bb463f1a431b4bc2c9a90729d5801073c911814eef9ab36779e885cca"
+    },
+    {
+      "path": "tools/verify_stand_bundle.py",
+      "size_bytes": 75118,
+      "sha256": "49ed5f2087e73f245a21ca04fd8efc9a59b1a21ac9b748570fb4bdea6d5f2041"
+    }
+  ],
+  "checks": {
+    "preflight": "PASS real CLI author/admit/transition, three import orders, expiry/source negatives, isolated imports; no transport/marker",
+    "release_compatibility": "5 PASS",
+    "metadata": "6 focused cases PASS; explicit maximum geometry PASS",
+    "retained_validation": "12 PASS",
+    "cpp_publisher_bridge": "5 PASS",
+    "compiled_diagnostic_admission": "PASS existing CTest with compiled worker (31.48 seconds)",
+    "format_protocol_schema_canonical": "PASS",
+    "current_policy30_and56": "PASS generated bytes and genesis semantic replay"
+  },
+  "maximum_geometry": {
+    "parsed_values": 31944212,
+    "packed_capacity_bytes": 260308992,
+    "peak_rss_bytes": 298307584,
+    "generic_nodes": 213,
+    "generic_text_bytes": 4916
+  },
+  "logs": [
+    {
+      "path": "build/ext007-runtime-20261101/preflight-policy55-regression.log",
+      "size_bytes": 6744,
+      "sha256": "e7da4cd90e61b5263ed51ead5fc68546e732321ad83be71e2f317ed63eb9caf8"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/d204-preflight-successor.log",
+      "size_bytes": 247,
+      "sha256": "036bee3ce4d717c503f83cbce3536404f9116cc0a288abb1ccbd5363b2265642"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/d204-integrated-checks.log",
+      "size_bytes": 1389,
+      "sha256": "253180d4d1447c7dc75cc121d9bf144dc7144222a28e7d8286eccf8e592a16ff"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/d204-diagnostic-compatibility.log",
+      "size_bytes": 435,
+      "sha256": "ad2e1729c4ff0b44b06483f8b2521e67111d6740031574679b5095f8def77f68"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/d204-policy56.log",
+      "size_bytes": 676,
+      "sha256": "8ef3f831530da9247eafaa18b51b0e2416d4c325766ca32c3d9e528b2a8075e7"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/discovery-metadata-validation.log",
+      "size_bytes": 234,
+      "sha256": "ff5da358d35a5571c4bd8c2dd792467c20ed4989786ce6666efea9a193cfccba"
+    }
+  ],
+  "limitations": [
+    "Replacement clean release and stand qualification remain required.",
+    "Old 18m capacity preview cannot fit existing PC custody or demonstrated stand publication memory envelope; prospective allocation remains open.",
+    "D124 historical local public-evidence search remains blocked on unreadable directories; owner read-only command pending.",
+    "No discovery or formal calibration has executed."
+  ]
+}

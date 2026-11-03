@@ -1101,3 +1101,19 @@ watchdogs, clock, address residency, second durable storage domain/custody/
 capacity, and prospective calibration/pilot inputs are proven. Confirmatory
 execution additionally requires every pilot-derived and owner-supplied freeze
 record.
+
+EXT007 step-2 checkpoint (2026-11-03): clean source `2ff7667` passed all seven
+codegen gates, packaged successfully, and passed local and stand verification
+of 1,732 files. The fresh v5-16 journal is `PREPARED` with no resolutions or
+attempts. Before qualification, the legacy preflight executor was reproduced
+resetting semantic policy 55 to 47 and rejecting current schema bindings.
+A versioned compatibility repair is required before a fresh qualification;
+no discovery or formal calibration has run. Follow the six-step EXT007 plan.
+
+ADR-0204 repairs that current-entry-point binding through preflight policy 30
+and operational policy 56. The real local author/admit/transition/readiness
+regression passes. Packed page metadata retains all observations with bounded
+memory: the largest 31,944,212-value check uses 298,307,584 bytes peak RSS.
+The replacement clean release remains to be qualified. Historical local
+evidence search needs access to owner-inaccessible old directories; no claim
+of an exhaustive negative search or experimental completion has been made.

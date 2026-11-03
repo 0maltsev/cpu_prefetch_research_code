@@ -782,6 +782,13 @@ if(BUILD_TESTING)
   set_tests_properties(runner.discovery_action_admission PROPERTIES
     LABELS "runner;diagnostic;synthetic" TIMEOUT 180)
   add_test(
+    NAME runner.stage17_preflight_successor
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tools/check_stage17_preflight_successor.py"
+            --root "${PROJECT_SOURCE_DIR}")
+  set_tests_properties(runner.stage17_preflight_successor PROPERTIES
+    LABELS "runner;qualification;synthetic" TIMEOUT 180)
+  add_test(
     NAME calibration.discovery_environment_validation
     COMMAND "${Python3_EXECUTABLE}" -B
             "${PROJECT_SOURCE_DIR}/tests/test_stage17_discovery_environment.py")
@@ -793,6 +800,12 @@ if(BUILD_TESTING)
             "${PROJECT_SOURCE_DIR}/tools/check_stage17_discovery_validation.py")
   set_tests_properties(calibration.discovery_retained_validation PROPERTIES
     LABELS "calibration;diagnostic;synthetic" TIMEOUT 120)
+  add_test(
+    NAME calibration.discovery_metadata_validation
+    COMMAND "${Python3_EXECUTABLE}" -B
+            "${PROJECT_SOURCE_DIR}/tests/test_stage17_discovery_metadata.py")
+  set_tests_properties(calibration.discovery_metadata_validation PROPERTIES
+    LABELS "calibration;diagnostic;synthetic" TIMEOUT 180)
   add_executable(cpu_prefetch_stage17_discovery_fixture
     tools/stage17_discovery_fixture_main.cpp)
   target_link_libraries(cpu_prefetch_stage17_discovery_fixture PRIVATE

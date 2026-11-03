@@ -193,3 +193,14 @@ again finds unchanged boot and real operational journal identity. The owner
 confirms dedicated use. No new semantic replay, phase authority, qualification
 or capture follows. Full live footprint/control monitoring, publication and
 watchdog, exact-boundary qualification and diagnostic admission remain open.
+
+ADR-0204: [preflight-metadata-successor-checks.json](preflight-metadata-successor-checks.json)
+records the reproduced legacy preflight-policy reset and its versioned repair,
+including actual local author/admit/transition/readiness regression and five
+release compatibility cases. Six packed-metadata cases, twelve retained-data
+cases, five C++ publication bridge cases and the compiled diagnostic admission
+check pass. The explicit 31,944,212-value parse/iteration retains 260,308,992
+bytes of packed capacity with 298,307,584 bytes peak RSS. Generic JSON limits
+and artifact format remain unchanged. Current policy30/56 checks pass; native
+measurement source is unchanged. Clean release, stand qualification, prospective
+resource allocation and actual historical-evidence access remain separate gates.

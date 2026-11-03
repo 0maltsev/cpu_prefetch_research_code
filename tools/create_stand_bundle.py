@@ -19,8 +19,8 @@ from typing import Any
 
 
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
-STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v23"
-STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v19"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v24"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v20"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "discovery_codegen_report.json": ("cpu_prefetch_runner", "check_discovery_codegen.py"),
@@ -566,12 +566,12 @@ def main() -> int:
             # its own per-run resolution/dispatch in package_capture) --
             # same class of re-pin once more.
             policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v55.json"
+                "config/stage17/stage17-operational-evidence-admission-policy-v56.json"
             )
             policy_path = root / policy_relative
             policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
             controller_files = copy_policy_bound_files(root, staging, policy_document)
-            controller_suffix = "v22"
+            controller_suffix = "v23"
             stage17_controller_runtime = {
                 "controller_id":
                     f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-{controller_suffix}",
@@ -597,7 +597,7 @@ def main() -> int:
             # depend on the wider test-only source projection.
             nested_policy_relative = pathlib.Path(
                 "config/stage17/"
-                "stage17-read-only-preflight-evidence-admission-policy-v28.json"
+                "stage17-read-only-preflight-evidence-admission-policy-v30.json"
             )
             nested_policy_path = root / nested_policy_relative
             nested_policy = json.loads(nested_policy_path.read_text(encoding="utf-8"))

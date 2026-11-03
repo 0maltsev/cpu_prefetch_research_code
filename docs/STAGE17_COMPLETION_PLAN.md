@@ -1,6 +1,8 @@
 # Stage 17 completion plan
 
-Updated 2026-11-03. Step 2 complete: release `ac64633`, clock and Q15-R/W qualified; Step 3 active.
+Updated 2026-11-03. Step 2 DONE: release `ac64633`, clock and Q15-R/W qualified.
+Step 3 STOPPED at the first warmup of the first 36-capture family; no measurement
+phase or formal calibration ran. The stand's MSR and cgroup state was restored.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
 This roadmap is not an execution authorization or a scientific amendment.
 
@@ -14,11 +16,18 @@ Stage 18 work. Finish only already-started checks and necessary calibration work
 2. **Complete:** clean release `ac64633`, both clock pairs and Q15-R/W pass.
    EXT001–006 are admitted at v5-19 journal 000009, six resolutions and three
    transitions, READY_FOR_STAGE17_PHASE_AUTHORIZATION. Q15-W restored hardware.
-3. **Active:** freeze the approved 36-capture discovery plan within verified
-   PC storage and current stand resources, then execute it once under its exact
-   finite authority. Full monitoring and publication/resource limits remain to freeze.
-4. Independently validate retained evidence and apply the approved count-only
-   duration selector. Preserve an unresolved result if no candidate qualifies.
+3. **Stopped, unresolved:** the first 36-capture family stopped during capture 0
+   warmup. The consumer reached five million attempts; the independently reconciled
+   prefix spans 1,472,506,585 ns. No measurement phase ran. Retain the
+   failure and verified restoration; do not retry or extend this family.
+4. **Failed-prefix validation complete:** all 12 files (1,142,655,488 bytes) have
+   SHA-verified two-copy custody; independent validation reports
+   `FAILED_STUDY_PREFIX_RECONCILED`. Full-capture validation is rejected for the
+   mandatory session stop; the 36-capture study is not valid and duration
+   selection remains unresolved. Review the
+   [working-set amendment proposal](STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md),
+   pending approval, before considering a new family. R2/helper preparation and
+   cold layout checks are not approval or execution of another study.
 5. Complete required formal-calibration fixes, freeze the prospective plans,
    then execute Q16a (708 fresh captures), Q16b (3,540 runs) and Q16c in order.
 6. Validate and seal calibration evidence, derive the freeze, and admit EXT-007.
@@ -30,6 +39,22 @@ Report each completed step or changed blocker against this six-step plan.
 
 ## Current position
 
+- Step 3's first warmup stopped with native exit 1; partial warmup/control
+  evidence was retained, with no measurement or formal collection. MSR and
+  cgroup restoration were verified. All 12 retained files (1,142,655,488 bytes)
+  have SHA-verified two-copy custody. Independent validation reports
+  `FAILED_STUDY_PREFIX_RECONCILED`: five million consumer attempts; elapsed
+  prefix 1,472,506,585 ns; accepted and consumed both 4,199,692 including one
+  drained event; FULL=0. Full-capture validation is rejected for the mandatory
+  session stop. This reconciles the failed prefix, not the 36-capture study;
+  duration selection remains unresolved and formal runs contributed are zero. The
+  [stopped-attempt evidence](evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md)
+  preserves the family and restoration records.
+- A newly identified contradiction between prepared capacities and immutable
+  full-footprint working-set rules requires review of the
+  [pending amendment proposal](STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md).
+  R2 is an unapproved, unexecuted recovery proposal. Its helper has performed
+  only local cold layout/resource preparation; it grants no new study authority.
 - Current release `ac64633` passes seven strict codegen gates and local/stand
   package verification (1,826 files). Both v2 clock pairs pass, and actual
   Q15-R/W passes with verified W restoration. EXT001–006 are admitted at v5-19
@@ -42,6 +67,12 @@ Report each completed step or changed blocker against this six-step plan.
   errors and zero matching typed receipts within the declared public scope.
   Fresh stand (33,022 files) and Git-history searches are retained with their
   exact scope and exclusions. The resulting attestation passed admission.
+
+## Earlier checkpoints (historical)
+
+No-capture and open-gate statements in this section describe the checkpoints
+below, not the current stopped family or completed Step 2.
+
 - Earlier v5-18 passed all six read-only preflight observations. EXT001/002/003/006
   are admitted at journal 000006, PREFLIGHT_ACCEPTED, two transitions.
   The first unisolated clock check failed its tail bound. The owner-approved
@@ -120,7 +151,7 @@ is now blocked at the far-pair software affinity defect in v5-18 as recorded abo
 |---|---|---|
 | 1. Complete the executable runtime | Place and declare provider/backend/clock/controller coordination, worker TLS and other relevant runtime memory; connect actual before/during/after residency, affinity, fault, clock, hardware-state and environmental checks; complete watchdog, independent raw publication, partial-failure retention and restoration. Review formal Q16a, Q16b, Q16c and pilot paths together, including persistent warmup and service counts restricted to the fixed interval. | Integrated success and mandatory-failure tests; no forbidden work in measured intervals; exact complete-worker generated-code checks under both accepted disassemblers; supported compiler/sanitizer/static/schema/canonical checks. |
 | 2. Qualify a clean release and current stand | Build a complete source-bound runtime and policy successor; verify archive, binary and dependency identities; repair the missing runtime closure through the new release, not an improvised old wrapper. Replay the real journal and refresh all evidence invalidated by source, boot or platform changes. Reverify CPU pairs, mapping, clocks, atomics, memory, privileges, storage and restoration. | Clean release/custody records and a semantically admitted current predecessor chain. Historical EXT001–006 stay preserved; reuse only evidence whose dependency validity is demonstrated. |
-| 3. Freeze and run duration discovery | Bind actual capacities/working-set classes, immutable run IDs/seeds, monitoring coverage, buffers, copies, timeout and total stand budgets. Complete the finite diagnostic action record under D-178 before running its 36 captures. | Retained raw/control/failure records and count-only selection of a common duration, or an explicit unresolved result. No diagnostic data enters formal calibration. |
+| 3. Freeze and run duration discovery | First family stopped at its first warmup. All 12 files have verified two-copy custody; independent failed-prefix reconciliation passes, but full-capture validation rejects the mandatory session stop. Duration selection is unresolved. Preserve failure/restoration evidence; resolve the pending full-footprint amendment and obtain approval for any new prospective family before new execution. R2 remains unexecuted. | Retained raw/control/failure records and count-only selection of a common duration, or an explicit unresolved result. No diagnostic data enters formal calibration. |
 | 4. Close EXT007 | Freeze a new D-037 formal plan using discovery evidence; collect the required 708 fresh Q16a runs, then Q16b service calibration and Q16c feasibility in dependency order. Derive exact distance, service-rate and load outputs using accepted methods. | Phase-bound requests/authorizations, raw evidence, typed results, custody and calibration freeze accepted by the operational verifier. Any feasibility result awaiting final matrix exposure remains explicitly provisional. |
 | 5. Close EXT008 and EXT009 | Generate the exact prospective pilot matrix, schedules, IDs, seeds, repetitions, horizons, warmup/recovery, admission tickets and stop rules from accepted calibration. Prove buffers and durable capacity for that exact plan, both custody domains, transfer receipts, partial retention and recovery rehearsal. | Current-stand EXT008 plan and checked EXT009 storage/custody/recovery evidence. Old stand-v2 values are not defaults for stand v5. |
 | 6. Close EXT010 and execute the pilot | Bind all nine accepted predecessor resolutions into the exact finite Stage 17 pilot authorization. Execute only its permitted runs, retaining ordered primary streams, control observations, manifests, joins and failures. Produce treatment-blind pilot summaries. | Admitted EXT010, complete controller/worker output lineage, verified restoration, accepted custody and the required pilot output set. Ten catalog resolutions alone do not establish successful pilot completion. |
@@ -136,7 +167,8 @@ operational completion validator. In particular, unresolved application-based
 
 ## Discovery controls already approved
 
-Do not ask the owner to approve this design again:
+The base design below remains approved. This does not approve the pending
+working-set amendment or authorize another family after the stopped attempt:
 
 - 12 H0/H1 × near/far × working-set contexts, each with 100 ms, 1 s and 5 s:
   36 prospectively enumerated diagnostic captures.
@@ -189,8 +221,12 @@ scientific decisions only when existing protocol/approval does not resolve them.
 
 ## Working method and completion claim
 
-Step 3 is the active milestone after verified release and stand qualification. Audit downstream plan,
-custody and freeze contracts in parallel where they do not depend on new data.
+Step 3 is stopped and unresolved after completed release and stand qualification.
+Full raw two-copy custody and independent failed-prefix reconciliation are complete;
+full-capture validation rejects the mandatory session stop. No valid-study or
+duration-selection result follows from that reconciliation.
+Audit downstream plan, custody and freeze contracts in parallel only where they
+do not depend on new data. Keep the amendment and R2 proposal pending approval.
 Report completed milestones, exact evidence, remaining blockers and the next
 gate. Component tests are supporting evidence, not the project completion goal.
 Estimate stand time and durable bytes once prospective run counts and durations
@@ -205,6 +241,8 @@ B/C work is included.
 ## Governing references
 
 - [Current EXT007 readiness](STAGE17_EXT007_CALIBRATION_READINESS.md)
+- [Pending working-set amendment](STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
+- [Stopped-family evidence](evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md)
 - [D-178 approved discovery design](decisions/0178-stage17-q16a-duration-discovery-proposal.md)
 - [D-046 phase-bound authority](decisions/0046-stage17-phase-scoped-execution-authority.md)
 - [Operational authorization and EXT007–010 contracts](STAGE17_OPERATIONAL_AUTHORIZATION.md)

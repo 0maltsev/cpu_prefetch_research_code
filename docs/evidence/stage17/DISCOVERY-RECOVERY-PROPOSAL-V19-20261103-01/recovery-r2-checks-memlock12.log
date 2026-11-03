@@ -1,0 +1,10 @@
+test_actual_layouts_memlock_and_separate_raw_metadata_accounting (__main__.RecoveryProposalChecks.test_actual_layouts_memlock_and_separate_raw_metadata_accounting) ... ok
+test_changed_nominal_hardware_and_duplicate_ids_rejected (__main__.RecoveryProposalChecks.test_changed_nominal_hardware_and_duplicate_ids_rejected) ... ok
+test_conditional_not_observed_usable_capacity_and_boundary_failures (__main__.RecoveryProposalChecks.test_conditional_not_observed_usable_capacity_and_boundary_failures) ... ok
+test_exact_new_identity_grid_and_unchanged_sources (__main__.RecoveryProposalChecks.test_exact_new_identity_grid_and_unchanged_sources) ... ok
+test_explicit_unapproved_and_schema (__main__.RecoveryProposalChecks.test_explicit_unapproved_and_schema) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.206s
+
+OK

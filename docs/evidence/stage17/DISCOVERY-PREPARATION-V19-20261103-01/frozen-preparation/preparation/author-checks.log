@@ -1,0 +1,11 @@
+test_actual_context_projection_full_controller_and_mutants (__main__.AuthorChecks.test_actual_context_projection_full_controller_and_mutants) ... ok
+test_budget_and_identity_mutants (__main__.AuthorChecks.test_budget_and_identity_mutants) ... ok
+test_duplicate_invalid_inventory_and_missing_smaps (__main__.AuthorChecks.test_duplicate_invalid_inventory_and_missing_smaps) ... ok
+test_exact_design_ids_seeds_and_budgets (__main__.AuthorChecks.test_exact_design_ids_seeds_and_budgets) ... ok
+test_full_environment_and_required_limit (__main__.AuthorChecks.test_full_environment_and_required_limit) ... ok
+test_original_bound_bytes_preserved (__main__.AuthorChecks.test_original_bound_bytes_preserved) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.438s
+
+OK

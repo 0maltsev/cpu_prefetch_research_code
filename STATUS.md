@@ -4,16 +4,32 @@ Current Stage 17 completion roadmap:
 [all remaining requirements and exit gates](docs/STAGE17_COMPLETION_PLAN.md).
 Stage 17 is incomplete. The current owner priority is EXT007 only. The stand
 is dedicated to these experiments and the existing PC supplies secondary
-storage. Fresh qualification is complete; discovery-plan preparation is active.
+storage. **Step 2 is DONE; Step 3's first 36-capture family is STOPPED at its
+first warmup.** No measurement phase or formal calibration ran. MSR and cgroup
+restoration are verified. All 12 files (1,142,655,488 bytes) have SHA-verified
+two-copy custody. Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`:
+five million consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and
+consumed both 4,199,692 including one drained event; FULL=0. Full-capture
+validation is rejected for the mandatory session stop. The failed prefix is
+reconciled, not a valid 36-capture study; duration selection remains unresolved.
+The [stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md)
+retains the failure. The [working-set amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
+addresses the full-footprint contradiction and is pending approval. R2 and its
+helper remain an unexecuted study proposal; local cold layout checks are not
+execution authority.
 The Stage 18 primary practical-effect bound does not block EXT007.
 
-Q16a parameter discovery: `ACCEPTED_DESIGN_NOT_EXECUTED` (ADR-0178). A separate
-finite diagnostic study can support prospective parameter selection; it does
+Q16a parameter discovery: `STOPPED_FIRST_WARMUP; SELECTION_UNRESOLVED`.
+ADR-0178's accepted design remains distinct from authority for another study.
+A separate finite diagnostic study can support prospective parameter selection; it does
 not permit adaptive formal calibration or resolve EXT007. No scientific
 formal duration or execution authority has been frozen by that approval.
 ADR-0179 implements the offline design and count-only selector (13 synthetic
-tests pass). A read-only stand resource inventory is retained; no capture,
-resource-budget freeze, operational resolution, or measurement has occurred.
+tests pass). The implementation checkpoints below are historical: their
+no-capture and open-integration statements describe those earlier checkpoints,
+not the current stopped attempt. At the ADR-0179 checkpoint a read-only stand
+resource inventory was retained, with no capture, resource-budget freeze,
+operational resolution, or measurement yet performed.
 ADR-0180 implements the fixed-deadline C++ discovery worker and trace
 prefaulting component. It has no standalone action endpoint; live discovery
 and formal calibration remain blocked on integration and qualification.
@@ -182,7 +198,7 @@ Both full development suites pass 519/519; all 107 calibration and 44 platform
 cases pass GCC and Clang/libc++ ASan/UBSan and TSan. These are local software
 checks, with no release or exact discovery-boundary qualification claim.
 
-EXT007 continuation: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
+Historical EXT007 checkpoint: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
 ADR-0201 integrates mapped runtime composition and native thread/hardware
 control readback. A reproduced producer-exit race is fixed: both workers remain
 alive through final observations. Both development suites pass 563/563; 124
@@ -1103,15 +1119,15 @@ capacity, and prospective calibration/pilot inputs are proven. Confirmatory
 execution additionally requires every pilot-derived and owner-supplied freeze
 record.
 
-EXT007 step-2 checkpoint (2026-11-03): clean source `2ff7667` passed all seven
+Historical EXT007 step-2 checkpoint (2026-11-03): clean source `2ff7667` passed all seven
 codegen gates, packaged successfully, and passed local and stand verification
 of 1,732 files. The fresh v5-16 journal is `PREPARED` with no resolutions or
 attempts. Before qualification, the legacy preflight executor was reproduced
 resetting semantic policy 55 to 47 and rejecting current schema bindings.
 A versioned compatibility repair is required before a fresh qualification;
-no discovery or formal calibration has run. Follow the six-step EXT007 plan.
+at that checkpoint, no discovery or formal calibration had run.
 
-ADR-0204 repairs that current-entry-point binding through preflight policy 30
+Historical ADR-0204 checkpoint: the repair binds preflight policy 30
 and operational policy 56. The real local author/admit/transition/readiness
 regression passes. Packed page metadata retains all observations with bounded
 memory: the largest 31,944,212-value check uses 298,307,584 bytes peak RSS.
@@ -1129,6 +1145,19 @@ The initially rejected EXT005 resolution omitted required mixed evidence and
 its authority summary; its drafts are preserved, and the corrected admission
 uses the same actual Q15-W evidence without repeating hardware operations.
 [Verified stand/PC qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V19-20261103-01/README.md)
-records this result. Step 3 is active: freeze the approved 36-capture diagnostic
-plan against current resources, full monitoring and two-copy custody. No
-discovery capture or formal calibration has run; EXT007 remains incomplete.
+records this completed Step 2. Step 3's first 36-capture family stopped during
+capture 0 warmup; no measurement phase or formal calibration ran. Native exit
+was nonzero, partial evidence was retained, and MSR/cgroup restoration was
+verified. All 12 retained files (1,142,655,488 bytes) have SHA-verified two-copy
+custody. Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`:
+five million consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and
+consumed both 4,199,692 including one drained event; FULL=0. Full-capture
+validation is rejected for the mandatory session stop. This reconciles the
+failed prefix, not the 36-capture study; duration selection is unresolved and
+formal runs contributed remain zero. See the
+[stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md).
+The [working-set amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
+addresses a newly identified conflict with immutable full-footprint capacity
+rules and remains pending approval. R2 is an unapproved, unexecuted recovery
+proposal; its helper/cold layout checks grant no authority. No retry or new
+study is authorized by this status update. EXT007 and Stage 17 remain incomplete.

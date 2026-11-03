@@ -1,0 +1,36 @@
+{
+  "changed_helpers": [
+    {
+      "path": "build/stage17-step3-prep/propose_discovery_recovery_r2.py",
+      "sha256": "f0f76cba4dafdc1c4e9319c8044f093bdaee33f60fc577e1bc62fbc4a51f723b"
+    },
+    {
+      "path": "build/stage17-step3-prep/check_recovery_r2_proposal.py",
+      "sha256": "443051d6b36f0b7ce65949dc3d74d1cca766c71ee0704f3e840e4861c75b8773"
+    }
+  ],
+  "execution_authority": false,
+  "generator_metadata_consistency": "AST_LITERAL_CHECK_PASS",
+  "original_metadata": {
+    "path": "build/stage17-step3-prep/history/r2-metadata-before-memlock12/UNAPPROVED-PROPOSAL.json",
+    "sha256": "fffa7a1eaa295b360eb1add053797a4988f042a2518b8487f2ce75995f4350f3"
+  },
+  "proposed_memlock_bytes": 12884901888,
+  "proposed_worker_as_bytes": 240518168576,
+  "scope": "LOCAL_PREPARATION_METADATA_ONLY_NO_EXECUTION",
+  "status": "PASS",
+  "tests": {
+    "command": "python3 -B build/stage17-step3-prep/check_recovery_r2_proposal.py",
+    "count": 5,
+    "exit_code": 0,
+    "log": "build/stage17-step3-prep/recovery-r2-checks-memlock12.log",
+    "sha256": "2349954fc1d54061021c79a231ebfc6ca1d6f54bf4ab05017faf610351cdf0b4"
+  },
+  "unchanged_action_inputs_sha256": "1252bbb21a111f1faa83b1736526c05d541d36a7d2d19ec5b318e5f7b63182c6",
+  "unchanged_artifacts_count": 116,
+  "unchanged_plan_sha256": "d0de060cfcb6e80dbfec6193faad2b2d714bfd218b5223ab020002c90ebfd22f",
+  "updated_metadata": {
+    "path": "build/stage17-step3-prep/UNAPPROVED-R2-PROPOSAL-1/UNAPPROVED-PROPOSAL.json",
+    "sha256": "4eafe8a4fba90d924f753611b7f1a39fdf790dd35d93145475e9b0412fd509ae"
+  }
+}

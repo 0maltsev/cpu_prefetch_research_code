@@ -1,5 +1,24 @@
 # CPU Prefetch Research Code
 
+Current EXT007 status (2026-11-03): **Step 2 DONE; Step 3 STOPPED at the
+first warmup of the first 36-capture family.** No measurement phase or formal
+calibration ran. The stand's MSR and cgroup state was restored. All 12 files
+(1,142,655,488 bytes) have SHA-verified two-copy custody. Independent validation
+reports `FAILED_STUDY_PREFIX_RECONCILED`: the consumer reached five million
+attempts; the reconciled prefix spans 1,472,506,585 ns, with 4,199,692 accepted
+and consumed events including one drained event, and FULL=0. Full-capture
+validation remains rejected for the mandatory session stop; this is not a
+valid 36-capture study, and duration selection remains unresolved. See the
+[stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md).
+The full-footprint working-set contradiction is recorded in the
+[amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md),
+pending approval. The R2 recovery proposal and helper have not executed a study
+or issued authority; their local cold layout checks are preparation only.
+
+The implementation checkpoints below preserve their historical status. Claims
+that no discovery capture had run refer to those earlier checkpoints, not the
+current stopped attempt; the latest operational checkpoint is also recorded below.
+
 Q16a setup discovery is accepted in
 [ADR-0178](docs/decisions/0178-stage17-q16a-duration-discovery-proposal.md):
 learn setup parameters in a separate bounded diagnostic study, then freeze
@@ -1288,15 +1307,15 @@ dynamic qualification, calibration,
 measurement, pilot, and confirmatory behavior remain prohibited. Q15 and Q16
 are not approval-ready.
 
-EXT007 step-2 checkpoint (2026-11-03): clean source `2ff7667` passed all seven
+Historical EXT007 step-2 checkpoint (2026-11-03): clean source `2ff7667` passed all seven
 codegen gates, packaged successfully, and passed local and stand verification
 of 1,732 files. The fresh v5-16 journal is `PREPARED` with no resolutions or
 attempts. Before qualification, the legacy preflight executor was reproduced
 resetting semantic policy 55 to 47 and rejecting current schema bindings.
 A versioned compatibility repair is required before a fresh qualification;
-no discovery or formal calibration has run. Follow the six-step EXT007 plan.
+at that checkpoint, no discovery or formal calibration had run.
 
-ADR-0204 repairs that current-entry-point binding through preflight policy 30
+Historical ADR-0204 checkpoint: the repair binds preflight policy 30
 and operational policy 56. The real local author/admit/transition/readiness
 regression passes. Packed page metadata retains all observations with bounded
 memory: the largest 31,944,212-value check uses 298,307,584 bytes peak RSS.
@@ -1314,6 +1333,19 @@ The initially rejected EXT005 resolution omitted required mixed evidence and
 its authority summary; its drafts are preserved, and the corrected admission
 uses the same actual Q15-W evidence without repeating hardware operations.
 [Verified stand/PC qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V19-20261103-01/README.md)
-records this result. Step 3 is active: freeze the approved 36-capture diagnostic
-plan against current resources, full monitoring and two-copy custody. No
-discovery capture or formal calibration has run; EXT007 remains incomplete.
+records this completed Step 2. Step 3's first 36-capture family stopped during
+capture 0 warmup; no measurement phase or formal calibration ran. Native exit
+was nonzero, partial evidence was retained, and MSR/cgroup restoration was
+verified. All 12 retained files (1,142,655,488 bytes) have SHA-verified two-copy
+custody. Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`:
+five million consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and
+consumed both 4,199,692 including one drained event; FULL=0. Full-capture
+validation is rejected for the mandatory session stop. This reconciles the
+failed prefix, not the 36-capture study; duration selection is unresolved and
+formal runs contributed remain zero. See the
+[stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md).
+The [working-set amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
+addresses a newly identified conflict with immutable full-footprint capacity
+rules and remains pending approval. R2 is an unapproved, unexecuted recovery
+proposal; its helper/cold layout checks grant no authority. No retry or new
+study is authorized by this status update. EXT007 and Stage 17 remain incomplete.

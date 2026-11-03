@@ -1,0 +1,50 @@
+[
+  {
+    "source_path": "build/stage17-step3-prep/UNAPPROVED-R2-PROPOSAL-1/UNAPPROVED-PROPOSAL.json",
+    "path": "UNAPPROVED-PROPOSAL.json",
+    "size_bytes": 9817,
+    "sha256": "4eafe8a4fba90d924f753611b7f1a39fdf790dd35d93145475e9b0412fd509ae"
+  },
+  {
+    "source_path": "build/stage17-step3-prep/UNAPPROVED-R2-PROPOSAL-1/proposed-plan.json",
+    "path": "proposed-plan.json",
+    "size_bytes": 57502,
+    "sha256": "d0de060cfcb6e80dbfec6193faad2b2d714bfd218b5223ab020002c90ebfd22f"
+  },
+  {
+    "source_path": "build/stage17-step3-prep/metadata-correction-verification.json",
+    "path": "metadata-correction-verification.json",
+    "size_bytes": 1566,
+    "sha256": "647534aad08de763da9def5a0d2260f0b7d57394a4f8a0fee8145591e7e126df"
+  },
+  {
+    "source_path": "build/stage17-step3-prep/recovery-r2-checks-memlock12.log",
+    "path": "recovery-r2-checks-memlock12.log",
+    "size_bytes": 857,
+    "sha256": "2349954fc1d54061021c79a231ebfc6ca1d6f54bf4ab05017faf610351cdf0b4"
+  },
+  {
+    "source_path": "build/stage17-step3-prep/pc-resource-after-stopped-copy.json",
+    "path": "pc-resource-after-stopped-copy.json",
+    "size_bytes": 474,
+    "sha256": "4f573eeff494a7f6e9f792600d4a1891df5b1b855b96f44f378f6871bf5d1355"
+  },
+  {
+    "source_path": "build/stage17-step3-prep/cache-allocation-observation-1.json",
+    "path": "cache-allocation-observation-1.json",
+    "size_bytes": 718,
+    "sha256": "071100cf7d956cfb3e1155cd139f8eec54840458f143a9b47c2758db681765e6"
+  },
+  {
+    "source_path": "build/stage17-step3-prep/observe_shared_footprints.cpp",
+    "path": "observe_shared_footprints.cpp",
+    "size_bytes": 2983,
+    "sha256": "20a9c3634262f54b9482a24dd6d5a3f39dbb5dc00135d6e7c05fa7956e649303"
+  },
+  {
+    "source_path": "build/stage17-step3-prep/footprint-local-software-observation.json",
+    "path": "footprint-local-software-observation.json",
+    "size_bytes": 3536,
+    "sha256": "f1f607f1bce28f1c465db0d691e494168bbfc80924aca2e7479c0dcc5d8b9f6b"
+  }
+]

@@ -335,9 +335,23 @@ authorization/amendment.
 The current dependency-ordered roadmap for all remaining requirements is
 [Stage 17 completion plan](docs/STAGE17_COMPLETION_PLAN.md). It covers runtime
 integration, fresh qualification, discovery and EXT007, EXT008–010, pilot,
-final freezes and validated exit. Current owner questions concern exclusive
-stand availability/resource constraints and the primary practical-effect bound;
-software integration can continue independently.
+final freezes and validated exit. Current EXT007 status: **Step 2 DONE;
+Step 3 STOPPED at the first warmup of the first 36-capture family.** No
+measurement phase or formal calibration ran; MSR and cgroup state was restored.
+All 12 retained files (1,142,655,488 bytes) have SHA-verified two-copy custody.
+Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`: five million
+consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and consumed both
+4,199,692 including one drained event; FULL=0. Full-capture validation is
+rejected for the mandatory session stop; the failed prefix is reconciled,
+not a valid 36-capture study. Duration selection remains unresolved. Preserve the
+[stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md).
+The [working-set amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
+is pending approval because of the immutable full-footprint contradiction.
+R2 and its helper remain an unexecuted study proposal; local cold layout checks
+grant no authority. No new study or retry is selected here.
+
+The implementation/release checkpoints below retain their historical state;
+their no-capture statements do not describe the current stopped attempt.
 
 - **Q16a discovery design accepted:** the owner approved ADR-0178's separate bounded diagnostic
   pass to support duration/minimum-count selection before a new formal D-037
@@ -861,15 +875,15 @@ software integration can continue independently.
 
 Stage B tagged-pointer NBLFQ and Stage C robustness ablations are not implementation phases here. They may be planned only after separate approved scope and can never repair, replace, or reinterpret Stage A cells.
 
-EXT007 step-2 checkpoint (2026-11-03): clean source `2ff7667` passed all seven
+Historical EXT007 step-2 checkpoint (2026-11-03): clean source `2ff7667` passed all seven
 codegen gates, packaged successfully, and passed local and stand verification
 of 1,732 files. The fresh v5-16 journal is `PREPARED` with no resolutions or
 attempts. Before qualification, the legacy preflight executor was reproduced
 resetting semantic policy 55 to 47 and rejecting current schema bindings.
 A versioned compatibility repair is required before a fresh qualification;
-no discovery or formal calibration has run. Follow the six-step EXT007 plan.
+at that checkpoint, no discovery or formal calibration had run.
 
-ADR-0204 repairs that current-entry-point binding through preflight policy 30
+Historical ADR-0204 checkpoint: the repair binds preflight policy 30
 and operational policy 56. The real local author/admit/transition/readiness
 regression passes. Packed page metadata retains all observations with bounded
 memory: the largest 31,944,212-value check uses 298,307,584 bytes peak RSS.
@@ -887,6 +901,19 @@ The initially rejected EXT005 resolution omitted required mixed evidence and
 its authority summary; its drafts are preserved, and the corrected admission
 uses the same actual Q15-W evidence without repeating hardware operations.
 [Verified stand/PC qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V19-20261103-01/README.md)
-records this result. Step 3 is active: freeze the approved 36-capture diagnostic
-plan against current resources, full monitoring and two-copy custody. No
-discovery capture or formal calibration has run; EXT007 remains incomplete.
+records this completed Step 2. Step 3's first 36-capture family stopped during
+capture 0 warmup; no measurement phase or formal calibration ran. Native exit
+was nonzero, partial evidence was retained, and MSR/cgroup restoration was
+verified. All 12 retained files (1,142,655,488 bytes) have SHA-verified two-copy
+custody. Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`:
+five million consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and
+consumed both 4,199,692 including one drained event; FULL=0. Full-capture
+validation is rejected for the mandatory session stop. This reconciles the
+failed prefix, not the 36-capture study; duration selection is unresolved and
+formal runs contributed remain zero. See the
+[stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md).
+The [working-set amendment proposal](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_PROPOSAL.md)
+addresses a newly identified conflict with immutable full-footprint capacity
+rules and remains pending approval. R2 is an unapproved, unexecuted recovery
+proposal; its helper/cold layout checks grant no authority. No retry or new
+study is authorized by this status update. EXT007 and Stage 17 remain incomplete.

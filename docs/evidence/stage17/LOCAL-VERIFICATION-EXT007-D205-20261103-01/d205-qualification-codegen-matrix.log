@@ -1,0 +1,20 @@
+["cmake", "--build", "build/accepted-release-gcc", "--target", "software-prefetch-mapping-codegen-check", "-j1"]
+[1/2] Linking CXX executable cpu_prefetch_software_prefetch_mapping_codegen_probe
+[2/2] Requiring dual-disassembler D-047 PREFETCHW/PREFETCHT0 mapping evidence
+software-prefetch-mapping-codegen-check: PASS (two disassemblers, three mapped sites, two mutants)
+EXIT 0
+["cmake", "-S", ".", "-B", "build/accepted-release-clang-libcxx"]
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-release-clang-libcxx
+EXIT 0
+["cmake", "--build", "build/accepted-release-clang-libcxx", "--target", "software-prefetch-mapping-codegen-check", "runner-combined-codegen-check", "-j1"]
+[1/6] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/6] Linking CXX static library libcpu_prefetch_foundation.a
+[3/6] Linking CXX executable cpu_prefetch_software_prefetch_mapping_codegen_probe
+[4/6] Linking CXX executable cpu_prefetch_runner_combined_codegen_probe
+[5/6] Requiring dual-disassembler D-047 PREFETCHW/PREFETCHT0 mapping evidence
+software-prefetch-mapping-codegen-check: PASS (two disassemblers, three mapped sites, two mutants)
+[6/6] Requiring resolved Q14 combined-operation generated code
+runner-combined-codegen-check: PASS (two disassemblers, 16 operations, exact D-047/ADR-0175 mappings, five mutants)
+EXIT 0

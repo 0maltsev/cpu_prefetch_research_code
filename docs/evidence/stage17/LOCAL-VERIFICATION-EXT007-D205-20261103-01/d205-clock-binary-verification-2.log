@@ -1,0 +1,38 @@
+{
+  "binary_sha256": "1e6bde398d7188e97c05b2293a596c64612b39f54a0c81aec430faa152f784ba",
+  "source_revision": "ac64633662c4e61c8dd98e332dc70f77085e2e48",
+  "source_cpp_sha256": "dbcba524172c0dc7d87c92c92062db98798a3be86b4723ac8ec4c164a01d70fb",
+  "cli_pair_gate_bytes_unchanged": true,
+  "disassemblers": {
+    "objdump": {
+      "version": "GNU objdump (GNU Binutils) 2.46.0",
+      "owner_binding_calls": [
+        "43f83:\te8 b8 38 00 00       \tcall   47840 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::bind_current_thread(unsigned int) const>",
+        "4415c:\te8 df 36 00 00       \tcall   47840 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::bind_current_thread(unsigned int) const>",
+        "442fd:\te8 3e 35 00 00       \tcall   47840 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::bind_current_thread(unsigned int) const>"
+      ],
+      "owner_observation_calls": [
+        "4436c:\te8 af 35 00 00       \tcall   47920 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::observe_current_thread(unsigned int) const>",
+        "445e4:\te8 37 33 00 00       \tcall   47920 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::observe_current_thread(unsigned int) const>"
+      ],
+      "legacy_q15_binding_calls": [],
+      "disassembly_sha256": "e8220e8c276b4e764ecb992c844e9df2ca9270d3bdb6279443aa72aa875c624a"
+    },
+    "llvm-objdump": {
+      "version": "LLVM (http://llvm.org/):",
+      "owner_binding_calls": [
+        "43f83: e8 b8 38 00 00               \tcallq\t0x47840 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::bind_current_thread(unsigned int) const>",
+        "4415c: e8 df 36 00 00               \tcallq\t0x47840 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::bind_current_thread(unsigned int) const>",
+        "442fd: e8 3e 35 00 00               \tcallq\t0x47840 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::bind_current_thread(unsigned int) const>"
+      ],
+      "owner_observation_calls": [
+        "4436c: e8 af 35 00 00               \tcallq\t0x47920 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::observe_current_thread(unsigned int) const>",
+        "445e4: e8 37 33 00 00               \tcallq\t0x47920 <cpu_prefetch::platform::LinuxOwnerMemoryOperations::observe_current_thread(unsigned int) const>"
+      ],
+      "legacy_q15_binding_calls": [],
+      "disassembly_sha256": "3a9ea1a10328478f0d9553483b37eaef34f7ffc98a90adfdb7b08e5d757937a5"
+    }
+  },
+  "self_test_stdout": "q15-clock-tool-self-test: PASS device=NOT_OPENED clock=NOT_READ threads=NOT_PINNED authority=NONE\n",
+  "release_admission_passed": true
+}

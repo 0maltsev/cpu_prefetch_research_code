@@ -1,0 +1,1 @@
+{"observation_id":"S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION","result":{"archive_sha256":"428b69b160429bca9c6ba0690e1136e4c2e131d6a1ba7d53377c69fc088ef5e7","archive_size_bytes":75185414,"sidecar_sha256":"c14af0d23f0e925591da146f119fa1e80ff5269e913268cb2b41314cbd07b813","sidecar_size_bytes":135}}

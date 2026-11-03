@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-Updated 2026-11-03. D-204 release `817c652` deployed; approved isolated near qualification passed; far hit a software affinity defect.
+Updated 2026-11-03. Step 2 complete: release `ac64633`, clock and Q15-R/W qualified; Step 3 active.
 Scientific authority: immutable `protocol/2.0.0-pre.3/` and accepted decisions.
 This roadmap is not an execution authorization or a scientific amendment.
 
@@ -11,13 +11,12 @@ and requests an update after every step. Defer EXT008–010, pilot execution and
 Stage 18 work. Finish only already-started checks and necessary calibration work.
 
 1. **Complete:** finish current verification and freeze the discovery implementation.
-2. **Active:** clean replacement release `817c652` is deployed and verified.
-   The privileged local search is complete. EXT001/002/003/006 are admitted;
-   the approved isolated near capture passed and far stopped on a software
-   affinity defect. Verify D-205, qualify a new clean release, and obtain
-   fresh prospective capture authority before further measurement.
-3. Freeze the approved 36-capture discovery plan within verified PC storage,
-   then execute it once under its exact finite authority.
+2. **Complete:** clean release `ac64633`, both clock pairs and Q15-R/W pass.
+   EXT001–006 are admitted at v5-19 journal 000009, six resolutions and three
+   transitions, READY_FOR_STAGE17_PHASE_AUTHORIZATION. Q15-W restored hardware.
+3. **Active:** freeze the approved 36-capture discovery plan within verified
+   PC storage and current stand resources, then execute it once under its exact
+   finite authority. Full monitoring and publication/resource limits remain to freeze.
 4. Independently validate retained evidence and apply the approved count-only
    duration selector. Preserve an unresolved result if no candidate qualifies.
 5. Complete required formal-calibration fixes, freeze the prospective plans,
@@ -31,14 +30,19 @@ Report each completed step or changed blocker against this six-step plan.
 
 ## Current position
 
-- Current release `817c652` passes seven strict codegen gates and actual
-  local/stand bundle verification (1,759 files). GCC and Clang qualification
-  prefetch checks pass under both disassemblers.
+- Current release `ac64633` passes seven strict codegen gates and local/stand
+  package verification (1,826 files). Both v2 clock pairs pass, and actual
+  Q15-R/W passes with verified W restoration. EXT001–006 are admitted at v5-19
+  journal 000009 with three transitions. The original EXT005 admission draft
+  omitted the catalog-required mixed evidence and authorization summary; it is
+  preserved separately, and the corrected admission uses unchanged actual data.
+  [Verified qualification copies](evidence/stage17/STAND-QUALIFICATION-V19-20261103-01/README.md)
+  retain 133 stand files, including the accepted journal and rejected drafts.
 - The owner ran the privileged local D124 search: 98,268 JSON files, zero
   errors and zero matching typed receipts within the declared public scope.
   Fresh stand (33,022 files) and Git-history searches are retained with their
   exact scope and exclusions. The resulting attestation passed admission.
-- Fresh v5-18 passed all six read-only preflight observations. EXT001/002/003/006
+- Earlier v5-18 passed all six read-only preflight observations. EXT001/002/003/006
   are admitted at journal 000006, PREFLIGHT_ACCEPTED, two transitions.
   The first unisolated clock check failed its tail bound. The owner-approved
   finite isolated requalification then passed near (p99.999 2.284/2.877 us),
@@ -48,8 +52,8 @@ Report each completed step or changed blocker against this six-step plan.
   [Exact retained results](evidence/stage17/STAND-CLOCK-REQUALIFICATION-20261103-01/README.md)
   have verified stand/PC copies. D-205 repairs clock-collector affinity using
   the existing generic owner-binding mechanism, with unchanged CLI pair gates
-  and clock rules. Verify and freeze a clean release before requesting any
-  additional capture authority. No discovery or formal calibration has run.
+  and clock rules. Its repaired clean release is verified, and the owner
+  approved the new finite v2 family. No discovery or formal calibration has run.
 - Preserve v5-17's rejected authoring/admission drafts (fractional authority
   timestamp, then commented known-hosts input); v5-18 uses whole-second
   authority and the exact same host key in the required single-line form.
@@ -185,7 +189,7 @@ scientific decisions only when existing protocol/approval does not resolve them.
 
 ## Working method and completion claim
 
-Step 2 is the active milestone after the verified source freeze. Audit downstream plan,
+Step 3 is the active milestone after verified release and stand qualification. Audit downstream plan,
 custody and freeze contracts in parallel where they do not depend on new data.
 Report completed milestones, exact evidence, remaining blockers and the next
 gate. Component tests are supporting evidence, not the project completion goal.

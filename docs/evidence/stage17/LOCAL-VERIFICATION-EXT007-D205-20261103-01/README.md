@@ -22,3 +22,23 @@ legacy Q15 probe behavior and measured clock-read loops remain unchanged.
 Commands/results and exact hashes are retained in the listed logs and
 `inventory.json`. A fresh clean release, explicit clock-tool rebuild,
 package verification and stand qualification remain separate gates.
+
+Clean release `ac64633662c4e61c8dd98e332dc70f77085e2e48` is now built and
+deployed. All seven required code-generation gates pass, and the clock and
+qualification-envelope executables were explicitly linked before packaging.
+Both local and stand package verification pass for 1,826 files, and the
+actual release-admission verifier accepts the extracted package.
+
+Archive SHA-256:
+`428b69b160429bca9c6ba0690e1136e4c2e131d6a1ba7d53377c69fc088ef5e7`.
+Clock executable SHA-256:
+`1e6bde398d7188e97c05b2293a596c64612b39f54a0c81aec430faa152f784ba`.
+Both GNU and LLVM disassembly show three owner-binding calls, two actual
+thread observations and no legacy Q15 binding call. Archived clock source
+matches the repair; CLI pair-selection source remains byte-identical.
+The packaged clock tool's self-test passes without measurement.
+
+Qualification prefetch/combined checks also pass for both GCC and Clang
+under both disassemblers at this new source revision. Fresh v5-19 is
+initialized on the stand. These release/software checks grant no additional
+clock capture authority; the preceding finite family remains consumed.

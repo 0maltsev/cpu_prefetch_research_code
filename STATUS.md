@@ -2,9 +2,10 @@
 
 Current Stage 17 completion roadmap:
 [all remaining requirements and exit gates](docs/STAGE17_COMPLETION_PLAN.md).
-Stage 17 is incomplete. Exclusive stand availability/resource constraints and
-the primary practical-effect bound are pending owner inputs; remaining software
-integration is authorized and can continue independently.
+Stage 17 is incomplete. The current owner priority is EXT007 only. The stand
+is dedicated to these experiments and the existing PC supplies secondary
+storage. Fresh qualification is complete; discovery-plan preparation is active.
+The Stage 18 primary practical-effect bound does not block EXT007.
 
 Q16a parameter discovery: `ACCEPTED_DESIGN_NOT_EXECUTED` (ADR-0178). A separate
 finite diagnostic study can support prospective parameter selection; it does
@@ -1118,15 +1119,16 @@ The replacement clean release remains to be qualified. Historical local
 evidence search needs access to owner-inaccessible old directories; no claim
 of an exhaustive negative search or experimental completion has been made.
 
-Latest EXT007 checkpoint (2026-11-03): release `817c652` has fresh
-EXT001/002/003/006 admitted in v5-18. The first unisolated clock check failed
-its tail bound. The owner then approved one finite isolated near/far family.
-Near passed (p99.999 2.284/2.877 us); far stopped before complete collection
-because the legacy affinity helper rejects the accepted CPU 8. The two-call
-budget is consumed. Isolation was removed and exact restoration independently
-verified. No Q15 hardware action, discovery or formal calibration has run.
-[Retained results](docs/evidence/stage17/STAND-CLOCK-REQUALIFICATION-20261103-01/README.md)
-include verified stand/PC copies. D-205 repairs only clock-collector affinity;
-targeted checks pass under both compilers and all four sanitizers. A fresh
-clean release is being prepared. Step 2 remains active;
-new prospective authority is required before another clock capture.
+Latest EXT007 checkpoint (2026-11-03): Step 2 is complete. Repaired clean
+release `ac64633` is verified locally/on the stand (1,826 files), with all seven
+release gates passing. The owner-approved finite clock v2 family passed near
+and far with unchanged limits. Fresh Q15-R/W completed; Q15-W reports verified
+restoration. EXT001 through EXT006 are admitted at v5-19 journal 000009,
+`READY_FOR_STAGE17_PHASE_AUTHORIZATION`, six resolutions and three transitions.
+The initially rejected EXT005 resolution omitted required mixed evidence and
+its authority summary; its drafts are preserved, and the corrected admission
+uses the same actual Q15-W evidence without repeating hardware operations.
+[Verified stand/PC qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V19-20261103-01/README.md)
+records this result. Step 3 is active: freeze the approved 36-capture diagnostic
+plan against current resources, full monitoring and two-copy custody. No
+discovery capture or formal calibration has run; EXT007 remains incomplete.

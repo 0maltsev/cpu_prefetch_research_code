@@ -53,5 +53,40 @@
     "path": "d205-preflight30-check.log",
     "size_bytes": 103,
     "sha256": "b7d1055f7d6afd50259fb81024c44ffd8223fce3aa17c001d9866cd5ee742207"
+  },
+  {
+    "path": "d205-clean-release.log",
+    "size_bytes": 2699,
+    "sha256": "0cd1838f6ef6ab7fdce1779fb2b3ca2fddd25ecfdeec499afdbd699617abb408"
+  },
+  {
+    "path": "d205-local-bundle-verification.log",
+    "size_bytes": 135,
+    "sha256": "b7b1b2e3e7183d59c1bb24812db6f4d7e34c7379b7ea9f0e1d279d6773be4612"
+  },
+  {
+    "path": "d205-clock-binary-verification.json",
+    "size_bytes": 2602,
+    "sha256": "dc5634412175ad528940ae8772568c36bbb068b105fa16e73441c60cf8c25cbb"
+  },
+  {
+    "path": "d205-clock-binary-verification-2.log",
+    "size_bytes": 2602,
+    "sha256": "dc5634412175ad528940ae8772568c36bbb068b105fa16e73441c60cf8c25cbb"
+  },
+  {
+    "path": "d205-archive-transfer.log",
+    "size_bytes": 171,
+    "sha256": "1e455f8faf0dc73e3dae0df069ca53b79b3a266bcc06b46dafe52f86bba0ebef"
+  },
+  {
+    "path": "initialize-v19.log",
+    "size_bytes": 639,
+    "sha256": "b4c0d00ac0b8ba6ea15c88336d03c580b1093be64b7fa929e291d0b8f8bdd4b7"
+  },
+  {
+    "path": "d205-qualification-codegen-matrix.log",
+    "size_bytes": 1454,
+    "sha256": "331cf35fc705e9f1b9519427108beb7d9f8dac42e1a23e10176274c0bc05334b"
   }
 ]

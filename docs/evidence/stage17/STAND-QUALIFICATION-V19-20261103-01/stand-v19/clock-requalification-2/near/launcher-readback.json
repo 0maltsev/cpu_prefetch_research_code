@@ -1,0 +1,25 @@
+{
+  "affinity": [
+    2
+  ],
+  "argv": [
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+    "--qualify-pair",
+    "near",
+    "--output",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/clock-requalification-2/near/clock-raw.json"
+  ],
+  "cgroup": "0::/cpu-prefetch-v5-clock-qualified-2",
+  "gid": 1000,
+  "pid": 21383,
+  "rlimit_as": [
+    8589934592,
+    8589934592
+  ],
+  "rlimit_memlock": [
+    8388608,
+    8388608
+  ],
+  "uid": 1000,
+  "utc": "2026-11-03T08:55:10Z"
+}

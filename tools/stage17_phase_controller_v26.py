@@ -59,9 +59,11 @@ def qualified_archive_profile(request, validation, *, deadline_ns):
     provisioned = context.get("archive_runtime_root")
     if type(bundle) is not str or type(provisioned) is not str:
         raise ControllerError("qualified archive bundle/runtime roots are absent")
-    expected_path = Path(bundle) / "config/stage17/formal-archive-implementation-profile-v1.json"
-    if Path(binding["path"]) != expected_path:
+    # EXT006 retains the receipt's exact bundle-relative member binding.
+    member = "config/stage17/formal-archive-implementation-profile-v1.json"
+    if binding["path"] != member:
         raise ControllerError("qualified implementation profile is outside its bundle member")
+    expected_path = Path(bundle) / member
     try:
         return runtime.load_runtime_profile(expected_path,
             expected=archive.PhysicalBinding(binding["size_bytes"], binding["sha256"]),

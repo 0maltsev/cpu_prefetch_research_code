@@ -1,0 +1,6 @@
+test_fresh_source_hashes_and_both_policies_verify (__main__.FormalPolicy.test_fresh_source_hashes_and_both_policies_verify) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 26.356s
+
+OK

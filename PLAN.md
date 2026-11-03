@@ -1,23 +1,39 @@
 # Stage A Implementation Plan
 
-**Current EXT007 checkpoint (2026-11-03): Step 4 COMPLETE; Step 5 release
-qualification IN PROGRESS; Step 6 PENDING.** D234 independently validated all
-36 retained D207 captures and selected **1 s** for prospective formal planning.
-The analysis supervisor exited successfully at 19:32:20 UTC with all owned
-children reaped and no raw mutation. Diagnostic formal-run contribution is zero.
-Clean release `d45258f` passed full package verification; the actual stand archive
-fixture passed all nine artifacts in 18.655 s. Fresh v21 EXT001/002/003/006 are
-admitted at journal 000006. Both clock pairs passed on source `d45258f`.
-Q15-R preparation then failed on missing controller26 legacy callbacks, before
-request publication, authorization/signature or worker invocation; Q15-W did
-not start. Cgroup restoration was verified at 19:44:55 UTC. The minimal cold
-routing fix restores the two existing callbacks, with no scientific method
-change. A fresh clean successor release and source-bound qualification are
-required; the original clock passes remain bound to `d45258f` and are not relabeled. The superseded serial reader
-was stopped with SIGINT after bound full success at 19:37:29 UTC; its original
-exit -2 result is preserved. No formal family has started; exact prospective
-plans, phase authority, actual collection, independent calibration validation
-and EXT007 admission remain. See [the original reports and inventory](docs/evidence/stage17/DISCOVERY-D234-COMPLETE-FORMAL-V21-20261103-01/README.md).
+**Current EXT007 checkpoint (2026-11-03): Steps 1–4 COMPLETE; Step 5 REOPENED
+for a cold formal-controller fix; Step 6 NOT STARTED.** D234 independently
+validated all 36 retained D207 captures and selected **1 s** for prospective
+formal planning. Its supervisor exited 0 at 19:32:20 UTC with all owned children
+reaped; diagnostic formal-run contribution remains zero.
+Clean release `c962fd757f0b215088e6a91e760af0616ab9636b` completed actual E22
+qualification: both clock pairs and Q15-R/W passed, hardware was restored and
+owned workers reaped, and EXT001–006 are admitted at journal 000009 (six
+resolutions, three transitions). The original 708-capture Q16a plan is bound by
+SHA256 `59898ca78f6b79c14e845859052027241c54298c9f65dcb1042b05b18be6af2e`.
+Its family directory was registered, but `author-formal-request` rejected the
+qualified archive profile's bundle-relative locator before request publication,
+authorization/signature or native formal execution. The registered family is
+empty and no formal data exists. Cgroup restoration was verified at exactly
+**2026-11-03T20:36:08Z**. See [the original failure, public release receipt and
+inventory](docs/evidence/stage17/FORMAL-Q16A-V22-PREPARATION-FAILURE-20261103-01/README.md).
+
+The locator correction passed all seven targeted tests, an independent repeat
+of the receipt → CLI → signature → executor-preparation integration, and fresh
+policy verification. The read-only stand diagnostic also passed against the
+original six qualified resolutions and complete 708-capture plan; it created
+no request or authority and started no workers. Next: package and qualify the
+exact corrected release before formal execution. No scientific method,
+duration, count or threshold changes; c962 evidence remains historical.
+Stage 17 remains incomplete.
+
+Historical `d45258f` evidence is preserved: full package verification and the
+nine-artifact stand archive fixture passed (18.655 s); v21 EXT001/002/003/006
+reached journal 000006 and both clock pairs passed. Q15-R preparation failed on
+missing controller26 legacy callbacks before request/signature/worker creation;
+Q15-W did not start and restoration passed at 19:44:55 UTC. Those clock passes
+remain bound to `d45258f`. The superseded serial D234 reader was stopped with
+SIGINT after full success at 19:37:29 UTC; its exit -2 record remains retained.
+See [the historical reports and inventory](docs/evidence/stage17/DISCOVERY-D234-COMPLETE-FORMAL-V21-20261103-01/README.md).
 
 Protocol version: **`2.0.0-pre.3`** (with immutable predecessors
 `2.0.0-pre.1` and `2.0.0-pre.2`). Status values are `COMPLETE`, `BLOCKED`, `PENDING`, and

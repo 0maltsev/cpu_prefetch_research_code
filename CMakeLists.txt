@@ -1571,6 +1571,18 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_plan_v2.py")
   set_tests_properties(runner.formal_plan_v2 PROPERTIES
     LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.formal_ring_continuation_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_ring_continuation_v1.py")
+  set_tests_properties(runner.formal_ring_continuation_v1 PROPERTIES
+    LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.continuation_routing_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_continuation_routing_v1.py")
+  set_tests_properties(runner.continuation_routing_v1 PROPERTIES
+    LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.q16a_continuation_admission_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_q16a_continuation_admission_v1.py")
+  set_tests_properties(runner.q16a_continuation_admission_v1 PROPERTIES
+    LABELS "runner;archive;synthetic;python" TIMEOUT 180)
   # ASan/TSan reserve virtual address space beyond the approved 2-GiB
   # standalone codec ceiling. Instrumented core tests exercise encoding independently;
   # the real CLI bridge requires an ordinary development/release executable.

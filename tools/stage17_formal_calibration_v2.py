@@ -33,13 +33,15 @@ _archived_evaluate.__kwdefaults__ = previous.evaluate.__kwdefaults__
 
 def plan_bytes(plan):
     """Native /2 plan identity excludes LF; legacy transport stays unchanged."""
-    if isinstance(plan, dict) and plan.get("schema_version") in plans.VERSION.values():
+    if isinstance(plan, dict) and plan.get("schema_version") in (*plans.VERSION.values(), plans.CONTINUATION_VERSION):
         return archive.canonical(plan)
     return previous.canonical(plan)
 
 
 def evaluate(action, plan, run_records, ring_geometry=None):
     """Validate original /1 or /2 plan, then apply the exact existing estimator."""
+    if isinstance(plan, dict) and plan.get("schema_version") == plans.CONTINUATION_VERSION:
+        raise CalibrationError("continuation requires independently authenticated original-prefix and suffix composition")
     evaluator = (_archived_evaluate if isinstance(plan, dict)
                  and plan.get("schema_version") in plans.VERSION.values() else _evaluate)
     return evaluator(action, plan, run_records, ring_geometry)

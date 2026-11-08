@@ -44,6 +44,9 @@ SUCCESSOR_BINDINGS = (
     "config/schemas/stage17-formal-archive-header-v1.schema.json",
     "config/schemas/stage17-formal-archive-encoder-plan-v1.schema.json",
     "config/schemas/stage17-calibration-freeze-v1.schema.json",
+    "config/schemas/stage17-formal-ring-plan-v3.schema.json",
+    "docs/STAGE17_EXT007_Q16A_CONTINUATION_V1_DECISION.md",
+    "docs/STAGE17_EXT007_Q16A_CONTINUATION_V1_ACCEPTANCE.md",
     *("config/schemas/stage17-formal-" + kind + "-plan-v2.schema.json"
       for kind in ("ring", "service", "scheduled")),
     *("docs/evidence/stage17/FORMAL-STORAGE-D233-PROPOSAL-20261103-01/" + name

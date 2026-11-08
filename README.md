@@ -1,30 +1,42 @@
 # CPU Prefetch Research Code
 
-**Current EXT007 checkpoint (2026-11-03): Steps 1–4 COMPLETE; Step 5 REOPENED
-for a cold formal-controller fix; Step 6 NOT STARTED.** D234 independently
-validated all 36 retained D207 captures and selected **1 s** for prospective
-formal planning. Its supervisor exited 0 at 19:32:20 UTC with all owned children
-reaped; diagnostic formal-run contribution remains zero.
-Clean release `c962fd757f0b215088e6a91e760af0616ab9636b` completed actual E22
-qualification: both clock pairs and Q15-R/W passed, hardware was restored and
-owned workers reaped, and EXT001–006 are admitted at journal 000009 (six
-resolutions, three transitions). The original 708-capture Q16a plan is bound by
-SHA256 `59898ca78f6b79c14e845859052027241c54298c9f65dcb1042b05b18be6af2e`.
-Its family directory was registered, but `author-formal-request` rejected the
-qualified archive profile's bundle-relative locator before request publication,
-authorization/signature or native formal execution. The registered family is
-empty and no formal data exists. Cgroup restoration was verified at exactly
-**2026-11-03T20:36:08Z**. See [the original failure, public release receipt and
-inventory](docs/evidence/stage17/FORMAL-Q16A-V22-PREPARATION-FAILURE-20261103-01/README.md).
+**Current EXT007 checkpoint (2026-11-08): E23 Q16a STOPPED; owner-authorized continuation preparation is in progress.** The original attempt stopped on 2026-11-05 at 03:44:12 UTC after 177 native-complete captures. Capture ordinal 177 failed before warmup when five CPU-isolation reads returned ENODEV; all 178 capture evidence sets remain archived. The [failure investigation](docs/evidence/stage17/FORMAL-Q16A-V23-FAILURE-20261108-01/FAILURE-REPORT.txt) links the retained observations and update/reload timeline. Scientific validity of the completed prefix remains NOT_ASSESSED.
 
-The locator correction passed all seven targeted tests, an independent repeat
-of the receipt → CLI → signature → executor-preparation integration, and fresh
-policy verification. The read-only stand diagnostic also passed against the
-original six qualified resolutions and complete 708-capture plan; it created
-no request or authority and started no workers. Next: package and qualify the
-exact corrected release before formal execution. No scientific method,
-duration, count or threshold changes; c962 evidence remains historical.
-Stage 17 remains incomplete.
+The owner instructed **“continue from the broken one”** after the bounded reuse proposal. Prepare one versioned 531-capture continuation for contexts 3–11, preserve contexts 0–2 and the failed attempt, validate prefix reuse, repair isolation lifecycle and qualify changed components before launch. No continuation has started. Any new Q15/Q16 failure stops dependent work without another automatic retry. Stage 17 and EXT007 remain incomplete.
+
+**Continuation recovery checkpoint (2026-11-08):** [D240](docs/decisions/0240-stage17-q16a-complete-context-continuation.md) records one incident-bound 531-capture suffix, with unchanged numeric seeds, scientific controls and limits. The managed-isolation cold test passed across an actual systemd reload at 12:35:21 UTC; all five control-file identities and CPU exclusions survived, then exact CPU and apt-timer restoration passed. [Original cold evidence](docs/evidence/stage17/Q16A-CONTINUATION-D240-20261108-01/inventory.json) is retained. The declaration, native admission, prefix/compatibility gate and targeted verification are implemented. Offline prefix analysis was launched at 12:51:48 UTC only after full original release/signature/journal preparation passed; accepted reuse still requires all 177 reports and the supervisor completion receipt. The earlier offline startup omitted release transport arguments and stopped before raw parsing; its evidence is preserved. The new release is not yet qualified and no Q15/Q16 continuation has started.
+
+**Historical EXT007 checkpoint (2026-11-03, 21:53:24 UTC): Steps 1–5 COMPLETE;
+Step 6 IN PROGRESS.** Clean release `dd981b4fdcf953386d4a7514fec381ff9be6e359`
+completed E23 qualification: both clock pairs and Q15-R/W passed, hardware
+restoration and owned-worker cleanup passed, and EXT001–006 are admitted at
+journal 000009 (six resolutions, three transitions). The signed Q16a family
+is now collecting. At the retained first-capture checkpoint, **1 of 708 captures
+is fully archived**: native completion/publication passed and all nine
+artifacts have durable `ARCHIVED_AND_RELEASED` custody. Scientific validity is
+**NOT_ASSESSED**; this count does not mean independently accepted calibration.
+See [the exact first-capture receipt, ledger and fresh qualification snapshot](docs/evidence/stage17/FORMAL-Q16A-V23-FIRST-CAPTURE-20261103-01/README.md).
+
+The fixed prospective plan SHA256 is
+`a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7`:
+708 captures (59 per context), 5 s warmup, 1 s measurement and minimum 100,000
+observations per series. D234 validated all 36 diagnostic captures and selected
+that duration; diagnostic data contributes zero formal runs. Raw evidence stays
+on the stand under D233. Q16a completion, independent validation and family
+admission, Q16b/Q16c, calibration freeze and EXT007 admission remain pending.
+**Stage 17 remains incomplete.** On any Q15/Q16 failure, stop dependent work,
+preserve evidence, reap owned workers and restore hardware/owned isolation;
+report without an automatic repair/retry cycle.
+
+Historical E22 release `c962fd757f0b215088e6a91e760af0616ab9636b` completed
+qualification but rejected the bundle-relative archive-profile locator before
+formal request publication/signature/native execution. Its registered family
+remains empty; the original plan SHA256 is
+`59898ca78f6b79c14e845859052027241c54298c9f65dcb1042b05b18be6af2e`.
+Cgroup restoration passed at 20:36:08 UTC. The locator correction subsequently
+passed integration and the stand read-only diagnostic, then received the fresh
+E23 qualification above. No scientific method, count or threshold changed.
+[The original E22 failure and public release receipt remain preserved](docs/evidence/stage17/FORMAL-Q16A-V22-PREPARATION-FAILURE-20261103-01/README.md).
 
 Historical `d45258f` evidence is preserved: full package verification and the
 nine-artifact stand archive fixture passed (18.655 s); v21 EXT001/002/003/006

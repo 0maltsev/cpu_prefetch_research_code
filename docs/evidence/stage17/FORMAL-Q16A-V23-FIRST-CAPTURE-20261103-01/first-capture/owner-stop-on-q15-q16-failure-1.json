@@ -1,0 +1,12 @@
+{
+  "applies_to": "Current Q15/Q16 preparation and execution",
+  "new_scientific_authority": false,
+  "on_failure": [
+    "Stop dependent work",
+    "Preserve original evidence",
+    "Reap owned workers and restore hardware/owned CPU isolation",
+    "Report failure; no repair/retry cycle without further user instruction"
+  ],
+  "owner_instruction": "stop after failure in Q15 or Q16",
+  "recorded_at_utc": "2026-11-03T21:00:00.230435+00:00"
+}

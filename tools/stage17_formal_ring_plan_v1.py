@@ -113,7 +113,13 @@ def validate_plan(value) -> FamilyExtent:
     return _validate_plan(value, archived=False)
 
 
-def _validate_plan(value, *, archived: bool) -> FamilyExtent:
+def _validate_plan(value, *, archived: bool, continuation: bool = False) -> FamilyExtent:
+    # Only the explicit D240 successor can select a partial execution family.
+    # Historical callers retain exact full-family coverage and version checks.
+    if continuation:
+        from stage17_formal_ring_continuation_v1 import validate_declaration
+        _require(archived, "plan", "continuation requires archival custody")
+        validate_declaration(value)
     # JSON Schema accepts integral floats as integers, but canonical native
     # contracts require actual integer tokens throughout every nested input.
     def reject_floats(item):
@@ -126,8 +132,10 @@ def _validate_plan(value, *, archived: bool) -> FamilyExtent:
     plan = _object(value, "schema_version plan_id protocol_version action_id method_id "
                    "source_revision clean_source stand_id repetitions_per_context measurement_ns "
                    "minimum_observations_per_series warmup_namespace measurement_namespace "
-                   "custody_policy_id captures budget" + (" storage" if archived else ""), "plan")
-    for name, expected in (("schema_version", VERSION.replace("/1", "/2") if archived else VERSION), ("protocol_version", "2.0.0-pre.3"),
+                   "custody_policy_id captures budget" + (" storage" if archived else "")
+                   + (" continuation" if continuation else ""), "plan")
+    version = VERSION.replace("/1", "/3" if continuation else "/2") if archived else VERSION
+    for name, expected in (("schema_version", version), ("protocol_version", "2.0.0-pre.3"),
                            ("action_id", "Q16a"), ("method_id", METHOD),
                            ("clean_source", True), ("custody_policy_id",
                             storage_budget.POLICY if archived else CUSTODY)):
@@ -140,7 +148,8 @@ def _validate_plan(value, *, archived: bool) -> FamilyExtent:
     duration = _uint(plan["measurement_ns"], "plan.measurement_ns", 1)
     _product(duration, 1000, "plan.measurement_ticks")
     minimum = _uint(plan["minimum_observations_per_series"], "plan.minimum_observations_per_series", 1)
-    expected_count = _product(len(CONTEXTS), repetitions, "plan.capture_count")
+    first_context = 3 if continuation else 0
+    expected_count = _product(len(CONTEXTS) - first_context, repetitions, "plan.capture_count")
     captures = plan["captures"]
     _require(isinstance(captures, list) and len(captures) == expected_count,
              "plan.captures", "requires every prospectively frozen context/repetition")
@@ -157,6 +166,7 @@ def _validate_plan(value, *, archived: bool) -> FamilyExtent:
         _require(not errors, path, str(errors[0].message) if errors else "")
         capture, resources, monitoring = (item[name] for name in ("capture", "resources", "monitoring"))
         context, repetition = divmod(ordinal, repetitions)
+        context += first_context
         state, placement, working_set = CONTEXTS[context]
         for name, expected in (("ordinal", ordinal), ("context_ordinal", context),
                                ("repetition_ordinal", repetition), ("hardware_state", state),

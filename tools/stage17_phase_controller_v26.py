@@ -42,7 +42,7 @@ def is_archived(request):
     action = request.get("action_id")
     return (action in plans.VERSION and request.get("schema_version") ==
             "cpu-prefetch-stage17-fixed-action-request/6" and
-            request.get("action_inputs", {}).get("plan", {}).get("schema_version") == plans.VERSION[action])
+            plans.is_archived_plan(action, request.get("action_inputs", {}).get("plan")))
 
 
 def qualified_archive_profile(request, validation, *, deadline_ns):
@@ -74,6 +74,16 @@ def qualified_archive_profile(request, validation, *, deadline_ns):
 
 
 def _validate_inputs(request, validation):
+    plan = request["action_inputs"]["plan"]
+    if plan.get("schema_version") == plans.CONTINUATION_VERSION:
+        # A declaration alone cannot reuse failed-family data. This same gate
+        # runs during request authoring, execution and historical retention.
+        import stage17_q16a_continuation_admission_v1 as continuation_admission
+        try:
+            continuation_admission.validate(plan,
+                validation.resolutions["S17-EXT-006"].semantic_context)
+        except (OSError, KeyError, ValueError, TypeError, RuntimeError) as error:
+            raise ControllerError("continuation evidence rejected: " + str(error)) from error
     prior = lambda **values: previous._with_globals(previous.validate_prior_calibration,
         {"calibration": calibration}, values)
     def validate_prior(result, prior_action, plan, selected_duration_ns):

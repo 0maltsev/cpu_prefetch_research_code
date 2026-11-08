@@ -1,0 +1,374 @@
+{
+  "file_count": 61,
+  "files": [
+    {
+      "path": "first-capture/formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/stage17-q16a-attempt-v6.json",
+      "sha256": "5ecabbeb75fcb739be51c30c3dad807870c232244c5fc913641d7067fb5abec7",
+      "size_bytes": 995,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/stage17-q16a-attempt-v6.json"
+    },
+    {
+      "path": "first-capture/formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/formal-capture-0-final-checkpoint.json",
+      "sha256": "17d376f71a36bc9a0089ff9acbd989c9eeda29c1f8e8c9d78e29ac632dcee364",
+      "size_bytes": 13867,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/formal-capture-0-final-checkpoint.json"
+    },
+    {
+      "path": "first-capture/formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/formal-capture-0-archive-custody.json",
+      "sha256": "1ebc20127084fe0ee7c4276d1238a457599fa15dcbd0b82dd25751f95b861531",
+      "size_bytes": 7984,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/formal-capture-0-archive-custody.json"
+    },
+    {
+      "path": "first-capture/formal-archive-program-1/ledger/0000000000000083.json",
+      "sha256": "dc2d5161a3fd2ef1acfea03f46f6ff6bb785b60f5715c0c08eab681e1b9328fb",
+      "size_bytes": 673,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/formal-archive-program-1/ledger/0000000000000083.json"
+    },
+    {
+      "path": "first-capture/formal-q16a-launcher-check-result-1.json",
+      "sha256": "e9a2a0952f8f2ff4b7fa4c2550f622cdd27ce5d779816e220cea4210171dae92",
+      "size_bytes": 218,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/formal-q16a-launcher-check-result-1.json"
+    },
+    {
+      "path": "first-capture/formal-q16a-launch-command-result-1.json",
+      "sha256": "9035347de7adea27aabf3322bddec345c7138382cd7df3c1f57cda6e6db32a49",
+      "size_bytes": 174,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/formal-q16a-launch-command-result-1.json"
+    },
+    {
+      "path": "first-capture/formal-q16a-launch-1/launch-readback.json",
+      "sha256": "5583619441c8a3ca4fe955fa880c9373c5273d79a1af9108ec9368f139ad294b",
+      "size_bytes": 2868,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/formal-q16a-launch-1/launch-readback.json"
+    },
+    {
+      "path": "first-capture/owner-stop-on-q15-q16-failure-1.json",
+      "sha256": "9c99302c435faef155d726987563d5ebdef6e7585aaca494e7b88855d368d4f2",
+      "size_bytes": 445,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/owner-stop-on-q15-q16-failure-1.json"
+    },
+    {
+      "path": "first-capture/inventory.json",
+      "sha256": "3eb902a86942431d7a402b6482d3d371240b58e88ede9df4eb6d5a11956418ed",
+      "size_bytes": 1843,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/inventory.json"
+    },
+    {
+      "path": "first-capture/summary.json",
+      "sha256": "e2be77afd40776cd51d55e4c29a3ff870fd74391f89d59f939bdff8ff44ab454",
+      "size_bytes": 353,
+      "source_path": "build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/summary.json"
+    },
+    {
+      "path": "qualification/admission-root/evidence/ext001-v5-23/envelope-v14.json",
+      "sha256": "16f7cf69473f740a33fac51e2266f62fd11b7e08c05e9dd7599863baea67e2c7",
+      "size_bytes": 6260,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/admission-root/evidence/ext001-v5-23/envelope-v14.json"
+    },
+    {
+      "path": "qualification/admission-root/evidence/ext001-v5-23/pinned-host-key-evidence-v1.json",
+      "sha256": "a89e27712570ee6dad5c5b30d82fba5e757b0812f35e54ee915fe45c3a4e09c7",
+      "size_bytes": 462,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/admission-root/evidence/ext001-v5-23/pinned-host-key-evidence-v1.json"
+    },
+    {
+      "path": "qualification/admission-root/evidence/ext003-fresh/ext003-manifest-1.json",
+      "sha256": "0337a02423fcd94f2be67b4d66c471eb3a07445d4953ec0b9738617d0e9baf4b",
+      "size_bytes": 1073,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/admission-root/evidence/ext003-fresh/ext003-manifest-1.json"
+    },
+    {
+      "path": "qualification/admission-root/evidence/q15r-fresh/authorization.json",
+      "sha256": "fbb5f8a20779794e92c861f8f843a33bc2428ff834ce9dea7cfe1e6131a22a43",
+      "size_bytes": 2147,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/admission-root/evidence/q15r-fresh/authorization.json"
+    },
+    {
+      "path": "qualification/admission-root/evidence/q15r-fresh/authorization.json.sig",
+      "sha256": "508c606aad1d2b4a88e097406b2d21751a3c76283662ca568aa366dcbda7c751",
+      "size_bytes": 322,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/admission-root/evidence/q15r-fresh/authorization.json.sig"
+    },
+    {
+      "path": "qualification/admission-root/evidence/q15r-fresh/request.json",
+      "sha256": "8b201c95ff5232b11eced02a2fa9c84da45208ad033f0fc83cdae1d4c794b3a2",
+      "size_bytes": 1878,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/admission-root/evidence/q15r-fresh/request.json"
+    },
+    {
+      "path": "qualification/admission-root/evidence/q15w-fresh/authorization.json",
+      "sha256": "7ee93fb19f018f9b6d297bc1ffbcf8a0d1a006f795d76c243542a72637d18baa",
+      "size_bytes": 2295,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/admission-root/evidence/q15w-fresh/authorization.json"
+    },
+    {
+      "path": "qualification/admission-root/evidence/q15w-fresh/authorization.json.sig",
+      "sha256": "3a2f095a8d7bbd27ac406dcc8ce2b500d2193c3d82e6ef27409ac4613ce76ca3",
+      "size_bytes": 322,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/admission-root/evidence/q15w-fresh/authorization.json.sig"
+    },
+    {
+      "path": "qualification/admission-root/evidence/q15w-fresh/request.json",
+      "sha256": "b1d6f54318f9055921f3d8dba2eff55cb00a15fde159105dee199d836d110631",
+      "size_bytes": 2148,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/admission-root/evidence/q15w-fresh/request.json"
+    },
+    {
+      "path": "qualification/clock-qualification-v23-1/near/ACTUAL_CPU_MIGRATION.json",
+      "sha256": "4c1221717e67a406f9b0168af9b934230adfede689457c119bddc975008c838d",
+      "size_bytes": 950,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/clock-qualification-v23-1/near/ACTUAL_CPU_MIGRATION.json"
+    },
+    {
+      "path": "qualification/clock-qualification-v23-1/near/ADDRESS_RESIDENCY.json",
+      "sha256": "ccfa267b4de8e979aaa10d3f57cd77a1c9b42a3035520089c5fbffaefdb1e310",
+      "size_bytes": 1178,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/clock-qualification-v23-1/near/ADDRESS_RESIDENCY.json"
+    },
+    {
+      "path": "qualification/clock-qualification-v23-1/near/RUNTIME_ATOMIC_LAYOUT.json",
+      "sha256": "47b0b9b5b511952eacb6263b44e4024630c0d794abd210f6ff14a45a2d0ffd23",
+      "size_bytes": 1022,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/clock-qualification-v23-1/near/RUNTIME_ATOMIC_LAYOUT.json"
+    },
+    {
+      "path": "qualification/clock-qualification-v23-1/near/SELECTED_PAIR_CLOCK.json",
+      "sha256": "353c764d06d769948549fcac171ee53e7dccd54cecdc0d54fcdcf0860a660234",
+      "size_bytes": 958,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/clock-qualification-v23-1/near/SELECTED_PAIR_CLOCK.json"
+    },
+    {
+      "path": "qualification/clock-qualification-v23-1/near/SOFTWARE_PREFETCH_MAPPING.json",
+      "sha256": "05f79db9ce2edab51ed9965e51fb2e97fcc309d714c7723ddcf1005dc3c2b046",
+      "size_bytes": 1185,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/clock-qualification-v23-1/near/SOFTWARE_PREFETCH_MAPPING.json"
+    },
+    {
+      "path": "qualification/ext002-authoring-1/ext002-trust-anchor.json",
+      "sha256": "b81561d53228848248150e362cbb48c2dbf03f3822da5da8a2fd70afd85eb862",
+      "size_bytes": 968,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/ext002-authoring-1/ext002-trust-anchor.json"
+    },
+    {
+      "path": "qualification/ext004-authoring-records-1/hardware-prefetch-qualification.json",
+      "sha256": "eb9b5eae6e08a83ac14e3c159e6d82d7af2d3b20ae156af69793f68818640633",
+      "size_bytes": 1587,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/ext004-authoring-records-1/hardware-prefetch-qualification.json"
+    },
+    {
+      "path": "qualification/ext004-authoring-records-1/pilot-platform-measurements.json",
+      "sha256": "072c4e91ac46d7ef5bd61e99c24620d5b77074045c10fc172272db50c59a139b",
+      "size_bytes": 3004,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/ext004-authoring-records-1/pilot-platform-measurements.json"
+    },
+    {
+      "path": "qualification/ext004-authoring-records-1/platform-manifest.json",
+      "sha256": "cd5a2254c019c851b5d01e5802ec5904526e6a4b9e996dd5b64a64a7a844fb72",
+      "size_bytes": 1883,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/ext004-authoring-records-1/platform-manifest.json"
+    },
+    {
+      "path": "qualification/ext004-manifest-1.json",
+      "sha256": "b62ac4fe6100f015e3d08a18d28de5cb782994d4410564efc8ac51a33b51da3f",
+      "size_bytes": 10863,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/ext004-manifest-1.json"
+    },
+    {
+      "path": "qualification/ext005-manifest-1.json",
+      "sha256": "2e7eabdeb81e27766468b71bf79eb8a3e4b1c86c15971e0e7ca9454124c11eb1",
+      "size_bytes": 4445,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/ext005-manifest-1.json"
+    },
+    {
+      "path": "qualification/manifests/ext006-contract-1.json",
+      "sha256": "e852fdc5160219c50fac370550ff98a1385bfe5d8f0681ee91c6b6c0375049fb",
+      "size_bytes": 2153,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/manifests/ext006-contract-1.json"
+    },
+    {
+      "path": "qualification/platform-facts-1.json",
+      "sha256": "abe3597e4b6762351832e2bf222b84b7bec11b2a2b892da528f677b325a5152b",
+      "size_bytes": 3326,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/platform-facts-1.json"
+    },
+    {
+      "path": "qualification/platform-inventory-1.json",
+      "sha256": "3e7e559301f775a1aafde5393c852672b05e6c9fad2332946356a1e92592aee0",
+      "size_bytes": 109744,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/platform-inventory-1.json"
+    },
+    {
+      "path": "qualification/q15-r-address-residency-raw-v1.json",
+      "sha256": "22e68f7a0dc74f253da66cbee0b317d21209f0434daa1cd07a46b431256cf074",
+      "size_bytes": 673,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/q15-r-address-residency-raw-v1.json"
+    },
+    {
+      "path": "qualification/q15-r-atomic-layout-raw-v1.json",
+      "sha256": "a2a64f67fa7a27f5368ff5269aa71f3bee1abf1b9b3b8601a68e0da5612d493a",
+      "size_bytes": 509,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/q15-r-atomic-layout-raw-v1.json"
+    },
+    {
+      "path": "qualification/q15-r-cpu-migration-raw-v1.json",
+      "sha256": "402ad0b8d57d6f1c186f6e581d9b9f620b476902f62cba135ce7684fc2062350",
+      "size_bytes": 476,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/q15-r-cpu-migration-raw-v1.json"
+    },
+    {
+      "path": "qualification/q15-r-output-v3.json",
+      "sha256": "c1a9d48fffa731590a7bedd453a856560db40aec347a22238362d8c4dffa4d00",
+      "size_bytes": 1080,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/q15-r-output-v3.json"
+    },
+    {
+      "path": "qualification/q15-r-software-prefetch-raw-v1.json",
+      "sha256": "b677b4431d33102697ffd4785e2b02b541fb0eced61c339e27b98a1429dbbf8a",
+      "size_bytes": 449,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/q15-r-software-prefetch-raw-v1.json"
+    },
+    {
+      "path": "qualification/q15-w-output-v3.json",
+      "sha256": "cefb2b44b88e3e41ae30a965d7420be1b360cb969a26aea3a8f118eff797969b",
+      "size_bytes": 1020,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/q15-w-output-v3.json"
+    },
+    {
+      "path": "qualification/q15w-action-inputs-1.json",
+      "sha256": "e8d96a1b80b6d03575da9d64cf2488e7b90d7c5a35763e4fd451e57e3da390ab",
+      "size_bytes": 393,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/q15w-action-inputs-1.json"
+    },
+    {
+      "path": "qualification/qualification-inputs.json",
+      "sha256": "fd2772f6e62dfecb01c75a2527dcde0c1677d668c14e434e0ce898782532748b",
+      "size_bytes": 915,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/qualification-inputs.json"
+    },
+    {
+      "path": "qualification/receipts/ext002-custody-receipt-1.json",
+      "sha256": "0f26224309c2e53ed9b3cda4109d55f70f5387dd55e396f398a17651e9e7081b",
+      "size_bytes": 814,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/receipts/ext002-custody-receipt-1.json"
+    },
+    {
+      "path": "qualification/receipts/ext004-custody-receipt-1.json",
+      "sha256": "08646d2d9299beacca1cdb86fffc8aa73c1921b012333b9f5ec86e89ae64b05d",
+      "size_bytes": 814,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/receipts/ext004-custody-receipt-1.json"
+    },
+    {
+      "path": "qualification/receipts/ext005-custody-receipt-1.json",
+      "sha256": "470edb7706b33d3fe1eab952698d5c1b406d1ffdc2a7ae40b66af105c222efc2",
+      "size_bytes": 813,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/receipts/ext005-custody-receipt-1.json"
+    },
+    {
+      "path": "qualification/receipts/ext006-custody-receipt-1.json",
+      "sha256": "e96acf4c566db87990b6d2f32d3543bfe5b321e05a74a90089b8ea651eed1c51",
+      "size_bytes": 827,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/receipts/ext006-custody-receipt-1.json"
+    },
+    {
+      "path": "qualification/records/resolution-001-s17-ext-001.json",
+      "sha256": "dff3828b63a05855a8a9c03d14158e4f8c375401216de768b1d11df4753c6a9d",
+      "size_bytes": 1622,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/records/resolution-001-s17-ext-001.json"
+    },
+    {
+      "path": "qualification/records/resolution-002-s17-ext-002.json",
+      "sha256": "87c7f188cf319a77e000bd00c7e4161ff3416d84edc39a96bda26fb831099dab",
+      "size_bytes": 1419,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/records/resolution-002-s17-ext-002.json"
+    },
+    {
+      "path": "qualification/records/resolution-003-s17-ext-003.json",
+      "sha256": "0bc8d238f5d93bf208a29e036ef9487698b38755af42dc9eb01b7b6150bc62f3",
+      "size_bytes": 1393,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/records/resolution-003-s17-ext-003.json"
+    },
+    {
+      "path": "qualification/records/resolution-004-s17-ext-006.json",
+      "sha256": "f14e7f3a992226347d9c43e68032a88189d7fcd16b8c52bd5eae16cf3ecc08d5",
+      "size_bytes": 1419,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/records/resolution-004-s17-ext-006.json"
+    },
+    {
+      "path": "qualification/records/resolution-005-s17-ext-004.json",
+      "sha256": "0d05fd0520bcd496abe3c5bfeeb78bf38a575572a0b136a8e95f6c1c6b5edbd2",
+      "size_bytes": 1419,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/records/resolution-005-s17-ext-004.json"
+    },
+    {
+      "path": "qualification/records/resolution-006-s17-ext-005.json",
+      "sha256": "cea12cabc274448d07905abe706953d8cafb99854a1f8614d716cc4b1e12f770",
+      "size_bytes": 1827,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/records/resolution-006-s17-ext-005.json"
+    },
+    {
+      "path": "qualification/snapshot-manifest.json",
+      "sha256": "cabc2ebc8c0d2c1582b3ad5f60c704caac2d278c39541f03334b22cea31e760a",
+      "size_bytes": 7136,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/snapshot-manifest.json"
+    },
+    {
+      "path": "qualification/stage17-q15-r-result-v4.json",
+      "sha256": "759c1ac582b6e8a9c25ae5e235a5ecdc4df5e2fdb9cd86e09fc94213f9294605",
+      "size_bytes": 3189,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/stage17-q15-r-result-v4.json"
+    },
+    {
+      "path": "qualification/stage17-q15-session-waiting-v1.json",
+      "sha256": "94adf5df36b41496dfd4d5d3c4b6107ba57a4c6336bbc2f97641af434273987e",
+      "size_bytes": 383,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/stage17-q15-session-waiting-v1.json"
+    },
+    {
+      "path": "qualification/stage17-q15-w-result-v4.json",
+      "sha256": "141281ac1fc527855d7c64e64bf9efc48d79caa6466af4ccebfd86cd92dc6b39",
+      "size_bytes": 2212,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/stage17-q15-w-result-v4.json"
+    },
+    {
+      "path": "qualification/stage17-q15_r-attempt-v4.json",
+      "sha256": "904a1aecf52596af65cdce97eeebecd21feab3d581946785024e5732700cce0b",
+      "size_bytes": 898,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/stage17-q15_r-attempt-v4.json"
+    },
+    {
+      "path": "qualification/stage17-q15_w-attempt-v4.json",
+      "sha256": "f76a26436a4495de19cb79ddbf52bbd915071aee0f803ff489cee73351366761",
+      "size_bytes": 898,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/stage17-q15_w-attempt-v4.json"
+    },
+    {
+      "path": "qualification/stage17-q15_w-completion-v4.json",
+      "sha256": "ad0fe18f77a6287f6de4addedb7510da44bd0e214b1729e9a639141254cc002c",
+      "size_bytes": 1240,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/stage17-q15_w-completion-v4.json"
+    },
+    {
+      "path": "qualification/SHA256SUMS",
+      "sha256": "b2960462b42c308581669d7d957dc746650a4aedb2528a2d8fed58dd4a596d62",
+      "size_bytes": 5141,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/qualification-snapshot-1/SHA256SUMS"
+    },
+    {
+      "path": "formal-isolation-handoff-1.json",
+      "sha256": "c5bb76a626452e3fe781a641c8703ae1c6acadb69bde7d3e2f84049859cf5dbf",
+      "size_bytes": 2861,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/formal-isolation-handoff-1.json"
+    },
+    {
+      "path": "release-bindings.json",
+      "sha256": "b992e5773e1a93b540a2ae4079d880e0fca2c3f2b7605bd48beac2eaf3177ac8",
+      "size_bytes": 533,
+      "source_path": "build/stage17-step5-prep/formal-v23-qualification/release-bindings.json"
+    }
+  ],
+  "raw_data_copied": false,
+  "schema_version": "stage17-small-evidence-inventory/1",
+  "total_size_bytes": 231966
+}

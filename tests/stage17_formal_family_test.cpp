@@ -335,4 +335,94 @@ TEST(Stage17FormalFamily, ArchiveRequiresExplicitVersionAndCompleteFamily) {
   plan.at("captures") = Value(std::move(captures));
   EXPECT_FALSE(validate(plan));
 }
+auto continuation_fixture() -> Object {
+  auto plan = archived_fixture(Action::q16a);
+  plan.at("schema_version") = text("cpu-prefetch-stage17-formal-ring-plan/3");
+  auto captures = *plan.at("captures").as_array();
+  captures.erase(captures.begin(), captures.begin() + 177);
+  for (std::size_t ordinal = 0; ordinal < captures.size(); ++ordinal) {
+    auto entry = *captures[ordinal].as_object();
+    for (const auto field : {"capture", "resources", "monitoring"}) {
+      auto value = *entry.at(field).as_object();
+      value.at("ordinal") = number(ordinal);
+      entry.at(field) = Value(std::move(value));
+    }
+    captures[ordinal] = Value(std::move(entry));
+  }
+  plan.at("captures") = Value(std::move(captures));
+  const auto binding = [](std::string_view hash, std::uint64_t bytes) {
+    return Value(Object{{"path", text("/evidence/bound.json")},
+                        {"size_bytes", number(bytes)},
+                        {"sha256", text(hash)}});
+  };
+  plan.emplace(
+      "continuation",
+      Value(Object{
+          {"policy_id", text("Q16A-COMPLETE-CONTEXT-CONTINUATION-v1")},
+          {"parent_plan",
+           binding("a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7",
+                   12128860)},
+          {"failed_family_receipt",
+           binding("a6704159e3dd2adab1598e2959202cfa5a6a0b5c9164a01fab967deeb251c7e4",
+                   1082)},
+          {"accepted_prefix_manifest", binding(std::string(64U, 'c'), 1000)},
+          {"compatibility_manifest", binding(std::string(64U, 'd'), 1000)},
+          {"reused_contexts", Value(Array{number(0), number(1), number(2)})},
+          {"remaining_contexts",
+           Value(Array{number(3), number(4), number(5), number(6), number(7), number(8),
+                       number(9), number(10), number(11)})},
+          {"original_first_ordinal", number(177)},
+          {"failed_original_ordinal", number(177)},
+          {"seed_policy", text("PRESERVE_ORIGINAL_NUMERIC_SEEDS_FRESH_IDENTITIES")},
+          {"monitor_path_replacements", Value(Array{})},
+          {"future_retries", number(0)}}));
+  return plan;
+}
+
+TEST(Stage17FormalFamily, ContinuationExecutesOnlyNineUnfinishedContexts) {
+  const auto plan = continuation_fixture();
+  const auto result = validate(plan);
+  ASSERT_TRUE(result) << (result ? "" : result.errors().front().message);
+  EXPECT_EQ(result.value().captures.size(), 531U);
+  EXPECT_TRUE(result.value().storage.has_value());
+}
+
+TEST(Stage17FormalFamily, ContinuationRejectsPrefixRerunAndArbitraryResume) {
+  for (const auto field :
+       {"original_first_ordinal", "failed_original_ordinal", "future_retries"}) {
+    auto plan = continuation_fixture();
+    auto continuation = *plan.at("continuation").as_object();
+    continuation.at(field) = number(1U);
+    plan.at("continuation") = Value(std::move(continuation));
+    EXPECT_FALSE(validate(plan)) << field;
+  }
+  auto plan = continuation_fixture();
+  change_entry(plan, 0U, [](Object& entry) {
+    auto capture = *entry.at("capture").as_object();
+    capture.at("context_ordinal") = number(0U);
+    entry.at("capture") = Value(std::move(capture));
+  });
+  EXPECT_FALSE(validate(plan));
+  plan = continuation_fixture();
+  plan.at("schema_version") = text("cpu-prefetch-stage17-formal-ring-plan/2");
+  EXPECT_FALSE(validate(plan));
+}
+
+TEST(Stage17FormalFamily, ContinuationRequiresExactIncidentAndBoundProofs) {
+  for (const auto field : {"parent_plan", "failed_family_receipt",
+                           "accepted_prefix_manifest", "compatibility_manifest"}) {
+    auto plan = continuation_fixture();
+    auto continuation = *plan.at("continuation").as_object();
+    continuation.erase(field);
+    plan.at("continuation") = Value(std::move(continuation));
+    EXPECT_FALSE(validate(plan)) << field;
+  }
+  auto plan = continuation_fixture();
+  auto continuation = *plan.at("continuation").as_object();
+  auto parent = *continuation.at("parent_plan").as_object();
+  parent.at("sha256") = text(std::string(64U, 'a'));
+  continuation.at("parent_plan") = Value(std::move(parent));
+  plan.at("continuation") = Value(std::move(continuation));
+  EXPECT_FALSE(validate(plan));
+}
 } // namespace

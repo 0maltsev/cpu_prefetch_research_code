@@ -34,7 +34,8 @@ FORMAL_DECISIONS = tuple("docs/decisions/" + name + ".md" for name in (
     "0232-q16c-original-schedule-source-provenance", "0233-stage17-formal-lossless-archive-proposal",
     "0234-offline-analysis-exit-race-and-bounded-pool", "0235-stage17-formal-archive-wire-format",
     "0236-formal-archive-checkpoint-and-resource-contract", "0237-stage17-calibration-export-boundary",
-    "0238-q16c-sealed-original-schedule-sources", "0239-archive-aware-calibration-export-lineage"))
+    "0238-q16c-sealed-original-schedule-sources", "0239-archive-aware-calibration-export-lineage",
+    "0240-stage17-q16a-complete-context-continuation"))
 ACCEPTANCE_BINDINGS = tuple("docs/evidence/stage17/" + directory + "/" + name
     for directory in ("Q16B-D211-ACCEPTANCE-20261103-01", "Q16A-D212-ACCEPTANCE-20261103-01")
     for name in ("owner-acceptance.json", "proposal.md", "inventory.json"))
@@ -73,6 +74,9 @@ def verify_policy_v58(**arguments):
           for kind in ("ring", "service", "scheduled") for boundary in ("plan", "native-input")),
     }
     required.update(FORMAL_DECISIONS, ACCEPTANCE_BINDINGS)
+    required.update(("docs/STAGE17_EXT007_Q16A_CONTINUATION_V1_DECISION.md",
+                     "docs/STAGE17_EXT007_Q16A_CONTINUATION_V1_ACCEPTANCE.md",
+                     "config/schemas/stage17-formal-ring-plan-v3.schema.json"))
     required.update("docs/evidence/stage17/FORMAL-STORAGE-D233-PROPOSAL-20261103-01/" + name
                     for name in ("owner-acceptance.json", "proposal.md", "acceptance-inventory.json"))
     required.update("config/schemas/" + name for name in (
@@ -120,6 +124,8 @@ def verify_policy_v58(**arguments):
         "tools/stage17_formal_archive_runtime_v1.py", "tools/stage17_formal_archive_broker_v1.py",
         "tools/stage17_formal_archive_registry_v1.py", "tools/stage17_formal_archive_jobs_v1.py",
         "tools/stage17_archive_channel_v1.py", "tools/stage17_formal_checkpoint_v1.py",
+        "tools/stage17_formal_ring_continuation_v1.py",
+        "tools/stage17_q16a_continuation_admission_v1.py",
     }
     if not required_runtime.issubset(closure):
         raise SemanticAdmissionError("policy v58 lacks current D207 runtime")

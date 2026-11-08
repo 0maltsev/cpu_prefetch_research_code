@@ -1,0 +1,75 @@
+{
+  "scope": "Cold isolation, continuation software and offline preparation only",
+  "files": [
+    {
+      "path": "calibration-export-check.log",
+      "size_bytes": 1116,
+      "sha256": "8e04438773fc53594218c8b7a99b1445d47f5837460bbba59185382d3161b8ee"
+    },
+    {
+      "path": "cold-after-reload.json",
+      "size_bytes": 1520,
+      "sha256": "23e1e25efe63b04cb2371cd785b58bc0bddfa1f89b84d9fa97da69b88965468a"
+    },
+    {
+      "path": "cold-before-reload.json",
+      "size_bytes": 1520,
+      "sha256": "b828a8e00b4cc8b3cd273f28a9a378bccab2b65fc0ea1086296d2da63175397f"
+    },
+    {
+      "path": "cold-config-1.json",
+      "size_bytes": 352,
+      "sha256": "9789624608dce37422e7edf1500f30cebc45b1fec8920ea868fd3e0fb29172e8"
+    },
+    {
+      "path": "cold-isolation-ready.json",
+      "size_bytes": 1707,
+      "sha256": "1f8aa2853fd4306af384df28da29372a33b9f20cc8d6707ed20a54bb78d64748"
+    },
+    {
+      "path": "cold-preparation-intent.json",
+      "size_bytes": 1920,
+      "sha256": "baac0898cbf3b703d6ca07b3eca6b8efd267070bc7c6823e2e9d168d72ebf286"
+    },
+    {
+      "path": "cold-prospective-prestate.json",
+      "size_bytes": 2306,
+      "sha256": "23bf00e809eace1e03b2a07f23f59f6023bc51efc2dbd9ec685f06cf71dabb70"
+    },
+    {
+      "path": "cold-restoration.json",
+      "size_bytes": 842,
+      "sha256": "1162ba5814370b072c444be3e72ddc71b68bd8bb058b30f1d7ad04195649a7e4"
+    },
+    {
+      "path": "isolation_core.py",
+      "size_bytes": 23863,
+      "sha256": "49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a"
+    },
+    {
+      "path": "preexisting-format-findings.json",
+      "size_bytes": 645,
+      "sha256": "ccbca176a0b67565ef2d318451b39f914425270c79e60b35c705498e5c364924"
+    },
+    {
+      "path": "prefix-analysis-config.json",
+      "size_bytes": 4786,
+      "sha256": "882d4ce20cf5cc511c71fa01375a07f6f159777f20a132ebbe782b7c9e1e0e3e"
+    },
+    {
+      "path": "prefix-preparation.json",
+      "size_bytes": 1473,
+      "sha256": "0650a48e100d9eca1c40eecf75c3a0f120f9a4bab5292b1703ba1e95d33bbb8b"
+    },
+    {
+      "path": "registry-check.log",
+      "size_bytes": 112,
+      "sha256": "36b3d1306a4a8cace8ce98131bb84ba4deca2be821884293267c255a2e636072"
+    },
+    {
+      "path": "verification-summary.json",
+      "size_bytes": 1117,
+      "sha256": "7fcc2b59505c069744414006f5e0e3bfd11c701d7e72020c053e6c1c901d8953"
+    }
+  ]
+}

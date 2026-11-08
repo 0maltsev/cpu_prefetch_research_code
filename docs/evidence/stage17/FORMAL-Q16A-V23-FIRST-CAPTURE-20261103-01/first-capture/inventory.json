@@ -1,0 +1,45 @@
+{
+  "files": [
+    {
+      "path": "formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/stage17-q16a-attempt-v6.json",
+      "sha256": "5ecabbeb75fcb739be51c30c3dad807870c232244c5fc913641d7067fb5abec7",
+      "size_bytes": 995
+    },
+    {
+      "path": "formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/formal-capture-0-final-checkpoint.json",
+      "sha256": "17d376f71a36bc9a0089ff9acbd989c9eeda29c1f8e8c9d78e29ac632dcee364",
+      "size_bytes": 13867
+    },
+    {
+      "path": "formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/formal-capture-0-archive-custody.json",
+      "sha256": "1ebc20127084fe0ee7c4276d1238a457599fa15dcbd0b82dd25751f95b861531",
+      "size_bytes": 7984
+    },
+    {
+      "path": "formal-archive-program-1/ledger/0000000000000083.json",
+      "sha256": "dc2d5161a3fd2ef1acfea03f46f6ff6bb785b60f5715c0c08eab681e1b9328fb",
+      "size_bytes": 673
+    },
+    {
+      "path": "formal-q16a-launcher-check-result-1.json",
+      "sha256": "e9a2a0952f8f2ff4b7fa4c2550f622cdd27ce5d779816e220cea4210171dae92",
+      "size_bytes": 218
+    },
+    {
+      "path": "formal-q16a-launch-command-result-1.json",
+      "sha256": "9035347de7adea27aabf3322bddec345c7138382cd7df3c1f57cda6e6db32a49",
+      "size_bytes": 174
+    },
+    {
+      "path": "formal-q16a-launch-1/launch-readback.json",
+      "sha256": "5583619441c8a3ca4fe955fa880c9373c5273d79a1af9108ec9368f139ad294b",
+      "size_bytes": 2868
+    },
+    {
+      "path": "owner-stop-on-q15-q16-failure-1.json",
+      "sha256": "9c99302c435faef155d726987563d5ebdef6e7585aaca494e7b88855d368d4f2",
+      "size_bytes": 445
+    }
+  ],
+  "original_stand_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/"
+}

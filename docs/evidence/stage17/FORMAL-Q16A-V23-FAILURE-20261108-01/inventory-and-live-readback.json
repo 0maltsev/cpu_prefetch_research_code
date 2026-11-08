@@ -1,0 +1,46 @@
+{
+  "observed_at_utc": "2026-11-08T11:59:58.128361+00:00",
+  "files": {
+    "supervisor-result.json": {
+      "source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-q16a-launch-1/supervisor-result.json",
+      "sha256": "0fdc08c3cf8a425ba259d403ef802e28702e215334a3c3908e51e7acb756f11c",
+      "size_bytes": 531
+    },
+    "session.log": {
+      "source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-q16a-launch-1/session.log",
+      "sha256": "551824904926de21feae9bf8bfa962dab663925bb1e195a66d47cd3077e0ad91",
+      "size_bytes": 3169
+    },
+    "stage17-q16a-failure-v6.json": {
+      "source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/stage17-q16a-failure-v6.json",
+      "sha256": "a6704159e3dd2adab1598e2959202cfa5a6a0b5c9164a01fab967deeb251c7e4",
+      "size_bytes": 1082
+    },
+    "formal-capture-177-final-checkpoint.json": {
+      "source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/formal-capture-177-final-checkpoint.json",
+      "sha256": "35a1e174c508ecb630c761977ef6dc68b3a0dd3e62dbaf9efea83f7e88028c87",
+      "size_bytes": 13143
+    },
+    "formal-capture-177-archive-custody.json": {
+      "source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7/formal-capture-177-archive-custody.json",
+      "sha256": "042cf910fb032f1c70a57e63c62716b73dad99b89194762ebbd57300f9ea509b",
+      "size_bytes": 7871
+    },
+    "service_session.hpp": {
+      "source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/admission-root/include/cpu_prefetch/calibration/service_session.hpp",
+      "sha256": "b3919a4a9e916d5945ce2bc81e1d8accb30c160c0bc364a5d3138b1b0c557008",
+      "size_bytes": 19466
+    }
+  },
+  "live": {
+    "msr_1a4": {
+      "0": 0,
+      "1": 0,
+      "8": 0
+    },
+    "isolated_cpus": "",
+    "effective_cpus": "0-31",
+    "owned_cgroup_exists": true,
+    "owned_cgroup_procs": ""
+  }
+}

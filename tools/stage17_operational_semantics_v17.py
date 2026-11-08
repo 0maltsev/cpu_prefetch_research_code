@@ -172,7 +172,7 @@ def _receipts(*, artifacts, action_id, trust, expected_predecessors, extent, all
     resources = completion['resource_admission']
     exact(resources['required_memory_bytes'], extent.declared.memory_bytes, 'completion memory declaration differs')
     plan = request['action_inputs'].get('plan', {})
-    if plan.get('schema_version') == plans.VERSION[action_id]:
+    if plans.is_archived_plan(action_id, plan):
         storage = plan['storage']
         for field in ('retained_program_bytes', 'remaining_program_quota_bytes', 'capture_ordinal'):
             value = resources.get(field)
@@ -245,7 +245,7 @@ def _archive_scope(archive_report, request, repository_root):
 
 def verify_signed_formal_family(*, repository_root, evidence_root, historical_journal,
         journal_directory, artifacts, action_id, admitted_resolutions, allow_synthetic, pinned_repository_bytes,
-        analysis_limits=None):
+        analysis_limits=None, pilot_archive=None, pilot_sidecar=None):
     """Authenticate historical collection and call the real archival registry.
 
     No scientific credit or freeze follows. Dependency absence is a hard failure.
@@ -259,7 +259,8 @@ def verify_signed_formal_family(*, repository_root, evidence_root, historical_jo
         prepared = controller.prepare_retention(repository_root=Path(repository_root),
             operational_evidence_root=Path(evidence_root), journal=Path(historical_journal),
             journal_directory=Path(journal_directory), authorization_path=authorization.path,
-            signature_path=signature.path, synthetic_test_only=allow_synthetic)
+            signature_path=signature.path, synthetic_test_only=allow_synthetic,
+            pilot_archive=pilot_archive, pilot_sidecar=pilot_sidecar)
         expected = _historical(prepared, admitted_resolutions, historical_journal)
         for role, family in (('AUTHORIZATION', 'phase-action-authorization'), ('REQUEST', 'fixed-action-request'),
                              ('ATTEMPT', 'phase-action-attempt'), ('RESULT', 'phase-action-result'),
@@ -271,7 +272,7 @@ def verify_signed_formal_family(*, repository_root, evidence_root, historical_jo
         require(prepared.authorization_bytes == authorization.payload and prepared.request_bytes == request_artifact.payload,
                 'prepared authority/request differs from original lifecycle bytes')
         plan = prepared.request['action_inputs']['plan']
-        exact(plan['schema_version'], plans.VERSION[action_id], 'archival bridge requires original /2 plan')
+        require(plans.is_archived_plan(action_id, plan), 'archival bridge requires a supported original archival plan')
         extent = plans.validate_plan(action_id, plan)
         family = _receipts(artifacts=artifacts, action_id=action_id,
             trust=prepared.validation.resolutions['S17-EXT-003'].semantic_context['trust'],

@@ -47,7 +47,7 @@ def plan_sha256(plan):
 def pin_registry(root):
     old = predecessor.pin_registry(root)
     schemas = dict(old.schemas)
-    for path in (REPORT_SCHEMA, *contract.SCHEMA.values()):
+    for path in (REPORT_SCHEMA, *contract.SCHEMA.values(), contract.CONTINUATION_SCHEMA):
         payload = base._safe_repository_file(root, PurePosixPath(path))
         document = json.loads(payload)
         Draft202012Validator.check_schema(document)
@@ -60,7 +60,7 @@ def is_archived(request):
     action = request.get("action_id")
     return (action in FORMAL_ACTIONS
             and request.get("schema_version") == "cpu-prefetch-stage17-fixed-action-request/6"
-            and request.get("action_inputs", {}).get("plan", {}).get("schema_version") == contract.VERSION[action])
+            and contract.is_archived_plan(action, request.get("action_inputs", {}).get("plan")))
 
 
 def artifact_identity(action, name):

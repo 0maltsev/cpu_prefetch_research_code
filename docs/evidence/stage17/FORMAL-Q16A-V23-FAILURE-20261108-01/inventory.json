@@ -1,0 +1,53 @@
+{
+  "scope": "READ_ONLY_FAILURE_DIAGNOSIS_NO_SCIENTIFIC_ADMISSION",
+  "files": {
+    "FAILURE-REPORT.txt": {
+      "sha256": "605d89a4f70af4e122c7be15cc9c42a86bd662ddadcd208c7226e7b9362bdb19",
+      "size_bytes": 9279
+    },
+    "diagnosis-checks.json": {
+      "sha256": "236e51e1e05576ae8bb7f87fc29e2b3ce9ad9ed809a18af56f1758e9e99f24d1",
+      "size_bytes": 1030
+    },
+    "control-177-environment-summary.json": {
+      "sha256": "81cb7c02f0288b3a80c028e1c6a328b8cc297d656a693bf4089b37c7cdd5c5ba",
+      "size_bytes": 173776
+    },
+    "control-176-environment-summary.json": {
+      "sha256": "12f53465f99518836b086fcde7da24041fed6dd39714006fcfcc4f019afe2221",
+      "size_bytes": 590278
+    },
+    "failure-context.json": {
+      "sha256": "72821f4897a3a55de8be445911a0e900fee7be20e5193c827d3ef4ce7582eee1",
+      "size_bytes": 44213
+    },
+    "systemd-failure-window.log": {
+      "sha256": "e3bb1c14afafcb3ab40b946d89c135ac332011700c9a5b27a6bd48ce2d83ce67",
+      "size_bytes": 8404
+    },
+    "stage17-q16a-failure-v6.json": {
+      "sha256": "a6704159e3dd2adab1598e2959202cfa5a6a0b5c9164a01fab967deeb251c7e4",
+      "size_bytes": 1082
+    },
+    "supervisor-result.json": {
+      "sha256": "0fdc08c3cf8a425ba259d403ef802e28702e215334a3c3908e51e7acb756f11c",
+      "size_bytes": 531
+    },
+    "formal-capture-177-final-checkpoint.json": {
+      "sha256": "35a1e174c508ecb630c761977ef6dc68b3a0dd3e62dbaf9efea83f7e88028c87",
+      "size_bytes": 13143
+    },
+    "formal-capture-177-archive-custody.json": {
+      "sha256": "042cf910fb032f1c70a57e63c62716b73dad99b89194762ebbd57300f9ea509b",
+      "size_bytes": 7871
+    },
+    "inventory-and-live-readback.json": {
+      "sha256": "84c423120548a4879edd8548e3ea8f6b872cbfcb83fba3f5098e89e17a0bb026",
+      "size_bytes": 2281
+    },
+    "source-comparison.json": {
+      "sha256": "20fb6f2f3ec60e69bce8bdc05228e94276edb163fa9f11d231eb1ce9c3bb2640",
+      "size_bytes": 2195
+    }
+  }
+}

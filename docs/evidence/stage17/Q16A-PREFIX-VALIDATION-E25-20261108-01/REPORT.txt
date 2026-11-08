@@ -1,0 +1,59 @@
+EXT007 continuation checkpoint — 2026-11-08, 14:00 UTC
+
+The corrected offline reader passed its full original capture173 validation.
+Supervisor finished13:47:16.924739UTC, exit0, all owned children reaped,
+elapsed846.554s, raw_mutation=false. The original D220 validator checked both
+phases and all eight raw streams. The report has raw_reconciliation_validated
+and capture_execution_evidence_validated true. Measurement zero loss is true;
+warmup FULL observations remain retained and reconciled. This single saved
+capture check is not an accepted177-capture prefix or family-validity result.
+
+The new full-prefix analysis started14:00:31.875141UTC, supervisorPID109395,
+in E23/continuation-prefix-1/analysis4. Configuration SHA256:
+5fac00e4596db73e602af859d9ba9ad01dace1806e1ce9cd2216fc9e73faf78a.
+Startup produced the analysis intent and no stderr/launch error. It has four
+8GiB workers,36GiB aggregate memory plus8GiB reserve,256GiB scratch and a
+24-hour deadline. Prior failed-analysis scratch27,620,093,952B remains retained;
+combined old scratch and prospective new workspace131,450,944,904B fits the
+274,877,906,944B ceiling. No archive or failed evidence was removed.
+
+Release42f2ebb96f751319cd55fc1fabdcf7f91ab1c8d0 is installed in E25.
+Prerequisite operators both exited0 and were reaped. Journal000006 contains
+EXT001/002/003/006 and two transitions. This is prerequisite admission only:
+the new release has no near/far clocks, Q15-R/W or Q16 continuation result.
+It will use its own fresh qualification; old-source results are not relabeled.
+
+The E25 authoring/namespace suite passed18 tests. Its first run exposed a test
+fixture that escaped F25 as F24; correcting that literal made the intended
+escaped-identity check pass, with no production scanner change. Three additional
+input-binder checks passed for fresh hardware qualification, unchanged actual
+suffix memory geometry and both bound namespace-audit scopes. These software
+tests confer no empirical validity or execution authority.
+
+Eight continuation helper/document files are staged, byte-verified and readable
+by UID1000 under E25/continuation-operators-1. Their inventory SHA256 is:
+a130ad2274f88f16627d490adb7d6613cc890e004b492db1abdb24a3dbafdd57.
+The new input binder requires actual completed analysis, the current qualified
+journal, exact final plan and two passed namespace audits. It calls the full
+production input validator before authoring files. It cannot register, sign or
+launch an experiment. The reviewed launcher/registration/config helpers retain
+their previously verified bytes. operators/HANDOFF.txt records the dependency
+order and actual known paths; future inputs must come from actual results.
+
+Remaining order:
+1. Accept all177 original reports only after successful full analysis/reaping.
+2. Qualify E25 near/far then one persistent Q15-R/W, stopping on first failure.
+3. Bind actual compatibility/namespace/hardware proofs, register once and sign
+   the fresh531-capture continuation; check and launch once.
+4. Independently validate suffix and implement the authenticated177+531 result
+   composition. Calibration_v2 deliberately rejects suffix-only evaluation.
+5. Complete Q16b/Q16c, calibration freeze and EXT007 admission.
+
+Stage17/EXT007 remain incomplete. No708-capture restart is authorized here.
+No new Q15/Q16 measurement ran in this checkpoint. The original177 captures,
+failed original ordinal177, old offline failures and raw archives stay intact.
+Only small reports/software were copied to the PC. Result polls remain30minutes
+apart; startup and deployment checks are separate. No automatic retry or
+dependent launch is scheduled by these helpers.
+
+inventory.json binds exact retained report bytes to their original paths.

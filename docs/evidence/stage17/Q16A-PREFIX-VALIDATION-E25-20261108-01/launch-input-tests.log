@@ -1,0 +1,8 @@
+test_actual_remaining_geometry_preserves_original_resource_limits (__main__.InputsTests.test_actual_remaining_geometry_preserves_original_resource_limits) ... ok
+test_exact_two_scopes_and_bound_plans_required (__main__.InputsTests.test_exact_two_scopes_and_bound_plans_required) ... ok
+test_hardware_comes_from_new_qualification_and_preserves_original_state (__main__.InputsTests.test_hardware_comes_from_new_qualification_and_preserves_original_state) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.447s
+
+OK

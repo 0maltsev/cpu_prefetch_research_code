@@ -1,0 +1,66 @@
+AUTHORING ONLY. No signing, registration, collection, raw decoding or automatic retries.
+Historical operators and failed analysis roots remain frozen and independent.
+
+Run this renderer on the stand only after main observes completed prefix analysis,
+with the newly installed qualified repository and actual original/new bundle trees.
+There is no preview/synthetic flag and no built-in source revision or successor SHA.
+
+Invocation (substitute ONLY actual observed input paths/SHA):
+/usr/bin/python3.14 -B render_continuation.py --repository-root ACTUAL_E25_ADMISSION_ROOT --spec ACTUAL_SPEC_PATH --spec-sha256 ACTUAL_SPEC_SHA256
+
+Specification is an exact-field JSON object:
+{
+  "schema_version": "software-q16a-continuation-authoring/1",
+  "qualification": {
+    "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25",
+    "journal": "ACTUAL_LATEST_E25_JOURNAL_ABSOLUTE_PATH",
+    "journal_directory": "ACTUAL_E25_JOURNAL_DIRECTORY",
+    "pilot_archive": {"path": "ACTUAL_NEW_ARCHIVE", "size_bytes": "ACTUAL_INTEGER", "sha256": "ACTUAL_SHA256"},
+    "pilot_sidecar": {"path": "ACTUAL_NEW_SIDECAR", "size_bytes": "ACTUAL_INTEGER", "sha256": "ACTUAL_SHA256"}
+  },
+  "parent_plan": {"path": "ORIGINAL_E23_PLAN_PATH", "size_bytes": "ACTUAL_INTEGER", "sha256": "ACTUAL_SHA256"},
+  "failed_family_receipt": {"path": "ORIGINAL_E23_FAILURE_PATH", "size_bytes": "ACTUAL_INTEGER", "sha256": "ACTUAL_SHA256"},
+  "accepted_prefix_manifest": {"path": "ACTUAL_VALIDATED_ANALYSIS4_MANIFEST", "size_bytes": "ACTUAL_INTEGER", "sha256": "ACTUAL_SHA256"},
+  "original_bundle_root": "ACTUAL_DD981_ORIGINAL_BUNDLE_ROOT",
+  "continuation_bundle_root": "ACTUAL_QUALIFIED_SUCCESSOR_BUNDLE_ROOT",
+  "monitor_path_replacements": ["EXACT_FIVE_OBJECTS_WITH_original_path_AND_continuation_path"],
+  "output_directory": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-authoring-1"
+}
+This example is deliberately NOT executable JSON input: replace all explicit
+markers with actual bound facts, including integer sizes and five replacement
+objects. Do not invent bundle hashes, validated-prefix status, or observed paths.
+
+Both original and successor bundle files must remain at the actual referenced
+paths. The current operational journal is revalidated read-only with the exact
+new archive/sidecar. All six required resolutions, ready state, actual release
+worker and qualified archive profile/runtime are checked through existing code.
+The renderer calls the existing continuation parent and full prefix/compatibility
+admission functions; there is no weaker compatibility flag or synthetic fallback.
+
+The output directory must be a fresh direct child of E25, with E25 already owned
+and writable by the intended author. All checks occur before creating outputs.
+Only three files are emitted, canonical JSON without trailing LF:
+  compatibility.json
+  namespace_registry.json
+  plan.json
+Their absolute bindings are printed as JSON on stdout. A write/fsync error leaves
+partial evidence and is a failure; no overwrite, retry or recovery is automatic.
+
+New fixed operational identities, for scoped collision audits before registration:
+  plan_id CPU-PREFETCH-V5-V25-Q16A-PLAN-1
+  warmup namespace CPU-PREFETCH-V5-V25-Q16A-WARMUP-1
+  measurement namespace CPU-PREFETCH-V5-V25-Q16A-MEASUREMENT-1
+  run IDs F25W00000177 through F25W00000707 and F25M equivalents
+  seed IDs namespace + -SEED-0177 through -SEED-0707
+All 1062 numeric seed_hex values come unchanged from the original corresponding
+slots. Namespace registration is an unregistered proposal: scoped historical
+collision audit and live controller authority remain separate requirements.
+
+Continuation local ordinals0..530 map to original177..707, contexts3..11,59each.
+Original shared E23 program/scope/quota and all scientific/resource ceilings stay
+unchanged. Only permitted identity/source/profile/ordinal/5monitor-path fields
+change, with original LP run-ID width enforced by the actual parent contract.
+No output claims a complete708 family or grants execution/calibration authority.
+
+Verification command (local software only, no stand access):
+python3 -B build/ext007-runtime-20261101/run.py -- /usr/bin/python3 -B build/stage17-step5-prep/recovery-v23-continuation/authoring-v25/test_renderer.py

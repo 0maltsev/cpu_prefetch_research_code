@@ -1,12 +1,12 @@
 # Stage 17 completion plan
 
-**Current EXT007 checkpoint (2026-11-08): E23 Q16a STOPPED; owner-authorized continuation preparation is in progress.** The original attempt stopped on 2026-11-05 at 03:44:12 UTC after 177 native-complete captures. Capture ordinal 177 failed before warmup when five CPU-isolation reads returned ENODEV; all 178 capture evidence sets remain archived. The [failure investigation](evidence/stage17/FORMAL-Q16A-V23-FAILURE-20261108-01/FAILURE-REPORT.txt) links the retained observations and update/reload timeline. Scientific validity of the completed prefix remains NOT_ASSESSED.
+**Current EXT007 checkpoint (2026-11-08): E23 Q16a STOPPED; owner-authorized continuation preparation is in progress.** The original attempt stopped on 2026-11-05 at 03:44:12 UTC after 177 native-complete captures. Capture ordinal 177 failed before warmup when five CPU-isolation reads returned ENODEV; all 178 capture evidence sets remain archived. The [failure investigation](evidence/stage17/FORMAL-Q16A-V23-FAILURE-20261108-01/FAILURE-REPORT.txt) links the retained observations and update/reload timeline. Reuse of the full prefix is not yet accepted; independent validation is in progress.
 
 The owner instructed **“continue from the broken one”** after the bounded reuse proposal. Prepare one versioned 531-capture continuation for contexts 3–11, preserve contexts 0–2 and the failed attempt, validate prefix reuse, repair isolation lifecycle and qualify changed components before launch. No continuation has started. Any new Q15/Q16 failure stops dependent work without another automatic retry. Stage 17 and EXT007 remain incomplete.
 
 **Continuation recovery checkpoint (2026-11-08):** [D240](decisions/0240-stage17-q16a-complete-context-continuation.md) records one incident-bound 531-capture suffix, with unchanged numeric seeds, scientific controls and limits. The managed-isolation cold test passed across an actual systemd reload at 12:35:21 UTC; all five control-file identities and CPU exclusions survived, then exact CPU and apt-timer restoration passed. [Original cold evidence](evidence/stage17/Q16A-CONTINUATION-D240-20261108-01/inventory.json) is retained. The declaration, native admission, prefix/compatibility gate and targeted verification are implemented. Offline prefix analysis was launched at 12:51:48 UTC only after full original release/signature/journal preparation passed; accepted reuse still requires all 177 reports and the supervisor completion receipt. The earlier offline startup omitted release transport arguments and stopped before raw parsing; its evidence is preserved. The new release is not yet qualified and no Q15/Q16 continuation has started.
 
-**Offline validation checkpoint (2026-11-08, 13:33 UTC):** The first raw prefix analysis stopped at 13:04:57 UTC because its discovery JSON reader capped packed page arrays at 256 MiB; the unchanged signed formal geometry requires 369.75–370.75 MiB. All analysis children were reaped, no capture report was accepted and raw data is unchanged. [D241](decisions/0241-formal-control-reader-prospective-capacity.md) records a prospective reader-capacity correction under the unchanged 8 GiB worker limit. Twelve software checks passed; a bounded offline check of retained capture 173 is running before a new full-prefix validation. Release `e58b180` is installed with EXT001/002/003/006 admitted, but clocks and Q15/Q16 have not started. Its original offline-operator pin must be superseded through a verified release before accepting the corrected prefix proof.
+**Offline validation checkpoint (2026-11-08, 14:00 UTC):** The corrected D241 reader and full original validator passed retained capture 173 at 13:47:16 UTC (exit 0; all children reaped). The four-worker validation of all 177 preserved captures started at 14:00:31 UTC in `analysis4`, with the unchanged 24-hour deadline and resource ceilings; startup passed. Prefix reuse still requires all 177 reports and successful supervisor completion. Clean release `42f2ebb` is installed in E25; EXT001/002/003/006 are admitted at journal 000006. Near/far clocks, Q15-R/W and the fresh 531-capture continuation have not started. They wait for prefix validation and analysis quiescence. The one-capture check does not establish family validity. [Receipts, launch accounting and next steps](evidence/stage17/Q16A-PREFIX-VALIDATION-E25-20261108-01/REPORT.txt) are retained; raw data stays on the stand.
 
 **Historical EXT007 checkpoint (2026-11-03, 21:53:24 UTC): Steps 1–5 COMPLETE;
 Step 6 IN PROGRESS.** Clean release `dd981b4fdcf953386d4a7514fec381ff9be6e359`
@@ -98,16 +98,29 @@ credit for the unchanged formal EXT007 requirements.
    cleanup passed before formal execution. The exact 708-capture F23 plan,
    phase request, authorization/signature and launcher checks passed. Historical
    d452/c962 failures remain retained; this successor changes no scientific method.
-6. **In progress — formal collection and validation:** Q16a is running. At
-   ledger sequence 83 (2026-11-03T21:53:24.450007809Z), capture 0 is native
-   complete/published and all nine artifacts are `ARCHIVED_AND_RELEASED`:
-   **1/708 fully archived, scientific validity NOT_ASSESSED**. Finish the fixed
-   Q16a family, independently validate/admit it, then Q16b's 3,540 runs and
-   Q16c in dependency order, derive the calibration freeze and admit EXT007.
-   D238's optional sealed transport remains deferred; existing inline schedule
-   limits apply. D233 keeps raw archives on the stand. Any Q15/Q16 failure
-   stops dependent work, with evidence retention/restoration and no automatic
-   repair, retry or top-up. Quota exhaustion leaves an incomplete family.
+6. **In progress — formal collection and validation:** the original Q16a
+   stopped after 177 native-complete, archived captures; original ordinal 177
+   failed before either phase was released. Preserve all original evidence.
+   D240 authorizes one 531-capture continuation, with the original science,
+   numeric seeds and shared archive quota. Recovery sequence:
+
+   1. **Complete:** isolate the infrastructure failure, verify the managed
+      cgroup fix, and build/verify clean continuation release `42f2ebb`.
+   2. **Running:** independently validate all 177 retained captures. The D241
+      reader check passed; full `analysis4` started at 14:00:31 UTC on Nov 8.
+   3. **Pending:** after successful analysis and child reaping, run fresh
+      near/far clocks and one persistent Q15-R/W; E25 prerequisites already pass.
+   4. **Prepared, pending actual proofs:** bind compatibility, namespace audits,
+      current hardware qualification and signed authority, then collect only
+      the remaining 531 captures. Stop on the first new Q15/Q16 failure.
+   5. **Pending:** validate the suffix and implement authenticated 177+531
+      result composition. Then admit Q16a, complete Q16b/Q16c, freeze calibration
+      and admit EXT007. Suffix-only evaluation cannot establish Q16a completion.
+
+   No full 708-capture restart, optional extension or archive reset. D233 keeps
+   raw archives on the stand; this PC retains only small evidence and reports.
+   On a new experimental failure, retain evidence, reap owned workers, restore
+   hardware/isolation and report without another automatic repair/retry.
 
 Earlier Step 5 software checkpoint (superseded by the current release status):
 

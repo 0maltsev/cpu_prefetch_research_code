@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/operator-preparation-v25/v25-admit-002-003-006.py"
+  ],
+  "completed_monotonic_ns": 582638188315291,
+  "exit_code": 0,
+  "leader_reaped": true,
+  "operator": "v25-admit-002-003-006.py",
+  "retry_allowed": false,
+  "started_monotonic_ns": 582452174303393
+}

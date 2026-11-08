@@ -1,0 +1,72 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "11f675495df6cf5faa78e99b28c1247fa9ed58f156aef3028d62a9969e451028",
+      "size_bytes": 768
+    },
+    {
+      "path": "actual-bundle-closure-e58b180-1.json",
+      "sha256": "7166c047e2ff0986108ac6cbde0bc8421133ac89b8bf413fb895c733d95e3d7e",
+      "size_bytes": 112506
+    },
+    {
+      "path": "actual-bundle-closure-e58b180-1.log",
+      "sha256": "81712259ea00f8721ce1e1512b59997080cb91e35fa521aa946b6c1064cdf79a",
+      "size_bytes": 462
+    },
+    {
+      "path": "guarded-driver-verification-1.json",
+      "sha256": "153397cee336acface9eeb7b743e3c42a87a25a1e4ee0062f729823134a1f55d",
+      "size_bytes": 1163
+    },
+    {
+      "path": "qualification-prerequisites-complete-1.json",
+      "sha256": "8296b2a64a3f9479ceca909b6cb1d1222afe3515d830d5b8448d43d14abcd760",
+      "size_bytes": 99
+    },
+    {
+      "path": "release-bindings-e58b180.json",
+      "sha256": "9aeca64f4a838d854286d9ceb9a0127e8ce5a5a3a3cc7ca18671bcdd43b83702",
+      "size_bytes": 533
+    },
+    {
+      "path": "run_qualification_v24_guarded.py",
+      "sha256": "1e8968134c9982356112e1e448e6da6d364ec98264bc51c3ed146e06bd8f6d32",
+      "size_bytes": 10059
+    },
+    {
+      "path": "stage17-state-journal-000006.json",
+      "sha256": "81f12c872c0670c74b1b8e3ff2ba9af9099ba71dff5e0f306a139e8e0154f221",
+      "size_bytes": 3341
+    },
+    {
+      "path": "test_guarded_driver.py",
+      "sha256": "0af5d8efb8ac288ace00483a73a7861d7da4682bff42f18a32dcac1ee31b0c85",
+      "size_bytes": 3504
+    },
+    {
+      "path": "v24-admit-002-003-006.py.log",
+      "sha256": "87575f664a7c0c45f1bf583512731a85df4dc41106a9813899d6b212a6610228",
+      "size_bytes": 7787
+    },
+    {
+      "path": "v24-admit-002-003-006.py.result.json",
+      "sha256": "bf2b72645465b9421807122dab1f5ad0d8d720b6b8f60638104a602a1d251597",
+      "size_bytes": 380
+    },
+    {
+      "path": "v24-ext001-execute.py.log",
+      "sha256": "20c2381fbce78e2d183ae06910e089a2845f69726a4f80e5588c706b203341b1",
+      "size_bytes": 6956
+    },
+    {
+      "path": "v24-ext001-execute.py.result.json",
+      "sha256": "2fe017f53513552fb3a9d02c35ea172b55da9a4c6b4b1300f6b44554c03a0a0f",
+      "size_bytes": 374
+    }
+  ],
+  "formal_capture_started": false,
+  "qualification_complete": false,
+  "raw_data_included": false
+}

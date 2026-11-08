@@ -1,0 +1,80 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "073b158dad1baf8eeefe5cde84a023ca7af8ff81730ac805c84ad0c471c71b9f",
+      "size_bytes": 727
+    },
+    {
+      "path": "admission-tests-1.log",
+      "sha256": "9afd51bd0c6ba58910d2cbcf7f88035fe7e7521ea92d05a9a55ad1bf8193c484",
+      "size_bytes": 114
+    },
+    {
+      "path": "analysis3-failure/analysis-process-result.json",
+      "sha256": "7b2c9cdd37308302b98b4ff71ff0f15b5c09d6e3e2d8997082ef0a29fa338ea3",
+      "size_bytes": 401
+    },
+    {
+      "path": "analysis3-failure/analysis-stderr.log",
+      "sha256": "3d5839a9d24c380e4241ac3b4f6329dffc88582027053d37cba197532cdc45fd",
+      "size_bytes": 2167
+    },
+    {
+      "path": "analysis3-failure/original-analysis-limits.json",
+      "sha256": "ccd497dfd14bdab8d26c9778c103598a17f175346a2cd456fa8ed6e78cdc5a87",
+      "size_bytes": 1847
+    },
+    {
+      "path": "check_retained_capture173.py",
+      "sha256": "20e195e6f822cfa986cf531fad894d32a176cd7bb1a61b474f035cbee735ec09",
+      "size_bytes": 2515
+    },
+    {
+      "path": "formal-policy-tests-1.log",
+      "sha256": "d6f56255d8229b85cdb8879b2ac90232c6ca7abed2b47d49fa5b52749399a57c",
+      "size_bytes": 117
+    },
+    {
+      "path": "prospective-capacities.json",
+      "sha256": "564f5dca25a35451a40030713a81fd825cffdb11574fc2b09fc57944fb85be04",
+      "size_bytes": 4498
+    },
+    {
+      "path": "protocol-schema-checks-runtime-1.log",
+      "sha256": "6fc33116dbe49279601844f9465ffe7180e38ebabc4d1fbeeccabb680dc79579",
+      "size_bytes": 622
+    },
+    {
+      "path": "routing-tests-1.log",
+      "sha256": "2be5fd0a374eddea52d3e51768070456c5e05743c4f0e44141d207c4de81a895",
+      "size_bytes": 105
+    },
+    {
+      "path": "test_formal_reader.py",
+      "sha256": "b10aea17b01ca7183cc2b33cb285531ab0b4df648c7ec2dd8240d2c62253f0b9",
+      "size_bytes": 5617
+    },
+    {
+      "path": "tests-final.log",
+      "sha256": "13696596646dd5db9c320caecb20517f15ff9cd9b68a6438aa7c2fff6d7010e1",
+      "size_bytes": 1758
+    },
+    {
+      "path": "upload-manifest.json",
+      "sha256": "bb87397193b6a0fb7a5c773bb4575b5702f1c18d94175842b3ee5b8ea4951e59",
+      "size_bytes": 932
+    },
+    {
+      "path": "validate_prefix.py",
+      "sha256": "b62ad1ee2d9f43e3b895f8aad6709e80762eca76a2d883b37dbdee80a232f218",
+      "size_bytes": 30422
+    },
+    {
+      "path": "verification-summary.json",
+      "sha256": "bc6e4eb4c6fdb49c72df56d163045bdcfca23325bcc29746b0c141b9a9bcabe2",
+      "size_bytes": 818
+    }
+  ],
+  "raw_data_included": false
+}

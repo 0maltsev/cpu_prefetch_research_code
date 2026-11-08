@@ -36,7 +36,7 @@ QUALIFIED_VALIDATORS = (
     'stage17_formal_archive_custody_v1.py', 'stage17_formal_archive_v1.py',
     'stage17_formal_checkpoint_v1.py')
 OPERATOR_SHA = {
-    'validate_prefix.py': '1791eda89e43eea28502a3201b50b4f969bb5b73eb89214d49179814422cdbc6',
+    'validate_prefix.py': 'b62ad1ee2d9f43e3b895f8aad6709e80762eca76a2d883b37dbdee80a232f218',
     'original_analysis.py': '5ed34087443a79c81ff00135bbfd4adb2e3f516770dd034be9f998ae69b0ac99',
     'd234_supervision.py': '82571bf245012b0d7b444924803909f8d3a0ba802001d7ad9a5d9410195f9403',
     'stage17_discovery_validation_parallel_v2.py': '07a4bba1379c686a8f31e42aadeb93200a8574d55c7a1ffaea7b92606a6303f7'}
@@ -391,6 +391,33 @@ def _authority(prefix, parent, failure, reader):
     return root
 
 
+def _formal_reader_limits(limits, parent):
+    """D241 checks the prospective parser bound, never an observed pass flag."""
+    resources = limits['resources']
+    workers = resources['worker_count']
+    require(type(workers) is int and 1 <= workers <= 4, 'offline worker count')
+    same(resources['capture_as_bytes'], 8 * 1024**3, 'unchanged capture AS')
+    same(resources['total_memory_bytes'], (4 + 8 * workers) * 1024**3,
+         'unchanged aggregate analysis memory')
+    expected = []
+    for ordinal in (0, 59, 118):
+        item = parent['captures'][ordinal]
+        page = item['capture']['geometry']['base_page_bytes']
+        full = [size // page for size in item['resources']['region_bytes']]
+        during = item['monitoring']['during_page_count']
+        counts = [count for _phase in range(2) for moment in range(3)
+                  for count in (during if moment == 1 else full) for _array in range(2)]
+        capacity = sum(((count + 8191) // 8192) * 65536 for count in counts)
+        require(len(counts) == 84 and 0 < capacity <= 512 * 1024**2,
+                'prospective formal packed capacity')
+        expected.append(dict(context_ordinal=ordinal // 59,
+            method='SIGNED-FORMAL-RESIDENCY-PACKED-CAPACITY-v1', array_counts=counts,
+            packed_capacity_bytes=capacity, maximum_packed_capacity_bytes=512 * 1024**2,
+            original_discovery_limit_bytes=256 * 1024**2, block_items=8192,
+            integer_bytes=8, execution_authority=False))
+    same(limits['formal_control_reader'], expected, 'signed formal reader capacities')
+
+
 def _prefix(prefix, parent, failure, plan, reader, old_root, old_index):
     required='schema_version status method_id parent_plan failed_family_receipt original_plan_sha256 original_failure_sha256 original_source_revision worker_sha256 original_authority program_scope_sha256 program_root_binding ledger_head contexts required_count records validator_source_files failed_boundary retained_failure_restoration_verified analysis_limits authenticated_custody analysis_operator original_analysis_operator qualified_policy family_validity_established execution_authority phase18_authority'
     fields(prefix,required,'accepted prefix')
@@ -421,6 +448,7 @@ def _prefix(prefix, parent, failure, plan, reader, old_root, old_index):
     same(scope['program_id'],parent['storage']['program_id'],'original shared program')
     same(scope['shared_program_quota_bytes'],parent['storage']['archive_quota_bytes'],'original shared quota')
     limits=reader.document(prefix['analysis_limits']);same(limits['source_plan_sha256'],contract.PARENT_SHA256,'offline analysis original plan');same(limits['execution_authority'],False,'offline analysis authority')
+    _formal_reader_limits(limits, parent)
     _failure_boundary(prefix,parent,reader)
     summaries=[]
     for row,authenticated in zip(rows,inventory['captures'],strict=True):

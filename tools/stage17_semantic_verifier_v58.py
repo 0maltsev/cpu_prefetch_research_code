@@ -35,7 +35,8 @@ FORMAL_DECISIONS = tuple("docs/decisions/" + name + ".md" for name in (
     "0234-offline-analysis-exit-race-and-bounded-pool", "0235-stage17-formal-archive-wire-format",
     "0236-formal-archive-checkpoint-and-resource-contract", "0237-stage17-calibration-export-boundary",
     "0238-q16c-sealed-original-schedule-sources", "0239-archive-aware-calibration-export-lineage",
-    "0240-stage17-q16a-complete-context-continuation"))
+    "0240-stage17-q16a-complete-context-continuation",
+    "0241-formal-control-reader-prospective-capacity"))
 ACCEPTANCE_BINDINGS = tuple("docs/evidence/stage17/" + directory + "/" + name
     for directory in ("Q16B-D211-ACCEPTANCE-20261103-01", "Q16A-D212-ACCEPTANCE-20261103-01")
     for name in ("owner-acceptance.json", "proposal.md", "inventory.json"))

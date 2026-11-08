@@ -244,5 +244,31 @@ class AdmissionTests(unittest.TestCase):
             p['records']=[dict(original_ordinal=i) for i in ordinals]
             with self.assertRaises(admission.AdmissionError):admission._prefix(p,parent,{},plan,admission.BoundReader(),'',{})
 
+    def test_formal_reader_limits_bind_exact_blocks_and_original_resources(self):
+        item = dict(capture={'geometry': {'base_page_bytes': 4096}},
+                    resources={'region_bytes': [4096, 8193*4096, *([4096]*5)]},
+                    monitoring={'during_page_count': [1]*7})
+        parent = {'captures': [item]*119}
+        full = [1, 1, 8193, 8193, *([1]*10)]
+        counts = (full + [1]*14 + full)*2
+        rows = [dict(context_ordinal=i, method='SIGNED-FORMAL-RESIDENCY-PACKED-CAPACITY-v1',
+            array_counts=counts, packed_capacity_bytes=92*65536,
+            maximum_packed_capacity_bytes=512*1024**2,
+            original_discovery_limit_bytes=256*1024**2, block_items=8192,
+            integer_bytes=8, execution_authority=False) for i in range(3)]
+        limits = dict(resources=dict(worker_count=4, capture_as_bytes=8*1024**3,
+                                     total_memory_bytes=36*1024**3), formal_control_reader=rows)
+        admission._formal_reader_limits(limits, parent)
+        for mutate in (lambda d:d.pop('formal_control_reader'),
+                       lambda d:d['formal_control_reader'][0].update(packed_capacity_bytes=256*1024**2),
+                       lambda d:d['formal_control_reader'][1]['array_counts'].pop(),
+                       lambda d:d['formal_control_reader'][2].update(execution_authority=True),
+                       lambda d:d['resources'].update(capture_as_bytes=16*1024**3),
+                       lambda d:d['resources'].update(worker_count=8),
+                       lambda d:d['resources'].update(total_memory_bytes=8*1024**3)):
+            changed = copy.deepcopy(limits); mutate(changed)
+            with self.subTest(mutate=mutate), self.assertRaises((KeyError, admission.AdmissionError)):
+                admission._formal_reader_limits(changed, parent)
+
 
 if __name__=='__main__':unittest.main()

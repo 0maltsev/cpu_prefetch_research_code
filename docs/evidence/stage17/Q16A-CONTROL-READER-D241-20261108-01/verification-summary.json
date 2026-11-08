@@ -1,0 +1,25 @@
+{
+  "accepted_prefix_captures": 0,
+  "continuation_started": false,
+  "execution_authority": false,
+  "offline_failure": "original discovery packed capacity256MiB below signed formal369.75\u2013370.75MiB",
+  "original_native_complete_captures": 177,
+  "protocol_schema_canonical": "PASS",
+  "qualification_started": false,
+  "raw_mutation": false,
+  "recorded_at_utc": "2026-11-08T13:41:08.962476+00:00",
+  "retained_capture_check": {
+    "capture_ordinal": 173,
+    "deadline_seconds": 3600,
+    "pid": 107634,
+    "result": "PENDING_OBSERVATION",
+    "started_at_utc": "2026-11-08T13:33:10.318396+00:00"
+  },
+  "targeted_native_sanitizers": "NOT_APPLICABLE_PYTHON_ONLY_NATIVE_MEASUREMENT_FILES_UNCHANGED",
+  "tests": {
+    "admission": 15,
+    "formal_policy": 17,
+    "offline_operator": 12,
+    "routing": 7
+  }
+}

@@ -1,6 +1,6 @@
 # D243: One additional isolation setup after administrative prelaunch timeout
 
-- Status: PROPOSED — owner approval required before additional isolation setup
+- Status: ACCEPTED — explicit owner confirmation “confirm”, 2026-11-09
 - Date: 2026-11-09
 - Scope: the already registered and signed E25 Q16a continuation only
 - Scientific design, source, capture population and measurement limits: unchanged
@@ -41,7 +41,7 @@ Exact retained bindings:
 
 All paths and lengths are in the [prelaunch inventory](../evidence/stage17/Q16A-CONTINUATION-E25-20261109-01/prelaunch-inventory.json).
 
-## Proposed approval
+## Accepted approval
 
 1. Use the separately retained launcher v2 with a fixed **600-second** owner
    admission allowance. Preserve the UID, capabilities, CPU, 2 GiB check memory
@@ -76,3 +76,5 @@ D242 explicitly permitted isolation reapplication once. That setup was used
 and restored, so this additional setup requires a new owner approval. Approval
 of this proposal authorizes only the concrete sequence above; it does not
 declare the live launch check or the experiment successful in advance.
+
+Owner confirmation is retained with the [exact approved proposal](../evidence/stage17/D243-OWNER-ACCEPTANCE-20261109-01/owner-acceptance.json).

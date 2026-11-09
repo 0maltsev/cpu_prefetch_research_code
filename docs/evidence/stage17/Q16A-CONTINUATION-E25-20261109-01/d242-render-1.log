@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys,runpy;sys.path.insert(0,sys.argv.pop(1));import stage17_operational_cli_v18 as cli;cli.activate();sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name='__main__')
+                                                                                                                                       ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/render_continuation.py", line 8, in <module>
+    import stage17_state_journal_v53 as d242
+ModuleNotFoundError: No module named 'stage17_state_journal_v53'
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-operators-1/render_actual.py", line 52, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-operators-1/render_actual.py", line 47, in main
+    subprocess.run(['/usr/bin/python3.14','-B','-c',bootstrap,str(E/'admission-root/tools'),str(ADMIN/'render_continuation.py'),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        '--repository-root',str(E/'admission-root'),'--spec',str(path),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        '--spec-sha256',hashlib.sha256(raw).hexdigest()],check=True,timeout=600)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3.14', '-B', '-c', "import sys,runpy;sys.path.insert(0,sys.argv.pop(1));import stage17_operational_cli_v18 as cli;cli.activate();sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name='__main__')", '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/render_continuation.py', '--repository-root', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root', '--spec', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/continuation-spec-d242-1.json', '--spec-sha256', 'abf6ef87f61ad6c93eef7209a8cec985dbf518843a2e85dbade8d5e120864109']' returned non-zero exit status 1.

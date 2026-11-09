@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-operators-1/register_authorize.py", line 90, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-operators-1/register_authorize.py", line 87, in main
+    (register if args.operation=='register' else authorize)(plan)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-operators-1/register_authorize.py", line 45, in register
+    subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=150)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3.14', '-B', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/register_family.py', '--repository-root', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root', '--evidence-root', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25', '--pilot-archive', '/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz', '--pilot-sidecar', '/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz.sha256', '--program-root', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1', '--plan', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-authoring-1/plan.json', '--plan-sha256', '91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2', '--scope-sha256', '4d0ddac91ec96bb7038f2903b965a2f1a785b63b108b5b05e645742ac8dcc0c2', '--admission', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-program-storage-admission-1.json', '--admission-sha256', '4ced420d16e8796b29f942b44a3ffda530d345357ee2f2d83dcd3c335ba15e44', '--profile', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a/config/stage17/formal-archive-implementation-profile-v1.json', '--profile-sha256', '509ff968ce39a6fb8ed7f61cdc410db68ca7bf28d03446083cc563bd30e97696', '--deadline-monotonic-ns', '653609708043524', '--output', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-authoring-1/family-registration-1.json', '--register']' returned non-zero exit status 1.

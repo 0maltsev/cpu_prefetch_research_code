@@ -1,0 +1,18 @@
+Administrative registration allowance correction, 2026-11-09
+
+The first registration command completed its read-only qualification/admission
+checks in about144 seconds, exceeding the operator-selected120-second deadline.
+It failed at register_family.py:admit_continuation before ProgramStore was opened,
+before any family directory/ledger record, and before any experimental invocation.
+The original failed command/log remain retained.
+
+The historical operator handoff incorrectly reused the native plan setup_ns as
+the wall limit for this external metadata/qualification preparation. The
+registrar accepts an explicit caller deadline and does not derive that deadline
+from the scientific plan. For the next administrative invocation use a finite
+600-second verification/registration allowance, checked before any mutation,
+with a630-second enclosing process limit. Recheck that the family and receipt
+are absent; retain original parent-only ledger admission and all full gates.
+This changes no plan bytes, native setup_ns, capture count/duration, worker
+limits, watchdog, cleanup, quota, qualification evidence, or signed action.
+It authorizes no new experiment and is not a retry of a capture or qualification.

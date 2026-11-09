@@ -1,0 +1,106 @@
+{
+  "files": [
+    {
+      "path": "formal-q16a-continuation-authoring-1/authorization-operator-1.json",
+      "sha256": "3d5e2271d29342e4ebedbfdab52227a234b2024acee40b298742c1c41c991b11",
+      "size_bytes": 245
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/authorization-operator-1.log",
+      "sha256": "ad20a14ef31082dba4cb37c85998cb8e170b92998004223638c6d637d3aa4853",
+      "size_bytes": 2164
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/authorization-operator-2.json",
+      "sha256": "0aee923c3e1855ce91aac59f0e1499fb59b1ac18d15cc9eb63131e02051b9fd5",
+      "size_bytes": 2196
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/authorization-operator-2.log",
+      "sha256": "5f03b0ff017e1072f88dc6b115a15b392da65eb32924087b7e498e9ce9506ed5",
+      "size_bytes": 659
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/isolation-reapplication-1.json",
+      "sha256": "ca714018a4f223c8ac623302e8f4a54cc468f70b3c172fcd6139b1a9de5e32e9",
+      "size_bytes": 278
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/isolation-reapplication-1.log",
+      "sha256": "9cb95ef97633e9acd0c2aa4e355d928d3370a5f62d341f946362f45b6b23eacc",
+      "size_bytes": 202
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/render-launch-config-1.log",
+      "sha256": "7b4df8bab7a2d542e630ca680e7e5fb7afed6656307fffdae1010447e8f94641",
+      "size_bytes": 355
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-config-1.json",
+      "sha256": "235466d2d6540828bc5e479f990ac1605d2ecbc3278c0d2106d1a6f588c9ac5f",
+      "size_bytes": 4932
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-check-1.json",
+      "sha256": "bc84e5a85de567cbe1678cec62a0e87fbdf999d9d99adea56388d5c1a1251f2d",
+      "size_bytes": 715
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-check-1.stdout.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-check-1.stderr",
+      "sha256": "4f77809c69950f22f6df77a14d714623453456f96a001c6e56e371ac6feaddf9",
+      "size_bytes": 2265
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/signed-admission-timing-1.json",
+      "sha256": "5eb847e6574e8b5d21588b1e1f238e3bbab3e504c9bb8599296bd85f9d3e20d3",
+      "size_bytes": 1414
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/signed-admission-timing-1.log",
+      "sha256": "7bb84558487122f0269372937e67d5d4fa8089c8dfeabf38579430c65ef82621",
+      "size_bytes": 274
+    },
+    {
+      "path": "isolation-preparation-v25-resume-1/prospective-prestate.json",
+      "sha256": "2a520893f35de03d9b4082088862f2886f36ed6e0593f6875c4f609340ade936",
+      "size_bytes": 2426
+    },
+    {
+      "path": "isolation-preparation-v25-resume-1/d242-reapplication-handoff.json",
+      "sha256": "1c39ac66e22237a81516fd19b5ecc653b1ce5982169d74803cb9ce2c92292bd8",
+      "size_bytes": 3464
+    },
+    {
+      "path": "isolation-preparation-v25-resume-1/before-reload.json",
+      "sha256": "0f3bda2e630fe67aeeb221f795f745711aee605350229a721a211a232fb8e738",
+      "size_bytes": 1525
+    },
+    {
+      "path": "isolation-preparation-v25-resume-1/after-reload.json",
+      "sha256": "b63ef948dee62b1695881fd2b61b6c64713a7bdb148ea11bec6bef4b8f799efb",
+      "size_bytes": 1525
+    },
+    {
+      "path": "isolation-preparation-v25-resume-1/restoration.json",
+      "sha256": "6164321e36b417a95a606fc2d354d45e064b80654ff792a66eb6cdc0e7b0ce6a",
+      "size_bytes": 842
+    },
+    {
+      "path": "admission-root/evidence/formal-q16a-1/authorization.json",
+      "sha256": "c84caa002b522e1228500474ac2f514e6db5e0f5214bfac332acc592d499d4bf",
+      "size_bytes": 2717
+    },
+    {
+      "path": "admission-root/evidence/formal-q16a-1/authorization.json.sig",
+      "sha256": "f2b00a01489e921212cf74f20254dce9c4a3174cb7765f5cb3e428acaaa94b06",
+      "size_bytes": 322
+    }
+  ],
+  "raw_transferred": false,
+  "recorded_at_utc": "2026-11-09T10:01:24.075337+00:00"
+}

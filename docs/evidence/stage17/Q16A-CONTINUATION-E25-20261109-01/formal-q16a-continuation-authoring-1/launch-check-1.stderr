@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/formal_launch.py", line 448, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/formal_launch.py", line 435, in main
+    if args.check:print(json.dumps(checks(c,args),sort_keys=True));return
+                                   ~~~~~~^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/formal_launch.py", line 262, in checks
+    return owner_check(c,args)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/formal_launch.py", line 241, in owner_check
+    stdout,stderr=process.communicate(timeout=180)
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/usr/bin/setpriv', '--reuid=1000', '--regid=1000', '--clear-groups', '--bounding-set=-all,+sys_ptrace,+sys_rawio,+dac_override,+perfmon', '--inh-caps=-all,+sys_ptrace,+sys_rawio,+dac_override,+perfmon', '--ambient-caps=-all,+sys_ptrace,+sys_rawio,+dac_override,+perfmon', '/usr/bin/python3.14', '-B', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/formal_launch.py', '--owner-check', '--config', '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-authoring-1/launch-config-1.json', '--config-sha256', '235466d2d6540828bc5e479f990ac1605d2ecbc3278c0d2106d1a6f588c9ac5f', '--address-space-bytes', '240518168576', '--memlock-bytes', '25769803776']' timed out after 180 seconds

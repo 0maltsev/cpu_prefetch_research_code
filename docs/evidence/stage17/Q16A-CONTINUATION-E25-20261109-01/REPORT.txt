@@ -1,0 +1,18 @@
+E25 continuation PRELAUNCH STOPPED; no experimental attempt
+
+Plan531 SHA25691c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2.
+Registered once at09:42:33UTC under original E23 scope/quota.
+Request preserved; phase authority signed once at09:50:17UTC.
+Whole-second UTC authoring correction required no request rewrite or measurement.
+D242 isolation reapplication passed09:51:00UTC, original qualification retained.
+Launcher check09:52:02–09:55:53UTC: administrative owner subprocess exceeded180s.
+No launch root, attempt marker, capture or raw output. Registered family empty.
+Isolation/maintenance restoration09:55:53UTC: all verification true, errors[].
+Independent signed admission09:57:58–09:59:42UTC: PASS; admitted function103.327s;
+UID1000, actual launch capabilities, CPU3, AS2GiB; no experimental invocation.
+
+D243 proposal prepares a600-second external owner-check allowance and exactly
+one additional cold-tested isolation setup, preserving all signed/native limits
+and successful work. Nine software checks pass; owner approval is pending.
+D242 explicitly allowed one isolation setup, already used/restored.
+No additional setup or experiment is authorized by this report.

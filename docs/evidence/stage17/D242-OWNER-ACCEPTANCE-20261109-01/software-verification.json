@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "command": "python3 -B build/ext007-runtime-20261101/run.py -- /usr/bin/python3 -B tests/test_stage17_d242_recovery.py",
+      "exit_code": 0,
+      "tests": 12
+    },
+    {
+      "command": "python3 -B build/ext007-runtime-20261101/run.py -- /usr/bin/python3 -B tests/test_stage17_operational_cli_v18.py",
+      "exit_code": 0,
+      "tests": 10
+    }
+  ],
+  "experimental_invocation": false,
+  "files": [
+    {
+      "path": "tools/stage17_state_journal_v53.py",
+      "sha256": "4b85ac21aa45d0e2ad3ee0e81e81d93cda88d782897077d9cabb2005dc7f849e",
+      "size_bytes": 19570
+    },
+    {
+      "path": "tools/stage17_operational_cli_v19.py",
+      "sha256": "9fd28987f5d22a20a315e2ee21c917a492d4326e67c5afad4047a201262d305c",
+      "size_bytes": 1343
+    },
+    {
+      "path": "tools/stage17_d242_admin_packet.py",
+      "sha256": "66046d5f7962fccd21fce3d7f06b92bb679e8dc107cb6857f77a5e68d49bbb2f",
+      "size_bytes": 3288
+    },
+    {
+      "path": "tests/test_stage17_d242_recovery.py",
+      "sha256": "457e0e3ef44f1a2c91414a4898e43d3fad14f5016c6fa2f998dcb877fdd5ec05",
+      "size_bytes": 13855
+    }
+  ],
+  "live_recovery_verified": false,
+  "native_source_changed": false,
+  "recorded_at_utc": "2026-11-09T09:18:12.553221+00:00",
+  "schema_version": "software-verification-report/1",
+  "scope": "D242 administrative recovery only"
+}

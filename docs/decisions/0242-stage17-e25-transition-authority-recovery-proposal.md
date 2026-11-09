@@ -1,6 +1,6 @@
-# D242 proposal: E25 transition-only authority recovery
+# D242: E25 transition-only authority recovery
 
-- Status: **PROPOSED — awaiting explicit owner approval; not execution authority**
+- Status: **ACCEPTED — explicit owner approval “approve”, 2026-11-09; separate signed transition still required**
 - Date: 2026-11-09
 - Scope: the E25 administrative transition failure below, only
 - Scientific design, capture population, estimators and limits: unchanged
@@ -40,7 +40,7 @@ The accepted original-prefix manifest remains
 The [retained report inventory](../evidence/stage17/Q16A-PREFIX-COMPLETE-E25-20261109-01/qualification/inventory.json)
 records the complete paths and byte lengths.
 
-## Proposed owner decision
+## Accepted owner decision
 
 Authorize one versioned, signed **administrative transition-only** recovery
 from this exact journal 000008 to `READY_FOR_STAGE17_PHASE_AUTHORIZATION`, using
@@ -101,5 +101,32 @@ Demonstrate unchanged historical behavior and actual original qualification
 verification without executing clocks, Q15 or Q16. Retain the exact reviewed
 recovery tooling and its evidence before signing the one transition payload.
 
-No runtime guard is relaxed and no recovery is executed while this proposal
-remains unapproved. Historical protocol directories remain immutable.
+The owner approved the exact proposal with SHA256
+`dc77f7c59cfa7e2b1225b159c9dc7a452b9f5d60c9c0243d8fc6731ddaffaaed`.
+[Original proposal and acceptance](../evidence/stage17/D242-OWNER-ACCEPTANCE-20261109-01/owner-acceptance.json)
+remain retained. Historical protocol directories remain immutable. Approval
+authorizes implementation, verification and the scoped recovery; the separate
+finite signed transition and subsequent phase authorization remain mandatory.
+
+## Administrative implementation
+
+`tools/stage17_state_journal_v53.py` implements the closed transition-recovery
+authorization `/1` and transition `/2` contracts for this exact incident.
+`stage17_operational_cli_v19.py` exposes check, author and commit operations;
+all measured operations still dispatch through qualified CLI18/controller26.
+The separate administrative packet records its own clean source revision and
+hashes every member. The original measured release, admission root, policy,
+archive runtime and historical journal remain byte-for-byte unchanged.
+
+The adapter retains the original journal schema, lineage/fork checks and all
+six semantic admissions. A private function namespace changes only validation
+of the separately named third transition. Other roots and historical edges
+delegate unchanged. An exclusive durable consumption record precedes state
+publication; partial publication cannot be retried. Historical validation uses
+the original consumption time; live commit also checks current time and boot.
+
+Targeted software tests cover the exact retained incident hashes, missing and
+altered incident files, strict authority fields/types, temporal boundaries,
+actual OpenSSH signatures, duplicate consumption, symlink rejection, original
+history preservation, retained receipt binding and minimal operator adaptation.
+These are software verification, not additional experimental observations.

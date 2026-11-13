@@ -1,0 +1,30 @@
+{
+  "files": [
+    {
+      "path": "supervisor-result.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-launch-1/supervisor-result.json",
+      "size_bytes": 1389,
+      "sha256": "c024c1d09635c9f7a671889544e9c5f74e129597967d714b7f50f2716f352c7a"
+    },
+    {
+      "path": "restoration.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-launch-1/restoration.json",
+      "size_bytes": 856,
+      "sha256": "f578eb5e4985aa77703fb985ecf2e98d9d1d64af0a14e09893200933c3db2b50"
+    },
+    {
+      "path": "session.log",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-launch-1/session.log",
+      "size_bytes": 62,
+      "sha256": "b315b18ddcfb24a55654c3ca63df7304eb9397966414143a96fbae13d38a01de"
+    },
+    {
+      "path": "stage17-q16a-completion-v6.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2/stage17-q16a-completion-v6.json",
+      "size_bytes": 876496,
+      "sha256": "ef0fb5775e70e8512add2231925506b7f73fa28c676775fe5aac43f90c7a07ed"
+    }
+  ],
+  "raw_transferred": false,
+  "recorded_at_utc": "2026-11-13T07:42:16.559513+00:00"
+}

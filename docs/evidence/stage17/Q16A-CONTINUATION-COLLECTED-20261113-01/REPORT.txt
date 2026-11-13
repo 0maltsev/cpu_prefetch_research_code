@@ -1,0 +1,35 @@
+Q16a E25 continuation: collection complete; independent validation pending
+
+Checked2026-11-13 at07:41UTC (10:41Moscow).
+All531 native capture checkpoints and531 archive-custody receipts are present,
+with contiguous local ordinals0..530 and original numeric identities177..707.
+Each custody receipt records9 released artifacts and no archive failure.
+Logical bytes2887830161387; archived bytes325743896774.
+Original177 validated captures and all prior failed evidence remain preserved.
+No raw data was transferred, rewritten, deleted or remeasured.
+
+Qualified executor completion00:36:47.027100UTC (03:36:47Moscow), exit0.
+All workers/process groups reaped, no quarantine, restoration_verified=true.
+Completion readback records expected_hex=observed_hex=0000000000000000
+for CPUs0,1,8, each matches=true. Owned CPU isolation and maintenance restoration
+completed00:36:47.800120UTC, verified with no errors. At the status check all
+three original supervisor/controller/worker PIDs are absent;6.45TB is free.
+
+The original supervisor report remains success=false and is preserved byte for
+byte. Its reporting-only restoration_status function expects requested_hex;
+the qualified completion/6 receipt and qualified CLI18 retention checker use
+expected_hex. Extracting the original function and applying it to the retained
+completion reproduces ValueError('invalid hardware restoration readback').
+This diagnosis does not rewrite the supervisor verdict or formally admit Q16a.
+No stage18 authority is granted, and no new measurement is required by this
+reporting error. No source fix was made during this status check.
+
+Evidence: inventory.json binds original small receipts, capture-summary.json
+retains compact metadata, verification.json records focused diagnosis/checks.
+The completion's action-result hash/size binding matches the stand result.
+These metadata checks do not replace independent raw-data validation.
+
+Next: resolve the reporting/admission discrepancy against retained evidence,
+validate only531 suffix captures on the stand, implement authenticated177+531
+composition, then Q16a admission and remaining Q16b/Q16c/calibration gates.
+EXT007 and Stage17 remain incomplete. Preserve this collection; do not rerun it.

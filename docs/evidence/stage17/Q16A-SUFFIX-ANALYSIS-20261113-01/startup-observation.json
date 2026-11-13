@@ -1,0 +1,12 @@
+{
+  "path": "analysis/signed-lifecycle-validation.json",
+  "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/analysis/signed-lifecycle-validation.json",
+  "size_bytes": 670,
+  "sha256": "3519fdedcaae6ee4b1332a4dc9a6c9b04d04b6fc219e2f796b26463ca9a39285",
+  "utc": "2026-11-13T07:57:11.922998+00:00",
+  "stderr": "",
+  "stdout": "",
+  "supervisor_alive": true,
+  "analysis_finished": false,
+  "reports": 0
+}

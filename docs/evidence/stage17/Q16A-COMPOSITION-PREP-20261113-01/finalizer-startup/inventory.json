@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "operator-manifest.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-finalization-operators-1/manifest.json",
+      "size_bytes": 625,
+      "sha256": "6a059504d85d3c413a91eab8561402a773b7f8f473c8bb582d7c622ac8321e80"
+    },
+    {
+      "path": "pid.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-finalization-launch-1/pid.json",
+      "size_bytes": 926,
+      "sha256": "2fabaf36bcc696a45b2bd4e4e47797a621a7f47c310575b2c12efd987134493c"
+    },
+    {
+      "path": "session.log",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-finalization-launch-1/session.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "intent.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-finalization-1/intent.json",
+      "size_bytes": 347,
+      "sha256": "ba91614c22cf1e9c7922c43428317f11d1952ef10f948b231c9a2237c5b20925"
+    }
+  ],
+  "observation": {
+    "utc": "2026-11-13T08:56:02.199073+00:00",
+    "finalizer_alive": true,
+    "original_analysis_alive": true,
+    "uid": "1000\t1000\t1000\t1000",
+    "state": "S (sleeping)",
+    "limits": [
+      "Max address space         2147483648           2147483648           bytes     "
+    ],
+    "raw_transferred": false
+  }
+}

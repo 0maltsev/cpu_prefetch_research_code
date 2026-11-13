@@ -26,7 +26,13 @@ validation reports, recheck native/hash/ledger/signature links, compare the
 actual ledger tip using the correct representation and publish a separate
 supplement. Preserve the original nonzero process/error bytes. No raw decode,
 measurement, qualification or prefix validation is repeated by this correction.
-Other failures stop the finalizer. Deployment/startup is recorded separately.
+Other failures stop the finalizer. The separate waiting process started
+08:54:51UTC (11:54Moscow), PID162249, on clean sourceb00c415. At08:56:02UTC it
+was alive/sleeping asUID1000 with verified2GiB soft/hard AS; the original analysis
+was also alive. It checks terminal evidence every1800seconds and has performed
+no raw decode or correction yet. Startup packet SHA256:
+6a059504d85d3c413a91eab8561402a773b7f8f473c8bb582d7c622ac8321e80.
+See finalizer-startup/inventory.json for exact source/intent/PID readbacks.
 
 Verification: two final targeted CTest suites pass (17 unit cases), the five-suite
 continuation regression selection passed, and all12 existing calibration tests

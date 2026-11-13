@@ -1,0 +1,52 @@
+Start testing: Nov 13 11:49 MSK
+----------------------------------------------------------
+434/466 Testing: runner.q16a_composite_v1
+434/466 Test: runner.q16a_composite_v1
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/python/bin/python" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16a_composite_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/dev-gcc
+"runner.q16a_composite_v1" start time: Nov 13 11:49 MSK
+Output:
+----------------------------------------------------------
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 10.923s
+
+OK
+<end of output>
+Test time =  11.40 sec
+----------------------------------------------------------
+Test Passed.
+"runner.q16a_composite_v1" end time: Nov 13 11:50 MSK
+"runner.q16a_composite_v1" time elapsed: 00:00:11
+----------------------------------------------------------
+
+435/466 Testing: runner.q16a_suffix_admission_v1
+435/466 Test: runner.q16a_suffix_admission_v1
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/python/bin/python" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16a_suffix_admission_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/dev-gcc
+"runner.q16a_suffix_admission_v1" start time: Nov 13 11:50 MSK
+Output:
+----------------------------------------------------------
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.661s
+
+OK
+<end of output>
+Test time =   1.00 sec
+----------------------------------------------------------
+Test Passed.
+"runner.q16a_suffix_admission_v1" end time: Nov 13 11:50 MSK
+"runner.q16a_suffix_admission_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 13 11:50 MSK
+
+archive =  12.40 sec*proc
+
+python =  12.40 sec*proc
+
+runner =  12.40 sec*proc
+
+synthetic =  12.40 sec*proc
+

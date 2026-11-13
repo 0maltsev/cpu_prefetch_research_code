@@ -4,6 +4,8 @@
 
 The owner instructed **“continue from the broken one”** after the bounded reuse proposal. The versioned 531-capture continuation for contexts 3–11 completed collection and archival after prefix validation, isolation repair and qualification. Contexts 0–2 and the original failed attempt remain preserved. Any new Q15/Q16 failure stops dependent work without another automatic retry. Stage 17 and EXT007 remain incomplete.
 
+**Composition implementation checkpoint (2026-11-13):** The running analysis has independently validated **4/531** suffix reports at the latest retained check, **08:31 UTC**, with no recorded error. [D245](decisions/0245-q16a-composition-evidence-boundary.md) implements separate two-source mathematics and finished-suffix evidence admission; targeted and regression tests pass. Actual suffix admission/composition still requires the final analysis evidence. Review also found the active operator's final ledger comparison uses incompatible file-binding/summary shapes. A narrowly bounded metadata finalizer is prepared to finish from all 531 retained reports without repeating raw decode, preserve the original process/error receipt and require a separate exact correction record. No new collection, prefix validation or qualification is authorized. [Implementation and verification](evidence/stage17/Q16A-COMPOSITION-PREP-20261113-01/REPORT.txt).
+
 **Offline validation checkpoint (2026-11-13, 07:57 UTC):** Original signed-lifecycle preparation passed at **07:53 UTC**, including exact restoration/prestate and cleanup checks; the supervisor's historical reporting error is preserved. [D244](decisions/0244-retained-q16a-suffix-validation.md) records the bounded offline implementation. The independent **531-capture suffix validation supervisor started at 07:54:17 UTC**, PID **161505**, after memory/disk admission. Four workers use the existing raw validator and D241 reader; aggregate scratch proof is 103.8 GB within 256 GiB. The running coordinator independently passed signed-lifecycle validation and is checking archive metadata; no capture report is complete yet. No startup error is recorded. No collection, prefix validation or qualification is repeated. [Analysis preparation and startup evidence](evidence/stage17/Q16A-SUFFIX-ANALYSIS-20261113-01/REPORT.txt). Authenticated 177+531 composition and EXT007 admission remain pending.
 
 **Collection checkpoint (2026-11-13, 07:41 UTC):** All **531/531** continuation captures have native-complete checkpoints and archive-custody receipts with no archive failure; the original **177/177** independently validated captures remain preserved. The qualified executor completed at **00:36:47 UTC** with exit 0, workers reaped, no quarantine and matching hardware-restoration readbacks. CPU-isolation and maintenance restoration are verified. The external supervisor nevertheless records `success=false`: its reporting code expects `requested_hex`, while the qualified completion receipt uses `expected_hex`. The error is reproduced and original evidence is preserved. This collection is complete; raw validation and formal Q16a admission remain pending. [Completion and diagnosis](evidence/stage17/Q16A-CONTINUATION-COLLECTED-20261113-01/REPORT.txt). No repeat collection or Stage18 authority.
@@ -128,9 +130,13 @@ credit for the unchanged formal EXT007 requirements.
    5. **Running — suffix validation:** signed-lifecycle checks passed at
       07:53 UTC on Nov 13; the bounded offline supervisor started at 07:54 UTC,
       PID 161505. Validate only the 531 suffix captures; original177 reports remain.
-   6. **Pending:** implement authenticated 177+531 result composition, admit
-      Q16a, complete Q16b/Q16c, freeze calibration and admit EXT007. Suffix-only
-      evaluation cannot establish Q16a completion.
+   6. **Software prepared; empirical application pending:** D245 provides
+      separate 177+531 composition mathematics and finished-suffix evidence
+      checks. A final ledger-shape correction is prepared to consume retained
+      reports only. Wait for all531 reports and their terminal/correction receipts;
+      authenticate actual composition and native geometry, then admit Q16a.
+   7. **Pending:** Q16b/Q16c, calibration freeze and EXT007 admission. Mathematical
+      composition or suffix-only evidence cannot establish these gates.
 
    No full 708-capture restart, optional extension or archive reset. D233 keeps
    raw archives on the stand; this PC retains only small evidence and reports.

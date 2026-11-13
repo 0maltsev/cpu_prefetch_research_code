@@ -1,0 +1,40 @@
+Q16a continuation: raw validation progressing; composition implementation prepared
+
+Latest retained empirical check08:31:38UTC Nov13: four suffix reports validated
+(local ordinals175,174,171,170), original analysis supervisor alive, error log
+empty. No final analysis receipt or complete suffix manifest exists yet. These
+reports are out of order because of the bounded four-worker scheduling; no
+capture or analysis family has been restarted. Original177 reports are retained.
+
+D245 implements separate composite arithmetic and suffix evidence admission.
+The evaluator preserves old/new plan hashes, revisions, local ordinals and run
+IDs and applies unchanged D230 normalization/derivation. Existing suffix-only
+v2 rejection remains. Actual composition requires finished suffix admission,
+original prefix/compatibility admission and geometry/freeze integration.
+No mathematical result alone establishes source authentication or EXT007 credit.
+
+New source checks bind each report to the signed result's exact checkpoint,
+custody and canonical artifact inventory, native counts and registered ledger.
+Final admission cannot accept an unfinished/aborted/unreaped analysis or a
+substituted report. Metadata reader bounds are explicit and standalone.
+
+Review found the active D244 operator's deterministic final ledger-shape bug.
+Its final comparison uses a three-field ledger file binding against a two-field
+summary; those structures cannot be equal. Prepare the exact source-bound
+metadata finalizer to wait for terminal evidence, require all531 retained raw
+validation reports, recheck native/hash/ledger/signature links, compare the
+actual ledger tip using the correct representation and publish a separate
+supplement. Preserve the original nonzero process/error bytes. No raw decode,
+measurement, qualification or prefix validation is repeated by this correction.
+Other failures stop the finalizer. Deployment/startup is recorded separately.
+
+Verification: two final targeted CTest suites pass (17 unit cases), the five-suite
+continuation regression selection passed, and all12 existing calibration tests
+passed. A separate check used the exact real parent/suffix plan bytes with no
+reports; it remained708 MISSING/UNRESOLVED with no credit. CMake configuration
+passed; its existing GoogleTest runtime-path warnings do not affect these Python
+checks. No native code change or native sanitizer/qualification rerun.
+
+Pending: original raw analysis completion, exact correction if required,
+empirical suffix admission/composition, native geometry provenance and final
+calibration/export/operational admission. EXT007 and Stage17 remain incomplete.

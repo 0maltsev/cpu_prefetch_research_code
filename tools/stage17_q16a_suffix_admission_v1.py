@@ -288,4 +288,3 @@ def authenticate(*, prepared, configuration_binding, finalization_binding=None):
     reader.finish()
     return dict(records=records,manifest=manifest_binding,process_result=process_binding,configuration=configuration_binding,finalization=finalization_binding,
         completion=c['files']['COMPLETION'],execution_authority=False,phase18_authority=False)
-

@@ -258,6 +258,12 @@ target_link_libraries(cpu_prefetch_stage17_archive_encoder PRIVATE
   cpu_prefetch::storage cpu_prefetch_project_options OpenSSL::Crypto
   zstd::libzstd_shared ${CMAKE_DL_LIBS})
 
+# D252 cold-only inverse. It is deliberately independent of the qualified
+# measurement executable and has no allocation, I/O or external codec linkage.
+add_library(cpu_prefetch_stage17_archive_inverse SHARED
+  tools/stage17_archive_inverse_native_v1.cpp)
+target_link_libraries(cpu_prefetch_stage17_archive_inverse PRIVATE cpu_prefetch_project_options)
+
 # ADR-0044's owner-thread preparation uses the already-allocated Stage 11
 # private streams. The dependency is declared only after the storage target is
 # available; storage itself has no runner dependency.
@@ -1559,6 +1565,14 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_v1.py")
   set_tests_properties(runner.formal_archive_v1 PROPERTIES
     LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+  add_executable(cpu_prefetch_stage17_archive_inverse_tests
+    tests/stage17_archive_inverse_native_tests.cpp)
+  target_link_libraries(cpu_prefetch_stage17_archive_inverse_tests PRIVATE
+    cpu_prefetch_stage17_archive_inverse cpu_prefetch_project_options)
+  add_test(NAME runner.archive_inverse_native
+    COMMAND cpu_prefetch_stage17_archive_inverse_tests)
+  set_tests_properties(runner.archive_inverse_native PROPERTIES
+    LABELS "runner;archive;synthetic" TIMEOUT 60)
   add_test(NAME runner.formal_archive_custody_v1
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_custody_v1.py")
   set_tests_properties(runner.formal_archive_custody_v1 PROPERTIES
@@ -1611,10 +1625,30 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_admin_v2.py")
   set_tests_properties(runner.formal_admin_v2 PROPERTIES
     LABELS "runner;archive;python" TIMEOUT 180)
+  foreach(_d252_test IN ITEMS phase_controller_v28 operational_cli_v21 formal_admin_v3)
+    add_test(NAME runner.${_d252_test}
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_${_d252_test}.py")
+    set_tests_properties(runner.${_d252_test} PROPERTIES
+      LABELS "runner;archive;python" TIMEOUT 180)
+  endforeach()
   # ASan/TSan reserve virtual address space beyond the approved 2-GiB
   # standalone codec ceiling. Instrumented core tests exercise encoding independently;
   # the real CLI bridge requires an ordinary development/release executable.
   if(CPU_PREFETCH_SANITIZER STREQUAL "NONE")
+    add_test(NAME runner.archive_inverse_native_python
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_archive_inverse_native_v1.py"
+        --library "$<TARGET_FILE:cpu_prefetch_stage17_archive_inverse>")
+    set_tests_properties(runner.archive_inverse_native_python PROPERTIES
+      LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+    add_test(NAME runner.archive_overlay_v1
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_archive_overlay_v1.py"
+        --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>"
+        --library "$<TARGET_FILE:cpu_prefetch_stage17_archive_inverse>")
+    set_tests_properties(runner.archive_overlay_v1 PROPERTIES
+      LABELS "runner;archive;synthetic;python" TIMEOUT 180)
     add_test(NAME runner.formal_archive_cpp_bridge
       COMMAND "${Python3_EXECUTABLE}" -B
         "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_cpp_bridge.py"

@@ -1,0 +1,33 @@
++ cd /home/omaltsev/research/cpu_prefetch_research_code
++ OUT=build/stage17-archive-optimization/native-kernel
++ WARN=(-Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Werror -Wcast-align -Wundef)
++ g++ --version
+g++ (GCC) 16.2.1 20260810
+Copyright (C) 2026 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
++ g++ -O3 -std=c++20 -fPIC -shared -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Werror -Wcast-align -Wundef tools/stage17_archive_inverse_native_v1.cpp -o build/stage17-archive-optimization/native-kernel/libstage17_archive_inverse_native_v1.so
++ g++ -O3 -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Werror -Wcast-align -Wundef tests/stage17_archive_inverse_native_tests.cpp -Lbuild/stage17-archive-optimization/native-kernel -lstage17_archive_inverse_native_v1 '-Wl,-rpath,$ORIGIN' -o build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests
++ build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests
+PASS: 2953 archive inverse checks
++ g++ -O1 -g -std=c++20 -fno-omit-frame-pointer -fsanitize=address,undefined -fno-sanitize-recover=all -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Werror -Wcast-align -Wundef tools/stage17_archive_inverse_native_v1.cpp tests/stage17_archive_inverse_native_tests.cpp -o build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests_asan_ubsan
++ ASAN_OPTIONS=detect_leaks=0:halt_on_error=1
++ UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1
++ build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests_asan_ubsan
+PASS: 2953 archive inverse checks
++ clang-format --dry-run --Werror tools/stage17_archive_inverse_native_v1.cpp tests/stage17_archive_inverse_native_tests.cpp
++ nm -D --defined-only build/stage17-archive-optimization/native-kernel/libstage17_archive_inverse_native_v1.so
+0000000000001120 T cpu_prefetch_archive_inverse_v1
++ nm -D --undefined-only build/stage17-archive-optimization/native-kernel/libstage17_archive_inverse_native_v1.so
+                 w _ITM_deregisterTMCloneTable
+                 w _ITM_registerTMCloneTable
+                 w __cxa_finalize@GLIBC_2.2.5
+                 w __gmon_start__
+                 U memcpy@GLIBC_2.14
++ sha256sum tools/stage17_archive_inverse_native_v1.cpp tests/stage17_archive_inverse_native_tests.cpp build/stage17-archive-optimization/native-kernel/libstage17_archive_inverse_native_v1.so build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests_asan_ubsan
+c7c8582c52ae4036b4d4cc07d852ee889404156ba45842770f7c9f207fcfa217  tools/stage17_archive_inverse_native_v1.cpp
+7f0e003e61e5a5251666e2e0b9ee8859100d75dd43d3744ace3422e9766c0a06  tests/stage17_archive_inverse_native_tests.cpp
+89f618426617eb56397a221df63eeb2d2ff5350af9fa944f09f1d493d59de450  build/stage17-archive-optimization/native-kernel/libstage17_archive_inverse_native_v1.so
+afc7ca4926211fe7d58a9e2108aac1e513c1ce703bb521798561175610699b2a  build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests
+c0bc1b53bb2a1e5ccdc151a229a34a762d6877703912555b6de2751a7daa0082  build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests_asan_ubsan

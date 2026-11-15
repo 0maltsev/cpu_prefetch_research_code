@@ -1,0 +1,97 @@
+{
+  "purpose": "local synthetic software benchmark only",
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "library_sha256": "89f618426617eb56397a221df63eeb2d2ff5350af9fa944f09f1d493d59de450",
+  "reference_source_sha256": "31cd041dba72d185e63d73fa6b28af0816d944328745e57217f4e14d5568457a",
+  "sampling": "median of 3 Python, 31 kernel, 11 allocation/copy calls",
+  "cases": [
+    {
+      "rows": 8192,
+      "row_bytes": 8,
+      "block_bytes": 65536,
+      "python_median_seconds": 0.002724461,
+      "native_kernel_median_seconds": 7.584e-06,
+      "native_allocate_and_copy_median_seconds": 1.2093e-05,
+      "kernel_speedup": 359.23800105485236,
+      "allocate_and_copy_speedup": 225.29240056230879,
+      "byte_equality": true
+    },
+    {
+      "rows": 8192,
+      "row_bytes": 56,
+      "block_bytes": 458752,
+      "python_median_seconds": 0.020024409,
+      "native_kernel_median_seconds": 6.6454e-05,
+      "native_allocate_and_copy_median_seconds": 8.7462e-05,
+      "kernel_speedup": 301.32736930809284,
+      "allocate_and_copy_speedup": 228.9498182067641,
+      "byte_equality": true
+    },
+    {
+      "rows": 8192,
+      "row_bytes": 64,
+      "block_bytes": 524288,
+      "python_median_seconds": 0.023470931,
+      "native_kernel_median_seconds": 3.4815e-05,
+      "native_allocate_and_copy_median_seconds": 6.2255e-05,
+      "kernel_speedup": 674.1614533965245,
+      "allocate_and_copy_speedup": 377.0127861215966,
+      "byte_equality": true
+    },
+    {
+      "rows": 8192,
+      "row_bytes": 72,
+      "block_bytes": 589824,
+      "python_median_seconds": 0.026687597,
+      "native_kernel_median_seconds": 5.0223e-05,
+      "native_allocate_and_copy_median_seconds": 0.000709298,
+      "kernel_speedup": 531.3819763853215,
+      "allocate_and_copy_speedup": 37.625366207151295,
+      "byte_equality": true
+    },
+    {
+      "rows": 8192,
+      "row_bytes": 128,
+      "block_bytes": 1048576,
+      "python_median_seconds": 0.046183453,
+      "native_kernel_median_seconds": 7.7704e-05,
+      "native_allocate_and_copy_median_seconds": 0.000170607,
+      "kernel_speedup": 594.3510372696386,
+      "allocate_and_copy_speedup": 270.70080946268325,
+      "byte_equality": true
+    },
+    {
+      "rows": 8192,
+      "row_bytes": 256,
+      "block_bytes": 2097152,
+      "python_median_seconds": 0.093307263,
+      "native_kernel_median_seconds": 0.000440879,
+      "native_allocate_and_copy_median_seconds": 0.000858344,
+      "kernel_speedup": 211.63916403366912,
+      "allocate_and_copy_speedup": 108.7061399625325,
+      "byte_equality": true
+    },
+    {
+      "rows": 8192,
+      "row_bytes": 512,
+      "block_bytes": 4194304,
+      "python_median_seconds": 0.183490803,
+      "native_kernel_median_seconds": 0.001444494,
+      "native_allocate_and_copy_median_seconds": 0.002043065,
+      "kernel_speedup": 127.02773635612195,
+      "allocate_and_copy_speedup": 89.81153463056731,
+      "byte_equality": true
+    },
+    {
+      "rows": 2,
+      "row_bytes": 2097152,
+      "block_bytes": 4194304,
+      "python_median_seconds": 0.238596302,
+      "native_kernel_median_seconds": 0.000686856,
+      "native_allocate_and_copy_median_seconds": 0.00104419,
+      "kernel_speedup": 347.3745617713174,
+      "allocate_and_copy_speedup": 228.49893410203126,
+      "byte_equality": true
+    }
+  ]
+}

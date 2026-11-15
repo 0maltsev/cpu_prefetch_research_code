@@ -1,0 +1,71 @@
+Native inverse subtask complete. No SSH, commits, CMake, docs, Python integration,
+or original qualified source edits were performed by this task.
+
+Changed source paths:
+  tools/stage17_archive_inverse_native_v1.cpp
+  tests/stage17_archive_inverse_native_tests.cpp
+Other writes are limited to this ignored native-kernel directory.
+
+ABI:
+  extern "C" int cpu_prefetch_archive_inverse_v1(
+      const unsigned char* input, unsigned char* output,
+      size_t byte_count, size_t row_bytes) noexcept;
+  0 success; 1 invalid geometry; 2 null nonempty input/output;
+  3 uintptr_t range overflow; 4 overlap.
+  Empty input succeeds without touching pointers only with valid row geometry.
+  row_bytes > 0, divisible by 8, <= 4 MiB;
+  byte_count <= 4 MiB, divisible by row_bytes, at most 8192 rows.
+  Nonempty buffers must be accessible for byte_count bytes and disjoint.
+  All error checks precede reads/writes. Adjacent ranges are allowed.
+  No allocation, I/O, global mutable state, or third-party dependency.
+  LE loads/stores use memcpy on little/big endian, byte-order conversion on big
+  endian, and octet fallback on mixed endian; alignment is unrestricted.
+  Prefix sums are uint64_t modulo 2^64. Eight-column tiles improve output locality.
+  One-row geometry is an identity memcpy after full validation.
+
+Fresh verification commands (all final commands exit 0):
+  bash build/stage17-archive-optimization/native-kernel/verify.sh
+  bash build/stage17-archive-optimization/native-kernel/verify-clang.sh
+  python3 -B build/stage17-archive-optimization/native-kernel/benchmark.py
+Exact compiler invocations are recorded in scripts and verification.log and
+clang-verification.log. GCC 16.2.1 and Clang 23.1.4 strict warning builds pass.
+
+Results:
+  Shared-library-linked optimized executable: PASS 2953 checks.
+  ASan + UBSan instrumented kernel and tests: PASS 2953 checks; no findings.
+  LeakSanitizer disabled per repository's managed-ptrace instruction.
+  Clang optimized executable: PASS 2953 checks.
+  clang-format dry-run with Werror: PASS.
+  nm: one defined public symbol, cpu_prefetch_archive_inverse_v1.
+  Strong undefined runtime dependency: memcpy only (plus weak toolchain hooks).
+  Independent forward oracle, hand/LE vectors, opaque bit patterns, unsigned
+  wraparound, 256 deterministic random shapes, all 16x16 alignment offsets,
+  0/1/8191/8192 row boundaries, 8193-row rejection, full 4-MiB blocks,
+  partial rows, nulls, overlapping ranges, adjacent ranges, address overflow,
+  malformed dimensions, and unchanged buffers on rejected calls are exercised.
+  Runtime verification was on x86_64 little endian; big/mixed-endian execution
+  was not available. Buffer accessibility/lifetime remains the caller's duty.
+
+Artifact:
+  libstage17_archive_inverse_native_v1.so
+  SHA256 89f618426617eb56397a221df63eeb2d2ff5350af9fa944f09f1d493d59de450
+Source:
+  c7c8582c52ae4036b4d4cc07d852ee889404156ba45842770f7c9f207fcfa217
+Tests:
+  7f0e003e61e5a5251666e2e0b9ee8859100d75dd43d3744ace3422e9766c0a06
+
+benchmark-results.json compares byte-for-byte with the actual original Python
+inverse, on synthetic local inputs. Median of 3 Python / 31 native kernel /
+11 native allocation-and-copy calls. For 8192 rows x 512 bytes (4 MiB):
+Python 183.491 ms, kernel 1.444 ms (~127x), allocation+copy 2.043 ms (~90x).
+This excludes archive I/O, compression, hashing, and deployment. It is no claim
+of scientific performance or stand end-to-end speed. Artifact hash is unchanged
+by the final maybe_unused annotation for the endian-only helper.
+
+An initial optional Clang build diagnosed an unused big-endian-only helper on
+little endian; fixed with standard maybe_unused, then all checks rerun green.
+Initial diagnostic preserved in clang-initial-unused-endian-helper.log.
+The optional benchmark script's initial repository-root lookup was corrected
+before the successful benchmark; it did not affect production code.
+
+Integration and deployment remain the coordinator's responsibility.

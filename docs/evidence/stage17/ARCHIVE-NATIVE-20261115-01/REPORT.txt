@@ -1,0 +1,38 @@
+D252 cold archive native inverse — software checkpoint 2026-11-15
+
+Owner requests maximum archive optimization and explicitly permits a Q16b
+restart from the beginning. Scientific settings remain60cells x59repetitions,
+5s warmup and1s measurement. Completed Q16a/clocks/Q15 are not repeated.
+
+The standalone native inverse passes2953checks each with GCC, Clang and
+ASan+UBSan. Caller parity, wraparound, limits, immutable sealed-image loading,
+actual full verifier corruption rejection and sealed encoder/two-readback/
+publication/release integration pass. No existing verifier body or custody
+check is removed. The new source profile is separately authenticated against
+the original qualified release and signed new plan. Original nativeworker42f
+SHA7abf4cfac0051103f98b3f63f37efd1bde757d954c973460be6fe4d245f6a275
+remains unchanged.
+
+Local synthetic complete-verifier medians improve25.65x producer and36.16x
+consumer; these tests exclude actual whole-family runtime and do not establish
+scientific performance. Native isolated kernel benchmark90x includes allocation
+and copy; no multiplication of that speedup into experiment completion claims.
+CMake release artifact SHA256
+3aff20a92b35eadb698cdb0bb28707d903952edbd2649f24f84edceacd8225d3.
+The earlier standalone artifact has its own retained build/hash in HANDOFF.txt.
+
+Old attempt stopped at fully archived boundary13captures (ordinal12), one
+pidfd-pinned native SIGTERM at12:50:25UTC. Existing executor reports the expected
+interruption as ARCHIVE_WORKER_FAILURE, restoration_verified=true, leader_reaped
+and process_group_gone=true, no quarantine. Preserve original receipts verbatim.
+Supervisor parsing expects expected_hex, but the failure schema uses requested_hex;
+that reporting error is retained. Three fresh root reads confirmed exact MSR0
+on CPUs0/1/8; CPU partition and maintenance restoration are verified. The new
+launcher must interpret each actual schema's field independently. No experimental
+failure is silently converted to success or retried. This is the owner's explicit
+software-upgrade restart, not an automatic retry policy.
+
+Stand cold qualification, fresh identities/namespace, exact overlay/plan signing,
+isolation reapplication and optimized one-shot launch remain pending. All raw
+archives remain on stand; this PC retains small software evidence only. EXT007,
+Q16b scientific validation, Q16c and Stage17 exit remain incomplete.

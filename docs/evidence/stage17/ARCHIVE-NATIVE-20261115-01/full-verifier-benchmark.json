@@ -1,0 +1,25 @@
+{
+  "scope": "LOCAL_SYNTHETIC_FULL_VERIFIER_NOT_EXPERIMENT_SPEED",
+  "results": [
+    {
+      "role": "producer",
+      "logical_bytes": 35651584,
+      "physical_bytes": 12357,
+      "seconds": {
+        "original_full_verifier": 1.4775677389989141,
+        "native_full_verifier": 0.05761057999916375
+      },
+      "speedup": 25.64750674303855
+    },
+    {
+      "role": "consumer",
+      "logical_bytes": 25165824,
+      "physical_bytes": 9667,
+      "seconds": {
+        "original_full_verifier": 1.0247672440018505,
+        "native_full_verifier": 0.028342534002149478
+      },
+      "speedup": 36.156514584198185
+    }
+  ]
+}

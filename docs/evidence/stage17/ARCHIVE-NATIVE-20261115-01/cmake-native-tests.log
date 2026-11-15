@@ -1,0 +1,15 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-release-gcc
+    Start 133: runner.archive_inverse_native
+1/2 Test #133: runner.archive_inverse_native ..........   Passed    0.67 sec
+    Start 147: runner.archive_inverse_native_python
+2/2 Test #147: runner.archive_inverse_native_python ...   Passed    0.90 sec
+
+100% tests passed out of 2
+
+Label Time Summary:
+archive      =   1.58 sec*proc (2 tests)
+python       =   0.90 sec*proc (1 test)
+runner       =   1.58 sec*proc (2 tests)
+synthetic    =   1.58 sec*proc (2 tests)
+
+Total Test time (real) =   1.60 sec

@@ -1,6 +1,6 @@
 # D252: Accelerate cold archival without changing Q16 measurements
 
-- Status: ACCEPTED engineering work by the owner; implementation/verification in progress
+- Status: ACCEPTED engineering work by the owner; implemented, verified and deployed; owner-authorized restarted collection running
 - Date: 2026-11-15
 - Scope: prospective Q16b restart and subsequent EXT007 cold archive readback only
 - Native workload, scientific method, repetition count and Stage18 authority: unchanged

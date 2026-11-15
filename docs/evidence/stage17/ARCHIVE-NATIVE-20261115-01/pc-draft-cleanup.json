@@ -1,0 +1,36 @@
+{
+  "status": "UNEXECUTED_PC_DRAFTS_LOSSLESSLY_COMPACTED",
+  "files": [
+    {
+      "path": "build/stage17-archive-optimization/restart-prep/software-test-candidate/plan.json",
+      "original_size_bytes": 61110206,
+      "sha256": "dd23f987b29c21af29c03b3c621744ab2b381efa1355363ebcd759adc5c0e93b",
+      "verified_lossless_copy": "build/stage17-archive-optimization/restart-prep/software-test-candidate/plan.json.gz",
+      "compressed_size_bytes": 1075319,
+      "scientific_raw": false,
+      "executed_plan": false
+    },
+    {
+      "path": "build/stage17-archive-optimization/restart-prep/restart-candidate-1/plan.json",
+      "original_size_bytes": 61110206,
+      "sha256": "367e7d7888944577f4c6f1654ae86a0a1d2f226f67300bd8d0dfd447c55d8d3e",
+      "verified_lossless_copy": "build/stage17-archive-optimization/restart-prep/restart-candidate-1/plan.json.gz",
+      "compressed_size_bytes": 1075462,
+      "scientific_raw": false,
+      "executed_plan": false
+    },
+    {
+      "path": "build/stage17-archive-optimization/restart-prep/restart-candidate-2/plan.json",
+      "original_size_bytes": 61110206,
+      "sha256": "d49cd437e5245e04f7d35edd718101871118749940779b63555acd8eda737dc3",
+      "verified_lossless_copy": "build/stage17-archive-optimization/restart-prep/restart-candidate-2/plan.json.gz",
+      "compressed_size_bytes": 1075464,
+      "scientific_raw": false,
+      "executed_plan": false
+    }
+  ],
+  "reclaimed_bytes": 180104373,
+  "active_plan_unchanged": true,
+  "stand_untouched": true,
+  "raw_data_deleted": false
+}

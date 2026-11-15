@@ -56,3 +56,76 @@ verbatim1082-byte receipt(SHAf440f71a8c9afedb41fc623ec31e8cb4a943ddc9fb7bdb13f63
 restoration-audit-2.json binds those exact original bytes and three fresh MSR
 reads, reaped workers and absent CPU partition. Earlier snapshots/audit are
 retained separately, with no fabricated successful experiment completion.
+
+Final implementation frozen at clean source701dbabd100b33c53cd68b62f56e809c871a11fb.
+Final native profile6d24a8b14106cde5ff88b9b9883b59265c8c351712210d5b28048dd1473250a4;
+administrative packet6d133fd4150b8de5ce2dc01a83f15bc7be0253216e25f81555b5391bdf830919.
+Actual stand whole-ledger replay drops21.35s to15.4s; all6459states,3families,
+59578record bindings and complete replay state are identical. Full live inventory
+of74674unique objects drops0.97s to0.71s with exactly467720953856quota bytes.
+These measured software times are not a whole-capture speedup or scientific result.
+
+Final restart plan6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847
+retainsall3540captures,60cells,59repetitions,5s warmup and1s measurement. All
+non-identity/non-profile scientific/resource fields are deep-equal to the old
+plan. Fresh B26run identities and8496numeric seeds passed bounded local/stand
+public-history audits, includingall3prior registered plans. One same-lock FAMILY
+append created ledger59578 (SHA78087e99457b614eeeaa4bc0138413416250b4b1522fa0127e9773d3b64774c3),
+without quota reset, discarded records or old-family changes.
+
+The new owner request9d95435d14e1541520831964fd3c57145717a84ceeb59ae9492c8ada5917ab09
+and authorization40e6742e6663f6653f4636b1b77b3700414e9dead70bc18a786bf801197530ef
+were signed at13:56:37UTC. First administrative launch stopped before setup or
+native marker on the CLI21wrapper's extra `previous` layer; original error is
+preserved. The corrected launcher reads latest_journal through the preserved
+formal namespace;41operator tests pass, including the regression. The signed
+request remains the same and was not consumed by that administrative error.
+
+Corrected detached root transaction PID207634 started14:09:11UTC; live isolation
+setup passed and supervisor208800 accepted restoration ownership14:22:21UTC.
+Its final launch configuration is17d0a85f58e7e9767a72a3c292dea79e589f903ae74f4d362bf08c6154e9e343.
+Native execution/startup verification remains pending at this checkpoint. No
+completed Q16a, clocks, Q15, prefix validation or original suffix validation was
+repeated. Original thirteen interrupted Q16b captures remain fully retained and
+contribute zero runs to this restarted family. Any first new experimental failure
+stops dependent work and restores; no automatic retry or Stage18authority.
+
+PC cleanup: verified lossless gzip compaction ofthree unexecuted draft plans
+reclaimed180104373bytes. Active plan, original research raw and stand data remain
+untouched. The reconstruction hashes and exact paths are in pc-draft-cleanup.json.
+
+Targeted native/sanitizer, canonical, metadata, sealed broker and controller/
+authority tests pass. The broad format-check reports preexisting formatting
+violations in unchanged src/runner/stage17_fixed_action.cpp (including2198–2199);
+that measured source is not modified. New native sources passed clang-format.
+
+Live native startup verified at14:43:06.657806UTC. Actual attempt marker begins
+14:42:33.400135UTC with exact request9d95435d/authorization40e6742e, one_attempt=true,
+retries=0 and phase18_authority=false. Worker210874 is UID1000 in the reserved
+cgroup, actual memfd executable SHA7abf4cfac0051103f98b3f63f37efd1bde757d954c973460be6fe4d245f6a275.
+Supervisor208800/owner208957 remain active. This supersedes the pending-startup
+checkpoint above. First-capture durable custody and whole-cycle timings remain
+pending; startup is not a scientific validity or family-completion claim.
+All final backend, profile, overlay and launch-configuration bytes match their
+recorded hashes, and every backend source binding matches the frozen local source.
+
+The first attempt to copy launch3-readback.json was blocked by automatic review
+because its name suggested secret/session material. Read-only field inspection
+confirmed only process UID/GID/capability/affinity/rlimit/status, public argv paths,
+UTC and configuration hash. The review then permitted the exact small copy;
+no secret material was transferred and no experimental operation was affected.
+
+First capture custody completed14:48:16.550826UTC; observed14:48:28.940036UTC.
+Status ARCHIVED_AND_RELEASED,6/6artifacts, all expected/reconstructed logical
+hashes and sizes equal, every failure_receipt=null. The exact checkpoint hash
+731724d812edd5f65686b4435c25bc2ab4ab27e9455b2c4533c48753a5cb902f matches custody.
+Native publication succeeded. Logical5130136113bytes became592424833archive bytes;
+all raw archives stay on the stand. First-capture checkpoint mtime14:44:17.520468
+and custody mtime14:48:16.550826 differ by239.030357671seconds, compared with the
+earlier retained505.489524seconds:2.11x or52.7% less archive interval time. This
+is an initial operational comparison with different captured bytes, not a controlled
+performance experiment, steady-state estimate or whole-family ETA. Nativeworker
+and supervisor are alive at the observation; no failure/completion receipt exists.
+Progress1/3540fullyarchived; scientific validity remains NOT_ASSESSED. All original
+checks,59repetitions/cell and fixed intervals remain intact. Startup verification
+is complete; subsequent routine status polling returns to the requested30minutes.

@@ -1,0 +1,52 @@
+{
+  "checks_per_build": 64,
+  "no_measurements": true,
+  "no_stand_operations": true,
+  "prospective_q16b_caps_selected": false,
+  "release_binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/release/service-layout",
+    "sha256": "2fa0d4ac239067f5fdda9691d319469b3c99760b361458076e3e568643437f05",
+    "size_bytes": 1658248
+  },
+  "release_checks": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/release/cold-checks/verification.json",
+    "sha256": "20f5f40c3bd6cbf1505f922aa879bd892c7ae6e76ef0520e73e74cd445655a6b",
+    "size_bytes": 84552
+  },
+  "release_provenance": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/release/provenance.json",
+    "sha256": "4fea9e69b7242cf1557da4552839142de14aa9d7323c11c01e847e386e6931f2",
+    "size_bytes": 254818
+  },
+  "review": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/review.json",
+    "sha256": "a1d15bd86451c3ffb34241537b582aee0c9a14866192743c678a8b30c832d535",
+    "size_bytes": 2024
+  },
+  "sanitizer_binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+    "sha256": "6129d14cb91fa695e042d39146fd15ebcd38bf820c4aa170cad348a931e8ce2a",
+    "size_bytes": 5675056
+  },
+  "sanitizer_checks": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/verification.json",
+    "sha256": "99a6a3d60a7c9a890fd2dc09d882aabf962684b47e7c765b4906608a0982352e",
+    "size_bytes": 85514
+  },
+  "sanitizer_provenance": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/provenance.json",
+    "sha256": "d30125a1aee2e72e218f90eacf24d2e5fdd3e615d994f187aa3abe29d557e7ff",
+    "size_bytes": 255847
+  },
+  "startup_and_candidate_caps_verification": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/startup-and-caps/verification.json",
+    "sha256": "3dd73bc8bd2a156fde6a08eaa764ceb9849d6891a3eaf58e664603656ad5dbe0",
+    "size_bytes": 54931
+  },
+  "status": "PASS",
+  "usage": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/USAGE.txt",
+    "sha256": "3ff0c006699a53af04730a92881198a3a1f6366d0aa6ddd0ea5e4392cef111ec",
+    "size_bytes": 5673
+  }
+}

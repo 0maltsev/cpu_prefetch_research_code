@@ -1,0 +1,255 @@
+{
+  "captures": 3540,
+  "changes_from_candidate1": "archive staging upper bound only",
+  "execution_authority": false,
+  "historical_namespace_audit": false,
+  "linked_order_identities": 1416,
+  "measurements_performed": false,
+  "native_cells": [
+    {
+      "cell_ordinal": 0,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 1,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 2,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 3,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 4,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 5,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 12,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 13,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 14,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 15,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 16,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 17,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 24,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 25,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 26,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 27,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 28,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 29,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 36,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 37,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 38,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 39,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 40,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 41,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 48,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 49,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 50,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 51,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 52,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 53,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 6,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 7,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 8,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 9,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 10,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 11,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 18,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 19,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 20,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 21,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 22,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 23,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 30,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 31,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 32,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 33,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 34,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 35,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 42,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 43,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 44,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 45,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 46,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 47,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 54,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 55,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 56,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 57,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 58,
+      "declared_native_layout_verified": true
+    },
+    {
+      "cell_ordinal": 59,
+      "declared_native_layout_verified": true
+    }
+  ],
+  "plan_sha256": "ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702",
+  "preserved_prior_candidate_identities": true,
+  "status": "FIXED_DESIGN_AND_ALL60_DECLARED_NATIVE_LAYOUTS_VERIFIED",
+  "unique_phase_and_linked_numeric_seeds": 8496,
+  "unique_phase_run_ids": 7080
+}

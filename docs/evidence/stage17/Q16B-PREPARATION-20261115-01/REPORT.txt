@@ -1,25 +1,78 @@
-D247/D248 Q16b preparation checkpoint, 2026-11-15
+D247/D248/D249: Q16a handoff COMPLETE; real Q16b cold plan VERIFIED/STORED
 
-Owner prospectively approved 1-second measurement, 5-second warmup and
-59 repetitions/cell across the existing 60-cell product (3540 captures).
-No Q16b collection has started. The exact accepted reply is retained.
+The one-shot stand owner job ran 08:16:42–08:18:55 UTC Nov15 (11:16–11:18
+Moscow), exit0, no error, child reaped. Original qualified historical signed
+preparation and lifecycle checks passed. Q16a handoff is850bytes, SHA256
+0d4e2d233167fc6157001b0fe38e763a77dbbcd65a19b7ef2e09c2563c02c4bb.
+The exact audited D246 composition/geometry/completion originals were reused;
+all708 valid reports, both source revisions, original identities and separate
+measurement/warmup zero-loss FAIL gates are retained. No raw decode, capture,
+qualification, isolation reapplication or historical-report rewrite occurred.
+Clean administrative source7107f7357528ad94c7812d93764a4fad731f1b50,
+installed packet4caaa1c688f9781acbd2ee37f36c6bf13599095024a9ea97e505ab291845b6fe.
 
-The incident-bound Q16a handoff accepts only the three exact audited D246
-artifacts, preserves both source histories and all FULL outcomes/flags,
-and independently replays the summary arithmetic. Controller27 admits
-that explicit prerequisite without fabricating a single-source record.
-All prior signed admission, profile, namespace and finite deadline gates
-remain required. No qualified native source or measured release is changed.
+Owner acceptance fixes1s measurement,5s warmup and59 repetitions/cell across
+60cells:3540 captures. The actual qualified42f2ebb native service API sized
+all60 cells. A separate check reparsed all60 actual declared native layouts,
+verified7080 unique phase run IDs and8496 unique phase/linked numeric seeds,
+and preserved both earlier prospective candidate identities. This is local
+software verification, not a performance or hardware observation.
 
-Fresh verification: four targeted CTest suites passed (107.62s), including
-8 new handoff/controller tests, composition and geometry regressions, and
-legacy controller26. Seventeen legacy controller25 tests separately passed.
-New checks reject changed/rebound bytes, symlinks, wrong source/inventory/
-platform/stand/duration, authority fields and mismatched R2 distance/evidence.
-The historical validator globals remain unchanged and v26 stays strict.
-Native sanitizers are not applicable to these Python administrative changes.
+Final plan SHA256:
+ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702,
+61110206bytes. Stored on stand at
+/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16b-preparation-1/plan.json
+All200 transferred files,66232292bytes, matched original hashes before atomic
+publication. Transfer manifestb0a82ee4ace2fba9801c5dedf0cfa037b565eb09c23e9846dfec68242bc1b756.
+No family registration, namespace reservation, signature or collection occurred.
+The checked-in final preparation and transfer records bind all exact inputs;
+full plan and native-layout artifacts stay on stand and in the local working
+preparation. The full61MB plan is not duplicated in Git.
 
-Live stand handoff preparation is pending this source checkpoint. Real
-Q16b native sizing, prospective budget, historical namespace registration,
-shared-program capacity admission, isolation and signed phase admission
-remain pending. EXT007 and Stage17 remain incomplete; no Stage18 authority.
+Native caller release and ASan/UBSan builds each passed64 cold checks. ASan/
+UBSan instrument the new caller only; original qualified libraries remain
+unchanged. Four handoff/regression CTest suites passed, plus17 legacy v25
+controller tests. The new8-test suite covers audited bytes, failed rebinding,
+symlinks, wrong qualification/platform/stand/duration/authority, R2 reuse,
+strict legacy rejection and preservation of historical validator globals.
+Separate review found no remaining native/layout/arithmetic blocker. Its P2
+input-provenance finding is fixed: helper/model/zstd inputs are bound before
+and after final preparation; final plan bytes equal the reviewed candidate2.
+
+Requested engineering ceilings:100M warmup attempts/polls,30M measurement
+attempts/polls,30s drains,224GiB worker and230GiB total family address space.
+These are finite failure limits, not observed rates or promised sample counts.
+Native maximum mapping30,709,854,208bytes; largest canonical capture
+31,227,906,332bytes; conservative archive staging31,354,232,832bytes. Shared
+observation/allocation model is below the224GiB ceiling, without claiming
+allocator/RSS certification. Runtime row and bulk archive framings, node-order
+and empty artifacts are covered. Candidate1 had a corrected staging estimate;
+identities and all scientific inputs were preserved. Final provenance-only
+candidate3 has exactly candidate2's plan bytes.
+
+Read-only live ProgramStore accounting passed: two families, unchanged ledger
+58848 (c663484f67bbaa9fe7ffb16717e8950df79f37c73049b3620cc7882bd18fbc8d),
+460,127,571,968bytes retained,5,539,872,428,032bytes quota remaining, zero
+pending reservations. Free6,446,065,614,848bytes covers6,381,686,018,048bytes
+for remaining quota plus workspace/scratch/reserve; this is a planning snapshot,
+not execution-time admission. No ledger or raw mutation. Superseded local
+unsigned preparation copies were removed after stand final-copy verification:
+131,267,660bytes freed. Minimal correction/provenance reports are retained.
+
+Next required work:
+1. Audit/reserve complete Q16b history namespaces and register this exact family
+   under the existing program; never initialize/reset its quota.
+2. Bind explicit v27 administrative admission wiring and exact signed request/
+   phase authority. The public v18 CLI remains strict v26 and is not yet wired
+   to consume the new handoff.
+3. Prepare Q16b-specific isolation/restoration and remaining-lifetime admission.
+   The conservative full watchdog is13827480000000000ns (161days rounded up),
+   exceeding the old34day keeper. This is a failure ceiling, not a runtime
+   estimate; warmup+measurement alone total5h54m. Do not reuse D243 authority
+   or shorten deadlines merely to bypass this gate.
+4. Recheck live resources, launch once under qualified supervision, stop on the
+   first new experimental failure, and restore. Then independently validate
+   Q16b; proceed to Q16c and the final calibration/EXT007 freeze only as admitted.
+
+Q16b is NOT RUNNING at this checkpoint. Q16a work remains complete/preserved.
+EXT007 and Stage17 remain incomplete. No Stage18 authority.

@@ -9,6 +9,11 @@
       "path": "tests.log",
       "size_bytes": 106,
       "sha256": "c6352adff70a6982c739a1cd77bbb43d2425eefd2dc2112b92b0ceebf2a6ca31"
+    },
+    {
+      "path": "historical-loading-regression.log",
+      "size_bytes": 107,
+      "sha256": "ca18ffc8e8fdc6b71e49e9b4fd64e04661daa3243fb767d57a64ce80ea2d7b63"
     }
   ],
   "execution_authority": false

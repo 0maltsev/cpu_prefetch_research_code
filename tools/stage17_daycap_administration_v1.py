@@ -10,6 +10,7 @@ The native release and all v6 authority bodies remain unchanged.
 from __future__ import annotations
 
 import types
+from pathlib import Path
 
 import stage17_archive_metadata_fast_v1 as metadata
 import stage17_q16a_daycap_handoff_v1 as handoff
@@ -38,6 +39,59 @@ def associated_validation(validation, stand_id):
     return types.SimpleNamespace(resolutions=resolutions)
 
 
+admission = original_controller.admission
+SCHEMA = original_controller.SCHEMA
+CONTEXT_SCHEMA = original_controller.CONTEXT_SCHEMA
+_uuid = original_controller._uuid
+
+def _read_historical_associated(raw, root):
+    document = admission._json(raw)
+    admission.fields(document, 'schema_version historical_context original_plan compatibility boot_id '
+                     'execution_authority phase18_authority', 'historical configuration')
+    admission.same(document['schema_version'], SCHEMA, 'historical configuration schema')
+    _uuid(document['boot_id'])
+    for flag in ('execution_authority', 'phase18_authority'):
+        admission.same(document[flag], False, 'historical configuration authority')
+    reader = admission.BoundReader()
+    for key in ('historical_context', 'compatibility'):
+        admission.require(Path(document[key]['path']).parent == root, 'historical packet namespace: ' + key)
+    context = reader.document(document['historical_context'])
+    admission.fields(context, 'schema_version boot_id resolutions execution_authority phase18_authority',
+                     'historical context export')
+    admission.same(context['schema_version'], CONTEXT_SCHEMA, 'historical context export schema')
+    _uuid(context['boot_id'])
+    admission.same(context['boot_id'], document['boot_id'], 'same historical/current verified boot')
+    for flag in ('execution_authority', 'phase18_authority'):
+        admission.same(context[flag], False, 'historical context authority')
+    admission.fields(context['resolutions'], 'S17-EXT-004 S17-EXT-006', 'historical context resolutions')
+    resolutions = {}
+    for key, row in context['resolutions'].items():
+        admission.fields(row, 'semantic_context', 'historical resolution')
+        admission.require(type(row['semantic_context']) is dict, 'actual old semantic context required')
+        resolutions[key] = types.SimpleNamespace(semantic_context=row['semantic_context'])
+    validation = types.SimpleNamespace(resolutions=resolutions)
+    old = resolutions['S17-EXT-006'].semantic_context
+    admission.same(old['source_revision'], handoff.original.SOURCE, 'actual historical source42')
+    admission.same(old['release_artifact_sha256'], handoff.OLD_WORKER, 'actual historical worker7ab')
+    admission.same(old['inventory_sha256'], handoff.original.INVENTORY, 'actual historical inventory')
+    plan = reader.document(document['original_plan'])
+    admission.same(plan['source_revision'], old['source_revision'], 'actual old plan source')
+    # D255: derive the private association before the preserved stand checks.
+    validation = associated_validation(validation, plan['stand_id'])
+    resolutions = validation.resolutions
+    for key in resolutions:
+        admission.same(plan['stand_id'], resolutions[key].semantic_context['stand_id'], 'actual old plan stand')
+    proof = reader.document(document['compatibility'])
+    admission.same(proof['schema_version'], handoff.SCHEMA, 'bound compatibility schema')
+    admission.same(proof['original_plan'], document['original_plan'], 'actual historical plan binding')
+    admission.same(proof['scope'], dict(decision='D254', purpose=handoff.PURPOSE,
+        stand_id=plan['stand_id'], boot_id=document['boot_id']), 'bound compatibility scope')
+    for flag in ('execution_authority', 'phase18_authority'):
+        admission.same(proof[flag], False, 'compatibility authority')
+    reader.finish()
+    return document, context, validation, plan, proof
+
+
 def consume(document, *, validation, plan, selected_duration_ns, original_validation,
             original_plan, compatibility, original_boot_id, boot_id):
     """Keep every D254 compatibility gate, with an explicit derived association."""
@@ -53,7 +107,7 @@ def make_controller():
     """Rebuild the fixed private v25/v26 graph with only the D255 handoff view."""
     controller = original_controller._clone_module(original_controller,
         {'handoff': types.SimpleNamespace(**{**vars(handoff), 'consume': consume}),
-         '_HISTORICAL': None})
+         '_HISTORICAL': None, '_read_historical': _read_historical_associated})
     scope = controller.prepare_action.__globals__
     v25 = original_controller._clone_module(original_controller.original_v25,
         {'journal_runtime': controller.journal_runtime, 'activate': controller.activate})

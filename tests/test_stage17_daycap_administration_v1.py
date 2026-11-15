@@ -1,5 +1,5 @@
 """Regression against actual retained qualification, plus unchanged gate wiring."""
-import copy,json,pathlib,sys,types,unittest
+import copy,json,pathlib,sys,types,unittest,tempfile,hashlib
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
 import stage17_daycap_administration_v1 as admin
 import stage17_operational_cli_daycap_v1 as original
@@ -24,6 +24,27 @@ class AssociationTests(unittest.TestCase):
   view=admin.associated_validation(self.validation,'CPU-PREFETCH-V5');old=self.validation.resolutions['S17-EXT-006'].semantic_context
   for k in ('source_revision','release_artifact_sha256','inventory_sha256','archive_bundle_root'):
    self.assertEqual(view.resolutions['S17-EXT-006'].semantic_context[k],old[k])
+class HistoricalLoadTests(unittest.TestCase):
+ def test_actual_context_export_passes_preserved_historical_loading_without_invented_original_field(self):
+  fixture=ROOT/'docs/evidence/stage17/DAYCAP-120-ADMISSION-20261115-01/original-contexts-admission.json'
+  raw=json.loads(fixture.read_bytes())
+  with tempfile.TemporaryDirectory() as directory:
+   root=pathlib.Path(directory)
+   def save(name,doc):
+    p=root/name;p.write_text(json.dumps(doc));b=p.read_bytes();return dict(path=str(p),size_bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+   context=save('original-context.json',raw)
+   # Only config-loading is exercised here. Full original plan/calibration
+   # acceptance remains the original handoff's separate gate.
+   oldplan=save('old-plan.json',dict(source_revision=admin.handoff.original.SOURCE,stand_id='CPU-PREFETCH-V5'))
+   scope=dict(decision='D254',purpose=admin.handoff.PURPOSE,stand_id='CPU-PREFETCH-V5',boot_id=raw['boot_id'])
+   proof=save('compatibility.json',dict(schema_version=admin.handoff.SCHEMA,original_plan=oldplan,scope=scope,execution_authority=False,phase18_authority=False))
+   config=dict(schema_version=admin.SCHEMA,historical_context=context,original_plan=oldplan,compatibility=proof,boot_id=raw['boot_id'],execution_authority=False,phase18_authority=False)
+   selected=admin.make_controller();selected.configure_historical_inputs(config,root)
+   _,unchanged,validated,_,_=selected._historical_inputs()
+   self.assertNotIn('stand_id',unchanged['resolutions']['S17-EXT-006']['semantic_context'])
+   self.assertEqual(validated.resolutions['S17-EXT-006'].semantic_context['stand_id'],'CPU-PREFETCH-V5')
+   self.assertEqual(json.loads((root/'original-context.json').read_bytes()),raw)
+
 class GraphTests(unittest.TestCase):
  def test_only_fixed_handoff_changes_and_authority_bodies_remain_original(self):
   cli=admin.make_cli();controller=cli.controller

@@ -24,3 +24,7 @@ its policy59 closure immutable. The measured binary is not rebuilt or relabelled
 for an administrative correction. This changes no observations, method, count,
 time window, hardware requirement, signature or experiment authority. No new
 experiment or automatic retry is introduced.
+
+The historical configuration loader applies the same private association before
+its unchanged stand checks. The original exported JSON remains byte-identical;
+the real-context regression covers both loading and downstream consumption.

@@ -21,6 +21,20 @@ def sha256(path: pathlib.Path) -> str:
     return digest.hexdigest()
 
 
+def daycap_admission_tuple(profile, controller):
+    """Select the exact D254 tuple; all historical tuples keep their route."""
+    if (profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
+                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"}
+            and isinstance(controller, dict)
+            and isinstance(controller.get("policy"), dict)
+            and controller["policy"].get("path") ==
+                "config/stage17/stage17-operational-evidence-admission-policy-v59.json"):
+        return (59, 33, 33,
+                "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-DAYCAP-v1",
+                "tools/stage17_phase_controller_daycap_v1.py")
+    return None
+
+
 def diagnostic_runtime_closure_errors(root, policy):
     """Check the exact local import graph and import the bundled projection alone."""
     failures = []
@@ -1302,17 +1316,23 @@ def main() -> int:
                     "pilot candidate worker runtime identity/provenance is invalid"
                 )
             controller = manifest.get("stage17_controller_runtime")
+            controller_id = f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v{controller_version}"
+            controller_entrypoint = f"tools/stage17_phase_controller_v{controller_version}.py"
+            selected = daycap_admission_tuple(profile, controller)
+            if selected is not None:
+                (admission_policy_version, nested_policy_version, executor_version,
+                 controller_id, controller_entrypoint) = selected
             policy_path = root / (
                 "config/stage17/"
                 f"stage17-operational-evidence-admission-policy-v{admission_policy_version}.json"
             )
             if (not isinstance(controller, dict)
                     or controller.get("controller_id")
-                    != f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-v{controller_version}"
+                    != controller_id
                     or controller.get("entrypoint")
-                    != f"tools/stage17_phase_controller_v{controller_version}.py"
+                    != controller_entrypoint
                     or controller.get("invocation")
-                    != ["python3", f"tools/stage17_phase_controller_v{controller_version}.py"]
+                    != ["python3", controller_entrypoint]
                     or controller.get("production_test_mode_available") is not False
                     or controller.get("authority_embedded") is not False
                     or not policy_path.is_file()):

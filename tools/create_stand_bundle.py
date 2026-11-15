@@ -21,6 +21,10 @@ from typing import Any
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
 STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v26"
 STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"
+STAGE17_POLICY_PATH = "config/stage17/stage17-operational-evidence-admission-policy-v59.json"
+STAGE17_PREFLIGHT_POLICY_PATH = "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v33.json"
+STAGE17_CONTROLLER_ID = "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-DAYCAP-v1"
+STAGE17_CONTROLLER_ENTRYPOINT = "tools/stage17_phase_controller_daycap_v1.py"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "formal_codegen_report.json": ("cpu_prefetch_runner", "check_formal_codegen.py"),
@@ -275,6 +279,24 @@ def copy_policy_bound_files(root: pathlib.Path, staging: pathlib.Path, policy_do
                 "sha256": binding["sha256"],
             })
     return controller_files
+
+
+def current_stage17_policy(root: pathlib.Path) -> dict:
+    """Audit the fresh policy against the actual graph and complete source tree.
+
+    This check grants no execution authority and does not repair stale hashes.
+    Native codegen, clean-source and full extracted-bundle gates remain required.
+    """
+    import stage17_semantic_verifier_v59 as semantic
+    import stage17_state_journal as journal
+    policy = json.loads((root / STAGE17_POLICY_PATH).read_bytes())
+    genesis = journal.load_json(root / "config/stage17/journal/stage17-state-journal-000000.json")
+    _, _, graph, catalog, versions = journal.validate_graph_catalog(root, genesis)
+    record = genesis["genesis"]["genesis_record"]
+    semantic.verify_policy_v59(root=root, policy=policy, graph_sha256=graph, catalog_sha256=catalog,
+        genesis_record_sha256=journal.sha256_bytes(journal.canonical_json_bytes(record)),
+        resolution_schema_sha256=versions["resolution_schema_sha256"])
+    return policy
 
 
 def materialize_archive_profile(*, root, staging, runtime_root, window_log):
@@ -620,20 +642,14 @@ def main() -> int:
             # adding a second, PRFCHW-free software-prefetch mapping and
             # its own per-run resolution/dispatch in package_capture) --
             # same class of re-pin once more.
-            policy_relative = pathlib.Path(
-                "config/stage17/stage17-operational-evidence-admission-policy-v58.json"
-            )
+            policy_relative = pathlib.Path(STAGE17_POLICY_PATH)
             policy_path = root / policy_relative
-            policy_document = json.loads(policy_path.read_text(encoding="utf-8"))
+            policy_document = current_stage17_policy(root)
             controller_files = copy_policy_bound_files(root, staging, policy_document)
-            controller_suffix = "v26"
             stage17_controller_runtime = {
-                "controller_id":
-                    f"STAGE17-FIXED-ACTION-PHASE-CONTROLLER-{controller_suffix}",
-                "entrypoint": f"tools/stage17_phase_controller_{controller_suffix}.py",
-                "invocation": [
-                    "python3", f"tools/stage17_phase_controller_{controller_suffix}.py",
-                ],
+                "controller_id": STAGE17_CONTROLLER_ID,
+                "entrypoint": STAGE17_CONTROLLER_ENTRYPOINT,
+                "invocation": ["python3", STAGE17_CONTROLLER_ENTRYPOINT],
                 "policy": {
                     "path": policy_relative.as_posix(),
                     "size_bytes": policy_path.stat().st_size,
@@ -650,10 +666,7 @@ def main() -> int:
             # without importing them into the current Python closure.
             # Carry those exact files so production admission does not
             # depend on the wider test-only source projection.
-            nested_policy_relative = pathlib.Path(
-                "config/stage17/"
-                "stage17-read-only-preflight-evidence-admission-policy-v32.json"
-            )
+            nested_policy_relative = pathlib.Path(STAGE17_PREFLIGHT_POLICY_PATH)
             nested_policy_path = root / nested_policy_relative
             nested_policy = json.loads(nested_policy_path.read_text(encoding="utf-8"))
             nested_bound_files: list[dict[str, object]] = []

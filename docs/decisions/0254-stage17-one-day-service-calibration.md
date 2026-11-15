@@ -64,3 +64,23 @@ Present the revised whole-study estimate before any new experimental launch.
 Qualify an actual clean release if native admission bytes change. Reuse previous
 scientific data only through its authenticated source/compatibility evidence;
 never relabel an old qualification as belonging to a new executable.
+
+
+## Retained Q16a across fresh qualification
+
+A new qualification necessarily has different Q15 result hashes, clock envelope
+IDs and hardware-readback artifact references. Reusing those old provenance
+identities for the new executable is prohibited. The compatibility gate must
+bind both actual, independently admitted platform manifests and compare their
+CPU, topology, memory and software fields exactly, together with the same boot
+identity and unchanged clock mechanism. Each manifest retains its own admitted
+Q15 result hash and qualification references. A changed record hash by itself
+is not evidence of changed physical geometry; a changed physical field rejects
+reuse. The original Q16a handoff is validated against its actual original
+qualification without replacing any source or artifact identity.
+
+The current source revision is taken from the actual clean qualified release
+and must agree with the plan and compatibility inventory. The exact reviewed
+cold-family source hash, complete unchanged measured-source closure, queue
+library bytes and three project headers remain mandatory. An administrative
+commit does not authorize inference from an unqualified executable.

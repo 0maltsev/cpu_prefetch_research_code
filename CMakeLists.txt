@@ -1625,7 +1625,8 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_admin_v2.py")
   set_tests_properties(runner.formal_admin_v2 PROPERTIES
     LABELS "runner;archive;python" TIMEOUT 180)
-  foreach(_d252_test IN ITEMS phase_controller_v28 operational_cli_v21 formal_admin_v3)
+  foreach(_d252_test IN ITEMS phase_controller_v28 operational_cli_v21 formal_admin_v3
+      archive_canonical_fast_v1 archive_metadata_fast_v1)
     add_test(NAME runner.${_d252_test}
       COMMAND "${Python3_EXECUTABLE}" -B
         "${PROJECT_SOURCE_DIR}/tests/test_stage17_${_d252_test}.py")

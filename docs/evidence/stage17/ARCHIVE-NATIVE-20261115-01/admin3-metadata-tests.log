@@ -1,0 +1,24 @@
+test_actual_controller_cli_chain_survives_accepted_activation_and_reentry (__main__.ActivationTests.test_actual_controller_cli_chain_survives_accepted_activation_and_reentry) ... ok
+test_configuration_receives_verified_bytes_without_path_reread (__main__.ActivationTests.test_configuration_receives_verified_bytes_without_path_reread) ... ok
+test_dependency_order_exact_descriptor_bytes_and_bootstrap_once_on_reentry (__main__.ActivationTests.test_dependency_order_exact_descriptor_bytes_and_bootstrap_once_on_reentry) ... ok
+test_descriptor_changed_between_packet_verification_and_configuration_is_rejected (__main__.ActivationTests.test_descriptor_changed_between_packet_verification_and_configuration_is_rejected) ... ok
+test_entrypoint_code_poison_rejected_before_bootstrap (__main__.ActivationTests.test_entrypoint_code_poison_rejected_before_bootstrap) ... ok
+test_foreign_cached_entrypoint_rejected_even_with_matching_file (__main__.ActivationTests.test_foreign_cached_entrypoint_rejected_even_with_matching_file) ... ok
+test_manifest_bound_descriptor_from_different_revision_rejected_before_overlay (__main__.ActivationTests.test_manifest_bound_descriptor_from_different_revision_rejected_before_overlay) ... ok
+test_public_dispatch_configures_descriptor_and_reuses_bootstrap (__main__.ActivationTests.test_public_dispatch_configures_descriptor_and_reuses_bootstrap) ... ok
+test_reentry_rejects_changed_descriptor_before_dispatch (__main__.ActivationTests.test_reentry_rejects_changed_descriptor_before_dispatch) ... ok
+test_trusted_reentry_rejects_function_code_and_import_poison (__main__.ActivationTests.test_trusted_reentry_rejects_function_code_and_import_poison) ... ok
+test_complete_packet_accepted_as_source_only (__main__.PacketTests.test_complete_packet_accepted_as_source_only) ... ok
+test_descriptor_and_new_source_are_mandatory_and_finitely_bounded (__main__.PacketTests.test_descriptor_and_new_source_are_mandatory_and_finitely_bounded) ... ok
+test_missing_closure_duplicate_member_and_path_escape_rejected (__main__.PacketTests.test_missing_closure_duplicate_member_and_path_escape_rejected) ... ok
+test_rehashed_manifest_does_not_hide_member_change (__main__.PacketTests.test_rehashed_manifest_does_not_hide_member_change) ... ok
+test_wrong_manifest_authority_duplicate_json_and_symlink_rejected (__main__.PacketTests.test_wrong_manifest_authority_duplicate_json_and_symlink_rejected) ... ok
+test_compiles_authenticated_bytes_instead_of_reopening_changed_path (__main__.VerifiedImportTests.test_compiles_authenticated_bytes_instead_of_reopening_changed_path) ... ok
+test_imported_function_alias_cannot_replace_verified_controller_gate (__main__.VerifiedImportTests.test_imported_function_alias_cannot_replace_verified_controller_gate) ... ok
+test_matching_file_path_does_not_authenticate_a_cached_callback (__main__.VerifiedImportTests.test_matching_file_path_does_not_authenticate_a_cached_callback) ... ok
+test_post_activation_code_or_import_replacement_rejected (__main__.VerifiedImportTests.test_post_activation_code_or_import_replacement_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 1.233s
+
+OK

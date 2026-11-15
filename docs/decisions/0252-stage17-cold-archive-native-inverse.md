@@ -66,3 +66,29 @@ Reapply and verify isolation only after old workers are reaped and hardware/OS
 restoration passes. Sign the exact new request, then launch once with stop on
 first new experimental failure. Stage17 exit, independent validation and Q16c
 remain required; this engineering decision grants no Stage18 authority.
+
+## Additional measured cold metadata bottleneck
+
+A read-only stand profile over59578ledger records spent42.6seconds replaying
+under cProfile, including21.9seconds canonicalizing JSON (3.64million separate
+JSON string encoder calls). These are profiler timings, not an uninstrumented
+capture estimate. Retain full record replay, chain/transition validation,
+integer domain checks and path/hash/identity verification.
+
+Add an exact canonical-byte fast path for builtin JSON trees with ASCII keys,
+integer leaves in the existing signed64/unsigned64 domain, strings, booleans
+and nulls. One C JSON encoder call replaces repeated per-field calls. Floats,
+non-ASCII keys (including UTF-16/codepoint-order differences), subclasses,
+shared/cyclic containers, deep trees and unsupported/out-of-domain values use
+the original canonicalizer with its original formatting/error behavior.
+This changes no canonical format or accepted result. Archive source copies
+append one explicit canonical binding in addition to the inverse binding.
+
+For controller metadata replay, privately clone the original ProgramStore and
+executor function bodies with this exact-byte canonicalizer. Preserve all
+original global modules, functions, classes and sys.modules identities. All
+records remain read and validated; no checkpoint cache, skipped prefix or
+reduced custody check is introduced. The new administrative packet authenticates
+the canonicalizer and clone factory, and its profile admits only the exact
+known source additions. Fresh parity, malformed-input, chain/custody and private
+namespace tests are required before stand use.

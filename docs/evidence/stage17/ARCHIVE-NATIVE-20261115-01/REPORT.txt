@@ -36,3 +36,23 @@ Stand cold qualification, fresh identities/namespace, exact overlay/plan signing
 isolation reapplication and optimized one-shot launch remain pending. All raw
 archives remain on stand; this PC retains small software evidence only. EXT007,
 Q16b scientific validation, Q16c and Stage17 exit remain incomplete.
+
+Actual stand cold qualification at12:58UTC passed the original six-resolution
+journal/release admission, authenticated new native source closure and verified
+packet reentry. A retained348103008-byte consumer artifact reconstructed with
+identical canonical hash in10.094s(original) and1.717s(native),5.88x for this
+complete-verifier check. No observations added or scientific raw validation run.
+This supersedes local synthetic numbers for estimating stand codec behavior,
+but is still not a whole-capture runtime measurement.
+
+Further read-only cProfile over59578ledger records found millions of repeated
+JSON-field encodes. The guarded canonicalizer and private controller metadata
+adapters keep every record read/hash/transition/path check while accelerating
+serialization. They require a fresh bound source/profile before execution.
+
+The boundary watcher preserves semantic JSON snapshots by reserialization.
+Original stand receipts remain unchanged. original-failure-exact-v6.json is the
+verbatim1082-byte receipt(SHAf440f71a8c9afedb41fc623ec31e8cb4a943ddc9fb7bdb13f638217264abc251);
+restoration-audit-2.json binds those exact original bytes and three fresh MSR
+reads, reaped workers and absent CPU partition. Earlier snapshots/audit are
+retained separately, with no fabricated successful experiment completion.

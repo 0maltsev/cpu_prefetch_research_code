@@ -26,7 +26,8 @@ MAX_TOTAL = 16 * 1024**2
 MAX_DESCRIPTOR = 131072
 DESCRIPTOR = 'archive-overlay.json'
 DEPENDENCIES = ('stage17_q16a_handoff_v1', 'stage17_phase_controller_v27',
-                'stage17_operational_cli_v20', 'stage17_archive_overlay_v1',
+                'stage17_operational_cli_v20', 'stage17_archive_canonical_fast_v1',
+                'stage17_archive_metadata_fast_v1', 'stage17_archive_overlay_v1',
                 'stage17_phase_controller_v28', 'stage17_operational_cli_v21')
 REQUIRED = frozenset((*[name + '.py' for name in DEPENDENCIES],
                       'stage17_formal_admin_v3.py',

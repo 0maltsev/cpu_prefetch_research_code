@@ -1,0 +1,14 @@
+test_2000_deterministic_nested_mixed_cases (__main__.CanonicalTests.test_2000_deterministic_nested_mixed_cases) ... ok
+test_all_shared_jcs_fixtures (__main__.CanonicalTests.test_all_shared_jcs_fixtures) ... ok
+test_builtin_tree_uses_single_dump_without_original (__main__.CanonicalTests.test_builtin_tree_uses_single_dump_without_original) ... ok
+test_float_zero_exponents_and_nonfinite_preserve_original (__main__.CanonicalTests.test_float_zero_exponents_and_nonfinite_preserve_original) ... ok
+test_independent_ascii_order_escaping_and_unicode_value (__main__.CanonicalTests.test_independent_ascii_order_escaping_and_unicode_value) ... ok
+test_integer_bounds_and_bool (__main__.CanonicalTests.test_integer_bounds_and_bool) ... ok
+test_shared_containers_cycles_and_depth_limit (__main__.CanonicalTests.test_shared_containers_cycles_and_depth_limit) ... ok
+test_subclasses_unsupported_types_and_nonstring_keys_use_original (__main__.CanonicalTests.test_subclasses_unsupported_types_and_nonstring_keys_use_original) ... ok
+test_utf16_astral_key_order_and_surrogate_errors_use_original (__main__.CanonicalTests.test_utf16_astral_key_order_and_surrogate_errors_use_original) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.063s
+
+OK

@@ -1,0 +1,130 @@
+{
+  "markers": {
+    "stage17-q16b-attempt-v6.json": {
+      "action_id": "Q16b",
+      "attempt_id": "CPU-PREFETCH-V5-D254-Q16B-ATTEMPT-1",
+      "authorization_id": "CPU-PREFETCH-V5-D254-Q16B-AUTH-1",
+      "authorization_sha256": "55a01594a84c01c7cbc76e0f1d5986642818ec2ec09b9515f79e9dec877271f6",
+      "evidence_root_binding": {
+        "absolute_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+        "device": 2307,
+        "inode": 209135170,
+        "mode": "0700",
+        "owner_uid": 1000
+      },
+      "marker_durable": true,
+      "one_attempt": true,
+      "phase18_authority": false,
+      "release_resolution_id": "S17-EXT-006-RESOLUTION-004",
+      "release_resolution_sha256": "72d44ce2c759537c13ba526120eacf1d26e9a829f1b46a203843fdaba7c2fda6",
+      "request_sha256": "a2feeb896645779cae711735a1e7ad93bf547effba9823d2d6c97220cac6a3b5",
+      "retries": 0,
+      "runtime_sha256": "305cedfc5438c68ececfa6a0f954d757112a50c87f687b93ad7b013b7ed757dd",
+      "schema_version": "cpu-prefetch-stage17-phase-action-attempt/6",
+      "started_at_utc": "2026-11-15T19:41:08.172747Z"
+    }
+  },
+  "owned_descendant_count": 2,
+  "reports": {
+    "collection-intent.json": {
+      "argv": [
+        "/usr/bin/python3.14",
+        "-B",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-operators-2/daycap_cli.py",
+        "--configuration",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-configuration-1/cli-configuration.json",
+        "--configuration-sha256",
+        "c14a3815c92591a48c55be92501e78cc53287eb90f2bd013d5e445fd72d58a74",
+        "execute-formal",
+        "--repository-root",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/admission-root",
+        "--evidence-root",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26",
+        "--authorization",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/admission-root/evidence/formal-q16b-daycap-1/authorization.json",
+        "--signature",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/admission-root/evidence/formal-q16b-daycap-1/authorization.json.sig",
+        "--pilot-archive",
+        "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-aa3285f-clean-d3967bde5f12.tar.gz",
+        "--pilot-sidecar",
+        "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-aa3285f-clean-d3967bde5f12.tar.gz.sha256"
+      ],
+      "automatic_retries": 0,
+      "deadline_monotonic_ns": 1265730560596571,
+      "owner_check_passed": true,
+      "prepared_phase": {
+        "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/prepared-phase.json",
+        "sha256": "c63e21e5eac1dba51184209624d4235a25f8154b84d291f8353c3b9eb68115a8",
+        "size_bytes": 3576
+      }
+    },
+    "owner-check-result.json": {
+      "argv": [
+        "/usr/bin/python3.14",
+        "-B",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-operators-2/run_daycap_study.py",
+        "--owner",
+        "--role",
+        "check",
+        "--config",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-operators-2/study-configuration.json",
+        "--config-sha256",
+        "7b2c3d3047ddffec8e4f927b37b887dd62e0bc99616c7e5cc9041e4a9c84a5d6",
+        "--global-deadline-ns",
+        "1210558041457866",
+        "--prepared-phase-sha256",
+        "c63e21e5eac1dba51184209624d4235a25f8154b84d291f8353c3b9eb68115a8"
+      ],
+      "completed_monotonic_ns": 1208130552723703,
+      "deadline_ns": 1210558041457866,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "phase": "owner-check",
+      "pid": 229891,
+      "started_monotonic_ns": 1208062756243613
+    },
+    "preparation-result.json": {
+      "argv": [
+        "/usr/bin/python3.14",
+        "-B",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-operators-2/prepare_collection.py",
+        "--config",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-operators-2/prepare-configuration.json",
+        "--config-sha256",
+        "3f705a0594a48f5fbdfde390e6b91fc1cad8543b3017a2a2efcc9adddcc12096",
+        "--global-deadline-ns",
+        "1210558041457866"
+      ],
+      "completed_monotonic_ns": 1208059444921228,
+      "deadline_ns": 1210558041457866,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "phase": "preparation",
+      "pid": 228899,
+      "started_monotonic_ns": 1207697840555930
+    }
+  },
+  "systemd": "ActiveState=active\nSubState=running\nMainPID=228854\nResult=success\n",
+  "utc": "2026-11-15T19:41:52.473904+00:00",
+  "verified_transit_archives_removed": [
+    {
+      "path": "/tmp/cpu-prefetch-d257-publication-1.tar",
+      "sha256": "20c1835b4f154e5298e93b77853ae9c488f00ef763234ca44709cae403d99b4c",
+      "size_bytes": 6318080
+    },
+    {
+      "path": "/tmp/cpu-prefetch-d257-continuation-2.tar",
+      "sha256": "91a57359f26f6cc2065aed00f8752b76292333ff5642ef884ed22453d2988e00",
+      "size_bytes": 163840
+    }
+  ],
+  "workers": [
+    {
+      "executable": "/memfd:cpu-prefetch-stage17-fixed-worker-v2 (deleted)",
+      "matches_qualified_worker": true,
+      "pid": 230078,
+      "sha256": "305cedfc5438c68ececfa6a0f954d757112a50c87f687b93ad7b013b7ed757dd",
+      "size_bytes": 4973080
+    }
+  ]
+}

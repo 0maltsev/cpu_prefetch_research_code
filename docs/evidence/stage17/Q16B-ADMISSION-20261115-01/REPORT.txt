@@ -13,3 +13,21 @@ file interpretation is being tested; originals and the first audit are kept.
 The exact D249 plan remains unchanged and stored on the stand. No namespace
 registration, signature, isolation change or Q16b collection has occurred here.
 EXT007/Stage17 remains incomplete, with no Stage18 authority.
+
+Source correction checkpoint: D251 versions the verified-byte loader before
+any new authority. Independent review reproduced location-only trust of cached
+modules in v1. V2 rejects foreign project caches, compiles verified source and
+checks authenticated reentry. Seven new tests and three source/dispatch CTest
+suites pass. Prior read-only source and stand receipts remain preserved.
+
+Actual v1 fresh-process stand Q16b semantic admission passed at09:01UTC with
+all6 existing qualified resolutions and unchanged3540-capture plan. No
+new capture or qualification. Namespace local/stand audit corrections exclude
+zero-byte diagnostics and raw scratch, with1024 roots covering520 observed
+roots. Both source histories remain required. Final source5893a73f... audit
+passed at09:26UTC:67401files,252787193bytes, no errors/collisions. Matching
+local audit passed9558files. Raw payload trees were not entered.
+
+New v2 packet publication, same-lock one-family registration, phase signing
+and actual supervised setup/launch remain in progress. No program mutation,
+signature, isolation preparation or measurement has occurred at this checkpoint.

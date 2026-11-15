@@ -1,0 +1,328 @@
+-- Configuring done (0.2s)
+CMake Warning at CMakeLists.txt:471 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_linked_storage_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:489 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_workload_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:541 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_schedule_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:561 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_timing_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:573 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_platform_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:592 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_tool_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:604 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_probe_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:619 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_collector_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:631 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_clock_pair_qualification_tests because files in some
+  directories may conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:645 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_controller_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:660 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_prestate_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:675 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_runtime_noalloc_tests because files in some directories
+  may conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:705 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_runner_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1534 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_archive_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1540 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_archive_channel_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1546 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_schedule_source_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1552 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_formal_checkpoint_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1700 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_storage_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1712 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_reconciliation_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1723 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_service_session_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1734 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_calibration_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1785 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_orchestration_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1812 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_analysis_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1902 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_workload_noalloc because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1908 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_storage_noalloc because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+-- Generating done (0.1s)
+-- Build files have been written to: /home/omaltsev/research/cpu_prefetch_research_code/build/dev-gcc

@@ -1607,6 +1607,10 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_admin_v1.py")
   set_tests_properties(runner.formal_admin_v1 PROPERTIES
     LABELS "runner;archive;python" TIMEOUT 180)
+  add_test(NAME runner.formal_admin_v2
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_admin_v2.py")
+  set_tests_properties(runner.formal_admin_v2 PROPERTIES
+    LABELS "runner;archive;python" TIMEOUT 180)
   # ASan/TSan reserve virtual address space beyond the approved 2-GiB
   # standalone codec ceiling. Instrumented core tests exercise encoding independently;
   # the real CLI bridge requires an ordinary development/release executable.

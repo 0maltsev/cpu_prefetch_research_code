@@ -1,0 +1,62 @@
+{
+  "attempted_file_reads": 67401,
+  "base": "/home/omaltsev/stage17-owner-evidence",
+  "checked_bytes": 252787193,
+  "checked_files": 67401,
+  "checked_inventory_sha256": "fb43ded3c9c736c38ed49f6ca83c958ca4195c7fa2bdb9109523bd81a8f8d19e",
+  "errors": [],
+  "execution_authority": false,
+  "full_report_binding": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/admission-verification-1/stand-namespace-audit-3.json",
+    "sha256": "707306e3a6f9e47c500da7b606cfa22ed2705425691b000f643000cb21920354",
+    "size_bytes": 18287912
+  },
+  "helper_sha256": "5893a73f6ff883317b17831a56e6d7a2eb423ee696a0fde8ca3397f891f8fc4c",
+  "historical_plan_sha256": [
+    "59898ca78f6b79c14e845859052027241c54298c9f65dcb1042b05b18be6af2e",
+    "91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2",
+    "a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7"
+  ],
+  "identities_binding": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-namespace-admission-1/planned-identities-v1.json",
+    "sha256": "8b237d470683e99a4b77cc1f53ef87b459c1c6c0213466a9bd9db733885ae346",
+    "size_bytes": 1835416
+  },
+  "limits": {
+    "max_contexts": 64,
+    "max_depth": 64,
+    "max_entries": 400000,
+    "max_file_bytes": 100663296,
+    "max_files": 200000,
+    "max_json_nodes": 10000000,
+    "max_roots": 1024,
+    "max_total_bytes": 4294967296,
+    "wall_seconds": 300
+  },
+  "matches": [],
+  "mode": "stand",
+  "numeric_seeds_collision_scanned": true,
+  "observed_at_utc": "2026-11-15T09:26:43.797734+00:00",
+  "own_prospective_exclusions": [
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16b-preparation-1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-namespace-admission-1"
+  ],
+  "plan_binding": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16b-preparation-1/plan.json",
+    "sha256": "ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702",
+    "size_bytes": 61110206
+  },
+  "plan_sha256": "ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702",
+  "planned_linked_order_identities": 1416,
+  "planned_numeric_seeds": 8496,
+  "planned_phase_identities": 7080,
+  "prior_registered_plan_sha256": [
+    "91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2",
+    "a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7"
+  ],
+  "registration_performed": false,
+  "schema_version": "cpu-prefetch-stage17-q16b-namespace-audit/1",
+  "scope": "Finite selected public metadata only; all-E stand contexts; no raw reads or whole-disk proof",
+  "status": "PASS_SCOPED_HISTORY_AUDIT",
+  "visited_entries": 68080
+}

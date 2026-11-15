@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-namespace-admission-1/audit_namespaces_q16b.py", line 391, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-namespace-admission-1/audit_namespaces_q16b.py", line 380, in main
+    report = audit(args.mode, absolute(args.base), Matcher(registry), Limits(wall_seconds=args.wall_seconds))
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-namespace-admission-1/audit_namespaces_q16b.py", line 273, in audit
+    roots = selected_roots(mode, base, limits)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-namespace-admission-1/audit_namespaces_q16b.py", line 264, in selected_roots
+    require(0 < len(roots) <= limits.max_roots, 'metadata root bound')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-namespace-admission-1/audit_namespaces_q16b.py", line 60, in require
+    raise ValueError(message)
+ValueError: metadata root bound

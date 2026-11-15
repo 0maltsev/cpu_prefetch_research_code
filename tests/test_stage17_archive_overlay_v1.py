@@ -58,6 +58,7 @@ class OverlayTests(unittest.TestCase):
         self.wrapper = self.packet / (overlay.NATIVE_MODULE + '.py')
         shutil.copyfile(TOOLS / self.wrapper.name, self.wrapper)
         shutil.copyfile(TOOLS / (overlay.CANONICAL_MODULE + '.py'), self.packet / (overlay.CANONICAL_MODULE + '.py'))
+        shutil.copyfile(TOOLS / (overlay.METADATA_MODULE + '.py'), self.packet / (overlay.METADATA_MODULE + '.py'))
         self.destination = self.root / 'new-overlay'
         self.document = overlay.build_overlay(baseline_bundle_root=self.baseline, runtime_root=Path('/'),
             destination=self.destination, native_library=self.library, wrapper=self.wrapper, source_revision='a' * 40)
@@ -100,7 +101,7 @@ class OverlayTests(unittest.TestCase):
         before = (self.baseline / 'tools/stage17_formal_archive_v1.py').read_bytes()
         actual = self.admit()
         self.assertEqual(actual.encoder.sha256, self.original.encoder.sha256)
-        self.assertEqual(len(actual.source_closure), len(self.original.source_closure) + 3)
+        self.assertEqual(len(actual.source_closure), len(self.original.source_closure) + 4)
         self.assertEqual((self.baseline / 'tools/stage17_formal_archive_v1.py').read_bytes(), before)
         self.assertEqual((self.destination / 'tools/stage17_formal_archive_v1.py').read_bytes(), before + overlay.PATCH)
 

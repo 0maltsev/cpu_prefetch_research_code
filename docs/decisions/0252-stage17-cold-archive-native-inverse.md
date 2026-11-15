@@ -92,3 +92,19 @@ reduced custody check is introduced. The new administrative packet authenticates
 the canonicalizer and clone factory, and its profile admits only the exact
 known source additions. Fresh parity, malformed-input, chain/custody and private
 namespace tests are required before stand use.
+
+## Preserve live quota scans while reducing directory traversal overhead
+
+Each bounded ledger/metadata/archive write invokes physical accounting; the
+stand profile traversed76118objects in one inventory call. Replace only the
+private store's traversal implementation with os.scandir/DirEntry.stat, retaining
+every current stat and all root/directory/regular-file checks, working namespace
+and inventory limits, hardlink identity deduplication, allocated/logical-byte
+arithmetic, retained receipt accounting and actual pre-write capacity checks.
+No inventory cache, immutable-file assumption or skipped object is introduced.
+Both controller and sealed broker use this separately authenticated private
+class. The broker source copy appends the exact known class binding; original
+custody source bodies remain byte-identical. Compare complete inventory results
+against the original on real files, hardlinks, sparse allocations, symlinks,
+invalid names and exhausted limits, and exercise the real sealed two-readback
+custody path before activation.

@@ -1,8 +1,8 @@
 """Private cold metadata adapters; original authority and custody checks remain.
 
 No global monkeypatch, ledger cache, skipped replay, or native measurement change.
-Every cloned callable retains the original code, defaults and closure. Only the
-archive canonical/parse bindings and the private ProgramStore reference change.
+Cloned callables retain the original code, defaults and closure. A private
+physical_accounting override preserves the inventory rules using DirEntry.stat.
 """
 from __future__ import annotations
 
@@ -33,6 +33,55 @@ def _archive_namespace(original):
                                     'parse_json': _clone(original.parse_json, scope)})
 
 
+def _physical_accounting(self):
+    """Exact custody inventory, with fresh scandir entries on every invocation."""
+    self._check()
+    total, logical, allocated, count, seen = 0, 0, 0, 0, set()
+
+    def account(st, *, directory=False):
+        nonlocal total, logical, allocated
+        if not (stat.S_ISDIR(st.st_mode) if directory else stat.S_ISREG(st.st_mode)):
+            raise CustodyError('unexpected physical inventory object')
+        identity = (st.st_dev, st.st_ino)
+        if identity not in seen:
+            seen.add(identity)
+            disk = archive.checked_product(st.st_blocks, 512)
+            logical = archive.checked_sum(logical, st.st_size)
+            allocated = archive.checked_sum(allocated, disk)
+            total = archive.checked_sum(total, max(st.st_size, disk))
+
+    account(self.root.stat(follow_symlinks=False), directory=True)
+    for name in self.DIRECTORIES:
+        account((self.root / name).stat(follow_symlinks=False), directory=True)
+    with os.scandir(self.root / 'working') as families:
+        for family in families:
+            archive.sha(family.name, 'working family namespace')
+            account(family.stat(follow_symlinks=False), directory=True)
+            with os.scandir(family.path) as children:
+                for child in children:
+                    count += 1
+                    if count > self.limits.max_inventory_files:
+                        raise CustodyError('working inventory limit')
+                    # Preserve the raw-workspace exemption: every child counts
+                    # towards the bound, only native checkpoint/receipt names
+                    # are charged and type-checked here, exactly as before.
+                    if re.fullmatch(r'formal-capture-[0-9]+-(final-checkpoint|archive-custody)\.json',
+                                    child.name):
+                        account(child.stat(follow_symlinks=False))
+    for path in (self.root / 'scope.json', self.root / 'broker.lock'):
+        account(path.stat(follow_symlinks=False))
+    for name in ('archives', 'metadata', 'ledger'):
+        with os.scandir(self.root / name) as entries:
+            for entry in entries:
+                count += 1
+                if count > self.limits.max_inventory_files:
+                    raise CustodyError('physical inventory limit')
+                account(entry.stat(follow_symlinks=False))
+    for family, name in getattr(self, '_retained_receipts', set()):
+        account((self.root / 'working' / family / _name(name)).stat(follow_symlinks=False))
+    return PhysicalUsage(logical, allocated, total, len(seen))
+
+
 def make_store_class(base=custody.ProgramStore):
     """Snapshot a store's methods into one fresh private globals dictionary.
 
@@ -58,7 +107,8 @@ def make_store_class(base=custody.ProgramStore):
                       for accessor in (value.fget, value.fset, value.fdel)), doc=value.__doc__)
             else:
                 members[name] = value
-    members.update(__module__=__name__, __doc__=base.__doc__)
+    members.update(__module__=__name__, __doc__=base.__doc__,
+                   physical_accounting=_clone(_physical_accounting, scope))
     result = type('MetadataFastProgramStore', (base,), members)
     scope['ProgramStore'] = result
     return result

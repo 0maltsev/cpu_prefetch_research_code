@@ -1,0 +1,10 @@
+test_expected_hex_matches_actual_immutable_receipt (test_q16b_launch.Receipt.test_expected_hex_matches_actual_immutable_receipt) ... ok
+test_failed_family_can_be_restored_without_completion_credit (test_q16b_launch.Receipt.test_failed_family_can_be_restored_without_completion_credit) ... ok
+test_old_requested_hex_shape_rejected (test_q16b_launch.Receipt.test_old_requested_hex_shape_rejected) ... ok
+test_unreaped_quarantine_and_mismatch_never_success (test_q16b_launch.Receipt.test_unreaped_quarantine_and_mismatch_never_success) ... ok
+test_wrong_cpu_coverage_duplicates_and_matching_wrong_prestate_rejected (test_q16b_launch.Receipt.test_wrong_cpu_coverage_duplicates_and_matching_wrong_prestate_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

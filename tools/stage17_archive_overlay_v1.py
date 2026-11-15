@@ -1,7 +1,8 @@
 """D252 separately admitted cold archive implementation over a qualified worker.
 
-Only the byte-exact inverse changes. The original encoder, interpreter, zstd,
-source bodies, framing and two custody readbacks are authenticated and retained.
+Only cold reconstruction, serialization and inventory traversal change. The
+original encoder, interpreter, zstd, source bodies, framing and two custody
+readbacks are authenticated and retained.
 The signed new plan names the new profile hash; the verified administrative
 packet supplies this overlay's exact descriptor. Neither is execution authority
 by itself. Existing native-release and signature/journal admission still apply.
@@ -29,9 +30,13 @@ PROFILE_MEMBER = 'config/stage17/formal-archive-implementation-profile-v1.json'
 NATIVE_MODULE = 'stage17_archive_inverse_native_v1'
 IMAGE_MODULE = 'stage17_archive_inverse_image_v1'
 CANONICAL_MODULE = 'stage17_archive_canonical_fast_v1'
+METADATA_MODULE = 'stage17_archive_metadata_fast_v1'
 PATCH = (b'\n\n# D252: cold byte-exact native inverse; all verifier checks stay above.\n'
          b'from stage17_archive_inverse_native_v1 import inverse_columns as inverse_columns\n'
          b'from stage17_archive_canonical_fast_v1 import canonical as canonical\n')
+CUSTODY_PATCH = (b'\n\n# D252: private cold metadata class; every quota observation remains live.\n'
+                 b'from stage17_archive_metadata_fast_v1 import make_store_class as _d252_make_store_class\n'
+                 b'ProgramStore = _d252_make_store_class(base=ProgramStore)\n')
 _CONFIG = None
 
 
@@ -90,7 +95,7 @@ def configure_verified_descriptor(raw, root):
     require(canonical(document) == raw, 'canonical descriptor required')
     require(set(document) == {'schema_version', 'source_revision', 'qualified_release', 'qualified_worker_sha256',
             'baseline_bundle_root', 'runtime_root', 'overlay_bundle_root', 'baseline_profile', 'overlay_profile',
-            'native_image', 'wrapper_source', 'canonical_source', 'execution_authority', 'measurement_changes'}, 'descriptor fields')
+            'native_image', 'wrapper_source', 'canonical_source', 'metadata_source', 'execution_authority', 'measurement_changes'}, 'descriptor fields')
     require(document['schema_version'] == SCHEMA and document['qualified_release'] == SOURCE
             and document['qualified_worker_sha256'] == WORKER_SHA256, 'original qualified worker differs')
     require(document['execution_authority'] is False and document['measurement_changes'] is False, 'cold-only descriptor required')
@@ -100,7 +105,7 @@ def configure_verified_descriptor(raw, root):
     for key in ('baseline_bundle_root', 'runtime_root', 'overlay_bundle_root'):
         p = Path(document[key])
         require(p.is_absolute() and p.is_dir() and all(not q.is_symlink() for q in (p, *p.parents)), 'explicit implementation root required')
-    for key in ('baseline_profile', 'overlay_profile', 'wrapper_source', 'canonical_source'):
+    for key in ('baseline_profile', 'overlay_profile', 'wrapper_source', 'canonical_source', 'metadata_source'):
         value = document[key]
         require(type(value) is dict and set(value) == {'path', 'size_bytes', 'sha256'}, 'implementation binding fields')
         require(type(value['size_bytes']) is int and value['size_bytes'] > 0
@@ -112,7 +117,8 @@ def configure_verified_descriptor(raw, root):
     require(Path(document['baseline_profile']['path']) == Path(document['baseline_bundle_root']) / PROFILE_MEMBER
             and Path(document['overlay_profile']['path']) == Path(document['overlay_bundle_root']) / PROFILE_MEMBER
             and Path(document['wrapper_source']['path']) == root / (NATIVE_MODULE + '.py')
-            and Path(document['canonical_source']['path']) == root / (CANONICAL_MODULE + '.py'), 'implementation namespace differs')
+            and Path(document['canonical_source']['path']) == root / (CANONICAL_MODULE + '.py')
+            and Path(document['metadata_source']['path']) == root / (METADATA_MODULE + '.py'), 'implementation namespace differs')
     require(Path(document['baseline_bundle_root']) != Path(document['overlay_bundle_root']), 'historical bundle must remain separate')
     value = (bytes(raw), root, document)
     require(_CONFIG is None or _CONFIG == value, 'descriptor changed in admitted interpreter')
@@ -150,9 +156,10 @@ def qualified_profile(request, validation, *, deadline_ns):
             and original.decoder.window_log == overlay.decoder.window_log, 'runtime dependency/options changed')
     old = runtime._closure_bytes(original, deadline_ns)
     new = runtime._closure_bytes(overlay, deadline_ns)
-    require(set(new) == set(old) | {NATIVE_MODULE, IMAGE_MODULE, CANONICAL_MODULE}, 'cold overlay source membership differs')
+    require(set(new) == set(old) | {NATIVE_MODULE, IMAGE_MODULE, CANONICAL_MODULE, METADATA_MODULE}, 'cold overlay source membership differs')
     for name, (_, source) in old.items():
-        expected_source = source + PATCH if name == 'stage17_formal_archive_v1' else source
+        patch = PATCH if name == 'stage17_formal_archive_v1' else CUSTODY_PATCH if name == 'stage17_formal_archive_custody_v1' else b''
+        expected_source = source + patch
         require(new[name][1] == expected_source, 'historical verifier body changed: ' + name)
     require(binding(root / (NATIVE_MODULE + '.py')) == document['wrapper_source'], 'packet wrapper changed')
     wrapper = new[NATIVE_MODULE][1]
@@ -162,6 +169,10 @@ def qualified_profile(request, validation, *, deadline_ns):
     source = new[CANONICAL_MODULE][1]
     require(len(source) == document['canonical_source']['size_bytes']
             and hashlib.sha256(source).hexdigest() == document['canonical_source']['sha256'], 'sealed canonicalizer differs from admitted packet')
+    require(binding(root / (METADATA_MODULE + '.py')) == document['metadata_source'], 'packet metadata adapter changed')
+    source = new[METADATA_MODULE][1]
+    require(len(source) == document['metadata_source']['size_bytes']
+            and hashlib.sha256(source).hexdigest() == document['metadata_source']['sha256'], 'sealed metadata adapter differs from admitted packet')
     image = image_from_source(new[IMAGE_MODULE][1])
     require(dict(size_bytes=len(image), sha256=hashlib.sha256(image).hexdigest()) == document['native_image'], 'sealed native image differs')
     return overlay
@@ -186,9 +197,13 @@ def build_overlay(*, baseline_bundle_root, runtime_root, destination, native_lib
     tools = destination / 'tools'
     p = tools / 'stage17_formal_archive_v1.py'
     p.write_bytes(p.read_bytes() + PATCH)
+    p = tools / 'stage17_formal_archive_custody_v1.py'
+    p.write_bytes(p.read_bytes() + CUSTODY_PATCH)
     shutil.copyfile(wrapper, tools / (NATIVE_MODULE + '.py'))
     canonical_source = wrapper.parent / (CANONICAL_MODULE + '.py')
     shutil.copyfile(canonical_source, tools / canonical_source.name)
+    metadata_source = wrapper.parent / (METADATA_MODULE + '.py')
+    shutil.copyfile(metadata_source, tools / metadata_source.name)
     native = Path(native_library).read_bytes()
     (tools / (IMAGE_MODULE + '.py')).write_bytes(image_source(native))
     document = bundle_profile.build_profile(bundle_root=destination, runtime_root=runtime_root, window_log=original['options']['window_log'])
@@ -200,6 +215,6 @@ def build_overlay(*, baseline_bundle_root, runtime_root, destination, native_lib
         qualified_release=SOURCE, qualified_worker_sha256=WORKER_SHA256,
         baseline_bundle_root=str(baseline_bundle_root), runtime_root=str(runtime_root), overlay_bundle_root=str(destination),
         baseline_profile=binding(baseline_bundle_root / PROFILE_MEMBER), overlay_profile=binding(profile),
-        wrapper_source=binding(wrapper), canonical_source=binding(canonical_source),
+        wrapper_source=binding(wrapper), canonical_source=binding(canonical_source), metadata_source=binding(metadata_source),
         native_image=dict(size_bytes=len(native), sha256=hashlib.sha256(native).hexdigest()),
         execution_authority=False, measurement_changes=False)

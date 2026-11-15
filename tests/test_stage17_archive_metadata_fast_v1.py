@@ -2,8 +2,11 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from contextlib import contextmanager
+import os
 from pathlib import Path
 import sys
+import tempfile
 import time
 import types
 import unittest
@@ -21,6 +24,25 @@ import test_stage17_formal_archive_custody_v1 as original_tests
 from test_stage17_formal_archive_v1 import codec_limit, digest
 
 ORIGINAL_STORE = custody.ProgramStore
+
+
+@contextmanager
+def scandir_stat_override(callback):
+    """Test-only DirEntry stat seam; leave every real directory traversal intact."""
+    original_scandir = os.scandir
+    class Entry:
+        def __init__(self, entry):
+            self.entry = entry
+        def __getattr__(self, name):
+            return getattr(self.entry, name)
+        def stat(self, *, follow_symlinks=True):
+            return callback(self.entry, follow_symlinks=follow_symlinks)
+    @contextmanager
+    def scan(path):
+        with original_scandir(path) as entries:
+            yield (Entry(entry) for entry in entries)
+    with mock.patch.object(os, 'scandir', scan):
+        yield
 
 
 class CloneTests(unittest.TestCase):
@@ -51,7 +73,8 @@ class CloneTests(unittest.TestCase):
             else:
                 continue
             self.assertIsNot(clone, value)
-            self.assertIs(clone.__code__, value.__code__)
+            self.assertIs(clone.__code__, adapter._physical_accounting.__code__
+                          if name == 'physical_accounting' else value.__code__)
             self.assertIs(clone.__closure__, value.__closure__)
             self.assertIs(clone.__defaults__, value.__defaults__)
             self.assertIs(clone.__kwdefaults__, value.__kwdefaults__)
@@ -172,6 +195,13 @@ class FastCustodyRegressionTests(original_tests.CustodyTests):
         self.addCleanup(patch.stop)
         super().setUp()
 
+    def test_allocation_pressure_hardlink_dedup_and_write_rounding(self):
+        # The unchanged historical assertion injects st_blocks through Path.stat.
+        # Route only this test's DirEntry.stat through that same injection, so
+        # its allocation-pressure and write-rounding assertions remain intact.
+        with scandir_stat_override(lambda entry, **kwargs: Path(entry.path).stat(**kwargs)):
+            super().test_allocation_pressure_hardlink_dedup_and_write_rounding()
+
     def test_every_ledger_record_is_reopened_without_replay_cache(self):
         with self.f.store() as store:
             for ordinal in range(3):
@@ -246,6 +276,193 @@ class FastCustodyRegressionTests(original_tests.CustodyTests):
             with custody.ProgramStore(self.f.root, scope_sha256='f' * 64,
                     family_id=self.f.family, limits=self.f.limits):
                 pass
+
+
+class InventoryOracleTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        with mock.patch.object(os, 'statvfs', return_value=types.SimpleNamespace(
+                f_bavail=7_000_000_000_000, f_frsize=1, f_favail=100_000)):
+            self.f = original_tests.CustodyFixture(self.temp.name)
+        self.fast = adapter.make_store_class(base=ORIGINAL_STORE)
+
+    def store(self, limits=None):
+        return self.fast(self.f.root, scope_sha256=self.f.scope, family_id=self.f.family,
+                         limits=limits or self.f.limits)
+
+    def compare(self, store):
+        # The oracle is the actual original function, never a second rewrite.
+        expected = ORIGINAL_STORE.physical_accounting(store)
+        actual = store.physical_accounting()
+        self.assertEqual(actual, expected)
+        return actual
+
+    def compare_failure(self, store, error=Exception, message=None):
+        with self.assertRaises(error) as original:
+            ORIGINAL_STORE.physical_accounting(store)
+        with self.assertRaises(type(original.exception)) as optimized:
+            store.physical_accounting()
+        self.assertEqual(str(optimized.exception), str(original.exception))
+        if message is not None:
+            self.assertIn(message, str(optimized.exception))
+
+    def test_real_sparse_hardlinks_and_exact_directory_and_receipt_accounting(self):
+        f = self.f
+        (f.root / 'archives/empty').write_bytes(b'')
+        dense = f.root / 'metadata/dense'
+        dense.write_bytes(bytes(range(256)) * 33)
+        os.link(dense, f.root / 'archives/hardlink')
+        sparse = f.root / 'metadata/sparse'
+        with sparse.open('wb') as stream:
+            stream.seek(8 * 1024**2)
+            stream.write(b'x')
+        native = f.working / 'formal-capture-12-final-checkpoint.json'
+        native.write_bytes(b'native checkpoint')
+        native_custody = f.working / 'formal-capture-12-archive-custody.json'
+        native_custody.write_bytes(b'native custody')
+        retained = f.working / 'bound-native.json'
+        retained.write_bytes(b'retained native receipt')
+        # Existing working raw, spool and release-hold payloads have their
+        # original workspace exemption, while the directories remain charged.
+        (f.working / 'ignored-raw').write_bytes(b'workspace payload')
+        (f.root / 'spool/ignored').write_bytes(b'analysis workspace')
+        (f.root / 'release-hold/ignored').write_bytes(b'held workspace')
+        with self.store() as store:
+            store._retained_receipts.add((f.family, retained.name))
+            store._retained_receipts.add((f.family, native_custody.name))
+            result = self.compare(store)
+            paths = [f.root, *(f.root / name for name in store.DIRECTORIES), f.working,
+                     f.root / 'scope.json', f.root / 'broker.lock',
+                     *(f.root / 'archives').iterdir(), *(f.root / 'metadata').iterdir(),
+                     *(f.root / 'ledger').iterdir(), native, native_custody, retained]
+            unique = {(st.st_dev, st.st_ino): st for st in
+                      (path.stat(follow_symlinks=False) for path in paths)}
+            self.assertEqual(result.unique_objects, len(unique))
+            self.assertEqual(result.logical_size_bytes, sum(st.st_size for st in unique.values()))
+            self.assertEqual(result.allocated_bytes, sum(st.st_blocks * 512 for st in unique.values()))
+            self.assertEqual(result.quota_bytes, sum(max(st.st_size, st.st_blocks * 512)
+                                                     for st in unique.values()))
+
+    def test_working_raw_inventory_and_physical_inventory_exact_limits(self):
+        for index in range(4):
+            (self.f.working / f'raw-{index}').write_bytes(b'raw')
+        with self.store() as store:
+            working_count = len(list(self.f.working.iterdir()))
+            total_count = working_count + sum(len(list((self.f.root / name).iterdir()))
+                                            for name in ('archives', 'metadata', 'ledger'))
+            store.limits = replace(store.limits, max_inventory_files=total_count)
+            self.compare(store)
+            store.limits = replace(store.limits, max_inventory_files=total_count - 1)
+            self.compare_failure(store, custody.CustodyError, 'physical inventory limit')
+            store.limits = replace(store.limits, max_inventory_files=working_count - 1)
+            self.compare_failure(store, custody.CustodyError, 'working inventory limit')
+
+    def test_nonregular_inventory_objects_are_rejected_without_following_symlinks(self):
+        for area, kind in [('archives', 'symlink'), ('metadata', 'directory'),
+                           ('archives', 'fifo'), ('working', 'symlink'), ('working', 'fifo')]:
+            with self.subTest(area=area, kind=kind):
+                path = (self.f.working / 'formal-capture-4-archive-custody.json'
+                        if area == 'working' else self.f.root / area / 'unexpected')
+                if kind == 'symlink':
+                    path.symlink_to(self.f.root / 'scope.json')
+                elif kind == 'fifo':
+                    os.mkfifo(path)
+                else:
+                    path.mkdir()
+                try:
+                    with self.store() as store:
+                        self.compare_failure(store, custody.CustodyError, 'unexpected physical inventory object')
+                finally:
+                    path.rmdir() if kind == 'directory' else path.unlink()
+
+    def test_bad_working_namespace_and_wrong_working_directory_type(self):
+        invalid = self.f.root / 'working/not-a-sha'
+        invalid.mkdir()
+        with self.store() as store:
+            self.compare_failure(store, archive.ArchiveError, 'working family namespace')
+        invalid.rmdir()
+        wrong = self.f.root / 'working' / ('f' * 64)
+        wrong.symlink_to(self.f.working, target_is_directory=True)
+        with self.store() as store:
+            self.compare_failure(store, custody.CustodyError, 'unexpected physical inventory object')
+
+    def test_retained_receipts_keep_name_type_missing_and_dedup_checks(self):
+        receipt = self.f.working / 'retained.json'
+        receipt.write_bytes(b'exact receipt')
+        with self.store() as store:
+            store._retained_receipts.add((self.f.family, receipt.name))
+            self.compare(store)
+            receipt.unlink()
+            self.compare_failure(store, FileNotFoundError)
+            receipt.symlink_to(self.f.root / 'scope.json')
+            self.compare_failure(store, custody.CustodyError, 'unexpected physical inventory object')
+            store._retained_receipts = {(self.f.family, '../unsafe')}
+            self.compare_failure(store, custody.CustodyError, 'unsafe scoped file name')
+
+    def test_no_per_entry_path_stat_and_all_accounted_entries_are_freshly_statted(self):
+        for index in range(10):
+            (self.f.root / 'metadata' / f'file-{index}').write_bytes(bytes([index]))
+        seen = []
+        def observe(entry, **kwargs):
+            self.assertEqual(kwargs, dict(follow_symlinks=False))
+            seen.append(entry.path)
+            return entry.stat(**kwargs)
+        with self.store() as store:
+            actual_path_stat = Path.stat
+            with scandir_stat_override(observe), \
+                 mock.patch.object(Path, 'stat', autospec=True, side_effect=actual_path_stat) as path_stat:
+                first = store.physical_accounting()
+                first_seen = list(seen)
+                second = store.physical_accounting()
+                self.assertEqual(first, second)
+                self.assertEqual(seen, first_seen + first_seen)
+                self.assertTrue(first_seen)
+                paths = {call.args[0] for call in path_stat.call_args_list}
+                expected_entries = {str(path) for name in ('archives', 'metadata', 'ledger')
+                                    for path in (self.f.root / name).iterdir()}
+                self.assertTrue(expected_entries.issubset(set(first_seen)))
+                self.assertFalse({Path(path) for path in expected_entries}.intersection(paths))
+
+    def test_original_root_and_deadline_checks_precede_inventory(self):
+        with self.store() as store:
+            store.limits = replace(store.limits, deadline_ns=time.monotonic_ns() - 1)
+            with mock.patch.object(os, 'scandir', side_effect=AssertionError('inventory before _check')):
+                self.compare_failure(store, custody.CustodyError, 'custody deadline expired')
+
+    def test_replaced_directory_identity_is_rejected_before_inventory(self):
+        with self.store() as store:
+            working = self.f.root / 'working'
+            moved = self.f.root / 'original-working'
+            working.rename(moved)
+            working.mkdir()
+            try:
+                with mock.patch.object(os, 'scandir', side_effect=AssertionError('inventory before _check')):
+                    self.compare_failure(store, custody.CustodyError,
+                                         'program directory changed or crossed filesystem')
+            finally:
+                working.rmdir()
+                moved.rename(working)
+
+    def test_checked_allocated_and_logical_arithmetic_remains_bounded(self):
+        target = self.f.root / 'metadata/checked-arithmetic'
+        target.write_bytes(b'x')
+        actual_stat = Path.stat
+        target_inode = actual_stat(target).st_ino
+        for field, value in [('st_blocks', (1 << 64) // 512),
+                             ('st_size', (1 << 64) - 1), ('st_blocks', -1)]:
+            with self.subTest(field=field, value=value), self.store() as store:
+                def injected(path, **kwargs):
+                    st = actual_stat(path, **kwargs)
+                    if st.st_ino != target_inode:
+                        return st
+                    fields = {key: getattr(st, key) for key in
+                              ('st_dev', 'st_ino', 'st_size', 'st_blocks', 'st_mode')}
+                    fields[field] = value
+                    return types.SimpleNamespace(**fields)
+                with mock.patch.object(Path, 'stat', injected), \
+                     scandir_stat_override(lambda entry, **kwargs: Path(entry.path).stat(**kwargs)):
+                    self.compare_failure(store, archive.ArchiveError)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,9 @@
+{
+  "checked_at_utc": "2026-11-15T18:20:01.254195+00:00",
+  "unit": [
+    "ActiveState=active",
+    "SubState=running",
+    "MainPID=223487",
+    "Result=success"
+  ]
+}

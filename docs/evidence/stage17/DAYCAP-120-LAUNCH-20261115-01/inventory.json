@@ -1,0 +1,121 @@
+{
+  "schema_version": "software-d254-study-launch-inventory/1",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "size_bytes": 2603,
+      "sha256": "65a1c98e8cc8643cc927610b12c187c8f46d76f5c5df3eb45c55fe15fd2350e1"
+    },
+    {
+      "path": "administration-d255-tests-final-2.log",
+      "size_bytes": 107,
+      "sha256": "ca18ffc8e8fdc6b71e49e9b4fd64e04661daa3243fb767d57a64ce80ea2d7b63"
+    },
+    {
+      "path": "analyze_daycap.py",
+      "size_bytes": 13162,
+      "sha256": "3a771d5fa64ffcbaee08afc4d98b1ffdc47f6f5cd487c48fcbe812b87a54ca2b"
+    },
+    {
+      "path": "audit_namespaces_daycap.py",
+      "size_bytes": 19383,
+      "sha256": "36ead49e065ef401589942f177e5205b4ae3a2f16c8490dfc32ff14a2ebf83a2"
+    },
+    {
+      "path": "bundle-aa3285f-verification.log",
+      "size_bytes": 135,
+      "sha256": "a794eca0c1f99d69838ff1065ace02bd0f1298670c78df96020b05793a838a4c"
+    },
+    {
+      "path": "daycap_cli.py",
+      "size_bytes": 2933,
+      "sha256": "65cbc4278616624590a3cae214a016454d88817b319b731dba3dfc36526c2d98"
+    },
+    {
+      "path": "daycap_inputs.py",
+      "size_bytes": 2453,
+      "sha256": "8866e6186f34e6af800a4392c889a1a811cd1e474ad513de0b44043ed94afff2"
+    },
+    {
+      "path": "namespace-audit-summary.json",
+      "size_bytes": 6606,
+      "sha256": "2e1061294720fa9323b0a5a962d062728debdc1d5884fef856e6b4af224a1b22"
+    },
+    {
+      "path": "operator-inventory.json",
+      "size_bytes": 1241,
+      "sha256": "f60c6202752c22b4d0db285681342eba0c9fa0662bc74d213887e079a4baf1f3"
+    },
+    {
+      "path": "owner_check.py",
+      "size_bytes": 3479,
+      "sha256": "07e6d71a267767073fc923353bd8532aac6b559db0f32a43fb58240fd71cce62"
+    },
+    {
+      "path": "pc-disposable-cleanup.json",
+      "size_bytes": 883,
+      "sha256": "4925efecbaf7523a3b8d38ecccfded362f5c1ee920eaf707964ef06100bba7fa"
+    },
+    {
+      "path": "pc-rejected-build-cleanup.json",
+      "size_bytes": 285,
+      "sha256": "7c155cc367c8793d4ed085cb3b0c8527855a87d3387cb373121076c7844c62d5"
+    },
+    {
+      "path": "prepare-configuration.json",
+      "size_bytes": 4987,
+      "sha256": "5280bc5358357fe254f9a1bf7485f36ab5655a7e23d98f878d6b6d1afdc26e06"
+    },
+    {
+      "path": "prepare_collection.py",
+      "size_bytes": 12834,
+      "sha256": "30fdda481f55215088fffee51fcda3c535df1b629b27a881c5b438c35b672189"
+    },
+    {
+      "path": "release-bindings-aa3285f.json",
+      "size_bytes": 533,
+      "sha256": "09100d132d8a34f0b490354b1ca5684271815ffcff1235713faa57c49a877dc1"
+    },
+    {
+      "path": "root-study-main-tests.log",
+      "size_bytes": 121,
+      "sha256": "00bf3aa3a150c3299ed469977dc2cbe62947e42afd3efbfc7c846a972b729476"
+    },
+    {
+      "path": "run_daycap_study.py",
+      "size_bytes": 50286,
+      "sha256": "47c6d3ea818ce178984f5a60208a5ced07ef2995b0dff48889d257b7d259e883"
+    },
+    {
+      "path": "selected-analysis-closure-tests-final.log",
+      "size_bytes": 98,
+      "sha256": "d92e93591a40940936247e613f818eb26c82c6f1a00200e133c384359b3b4cca"
+    },
+    {
+      "path": "stand-prerequisites-start.json",
+      "size_bytes": 376,
+      "sha256": "75bb215f5ae4fd22798db034f574125e8476c94a9eb68f02b30beff05ae95d3c"
+    },
+    {
+      "path": "stand-root-configuration-check-final.log",
+      "size_bytes": 273,
+      "sha256": "901ddfababa2b61886709c7886745d6e5bceb2de2a20bbaab537ab2a58d589dd"
+    },
+    {
+      "path": "stand-study-launch-1.log",
+      "size_bytes": 1331,
+      "sha256": "a4d074cae899d1dfc3ffad5e47ca7d1f020922009ce9ffb0839f812d8d89b8f3"
+    },
+    {
+      "path": "startup-checkpoint.json",
+      "size_bytes": 169,
+      "sha256": "38c3e53bd677b462bc6d40d64a7939fdce033d1f3c3f2f5192bf0a96fcd3f20b"
+    },
+    {
+      "path": "study-configuration.json",
+      "size_bytes": 2215,
+      "sha256": "f770a9ddb7c69dabbace90d92b2e646ee0370c340af426544d55f16859d64249"
+    }
+  ],
+  "execution_authority": false
+}

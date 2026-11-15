@@ -1,0 +1,1 @@
+{"status": "CONFIGURATION_VALID_NO_EXPERIMENT_STARTED", "operators": 8, "native_worker_sha256": "305cedfc5438c68ececfa6a0f954d757112a50c87f687b93ad7b013b7ed757dd", "admission_start": 1199961844786205, "work_cutoff": 1284561844786205, "absolute_deadline": 1286361844786205}

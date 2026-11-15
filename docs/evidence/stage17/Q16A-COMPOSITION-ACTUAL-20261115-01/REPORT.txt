@@ -1,0 +1,17 @@
+D246: actual authenticated Q16a composition and native-geometry verification
+
+Preparation: use unchanged D245 composition and suffix-admission consumers,
+completed finalization evidence and original177+531 report populations. Apply
+only metadata checks and unchanged D230 arithmetic; no raw reanalysis, native
+capture, source relabelling or new experiment.
+
+The original native query's actual queue library and three project headers
+match both qualified bundle inventories. Its old output and dd981b4 source
+identity remain unchanged. Reproduce its sealed fixed image using actual EXT004
+cache-line evidence and both original plans' capacities, then bind the native
+slot-storage output and full original provenance. No platform value is guessed.
+
+Three targeted CTest suites passed: composite, suffix admission and geometry.
+Actual stand execution, geometry proof, composite outcome and process cleanup
+are pending at this preparation checkpoint. No Q16a/EXT007 admission or Stage18
+authority is established by this software preparation.

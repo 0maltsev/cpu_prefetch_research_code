@@ -1,0 +1,26 @@
+{
+  "status": "IDENTICAL_QUALIFIED_QUEUE_AND_QUERY_HEADERS",
+  "members": [
+    {
+      "path": "release/lib/libcpu_prefetch_queue.a",
+      "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+      "size_bytes": 51162
+    },
+    {
+      "path": "include/cpu_prefetch/foundation/repository_info.hpp",
+      "sha256": "31ce22ef81a89d3099f292d0506e748b815c201374d5043e25ea67418210bd92",
+      "size_bytes": 503
+    },
+    {
+      "path": "include/cpu_prefetch/queue/ring_spsc.hpp",
+      "sha256": "ba91404fe69120f79ed00e303c8666d7b042870a264ad10f9253c2309f560dad",
+      "size_bytes": 12168
+    },
+    {
+      "path": "include/cpu_prefetch/queue/common.hpp",
+      "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7",
+      "size_bytes": 3241
+    }
+  ],
+  "performance_claim": false
+}

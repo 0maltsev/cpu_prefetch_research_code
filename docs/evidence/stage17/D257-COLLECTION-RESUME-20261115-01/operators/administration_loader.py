@@ -5,6 +5,7 @@ import sys
 import types
 
 MANIFEST_SHA = '69baa4f6ea40f461be1dccff5f40ed4c4cea7db0ce1da3008af11b4c3fb8d871'
+DIRECTORY = pathlib.Path('/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d256-admin-1')
 
 
 def load(configuration, read):
@@ -12,8 +13,7 @@ def load(configuration, read):
     if manifest['sha256'] != MANIFEST_SHA:
         raise ValueError('actual signed D256 administrative closure required')
     directory = pathlib.Path(manifest['path']).parent
-    expected = pathlib.Path('/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d256-admin-1')
-    if directory != expected:
+    if directory != DIRECTORY:
         raise ValueError('D256 administrative namespace differs')
     document = json.loads(read(manifest))
     for row in document['files']:

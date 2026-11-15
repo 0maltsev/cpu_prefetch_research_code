@@ -8,7 +8,7 @@ checks. The cold administrative loader authenticates the closed D256 sidecar
 and uses distinct module names. Original signature/owner/process/reconciliation/
 receipt/analysis function bodies are checked against the previous supervisor.
 
-22 operator tests and6 additional time-budget/source-parity tests pass. Fresh
+22 operator tests,1 real administrative-closure import test and6 additional time-budget/source-parity tests pass. Fresh
 collection/archiving parent limit16hours, analysis3h45, restoration30minutes,
 final reserve30minutes and preparation at most1hour all intersect the original
 24-hour monotonic anchor. Expected complete duration remains12–16hours based on

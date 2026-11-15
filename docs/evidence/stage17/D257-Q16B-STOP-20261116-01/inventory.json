@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "2e0cef35c772f39c2327158d4491a45eead01ccf32817c13b1a194dfb2497324",
+      "size_bytes": 2245
+    },
+    {
+      "path": "check.json",
+      "sha256": "6eb01ae35995877975e1a873da98b59374d1bd1790a9d982b1836916f4edc3f7",
+      "size_bytes": 142634
+    },
+    {
+      "path": "custody-summary.json",
+      "sha256": "4c073bd3ea06022acc883cbef883497b07cd33cc75e940c9838c81b664bc93f5",
+      "size_bytes": 2511
+    }
+  ]
+}

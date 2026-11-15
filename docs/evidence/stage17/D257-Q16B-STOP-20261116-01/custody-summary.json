@@ -1,0 +1,98 @@
+[
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 0,
+    "file_name": "formal-capture-0-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 1,
+    "file_name": "formal-capture-1-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 10,
+    "file_name": "formal-capture-10-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 11,
+    "file_name": "formal-capture-11-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 12,
+    "file_name": "formal-capture-12-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 13,
+    "file_name": "formal-capture-13-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 14,
+    "file_name": "formal-capture-14-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 15,
+    "file_name": "formal-capture-15-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 2,
+    "file_name": "formal-capture-2-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 3,
+    "file_name": "formal-capture-3-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 4,
+    "file_name": "formal-capture-4-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 5,
+    "file_name": "formal-capture-5-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 6,
+    "file_name": "formal-capture-6-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 7,
+    "file_name": "formal-capture-7-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 8,
+    "file_name": "formal-capture-8-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  },
+  {
+    "artifact_count": 6,
+    "capture_ordinal": 9,
+    "file_name": "formal-capture-9-archive-custody.json",
+    "status": "ARCHIVED_AND_RELEASED"
+  }
+]

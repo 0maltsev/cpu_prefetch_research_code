@@ -1,0 +1,5 @@
+{
+  "automatic_retry": false,
+  "error": "RuntimeError('v26-admit-ext005.py failed with exit 1')",
+  "formal_capture_started": false
+}

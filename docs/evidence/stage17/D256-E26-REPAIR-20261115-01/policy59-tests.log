@@ -1,0 +1,18 @@
+test_checked_in_policy_is_exact_fresh_renderer_output (test_stage17_policy_v59.PolicyAdmission.test_checked_in_policy_is_exact_fresh_renderer_output) ... ok
+test_every_old_binding_audited_and_only_approved_cpp_rebound (test_stage17_policy_v59.PolicyAdmission.test_every_old_binding_audited_and_only_approved_cpp_rebound) ... ok
+test_fresh_journal_has_no_readiness_or_execution_authority (test_stage17_policy_v59.PolicyAdmission.test_fresh_journal_has_no_readiness_or_execution_authority) ... ok
+test_packaging_audits_and_copies_actual_policy_bound_files (test_stage17_policy_v59.PolicyAdmission.test_packaging_audits_and_copies_actual_policy_bound_files) ... ok
+test_real_cli_init_status_and_real_ext001_rejection_without_stand (test_stage17_policy_v59.PolicyAdmission.test_real_cli_init_status_and_real_ext001_rejection_without_stand) ... ok
+test_rehashed_native_or_removed_runtime_does_not_weaken_old_gates (test_stage17_policy_v59.PolicyAdmission.test_rehashed_native_or_removed_runtime_does_not_weaken_old_gates) ... ok
+test_fresh_envelope_invokes_complete_policy33_and_original_semantics (test_stage17_policy_v59.PreflightPolicy.test_fresh_envelope_invokes_complete_policy33_and_original_semantics) ... ok
+test_historical_envelopes_use_their_actual_old_policy_without_relabel (test_stage17_policy_v59.PreflightPolicy.test_historical_envelopes_use_their_actual_old_policy_without_relabel) ... ok
+test_original_rules_and_exact_new_loaded_implementation_snapshot (test_stage17_policy_v59.PreflightPolicy.test_original_rules_and_exact_new_loaded_implementation_snapshot) ... ok
+test_journal_complete_core_bodies_select_only_new_semantics (test_stage17_policy_v59.PrivateScopes.test_journal_complete_core_bodies_select_only_new_semantics) ... ok
+test_preflight_uses_original_gates_in_one_private_scope (test_stage17_policy_v59.PrivateScopes.test_preflight_uses_original_gates_in_one_private_scope) ... ok
+test_preparation_failure_does_not_create_marker_or_start_transport (test_stage17_policy_v59.PrivateScopes.test_preparation_failure_does_not_create_marker_or_start_transport) ... ok
+test_qualification_failure_propagates_before_preflight_preparation (test_stage17_policy_v59.PrivateScopes.test_qualification_failure_propagates_before_preflight_preparation) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 19.335s
+
+OK

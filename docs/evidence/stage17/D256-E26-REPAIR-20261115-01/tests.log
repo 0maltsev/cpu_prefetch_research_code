@@ -1,0 +1,22 @@
+test_actual_old_windows_do_not_overlap (test_stage17_e26_transition_renewal.RenewalTests.test_actual_old_windows_do_not_overlap) ... ok
+test_actual_original_transition_fails_the_unchanged_gate (test_stage17_e26_transition_renewal.RenewalTests.test_actual_original_transition_fails_the_unchanged_gate) ... ok
+test_complete_transition_checks_real_signature_and_consumption_receipt (test_stage17_e26_transition_renewal.RenewalTests.test_complete_transition_checks_real_signature_and_consumption_receipt) ... ok
+test_duplicate_json_keys_are_rejected (test_stage17_e26_transition_renewal.RenewalTests.test_duplicate_json_keys_are_rejected) ... ok
+test_exact_retained_incident_rejects_every_changed_or_missing_input (test_stage17_e26_transition_renewal.RenewalTests.test_exact_retained_incident_rejects_every_changed_or_missing_input) ... ok
+test_exclusive_publication_cannot_replace_existing_marker (test_stage17_e26_transition_renewal.RenewalTests.test_exclusive_publication_cannot_replace_existing_marker) ... ok
+test_incident_hashes_match_recorded_bytes (test_stage17_e26_transition_renewal.RenewalTests.test_incident_hashes_match_recorded_bytes) ... ok
+test_incident_requires_successful_measurements_and_cleanup (test_stage17_e26_transition_renewal.RenewalTests.test_incident_requires_successful_measurements_and_cleanup) ... ok
+test_journal_keeps_all_original_resolutions_and_transitions (test_stage17_e26_transition_renewal.RenewalTests.test_journal_keeps_all_original_resolutions_and_transitions) ... ok
+test_private_graph_selects_renewal_at_every_journal_boundary (test_stage17_e26_transition_renewal.RenewalTests.test_private_graph_selects_renewal_at_every_journal_boundary) ... ok
+test_renewal_accepts_issue_boundary (test_stage17_e26_transition_renewal.RenewalTests.test_renewal_accepts_issue_boundary) ... ok
+test_renewal_rejects_execution_authority (test_stage17_e26_transition_renewal.RenewalTests.test_renewal_rejects_execution_authority) ... ok
+test_renewal_rejects_expiry_boundary (test_stage17_e26_transition_renewal.RenewalTests.test_renewal_rejects_expiry_boundary) ... ok
+test_renewal_rejects_extended_window (test_stage17_e26_transition_renewal.RenewalTests.test_renewal_rejects_extended_window) ... ok
+test_renewal_rejects_extra_fields (test_stage17_e26_transition_renewal.RenewalTests.test_renewal_rejects_extra_fields) ... ok
+test_renewal_rejects_future_issue (test_stage17_e26_transition_renewal.RenewalTests.test_renewal_rejects_future_issue) ... ok
+test_transition_preserves_original_edge_and_authority_references (test_stage17_e26_transition_renewal.RenewalTests.test_transition_preserves_original_edge_and_authority_references) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.112s
+
+OK

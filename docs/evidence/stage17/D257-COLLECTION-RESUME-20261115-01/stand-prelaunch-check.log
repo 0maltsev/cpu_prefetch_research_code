@@ -1,0 +1,1 @@
+{"analysis_seconds": 13500, "collection_parent_seconds": 57600, "experiments_started": 0, "operator_count": 10, "original_absolute_deadline_ns": 1286361844786205, "preparation_cutoff_ns": 1210515552438089, "remaining_seconds": 79446.283005957, "retained_qualification": true, "status": "PRELAUNCH_CONFIGURATION_PASS", "utc": "2026-11-15T19:19:41.264921+00:00"}

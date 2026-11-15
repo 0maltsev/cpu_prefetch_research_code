@@ -1,0 +1,71 @@
+{
+  "execution_authority": false,
+  "failed_audit": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/stand-namespace-audit.json",
+    "sha256": "e06af7df17c3781cd0b6e84089e5f2ff4704b075eca2ad6be021c4e055c4510c",
+    "size_bytes": 16291842
+  },
+  "failed_study": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-study-1/study-result.json",
+    "sha256": "2f4e7e1ccfb2b5903a219913ccfbae4d4a2fa0bf2b81a7d8395bdf16aa57d1ba",
+    "size_bytes": 2150
+  },
+  "original_preparation_deadline_ns": 1210558041457866,
+  "phase18_authority": false,
+  "plan_sha256": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+  "prefix_members": [
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/action-inputs.json",
+      "sha256": "2eeb7289e08aec0d6acf23eff381dcda364d6dd8178ed18c96c38125b31e3efc",
+      "size_bytes": 2074003
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/namespace_registry.json",
+      "sha256": "a7802474c696ba1d54e4dfc2e6fa0127f6836053a7e32e7c43fb4a774a7362aa",
+      "size_bytes": 52577
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/plan.json",
+      "sha256": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+      "size_bytes": 2072840
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/stand-namespace-audit.json",
+      "sha256": "e06af7df17c3781cd0b6e84089e5f2ff4704b075eca2ad6be021c4e055c4510c",
+      "size_bytes": 16291842
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/stand-namespace-audit.stderr",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size_bytes": 1
+    }
+  ],
+  "reusable_files": [
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/plan.json",
+      "sha256": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+      "size_bytes": 2072840
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/namespace_registry.json",
+      "sha256": "a7802474c696ba1d54e4dfc2e6fa0127f6836053a7e32e7c43fb4a774a7362aa",
+      "size_bytes": 52577
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-collection-preparation-1/action-inputs.json",
+      "sha256": "2eeb7289e08aec0d6acf23eff381dcda364d6dd8178ed18c96c38125b31e3efc",
+      "size_bytes": 2074003
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-configuration-1/q16a-compatibility.json",
+      "sha256": "62a33dc026bde77e1d76a5e67607880de16c88fe5ea57c82ba1417b0c12475f0",
+      "size_bytes": 94293
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-configuration-1/historical-inputs.json",
+      "sha256": "ff749cc6ff8a9b65afba07b7bb5f161b75eff21895a2a71aef84d9d98493cff3",
+      "size_bytes": 911
+    }
+  ],
+  "schema_version": "software-d257-unsigned-preparation-prefix/1"
+}

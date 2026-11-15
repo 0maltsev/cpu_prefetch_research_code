@@ -56,3 +56,24 @@ optimized archive implementation and all completed708-capture Q16a data.
 The full later research matrix remains unchanged. Present the12–16hour expected
 end-to-end estimate before launch; the stricter limits are failure ceilings,
 not a promise of successful completion. No Stage18 or pilot authority is added.
+
+
+## Permission-only metadata continuation
+
+The first continuation stopped before rearm or family registration: its
+68,650-file stand audit found zero collisions and one permission error in a
+historical capacity report. The owner has explicitly authorized permission
+changes for these experiments. Grant the evidence owner read access to that
+single file, verify its bytes unchanged, and retain the original failed audit.
+No measurement failed and no native attempt or signed Q16b request exists.
+
+A separately bound preparation-prefix helper may adopt only the exact five
+existing metadata files plus the two historical compatibility/configuration
+files. Require the original failed supervisor, sole permission-error audit,
+restored/not-rearmed state, exact file bindings, empty family/request namespace
+and unchanged original preparation deadline1210558041457866. Recomputed reused
+bytes must match exactly. Write the new audit to a distinct filename; never
+replace the failed evidence. Reject other errors, collisions, a registered
+family or any already authorized/executed request. The new exclusive supervisor
+uses the same original preparation cutoff and absolute deadline. All original
+signature, one-attempt and experimental stop rules remain unchanged.

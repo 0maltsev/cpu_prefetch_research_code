@@ -1,0 +1,110 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "2e512c802c85362ee788d5a5acd4049afb80410d00ffde3429b4252fead152f5",
+      "size_bytes": 4015
+    },
+    {
+      "path": "baseline-driver.py",
+      "sha256": "d43f9f4235399e3b88b8ce9450ff13b9baab1b8771337f90aacc6b890562730a",
+      "size_bytes": 57250
+    },
+    {
+      "path": "baseline-final-tests.log",
+      "sha256": "79fc8832a5868d4a1f8fe5eb15ba5241acfcab16d261db85c233ed4559545754",
+      "size_bytes": 9673
+    },
+    {
+      "path": "baseline-tests.log",
+      "sha256": "e53741b9f6672e5f90d8cc502618ee8087ef3df70368c7d223dbe256d387c708",
+      "size_bytes": 7304
+    },
+    {
+      "path": "canonical-tests.log",
+      "sha256": "be878787b661d3fbb9604c597c788fdca3e32e3576c2f194d75dec389d9d6c56",
+      "size_bytes": 2127
+    },
+    {
+      "path": "capsule-bindings.json",
+      "sha256": "563b2d4c3ea3505eaa675c9f77fd48f96edc800b89ad9b9932c4b31c35556f89",
+      "size_bytes": 383
+    },
+    {
+      "path": "cleanup.json",
+      "sha256": "a6bf4a205a9983e027beb4139a48b8421fd46a168b81159d49772012be182c41",
+      "size_bytes": 502
+    },
+    {
+      "path": "fixed-tests.log",
+      "sha256": "be878787b661d3fbb9604c597c788fdca3e32e3576c2f194d75dec389d9d6c56",
+      "size_bytes": 2127
+    },
+    {
+      "path": "fixtures/baseline_run_daycap_study.py",
+      "sha256": "d43f9f4235399e3b88b8ce9450ff13b9baab1b8771337f90aacc6b890562730a",
+      "size_bytes": 57250
+    },
+    {
+      "path": "fixtures/docs/evidence/stage17/ARCHIVE-NATIVE-20261115-01/restart-operators-v3/formal_launch_q16b.py",
+      "sha256": "dc4d3b15e03205080ea619ec666db861b35479e7c3349b21f42af297d6c9ba71",
+      "size_bytes": 37796
+    },
+    {
+      "path": "regression-tests.log",
+      "sha256": "1a625307c62bebb5c807ef06bd874170ca959a6833b696a8124f9855e1afd402",
+      "size_bytes": 4018
+    },
+    {
+      "path": "repair.diff",
+      "sha256": "0be21664deb1195b136ebe490fefacabd567f14fd9cc7facd53c9dfaeb7c6ea9",
+      "size_bytes": 2242
+    },
+    {
+      "path": "run_daycap_study.py",
+      "sha256": "47e819dbcd6110d5b356d091e706141131efa5938b0ae0740059efc4d3cb1416",
+      "size_bytes": 57701
+    },
+    {
+      "path": "stand/baseline.log",
+      "sha256": "4e92218663e2a2339ebea09081d74c61f2d1a96af2a03a650479525ddc98a81c",
+      "size_bytes": 10004
+    },
+    {
+      "path": "stand/fixed.log",
+      "sha256": "4d8449e93214f6d0da0cf1154f6f6c0828984d0d42bee6b30d67e614276121fa",
+      "size_bytes": 2127
+    },
+    {
+      "path": "stand/manifest.json",
+      "sha256": "217516422920f953bd04a65057311d4153d3dc65cc80fdb47336cdd3feca70a8",
+      "size_bytes": 1472
+    },
+    {
+      "path": "stand/regression.log",
+      "sha256": "e56e9ff89d7e824f83185e220da70a76efb39d5f6848aec43b3b98c0833b79ea",
+      "size_bytes": 4018
+    },
+    {
+      "path": "stand/result.json",
+      "sha256": "95a5f7793e10b1ccc595746c989575ad69b50cdc0f9d4dfbdc49ed81923fb222",
+      "size_bytes": 1125
+    },
+    {
+      "path": "stand-verification.log",
+      "sha256": "882f6091c130a98900c14715186a79980e33ea01a5d87f141aed6a4c06ec430e",
+      "size_bytes": 8186
+    },
+    {
+      "path": "test_stage17_supervisor_proc_exit.py",
+      "sha256": "d48d863bb7ce9bf63d766df149d23d6b11b00609b53935e081a627623cea76dc",
+      "size_bytes": 7608
+    },
+    {
+      "path": "test_supervisor_regressions.py",
+      "sha256": "31439ef4f9c7d1fc8168f96872b036c4d09320a565ab34840bc35a93f02276d6",
+      "size_bytes": 26663
+    }
+  ],
+  "schema_version": "software-d258-repair-evidence/1"
+}

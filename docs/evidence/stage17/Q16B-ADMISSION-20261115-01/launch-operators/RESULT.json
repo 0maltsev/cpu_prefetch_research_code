@@ -1,0 +1,69 @@
+{
+  "actual_v2_bootstrap_activation_verified": false,
+  "administrative_bootstrap": "stage17_formal_admin_v2.py",
+  "administrative_packet_schema": "cpu-prefetch-stage17-formal-admin-packet/2",
+  "administrative_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-admission-operators-2",
+  "caller_bootstrap_defense": {
+    "activation_function_and_code_identity_checked": true,
+    "idempotent_verified_bootstrap_reuse_tested": true,
+    "manifest_member_verified_before_compile": true,
+    "source_sha256_retained": true,
+    "sys_modules_identity_checked": true
+  },
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/launch-admission-1",
+    "-p",
+    "test*.py",
+    "-v"
+  ],
+  "execution_authority": false,
+  "exit_code": 0,
+  "isolation_config": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/launch-admission-1/isolation-config.json",
+    "sha256": "a924d9c078abd6686362904bb23cd12e2e70ec6f2d4942288e45c2cd887d693f",
+    "size_bytes": 379
+  },
+  "isolation_performed": false,
+  "keeper_lifecycle_seconds": 13996800,
+  "measurements_performed": false,
+  "operational_memory_reserve_bytes": 8589934592,
+  "plan": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/candidate-3/plan.json",
+    "sha256": "ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702",
+    "size_bytes": 61110206
+  },
+  "remaining_integration": [
+    "Bind actual v2 packet manifest SHA and freshly signed NEW Q16b authority",
+    "Main operator independently verifies namespace/registration gates",
+    "Run actual same-boot owner resource/signature/isolation admission before one-shot launch"
+  ],
+  "requested_family_memory_bytes": 246960619520,
+  "requested_memlock_bytes": 30709854208,
+  "requested_native_max_control_bytes": 1058469140,
+  "requested_worker_as_bytes": 240518168576,
+  "required_available_memory_bytes": 255550554112,
+  "sanitizers": "Not applicable: Python-only helpers; no native code changes",
+  "schema_version": "software-q16b-operator-verification/1",
+  "signatures_performed": false,
+  "stand_operations_performed": false,
+  "status": "OFFLINE_TESTS_PASSED_LIVE_ADMISSION_UNVERIFIED",
+  "test_log": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/launch-admission-1/verification.log",
+    "sha256": "3a89fa4357ecae4123f51bf215cb95323da091eefe10cb86dc90c1260c2eae32",
+    "size_bytes": 579
+  },
+  "tests_passed": 40,
+  "tracked_edits_by_this_task": false,
+  "unchanged_original_core": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/launch-admission-1/isolation_core.py",
+    "sha256": "49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a",
+    "size_bytes": 23863
+  },
+  "utc": "2026-11-15T09:25:44.197621+00:00"
+}

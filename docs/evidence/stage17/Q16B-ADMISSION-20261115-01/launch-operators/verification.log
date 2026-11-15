@@ -1,0 +1,10 @@
+Recorded fresh tool invocation, offline only:
+python3 -B -m unittest discover -s build/stage17-step6-q16b-prep/launch-admission-1 -p 'test*.py' -v
+
+Ran 40 tests in 0.909s
+
+OK
+Exit code: 0
+
+Caller defenses covered: verified packet-member digest before source execution, first-use foreign bootstrap cache rejection, legitimate two activations of one compiled bootstrap instance, replaced activation callback rejection, mutated activation code rejection, schema-v1 rejection.
+Actual full v2 source-packet activation remains unverified here pending actual packet/config integration.

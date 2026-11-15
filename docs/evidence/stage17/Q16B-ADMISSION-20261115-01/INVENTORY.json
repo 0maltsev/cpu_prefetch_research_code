@@ -1,0 +1,322 @@
+{
+  "experiment_status": "RUNNING_NOT_VALIDATED",
+  "files": [
+    {
+      "path": "REPORT.txt",
+      "sha256": "fb6afa10ba3a99049c920ca0d4baa7d3e61e6fb1668c15a98a883b414f607a15",
+      "size_bytes": 6021
+    },
+    {
+      "path": "configure-v2.log",
+      "sha256": "cc9d5c9ef8b8b43ff1324cef67409700ab6383c5a50751afcea850fc074f95ab",
+      "size_bytes": 20911
+    },
+    {
+      "path": "configure.log",
+      "sha256": "608a5f5f04d1d070e7f040d0bc6bc429ac6573ceff0d88006afe69f8ec47fc6f",
+      "size_bytes": 20911
+    },
+    {
+      "path": "launch-operators/FINAL-OPS-MANIFEST.json",
+      "sha256": "8326b5a2a6e0ec97ccf7cd9671756ba78b15cd9d35e3dc047b7bdb9c1a62915a",
+      "size_bytes": 2544
+    },
+    {
+      "path": "launch-operators/RESULT.json",
+      "sha256": "eaf36eada0a817099e6284dd020fbdbb96bdca9f7209e7ace3396b67c1db4a3a",
+      "size_bytes": 3005
+    },
+    {
+      "path": "launch-operators/USAGE.txt",
+      "sha256": "d0579239103606e5f4891a34c0a1a1765e9c6734315fa86ffbb1f1319d7c86ca",
+      "size_bytes": 8588
+    },
+    {
+      "path": "launch-operators/formal_launch_q16b.py",
+      "sha256": "c9440ee39706cc50d0cacc6db02baea69ea397de752a67264a6eb0af763bd0f1",
+      "size_bytes": 37305
+    },
+    {
+      "path": "launch-operators/isolation-config.json",
+      "sha256": "a924d9c078abd6686362904bb23cd12e2e70ec6f2d4942288e45c2cd887d693f",
+      "size_bytes": 379
+    },
+    {
+      "path": "launch-operators/q16b_contract.py",
+      "sha256": "52cae5454120c3e36d71a3844eee8ca6724116165a422389e589ccdbde96b736",
+      "size_bytes": 4309
+    },
+    {
+      "path": "launch-operators/reapply_isolation_q16b.py",
+      "sha256": "47c77e037e827e8b8ba4ef4973d4343eb6571018138d8a2a73ddd4a9407b6d75",
+      "size_bytes": 6267
+    },
+    {
+      "path": "launch-operators/render_q16b_config.py",
+      "sha256": "a529bf2ee37b7abdcd1e932408e8b9b638441324dd9da4d37919859d13d4adcb",
+      "size_bytes": 3398
+    },
+    {
+      "path": "launch-operators/test_isolation_core.py",
+      "sha256": "f1d93faf0003022fbf0084447cb9bce463641a4890aca6e725977d2bc60b171c",
+      "size_bytes": 8808
+    },
+    {
+      "path": "launch-operators/test_q16b_launch.py",
+      "sha256": "08a485642b90e5b1c343d97ae875c1a5a2ce436a67fc79287ff393e385d17950",
+      "size_bytes": 24946
+    },
+    {
+      "path": "launch-operators/verification.log",
+      "sha256": "3a89fa4357ecae4123f51bf215cb95323da091eefe10cb86dc90c1260c2eae32",
+      "size_bytes": 579
+    },
+    {
+      "path": "namespace/local-audit-final-summary.json",
+      "sha256": "2877e837236b325a5db901225945c6f1c1ed237b114cb8d98dc24991af57d9ae",
+      "size_bytes": 2922
+    },
+    {
+      "path": "namespace/namespace-packet-3/all-tests-packet3.log",
+      "sha256": "04432181a0aed335474b4c669f0c1878a15eb9f11c28ec1f024bf85bb23f01fe",
+      "size_bytes": 3856
+    },
+    {
+      "path": "namespace/namespace-packet-3/audit_namespaces_q16b.py",
+      "sha256": "5893a73f6ff883317b17831a56e6d7a2eb423ee696a0fde8ca3397f891f8fc4c",
+      "size_bytes": 19124
+    },
+    {
+      "path": "namespace/namespace-packet-3/manifest.json",
+      "sha256": "299cfe08c046f2f092dec8dbab9a030572cf2d6235fc897dbaddb68c944b91ae",
+      "size_bytes": 1164
+    },
+    {
+      "path": "namespace/namespace-packet-3/prepare_registration_q16b.py",
+      "sha256": "80ad0013f6c6769f3e86a444e0c836cf12635e1062d9f7f92aa6db066ad443a3",
+      "size_bytes": 15932
+    },
+    {
+      "path": "namespace/namespace-packet-3/test_audit_namespaces_q16b.py",
+      "sha256": "bc5192f21aaa72c905215a8fe76f9ce166286ba37bdf30a5d2155edd522f21a5",
+      "size_bytes": 13635
+    },
+    {
+      "path": "namespace/namespace-packet-3/test_prepare_registration_q16b.py",
+      "sha256": "9743ef7a6c0b732fd7d3667e7f06c782cf0b5387ac681f288d25868a15ed8024",
+      "size_bytes": 13528
+    },
+    {
+      "path": "namespace/namespace-packet-5/audit_namespaces_q16b.py",
+      "sha256": "5893a73f6ff883317b17831a56e6d7a2eb423ee696a0fde8ca3397f891f8fc4c",
+      "size_bytes": 19124
+    },
+    {
+      "path": "namespace/namespace-packet-5/manifest.json",
+      "sha256": "08ee2962cc2fdc22565434d5446d9795cefa90856a75a83b2c1590272fbc6966",
+      "size_bytes": 1309
+    },
+    {
+      "path": "namespace/namespace-packet-5/prepare_registration_q16b.py",
+      "sha256": "1dc94e038be4738bae613237c320b38da5c062ae4e0b81e4f031728d3b1e206d",
+      "size_bytes": 17797
+    },
+    {
+      "path": "namespace/namespace-packet-5/registration-tests-packet5.log",
+      "sha256": "8ce77e298a58ff1118073e6188cc0a29d32fe30f418d1b9acd18cc151657981d",
+      "size_bytes": 2393
+    },
+    {
+      "path": "namespace/namespace-packet-5/test_audit_namespaces_q16b.py",
+      "sha256": "bc5192f21aaa72c905215a8fe76f9ce166286ba37bdf30a5d2155edd522f21a5",
+      "size_bytes": 13635
+    },
+    {
+      "path": "namespace/namespace-packet-5/test_prepare_registration_q16b.py",
+      "sha256": "957ca061f226bbf9f3f6acf53fd6701ab610246cdf0a3e21b80809634f6c0d1e",
+      "size_bytes": 18909
+    },
+    {
+      "path": "operator/author_sign_q16b.py",
+      "sha256": "6e05c0f6e7f602bdc1efab0956bea34333bcf85b87d00d0a496a6391a881fb1c",
+      "size_bytes": 3776
+    },
+    {
+      "path": "operator/check_q16b_inputs.py",
+      "sha256": "79fc0434f7c4d32f9a398c3ae8144b982683029f4e962a140f2ca65ba6b95924",
+      "size_bytes": 2891
+    },
+    {
+      "path": "operator/register_q16b_once.py",
+      "sha256": "19b06eb7ff995847d6684c62b949925d919ab88b24997e202e221f52195f304e",
+      "size_bytes": 3463
+    },
+    {
+      "path": "operator/root_q16b_pipeline.py",
+      "sha256": "466e445e1d556a490bdea252ec5931b096272295d7b8e89ede65f273cc97e07f",
+      "size_bytes": 5469
+    },
+    {
+      "path": "operator/write_q16b_inputs.py",
+      "sha256": "8e15eb031baa011ae39cd78217181f512374acca92615b135c1e62c39f329dd2",
+      "size_bytes": 1987
+    },
+    {
+      "path": "pipeline-start-1.json",
+      "sha256": "8191b872d43444f33a066e7f1653195bbf4141edb1393ddb3397e41d15dc4669",
+      "size_bytes": 239
+    },
+    {
+      "path": "prelaunch-config-publication-1.json",
+      "sha256": "9dd882d862ba33644b25821755350ababb5410608391a89ae69913e50afe6434",
+      "size_bytes": 658
+    },
+    {
+      "path": "source-v2-tests.log",
+      "sha256": "cf1a996c7be908a832f500260012f611117f4dc081a4c3512ff2bbf1afbedf1f",
+      "size_bytes": 628
+    },
+    {
+      "path": "stand/administrative-packet-v2-manifest.json",
+      "sha256": "6c38b37e2b6b326d4f3f53fc06f7a478d452f32445f5481cf201c693f1125842",
+      "size_bytes": 733
+    },
+    {
+      "path": "stand/authority-publication-1.json",
+      "sha256": "d7cdafbfa0db86268d0d8c77d5c863f29af2dd7b64cec80b3556d6d0b2d52c90",
+      "size_bytes": 1488
+    },
+    {
+      "path": "stand/authorization.json",
+      "sha256": "b31e13295a52efbc867480f5cd6dc075ca49156e3beeee70cfd6708923b358a1",
+      "size_bytes": 2719
+    },
+    {
+      "path": "stand/authorization.json.sig",
+      "sha256": "2ae3ad5d3cde8d20305f4e8c712c54601c78ad372f35d2d8809df8878858c076",
+      "size_bytes": 322
+    },
+    {
+      "path": "stand/child-pid.json",
+      "sha256": "8eccadd1fc233ae586b601e31063357e0320c7dca4ca15d577fe2b908cee2619",
+      "size_bytes": 80
+    },
+    {
+      "path": "stand/family-registration-1.json",
+      "sha256": "0921cafb54144ecc6e3b4c3499e64efb3321e429ba25c3198e7caadffbdc3c14",
+      "size_bytes": 3725
+    },
+    {
+      "path": "stand/handoff.json",
+      "sha256": "c2c616158d4a3cdd9afa54409e963aa1af7259dd9bfd15a6669024d01d67a3f7",
+      "size_bytes": 246
+    },
+    {
+      "path": "stand/isolation-ready.json",
+      "sha256": "31616cad875a6dea84f41af711b67ffbfdcc9f8c79da2623c128a955a1f96434",
+      "size_bytes": 1717
+    },
+    {
+      "path": "stand/launch-config.json",
+      "sha256": "094ceb57e31aa2e43509d0b82cd816656ca149f15e7463393559f20c491198d6",
+      "size_bytes": 7436
+    },
+    {
+      "path": "stand/launch-readback.json",
+      "sha256": "af569749bf96c9e33eb65dc32bc39a3a82d5901eed413b57ac315201255d7b22",
+      "size_bytes": 2974
+    },
+    {
+      "path": "stand/native-startup-observation-1.json",
+      "sha256": "a93338693a55a75fc0677a5987fdbcc5b574662bf3fe53bfc6f04347d1cf1cd3",
+      "size_bytes": 2323
+    },
+    {
+      "path": "stand/prospective-prestate.json",
+      "sha256": "86525b7acb208f527a63bbd311d8a002eb580d51a2b2e0b0a0178fd24eecfeb4",
+      "size_bytes": 2428
+    },
+    {
+      "path": "stand/q16b-reapplication-handoff.json",
+      "sha256": "a1bf365180fccea21db744209afb828e707bfa49a9eced763377d6adc0b6a5d3",
+      "size_bytes": 12451
+    },
+    {
+      "path": "stand/setup-result.json",
+      "sha256": "30010d04b8dd07ae58a1b9e75a01c172b4dd7baaddfb1beffce4a8970464c6e6",
+      "size_bytes": 227
+    },
+    {
+      "path": "stand/startup-observation-1.json",
+      "sha256": "ee048806ac22f245fe407c78a064011afe598ae877c49e1df6032a47b3dd1d78",
+      "size_bytes": 2499
+    },
+    {
+      "path": "stand/supervisor-pid.json",
+      "sha256": "d8878e03a29192774c0b74cdefc2304f00834242894eeba406bd6585310a6d7c",
+      "size_bytes": 56
+    },
+    {
+      "path": "stand/supervisor-prelaunch.json",
+      "sha256": "500ba177c1d341e96b3e58d487137b05192c0268cf70492f93610a9467403543",
+      "size_bytes": 8909
+    },
+    {
+      "path": "stand/transaction-result.json",
+      "sha256": "b0ccd40c93c5547cfbc8464a0bdb201c79cb86bf560499664fbe299dba802430",
+      "size_bytes": 222
+    },
+    {
+      "path": "stand-audit-root-count.json",
+      "sha256": "0dbd00095632d8302d77bcda77af9c454b2de648734f19cffd08315d04de7a08",
+      "size_bytes": 1129
+    },
+    {
+      "path": "stand-authority-1.log",
+      "sha256": "40360ccc4ad416dadb9b599b764df1044790864a4b097f8ed8600b763ec3d3a5",
+      "size_bytes": 1803
+    },
+    {
+      "path": "stand-input-semantics-1.log",
+      "sha256": "aaab1e9c28fbc1a4aa5623c963b7d3ae5b25b6af75d085253346b54ab3665771",
+      "size_bytes": 968
+    },
+    {
+      "path": "stand-namespace-audit-1.stderr",
+      "sha256": "74a33b1c1146308549ab3b00f4e68c1a64062f8b77c2ac60d4929d97eaf02e2e",
+      "size_bytes": 1225
+    },
+    {
+      "path": "stand-namespace-audit-2-summary.json",
+      "sha256": "a5cd5e29ca3fe89cca20c47963cb9773c0a22cca54b0a1213ca3eb0e26d9eab1",
+      "size_bytes": 3021
+    },
+    {
+      "path": "stand-namespace-audit-2.stderr",
+      "sha256": "a7ffdc2ce8e0296a237005ce1c5c68ea12b6fca6ba90388f71b33a5d6c167d76",
+      "size_bytes": 1048
+    },
+    {
+      "path": "stand-namespace-audit-3-summary.json",
+      "sha256": "827710e1c2f300abdfaf9991f2242c5fc7185e038d3aa30fb825f2886d92bc2d",
+      "size_bytes": 2757
+    },
+    {
+      "path": "stand-registration-1.log",
+      "sha256": "e670305032672999931e0c66bc07f3e65310b99fa67e0f3a8fa0a2f9e7f9a7ed",
+      "size_bytes": 707
+    },
+    {
+      "path": "targeted-tests.log",
+      "sha256": "07c3f49fa1136587601f68f540d44165515183907da066d2e024e0792551b4a7",
+      "size_bytes": 848
+    },
+    {
+      "path": "unsigned-inputs-publication-1.json",
+      "sha256": "ff152229d6db184c1f400b1fd999272a46d4df5e43824675654e8cbaadaab760",
+      "size_bytes": 484
+    }
+  ],
+  "observed_at_utc": "2026-11-15T10:35:30.748755+00:00",
+  "schema_version": "stage17-checkpoint-file-inventory/1"
+}

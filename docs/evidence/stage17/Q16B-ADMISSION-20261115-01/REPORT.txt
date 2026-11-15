@@ -1,3 +1,66 @@
+Q16b actual admission / launch checkpoint — 2026-11-15 10:35 UTC
+
+COMPLETED THIS SESSION
+1. D250/D251 administrative source admission: v2 exact-byte packet installed
+   separately from the unchanged qualified 42f2ebb native release.
+2. Finite public namespace audits passed: local9558files/588810555bytes;
+   stand67401files/252787193bytes; zero collisions/errors, both Q16a histories
+   retained. Raw payload/scratch trees were excluded. Full audit bindings are
+   retained in the summaries; full reports also remain on the stand.
+3. One same-lock family registration appended ledger58849 exactly once;
+   prior58848 prefix and both previous families remained unchanged. Shared
+   D233 quota and all prior archived evidence are preserved.
+4. New Q16b request/authorization signed by existing owner key at09:47UTC.
+   Native plan ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702:
+   3540 captures, 60 cells x59 repetitions, 5s warmup and1s measurement.
+5. One detached root transaction passed fresh signature/resource/hardware
+   admission and reapplied verified same-boot isolation. It handed restoration
+   ownership to supervisor196134 at10:13:35UTC, without an automatic retry.
+6. Supervisor verified actual admission and spawned owner executor196367 at
+   10:20UTC. Launch readback at10:28:44UTC confirms UID/GID1000, CPU2 affinity,
+   required capabilities, reserved cgroup, AS240518168576 and MEMLOCK30709854208.
+
+CURRENT: Q16b IS RUNNING ON THE STAND. The formal attempt durably started at
+10:33:56.768639UTC. At10:35:30UTC actual native worker197428 was verified alive,
+UID/GID1000, parent196367, in the reserved cgroup. Reading /proc/197428/exe
+verified the memfd executable:4973080bytes, SHA256
+7abf4cfac0051103f98b3f63f37efd1bde757d954c973460be6fe4d245f6a275,
+exactly matching qualified42f2ebb. Raw warmup filenames for capture0 exist;
+no completed-capture count is asserted at startup. At that preparation instant
+all three native threads still had inherited CPU2 affinity; actual timed-phase
+thread placement and scientific validity require subsequent retained validation.
+No terminal/failure receipt exists. Scientific validity remains NOT_ASSESSED.
+The supervisor survives SSH disconnection; stop-first-failure, worker reaping
+and restoration remain enabled. Next routine result check: approximately
+11:05UTC (14:05Moscow), respecting the owner's30-minute polling preference.
+
+Saved stand/native-startup-observation-1.json is the exact worker identity and
+attempt proof. The earlier startup-observation-1.json preserves its actual
+10:34UTC observation: a basename-only process scan missed the memfd executable;
+it is not evidence of native absence. The subsequent descendant-based check
+corrects the observation without changing the experiment.
+
+VERIFICATION
+Nine initial focused tests plus four CTest regressions passed (99.08s);
+seven v2 loader tests plus three source/dispatch CTest suites passed;
+namespace packet3 auditor/registration tests and packet5 twelve registration
+regressions passed; frozen launch helper suite40 tests passed. Existing native
+release remains unchanged; no new timing/clock/Q15/Q16a raw validation occurred.
+Prospective 162-day keeper and finite family watchdog are failure ceilings,
+not a runtime estimate. Minimum active warmup+measurement alone is5h54m;
+archive/publication and admission add substantial time.
+
+REMAINING
+Finish Q16b collection/custody, independently validate
+Q16b and derive accepted service outputs; then Q16c, calibration freeze and
+EXT007/Stage17 exit gates. Existing Q16a valid FULL outcomes remain retained
+with the separate zero-loss gate FAIL. No Stage18 authority is asserted.
+Only metadata/reports/operator sources were copied to this PC (about0.5MiB
+for this evidence directory at the initial launch checkpoint); raw stays on
+stand under the approved D206/D233 policy.
+
+HISTORICAL SOURCE / PREPARATION CHECKPOINTS (superseded above)
+
 D250 Q16b admission integration, source checkpoint 2026-11-15
 
 Explicit CLI20/controller27 formal dispatch and exact source-packet loader

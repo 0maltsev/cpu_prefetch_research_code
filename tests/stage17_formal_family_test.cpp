@@ -28,11 +28,12 @@ auto identity(std::size_t ordinal, std::string_view phase) -> Value {
                       {"namespace_id", text(phase)},
                       {"seed_hex", text(seed.str())}});
 }
-auto fixture(Action action = Action::q16a) -> Object {
+auto fixture(Action action = Action::q16a, std::size_t planned_repetitions = 59U)
+    -> Object {
   const bool ring = action == Action::q16a;
   const bool scheduled = action == Action::q16c;
   const std::size_t cells = ring ? 12U : scheduled ? 180U : 60U;
-  const std::size_t repetitions = scheduled ? 1U : 59U;
+  const std::size_t repetitions = scheduled ? 1U : planned_repetitions;
   const auto method = ring        ? "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2"
                       : scheduled ? "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"
                                   : "SERVICE-RATE-NP-LTL95C95-MIN-v1";
@@ -232,8 +233,8 @@ TEST(Stage17FormalFamily, RejectsExtraFieldsAndNonFormalActions) {
   EXPECT_FALSE(validate(plan));
 }
 
-auto archived_fixture(Action action) -> Object {
-  auto plan = fixture(action);
+auto archived_fixture(Action action, std::size_t repetitions = 59U) -> Object {
+  auto plan = fixture(action, repetitions);
   auto version = *plan.at("schema_version").as_string();
   version.back() = '2';
   plan.at("schema_version") = text(version);
@@ -268,6 +269,257 @@ auto archived_fixture(Action action) -> Object {
   family.at("required_free_disk_bytes") = number(6'841'813'590'016U);
   plan.at("budget") = Value(std::move(family));
   return plan;
+}
+
+auto service_daycap_fixture(std::size_t repetitions = 2U) -> Object {
+  auto plan = archived_fixture(Action::q16b, repetitions);
+  plan.at("schema_version") = text("cpu-prefetch-stage17-formal-service-plan/3");
+  plan.at("method_id") = text("SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1");
+  return plan;
+}
+
+TEST(Stage17FormalFamily, ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat) {
+  const auto plan = service_daycap_fixture();
+  const auto result = validate(plan, Action::q16b);
+  ASSERT_TRUE(result) << (result ? "" : result.errors().front().message);
+  EXPECT_EQ(result.value().captures.size(), 120U);
+  const auto& storage = result.value().storage;
+  ASSERT_TRUE(storage);
+  if (storage) {
+    EXPECT_EQ(storage->program_id, "shared-future-program");
+  }
+  EXPECT_EQ(result.value().watchdog_ns, 960'002'000'000U);
+  EXPECT_EQ(result.value().required_free_disk_bytes, 6'841'813'590'016U);
+  std::array<std::size_t, 60U> counts{};
+  for (const auto& entry : *plan.at("captures").as_array()) {
+    const auto& capture = *entry.as_object()->at("capture").as_object();
+    const auto cell =
+        std::get<std::uint64_t>(capture.at("cell_ordinal").as_number()->value);
+    ASSERT_LT(cell, counts.size());
+    ++counts[cell];
+    EXPECT_EQ(*capture.at("method_id").as_string(), "SERVICE-RATE-NP-LTL95C95-MIN-v1");
+  }
+  for (const auto count : counts)
+    EXPECT_EQ(count, 2U);
+}
+
+TEST(Stage17FormalFamily, ServiceDaycapRequiresExplicitFamilyAndCaptureMethods) {
+  for (const auto method :
+       {"SERVICE-RATE-NP-LTL95C95-MIN-v1", "SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v2",
+        "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2"}) {
+    auto plan = service_daycap_fixture();
+    plan.at("method_id") = text(method);
+    EXPECT_FALSE(validate(plan, Action::q16b)) << method;
+  }
+  auto plan = service_daycap_fixture();
+  change_entry(plan, 119U, [](Object& entry) {
+    auto capture = *entry.at("capture").as_object();
+    capture.at("method_id") = text("SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1");
+    entry.at("capture") = Value(std::move(capture));
+  });
+  EXPECT_FALSE(validate(plan, Action::q16b));
+  for (const auto version : {"1", "2", "4"}) {
+    plan = service_daycap_fixture();
+    plan.at("schema_version") =
+        text(std::string("cpu-prefetch-stage17-formal-service-plan/") + version);
+    EXPECT_FALSE(validate(plan, Action::q16b)) << version;
+  }
+  for (const auto action : {Action::q16a, Action::q16c}) {
+    plan = service_daycap_fixture();
+    plan.at("action_id") = text(runner::stage17::to_string(action));
+    EXPECT_FALSE(validate(plan, action));
+    plan = archived_fixture(action);
+    auto schema = *plan.at("schema_version").as_string();
+    schema.back() = '3';
+    plan.at("schema_version") = text(schema);
+    plan.at("method_id") = text("SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1");
+    EXPECT_FALSE(validate(plan, action));
+  }
+}
+
+TEST(Stage17FormalFamily, ServiceDaycapRequiresExactlyTwoRepetitionsPerCell) {
+  for (const auto repetitions : {0U, 1U, 3U, 58U, 59U})
+    EXPECT_FALSE(validate(service_daycap_fixture(repetitions), Action::q16b))
+        << repetitions;
+}
+
+TEST(Stage17FormalFamily, ServiceDaycapRequiresExactCoverageAndProspectiveOrder) {
+  auto plan = service_daycap_fixture();
+  auto captures = *plan.at("captures").as_array();
+  captures.pop_back();
+  plan.at("captures") = Value(captures);
+  EXPECT_FALSE(validate(plan, Action::q16b));
+  captures.push_back(captures.back());
+  captures.push_back(captures.back());
+  plan.at("captures") = Value(captures);
+  EXPECT_FALSE(validate(plan, Action::q16b));
+  for (const auto field : {"ordinal", "cell_ordinal", "repetition_ordinal"}) {
+    plan = service_daycap_fixture();
+    change_entry(plan, 119U, [&](Object& entry) {
+      auto capture = *entry.at("capture").as_object();
+      capture.at(field) = number(0U);
+      entry.at("capture") = Value(std::move(capture));
+    });
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+  for (const auto field :
+       {"package", "hardware_state", "placement", "working_set_class"}) {
+    plan = service_daycap_fixture();
+    change_entry(plan, 119U, [&](Object& entry) {
+      auto capture = *entry.at("capture").as_object();
+      const auto& first = *plan.at("captures").as_array()->front().as_object();
+      capture.at(field) = first.at("capture").as_object()->at(field);
+      entry.at("capture") = Value(std::move(capture));
+    });
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+  plan = service_daycap_fixture();
+  captures = *plan.at("captures").as_array();
+  std::swap(captures[0U], captures[2U]);
+  plan.at("captures") = Value(std::move(captures));
+  EXPECT_FALSE(validate(plan, Action::q16b));
+}
+
+TEST(Stage17FormalFamily, ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup) {
+  for (const auto duration : {500'000'000U, 2'000'000'000U}) {
+    auto plan = service_daycap_fixture();
+    plan.at("measurement_ns") = number(duration);
+    auto family = *plan.at("budget").as_object();
+    family.at("watchdog_ns") = number(86'400'000'000'000U);
+    plan.at("budget") = Value(std::move(family));
+    for (std::size_t i = 0U; i < 120U; ++i)
+      change_entry(plan, i, [&](Object& entry) {
+        auto capture = *entry.at("capture").as_object();
+        capture.at("measurement_ns") = number(duration);
+        entry.at("capture") = Value(std::move(capture));
+        auto budget = *entry.at("execution_budget").as_object();
+        budget.at("watchdog_ns") = number(9'000'000'000U);
+        entry.at("execution_budget") = Value(std::move(budget));
+      });
+    EXPECT_FALSE(validate(plan, Action::q16b)) << duration;
+  }
+  for (const auto field : {"measurement_ns", "warmup_ns"}) {
+    auto plan = service_daycap_fixture();
+    change_entry(plan, 119U, [&](Object& entry) {
+      auto capture = *entry.at("capture").as_object();
+      capture.at(field) = number(500'000'000U);
+      entry.at("capture") = Value(std::move(capture));
+    });
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+}
+
+TEST(Stage17FormalFamily, ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay) {
+  for (const auto watchdog : {960'002'000'000U, 86'400'000'000'000U}) {
+    auto plan = service_daycap_fixture();
+    auto family = *plan.at("budget").as_object();
+    family.at("watchdog_ns") = number(watchdog);
+    plan.at("budget") = Value(std::move(family));
+    const auto result = validate(plan, Action::q16b);
+    ASSERT_TRUE(result) << (result ? "" : result.errors().front().message);
+    EXPECT_EQ(result.value().watchdog_ns, watchdog);
+  }
+  for (const auto watchdog : {960'001'999'999U, 86'400'000'000'001U}) {
+    auto plan = service_daycap_fixture();
+    auto family = *plan.at("budget").as_object();
+    family.at("watchdog_ns") = number(watchdog);
+    plan.at("budget") = Value(std::move(family));
+    EXPECT_FALSE(validate(plan, Action::q16b)) << watchdog;
+  }
+  auto plan = service_daycap_fixture();
+  auto family = *plan.at("budget").as_object();
+  family.at("watchdog_ns") = number(86'400'000'000'000U);
+  plan.at("budget") = Value(std::move(family));
+  auto storage = *plan.at("storage").as_object();
+  storage.at("per_capture_archive_ns") = number(720'000'000'000U);
+  plan.at("storage") = Value(std::move(storage));
+  EXPECT_FALSE(validate(plan, Action::q16b));
+}
+
+TEST(Stage17FormalFamily, ServiceDaycapRetainsArchivedStorageAndBudgetChecks) {
+  auto plan = service_daycap_fixture();
+  plan.erase("storage");
+  EXPECT_FALSE(validate(plan, Action::q16b));
+  plan = service_daycap_fixture();
+  plan.at("custody_policy_id") = text("EXT007-RAW-NONE-STAND-PRIMARY-v1");
+  EXPECT_FALSE(validate(plan, Action::q16b));
+  for (const auto field :
+       {"archive_quota_bytes", "workspace_bytes", "analysis_scratch_bytes",
+        "disk_reserve_bytes", "codec_address_space_bytes", "codec_processes",
+        "checkpoint_bytes", "archive_staging_bytes",
+        "analysis_capture_workspace_bytes"}) {
+    plan = service_daycap_fixture();
+    auto storage = *plan.at("storage").as_object();
+    storage.at(field) = number(1'000'000'000'000U);
+    plan.at("storage") = Value(std::move(storage));
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+  for (const auto field : {"watchdog_ns", "controller_memory_bytes", "memory_bytes",
+                           "max_output_bytes", "required_free_disk_bytes"}) {
+    plan = service_daycap_fixture();
+    auto family = *plan.at("budget").as_object();
+    family.at(field) = number(1U);
+    plan.at("budget") = Value(std::move(family));
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+}
+
+TEST(Stage17FormalFamily, ServiceDaycapRetainsGeometryIdentityAndResourceChecks) {
+  for (const auto field :
+       {"geometry", "budget", "warmup", "measurement", "arena_seed"}) {
+    auto plan = service_daycap_fixture();
+    change_entry(plan, 119U, [&](Object& entry) {
+      auto capture = *entry.at("capture").as_object();
+      auto value = *capture.at(field).as_object();
+      if (field == std::string_view("geometry"))
+        value.at("capacity") = number(9U);
+      else if (field == std::string_view("budget"))
+        value.emplace("unexpected", number(1U));
+      else
+        value = *identity(0U, field == std::string_view("warmup") ? "warmup"
+                                                                  : "measurement")
+                     .as_object();
+      capture.at(field) = Value(std::move(value));
+      entry.at("capture") = Value(std::move(capture));
+    });
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+  for (const auto field : {"resources", "monitoring"}) {
+    auto plan = service_daycap_fixture();
+    change_entry(plan, 119U, [&](Object& entry) {
+      auto value = *entry.at(field).as_object();
+      value.emplace("unexpected", number(1U));
+      entry.at(field) = Value(std::move(value));
+    });
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+  for (const auto field : {"watchdog_ns", "memory_bytes", "max_output_bytes",
+                           "publication_memory_bytes", "metadata_output_bytes"}) {
+    auto plan = service_daycap_fixture();
+    change_entry(plan, 119U, [&](Object& entry) {
+      auto budget = *entry.at("execution_budget").as_object();
+      budget.at(field) = number(1U);
+      entry.at("execution_budget") = Value(std::move(budget));
+    });
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+}
+
+TEST(Stage17FormalFamily, OriginalRingAndServiceVersionsKeepMinimumFiftyNine) {
+  for (const auto action : {Action::q16a, Action::q16b}) {
+    for (const auto repetitions : {2U, 58U}) {
+      EXPECT_FALSE(validate(fixture(action, repetitions), action));
+      EXPECT_FALSE(validate(archived_fixture(action, repetitions), action));
+    }
+    for (auto plan : {fixture(action, 60U), archived_fixture(action, 60U)}) {
+      auto family = *plan.at("budget").as_object();
+      family.at("watchdog_ns") = number(86'400'000'000'001U);
+      plan.at("budget") = Value(std::move(family));
+      EXPECT_TRUE(validate(plan, action));
+      plan.at("method_id") = text("SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1");
+      EXPECT_FALSE(validate(plan, action));
+    }
+  }
 }
 
 TEST(Stage17FormalFamily, ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy) {
@@ -385,6 +637,21 @@ TEST(Stage17FormalFamily, ContinuationExecutesOnlyNineUnfinishedContexts) {
   ASSERT_TRUE(result) << (result ? "" : result.errors().front().message);
   EXPECT_EQ(result.value().captures.size(), 531U);
   EXPECT_TRUE(result.value().storage.has_value());
+}
+
+TEST(Stage17FormalFamily, ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules) {
+  auto plan = continuation_fixture();
+  for (const auto repetitions : {2U, 58U, 60U}) {
+    plan.at("repetitions_per_context") = number(repetitions);
+    EXPECT_FALSE(validate(plan)) << repetitions;
+  }
+  plan.at("repetitions_per_context") = number(59U);
+  auto family = *plan.at("budget").as_object();
+  family.at("watchdog_ns") = number(86'400'000'000'001U);
+  plan.at("budget") = Value(std::move(family));
+  EXPECT_TRUE(validate(plan));
+  plan.at("method_id") = text("SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1");
+  EXPECT_FALSE(validate(plan));
 }
 
 TEST(Stage17FormalFamily, ContinuationRejectsPrefixRerunAndArbitraryResume) {

@@ -1,0 +1,35 @@
+D254 approved one-day Q16b revision,2026-11-15
+
+Owner selected all60research settings with exactly2repetitions each=120captures,
+explicitly replacing the original59-repetition statistical guarantee. Full factor
+coverage,1s measurement/5s warmup,30s phase drain limits, original collector row
+formats and D211 interval count are preserved. New familymethod is descriptive
+observed minima, with no95/95tolerance claim. Old methods retain59-run gates.
+
+Native cold-family admission accepts newservice/3only; original collection loops
+and publisher are unchanged.77native family/input/publication tests pass in
+main's fresh dev check. Agent ASan/UBSan andTSan77/77 each also pass. Python
+declaration/estimator15tests pass. Private daycap execution adapter17tests pass
+and delegates historical plans without mutation. Source-qualified new release
+and administrative/profile/compatibility admission remain required.
+
+Prospective requested ceilings: native per capture setup120s+publication90s+
+cleanup24s+warm5s+measurement1s+2x30s drains=300s; cold archive240s.120captures
+plus familysetup/cleanup240s give65040s(18h04m)maximum collection. Eight offline
+validation slots,900s per job,15waves give13500s(3h45m). Per-worker16GiB AS plus
+2GiB decoder,164GiB aggregate including reserves; 8x31227906332canonicalbytes
+plus17GiBscratch overhead/reserve fit256GiB. Actual host availability/topology
+will be freshly checked before launch; these are requested bounds, not invented
+observed state. Qualification/admission3600s andreport/cleanup1800s give83940s
+(23h19m). Stop operational work by23h30m and restore within the absolute24h cap.
+
+Measured validation of retained5.13GBcapture passed in5m44s. Expected reduced
+study12-16hours including qualification/validation was presented before any new
+experimental action. No new qualification or collection has run at this checkpoint.
+
+Draft120declaration/proof exists in build/stage17-daycap-120/draft-2, preserving
+all actual original layouts/resources/phase bounds and fresh prospective IDs.
+It requires rebinding to actual clean qualified source/profile, namespace audit,
+registration and signed authority before execution. Initial draft1 had an invalid
+source object and was never signed/registered/executed; generator now verifies
+Git object existence, and its prospective public seed identities are reused.

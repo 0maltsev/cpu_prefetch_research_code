@@ -155,7 +155,11 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
   const auto& schema_version = input::text(plan, "schema_version");
   const bool continuation =
       ring && schema_version == "cpu-prefetch-stage17-formal-ring-plan/3";
-  const bool archived = schema_version.ends_with("/2") || continuation;
+  const bool service_daycap =
+      action == FixedAction::q16b &&
+      schema_version == "cpu-prefetch-stage17-formal-service-plan/3";
+  const bool archived =
+      schema_version.ends_with("/2") || continuation || service_daycap;
   if (continuation) {
     continuation_contract(input::object(plan, "continuation"));
     common.erase("continuation");
@@ -175,15 +179,21 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
       std::string(ring        ? "cpu-prefetch-stage17-formal-ring-plan/"
                   : scheduled ? "cpu-prefetch-stage17-formal-scheduled-plan/"
                               : "cpu-prefetch-stage17-formal-service-plan/") +
-      (continuation ? "3"
-       : archived   ? "2"
-                    : "1");
-  const auto expected_method = ring ? "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2"
-                               : scheduled
-                                   ? "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"
-                                   : "SERVICE-RATE-NP-LTL95C95-MIN-v1";
+      (continuation || service_daycap ? "3"
+       : archived                     ? "2"
+                                      : "1");
+  const auto expected_capture_method =
+      ring        ? "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2"
+      : scheduled ? "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"
+                  : "SERVICE-RATE-NP-LTL95C95-MIN-v1";
+  // D254 keeps the legacy collector format, whose inferential validity remains
+  // unestablished. Its method name does not grant the descriptive family a
+  // 95/95 claim; the new family method explicitly replaces that guarantee.
+  const auto expected_family_method = service_daycap
+                                          ? "SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1"
+                                          : expected_capture_method;
   require(input::text(plan, "schema_version") == expected_schema &&
-              input::text(plan, "method_id") == expected_method &&
+              input::text(plan, "method_id") == expected_family_method &&
               input::text(plan, "protocol_version") == "2.0.0-pre.3" &&
               input::text(plan, "action_id") == to_string(action) &&
               input::text(plan, "source_revision") == revision &&
@@ -206,11 +216,17 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
           "formal phase namespaces coincide");
   const auto repetitions =
       positive(plan, ring ? "repetitions_per_context" : "repetitions_per_cell");
-  require(repetitions >= (scheduled ? 1U : 59U),
-          "formal family has too few planned runs");
+  if (service_daycap)
+    require(repetitions == 2U,
+            "service daycap requires exactly two repetitions per cell");
+  else
+    require(repetitions >= (scheduled ? 1U : 59U),
+            "formal family has too few planned runs");
   require(!continuation || repetitions == 59U,
           "continuation must preserve exactly 59 repetitions per context");
   const auto duration = positive(plan, "measurement_ns");
+  require(!service_daycap || duration == 1'000'000'000U,
+          "service daycap requires exactly one second measurement");
   static_cast<void>(input::ticks(duration));
   const auto minimum = ring ? positive(plan, "minimum_observations_per_series") : 0U;
   const auto scale = scheduled ? input::number(plan, "scale_ordinal") : 0U;
@@ -271,7 +287,7 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
                     classes[context_in_state % 3U] &&
                 input::number(capture, "measurement_ns") == duration &&
                 input::number(capture, "warmup_ns") == 5'000'000'000U &&
-                input::text(capture, "method_id") == expected_method,
+                input::text(capture, "method_id") == expected_capture_method,
             "formal family order/context/duration differs");
     if (ring)
       require(input::number(capture, "minimum_observations_per_series") == minimum,
@@ -357,6 +373,8 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
   require(controller_memory >= encode(Value(plan)).size(),
           "formal controller cannot hold plan bytes");
   result.watchdog_ns = bounded_watchdog(family);
+  require(!service_daycap || result.watchdog_ns <= 86'400'000'000'000U,
+          "service daycap family watchdog exceeds 24 hours");
   result.memory_bytes = positive(family, "memory_bytes");
   result.metadata_output_bytes = positive(family, "metadata_output_bytes");
   result.max_output_bytes = positive(family, "max_output_bytes");

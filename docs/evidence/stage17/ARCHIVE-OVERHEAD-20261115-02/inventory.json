@@ -1,0 +1,205 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "REPORT.txt",
+      "size_bytes": 4213,
+      "sha256": "7eb1eb236a65b234475c62b6c39638b2bffa691e29075e11d37d3ecc168212c0"
+    },
+    {
+      "path": "benchmark_capture5.py",
+      "size_bytes": 10290,
+      "sha256": "1b8ec00158b8fde1da2d0b37ea8200721d83d2f53da10675c6eb99dc4aa2ac19"
+    },
+    {
+      "path": "benchmark_flow.py",
+      "size_bytes": 4616,
+      "sha256": "41080bbfe6517c230573684937518048023a260c0458db87da80f306162bd4d8"
+    },
+    {
+      "path": "compare_metadata.py",
+      "size_bytes": 3846,
+      "sha256": "94c4bc64d72d069f69de35e627488334d7cecfadf0ddc661d9dd7fd0f2c1eebc"
+    },
+    {
+      "path": "compare_metadata2.py",
+      "size_bytes": 3848,
+      "sha256": "26c6145e62ec67fd3610ea2df18ebb1017f9361f38f8e62ed64b0a74b2115f60"
+    },
+    {
+      "path": "executor-v12-composition-tests.log",
+      "size_bytes": 138,
+      "sha256": "c6109d8dc361b8b03959324c23be801135b49cd120b610c08b8591e97d477788"
+    },
+    {
+      "path": "final-ctest.log",
+      "size_bytes": 1113,
+      "sha256": "b7716a6664d8659e21d026fdfe198956176fda51dd14e411d197cb5fb41657dc"
+    },
+    {
+      "path": "inventory-python-tests-final.log",
+      "size_bytes": 106,
+      "sha256": "c57e833f026773c218c965cc8726b7bfb3b9b889adb427cb6bf285f303c799de"
+    },
+    {
+      "path": "metadata-v2-tests-final.log",
+      "size_bytes": 115,
+      "sha256": "68434668ac903c7c2aa54b78c0042a68e7c821c5cfb61f7d264da84edaa9aedb"
+    },
+    {
+      "path": "native-asan-ctest.log",
+      "size_bytes": 562,
+      "sha256": "38a3dfbbbf08ec052a36564ea704548658cd90d35cd8b092900d24366735f3cd"
+    },
+    {
+      "path": "native-fault-tests.log",
+      "size_bytes": 3275,
+      "sha256": "37b6141d488e4efa85bcdc2962b21da7a849b4c35ee9525a86ea9eb8a2d05250"
+    },
+    {
+      "path": "native-tests-final.log",
+      "size_bytes": 2457,
+      "sha256": "0fcffbd047734bbecb1a1a91f82fab0b4ec13f9c01cb2133eb990a90eab6004b"
+    },
+    {
+      "path": "new-native-format.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "profile_metadata.py",
+      "size_bytes": 3285,
+      "sha256": "7a4db7b10ddc77b353144dbf87ca5a8eb2b8e67b220ddec36432cd7548fafd06"
+    },
+    {
+      "path": "rejected-json-parser/stage17_archive_json_fast_v1.py",
+      "size_bytes": 2744,
+      "sha256": "f495bf1677601e0498172934ee6a0b81457e436985adba1c3e6bfb7565715e93"
+    },
+    {
+      "path": "rejected-json-parser/test_stage17_archive_json_fast_v1.py",
+      "size_bytes": 13394,
+      "sha256": "d55a25cdbf180c5beaea49ef35645c91f844bd7326af5fa80a17acfcabae05c1"
+    },
+    {
+      "path": "runtime-estimate.json",
+      "size_bytes": 2547,
+      "sha256": "8f44bd78c23f2a604ca0dc54e6c47654bc8435b29026a8d9fccd98d054463564"
+    },
+    {
+      "path": "stand/candidate-capture-timing.json",
+      "size_bytes": 2941,
+      "sha256": "76435548688fd17e0c2192029d3d273eb7f13b5253db8f25e639f0f5a8b1ca7d"
+    },
+    {
+      "path": "stand/candidate-metadata-summary.json",
+      "size_bytes": 3555,
+      "sha256": "dd05fbd0533d045443ece03abc5382ec6803f53a63894e2f7a23506b9e871237"
+    },
+    {
+      "path": "stand/capture-1-archive-custody.json",
+      "size_bytes": 5439,
+      "sha256": "359a9df43460b23d3b94dbb0be06088ddcb5692b7b6a37377825a161ac19f3c8"
+    },
+    {
+      "path": "stand/capture-1-final-checkpoint.json",
+      "size_bytes": 13409,
+      "sha256": "0bb0cc8d0d3bfc4b9806fec81c065d43e1f40dbd81df26afcb22f2c85bc5dc9a"
+    },
+    {
+      "path": "stand/capture-2-archive-custody.json",
+      "size_bytes": 5439,
+      "sha256": "5fd1cf2bc20334fa364d1a598079337f4d3e499575d46863cdc19484f5c56e0e"
+    },
+    {
+      "path": "stand/capture-2-final-checkpoint.json",
+      "size_bytes": 13409,
+      "sha256": "4065cb0b1eb8dc678b7fa71e39792adb6e5ee25ea7af8bca2268f0cad56ee50f"
+    },
+    {
+      "path": "stand/dataset-proof.json",
+      "size_bytes": 1265,
+      "sha256": "3a1279ebfe02c270c5555f5c5f884352b1ef0db3181423ccec9213447de7ab46"
+    },
+    {
+      "path": "stand/flow-operators-manifest.json",
+      "size_bytes": 368,
+      "sha256": "d445e9b2dba03026fb6d01176f90ef0915e62023ae0322dfdfd27b659ff1a01e"
+    },
+    {
+      "path": "stand/flow-timing.json",
+      "size_bytes": 691,
+      "sha256": "6819438dbcf539d91a252c5c0cbdcc31efa4546826aca9889519e143488d5414"
+    },
+    {
+      "path": "stand/metadata-profile.txt",
+      "size_bytes": 4187,
+      "sha256": "83bf0ab9c7a772d03c3d565b1b40ae08427ba11f1ac727321b942a386da54de3"
+    },
+    {
+      "path": "stand/metadata-summary.json",
+      "size_bytes": 891,
+      "sha256": "143ecd5bd5983dd11e2dfcd150b355b65b2132e55f9319c4f3d9f20655891968"
+    },
+    {
+      "path": "stand/original-failure-exact.json",
+      "size_bytes": 1082,
+      "sha256": "1c589140b2ad2ca7fea8f979c243fea06f526703e7a3cbe681ba5c1288fb4c3a"
+    },
+    {
+      "path": "stand/previous-capture-timing.json",
+      "size_bytes": 2877,
+      "sha256": "dbde232ad543ad484b981b7a1d6a87d2f16791caf6648c5c3aa3d2b1dc1cc929"
+    },
+    {
+      "path": "stand/rejected-json-metadata-summary.json",
+      "size_bytes": 3554,
+      "sha256": "2a9d5760d64acaeefa9e967848989d57bcb2079781d9a1da64b4a89e855a5e86"
+    },
+    {
+      "path": "stand/retained-validation-timing.json",
+      "size_bytes": 3476,
+      "sha256": "f34f1f6c78aaf6184d3ff0663b8bb8a46ae7907de2661c269fbbd0545c8452d8"
+    },
+    {
+      "path": "stand/selected-operators-manifest.json",
+      "size_bytes": 636,
+      "sha256": "985399c66c1fdeef650d3873d9a9a4166add74550f96dd8fde5b4182fbfff799"
+    },
+    {
+      "path": "stand/selected-profile.json",
+      "size_bytes": 7749,
+      "sha256": "c15d54de37bfe2cfe99d5c3d2d13e0853d77aac6eb743e87b5c510b9a61fabc0"
+    },
+    {
+      "path": "stand/software-fixture-cleanup.json",
+      "size_bytes": 1634,
+      "sha256": "b5dfaa1bab2014acf85cfa5d5bff299a793bcddd97d0bec0f74df46f6869481e"
+    },
+    {
+      "path": "stand/stop-intent.json",
+      "size_bytes": 378,
+      "sha256": "2ef558e1873085c32e71c94446492e12f123f135936fd1310658ce251cee2eba"
+    },
+    {
+      "path": "stand/stop-result.json",
+      "size_bytes": 1303,
+      "sha256": "3bd7e8c0abd941b09cfac0386901e4cea0312ccd15429232e8ffa1d660712635"
+    },
+    {
+      "path": "stand/stop-signal.json",
+      "size_bytes": 211,
+      "sha256": "aec73b87ce4215ebe83010a9bb7b78d2c4d35a3c80a17159e13569355eb04c0b"
+    },
+    {
+      "path": "stand/supervisor-result.json",
+      "size_bytes": 1389,
+      "sha256": "f4fc269d27cd763962a2d7b5b9ccc6a135dfa1a74e83d80ca2bf3d457ae41d5e"
+    },
+    {
+      "path": "stop_current_q16b.py",
+      "size_bytes": 3925,
+      "sha256": "6adeddba13002989d1471ff9778ecbafd84f70343ae9c79d23f972ec2f34d9dc"
+    }
+  ]
+}

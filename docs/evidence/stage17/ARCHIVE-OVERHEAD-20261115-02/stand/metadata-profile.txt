@@ -1,0 +1,43 @@
+         35430646 function calls (34534375 primitive calls) in 27.760 seconds
+
+   Ordered by: cumulative time
+   List reduced from 193 to 35 due to restriction <35>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.085    0.085   27.835   27.835 /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_formal_archive_custody_v1.py:211(__enter__)
+        1    1.348    1.348   27.749   27.749 /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_formal_archive_custody_v1.py:303(_replay)
+    59749    0.638    0.000   13.035    0.000 /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_formal_archive_custody_v1.py:288(_read_bound)
+    59749    0.253    0.000   10.067    0.000 /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_formal_archive_v1.py:83(parse_json)
+    59750    0.712    0.000    9.669    0.000 /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_formal_archive_v1.py:100(open_regular)
+    59749    2.529    0.000    7.556    0.000 /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-admission-operators-5/stage17_archive_canonical_fast_v1.py:19(canonical)
+   477998    0.275    0.000    4.231    0.000 <frozen _collections_abc>:1027(__reversed__)
+   418254    0.660    0.000    3.896    0.000 /usr/lib/python3.14/pathlib/__init__.py:62(__getitem__)
+   418253    0.337    0.000    2.535    0.000 /usr/lib/python3.14/pathlib/__init__.py:268(_from_parsed_parts)
+   418260    0.252    0.000    2.359    0.000 /usr/lib/python3.14/pathlib/__init__.py:704(is_symlink)
+    59749    0.262    0.000    2.162    0.000 /usr/lib/python3.14/json/__init__.py:304(loads)
+   418260    0.262    0.000    2.107    0.000 <frozen genericpath>:60(islink)
+    59749    0.197    0.000    1.973    0.000 /usr/lib/python3.14/json/__init__.py:185(dumps)
+   418253    0.202    0.000    1.778    0.000 /usr/lib/python3.14/pathlib/__init__.py:275(_from_parsed_string)
+   478031    0.542    0.000    1.761    0.000 /usr/lib/python3.14/pathlib/__init__.py:156(with_segments)
+   418260    1.472    0.000    1.754    0.000 {built-in method posix.lstat}
+    59749    0.143    0.000    1.731    0.000 /usr/lib/python3.14/json/encoder.py:185(encode)
+    59749    0.141    0.000    1.643    0.000 /usr/lib/python3.14/json/decoder.py:340(decode)
+    59749    1.605    0.000    1.605    0.000 {method 'read' of '_io.BufferedReader' objects}
+    59749    1.512    0.000    1.512    0.000 /usr/lib/python3.14/json/encoder.py:207(iterencode)
+    59749    1.016    0.000    1.315    0.000 /usr/lib/python3.14/json/decoder.py:351(raw_decode)
+  2855908    0.989    0.000    1.287    0.000 /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-admission-operators-5/stage17_archive_canonical_fast_v1.py:37(<genexpr>)
+        1    0.144    0.144    1.177    1.177 {method 'sort' of 'list' objects}
+   537782    0.671    0.000    1.058    0.000 /usr/lib/python3.14/pathlib/__init__.py:134(__init__)
+   870335    0.567    0.000    1.033    0.000 /usr/lib/python3.14/pathlib/__init__.py:230(__lt__)
+   439078    0.609    0.000    1.008    0.000 {method 'extend' of 'list' objects}
+   597537    0.379    0.000    0.769    0.000 /usr/lib/python3.14/pathlib/__init__.py:189(__fspath__)
+2210810/1314551    0.536    0.000    0.764    0.000 {built-in method builtins.len}
+    59750    0.413    0.000    0.763    0.000 {built-in method posix.open}
+   119494    0.060    0.000    0.622    0.000 /usr/lib/python3.14/pathlib/__init__.py:397(name)
+   239024    0.285    0.000    0.575    0.000 /usr/lib/python3.14/pathlib/__init__.py:358(_tail)
+    59751    0.051    0.000    0.488    0.000 /usr/lib/python3.14/pathlib/__init__.py:390(parents)
+   478032    0.295    0.000    0.485    0.000 /usr/lib/python3.14/pathlib/__init__.py:260(_format_parsed_parts)
+    59750    0.151    0.000    0.471    0.000 <frozen os>:1070(fdopen)
+  2765998    0.468    0.000    0.468    0.000 {built-in method builtins.isinstance}
+
+

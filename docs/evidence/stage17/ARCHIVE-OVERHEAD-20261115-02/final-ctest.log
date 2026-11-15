@@ -1,0 +1,23 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-release-gcc
+    Start 134: runner.archive_inventory_native
+1/6 Test #134: runner.archive_inventory_native ..........   Passed    0.02 sec
+    Start 135: runner.archive_inventory_native_faults
+2/6 Test #135: runner.archive_inventory_native_faults ...   Passed    0.04 sec
+    Start 136: runner.formal_archive_custody_v1
+3/6 Test #136: runner.formal_archive_custody_v1 .........   Passed    0.45 sec
+    Start 154: runner.archive_metadata_fast_v2
+4/6 Test #154: runner.archive_metadata_fast_v2 ..........   Passed    0.17 sec
+    Start 155: runner.fixed_action_executor_v12
+5/6 Test #155: runner.fixed_action_executor_v12 .........   Passed    0.40 sec
+    Start 156: runner.archive_inventory_native_python
+6/6 Test #156: runner.archive_inventory_native_python ...   Passed    0.12 sec
+
+100% tests passed out of 6
+
+Label Time Summary:
+archive      =   1.20 sec*proc (6 tests)
+python       =   1.14 sec*proc (4 tests)
+runner       =   1.20 sec*proc (6 tests)
+synthetic    =   1.03 sec*proc (5 tests)
+
+Total Test time (real) =   1.21 sec

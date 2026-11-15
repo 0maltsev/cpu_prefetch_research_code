@@ -264,6 +264,16 @@ add_library(cpu_prefetch_stage17_archive_inverse SHARED
   tools/stage17_archive_inverse_native_v1.cpp)
 target_link_libraries(cpu_prefetch_stage17_archive_inverse PRIVATE cpu_prefetch_project_options)
 
+# D253 cold-only complete fresh inventory; never linked into the measured worker.
+add_library(cpu_prefetch_stage17_archive_inventory SHARED
+  tools/stage17_archive_inventory_native_v1.cpp)
+target_link_libraries(cpu_prefetch_stage17_archive_inventory PRIVATE cpu_prefetch_project_options)
+target_compile_options(cpu_prefetch_stage17_archive_inventory PRIVATE -fno-exceptions -fno-rtti)
+if(CPU_PREFETCH_SANITIZER STREQUAL "NONE")
+  target_link_options(cpu_prefetch_stage17_archive_inventory PRIVATE -nodefaultlibs)
+  target_link_libraries(cpu_prefetch_stage17_archive_inventory PRIVATE c)
+endif()
+
 # ADR-0044's owner-thread preparation uses the already-allocated Stage 11
 # private streams. The dependency is declared only after the storage target is
 # available; storage itself has no runner dependency.
@@ -1573,6 +1583,26 @@ if(BUILD_TESTING)
     COMMAND cpu_prefetch_stage17_archive_inverse_tests)
   set_tests_properties(runner.archive_inverse_native PROPERTIES
     LABELS "runner;archive;synthetic" TIMEOUT 60)
+  add_executable(cpu_prefetch_stage17_archive_inventory_tests
+    tests/stage17_archive_inventory_native_test.cpp)
+  target_link_libraries(cpu_prefetch_stage17_archive_inventory_tests PRIVATE
+    cpu_prefetch_stage17_archive_inventory cpu_prefetch_project_options GTest::gtest_main)
+  add_test(NAME runner.archive_inventory_native
+    COMMAND cpu_prefetch_stage17_archive_inventory_tests)
+  set_tests_properties(runner.archive_inventory_native PROPERTIES
+    LABELS "runner;archive;synthetic" TIMEOUT 60)
+  add_executable(cpu_prefetch_stage17_archive_inventory_fault_tests
+    tests/stage17_archive_inventory_native_test.cpp tools/stage17_archive_inventory_native_v1.cpp)
+  target_compile_definitions(cpu_prefetch_stage17_archive_inventory_fault_tests PRIVATE
+    CPU_PREFETCH_INVENTORY_FAULT_TESTS)
+  target_link_libraries(cpu_prefetch_stage17_archive_inventory_fault_tests PRIVATE
+    cpu_prefetch_project_options GTest::gtest_main)
+  target_link_options(cpu_prefetch_stage17_archive_inventory_fault_tests PRIVATE
+    "-Wl,--wrap=clock_gettime,--wrap=malloc,--wrap=realloc,--wrap=fstatat")
+  add_test(NAME runner.archive_inventory_native_faults
+    COMMAND cpu_prefetch_stage17_archive_inventory_fault_tests)
+  set_tests_properties(runner.archive_inventory_native_faults PROPERTIES
+    LABELS "runner;archive;synthetic" TIMEOUT 60)
   add_test(NAME runner.formal_archive_custody_v1
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_custody_v1.py")
   set_tests_properties(runner.formal_archive_custody_v1 PROPERTIES
@@ -1626,7 +1656,8 @@ if(BUILD_TESTING)
   set_tests_properties(runner.formal_admin_v2 PROPERTIES
     LABELS "runner;archive;python" TIMEOUT 180)
   foreach(_d252_test IN ITEMS phase_controller_v28 operational_cli_v21 formal_admin_v3
-      archive_canonical_fast_v1 archive_metadata_fast_v1)
+      archive_canonical_fast_v1 archive_metadata_fast_v1 archive_metadata_fast_v2
+      formal_service_daycap_v1 service_daycap_execution_v1)
     add_test(NAME runner.${_d252_test}
       COMMAND "${Python3_EXECUTABLE}" -B
         "${PROJECT_SOURCE_DIR}/tests/test_stage17_${_d252_test}.py")
@@ -1637,6 +1668,18 @@ if(BUILD_TESTING)
   # standalone codec ceiling. Instrumented core tests exercise encoding independently;
   # the real CLI bridge requires an ordinary development/release executable.
   if(CPU_PREFETCH_SANITIZER STREQUAL "NONE")
+    add_test(NAME runner.fixed_action_executor_v12
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_fixed_action_executor_v12.py"
+        --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>")
+    set_tests_properties(runner.fixed_action_executor_v12 PROPERTIES
+      LABELS "runner;archive;synthetic;python" TIMEOUT 180)
+    add_test(NAME runner.archive_inventory_native_python
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_archive_inventory_native_v1.py"
+        --library "$<TARGET_FILE:cpu_prefetch_stage17_archive_inventory>")
+    set_tests_properties(runner.archive_inventory_native_python PROPERTIES
+      LABELS "runner;archive;synthetic;python" TIMEOUT 180)
     add_test(NAME runner.archive_inverse_native_python
       COMMAND "${Python3_EXECUTABLE}" -B
         "${PROJECT_SOURCE_DIR}/tests/test_stage17_archive_inverse_native_v1.py"

@@ -1,0 +1,62 @@
+D253: archive overhead reduction and owner-requested stop,2026-11-15
+
+Q16b stopped by one pidfd-pinned SIGTERM14:59:53UTC at the third fully archived
+capture. Existing supervisor reaped the native worker and verified hardware,
+CPU-partition and maintenance restoration15:00:27UTC. The exact interrupted
+failure receipt SHA1c589140b2ad2ca7fea8f979c243fea06f526703e7a3cbe681ba5c1288fb4c3a
+is retained; this is not family success. No automatic experiment restart.
+
+Separate native inventory scans every original selected object with fresh stats,
+hardlink first-observation deduplication, identical quota math and checked bounds.
+Metadata reader caches only ancestor strings and freshly checks ancestors and
+file identities/bytes each call; it reads observedsize+1 instead of the GiB ceiling.
+The private v12 executor removes a pre-broker replay used only to derive signed
+attributes and combines post-broker receipt/resource checks under one fresh lock.
+The actual broker and controller still independently replay the full history.
+No history/content/usage cache, skipped readback or changed measurement kernel.
+
+Actual stand full inventory:74889objects,469481541632quota bytes, identical every
+field.59747ledger records,6477states and complete replay state match. Ledger replay
+15.44->10.61s; inventory0.715->0.145s. Exact readonly receipt/resource bodies
+31.38->12.97s. The latter uses a software cleanup-boundary fixture carrying old
+codec cleanup fields; it grants no fresh broker or native execution evidence.
+
+Same retained5130136113-byte capture through real encoder, BOTH sealed decoder
+readbacks, durable custody and release:203.4165->162.4403s coldpipeline, plus
+initial store replay16.0768->10.6252s. Both produce592424833archive bytes, all six
+original logical hashes/sizes match,18codec children reaped, no source discrepancy.
+Software fixtures contain independent old metadata copies and sparse placeholders
+for unrelated historical archives; these are timing fixtures, not research data.
+No queue worker or new observation was generated. Qualifiers/controllers and
+future formal source/profile admission remain separate from these software tests.
+
+Selected test profilec15d54de37bfe2cfe99d5c3d2d13e0853d77aac6eb743e87b5c510b9a61fabc0;
+native ELF3187d8a5d86deecb440af4468f80e31149e7a4fa0c8c23f4a3decc3cf46d2071,libc-only.
+New C++ source3f1302ab7e1ab7ae463e28471b37d781e9ccd8eef7c58320e10615180d8d4825.
+Native13normal/18fault tests,18ASan+UBSan checks,8Python parity/image tests,
+16metadata read tests and27flow tests pass;6managed-process flow tests skip
+under this PC's process-boundary restrictions. Fresh integrated CTest6/6pass.
+Both original real sealed readbacks succeeded in the stand coldpipeline test.
+
+An additional guarded JSON parser passed acceptance tests but worsened actual
+replay to13.5s. It was rejected; selected source retains the faster existing parser.
+Its prototype/timing are retained separately and grant no authority. Software
+benchmark drafts hit address-space, role-layout and PID-namespace guards before
+being corrected; all are software-test setup failures with zero new experiments.
+
+The earlier14-day first-cycle estimate omitted history growth. A recorded linear
+engineering model for the OLD3540capture plan estimates13.12days after changes
+versus21.93days before them. It is based on one context, not a full-study result.
+That projection is now SUPERSEDED: the owner approved D254,all60settings x2=120
+captures under a new descriptive method and a24-hour end-to-end cap.
+
+Independent validation timing on existing first-capture bytes passed in343.928s,
+including5.371s control parsing; raw validation338.557s, peakRSS2195552KiB under
+16GiB AS. No completed Q16a validation or measurement was repeated. Old data
+and qualifications remain preserved under their own source identities.
+
+After all timing checks finished, verified cleanup removed only independent
+software fixtures and reconstructed test copies, releasing12376756224allocated
+bytes on the stand. Original program tip3b3198273f0b2d2ad49aa46980b0de42ea269d8722dec2593c7bd98781ac852c
+is unchanged and every original experimental archive remains retained. No raw
+experimental data was transferred to this PC.

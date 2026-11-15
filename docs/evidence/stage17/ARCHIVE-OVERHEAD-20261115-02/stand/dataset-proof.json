@@ -1,0 +1,38 @@
+{
+  "execution_authority": false,
+  "observations_added": 0,
+  "logical_bytes": 5130136113,
+  "source_checkpoint_sha256": "731724d812edd5f65686b4435c25bc2ab4ab27e9455b2c4533c48753a5cb902f",
+  "artifacts": [
+    {
+      "file_name": "q16b-c0-warmup-producer.bin",
+      "sha256": "3cd5741632c5301939da9f5ecfe40171428d432bdfef496ea12882280dbac867",
+      "size_bytes": 2184291648
+    },
+    {
+      "file_name": "q16b-c0-warmup-consumer.bin",
+      "sha256": "f9a9a3937716b92243e687a6768827bd6c8181a8af1181de4f89178cf608e169",
+      "size_bytes": 1541852928
+    },
+    {
+      "file_name": "q16b-c0-measurement-producer.bin",
+      "sha256": "552850a249110f262b5f2f6a37991539d5882a62292918b471702d621c635650",
+      "size_bytes": 510496808
+    },
+    {
+      "file_name": "q16b-c0-measurement-consumer.bin",
+      "sha256": "eb0bf5dc8e0cb2cc3d46ec5aabc25c8584bea3fd77ebdd785792009d5dc360b5",
+      "size_bytes": 360350688
+    },
+    {
+      "file_name": "q16b-c0-node-order.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "file_name": "q16b-c0-control.json",
+      "sha256": "d7306544d5591a2d6204258e466ec87d348e9d882caffbaa2335a2fbe93c93ec",
+      "size_bytes": 533144041
+    }
+  ]
+}

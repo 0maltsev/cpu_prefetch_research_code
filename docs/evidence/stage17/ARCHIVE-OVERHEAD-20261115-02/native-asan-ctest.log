@@ -1,0 +1,14 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-asan-ubsan-gcc
+    Start 708: runner.archive_inventory_native
+1/2 Test #708: runner.archive_inventory_native ..........   Passed    0.05 sec
+    Start 709: runner.archive_inventory_native_faults
+2/2 Test #709: runner.archive_inventory_native_faults ...   Passed    0.11 sec
+
+100% tests passed out of 2
+
+Label Time Summary:
+archive      =   0.16 sec*proc (2 tests)
+runner       =   0.16 sec*proc (2 tests)
+synthetic    =   0.16 sec*proc (2 tests)
+
+Total Test time (real) =   0.20 sec

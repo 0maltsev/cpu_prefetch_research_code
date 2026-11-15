@@ -1,0 +1,162 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/dev-gcc
+      Start 221: FormalRingNativeInput.ResolvesExplicitWindowAndBothPhaseBounds
+ 1/77 Test #221: FormalRingNativeInput.ResolvesExplicitWindowAndBothPhaseBounds .....................   Passed    0.01 sec
+      Start 222: FormalRingNativeInput.CoversTwelveContextsWithoutInventingFarCpu
+ 2/77 Test #222: FormalRingNativeInput.CoversTwelveContextsWithoutInventingFarCpu ...................   Passed    0.01 sec
+      Start 223: FormalRingNativeInput.RejectsWrongMethodPackageWarmupAndFactorLabels
+ 3/77 Test #223: FormalRingNativeInput.RejectsWrongMethodPackageWarmupAndFactorLabels ...............   Passed    0.01 sec
+      Start 224: FormalRingNativeInput.RejectsIncompleteOrAdditionalFields
+ 4/77 Test #224: FormalRingNativeInput.RejectsIncompleteOrAdditionalFields ..........................   Passed    0.01 sec
+      Start 225: FormalRingNativeInput.RejectsMissingWindowMinimumAndOverflow
+ 5/77 Test #225: FormalRingNativeInput.RejectsMissingWindowMinimumAndOverflow .......................   Passed    0.01 sec
+      Start 226: FormalRingNativeInput.RejectsStaleDeclaredLayoutAndTooSmallBudget
+ 6/77 Test #226: FormalRingNativeInput.RejectsStaleDeclaredLayoutAndTooSmallBudget ..................   Passed    0.01 sec
+      Start 227: FormalRingNativeInput.RejectsUncoveredRawCapacity
+ 7/77 Test #227: FormalRingNativeInput.RejectsUncoveredRawCapacity ..................................   Passed    0.01 sec
+      Start 228: FormalRingNativeInput.RejectsPhaseIdentityReuseAndUnexpectedArenaSeed
+ 8/77 Test #228: FormalRingNativeInput.RejectsPhaseIdentityReuseAndUnexpectedArenaSeed ..............   Passed    0.01 sec
+      Start 229: FormalRingNativeInput.RejectsOwnerCollisionAndOrdinalDisagreement
+ 9/77 Test #229: FormalRingNativeInput.RejectsOwnerCollisionAndOrdinalDisagreement ..................   Passed    0.01 sec
+      Start 230: FormalRingNativeInput.RejectsNoncanonicalSeedsAndOpaqueIdentities
+10/77 Test #230: FormalRingNativeInput.RejectsNoncanonicalSeedsAndOpaqueIdentities ..................   Passed    0.02 sec
+      Start 231: FormalRingNativeInput.AllowsZeroOffsetButRejectsObservationAtPhaseEnd
+11/77 Test #231: FormalRingNativeInput.AllowsZeroOffsetButRejectsObservationAtPhaseEnd ..............   Passed    0.01 sec
+      Start 232: FormalServiceNativeInput.CoversSixtyCellsAndBothPhaseBounds
+12/77 Test #232: FormalServiceNativeInput.CoversSixtyCellsAndBothPhaseBounds ........................   Passed    0.06 sec
+      Start 233: FormalServiceNativeInput.RequiresExactPackageCellAndMethod
+13/77 Test #233: FormalServiceNativeInput.RequiresExactPackageCellAndMethod .........................   Passed    0.01 sec
+      Start 234: FormalServiceNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel
+14/77 Test #234: FormalServiceNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel ...........   Passed    0.01 sec
+      Start 235: FormalServiceNativeInput.RequiresLinkedSeedAndRejectsItForRing
+15/77 Test #235: FormalServiceNativeInput.RequiresLinkedSeedAndRejectsItForRing .....................   Passed    0.01 sec
+      Start 236: FormalServiceNativeInput.RequiresR1OneLineAndR2ExplicitEvidence
+16/77 Test #236: FormalServiceNativeInput.RequiresR1OneLineAndR2ExplicitEvidence ....................   Passed    0.01 sec
+      Start 237: FormalServiceNativeInput.RejectsStaleLayoutAndUncoveredCapacity
+17/77 Test #237: FormalServiceNativeInput.RejectsStaleLayoutAndUncoveredCapacity ....................   Passed    0.01 sec
+      Start 238: FormalServiceNativeInput.RejectsWindowOverflowAndMissingWarmup
+18/77 Test #238: FormalServiceNativeInput.RejectsWindowOverflowAndMissingWarmup .....................   Passed    0.01 sec
+      Start 239: FormalServiceNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity
+19/77 Test #239: FormalServiceNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity .............   Passed    0.01 sec
+      Start 240: FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds
+20/77 Test #240: FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds ........................   Passed    0.19 sec
+      Start 241: FormalScheduledNativeInput.RequiresExactPackageCellAndMethod
+21/77 Test #241: FormalScheduledNativeInput.RequiresExactPackageCellAndMethod .......................   Passed    0.01 sec
+      Start 242: FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel
+22/77 Test #242: FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel .........   Passed    0.01 sec
+      Start 243: FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing
+23/77 Test #243: FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing ...................   Passed    0.01 sec
+      Start 244: FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence
+24/77 Test #244: FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence ..................   Passed    0.01 sec
+      Start 245: FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity
+25/77 Test #245: FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity ..................   Passed    0.01 sec
+      Start 246: FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup
+26/77 Test #246: FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup ...................   Passed    0.01 sec
+      Start 247: FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity
+27/77 Test #247: FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity ...........   Passed    0.01 sec
+      Start 248: FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance
+28/77 Test #248: FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance .......   Passed    0.01 sec
+      Start 249: FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid
+29/77 Test #249: FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid ...   Passed    0.01 sec
+      Start 250: FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum
+30/77 Test #250: FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum ......   Passed    0.01 sec
+      Start 251: FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction
+31/77 Test #251: FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction ...   Passed    0.01 sec
+      Start 252: FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed
+32/77 Test #252: FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed .........   Passed    0.01 sec
+      Start 253: Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets
+33/77 Test #253: Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets ..................   Passed    3.01 sec
+      Start 254: Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies
+34/77 Test #254: Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies ..........................   Passed    0.24 sec
+      Start 255: Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift
+35/77 Test #255: Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift ......................   Passed    0.43 sec
+      Start 256: Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily
+36/77 Test #256: Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily ................   Passed    0.33 sec
+      Start 257: Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput
+37/77 Test #257: Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput ...........................   Passed    1.25 sec
+      Start 258: Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission
+38/77 Test #258: Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission ...........................   Passed    1.68 sec
+      Start 259: Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges
+39/77 Test #259: Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges .........   Passed    0.63 sec
+      Start 260: Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions
+40/77 Test #260: Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions ..........................   Passed    0.15 sec
+      Start 261: Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat
+41/77 Test #261: Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat .......   Passed    0.08 sec
+      Start 262: Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods
+42/77 Test #262: Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods ...........   Passed    0.40 sec
+      Start 263: Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell
+43/77 Test #263: Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell ..............   Passed    1.34 sec
+      Start 264: Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder
+44/77 Test #264: Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder ..........   Passed    0.39 sec
+      Start 265: Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup
+45/77 Test #265: Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup .........   Passed    0.94 sec
+      Start 266: Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay
+46/77 Test #266: Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay ......   Passed    0.39 sec
+      Start 267: Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks
+47/77 Test #267: Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks .............   Passed    1.17 sec
+      Start 268: Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks
+48/77 Test #268: Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks ..........   Passed    0.60 sec
+      Start 269: Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine
+49/77 Test #269: Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine .............   Passed    7.88 sec
+      Start 270: Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy
+50/77 Test #270: Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy ..........   Passed    5.89 sec
+      Start 271: Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint
+51/77 Test #271: Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint ..............   Passed    3.58 sec
+      Start 272: Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission
+52/77 Test #272: Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission ..........   Passed    2.53 sec
+      Start 273: Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily
+53/77 Test #273: Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily ................   Passed    0.81 sec
+      Start 274: Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts
+54/77 Test #274: Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts .................   Passed    0.47 sec
+      Start 275: Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules
+55/77 Test #275: Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules ........   Passed    0.54 sec
+      Start 276: Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume
+56/77 Test #276: Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume ...............   Passed    0.97 sec
+      Start 277: Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs
+57/77 Test #277: Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs ................   Passed    0.94 sec
+      Start 278: FormalRingPublication.RetainsEightRawStreamsAndAbsentOwnersExplicitly
+58/77 Test #278: FormalRingPublication.RetainsEightRawStreamsAndAbsentOwnersExplicitly ..............   Passed    0.01 sec
+      Start 279: FormalRingPublication.CopiesAllDemandBytesWithoutWindowFiltering
+59/77 Test #279: FormalRingPublication.CopiesAllDemandBytesWithoutWindowFiltering ...................   Passed    0.01 sec
+      Start 280: FormalRingPublication.PreservesFailedClockAndIncompletePrefix
+60/77 Test #280: FormalRingPublication.PreservesFailedClockAndIncompletePrefix ......................   Passed    0.01 sec
+      Start 281: FormalRingPublication.StopsAtSinkFailureAndRetainsPriorArtifacts
+61/77 Test #281: FormalRingPublication.StopsAtSinkFailureAndRetainsPriorArtifacts ...................   Passed    0.01 sec
+      Start 282: FormalRingPublication.NeverInfersFinalCleanupFromPrePublicationState
+62/77 Test #282: FormalRingPublication.NeverInfersFinalCleanupFromPrePublicationState ...............   Passed    0.01 sec
+      Start 283: FormalRingPublication.RejectsAbsentProspectiveMinimumBeforePublishing
+63/77 Test #283: FormalRingPublication.RejectsAbsentProspectiveMinimumBeforePublishing ..............   Passed    0.00 sec
+      Start 284: FormalRingPublication.PreservesIndependentPrimaryBytesAndExactDemandBindings
+64/77 Test #284: FormalRingPublication.PreservesIndependentPrimaryBytesAndExactDemandBindings .......   Passed    0.01 sec
+      Start 285: FormalServicePublication.RetainsFourIndependentPrimaryStreams
+65/77 Test #285: FormalServicePublication.RetainsFourIndependentPrimaryStreams ......................   Passed    0.01 sec
+      Start 286: FormalServicePublication.KeepsIntervalNumeratorSeparateFromDrainCount
+66/77 Test #286: FormalServicePublication.KeepsIntervalNumeratorSeparateFromDrainCount ..............   Passed    0.01 sec
+      Start 287: FormalServicePublication.RetainsUnknownFailureWithoutInventingObservation
+67/77 Test #287: FormalServicePublication.RetainsUnknownFailureWithoutInventingObservation ..........   Passed    0.01 sec
+      Start 288: FormalServicePublication.RetainsNodeOrderAsExactUnsignedLittleEndian
+68/77 Test #288: FormalServicePublication.RetainsNodeOrderAsExactUnsignedLittleEndian ...............   Passed    0.01 sec
+      Start 289: FormalServicePublication.PreservesMissingOwnersAndStopsAtSinkFailure
+69/77 Test #289: FormalServicePublication.PreservesMissingOwnersAndStopsAtSinkFailure ...............   Passed    0.01 sec
+      Start 290: FormalServicePublication.FinalCleanupRemainsSeparateEvidence
+70/77 Test #290: FormalServicePublication.FinalCleanupRemainsSeparateEvidence .......................   Passed    0.01 sec
+      Start 291: FormalScheduledPublication.RetainsFourIndependentPrimaryStreams
+71/77 Test #291: FormalScheduledPublication.RetainsFourIndependentPrimaryStreams ....................   Passed    0.01 sec
+      Start 292: FormalScheduledPublication.PreparedSchedulesAreNotFabricatedExecution
+72/77 Test #292: FormalScheduledPublication.PreparedSchedulesAreNotFabricatedExecution ..............   Passed    0.01 sec
+      Start 293: FormalScheduledPublication.RetainsActualReleaseCompletionAndDrainWithoutD211
+73/77 Test #293: FormalScheduledPublication.RetainsActualReleaseCompletionAndDrainWithoutD211 .......   Passed    0.01 sec
+      Start 294: FormalScheduledPublication.RetainsUnknownFailureWithoutInventingObservation
+74/77 Test #294: FormalScheduledPublication.RetainsUnknownFailureWithoutInventingObservation ........   Passed    0.01 sec
+      Start 295: FormalScheduledPublication.RetainsNodeOrderAsExactUnsignedLittleEndian
+75/77 Test #295: FormalScheduledPublication.RetainsNodeOrderAsExactUnsignedLittleEndian .............   Passed    0.01 sec
+      Start 296: FormalScheduledPublication.PreservesMissingOwnersAndStopsAtSinkFailure
+76/77 Test #296: FormalScheduledPublication.PreservesMissingOwnersAndStopsAtSinkFailure .............   Passed    0.01 sec
+      Start 297: FormalScheduledPublication.FinalCleanupRemainsSeparateEvidence
+77/77 Test #297: FormalScheduledPublication.FinalCleanupRemainsSeparateEvidence .....................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 77
+
+Label Time Summary:
+runner    =  37.32 sec*proc (77 tests)
+
+Total Test time (real) =  37.36 sec

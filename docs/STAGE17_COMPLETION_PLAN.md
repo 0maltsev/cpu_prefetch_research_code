@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-**Archive optimization checkpoint (2026-11-15, 14:48 UTC): optimized Q16b RUNNING ON STAND.** [D252](decisions/0252-stage17-cold-archive-native-inverse.md) preserves all measurements and checks while accelerating raw inverse, canonical serialization and full live inventory scans. Actual stand decoder verification is5.9× faster; ledger replay21.35→15.4s and complete inventory0.97→0.71s retain identical results. The owner-authorized full restart began14:42:33UTC with3,540captures,60cells ×59,5s warmup/1s measurement. Native worker210874 was verified alive at14:43UTC under UID1000 in the reserved partition; its actual executable hash matches qualified release42f2ebb. Supervisor208800 owns restoration. The first capture is durably ARCHIVED_AND_RELEASED with all six artifact hashes matching and no archive failure. Its native-publication-to-custody interval is239.03s versus the earlier505.49s (53% less time); this initial comparison does not establish whole-family runtime. Collection continues; scientific validity is NOT_ASSESSED. All13old Q16b captures and completed Q16a/clocks/Q15 remain preserved. [Report](evidence/stage17/ARCHIVE-NATIVE-20261115-01/REPORT.txt). Q16b validation, Q16c and EXT007/Stage17 exit remain pending; stop on first new experimental failure, without automatic retry.
+**One-day Q16b revision (2026-11-15):120 captures APPROVED; collection remains STOPPED.** The owner selected all60 research settings with exactly2repetitions each, explicitly replacing the prior59-repetition guarantee; [D254](decisions/0254-stage17-one-day-service-calibration.md) records the separate descriptive method and24-hour end-to-end cap. [D253](decisions/0253-stage17-fresh-custody-scan-overhead.md) archive software reduced the retained-capture cold pipeline203.4→162.4s and read-only receipt/resource gates31.4→13.0s, preserving exact data/custody checks. The interrupted run retains all3completed captures; hardware/isolation/maintenance restoration passed. Independent validation timing, reduced-family/native admission, fresh source qualification if required, exact budget and launch preparation are in progress. No new experiment has started. Completed Q16a/clocks/Q15 and all prior evidence remain preserved; EXT007/Stage17 remain incomplete.
 
 **Historical Q16b collection checkpoint (2026-11-15, 10:35 UTC): running at that time; stopped for D252 at 12:50 UTC.** The single formal attempt started at 10:33:56 UTC. Native worker PID 197428 is alive under UID 1000 in the reserved cgroup; its actual memfd executable SHA256 matches qualified release `42f2ebb`. The approved plan is unchanged: 3,540 captures (60 cells × 59), each with 5-second warmup and 1-second measurement. Namespace registration, owner signing and verified isolation are complete; detached supervisor PID 196134 owns cleanup and restoration. No failure or completion receipt exists; scientific validity is NOT_ASSESSED. Completed clocks/Q15 and all 708 validated Q16a reports remain preserved without reruns. [Startup proof and plan](evidence/stage17/Q16B-ADMISSION-20261115-01/REPORT.txt). Next: finish collection and archival, independently validate Q16b, then Q16c, calibration freeze and EXT007/Stage17 exit. Stop at the first new experimental failure; no automatic retry.
 
@@ -152,14 +152,18 @@ credit for the unchanged formal EXT007 requirements.
       arithmetic matches. Separate zero-loss gates FAIL; FULL data stays retained.
    7. **Complete — Q16a downstream handoff:** D247 live admission completed at
       08:18 UTC Nov15, exit0, child reaped; both source histories are preserved.
-   8. **In progress — Q16b:** D248 freezes 3,540 captures. D249 cold sizing,
-      D250/D251 administrative source verification, namespace audits, the
-      same-lock family registration and new owner signature are complete.
-      Live isolation passed; detached supervisor196134 started10:13UTC.
-      The formal attempt started10:33:56UTC; at10:35UTC actual native worker
-      197428 was verified UID1000 in the reserved cgroup with exact qualified
-      memfd hash. Collection/archival are running; independent validation remains
-      pending. Stop on first new experimental failure; no automatic retry.
+   8. **In progress — reduced Q16b, collection stopped:** D254 supersedes the
+      D248 count for the future study: all60settings ×2repetitions=120captures,
+      separate descriptive minima without the old95/95claim, at most24hours
+      including validation and restoration. All older attempts remain preserved;
+      the latest stopped after3fullyarchived captures with verified restoration.
+      D253's archive/metadata optimization passed real retained-data timing and
+      custody checks. D254 native admission, Python declaration/estimator and
+      private executor tests pass. The120capture draft preserves actual layouts
+      and requested phase limits. Clean new source qualification, compatibility,
+      profile admission, namespace reservation and signed launch remain pending.
+      No new experiment is running. Stop on first new experimental failure;
+      no automatic retry or extension beyond the one-day cap.
    9. **Pending:** Q16c, calibration freeze and EXT007/Stage17 exit admission.
       No Stage18 authority follows from this Q16b launch checkpoint.
 

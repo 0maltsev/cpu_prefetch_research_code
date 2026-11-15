@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-operators-1/validate_suffix.py", line 154, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-operators-1/validate_suffix.py", line 151, in main
+    return fn()
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-operators-1/original_analysis.py", line 272, in main
+    resource.setrlimit(resource.RLIMIT_FSIZE,(SCRATCH,SCRATCH));coordinate(c,args.coordinate_deadline_ns);return 0
+                                                                ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-operators-1/validate_suffix.py", line 137, in coordinate
+    require(dataclasses.asdict(store.ledger_binding())==verified['scope_bindings']['ledger_head'],'ledger changed during offline validation')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-operators-1/original_analysis.py", line 18, in require
+    if not ok:raise ValueError(message)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: ledger changed during offline validation

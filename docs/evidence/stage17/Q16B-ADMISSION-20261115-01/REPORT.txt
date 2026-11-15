@@ -1,0 +1,15 @@
+D250 Q16b admission integration, source checkpoint 2026-11-15
+
+Explicit CLI20/controller27 formal dispatch and exact source-packet loader
+are implemented. The preserved v18 command bodies keep all original schema,
+signature, lineage, journal, UTC, namespace, hardware and archive gates.
+Nine focused tests and four CTest regression suites pass (99.08 seconds).
+No new native source, qualification, raw validation or experiment.
+
+Namespace/history auditing and concrete root/owner launch preparation are
+in progress. The initial local audit has zero identity collisions but correctly
+rejected34 preexisting zero-byte JSON-named diagnostics. An explicit empty-
+file interpretation is being tested; originals and the first audit are kept.
+The exact D249 plan remains unchanged and stored on the stand. No namespace
+registration, signature, isolation change or Q16b collection has occurred here.
+EXT007/Stage17 remains incomplete, with no Stage18 authority.

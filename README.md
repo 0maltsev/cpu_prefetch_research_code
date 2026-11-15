@@ -1,5 +1,7 @@
 # CPU Prefetch Research Code
 
+**Q16b admission work (2026-11-15):** [D250](docs/decisions/0250-q16b-administrative-admission.md) supplies the separately bound CLI20/controller27 route for the exact stored plan. Focused tests pass; regressions, historical namespace audit/registration and Q16b-specific isolation/supervision preparation are in progress. No new Q16b collection, qualification or Q16a raw validation has run.
+
 **Q16b preparation checkpoint (2026-11-15): Q16a downstream handoff COMPLETE; Q16b cold plan VERIFIED and stored on the stand.** Owner-approved [D248](docs/decisions/0248-q16b-prospective-duration-freeze.md) fixes 1-second measurement, 5-second warmup and 59 repetitions/cell (3,540 captures). The live [D247](docs/decisions/0247-completed-q16a-downstream-handoff.md) job completed at 08:18 UTC, exit0, with the child reaped. All 60 actual native layouts and the full plan passed verification; [D249](docs/decisions/0249-q16b-cold-plan-resource-boundaries.md) records finite resource bounds and remaining admission gates. Plan SHA256 `ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702`. Q16b is not running: namespace registration, explicit administrative wiring, signed phase admission and Q16b-specific isolation remain required. No completed experiment or raw validation was repeated. [Report](docs/evidence/stage17/Q16B-PREPARATION-20261115-01/REPORT.txt). EXT007 and Stage17 remain incomplete.
 
 

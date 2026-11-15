@@ -23,7 +23,24 @@ so C++ sanitizers do not exercise the changed behavior. Default CMake configure
 was attempted and rejected the PC's CMake4.4.5 because the repository requires
 4.3.x; the directly executed Python test entry points ran independently.
 
-Stand deployment and actual fresh-signature journal validation are pending at
-this source checkpoint. No experimental retry, new Q16b collection or deadline
-reset is authorized by this administrative repair. The previous study remains
-stopped. Completed708-capture Q16a remains retained on the stand.
+Stand repair completed and independently reloaded through the actual D256/D255
+private CLI at19:04:31 UTC on15 November2026. Author, owner signature, commit
+and reload all exited0. The committed journal is000009, SHA256
+`cbdebb6569c179c025b26bdd6a28dccd78ceb465c2377c964a5e6d821395d3d4`.
+It reaches `READY_FOR_STAGE17_PHASE_AUTHORIZATION` with six resolutions and
+three transitions. `pilot_ready=false`, `execution_authority=false` and
+`phase18_authority=false` remain explicit. The failed old study and draft
+journal are retained unchanged; no clocks, Q15 or Q16 measurements were rerun.
+
+The actual collection remains0/120, and no collection preparation or attempt
+exists. The previous supervisor exited and restored its CPU partition. Its
+one-shot `--run` entry point must not be restarted: it would repeat completed
+qualification and reuse exclusive evidence paths. A collection-only resume
+needs separate, bound administrative configuration, fresh observed isolation
+and resources, and the original Q16b signature/one-attempt gates. The D256 CLI
+has no experimental command. The original absolute study cutoff remains
+16 November17:23:47 UTC. The old qualification/preparation reservation cutoff
+is15 November19:04:47 UTC; it must not be reset silently. Reconcile remaining
+operational budgets before collection, preserving the full120-capture matrix
+and already successful qualification. Completed708-capture Q16a remains
+retained on the stand. EXT007 and Stage17 remain incomplete.

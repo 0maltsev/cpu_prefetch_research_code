@@ -1,0 +1,21 @@
+{
+  "disposable_pc_transfers_removed": [
+    {
+      "path": "build/stage17-daycap-120/d256-repair/packet.tar",
+      "sha256": "410398982f730231551f7a7f1f343f9e40c01ce3c71267a29a18ac9787889101",
+      "size_bytes": 61440
+    },
+    {
+      "path": "build/stage17-daycap-120/d256-repair/incident-bytes.json",
+      "sha256": "ec7fc4ad6fe27027fe24e2cec79f52261f4278be68ddb5b519857b60339f27bf",
+      "size_bytes": 28189
+    },
+    {
+      "path": "build/stage17-daycap-120/d256-repair/completion-bytes.json",
+      "sha256": "6f119a53547eec30d3d657471c6a3c652082ad365fe53c5752cfa6f2629afab7",
+      "size_bytes": 22084
+    }
+  ],
+  "scientific_raw_deleted": false,
+  "stand_verified_transit_archive_removed": true
+}

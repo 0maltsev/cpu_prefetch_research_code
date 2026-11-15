@@ -1,0 +1,25 @@
+D247/D248 Q16b preparation checkpoint, 2026-11-15
+
+Owner prospectively approved 1-second measurement, 5-second warmup and
+59 repetitions/cell across the existing 60-cell product (3540 captures).
+No Q16b collection has started. The exact accepted reply is retained.
+
+The incident-bound Q16a handoff accepts only the three exact audited D246
+artifacts, preserves both source histories and all FULL outcomes/flags,
+and independently replays the summary arithmetic. Controller27 admits
+that explicit prerequisite without fabricating a single-source record.
+All prior signed admission, profile, namespace and finite deadline gates
+remain required. No qualified native source or measured release is changed.
+
+Fresh verification: four targeted CTest suites passed (107.62s), including
+8 new handoff/controller tests, composition and geometry regressions, and
+legacy controller26. Seventeen legacy controller25 tests separately passed.
+New checks reject changed/rebound bytes, symlinks, wrong source/inventory/
+platform/stand/duration, authority fields and mismatched R2 distance/evidence.
+The historical validator globals remain unchanged and v26 stays strict.
+Native sanitizers are not applicable to these Python administrative changes.
+
+Live stand handoff preparation is pending this source checkpoint. Real
+Q16b native sizing, prospective budget, historical namespace registration,
+shared-program capacity admission, isolation and signed phase admission
+remain pending. EXT007 and Stage17 remain incomplete; no Stage18 authority.

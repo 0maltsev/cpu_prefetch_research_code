@@ -9,7 +9,7 @@ class TupleTests(unittest.TestCase):
    self.assertEqual(verifier.daycap_admission_tuple(name,policy),(59,33,33,'STAGE17-FIXED-ACTION-PHASE-CONTROLLER-DAYCAP-v1','tools/stage17_phase_controller_daycap_v1.py'))
   self.assertIsNone(verifier.daycap_admission_tuple('STAGE17-PILOT-CANDIDATE-BUNDLE-v25',policy))
  def test_historical_and_unsupported_tuples_do_not_select_new_route(self):
-  for p in ('58','60','059','59.json/extra'):
+  for p in ('58','61','059','59.json/extra'):
    self.assertIsNone(verifier.daycap_admission_tuple('STAGE17-PILOT-CANDIDATE-BUNDLE-v26',{'policy':{'path':f'config/stage17/stage17-operational-evidence-admission-policy-v{p}.json'}}))
  def test_malformed_metadata_cannot_select59(self):
   for c in (None,{}, {'policy':None},{'policy':'v59'}):self.assertIsNone(verifier.daycap_admission_tuple('STAGE17-PILOT-CANDIDATE-BUNDLE-v26',c))

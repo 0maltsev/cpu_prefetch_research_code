@@ -1,0 +1,2049 @@
+{
+  "utc": "2026-11-16 08:45:09.620795+00:00",
+  "unit": "ActiveState=inactive\nMainPID=0\nResult=success\nExecMainStatus=0\nControlGroup=\n",
+  "files": {
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/analysis-complete.json": {
+      "size_bytes": 5742,
+      "sha256": "6f95694880e143a25e27bdf39990817a0310b0a032a78781688ba8bb7701f9a3",
+      "document": {
+        "all_raw_reconstructed_and_hash_checked": true,
+        "canonical_spools_removed": true,
+        "captures": 17,
+        "completed_family_established": false,
+        "completed_monotonic_ns": 1255216623311358,
+        "control_reader": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d261-reader-operators-1/stage17_formal_control_reader_v1.py",
+          "sha256": "236c794b385803b8d8edc4720d3cede81d86806111b0fe4f82e54410f47e625c",
+          "size_bytes": 5922
+        },
+        "custody_incomplete_ordinals": [
+          16
+        ],
+        "elapsed_seconds": 2012.731938508,
+        "execution_authority": false,
+        "ledger": {
+          "file_name": "0000000000060695.json",
+          "sha256": "f5e49f228718763995f2ecebf694aef4bd74ac3dec1142ca3a771e8dd62fb841",
+          "size_bytes": 1332
+        },
+        "original_family": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+        "original_hard_deadline_ns": 1286361844786205,
+        "original_request": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/admission-root/evidence/formal-q16b-daycap-1/request.json",
+          "sha256": "a2feeb896645779cae711735a1e7ad93bf547effba9823d2d6c97220cac6a3b5",
+          "size_bytes": 2076157
+        },
+        "phase18_authority": false,
+        "reports": [
+          {
+            "ordinal": 0,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-0.json",
+              "sha256": "df35dac0c9cc460d2fd2148cbaba7689584601d174b6cfb1ee9255c1caa1ed3d",
+              "size_bytes": 2145
+            },
+            "seconds": 698.388444887
+          },
+          {
+            "ordinal": 1,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-1.json",
+              "sha256": "3dc81fca04c47faf47e7041f34994bb101ad40c5937d2c05d4c7d3e915dd58ca",
+              "size_bytes": 2145
+            },
+            "seconds": 689.928103708
+          },
+          {
+            "ordinal": 2,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-2.json",
+              "sha256": "6f70920883598875a8ecb833a7f60518ba1bf22ec57ab481b5c7f19690c5d57e",
+              "size_bytes": 2157
+            },
+            "seconds": 743.641671487
+          },
+          {
+            "ordinal": 3,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-3.json",
+              "sha256": "9dab434b31ee8458f327eefb5b17a2bec9ce54fe21e8d156bc7d950f13aff3fa",
+              "size_bytes": 2157
+            },
+            "seconds": 740.36540484
+          },
+          {
+            "ordinal": 4,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-4.json",
+              "sha256": "4e6566f4039483949e648219323303b768db38e8ed71579d229cb82dd2828149",
+              "size_bytes": 2158
+            },
+            "seconds": 760.971341095
+          },
+          {
+            "ordinal": 5,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-5.json",
+              "sha256": "7a60fb72fcea2a621d438260a6b43dc701aa657bd65f16f0b764f161abed7685",
+              "size_bytes": 2158
+            },
+            "seconds": 755.848914784
+          },
+          {
+            "ordinal": 6,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-6.json",
+              "sha256": "2a3c4c2768e0220e41a475949241183c77b91f8f05cc57fadd5f96583cbda953",
+              "size_bytes": 2142
+            },
+            "seconds": 429.66449768
+          },
+          {
+            "ordinal": 7,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-7.json",
+              "sha256": "cef390d5fa35dda1aab5f01638abb3015407102cc086fc67bd0aedc19784393f",
+              "size_bytes": 2142
+            },
+            "seconds": 493.855482617
+          },
+          {
+            "ordinal": 8,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-8.json",
+              "sha256": "50a819c46280229eaa94b98e62665b750934ccc81979e726950b7fbc5bc44dbc",
+              "size_bytes": 2142
+            },
+            "seconds": 523.10526607
+          },
+          {
+            "ordinal": 9,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-9.json",
+              "sha256": "fb563ac78288db2aea0a44ff7368e0ac5ffb7cc421ffb2d4684c7f94a8789e56",
+              "size_bytes": 2142
+            },
+            "seconds": 497.337408521
+          },
+          {
+            "ordinal": 10,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-10.json",
+              "sha256": "acc73e730bea2cad4ad7e001d5d76998da5153af7d573d2aa50e2aea61ed79cc",
+              "size_bytes": 2159
+            },
+            "seconds": 584.80402907
+          },
+          {
+            "ordinal": 11,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-11.json",
+              "sha256": "93ca7d36afda80a9f0a44dab217b6af5a12033c137ddba0f34157c7b24c3befe",
+              "size_bytes": 2159
+            },
+            "seconds": 581.844887213
+          },
+          {
+            "ordinal": 12,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-12.json",
+              "sha256": "2e4c77de0cd942af07fcb50dc394f92647d7b5747034cc8d12da306c0db6617e",
+              "size_bytes": 2146
+            },
+            "seconds": 645.43468487
+          },
+          {
+            "ordinal": 13,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-13.json",
+              "sha256": "4ea789e446d073648b39f642e36bee1eec03836d20679b5eab6f54256a876aa7",
+              "size_bytes": 2149
+            },
+            "seconds": 650.58506678
+          },
+          {
+            "ordinal": 14,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-14.json",
+              "sha256": "74a8548de882d72ed558fa1bb8aa75842b339ec2be1b81eee4079d17e1b3d6c9",
+              "size_bytes": 2157
+            },
+            "seconds": 701.763618606
+          },
+          {
+            "ordinal": 15,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-15.json",
+              "sha256": "796ecaeb965fe9eb5d566039e469f96d54b581480997d9075aa2d4dc54396d85",
+              "size_bytes": 2158
+            },
+            "seconds": 694.776461052
+          },
+          {
+            "ordinal": 16,
+            "report": {
+              "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-16.json",
+              "sha256": "65b82ec2810406edbba1b5349f345a449cd3f460cba22cd8e3107ea1bc9dc266",
+              "size_bytes": 2159
+            },
+            "seconds": 712.691077466
+          }
+        ],
+        "reuse_accepted": false,
+        "status": "ALL_17_RAW_VALIDATED_CUSTODY_INCOMPLETE"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/analysis-intent.json": {
+      "size_bytes": 984,
+      "sha256": "7458e0ad2a26390dd8463870acdca9592c43a56cf98909101b16cbf49ab39885",
+      "document": {
+        "captures": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "control_reader": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d261-reader-operators-1/stage17_formal_control_reader_v1.py",
+          "sha256": "236c794b385803b8d8edc4720d3cede81d86806111b0fe4f82e54410f47e625c",
+          "size_bytes": 5922
+        },
+        "custody_mutation": false,
+        "deadline_monotonic_ns": 1258603891373173,
+        "execution_authority": false,
+        "helper_sha256": "d9f6ca2be2903e51064ac8d365477dfb8301abafee57e191165f4bb74f47c465",
+        "initial_capture_ordinal": 6,
+        "initial_workers": 1,
+        "maximum_workers": 8,
+        "operator": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d261-reader-operators-1/validate_prefix_3.py",
+          "sha256": "ff8177a0cf431124f9d44464dbadfa052bc4aaeb2aecc157dd5046dcfb7fa4b9",
+          "size_bytes": 13097
+        },
+        "original_hard_deadline_ns": 1286361844786205,
+        "per_capture_seconds": 900,
+        "phase18_authority": false,
+        "schema_version": "software-d259-retained-prefix-analysis/1",
+        "started_monotonic_ns": 1253203891373173
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/metadata-complete.json": {
+      "size_bytes": 681,
+      "sha256": "d8c5d94c05c4b4a6bb17774964c78ecbd65b80b6c1154d1afffa6201227cecc9",
+      "document": {
+        "available_memory_bytes": 262022447104,
+        "captures": 17,
+        "control_reader": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d261-reader-operators-1/stage17_formal_control_reader_v1.py",
+          "sha256": "236c794b385803b8d8edc4720d3cede81d86806111b0fe4f82e54410f47e625c",
+          "size_bytes": 5922
+        },
+        "custody_incomplete_ordinals": [
+          16
+        ],
+        "execution_authority": false,
+        "ledger": {
+          "file_name": "0000000000060695.json",
+          "sha256": "f5e49f228718763995f2ecebf694aef4bd74ac3dec1142ca3a771e8dd62fb841",
+          "size_bytes": 1332
+        },
+        "ledger_unchanged": true,
+        "original_signed_lifecycle_prepared": true,
+        "physical_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "retained_failed_spool_bytes": 37485871104,
+        "scratch_bytes": 98879158674
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-0-process.json": {
+      "size_bytes": 530,
+      "sha256": "bc9527b3555c2c6cc204fb9a97a8faeb97e08a92049f52415e5f0eb334420f49",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 668792,
+        "ordinal": 0,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-0.json",
+          "sha256": "df35dac0c9cc460d2fd2148cbaba7689584601d174b6cfb1ee9255c1caa1ed3d",
+          "size_bytes": 2145
+        },
+        "seconds": 698.388444887,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-1-process.json": {
+      "size_bytes": 530,
+      "sha256": "4c5b4a780fc4a061b553e4bdb9c43e56415289b8727f03753fb735b482937f63",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 668836,
+        "ordinal": 1,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-1.json",
+          "sha256": "3dc81fca04c47faf47e7041f34994bb101ad40c5937d2c05d4c7d3e915dd58ca",
+          "size_bytes": 2145
+        },
+        "seconds": 689.928103708,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-10-process.json": {
+      "size_bytes": 531,
+      "sha256": "370393d05d29ab3cb847a08e132eedc01661bb86b68e99c96b62174fe37b600d",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 477364224,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 687612,
+        "ordinal": 10,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-10.json",
+          "sha256": "acc73e730bea2cad4ad7e001d5d76998da5153af7d573d2aa50e2aea61ed79cc",
+          "size_bytes": 2159
+        },
+        "seconds": 584.80402907,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-11-process.json": {
+      "size_bytes": 532,
+      "sha256": "3c3786c8dd7d14843e834580317f209648b10a4a089d672e107a8a8dc8bb4b04",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 477364224,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 687356,
+        "ordinal": 11,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-11.json",
+          "sha256": "93ca7d36afda80a9f0a44dab217b6af5a12033c137ddba0f34157c7b24c3befe",
+          "size_bytes": 2159
+        },
+        "seconds": 581.844887213,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-12-process.json": {
+      "size_bytes": 531,
+      "sha256": "8066b98b7453d6580732f2c95438a7964dc90bae63c0d0f71699ef6d72d8baaf",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 668924,
+        "ordinal": 12,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-12.json",
+          "sha256": "2e4c77de0cd942af07fcb50dc394f92647d7b5747034cc8d12da306c0db6617e",
+          "size_bytes": 2146
+        },
+        "seconds": 645.43468487,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-13-process.json": {
+      "size_bytes": 531,
+      "sha256": "f645d017aed37c541bc80ab74c2d6d18f0f827cb0255a63440a56e19e17c7741",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 668924,
+        "ordinal": 13,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-13.json",
+          "sha256": "4ea789e446d073648b39f642e36bee1eec03836d20679b5eab6f54256a876aa7",
+          "size_bytes": 2149
+        },
+        "seconds": 650.58506678,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-14-process.json": {
+      "size_bytes": 532,
+      "sha256": "8cb523b8bc1075b1cc4d1ab6e3ff9b9b13f16113d4423e77cbfbfa07034dbe19",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 670204,
+        "ordinal": 14,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-14.json",
+          "sha256": "74a8548de882d72ed558fa1bb8aa75842b339ec2be1b81eee4079d17e1b3d6c9",
+          "size_bytes": 2157
+        },
+        "seconds": 701.763618606,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-15-process.json": {
+      "size_bytes": 532,
+      "sha256": "bc3a8130d0860c3c0ff54f3ae2d03664503733e42fcc1bc16f855ea2302aaec4",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 670204,
+        "ordinal": 15,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-15.json",
+          "sha256": "796ecaeb965fe9eb5d566039e469f96d54b581480997d9075aa2d4dc54396d85",
+          "size_bytes": 2158
+        },
+        "seconds": 694.776461052,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-16-process.json": {
+      "size_bytes": 532,
+      "sha256": "ecf5ceba30cb9c8d6074557c9f7c155e2118666a03bca91eca0523bf6a6d2ffd",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 477364224,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 687356,
+        "ordinal": 16,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-16.json",
+          "sha256": "65b82ec2810406edbba1b5349f345a449cd3f460cba22cd8e3107ea1bc9dc266",
+          "size_bytes": 2159
+        },
+        "seconds": 712.691077466,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-2-process.json": {
+      "size_bytes": 530,
+      "sha256": "49a1daa05e9de39df29f6ca71c48b094e93b7608f2abd24e3428a3704c63bf3f",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 670204,
+        "ordinal": 2,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-2.json",
+          "sha256": "6f70920883598875a8ecb833a7f60518ba1bf22ec57ab481b5c7f19690c5d57e",
+          "size_bytes": 2157
+        },
+        "seconds": 743.641671487,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-3-process.json": {
+      "size_bytes": 529,
+      "sha256": "4d1a873a390a7efa6ed8c3f4b72b510dbd0a7ca96a1b6d7118496be49e1a27d3",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 670204,
+        "ordinal": 3,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-3.json",
+          "sha256": "9dab434b31ee8458f327eefb5b17a2bec9ce54fe21e8d156bc7d950f13aff3fa",
+          "size_bytes": 2157
+        },
+        "seconds": 740.36540484,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-4-process.json": {
+      "size_bytes": 530,
+      "sha256": "52f92154b57474f7c4a91999565adc0f463786b22b0d3d746bbf6aff30930eab",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 477364224,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 687312,
+        "ordinal": 4,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-4.json",
+          "sha256": "4e6566f4039483949e648219323303b768db38e8ed71579d229cb82dd2828149",
+          "size_bytes": 2158
+        },
+        "seconds": 760.971341095,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-5-process.json": {
+      "size_bytes": 530,
+      "sha256": "ed7cea22ee0108f5fe8a5d00b17e41aec9b072716678297c2912614caca2b8a3",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 477364224,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 687276,
+        "ordinal": 5,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-5.json",
+          "sha256": "7a60fb72fcea2a621d438260a6b43dc701aa657bd65f16f0b764f161abed7685",
+          "size_bytes": 2158
+        },
+        "seconds": 755.848914784,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-6-process.json": {
+      "size_bytes": 529,
+      "sha256": "584450cf51964526a96cf454addf438bab5afbdebbc68096fcea94ca89fcc94f",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 668924,
+        "ordinal": 6,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-6.json",
+          "sha256": "2a3c4c2768e0220e41a475949241183c77b91f8f05cc57fadd5f96583cbda953",
+          "size_bytes": 2142
+        },
+        "seconds": 429.66449768,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-7-process.json": {
+      "size_bytes": 530,
+      "sha256": "c6d2cc2ecb5a7881980c6779ebe9bb2c968436f50d71cff48d4f920627e624a6",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 669224,
+        "ordinal": 7,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-7.json",
+          "sha256": "cef390d5fa35dda1aab5f01638abb3015407102cc086fc67bd0aedc19784393f",
+          "size_bytes": 2142
+        },
+        "seconds": 493.855482617,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-8-process.json": {
+      "size_bytes": 529,
+      "sha256": "4a6073693dd3b8b72ab08c326a6ab815d4c153b6533733df756911af444ce8cd",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 670112,
+        "ordinal": 8,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-8.json",
+          "sha256": "50a819c46280229eaa94b98e62665b750934ccc81979e726950b7fbc5bc44dbc",
+          "size_bytes": 2142
+        },
+        "seconds": 523.10526607,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/capture-9-process.json": {
+      "size_bytes": 530,
+      "sha256": "be7a909c3e90e3a03990efe69cda802239271948cbefb71f25551b375b45bd5b",
+      "document": {
+        "canonical_spool_removed": true,
+        "control_reader": {
+          "hard_ceiling_bytes": 536870912,
+          "original_parser_bytecode_preserved": true,
+          "packed_capacity_bytes": 475791360,
+          "version": "cpu-prefetch-stage17-formal-control-reader/1"
+        },
+        "maximum_resident_kib": 670204,
+        "ordinal": 9,
+        "report": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-9.json",
+          "sha256": "fb563ac78288db2aea0a44ff7368e0ac5ffb7cc421ffb2d4684c7f94a8789e56",
+          "size_bytes": 2142
+        },
+        "seconds": 497.337408521,
+        "status": "VALID"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-0.json": {
+      "size_bytes": 2145,
+      "sha256": "df35dac0c9cc460d2fd2148cbaba7689584601d174b6cfb1ee9255c1caa1ed3d",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 0,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 15626659,
+              "attempted": 15626659,
+              "consumed_including_drain": 15626659,
+              "full": 0
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000000",
+            "stream_sha256": {
+              "consumer": "e0d43970eab15de2cebd3c88c17b8827f74751f95898ac6ec4b81d56d34ec48e",
+              "producer": "6299e9c7120768757ed16e1e95b9e422910b43b6bcbf46039acb3d5205d41abc"
+            },
+            "zero_loss": true
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 3613553,
+              "interval_consumed_count": 3613552,
+              "interval_end_ticks": 25395750851000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1208242162078767,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1208266557829618,
+                  "relative_picoseconds": 24395750851000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1
+            },
+            "counts": {
+              "accepted": 3613553,
+              "attempted": 3613553,
+              "consumed_including_drain": 3613553,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000000",
+            "stream_sha256": {
+              "consumer": "67d48ad78baa250c250550fc7487bf8c3826bfa4816e76d1882cdef6b3155cd8",
+              "producer": "9e5df6ae665a4230a59a13e2fa3f8055db4384f26899d079e4a579bf80859ae1"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": true
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-1.json": {
+      "size_bytes": 2145,
+      "sha256": "3dc81fca04c47faf47e7041f34994bb101ad40c5937d2c05d4c7d3e915dd58ca",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 1,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 15478233,
+              "attempted": 15478233,
+              "consumed_including_drain": 15478233,
+              "full": 0
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000001",
+            "stream_sha256": {
+              "consumer": "681f01047d2abfd0eee77c80255e4afb7707a89021b10f84bac5a8a447fe8b74",
+              "producer": "1820d1ed97935b4fbbd3a085d9e6654922a1ac1070db98121e6fe261943e982e"
+            },
+            "zero_loss": true
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 3573897,
+              "interval_consumed_count": 3573896,
+              "interval_end_ticks": 25323510641000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1208492709030074,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1208517032540715,
+                  "relative_picoseconds": 24323510641000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1
+            },
+            "counts": {
+              "accepted": 3573897,
+              "attempted": 3573897,
+              "consumed_including_drain": 3573897,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000001",
+            "stream_sha256": {
+              "consumer": "9653bd07e8fe1565bfe82f24477a79633f19baefcc32fb81aa677f5ecd8d3e1f",
+              "producer": "f8689d0d4b014e01c964f75a1061e874f066225d112eb4583bd6ae39fd52611d"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": true
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-10.json": {
+      "size_bytes": 2159,
+      "sha256": "acc73e730bea2cad4ad7e001d5d76998da5153af7d573d2aa50e2aea61ed79cc",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 10,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": false,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 10538065,
+              "attempted": 10538065,
+              "consumed_including_drain": 10538065,
+              "full": 0
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000010",
+            "stream_sha256": {
+              "consumer": "32444abfd72b5f06ff414779b01e413fdd5082805434425a0bc8aa00927dcd75",
+              "producer": "3ee93dd23a7a05db3d3f108a7a5f6bbb50037a7434f9c6c21418fc1f8153d0ff"
+            },
+            "zero_loss": true
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 4024388,
+              "interval_consumed_count": 2975812,
+              "interval_end_ticks": 24347109882000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1210574274565170,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1210597621675052,
+                  "relative_picoseconds": 23347109882000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1048576
+            },
+            "counts": {
+              "accepted": 4024388,
+              "attempted": 4108042,
+              "consumed_including_drain": 4024388,
+              "full": 83654
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000010",
+            "stream_sha256": {
+              "consumer": "521c31cbee9f04e30b1cc08f852e6062fe5de78a6612cf3f654f8ddd03a004d6",
+              "producer": "f74f014ac347b46cf9651e55e7c61ae2765628eac257ceebe4fdde9d98eee495"
+            },
+            "zero_loss": false
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-11.json": {
+      "size_bytes": 2159,
+      "sha256": "93ca7d36afda80a9f0a44dab217b6af5a12033c137ddba0f34157c7b24c3befe",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 11,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": false,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 10341236,
+              "attempted": 10341236,
+              "consumed_including_drain": 10341236,
+              "full": 0
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000011",
+            "stream_sha256": {
+              "consumer": "1db93b572dbd01cf5907743a49f6861985a103ce80ea60ff6b371d096b8f9abe",
+              "producer": "12247be0148ad47acd22445888e301fa06f31e9c58d5f337475a7a8376dc4676"
+            },
+            "zero_loss": true
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 3973983,
+              "interval_consumed_count": 2925407,
+              "interval_end_ticks": 24247073615000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1210795546481482,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1210818793555097,
+                  "relative_picoseconds": 23247073615000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1048576
+            },
+            "counts": {
+              "accepted": 3973983,
+              "attempted": 4062152,
+              "consumed_including_drain": 3973983,
+              "full": 88169
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000011",
+            "stream_sha256": {
+              "consumer": "0b4de9a257e5cf860b2251c2bc155cf6131136411af32ea8ac2546d04b885fc7",
+              "producer": "c5809864e3aa3a394cdad78e89f1bde80f8b56439cde3b45c4c988e2168b09dd"
+            },
+            "zero_loss": false
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-12.json": {
+      "size_bytes": 2146,
+      "sha256": "2e4c77de0cd942af07fcb50dc394f92647d7b5747034cc8d12da306c0db6617e",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 12,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 15140386,
+              "attempted": 15140386,
+              "consumed_including_drain": 15140386,
+              "full": 0
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000012",
+            "stream_sha256": {
+              "consumer": "2377dd160274fee68ba4f0739f7a3f02db245de9277abc4db337afa097e8b5be",
+              "producer": "db37ba10e1786cc7d6ead398c4a80582c7b523d56c85399e3c0276ce55951b0f"
+            },
+            "zero_loss": true
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 3510429,
+              "interval_consumed_count": 3510428,
+              "interval_end_ticks": 25310167597000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1211013093310431,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1211037403478028,
+                  "relative_picoseconds": 24310167597000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1
+            },
+            "counts": {
+              "accepted": 3510429,
+              "attempted": 3510429,
+              "consumed_including_drain": 3510429,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000012",
+            "stream_sha256": {
+              "consumer": "a883f17b46f3f34e99543796cdeadd4e34c7f299b504db0c85550811e934689b",
+              "producer": "518a314d612a269fb98dfbf8a61ad8700d914fcf43628eccaf102ca8aadc4409"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": true
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-13.json": {
+      "size_bytes": 2149,
+      "sha256": "4ea789e446d073648b39f642e36bee1eec03836d20679b5eab6f54256a876aa7",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 13,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 15178891,
+              "attempted": 15178912,
+              "consumed_including_drain": 15178891,
+              "full": 21
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000013",
+            "stream_sha256": {
+              "consumer": "4533b1bf0ea9f9b1a37da46e401714cffc961abfc2f53ed3f1e9ea83bff22173",
+              "producer": "75831cedc3c48ca4dc8db4eab0f4d46def3e79c2e7477eb4c121e56990cc36ad"
+            },
+            "zero_loss": false
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 3509078,
+              "interval_consumed_count": 3509077,
+              "interval_end_ticks": 25329771557000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1211262863326551,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1211287193098108,
+                  "relative_picoseconds": 24329771557000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1
+            },
+            "counts": {
+              "accepted": 3509078,
+              "attempted": 3509078,
+              "consumed_including_drain": 3509078,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000013",
+            "stream_sha256": {
+              "consumer": "5475bb5a0021ec8d072ed28d03d19552c812de08a67cac011abafbe2e09cb38f",
+              "producer": "7a2f9ef0f16c26b4b7ebd008b0ba6196f71fa63be958d346b999b5cc67f182c3"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-14.json": {
+      "size_bytes": 2157,
+      "sha256": "74a8548de882d72ed558fa1bb8aa75842b339ec2be1b81eee4079d17e1b3d6c9",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 14,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": false,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 17111033,
+              "attempted": 17116903,
+              "consumed_including_drain": 17111033,
+              "full": 5870
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000014",
+            "stream_sha256": {
+              "consumer": "83f362a5cf8b9c9d06154d37d9bd9c374b7985534cf804f83ccca6dd7d6cb054",
+              "producer": "4256154f69695299100026bb58782d58409fb03461ce0e696b59a363ba88742d"
+            },
+            "zero_loss": false
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 3979824,
+              "interval_consumed_count": 3979823,
+              "interval_end_ticks": 26011400970000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1211513092042705,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1211538103443675,
+                  "relative_picoseconds": 25011400970000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1
+            },
+            "counts": {
+              "accepted": 3979824,
+              "attempted": 3993127,
+              "consumed_including_drain": 3979824,
+              "full": 13303
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000014",
+            "stream_sha256": {
+              "consumer": "9e902fe60a2aae47294d31e3003d74245daaa9acd15a09e94938f535c6c0c461",
+              "producer": "297242a4b823c4e9e1e67458ce9c4928fee6630880f194be88656bfd972f788f"
+            },
+            "zero_loss": false
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-15.json": {
+      "size_bytes": 2158,
+      "sha256": "796ecaeb965fe9eb5d566039e469f96d54b581480997d9075aa2d4dc54396d85",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 15,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": false,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 16567219,
+              "attempted": 16581387,
+              "consumed_including_drain": 16567219,
+              "full": 14168
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000015",
+            "stream_sha256": {
+              "consumer": "6b6b963dec05e1c5acdee167e849e31158b38bad38ae5b7f0894a935604ecb5f",
+              "producer": "1da0989ebe26e517b92613fafdbd608c3da2bdc41f02d4d561cbe9da7ec27b0d"
+            },
+            "zero_loss": false
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 3980428,
+              "interval_consumed_count": 3980427,
+              "interval_end_ticks": 25827308382000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1211790808329644,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1211815635638026,
+                  "relative_picoseconds": 24827308382000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1
+            },
+            "counts": {
+              "accepted": 3980428,
+              "attempted": 3994269,
+              "consumed_including_drain": 3980428,
+              "full": 13841
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000015",
+            "stream_sha256": {
+              "consumer": "915cb889fd03d5f87ae445b1845d8a6d797e993445c63ecbdad810c0a138cfe8",
+              "producer": "796513012b73af7946bf18a3904af04382c54f961ad56a11deb88d2c982cdde2"
+            },
+            "zero_loss": false
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-16.json": {
+      "size_bytes": 2159,
+      "sha256": "65b82ec2810406edbba1b5349f345a449cd3f460cba22cd8e3107ea1bc9dc266",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 16,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 15697656,
+              "attempted": 17355730,
+              "consumed_including_drain": 15697656,
+              "full": 1658074
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000016",
+            "stream_sha256": {
+              "consumer": "ede23171086fee740fff696248780034b1fa47ad0d32b8c19a6c2b6d9206578d",
+              "producer": "25dcc19f99c4ffb944f3a2c00eeeed14c35238719f66c54c6248e964145cb258"
+            },
+            "zero_loss": false
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 4291767,
+              "interval_consumed_count": 3593642,
+              "interval_end_ticks": 27193970963000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1212062951483402,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1212089145454365,
+                  "relative_picoseconds": 26193970963000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 698125
+            },
+            "counts": {
+              "accepted": 4291767,
+              "attempted": 4291767,
+              "consumed_including_drain": 4291767,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000016",
+            "stream_sha256": {
+              "consumer": "0fccdacf87c695fea5f19c389c4cb0c323bd2507a97423262a7201c393cde267",
+              "producer": "2dabfd70f417d17f822cacd805b3128058cea2688e49814ba4b3278059d1e655"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-2.json": {
+      "size_bytes": 2157,
+      "sha256": "6f70920883598875a8ecb833a7f60518ba1bf22ec57ab481b5c7f19690c5d57e",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 2,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": false,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 17098970,
+              "attempted": 17135244,
+              "consumed_including_drain": 17098970,
+              "full": 36274
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000002",
+            "stream_sha256": {
+              "consumer": "a9c7b433fb548e3b53b6acbe7859aa10a60d4c78f23887cf4dc0a0c6a2649706",
+              "producer": "fdd9b6dfff9bb78e814b122b278248ac75d34e6b7439071e869711ea336a4cd6"
+            },
+            "zero_loss": false
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 4100198,
+              "interval_consumed_count": 4100196,
+              "interval_end_ticks": 25984379637000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1208740041780220,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1208765026159857,
+                  "relative_picoseconds": 24984379637000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 2
+            },
+            "counts": {
+              "accepted": 4100198,
+              "attempted": 4142750,
+              "consumed_including_drain": 4100198,
+              "full": 42552
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000002",
+            "stream_sha256": {
+              "consumer": "604cd35c0db0643311e29dbdb983c2022bd43b75066a0a0c9b042d3c8ac6419e",
+              "producer": "573352abd4ecc70dc146d602c03918da95f82f10ce3c95d2488346b07e83a441"
+            },
+            "zero_loss": false
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-3.json": {
+      "size_bytes": 2157,
+      "sha256": "9dab434b31ee8458f327eefb5b17a2bec9ce54fe21e8d156bc7d950f13aff3fa",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 3,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": false,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 17039406,
+              "attempted": 17074645,
+              "consumed_including_drain": 17039406,
+              "full": 35239
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000003",
+            "stream_sha256": {
+              "consumer": "5af59c04e927bd90be7df05c52793c4a3fc2fcc749d46a3c407043f161e0e0e9",
+              "producer": "52858a285125b5f46e6cff07e42bc36190ecef47c81c598b681243a82584a674"
+            },
+            "zero_loss": false
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 4134163,
+              "interval_consumed_count": 4134161,
+              "interval_end_ticks": 25961754174000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1209013145907373,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1209038107661547,
+                  "relative_picoseconds": 24961754174000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 2
+            },
+            "counts": {
+              "accepted": 4134163,
+              "attempted": 4175290,
+              "consumed_including_drain": 4134163,
+              "full": 41127
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000003",
+            "stream_sha256": {
+              "consumer": "cbb172198bb26fc95c91ce58aab9f430916f2de63741519484dca18c092ba38a",
+              "producer": "fb1604c83bf0ff2b5036cec4122b1e9d501850ab38af4bff02ac95e1a437f093"
+            },
+            "zero_loss": false
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-4.json": {
+      "size_bytes": 2158,
+      "sha256": "4e6566f4039483949e648219323303b768db38e8ed71579d229cb82dd2828149",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 4,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 16006632,
+              "attempted": 18047184,
+              "consumed_including_drain": 16006632,
+              "full": 2040552
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000004",
+            "stream_sha256": {
+              "consumer": "7610f437cd4e4d420548074762da2a0cc8cb3c61f73e1225ddf87828cbc7462d",
+              "producer": "7f0aa1bb070566292f5c6ab004719872cae4a6848c68b4c6c380d6b2c9777de1"
+            },
+            "zero_loss": false
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 4465666,
+              "interval_consumed_count": 3574991,
+              "interval_end_ticks": 27394022014000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1209283515883080,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1209309909905094,
+                  "relative_picoseconds": 26394022014000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 890675
+            },
+            "counts": {
+              "accepted": 4465666,
+              "attempted": 4465666,
+              "consumed_including_drain": 4465666,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000004",
+            "stream_sha256": {
+              "consumer": "6e22f5075a73bf4717af1c85042015681ff1ea618a8ee31770d12417dab337ae",
+              "producer": "2af75882457aacd85bbefc5a8ffae5fe419d89f1844160d416182429bce830a2"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-5.json": {
+      "size_bytes": 2158,
+      "sha256": "7a60fb72fcea2a621d438260a6b43dc701aa657bd65f16f0b764f161abed7685",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 5,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 15863180,
+              "attempted": 17930640,
+              "consumed_including_drain": 15863180,
+              "full": 2067460
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000005",
+            "stream_sha256": {
+              "consumer": "fea678a4004dd0027d48a01fcaa9e24f52389f8afa49e429150ac4f39588f863",
+              "producer": "b34db3e776500debe88e398abc5bb59594efc27d10418efc02785dcee19ca797"
+            },
+            "zero_loss": false
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 4466365,
+              "interval_consumed_count": 3577106,
+              "interval_end_ticks": 27404605223000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1209568472475351,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1209594877080574,
+                  "relative_picoseconds": 26404605223000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 889259
+            },
+            "counts": {
+              "accepted": 4466365,
+              "attempted": 4466365,
+              "consumed_including_drain": 4466365,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000005",
+            "stream_sha256": {
+              "consumer": "812d472fbeebec0290cf3c978d094280c2bbf63b2f053a67d6d576e3897c943c",
+              "producer": "b5285b6cc9017fb07b4c511e562b8d73bf1c4c0b2af78a62e7da0fa69745937c"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": false
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-6.json": {
+      "size_bytes": 2142,
+      "sha256": "2a3c4c2768e0220e41a475949241183c77b91f8f05cc57fadd5f96583cbda953",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 6,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 7424737,
+              "attempted": 7424737,
+              "consumed_including_drain": 7424737,
+              "full": 0
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000006",
+            "stream_sha256": {
+              "consumer": "b6881c88a0f0cc67c4b5a48beb42cb65ac51ceff796854be38d300377dfd9c26",
+              "producer": "5c5f2598f952b88c803ce8c718bab9a827eca59b08b7114a6bb1c262fe5a741b"
+            },
+            "zero_loss": true
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 2230374,
+              "interval_consumed_count": 2230373,
+              "interval_end_ticks": 22196150626000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1209851446727810,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1209872642878436,
+                  "relative_picoseconds": 21196150626000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1
+            },
+            "counts": {
+              "accepted": 2230374,
+              "attempted": 2230374,
+              "consumed_including_drain": 2230374,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000006",
+            "stream_sha256": {
+              "consumer": "8ae6bbd6aa441874902a4dd7b88c86620715a5387183b3e1b3d1f33fca06ddac",
+              "producer": "020c6202ed40b1e80ce1561b4adffb69a63debe22efa96e0e7b7db020f41cad0"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": true
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-7.json": {
+      "size_bytes": 2142,
+      "sha256": "cef390d5fa35dda1aab5f01638abb3015407102cc086fc67bd0aedc19784393f",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 7,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 7351833,
+              "attempted": 7351833,
+              "consumed_including_drain": 7351833,
+              "full": 0
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000007",
+            "stream_sha256": {
+              "consumer": "ad4efbef824d2d97230ef4023da1a69f7dd6e756b35d262ebed8351210f74651",
+              "producer": "5357c32eb96a79cfb4480f2af8e76edc0cef6a1e67da9c0a9e8de9a34b5d7c3a"
+            },
+            "zero_loss": true
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 2204392,
+              "interval_consumed_count": 2204390,
+              "interval_end_ticks": 22077291983000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1210025431789249,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1210046509081232,
+                  "relative_picoseconds": 21077291983000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 2
+            },
+            "counts": {
+              "accepted": 2204392,
+              "attempted": 2204392,
+              "consumed_including_drain": 2204392,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000007",
+            "stream_sha256": {
+              "consumer": "e3cea90c0406146520369f244a7fe6c645be62319486211c0808a66a81f63ef7",
+              "producer": "0ac831fe7e8d9e7c7237a4004d36240862a07c236b4202ba031f4c3dff29edcd"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": true
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-8.json": {
+      "size_bytes": 2142,
+      "sha256": "50a819c46280229eaa94b98e62665b750934ccc81979e726950b7fbc5bc44dbc",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 8,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 8424614,
+              "attempted": 8424614,
+              "consumed_including_drain": 8424614,
+              "full": 0
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000008",
+            "stream_sha256": {
+              "consumer": "3e0e111f059d6a9ee83fc5a0b2088280cab2707fb9d994b33baffe587a79a677",
+              "producer": "3e12fdb9b339469354b533ca398f7c1a274fc538428ff44f5fb55b609087bedd"
+            },
+            "zero_loss": true
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 2642531,
+              "interval_consumed_count": 2642530,
+              "interval_end_ticks": 22479484448000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1210198955059189,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1210220434543637,
+                  "relative_picoseconds": 21479484448000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1
+            },
+            "counts": {
+              "accepted": 2642531,
+              "attempted": 2642531,
+              "consumed_including_drain": 2642531,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000008",
+            "stream_sha256": {
+              "consumer": "654a4ff1902042b412cce8c619c2fa62bb667b1327160d643d7d72177cffe6a0",
+              "producer": "b353c986af4631e28dc7a8d6481a22f77e08bec5f21c41b2b3ff9e0206d77f80"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": true
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/reports/capture-9.json": {
+      "size_bytes": 2142,
+      "sha256": "fb563ac78288db2aea0a44ff7368e0ac5ffb7cc421ffb2d4684c7f94a8789e56",
+      "document": {
+        "action_id": "Q16b",
+        "capture_execution_evidence_validated": true,
+        "capture_ordinal": 9,
+        "execution_authority": false,
+        "family_validity_established": false,
+        "measurement_zero_loss": true,
+        "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+        "node_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "phase18_authority": false,
+        "phases": [
+          {
+            "counts": {
+              "accepted": 8226202,
+              "attempted": 8226202,
+              "consumed_including_drain": 8226202,
+              "full": 0
+            },
+            "phase": "warmup",
+            "run_id": "B27W00000009",
+            "stream_sha256": {
+              "consumer": "ff9fccd5d683acc6938f254242809c20b8326e6644ac613070df28b9f84339de",
+              "producer": "5b1bc5c7e676377d47421129e8f1780c8a0248a60e86733b3685f5a1e670bcfe"
+            },
+            "zero_loss": true
+          },
+          {
+            "completion_interval": {
+              "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+              "consumed_count": 2633726,
+              "interval_consumed_count": 2633725,
+              "interval_end_ticks": 22459799344000,
+              "measurement_window": {
+                "clock_origin_absolute_nanoseconds": 1210387121082496,
+                "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+                "duration_ticks": 1000000000000,
+                "measurement_origin": {
+                  "absolute_nanoseconds": 1210408580881840,
+                  "relative_picoseconds": 21459799344000
+                },
+                "ticks_per_second": 1000000000000,
+                "time_unit": "PICOSECONDS"
+              },
+              "outside_interval_consumed_count": 1
+            },
+            "counts": {
+              "accepted": 2633726,
+              "attempted": 2633726,
+              "consumed_including_drain": 2633726,
+              "full": 0
+            },
+            "phase": "measurement",
+            "run_id": "B27M00000009",
+            "stream_sha256": {
+              "consumer": "877095e10f96acdf73a2a49c115f03e7cdd6110a66e456598ffc08813e1ecf04",
+              "producer": "f4b8787336c8e491c2c5641168e072b67027ede632c52946b5bfe1dff39de4ef"
+            },
+            "zero_loss": true
+          }
+        ],
+        "raw_reconciliation_validated": true,
+        "schedules": null,
+        "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+        "source_versions": {
+          "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+          "clock_window": "stage17_raw_stream_decoder_v2",
+          "common_capture": "stage17_q16a_capture_validation_v1",
+          "common_controls": "stage17_discovery_validation_v3",
+          "control": "cpu-prefetch-stage17-formal-service-control/1",
+          "input_contract": "stage17_formal_plan_v1",
+          "raw_codec": "stage17_raw_stream_decoder_v1",
+          "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1"
+        },
+        "zero_loss_all_phases": true
+      }
+    }
+  },
+  "new_measurements": 0
+}

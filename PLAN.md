@@ -1,6 +1,8 @@
 # Stage A Implementation Plan
 
-**Current Q16b checkpoint (2026-11-16): STOPPED at the required raw-validation gate.**
+**Retained Q16b validation COMPLETE (2026-11-16,08:45 UTC):17/17 VALID.** [D261](docs/decisions/0261-plan-sized-formal-control-reader.md) repaired the bounded control reader while preserving all scientific checks. The supervisor exited0 with its workers reaped; independent raw reconstruction/validation and final unchanged-ledger replay took33m33s. Original17 captures and all708 completed Q16a reports remain preserved. Capture16's final custody handoff is pending. [D263](docs/decisions/0263-d260-fresh-qualification-policy.md) prepares a separately source-bound qualification policy for the103-capture continuation; software checks pass, but no new qualification or measurement has started. D260's new24-hour experimental window remains unstarted. [Full retained reports and repair evidence](docs/evidence/stage17/D261-CONTROL-READER-20261116-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 remains prohibited.
+
+**Previous Q16b checkpoint (2026-11-16): stopped at the raw-validation reader gate.**
 All17 retained native-complete captures passed original signed-plan/physical-archive
 inspection. Capture16's control archive is PUBLISHED, its original remains, and
 its final custody handoff is still incomplete. Independent raw validation stopped

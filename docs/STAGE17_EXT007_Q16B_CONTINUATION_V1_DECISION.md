@@ -42,5 +42,7 @@ stops dependent work. No automatic repair/retry or Stage18 authority follows.
 
 The first retained-prefix raw-validation attempt stopped on the existing
 reader's cumulative packed-page capacity ceiling. No new qualification,
-collection, custody mutation or new-window anchor has occurred. The approved
-continuation remains blocked on that required validity gate.
+collection, custody mutation or new-window anchor occurred at that checkpoint.
+D261 subsequently corrected the reader without changing science; all17 retained
+captures passed on2026-11-16. Actual custody completion and fresh103-capture
+execution admission remain separate requirements.

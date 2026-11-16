@@ -1658,7 +1658,8 @@ if(BUILD_TESTING)
   foreach(_d252_test IN ITEMS phase_controller_v28 operational_cli_v21 formal_admin_v3
       archive_canonical_fast_v1 archive_metadata_fast_v1 archive_metadata_fast_v2
       formal_service_daycap_v1 service_daycap_execution_v1 e26_transition_renewal
-      supervisor_proc_exit retained_capture_inspection_v1 formal_service_continuation_v1)
+      supervisor_proc_exit retained_capture_inspection_v1 formal_service_continuation_v1
+      formal_control_reader_v1 post_exit_custody_v1 policy_v60 daycap_qualification_v2)
     add_test(NAME runner.${_d252_test}
       COMMAND "${Python3_EXECUTABLE}" -B
         "${PROJECT_SOURCE_DIR}/tests/test_stage17_${_d252_test}.py")

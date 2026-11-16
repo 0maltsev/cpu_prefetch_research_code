@@ -22,7 +22,16 @@ def sha256(path: pathlib.Path) -> str:
 
 
 def daycap_admission_tuple(profile, controller):
-    """Select the exact D254 tuple; all historical tuples keep their route."""
+    """Select explicit D254/D263 tuples; historical manifests keep their route."""
+    if (profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
+                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"}
+            and isinstance(controller, dict)
+            and isinstance(controller.get("policy"), dict)
+            and controller["policy"].get("path") ==
+                "config/stage17/stage17-operational-evidence-admission-policy-v60.json"):
+        return (60, 34, 34,
+                "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-DAYCAP-v2",
+                "tools/stage17_phase_controller_daycap_v2.py")
     if (profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
                     "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"}
             and isinstance(controller, dict)

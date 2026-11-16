@@ -1,6 +1,7 @@
 # D267: complete D260 transport lease and one restoration reserve
 
-- Status: ACCEPTED engineering correction within the approved D260 window
+- Status: SUPERSEDED before deployment; executor/native context require the plan watchdog
+- Follow-up: D268 uses the existing declaration-budget range instead
 - Date: 2026-11-16
 - Scope: prelaunch control transport; no measurement or native limit changes
 
@@ -42,3 +43,11 @@ registration, qualification, capture or raw validation. The actual family has
 one execution attempt; any failure stops without an automatic retry.
 
 No empirical result, Stage17 completion or Stage18 authority follows.
+
+Prelaunch execution-boundary review rejected the lease-only override: the original
+executor independently computes the plan deadline and passes it into a native
+context that must equal the declared plan watchdog. No v3 authority override was
+deployed or executed. Its source revision remains in Git history. D268 replaces
+only an unexecuted declaration budget within D264's existing range and uses the
+original authoring/execution policy without an override. The marker and shared
+restoration-reserve corrections remain necessary.

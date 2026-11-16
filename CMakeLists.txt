@@ -1665,8 +1665,7 @@ if(BUILD_TESTING)
       formal_service_continuation_v2 service_continuation_namespace_v1
       service_continuation_packet_v1 service_continuation_calibration_v1
       service_prefix_admission_v2 service_continuation_administration_v2
-      service_continuation_packet_v2 service_continuation_administration_v3
-      service_continuation_packet_v3)
+      service_continuation_packet_v2 service_continuation_packet_v3)
     add_test(NAME runner.${_d252_test}
       COMMAND "${Python3_EXECUTABLE}" -B
         "${PROJECT_SOURCE_DIR}/tests/test_stage17_${_d252_test}.py")

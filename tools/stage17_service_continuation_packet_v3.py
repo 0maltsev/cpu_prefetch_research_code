@@ -22,8 +22,7 @@ MODULES=('stage17_formal_service_continuation_v2','stage17_service_continuation_
  'stage17_q16a_service_continuation_handoff_v1','stage17_service_prefix_admission_v1',
  'stage17_public_namespace_audit_v1','stage17_service_continuation_namespace_v1',
  'stage17_service_continuation_administration_v1',
- 'stage17_service_prefix_admission_v2','stage17_service_continuation_administration_v2',
- 'stage17_service_continuation_administration_v3')
+ 'stage17_service_prefix_admission_v2','stage17_service_continuation_administration_v2')
 _LOADED={}
 _ACTIVE=None
 

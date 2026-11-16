@@ -1,5 +1,7 @@
 # D268 Q16b collection continuation
 
+Completed at00:50Moscow17November: see the [frozen final report and retained evidence](../Q16B-D268-COMPLETE-20261117-01/REPORT.md). The startup checkpoint below is historical.
+
 The user instructed continuation of the stopped D260 admission. Preserve all708
 Q16a reports, all17 independently VALID/custodied original Q16b captures and
 actual successful qualification of native release07a93fb. No completed capture,

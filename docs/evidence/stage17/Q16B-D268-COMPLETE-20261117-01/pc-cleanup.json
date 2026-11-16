@@ -1,0 +1,10 @@
+{
+  "raw_data_deleted": false,
+  "removed_verified_duplicate": {
+    "path": "build/stage17-status-checks/q16b-final-evidence.json",
+    "sha256": "d071753bdf0e82206691c3587cffc546c42ddb2fa64c63a1d3445d746b2da494",
+    "size_bytes": 252825,
+    "verified_copy": "docs/evidence/stage17/Q16B-D268-COMPLETE-20261117-01/stand-evidence.json"
+  },
+  "stand_data_deleted": false
+}

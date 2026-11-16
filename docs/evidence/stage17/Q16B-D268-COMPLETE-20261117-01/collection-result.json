@@ -1,0 +1,9 @@
+{
+  "completed_monotonic_ns": 1294286743779104,
+  "deadline_ns": 1327334921630888,
+  "exit_code": 0,
+  "leader_reaped": true,
+  "phase": "collection",
+  "pid": 253163,
+  "started_monotonic_ns": 1270875053805326
+}

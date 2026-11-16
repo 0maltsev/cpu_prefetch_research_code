@@ -1,0 +1,1950 @@
+{
+  "collection_started": false,
+  "files": [
+    {
+      "document": {
+        "analysis_reserve_ns": 13500000000000,
+        "automatic_retries": 0,
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "cleanup_reserve_ns": 1800000000000,
+        "deadline_monotonic_ns": 1345017879790668,
+        "formal_execution_authority": false,
+        "last_safe_collection_start_ns": 1273857879790668,
+        "owner_proposal_sha256": "ae6f7d141c0a439f0aa96a963166a63909a1441c5295bdd16be03d32a51114f1",
+        "phase18_authority": false,
+        "prefix": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d260-prefix-custody-complete-1/complete.json",
+          "sha256": "24a2926078396c2efe43eac6ac06887ca7e54d562a587a9bced2f62c355cd202",
+          "size_bytes": 16540
+        },
+        "qualification_deadline_monotonic_ns": 1265817879790668,
+        "qualification_packet_sha256": "7eaa83f6bf303b15f43834a7c236aed1378cd8b361c299b3da6c43f6a8f37e90",
+        "schema_version": "cpu-prefetch-stage17-d260-continuation-window/1",
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "started_at_utc": "2026-11-16T09:41:23.582962+00:00",
+        "started_monotonic_ns": 1258617879790668,
+        "suffix_watchdog_ns": 55860000000000
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/continuation-window-1.json",
+      "sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231",
+      "size_bytes": 1116
+    },
+    {
+      "document": {
+        "collection_started": false,
+        "completed_monotonic_ns": 1260041505248222,
+        "success": true,
+        "window_sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231"
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/qualification-complete-1.json",
+      "sha256": "79a5808f354211bbea6ec9cd1a6e32af7f4aba67964485c33f8e3cdd0b1c6fc6",
+      "size_bytes": 186
+    },
+    {
+      "document": {
+        "files": 28,
+        "finite_envelope_ns": 78360000000000,
+        "launcher_sha256": "5f2ad9562422fec11b7554c0afa8b8bd90fb414d6de250d752037944010a2f81",
+        "new_window_started": false,
+        "packet_sha256": "7eaa83f6bf303b15f43834a7c236aed1378cd8b361c299b3da6c43f6a8f37e90",
+        "prefix": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d260-prefix-custody-complete-1/complete.json",
+          "sha256": "24a2926078396c2efe43eac6ac06887ca7e54d562a587a9bced2f62c355cd202",
+          "size_bytes": 16540
+        },
+        "preparation_only": true,
+        "whole_window_ns": 86400000000000
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/qualification-preparation-check.json",
+      "sha256": "cae1e15df972574b2ef84f2e622638be25272d82c62b367cbbff1c7adc66e018",
+      "size_bytes": 551
+    },
+    {
+      "document": {
+        "archive_sha256": "6183b9e00a2713935d37e3ff6df37a2859db3d57249ef8b3103f2e3cc855b173",
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "bundle_verified": true,
+        "measurements_started": false,
+        "qualification_started": false,
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8"
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/verification-complete.json",
+      "sha256": "a6a9fdde575bb8ae2ee76516f7bf07afb2d23ed0ad81ac942ef5fca88f7f0671",
+      "size_bytes": 288
+    },
+    {
+      "document": {
+        "formal_capture_started": false,
+        "isolation_retained_for_formal": false,
+        "success": true
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/qualification-prerequisites-complete-1.json",
+      "sha256": "8296b2a64a3f9479ceca909b6cb1d1222afe3515d830d5b8448d43d14abcd760",
+      "size_bytes": 99
+    },
+    {
+      "document": {
+        "formal_capture_started": false,
+        "isolation_retained_for_formal": true,
+        "success": true
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/qualification-family-complete-1.json",
+      "sha256": "b2c70ee2f2119ea22193472828570da6df346b09689ca96f6a45788ef9ee1011",
+      "size_bytes": 98
+    },
+    {
+      "document": {
+        "cleanup_error": null,
+        "exit_code": 0,
+        "leader_reaped": true,
+        "pid": 244766
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/q15-owned-session-terminal-1.json",
+      "sha256": "b720417f3e2c406f5e5a211956aeab96b28b6e9e660aa004f7afc2f66313a5cd",
+      "size_bytes": 88
+    },
+    {
+      "document": {
+        "action_id": "Q15-R",
+        "artifacts": [
+          {
+            "file_name": "q15-r-output-v3.json",
+            "media_type": "application/json",
+            "role": "Q15_R_READ_ONLY_PRESTATE",
+            "schema_identity": "cpu-prefetch-stage17-q15-r-output/3",
+            "sha256": "157948ba59cf4c6764a439f9655c3bc0aefa1667b900e1d9c1717f56fb8e4b00",
+            "size_bytes": 1080
+          },
+          {
+            "file_name": "q15-r-atomic-layout-raw-v1.json",
+            "media_type": "application/json",
+            "role": "Q15_R_ATOMIC_LAYOUT_RAW",
+            "schema_identity": "cpu-prefetch-stage17-q15-r-atomic-layout-raw/1",
+            "sha256": "73e8ecc50491499ff87119d4fcae2c6310426b18f89959b1f06ca5de9d320fce",
+            "size_bytes": 509
+          },
+          {
+            "file_name": "q15-r-address-residency-raw-v1.json",
+            "media_type": "application/json",
+            "role": "Q15_R_ADDRESS_RESIDENCY_RAW",
+            "schema_identity": "cpu-prefetch-stage17-q15-r-address-residency-raw/1",
+            "sha256": "ff2a358e502de28b5f37bc4afa148253a08c19c1b2543914d1a67d55f1c608bf",
+            "size_bytes": 673
+          },
+          {
+            "file_name": "q15-r-software-prefetch-raw-v1.json",
+            "media_type": "application/json",
+            "role": "Q15_R_SOFTWARE_PREFETCH_RAW",
+            "schema_identity": "cpu-prefetch-stage17-q15-r-software-prefetch-raw/2",
+            "sha256": "2cd33558296e40fa6e3ddc86e65b58b6672d4f8ae8a04fb4df7ad1a32198d804",
+            "size_bytes": 449
+          },
+          {
+            "file_name": "q15-r-cpu-migration-raw-v1.json",
+            "media_type": "application/json",
+            "role": "Q15_R_CPU_MIGRATION_RAW",
+            "schema_identity": "cpu-prefetch-stage17-q15-r-cpu-migration-raw/1",
+            "sha256": "51b745ebeb3fd74e0c316025dfc11349aaa1a600a0ec55c6c15afbd239fbc52b",
+            "size_bytes": 476
+          }
+        ],
+        "attempt_id": "CPU-PREFETCH-V5-V27-Q15R-ATTEMPT-1",
+        "authorization_id": "CPU-PREFETCH-V5-V27-Q15R-AUTH-1",
+        "authorization_sha256": "ac45f967a559d1a852d540d15fbda0fdb7fbadbdddc3f7047348c937c42c792f",
+        "completed_at_utc": "2026-11-16T09:53:54.433232Z",
+        "duration_ns": 1130366237,
+        "phase18_authority": false,
+        "predecessor_resolutions": [
+          {
+            "input_id": "S17-EXT-001",
+            "resolution_id": "S17-EXT-001-RESOLUTION-001",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "input_id": "S17-EXT-002",
+            "resolution_id": "S17-EXT-002-RESOLUTION-002",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "input_id": "S17-EXT-003",
+            "resolution_id": "S17-EXT-003-RESOLUTION-003",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          }
+        ],
+        "quarantined": false,
+        "release_binding": {
+          "artifact_role": "STAGE17_FIXED_ACTION_WORKER",
+          "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v4",
+          "source_resolution_id": "S17-EXT-003-RESOLUTION-003",
+          "source_resolution_sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416",
+          "worker_sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+          "worker_size_bytes": 4985872
+        },
+        "request_id": "CPU-PREFETCH-V5-V27-Q15R-REQUEST-1",
+        "request_sha256": "09c1db59c21be19fd48994a7199e0e699dfaf73f666f385eadbb466c1a94099f",
+        "restoration_verified": false,
+        "result_id": "CPU-PREFETCH-V5-V27-Q15R-ATTEMPT-1:result",
+        "runtime_binding": {
+          "profile": "STAGE17-FIXED-ACTION-WORKER-v4",
+          "role": "STAGE17_FIXED_ACTION_WORKER",
+          "sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+          "size_bytes": 4985872
+        },
+        "schema_version": "cpu-prefetch-stage17-phase-action-result/4",
+        "stand_id": "CPU-PREFETCH-V5",
+        "started_at_utc": "2026-11-16T09:53:53.302766Z",
+        "synthetic_test_only": false,
+        "terminal_state": "Q15_R_READ_ONLY_COMPLETE"
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/stage17-q15-r-result-v4.json",
+      "sha256": "efc6751d30b0ac107f3787c0c4c117e8790d3ae7816e0384919574f7c287811c",
+      "size_bytes": 3189
+    },
+    {
+      "document": {
+        "action_id": "Q15-W",
+        "artifacts": [
+          {
+            "file_name": "q15-w-output-v3.json",
+            "media_type": "application/json",
+            "role": "Q15_W_TRANSACTION",
+            "schema_identity": "cpu-prefetch-stage17-q15-w-output/3",
+            "sha256": "f345997c30ad78454976e255187106c5ccf76e3905a8622d7d272990005ff173",
+            "size_bytes": 1020
+          }
+        ],
+        "attempt_id": "CPU-PREFETCH-V5-V27-Q15W-ATTEMPT-1",
+        "authorization_id": "CPU-PREFETCH-V5-V27-Q15W-AUTH-1",
+        "authorization_sha256": "ed709f6b8e993fa5f102c2446ef26620ea6c8e519a1ecc59a6878d3f3d9994bf",
+        "completed_at_utc": "2026-11-16T10:01:31.465637Z",
+        "duration_ns": 1192453265,
+        "phase18_authority": false,
+        "predecessor_resolutions": [
+          {
+            "input_id": "S17-EXT-001",
+            "resolution_id": "S17-EXT-001-RESOLUTION-001",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "input_id": "S17-EXT-002",
+            "resolution_id": "S17-EXT-002-RESOLUTION-002",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "input_id": "S17-EXT-003",
+            "resolution_id": "S17-EXT-003-RESOLUTION-003",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          },
+          {
+            "input_id": "S17-EXT-004",
+            "resolution_id": "S17-EXT-004-RESOLUTION-005",
+            "sha256": "6bafc9405dddd89fb95609ecca0aafc42baccd20ffdb734c00961f0506fa4e57"
+          }
+        ],
+        "quarantined": false,
+        "release_binding": {
+          "artifact_role": "STAGE17_FIXED_ACTION_WORKER",
+          "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v4",
+          "source_resolution_id": "S17-EXT-003-RESOLUTION-003",
+          "source_resolution_sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416",
+          "worker_sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+          "worker_size_bytes": 4985872
+        },
+        "request_id": "CPU-PREFETCH-V5-V27-Q15W-REQUEST-1",
+        "request_sha256": "90382b956985df46c8e15455dcea9492f9185ff20f17c8bb714a63a6fed3f84d",
+        "restoration_verified": true,
+        "result_id": "CPU-PREFETCH-V5-V27-Q15W-ATTEMPT-1:result",
+        "runtime_binding": {
+          "profile": "STAGE17-FIXED-ACTION-WORKER-v4",
+          "role": "STAGE17_FIXED_ACTION_WORKER",
+          "sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+          "size_bytes": 4985872
+        },
+        "schema_version": "cpu-prefetch-stage17-phase-action-result/4",
+        "stand_id": "CPU-PREFETCH-V5",
+        "started_at_utc": "2026-11-16T10:01:30.273125Z",
+        "synthetic_test_only": false,
+        "terminal_state": "Q15_W_RESTORED_COMPLETE"
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/stage17-q15-w-result-v4.json",
+      "sha256": "ea7708a7b2d804c9476f5d3978ec21817087ad79668f516c2d33ee19c03cc3be",
+      "size_bytes": 2212
+    },
+    {
+      "document": {
+        "action_id": "Q15-W",
+        "artifact_bindings": [
+          {
+            "file_name": "q15-w-output-v3.json",
+            "sha256": "f345997c30ad78454976e255187106c5ccf76e3905a8622d7d272990005ff173",
+            "size_bytes": 1020
+          }
+        ],
+        "attempt_id": "CPU-PREFETCH-V5-V27-Q15W-ATTEMPT-1",
+        "authorization_sha256": "ed709f6b8e993fa5f102c2446ef26620ea6c8e519a1ecc59a6878d3f3d9994bf",
+        "completed_at_utc": "2026-11-16T10:01:31.641793Z",
+        "completion_id": "CPU-PREFETCH-V5-V27-Q15W-ATTEMPT-1:completion",
+        "leader_reaped": true,
+        "live_restoration_readback": [
+          {
+            "cpu": 0,
+            "expected_hex": "0000000000000000",
+            "matches": true,
+            "observed_hex": "0000000000000000"
+          },
+          {
+            "cpu": 1,
+            "expected_hex": "0000000000000000",
+            "matches": true,
+            "observed_hex": "0000000000000000"
+          },
+          {
+            "cpu": 8,
+            "expected_hex": "0000000000000000",
+            "matches": true,
+            "observed_hex": "0000000000000000"
+          }
+        ],
+        "phase18_authority": false,
+        "process_group_gone": true,
+        "quarantined": false,
+        "request_sha256": "90382b956985df46c8e15455dcea9492f9185ff20f17c8bb714a63a6fed3f84d",
+        "restoration_verified": true,
+        "result": {
+          "file_name": "stage17-q15-w-result-v4.json",
+          "sha256": "ea7708a7b2d804c9476f5d3978ec21817087ad79668f516c2d33ee19c03cc3be",
+          "size_bytes": 2212
+        },
+        "runtime_sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+        "schema_version": "cpu-prefetch-stage17-phase-action-completion/4"
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/stage17-q15_w-completion-v4.json",
+      "sha256": "0f8ffd5ec9a02e0efaac696d211b03179fbdc8d0b6c73d1dfd84bd7b0801d931",
+      "size_bytes": 1240
+    },
+    {
+      "document": {
+        "binary_sha256": "cb6422db0be2c3ff3b20897bc58ff4b892ba04e34e9f16f93a8b6d5a04caad69",
+        "capture_id": "CPU-PREFETCH-V5-V27-ISOLATED-CLOCK-NEAR-1",
+        "clock-raw.json": {
+          "sha256": "a02cecc776c43aef4969ef40cc1f6b6aac170e5117947fd0afa5341d6916632c",
+          "size_bytes": 485
+        },
+        "clock-stderr.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "clock-stdout.txt": {
+          "sha256": "54637b13570faefe9710b2d169aed79cbc5dac39497bac25c2f6e262ef8aaca4",
+          "size_bytes": 1108
+        },
+        "clock_api": "CLOCK_MONOTONIC_RAW",
+        "command": [
+          "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+          "--qualify-pair",
+          "near",
+          "--output",
+          "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/clock-qualification-v27-1/near/clock-raw.json"
+        ],
+        "completed_at_utc": "2026-11-16T09:48:51.384695+00:00",
+        "control_before_sha256": "0706df12313d22b0265dfede4d8dae0affb91094133f3dbe0f6a2df766dc1eb9",
+        "exit_code": 0,
+        "scope": "CURRENT_OWNER_FINITE_RELEASE_QUALIFICATION",
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "started_at_utc": "2026-11-16T09:46:50.315272+00:00",
+        "timed_out": false,
+        "timeout_seconds": 600,
+        "timestamp_units": "relative picoseconds"
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/clock-qualification-v27-1/near/clock-capture-result.json",
+      "sha256": "046a484d19cc742daf272e14dc686394d4fbd74765bb1311898ec3ad7f3ea0c6",
+      "size_bytes": 1297
+    },
+    {
+      "document": {
+        "binary_sha256": "cb6422db0be2c3ff3b20897bc58ff4b892ba04e34e9f16f93a8b6d5a04caad69",
+        "capture_id": "CPU-PREFETCH-V5-V27-ISOLATED-CLOCK-FAR-1",
+        "clock-raw.json": {
+          "sha256": "b2b7a9febe4a9a46dece2ae63def2e8e9f8dfaa7a95a1e4c524775458560daa3",
+          "size_bytes": 484
+        },
+        "clock-stderr.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "clock-stdout.txt": {
+          "sha256": "81d0e5e376a3cc6ed160b0b718140400d980d2c04254ba22f270840945297100",
+          "size_bytes": 1106
+        },
+        "clock_api": "CLOCK_MONOTONIC_RAW",
+        "command": [
+          "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+          "--qualify-pair",
+          "far",
+          "--output",
+          "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/clock-qualification-v27-1/far/clock-raw.json"
+        ],
+        "completed_at_utc": "2026-11-16T09:50:52.578966+00:00",
+        "control_before_sha256": "7cbe4807cefbf97f68d34c348e6683826d684eeeda1aa8ecc41efe7918244fb4",
+        "exit_code": 0,
+        "scope": "CURRENT_OWNER_FINITE_RELEASE_QUALIFICATION",
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "started_at_utc": "2026-11-16T09:48:51.408591+00:00",
+        "timed_out": false,
+        "timeout_seconds": 600,
+        "timestamp_units": "relative picoseconds"
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/clock-qualification-v27-1/far/clock-capture-result.json",
+      "sha256": "9625ba82822ff1009ef95bb22aedf47b28b83659b0b6da1ef8efafb17fc480fb",
+      "size_bytes": 1294
+    },
+    {
+      "document": {
+        "both_pairs_passed": true,
+        "isolation_retained_for_following_qualification": {
+          "captured_at_utc": "2026-11-16T09:50:52.592411+00:00",
+          "partition": {
+            "cgroup.events": "populated 0\nfrozen 0",
+            "cgroup.procs": "",
+            "cgroup.subtree_control": "",
+            "cgroup.type": "domain",
+            "cpuset.cpus": "0-2,8,16-18,24",
+            "cpuset.cpus.effective": "0-2,8,16-18,24",
+            "cpuset.cpus.exclusive": "0-2,8,16-18,24",
+            "cpuset.cpus.exclusive.effective": "0-2,8,16-18,24",
+            "cpuset.cpus.partition": "isolated",
+            "cpuset.mems": "0-1",
+            "cpuset.mems.effective": "0-1"
+          },
+          "root": {
+            "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+            "cgroup.subtree_control": "cpuset cpu memory pids",
+            "cpuset.cpus.effective": "3-7,9-15,19-23,25-31",
+            "cpuset.cpus.isolated": "0-2,8,16-18,24",
+            "cpuset.mems.effective": "0-1"
+          },
+          "supervisor_affinity": [
+            3
+          ],
+          "validation": {
+            "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+            "control_identities": {
+              "cpuset.cpus": [
+                29,
+                436088
+              ],
+              "cpuset.cpus.effective": [
+                29,
+                436090
+              ],
+              "cpuset.cpus.exclusive": [
+                29,
+                436093
+              ],
+              "cpuset.cpus.partition": [
+                29,
+                436092
+              ],
+              "cpuset.mems.effective": [
+                29,
+                436091
+              ]
+            },
+            "cpus": "0-2,8,16-18,24",
+            "effective": "0-2,8,16-18,24",
+            "exclusive": "0-2,8,16-18,24",
+            "exclusive_effective": "0-2,8,16-18,24",
+            "mems_effective": "0-1",
+            "outside_effective": {
+              "init.scope": "3-7,9-15,19-23,25-31",
+              "system.slice": "3-7,9-15,19-23,25-31",
+              "user.slice": "3-7,9-15,19-23,25-31"
+            },
+            "partition": "isolated",
+            "partition_path": "/sys/fs/cgroup/cpu-prefetch-recovery-v27-qualified-1.service/reserved",
+            "root_effective": "3-7,9-15,19-23,25-31",
+            "root_isolated": "0-2,8,16-18,24",
+            "root_subtree_control": "cpuset cpu memory pids",
+            "supervisor_affinity": [
+              3
+            ],
+            "unit_subtree_control": "cpuset"
+          }
+        },
+        "utc": "2026-11-16T09:50:52.588966+00:00"
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/clock-qualification-v27-1/complete.json",
+      "sha256": "163c6f74a26e5b37728abd7b3cdb803f163b940891adfc2f60de87b6d783fb6e",
+      "size_bytes": 1642
+    },
+    {
+      "document": {
+        "clock": {
+          "acceptance_record_id": "CPU-PREFETCH-V5-V27-EXT004-QUAL-CLOCK",
+          "conversion_record_id": "NO_SEPARATE_RECORD_MONOTONIC_RAW_ORIGIN_SUBTRACT_THEN_NS_TIMES_1000",
+          "serialization_record_id": "NO_SEPARATE_RECORD_ATOMIC_SIGNAL_FENCE_AROUND_CLOCK_GETTIME",
+          "source": "CLOCK_MONOTONIC_RAW",
+          "time_unit": "PICOSECONDS"
+        },
+        "cpu": {
+          "atomic_alignment_bytes": 8,
+          "atomic_width_bits": 64,
+          "cache_line_bytes": 64,
+          "microcode": "0x42e",
+          "model": "06_3EH",
+          "stepping": "4",
+          "vendor": "GenuineIntel"
+        },
+        "hardware_prefetch_states": [
+          {
+            "behavioral_probe_artifact_id": "CPU-PREFETCH-V5-V27-EXT004-Q15-R-READ-ONLY-PRESTATE",
+            "privileged_authority_id": "CPU-PREFETCH-V5-V27-Q15R-AUTH-1",
+            "readback_artifact_id": "CPU-PREFETCH-V5-V27-EXT004-Q15-R-READ-ONLY-PRESTATE",
+            "requested": "H0",
+            "verified": "VERIFIED_DEFAULT"
+          },
+          {
+            "behavioral_probe_artifact_id": "CPU-PREFETCH-V5-V27-EXT004-Q15-R-READ-ONLY-PRESTATE",
+            "privileged_authority_id": "NONE",
+            "readback_artifact_id": "CPU-PREFETCH-V5-V27-EXT004-Q15-R-READ-ONLY-PRESTATE",
+            "requested": "H1",
+            "verified": "UNKNOWN"
+          }
+        ],
+        "memory": {
+          "base_page_bytes": 4096,
+          "population": "MMAP_PRIVATE_ANONYMOUS_MPOL_BIND_MADV_NOHUGEPAGE_THEN_SINGLETON_VERIFIED_FIRST_TOUCH",
+          "residency_verification_method": "LINUX_MOVE_PAGES_PER_PAGE_NUMA_NODE_QUERY"
+        },
+        "platform_id": "CPU-PREFETCH-V5",
+        "protocol_version": "2.0.0-pre.3",
+        "record_sha256": "efc6751d30b0ac107f3787c0c4c117e8790d3ae7816e0384919574f7c287811c",
+        "schema_version": "2.0.0-pre.3",
+        "software": {
+          "compiler": "GNU 16.1.1",
+          "flags": [
+            "-O3",
+            "-DNDEBUG",
+            "-std=c++20",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-Wconversion",
+            "-Wsign-conversion",
+            "-Wshadow",
+            "-Wformat=2",
+            "-Wundef",
+            "-Werror"
+          ],
+          "kernel": "7.0.0-38-generic",
+          "language_standard": "C++20",
+          "link_mode": "dynamic",
+          "operating_system": "Linux",
+          "standard_library": "libstdc++"
+        },
+        "topology": {
+          "cache_domains": [
+            "0-7,16-23",
+            "8-15,24-31"
+          ],
+          "far_core_pair": [
+            0,
+            8
+          ],
+          "near_core_pair": [
+            0,
+            1
+          ],
+          "numa_nodes": 2,
+          "physical_cores": 16,
+          "smt_enabled": true,
+          "sockets": 2
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/ext004-authoring-records-1/platform-manifest.json",
+      "sha256": "d99d043aa0dd2b77f2d64b96249a19dad03cc2706c2e00778f587c50d034d48c",
+      "size_bytes": 1883
+    },
+    {
+      "document": {
+        "actor": "maltsev.oiu@phystech.edu",
+        "authorization": {
+          "authority_scope": "READ_ONLY_PREFLIGHT",
+          "authorization_id": "CPU-PREFETCH-V5-V27-EXT001-AUTH-1",
+          "evidence_path": "evidence/ext001-v5-26/authorization-v11.json",
+          "expires_at_utc": "2026-11-16T11:41:31Z",
+          "issued_at_utc": "2026-11-16T09:41:31Z"
+        },
+        "automatic_resolution": false,
+        "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+        "evidence": [
+          {
+            "kind": "REPOSITORY_FILE",
+            "path": "evidence/ext001-v5-26/envelope-v14.json",
+            "sha256": "0d7c2934a29bab7b591cf45cff3b26d328f513c7854517b9c357c2b8496c930b",
+            "size_bytes": 6260
+          }
+        ],
+        "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+        "input_id": "S17-EXT-001",
+        "recorded_at_utc": "2026-11-16T09:41:32Z",
+        "resolution_id": "S17-EXT-001-RESOLUTION-001",
+        "retry_authority": false,
+        "schema_version": "cpu-prefetch-stage17-external-input-resolution/1",
+        "sequence_number": 1,
+        "stage18_authority": false,
+        "verification_result": "PASS",
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/records/resolution-001-s17-ext-001.json",
+      "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48",
+      "size_bytes": 1622
+    },
+    {
+      "document": {
+        "actor": "maltsev.oiu@phystech.edu",
+        "authorization": null,
+        "automatic_resolution": false,
+        "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+        "evidence": [
+          {
+            "kind": "EXTERNAL_CUSTODY_RECEIPT",
+            "receipt_path": "receipts/ext002-custody-receipt-1.json",
+            "receipt_sha256": "f88a27f8d6841e323d211e36a4622996782c4fe0d3d7042ed323edd4162fb2e4",
+            "receipt_size_bytes": 814
+          }
+        ],
+        "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+        "input_id": "S17-EXT-002",
+        "recorded_at_utc": "2026-11-16T09:42:14Z",
+        "resolution_id": "S17-EXT-002-RESOLUTION-002",
+        "retry_authority": false,
+        "schema_version": "cpu-prefetch-stage17-external-input-resolution/1",
+        "sequence_number": 2,
+        "stage18_authority": false,
+        "verification_result": "PASS",
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/records/resolution-002-s17-ext-002.json",
+      "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a",
+      "size_bytes": 1419
+    },
+    {
+      "document": {
+        "actor": "maltsev.oiu@phystech.edu",
+        "authorization": null,
+        "automatic_resolution": false,
+        "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+        "evidence": [
+          {
+            "kind": "REPOSITORY_FILE",
+            "path": "evidence/ext003-fresh/ext003-manifest-1.json",
+            "sha256": "38ab25ea03742c3dbf592059611e85d68147886fa912882da443f64063d9bd80",
+            "size_bytes": 1073
+          }
+        ],
+        "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+        "input_id": "S17-EXT-003",
+        "recorded_at_utc": "2026-11-16T09:43:02Z",
+        "resolution_id": "S17-EXT-003-RESOLUTION-003",
+        "retry_authority": false,
+        "schema_version": "cpu-prefetch-stage17-external-input-resolution/1",
+        "sequence_number": 3,
+        "stage18_authority": false,
+        "verification_result": "PASS",
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/records/resolution-003-s17-ext-003.json",
+      "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416",
+      "size_bytes": 1393
+    },
+    {
+      "document": {
+        "actor": "maltsev.oiu@phystech.edu",
+        "authorization": null,
+        "automatic_resolution": false,
+        "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+        "evidence": [
+          {
+            "kind": "EXTERNAL_CUSTODY_RECEIPT",
+            "receipt_path": "receipts/ext006-custody-receipt-1.json",
+            "receipt_sha256": "1d6f6290d07703d20e19a6612fe5829640af1058b0a364c7984337ca1c2daafb",
+            "receipt_size_bytes": 827
+          }
+        ],
+        "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+        "input_id": "S17-EXT-006",
+        "recorded_at_utc": "2026-11-16T09:44:53Z",
+        "resolution_id": "S17-EXT-006-RESOLUTION-004",
+        "retry_authority": false,
+        "schema_version": "cpu-prefetch-stage17-external-input-resolution/1",
+        "sequence_number": 4,
+        "stage18_authority": false,
+        "verification_result": "PASS",
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/records/resolution-004-s17-ext-006.json",
+      "sha256": "6bde3f14a8f303e473c2d26192fefd6722759c940e14ef519df3c7e05d18737d",
+      "size_bytes": 1419
+    },
+    {
+      "document": {
+        "actor": "maltsev.oiu@phystech.edu",
+        "authorization": null,
+        "automatic_resolution": false,
+        "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+        "evidence": [
+          {
+            "kind": "EXTERNAL_CUSTODY_RECEIPT",
+            "receipt_path": "receipts/ext004-custody-receipt-1.json",
+            "receipt_sha256": "90f29ea43db43b1d92796b4c2087d7c93247f8af72201f84fab77d042c369943",
+            "receipt_size_bytes": 814
+          }
+        ],
+        "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+        "input_id": "S17-EXT-004",
+        "recorded_at_utc": "2026-11-16T09:56:40Z",
+        "resolution_id": "S17-EXT-004-RESOLUTION-005",
+        "retry_authority": false,
+        "schema_version": "cpu-prefetch-stage17-external-input-resolution/1",
+        "sequence_number": 5,
+        "stage18_authority": false,
+        "verification_result": "PASS",
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/records/resolution-005-s17-ext-004.json",
+      "sha256": "6bafc9405dddd89fb95609ecca0aafc42baccd20ffdb734c00961f0506fa4e57",
+      "size_bytes": 1419
+    },
+    {
+      "document": {
+        "actor": "maltsev.oiu@phystech.edu",
+        "authorization": {
+          "authority_scope": "PRIVILEGED_QUALIFICATION_CONTROL",
+          "authorization_id": "CPU-PREFETCH-V5-V27-Q15W-AUTH-1",
+          "evidence_path": "evidence/q15w-fresh/authorization.json",
+          "expires_at_utc": "2026-11-16T10:29:40Z",
+          "issued_at_utc": "2026-11-16T09:59:40Z"
+        },
+        "automatic_resolution": false,
+        "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+        "evidence": [
+          {
+            "kind": "REPOSITORY_FILE",
+            "path": "evidence/q15w-fresh/authorization.json",
+            "sha256": "ed709f6b8e993fa5f102c2446ef26620ea6c8e519a1ecc59a6878d3f3d9994bf",
+            "size_bytes": 2295
+          },
+          {
+            "kind": "EXTERNAL_CUSTODY_RECEIPT",
+            "receipt_path": "receipts/ext005-custody-receipt-1.json",
+            "receipt_sha256": "7aabec9a6867de0a07b340384aefa881a0d00958f4f718482da8b087f56ae0d7",
+            "receipt_size_bytes": 813
+          }
+        ],
+        "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+        "input_id": "S17-EXT-005",
+        "recorded_at_utc": "2026-11-16T10:02:44Z",
+        "resolution_id": "S17-EXT-005-RESOLUTION-006",
+        "retry_authority": false,
+        "schema_version": "cpu-prefetch-stage17-external-input-resolution/1",
+        "sequence_number": 6,
+        "stage18_authority": false,
+        "verification_result": "PASS",
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/records/resolution-006-s17-ext-005.json",
+      "sha256": "969b0699dbe4281e7b78232153e352c53e23d3623bf63e849c954a88fe04b27b",
+      "size_bytes": 1827
+    },
+    {
+      "document": {
+        "actor": "maltsev.oiu@phystech.edu",
+        "authority_scope": "READ_ONLY_PREFLIGHT_STATE_ADVANCE_ONLY",
+        "authorizations": [
+          {
+            "authority_scope": "READ_ONLY_PREFLIGHT",
+            "authorization_id": "CPU-PREFETCH-V5-V27-EXT001-AUTH-1",
+            "input_id": "S17-EXT-001",
+            "resolution_id": "S17-EXT-001-RESOLUTION-001"
+          }
+        ],
+        "automatic_transition": false,
+        "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+        "evidence_resolutions": [
+          {
+            "input_id": "S17-EXT-001",
+            "resolution_id": "S17-EXT-001-RESOLUTION-001",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          }
+        ],
+        "from_state": "PREPARED",
+        "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+        "previous_transition_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+        "retry_allowed": false,
+        "schema_version": "cpu-prefetch-stage17-state-transition/1",
+        "sequence_number": 1,
+        "stage18_authority": false,
+        "timestamp_utc": "2026-11-16T09:41:36Z",
+        "to_state": "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+        "transition_id": "STAGE17-TRANSITION-001",
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/records/transition-001.json",
+      "sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d",
+      "size_bytes": 1699
+    },
+    {
+      "document": {
+        "actor": "maltsev.oiu@phystech.edu",
+        "authority_scope": "PREFLIGHT_ACCEPTANCE_STATE_ADVANCE_ONLY",
+        "authorizations": [
+          {
+            "authority_scope": "READ_ONLY_PREFLIGHT",
+            "authorization_id": "CPU-PREFETCH-V5-V27-EXT001-AUTH-1",
+            "input_id": "S17-EXT-001",
+            "resolution_id": "S17-EXT-001-RESOLUTION-001"
+          }
+        ],
+        "automatic_transition": false,
+        "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+        "evidence_resolutions": [
+          {
+            "input_id": "S17-EXT-001",
+            "resolution_id": "S17-EXT-001-RESOLUTION-001",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "input_id": "S17-EXT-002",
+            "resolution_id": "S17-EXT-002-RESOLUTION-002",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "input_id": "S17-EXT-003",
+            "resolution_id": "S17-EXT-003-RESOLUTION-003",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          }
+        ],
+        "from_state": "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+        "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+        "previous_transition_sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d",
+        "retry_allowed": false,
+        "schema_version": "cpu-prefetch-stage17-state-transition/1",
+        "sequence_number": 2,
+        "stage18_authority": false,
+        "timestamp_utc": "2026-11-16T09:43:31Z",
+        "to_state": "PREFLIGHT_ACCEPTED",
+        "transition_id": "STAGE17-TRANSITION-002",
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/records/transition-002.json",
+      "sha256": "575fd5f1100ba4d9a1bbcd0d3932afd7906083d90ca1d0a7d527bdcaeb0c5dda",
+      "size_bytes": 2006
+    },
+    {
+      "document": {
+        "actor": "maltsev.oiu@phystech.edu",
+        "authority_scope": "STAGE17_PHASE_AUTHORIZATION_PREPARATION_ONLY",
+        "authorizations": [
+          {
+            "authority_scope": "READ_ONLY_PREFLIGHT",
+            "authorization_id": "CPU-PREFETCH-V5-V27-EXT001-AUTH-1",
+            "input_id": "S17-EXT-001",
+            "resolution_id": "S17-EXT-001-RESOLUTION-001"
+          },
+          {
+            "authority_scope": "PRIVILEGED_QUALIFICATION_CONTROL",
+            "authorization_id": "CPU-PREFETCH-V5-V27-Q15W-AUTH-1",
+            "input_id": "S17-EXT-005",
+            "resolution_id": "S17-EXT-005-RESOLUTION-006"
+          }
+        ],
+        "automatic_transition": false,
+        "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+        "evidence_resolutions": [
+          {
+            "input_id": "S17-EXT-001",
+            "resolution_id": "S17-EXT-001-RESOLUTION-001",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "input_id": "S17-EXT-002",
+            "resolution_id": "S17-EXT-002-RESOLUTION-002",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "input_id": "S17-EXT-003",
+            "resolution_id": "S17-EXT-003-RESOLUTION-003",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          },
+          {
+            "input_id": "S17-EXT-004",
+            "resolution_id": "S17-EXT-004-RESOLUTION-005",
+            "sha256": "6bafc9405dddd89fb95609ecca0aafc42baccd20ffdb734c00961f0506fa4e57"
+          },
+          {
+            "input_id": "S17-EXT-005",
+            "resolution_id": "S17-EXT-005-RESOLUTION-006",
+            "sha256": "969b0699dbe4281e7b78232153e352c53e23d3623bf63e849c954a88fe04b27b"
+          },
+          {
+            "input_id": "S17-EXT-006",
+            "resolution_id": "S17-EXT-006-RESOLUTION-004",
+            "sha256": "6bde3f14a8f303e473c2d26192fefd6722759c940e14ef519df3c7e05d18737d"
+          }
+        ],
+        "from_state": "PREFLIGHT_ACCEPTED",
+        "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+        "previous_transition_sha256": "575fd5f1100ba4d9a1bbcd0d3932afd7906083d90ca1d0a7d527bdcaeb0c5dda",
+        "retry_allowed": false,
+        "schema_version": "cpu-prefetch-stage17-state-transition/1",
+        "sequence_number": 3,
+        "stage18_authority": false,
+        "timestamp_utc": "2026-11-16T10:03:55Z",
+        "to_state": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+        "transition_id": "STAGE17-TRANSITION-003",
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/records/transition-003.json",
+      "sha256": "56ad38a4ebeb6cd355c15a217a3a127929ec7bbff31a6cabc17cee35225d10f5",
+      "size_bytes": 2636
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 0,
+        "previous_journal": null,
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000000.json",
+      "sha256": "da9ba7f6072b2e4555db98db8d7c886c133c7f5e98c4f2964b5ef67ba438fafe",
+      "size_bytes": 2791
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 1,
+        "previous_journal": {
+          "path": "journal/stage17-state-journal-000000.json",
+          "sha256": "da9ba7f6072b2e4555db98db8d7c886c133c7f5e98c4f2964b5ef67ba438fafe"
+        },
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [
+          {
+            "path": "records/resolution-001-s17-ext-001.json",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          }
+        ],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000001.json",
+      "sha256": "aeef2e90a0745d915801abd3852695383343db1f86ea738aaf5e87030617f0b1",
+      "size_bytes": 2731
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 2,
+        "previous_journal": {
+          "path": "journal/stage17-state-journal-000001.json",
+          "sha256": "aeef2e90a0745d915801abd3852695383343db1f86ea738aaf5e87030617f0b1"
+        },
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [
+          {
+            "path": "records/resolution-001-s17-ext-001.json",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          }
+        ],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [
+          {
+            "path": "records/transition-001.json",
+            "sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d"
+          }
+        ],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000002.json",
+      "sha256": "e07e5801794a43889bf16b0b17bf593ec50ae456bbc365156d078e68388929fd",
+      "size_bytes": 2845
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 3,
+        "previous_journal": {
+          "path": "journal/stage17-state-journal-000002.json",
+          "sha256": "e07e5801794a43889bf16b0b17bf593ec50ae456bbc365156d078e68388929fd"
+        },
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [
+          {
+            "path": "records/resolution-001-s17-ext-001.json",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "path": "records/resolution-002-s17-ext-002.json",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          }
+        ],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [
+          {
+            "path": "records/transition-001.json",
+            "sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d"
+          }
+        ],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000003.json",
+      "sha256": "a9bb81153a43120a08cfd752617567c0733ca1275f5d16a633374dab164d9543",
+      "size_bytes": 2972
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 4,
+        "previous_journal": {
+          "path": "journal/stage17-state-journal-000003.json",
+          "sha256": "a9bb81153a43120a08cfd752617567c0733ca1275f5d16a633374dab164d9543"
+        },
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [
+          {
+            "path": "records/resolution-001-s17-ext-001.json",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "path": "records/resolution-002-s17-ext-002.json",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "path": "records/resolution-003-s17-ext-003.json",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          }
+        ],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [
+          {
+            "path": "records/transition-001.json",
+            "sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d"
+          }
+        ],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000004.json",
+      "sha256": "b368826cf56be92d3b075dda5eff88ab3fb7718e4e76dee0ac84c0313a529e64",
+      "size_bytes": 3099
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 5,
+        "previous_journal": {
+          "path": "journal/stage17-state-journal-000004.json",
+          "sha256": "b368826cf56be92d3b075dda5eff88ab3fb7718e4e76dee0ac84c0313a529e64"
+        },
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [
+          {
+            "path": "records/resolution-001-s17-ext-001.json",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "path": "records/resolution-002-s17-ext-002.json",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "path": "records/resolution-003-s17-ext-003.json",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          }
+        ],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [
+          {
+            "path": "records/transition-001.json",
+            "sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d"
+          },
+          {
+            "path": "records/transition-002.json",
+            "sha256": "575fd5f1100ba4d9a1bbcd0d3932afd7906083d90ca1d0a7d527bdcaeb0c5dda"
+          }
+        ],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000005.json",
+      "sha256": "1375de6d014c33cbc7dbd6d30fc210db3bb9c1ca7662f3906e8748ea9dc3b84b",
+      "size_bytes": 3214
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 6,
+        "previous_journal": {
+          "path": "journal/stage17-state-journal-000005.json",
+          "sha256": "1375de6d014c33cbc7dbd6d30fc210db3bb9c1ca7662f3906e8748ea9dc3b84b"
+        },
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [
+          {
+            "path": "records/resolution-001-s17-ext-001.json",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "path": "records/resolution-002-s17-ext-002.json",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "path": "records/resolution-003-s17-ext-003.json",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          },
+          {
+            "path": "records/resolution-004-s17-ext-006.json",
+            "sha256": "6bde3f14a8f303e473c2d26192fefd6722759c940e14ef519df3c7e05d18737d"
+          }
+        ],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [
+          {
+            "path": "records/transition-001.json",
+            "sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d"
+          },
+          {
+            "path": "records/transition-002.json",
+            "sha256": "575fd5f1100ba4d9a1bbcd0d3932afd7906083d90ca1d0a7d527bdcaeb0c5dda"
+          }
+        ],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000006.json",
+      "sha256": "104a0e6cd90efde1c06a81a27a5813db04a570f28a8548906d1daaca50b07c56",
+      "size_bytes": 3341
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 7,
+        "previous_journal": {
+          "path": "journal/stage17-state-journal-000006.json",
+          "sha256": "104a0e6cd90efde1c06a81a27a5813db04a570f28a8548906d1daaca50b07c56"
+        },
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [
+          {
+            "path": "records/resolution-001-s17-ext-001.json",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "path": "records/resolution-002-s17-ext-002.json",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "path": "records/resolution-003-s17-ext-003.json",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          },
+          {
+            "path": "records/resolution-004-s17-ext-006.json",
+            "sha256": "6bde3f14a8f303e473c2d26192fefd6722759c940e14ef519df3c7e05d18737d"
+          },
+          {
+            "path": "records/resolution-005-s17-ext-004.json",
+            "sha256": "6bafc9405dddd89fb95609ecca0aafc42baccd20ffdb734c00961f0506fa4e57"
+          }
+        ],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [
+          {
+            "path": "records/transition-001.json",
+            "sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d"
+          },
+          {
+            "path": "records/transition-002.json",
+            "sha256": "575fd5f1100ba4d9a1bbcd0d3932afd7906083d90ca1d0a7d527bdcaeb0c5dda"
+          }
+        ],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000007.json",
+      "sha256": "3916f2e2aeb781e53b5e858fce7120842ead6673e1807dadafe936daefc898d4",
+      "size_bytes": 3468
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 8,
+        "previous_journal": {
+          "path": "journal/stage17-state-journal-000007.json",
+          "sha256": "3916f2e2aeb781e53b5e858fce7120842ead6673e1807dadafe936daefc898d4"
+        },
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [
+          {
+            "path": "records/resolution-001-s17-ext-001.json",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "path": "records/resolution-002-s17-ext-002.json",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "path": "records/resolution-003-s17-ext-003.json",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          },
+          {
+            "path": "records/resolution-004-s17-ext-006.json",
+            "sha256": "6bde3f14a8f303e473c2d26192fefd6722759c940e14ef519df3c7e05d18737d"
+          },
+          {
+            "path": "records/resolution-005-s17-ext-004.json",
+            "sha256": "6bafc9405dddd89fb95609ecca0aafc42baccd20ffdb734c00961f0506fa4e57"
+          },
+          {
+            "path": "records/resolution-006-s17-ext-005.json",
+            "sha256": "969b0699dbe4281e7b78232153e352c53e23d3623bf63e849c954a88fe04b27b"
+          }
+        ],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [
+          {
+            "path": "records/transition-001.json",
+            "sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d"
+          },
+          {
+            "path": "records/transition-002.json",
+            "sha256": "575fd5f1100ba4d9a1bbcd0d3932afd7906083d90ca1d0a7d527bdcaeb0c5dda"
+          }
+        ],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000008.json",
+      "sha256": "040bbb9201e6a33ecb359f192374de655ee2d4416f1308c7b4b0dde4167dfa23",
+      "size_bytes": 3595
+    },
+    {
+      "document": {
+        "authority_boundary": {
+          "automatic_transition": false,
+          "retry_allowed": false,
+          "stage18_authority": false
+        },
+        "catalog": {
+          "path": "config/stage17/stage17-external-input-catalog-v1.json",
+          "sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa"
+        },
+        "genesis": {
+          "genesis_record": {
+            "authority_scope": "NO_EXECUTION_AUTHORITY",
+            "catalog_sha256": "044a6187d36a6e309b187e1a8b7071bb3b8b7e56d8b1ddb8daeaf3d0c5f495fa",
+            "graph_sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802",
+            "initial_state": "PREPARED",
+            "journal_id": "STAGE17-STATE-JOURNAL-v1",
+            "protocol_version": "2.0.0-pre.2",
+            "version_hashes": {
+              "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+              "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+              "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+              "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+              "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+              "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+              "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+            }
+          },
+          "genesis_sha256": "42cc89ed8bc596602a23f977ec75f745119bdd861daa1cd2d8881043b0117e29",
+          "hash_algorithm": "SHA-256-CANONICAL-JSON-v1",
+          "initial_state": "PREPARED"
+        },
+        "graph": {
+          "path": "config/stage17/stage17-operational-graph-definition-v1.json",
+          "sha256": "70d1a5c48b60fccdc21ed797733c3fa09829c58a2306b2ca960a769938e63802"
+        },
+        "journal_id": "STAGE17-STATE-JOURNAL-v1",
+        "journal_sequence_number": 9,
+        "previous_journal": {
+          "path": "journal/stage17-state-journal-000008.json",
+          "sha256": "040bbb9201e6a33ecb359f192374de655ee2d4416f1308c7b4b0dde4167dfa23"
+        },
+        "protocol_version": "2.0.0-pre.2",
+        "resolution_records": [
+          {
+            "path": "records/resolution-001-s17-ext-001.json",
+            "sha256": "da13288c877ada463a0bdea7ce9895ceec72690ce42424bd23bf94c85c400d48"
+          },
+          {
+            "path": "records/resolution-002-s17-ext-002.json",
+            "sha256": "5752bf417051136348db08851abbcf5d82d7150d02e2adc4d429d032ec5e9b2a"
+          },
+          {
+            "path": "records/resolution-003-s17-ext-003.json",
+            "sha256": "8114a7bfb28bb8bd880227181d79247b31aefa45cbb0f760f2bd2543daac1416"
+          },
+          {
+            "path": "records/resolution-004-s17-ext-006.json",
+            "sha256": "6bde3f14a8f303e473c2d26192fefd6722759c940e14ef519df3c7e05d18737d"
+          },
+          {
+            "path": "records/resolution-005-s17-ext-004.json",
+            "sha256": "6bafc9405dddd89fb95609ecca0aafc42baccd20ffdb734c00961f0506fa4e57"
+          },
+          {
+            "path": "records/resolution-006-s17-ext-005.json",
+            "sha256": "969b0699dbe4281e7b78232153e352c53e23d3623bf63e849c954a88fe04b27b"
+          }
+        ],
+        "schema_version": "cpu-prefetch-stage17-state-journal/1",
+        "transition_records": [
+          {
+            "path": "records/transition-001.json",
+            "sha256": "2324dcd1cd14c87879ca1d33dd324c2fc0db6fa411f5960bfb62f7682bec129d"
+          },
+          {
+            "path": "records/transition-002.json",
+            "sha256": "575fd5f1100ba4d9a1bbcd0d3932afd7906083d90ca1d0a7d527bdcaeb0c5dda"
+          },
+          {
+            "path": "records/transition-003.json",
+            "sha256": "56ad38a4ebeb6cd355c15a217a3a127929ec7bbff31a6cabc17cee35225d10f5"
+          }
+        ],
+        "version_hashes": {
+          "authorization_schema_sha256": "c7c73124e572ce22e02eb0685b10cbddcfc77995b024dad7ccb792e7d35606d7",
+          "catalog_schema_sha256": "a4a2edf8fa390ce7b365c28d4fe56af932fd8e876f005c9c7b73b1447f08c10a",
+          "custody_receipt_schema_sha256": "68f77164d137665208639475649b926d6b7124eafced3e1ed79374e8a62a5b5a",
+          "graph_schema_sha256": "2e0d38e05ad77bb0cb52ac0e70715a5458b73fee504862070c9f906514b01917",
+          "journal_schema_sha256": "cb089bad7638cc1d2d763f40be93a58844cca0e3b52859bc20b8aa0cd14b6781",
+          "resolution_schema_sha256": "09f4fd122cc4a5441c6f2bdf785780a2f3649ae098bcbec703cfb89f1fd209f6",
+          "transition_schema_sha256": "11aeb331e6e28f1d5f49307347de6f2843bab4a83963e92eaa8c15e32db13997"
+        }
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000009.json",
+      "sha256": "d499a13d18e8e669e39fd37b60bc134ed85ee8a03bcf35af3378c0ca12ef35fc",
+      "size_bytes": 3710
+    },
+    {
+      "document": {
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "execution_authority": false,
+        "original_request": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/admission-root/evidence/formal-q16b-daycap-1/request.json",
+          "sha256": "a2feeb896645779cae711735a1e7ad93bf547effba9823d2d6c97220cac6a3b5",
+          "size_bytes": 2076157
+        },
+        "phase18_authority": false,
+        "projection_id": "D260-PREFIX-COMPATIBILITY-FIELDS-v1",
+        "resolutions": {
+          "S17-EXT-004": {
+            "semantic_context": {
+              "artifact_index": {
+                "CPU-PREFETCH-V5-V26-EXT004-HARDWARE-PREFETCH-QUALIFICATION": {
+                  "sha256": "07759996ffef208db038e7bd16e27acb1b7ca87763b2a4eb1952d4ae49db74ee"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-PILOT-PLATFORM-MEASUREMENTS": {
+                  "sha256": "975cb4ea4b4224184ede9a11e253bebe8abef718db5a610ce5990053f6ea17a4"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-PLATFORM-MANIFEST": {
+                  "sha256": "7d8e915ad9ec3e0d0d26edf6c37acf86409eb1a0dea3140f07dae5cd7065598f"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-ADDRESS-RESIDENCY-RAW": {
+                  "sha256": "a6c62cbdc4376fb9c72a81437d1c44ebe206e522abef11e7f58812faf1b4d006"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-ATOMIC-LAYOUT-RAW": {
+                  "sha256": "8aeaaa13be36a93e80d67569e4614b5e7114a5eb434a9f6e1806b38e2c69bf60"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-ATTEMPT": {
+                  "sha256": "9d5ac46cc2726779473872ebf55e96e78c80440026f6f3b221de8ac8fdac6c16"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-AUTHORIZATION": {
+                  "sha256": "3ab2df545e6a7dfe49a747037ee80aba879fb7eae3f15e422f7f3f6ee325feed"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-CPU-MIGRATION-RAW": {
+                  "sha256": "7fc9656afa724b8b9d889c7cda35411a0da657e5234678981680574fcc9d2ddf"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-READ-ONLY-PRESTATE": {
+                  "sha256": "8fbf1e6913f6e32605fd833eb616bf7eae70b95af453c6b6de6761f414cb8696"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-REQUEST": {
+                  "sha256": "d0425840ecedd04693da73615a835ec85f8b89cef4df617095d0d55fcd44a92a"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-RESULT": {
+                  "sha256": "fc9aa0d4f5cab80b9151eeeb02ab7b3ccde2f8e7ee3bc114284e918a242ac215"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-SESSION-WAITING": {
+                  "sha256": "e00af9b2d2758d4044cfe41e8cf6e1f5aae1a0bb12fd029aec402dbab76b42fc"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-SIGNATURE": {
+                  "sha256": "3eb9aa4af1046210d6ae9e8fb9a0a9de23b5c1ff19b06f055c2f1a3288b5eaed"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-Q15-R-SOFTWARE-PREFETCH-RAW": {
+                  "sha256": "c9cb8a27583dc6cf2f8d36e72f52aacd7a93cd823a92713d3318f829e566ff37"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-QUAL-ACTUAL-CPU-MIGRATION": {
+                  "sha256": "e36d9eabded87657d0e204df82e1e8176f66fb373203a564d03d67fef5abe279"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-QUAL-ADDRESS-RESIDENCY": {
+                  "sha256": "ca81f31ffe9df7fc6d5a1c4ac5aeafd511a7708ca29b62f00e49918544fa99a1"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-QUAL-CLOCK": {
+                  "sha256": "3eab672e8779e06e8ae04581e482c8f10c8a26dd70322cca8cfd829b50cf9760"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-QUAL-RUNTIME-ATOMIC-LAYOUT": {
+                  "sha256": "4b2dce3ae3c1f2d3a9c9a8beeab9b9606b8fa94ed94393019f9b4281fb69acd4"
+                },
+                "CPU-PREFETCH-V5-V26-EXT004-QUAL-SOFTWARE-PREFETCH-MAPPING": {
+                  "sha256": "ed405827a8e9e224530b429f8310691a756cf85fc78545a4f5ee6e81ee89063f"
+                }
+              },
+              "pilot_platform_measurements": {
+                "platform_manifest_sha256": "7d8e915ad9ec3e0d0d26edf6c37acf86409eb1a0dea3140f07dae5cd7065598f",
+                "q15_r_result_sha256": "fc9aa0d4f5cab80b9151eeeb02ab7b3ccde2f8e7ee3bc114284e918a242ac215"
+              },
+              "q15_r": {
+                "authorization": {
+                  "authorization_id": "CPU-PREFETCH-V5-V26-Q15R-AUTH-1"
+                },
+                "result": {
+                  "artifacts": [
+                    {
+                      "sha256": "8fbf1e6913f6e32605fd833eb616bf7eae70b95af453c6b6de6761f414cb8696"
+                    },
+                    {
+                      "sha256": "8aeaaa13be36a93e80d67569e4614b5e7114a5eb434a9f6e1806b38e2c69bf60"
+                    },
+                    {
+                      "sha256": "a6c62cbdc4376fb9c72a81437d1c44ebe206e522abef11e7f58812faf1b4d006"
+                    },
+                    {
+                      "sha256": "c9cb8a27583dc6cf2f8d36e72f52aacd7a93cd823a92713d3318f829e566ff37"
+                    },
+                    {
+                      "sha256": "7fc9656afa724b8b9d889c7cda35411a0da657e5234678981680574fcc9d2ddf"
+                    }
+                  ]
+                },
+                "result_sha256": "fc9aa0d4f5cab80b9151eeeb02ab7b3ccde2f8e7ee3bc114284e918a242ac215"
+              },
+              "qualification_evidence": [
+                {
+                  "artifact_id": "CPU-PREFETCH-V5-V26-EXT004-QUAL-RUNTIME-ATOMIC-LAYOUT",
+                  "eligible": true,
+                  "kind": "RUNTIME_ATOMIC_LAYOUT",
+                  "stand_id": "CPU-PREFETCH-V5"
+                },
+                {
+                  "artifact_id": "CPU-PREFETCH-V5-V26-EXT004-QUAL-ACTUAL-CPU-MIGRATION",
+                  "eligible": true,
+                  "kind": "ACTUAL_CPU_MIGRATION",
+                  "stand_id": "CPU-PREFETCH-V5"
+                },
+                {
+                  "artifact_id": "CPU-PREFETCH-V5-V26-EXT004-QUAL-ADDRESS-RESIDENCY",
+                  "eligible": true,
+                  "kind": "ADDRESS_RESIDENCY",
+                  "stand_id": "CPU-PREFETCH-V5"
+                },
+                {
+                  "artifact_id": "CPU-PREFETCH-V5-V26-EXT004-QUAL-SOFTWARE-PREFETCH-MAPPING",
+                  "eligible": true,
+                  "kind": "SOFTWARE_PREFETCH_MAPPING",
+                  "stand_id": "CPU-PREFETCH-V5"
+                },
+                {
+                  "artifact_id": "CPU-PREFETCH-V5-V26-EXT004-QUAL-CLOCK",
+                  "eligible": true,
+                  "kind": "SELECTED_PAIR_CLOCK",
+                  "stand_id": "CPU-PREFETCH-V5"
+                }
+              ],
+              "stand_id": "CPU-PREFETCH-V5"
+            }
+          },
+          "S17-EXT-006": {
+            "semantic_context": {
+              "archive_bundle_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-aa3285f-clean-d3967bde5f12",
+              "inventory_sha256": "371ce6e04bc9def7322f1df97d7db2b8f7a659495da6763746f1c8ca6e75b12d",
+              "release_artifact_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-aa3285f-clean-d3967bde5f12/release/bin/cpu_prefetch_runner",
+              "release_artifact_sha256": "305cedfc5438c68ececfa6a0f954d757112a50c87f687b93ad7b013b7ed757dd",
+              "release_artifact_size_bytes": 4973080,
+              "source_revision": "aa3285f15acbd3314cae64a628c113488a8438b8"
+            }
+          }
+        },
+        "schema_version": "cpu-prefetch-stage17-d260-prefix-qualification-context/1"
+      },
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d260-prefix-custody-complete-1/qualification-context.json",
+      "sha256": "b015a73b93cbe5d5d34cc8a599800e6d579e3b6983d0909e6b6de760b1019f98",
+      "size_bytes": 5295
+    }
+  ],
+  "qualification_supervision": {
+    "ActiveState": "active",
+    "InvocationID": "931836d809dc4f97b07365563d0ff55d",
+    "MainPID": "243203",
+    "Result": "success"
+  },
+  "raw_transferred": false
+}

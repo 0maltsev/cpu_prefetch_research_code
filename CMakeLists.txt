@@ -1659,7 +1659,11 @@ if(BUILD_TESTING)
       archive_canonical_fast_v1 archive_metadata_fast_v1 archive_metadata_fast_v2
       formal_service_daycap_v1 service_daycap_execution_v1 e26_transition_renewal
       supervisor_proc_exit retained_capture_inspection_v1 formal_service_continuation_v1
-      formal_control_reader_v1 post_exit_custody_v1 policy_v60 daycap_qualification_v2)
+      formal_control_reader_v1 post_exit_custody_v1 policy_v60 daycap_qualification_v2
+      service_continuation_execution_v1 q16a_service_continuation_handoff_v1
+      service_continuation_administration_v1 service_prefix_admission_v1
+      formal_service_continuation_v2 service_continuation_namespace_v1
+      service_continuation_packet_v1)
     add_test(NAME runner.${_d252_test}
       COMMAND "${Python3_EXECUTABLE}" -B
         "${PROJECT_SOURCE_DIR}/tests/test_stage17_${_d252_test}.py")

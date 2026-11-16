@@ -145,6 +145,68 @@ void continuation_contract(const Object& value) {
   // compatibility are separately checked by signed controller admission.
 }
 
+void service_continuation_contract(const Object& value) {
+  input::fields(value, {"policy_id", "parent_plan", "failed_family_receipt",
+                        "accepted_prefix_manifest", "compatibility_manifest",
+                        "reused_capture_ordinals", "original_first_ordinal",
+                        "original_total_captures", "remaining_capture_count",
+                        "seed_policy", "monitor_path_replacements", "future_retries"});
+  require(input::text(value, "policy_id") == "Q16B-RETAINED-PREFIX-CONTINUATION-v1" &&
+              input::text(value, "seed_policy") ==
+                  "PRESERVE_ORIGINAL_NUMERIC_SEEDS_FRESH_IDENTITIES" &&
+              input::number(value, "original_first_ordinal") == 17U &&
+              input::number(value, "original_total_captures") == 120U &&
+              input::number(value, "remaining_capture_count") == 103U &&
+              input::number(value, "future_retries") == 0U,
+          "service continuation differs from the accepted incident");
+  const auto& reused = input::array(value, "reused_capture_ordinals", 17U);
+  for (std::size_t i = 0U; i < reused.size(); ++i)
+    require(input::number(reused[i]) == i, "service continuation prefix differs");
+  for (const auto field : {"parent_plan", "failed_family_receipt",
+                           "accepted_prefix_manifest", "compatibility_manifest"}) {
+    const auto& binding = input::object(value, field);
+    input::fields(binding, {"path", "size_bytes", "sha256"});
+    const auto& path = input::text(binding, "path");
+    const auto& hash = input::text(binding, "sha256");
+    require(
+        !path.empty() && path.front() == '/' && path.find('\0') == std::string::npos &&
+            path.find("/../") == std::string::npos && !path.ends_with("/..") &&
+            positive(binding, "size_bytes") <= std::uint64_t{128U} * 1024U * 1024U &&
+            hash.size() == 64U &&
+            std::all_of(hash.begin(), hash.end(),
+                        [](char c) {
+                          return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f');
+                        }),
+        "service continuation proof binding differs");
+  }
+  const auto& parent = input::object(value, "parent_plan");
+  const auto& failed = input::object(value, "failed_family_receipt");
+  require(input::text(parent, "sha256") ==
+                  "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486" &&
+              input::number(parent, "size_bytes") == 2072840U &&
+              input::text(failed, "sha256") ==
+                  "332662f64d2f802578c0152aec69781f3b913afca43efe2714483da7e80b3269" &&
+              input::number(failed, "size_bytes") == 1084U,
+          "service continuation original incident differs");
+  const auto* paths = input::member(value, "monitor_path_replacements").as_array();
+  require(paths != nullptr && (paths->empty() || paths->size() == 5U),
+          "service continuation monitoring replacement count differs");
+  for (const auto& item : *paths) {
+    const auto* replacement = item.as_object();
+    require(replacement != nullptr,
+            "service continuation replacement is not an object");
+    input::fields(*replacement, {"original_path", "continuation_path"});
+    for (const auto field : {"original_path", "continuation_path"}) {
+      const auto& path = input::text(*replacement, field);
+      require(!path.empty() && path.front() == '/' &&
+                  path.find('\0') == std::string::npos,
+              "service continuation monitoring path is not absolute");
+    }
+  }
+  // Signed controller admission authenticates the actual prefix, parent,
+  // post-exit custody and cross-release compatibility, separately from parsing.
+}
+
 auto validate(FixedAction action, const Object& plan, std::string_view revision)
     -> FormalFamilyBudget {
   const bool ring = action == FixedAction::q16a;
@@ -155,14 +217,24 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
   const auto& schema_version = input::text(plan, "schema_version");
   const bool continuation =
       ring && schema_version == "cpu-prefetch-stage17-formal-ring-plan/3";
+  const bool service_continuation =
+      action == FixedAction::q16b &&
+      schema_version == "cpu-prefetch-stage17-formal-service-plan/4";
   const bool service_daycap =
       action == FixedAction::q16b &&
-      schema_version == "cpu-prefetch-stage17-formal-service-plan/3";
+      (schema_version == "cpu-prefetch-stage17-formal-service-plan/3" ||
+       service_continuation);
   const bool archived =
       schema_version.ends_with("/2") || continuation || service_daycap;
   if (continuation) {
     continuation_contract(input::object(plan, "continuation"));
     common.erase("continuation");
+  }
+  if (service_continuation) {
+    service_continuation_contract(input::object(plan, "continuation"));
+    common.erase("continuation");
+    require(revision != "aa3285f15acbd3314cae64a628c113488a8438b8",
+            "service continuation requires a new qualified source");
   }
   if (archived)
     common.erase("storage");
@@ -179,9 +251,10 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
       std::string(ring        ? "cpu-prefetch-stage17-formal-ring-plan/"
                   : scheduled ? "cpu-prefetch-stage17-formal-scheduled-plan/"
                               : "cpu-prefetch-stage17-formal-service-plan/") +
-      (continuation || service_daycap ? "3"
-       : archived                     ? "2"
-                                      : "1");
+      (service_continuation             ? "4"
+       : continuation || service_daycap ? "3"
+       : archived                       ? "2"
+                                        : "1");
   const auto expected_capture_method =
       ring        ? "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2"
       : scheduled ? "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"
@@ -232,7 +305,8 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
   const auto scale = scheduled ? input::number(plan, "scale_ordinal") : 0U;
   require(scale < 5U, "formal scale is outside the accepted ladder");
   const auto cells = ring ? 12U : scheduled ? 180U : 60U;
-  const auto count = multiply(continuation ? 9U : cells, repetitions);
+  const auto count =
+      service_continuation ? 103U : multiply(continuation ? 9U : cells, repetitions);
   require(count <= std::numeric_limits<std::size_t>::max(),
           "formal family size overflow");
   const auto& captures =
@@ -261,8 +335,9 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
     const auto& capture = input::object(*item, "capture");
     const auto& resources = input::object(*item, "resources");
     const auto& monitoring = input::object(*item, "monitoring");
-    const auto repetition = ordinal % repetitions;
-    const auto position = ordinal / repetitions + (continuation ? 3U : 0U);
+    const auto original_ordinal = ordinal + (service_continuation ? 17U : 0U);
+    const auto repetition = original_ordinal % repetitions;
+    const auto position = original_ordinal / repetitions + (continuation ? 3U : 0U);
     const auto state = position / (cells / 2U);
     const auto in_state = position % (cells / 2U);
     const auto load = scheduled ? in_state % 3U : 0U;

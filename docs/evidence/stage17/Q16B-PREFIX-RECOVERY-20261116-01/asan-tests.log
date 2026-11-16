@@ -1,0 +1,188 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = Stage17FormalFamily.*:Formal*Input.*:Formal*Publication.*
+[==========] Running 80 tests from 7 test suites.
+[----------] Global test environment set-up.
+[----------] 11 tests from FormalRingNativeInput
+[ RUN      ] FormalRingNativeInput.ResolvesExplicitWindowAndBothPhaseBounds
+[       OK ] FormalRingNativeInput.ResolvesExplicitWindowAndBothPhaseBounds (10 ms)
+[ RUN      ] FormalRingNativeInput.CoversTwelveContextsWithoutInventingFarCpu
+[       OK ] FormalRingNativeInput.CoversTwelveContextsWithoutInventingFarCpu (107 ms)
+[ RUN      ] FormalRingNativeInput.RejectsWrongMethodPackageWarmupAndFactorLabels
+[       OK ] FormalRingNativeInput.RejectsWrongMethodPackageWarmupAndFactorLabels (42 ms)
+[ RUN      ] FormalRingNativeInput.RejectsIncompleteOrAdditionalFields
+[       OK ] FormalRingNativeInput.RejectsIncompleteOrAdditionalFields (20 ms)
+[ RUN      ] FormalRingNativeInput.RejectsMissingWindowMinimumAndOverflow
+[       OK ] FormalRingNativeInput.RejectsMissingWindowMinimumAndOverflow (28 ms)
+[ RUN      ] FormalRingNativeInput.RejectsStaleDeclaredLayoutAndTooSmallBudget
+[       OK ] FormalRingNativeInput.RejectsStaleDeclaredLayoutAndTooSmallBudget (31 ms)
+[ RUN      ] FormalRingNativeInput.RejectsUncoveredRawCapacity
+[       OK ] FormalRingNativeInput.RejectsUncoveredRawCapacity (30 ms)
+[ RUN      ] FormalRingNativeInput.RejectsPhaseIdentityReuseAndUnexpectedArenaSeed
+[       OK ] FormalRingNativeInput.RejectsPhaseIdentityReuseAndUnexpectedArenaSeed (36 ms)
+[ RUN      ] FormalRingNativeInput.RejectsOwnerCollisionAndOrdinalDisagreement
+[       OK ] FormalRingNativeInput.RejectsOwnerCollisionAndOrdinalDisagreement (14 ms)
+[ RUN      ] FormalRingNativeInput.RejectsNoncanonicalSeedsAndOpaqueIdentities
+[       OK ] FormalRingNativeInput.RejectsNoncanonicalSeedsAndOpaqueIdentities (144 ms)
+[ RUN      ] FormalRingNativeInput.AllowsZeroOffsetButRejectsObservationAtPhaseEnd
+[       OK ] FormalRingNativeInput.AllowsZeroOffsetButRejectsObservationAtPhaseEnd (9 ms)
+[----------] 11 tests from FormalRingNativeInput (479 ms total)
+
+[----------] 8 tests from FormalServiceNativeInput
+[ RUN      ] FormalServiceNativeInput.CoversSixtyCellsAndBothPhaseBounds
+[       OK ] FormalServiceNativeInput.CoversSixtyCellsAndBothPhaseBounds (534 ms)
+[ RUN      ] FormalServiceNativeInput.RequiresExactPackageCellAndMethod
+[       OK ] FormalServiceNativeInput.RequiresExactPackageCellAndMethod (23 ms)
+[ RUN      ] FormalServiceNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel
+[       OK ] FormalServiceNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel (8 ms)
+[ RUN      ] FormalServiceNativeInput.RequiresLinkedSeedAndRejectsItForRing
+[       OK ] FormalServiceNativeInput.RequiresLinkedSeedAndRejectsItForRing (25 ms)
+[ RUN      ] FormalServiceNativeInput.RequiresR1OneLineAndR2ExplicitEvidence
+[       OK ] FormalServiceNativeInput.RequiresR1OneLineAndR2ExplicitEvidence (26 ms)
+[ RUN      ] FormalServiceNativeInput.RejectsStaleLayoutAndUncoveredCapacity
+[       OK ] FormalServiceNativeInput.RejectsStaleLayoutAndUncoveredCapacity (15 ms)
+[ RUN      ] FormalServiceNativeInput.RejectsWindowOverflowAndMissingWarmup
+[       OK ] FormalServiceNativeInput.RejectsWindowOverflowAndMissingWarmup (14 ms)
+[ RUN      ] FormalServiceNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity
+[       OK ] FormalServiceNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity (14 ms)
+[----------] 8 tests from FormalServiceNativeInput (663 ms total)
+
+[----------] 13 tests from FormalScheduledNativeInput
+[ RUN      ] FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds
+[       OK ] FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds (1869 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresExactPackageCellAndMethod
+[       OK ] FormalScheduledNativeInput.RequiresExactPackageCellAndMethod (22 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel
+[       OK ] FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel (9 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing
+[       OK ] FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing (28 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence
+[       OK ] FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence (29 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity
+[       OK ] FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity (17 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup
+[       OK ] FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup (15 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity
+[       OK ] FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity (15 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance
+[       OK ] FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance (85 ms)
+[ RUN      ] FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid
+[       OK ] FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid (8 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum
+[       OK ] FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum (18 ms)
+[ RUN      ] FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction
+[       OK ] FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction (9 ms)
+[ RUN      ] FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed
+[       OK ] FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed (31 ms)
+[----------] 13 tests from FormalScheduledNativeInput (2162 ms total)
+
+[----------] 28 tests from Stage17FormalFamily
+[ RUN      ] Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets
+[       OK ] Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets (23059 ms)
+[ RUN      ] Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies
+[       OK ] Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies (1182 ms)
+[ RUN      ] Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift
+[       OK ] Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift (2255 ms)
+[ RUN      ] Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily
+[       OK ] Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily (1967 ms)
+[ RUN      ] Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput
+[       OK ] Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput (7957 ms)
+[ RUN      ] Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission
+[       OK ] Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission (11602 ms)
+[ RUN      ] Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges
+[       OK ] Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges (4047 ms)
+[ RUN      ] Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions
+[       OK ] Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions (775 ms)
+[ RUN      ] Stage17FormalFamily.ServiceContinuationMaps103RealCapturesFromOriginal17
+[       OK ] Stage17FormalFamily.ServiceContinuationMaps103RealCapturesFromOriginal17 (523 ms)
+[ RUN      ] Stage17FormalFamily.ServiceContinuationRejectsMissingExtraOrWrongFirstRepetition
+[       OK ] Stage17FormalFamily.ServiceContinuationRejectsMissingExtraOrWrongFirstRepetition (871 ms)
+[ RUN      ] Stage17FormalFamily.ServiceContinuationRejectsDifferentIncidentOrMissingProofs
+[       OK ] Stage17FormalFamily.ServiceContinuationRejectsDifferentIncidentOrMissingProofs (1117 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat
+[       OK ] Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat (546 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods (2216 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell (7079 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder (2450 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup (5176 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay
+[       OK ] Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay (2807 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks
+[       OK ] Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks (8517 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks
+[       OK ] Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks (3957 ms)
+[ RUN      ] Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine
+[       OK ] Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine (53084 ms)
+[ RUN      ] Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy
+[       OK ] Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy (43797 ms)
+[ RUN      ] Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint
+[       OK ] Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint (27598 ms)
+[ RUN      ] Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission
+[       OK ] Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission (20618 ms)
+[ RUN      ] Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily
+[       OK ] Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily (5885 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts
+[       OK ] Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts (3577 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules
+[       OK ] Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules (3803 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume
+[       OK ] Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume (5496 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs
+[       OK ] Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs (5342 ms)
+[----------] 28 tests from Stage17FormalFamily (257331 ms total)
+
+[----------] 7 tests from FormalRingPublication
+[ RUN      ] FormalRingPublication.RetainsEightRawStreamsAndAbsentOwnersExplicitly
+[       OK ] FormalRingPublication.RetainsEightRawStreamsAndAbsentOwnersExplicitly (45 ms)
+[ RUN      ] FormalRingPublication.CopiesAllDemandBytesWithoutWindowFiltering
+[       OK ] FormalRingPublication.CopiesAllDemandBytesWithoutWindowFiltering (56 ms)
+[ RUN      ] FormalRingPublication.PreservesFailedClockAndIncompletePrefix
+[       OK ] FormalRingPublication.PreservesFailedClockAndIncompletePrefix (42 ms)
+[ RUN      ] FormalRingPublication.StopsAtSinkFailureAndRetainsPriorArtifacts
+[       OK ] FormalRingPublication.StopsAtSinkFailureAndRetainsPriorArtifacts (1 ms)
+[ RUN      ] FormalRingPublication.NeverInfersFinalCleanupFromPrePublicationState
+[       OK ] FormalRingPublication.NeverInfersFinalCleanupFromPrePublicationState (42 ms)
+[ RUN      ] FormalRingPublication.RejectsAbsentProspectiveMinimumBeforePublishing
+[       OK ] FormalRingPublication.RejectsAbsentProspectiveMinimumBeforePublishing (0 ms)
+[ RUN      ] FormalRingPublication.PreservesIndependentPrimaryBytesAndExactDemandBindings
+[       OK ] FormalRingPublication.PreservesIndependentPrimaryBytesAndExactDemandBindings (60 ms)
+[----------] 7 tests from FormalRingPublication (248 ms total)
+
+[----------] 6 tests from FormalServicePublication
+[ RUN      ] FormalServicePublication.RetainsFourIndependentPrimaryStreams
+[       OK ] FormalServicePublication.RetainsFourIndependentPrimaryStreams (16 ms)
+[ RUN      ] FormalServicePublication.KeepsIntervalNumeratorSeparateFromDrainCount
+[       OK ] FormalServicePublication.KeepsIntervalNumeratorSeparateFromDrainCount (31 ms)
+[ RUN      ] FormalServicePublication.RetainsUnknownFailureWithoutInventingObservation
+[       OK ] FormalServicePublication.RetainsUnknownFailureWithoutInventingObservation (48 ms)
+[ RUN      ] FormalServicePublication.RetainsNodeOrderAsExactUnsignedLittleEndian
+[       OK ] FormalServicePublication.RetainsNodeOrderAsExactUnsignedLittleEndian (29 ms)
+[ RUN      ] FormalServicePublication.PreservesMissingOwnersAndStopsAtSinkFailure
+[       OK ] FormalServicePublication.PreservesMissingOwnersAndStopsAtSinkFailure (22 ms)
+[ RUN      ] FormalServicePublication.FinalCleanupRemainsSeparateEvidence
+[       OK ] FormalServicePublication.FinalCleanupRemainsSeparateEvidence (30 ms)
+[----------] 6 tests from FormalServicePublication (179 ms total)
+
+[----------] 7 tests from FormalScheduledPublication
+[ RUN      ] FormalScheduledPublication.RetainsFourIndependentPrimaryStreams
+[       OK ] FormalScheduledPublication.RetainsFourIndependentPrimaryStreams (18 ms)
+[ RUN      ] FormalScheduledPublication.PreparedSchedulesAreNotFabricatedExecution
+[       OK ] FormalScheduledPublication.PreparedSchedulesAreNotFabricatedExecution (39 ms)
+[ RUN      ] FormalScheduledPublication.RetainsActualReleaseCompletionAndDrainWithoutD211
+[       OK ] FormalScheduledPublication.RetainsActualReleaseCompletionAndDrainWithoutD211 (40 ms)
+[ RUN      ] FormalScheduledPublication.RetainsUnknownFailureWithoutInventingObservation
+[       OK ] FormalScheduledPublication.RetainsUnknownFailureWithoutInventingObservation (33 ms)
+[ RUN      ] FormalScheduledPublication.RetainsNodeOrderAsExactUnsignedLittleEndian
+[       OK ] FormalScheduledPublication.RetainsNodeOrderAsExactUnsignedLittleEndian (32 ms)
+[ RUN      ] FormalScheduledPublication.PreservesMissingOwnersAndStopsAtSinkFailure
+[       OK ] FormalScheduledPublication.PreservesMissingOwnersAndStopsAtSinkFailure (26 ms)
+[ RUN      ] FormalScheduledPublication.FinalCleanupRemainsSeparateEvidence
+[       OK ] FormalScheduledPublication.FinalCleanupRemainsSeparateEvidence (33 ms)
+[----------] 7 tests from FormalScheduledPublication (224 ms total)
+
+[----------] Global test environment tear-down
+[==========] 80 tests from 7 test suites ran. (261299 ms total)
+[  PASSED  ] 80 tests.

@@ -1,0 +1,66 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = Stage17FormalFamily.*:Stage17Formal*Input.*:Stage17Formal*Publication.*
+[==========] Running 28 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 28 tests from Stage17FormalFamily
+[ RUN      ] Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets
+[       OK ] Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets (4430 ms)
+[ RUN      ] Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies
+[       OK ] Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies (336 ms)
+[ RUN      ] Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift
+[       OK ] Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift (606 ms)
+[ RUN      ] Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily
+[       OK ] Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily (451 ms)
+[ RUN      ] Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput
+[       OK ] Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput (1813 ms)
+[ RUN      ] Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission
+[       OK ] Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission (2376 ms)
+[ RUN      ] Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges
+[       OK ] Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges (717 ms)
+[ RUN      ] Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions
+[       OK ] Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions (136 ms)
+[ RUN      ] Stage17FormalFamily.ServiceContinuationMaps103RealCapturesFromOriginal17
+[       OK ] Stage17FormalFamily.ServiceContinuationMaps103RealCapturesFromOriginal17 (76 ms)
+[ RUN      ] Stage17FormalFamily.ServiceContinuationRejectsMissingExtraOrWrongFirstRepetition
+[       OK ] Stage17FormalFamily.ServiceContinuationRejectsMissingExtraOrWrongFirstRepetition (163 ms)
+[ RUN      ] Stage17FormalFamily.ServiceContinuationRejectsDifferentIncidentOrMissingProofs
+[       OK ] Stage17FormalFamily.ServiceContinuationRejectsDifferentIncidentOrMissingProofs (206 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat
+[       OK ] Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat (75 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods (384 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell (1296 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder (379 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup (940 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay
+[       OK ] Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay (372 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks
+[       OK ] Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks (1144 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks
+[       OK ] Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks (582 ms)
+[ RUN      ] Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine
+[       OK ] Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine (7641 ms)
+[ RUN      ] Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy
+[       OK ] Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy (5642 ms)
+[ RUN      ] Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint
+[       OK ] Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint (3415 ms)
+[ RUN      ] Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission
+[       OK ] Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission (2433 ms)
+[ RUN      ] Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily
+[       OK ] Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily (780 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts
+[       OK ] Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts (447 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules
+[       OK ] Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules (519 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume
+[       OK ] Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume (947 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs
+[       OK ] Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs (920 ms)
+[----------] 28 tests from Stage17FormalFamily (39243 ms total)
+
+[----------] Global test environment tear-down
+[==========] 28 tests from 1 test suite ran. (39244 ms total)
+[  PASSED  ] 28 tests.

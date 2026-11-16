@@ -1,6 +1,27 @@
 # Repository Status
 
-**Q16b remains STOPPED:16/120 archived captures;17 checkpoints retained.** [D258](docs/decisions/0258-stage17-procfs-exit-race.md) repairs the reproduced supervisor process-exit race and adds bounded failure tracebacks. The fix is installed separately on the stand;14 targeted tests and22 supervision regressions passed there. Native identity, genuine worker-loss, signature, cleanup and deadline gates remain enforced. The old operator, all data, original qualification and Q16a708 remain unchanged. No experiment was restarted or repeated. Hardware/CPU/maintenance restoration is verified. EXT007/Stage17 remain incomplete.
+**Current Q16b checkpoint (2026-11-16): STOPPED at the required raw-validation gate.**
+All17 retained native-complete captures passed original signed-plan/physical-archive
+inspection. Capture16's control archive is PUBLISHED, its original remains, and
+its final custody handoff is still incomplete. Independent raw validation stopped
+at07:33 UTC on the existing reader's256MiB cumulative packed-page ceiling; the
+signed plan requires approximately456–457MiB per capture. This is an unsupported
+reader capacity, with scientific validity unresolved and zero completed independent
+capture reports. The coordinator reaped its children; collection and validation
+both have MainPID0 and empty control groups. Original failure/data/ledger and all
+708 completed Q16a reports remain preserved. No measurements, qualification,
+custody mutation or scientific-validation retry occurred.
+
+The owner approved [D260's exact103-capture continuation and one new24-hour
+window](docs/STAGE17_EXT007_Q16B_CONTINUATION_V1_DECISION.md). That window has not
+started. Its versioned declaration and cold native parser are prepared; execution
+routing, clean release qualification and all17 prefix validity/custody gates remain
+required. The next step is a bounded reader correction, with stopped raw validation
+resumed only on further instruction under the failure-stop rule. See the
+[recovery report](docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/REPORT.md).
+EXT007 and Stage17 remain incomplete; Stage18 remains prohibited.
+
+**Previous supervision checkpoint:16/120 archived captures;17 checkpoints retained.** [D258](docs/decisions/0258-stage17-procfs-exit-race.md) repairs the reproduced supervisor process-exit race and adds bounded failure tracebacks. The fix is installed separately on the stand;14 targeted tests and22 supervision regressions passed there. Native identity, genuine worker-loss, signature, cleanup and deadline gates remain enforced. The old operator, all data, original qualification and Q16a708 remain unchanged. No experiment was restarted or repeated. Hardware/CPU/maintenance restoration is verified. EXT007/Stage17 remain incomplete.
 
 **Historical Q16b collection checkpoint (2026-11-15, 10:35 UTC): running at that time; stopped for D252 at 12:50 UTC.** The single formal attempt started at 10:33:56 UTC. Native worker PID 197428 is alive under UID 1000 in the reserved cgroup; its actual memfd executable SHA256 matches qualified release `42f2ebb`. The approved plan is unchanged: 3,540 captures (60 cells × 59), each with 5-second warmup and 1-second measurement. Namespace registration, owner signing and verified isolation are complete; detached supervisor PID 196134 owns cleanup and restoration. No failure or completion receipt exists; scientific validity is NOT_ASSESSED. Completed clocks/Q15 and all 708 validated Q16a reports remain preserved without reruns. [Startup proof and plan](docs/evidence/stage17/Q16B-ADMISSION-20261115-01/REPORT.txt). Next: finish collection and archival, independently validate Q16b, then Q16c, calibration freeze and EXT007/Stage17 exit. Stop at the first new experimental failure; no automatic retry.
 

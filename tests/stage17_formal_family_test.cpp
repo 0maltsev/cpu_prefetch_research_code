@@ -278,6 +278,113 @@ auto service_daycap_fixture(std::size_t repetitions = 2U) -> Object {
   return plan;
 }
 
+auto service_continuation_fixture() -> Object {
+  auto plan = service_daycap_fixture();
+  plan.at("schema_version") = text("cpu-prefetch-stage17-formal-service-plan/4");
+  auto captures = *plan.at("captures").as_array();
+  captures.erase(captures.begin(), captures.begin() + 17);
+  for (std::size_t ordinal = 0U; ordinal < captures.size(); ++ordinal) {
+    auto item = *captures[ordinal].as_object();
+    for (const auto field : {"capture", "resources", "monitoring"}) {
+      auto part = *item.at(field).as_object();
+      part.at("ordinal") = number(ordinal);
+      item.at(field) = Value(std::move(part));
+    }
+    captures[ordinal] = Value(std::move(item));
+  }
+  plan.at("captures") = Value(std::move(captures));
+  const auto binding = [](std::string_view hash, std::uint64_t bytes) {
+    return Value(Object{{"path", text("/synthetic/evidence.json")},
+                        {"size_bytes", number(bytes)},
+                        {"sha256", text(hash)}});
+  };
+  Array reused;
+  for (std::size_t i = 0U; i < 17U; ++i)
+    reused.push_back(number(i));
+  plan.emplace(
+      "continuation",
+      Value(Object{
+          {"policy_id", text("Q16B-RETAINED-PREFIX-CONTINUATION-v1")},
+          {"parent_plan",
+           binding("53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+                   2072840)},
+          {"failed_family_receipt",
+           binding("332662f64d2f802578c0152aec69781f3b913afca43efe2714483da7e80b3269",
+                   1084)},
+          {"accepted_prefix_manifest", binding(std::string(64U, 'c'), 1000)},
+          {"compatibility_manifest", binding(std::string(64U, 'd'), 1000)},
+          {"reused_capture_ordinals", Value(std::move(reused))},
+          {"original_first_ordinal", number(17)},
+          {"original_total_captures", number(120)},
+          {"remaining_capture_count", number(103)},
+          {"seed_policy", text("PRESERVE_ORIGINAL_NUMERIC_SEEDS_FRESH_IDENTITIES")},
+          {"monitor_path_replacements", Value(Array{})},
+          {"future_retries", number(0)}}));
+  return plan;
+}
+
+TEST(Stage17FormalFamily, ServiceContinuationMaps103RealCapturesFromOriginal17) {
+  const auto plan = service_continuation_fixture();
+  const auto result = validate(plan, Action::q16b);
+  ASSERT_TRUE(result) << (result ? "" : result.errors().front().message);
+  EXPECT_EQ(result.value().captures.size(), 103U);
+  const auto& first =
+      *plan.at("captures").as_array()->front().as_object()->at("capture").as_object();
+  EXPECT_EQ(std::get<std::uint64_t>(first.at("cell_ordinal").as_number()->value), 14U);
+  EXPECT_EQ(std::get<std::uint64_t>(first.at("repetition_ordinal").as_number()->value),
+            1U);
+  EXPECT_EQ(result.value().watchdog_ns, 960'002'000'000U);
+}
+
+TEST(Stage17FormalFamily,
+     ServiceContinuationRejectsMissingExtraOrWrongFirstRepetition) {
+  for (const auto mutation : {0, 1, 2, 3}) {
+    auto plan = service_continuation_fixture();
+    auto entries = *plan.at("captures").as_array();
+    if (mutation == 0)
+      entries.pop_back();
+    else if (mutation == 1)
+      entries.push_back(entries.back());
+    else {
+      auto item = *entries.front().as_object();
+      auto capture = *item.at("capture").as_object();
+      capture.at(mutation == 2 ? "repetition_ordinal" : "cell_ordinal") = number(0);
+      item.at("capture") = Value(std::move(capture));
+      entries.front() = Value(std::move(item));
+    }
+    plan.at("captures") = Value(std::move(entries));
+    EXPECT_FALSE(validate(plan, Action::q16b)) << mutation;
+  }
+  auto plan = service_continuation_fixture();
+  plan.at("schema_version") = text("cpu-prefetch-stage17-formal-service-plan/3");
+  EXPECT_FALSE(validate(plan, Action::q16b));
+}
+
+TEST(Stage17FormalFamily, ServiceContinuationRejectsDifferentIncidentOrMissingProofs) {
+  for (const auto field : {"original_first_ordinal", "original_total_captures",
+                           "remaining_capture_count", "future_retries"}) {
+    auto plan = service_continuation_fixture();
+    auto declaration = *plan.at("continuation").as_object();
+    declaration.at(field) = number(1);
+    plan.at("continuation") = Value(std::move(declaration));
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+  for (const auto field : {"accepted_prefix_manifest", "compatibility_manifest"}) {
+    auto plan = service_continuation_fixture();
+    auto declaration = *plan.at("continuation").as_object();
+    declaration.erase(field);
+    plan.at("continuation") = Value(std::move(declaration));
+    EXPECT_FALSE(validate(plan, Action::q16b)) << field;
+  }
+  auto plan = service_continuation_fixture();
+  auto declaration = *plan.at("continuation").as_object();
+  auto parent = *declaration.at("parent_plan").as_object();
+  parent.at("sha256") = text(std::string(64U, '0'));
+  declaration.at("parent_plan") = Value(std::move(parent));
+  plan.at("continuation") = Value(std::move(declaration));
+  EXPECT_FALSE(validate(plan, Action::q16b));
+}
+
 TEST(Stage17FormalFamily, ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat) {
   const auto plan = service_daycap_fixture();
   const auto result = validate(plan, Action::q16b);

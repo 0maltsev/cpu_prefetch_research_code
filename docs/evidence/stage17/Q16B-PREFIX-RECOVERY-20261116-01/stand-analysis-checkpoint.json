@@ -1,0 +1,216 @@
+{
+  "utc": "2026-11-16 07:37:34.334821+00:00",
+  "files": {
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-1/analysis-intent.json": {
+      "size_bytes": 687,
+      "sha256": "94c52d02caeb9a42bf2b1ffbe53acff2aecbe46fe4f6646268714917a565a745",
+      "document": {
+        "captures": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "custody_mutation": false,
+        "deadline_monotonic_ns": 1255754718814043,
+        "execution_authority": false,
+        "helper_sha256": "d9f6ca2be2903e51064ac8d365477dfb8301abafee57e191165f4bb74f47c465",
+        "maximum_workers": 8,
+        "operator": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix.py",
+          "sha256": "51f2cc5bbccd9fa70ef09280b77eb72a7514874569bad6c15b7e8ea7d425dbc8",
+          "size_bytes": 11256
+        },
+        "original_hard_deadline_ns": 1286361844786205,
+        "per_capture_seconds": 900,
+        "phase18_authority": false,
+        "schema_version": "software-d259-retained-prefix-analysis/1",
+        "started_monotonic_ns": 1250354718814043
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-1/analysis-failure.json": {
+      "size_bytes": 1136,
+      "sha256": "a72e7d656d1c03e0c734b776ceb1546c602db103bc620e7f829bd4f1630a99fd",
+      "document": {
+        "error": "PermissionError(13, 'Permission denied')",
+        "execution_authority": false,
+        "status": "FAILED",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix.py\", line 152, in <module>\n    try:main()\n        ~~~~^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix.py\", line 59, in main\n    a.read(restoration['receipt'])\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-resume-operators-2/analyze_daycap.py\", line 18, in read\n    with p.open('rb') as stream:\n         ~~~~~~^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 772, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/isolation-resume-1/restoration.json'\n"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-2/analysis-intent.json": {
+      "size_bytes": 689,
+      "sha256": "d6c0382d7edba824bb3087b2273996c3a347bdb5479ddf85c5e6a3a3a695cfb7",
+      "document": {
+        "captures": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "custody_mutation": false,
+        "deadline_monotonic_ns": 1256055875203212,
+        "execution_authority": false,
+        "helper_sha256": "d9f6ca2be2903e51064ac8d365477dfb8301abafee57e191165f4bb74f47c465",
+        "maximum_workers": 8,
+        "operator": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix_2.py",
+          "sha256": "c936130a8bdfc5b940072018db6dc596d055355b73a6748d08a051059c20f9c5",
+          "size_bytes": 11256
+        },
+        "original_hard_deadline_ns": 1286361844786205,
+        "per_capture_seconds": 900,
+        "phase18_authority": false,
+        "schema_version": "software-d259-retained-prefix-analysis/1",
+        "started_monotonic_ns": 1250655875203212
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-2/metadata-complete.json": {
+      "size_bytes": 387,
+      "sha256": "745dd8c5712a432601172779d26b74286fad34fd4cb26fbd08f503962d511f3d",
+      "document": {
+        "available_memory_bytes": 261893500928,
+        "captures": 17,
+        "custody_incomplete_ordinals": [
+          16
+        ],
+        "execution_authority": false,
+        "ledger": {
+          "file_name": "0000000000060695.json",
+          "sha256": "f5e49f228718763995f2ecebf694aef4bd74ac3dec1142ca3a771e8dd62fb841",
+          "size_bytes": 1332
+        },
+        "ledger_unchanged": true,
+        "original_signed_lifecycle_prepared": true,
+        "physical_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "scratch_bytes": 268076861664
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-2/analysis-failure.json": {
+      "size_bytes": 1216,
+      "sha256": "d44ca92bcc6430d9af2ad53c98f1b5190bd4106324e63f04e1d4a20a03136a09",
+      "document": {
+        "error": "ValueError(\"invalid retained capture: {'status': 'FAILED', 'ordinal': 6, 'error': 'ValidationError: unsupported cumulative packed page capacity'}\")",
+        "execution_authority": false,
+        "status": "FAILED",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix_2.py\", line 152, in <module>\n    try:main()\n        ~~~~^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix_2.py\", line 123, in main\n    require(result['status']=='VALID' and result['ordinal']==ordinal,'invalid retained capture: '+str(result))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix_2.py\", line 19, in require\n    if not ok:raise ValueError(message)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: invalid retained capture: {'status': 'FAILED', 'ordinal': 6, 'error': 'ValidationError: unsupported cumulative packed page capacity'}\n"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-inspection-1/metadata-complete.json": {
+      "size_bytes": 140,
+      "sha256": "69e97f9c50de3591903baaa283f07fc70104c13c0acab4db50ef9b921b08a160",
+      "document": {
+        "captures": 16,
+        "execution_authority": false,
+        "inverse_readback_performed": false,
+        "ledger_unchanged": true,
+        "scientific_validity": "NOT_ASSESSED"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/analysis-packet-manifest.json": {
+      "size_bytes": 697,
+      "sha256": "4f30ed075bc27ea65bc5d458173eeddaf319d676e3fac9c13b9fef0a0e8e4fd2",
+      "document": {
+        "stage17_retained_capture_inspection_v1.py": {
+          "sha256": "d9f6ca2be2903e51064ac8d365477dfb8301abafee57e191165f4bb74f47c465",
+          "size_bytes": 5939
+        },
+        "test_stage17_formal_archive_v1.py": {
+          "sha256": "96047212133d4ede4b3758257e2d396e785618bbad50d60db841fa6b1f541288",
+          "size_bytes": 12681
+        },
+        "test_stage17_formal_checkpoint_v1.py": {
+          "sha256": "f81e6690708fa66789513ab0cceb2dfad4ac26e7a5dfa5aff9497aa71c928b91",
+          "size_bytes": 9038
+        },
+        "test_stage17_retained_capture_inspection_v1.py": {
+          "sha256": "73e130986a59c2f63bda5e3838e9f688a3db48888fe48b8a9f6909e89ec0652c",
+          "size_bytes": 8357
+        },
+        "validate_prefix.py": {
+          "sha256": "51f2cc5bbccd9fa70ef09280b77eb72a7514874569bad6c15b7e8ea7d425dbc8",
+          "size_bytes": 11256
+        }
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/permission-preparation-correction.json": {
+      "size_bytes": 480,
+      "sha256": "b955f8302615e10f1b58ca80d5eee172b030b9cf69f9164001e5857e26115bfe",
+      "document": {
+        "measurement_retries": 0,
+        "new_operator_sha256": "c936130a8bdfc5b940072018db6dc596d055355b73a6748d08a051059c20f9c5",
+        "only_source_change": "fresh exclusive output root1 -> root2",
+        "prior_operator_sha256": "51f2cc5bbccd9fa70ef09280b77eb72a7514874569bad6c15b7e8ea7d425dbc8",
+        "raw_validation_repeated": false,
+        "reason": "UID1000 could not read root-owned restoration proof before raw decode",
+        "root_proof_sha256": "5eb34e5449d481631507d6fc1a757e85d90351cea58d84edd481c58b69e89d85"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-2/capture-6-process.json": {
+      "size_bytes": 103,
+      "sha256": "b824431c3178f7a323f0b79415befa86478a115ce54113566f5ec822a528445d",
+      "document": {
+        "error": "ValidationError: unsupported cumulative packed page capacity",
+        "ordinal": 6,
+        "status": "FAILED"
+      }
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/stand-tests.log": {
+      "size_bytes": 9117,
+      "sha256": "f40649ee86cd107ba08f816dc7e3b45a5012636c6b3df5c069296a90ed1c3561",
+      "text": "test_changed_checkpoint_and_missing_retained_copy_rejected (__main__.RetainedInspectionTests.test_changed_checkpoint_and_missing_retained_copy_rejected) ... ERROR\ntest_corrupted_archive_cannot_use_ledger_as_readback (__main__.RetainedInspectionTests.test_corrupted_archive_cannot_use_ledger_as_readback) ... ERROR\ntest_missing_pending_or_changed_family_identity_rejected (__main__.RetainedInspectionTests.test_missing_pending_or_changed_family_identity_rejected) ... ERROR\ntest_reopened_published_control_inspected_without_science_or_writes (__main__.RetainedInspectionTests.test_reopened_published_control_inspected_without_science_or_writes) ... ERROR\ntest_unpublished_state_or_unsourced_record_rejected (__main__.RetainedInspectionTests.test_unpublished_state_or_unsourced_record_rejected) ... ERROR\ntest_wrong_original_capture_or_checkpoint_rejected (__main__.RetainedInspectionTests.test_wrong_original_capture_or_checkpoint_rejected) ... ERROR\n\n======================================================================\nERROR: test_changed_checkpoint_and_missing_retained_copy_rejected (__main__.RetainedInspectionTests.test_changed_checkpoint_and_missing_retained_copy_rejected)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_retained_capture_inspection_v1.py\", line 24, in setUp\n    self.f = ArchiveFixture(self.base)\n             ~~~~~~~~~~~~~~^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_formal_archive_v1.py\", line 42, in __init__\n    library, digest(library.read_bytes()), executable, digest(executable.read_bytes()), 22)\n                    ~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 778, in read_bytes\n    with self.open(mode='rb', buffering=0) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 772, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/libzstd.so.1.5.7'\n\n======================================================================\nERROR: test_corrupted_archive_cannot_use_ledger_as_readback (__main__.RetainedInspectionTests.test_corrupted_archive_cannot_use_ledger_as_readback)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_retained_capture_inspection_v1.py\", line 24, in setUp\n    self.f = ArchiveFixture(self.base)\n             ~~~~~~~~~~~~~~^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_formal_archive_v1.py\", line 42, in __init__\n    library, digest(library.read_bytes()), executable, digest(executable.read_bytes()), 22)\n                    ~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 778, in read_bytes\n    with self.open(mode='rb', buffering=0) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 772, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/libzstd.so.1.5.7'\n\n======================================================================\nERROR: test_missing_pending_or_changed_family_identity_rejected (__main__.RetainedInspectionTests.test_missing_pending_or_changed_family_identity_rejected)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_retained_capture_inspection_v1.py\", line 24, in setUp\n    self.f = ArchiveFixture(self.base)\n             ~~~~~~~~~~~~~~^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_formal_archive_v1.py\", line 42, in __init__\n    library, digest(library.read_bytes()), executable, digest(executable.read_bytes()), 22)\n                    ~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 778, in read_bytes\n    with self.open(mode='rb', buffering=0) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 772, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/libzstd.so.1.5.7'\n\n======================================================================\nERROR: test_reopened_published_control_inspected_without_science_or_writes (__main__.RetainedInspectionTests.test_reopened_published_control_inspected_without_science_or_writes)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_retained_capture_inspection_v1.py\", line 24, in setUp\n    self.f = ArchiveFixture(self.base)\n             ~~~~~~~~~~~~~~^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_formal_archive_v1.py\", line 42, in __init__\n    library, digest(library.read_bytes()), executable, digest(executable.read_bytes()), 22)\n                    ~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 778, in read_bytes\n    with self.open(mode='rb', buffering=0) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 772, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/libzstd.so.1.5.7'\n\n======================================================================\nERROR: test_unpublished_state_or_unsourced_record_rejected (__main__.RetainedInspectionTests.test_unpublished_state_or_unsourced_record_rejected)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_retained_capture_inspection_v1.py\", line 24, in setUp\n    self.f = ArchiveFixture(self.base)\n             ~~~~~~~~~~~~~~^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_formal_archive_v1.py\", line 42, in __init__\n    library, digest(library.read_bytes()), executable, digest(executable.read_bytes()), 22)\n                    ~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 778, in read_bytes\n    with self.open(mode='rb', buffering=0) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 772, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/libzstd.so.1.5.7'\n\n======================================================================\nERROR: test_wrong_original_capture_or_checkpoint_rejected (__main__.RetainedInspectionTests.test_wrong_original_capture_or_checkpoint_rejected)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_retained_capture_inspection_v1.py\", line 24, in setUp\n    self.f = ArchiveFixture(self.base)\n             ~~~~~~~~~~~~~~^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/test_stage17_formal_archive_v1.py\", line 42, in __init__\n    library, digest(library.read_bytes()), executable, digest(executable.read_bytes()), 22)\n                    ~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 778, in read_bytes\n    with self.open(mode='rb', buffering=0) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 772, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/libzstd.so.1.5.7'\n\n----------------------------------------------------------------------\nRan 6 tests in 0.007s\n\nFAILED (errors=6)\n"
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/stand-tests-2.log": {
+      "size_bytes": 1030,
+      "sha256": "75b857a0a115aa6c119032a03a0d642089bf4f2bce3e410f409718f6f3c0fc62",
+      "text": "test_changed_checkpoint_and_missing_retained_copy_rejected (__main__.RetainedInspectionTests.test_changed_checkpoint_and_missing_retained_copy_rejected) ... ok\ntest_corrupted_archive_cannot_use_ledger_as_readback (__main__.RetainedInspectionTests.test_corrupted_archive_cannot_use_ledger_as_readback) ... ok\ntest_missing_pending_or_changed_family_identity_rejected (__main__.RetainedInspectionTests.test_missing_pending_or_changed_family_identity_rejected) ... ok\ntest_reopened_published_control_inspected_without_science_or_writes (__main__.RetainedInspectionTests.test_reopened_published_control_inspected_without_science_or_writes) ... ok\ntest_unpublished_state_or_unsourced_record_rejected (__main__.RetainedInspectionTests.test_unpublished_state_or_unsourced_record_rejected) ... ok\ntest_wrong_original_capture_or_checkpoint_rejected (__main__.RetainedInspectionTests.test_wrong_original_capture_or_checkpoint_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 4.301s\n\nOK\n"
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/analysis-2.log": {
+      "size_bytes": 1929,
+      "sha256": "a0db046af599c2061ec9b362a676d35107659694a242c72d447bf7822e6c380b",
+      "text": "{\"stage\": \"original_cli_configured\"}\n{\"stage\": \"original_signed_lifecycle_prepared\"}\n{\"stage\": \"metadata\", \"completed\": 1, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 2, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 3, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 4, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 5, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 6, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 7, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 8, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 9, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 10, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 11, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 12, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 13, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 14, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 15, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 16, \"total\": 17}\n{\"stage\": \"metadata\", \"completed\": 17, \"total\": 17}\nTraceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix_2.py\", line 152, in <module>\n    try:main()\n        ~~~~^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix_2.py\", line 123, in main\n    require(result['status']=='VALID' and result['ordinal']==ordinal,'invalid retained capture: '+str(result))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-continuation-operators-1/validate_prefix_2.py\", line 19, in require\n    if not ok:raise ValueError(message)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: invalid retained capture: {'status': 'FAILED', 'ordinal': 6, 'error': 'ValidationError: unsupported cumulative packed page capacity'}\n"
+    }
+  },
+  "units": {
+    "cpu-prefetch-q16b-prefix-analysis-2.service": "ActiveState=failed\nSubState=failed\nMainPID=0\nResult=exit-code\nExecMainExitTimestamp=Mon 2026-11-16 10:33:33 MSK\nExecMainStatus=1\nControlGroup=\n",
+    "cpu-prefetch-daycap-v26-resume-2.service": "ActiveState=failed\nSubState=failed\nMainPID=0\nResult=exit-code\nExecMainExitTimestamp=Sun 2026-11-15 23:49:30 MSK\nExecMainStatus=1\nControlGroup=\n"
+  },
+  "isolated_cpus": "",
+  "scientific_validation_retried": false,
+  "new_measurements": 0
+}

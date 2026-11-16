@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-16",
+  "decision": "D260",
+  "owner_answer": "Approve D260 continuation and one new 24-hour window",
+  "phase18_authority": false,
+  "proposal": {
+    "path": "docs/decisions/0260-q16b-retained-prefix-continuation-proposal.md",
+    "sha256": "ae6f7d141c0a439f0aa96a963166a63909a1441c5295bdd16be03d32a51114f1",
+    "size_bytes": 6143
+  },
+  "scope": "one 103-capture Q16b suffix only after all17 retained captures pass; one new absolute24-hour window from first qualification/admission action; stop on next failure; no automatic retry"
+}

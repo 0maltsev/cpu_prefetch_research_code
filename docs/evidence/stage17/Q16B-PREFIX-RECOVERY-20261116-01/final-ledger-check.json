@@ -1,0 +1,28 @@
+{
+  "utc": "2026-11-16 07:44:30.936884+00:00",
+  "fresh_full_ledger_replay": true,
+  "ledger_tip": {
+    "file_name": "0000000000060695.json",
+    "size_bytes": 1332,
+    "sha256": "f5e49f228718763995f2ecebf694aef4bd74ac3dec1142ca3a771e8dd62fb841"
+  },
+  "ledger_unchanged": true,
+  "capture16_states": {
+    "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486:q16b-c16-warmup-producer.bin": "RELEASED",
+    "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486:q16b-c16-warmup-consumer.bin": "RELEASED",
+    "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486:q16b-c16-measurement-producer.bin": "RELEASED",
+    "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486:q16b-c16-measurement-consumer.bin": "RELEASED",
+    "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486:q16b-c16-node-order.bin": "RELEASED",
+    "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486:q16b-c16-control.json": "PUBLISHED"
+  },
+  "pending_captures": [
+    [
+      "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+      "01cafe9d4f9b930e8d0330915add8114df9fbcb8a86273c4441c849103db517f"
+    ]
+  ],
+  "native_checkpoints": 17,
+  "custody_receipts": 16,
+  "original_control_retained": true,
+  "execution_authority": false
+}

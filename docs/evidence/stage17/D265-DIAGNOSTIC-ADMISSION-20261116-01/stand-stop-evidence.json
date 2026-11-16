@@ -1,0 +1,207 @@
+{
+  "automatic_retry": false,
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "files": {
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/clock-qualification-v27-1/restoration.json": {
+      "document": {
+        "errors": [],
+        "maintenance": {
+          "apt-daily-upgrade.service": {
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "UnitFileState": "static"
+          },
+          "apt-daily-upgrade.timer": {
+            "ActiveState": "active",
+            "SubState": "waiting",
+            "UnitFileState": "enabled"
+          },
+          "apt-daily.service": {
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "UnitFileState": "static"
+          },
+          "apt-daily.timer": {
+            "ActiveState": "active",
+            "SubState": "waiting",
+            "UnitFileState": "enabled"
+          }
+        },
+        "maintenance_restoration_verified": true,
+        "partition_absent": true,
+        "partition_cleanup": {
+          "controller_already_absent": false,
+          "removed": true
+        },
+        "root": {
+          "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+          "cgroup.subtree_control": "cpu memory pids",
+          "cpuset.cpus.effective": "0-31",
+          "cpuset.cpus.isolated": "",
+          "cpuset.mems.effective": "0-1"
+        },
+        "root_restoration_verified": true,
+        "utc": "2026-11-16T11:29:40.305146+00:00",
+        "verified": true
+      },
+      "sha256": "9f8d29313919758ecc2b6485680398c73859514f926e06677412e3d050c57cbf",
+      "size_bytes": 842
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-collection-preparation-1/constructed-phase.json": {
+      "document": {
+        "action_inputs": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-collection-preparation-1/action-inputs.json",
+          "sha256": "4d3aa49a33fd48d88a1878f9078888ff7865f17a94c021c4d1ae956bf2a2c7ee",
+          "size_bytes": 1785239
+        },
+        "actual_source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "actual_worker_sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+        "captures": 103,
+        "cli_configuration": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-1/cli-configuration.json",
+          "sha256": "32dbed14e96d63e2502df1b1329321a7d87f08cc948bddf24ff2ae09b3982772",
+          "size_bytes": 1984
+        },
+        "construction_operator": {
+          "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/prepare_collection_v27.py",
+          "sha256": "4f65bc6476c4acc09368b5613083a7ea845611ca4604fbf8bf09d2197ff0eacd",
+          "size_bytes": 13372
+        },
+        "execution_authority": false,
+        "original_first_ordinal": 17,
+        "original_journal": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000009.json",
+          "sha256": "d499a13d18e8e669e39fd37b60bc134ed85ee8a03bcf35af3378c0ca12ef35fc",
+          "size_bytes": 3710
+        },
+        "phase18_authority": false,
+        "plan": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-collection-preparation-1/plan.json",
+          "sha256": "d980ed9417ddf76e88931d849a62573971522b10604975c51f5fa709335698f4",
+          "size_bytes": 1784078
+        },
+        "prefix_compatibility": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-collection-preparation-1/prefix-compatibility.json",
+          "sha256": "5829507a2d3e954e5f26bb00c73cdf2c2229af2ec09fac943d4b4f7eba1f5083",
+          "size_bytes": 93455
+        },
+        "q16a_compatibility": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-1/q16a-compatibility.json",
+          "sha256": "c5e90cd54241588f38ce5a2181e76a0ef2fb2dc419280ec13cbd4c24b07226e7",
+          "size_bytes": 94302
+        },
+        "schema_version": "software-d260-constructed-phase/1",
+        "window": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/continuation-window-1.json",
+          "sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231",
+          "size_bytes": 1116
+        }
+      },
+      "sha256": "8c1e50dc0d4cb9feefc90948752c0c631cf4c9d23474b582aafe3c3cc9f4ddee",
+      "size_bytes": 2177
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/continuation-window-1.json": {
+      "document": {
+        "analysis_reserve_ns": 13500000000000,
+        "automatic_retries": 0,
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "cleanup_reserve_ns": 1800000000000,
+        "deadline_monotonic_ns": 1345017879790668,
+        "formal_execution_authority": false,
+        "last_safe_collection_start_ns": 1273857879790668,
+        "owner_proposal_sha256": "ae6f7d141c0a439f0aa96a963166a63909a1441c5295bdd16be03d32a51114f1",
+        "phase18_authority": false,
+        "prefix": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d260-prefix-custody-complete-1/complete.json",
+          "sha256": "24a2926078396c2efe43eac6ac06887ca7e54d562a587a9bced2f62c355cd202",
+          "size_bytes": 16540
+        },
+        "qualification_deadline_monotonic_ns": 1265817879790668,
+        "qualification_packet_sha256": "7eaa83f6bf303b15f43834a7c236aed1378cd8b361c299b3da6c43f6a8f37e90",
+        "schema_version": "cpu-prefetch-stage17-d260-continuation-window/1",
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "started_at_utc": "2026-11-16T09:41:23.582962+00:00",
+        "started_monotonic_ns": 1258617879790668,
+        "suffix_watchdog_ns": 55860000000000
+      },
+      "sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231",
+      "size_bytes": 1116
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/input-admission.log": {
+      "sha256": "08bbd87f754cd59c5febcb0a3fa8f0c94b4a6239d74b54eaad34cf2f102dd433",
+      "size_bytes": 2579,
+      "text": "Traceback (most recent call last):\n  File \"/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/check_d260_inputs.py\", line 8, in <module>\n    extent=cli.controller.validate_action_inputs(dict(schema_version='cpu-prefetch-stage17-fixed-action-request/6',action_id='Q16b',stand_id='CPU-PREFETCH-V5',action_inputs=inputs),v)\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/tools/stage17_phase_controller_daycap_v1.py\", line 246, in validate_action_inputs\n    return _v26.validate_action_inputs(request, validation)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/tools/stage17_phase_controller_v26.py\", line 102, in validate_action_inputs\n    extent = _validate_inputs(request, validation)\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-1/stage17_service_continuation_administration_v1.py\", line 49, in validate_inputs\n    accepted = prefix.admit(request['action_inputs']['plan'], validation)\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-1/stage17_service_prefix_admission_v1.py\", line 142, in admit\n    analysis = reader.document(prefix['prefix_validation'])\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/tools/stage17_q16a_continuation_admission_v1.py\", line 121, in document\n    return _json(self.read(binding))\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/tools/stage17_q16a_continuation_admission_v1.py\", line 77, in _json\n    contract._no_floats(value)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/tools/stage17_formal_ring_continuation_v1.py\", line 54, in _no_floats\n    _no_floats(item)\n    ~~~~~~~~~~^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/tools/stage17_formal_ring_continuation_v1.py\", line 51, in _no_floats\n    _require(not isinstance(value, float), \"floating-point input is forbidden\")\n    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/tools/stage17_formal_ring_continuation_v1.py\", line 39, in _require\n    raise ContractError(\"continuation: \" + message)\nstage17_discovery_contract_v2.ContractError: continuation: floating-point input is forbidden\n"
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/qualification-complete-1.json": {
+      "document": {
+        "collection_started": false,
+        "completed_monotonic_ns": 1260041505248222,
+        "success": true,
+        "window_sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231"
+      },
+      "sha256": "79a5808f354211bbea6ec9cd1a6e32af7f4aba67964485c33f8e3cdd0b1c6fc6",
+      "size_bytes": 186
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/qualification-supervision-failure-1.json": {
+      "document": {
+        "automatic_retry": false,
+        "completed_monotonic_ns": 1265114569946025,
+        "error": "RuntimeError('qualification supervisor signal 15')",
+        "infrastructure_cleanup_completed": true
+      },
+      "sha256": "164a87d672edacba526efdbf8a38467f139c416bcb92e8e0c10398f3c51a7f4f",
+      "size_bytes": 186
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/stop-reason-input-admission.json": {
+      "document": {
+        "automatic_retry": false,
+        "collection_family_registered": false,
+        "completed708_q16a_preserved": true,
+        "diagnosis": "Software elapsed-time diagnostics rejected by scientific integer-only JSON reader",
+        "failed_log": {
+          "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/input-admission.log",
+          "sha256": "08bbd87f754cd59c5febcb0a3fa8f0c94b4a6239d74b54eaad34cf2f102dd433",
+          "size_bytes": 2579
+        },
+        "new_q16_measurements": 0,
+        "original17_reports_preserved": true,
+        "reason": "STOP_ON_INPUT_ADMISSION_FAILURE",
+        "requalification_required": false,
+        "stop_monotonic_ns": 1265114561092699
+      },
+      "sha256": "1eeb50aa24605b66f57702a2f64635a8e83590dd5b65b39edf2aad75262ec00f",
+      "size_bytes": 583
+    }
+  },
+  "new_measurements": 0,
+  "observed_at_utc": "2026-11-16T11:37:27.971366+00:00",
+  "observed_monotonic_ns": 1265582268228332,
+  "reserved_cgroup_absent": true,
+  "units": {
+    "cpu-prefetch-d260-v27-input-check-1.service": {
+      "ActiveState": "failed",
+      "ControlGroup": "",
+      "ExecMainStatus": "1",
+      "MainPID": "0",
+      "Result": "exit-code",
+      "SubState": "failed"
+    },
+    "cpu-prefetch-d260-v27-qualification-1.service": {
+      "ActiveState": "failed",
+      "ControlGroup": "",
+      "ExecMainStatus": "1",
+      "MainPID": "0",
+      "Result": "exit-code",
+      "SubState": "failed"
+    },
+    "cpu-prefetch-recovery-v27-qualified-1.service": {
+      "ActiveState": "inactive",
+      "ControlGroup": "",
+      "ExecMainStatus": "0",
+      "MainPID": "0",
+      "Result": "success",
+      "SubState": "dead"
+    }
+  },
+  "unstarted_new_family_directory_absent": true
+}

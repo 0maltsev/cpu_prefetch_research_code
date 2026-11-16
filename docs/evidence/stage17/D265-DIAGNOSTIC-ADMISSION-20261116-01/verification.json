@@ -1,0 +1,65 @@
+{
+  "administrative_parent_revision": "8fe21cf614db0d89958ae8d82c7878c697faec0a",
+  "changed_document_links": {
+    "links_checked": 308,
+    "status": "PASS"
+  },
+  "composition_tests": 5,
+  "diagnostic_tests": 11,
+  "diff_whitespace": "PASS",
+  "execution_authority": false,
+  "live_admission_retried": false,
+  "live_fix_deployed": false,
+  "native_changes": false,
+  "observed_at_utc": "2026-11-16T11:39:22.718489+00:00",
+  "phase18_authority": false,
+  "repository_document_check": {
+    "affected_files": [
+      "docs/evidence/stage17/D242-OWNER-ACCEPTANCE-20261109-01/approved-proposal.md",
+      "docs/evidence/stage17/D243-OWNER-ACCEPTANCE-20261109-01/approved-proposal.md",
+      "docs/evidence/stage17/DISCOVERY-D207-ACCEPTANCE-20261103-01/proposal.md",
+      "docs/evidence/stage17/Q16A-D212-ACCEPTANCE-20261103-01/proposal.md",
+      "docs/evidence/stage17/Q16B-D211-ACCEPTANCE-20261103-01/proposal.md",
+      "docs/evidence/stage17/STAND-CLOCK-REQUALIFICATION-20261103-01/approved-plan.md",
+      "docs/evidence/stage17/STAND-CLOCK-REQUALIFICATION-V2-20261103-01/approved-plan-v2.md"
+    ],
+    "all_affected_files_identical_to_parent": true,
+    "broken_links": 14,
+    "exit_code": 1,
+    "status": "FAIL_PREEXISTING"
+  },
+  "sanitizers": "Not applicable to this Python-only correction; no native or measured code changed",
+  "source_bindings": {
+    "tests/test_stage17_service_continuation_calibration_v1.py": {
+      "sha256": "a4f90de137472f30dfa4d631415a0846077c44ddf46fff2e1b478b47a22da584",
+      "size_bytes": 3950
+    },
+    "tests/test_stage17_service_prefix_admission_v2.py": {
+      "sha256": "620c49e0c72453e422e27ac9fb7e3a8c205f2f8aa748e62acf335573e9515cc0",
+      "size_bytes": 3847
+    },
+    "tools/stage17_service_continuation_calibration_v1.py": {
+      "sha256": "ee517b6e483b5c5fc8389e2e0f0a7e754f3b2fcf3684d0ee7291d17c7a9870c8",
+      "size_bytes": 5361
+    },
+    "tools/stage17_service_prefix_admission_v2.py": {
+      "sha256": "65d8ce2d48a49dd7d35ccf7264d000978fd237f3eaf55b128f74d391d1af8458",
+      "size_bytes": 2511
+    }
+  },
+  "source_syntax": "PASS",
+  "tests": [
+    {
+      "name": "diagnostic-tests.log",
+      "sha256": "ec03310c10f60b6f8da52e8afd395e85c22e9844ad24bd63c4ffef37a6da2436",
+      "size_bytes": 110,
+      "status": "PASS"
+    },
+    {
+      "name": "composition-tests.log",
+      "sha256": "51248124b700b4399474f20acdfc8668b393868ffc261f93629f063a37c48f37",
+      "size_bytes": 104,
+      "status": "PASS"
+    }
+  ]
+}

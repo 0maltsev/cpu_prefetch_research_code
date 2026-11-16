@@ -1,0 +1,169 @@
+{
+  "files": {
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/q16b-handoff-packet-1/manifest.json": {
+      "document": {
+        "execution_authority": false,
+        "files": [
+          {
+            "name": "prepare_stage17_q16b_handoff_v1.py",
+            "sha256": "24e053457d9f681590c496aa700ae2c5c4c83883e8f6224a49dc50e451029d92",
+            "size_bytes": 9413
+          },
+          {
+            "name": "stage17_q16b_handoff_v1.py",
+            "sha256": "2aefe4274934cd1c66027eabe66c6272a37e83ac44c227fa22bb5bfd6fe78978",
+            "size_bytes": 10202
+          },
+          {
+            "name": "stage17_service_continuation_calibration_v1.py",
+            "sha256": "ee517b6e483b5c5fc8389e2e0f0a7e754f3b2fcf3684d0ee7291d17c7a9870c8",
+            "size_bytes": 5361
+          }
+        ],
+        "schema_version": "software-d269-q16b-handoff-packet/1"
+      },
+      "sha256": "3d0f130be0a275bf158532c043a56c3f22eb4d7141f56b6f24c8a31a1391f70c",
+      "size_bytes": 520
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/q16b-handoff-preparation-1/descriptive-load-basis.json": {
+      "document": {
+        "base_rates": {
+          "L025": {
+            "denominator": 4,
+            "numerator": 1670571
+          },
+          "L050": {
+            "denominator": 2,
+            "numerator": 1670571
+          },
+          "L075": {
+            "denominator": 4,
+            "numerator": 5011713
+          }
+        },
+        "confidence_claim": null,
+        "evidence_strength": "DESCRIPTIVE_OBSERVED_MINIMUM",
+        "execution_authority": false,
+        "mu_ref_observed_min": {
+          "denominator": 1,
+          "numerator": 1670571
+        },
+        "phase18_authority": false,
+        "rate_unit": "EVENTS_PER_SECOND",
+        "schema_version": "cpu-prefetch-stage17-descriptive-service-load-basis/1",
+        "source_composition_sha256": "3894bf7d0d5223b50326d718815b8a7d106fe395dde2868fe3e06a271d754393",
+        "source_method_id": "SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1",
+        "stand_id": "CPU-PREFETCH-V5"
+      },
+      "sha256": "05833b52e286aea283906013ad4b10d943093aaff9397632f4c05f8e62549e79",
+      "size_bytes": 631
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/q16b-handoff-preparation-1/q16b-handoff.json": {
+      "document": {
+        "analysis": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-analysis-1/analysis-complete.json",
+          "sha256": "129eb45545bb1e47b064901380cb17a4e773cce19dd1db7d266ad34b0cda9e6c",
+          "size_bytes": 562
+        },
+        "completion": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-study-1/study-result.json",
+          "sha256": "e392c586ded899dec9c753a8ddfd6f29b6728c06866a0354d9979ba33b9d0151",
+          "size_bytes": 2699
+        },
+        "composition": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-analysis-1/calibration-validation.json",
+          "sha256": "3894bf7d0d5223b50326d718815b8a7d106fe395dde2868fe3e06a271d754393",
+          "size_bytes": 103724
+        },
+        "execution_authority": false,
+        "geometry": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/native-geometry.json",
+          "sha256": "dd20f72656eb55f5e10a0621f6c8c5056fea3d969b293e92679b1727bf380d4b",
+          "size_bytes": 785
+        },
+        "parent_plan": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-1/parent-plan.json",
+          "sha256": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+          "size_bytes": 2072840
+        },
+        "phase18_authority": false,
+        "plan": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/plan.json",
+          "sha256": "1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba",
+          "size_bytes": 1784078
+        },
+        "schema_version": "cpu-prefetch-stage17-q16b-composition-handoff/1"
+      },
+      "sha256": "e9d17380cb1a72676400beee9e3b927273d546f00c211d02586619037cf25e89",
+      "size_bytes": 1488
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/q16b-handoff-preparation-1/verification.json": {
+      "document": {
+        "completed_at_utc": "2026-11-16T23:03:18.219950+00:00",
+        "descriptive_load_basis": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/q16b-handoff-preparation-1/descriptive-load-basis.json",
+          "sha256": "05833b52e286aea283906013ad4b10d943093aaff9397632f4c05f8e62549e79",
+          "size_bytes": 631
+        },
+        "execution_authority": false,
+        "ext007_admitted": false,
+        "handoff": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/q16b-handoff-preparation-1/q16b-handoff.json",
+          "sha256": "e9d17380cb1a72676400beee9e3b927273d546f00c211d02586619037cf25e89",
+          "size_bytes": 1488
+        },
+        "measurement_zero_loss_gate": "FAIL",
+        "new_measurements": 0,
+        "packet_manifest": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/q16b-handoff-packet-1/manifest.json",
+          "sha256": "3d0f130be0a275bf158532c043a56c3f22eb4d7141f56b6f24c8a31a1391f70c",
+          "size_bytes": 520
+        },
+        "phase18_authority": false,
+        "raw_mutation": false,
+        "raw_redecode_performed": false,
+        "schema_version": "software-d269-q16b-handoff-verification/1",
+        "signed_family_metadata": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/q16b-handoff-preparation-1/signed-family-metadata.json",
+          "sha256": "4d5fcf3195a78c2aed91a439c4172baf95610180aa56ae8e9b1c39f7ba030198",
+          "size_bytes": 2406267
+        },
+        "source_populations": [
+          {
+            "original_first_ordinal": 0,
+            "plan_sha256": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+            "planned_captures": 17,
+            "population_id": "RETAINED_PREFIX",
+            "source_revision": "aa3285f15acbd3314cae64a628c113488a8438b8"
+          },
+          {
+            "original_first_ordinal": 17,
+            "plan_sha256": "1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba",
+            "planned_captures": 103,
+            "population_id": "CONTINUATION",
+            "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8"
+          }
+        ],
+        "started_at_utc": "2026-11-16T22:58:17.272648+00:00",
+        "statistical_evidence_strength": "DESCRIPTIVE_OBSERVED_MINIMUM",
+        "status": "VERIFIED_Q16B_DESCRIPTIVE_HANDOFF",
+        "tolerance_guarantee": false,
+        "valid_reports": 120,
+        "warmup_zero_loss_gate": "FAIL"
+      },
+      "sha256": "bfcacd9db40226178e7e63f10f2698862f1b47e7cdcd3c7eb051541bd380f844",
+      "size_bytes": 1993
+    }
+  },
+  "new_measurements": 0,
+  "observed_utc": "2026-11-16T23:06:52.959066+00:00",
+  "raw_transferred": false,
+  "raw_validation_repeated": false,
+  "unit": {
+    "ActiveState": "inactive",
+    "ControlGroup": "",
+    "ExecMainStatus": "0",
+    "MainPID": "0",
+    "Result": "success"
+  }
+}

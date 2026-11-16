@@ -1,0 +1,35 @@
+{
+  "affinity_cpu": 3,
+  "elapsed_ns": 651365866,
+  "execution_authority": false,
+  "generated_values": 4096,
+  "generator_source": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/tools/generate_schedule.py",
+    "sha256": "2997834dbe2018dd75843b9446e09b0ab9f0c17f423e5522c433a6cb41cc919f",
+    "size_bytes": 24093
+  },
+  "new_measurements": 0,
+  "observed_physical_cpu_count": 16,
+  "observed_utc": "2026-11-16T22:54:22.711673+00:00",
+  "physical_cpu_representatives": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "schedule_artifacts_published": 0,
+  "scope": "SOFTWARE_ONLY_DURATION_ESTIMATE_NOT_EXPERIMENTAL_DATA"
+}

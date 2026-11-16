@@ -1,6 +1,8 @@
 # Stage 17 completion plan
 
-**Q16b remains STOPPED:16/120 archived captures;17 checkpoints retained.** [D258](decisions/0258-stage17-procfs-exit-race.md) repairs the reproduced supervisor process-exit race and adds bounded failure tracebacks. The fix is installed separately on the stand;14 targeted tests and22 supervision regressions passed there. Native identity, genuine worker-loss, signature, cleanup and deadline gates remain enforced. The old operator, all data, original qualification and Q16a708 remain unchanged. No experiment was restarted or repeated. Hardware/CPU/maintenance restoration is verified. EXT007/Stage17 remain incomplete.
+**Current EXT007 checkpoint (2026-11-17,02:03Moscow): Q16b descriptive handoff VERIFIED.** The bounded read-only stand job exited0 after original signed-lifecycle/custody admission and exact recomposition from all120 reports. Both source histories, all708 Q16a reports and failed separate zero-loss gates remain preserved; no raw validation, measurement or qualification was repeated. [Handoff, exact planning basis and evidence](evidence/stage17/Q16B-HANDOFF-20261117-01/REPORT.md). Q16c has not started: its count/duration and scientific claim need a prospective owner decision. [D270](decisions/0270-q16c-descriptive-screen-proposal.md) proposes a180-setting descriptive screen within one24-hour window, explicitly without D036's formal probability claim; it is PROPOSED, not approved. Further Q16c execution, calibration freeze and EXT007/Stage17 exit remain; Stage18 remains prohibited.
+
+**Historical Q16b stopped checkpoint:16/120 archived captures;17 checkpoints retained.** [D258](decisions/0258-stage17-procfs-exit-race.md) repairs the reproduced supervisor process-exit race and adds bounded failure tracebacks. The fix is installed separately on the stand;14 targeted tests and22 supervision regressions passed there. Native identity, genuine worker-loss, signature, cleanup and deadline gates remain enforced. The old operator, all data, original qualification and Q16a708 remain unchanged. No experiment was restarted or repeated. Hardware/CPU/maintenance restoration is verified. EXT007/Stage17 remain incomplete.
 
 **Historical Q16b collection checkpoint (2026-11-15, 10:35 UTC): running at that time; stopped for D252 at 12:50 UTC.** The single formal attempt started at 10:33:56 UTC. Native worker PID 197428 is alive under UID 1000 in the reserved cgroup; its actual memfd executable SHA256 matches qualified release `42f2ebb`. The approved plan is unchanged: 3,540 captures (60 cells × 59), each with 5-second warmup and 1-second measurement. Namespace registration, owner signing and verified isolation are complete; detached supervisor PID 196134 owns cleanup and restoration. No failure or completion receipt exists; scientific validity is NOT_ASSESSED. Completed clocks/Q15 and all 708 validated Q16a reports remain preserved without reruns. [Startup proof and plan](evidence/stage17/Q16B-ADMISSION-20261115-01/REPORT.txt). Next: finish collection and archival, independently validate Q16b, then Q16c, calibration freeze and EXT007/Stage17 exit. Stop at the first new experimental failure; no automatic retry.
 
@@ -119,7 +121,7 @@ credit for the unchanged formal EXT007 requirements.
    cleanup passed before formal execution. The exact 708-capture F23 plan,
    phase request, authorization/signature and launcher checks passed. Historical
    d452/c962 failures remain retained; this successor changes no scientific method.
-6. **In progress — formal collection and validation:** the original Q16a
+6. **In progress — final calibration closure; Q16a and Q16b data/handoffs complete.** Historical recovery: the original Q16a
    stopped after 177 native-complete, archived captures; original ordinal 177
    failed before either phase was released. Preserve all original evidence.
    D240 authorizes one 531-capture continuation, with the original science,
@@ -152,20 +154,23 @@ credit for the unchanged formal EXT007 requirements.
       arithmetic matches. Separate zero-loss gates FAIL; FULL data stays retained.
    7. **Complete — Q16a downstream handoff:** D247 live admission completed at
       08:18 UTC Nov15, exit0, child reaped; both source histories are preserved.
-   8. **In progress — reduced Q16b, collection stopped:** D254 supersedes the
-      D248 count for the future study: all60settings ×2repetitions=120captures,
-      separate descriptive minima without the old95/95claim, at most24hours
-      including validation and restoration. All older attempts remain preserved;
-      the latest stopped after3fullyarchived captures with verified restoration.
-      D253's archive/metadata optimization passed real retained-data timing and
-      custody checks. D254 native admission, Python declaration/estimator and
-      private executor tests pass. The120capture draft preserves actual layouts
-      and requested phase limits. Clean new source qualification, compatibility,
-      profile admission, namespace reservation and signed launch remain pending.
-      No new experiment is running. Stop on first new experimental failure;
-      no automatic retry or extension beyond the one-day cap.
-   9. **Pending:** Q16c, calibration freeze and EXT007/Stage17 exit admission.
-      No Stage18 authority follows from this Q16b launch checkpoint.
+   8. **Complete — reduced Q16b data and descriptive handoff:** D254 retains
+      all60settings ×2repetitions. D260/D268 reused17 original valid captures
+      and collected/validated only103 remaining positions. All120 reports and
+      their exact composition are complete. D269 read-only signed-lifecycle,
+      custody and original-report recomposition passed02:03Moscow17November.
+      Original708 Q16a and all qualification/data histories remain preserved.
+      Both separate zero-loss gates FAIL due to valid FULL outcomes; no59-run
+      tolerance claim. No measurement or raw validation is to be repeated.
+   9. **Pending — Q16c scientific decision and preparation:** the legacy D036
+      bound cannot supply a formal matrix-feasibility certification from a short
+      practical run, even with all-zero observations; final exposures are also
+      unfrozen. D270 proposes180 settings ×1 capture,1-second measurement and
+      5-second warmup as a separately labelled descriptive screen. Its owner
+      decision is pending; no Q16c or new qualification has started. Schedule
+      transport/request sizing, exact generation/provenance, a finite budget,
+      calibration freeze and EXT007/Stage17 exit remain required. Stage18 is
+      prohibited. Do not silently downgrade D036 or invent final exposures.
 
    No full 708-capture restart, optional extension or archive reset. D233 keeps
    raw archives on the stand; this PC retains only small evidence and reports.

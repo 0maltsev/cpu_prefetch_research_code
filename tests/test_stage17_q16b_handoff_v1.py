@@ -12,6 +12,7 @@ import unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
 import stage17_q16b_handoff_v1 as handoff
+import prepare_stage17_q16b_handoff_v1 as publisher
 
 
 def fixture():
@@ -95,6 +96,23 @@ class HandoffTests(unittest.TestCase):
     def test_basis_cannot_rebind_an_arbitrary_minimum_to_audited_hash(self):
         result=self.consume();result['derived_result']['min_mu_ref']['numerator']+=1
         with self.assertRaises(handoff.Error):handoff.load_basis(result)
+
+
+class PublisherTests(unittest.TestCase):
+    def test_bound_bytes_reject_modification_and_symlink(self):
+        with tempfile.TemporaryDirectory() as name:
+            path=Path(name)/'metadata';path.write_bytes(b'{"captures":120}')
+            bound=publisher.binding(path);self.assertEqual(publisher.read(bound),path.read_bytes())
+            path.write_bytes(b'{"captures":121}')
+            with self.assertRaises(ValueError):publisher.read(bound)
+            alias=path.parent/'alias';alias.symlink_to(path)
+            with self.assertRaises(ValueError):publisher.read(dict(bound,path=str(alias)))
+
+    def test_exclusive_publication_never_overwrites_prior_result(self):
+        with tempfile.TemporaryDirectory() as name:
+            path=Path(name)/'receipt';bound=publisher.save(path,dict(execution_authority=False))
+            self.assertEqual(publisher.read(bound),b'{"execution_authority":false}\n')
+            with self.assertRaises(FileExistsError):publisher.save(path,dict(execution_authority=True))
 
 
 if __name__=='__main__':unittest.main()

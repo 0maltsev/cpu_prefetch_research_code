@@ -1,0 +1,42 @@
+{
+  "analyze_d260.py": {
+    "sha256": "bed9ee3024388cf6c8b145a57ae641a0bbe5e14cbff7670887af7f7499741cbc",
+    "size_bytes": 10510
+  },
+  "d260_cli.py": {
+    "sha256": "f6334751294b846835c81bac5cc0f0e8c2e7d71b0c4df7b626a66e537e505c13",
+    "size_bytes": 1127
+  },
+  "original_analysis.py": {
+    "sha256": "3a771d5fa64ffcbaee08afc4d98b1ffdc47f6f5cd487c48fcbe812b87a54ca2b",
+    "size_bytes": 13162
+  },
+  "original_supervisor.py": {
+    "sha256": "47e819dbcd6110d5b356d091e706141131efa5938b0ae0740059efc4d3cb1416",
+    "size_bytes": 57701
+  },
+  "owner_check.py": {
+    "sha256": "0cdeeb006e07874c85bb8f579274dd8c17e35e9a0473d1d62f8e73e749e4feeb",
+    "size_bytes": 3479
+  },
+  "prepare_signed_d260.py": {
+    "sha256": "e2b285c15f026409e10344458a1d21430f009b35e39498ab5eea172928199d60",
+    "size_bytes": 8431
+  },
+  "run_d260_study.py": {
+    "sha256": "4df79a5e4be6d018a26e3eb1599e95596dae009c4791a6fedd2dafbe0a9f34be",
+    "size_bytes": 17313
+  },
+  "stage17_formal_control_reader_v1.py": {
+    "sha256": "236c794b385803b8d8edc4720d3cede81d86806111b0fe4f82e54410f47e625c",
+    "size_bytes": 5922
+  },
+  "stage17_service_continuation_calibration_v1.py": {
+    "sha256": "ee517b6e483b5c5fc8389e2e0f0a7e754f3b2fcf3684d0ee7291d17c7a9870c8",
+    "size_bytes": 5361
+  },
+  "test_d260_operators.py": {
+    "sha256": "7033ae99e02b81cf170e32776174d5465fc0400461fa82d1e156072754eb85ea",
+    "size_bytes": 3269
+  }
+}

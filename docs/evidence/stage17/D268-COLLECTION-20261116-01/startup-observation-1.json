@@ -1,0 +1,944 @@
+{
+  "automatic_retry": false,
+  "completed_q16a_preserved": 708,
+  "files": {
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba/stage17-q16b-attempt-v6.json": {
+      "document": {
+        "action_id": "Q16b",
+        "attempt_id": "CPU-PREFETCH-V5-D268-Q16B-ATTEMPT-2",
+        "authorization_id": "CPU-PREFETCH-V5-D268-Q16B-AUTH-2",
+        "authorization_sha256": "f49e81696ce244afc2714d85c78c2d556b68fcb2ed744d04120dd23d761dafc2",
+        "evidence_root_binding": {
+          "absolute_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba",
+          "device": 2307,
+          "inode": 209204608,
+          "mode": "0700",
+          "owner_uid": 1000
+        },
+        "marker_durable": true,
+        "one_attempt": true,
+        "phase18_authority": false,
+        "release_resolution_id": "S17-EXT-006-RESOLUTION-004",
+        "release_resolution_sha256": "6bde3f14a8f303e473c2d26192fefd6722759c940e14ef519df3c7e05d18737d",
+        "request_sha256": "0b8e2e263a4bff59891cbc1cbba62ea32223d5dd3f19958bbbed45de426711d9",
+        "retries": 0,
+        "runtime_sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+        "schema_version": "cpu-prefetch-stage17-phase-action-attempt/6",
+        "started_at_utc": "2026-11-16T13:07:42.541459Z"
+      },
+      "sha256": "ab6f21e09c0ca1ac2d84580fc997edf3a3ed8da67ee35d0e9a0384a5406eb9d4",
+      "size_bytes": 997
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/continuation-window-1.json": {
+      "document": {
+        "analysis_reserve_ns": 13500000000000,
+        "automatic_retries": 0,
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "cleanup_reserve_ns": 1800000000000,
+        "deadline_monotonic_ns": 1345017879790668,
+        "formal_execution_authority": false,
+        "last_safe_collection_start_ns": 1273857879790668,
+        "owner_proposal_sha256": "ae6f7d141c0a439f0aa96a963166a63909a1441c5295bdd16be03d32a51114f1",
+        "phase18_authority": false,
+        "prefix": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d260-prefix-custody-complete-1/complete.json",
+          "sha256": "24a2926078396c2efe43eac6ac06887ca7e54d562a587a9bced2f62c355cd202",
+          "size_bytes": 16540
+        },
+        "qualification_deadline_monotonic_ns": 1265817879790668,
+        "qualification_packet_sha256": "7eaa83f6bf303b15f43834a7c236aed1378cd8b361c299b3da6c43f6a8f37e90",
+        "schema_version": "cpu-prefetch-stage17-d260-continuation-window/1",
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "started_at_utc": "2026-11-16T09:41:23.582962+00:00",
+        "started_monotonic_ns": 1258617879790668,
+        "suffix_watchdog_ns": 55860000000000
+      },
+      "sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231",
+      "size_bytes": 1116
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/cli-configuration.json": {
+      "document": {
+        "archive": {
+          "path": "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955.tar.gz",
+          "sha256": "6183b9e00a2713935d37e3ff6df37a2859db3d57249ef8b3103f2e3cc855b173",
+          "size_bytes": 84910246
+        },
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "execution_authority": false,
+        "historical_inputs": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/historical-inputs.json",
+          "sha256": "6ef5aed0df9a481712be47c9d9bc5f7d3179c7556b72fc636f92cb0d22901296",
+          "size_bytes": 893
+        },
+        "manifest": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/manifest.json",
+          "sha256": "5658916b6f9c8ef57f527bc50327471e085ad975208083704cde14e95d0bf720",
+          "size_bytes": 4132
+        },
+        "overlay": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/archive-overlay.json",
+          "sha256": "fbf6dac272aa8ca606ed5dff7246d5549db66a82b7db7b2cdd0fda9d9df0d5c4",
+          "size_bytes": 3439
+        },
+        "packet_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3",
+        "policy": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/config/stage17/stage17-operational-evidence-admission-policy-v60.json",
+          "sha256": "fae20402744131dcb24b1e814b5bf7199742b2e149c03f061fc67c1ec5eb8aa7",
+          "size_bytes": 211702
+        },
+        "repository_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root",
+        "schema_version": "cpu-prefetch-stage17-d260-cli-configuration/1",
+        "sidecar": {
+          "path": "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955.tar.gz.sha256",
+          "sha256": "6a36c421c8ed65d3e5aada4c27a5a9bc055e3e084df27ef7b0f7c68cebc01275",
+          "size_bytes": 135
+        },
+        "window": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/continuation-window-1.json",
+          "sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231",
+          "size_bytes": 1116
+        }
+      },
+      "sha256": "ce3f5177b83d63df82b512fad865510bce9064b7091996cef8de7bc7bb806ec0",
+      "size_bytes": 1984
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/manifest.json": {
+      "document": {
+        "administrative_source_revision": "9a539ea27595d3a202201488682ccd573952278f",
+        "execution_authority": false,
+        "files": [
+          {
+            "name": "archive-overlay.json",
+            "sha256": "fbf6dac272aa8ca606ed5dff7246d5549db66a82b7db7b2cdd0fda9d9df0d5c4",
+            "size_bytes": 3439
+          },
+          {
+            "name": "native-geometry-provenance.json",
+            "sha256": "ad34c946c5674551bffe28facf3ba1250517027c93bd6de148883aa0e830f0d3",
+            "size_bytes": 4898
+          },
+          {
+            "name": "native-geometry.json",
+            "sha256": "dd20f72656eb55f5e10a0621f6c8c5056fea3d969b293e92679b1727bf380d4b",
+            "size_bytes": 785
+          },
+          {
+            "name": "native_geometry",
+            "sha256": "5505cd01f3365a39e478420ae07812c6babf9ee3f59657c721adf7b0f6f4a829",
+            "size_bytes": 30376
+          },
+          {
+            "name": "native_geometry.cpp",
+            "sha256": "bda298ddda1c0d30582e818105021984633ae69c5428905e6ddc27eec005dee4",
+            "size_bytes": 1985
+          },
+          {
+            "name": "native_geometry.d",
+            "sha256": "bf1a9eb6b8f1c8b3ed3652c05c24a3f649d6dc6cd02eda304c7b3a9370bb735a",
+            "size_bytes": 855
+          },
+          {
+            "name": "original-contexts-provenance.json",
+            "sha256": "30101aca1229b0edbd22c3be46c2d26aa8f3be7cd03958dc86f7ea15a70b18c6",
+            "size_bytes": 23801
+          },
+          {
+            "name": "original-contexts.json",
+            "sha256": "4556895f2223227177bfe9df966159bbb8e19413bb8076330e14ad3696d80cfd",
+            "size_bytes": 22695
+          },
+          {
+            "name": "original-prerequisites.json",
+            "sha256": "b18a6c22c230f0137d616e6233f69af300f188b4efd6446b2a97d2efcf8f1214",
+            "size_bytes": 826
+          },
+          {
+            "name": "parent-plan.json",
+            "sha256": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+            "size_bytes": 2072840
+          },
+          {
+            "name": "stage17_archive_canonical_fast_v1.py",
+            "sha256": "dff3ee280350f976b6d505640739ee2737238aaed16af270e14b7648106ee6ca",
+            "size_bytes": 1714
+          },
+          {
+            "name": "stage17_archive_inventory_image_v1.py",
+            "sha256": "96fea0d3d6d04c220c4ff1768d08c5363f14f5d15e43d92bb6267f8301ca0485",
+            "size_bytes": 34090
+          },
+          {
+            "name": "stage17_archive_inventory_native_v1.py",
+            "sha256": "29b84233ff80c0fe090bbfdaa23b8cd444ba92475260d7bb9fcb6be64d0cb8b9",
+            "size_bytes": 5237
+          },
+          {
+            "name": "stage17_archive_inverse_image_v1.py",
+            "sha256": "18e81bbe70e5c1c276149744aecdb9b95da50149c50acd84a45302cdd6616de8",
+            "size_bytes": 20976
+          },
+          {
+            "name": "stage17_archive_inverse_native_v1.py",
+            "sha256": "5a5e42072355d3db5261258a27e4c654b50bc4497b89ca5652b2aecc6a7b49e0",
+            "size_bytes": 3737
+          },
+          {
+            "name": "stage17_archive_metadata_fast_v1.py",
+            "sha256": "afc94821b4ed0aa200c963be2c388971597f3a97e5e75885f207cd089587127c",
+            "size_bytes": 6601
+          },
+          {
+            "name": "stage17_archive_metadata_fast_v2.py",
+            "sha256": "3e97a6b1fec79e744cde22f1bb15393cbc783b96863374ef245b4ea8a63bc5f8",
+            "size_bytes": 3636
+          },
+          {
+            "name": "stage17_formal_service_continuation_v2.py",
+            "sha256": "178b97f725b2f96c550f737bcdbdef489fd4dfdc4770d166ebe4f82ad1129c4e",
+            "size_bytes": 1417
+          },
+          {
+            "name": "stage17_public_namespace_audit_v1.py",
+            "sha256": "36ead49e065ef401589942f177e5205b4ae3a2f16c8490dfc32ff14a2ebf83a2",
+            "size_bytes": 19383
+          },
+          {
+            "name": "stage17_q16a_service_continuation_handoff_v1.py",
+            "sha256": "11f6ed22c0a3cd3e99cc23390895423791b1ddb2be8c11480b75620c49291f78",
+            "size_bytes": 1899
+          },
+          {
+            "name": "stage17_service_continuation_administration_v1.py",
+            "sha256": "ddbf70acfdded569118fec954448f5a231e7d57fc16a5537354f4b53f50e6284",
+            "size_bytes": 4304
+          },
+          {
+            "name": "stage17_service_continuation_administration_v2.py",
+            "sha256": "f82ee38626a0647f3c7c3fa1d9f57f09d5a7dc2a9b40859cddcb828681a0f147",
+            "size_bytes": 511
+          },
+          {
+            "name": "stage17_service_continuation_execution_v1.py",
+            "sha256": "6dd878ab9f745b4ef8915b95c16e42ea858d306107799fe797d9ce013399dd74",
+            "size_bytes": 1970
+          },
+          {
+            "name": "stage17_service_continuation_namespace_v1.py",
+            "sha256": "bdf0bd58edbc7a19dedd8d9e03787b24a137982163ec3835759bebe39d633668",
+            "size_bytes": 7738
+          },
+          {
+            "name": "stage17_service_continuation_packet_v3.py",
+            "sha256": "b8c54a71ea73b8e4381cb85bd2d7352c5a5524085d05babe9d6673a3fedc0058",
+            "size_bytes": 10456
+          },
+          {
+            "name": "stage17_service_prefix_admission_v1.py",
+            "sha256": "41d934ac5e7410b8d78c276c78968aa700597e3f51681f21fb5bf6383fbe6a66",
+            "size_bytes": 13923
+          },
+          {
+            "name": "stage17_service_prefix_admission_v2.py",
+            "sha256": "65d8ce2d48a49dd7d35ccf7264d000978fd237f3eaf55b128f74d391d1af8458",
+            "size_bytes": 2511
+          }
+        ],
+        "phase18_authority": false,
+        "qualified_source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "qualified_worker_sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+        "schema_version": "cpu-prefetch-stage17-d260-cold-packet/1"
+      },
+      "sha256": "5658916b6f9c8ef57f527bc50327471e085ad975208083704cde14e95d0bf720",
+      "size_bytes": 4132
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-study-1/check-result.json": {
+      "document": {
+        "completed_monotonic_ns": 1270874909879089,
+        "deadline_ns": 1273257879790668,
+        "exit_code": 0,
+        "leader_reaped": true,
+        "phase": "check",
+        "pid": 252996,
+        "started_monotonic_ns": 1270758421463287
+      },
+      "sha256": "82ecec5ed22d0958df1d78f731a7cc827c51fba3c5ea6348b87ed3bd41d427bb",
+      "size_bytes": 208
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-study-1/check.log": {
+      "sha256": "6ab9b9a9da4d211b464f0e35b8ba8bcc6570888f2aa67cf1716bc818ed5aacfe",
+      "size_bytes": 791,
+      "text": "{\"status\": \"ORIGINAL_SIGNATURE_AND_CURRENT_ADMISSION_PASS\", \"captures\": 103, \"plan_sha256\": \"1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba\", \"qualified_worker_sha256\": \"5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8\", \"resource_observation\": {\"observed_at_utc\": \"2026-11-16T13:05:40.514388Z\", \"memory_available_bytes\": 261909647360, \"filesystem_available_bytes\": 6386982047744, \"filesystem_device\": 2307, \"required_memory_bytes\": 246960619520, \"required_free_disk_bytes\": 6361851781120, \"reservation_established\": false, \"program_scope_sha256\": \"4d0ddac91ec96bb7038f2903b965a2f1a785b63b108b5b05e645742ac8dcc0c2\", \"retained_program_bytes\": 479961808896, \"remaining_program_quota_bytes\": 5520038191104, \"capture_ordinal\": 0}, \"execution_authority\": false}\n"
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-study-1/collection-intent.json": {
+      "document": {
+        "automatic_retries": 0,
+        "deadline_ns": 1327334921630888,
+        "owner_check_passed": true,
+        "prepared_phase": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/prepared-phase.json",
+          "sha256": "fd7b5db766564fa49db7b4c08b9c21b032357b7445f2bd4c837567e9105f5c14",
+          "size_bytes": 3467
+        }
+      },
+      "sha256": "d08d4759905dfb8defd4e317fe5ae812cc6444e4edf7cf8a667100a7020a5515",
+      "size_bytes": 361
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-study-1/isolation-rearm.json": {
+      "document": {
+        "configuration": {
+          "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+          "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/isolation-preparation-v27-resume-1",
+          "lifecycle_seconds": 74142,
+          "protected_work_ns": 56580000000000,
+          "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+          "stop_seconds": 120,
+          "unit_name": "cpu-prefetch-recovery-v27-qualified-1.service"
+        },
+        "original_preparation": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/isolation-preparation-v27-1/prospective-prestate.json",
+          "sha256": "88b00c8623610bd0f8ecdac006672c003acb875b2434023b39afcfbf8fe00098",
+          "size_bytes": 2405
+        },
+        "prospective_prestate": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/isolation-preparation-v27-resume-1/prospective-prestate.json",
+          "sha256": "9c898484f83095ab6aa2fcbed9dd2f4fe3495ffe677864bd9f8e9f7a8484af27",
+          "size_bytes": 2419
+        },
+        "verified": true
+      },
+      "sha256": "d23df2d095d8698b9029460481d692d8f9760080de483462ea808198ed665eae",
+      "size_bytes": 1027
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-study-1/study-intent.json": {
+      "document": {
+        "automatic_retries": 0,
+        "configuration_sha256": "0e6ad4e71cd6740a79cc9f914bdfc52fea7edc5c9364c176bc8fbc436d27e021",
+        "errors": [],
+        "ext007_admitted": false,
+        "global_deadline_ns": 1345017879790668,
+        "new_captures": 103,
+        "phase18_authority": false,
+        "phases": [],
+        "qualification_repeated": false,
+        "retained_captures": 17,
+        "schema_version": "software-d260-collection-study/1",
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "started_monotonic_ns": 1270754951468730,
+        "success": false,
+        "supervisor_pid": 252643,
+        "supervisor_start_ticks": 127075476
+      },
+      "sha256": "2b166eedd1c490fc20099f70f9e5b9cfc7e9c9f2af28c3369c7d0e013e291bb4",
+      "size_bytes": 592
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/authority-supersession-complete.json": {
+      "document": {
+        "execution_authority": false,
+        "identical_all103_capture_trees": true,
+        "identical_phase_and_linked_identities": true,
+        "ledger_after": {
+          "file_name": "0000000000060701.json",
+          "sha256": "fea601b2266c9f8918bf636f8395c7d9f3484634920feebddef8c407f09915cb",
+          "size_bytes": 553
+        },
+        "ledger_before": {
+          "file_name": "0000000000060700.json",
+          "sha256": "f9ed32f0feb97ead0b7c8e48fa89ef6f15a937e1ef6c0159acddb61ad6465913",
+          "size_bytes": 553
+        },
+        "local_namespace_audit": {
+          "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d266-operators-1/local-namespace-audit.json",
+          "sha256": "f0722b420bec3177f46449785bb7d70f9dc1c40ab3a4959be78aed72ab235d22",
+          "size_bytes": 3878740
+        },
+        "new_authorization": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d268-2/authorization.json",
+          "sha256": "f49e81696ce244afc2714d85c78c2d556b68fcb2ed744d04120dd23d761dafc2",
+          "size_bytes": 2721
+        },
+        "new_plan": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/plan.json",
+          "sha256": "1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba",
+          "size_bytes": 1784078
+        },
+        "new_prepared": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/prepared-phase.json",
+          "sha256": "fd7b5db766564fa49db7b4c08b9c21b032357b7445f2bd4c837567e9105f5c14",
+          "size_bytes": 3467
+        },
+        "new_request": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d268-2/request.json",
+          "sha256": "0b8e2e263a4bff59891cbc1cbba62ea32223d5dd3f19958bbbed45de426711d9",
+          "size_bytes": 1787392
+        },
+        "new_signature": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d268-2/authorization.json.sig",
+          "sha256": "3e8cfc6a469bf2c13d912bb95b1d6dfadafcaa394cd1f5bbe03d5db7f95ba1d0",
+          "size_bytes": 322
+        },
+        "no_intervening_ledger_records": true,
+        "old_authorization": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d260-1/authorization.json",
+          "sha256": "ae4fec0afd4af5d020452bb19d175535c9f93c7baedf972e985f5f95c016c891",
+          "size_bytes": 2721
+        },
+        "old_family_observed_empty": true,
+        "old_plan": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-collection-preparation-1/plan.json",
+          "sha256": "d980ed9417ddf76e88931d849a62573971522b10604975c51f5fa709335698f4",
+          "size_bytes": 1784078
+        },
+        "old_request": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d260-1/request.json",
+          "sha256": "f5a86caa87afe29edb61abfe0effd5246fa15e00106b7768367b9b7178b3e7d9",
+          "size_bytes": 1787393
+        },
+        "old_signature": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d260-1/authorization.json.sig",
+          "sha256": "0c9ab4040f3fe37868cf75272af9e942c567f7a4cae7efce39fd1c7db4b1573b",
+          "size_bytes": 322
+        },
+        "original_prepared": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/prepared-phase.json",
+          "sha256": "35b914d9d92c68de299215ea6a42f314a74959a0ec7b356a9c3ae048b842de2a",
+          "size_bytes": 3468
+        },
+        "qualification_journal": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000009.json",
+          "sha256": "d499a13d18e8e669e39fd37b60bc134ed85ee8a03bcf35af3378c0ca12ef35fc",
+          "size_bytes": 3710
+        },
+        "schema_version": "software-d268-unused-authority-supersession/1",
+        "stand_namespace_audit": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/stand-namespace-audit.json",
+          "sha256": "794b423684841e24715021a4b721abf261abccf69620ec21b526780ced3f80de",
+          "size_bytes": 16571005
+        },
+        "superseded_before_native_attempt": true
+      },
+      "sha256": "8c75c12f438839b52e84693cd038c5344ae7fe0b6c776e9d7ce045160db66cbf",
+      "size_bytes": 3784
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/constructed-phase.json": {
+      "document": {
+        "action_inputs": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/action-inputs.json",
+          "sha256": "1e6ea060b443fc9f4a13626baaef73a4b1526296f7b312661772c7044314e95c",
+          "size_bytes": 1785238
+        },
+        "actual_source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "actual_worker_sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+        "captures": 103,
+        "cli_configuration": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/cli-configuration.json",
+          "sha256": "ce3f5177b83d63df82b512fad865510bce9064b7091996cef8de7bc7bb806ec0",
+          "size_bytes": 1984
+        },
+        "construction_operator": {
+          "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/prepare_collection_v27.py",
+          "sha256": "4f65bc6476c4acc09368b5613083a7ea845611ca4604fbf8bf09d2197ff0eacd",
+          "size_bytes": 13372
+        },
+        "execution_authority": false,
+        "original_first_ordinal": 17,
+        "original_journal": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000009.json",
+          "sha256": "d499a13d18e8e669e39fd37b60bc134ed85ee8a03bcf35af3378c0ca12ef35fc",
+          "size_bytes": 3710
+        },
+        "phase18_authority": false,
+        "plan": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/plan.json",
+          "sha256": "1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba",
+          "size_bytes": 1784078
+        },
+        "prefix_compatibility": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-collection-preparation-1/prefix-compatibility.json",
+          "sha256": "5829507a2d3e954e5f26bb00c73cdf2c2229af2ec09fac943d4b4f7eba1f5083",
+          "size_bytes": 93455
+        },
+        "previous_constructed_phase": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/constructed-phase.json",
+          "sha256": "f1c55cdd7fe58eae9e3960f56f894c278e25a3af40178e6ba75fac60c47bf362",
+          "size_bytes": 2435
+        },
+        "q16a_compatibility": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/q16a-compatibility.json",
+          "sha256": "79de9fd8b8f2a72611e2acbd6e1c57bbda6411969aa00678f889f87ae7e0967b",
+          "size_bytes": 94301
+        },
+        "schema_version": "software-d260-constructed-phase/1",
+        "window": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/continuation-window-1.json",
+          "sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231",
+          "size_bytes": 1116
+        }
+      },
+      "sha256": "48cf3639661f4e178e227bdd1ee3cb5f4a01a17388de0ea09305ffa445cd5d46",
+      "size_bytes": 2432
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/prepared-phase.json": {
+      "document": {
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27",
+        "execution_authority": false,
+        "files": {
+          "analysis_config": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/analysis-configuration.json",
+            "sha256": "fcaac789346c8dc484eed197e2935fca6c9f949f87d46ecf489cdd21b302b33c",
+            "size_bytes": 2688
+          },
+          "authorization": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d268-2/authorization.json",
+            "sha256": "f49e81696ce244afc2714d85c78c2d556b68fcb2ed744d04120dd23d761dafc2",
+            "size_bytes": 2721
+          },
+          "cli_configuration": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/cli-configuration.json",
+            "sha256": "ce3f5177b83d63df82b512fad865510bce9064b7091996cef8de7bc7bb806ec0",
+            "size_bytes": 1984
+          },
+          "hardware_control": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/hardware-control.json",
+            "sha256": "d82444f5a4ef87fbeda44ae1e8411cbb74611ffc9eaeb855422aa42edfebee83",
+            "size_bytes": 304
+          },
+          "limits": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/owner-limits.json",
+            "sha256": "f182fdc752db24024c27b88b3f9829e6bb876a92a4da22e988e3d18e1728b501",
+            "size_bytes": 64
+          },
+          "plan": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/plan.json",
+            "sha256": "1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba",
+            "size_bytes": 1784078
+          },
+          "request": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d268-2/request.json",
+            "sha256": "0b8e2e263a4bff59891cbc1cbba62ea32223d5dd3f19958bbbed45de426711d9",
+            "size_bytes": 1787392
+          },
+          "signature": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d268-2/authorization.json.sig",
+            "sha256": "3e8cfc6a469bf2c13d912bb95b1d6dfadafcaa394cd1f5bbe03d5db7f95ba1d0",
+            "size_bytes": 322
+          }
+        },
+        "output_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba",
+        "phase18_authority": false,
+        "repository_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root",
+        "schema_version": "software-d254-prepared-phase/1",
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "worker": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/bin/cpu_prefetch_runner",
+          "sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+          "size_bytes": 4985872
+        },
+        "wrappers": {
+          "analysis": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/analyze_d260.py",
+            "sha256": "bed9ee3024388cf6c8b145a57ae641a0bbe5e14cbff7670887af7f7499741cbc",
+            "size_bytes": 10510
+          },
+          "cli": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/d260_cli.py",
+            "sha256": "ea19897bd11595fcd73d44ac131a532b962b18d30739cb5298eb5efa3ffc6469",
+            "size_bytes": 1127
+          },
+          "owner_check": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/owner_check.py",
+            "sha256": "0cdeeb006e07874c85bb8f579274dd8c17e35e9a0473d1d62f8e73e749e4feeb",
+            "size_bytes": 3479
+          }
+        }
+      },
+      "sha256": "fd7b5db766564fa49db7b4c08b9c21b032357b7445f2bd4c837567e9105f5c14",
+      "size_bytes": 3467
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/signing-result.json": {
+      "document": {
+        "exit_code": 0,
+        "stderr": "Signing file /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d268-2/authorization.json\nWrite signature to /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d268-2/authorization.json.sig\n",
+        "stdout": ""
+      },
+      "sha256": "f1f73867ff3dbe0f3f264025466f18db3745333f8b1a58153a6e42169cd9e782",
+      "size_bytes": 343
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/supersession-intent.json": {
+      "document": {
+        "execution_authority": false,
+        "identical_all103_capture_trees": true,
+        "identical_phase_and_linked_identities": true,
+        "ledger_after": {
+          "file_name": "0000000000060701.json",
+          "sha256": "fea601b2266c9f8918bf636f8395c7d9f3484634920feebddef8c407f09915cb",
+          "size_bytes": 553
+        },
+        "ledger_before": {
+          "file_name": "0000000000060700.json",
+          "sha256": "f9ed32f0feb97ead0b7c8e48fa89ef6f15a937e1ef6c0159acddb61ad6465913",
+          "size_bytes": 553
+        },
+        "local_namespace_audit": {
+          "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d266-operators-1/local-namespace-audit.json",
+          "sha256": "f0722b420bec3177f46449785bb7d70f9dc1c40ab3a4959be78aed72ab235d22",
+          "size_bytes": 3878740
+        },
+        "new_plan": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/plan.json",
+          "sha256": "1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba",
+          "size_bytes": 1784078
+        },
+        "no_intervening_ledger_records": true,
+        "old_authorization": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d260-1/authorization.json",
+          "sha256": "ae4fec0afd4af5d020452bb19d175535c9f93c7baedf972e985f5f95c016c891",
+          "size_bytes": 2721
+        },
+        "old_family_observed_empty": true,
+        "old_plan": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-collection-preparation-1/plan.json",
+          "sha256": "d980ed9417ddf76e88931d849a62573971522b10604975c51f5fa709335698f4",
+          "size_bytes": 1784078
+        },
+        "old_request": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d260-1/request.json",
+          "sha256": "f5a86caa87afe29edb61abfe0effd5246fa15e00106b7768367b9b7178b3e7d9",
+          "size_bytes": 1787393
+        },
+        "old_signature": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/evidence/formal-q16b-d260-1/authorization.json.sig",
+          "sha256": "0c9ab4040f3fe37868cf75272af9e942c567f7a4cae7efce39fd1c7db4b1573b",
+          "size_bytes": 322
+        },
+        "original_prepared": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/prepared-phase.json",
+          "sha256": "35b914d9d92c68de299215ea6a42f314a74959a0ec7b356a9c3ae048b842de2a",
+          "size_bytes": 3468
+        },
+        "qualification_journal": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/journal/stage17-state-journal-000009.json",
+          "sha256": "d499a13d18e8e669e39fd37b60bc134ed85ee8a03bcf35af3378c0ca12ef35fc",
+          "size_bytes": 3710
+        },
+        "schema_version": "software-d268-unused-authority-supersession/1",
+        "stand_namespace_audit": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/stand-namespace-audit.json",
+          "sha256": "794b423684841e24715021a4b721abf261abccf69620ec21b526780ced3f80de",
+          "size_bytes": 16571005
+        },
+        "superseded_before_native_attempt": true
+      },
+      "sha256": "c1dd42f7744397d753748f9d8016c0a755c5f3353cd373c635eef1f49004c871",
+      "size_bytes": 2780
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/isolation-preparation-v27-resume-1/isolation-ready.json": {
+      "document": {
+        "daemon_reload_verified": true,
+        "observation": {
+          "captured_at_utc": "2026-11-16T13:03:43.990023+00:00",
+          "partition": {
+            "cgroup.events": "populated 0\nfrozen 0",
+            "cgroup.procs": "",
+            "cgroup.subtree_control": "",
+            "cgroup.type": "domain",
+            "cpuset.cpus": "0-2,8,16-18,24",
+            "cpuset.cpus.effective": "0-2,8,16-18,24",
+            "cpuset.cpus.exclusive": "0-2,8,16-18,24",
+            "cpuset.cpus.exclusive.effective": "0-2,8,16-18,24",
+            "cpuset.cpus.partition": "isolated",
+            "cpuset.mems": "0-1",
+            "cpuset.mems.effective": "0-1"
+          },
+          "root": {
+            "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+            "cgroup.subtree_control": "cpuset cpu memory pids",
+            "cpuset.cpus.effective": "3-7,9-15,19-23,25-31",
+            "cpuset.cpus.isolated": "0-2,8,16-18,24",
+            "cpuset.mems.effective": "0-1"
+          },
+          "supervisor_affinity": [
+            3
+          ],
+          "validation": {
+            "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+            "control_identities": {
+              "cpuset.cpus": [
+                29,
+                461686
+              ],
+              "cpuset.cpus.effective": [
+                29,
+                461688
+              ],
+              "cpuset.cpus.exclusive": [
+                29,
+                461691
+              ],
+              "cpuset.cpus.partition": [
+                29,
+                461690
+              ],
+              "cpuset.mems.effective": [
+                29,
+                461689
+              ]
+            },
+            "cpus": "0-2,8,16-18,24",
+            "effective": "0-2,8,16-18,24",
+            "exclusive": "0-2,8,16-18,24",
+            "exclusive_effective": "0-2,8,16-18,24",
+            "mems_effective": "0-1",
+            "outside_effective": {
+              "init.scope": "3-7,9-15,19-23,25-31",
+              "system.slice": "3-7,9-15,19-23,25-31",
+              "user.slice": "3-7,9-15,19-23,25-31"
+            },
+            "partition": "isolated",
+            "partition_path": "/sys/fs/cgroup/cpu-prefetch-recovery-v27-qualified-1.service/reserved",
+            "root_effective": "3-7,9-15,19-23,25-31",
+            "root_isolated": "0-2,8,16-18,24",
+            "root_subtree_control": "cpuset cpu memory pids",
+            "supervisor_affinity": [
+              3
+            ],
+            "unit_subtree_control": "cpuset"
+          }
+        },
+        "partition_path": "/sys/fs/cgroup/cpu-prefetch-recovery-v27-qualified-1.service/reserved",
+        "utc": "2026-11-16T13:03:43.997411+00:00",
+        "verified": true
+      },
+      "sha256": "3cedb904d34103e8e69e24617df80b8a2ad31cdb6014dd96eb7a46f4a65a3d19",
+      "size_bytes": 1717
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/isolation-preparation-v27-resume-1/prospective-prestate.json": {
+      "document": {
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "operator_config": {
+          "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+          "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/isolation-preparation-v27-resume-1",
+          "lifecycle_seconds": 74142,
+          "protected_work_ns": 56580000000000,
+          "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+          "stop_seconds": 120,
+          "unit_name": "cpu-prefetch-recovery-v27-qualified-1.service"
+        },
+        "operator_script_sha256": "49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a",
+        "partition_path": "/sys/fs/cgroup/cpu-prefetch-recovery-v27-qualified-1.service/reserved",
+        "prestate": {
+          "keeper_deadline_monotonic_ns": 1344899705340000,
+          "keeper_pid": 252927,
+          "keeper_start_ticks": "127075770",
+          "maintenance_before": {
+            "apt-daily-upgrade.service": {
+              "ActiveState": "inactive",
+              "SubState": "dead",
+              "UnitFileState": "static"
+            },
+            "apt-daily-upgrade.timer": {
+              "ActiveState": "active",
+              "SubState": "waiting",
+              "UnitFileState": "enabled"
+            },
+            "apt-daily.service": {
+              "ActiveState": "inactive",
+              "SubState": "dead",
+              "UnitFileState": "static"
+            },
+            "apt-daily.timer": {
+              "ActiveState": "active",
+              "SubState": "waiting",
+              "UnitFileState": "enabled"
+            }
+          },
+          "maintenance_plan": {
+            "add_runtime_masks": [
+              "apt-daily-upgrade.service",
+              "apt-daily-upgrade.timer",
+              "apt-daily.service",
+              "apt-daily.timer"
+            ],
+            "restart_timers": [
+              "apt-daily-upgrade.timer",
+              "apt-daily.timer"
+            ],
+            "stop_timers": [
+              "apt-daily-upgrade.timer",
+              "apt-daily.timer"
+            ]
+          },
+          "operator_config": {
+            "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+            "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/isolation-preparation-v27-resume-1",
+            "lifecycle_seconds": 74142,
+            "protected_work_ns": 56580000000000,
+            "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+            "stop_seconds": 120,
+            "unit_name": "cpu-prefetch-recovery-v27-qualified-1.service"
+          },
+          "owned_masks": {
+            "apt-daily-upgrade.service": [
+              28,
+              41674
+            ],
+            "apt-daily-upgrade.timer": [
+              28,
+              41708
+            ],
+            "apt-daily.service": [
+              28,
+              41742
+            ],
+            "apt-daily.timer": [
+              28,
+              41776
+            ]
+          },
+          "partition_identity": [
+            29,
+            461667
+          ],
+          "root": {
+            "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+            "cgroup.subtree_control": "cpu memory pids",
+            "cpuset.cpus.effective": "0-31",
+            "cpuset.cpus.isolated": "",
+            "cpuset.mems.effective": "0-1"
+          },
+          "unit_file_created": true,
+          "unit_file_identity": [
+            28,
+            41810
+          ],
+          "unit_file_sha256": "c6860ce56ef127973945a4f050611bd8ee8d77d312067cfcda0c71fb13174aa1",
+          "unit_identity": [
+            29,
+            461583
+          ]
+        },
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8"
+      },
+      "sha256": "9c898484f83095ab6aa2fcbed9dd2f4fe3495ffe677864bd9f8e9f7a8484af27",
+      "size_bytes": 2419
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/collection-launch-intent-1.json": {
+      "document": {
+        "approximate_whole_family_hours": [
+          11,
+          15
+        ],
+        "argv": [
+          "systemd-run",
+          "--unit=cpu-prefetch-q16b-v27-study-1.service",
+          "--property=User=root",
+          "--property=RuntimeMaxSec=74263",
+          "--property=TimeoutStopSec=2400",
+          "--property=KillMode=process",
+          "--property=MemoryMax=280G",
+          "--property=LimitAS=infinity",
+          "--property=LimitMEMLOCK=infinity",
+          "--property=StandardOutput=append:/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/collection-study-1.log",
+          "--property=StandardError=append:/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/collection-study-1.log",
+          "/usr/bin/python3",
+          "-B",
+          "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/run_d260_study.py",
+          "--run",
+          "--config",
+          "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/configuration.json",
+          "--config-sha256",
+          "0e6ad4e71cd6740a79cc9f914bdfc52fea7edc5c9364c176bc8fbc436d27e021"
+        ],
+        "automatic_retries": 0,
+        "global_deadline_ns": 1345017879790668,
+        "monotonic_ns": 1270754739345190,
+        "original_captures_reused": 17,
+        "original_window": {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/continuation-window-1.json",
+          "sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231",
+          "size_bytes": 1116
+        },
+        "qualification_repeated": false,
+        "remaining_captures": 103,
+        "utc": "2026-11-16T13:03:40.450976+00:00"
+      },
+      "sha256": "9d6848e7724cfbf9c104825482ddea2e4a234f19a264c81b7c2f4d82ebfa0e8a",
+      "size_bytes": 1472
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/collection-launch-result-1.json": {
+      "document": {
+        "native_collection_verified": false,
+        "observed_monotonic_ns": 1270754776603478,
+        "properties": {
+          "ActiveState": "active",
+          "ControlGroup": "/system.slice/cpu-prefetch-q16b-v27-study-1.service",
+          "ExecMainStatus": "0",
+          "InvocationID": "a808b87788104c9a8d505a6fefeb0485",
+          "MainPID": "252643",
+          "Result": "success"
+        },
+        "unit": "cpu-prefetch-q16b-v27-study-1.service"
+      },
+      "sha256": "ad9502d02acfe50e268071b4498ec8dd6208cc124ee1d1e13650a88613fa7bb9",
+      "size_bytes": 397
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operator-publication.json": {
+      "document": {
+        "configuration": {
+          "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/configuration.json",
+          "sha256": "0e6ad4e71cd6740a79cc9f914bdfc52fea7edc5c9364c176bc8fbc436d27e021",
+          "size_bytes": 6482
+        },
+        "execution_authority": false,
+        "operator_archive": {
+          "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/operators-d268.tar",
+          "sha256": "ff578a9fd46f317a56b3d62e8be368c91f0a3a44c7f2628eaceeceed0f0c4ada",
+          "size_bytes": 163840
+        },
+        "published_monotonic_ns": 1270389933371180
+      },
+      "sha256": "9f6f45b7c60faa860dc1dc1faf4c7b4901d9031a3263304b504f49e49bceecc8",
+      "size_bytes": 541
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/signed-preparation-2.log": {
+      "sha256": "886e7616950fcde2a61ab80892f440d5e5125f62a4a217e56bb1d3d6ebe363f7",
+      "size_bytes": 553,
+      "text": "{\"status\": \"D268_PREPARED_SIGNED_NOT_EXECUTED\", \"plan\": {\"path\": \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/plan.json\", \"sha256\": \"1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba\", \"size_bytes\": 1784078}, \"prepared\": {\"path\": \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/prepared-phase.json\", \"size_bytes\": 3467, \"sha256\": \"fd7b5db766564fa49db7b4c08b9c21b032357b7445f2bd4c837567e9105f5c14\"}, \"execution_authority\": false}\n"
+    }
+  },
+  "native_workers": [],
+  "new_archived_captures": 0,
+  "observed_monotonic_ns": 1271046383580750,
+  "observed_utc": "2026-11-16T13:08:32.086706+00:00",
+  "raw_transferred": false,
+  "retained_validated_prefix": 17,
+  "units": {
+    "cpu-prefetch-d268-v27-signing-preparation-2.service": {
+      "ActiveState": "inactive",
+      "ControlGroup": "",
+      "ExecMainStatus": "0",
+      "InvocationID": "",
+      "MainPID": "0",
+      "Result": "success",
+      "SubState": "dead"
+    },
+    "cpu-prefetch-q16b-v27-study-1.service": {
+      "ActiveState": "active",
+      "ControlGroup": "/system.slice/cpu-prefetch-q16b-v27-study-1.service",
+      "ExecMainStatus": "0",
+      "InvocationID": "a808b87788104c9a8d505a6fefeb0485",
+      "MainPID": "252643",
+      "Result": "success",
+      "SubState": "running"
+    },
+    "cpu-prefetch-recovery-v27-qualified-1.service": {
+      "ActiveState": "active",
+      "ControlGroup": "/cpu-prefetch-recovery-v27-qualified-1.service",
+      "ExecMainStatus": "0",
+      "InvocationID": "b7ce748260934ba1b39eae1a959b89ff",
+      "MainPID": "252927",
+      "Result": "success",
+      "SubState": "running"
+    }
+  }
+}

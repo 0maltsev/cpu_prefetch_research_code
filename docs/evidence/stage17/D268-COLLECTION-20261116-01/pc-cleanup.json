@@ -1,0 +1,32 @@
+{
+  "raw_data_deleted": false,
+  "removed": [
+    {
+      "path": "build/stage17-d260-release/administration-4486bf2-2/packet.tar",
+      "reason": "Verified duplicate of stand publication archive; source/report copies retained",
+      "sha256": "f9eb6b2bcf0ad71308fcdd44eaf77ff7fa7a900f2e0cc4a7a4030249c60bbc80",
+      "size_bytes": 2365440
+    },
+    {
+      "path": "build/stage17-d260-release/administration-9a539ea-3/packet.tar",
+      "reason": "Verified duplicate of stand publication archive; source/report copies retained",
+      "sha256": "dfcad7329c8b6ecbaac8311e0837138f133cb8fa5f9c5bf26dee66c7a137b79a",
+      "size_bytes": 2365440
+    },
+    {
+      "path": "build/stage17-d260-release/operators-d266.tar",
+      "reason": "Verified duplicate of stand publication archive; source/report copies retained",
+      "sha256": "e5978da3263d9d4e3ecdfe32a1cea913561bef8452a75eed2ee69566551989ce",
+      "size_bytes": 4034560
+    },
+    {
+      "path": "build/stage17-d260-release/operators-d268.tar",
+      "reason": "Verified duplicate of stand publication archive; source/report copies retained",
+      "sha256": "ff578a9fd46f317a56b3d62e8be368c91f0a3a44c7f2628eaceeceed0f0c4ada",
+      "size_bytes": 163840
+    }
+  ],
+  "stand_data_deleted": false,
+  "total_bytes": 8929280,
+  "utc": "2026-11-16T13:06:54.574341+00:00"
+}

@@ -3,8 +3,12 @@
 #include "cpu_prefetch/runner/software_prefetch.hpp"
 #include <gtest/gtest.h>
 
+#include <chrono>
+#include <fcntl.h>
 #include <functional>
 #include <limits>
+#include <sys/mman.h>
+#include <unistd.h>
 
 namespace {
 using namespace cpu_prefetch;
@@ -177,6 +181,182 @@ TEST(FormalScheduledNativeInput, CoversAllCellsAndBothPhaseBounds) {
               100'000'000'000U);
     EXPECT_EQ(parsed.value().plan().controls.workers.consumer_stack.owner_cpu,
               ((cell / 3U) % 12U) / 3U % 2U == 0U ? 1U : 8U);
+  }
+}
+
+TEST(FormalScheduledNativeInput, SealedOriginalSourcesRequireExplicitBoundContext) {
+  Fixture f;
+  constexpr std::array<unsigned char, 16U> bytes{0, 0, 0, 0, 0, 0, 3, 232,
+                                                 0, 0, 0, 0, 0, 0, 7, 208};
+  constexpr auto hash =
+      "9ad73ef44071e053f7c97cecc2d125c201b883a22482eba73b98482585cb239c";
+  const auto writer =
+      ::memfd_create("formal-source-test", MFD_CLOEXEC | MFD_ALLOW_SEALING);
+  ASSERT_GE(writer, 0);
+  ASSERT_EQ(::write(writer, bytes.data(), bytes.size()), 16);
+  ASSERT_EQ(::fcntl(writer, F_ADD_SEALS,
+                    F_SEAL_WRITE | F_SEAL_GROW | F_SEAL_SHRINK | F_SEAL_SEAL),
+            0);
+  const auto reader =
+      ::open(("/proc/self/fd/" + std::to_string(writer)).c_str(), O_RDONLY | O_CLOEXEC);
+  ASSERT_GE(reader, 0);
+  f.capture.at("schema_version") =
+      Value(std::string("cpu-prefetch-stage17-formal-scheduled-capture/2"));
+  for (std::size_t phase = 0U; phase < 2U; ++phase)
+    f.mutate_schedule(phase, [&](Object& source) {
+      source.erase("deadline_ticks");
+      source.emplace("storage_format", Value(std::string("SEALED_U64BE_ORIGINAL-v1")));
+      auto artifact = *source.at("source_artifact").as_object();
+      artifact.at("sha256") = Value(std::string(hash));
+      source.at("source_artifact") = Value(std::move(artifact));
+    });
+  std::array<runner::stage17::FormalScheduleSourceBinding, 2U> bindings{
+      {{"warmup-source", hash, 16U, reader},
+       {"measurement-source", hash, 16U, reader}}};
+  const runner::stage17::FormalScheduleSourceContext context{
+      bindings, 64U, std::numeric_limits<std::uint64_t>::max()};
+  const auto parse = [&] {
+    return runner::stage17::parse_native_formal_scheduled_capture_from_sources(
+        f.capture, f.resources, f.monitoring, kPrestate, context);
+  };
+  EXPECT_FALSE(f.parse());
+  auto parsed = parse();
+  ASSERT_TRUE(parsed) << (parsed ? "" : parsed.errors().front().message);
+  EXPECT_EQ(parsed.value().plan().scheduled.deadlines[0U][1U], 2000U);
+  EXPECT_EQ(parsed.value().plan().scheduled.deadlines[1U][0U], 1000U);
+  auto provisional = f.resources;
+  provisional.at("total_mapping_bytes") = value(1U);
+  const auto described =
+      runner::stage17::describe_native_formal_scheduled_layout_from_sources(
+          f.capture, provisional, f.monitoring, kPrestate, context);
+  ASSERT_TRUE(described);
+  EXPECT_EQ(described.value().total_mapping_bytes,
+            std::get<std::uint64_t>(
+                f.resources.at("total_mapping_bytes").as_number()->value));
+  EXPECT_FALSE(runner::stage17::parse_native_formal_scheduled_capture_from_sources(
+      f.capture, provisional, f.monitoring, kPrestate, context));
+  bindings[1U].canonical_sha256 = std::string(64U, '0');
+  EXPECT_FALSE(parse());
+  bindings[1U].canonical_sha256 = hash;
+  bindings[1U].size_bytes = 15U;
+  EXPECT_FALSE(parse());
+  bindings[1U].size_bytes = 16U;
+  bindings[1U].descriptor = writer;
+  EXPECT_FALSE(parse());
+  ASSERT_EQ(::close(reader), 0);
+  ASSERT_EQ(::close(writer), 0);
+  // Native arrays own the checked values after the borrowed descriptors close.
+  EXPECT_EQ(parsed.value().plan().scheduled.deadlines[1U][1U], 2000U);
+}
+
+class FamilySources final {
+public:
+  Object plan;
+  Object context;
+  std::vector<int> readers;
+  FamilySources() {
+    Value::Array captures;
+    Value::Array bindings;
+    for (std::size_t ordinal = 0U; ordinal < 180U; ++ordinal) {
+      Value::Array sources;
+      for (std::size_t phase = 0U; phase < 2U; ++phase) {
+        const auto writer =
+            ::memfd_create("source-context-test", MFD_CLOEXEC | MFD_ALLOW_SEALING);
+        if (writer < 0 || ::ftruncate(writer, 16) != 0 ||
+            ::fcntl(writer, F_ADD_SEALS,
+                    F_SEAL_WRITE | F_SEAL_GROW | F_SEAL_SHRINK | F_SEAL_SEAL) != 0)
+          throw std::runtime_error("source fixture creation failed");
+        const auto reader = ::open(("/proc/self/fd/" + std::to_string(writer)).c_str(),
+                                   O_RDONLY | O_CLOEXEC);
+        static_cast<void>(::close(writer));
+        if (reader < 0)
+          throw std::runtime_error("source fixture reopen failed");
+        readers.push_back(reader);
+        const auto id = "original-" + std::to_string(2U * ordinal + phase);
+        const Object artifact{{"artifact_id", Value(id)},
+                              {"sha256", Value(std::string(64U, 'a'))}};
+        sources.emplace_back(
+            Object{{"source_artifact", Value(artifact)}, {"offered_count", value(2U)}});
+        bindings.emplace_back(
+            Object{{"artifact_id", Value(id)},
+                   {"sha256", Value(std::string(64U, 'a'))},
+                   {"size_bytes", value(16U)},
+                   {"descriptor", value(static_cast<std::uint64_t>(reader))}});
+      }
+      captures.emplace_back(
+          Object{{"capture", Value(Object{{"schedules", Value(std::move(sources))}})}});
+    }
+    const auto now = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                         std::chrono::steady_clock::now().time_since_epoch())
+                         .count();
+    plan = Object{
+        {"schema_version",
+         Value(std::string("cpu-prefetch-stage17-formal-scheduled-plan/3"))},
+        {"budget", Value(Object{{"setup_ns", value(60'000'000'000U)}})},
+        {"source_transport", Value(Object{{"owned_vector_bytes", value(5760U)},
+                                          {"loader_transient_bytes", value(8208U)},
+                                          {"metadata_bytes", value(1024U * 1024U)}})},
+        {"captures", Value(std::move(captures))}};
+    context =
+        Object{{"schema_version",
+                Value(std::string("cpu-prefetch-stage17-schedule-source-context/1"))},
+               {"deadline_monotonic_ns",
+                value(static_cast<std::uint64_t>(now) + 30'000'000'000U)},
+               {"bindings", Value(std::move(bindings))}};
+  }
+  ~FamilySources() {
+    for (const auto reader : readers)
+      static_cast<void>(::close(reader));
+  }
+  FamilySources(const FamilySources&) = delete;
+  auto operator=(const FamilySources&) -> FamilySources& = delete;
+};
+
+TEST(FormalScheduledNativeInput,
+     WholeFamilySourceContextRejectsMissingExtraChangedAndAliasedDescriptors) {
+  FamilySources f;
+  using runner::stage17::parse_formal_schedule_source_context;
+  auto accepted = parse_formal_schedule_source_context(f.plan, f.context, {});
+  ASSERT_TRUE(accepted) << (accepted ? "" : accepted.errors().front().message);
+  EXPECT_EQ(accepted.value().bindings.size(), 360U);
+  const std::array reserved{f.readers[0U]};
+  EXPECT_FALSE(parse_formal_schedule_source_context(f.plan, f.context, reserved));
+  auto bindings = *f.context.at("bindings").as_array();
+  bindings.pop_back();
+  auto context = f.context;
+  context.at("bindings") = Value(bindings);
+  EXPECT_FALSE(parse_formal_schedule_source_context(f.plan, context, {}));
+  bindings.push_back(*f.context.at("bindings").as_array()->rbegin());
+  bindings.push_back(bindings.back());
+  context.at("bindings") = Value(bindings);
+  EXPECT_FALSE(parse_formal_schedule_source_context(f.plan, context, {}));
+  for (const auto field : {"sha256", "size_bytes", "descriptor", "artifact_id"}) {
+    bindings = *f.context.at("bindings").as_array();
+    auto second = *bindings[1U].as_object();
+    second.at(field) = bindings[0U].as_object()->at(field);
+    if (std::string_view(field) == "sha256")
+      second.at(field) = Value(std::string(64U, '0'));
+    if (std::string_view(field) == "size_bytes")
+      second.at(field) = value(15U);
+    bindings[1U] = Value(std::move(second));
+    context.at("bindings") = Value(std::move(bindings));
+    EXPECT_FALSE(parse_formal_schedule_source_context(f.plan, context, {})) << field;
+  }
+  // Different FD numbers still cannot alias the same original memfd.
+  const auto alias = ::dup(f.readers[0U]);
+  ASSERT_GE(alias, 0);
+  bindings = *f.context.at("bindings").as_array();
+  auto second = *bindings[1U].as_object();
+  second.at("descriptor") = value(static_cast<std::uint64_t>(alias));
+  bindings[1U] = Value(std::move(second));
+  context.at("bindings") = Value(std::move(bindings));
+  EXPECT_FALSE(parse_formal_schedule_source_context(f.plan, context, {}));
+  ASSERT_EQ(::close(alias), 0);
+  for (const auto deadline :
+       std::array<std::uint64_t, 2U>{1U, std::numeric_limits<std::uint64_t>::max()}) {
+    context = f.context;
+    context.at("deadline_monotonic_ns") = value(deadline);
+    EXPECT_FALSE(parse_formal_schedule_source_context(f.plan, context, {}));
   }
 }
 TEST(FormalScheduledNativeInput, RequiresExactPackageCellAndMethod) {

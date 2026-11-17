@@ -1,0 +1,774 @@
+[0/1] Re-running CMake...
+-- Configuring done (0.3s)
+CMake Warning at CMakeLists.txt:256 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_stage17_archive_encoder because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:372 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_preflight because files in some directories may conflict with
+  libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:380 (add_executable):
+  Cannot generate a safe runtime search path for target cpu_prefetch_runner
+  because files in some directories may conflict with libraries in implicit
+  directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:388 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_qualification because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:397 (add_executable):
+  Cannot generate a safe runtime search path for target cpu_prefetch_q15_tool
+  because files in some directories may conflict with libraries in implicit
+  directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:406 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_clock_qualification_tool because files in some directories
+  may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:418 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_clock_vdso_probe_tool because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:423 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_qualification_evidence_tool because files in some
+  directories may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:435 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_controller because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:443 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_prestate_collector because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:452 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_storage_fixture because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:457 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_storage_large_smoke because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:487 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_linked_storage_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:505 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_workload_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:557 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_schedule_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:577 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_timing_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:589 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_platform_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:608 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_tool_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:620 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_probe_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:635 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_collector_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:647 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_clock_pair_qualification_tests because files in some
+  directories may conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:661 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_controller_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:676 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_prestate_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:691 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_runtime_noalloc_tests because files in some directories
+  may conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:721 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_runner_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:743 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_stage17_test_worker because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:888 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_stage17_formal_ring_fixture because files in some directories
+  may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:912 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_stage17_discovery_fixture because files in some directories
+  may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1550 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_archive_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1556 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_archive_channel_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1562 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_schedule_source_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1568 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_formal_checkpoint_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1788 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_storage_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1800 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_reconciliation_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1811 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_service_session_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1822 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_calibration_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1873 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_orchestration_tests because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1900 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_analysis_tests because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1916 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_storage_stress because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1990 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_workload_noalloc because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:1996 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_storage_noalloc because files in some directories may conflict
+  with libraries in implicit directories:
+
+    runtime library [libgtest_main.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+    runtime library [libgtest.so.1.17.0] in /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2048 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_rapidcheck_smoke because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2086 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_workload_codegen_probe because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2092 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_workload_codegen_mutant because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2098 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_timing_codegen_probe because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2104 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_timing_codegen_mutant because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2110 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_storage_codegen_probe because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2116 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_storage_codegen_mutant because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2122 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_runner_codegen_probe because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2133 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_software_prefetch_mapping_codegen_probe because files in some
+  directories may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2145 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_formal_codegen_probe because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2149 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_runner_combined_codegen_probe because files in some
+  directories may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2160 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_probe_codegen_probe because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2171 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_runtime_codegen_probe because files in some directories
+  may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2177 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_runtime_codegen_mutant because files in some directories
+  may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2183 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_controller_codegen_probe because files in some directories
+  may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:2189 (add_executable):
+  Cannot generate a safe runtime search path for target
+  cpu_prefetch_q15_controller_codegen_mutant because files in some
+  directories may conflict with libraries in implicit directories:
+
+    runtime library [libcrypto.so.3] in /usr/lib may be hidden by files in:
+      /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib
+
+  Some of these libraries may not be found correctly.
+
+
+-- Generating done (0.1s)
+-- Build files have been written to: /home/omaltsev/research/cpu_prefetch_research_code/build/dev-gcc
+[1/4] Checking the v1, Q14 v2, and Q15-P0 v3 runner-admission schemas
+runner-schema-check: PASS (Draft 2020-12; 3 positive, 6 negative)
+[2/4] Checking C++ formatting
+[3/4] Checking Q14, Q15-P0, split Q15-R/Q15-W, Q15-R decisions, and probe contracts
+hardware-prefetch-schema-check: PASS (3 synthetic positive, 6 negative, no MSR access)
+qualification-schema-check: PASS (5 synthetic positive, 4 negative)
+stage17-authorization-check: PASS (1 legacy + 4 current execution positive, 1 superseded Q15, 9 negative, 144 semantic-admission schemas, no authority issued)
+stage17-operational-successor-check: PASS (legacy_template=true; state=PREPARED; transitions=0; external_inputs=10; pilot_ready=false; semantic_policy=v18; preflight_policy=v14; controller=v8; all_ten_verifiers=IMPLEMENTED; Stage17/Stage18 complete=false; stand=NOT_ACCESSED)
+stage17-historical-fixture: PASS revision=05035cec1d1c1c88a08e9012996e5a6e4ccfd2a5 preserved_current_inputs=VERIFIED current_policy_qualified=false authority=NONE
+stage17-state-journal-check: PASS state=PREPARED resolved=0 missing=10 pilot_ready=false semantic_positive=1/1 mechanics_positive=10/3 runtime_positive=2 stage17a4_positive=7 stage17a4_negative=5 negative=79 nonexistent_evidence=REJECTED generic_evidence=REJECTED reload=PASS Stage18=false stand=NOT_ACCESSED
+stage17-historical-fixture: PASS revision=05035cec1d1c1c88a08e9012996e5a6e4ccfd2a5 preserved_current_inputs=VERIFIED current_policy_qualified=false authority=NONE
+q15-authorization-check: PASS (3 synthetic authorizations, 10 negative, 2 blocked preparations, no authority issued)
+q15-r-decision-input-check: PASS (D-057..D-060, 5 negative, no authority issued)
+q15-r-operational-prerequisite-check: PASS (D-061..D-064 proposed, 20 setup argv, 24 access probes/18 deny, 10 rollback argv, 6 negative, record-only, authority=NONE)
+q15-r-p2-acceptance-check: PASS (D-061..D-064 accepted, 4 records synchronized, 3 negative, authority=REPOSITORY_LOCAL_ONLY)
+q15-trust-anchor-adapter-profile-check: PASS (FDs=3/4/5, 5 negative, fakeable, authority=NONE)
+q15-r-stand-setup-preparation-check: PASS (20 setup, 24 access, 10 quarantine, 6 unresolved, authority=NONE)
+q15-r-operational-release-decision-check: PASS (D-065 proposed, 5 unresolved, 5 negative, authority=NONE)
+q15-r-p3-acceptance-check: PASS (D-065 accepted, successor hash-bound, 4 negative, authority=NONE)
+q15-r-stand-setup-preparation-v2-check: PASS (1 release group resolved, 5 external unresolved, 20/24/10, 7 negative, authority=NONE)
+q15-r-external-input-acquisition-check: PASS (D-066..D-070 proposed, 5 unresolved, 9 negative, authority=NONE)
+q15-r-p4-d-implementation-check: PASS (D-066..D-070 accepted, 25 commands, 2 synthetic artifacts, 12 negative, P4-R/P4-K unissued, authority=NONE)
+q15-r-p4-r-collector-release-decision-check: PASS (D-071 proposed, 7 P4-R + 8 P4-K unresolved, 6 negative, authority=NONE)
+q15-r-p4-e-acceptance-check: PASS (D-071 accepted, successor hash-bound, P4-K preserved, 5 negative, authority=NONE)
+q15-r-p4-r-preparation-v2-check: PASS (1 collector-release group resolved, 7 P4-R + 8 P4-K unresolved, 25 commands, 8 negative, authority=NONE)
+q15-r-p4-r-staging-authorization-decision-check: PASS (D-072..D-075 proposed, split I/C gates unissued, 7 unresolved, 15 negative, authority=NONE)
+q15-r-p4-f-acceptance-check: PASS (D-072..D-075 accepted, 7 negative, operational authority=NONE)
+q15-r-p4-r-successor-templates-check: PASS (P4-R-I/P4-R-C split, 6+6 null inputs, 12 negative, issued=NO, operational authority=NONE)
+q15-r-p4-k-decision-input-check: PASS (D-076..D-079 proposed, 8 inputs null, 3 owner questions open, 12 negative, key/stand/execution authority=NONE)
+q15-r-p4-k-d-acceptance-check: PASS (D-076..D-079 accepted, logical custody only, 10 negative, key/stand/execution authority=NONE)
+q15-r-p4-k-successor-templates-check: PASS (P4-K-A/P4-K-R split, 13+9 null fields, 14 negative, issued=NO, key/stand/execution authority=NONE)
+q15-r-p4-k-a-operational-input-decision-check: PASS (D-080..D-085 proposed, 7 inputs null, 5 owner questions open, 15 negative, key/signer/stand/execution authority=NONE)
+q15-r-p4-k-a-d-acceptance-check: PASS (D-080..D-085 policy accepted, Q4=BLOCKED, 19 negative, controller/key/trust/stand/execution authority=NONE)
+q15-r-p4-k-a-controller-profile-check: PASS (10 fixed steps, 14 profile + 6 admission negative, 7 inputs null, OS/key/trust/stand authority=NONE)
+q15-r-bootstrap-governance-root-decision-check: PASS (D-087..D-092 proposed, 8 inputs null, 6 questions open, 14 negative, key/trust/stand/execution authority=NONE)
+d093-bootstrap-authorization-check: PASS (1 create-exclusive action, 13 negative, no key generated, P4-K/stand/Q15/pilot authority=NONE)
+d093-bootstrap-evidence-check: PASS (CREATED, not active, 11 negative, later authority=NONE)
+d094-bootstrap-activation-check: PASS (CREATED->ACTIVE, bootstrap input 1/7 resolved, 6 remain, 12 negative, signing/P4-K/stand/pilot authority=NONE)
+q15-authorization-v2-check: PASS (2 synthetic envelope, 12 negative, no authorization issued)
+q15-controller-profile-check: PASS (controller + unapplied setup, 8 negative, authority=NONE)
+q15-probe-collector-contract-check: PASS (1 frozen contract, 18 negative, no collector/probe execution)
+q15-probe-implementation-check: PASS (1 D-053 profile, 10 negative, stand/PMU not accessed)
+q15-dynamic-implementation-check: PASS (D-054..D-056, 7 collectors, 4 negative mutations, no authority)

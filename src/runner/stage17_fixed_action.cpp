@@ -378,7 +378,8 @@ public:
                            .count();
       if (now < 0 || deadline_monotonic_ns <= static_cast<std::uint64_t>(now) ||
           deadline_monotonic_ns - static_cast<std::uint64_t>(now) > archive_timeout_ns_)
-        throw std::runtime_error("archive checkpoint deadline expired or exceeds its bound");
+        throw std::runtime_error(
+            "archive checkpoint deadline expired or exceeds its bound");
       auto acknowledgement = exchange_formal_archive_checkpoint(
           *channel_, checkpoint,
           FormalArchiveExchangeLimits{.ordinal = next_archive_ordinal_,
@@ -402,7 +403,8 @@ public:
       const auto completed = std::chrono::duration_cast<std::chrono::nanoseconds>(
                                  std::chrono::steady_clock::now().time_since_epoch())
                                  .count();
-      if (completed < 0 || static_cast<std::uint64_t>(completed) >= deadline_monotonic_ns)
+      if (completed < 0 ||
+          static_cast<std::uint64_t>(completed) >= deadline_monotonic_ns)
         throw std::runtime_error("archive receipt verification exceeded its deadline");
       ++next_archive_ordinal_;
       return acknowledgement;
@@ -2195,9 +2197,9 @@ formal_family_action(FixedAction action, const JsonObject& inputs, ArtifactSink&
         const auto start = std::chrono::duration_cast<std::chrono::nanoseconds>(
                                std::chrono::steady_clock::now().time_since_epoch())
                                .count();
-        if (start < 0 || storage.per_capture_archive_ns >
-                             std::numeric_limits<std::uint64_t>::max() -
-                                 static_cast<std::uint64_t>(start))
+        if (start < 0 ||
+            storage.per_capture_archive_ns > std::numeric_limits<std::uint64_t>::max() -
+                                                 static_cast<std::uint64_t>(start))
           throw std::runtime_error("archive interval deadline overflows");
         const auto archive_deadline =
             static_cast<std::uint64_t>(start) + storage.per_capture_archive_ns;
@@ -4491,6 +4493,14 @@ struct PilotRunEntry final {
   const bool formal_successor = string_member(request, "schema_version") != nullptr &&
                                 *string_member(request, "schema_version") ==
                                     "cpu-prefetch-stage17-fixed-action-request/6";
+  const auto* formal_inputs = require_object(request, "action_inputs");
+  const auto* formal_plan =
+      formal_inputs == nullptr ? nullptr : require_object(*formal_inputs, "plan");
+  const bool source_successor =
+      formal_successor && action == FixedAction::q16c && formal_plan != nullptr &&
+      string_member(*formal_plan, "schema_version") != nullptr &&
+      *string_member(*formal_plan, "schema_version") ==
+          "cpu-prefetch-stage17-formal-scheduled-plan/3";
   if (formal_successor) {
     const auto* runtime = require_object(request, "runtime_binding");
     const auto* release = require_object(request, "release_binding");
@@ -4510,6 +4520,11 @@ struct PilotRunEntry final {
       return false;
   }
   auto base_context = context;
+  if (source_successor) {
+    if (require_object(context, "schedule_source_context") == nullptr)
+      return false;
+    base_context.erase("schedule_source_context");
+  }
   if (diagnostic || formal_successor) {
     base_context.erase("session_deadline_seconds");
   }
@@ -4594,9 +4609,10 @@ struct PilotRunEntry final {
   return exact_fields(base_context, context_fields) &&
          string_member(context, "schema_version") != nullptr &&
          *string_member(context, "schema_version") ==
-             (formal_successor ? "cpu-prefetch-stage17-fixed-action-context/6"
-              : diagnostic     ? "cpu-prefetch-stage17-fixed-action-context/5"
-                               : kFixedActionContextSchema) &&
+             (source_successor   ? "cpu-prefetch-stage17-fixed-action-context/7"
+              : formal_successor ? "cpu-prefetch-stage17-fixed-action-context/6"
+              : diagnostic       ? "cpu-prefetch-stage17-fixed-action-context/5"
+                                 : kFixedActionContextSchema) &&
          string_member(context, "authorization_id") != nullptr &&
          string_member(context, "authorization_sha256") != nullptr &&
          string_member(context, "request_id") != nullptr &&
@@ -4829,6 +4845,38 @@ auto FixedActionOperations::execute_formal_family(FixedAction,
       "this backend has no versioned formal family implementation");
 }
 
+auto FixedActionOperations::execute_formal_family_with_sources(
+    FixedAction, const JsonObject&, ArtifactSink&, const FormalScheduleSourceContext&)
+    -> protocol::Result<ActionOutcome> {
+  return failure<ActionOutcome>(
+      "$/formal/source_context", "S17-FORMAL-SOURCES-UNIMPLEMENTED",
+      "this backend has no sealed-source family implementation");
+}
+
+auto LinuxFixedActionOperations::execute_formal_family_with_sources(
+    FixedAction action, const JsonObject& inputs, ArtifactSink& sink,
+    const FormalScheduleSourceContext& sources) -> protocol::Result<ActionOutcome> {
+  if (action != FixedAction::q16c)
+    return failure<ActionOutcome>("$/formal/source_context",
+                                  "S17-FORMAL-SOURCES-ACTION",
+                                  "sealed schedules are Q16c-only");
+  return formal_family_action<ParsedNativeFormalScheduledCapture,
+                              calibration::NativeFormalScheduledCaptureResult,
+                              calibration::NativeFormalScheduledPublicationView>(
+      action, inputs, sink, 8U,
+      [&sources](const auto& capture, const auto& resources, const auto& monitoring,
+                 auto prestate) {
+        return parse_native_formal_scheduled_capture_from_sources(
+            capture, resources, monitoring, prestate, sources);
+      },
+      [](const auto& parsed, void* context, auto callback) {
+        return calibration::run_native_formal_scheduled_capture(parsed.plan(),
+                                                                {context, callback});
+      },
+      formal_scheduled_capture_result_json, publish_formal_scheduled_capture,
+      [](const auto& parsed) { return parsed.plan().controls; });
+}
+
 auto LinuxFixedActionOperations::execute_formal_family(FixedAction action,
                                                        const JsonObject& inputs,
                                                        ArtifactSink& sink)
@@ -4989,8 +5037,27 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
                             sha256(request_bytes.value()), *scope},
                            *duration, *receipt_limit);
   }
+  std::optional<PreparedFormalScheduleSources> schedule_sources;
+  if (const auto* source_context =
+          require_object(*context, "schedule_source_context")) {
+    const auto* plan = require_object(*inputs.value(), "plan");
+    if (!formal_successor || action.value() != FixedAction::q16c || plan == nullptr)
+      throw std::runtime_error("sealed source context is outside Q16c");
+    std::vector<int> reserved{*request_fd, *context_fd, *output_fd};
+    if (const auto* channel = require_object(*context, "archive_channel"))
+      reserved.push_back(static_cast<int>(*uint_member(*channel, "descriptor")));
+    auto prepared_sources =
+        parse_formal_schedule_source_context(*plan, *source_context, reserved);
+    if (!prepared_sources)
+      throw std::runtime_error("sealed source context rejected: " +
+                               prepared_sources.errors().front().message);
+    schedule_sources.emplace(std::move(prepared_sources.value()));
+  }
   const auto outcome =
-      formal_successor
+      schedule_sources
+          ? operations.execute_formal_family_with_sources(
+                action.value(), *inputs.value(), sink, schedule_sources->context())
+      : formal_successor
           ? operations.execute_formal_family(action.value(), *inputs.value(), sink)
           : operations.execute(action.value(), *inputs.value(), sink);
   if (!outcome) {

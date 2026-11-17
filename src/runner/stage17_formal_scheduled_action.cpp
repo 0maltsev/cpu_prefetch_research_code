@@ -1,6 +1,11 @@
 #include "cpu_prefetch/runner/stage17_formal_scheduled_action.hpp"
+#include "cpu_prefetch/runner/stage17_schedule_source.hpp"
 
 #include "stage17_formal_input_detail.hpp"
+
+#include <chrono>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 namespace cpu_prefetch::runner::stage17 {
 namespace {
@@ -8,7 +13,8 @@ using namespace formal_input_detail;
 auto parse_capture(const Object& capture, const Object& resources,
                    const Object& monitoring,
                    std::span<const platform::HardwarePrefetchMsrValue> prestate,
-                   bool verify_declared_layout)
+                   bool verify_declared_layout,
+                   const FormalScheduleSourceContext* sources = nullptr)
     -> protocol::Result<ParsedNativeFormalScheduledCapture> {
   try {
     fields(capture, {"schema_version",    "ordinal",
@@ -44,8 +50,10 @@ auto parse_capture(const Object& capture, const Object& resources,
     static_cast<void>(number(capture, "repetition_ordinal"));
     constexpr std::array<std::string_view, 3U> classes{"L2_RESIDENT", "LLC_RESIDENT",
                                                        "BEYOND_LLC"};
+    const bool sealed = sources != nullptr;
     if (text(capture, "schema_version") !=
-            "cpu-prefetch-stage17-formal-scheduled-capture/1" ||
+            (sealed ? "cpu-prefetch-stage17-formal-scheduled-capture/2"
+                    : "cpu-prefetch-stage17-formal-scheduled-capture/1") ||
         text(capture, "method_id") != calibration::kMatrixFeasibilityMethodId ||
         full_cell >= 180U || number(capture, "scale_ordinal") >= 5U ||
         text(capture, "load_level") !=
@@ -142,9 +150,14 @@ auto parse_capture(const Object& capture, const Object& resources,
       const auto* source = schedule_records[index].as_object();
       if (source == nullptr)
         throw std::invalid_argument("schedule must be object");
-      fields(*source, {"schedule_id", "seed_id", "seed_hex", "namespace_id",
-                       "source_origin_ticks", "source_horizon_ticks", "offered_count",
-                       "deadline_ticks", "source_artifact"});
+      if (sealed)
+        fields(*source, {"schedule_id", "seed_id", "seed_hex", "namespace_id",
+                         "source_origin_ticks", "source_horizon_ticks", "offered_count",
+                         "storage_format", "source_artifact"});
+      else
+        fields(*source, {"schedule_id", "seed_id", "seed_hex", "namespace_id",
+                         "source_origin_ticks", "source_horizon_ticks", "offered_count",
+                         "deadline_ticks", "source_artifact"});
       const auto id =
           protocol::ScheduleId::parse(opaque_text(*source, "schedule_id"), "$schedule");
       const auto ns = protocol::NamespaceId::parse(opaque_text(*source, "namespace_id"),
@@ -162,17 +175,48 @@ auto parse_capture(const Object& capture, const Object& resources,
           }))
         throw std::invalid_argument("invalid source artifact SHA256");
       const auto count = number(*source, "offered_count");
-      const auto* values = member(*source, "deadline_ticks").as_array();
       const auto remaining = number(budget, "memory_bytes") - total_source_bytes;
-      if (values == nullptr || values->size() != count ||
-          count > session.phases[index].producer_attempt_limit ||
+      if (count > session.phases[index].producer_attempt_limit ||
           count > remaining / sizeof(std::uint64_t) ||
           count > deadlines[index].max_size())
         throw std::invalid_argument("schedule count exceeds source or finite bounds");
+      if (sealed) {
+        if (text(*source, "storage_format") != "SEALED_U64BE_ORIGINAL-v1" ||
+            total_source_bytes > sources->maximum_vector_bytes ||
+            count > (sources->maximum_vector_bytes - total_source_bytes) / 16U)
+          throw std::invalid_argument(
+              "sealed schedule transient allocation is unbudgeted");
+        const auto& artifact = text(provenance, "artifact_id");
+        const FormalScheduleSourceBinding* bound = nullptr;
+        for (const auto& binding : sources->bindings) {
+          if (binding.artifact_id != artifact)
+            continue;
+          if (bound != nullptr)
+            throw std::invalid_argument("duplicate sealed source binding");
+          bound = &binding;
+        }
+        if (bound == nullptr || bound->canonical_sha256 != hash ||
+            bound->size_bytes != count * 8U)
+          throw std::invalid_argument(
+              "sealed source binding differs from original artifact");
+        auto loaded = load_sealed_schedule_source(
+            bound->descriptor,
+            {artifact, hash, count, number(*source, "source_origin_ticks"),
+             number(*source, "source_horizon_ticks"),
+             sources->maximum_vector_bytes - total_source_bytes,
+             sources->deadline_monotonic_ns});
+        if (!loaded)
+          throw std::invalid_argument(loaded.errors().front().message);
+        deadlines[index] = std::move(loaded.value());
+      } else {
+        const auto* values = member(*source, "deadline_ticks").as_array();
+        if (values == nullptr || values->size() != count)
+          throw std::invalid_argument("inline schedule count differs from source");
+        deadlines[index].reserve(static_cast<std::size_t>(count));
+        for (const auto& deadline : *values)
+          deadlines[index].push_back(number(deadline));
+      }
       total_source_bytes += count * sizeof(std::uint64_t);
-      deadlines[index].reserve(static_cast<std::size_t>(count));
-      for (const auto& deadline : *values)
-        deadlines[index].push_back(number(deadline));
       return calibration::ScheduledPhasePlan{number(*source, "source_origin_ticks"),
                                              number(*source, "source_horizon_ticks"),
                                              count, id.value(), ns.value()};
@@ -206,6 +250,94 @@ auto parse_capture(const Object& capture, const Object& resources,
 }
 } // namespace
 
+auto parse_formal_schedule_source_context(const Object& plan, const Object& context,
+                                          std::span<const int> reserved)
+    -> protocol::Result<PreparedFormalScheduleSources> {
+  try {
+    fields(context, {"schema_version", "bindings", "deadline_monotonic_ns"});
+    if (text(plan, "schema_version") !=
+            "cpu-prefetch-stage17-formal-scheduled-plan/3" ||
+        text(context, "schema_version") !=
+            "cpu-prefetch-stage17-schedule-source-context/1")
+      throw std::invalid_argument(
+          "sealed source context requires the explicit descriptive family");
+    const auto deadline = number(context, "deadline_monotonic_ns");
+    const auto now = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                         std::chrono::steady_clock::now().time_since_epoch())
+                         .count();
+    const auto setup = number(object(plan, "budget"), "setup_ns");
+    if (now < 0 || deadline <= static_cast<std::uint64_t>(now) ||
+        deadline - static_cast<std::uint64_t>(now) > setup)
+      throw std::invalid_argument("source loading deadline exceeds prospective setup");
+    const auto& transport = object(plan, "source_transport");
+    const auto context_bytes =
+        protocol::json::canonicalize(protocol::json::Value(context));
+    if (!context_bytes ||
+        context_bytes.value().size() > number(transport, "metadata_bytes"))
+      throw std::invalid_argument("source context exceeds metadata reservation");
+    const auto& entries = array(context, "bindings", 360U);
+    const auto& captures = array(plan, "captures", 180U);
+    PreparedFormalScheduleSources result{
+        {}, number(transport, "owned_vector_bytes"), deadline};
+    const auto transient = number(transport, "loader_transient_bytes");
+    if (transient >
+        std::numeric_limits<std::uint64_t>::max() - result.maximum_vector_bytes)
+      throw std::invalid_argument("source vector bound overflows");
+    result.maximum_vector_bytes += transient;
+    std::set<int> descriptors(reserved.begin(), reserved.end());
+    std::set<std::pair<dev_t, ino_t>> identities;
+    for (const auto fd : reserved) {
+      struct stat info{};
+      if (::fstat(fd, &info) == 0 && S_ISREG(info.st_mode))
+        identities.insert({info.st_dev, info.st_ino});
+    }
+    std::set<std::string> artifacts;
+    result.bindings.reserve(360U);
+    for (std::size_t i = 0U; i < entries.size(); ++i) {
+      const auto* bound = entries[i].as_object();
+      const auto* item = captures[i / 2U].as_object();
+      if (bound == nullptr || item == nullptr)
+        throw std::invalid_argument("sealed source binding/capture must be an object");
+      fields(*bound, {"artifact_id", "sha256", "size_bytes", "descriptor"});
+      const auto& source = array(object(*item, "capture"), "schedules", 2U)[i % 2U];
+      if (source.as_object() == nullptr)
+        throw std::invalid_argument("sealed source must be an object");
+      const auto& artifact = object(*source.as_object(), "source_artifact");
+      const auto count = number(*source.as_object(), "offered_count");
+      const auto fd = number(*bound, "descriptor");
+      if (count > std::numeric_limits<std::uint64_t>::max() / 8U || fd <= 2U ||
+          fd > static_cast<std::uint64_t>(std::numeric_limits<int>::max()) ||
+          text(*bound, "artifact_id") != text(artifact, "artifact_id") ||
+          text(*bound, "sha256") != text(artifact, "sha256") ||
+          number(*bound, "size_bytes") != count * 8U ||
+          !artifacts.insert(text(*bound, "artifact_id")).second ||
+          !descriptors.insert(static_cast<int>(fd)).second)
+        throw std::invalid_argument(
+            "sealed source membership/hash/size/descriptor differs");
+      struct stat info{};
+      const auto descriptor = static_cast<int>(fd);
+      const auto flags = ::fcntl(descriptor, F_GETFL);
+      const auto seals = ::fcntl(descriptor, F_GET_SEALS);
+      constexpr int all_seals =
+          F_SEAL_WRITE | F_SEAL_GROW | F_SEAL_SHRINK | F_SEAL_SEAL;
+      if (::fstat(descriptor, &info) != 0 || !S_ISREG(info.st_mode) ||
+          info.st_size < 0 || static_cast<std::uint64_t>(info.st_size) != count * 8U ||
+          flags < 0 || (flags & O_ACCMODE) != O_RDONLY || seals < 0 ||
+          (seals & all_seals) != all_seals ||
+          !identities.insert({info.st_dev, info.st_ino}).second)
+        throw std::invalid_argument(
+            "sealed source physical identity is invalid or aliased");
+      result.bindings.push_back({text(*bound, "artifact_id"), text(*bound, "sha256"),
+                                 count * 8U, descriptor});
+    }
+    return protocol::Result<PreparedFormalScheduleSources>::success(result);
+  } catch (const std::exception& error) {
+    return protocol::Result<PreparedFormalScheduleSources>::failure(
+        {protocol::ErrorCategory::cross_field, "$/formal/source_context",
+         "S17-FORMAL-SOURCE-CONTEXT", error.what()});
+  }
+}
+
 ParsedNativeFormalScheduledCapture::ParsedNativeFormalScheduledCapture(
     calibration::NativeFormalScheduledCapturePlan plan, Deadlines deadlines)
     : plan_(std::move(plan)),
@@ -228,6 +360,14 @@ auto parse_native_formal_scheduled_capture(
   return parse_capture(capture, resources, monitoring, prestate, true);
 }
 
+auto parse_native_formal_scheduled_capture_from_sources(
+    const Object& capture, const Object& resources, const Object& monitoring,
+    std::span<const platform::HardwarePrefetchMsrValue> prestate,
+    const FormalScheduleSourceContext& sources)
+    -> protocol::Result<ParsedNativeFormalScheduledCapture> {
+  return parse_capture(capture, resources, monitoring, prestate, true, &sources);
+}
+
 auto describe_native_formal_scheduled_layout(
     const Object& capture, const Object& resources, const Object& monitoring,
     std::span<const platform::HardwarePrefetchMsrValue> prestate)
@@ -237,6 +377,20 @@ auto describe_native_formal_scheduled_layout(
     return protocol::Result<calibration::NativeFormalScheduledCaptureLayout>::failure(
         parsed.errors());
   }
+  return protocol::Result<calibration::NativeFormalScheduledCaptureLayout>::success(
+      calibration::native_formal_scheduled_layout(parsed.value().plan()));
+}
+
+auto describe_native_formal_scheduled_layout_from_sources(
+    const Object& capture, const Object& resources, const Object& monitoring,
+    std::span<const platform::HardwarePrefetchMsrValue> prestate,
+    const FormalScheduleSourceContext& sources)
+    -> protocol::Result<calibration::NativeFormalScheduledCaptureLayout> {
+  const auto parsed =
+      parse_capture(capture, resources, monitoring, prestate, false, &sources);
+  if (!parsed)
+    return protocol::Result<calibration::NativeFormalScheduledCaptureLayout>::failure(
+        parsed.errors());
   return protocol::Result<calibration::NativeFormalScheduledCaptureLayout>::success(
       calibration::native_formal_scheduled_layout(parsed.value().plan()));
 }

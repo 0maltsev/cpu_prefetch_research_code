@@ -278,6 +278,76 @@ auto service_daycap_fixture(std::size_t repetitions = 2U) -> Object {
   return plan;
 }
 
+auto descriptive_scheduled_fixture() -> Object {
+  auto plan = archived_fixture(Action::q16c);
+  plan.at("schema_version") = text("cpu-prefetch-stage17-formal-scheduled-plan/3");
+  plan.at("method_id") = text("MATRIX-FULL-DESCRIPTIVE-SCREEN-v1");
+  auto entries = *plan.at("captures").as_array();
+  for (std::size_t i = 0U; i < entries.size(); ++i) {
+    auto item = *entries[i].as_object();
+    auto capture = *item.at("capture").as_object();
+    capture.emplace("schema_version",
+                    text("cpu-prefetch-stage17-formal-scheduled-capture/2"));
+    auto schedules = *capture.at("schedules").as_array();
+    for (std::size_t phase = 0U; phase < 2U; ++phase) {
+      auto source = *schedules[phase].as_object();
+      source.emplace("storage_format", text("SEALED_U64BE_ORIGINAL-v1"));
+      source.emplace("source_artifact",
+                     Value(Object{{"artifact_id",
+                                   text("source-" + std::to_string(i * 2U + phase))},
+                                  {"sha256", text(std::string(64U, 'a'))}}));
+      schedules[phase] = Value(std::move(source));
+    }
+    capture.at("schedules") = Value(std::move(schedules));
+    item.at("capture") = Value(std::move(capture));
+    entries[i] = Value(std::move(item));
+  }
+  plan.at("captures") = Value(std::move(entries));
+  constexpr auto source_bytes = 180U * 2U * 10U * 8U;
+  constexpr auto transient = 80U + 8192U;
+  constexpr auto metadata = 1024U * 1024U;
+  constexpr auto memory = 2U * source_bytes + transient + metadata;
+  plan.emplace("source_transport",
+               Value(Object{{"schema_version",
+                             text("cpu-prefetch-stage17-schedule-transport-budget/1")},
+                            {"format", text("SEALED_U64BE_ORIGINAL-v1")},
+                            {"source_bytes", number(source_bytes)},
+                            {"owned_vector_bytes", number(source_bytes)},
+                            {"loader_transient_bytes", number(transient)},
+                            {"descriptor_count", number(360U)},
+                            {"metadata_bytes", number(metadata)},
+                            {"maximum_source_memory_bytes", number(memory)}}));
+  auto budget = *plan.at("budget").as_object();
+  budget.at("memory_bytes") =
+      number(100'030'000U + 3U * 1024U * 1024U * 1024U + memory);
+  plan.at("budget") = Value(std::move(budget));
+  return plan;
+}
+
+TEST(Stage17FormalFamily, DescriptiveScheduledCoverageAndCompleteTransportBudget) {
+  auto plan = descriptive_scheduled_fixture();
+  const auto accepted = validate(plan, Action::q16c);
+  ASSERT_TRUE(accepted) << (accepted ? "" : accepted.errors().front().message);
+  EXPECT_EQ(accepted.value().captures.size(), 180U);
+  EXPECT_TRUE(accepted.value().storage);
+  for (const auto field :
+       {"source_bytes", "owned_vector_bytes", "loader_transient_bytes",
+        "descriptor_count", "metadata_bytes", "maximum_source_memory_bytes"}) {
+    auto changed = plan;
+    auto transport = *changed.at("source_transport").as_object();
+    transport.at(field) = number(0U);
+    changed.at("source_transport") = Value(std::move(transport));
+    EXPECT_FALSE(validate(changed, Action::q16c)) << field;
+  }
+  plan.at("method_id") = text("MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1");
+  EXPECT_FALSE(validate(plan, Action::q16c));
+  for (const auto field : {"repetitions_per_cell", "measurement_ns", "scale_ordinal"}) {
+    auto changed = descriptive_scheduled_fixture();
+    changed.at(field) = number(2U);
+    EXPECT_FALSE(validate(changed, Action::q16c)) << field;
+  }
+}
+
 auto service_continuation_fixture() -> Object {
   auto plan = service_daycap_fixture();
   plan.at("schema_version") = text("cpu-prefetch-stage17-formal-service-plan/4");

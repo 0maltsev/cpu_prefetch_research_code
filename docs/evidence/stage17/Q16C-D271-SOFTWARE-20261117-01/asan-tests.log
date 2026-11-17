@@ -1,0 +1,64 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = FormalScheduledNativeInput.*:Stage17FormalFamily.Descriptive*
+[==========] Running 16 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 15 tests from FormalScheduledNativeInput
+[ RUN      ] FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds
+[       OK ] FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds (1303 ms)
+[ RUN      ] FormalScheduledNativeInput.SealedOriginalSourcesRequireExplicitBoundContext
+[       OK ] FormalScheduledNativeInput.SealedOriginalSourcesRequireExplicitBoundContext (14 ms)
+[ RUN      ] FormalScheduledNativeInput.WholeFamilySourceContextRejectsMissingExtraChangedAndAliasedDescriptors
+[       OK ] FormalScheduledNativeInput.WholeFamilySourceContextRejectsMissingExtraChangedAndAliasedDescriptors (665 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresExactPackageCellAndMethod
+[       OK ] FormalScheduledNativeInput.RequiresExactPackageCellAndMethod (16 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel
+[       OK ] FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel (6 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing
+[       OK ] FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing (19 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence
+[       OK ] FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence (20 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity
+[       OK ] FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity (11 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup
+[       OK ] FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup (10 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity
+[       OK ] FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity (10 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance
+[       OK ] FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance (58 ms)
+[ RUN      ] FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid
+[       OK ] FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid (5 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum
+[       OK ] FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum (12 ms)
+[ RUN      ] FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction
+[       OK ] FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction (6 ms)
+[ RUN      ] FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed
+[       OK ] FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed (20 ms)
+[----------] 15 tests from FormalScheduledNativeInput (2183 ms total)
+
+[----------] 1 test from Stage17FormalFamily
+[ RUN      ] Stage17FormalFamily.DescriptiveScheduledCoverageAndCompleteTransportBudget
+[       OK ] Stage17FormalFamily.DescriptiveScheduledCoverageAndCompleteTransportBudget (7040 ms)
+[----------] 1 test from Stage17FormalFamily (7040 ms total)
+
+[----------] Global test environment tear-down
+[==========] 16 tests from 2 test suites ran. (9223 ms total)
+[  PASSED  ] 16 tests.
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 5 tests from Stage17ScheduleSource
+[ RUN      ] Stage17ScheduleSource.LoadsExactBigEndianGoldenWithoutMutatingBorrowedOffset
+[       OK ] Stage17ScheduleSource.LoadsExactBigEndianGoldenWithoutMutatingBorrowedOffset (3 ms)
+[ RUN      ] Stage17ScheduleSource.PreservesUnsignedHighBitValues
+[       OK ] Stage17ScheduleSource.PreservesUnsignedHighBitValues (0 ms)
+[ RUN      ] Stage17ScheduleSource.AllowsExactEmptyArtifactWithItsOriginalHash
+[       OK ] Stage17ScheduleSource.AllowsExactEmptyArtifactWithItsOriginalHash (0 ms)
+[ RUN      ] Stage17ScheduleSource.RejectsUnsealedWritableWrongSizeOrWrongHash
+[       OK ] Stage17ScheduleSource.RejectsUnsealedWritableWrongSizeOrWrongHash (0 ms)
+[ RUN      ] Stage17ScheduleSource.RejectsWindowOrderMemoryAndDeadlineFailures
+[       OK ] Stage17ScheduleSource.RejectsWindowOrderMemoryAndDeadlineFailures (0 ms)
+[----------] 5 tests from Stage17ScheduleSource (4 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (5 ms total)
+[  PASSED  ] 5 tests.

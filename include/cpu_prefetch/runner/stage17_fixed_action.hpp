@@ -11,6 +11,7 @@
 #include <vector>
 
 namespace cpu_prefetch::runner::stage17 {
+struct FormalScheduleSourceContext;
 
 inline constexpr std::string_view kFixedActionWorkerRole =
     "STAGE17_FIXED_ACTION_WORKER";
@@ -66,7 +67,7 @@ public:
     return false;
   }
   [[nodiscard]] virtual auto archive_checkpoint(const ArtifactBinding&,
-                                              std::uint64_t deadline_monotonic_ns)
+                                                std::uint64_t deadline_monotonic_ns)
       -> protocol::Result<ArtifactBinding> {
     static_cast<void>(deadline_monotonic_ns);
     return protocol::Result<ArtifactBinding>::failure(
@@ -110,6 +111,10 @@ public:
   execute_formal_family(FixedAction action,
                         const protocol::json::Value::Object& action_inputs,
                         ArtifactSink& sink) -> protocol::Result<ActionOutcome>;
+  [[nodiscard]] virtual auto execute_formal_family_with_sources(
+      FixedAction action, const protocol::json::Value::Object& action_inputs,
+      ArtifactSink& sink, const FormalScheduleSourceContext& sources)
+      -> protocol::Result<ActionOutcome>;
   [[nodiscard]] virtual auto
   execute_pilot_session(const protocol::json::Value::Object& action_inputs,
                         ArtifactSink& sink, const PilotSessionAuthority& authority)
@@ -127,6 +132,10 @@ public:
   execute_formal_family(FixedAction action,
                         const protocol::json::Value::Object& action_inputs,
                         ArtifactSink& sink) -> protocol::Result<ActionOutcome> override;
+  [[nodiscard]] auto execute_formal_family_with_sources(
+      FixedAction action, const protocol::json::Value::Object& action_inputs,
+      ArtifactSink& sink, const FormalScheduleSourceContext& sources)
+      -> protocol::Result<ActionOutcome> override;
   [[nodiscard]] auto
   execute_pilot_session(const protocol::json::Value::Object& action_inputs,
                         ArtifactSink& sink, const PilotSessionAuthority& authority)

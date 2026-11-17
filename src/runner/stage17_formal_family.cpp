@@ -224,8 +224,12 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
       action == FixedAction::q16b &&
       (schema_version == "cpu-prefetch-stage17-formal-service-plan/3" ||
        service_continuation);
-  const bool archived =
-      schema_version.ends_with("/2") || continuation || service_daycap;
+  const bool scheduled_descriptive =
+      scheduled && schema_version == "cpu-prefetch-stage17-formal-scheduled-plan/3";
+  const bool archived = schema_version.ends_with("/2") || continuation ||
+                        service_daycap || scheduled_descriptive;
+  if (scheduled_descriptive)
+    common.erase("source_transport");
   if (continuation) {
     continuation_contract(input::object(plan, "continuation"));
     common.erase("continuation");
@@ -251,10 +255,10 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
       std::string(ring        ? "cpu-prefetch-stage17-formal-ring-plan/"
                   : scheduled ? "cpu-prefetch-stage17-formal-scheduled-plan/"
                               : "cpu-prefetch-stage17-formal-service-plan/") +
-      (service_continuation             ? "4"
-       : continuation || service_daycap ? "3"
-       : archived                       ? "2"
-                                        : "1");
+      (service_continuation                                      ? "4"
+       : continuation || service_daycap || scheduled_descriptive ? "3"
+       : archived                                                ? "2"
+                                                                 : "1");
   const auto expected_capture_method =
       ring        ? "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2"
       : scheduled ? "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"
@@ -262,9 +266,10 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
   // D254 keeps the legacy collector format, whose inferential validity remains
   // unestablished. Its method name does not grant the descriptive family a
   // 95/95 claim; the new family method explicitly replaces that guarantee.
-  const auto expected_family_method = service_daycap
-                                          ? "SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1"
-                                          : expected_capture_method;
+  const auto expected_family_method =
+      scheduled_descriptive ? "MATRIX-FULL-DESCRIPTIVE-SCREEN-v1"
+      : service_daycap      ? "SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1"
+                            : expected_capture_method;
   require(input::text(plan, "schema_version") == expected_schema &&
               input::text(plan, "method_id") == expected_family_method &&
               input::text(plan, "protocol_version") == "2.0.0-pre.3" &&
@@ -289,7 +294,10 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
           "formal phase namespaces coincide");
   const auto repetitions =
       positive(plan, ring ? "repetitions_per_context" : "repetitions_per_cell");
-  if (service_daycap)
+  if (scheduled_descriptive)
+    require(repetitions == 1U,
+            "descriptive screen requires exactly one repetition per cell");
+  else if (service_daycap)
     require(repetitions == 2U,
             "service daycap requires exactly two repetitions per cell");
   else
@@ -298,12 +306,14 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
   require(!continuation || repetitions == 59U,
           "continuation must preserve exactly 59 repetitions per context");
   const auto duration = positive(plan, "measurement_ns");
-  require(!service_daycap || duration == 1'000'000'000U,
+  require(!(service_daycap || scheduled_descriptive) || duration == 1'000'000'000U,
           "service daycap requires exactly one second measurement");
   static_cast<void>(input::ticks(duration));
   const auto minimum = ring ? positive(plan, "minimum_observations_per_series") : 0U;
   const auto scale = scheduled ? input::number(plan, "scale_ordinal") : 0U;
   require(scale < 5U, "formal scale is outside the accepted ladder");
+  require(!scheduled_descriptive || scale == 0U,
+          "descriptive screen permits only the initial global scale");
   const auto cells = ring ? 12U : scheduled ? 180U : 60U;
   const auto count =
       service_continuation ? 103U : multiply(continuation ? 9U : cells, repetitions);
@@ -328,6 +338,9 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
   auto time = add(positive(family, "setup_ns"), positive(family, "cleanup_ns"));
   auto output = positive(family, "metadata_output_bytes");
   std::uint64_t peak = 0U;
+  std::uint64_t source_bytes = 0U;
+  std::uint64_t largest_source = 0U;
+  std::set<std::string> source_ids;
   for (std::size_t ordinal = 0U; ordinal < captures.size(); ++ordinal) {
     const auto* item = captures[ordinal].as_object();
     require(item != nullptr, "formal capture entry is not an object");
@@ -420,6 +433,20 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
     if (scheduled) {
       for (const auto& phase : input::array(capture, "schedules", 2U)) {
         require(phase.as_object() != nullptr, "formal schedule is absent");
+        if (scheduled_descriptive) {
+          require(input::text(capture, "schema_version") ==
+                          "cpu-prefetch-stage17-formal-scheduled-capture/2" &&
+                      input::text(*phase.as_object(), "storage_format") ==
+                          "SEALED_U64BE_ORIGINAL-v1",
+                  "descriptive screen requires original sealed sources");
+          const auto& artifact = input::object(*phase.as_object(), "source_artifact");
+          require(source_ids.insert(input::opaque_text(artifact, "artifact_id")).second,
+                  "original-source identity is reused");
+          const auto bytes =
+              multiply(input::number(*phase.as_object(), "offered_count"), 8U);
+          source_bytes = add(source_bytes, bytes);
+          largest_source = std::max(largest_source, bytes);
+        }
         extra_raw =
             add(extra_raw,
                 multiply(input::number(*phase.as_object(), "offered_count"), 8U));
@@ -448,13 +475,37 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
   require(controller_memory >= encode(Value(plan)).size(),
           "formal controller cannot hold plan bytes");
   result.watchdog_ns = bounded_watchdog(family);
-  require(!service_daycap || result.watchdog_ns <= 86'400'000'000'000U,
+  require(!(service_daycap || scheduled_descriptive) ||
+              result.watchdog_ns <= 86'400'000'000'000U,
           "service daycap family watchdog exceeds 24 hours");
   result.memory_bytes = positive(family, "memory_bytes");
   result.metadata_output_bytes = positive(family, "metadata_output_bytes");
   result.max_output_bytes = positive(family, "max_output_bytes");
   result.required_free_disk_bytes = positive(family, "required_free_disk_bytes");
   auto memory = add(controller_memory, peak);
+  if (scheduled_descriptive) {
+    const auto& transport = input::object(plan, "source_transport");
+    input::fields(transport,
+                  {"schema_version", "format", "source_bytes", "owned_vector_bytes",
+                   "loader_transient_bytes", "descriptor_count", "metadata_bytes",
+                   "maximum_source_memory_bytes"});
+    require(input::text(transport, "schema_version") ==
+                    "cpu-prefetch-stage17-schedule-transport-budget/1" &&
+                input::text(transport, "format") == "SEALED_U64BE_ORIGINAL-v1" &&
+                positive(transport, "descriptor_count") == 360U &&
+                source_ids.size() == 360U &&
+                input::number(transport, "source_bytes") == source_bytes &&
+                input::number(transport, "owned_vector_bytes") == source_bytes &&
+                positive(transport, "loader_transient_bytes") >=
+                    add(largest_source, 8192U) &&
+                positive(transport, "metadata_bytes") >= 1024U * 1024U &&
+                positive(transport, "maximum_source_memory_bytes") >=
+                    add(multiply(source_bytes, 2U),
+                        add(positive(transport, "loader_transient_bytes"),
+                            positive(transport, "metadata_bytes"))),
+            "original source transport extent is incomplete");
+    memory = add(memory, positive(transport, "maximum_source_memory_bytes"));
+  }
   auto disk =
       add(result.max_output_bytes, add(positive(family, "analysis_scratch_bytes"),
                                        positive(family, "disk_reserve_bytes")));

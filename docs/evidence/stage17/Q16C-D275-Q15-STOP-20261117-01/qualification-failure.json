@@ -1,0 +1,5 @@
+{
+  "automatic_retry": false,
+  "error": "RuntimeError('persistent Q15 session exited without a complete result: 1')",
+  "formal_capture_started": false
+}

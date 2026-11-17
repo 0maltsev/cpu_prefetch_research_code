@@ -1,0 +1,12 @@
+{
+  "actual_q15_output_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28",
+  "experimental_actions": 0,
+  "q15_attempt_and_terminal_artifacts": [],
+  "qualification_retried": false,
+  "status": "ACTUAL_OWNER_BOUND_WORKER_SNAPSHOT_PASS",
+  "worker_binding": {
+    "sha256": "1baa213a137679460348ff6b861839044022957a4de0e5fc79929f7b49bed883",
+    "size_bytes": 5048256
+  },
+  "worker_executed": false
+}

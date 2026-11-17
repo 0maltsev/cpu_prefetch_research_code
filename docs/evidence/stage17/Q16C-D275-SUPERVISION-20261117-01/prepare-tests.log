@@ -1,0 +1,8 @@
+test_exact_metadata_and_symlink_rejection (test_stage17_q16c_prepare_v1.PreparationTests.test_exact_metadata_and_symlink_rejection) ... ok
+test_final_family_authority_preparation_is_charged_before_registration (test_stage17_q16c_prepare_v1.PreparationTests.test_final_family_authority_preparation_is_charged_before_registration) ... ok
+test_full_qualified_release_comparison_covers_only_five_reviewed_changes (test_stage17_q16c_prepare_v1.PreparationTests.test_full_qualified_release_comparison_covers_only_five_reviewed_changes) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.075s
+
+OK

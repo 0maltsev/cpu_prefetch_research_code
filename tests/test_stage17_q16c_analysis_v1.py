@@ -39,6 +39,14 @@ def failed_child(connection,job,*args):
 
 
 class AnalysisTests(unittest.TestCase):
+    def test_packet_admission_time_is_charged_to_the_original_analysis_phase(self):
+        start=10**12;now=start+75*10**9;end=start+current.TOTAL_NS
+        self.assertEqual(current.phase_deadline(start,now,end),end)
+        self.assertEqual(current.phase_deadline(start,now,end)-now,(5400-75)*10**9)
+        with self.assertRaisesRegex(ValueError,'does not fit'):current.phase_deadline(start,now,end-1)
+        with self.assertRaisesRegex(ValueError,'phase start'):current.phase_deadline(now+1,now,end)
+        with self.assertRaisesRegex(ValueError,'expired'):current.phase_deadline(start,end,end)
+
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory(prefix='q16c-analysis-software-',dir=Path(__file__).resolve().parents[1]/'build')
         self.addCleanup(self.tmp.cleanup);self.root=Path(self.tmp.name)

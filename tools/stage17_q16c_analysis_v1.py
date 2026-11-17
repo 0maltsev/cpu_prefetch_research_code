@@ -124,9 +124,18 @@ def collect(jobs,profile,decoder_limits,hardware,cpus,output,deadline):
         for process in processes:process.close()
 
 
-def analyze(cli,prepared,output,*,global_deadline_ns,retained_failed_scratch_bytes):
-    started=time.monotonic_ns();deadline=min(started+TOTAL_NS,global_deadline_ns)
+def phase_deadline(started,observed,global_deadline_ns):
+    require(type(started) is int and 0<started<=observed,'actual original analysis phase start')
+    deadline=min(started+TOTAL_NS,global_deadline_ns)
     require(deadline-started>=TOTAL_NS,'complete prospective90-minute analysis envelope does not fit')
+    require(observed<deadline,'original analysis deadline expired')
+    return deadline
+
+
+def analyze(cli,prepared,output,*,global_deadline_ns,retained_failed_scratch_bytes,started_monotonic_ns=None):
+    observed=time.monotonic_ns()
+    started=observed if started_monotonic_ns is None else started_monotonic_ns
+    deadline=phase_deadline(started,observed,global_deadline_ns)
     output=Path(output);require(output.is_absolute() and output.parent.resolve(strict=True)==output.parent
         and not output.exists(),'exclusive canonical analysis root required')
     plan=prepared.request['action_inputs']['plan']

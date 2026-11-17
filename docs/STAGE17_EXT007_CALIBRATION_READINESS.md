@@ -1,6 +1,6 @@
 # EXT007 calibration continuation
 
-State: **Q16A_Q16B_DATA_AND_HANDOFFS_COMPLETE; Q16C_SOURCES_AND_LAYOUTS_COMPLETE; COLLECTION_NOT_STARTED**.
+State: **Q16A_Q16B_DATA_AND_HANDOFFS_COMPLETE; Q16C_SOURCES_AND_LAYOUTS_COMPLETE; PREREQUISITES_ADMITTED_QUALIFICATION_NOT_STARTED**.
 
 **Current EXT007 checkpoint (2026-11-17,18:49Moscow): Q16c original sources and actual native layout sizing COMPLETE.** [Signed completion, sizing proof and remaining gates](evidence/stage17/Q16C-D274-SOURCE-SIZING-20261117-01/REPORT.md): all360 sources (902112019 values,7.22GB) generated and independently verified; all180 original-source layouts pass frozen919c486 parsing/sizing. Both pure preparation units exited0 and reaped their workers. Q16c measurements remain0/180; no new native qualification has started. Complete cold supervision integration, final archive/profile/resource admission and historical compatibility remain launch gates. The original absolute deadline is18November13:39Moscow; about18h52m remained at this check versus a17h17m prospective qualification/collection/analysis/restoration ceiling. Recompute the remaining budget and give an updated ETA before launch. All708 Q16a and120 Q16b reports remain preserved. EXT007/Stage17 are incomplete; Stage18 remains prohibited.
 

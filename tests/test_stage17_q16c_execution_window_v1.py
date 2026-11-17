@@ -104,6 +104,13 @@ class ExecutionWindowTests(unittest.TestCase):
                 window.verify_lineage(r,validation=validation,plan=plan)
                 out=window.authenticate(proof,validation=validation,plan=plan,now=r['started_monotonic_ns'])
                 self.assertEqual(out,r)
+                # Historical lineage admission after collection must not demand
+                # a second complete family budget. Root/native launch still does.
+                late=r['global_deadline_ns']-10**9
+                self.assertEqual(window.authenticate(proof,validation=validation,plan=plan,now=late),r)
+                with self.assertRaisesRegex(ValueError,'cannot fit'):window.validate(r,now=late)
+                with self.assertRaisesRegex(ValueError,'expired'):
+                    window.authenticate(proof,validation=validation,plan=plan,now=r['global_deadline_ns'])
                 # Rehashing a modified manifest cannot repair the original signature.
                 altered=copy.deepcopy(r);altered['stand_id']='different-stand';manifest.write_bytes(window.canonical(altered))
                 bad=dict(proof,manifest=bind(manifest))

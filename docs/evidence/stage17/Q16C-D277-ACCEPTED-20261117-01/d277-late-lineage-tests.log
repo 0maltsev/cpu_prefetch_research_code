@@ -1,0 +1,12 @@
+test_complete_budget_is_17h27_without_source_regeneration (test_stage17_q16c_execution_window_v1.ExecutionWindowTests.test_complete_budget_is_17h27_without_source_regeneration) ... ok
+test_full_envelope_strict_boundary (test_stage17_q16c_execution_window_v1.ExecutionWindowTests.test_full_envelope_strict_boundary) ... ok
+test_isolation_keeper_leaves_restore_reserve (test_stage17_q16c_execution_window_v1.ExecutionWindowTests.test_isolation_keeper_leaves_restore_reserve) ... ok
+test_mutated_release_clock_duration_budget_or_scope_is_rejected (test_stage17_q16c_execution_window_v1.ExecutionWindowTests.test_mutated_release_clock_duration_budget_or_scope_is_rejected) ... ok
+test_new_window_does_not_accept_old_source_schema (test_stage17_q16c_execution_window_v1.ExecutionWindowTests.test_new_window_does_not_accept_old_source_schema) ... ok
+test_private_cli_and_controller_use_recovery_without_mutating_old_journal (test_stage17_q16c_execution_window_v1.ExecutionWindowTests.test_private_cli_and_controller_use_recovery_without_mutating_old_journal) ... ok
+test_real_signature_and_retained_bytes_are_required (test_stage17_q16c_execution_window_v1.ExecutionWindowTests.test_real_signature_and_retained_bytes_are_required) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.106s
+
+OK

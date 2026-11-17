@@ -63,7 +63,7 @@ def read(b):
     return raw
 
 
-def validate(record,*,now,qualification=False):
+def validate_record(record,*,now):
     require(type(record) is dict and set(record)==FIELDS,'closed execution window fields')
     require(record['schema_version']==SCHEMA and record['execution_window_id']==IDENTITY
         and record['decision_id']=='D277','one approved versioned execution window')
@@ -80,9 +80,15 @@ def validate(record,*,now,qualification=False):
     require(end-start==86400*NS,'exact separate24h interval')
     stamp=record['started_at_utc'];require(type(stamp) is str and stamp.endswith('Z'),'explicit UTC start')
     dt.datetime.fromisoformat(stamp.replace('Z','+00:00'))
-    remaining=FAMILY+ANALYSIS+RESTORATION+(QUALIFICATION if qualification else 0)
-    require(now+remaining*NS<end,'complete remaining envelope cannot fit')
+    require(now<end,'execution window expired')
     return end-now
+
+
+def validate(record,*,now,qualification=False):
+    remaining_ns=validate_record(record,now=now)
+    remaining=FAMILY+ANALYSIS+RESTORATION+(QUALIFICATION if qualification else 0)
+    require(remaining*NS<remaining_ns,'complete remaining envelope cannot fit')
+    return remaining_ns
 
 
 def infrastructure(record,configuration,*,now):
@@ -101,7 +107,7 @@ def authenticate(proof,*,validation,plan,now):
     require(proof['manifest']['path']==str(EVIDENCE/'d277-execution-window-1/window.json')
         and proof['signature']['path']==proof['manifest']['path']+'.sig','one exclusive execution namespace')
     raw=read(proof['manifest']);record=parse(raw);require(raw==canonical(record),'canonical window bytes')
-    validate(record,now=now)
+    validate_record(record,now=now)
     import stage17_phase_controller_v2 as support
     trust=validation.resolutions['S17-EXT-003'].semantic_context['trust']
     require(trust['measurements']['reviewer_role']=='OWNER' and record['stand_id']==trust['subject_id'],'actual admitted stand owner')

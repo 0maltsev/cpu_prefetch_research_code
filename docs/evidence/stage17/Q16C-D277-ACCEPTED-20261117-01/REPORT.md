@@ -54,3 +54,16 @@ as well as during every later authenticated admission. Seven fresh tests pass,
 including exact rejection of the completion-receipt substitution. The first
 unlaunched packet transport and frozen plan are preserved; the corrected source
 will be separately bound. This is preparation evidence, not a repeated experiment.
+
+The corrected a08b14e packet also passed complete read-only lineage on the stand.
+A final software review separated live lineage authentication from prospective
+launch-budget admission: offline analysis must not reserve another full13h17m
+family after collection. Identity/signature/original-input checks and the absolute
+deadline remain required; actual root/native launch still requires the complete
+remaining family, analysis and restoration envelope. Seven fresh tests pass,
+including accepted late lineage, rejected late launch and rejected expiry.
+The generated Q15 parent passes success/failure workflow tests: successful native
+reaping and retained empty isolation precede D278; a Q15-W failure restores and
+never reaches D278 or collection. These tests launch no native process. Ordered
+cold-module loading also passed without dependency-cache collisions. The
+separate execution window remains UNSTARTED at this preparation checkpoint.

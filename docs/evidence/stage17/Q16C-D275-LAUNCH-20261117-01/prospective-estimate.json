@@ -1,0 +1,19 @@
+{
+  "analysis_seconds": 5400,
+  "automatic_retries": 0,
+  "captures": 180,
+  "collection_archive_seconds": 47220,
+  "deadline_reset": false,
+  "execution_authority": false,
+  "family_cap_seconds": 47820,
+  "measurement_ns": 1000000000,
+  "phase18_authority": false,
+  "prospective_complete_ceiling_seconds": 62820,
+  "qualification_cap_seconds": 7200,
+  "remaining_original_window_seconds": 64726,
+  "remaining_qualification_subdeadline_seconds": 5383,
+  "restoration_seconds": 2400,
+  "schema_version": "cpu-prefetch-stage17-q16c-prospective-launch-estimate/1",
+  "source_revision": "919c48637cbdba9e466a3104f5cbb39f7184e39b",
+  "warmup_ns": 5000000000
+}

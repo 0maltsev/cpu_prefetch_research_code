@@ -1,29 +1,22 @@
 # EXT007 calibration continuation
 
-State: **Q16A_Q16B_DATA_AND_HANDOFFS_COMPLETE; Q16C_APPROVED_SOFTWARE_PREPARATION**.
+State: **Q16A_Q16B_DATA_AND_HANDOFFS_COMPLETE; Q16C_SOURCE_PREPARATION_RUNNING**.
 
-Current checkpoint: all708 Q16a and120 Q16b reports are preserved and valid.
-D269's read-only Q16b descriptive handoff completed02:03Moscow17November,
-with signed lifecycle/custody and exact report recomposition verified. Both
-separate zero-loss gates remain FAIL due to valid FULL outcomes. No old result
-is repeated or relabelled as its superseded59-run statistical guarantee.
-See the [exact handoff report](evidence/stage17/Q16B-HANDOFF-20261117-01/REPORT.md).
-[D270 is approved](STAGE17_EXT007_Q16C_DESCRIPTIVE_V1_DECISION.md): all180
-settings, one capture each,1-second measurement,5-second warmup and scale1,
-with no formal D036 probability claim. Original-source transport and descriptive
-admission verification, clean release qualification/compatibility, and the
-measured finite envelope precede launch. The new24-hour operational window has
-not started. Final D036 exposures remain NOT_EVALUATED. Calibration freeze,
-EXT007/Stage17 exit and Stage18 admission remain incomplete.
+All708 Q16a and120 Q16b reports remain fixed and valid, with descriptive Q16b
+handoff complete and separate FULL/zero-loss gates retained. D270 is approved:
+all180 Q16c settings, one1-second capture each,5-second warmup, only scale1 and
+no D036 inference. Frozen native919c486 and cold source23fef85 pass software
+checks; actual new qualification and physical/source compatibility remain gates.
 
-D271 source transport, independent raw reconciliation and descriptive composition
-pass software checks, including135 native tests and ASan/UBSan. All eight strict
-codegen gates pass. D272 policy61/preflight35 and both metadata compatibility
-consumers pass targeted software checks; actual qualified-platform/source
-compatibility and execution admission remain pending. The attempted f861f71
-package stopped at historical policy60's pinned native bytes before transfer,
-qualification or any stand experiment. A separately versioned fresh policy is
-prepared; no historical policy or completed data was rewritten.
+The single original-source generation/verification job started17November
+10:39:42UTC, with32 owned UID1000 children. Source deadline16:54:42UTC that day;
+absolute study deadline18November10:39:42UTC. No reset, retry, native qualification
+or capture is authorized by this checkpoint. [Exact launch evidence](evidence/stage17/Q16C-D273-SOURCE-LAUNCH-20261117-01/REPORT.md)
+retains status and hashes. Cold supervision integration continues while sources
+run. Before experimental launch, require actual sources/layouts, compatibility,
+remaining complete finite budget and an updated ETA. Final D036 exposure and
+feasibility remains NOT_EVALUATED. Scoped freeze/EXT007 exit remains incomplete;
+Stage18 remains prohibited.
 
 The engineering checkpoints below are historical.
 

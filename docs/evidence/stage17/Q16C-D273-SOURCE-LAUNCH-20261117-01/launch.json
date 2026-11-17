@@ -1,0 +1,27 @@
+{
+  "unit": "cpu-prefetch-q16c-sources-v28-1.service",
+  "systemd_state": "ActiveState=active\nSubState=running\nMainPID=264653\nResult=success\nExecMainStatus=0\nControlGroup=/system.slice/cpu-prefetch-q16c-sources-v28-1.service\n",
+  "source_setup_sha256": "9bdc7e6683ce1c74ec17afedf3ebf4be5c0f0b6499457fa28c09cffb3def5c76",
+  "source_packet_sha256": "71322dea82d3747249f66ccc0b0dfa48a59a21002a4b1caaf464d57d611962d9",
+  "administrative_source_revision": "23fef85a8a7ae74da83f6271528cb3c9b1241d45",
+  "original_window": {
+    "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+    "global_deadline_ns": 1434917259623071,
+    "phase18_authority": false,
+    "retry_authorized": false,
+    "source_deadline_ns": 1371017259623071,
+    "source_setup": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-source-operator-1/source-setup.json",
+      "sha256": "9bdc7e6683ce1c74ec17afedf3ebf4be5c0f0b6499457fa28c09cffb3def5c76",
+      "size_bytes": 217639
+    },
+    "started_monotonic_ns": 1348517259623071
+  },
+  "observed_at_utc": "2026-11-17T10:39:43.054798+00:00",
+  "global_deadline_utc": "2026-11-18T10:39:42.962797+00:00",
+  "source_deadline_utc": "2026-11-17T16:54:42.962797+00:00",
+  "source_progress_files": 0,
+  "native_qualification_started": false,
+  "native_experiments_started": 0,
+  "phase18_authority": false
+}

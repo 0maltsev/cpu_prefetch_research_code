@@ -103,3 +103,14 @@ A separately named v2 consumer preserves the frozen v1 bytes and every original
 count/coverage/claim check, adding that exact required source identity. A real
 raw-validator-to-composer integration fixture verifies this boundary, including
 valid FULL data. No actual Q16c observation or old result is modified.
+
+Independent Q16c analysis uses12 actually observed distinct physical cores,
+8GiB per child, observed112GiB available-memory admission and the existing
+aggregate256GiB scratch/reserve rule, including retained failed spools. Every
+original archive is independently reconstructed and hash-checked before the
+existing raw validator runs. Its control reader is the D261 parser body with
+an explicit Q16c method gate and a plan-sized packed-page ceiling. Preserve
+reader version/capacity in process evidence. A300s per-child ceiling, bounded
+reaping,600s parent setup and120s finalization fit90minutes for180 captures.
+Stop on the first invalid/missing child; retain failed scratch and all archives.
+This operator starts only after native completion and hardware restoration.

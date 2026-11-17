@@ -341,8 +341,11 @@ auto parse_formal_schedule_source_context(const Object& plan, const Object& cont
 ParsedNativeFormalScheduledCapture::ParsedNativeFormalScheduledCapture(
     calibration::NativeFormalScheduledCapturePlan plan, Deadlines deadlines)
     : plan_(std::move(plan)),
-      deadlines_(std::make_shared<const Deadlines>(std::move(deadlines))) {
+      deadlines_(std::make_shared<const Deadlines>(std::move(deadlines))),
+      hardware_prestate_(plan_.controls.hardware_prestate.begin(),
+                         plan_.controls.hardware_prestate.end()) {
   plan_.scheduled.deadlines = {};
+  plan_.controls.hardware_prestate = {};
 }
 auto ParsedNativeFormalScheduledCapture::plan() const
     -> calibration::NativeFormalScheduledCapturePlan {
@@ -350,6 +353,7 @@ auto ParsedNativeFormalScheduledCapture::plan() const
     throw std::logic_error("moved-from scheduled capture");
   auto result = plan_;
   result.scheduled.deadlines = {(*deadlines_)[0U], (*deadlines_)[1U]};
+  result.controls.hardware_prestate = hardware_prestate_;
   return result;
 }
 

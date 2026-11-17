@@ -34,9 +34,9 @@ struct PreparedFormalScheduleSources final {
     const protocol::json::Value::Object& source_context,
     std::span<const int> reserved_descriptors)
     -> protocol::Result<PreparedFormalScheduleSources>;
-// Immutable owned deadline arrays survive copies/moves of this parsed value.
+// Owned deadlines and hardware prestate survive copies/moves of this parsed value.
 // plan() rebinds the native spans; retain a parsed owner until capture returns.
-// Environmental path strings and hardware prestate still borrow parser inputs.
+// Environmental path strings still borrow parser inputs.
 class ParsedNativeFormalScheduledCapture final {
 public:
   using Deadlines = std::array<std::vector<std::uint64_t>, 2U>;
@@ -47,6 +47,7 @@ public:
 private:
   calibration::NativeFormalScheduledCapturePlan plan_;
   std::shared_ptr<const Deadlines> deadlines_;
+  std::vector<platform::HardwarePrefetchMsrValue> hardware_prestate_;
 };
 [[nodiscard]] auto parse_native_formal_scheduled_capture(
     const protocol::json::Value::Object& capture,

@@ -517,7 +517,30 @@ TEST(FormalScheduledNativeInput,
   EXPECT_EQ(native.scheduled.deadlines[1U][1U], 2000U);
   EXPECT_EQ(native.scheduled.deadlines[0U].data(),
             owned.plan().scheduled.deadlines[0U].data());
-  // No environmental paths in this fixture; live callers retain input paths/prestate.
+  // No borrowed environmental paths in this fixture.
+}
+TEST(FormalScheduledNativeInput, HardwarePrestateSurvivesParserScopeCopyAndMove) {
+  auto owned = [] {
+    Fixture f;
+    auto prestate = kPrestate;
+    auto parsed = runner::stage17::parse_native_formal_scheduled_capture(
+        f.capture, f.resources, f.monitoring, prestate);
+    if (!parsed)
+      throw std::logic_error("parse failed");
+    // The accepted state is a snapshot, even when the caller reuses its buffer.
+    prestate[0U] = {99U, 0xffffU};
+    EXPECT_EQ(parsed.value().plan().controls.hardware_prestate[0U].cpu, 0U);
+    return parsed.value();
+  }();
+  auto copied = owned;
+  auto moved = std::move(copied);
+  const auto native = moved.plan();
+  ASSERT_EQ(native.controls.hardware_prestate.size(), kPrestate.size());
+  for (std::size_t i = 0U; i < kPrestate.size(); ++i) {
+    EXPECT_EQ(native.controls.hardware_prestate[i].cpu, kPrestate[i].cpu);
+    EXPECT_EQ(native.controls.hardware_prestate[i].value, kPrestate[i].value);
+  }
+  EXPECT_NO_THROW((void)calibration::native_formal_scheduled_layout(native));
 }
 TEST(FormalScheduledNativeInput, LoadScaleUnknownFieldsAndMemoryBudgetFailClosed) {
   Fixture load;

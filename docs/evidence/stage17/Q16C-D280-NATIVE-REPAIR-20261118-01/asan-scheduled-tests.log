@@ -1,0 +1,59 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = FormalScheduledNativeInput.*:FormalScheduledPublication.*
+[==========] Running 23 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 16 tests from FormalScheduledNativeInput
+[ RUN      ] FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds
+[       OK ] FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds (1240 ms)
+[ RUN      ] FormalScheduledNativeInput.SealedOriginalSourcesRequireExplicitBoundContext
+[       OK ] FormalScheduledNativeInput.SealedOriginalSourcesRequireExplicitBoundContext (13 ms)
+[ RUN      ] FormalScheduledNativeInput.WholeFamilySourceContextRejectsMissingExtraChangedAndAliasedDescriptors
+[       OK ] FormalScheduledNativeInput.WholeFamilySourceContextRejectsMissingExtraChangedAndAliasedDescriptors (654 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresExactPackageCellAndMethod
+[       OK ] FormalScheduledNativeInput.RequiresExactPackageCellAndMethod (15 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel
+[       OK ] FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel (6 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing
+[       OK ] FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing (19 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence
+[       OK ] FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence (20 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity
+[       OK ] FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity (11 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup
+[       OK ] FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup (10 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity
+[       OK ] FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity (10 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance
+[       OK ] FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance (59 ms)
+[ RUN      ] FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid
+[       OK ] FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid (6 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum
+[       OK ] FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum (12 ms)
+[ RUN      ] FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction
+[       OK ] FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction (6 ms)
+[ RUN      ] FormalScheduledNativeInput.HardwarePrestateSurvivesParserScopeCopyAndMove
+[       OK ] FormalScheduledNativeInput.HardwarePrestateSurvivesParserScopeCopyAndMove (5 ms)
+[ RUN      ] FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed
+[       OK ] FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed (20 ms)
+[----------] 16 tests from FormalScheduledNativeInput (2115 ms total)
+
+[----------] 7 tests from FormalScheduledPublication
+[ RUN      ] FormalScheduledPublication.RetainsFourIndependentPrimaryStreams
+[       OK ] FormalScheduledPublication.RetainsFourIndependentPrimaryStreams (18 ms)
+[ RUN      ] FormalScheduledPublication.PreparedSchedulesAreNotFabricatedExecution
+[       OK ] FormalScheduledPublication.PreparedSchedulesAreNotFabricatedExecution (38 ms)
+[ RUN      ] FormalScheduledPublication.RetainsActualReleaseCompletionAndDrainWithoutD211
+[       OK ] FormalScheduledPublication.RetainsActualReleaseCompletionAndDrainWithoutD211 (39 ms)
+[ RUN      ] FormalScheduledPublication.RetainsUnknownFailureWithoutInventingObservation
+[       OK ] FormalScheduledPublication.RetainsUnknownFailureWithoutInventingObservation (32 ms)
+[ RUN      ] FormalScheduledPublication.RetainsNodeOrderAsExactUnsignedLittleEndian
+[       OK ] FormalScheduledPublication.RetainsNodeOrderAsExactUnsignedLittleEndian (32 ms)
+[ RUN      ] FormalScheduledPublication.PreservesMissingOwnersAndStopsAtSinkFailure
+[       OK ] FormalScheduledPublication.PreservesMissingOwnersAndStopsAtSinkFailure (26 ms)
+[ RUN      ] FormalScheduledPublication.FinalCleanupRemainsSeparateEvidence
+[       OK ] FormalScheduledPublication.FinalCleanupRemainsSeparateEvidence (32 ms)
+[----------] 7 tests from FormalScheduledPublication (220 ms total)
+
+[----------] Global test environment tear-down
+[==========] 23 tests from 2 test suites ran. (2335 ms total)
+[  PASSED  ] 23 tests.

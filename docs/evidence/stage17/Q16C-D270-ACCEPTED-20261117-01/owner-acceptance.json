@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-17",
+  "decision": "D270",
+  "owner_answer": "approve it",
+  "proposal": {
+    "path": "docs/decisions/0270-q16c-descriptive-screen-proposal.md",
+    "size_bytes": 7399,
+    "sha256": "fc16567d4435b69cefa48e16e2d4a573fbe7af2324d8e6fd874b5fd38c030ca0"
+  },
+  "amendment": "AMEND-2.0.0-pre.3-Q16C-DESCRIPTIVE-MATRIX-SCREEN-v1",
+  "scope": "One descriptive Q16c screen: all180 settings, one capture each, 1s measurement, 5s warmup, scale1 only; no D036 confidence/feasibility claim. One new absolute24h operational window; updated estimate and verified finite envelope before launch. Preserve all completed Q16a/Q16b. Stop on first failure; no automatic retry.",
+  "phase18_authority": false,
+  "operational_window_started": false
+}

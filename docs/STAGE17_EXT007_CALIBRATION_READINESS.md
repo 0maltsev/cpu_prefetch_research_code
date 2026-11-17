@@ -1,6 +1,6 @@
 # EXT007 calibration continuation
 
-State: **Q16A_Q16B_DATA_AND_HANDOFFS_COMPLETE; Q16C_SCIENTIFIC_DECISION_PENDING**.
+State: **Q16A_Q16B_DATA_AND_HANDOFFS_COMPLETE; Q16C_APPROVED_SOFTWARE_PREPARATION**.
 
 Current checkpoint: all708 Q16a and120 Q16b reports are preserved and valid.
 D269's read-only Q16b descriptive handoff completed02:03Moscow17November,
@@ -8,10 +8,13 @@ with signed lifecycle/custody and exact report recomposition verified. Both
 separate zero-loss gates remain FAIL due to valid FULL outcomes. No old result
 is repeated or relabelled as its superseded59-run statistical guarantee.
 See the [exact handoff report](evidence/stage17/Q16B-HANDOFF-20261117-01/REPORT.md).
-[D270](decisions/0270-q16c-descriptive-screen-proposal.md) is a PROPOSED scientific
-amendment for a short full-matrix descriptive Q16c screen. It is not approved,
-starts no new experiment, and does not satisfy calibration freeze, EXT007 or
-Stage18 admission. Original D036 final exposures remain NOT_EVALUATED.
+[D270 is approved](STAGE17_EXT007_Q16C_DESCRIPTIVE_V1_DECISION.md): all180
+settings, one capture each,1-second measurement,5-second warmup and scale1,
+with no formal D036 probability claim. Original-source transport and descriptive
+admission verification, clean release qualification/compatibility, and the
+measured finite envelope precede launch. The new24-hour operational window has
+not started. Final D036 exposures remain NOT_EVALUATED. Calibration freeze,
+EXT007/Stage17 exit and Stage18 admission remain incomplete.
 
 The engineering checkpoints below are historical.
 

@@ -1,6 +1,8 @@
 # Stage 17 completion plan
 
-**Current EXT007 checkpoint (2026-11-17,02:03Moscow): Q16b descriptive handoff VERIFIED.** The bounded read-only stand job exited0 after original signed-lifecycle/custody admission and exact recomposition from all120 reports. Both source histories, all708 Q16a reports and failed separate zero-loss gates remain preserved; no raw validation, measurement or qualification was repeated. [Handoff, exact planning basis and evidence](evidence/stage17/Q16B-HANDOFF-20261117-01/REPORT.md). Q16c has not started: its count/duration and scientific claim need a prospective owner decision. [D270](decisions/0270-q16c-descriptive-screen-proposal.md) proposes a180-setting descriptive screen within one24-hour window, explicitly without D036's formal probability claim; it is PROPOSED, not approved. Further Q16c execution, calibration freeze and EXT007/Stage17 exit remain; Stage18 remains prohibited.
+**Current checkpoint (2026-11-17): D270 APPROVED; Q16c software preparation in progress.** [Owner acceptance](STAGE17_EXT007_Q16C_DESCRIPTIVE_V1_DECISION.md) fixes the full180-setting descriptive screen, one1-second capture each,5-second warmup and scale1 only, under one new absolute24-hour operational window. All708 Q16a and120 Q16b reports and the verified handoffs remain preserved. Original-source transport, descriptive admission, clean release/compatibility and measured finite budget precede launch; no operational clock or new qualification has started. EXT007/Stage17 remain incomplete; Stage18 remains prohibited.
+
+**Historical handoff:** **Current EXT007 checkpoint (2026-11-17,02:03Moscow): Q16b descriptive handoff VERIFIED.** The bounded read-only stand job exited0 after original signed-lifecycle/custody admission and exact recomposition from all120 reports. Both source histories, all708 Q16a reports and failed separate zero-loss gates remain preserved; no raw validation, measurement or qualification was repeated. [Handoff, exact planning basis and evidence](evidence/stage17/Q16B-HANDOFF-20261117-01/REPORT.md). Q16c has not started: its count/duration and scientific claim need a prospective owner decision. [D270](decisions/0270-q16c-descriptive-screen-proposal.md) proposes a180-setting descriptive screen within one24-hour window, explicitly without D036's formal probability claim; it is PROPOSED, not approved. Further Q16c execution, calibration freeze and EXT007/Stage17 exit remain; Stage18 remains prohibited.
 
 **Historical Q16b stopped checkpoint:16/120 archived captures;17 checkpoints retained.** [D258](decisions/0258-stage17-procfs-exit-race.md) repairs the reproduced supervisor process-exit race and adds bounded failure tracebacks. The fix is installed separately on the stand;14 targeted tests and22 supervision regressions passed there. Native identity, genuine worker-loss, signature, cleanup and deadline gates remain enforced. The old operator, all data, original qualification and Q16a708 remain unchanged. No experiment was restarted or repeated. Hardware/CPU/maintenance restoration is verified. EXT007/Stage17 remain incomplete.
 
@@ -162,12 +164,12 @@ credit for the unchanged formal EXT007 requirements.
       Original708 Q16a and all qualification/data histories remain preserved.
       Both separate zero-loss gates FAIL due to valid FULL outcomes; no59-run
       tolerance claim. No measurement or raw validation is to be repeated.
-   9. **Pending — Q16c scientific decision and preparation:** the legacy D036
+   9. **In progress — approved Q16c descriptive screen preparation:** the legacy D036
       bound cannot supply a formal matrix-feasibility certification from a short
       practical run, even with all-zero observations; final exposures are also
-      unfrozen. D270 proposes180 settings ×1 capture,1-second measurement and
-      5-second warmup as a separately labelled descriptive screen. Its owner
-      decision is pending; no Q16c or new qualification has started. Schedule
+      unfrozen. Approved D270 fixes180 settings ×1 capture,1-second measurement and
+      5-second warmup as a separately labelled descriptive screen. The owner
+      approved the exact proposal; no Q16c or new qualification has started. Schedule
       transport/request sizing, exact generation/provenance, a finite budget,
       calibration freeze and EXT007/Stage17 exit remain required. Stage18 is
       prohibited. Do not silently downgrade D036 or invent final exposures.

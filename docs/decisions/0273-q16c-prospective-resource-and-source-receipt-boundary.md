@@ -1,6 +1,6 @@
 # D273: Count-sized Q16c traces and authenticated original-source receipts
 
-- Status: ACCEPTED engineering implementation under approved D270; verification and launch admission pending
+- Status: ACCEPTED engineering implementation under approved D270; source/software checks PASS; actual experimental admission pending
 - Date: 2026-11-17
 - Scope: cold source preparation, exact trace/resource sizing and explicit descriptive admission
 
@@ -73,3 +73,33 @@ costs to freeze the remaining finite envelope and give the updated ETA. Do not
 launch if the complete envelope cannot fit. Keep D233 storage and stop/reap/
 restore on the first new experimental, validity, custody, resource or time
 failure. No automatic retry or window extension; Stage18 remains unauthorized.
+
+The prospective count-sized native ceiling is32GiB per capture. Actual pure
+native descriptions, source-bank memory, publication copies and the unchanged
+symbolic observation/allocation model must fit it before arm. The extracted
+symbolic model reproduces every original120 Q16b metadata/heap bound exactly.
+The standalone source-bound pure sizing helper is linked to the frozen919c486
+libraries; it executes no queue, clock, mapping, affinity or hardware action.
+
+Candidate resource ceilings are25s setup,5s warmup,1s measurement, two30s drains,
+25s publication and4s cleanup per capture:120s total. Conditional archive cap140s
+per capture plus300s family setup and120s cleanup gives47220s (13h7m). Together
+with6h15m source preparation,2h qualification/prelaunch,90m independent analysis
+and40m restoration this is84720s (23h32m), leaving28m inside the original24h.
+These are failure ceilings, not measured durations or promised completion. The
+actual source/layout/cost gates and updated ETA remain required before any
+native experiment. Add every retained original-source byte to workspace
+accounting; do not borrow compression or reduce the D233 reserve.
+
+Native software correctness, sanitizers and clean packaging precede the
+operational clock. Source preparation may run while remaining cold administrative
+integration is completed, under that same original clock. No qualification or
+capture may start until its entire verified implementation, actual compatibility
+and remaining finite envelope pass. Finishing cold software grants no clock
+extension and never permits an automatic retry.
+
+The initial composer omitted the actual validator's control-schema source tag.
+A separately named v2 consumer preserves the frozen v1 bytes and every original
+count/coverage/claim check, adding that exact required source identity. A real
+raw-validator-to-composer integration fixture verifies this boundary, including
+valid FULL data. No actual Q16c observation or old result is modified.

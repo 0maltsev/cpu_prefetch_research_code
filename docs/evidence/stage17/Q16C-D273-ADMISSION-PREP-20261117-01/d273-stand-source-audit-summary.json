@@ -1,0 +1,17 @@
+{
+  "report": {
+    "path": "/home/omaltsev/stage17-owner-evidence/v28-bootstrap-1/source-namespace-audit-2.json",
+    "size_bytes": 18109227,
+    "sha256": "0ac2b4d22343c251fc532917c50b0406d488028e7fc7a5eb1619f03bcb1666c8"
+  },
+  "summary": {
+    "status": "PASS_SCOPED_HISTORY_AUDIT",
+    "checked_files": 76307,
+    "checked_bytes": 794551367,
+    "planned_numeric_seeds": 792,
+    "source_setup_sha256": "9bdc7e6683ce1c74ec17afedf3ebf4be5c0f0b6499457fa28c09cffb3def5c76",
+    "matches": [],
+    "errors": []
+  },
+  "experimental_actions": 0
+}

@@ -1,0 +1,6 @@
+[1/5] Building CXX object CMakeFiles/cpu_prefetch_software_prefetch_mapping_codegen_mutant.dir/tools/software_prefetch_mapping_codegen_mutant.cpp.o
+[2/5] Linking CXX executable cpu_prefetch_software_prefetch_mapping_codegen_mutant
+[3/5] Building CXX object CMakeFiles/cpu_prefetch_software_prefetch_mapping_codegen_probe.dir/tools/software_prefetch_mapping_codegen_probe.cpp.o
+[4/5] Linking CXX executable cpu_prefetch_software_prefetch_mapping_codegen_probe
+[5/5] Requiring dual-disassembler D-047 PREFETCHW/PREFETCHT0 mapping evidence
+software-prefetch-mapping-codegen-check: PASS (two disassemblers, three mapped sites, two mutants)

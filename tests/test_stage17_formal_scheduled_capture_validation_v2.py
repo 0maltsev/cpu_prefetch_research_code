@@ -9,6 +9,7 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import stage17_formal_scheduled_capture_validation_v2 as current
 import stage17_formal_service_capture_validation_v1 as historical
+import stage17_q16c_descriptive_calibration_v2 as composition
 from test_stage17_formal_service_capture_validation_v1 import Fixture
 
 
@@ -46,6 +47,21 @@ class SourceCaptureTests(unittest.TestCase):
         self.assertTrue(result['raw_reconciliation_validated'])
         self.assertFalse(result['measurement_zero_loss'])
         self.assertEqual(result['phases'][1]['counts']['full'], 1)
+
+    def test_actual_raw_validator_report_is_accepted_by_descriptive_composition(self):
+        f = self.fixture(full=True); result = self.run_capture(f)
+        raw = composition.archive.canonical(result)
+        row = dict(capture_ordinal=f.capture['ordinal'],validity='VALID',report_utf8_bytes=raw,
+            report_binding=dict(artifact_id='synthetic-real-validator-report',size_bytes=len(raw),
+                                sha256=hashlib.sha256(raw).hexdigest()))
+        accepted = composition._report(row,f.capture)
+        self.assertEqual(accepted['phases'][1]['counts']['full'],1)
+        self.assertEqual(accepted['validity'],'VALID')
+        altered = copy.deepcopy(result);altered['source_versions'].pop('control')
+        raw = composition.archive.canonical(altered)
+        row.update(report_utf8_bytes=raw,report_binding=dict(artifact_id='synthetic-real-validator-report',
+            size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest()))
+        with self.assertRaises(composition.Error):composition._report(row,f.capture)
 
     def test_changed_original_hash_changed_arrival_and_fake_inline_array_rejected(self):
         for mutation in ['hash', 'arrival', 'inline']:

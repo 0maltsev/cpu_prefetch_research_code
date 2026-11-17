@@ -1,0 +1,9 @@
+test_archive_overlay_preserves_every_rule_except_explicit_descriptive_identity (test_stage17_q16c_descriptive_administration_v1.AdministrationTests.test_archive_overlay_preserves_every_rule_except_explicit_descriptive_identity) ... ok
+test_cli_inherited_functions_and_base_share_private_controller (test_stage17_q16c_descriptive_administration_v1.AdministrationTests.test_cli_inherited_functions_and_base_share_private_controller) ... ok
+test_full_private_graph_selects_new_journal_plan_registry_and_overlay (test_stage17_q16c_descriptive_administration_v1.AdministrationTests.test_full_private_graph_selects_new_journal_plan_registry_and_overlay) ... ok
+test_unconfigured_history_and_wrong_action_fail_before_native_execution (test_stage17_q16c_descriptive_administration_v1.AdministrationTests.test_unconfigured_history_and_wrong_action_fail_before_native_execution) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.789s
+
+OK

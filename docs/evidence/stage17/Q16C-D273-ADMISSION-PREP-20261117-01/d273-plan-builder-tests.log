@@ -1,0 +1,9 @@
+test_all_arrivals_fit_primary_buffers_and_drains_monitoring_geometry_preserved (test_stage17_q16c_plan_builder_v1.BuilderTests.test_all_arrivals_fit_primary_buffers_and_drains_monitoring_geometry_preserved) ... ok
+test_complete_180_native_layouts_and_plan_resource_admission (test_stage17_q16c_plan_builder_v1.BuilderTests.test_complete_180_native_layouts_and_plan_resource_admission) ... ok
+test_full180_by_two_unique_sources_and_independent_namespaces (test_stage17_q16c_plan_builder_v1.BuilderTests.test_full180_by_two_unique_sources_and_independent_namespaces) ... ok
+test_metadata_helper_reproduces_every_original120_capture_bound (test_stage17_q16c_plan_builder_v1.BuilderTests.test_metadata_helper_reproduces_every_original120_capture_bound) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 26.515s
+
+OK

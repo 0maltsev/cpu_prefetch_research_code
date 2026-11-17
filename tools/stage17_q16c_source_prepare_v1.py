@@ -54,6 +54,9 @@ def strict_json(raw):
 def save(path, raw):
     with path.open('xb') as stream:
         stream.write(raw); stream.flush(); os.fsync(stream.fileno())
+    directory = os.open(path.parent, os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC)
+    try: os.fsync(directory)
+    finally: os.close(directory)
     return binding(path)
 
 

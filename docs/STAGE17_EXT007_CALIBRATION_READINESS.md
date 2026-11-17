@@ -1,8 +1,8 @@
 # EXT007 calibration continuation
 
-State: **OWNER_DEFECT_FIXED; DEPLOYMENT_ADMISSION_PASS; BLOCKED_AUTHORITY_RENEWAL_AND_ORIGINAL_WINDOW; D277_PENDING_OWNER**.
+State: **D277_ACCEPTED; RESTART_SOFTWARE_VERIFIED; PACKET_PENDING; WINDOW_UNSTARTED**.
 
-**Current EXT007 checkpoint (2026-11-17,21:46Moscow): ownership defect FIXED; full stand execution-owner admission PASS; measurements STOPPED.** [Actual deployment check,18 regression tests and readiness audit](evidence/stage17/Q16C-D276-OWNER-FIX-20261117-01/REPORT.md): all4121 files pass ownership, permissions and exact qualified-byte checks. A mandatory owner gate prevents recurrence before future handoffs. Prelaunch review found the original EXT001/qualification authority expired and the full corrected success envelope no longer fits the remaining original day. No native Q15 or Q16c attempt was started. D277 proposes one new24-hour execution window after readiness, retaining passed clocks,360 schedules,180 layouts,708 Q16a and120 Q16b reports; owner decision is pending. No old deadline or record was edited. Stage17 remains incomplete and Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-17): D277 continuation accepted; restart software verified; stand IDLE.** [Acceptance, preserved work and56 passing cold-software regressions](evidence/stage17/Q16C-D277-ACCEPTED-20261117-01/REPORT.md): one separately signed24-hour execution window may start after packet readiness. It retains all360 schedules,180 layouts,passed clocks,Q16a708 andQ16b120; no completed work is repeated. D278 prepares a fresh one-use third-edge administrative renewal without changing old authorities or qualified native919c486. Stand packet verification and launch remain pending; the new window is UNSTARTED and Q16c0/180. Conservative total after launch:17h27m. Stop on the next failure; no automatic retry. Stage17 remains incomplete; Stage18 prohibited.
 
 The engineering checkpoints below are historical.
 

@@ -1,22 +1,10 @@
 # EXT007 calibration continuation
 
-State: **Q16A_Q16B_DATA_AND_HANDOFFS_COMPLETE; Q16C_SOURCE_PREPARATION_RUNNING**.
+State: **Q16A_Q16B_DATA_AND_HANDOFFS_COMPLETE; Q16C_SOURCES_AND_LAYOUTS_COMPLETE; COLLECTION_NOT_STARTED**.
 
-All708 Q16a and120 Q16b reports remain fixed and valid, with descriptive Q16b
-handoff complete and separate FULL/zero-loss gates retained. D270 is approved:
-all180 Q16c settings, one1-second capture each,5-second warmup, only scale1 and
-no D036 inference. Frozen native919c486 and cold source23fef85 pass software
-checks; actual new qualification and physical/source compatibility remain gates.
+**Current EXT007 checkpoint (2026-11-17,18:49Moscow): Q16c original sources and actual native layout sizing COMPLETE.** [Signed completion, sizing proof and remaining gates](evidence/stage17/Q16C-D274-SOURCE-SIZING-20261117-01/REPORT.md): all360 sources (902112019 values,7.22GB) generated and independently verified; all180 original-source layouts pass frozen919c486 parsing/sizing. Both pure preparation units exited0 and reaped their workers. Q16c measurements remain0/180; no new native qualification has started. Complete cold supervision integration, final archive/profile/resource admission and historical compatibility remain launch gates. The original absolute deadline is18November13:39Moscow; about18h52m remained at this check versus a17h17m prospective qualification/collection/analysis/restoration ceiling. Recompute the remaining budget and give an updated ETA before launch. All708 Q16a and120 Q16b reports remain preserved. EXT007/Stage17 are incomplete; Stage18 remains prohibited.
 
-The single original-source generation/verification job started17November
-10:39:42UTC, with32 owned UID1000 children. Source deadline16:54:42UTC that day;
-absolute study deadline18November10:39:42UTC. No reset, retry, native qualification
-or capture is authorized by this checkpoint. [Exact launch evidence](evidence/stage17/Q16C-D273-SOURCE-LAUNCH-20261117-01/REPORT.md)
-retains status and hashes. Cold supervision integration continues while sources
-run. Before experimental launch, require actual sources/layouts, compatibility,
-remaining complete finite budget and an updated ETA. Final D036 exposure and
-feasibility remains NOT_EVALUATED. Scoped freeze/EXT007 exit remains incomplete;
-Stage18 remains prohibited.
+The sizing allocation bound is not current hardware certification. Its archive-profile binding is provisional. Fresh qualification, source/history/geometry compatibility, final resource and original-deadline admission, complete supervision, collection, independent validation and the scoped freeze/exit remain required. No D036 feasibility claim or Stage18 authority follows.
 
 The engineering checkpoints below are historical.
 

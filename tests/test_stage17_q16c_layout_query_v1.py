@@ -10,6 +10,9 @@ import subprocess
 import tempfile
 import time
 import unittest
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
+import prepare_stage17_q16c_resources_v1 as transport
 
 ROOT=Path(__file__).resolve().parents[1]
 BINARY=Path(os.environ.get('Q16C_LAYOUT_QUERY_BINARY',str(ROOT/'build/stage17-q16c-prep/layout-query-1/layout-query')))
@@ -44,14 +47,18 @@ class NativeSizingTests(unittest.TestCase):
                             source_artifact=dict(artifact_id=identity,sha256=digest)))
                     doc={k:item[k] for k in ('capture','resources','monitoring')}
                     doc['hardware_prestate']=[dict(cpu=i,value=0) for i in (0,1,8)]
-                    doc['schedule_source_context']=dict(bindings=bindings,maximum_vector_bytes=64,
-                        deadline_monotonic_ns=time.monotonic_ns()+30*10**9)
+                    doc['schedule_source_context']=transport.sizing_source_context(bindings,time.monotonic_ns()+30*10**9)
                     path=Path(t)/'input.json'
                     def run(mode):
                         path.write_text(json.dumps(doc))
                         return subprocess.run([str(BINARY),mode,str(path)],pass_fds=descriptors,capture_output=True,timeout=35)
                     result=run('--describe');self.assertEqual(result.returncode,0,result.stderr)
                     answer=json.loads(result.stdout)
+                    saved=doc['schedule_source_context']['maximum_vector_bytes']
+                    doc['schedule_source_context']['maximum_vector_bytes']=sum(b['size_bytes'] for b in bindings)
+                    rejected=run('--describe');self.assertNotEqual(rejected.returncode,0)
+                    self.assertIn(b'transient allocation',rejected.stderr)
+                    doc['schedule_source_context']['maximum_vector_bytes']=saved
                     self.assertEqual(answer['source_revision'],'919c48637cbdba9e466a3104f5cbb39f7184e39b')
                     self.assertIs(answer['declared_layout_rechecked'],True)
                     doc['resources'].update(answer['layout'])

@@ -1,0 +1,22 @@
+{
+  "status": "SOURCE_COMPLETION_SIGNATURE_ROOTED_IN_ADMITTED_EXT003_PASS",
+  "original_ext003_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27",
+  "manifest": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-sources-1/source-preparation.json",
+    "sha256": "017e8a64630ba57207ecf08fc98b67908c77acafb0f2e483bbfb24d3e2206b00",
+    "size_bytes": 894619
+  },
+  "signature": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-sources-1/source-preparation.json.sig",
+    "sha256": "e1f160ef1a5528a4e2ff67cfc2787833ace309140caf89a9966aaf44559642f9",
+    "size_bytes": 322
+  },
+  "completed_at_utc": "2026-11-17T14:17:57.607638+00:00",
+  "elapsed_ns": 13094644845511,
+  "sources": 360,
+  "values": 902112019,
+  "original_bytes": 7216896152,
+  "all_workers_reaped": true,
+  "experimental_actions": 0,
+  "phase18_authority": false
+}

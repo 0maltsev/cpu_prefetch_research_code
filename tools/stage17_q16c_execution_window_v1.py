@@ -102,12 +102,20 @@ def authenticate(proof,*,validation,plan,now):
         and proof['signature']['path']==proof['manifest']['path']+'.sig','one exclusive execution namespace')
     raw=read(proof['manifest']);record=parse(raw);require(raw==canonical(record),'canonical window bytes')
     validate(record,now=now)
-    b=record['bindings'];values={k:read(v) for k,v in b.items()}
-    # This is the ordinary authenticated EXT003 owner trust, never a new signer.
     import stage17_phase_controller_v2 as support
     trust=validation.resolutions['S17-EXT-003'].semantic_context['trust']
     require(trust['measurements']['reviewer_role']=='OWNER' and record['stand_id']==trust['subject_id'],'actual admitted stand owner')
     read(proof['signature']);support._verify_signature(raw,Path(proof['signature']['path']),trust)
+    verify_lineage(record,validation=validation,plan=plan)
+    return record
+
+
+def verify_lineage(record,*,validation,plan):
+    """Read-only retained-input readiness, also required before window publication."""
+    b=record['bindings'];values={k:read(v) for k,v in b.items()}
+    import stage17_phase_controller_v2 as support
+    trust=validation.resolutions['S17-EXT-003'].semantic_context['trust']
+    require(trust['measurements']['reviewer_role']=='OWNER' and record['stand_id']==trust['subject_id'],'actual admitted stand owner')
     require(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==BOOT,'live boot differs')
     require(b['decision']['sha256']==DECISION_SHA,'unchanged accepted D277 proposal')
     acceptance=parse(values['acceptance'])

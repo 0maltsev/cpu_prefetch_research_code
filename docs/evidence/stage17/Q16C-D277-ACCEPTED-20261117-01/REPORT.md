@@ -42,3 +42,15 @@ independently validate and complete calibration/EXT007 exit. Conservative phase
 ceilings remain7200+47820+5400+2400=62820seconds (17h27m).
 Stop on the next experimental/admission/custody/resource/deadline failure;
 no automatic retry, completed-work repeat, further window or Stage18 authority.
+
+Stand cold packet38 members and frozen full180 plan passed read-only prefix,
+source-signature and plan checks. Frozen plan SHA256
+4a0eb6531c93141b1215a5aa5c18bae0831a0d6f4d6e80f949856c77d9b9fda8.
+Review of its returned bindings caught that the window author selected the836B
+sizing completion receipt instead of its310402B native sizing proof. Corrected
+before publication: no execution window or native attempt had started. The same
+complete lineage check now runs during read-only readiness, before publication,
+as well as during every later authenticated admission. Seven fresh tests pass,
+including exact rejection of the completion-receipt substitution. The first
+unlaunched packet transport and frozen plan are preserved; the corrected source
+will be separately bound. This is preparation evidence, not a repeated experiment.

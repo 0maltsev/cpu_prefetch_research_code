@@ -96,6 +96,12 @@ class ExecutionWindowTests(unittest.TestCase):
             def live_boot(p,*args,**kw):
                 return window.BOOT if str(p)=='/proc/sys/kernel/random/boot_id' else original_read_text(p,*args,**kw)
             with patch.object(window,'EVIDENCE',root),patch.object(Path,'read_text',live_boot):
+                # A completion receipt is not the native sizing proof. Reject
+                # that locator while readiness is still read-only.
+                wrong=copy.deepcopy(r);wrong['bindings']['sizing']=bind(fixture/'sizing-complete.json')
+                with self.assertRaisesRegex(ValueError,'exact completed original setup'):
+                    window.verify_lineage(wrong,validation=validation,plan=plan)
+                window.verify_lineage(r,validation=validation,plan=plan)
                 out=window.authenticate(proof,validation=validation,plan=plan,now=r['started_monotonic_ns'])
                 self.assertEqual(out,r)
                 # Rehashing a modified manifest cannot repair the original signature.

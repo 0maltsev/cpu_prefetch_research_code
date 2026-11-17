@@ -48,7 +48,7 @@ def main():
     import stage17_formal_scheduled_descriptive_v1 as contract
     contract.validate_plan(plan)
     require(len(plan['captures'])==180 and plan['budget']['watchdog_ns']==window.FAMILY*window.NS,'complete frozen180 settings')
-    paths=dict(source_manifest=source,source_signature=signature,sizing=E/'q16c-resources-2/complete.json',
+    paths=dict(source_manifest=source,source_signature=signature,sizing=E/'q16c-resources-2/native-sizing-proof.json',
         clocks=E/'clock-qualification-v28-1/complete.json',acceptance=P/'d277-owner-acceptance.json',
         decision=P/'d277-decision.md',plan=P/'plan.json',
         qualified_inventory=Path(validation.resolutions['S17-EXT-006'].semantic_context['archive_bundle_root'])/'BUNDLE_INVENTORY.json',
@@ -58,6 +58,7 @@ def main():
     require(bindings['decision']['sha256']==window.DECISION_SHA,'exact accepted proposal')
     require(not (E/'d277-execution-window-1').exists() and not list(E.glob('stage17-q15*'))
         and not (E/'q16c-study-1').exists(),'new execution already attempted; no retry')
+    window.verify_lineage(dict(bindings=bindings,stand_id=plan['stand_id'],started_monotonic_ns=time.monotonic_ns()),validation=validation,plan=plan)
     readiness=dict(status='COLD_PACKET_SOURCE_SIGNATURE_PREFIX_PLAN_VERIFIED',native_worker_started=False,
         execution_window_started=False,bindings=bindings,estimated_ceiling_seconds=window.TOTAL,phase18_authority=False)
     if a.check:print(json.dumps(readiness),flush=True);return

@@ -1,0 +1,25 @@
+{
+  "source_revision": "919c48637cbdba9e466a3104f5cbb39f7184e39b",
+  "archive_sha256": "2abc1ec2083cd2ab8f9acb5918c84e35fc7a9666cd8a0e020d9ab31fb80999b1",
+  "bundle_inventory_entries": 4119,
+  "full_verified_files": 4120,
+  "codegen_gates": "ALL_8_PASS",
+  "native_qualification": "NOT_STARTED",
+  "q16c_window_started": false,
+  "experimental_actions": 0,
+  "phase18_authority": false,
+  "members": {
+    "release/bin/cpu_prefetch_runner": {
+      "size_bytes": 5048256,
+      "sha256": "1baa213a137679460348ff6b861839044022957a4de0e5fc79929f7b49bed883"
+    },
+    "BUNDLE_INVENTORY.json": {
+      "size_bytes": 749344,
+      "sha256": "96c0fde264e2c965421318ac80225332d53c102ec12bc1087bfa284819a4ae82"
+    },
+    "BUNDLE_MANIFEST.json": {
+      "size_bytes": 251741,
+      "sha256": "acef522b977aea0979356aad702f876f2412412e2ca36e529c67390e15098e92"
+    }
+  }
+}

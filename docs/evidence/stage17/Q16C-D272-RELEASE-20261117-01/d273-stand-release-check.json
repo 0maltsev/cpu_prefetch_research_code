@@ -1,0 +1,10 @@
+{
+  "archive_sha256": "2abc1ec2083cd2ab8f9acb5918c84e35fc7a9666cd8a0e020d9ab31fb80999b1",
+  "bundle_root": "/home/omaltsev/stage17-owner-evidence/v28-bootstrap-1/release-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e",
+  "verification_exit": 0,
+  "stdout": "stand-bundle-check: PASS (4120 files, STAGE17-PILOT-CANDIDATE-BUNDLE-v26, protocol 2.0.0-pre.3, dynamic/pilot/confirmatory prohibited)\n",
+  "stderr": "",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "available_bytes": 6330985680896,
+  "experimental_actions": 0
+}

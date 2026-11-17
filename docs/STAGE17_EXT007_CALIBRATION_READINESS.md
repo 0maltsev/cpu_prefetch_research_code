@@ -1,8 +1,8 @@
 # EXT007 calibration continuation
 
-State: **STOPPED_Q15_STARTUP_OWNER_MISMATCH; OWNER_REPAIR_VERIFIED; RESTORATION_VERIFIED; NO_RETRY**.
+State: **EXECUTION_OWNER_FIXED_AND_ADMITTED; CORRECTED_FIRST_NATIVE_Q15_PREPARED; Q16C_NOT_STARTED**.
 
-**Current EXT007 checkpoint (2026-11-17,20:00Moscow): STOPPED at Q15 startup; ownership repaired and independently verified; no retry.** [Failure, exact repair and verified restoration](evidence/stage17/Q16C-D275-Q15-STOP-20261117-01/REPORT.md): near/far clocks both passed once, then Q15 rejected the root-owned worker before native execution or a durable attempt marker. All4121 new bundle files now have the correct owner with identical bytes/modes, and the exact read-only worker snapshot check passes. The qualification guard restored CPUs/cgroup/maintenance; independent MSR0/1/8 readbacks match the prior signed prestate. Both qualification and downstream handoff stopped, as requested after a Q15/Q16 failure. Q16c remains0/180; all360 sources,180 layouts,708 Q16a and120 Q16b reports remain preserved. Any continuation must be reviewed against restored isolation, remaining signed authority and the original18November13:39Moscow deadline; no new window or retry is inferred. EXT007/Stage17 remain incomplete; Stage18 is prohibited.
+**Current EXT007 checkpoint: execution-owner defect FIXED; complete stand deployment admission PASS.** All4121 files have the expected execution owner, permissions and qualified bytes. D276 adds a tested mandatory deployment-owner gate and prepares one corrected first-native Q15-R/W session under fresh IDs/authority. The original qualification subdeadline and failed launcher remain preserved; any corrective continuation uses a separate bounded subdeadline inside the unchanged18November13:39Moscow global deadline. Passed near/far clocks, all360 schedules,180 layout answers,708 Q16a and120 Q16b reports remain fixed. Q16c is0/180; no native Q15 attempt has occurred. Next failure stops and restores; Stage17 remains incomplete and Stage18 prohibited.
 
 The engineering checkpoints below are historical.
 

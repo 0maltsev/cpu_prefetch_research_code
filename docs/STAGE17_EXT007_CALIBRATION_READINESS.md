@@ -16,6 +16,15 @@ measured finite envelope precede launch. The new24-hour operational window has
 not started. Final D036 exposures remain NOT_EVALUATED. Calibration freeze,
 EXT007/Stage17 exit and Stage18 admission remain incomplete.
 
+D271 source transport, independent raw reconciliation and descriptive composition
+pass software checks, including135 native tests and ASan/UBSan. All eight strict
+codegen gates pass. D272 policy61/preflight35 and both metadata compatibility
+consumers pass targeted software checks; actual qualified-platform/source
+compatibility and execution admission remain pending. The attempted f861f71
+package stopped at historical policy60's pinned native bytes before transfer,
+qualification or any stand experiment. A separately versioned fresh policy is
+prepared; no historical policy or completed data was rewritten.
+
 The engineering checkpoints below are historical.
 
 Current implementation checkpoint: ADR-0200 adds caller-owned one-shot shared

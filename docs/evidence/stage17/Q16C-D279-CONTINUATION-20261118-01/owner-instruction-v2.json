@@ -1,0 +1,14 @@
+{
+  "automatic_retries": 0,
+  "decision_id": "D279",
+  "decision_record_updated_before_any_native_resume": true,
+  "exact_decision_text_approved": false,
+  "new_window_authorized": false,
+  "owner_message": "continue",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-17T21:49:10.986588+00:00",
+  "recorded_decision_sha256": "ed9a5b09d4939dd140f7cca8c7691eb75afaf0f852da487d357f89805dae5291",
+  "repeat_completed_measurements": false,
+  "repeat_qualification": false,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1"
+}

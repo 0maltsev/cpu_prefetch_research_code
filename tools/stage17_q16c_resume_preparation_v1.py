@@ -6,6 +6,7 @@ preserved and its corrected successor receives a new name. No measurement,
 qualification, old raw validation or archive-program initialization occurs.
 """
 import argparse
+import ast
 import copy
 import hashlib
 import json
@@ -18,6 +19,7 @@ E=Path('/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28')
 PACKET=E/'q16c-configuration-2'
 BASE_SHA='4ea6055c4c005a0bc277be7738bbf6b784c10234507bf3e7f4c6596b34ea3c34'
 REUSED=frozenset(('q16a-context.json','q16b-context.json','q16a-compatibility.json','q16b-compatibility.json','historical-inputs.json'))
+OPTIONAL_REUSED=frozenset(('archive-overlay-continuation-1.json','cli-configuration.json','namespace-registry.json'))
 _BASE=None
 
 
@@ -63,9 +65,8 @@ def publisher(base,c):
     packet=Path(c['packet_root']);require(packet==PACKET,'admitted packet2 namespace')
     def save(path,value):
         p=Path(path)
-        if p==packet/'archive-overlay.json':
-            return base.save(packet/'archive-overlay-continuation-1.json',value)
-        if p.parent==packet and p.name in REUSED:
+        if p==packet/'archive-overlay.json':p=packet/'archive-overlay-continuation-1.json'
+        if p.parent==packet and p.name in REUSED|OPTIONAL_REUSED and p.name in c['retained_metadata']:
             previous=c['retained_metadata'][p.name]
             require(previous['path']==str(p),'retained output namespace')
             raw=json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False).encode()
@@ -75,10 +76,39 @@ def publisher(base,c):
     return save
 
 
+def validation_draft(inputs,plan):
+    require(inputs['plan'] is plan,'actual frozen plan object required')
+    return dict(action_id='Q16c',stand_id=plan['stand_id'],action_inputs=inputs)
+
+
+def constructor_with_stand_identity(base,scope):
+    """Correct one incomplete draft-envelope call in the SHA-pinned source.
+
+    No admitted function/global is modified. All original validators still run;
+    the stand identity is the actual frozen plan value, never a platform default.
+    """
+    raw=Path(base.__file__).read_bytes()
+    require(hashlib.sha256(raw).hexdigest()==BASE_SHA,'exact original constructor source')
+    tree=ast.parse(raw,base.__file__)
+    function=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='construct')
+    calls=[n for n in ast.walk(function) if isinstance(n,ast.Call)
+        and isinstance(n.func,ast.Attribute) and n.func.attr=='_validate_inputs']
+    require(len(calls)==1 and len(calls[0].args)==2,'one exact original draft validation call')
+    draft=calls[0].args[0]
+    require(isinstance(draft,ast.Call) and isinstance(draft.func,ast.Name) and draft.func.id=='dict'
+        and not draft.args and [k.arg for k in draft.keywords]==['action_id','action_inputs'],'original minimal draft shape')
+    calls[0].args[0]=ast.Call(func=ast.Name(id='_q16c_validation_draft',ctx=ast.Load()),
+        args=[ast.Name(id='inputs',ctx=ast.Load()),ast.Name(id='plan',ctx=ast.Load())],keywords=[])
+    scope['_q16c_validation_draft']=validation_draft
+    module=ast.fix_missing_locations(ast.Module(body=[function],type_ignores=[]))
+    exec(compile(module,base.__file__,'exec'),scope)
+    return scope['construct']
+
+
 def construct(c):
     base=load_base(c)
-    require(c['output_root']==str(E/'q16c-authoring-2') and c['packet_root']==str(PACKET),'fresh authoring namespace')
-    require(set(c['retained_metadata'])==REUSED,'complete exact retained metadata set')
+    require(c['output_root']==str(E/'q16c-authoring-3') and c['packet_root']==str(PACKET),'fresh authoring namespace')
+    require(REUSED<=set(c['retained_metadata'])<=REUSED|OPTIONAL_REUSED,'complete bounded retained metadata set')
     stopped=base.document(c['files']['prior_study_complete'])
     restored=base.document(c['files']['prior_partition_restoration'])
     require(stopped['success'] is False and stopped['errors']==["RuntimeError('Q16c study: construct failed')"]
@@ -89,8 +119,7 @@ def construct(c):
     old=base.document(c['files']['original_archive_preparation']);new=base.document(c['files']['archive_preparation'])
     require(new==relocate_sources(old,PACKET,base.read),'only verified archive paths may change')
     scope=dict(vars(base),save=publisher(base,c))
-    function=types.FunctionType(base.construct.__code__,scope,base.construct.__name__,base.construct.__defaults__,base.construct.__closure__)
-    function.__kwdefaults__=base.construct.__kwdefaults__
+    function=constructor_with_stand_identity(base,scope)
     return function(c)
 
 

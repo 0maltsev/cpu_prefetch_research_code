@@ -6,6 +6,7 @@ import shutil
 import sys
 import tempfile
 import unittest
+import types
 from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
@@ -54,6 +55,28 @@ class ResumeTests(unittest.TestCase):
             self.assertEqual(out['path'],str(packet/'archive-overlay-continuation-1.json'))
             self.assertEqual(bad.read_bytes(),b'original failure evidence')
             with self.assertRaises(FileExistsError):save(bad,dict(corrected=True))
+
+    def test_original_validator_requires_stand_and_corrected_draft_reaches_hardware_gate(self):
+        import stage17_phase_controller_v25 as validator
+        plan=dict(stand_id='SOFTWARE-ACTUAL-STAND',source_revision='a'*40)
+        inputs=dict(plan=plan,hardware_control={},prerequisite_bindings={})
+        validation=types.SimpleNamespace(resolutions={'S17-EXT-006':types.SimpleNamespace(semantic_context=dict(source_revision='a'*40))})
+        with patch.object(validator.contract,'validate_plan',return_value=object()),patch.object(validator,'runtime_from_context'), \
+             patch.object(validator.hardware_controller,'_validate_hardware_control',side_effect=RuntimeError('HARDWARE_BOUNDARY_REACHED')):
+            with self.assertRaisesRegex(KeyError,'stand_id'):
+                validator.validate_action_inputs(dict(action_id='Q16c',action_inputs=inputs),validation)
+            request=current.validation_draft(inputs,plan)
+            self.assertEqual(request['stand_id'],'SOFTWARE-ACTUAL-STAND')
+            with self.assertRaisesRegex(RuntimeError,'HARDWARE_BOUNDARY_REACHED'):
+                validator.validate_action_inputs(request,validation)
+            request['stand_id']='DIFFERENT'
+            with self.assertRaisesRegex(validator.ControllerError,'stand/source'):
+                validator.validate_action_inputs(request,validation)
+        with self.assertRaises(ValueError):current.validation_draft(dict(plan=dict(plan)),plan)
+        original=base.construct.__code__
+        function=current.constructor_with_stand_identity(base,dict(vars(base)))
+        self.assertIs(base.construct.__code__,original)
+        self.assertIs(function.__globals__['_q16c_validation_draft'],current.validation_draft)
 
     def test_source_membership_cannot_expand(self):
         with self.assertRaisesRegex(ValueError,'seven'):current.relocate_sources(dict(sources={}),Path('/tmp'),base.read)

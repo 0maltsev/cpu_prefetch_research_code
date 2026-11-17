@@ -33,3 +33,11 @@ Original elapsed time remains charged to the single D277 day, ending
 18November19:52:53UTC; no old qualification subdeadline is reset or reused to
 authorize new qualification. Every actual admission/collection deadline remains
 bounded by that global end. The conservative original budgets remain intact.
+
+The pre-arm integration check also reproduced a missing `stand_id` in the
+constructor's minimal draft validation call. Privately transform only that one
+SHA-pinned call to supply the frozen plan's actual stand identity; retain all
+original validators. Do not mutate the admitted source. Deterministic corrected
+descriptor/CLI/namespace output from this software-only check may also be reused
+only through exact byte comparison. Its failed output and process receipt remain
+preserved; no hardware or native family was armed.

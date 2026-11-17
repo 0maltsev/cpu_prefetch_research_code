@@ -50,3 +50,12 @@ layout answers are reused without new data validation or generation. The
 corrected qualification hands off to the original signed Q16c admission and
 collection/restoration/analysis pipeline, with the additional execution-owner
 gate. No D036 inference, Stage17 completion or Stage18 authority follows.
+
+Prelaunch audit,17November18:46UTC: no corrective native session was launched.
+The original EXT001 authorization expired at18:11:29UTC, so the unchanged third
+transition would reject a new Q15-W authority. Its renewal must be implemented
+and verified before launch. At the audit,57164seconds remained in the original
+day, below D276's57420-second complete success envelope. The ownership repair
+and admission guard are verified; the corrective packet is not deployable under
+the original limits. D277 proposes one separately approved new execution window,
+retaining setup and every original record. No deadline was changed or reset.

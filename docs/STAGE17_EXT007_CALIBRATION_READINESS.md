@@ -1,8 +1,8 @@
 # EXT007 calibration continuation
 
-State: **D277_ACCEPTED; RESTART_SOFTWARE_VERIFIED; PACKET_PENDING; WINDOW_UNSTARTED**.
+State: **D277_RUNNING; Q15R_Q15W_COMPLETE; D278_PENDING; Q16C_0_OF_180**.
 
-**Current EXT007 checkpoint (2026-11-17): D277 continuation accepted; restart software verified; stand IDLE.** [Acceptance, preserved work and56 passing cold-software regressions](evidence/stage17/Q16C-D277-ACCEPTED-20261117-01/REPORT.md): one separately signed24-hour execution window may start after packet readiness. It retains all360 schedules,180 layouts,passed clocks,Q16a708 andQ16b120; no completed work is repeated. D278 prepares a fresh one-use third-edge administrative renewal without changing old authorities or qualified native919c486. Stand packet verification and launch remain pending; the new window is UNSTARTED and Q16c0/180. Conservative total after launch:17h27m. Stop on the next failure; no automatic retry. Stage17 remains incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-17,20:09UTC): D277 RUNNING; native Q15-R/W COMPLETE.** [Signed window, actual launch, resource checks and next steps](evidence/stage17/Q16C-D277-LAUNCH-20261117-01/REPORT.md): Q15-R and Q15-W completed without quarantine; W hardware restoration and controller reaping are verified. Administrative admission/D278 renewal is pending. A success-only handoff will then collect/archive the unchanged full180 Q16c settings, restore and independently validate them. Q16c currently0/180. The new window began19:52:53UTC17November and ends19:52UTC18November (22:52Moscow); conservative Q15/Q16c/validation/restoration ceiling is about13:20UTC18November (16:20Moscow). Passed clocks,360 schedules,180 layouts,Q16a708 andQ16b120 remain preserved without repeats. No native source or quota changed. Stop on first failure, no automatic retry. Calibration freeze/EXT007, the pilot and Stage17 exit remain incomplete; Stage18 prohibited.
 
 The engineering checkpoints below are historical.
 

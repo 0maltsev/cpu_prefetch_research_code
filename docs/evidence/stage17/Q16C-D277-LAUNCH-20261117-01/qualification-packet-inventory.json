@@ -1,0 +1,189 @@
+{
+  "administrative_source_revision": "ce40650a39a1fb088bd0223a0d9cb656d19d111a",
+  "clock_repeated": false,
+  "files": [
+    {
+      "path": "author_codegen_facts.py",
+      "sha256": "73d4db0f6d58d7caefef1935ee4cf31a5b2338147147b79f499e175cf783e9e6",
+      "size_bytes": 8151
+    },
+    {
+      "path": "author_ext004005_records.py",
+      "sha256": "e756889726ffbe37eadc1c9b9546f3ac885c2f385b7ff90c53fa5fa07961dcb8",
+      "size_bytes": 11231
+    },
+    {
+      "path": "author_fresh_qualification_records.py",
+      "sha256": "631d32536706fc24c51071a81c8cdbacb60d8191ef479e03739fa97d35d0af2e",
+      "size_bytes": 19604
+    },
+    {
+      "path": "author_fresh_qualification_records_v2.py",
+      "sha256": "cbe69e0b2ff1fbe5e48a7f0dbcd7f007d273a88dd43e22d3e937b894194f251b",
+      "size_bytes": 5698
+    },
+    {
+      "path": "author_fresh_qualification_records_v3.py",
+      "sha256": "5fb5d85d5a58cc329020af801c462640799793eac5aa16fd27fb7030d22d2813",
+      "size_bytes": 4949
+    },
+    {
+      "path": "author_platform_facts.py",
+      "sha256": "2f54c2e9cc09d0e43bd63fc1dcfdedcf71370d6087e78fe7a4caf7881a321d00",
+      "size_bytes": 17906
+    },
+    {
+      "path": "check_stage17_execution_owner_v1.py",
+      "sha256": "54f47923a62a227c2a0d59e874d1277671c641f1bebe7a65ff34aecbbdae32e1",
+      "size_bytes": 6880
+    },
+    {
+      "path": "clock-bindings-v28.json",
+      "sha256": "98bda4153daeeb75395cc1a037d62bbe6d15b5775120e62ec0c87553ba1a226e",
+      "size_bytes": 2177
+    },
+    {
+      "path": "collect_qualification_snapshot.py",
+      "sha256": "ecfb35833cabf604f397d793fa4f2411162c5f4cda1bfd088020d44a2cf3023e",
+      "size_bytes": 11154
+    },
+    {
+      "path": "d278-decision.md",
+      "sha256": "190338a0515531b327cf72a2925724b8befb547d7c088ee159b6631cf965780b",
+      "size_bytes": 2007
+    },
+    {
+      "path": "d278-owner-acceptance.json",
+      "sha256": "f4c4da1754da2d30d2e89614b0506604e36ca84c12f095b95bfa74c8268cd302",
+      "size_bytes": 385
+    },
+    {
+      "path": "emit_qualification_envelope_commands.py",
+      "sha256": "1f9d40f65e8de03ff0443726d77b3f334732141dabe0a2e173f48a98784ad584",
+      "size_bytes": 8461
+    },
+    {
+      "path": "finite-qualification-plan.json",
+      "sha256": "f7d243e53961c862b402efdff9952f12a3d0dfd20a0d1192ecf64861cf45953a",
+      "size_bytes": 6677
+    },
+    {
+      "path": "initialize-v28.py",
+      "sha256": "1efddf9eafa514e31658433d981aae04ade4daf5759e8f4ca0ace92587eae3bf",
+      "size_bytes": 1363
+    },
+    {
+      "path": "install_v28.py",
+      "sha256": "685777dee0a09820a452216d7884f634d9330f0fba433c87810cc2b1f7164765",
+      "size_bytes": 5774
+    },
+    {
+      "path": "isolation-config-v28.json",
+      "sha256": "90d1ce69dc4bb2503b61f327c7533c7b62185ff60c39823a15ddacecd9e6ef57",
+      "size_bytes": 405
+    },
+    {
+      "path": "isolation_core.py",
+      "sha256": "49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a",
+      "size_bytes": 23863
+    },
+    {
+      "path": "q15-launch-8gib-v2.py",
+      "sha256": "8dbe7790326494b6608a0e96cee117b88e8d5e18535eb8cac921f79f811a25d2",
+      "size_bytes": 6195
+    },
+    {
+      "path": "release-bindings.json",
+      "sha256": "0062cbbfa5f5c01627381a4b960f49a4f017fb6db87f2a132499ea49cb3f4e55",
+      "size_bytes": 533
+    },
+    {
+      "path": "renew_stage17_e28_transition_v1.py",
+      "sha256": "b17f3c1265a9c84954ec7e86ae98e43421571cf6df4014b1377c7ea509142258",
+      "size_bytes": 5284
+    },
+    {
+      "path": "run_clock_qualification_v28.py",
+      "sha256": "679728cfebe36556ded61005082dc292e4678695fd894f23ba1e9f18930f8ef8",
+      "size_bytes": 15845
+    },
+    {
+      "path": "run_qualification_v28.py",
+      "sha256": "60a2d3776334a492f2db98a84dab58eae97b5c22afb8ab7b868d5abcfd58e109",
+      "size_bytes": 13147
+    },
+    {
+      "path": "stage17_q16c_execution_window_v1.py",
+      "sha256": "2ff05bdab31705e7ab7cf5154de1876cdc9bbabd094b55d0f0dfb93dd4f5c8de",
+      "size_bytes": 9589
+    },
+    {
+      "path": "stage17_q16c_q15_continuation_window_v1.py",
+      "sha256": "80837e0939eaaca04310c2838f15e834e25e6ec36117fe1f19120fa478b7d8b5",
+      "size_bytes": 2805
+    },
+    {
+      "path": "stage17_q16c_window_v1.py",
+      "sha256": "0c2961e8fe183d51151ad2ad53261bb63c9389020fa22a709d70070887fbf840",
+      "size_bytes": 1719
+    },
+    {
+      "path": "stage17_state_journal_v58.py",
+      "sha256": "f0f6ddc12dc7f90ca02eb291282808267751fdc60df27db1d13a934e30f81d2f",
+      "size_bytes": 23019
+    },
+    {
+      "path": "v28-admit-002-003-006.py",
+      "sha256": "f50054557c29387a3d16d3f877e42f0b0748664e838c2b641cdddfe4c986e1e8",
+      "size_bytes": 1790
+    },
+    {
+      "path": "v28-admit-ext005.py",
+      "sha256": "e036b991ca9997bc0a10f08b1a69e314296881aeba8309834e49d21a63ce8119",
+      "size_bytes": 2786
+    },
+    {
+      "path": "v28-author-admit-ext004.py",
+      "sha256": "417197b3842e427cf99e1d4aafcb4522af4cd70fcd35980aa9f4ffda6c458882",
+      "size_bytes": 3147
+    },
+    {
+      "path": "v28-clock-envelope-and-inventory.py",
+      "sha256": "9e2b43c432faca88e7aab2ff3e59e1ef6e864d2730d32115c1bfe06aed91c63f",
+      "size_bytes": 1762
+    },
+    {
+      "path": "v28-codegen-facts.json",
+      "sha256": "61e986f2a07bea3a14e9b7206deacdde8a369a1e7f262ce996ef4e677d74def2",
+      "size_bytes": 1662
+    },
+    {
+      "path": "v28-ext001-execute.py",
+      "sha256": "3dab1d042738d0126a59256336b35889195ba4649991783c26525afaa7673515",
+      "size_bytes": 3295
+    },
+    {
+      "path": "v28-platform-build-facts.json",
+      "sha256": "fbbc2326c2912eb3f1ea961c52a092bb6922a71c14ff6aeb3c68e50e7dd902fc",
+      "size_bytes": 8793
+    },
+    {
+      "path": "v28-prepare-continue-q15w.py",
+      "sha256": "8ec46972e72abdca47ec208a8f6727c6db9bd607b2b78d8944c2188a69a060e1",
+      "size_bytes": 2949
+    },
+    {
+      "path": "v28-prepare-q15r.py",
+      "sha256": "d2b798bbe7c541cdae3540a2419d62465213b0be0a04ab953c02c9eeaf56b275",
+      "size_bytes": 2444
+    },
+    {
+      "path": "v28-start-q15-session.py",
+      "sha256": "cd1df193dde8cef0d80c75bf2ec894b85bddb64cc58d78a069eff23c6291cfb4",
+      "size_bytes": 1851
+    }
+  ],
+  "launch_performed": false,
+  "preparation_only": true,
+  "schema_version": "cpu-prefetch-v28-d277-q15-inventory/1"
+}

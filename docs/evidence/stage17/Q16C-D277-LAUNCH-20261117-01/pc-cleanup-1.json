@@ -1,0 +1,47 @@
+{
+  "freed_bytes": 12759040,
+  "raw_data_deleted": false,
+  "removed": [
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/operational-packet-e612a89-2.tar",
+      "size_bytes": 4034560,
+      "verified_stand_copy": {
+        "path": "/home/omaltsev/stage17-owner-evidence/q16c-d277-operational-e612a89-2.tar",
+        "sha256": "2d6c7f3a84cf2943c9553b66d76ccc5abd8c17002cb930f5b583e36568011542",
+        "size_bytes": 4034560
+      }
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/operational-packet-a08b14e-2.tar",
+      "size_bytes": 4034560,
+      "verified_stand_copy": {
+        "path": "/home/omaltsev/stage17-owner-evidence/q16c-d277-operational-a08b14e-2.tar",
+        "sha256": "def3341485ac70c84573eb9816432e53957df098ac1032ab28218fad8a8bf454",
+        "size_bytes": 4034560
+      }
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/operational-packet-ce40650-2.tar",
+      "size_bytes": 4034560,
+      "verified_stand_copy": {
+        "path": "/home/omaltsev/stage17-owner-evidence/q16c-d277-operational-ce40650-2.tar",
+        "sha256": "3b535131c6418315c3c878ed63a05531f0e63ec8ce5e447e7b536c4ba5d73535",
+        "size_bytes": 4034560
+      }
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/qualification-packet-919c486-5.tar",
+      "size_bytes": 327680,
+      "verified_stand_copy": {
+        "path": "/home/omaltsev/stage17-owner-evidence/q16c-d277-qualification-ce40650-5.tar",
+        "sha256": "6c74bb7a962c92c4186d02f1c02cb2c66c9a518b8ac454aeb3538b8f6bcd8127",
+        "size_bytes": 327680
+      }
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/qualification-packet-919c486-5-software-only.tar",
+      "reason": "Unneeded software-only fixture transport; source fixture directory and tests retained",
+      "size_bytes": 327680
+    }
+  ]
+}

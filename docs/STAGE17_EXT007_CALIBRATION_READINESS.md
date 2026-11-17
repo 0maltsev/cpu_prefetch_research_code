@@ -1,8 +1,8 @@
 # EXT007 calibration continuation
 
-State: **STOPPED_Q16C_DESCRIPTOR_NAMESPACE; RESTORED; Q15R_Q15W_D278_PASS; Q16C_0_OF_180**.
+State: **D279_PREPARING; IDLE; Q15R_Q15W_D278_RETAINED; Q16C_0_OF_180**.
 
-**Current EXT007 checkpoint (2026-11-17): STOPPED before Q16c capture; Q15-R/W and D278 PASSED.** [Failure, verified restoration and exact path-only reproduction](evidence/stage17/Q16C-D277-COLD-STOP-20261117-01/REPORT.md): Q16c construction correctly rejected7 archive-helper bindings still pointing at packet1 while packet2 was active. Q16c0/180; no family registration, request/signature or native capture occurred. First-failure stop and restoration completed with no errors; no experiment remains running. A corrected descriptor passed the existing validator in private memory with identical helper bytes; production inputs remain unchanged and no restart occurred. Passed clocks,Q15,Q16a708,Q16b120,360 schedules and180 layouts remain preserved. Any continuation needs a new owner instruction under the failure-stop rule and must fit the existing D277 deadline18November19:52UTC (22:52Moscow), without a reset. EXT007/Stage17 remain incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-18): D279 metadata continuation in preparation; stand IDLE.** The owner instructed “continue” after the cold packet-path stop. [D279](decisions/0279-q16c-unarmed-metadata-continuation.md) preserves the passed Q15/clocks, frozen native919c486 and the original D277 end18November19:52UTC (22:52Moscow). The path-only correction, immutable partial-output reuse and fresh supervisor handoff pass software tests; complete stand input construction is next, before rearm. Q16c0/180; no new window or repeated measurement. Stop on next failure. EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
 The engineering checkpoints below are historical.
 

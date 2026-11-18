@@ -1,0 +1,61 @@
+{
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "checkpoints": 0,
+  "ledger_tip": {
+    "kind": "CUSTODY_RECEIPT",
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/ledger/0000000000066472.json",
+    "sequence": 66472,
+    "sha256": "25a3d0aee5a175eb2a0a8d49a6d8c564716ce3d17f0240c98eed4540ec16280d",
+    "size_bytes": 675
+  },
+  "native_complete_captures": 0,
+  "new_authority_root_exists": false,
+  "new_family_directory_exists": false,
+  "new_window_created": false,
+  "observed_at_utc": "2026-11-18T10:37:31.329827+00:00",
+  "partition_restoration": {
+    "errors": [],
+    "receipt": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/clock-qualification-v29-1/restoration.json",
+      "sha256": "85721467a378d2dd72cb8d82c6e4c6e03cf21129d804f8aeb104d8d46a87e904",
+      "size_bytes": 849
+    },
+    "verified": true
+  },
+  "phase18_authority": false,
+  "qualification_complete": {
+    "formal_capture_started": false,
+    "isolation_retained_for_formal": true,
+    "success": true
+  },
+  "reserved_cgroup_exists": false,
+  "retry_performed": false,
+  "root_state": {
+    "cgroup.subtree_control": "cpu memory pids",
+    "cpuset.cpus.effective": "0-31",
+    "cpuset.cpus.isolated": ""
+  },
+  "services": {
+    "cpu-prefetch-q16c-d282-after-qualification-v29-1.service": {
+      "ActiveState": "failed",
+      "ExecMainStatus": "1",
+      "MainPID": "0",
+      "Result": "exit-code",
+      "SubState": "failed"
+    },
+    "cpu-prefetch-q16c-d282-qualification-v29-1.service": {
+      "ActiveState": "inactive",
+      "ExecMainStatus": "0",
+      "MainPID": "0",
+      "Result": "success",
+      "SubState": "dead"
+    },
+    "cpu-prefetch-recovery-v29-qualified-1.service": {
+      "ActiveState": "inactive",
+      "ExecMainStatus": "0",
+      "MainPID": "0",
+      "Result": "success",
+      "SubState": "dead"
+    }
+  }
+}

@@ -1,8 +1,8 @@
 # EXT007 calibration continuation
 
-State: **D282_CLOCK_PAIRS_PASS; Q15_PREPARATION_RUNNING; Q16C_0_OF_180**.
+State: **D282_STOPPED_RESTORED; CLOCK_Q15_QUALIFICATION_PASS; Q16C_0_OF_180**.
 
-**Current EXT007 checkpoint (2026-11-18,12:25Moscow): D282 near/far clocks PASS; Q15 session preparation RUNNING.** Fresh preflight, owner trust, corrected native7fb8944 release admission, both actual clock pairs, clock envelope and platform inventory have passed. The single qualification campaign continues; only its complete Q15-R/W success permits the armed180-setting Q16c family. Q16a708/Q16b120 remain preserved; Q16c **0/180** at this checkpoint. The signed24h window began18November09:16UTC; complete17h27m ceiling ends19November02:43UTC (**05:43Moscow**), hard deadline09:16UTC (12:16Moscow). No retry or further window. [Per-run clock report](evidence/stage17/Q16C-D282-QUALIFICATION-20261118-01/REPORT.md); [signed launch evidence](evidence/stage17/Q16C-D282-LAUNCH-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-18,13:37Moscow): D282 STOPPED before Q16c collection; restoration VERIFIED.** Both clock pairs and the actual corrected-release Q15-R/W qualification passed; the persistent supervisor exited0 and was reaped. Q16c input construction then failed at12:39Moscow because the source-reuse validator passed a Python set to a JSON-only comparison helper. No new Q16c authorization, family registration, capture or analysis occurred: **0/180**. The stand is idle, owned workers are gone, the reserved cgroup is absent, and the original archive ledger is unchanged at66472. Q16a708/Q16b120 remain preserved. No retry or new window was performed. The earlier completion ETA is withdrawn; the signed D282 deadline remains unchanged. [Failure, reproduction and live restoration report](evidence/stage17/Q16C-D282-CONSTRUCTOR-STOP-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
 The engineering checkpoints below are historical.
 

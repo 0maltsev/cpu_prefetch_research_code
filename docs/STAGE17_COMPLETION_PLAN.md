@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-**Current EXT007 checkpoint (2026-11-18,12:25Moscow): D282 near/far clocks PASS; Q15 session preparation RUNNING.** Fresh preflight, owner trust, corrected native7fb8944 release admission, both actual clock pairs, clock envelope and platform inventory have passed. The single qualification campaign continues; only its complete Q15-R/W success permits the armed180-setting Q16c family. Q16a708/Q16b120 remain preserved; Q16c **0/180** at this checkpoint. The signed24h window began18November09:16UTC; complete17h27m ceiling ends19November02:43UTC (**05:43Moscow**), hard deadline09:16UTC (12:16Moscow). No retry or further window. [Per-run clock report](evidence/stage17/Q16C-D282-QUALIFICATION-20261118-01/REPORT.md); [signed launch evidence](evidence/stage17/Q16C-D282-LAUNCH-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-18,13:37Moscow): D282 STOPPED before Q16c collection; restoration VERIFIED.** Both clock pairs and the actual corrected-release Q15-R/W qualification passed; the persistent supervisor exited0 and was reaped. Q16c input construction then failed at12:39Moscow because the source-reuse validator passed a Python set to a JSON-only comparison helper. No new Q16c authorization, family registration, capture or analysis occurred: **0/180**. The stand is idle, owned workers are gone, the reserved cgroup is absent, and the original archive ledger is unchanged at66472. Q16a708/Q16b120 remain preserved. No retry or new window was performed. The earlier completion ETA is withdrawn; the signed D282 deadline remains unchanged. [Failure, reproduction and live restoration report](evidence/stage17/Q16C-D282-CONSTRUCTOR-STOP-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
 **Historical handoff:** **Current EXT007 checkpoint (2026-11-17,02:03Moscow): Q16b descriptive handoff VERIFIED.** The bounded read-only stand job exited0 after original signed-lifecycle/custody admission and exact recomposition from all120 reports. Both source histories, all708 Q16a reports and failed separate zero-loss gates remain preserved; no raw validation, measurement or qualification was repeated. [Handoff, exact planning basis and evidence](evidence/stage17/Q16B-HANDOFF-20261117-01/REPORT.md). Q16c has not started: its count/duration and scientific claim need a prospective owner decision. [D270](decisions/0270-q16c-descriptive-screen-proposal.md) proposes a180-setting descriptive screen within one24-hour window, explicitly without D036's formal probability claim; it is PROPOSED, not approved. Further Q16c execution, calibration freeze and EXT007/Stage17 exit remain; Stage18 remains prohibited.
 
@@ -164,20 +164,18 @@ credit for the unchanged formal EXT007 requirements.
       Original708 Q16a and all qualification/data histories remain preserved.
       Both separate zero-loss gates FAIL due to valid FULL outcomes; no59-run
       tolerance claim. No measurement or raw validation is to be repeated.
-   9. **In progress — D282 corrected-release qualification and Q16c:**
-      D270 retains180 settings ×1 capture,1-second measurement and5-second
-      warmup as a descriptive screen, without D036's formal probability claim.
-      The original first919c486 capture failed before mappings/session/raw
-      publication; its empty checkpoint, custody and restoration are preserved.
-      The owner approved D282 after the repaired7fb8944 release passed software
-      verification. Both432-seed namespace audits, all180 native layout queries,
-      empty-attempt authentication and retained program/resource checks passed.
-      The single new signed24h window began18November09:16UTC. Fresh actual
-      qualification is running; only its success permits the180 captures and
-      subsequent independent validation/restoration. Complete ceiling ends
-     19November02:43UTC; hard deadline09:16UTC. Q16c0/180 at launch. No retry,
-      source regeneration, completed-data rerun or Stage18 authority. Calibration
-      freeze and actual EXT007 admission remain after validated Q16c results.
+   9. **Stopped — D282 qualified, Q16c constructor failed before collection:**
+      Near/far clocks and one persistent corrected-release Q15-R/W passed;
+      qualification and original Q16a708/Q16b120 are preserved. Construction
+      failed at12:39Moscow18November when source-reuse verification passed a
+      Python set to a JSON-only equality helper. No Q16c authority, registration,
+      capture or analysis occurred;0/180. Hardware/isolation restoration is
+      verified, workers reaped and the original program ledger unchanged.
+      The same source branch also incorrectly compares bytes through that helper.
+      Repair and qualified-context verification remain before any separately
+      admitted continuation; no automatic retry, new window or completed-data
+      rerun. The completion ETA is withdrawn. Calibration freeze and actual
+      EXT007 admission remain after validated Q16c results. Stage18 prohibited.
 
    No full 708-capture restart, optional extension or archive reset. D233 keeps
    raw archives on the stand; this PC retains only small evidence and reports.

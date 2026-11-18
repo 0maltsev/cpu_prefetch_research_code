@@ -1,0 +1,17 @@
+{
+  "automatic_retry": false,
+  "decision_id": "D282",
+  "exact_decision_text_approved": true,
+  "interpretation": "Explicit approval of the pending D282 question and exact linked proposal.",
+  "new_execution_windows": 1,
+  "owner_message": "approve",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-18T07:41:00.150128+00:00",
+  "recorded_decision_sha256": "6bc1e42e87ac26dd194b142ac2070f635109a71d541c0940698395144cbd84f4",
+  "repeat_completed_measurements": false,
+  "reuse_original_unobserved_schedule_bank": true,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1",
+  "source_revision": "7fb894425c82fa7d7f1891f52b3bcdacc2c83585",
+  "window_started": false,
+  "worker_sha256": "7455fa2802ca5f655c41faddd070da51b0cf98ac9c8b2360152dc1a480f85f2a"
+}

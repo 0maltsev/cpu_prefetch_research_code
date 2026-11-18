@@ -150,12 +150,13 @@ def inspect(proof, plan, *, validation=None):
             require(current[key] != release[key], 'do not relabel original '+key)
         roots = {side: Path(v['archive_bundle_root']) for side, v in [('original', release), ('current', current)]}
         closure = original.semantic.discover_python_closure(roots['original'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2'))
-        same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
-            'complete identical generator closure')
+        require(closure == original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+            'complete identical generator closure differs')
         closure |= {'protocol/2.0.0-pre.3/handoff/schemas/schedule.schema.json',
             'config/schemas/schedule-derivation-v2.schema.json', 'config/schemas/stage17-formal-scheduled-native-input-v2.schema.json'}
         for name in sorted(closure):
-            same((roots['original']/name).read_bytes(), (roots['current']/name).read_bytes(), 'unchanged original generator '+name)
+            require((roots['original']/name).read_bytes() == (roots['current']/name).read_bytes(),
+                'unchanged original generator '+name+' differs')
     reader.finish()
     return old, docs['original_plan']
 

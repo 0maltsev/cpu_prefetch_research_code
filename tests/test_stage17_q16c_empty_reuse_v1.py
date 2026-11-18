@@ -3,7 +3,10 @@ import copy
 import json
 from pathlib import Path
 import sys
+import tempfile
+import types
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools'))
@@ -121,6 +124,124 @@ class Window(unittest.TestCase):
         r = self.record()
         with self.assertRaises(ValueError):
             window.validate(r, now=r['global_deadline_ns']-window.TOTAL*window.NS, qualification=True)
+
+
+class QualifiedSourceReuse(unittest.TestCase):
+    """Exercise inspect's real closure discovery and exact source comparisons.
+
+    Only the stand-bound signed-document reader and signature boundary are
+    substituted. Bundle files, dependency traversal, plan/incident checks and
+    every producer/consumer comparison execute normally. Actual stand evidence
+    supplies separate verification of those authentication boundaries.
+    """
+    @classmethod
+    def setUpClass(cls):
+        cls.original_plan = old_plan()
+        cls.plan, _ = restart.prepare(cls.original_plan, dict(sources=[{} for _ in range(360)]),
+            master_hex='37'*32)
+
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.root = Path(temporary.name)
+        self.roots = {name:self.root/name for name in ('original','current')}
+        self.files = {
+            'tools/generate_schedule.py': b'import helper\n',
+            'tools/stage17_q16c_schedule_provenance_v2.py': b'import helper\n',
+            'tools/helper.py': b'VALUE = "same source"\n',
+            'protocol/2.0.0-pre.3/handoff/schemas/schedule.schema.json': b'{}\n',
+            'config/schemas/schedule-derivation-v2.schema.json': b'{}\n',
+            'config/schemas/stage17-formal-scheduled-native-input-v2.schema.json': b'{}\n',
+        }
+        for root in self.roots.values():
+            for name, raw in self.files.items():
+                path = root/name; path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(raw)
+        fixture = ROOT/'docs/evidence/stage17/Q16C-D279-NATIVE-STOP-20261118-01'
+        release = dict(source_revision=reuse.OLD_SOURCE, release_artifact_sha256=reuse.OLD_WORKER,
+            archive_bundle_root=str(self.roots['original']), inventory_sha256='1'*64)
+        self.current = dict(source_revision=reuse.SOURCE, release_artifact_sha256=reuse.WORKER,
+            archive_bundle_root=str(self.roots['current']), inventory_sha256='2'*64)
+        self.validation = types.SimpleNamespace(resolutions={'S17-EXT-006':
+            types.SimpleNamespace(semantic_context=self.current)})
+        self.documents = dict(original_plan=copy.deepcopy(self.original_plan),
+            original_request=dict(action_inputs=dict(plan=copy.deepcopy(self.original_plan))),
+            original_authorization={},
+            checkpoint=json.loads((fixture/'checkpoint.json').read_bytes()),
+            failure=json.loads((fixture/'native_failure.json').read_bytes()),
+            restoration=dict(verified=True, errors=[]),
+            custody=dict(artifacts=[], status='ARCHIVED_AND_RELEASED'),
+            original_context=dict(schema_version='cpu-prefetch-stage17-original-source-qualification-export/1',
+                boot_id=window.BOOT, execution_authority=False, phase18_authority=False,
+                resolutions={'S17-EXT-006':dict(semantic_context=release),
+                    'S17-EXT-003':dict(semantic_context=dict(trust=dict(subject_id=self.plan['stand_id'],
+                        measurements=dict(reviewer_role='OWNER'))))}))
+        self.proof = dict(schema_version=reuse.SCHEMA, decision='D282')
+        for name in (*self.documents, 'original_signature'):
+            self.proof[name] = dict(path=str(self.root/name), size_bytes=1, sha256='0'*64)
+        for name, digest in {**reuse.FIXED, 'original_plan':reuse.OLD_PLAN,
+                'original_request':reuse.OLD_REQUEST, 'original_authorization':reuse.OLD_AUTHORIZATION}.items():
+            self.proof[name]['sha256'] = digest
+        (self.root/'formal-capture-0-final-checkpoint.json').write_bytes(b'{}')
+        reader = mock.Mock()
+        reader.document.side_effect = lambda binding:self.documents[Path(binding['path']).name]
+        reader.read.return_value = b'original signed payload'
+        self.reader = reader
+        reader_patch = mock.patch.object(reuse.admission, 'BoundReader', return_value=reader)
+        reader_patch.start(); self.addCleanup(reader_patch.stop)
+        signature_patch = mock.patch.object(reuse.original.controller.support, '_verify_signature')
+        self.signature = signature_patch.start(); self.addCleanup(signature_patch.stop)
+
+    def inspect(self):
+        return reuse.inspect(self.proof, self.plan, validation=self.validation)
+
+    def test_matching_qualified_closures_and_bytes_pass_full_inspect(self):
+        old, original_plan = self.inspect()
+        self.assertEqual(original_plan, self.original_plan)
+        self.assertEqual(old.resolutions['S17-EXT-006'].semantic_context['source_revision'], reuse.OLD_SOURCE)
+        self.reader.finish.assert_called_once_with()
+        self.signature.assert_called_once()
+
+    def test_added_transitive_dependency_is_rejected(self):
+        (self.roots['current']/'tools/helper.py').write_bytes(b'import extra\n')
+        (self.roots['current']/'tools/extra.py').write_bytes(b'VALUE = 1\n')
+        with self.assertRaisesRegex(reuse.admission.AdmissionError, 'complete identical generator closure'):
+            self.inspect()
+
+    def test_missing_transitive_dependency_is_rejected(self):
+        for name in ('generate_schedule.py','stage17_q16c_schedule_provenance_v2.py'):
+            (self.roots['current']/'tools'/name).write_bytes(b'VALUE = 1\n')
+        with self.assertRaisesRegex(reuse.admission.AdmissionError, 'complete identical generator closure'):
+            self.inspect()
+
+    def test_changed_python_bytes_with_identical_membership_are_rejected(self):
+        path = self.roots['current']/'tools/helper.py'
+        path.write_bytes(b'VALUE = "different source"\n')
+        with self.assertRaisesRegex(reuse.admission.AdmissionError, 'unchanged original generator tools/helper.py'):
+            self.inspect()
+
+    def test_each_schema_requires_identical_bytes(self):
+        for name, raw in self.files.items():
+            if not name.endswith('.json'): continue
+            with self.subTest(schema=name):
+                path = self.roots['current']/name; path.write_bytes(raw+b'\n')
+                try:
+                    with self.assertRaisesRegex(reuse.admission.AdmissionError, 'unchanged original generator'):
+                        self.inspect()
+                finally: path.write_bytes(raw)
+
+    def test_missing_schema_is_rejected(self):
+        (self.roots['current']/'config/schemas/schedule-derivation-v2.schema.json').unlink()
+        with self.assertRaises(FileNotFoundError): self.inspect()
+
+    def test_wrong_or_relabelled_consumer_is_rejected(self):
+        for name, value in [('source_revision',reuse.OLD_SOURCE),
+                ('release_artifact_sha256',reuse.OLD_WORKER), ('inventory_sha256','1'*64),
+                ('archive_bundle_root',str(self.roots['original']))]:
+            with self.subTest(field=name):
+                saved = self.current[name]; self.current[name] = value
+                try:
+                    with self.assertRaises(reuse.admission.AdmissionError): self.inspect()
+                finally: self.current[name] = saved
 
 
 if __name__ == '__main__': unittest.main()

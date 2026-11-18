@@ -1,0 +1,10 @@
+{
+  "launched": false,
+  "native_binary_changed": false,
+  "original_window_unchanged": true,
+  "qualification_repeated": false,
+  "schema_version": "cpu-prefetch-stage17-d285-preparation/1",
+  "source_override_only": "D284 exact source comparisons",
+  "successful_captures": 0,
+  "tests_passed": 26
+}

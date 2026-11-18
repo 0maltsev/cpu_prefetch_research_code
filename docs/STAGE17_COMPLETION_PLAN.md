@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-**Current EXT007 checkpoint (2026-11-18,14:26Moscow): D285 preconstruction and fresh isolation PASS; signing RUNNING.** The one-shot continuation began11:24:07UTC. Constructor exited0 after104s with all eight partial JSON outputs verified identical. Fresh CPU isolation and actual CPU0/1/8 MSR readbacks passed; passed clocks/Q15 are reused without a new measurement. Ordinary request/signature and live phase admission precede the first Q16c capture. Q16c **0/180** at this checkpoint; Q16a708/Q16b120 remain preserved. Complete ceiling19November02:51UTC (**05:51Moscow**); unchanged D282 hard end09:16UTC (12:16Moscow). No automatic retry or new window. [Actual continuation evidence](evidence/stage17/Q16C-D285-LAUNCH-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-18,14:39Moscow): Q16c COLLECTING; 2/180 native-complete and fully archived.** D285 preconstruction, exact partial-output reuse, fresh isolation/MSR readbacks, ordinary signing/signature verification and live resource admission all passed. The genuine native attempt began11:35:44UTC on qualified7fb8944. Capture0 has8published artifacts and an ARCHIVED_AND_RELEASED custody receipt; at11:39:55UTC both completed captures are fully archived and supervisor304972 remains active without a failure receipt. Scientific validity remains NOT_ASSESSED until independent analysis. Raw FULL outcomes are retained without reruns. Passed clocks/Q15 and Q16a708/Q16b120 remain preserved. Complete ceiling19November02:51UTC (**05:51Moscow**), unchanged signed end09:16UTC (12:16Moscow). Stop on next failure, no automatic retry or new window. [Native and custody proof](evidence/stage17/Q16C-D285-LAUNCH-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
 **Historical handoff:** **Current EXT007 checkpoint (2026-11-17,02:03Moscow): Q16b descriptive handoff VERIFIED.** The bounded read-only stand job exited0 after original signed-lifecycle/custody admission and exact recomposition from all120 reports. Both source histories, all708 Q16a reports and failed separate zero-loss gates remain preserved; no raw validation, measurement or qualification was repeated. [Handoff, exact planning basis and evidence](evidence/stage17/Q16B-HANDOFF-20261117-01/REPORT.md). Q16c has not started: its count/duration and scientific claim need a prospective owner decision. [D270](decisions/0270-q16c-descriptive-screen-proposal.md) proposes a180-setting descriptive screen within one24-hour window, explicitly without D036's formal probability claim; it is PROPOSED, not approved. Further Q16c execution, calibration freeze and EXT007/Stage17 exit remain; Stage18 remains prohibited.
 
@@ -164,16 +164,18 @@ credit for the unchanged formal EXT007 requirements.
       Original708 Q16a and all qualification/data histories remain preserved.
       Both separate zero-loss gates FAIL due to valid FULL outcomes; no59-run
       tolerance claim. No measurement or raw validation is to be repeated.
-   9. **Repair verified; Q16c campaign remains stopped:**
-      D284 repairs both source-reuse comparisons. All41 targeted tests pass;
-      actual signed360-source verification and the complete failed constructor
-      validation passed on the stand with exit0, without mocks or experiment
-      execution. Native7fb8944, passed clocks/Q15 and Q16a708/Q16b120 remain
-      preserved. Original ledger and failed packet are unchanged. Q16c0/180;
-      no new authorization, registration, isolation, window or collection.
-      Signing/live collection and a separately admitted continuation remain
-      before Q16c validation, calibration freeze and EXT007 admission. No
-      automatic retry or completed-data rerun. Stage18 remains prohibited.
+   9. **Collecting — D285 actual Q16c native family:**
+      D284 comparison repair, D285 immutable partial-metadata continuation,
+      fresh CPU isolation and exact MSR readbacks passed. Original qualified
+      native7fb8944 clocks/Q15 are preserved without reruns. Signing, signature
+      and live resource admission passed; first actual native attempt began
+     18November11:35:44UTC. At11:39:55UTC2/180 captures are native-complete and
+      fully archived, with8verified artifacts each and no failure receipt.
+      Scientific validity remains NOT_ASSESSED. Keep every FULL/low-N_eff result.
+      Collect all180 positions, restore, then independently validate/compose.
+      Complete ceiling19November02:51UTC, original signed end09:16UTC unchanged.
+      No retry, new window or completed-data rerun. EXT007 freeze/admission and
+      subsequent Stage17 exit remain incomplete; Stage18 is prohibited.
 
    No full 708-capture restart, optional extension or archive reset. D233 keeps
    raw archives on the stand; this PC retains only small evidence and reports.

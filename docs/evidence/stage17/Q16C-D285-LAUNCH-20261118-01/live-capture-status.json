@@ -1,0 +1,20 @@
+{
+  "collection_complete": false,
+  "counts": {
+    "archived_and_released": 2,
+    "checkpoints": 2,
+    "native_complete": 2
+  },
+  "failure_exists": false,
+  "family_id": "36c15f402c7f20240da6b36472b9d0c56bcade8c1024604d0b1bd3deaef19a44",
+  "new_windows": 0,
+  "observed_at_utc": "2026-11-18T11:39:55.282611+00:00",
+  "repeated_qualification": false,
+  "scientific_validity": "NOT_ASSESSED",
+  "study_terminal_exists": false,
+  "unit": {
+    "ActiveState": "active",
+    "MainPID": "304972",
+    "Result": "success"
+  }
+}

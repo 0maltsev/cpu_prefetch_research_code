@@ -1,8 +1,8 @@
 # EXT007 calibration continuation
 
-State: **D285_PRECONSTRUCTION_ISOLATION_PASS; SIGNING_RUNNING; Q16C_0_OF_180**.
+State: **Q16C_COLLECTING; 2_OF_180_NATIVE_COMPLETE_ARCHIVED; VALIDITY_NOT_ASSESSED**.
 
-**Current EXT007 checkpoint (2026-11-18,14:26Moscow): D285 preconstruction and fresh isolation PASS; signing RUNNING.** The one-shot continuation began11:24:07UTC. Constructor exited0 after104s with all eight partial JSON outputs verified identical. Fresh CPU isolation and actual CPU0/1/8 MSR readbacks passed; passed clocks/Q15 are reused without a new measurement. Ordinary request/signature and live phase admission precede the first Q16c capture. Q16c **0/180** at this checkpoint; Q16a708/Q16b120 remain preserved. Complete ceiling19November02:51UTC (**05:51Moscow**); unchanged D282 hard end09:16UTC (12:16Moscow). No automatic retry or new window. [Actual continuation evidence](evidence/stage17/Q16C-D285-LAUNCH-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-18,14:39Moscow): Q16c COLLECTING; 2/180 native-complete and fully archived.** D285 preconstruction, exact partial-output reuse, fresh isolation/MSR readbacks, ordinary signing/signature verification and live resource admission all passed. The genuine native attempt began11:35:44UTC on qualified7fb8944. Capture0 has8published artifacts and an ARCHIVED_AND_RELEASED custody receipt; at11:39:55UTC both completed captures are fully archived and supervisor304972 remains active without a failure receipt. Scientific validity remains NOT_ASSESSED until independent analysis. Raw FULL outcomes are retained without reruns. Passed clocks/Q15 and Q16a708/Q16b120 remain preserved. Complete ceiling19November02:51UTC (**05:51Moscow**), unchanged signed end09:16UTC (12:16Moscow). Stop on next failure, no automatic retry or new window. [Native and custody proof](evidence/stage17/Q16C-D285-LAUNCH-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
 The engineering checkpoints below are historical.
 

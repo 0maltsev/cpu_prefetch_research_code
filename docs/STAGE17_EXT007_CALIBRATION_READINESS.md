@@ -1,8 +1,8 @@
 # EXT007 calibration continuation
 
-State: **D284_SOFTWARE_REPAIR_VERIFIED; D282_STOPPED_RESTORED; Q16C_0_OF_180**.
+State: **D285_PRECONSTRUCTION_ISOLATION_PASS; SIGNING_RUNNING; Q16C_0_OF_180**.
 
-**Current EXT007 checkpoint (2026-11-18,13:52Moscow): source-reuse repair VERIFIED; D282 campaign remains stopped/restored.** [D284](decisions/0284-q16c-exact-source-reuse-comparisons.md) fixes exact dependency-set and file-byte comparisons. All41 targeted tests pass; seven new regressions detect the failed branch and both original defects. On the stand, the repaired complete packet passed original-signature/360-source verification and the exact failed constructor validation, including retained Q16a/Q16b handoffs, in98s with exit0. No new authority, registration, isolation, experiment or window was started; the original ledger is unchanged. Native7fb8944, passed clocks/Q15 and Q16a708/Q16b120 remain preserved. Q16c is **0/180**; earlier ETA withdrawn. [Repair and actual-data verification](evidence/stage17/Q16C-D284-SOURCE-REPAIR-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-18,14:26Moscow): D285 preconstruction and fresh isolation PASS; signing RUNNING.** The one-shot continuation began11:24:07UTC. Constructor exited0 after104s with all eight partial JSON outputs verified identical. Fresh CPU isolation and actual CPU0/1/8 MSR readbacks passed; passed clocks/Q15 are reused without a new measurement. Ordinary request/signature and live phase admission precede the first Q16c capture. Q16c **0/180** at this checkpoint; Q16a708/Q16b120 remain preserved. Complete ceiling19November02:51UTC (**05:51Moscow**); unchanged D282 hard end09:16UTC (12:16Moscow). No automatic retry or new window. [Actual continuation evidence](evidence/stage17/Q16C-D285-LAUNCH-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
 The engineering checkpoints below are historical.
 

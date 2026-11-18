@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-**Current EXT007 checkpoint (2026-11-18): D279 metadata continuation in preparation; stand IDLE.** The owner instructed “continue” after the cold packet-path stop. [D279](decisions/0279-q16c-unarmed-metadata-continuation.md) preserves the passed Q15/clocks, frozen native919c486 and the original D277 end18November19:52UTC (22:52Moscow). The path-only correction, immutable partial-output reuse and fresh supervisor handoff pass software tests; complete stand input construction is next, before rearm. Q16c0/180; no new window or repeated measurement. Stop on next failure. EXT007/Stage17 remain incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-18,12:16Moscow): approved D282 qualification RUNNING; success-only Q16c handoff armed.** The one signed24-hour window began09:16:07UTC (12:16Moscow). The complete62820s ceiling ends19November02:43UTC (**05:43Moscow**); the hard deadline is19November09:16UTC (12:16Moscow). Native7fb8944 and administrative19c3b60 are separately frozen. Both namespace audits passed: stand76426 metadata files, zero collisions/errors. Existing program ledger replay, complete input bindings, empty-attempt authentication and live storage admission passed without registration or reinitialization. The initial read-only EXT001 preflight passed; remaining fresh qualification is in progress. Only its exact successful terminal receipt permits all180 descriptive Q16c settings, followed by restoration and independent validation. Q16a708/Q16b120 remain preserved; Q16c is **0/180 successful captures** at this checkpoint. Stop on the first new failure, no retry or further window. [Launch, signed window and preparation evidence](evidence/stage17/Q16C-D282-LAUNCH-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
 **Historical handoff:** **Current EXT007 checkpoint (2026-11-17,02:03Moscow): Q16b descriptive handoff VERIFIED.** The bounded read-only stand job exited0 after original signed-lifecycle/custody admission and exact recomposition from all120 reports. Both source histories, all708 Q16a reports and failed separate zero-loss gates remain preserved; no raw validation, measurement or qualification was repeated. [Handoff, exact planning basis and evidence](evidence/stage17/Q16B-HANDOFF-20261117-01/REPORT.md). Q16c has not started: its count/duration and scientific claim need a prospective owner decision. [D270](decisions/0270-q16c-descriptive-screen-proposal.md) proposes a180-setting descriptive screen within one24-hour window, explicitly without D036's formal probability claim; it is PROPOSED, not approved. Further Q16c execution, calibration freeze and EXT007/Stage17 exit remain; Stage18 remains prohibited.
 
@@ -164,15 +164,20 @@ credit for the unchanged formal EXT007 requirements.
       Original708 Q16a and all qualification/data histories remain preserved.
       Both separate zero-loss gates FAIL due to valid FULL outcomes; no59-run
       tolerance claim. No measurement or raw validation is to be repeated.
-   9. **In progress — approved Q16c descriptive screen preparation:** the legacy D036
-      bound cannot supply a formal matrix-feasibility certification from a short
-      practical run, even with all-zero observations; final exposures are also
-      unfrozen. Approved D270 fixes180 settings ×1 capture,1-second measurement and
-      5-second warmup as a separately labelled descriptive screen. The owner
-      approved the exact proposal; no Q16c or new qualification has started. Schedule
-      transport/request sizing, exact generation/provenance, a finite budget,
-      calibration freeze and EXT007/Stage17 exit remain required. Stage18 is
-      prohibited. Do not silently downgrade D036 or invent final exposures.
+   9. **In progress — D282 corrected-release qualification and Q16c:**
+      D270 retains180 settings ×1 capture,1-second measurement and5-second
+      warmup as a descriptive screen, without D036's formal probability claim.
+      The original first919c486 capture failed before mappings/session/raw
+      publication; its empty checkpoint, custody and restoration are preserved.
+      The owner approved D282 after the repaired7fb8944 release passed software
+      verification. Both432-seed namespace audits, all180 native layout queries,
+      empty-attempt authentication and retained program/resource checks passed.
+      The single new signed24h window began18November09:16UTC. Fresh actual
+      qualification is running; only its success permits the180 captures and
+      subsequent independent validation/restoration. Complete ceiling ends
+     19November02:43UTC; hard deadline09:16UTC. Q16c0/180 at launch. No retry,
+      source regeneration, completed-data rerun or Stage18 authority. Calibration
+      freeze and actual EXT007 admission remain after validated Q16c results.
 
    No full 708-capture restart, optional extension or archive reset. D233 keeps
    raw archives on the stand; this PC retains only small evidence and reports.

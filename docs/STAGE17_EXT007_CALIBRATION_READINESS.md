@@ -1,8 +1,8 @@
 # EXT007 calibration continuation
 
-State: **Q16C_COLLECTING; 2_OF_180_NATIVE_COMPLETE_ARCHIVED; VALIDITY_NOT_ASSESSED**.
+State: **Q16C_STOPPED_RESTORED; 86_NATIVE_COMPLETE; ORDINAL86_FAILED; VALIDITY_NOT_ASSESSED**.
 
-**Current EXT007 checkpoint (2026-11-18,14:39Moscow): Q16c COLLECTING; 2/180 native-complete and fully archived.** D285 preconstruction, exact partial-output reuse, fresh isolation/MSR readbacks, ordinary signing/signature verification and live resource admission all passed. The genuine native attempt began11:35:44UTC on qualified7fb8944. Capture0 has8published artifacts and an ARCHIVED_AND_RELEASED custody receipt; at11:39:55UTC both completed captures are fully archived and supervisor304972 remains active without a failure receipt. Scientific validity remains NOT_ASSESSED until independent analysis. Raw FULL outcomes are retained without reruns. Passed clocks/Q15 and Q16a708/Q16b120 remain preserved. Complete ceiling19November02:51UTC (**05:51Moscow**), unchanged signed end09:16UTC (12:16Moscow). Stop on next failure, no automatic retry or new window. [Native and custody proof](evidence/stage17/Q16C-D285-LAUNCH-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-18,18:34Moscow): Q16c STOPPED after86 completed captures; restoration VERIFIED.** The87th capture (ordinal86, FAR/L1/capacity65536/L075) failed its mandatory observation gate before warmup: neither phase released and zero events attempted. All86completed captures and the failed capture evidence are archived/released (87sets,8artifacts each). Independent scientific validity remains NOT_ASSESSED; analysis did not start. Native workers are reaped, process group gone, exact three-CPU MSR recovery and CPU/maintenance restoration verified; owned services are stopped. No retry or new window occurred. Q16a708/Q16b120 remain preserved. Previous ETA withdrawn; original D282 deadline unchanged. [Failure and actual preserved progress](evidence/stage17/Q16C-D285-NATIVE-STOP-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
 The engineering checkpoints below are historical.
 

@@ -1,0 +1,58 @@
+{
+  "experiments_started_during_check": 0,
+  "files": [
+    {
+      "name": "REPORT.md",
+      "sha256": "bf3837930b7da690dd94aa16bba1b65aaeff6146406156a67a91261806e401c9",
+      "size_bytes": 2936
+    },
+    {
+      "name": "collect-result.json",
+      "sha256": "4b85104e6a6a6bc50ce40d60d468c8d88857fe4c527c680ec372ed71f134a6dc",
+      "size_bytes": 179
+    },
+    {
+      "name": "collect.log",
+      "sha256": "71fc83e3ecfb6a704dbf162a637cec6225bb5391e8ea244795293f1485080415",
+      "size_bytes": 4247
+    },
+    {
+      "name": "formal-capture-86-archive-custody.json",
+      "sha256": "a404c0f6e1641fbfda6beb8154dadf150c4dfe8b74fd95d019db53ce68507f1c",
+      "size_bytes": 6992
+    },
+    {
+      "name": "formal-capture-86-final-checkpoint.json",
+      "sha256": "57dc6edee5750a81e4171c9072dd1738d883839e925aa9780b8457be5c41ff50",
+      "size_bytes": 13473
+    },
+    {
+      "name": "isolation-restoration.json",
+      "sha256": "ad2eb45db7d7f8b11ed372a3a76816f551ac7ac0081dcdb6eeacc8d5646dd326",
+      "size_bytes": 842
+    },
+    {
+      "name": "live-stop-status.json",
+      "sha256": "e268cac0c1867fdaf107bcc692116241decae7b760ca3c6ea71fd95e90c1a29d",
+      "size_bytes": 2029
+    },
+    {
+      "name": "partition-restoration.json",
+      "sha256": "687f678d748acbf704eeec9874f9f4484685bc557d42a7d40b7e3b6b05096257",
+      "size_bytes": 260
+    },
+    {
+      "name": "stage17-q16c-failure-v6.json",
+      "sha256": "17540e9e3871cd5632205f1f6bc5526acdd2d8144a987e4611f80b6cd6abe2d8",
+      "size_bytes": 1082
+    },
+    {
+      "name": "study-complete.json",
+      "sha256": "b895dabc120e4f265e4a4d9bb86c9e563af39181fda615e80b57e4b205da43f7",
+      "size_bytes": 3418
+    }
+  ],
+  "phase18_authority": false,
+  "retries": 0,
+  "schema_version": "cpu-prefetch-stage17-q16c-native-stop-evidence/1"
+}

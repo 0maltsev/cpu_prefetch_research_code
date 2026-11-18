@@ -1,0 +1,17 @@
+{
+  "actual_full_constructor_validation": "PASS",
+  "actual_source_reuse": "PASS",
+  "experiment_restarted": false,
+  "native_changed": false,
+  "new_regression_tests": 7,
+  "new_window_created": false,
+  "old_byte_bug_independently_detected": true,
+  "old_set_bug_detected": true,
+  "phase18_authority": false,
+  "q16c_captures": 0,
+  "repair_commit": "97b8c7451c14ccd7d7380524677d7fd1cc9daad4",
+  "schema_version": "cpu-prefetch-stage17-source-reuse-repair-checks/1",
+  "source_bytes": 7216896152,
+  "source_count": 360,
+  "targeted_tests_passed": 41
+}

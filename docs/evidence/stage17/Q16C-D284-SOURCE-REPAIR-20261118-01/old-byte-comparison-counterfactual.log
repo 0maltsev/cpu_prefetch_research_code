@@ -1,0 +1,28 @@
+test_matching_qualified_closures_and_bytes_pass_full_inspect (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_matching_qualified_closures_and_bytes_pass_full_inspect) ... ERROR
+
+======================================================================
+ERROR: test_matching_qualified_closures_and_bytes_pass_full_inspect (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_matching_qualified_closures_and_bytes_pass_full_inspect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 198, in test_matching_qualified_closures_and_bytes_pass_full_inspect
+    old, original_plan = self.inspect()
+                         ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 195, in inspect
+    return reuse.inspect(self.proof, self.plan, validation=self.validation)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "counterfactual_source_reuse.py", line 158, in inspect
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'bytes'>
+
+----------------------------------------------------------------------
+Ran 1 test in 0.559s
+
+FAILED (errors=1)
+EXPECTED_FAILURE_CONFIRMED: reverting only the byte comparison is detected by the regression; production source unchanged

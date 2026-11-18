@@ -1,8 +1,8 @@
 # EXT007 calibration continuation
 
-State: **D282_STOPPED_RESTORED; CLOCK_Q15_QUALIFICATION_PASS; Q16C_0_OF_180**.
+State: **D284_SOFTWARE_REPAIR_VERIFIED; D282_STOPPED_RESTORED; Q16C_0_OF_180**.
 
-**Current EXT007 checkpoint (2026-11-18,13:37Moscow): D282 STOPPED before Q16c collection; restoration VERIFIED.** Both clock pairs and the actual corrected-release Q15-R/W qualification passed; the persistent supervisor exited0 and was reaped. Q16c input construction then failed at12:39Moscow because the source-reuse validator passed a Python set to a JSON-only comparison helper. No new Q16c authorization, family registration, capture or analysis occurred: **0/180**. The stand is idle, owned workers are gone, the reserved cgroup is absent, and the original archive ledger is unchanged at66472. Q16a708/Q16b120 remain preserved. No retry or new window was performed. The earlier completion ETA is withdrawn; the signed D282 deadline remains unchanged. [Failure, reproduction and live restoration report](evidence/stage17/Q16C-D282-CONSTRUCTOR-STOP-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-18,13:52Moscow): source-reuse repair VERIFIED; D282 campaign remains stopped/restored.** [D284](decisions/0284-q16c-exact-source-reuse-comparisons.md) fixes exact dependency-set and file-byte comparisons. All41 targeted tests pass; seven new regressions detect the failed branch and both original defects. On the stand, the repaired complete packet passed original-signature/360-source verification and the exact failed constructor validation, including retained Q16a/Q16b handoffs, in98s with exit0. No new authority, registration, isolation, experiment or window was started; the original ledger is unchanged. Native7fb8944, passed clocks/Q15 and Q16a708/Q16b120 remain preserved. Q16c is **0/180**; earlier ETA withdrawn. [Repair and actual-data verification](evidence/stage17/Q16C-D284-SOURCE-REPAIR-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
 The engineering checkpoints below are historical.
 

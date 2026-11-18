@@ -1,0 +1,61 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "name": "REPORT.md",
+      "sha256": "a6e5acc246737fcc9d661e5f82948bba83dcc93323c70936cf1628acdb970b3c",
+      "size_bytes": 2929
+    },
+    {
+      "name": "actual-constructor-validation-pass.json",
+      "sha256": "56b602f50133ebac273a6a012cbe35c93269df249598c8568c047daa7803dd9b",
+      "size_bytes": 2450
+    },
+    {
+      "name": "actual-source-reuse-pass.json",
+      "sha256": "850ed7ecfe761782bd8cda089943bd80733451977d16b7fcdb7b7197406bde5b",
+      "size_bytes": 2387
+    },
+    {
+      "name": "before-fix-tests.log",
+      "sha256": "7d101c7d333e9c39fb4e20f33cb39c73970118dd1ea473d209632e704bfd4029",
+      "size_bytes": 16267
+    },
+    {
+      "name": "checks.json",
+      "sha256": "10cd3180ba7b87e6dd8c722b5fb8b8e437372e56f42807de59501e5215dcfa0d",
+      "size_bytes": 555
+    },
+    {
+      "name": "old-byte-comparison-counterfactual.log",
+      "sha256": "cb206c8f0b0d4e88841a343ced01f3fdfe03885c8cfc5d6d60e3b092e600a96c",
+      "size_bytes": 2049
+    },
+    {
+      "name": "software-check-setup-failure.log",
+      "sha256": "c6af7ff7ffecab60e40c5f25ee26d2534e28c86e9160e3761978a6b89e3d2381",
+      "size_bytes": 977
+    },
+    {
+      "name": "staged-packet-manifest.json",
+      "sha256": "34d5c84227e6386c19f10a47b439b73560fbb95971cc201ed0d326e8d56cb34f",
+      "size_bytes": 5251
+    },
+    {
+      "name": "targeted-tests.log",
+      "sha256": "add7610543ff6f1c61f5aa0f97035e689278c84f53537575efcba2783d4aa0a7",
+      "size_bytes": 141
+    },
+    {
+      "name": "verify_actual_constructor_validation.py",
+      "sha256": "e6f9a66d519cd2746b51f594fbabfec4cc6d9ca548e454271e035e8b18231696",
+      "size_bytes": 6143
+    },
+    {
+      "name": "verify_actual_source_reuse.py",
+      "sha256": "cee43648efca83c6c3443b365c0b44e39da8bad111a5fc9a4a0585046650cbd6",
+      "size_bytes": 4810
+    }
+  ],
+  "schema_version": "cpu-prefetch-stage17-source-reuse-repair-evidence/1"
+}

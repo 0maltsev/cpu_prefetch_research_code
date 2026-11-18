@@ -1669,7 +1669,7 @@ if(BUILD_TESTING)
       formal_scheduled_descriptive_v1 q16c_schedule_provenance_v2 q16c_source_execution_v1
       formal_scheduled_capture_validation_v2 q16c_descriptive_calibration_v1
       q16a_q16c_descriptive_handoff_v1 q16b_q16c_descriptive_handoff_v1
-      policy_v61 daycap_qualification_v3)
+      policy_v61 daycap_qualification_v3 policy_v62 daycap_qualification_v4)
     add_test(NAME runner.${_d252_test}
       COMMAND "${Python3_EXECUTABLE}" -B
         "${PROJECT_SOURCE_DIR}/tests/test_stage17_${_d252_test}.py")

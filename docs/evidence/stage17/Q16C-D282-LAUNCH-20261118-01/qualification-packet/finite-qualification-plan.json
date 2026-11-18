@@ -1,0 +1,153 @@
+{
+  "authorization_basis": {
+    "consumed_d207_authorization_reused": false,
+    "current_instruction": "Owner explicitly approved D282: one corrected7fb8944 qualification, original unobserved source bank and full180-setting continuation.",
+    "new_explicit_approval_claimed": true,
+    "operational_direction": "Near once; far only if near passes; one persistent Q15-R/W; unchanged clock/hardware limits; stop/reap/restore on first failure; no retry or clock reset.",
+    "standing_owner_scope": [
+      "finish stage 17",
+      "run till stage 17 is complete",
+      "only to this exps",
+      "anything",
+      "you can change all permissions so that you can do it autonomously"
+    ]
+  },
+  "cgroup": "/sys/fs/cgroup/cpu-prefetch-recovery-v29-qualified-1.service/reserved",
+  "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29",
+  "finite_scope": {
+    "automatic_retries": 0,
+    "clock_delta_count": 10000000,
+    "clock_prime_read_count": 100000,
+    "clock_timeout_seconds": 600,
+    "cross_core_windows_each_direction": 3,
+    "exchanges_per_window": 100000,
+    "far_clock_max": 1,
+    "far_requires_near_pass": true,
+    "near_clock_max": 1,
+    "persistent_q15_sessions_max": 1,
+    "preserved_memlock_bytes": 8388608,
+    "process_address_space_bytes": 8589934592,
+    "q15_authorization_max_seconds": 1800,
+    "q15_read_max": 1,
+    "q15_write_execution_max_seconds": 180,
+    "q15_write_max": 1
+  },
+  "formal_capture_authority": false,
+  "phase18_authority": false,
+  "pilot_authority": false,
+  "preparation_only": true,
+  "q15_quiescence_seconds": 2100,
+  "qualification_budget_seconds": 7200,
+  "release": {
+    "archive_python_version": "3.14.4",
+    "archive_runtime_root": "/",
+    "archive_sha256": "54d017c8cabac7443c14dc863850e1e463b96bbbaf71885c1507a266e4dd11ab",
+    "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+    "bundle_name": "cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272",
+    "clock_sha256": "cb6422db0be2c3ff3b20897bc58ff4b892ba04e34e9f16f93a8b6d5a04caad69",
+    "source_revision": "7fb894425c82fa7d7f1891f52b3bcdacc2c83585",
+    "worker_sha256": "7455fa2802ca5f655c41faddd070da51b0cf98ac9c8b2360152dc1a480f85f2a"
+  },
+  "rollback": [
+    "wait bounded qualified Q15 recovery; never retry",
+    "attempt empty owned cgroup/unit cleanup; retain independent errors",
+    "always attempt restoration of owned apt masks/timer states; verify actual root"
+  ],
+  "schema_version": "cpu-prefetch-v29-d282-qualification-preparation/1",
+  "shared_archive_program": "PRESERVE_EXISTING_E23_SCOPE_LEDGER_QUOTA_NO_INITIALIZATION",
+  "signed_action_authorizations_required": true,
+  "standing_records": [
+    {
+      "path": "docs/STAGE17_COMPLETION_PLAN.md",
+      "sha256": "5c73b4f66e23a64939b3f3ee1b7cc2a9459ccef9dcd74db164601b25366f1520",
+      "size_bytes": 49917
+    },
+    {
+      "path": "docs/decisions/0046-stage17-phase-scoped-execution-authority.md",
+      "sha256": "0a0f738a11640f0bcaac3336405e186a23842076b601d8fea874ea807f84d7cf",
+      "size_bytes": 3026
+    },
+    {
+      "path": "docs/decisions/0231-formal-admission-custody-successor.md",
+      "sha256": "69fc98eb34aaa3a859b1041d7f87804926a820d7002c34379e863a8d2178f37c",
+      "size_bytes": 5740
+    },
+    {
+      "path": "docs/evidence/stage17/FORMAL-STORAGE-D233-PROPOSAL-20261103-01/owner-acceptance.json",
+      "sha256": "aeee431cf57860511ba5b5512a15282969646f09ade2e218ba61baa9d56e1906",
+      "size_bytes": 936
+    },
+    {
+      "path": "docs/decisions/0240-stage17-q16a-complete-context-continuation.md",
+      "sha256": "60964e51e18582fe77dce8e1f4a520f7dc8a9668a72fdffa1b958f229113239d",
+      "size_bytes": 3832
+    },
+    {
+      "path": "docs/STAGE17_EXT007_Q16A_CONTINUATION_V1_ACCEPTANCE.md",
+      "sha256": "e924a249fe9f6792c73b99d9918f84520ef4640a2ac55eb637f8130c2eef229c",
+      "size_bytes": 1924
+    },
+    {
+      "path": "docs/decisions/0253-stage17-fresh-custody-scan-overhead.md",
+      "sha256": "c64730612844f1de5dae981cf201116f26b0350577523844256789fefe2e432a",
+      "size_bytes": 4678
+    },
+    {
+      "path": "docs/decisions/0254-stage17-one-day-service-calibration.md",
+      "sha256": "2009864161fb4ae3e3d2383675cc2be234b2ca1e54a786804b2ab15508985a54",
+      "size_bytes": 5301
+    },
+    {
+      "path": "docs/decisions/0260-q16b-retained-prefix-continuation-proposal.md",
+      "sha256": "ae6f7d141c0a439f0aa96a963166a63909a1441c5295bdd16be03d32a51114f1",
+      "size_bytes": 6143
+    },
+    {
+      "path": "docs/STAGE17_EXT007_Q16B_CONTINUATION_V1_DECISION.md",
+      "sha256": "be9f5aba692c6b7ff63217c3920738003589ba5ed07cc2529a9e74626abe3653",
+      "size_bytes": 3006
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/owner-acceptance-d260.json",
+      "sha256": "34ef5576b189d79d9cd44a187ae6bdf13eb99245cf6b89ae3d0dce164ad203f2",
+      "size_bytes": 558
+    },
+    {
+      "path": "docs/decisions/0263-d260-fresh-qualification-policy.md",
+      "sha256": "fb059b844591a3c398e93f8e6284879f26c4de325edb9d8829829c3df3d0a3c7",
+      "size_bytes": 2248
+    },
+    {
+      "path": "docs/decisions/0270-q16c-descriptive-screen-proposal.md",
+      "sha256": "fc16567d4435b69cefa48e16e2d4a573fbe7af2324d8e6fd874b5fd38c030ca0",
+      "size_bytes": 7399
+    },
+    {
+      "path": "docs/STAGE17_EXT007_Q16C_DESCRIPTIVE_V1_DECISION.md",
+      "sha256": "c5c2949d9fa6eb1e207f081af8025804cc7721ea8c1e172ee47e5790027940f6",
+      "size_bytes": 2022
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D270-ACCEPTED-20261117-01/owner-acceptance.json",
+      "sha256": "fb89b673220a5913ab73b4271485dd6e44ac3331c0af901345cd90df260e7f64",
+      "size_bytes": 751
+    },
+    {
+      "path": "docs/decisions/0282-q16c-empty-attempt-corrected-release-continuation-proposal.md",
+      "sha256": "6bc1e42e87ac26dd194b142ac2070f635109a71d541c0940698395144cbd84f4",
+      "size_bytes": 6513
+    },
+    {
+      "path": "docs/STAGE17_EXT007_Q16C_D282_ACCEPTANCE.md",
+      "sha256": "1c2fc9ac06d4b8390b14fa014584763535fc71ae9d62da358a6ed87e51c9eea3",
+      "size_bytes": 1484
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D282-ACCEPTED-20261118-01/owner-acceptance.json",
+      "sha256": "4ec46be2cd4f515836c7c090a3eceac7472de67f53f262c2e413175d48c18c2f",
+      "size_bytes": 771
+    }
+  ],
+  "stop_on_first_failure": true,
+  "whole_study_deadline_seconds": 86400
+}

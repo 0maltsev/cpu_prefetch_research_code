@@ -1,0 +1,30 @@
+{
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "bundle_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272",
+  "clock_binary_sha256": "cb6422db0be2c3ff3b20897bc58ff4b892ba04e34e9f16f93a8b6d5a04caad69",
+  "continuation_cleanup_ns": 120000000000,
+  "continuation_watchdog_ns": 47820000000000,
+  "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29",
+  "finite_plan_binding": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/operator-preparation-v29/finite-qualification-plan.json",
+    "sha256": "ca36078439caaf73873cbf422cb3a7d898db9ae1940b2ca0251f8bc51707024d",
+    "size_bytes": 6386
+  },
+  "id_prefix": "CPU-PREFETCH-V5-V29",
+  "isolation_config": {
+    "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+    "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/isolation-preparation-v29-1",
+    "lifecycle_seconds": 63000,
+    "protected_work_ns": 55140000000000,
+    "source_revision": "7fb894425c82fa7d7f1891f52b3bcdacc2c83585",
+    "stop_seconds": 120,
+    "unit_name": "cpu-prefetch-recovery-v29-qualified-1.service"
+  },
+  "isolation_operator_binding": {
+    "path": "/run/cpu-prefetch-recovery-v29-qualified-1/isolation_core.py",
+    "sha256": "49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a",
+    "size_bytes": 23863
+  },
+  "qualification_budget_ns": 7200000000000,
+  "source_revision": "7fb894425c82fa7d7f1891f52b3bcdacc2c83585"
+}

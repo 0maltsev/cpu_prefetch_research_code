@@ -1,0 +1,27 @@
+{
+  "all_bundle_entries_owned_by_uid_gid_1000": true,
+  "archive": {
+    "path": "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272.tar.gz",
+    "sha256": "54d017c8cabac7443c14dc863850e1e463b96bbbaf71885c1507a266e4dd11ab",
+    "size_bytes": 88637162
+  },
+  "available_disk_bytes": 6323144151040,
+  "bundle_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272",
+  "clock_anchor_created": false,
+  "execution_authority": false,
+  "experimental_actions": 0,
+  "isolated_cpus": "",
+  "old_failed_checkpoint_count": 1,
+  "old_failure_unchanged": true,
+  "old_partition_absent": true,
+  "old_supervisor_status": "ActiveState=failed\nSubState=failed\nMainPID=0\nResult=exit-code\nExecMainStatus=1\n",
+  "phase18_authority": false,
+  "q16c_successful_captures": 0,
+  "qualification_started": false,
+  "recorded_at_utc": "2026-11-18T07:21:46.318502+00:00",
+  "regular_files": 4291,
+  "schema_version": "cpu-prefetch-stage17-corrected-package-preparation/1",
+  "source_revision": "7fb894425c82fa7d7f1891f52b3bcdacc2c83585",
+  "stand_verification_exit_code": 0,
+  "stand_verification_stdout": "stand-bundle-check: PASS (4290 files, STAGE17-PILOT-CANDIDATE-BUNDLE-v26, protocol 2.0.0-pre.3, dynamic/pilot/confirmatory prohibited)\n"
+}

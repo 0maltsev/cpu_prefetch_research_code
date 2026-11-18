@@ -1,0 +1,34 @@
+{
+  "schema_version": "cpu-prefetch-stage17-authorized-pc-duplicate-cleanup/1",
+  "recorded_at_utc": "2026-11-18T07:25:22.219541+00:00",
+  "removed": [
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/d279-operators-32edda7-2.tar",
+      "bytes": 81920,
+      "basis": "verified identical stand transport"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/d279-operators-fc24449-1.tar",
+      "bytes": 81920,
+      "basis": "verified identical stand transport"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-native-repair/release-5b7a036/pilot-candidate-bundle/cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272.tar.gz",
+      "bytes": 88637162,
+      "basis": "identical verified authoritative stand package"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-native-repair/release-5b7a036/pilot-candidate-bundle/cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272.tar.gz.sha256",
+      "bytes": 135,
+      "basis": "identical verified authoritative stand package"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-native-repair/verified-7fb8944/cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272",
+      "bytes": 199456403,
+      "basis": "PC extracted verification copy; stand package/extraction verified; clean build/source retained"
+    }
+  ],
+  "freed_file_bytes": 288257540,
+  "stand_raw_or_failed_evidence_deleted": false,
+  "logs_manifests_and_clean_build_retained": true
+}

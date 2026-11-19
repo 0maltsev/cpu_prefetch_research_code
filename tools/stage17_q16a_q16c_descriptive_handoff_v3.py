@@ -21,7 +21,7 @@ COLD_SOURCE = previous.COLD_SOURCE
 QUEUE, HEADERS = previous.QUEUE, previous.HEADERS
 Error, require, same, fields = previous.Error, previous.require, previous.same, previous.fields
 _release, _platforms, _native, _reuse = previous._release, previous._platforms, previous._native, previous._reuse
-REVIEWED_COLD_SOURCES = {'include/cpu_prefetch/runner/stage17_fixed_action.hpp': 'b438925c897188e909879877ddff77e98e690bd756e0637e4d9fd72a78a9c2e9', 'include/cpu_prefetch/runner/stage17_formal_scheduled_action.hpp': '342fb7e4fc9ecfe5b3faf27a85b0b6fd0d1d603d609dc97652db5c72bd739ff6', 'src/runner/stage17_fixed_action.cpp': 'a8fcc4ef2356919b9df690d6b38f7c4e9c7d4182e53f694ebbbff2a4b1787199', 'src/runner/stage17_formal_family.cpp': '773b3e80fdf1eda96f22778884b2057fe34a06ae52593c85ea4c78e8d91e93bc', 'src/runner/stage17_formal_scheduled_action.cpp': '80cb085cbfe0900956d97e7d2104afd4e9766d4b479b56492cedd021033dd8de'}
+REVIEWED_COLD_SOURCES = {'include/cpu_prefetch/runner/stage17_fixed_action.hpp': 'b438925c897188e909879877ddff77e98e690bd756e0637e4d9fd72a78a9c2e9', 'include/cpu_prefetch/runner/stage17_formal_scheduled_action.hpp': '342fb7e4fc9ecfe5b3faf27a85b0b6fd0d1d603d609dc97652db5c72bd739ff6', 'src/runner/stage17_fixed_action.cpp': '03130e61fcd1b61b4cb7b2d1bfc564f1420e87eebcbff428a2b3f7ff4eec764e', 'src/runner/stage17_formal_family.cpp': '773b3e80fdf1eda96f22778884b2057fe34a06ae52593c85ea4c78e8d91e93bc', 'src/runner/stage17_formal_scheduled_action.cpp': '80cb085cbfe0900956d97e7d2104afd4e9766d4b479b56492cedd021033dd8de'}
 
 
 def _comparison(rows, names, releases, reader, *, identical):

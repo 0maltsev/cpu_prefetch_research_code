@@ -5015,6 +5015,7 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
     }
   }
   DirectoryArtifactSink sink(*output_fd);
+  std::optional<int> archive_descriptor;
   if (formal_successor && member(*context, "archive_channel") != nullptr) {
     const auto* channel = require_object(*context, "archive_channel");
     const auto* plan = require_object(*inputs.value(), "plan");
@@ -5034,6 +5035,7 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
         static_cast<int>(*descriptor) == *output_fd)
       throw std::runtime_error(
           "archive channel descriptor/limits are invalid or aliased");
+    archive_descriptor = static_cast<int>(*descriptor);
     sink.configure_archive({static_cast<int>(*descriptor),
                             static_cast<int>(*controller),
                             sha256(request_bytes.value()), *scope},
@@ -5046,8 +5048,8 @@ auto run_fixed_action_worker(int argc, char** argv, FixedActionOperations& opera
     if (!formal_successor || action.value() != FixedAction::q16c || plan == nullptr)
       throw std::runtime_error("sealed source context is outside Q16c");
     std::vector<int> reserved{*request_fd, *context_fd, *output_fd};
-    if (const auto* channel = require_object(*context, "archive_channel"))
-      reserved.push_back(static_cast<int>(*uint_member(*channel, "descriptor")));
+    if (archive_descriptor.has_value())
+      reserved.push_back(*archive_descriptor);
     auto prepared_sources =
         parse_formal_schedule_source_context(*plan, *source_context, reserved);
     if (!prepared_sources)

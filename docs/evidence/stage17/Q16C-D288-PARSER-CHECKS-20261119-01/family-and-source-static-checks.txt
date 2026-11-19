@@ -1,0 +1,19 @@
+{"source": "src/runner/stage17_formal_family.cpp", "status": "STARTED"}
+31 warnings generated.
+Suppressed 31 warnings (31 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+{"source": "src/runner/stage17_formal_family.cpp", "exit_code": 0, "elapsed_ns": 12481914079}
+{"source": "src/runner/stage17_formal_scheduled_action.cpp", "status": "STARTED"}
+36 warnings generated.
+Suppressed 36 warnings (36 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+{"source": "src/runner/stage17_formal_scheduled_action.cpp", "exit_code": 0, "elapsed_ns": 15635227642}
+{"source": "src/runner/stage17_fixed_action.cpp", "status": "STARTED"}
+153 warnings generated.
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_fixed_action.cpp:5050:44: error: unchecked access to optional value [bugprone-unchecked-optional-access,-warnings-as-errors]
+ 5050 |       reserved.push_back(static_cast<int>(*uint_member(*channel, "descriptor")));
+      |                                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Suppressed 152 warnings (152 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+1 warning treated as error
+{"source": "src/runner/stage17_fixed_action.cpp", "exit_code": 1, "elapsed_ns": 208877639989}

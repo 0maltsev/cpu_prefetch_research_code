@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<stdin>", line 10, in <module>
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/d298-continuation-3/stage17_q16c_qualified_continuation_v1.py", line 185, in admit
+    _verify_signature(acceptance_raw, Path(c['continuation_authority']['signature']['path']), trust)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_phase_controller_v2.py", line 187, in _verify_signature
+    _, allowed_payload = _read_binding(binding, "admitted allowed-signers")
+                         ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_phase_controller_v2.py", line 92, in _read_binding
+    raise ControllerError(f"{label} is not an owner regular file")
+stage17_phase_controller_v2.ControllerError: admitted allowed-signers is not an owner regular file

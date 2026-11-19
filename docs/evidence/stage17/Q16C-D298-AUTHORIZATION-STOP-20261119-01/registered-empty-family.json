@@ -1,0 +1,33 @@
+{
+  "status": "REGISTERED_FAMILY_EMPTY_AND_UNEXECUTED",
+  "checked_at_utc": "2026-11-19T20:22:20.647131+00:00",
+  "family_id": "1212db59b9c12dd50837ca4b79897ddcd76a06fc4c3ea99b1fabd9b2b23b36a6",
+  "family_identity": [
+    2307,
+    211681674
+  ],
+  "family_entries": [],
+  "registration_tip": {
+    "file_name": "0000000000072912.json",
+    "sha256": "18e4177af33e1bc5e19fdf71bc41bf087632e5ec644df2e30f3764116d588da0",
+    "size_bytes": 553
+  },
+  "latest_ledger_file": "0000000000072912.json",
+  "registration_record": {
+    "artifact_id": null,
+    "kind": "FAMILY",
+    "payload": {
+      "device": 2307,
+      "family_id": "1212db59b9c12dd50837ca4b79897ddcd76a06fc4c3ea99b1fabd9b2b23b36a6",
+      "inode": 211681674,
+      "working_relative_path": "working/1212db59b9c12dd50837ca4b79897ddcd76a06fc4c3ea99b1fabd9b2b23b36a6"
+    },
+    "previous_sha256": "11810d7c11f2ab5c798cfcb78b299e62a1bd2ef2a6b29aca70409cffc35c434b",
+    "schema_version": "cpu-prefetch-stage17-formal-representation-ledger/1",
+    "scope_sha256": "4d0ddac91ec96bb7038f2903b965a2f1a785b63b108b5b05e645742ac8dcc0c2",
+    "sequence": 72912,
+    "timestamp_unix_ns": 1795119034164080703
+  },
+  "native_attempt_started": false,
+  "execution_authority": false
+}

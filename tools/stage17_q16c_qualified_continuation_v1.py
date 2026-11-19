@@ -47,6 +47,12 @@ def render(name, raw):
                          ("evidence/'platform-observations-1'", "evidence/'platform-observations-d298-1'"),
                          ('q16c-study-1/partition-restoration.json', 'q16c-study-d298-1/partition-restoration.json')]:
             text = replace_once(text, old, new)
+        text = replace_once(text, '# Subsecond issue precision prevents losing a full second by truncation.',
+                            '# The immutable authorization schema requires whole UTC seconds; floor conservatively.')
+        text = replace_once(text, "issued_at_utc=now.isoformat().replace('+00:00','Z')",
+                            "issued_at_utc=now.isoformat(timespec='seconds').replace('+00:00','Z')")
+        text = replace_once(text, "expires_at_utc=(now+dt.timedelta(seconds=24860)).isoformat().replace('+00:00','Z')",
+                            "expires_at_utc=(now+dt.timedelta(seconds=24860)).isoformat(timespec='seconds').replace('+00:00','Z')")
     else:
         text = text.replace('d295-study-1', 'd298-study-1').replace('q16c-study-1', 'q16c-study-d298-1')
         text = text.replace('platform-guard-1', 'platform-guard-d298-1')

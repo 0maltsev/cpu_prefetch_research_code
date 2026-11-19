@@ -1,0 +1,25 @@
+{
+  "checked_at_utc": "2026-11-19T20:18:36.526009+00:00",
+  "formal_files": [
+    "request.json"
+  ],
+  "formal_prepared": false,
+  "guard_value": "1",
+  "native_attempt_started": false,
+  "native_checkpoints": 0,
+  "raw_data_transferred": false,
+  "unit": {
+    "ActiveState": "failed",
+    "ControlGroup": "",
+    "ExecMainExitTimestamp": "Thu 2026-11-19 23:14:36 MSK",
+    "ExecMainStatus": "1",
+    "MainPID": "0",
+    "Result": "exit-code",
+    "SubState": "failed"
+  },
+  "unsigned_request": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/evidence/formal-q16c-d295-1/request.json",
+    "sha256": "38fc71fd8e6a5dc79c95284999fa51b6b42a41d7cdb6477b4886272af931851c",
+    "size_bytes": 1979653
+  }
+}

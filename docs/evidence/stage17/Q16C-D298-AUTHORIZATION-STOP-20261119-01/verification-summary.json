@@ -1,0 +1,13 @@
+{
+  "actual_owner_authoring_passed": true,
+  "automatic_retry": false,
+  "controls_rearmed_after_failure": false,
+  "execution_authority": false,
+  "focused_tests": 14,
+  "native_attempt_started": false,
+  "new_capture_count": 0,
+  "qualification_repeated": false,
+  "raw_validation_repeated": false,
+  "status": "D298_STOPPED_RESTORED_D300_REPAIR_VERIFIED",
+  "unsigned_authoring_elapsed_ns": 118655440405
+}

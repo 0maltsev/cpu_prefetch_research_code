@@ -1,6 +1,7 @@
 """D298 keeps the original clock, source and scientific functions unchanged."""
 import ast
 import copy
+import datetime as dt
 import hashlib
 import json
 from pathlib import Path
@@ -52,7 +53,33 @@ class RenderTests(unittest.TestCase):
                              ('platform-observations-1','platform-observations-d298-1'),
                              ('q16c-study-1/partition-restoration.json','q16c-study-d298-1/partition-restoration.json')]:
             new=new.replace(replaced,old)
+        new=new.replace(".isoformat(timespec='seconds')",'.isoformat()')
+        new=new.replace('# The immutable authorization schema requires whole UTC seconds; floor conservatively.',
+                        '# Subsecond issue precision prevents losing a full second by truncation.')
         self.assertEqual(new.encode(),raw)
+
+    def test_actual_authorization_expressions_match_pinned_schema_without_extending_lifetime(self):
+        import jsonschema
+        name='stage17_q16c_continuation_operator_v1.py'
+        original=ast.parse((ROOT/'tools'/name).read_bytes())
+        repaired=ast.parse(current.render(name,(ROOT/'tools'/name).read_bytes()))
+        schema=json.loads((ROOT/'config/schemas/stage17-phase-action-authorization-v6.schema.json').read_bytes())
+        utc=jsonschema.Draft202012Validator(schema['$defs']['utc'])
+        def values(tree,now):
+            calls=[n for n in ast.walk(tree) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute)
+                   and n.func.attr=='author_formal_authorization']
+            self.assertEqual(len(calls),1)
+            return {k.arg:eval(compile(ast.Expression(k.value),'actual-authorization-expression','eval'),dict(now=now,dt=dt))
+                    for k in calls[0].keywords if k.arg in ('issued_at_utc','expires_at_utc')}
+        for fraction in (0,1,956026,999999):
+            now=dt.datetime(2026,11,19,20,12,33,fraction,tzinfo=dt.timezone.utc)
+            before=values(original,now);after=values(repaired,now)
+            for value in after.values():utc.validate(value)
+            if fraction:
+                with self.assertRaises(jsonschema.ValidationError):utc.validate(before['expires_at_utc'])
+            issued=dt.datetime.fromisoformat(after['issued_at_utc']);expires=dt.datetime.fromisoformat(after['expires_at_utc'])
+            self.assertEqual((expires-issued).total_seconds(),24860)
+            self.assertLessEqual(expires,now+dt.timedelta(seconds=24860))
 
     def test_recovery_uses_identical_cleanup_code_with_distinct_evidence_paths(self):
         name='stage17_q16c_continuation_recovery_v1.py';raw=(ROOT/'tools'/name).read_bytes()

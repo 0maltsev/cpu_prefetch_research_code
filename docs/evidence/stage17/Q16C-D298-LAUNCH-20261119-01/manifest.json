@@ -1,0 +1,106 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "ef2bfc41b7f6c8980774f38d7f0b3698940dbf7fc7858a2a1eff872cc982cff2",
+      "size_bytes": 4593
+    },
+    {
+      "path": "clock-rearm-d298-1/prospective-plan.json",
+      "sha256": "57d4621a0dc100b87a14ffcaadea9d470dfd150dd33642738b74a75a61e62f3d",
+      "size_bytes": 816
+    },
+    {
+      "path": "d297-software-preparation-2/constructed-output/registration.json",
+      "sha256": "4bca243507d472a43dac205f0d5ae2bd0f88af6acc2694458bef93d3f58e0dba",
+      "size_bytes": 391
+    },
+    {
+      "path": "d298-continuation-4/administrative-packet.json",
+      "sha256": "10405e61d03f6dd0660523712bcf9da8715bb4b3f756ee3e8e9ea1fed7daad67",
+      "size_bytes": 1674
+    },
+    {
+      "path": "d298-continuation-4/authority/owner-acceptance.json",
+      "sha256": "d1291e33879a4d635f8536c96c5d1e8085fc29306c1425f16ff7b4193c155750",
+      "size_bytes": 914
+    },
+    {
+      "path": "d298-continuation-4/authority/owner-acceptance.json.sig",
+      "sha256": "1120b497dee0e2ed95e242e0c3492e5da43a5c96facf2b323efcfbbe51ee1aa8",
+      "size_bytes": 322
+    },
+    {
+      "path": "d298-continuation-4/operator-sources.json",
+      "sha256": "1963a241d4057e014c47184e591d78c0012842be11452a66efe82697cf9688f6",
+      "size_bytes": 3922
+    },
+    {
+      "path": "d298-continuation-4/prelaunch-check.json",
+      "sha256": "c6e65eb326a9fae5596af82048df24c6bcb94cabc25cb1497765495822a36776",
+      "size_bytes": 993
+    },
+    {
+      "path": "d298-execution-owner-admission-1.json",
+      "sha256": "f576c24c676296a8eb796281c45a06106c83b9870ace7d075febcf49adabbf8b",
+      "size_bytes": 799
+    },
+    {
+      "path": "d298-execution-owner-preflight-1.json",
+      "sha256": "c4cc321cc4a0527f8ed3f355f2d5f62d8da185dff6476d53172be640ed67a6b0",
+      "size_bytes": 799
+    },
+    {
+      "path": "d298-root-launch-intent-1.json",
+      "sha256": "e57d2ed0de40723083e718b13999c9a1b259811ae8a3fc22cb0fccfa5a9d27d5",
+      "size_bytes": 2363
+    },
+    {
+      "path": "d298-root-launch-result-1.json",
+      "sha256": "71c279b9c37b8e7896310fea86b3d23148b7af9949b0891431e2b228c606ddf3",
+      "size_bytes": 208
+    },
+    {
+      "path": "d298-study-1/intent.json",
+      "sha256": "6698dfc25a7bced2aad537297173dd301cba0bada567496ddfbb0c206d56a7de",
+      "size_bytes": 842
+    },
+    {
+      "path": "installed-configuration-4.json",
+      "sha256": "b06eafdef4350150ba9c7ffd9e3fa8fa12162e350dec46ef5c57c748aa1b2fd7",
+      "size_bytes": 545
+    },
+    {
+      "path": "installed-preflight-3.txt",
+      "sha256": "6975e964a8803979ad13cdf245ceb77129a9825c89a4a3b1b0b4944f20c969e9",
+      "size_bytes": 1079
+    },
+    {
+      "path": "installed-preflight-4.txt",
+      "sha256": "f7f951d70ef1b94ac63a89fddfb9685e8f6f8f5a013a345a04b224190245bbce",
+      "size_bytes": 1786
+    },
+    {
+      "path": "installed-preflight.txt",
+      "sha256": "dadd912def0c72774f00f1af2bae1ca73652e065587c96bbb5d75dadd681f12c",
+      "size_bytes": 5353
+    },
+    {
+      "path": "platform-guard-d298-1/witness.json",
+      "sha256": "19385714ddaf557a5459ae150cbcfd1fc17b57c370e1d05b097fa1f8d97f72ab",
+      "size_bytes": 478
+    },
+    {
+      "path": "preflight-4.py",
+      "sha256": "89bf5e709e955917973deaf96518b6c7ad7a4715d85e677e73937cfcf96d22e4",
+      "size_bytes": 2378
+    },
+    {
+      "path": "startup-status.json",
+      "sha256": "d0d176e67cc4f7f8df26daf989bb9d74c87f5a5bf6949e7b93ac5fd0d4d2d76e",
+      "size_bytes": 1614
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "stage17-public-evidence-manifest/1"
+}

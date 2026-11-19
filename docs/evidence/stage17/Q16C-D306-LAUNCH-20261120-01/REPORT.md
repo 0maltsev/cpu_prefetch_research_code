@@ -54,3 +54,9 @@ remain active; **8/94 new native-complete checkpoints, 0 failed**, an increase o
 6 since startup verification. Independent validation and restoration are pending;
 86 new captures remain. The 86 original validated reports remain preserved.
 The 05:42–08:42 Moscow estimate is unchanged; it remains an estimate.
+
+Progress check at **02:59:06 Moscow**: the same service and qualified
+worker remain active; **40/94 new native-complete checkpoints, 0 failed**, up32
+since02:00. There are54 new captures left; restoration and independent validation
+are pending. The86 original validated reports remain preserved. Estimate remains
+05:42–08:42 Moscow. No retry, qualification or raw-data transfer occurred.

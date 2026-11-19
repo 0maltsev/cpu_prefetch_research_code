@@ -2,6 +2,9 @@
 from dataclasses import asdict
 import hashlib
 import pathlib
+import os
+import shutil
+import sys
 import tempfile
 import time
 import unittest
@@ -16,6 +19,10 @@ import stage17_formal_checkpoint_v1 as checkpoint
 import stage17_q16c_retained_prefix_v1 as current
 import stage17_q16c_execution_window_v3 as window
 import types
+import stage17_formal_archive_runtime_v1 as runtime
+import stage17_q16c_archive_scope_v1 as images
+import stage17_service_daycap_execution_v1 as daycap
+from test_stage17_formal_archive_runtime_v1 import MODULES, image
 
 
 class RetainedPrefixTests(unittest.TestCase):
@@ -33,11 +40,13 @@ class RetainedPrefixTests(unittest.TestCase):
         self.store = custody.ProgramStore(self.root, scope_sha256=self.scope,
                                           family_id=self.family, limits=self.limits)
         self.store.__enter__()
-        self.addCleanup(self.store.__exit__, None, None, None)
+        self.addCleanup(lambda: self.store.__exit__(None, None, None) if self.store._lock else None)
         working = self.store.prepare_family(self.family)
         final, self.capture, _ = checkpoint_fixture()
-        final.update(action_id="Q16c",capture_ordinal=86,native_complete=False)
-        final["native_result_after_cleanup"]["stop"]=10
+        final.update(action_id="Q16c",capture_ordinal=86,
+                     native_complete=getattr(self, 'native_complete', False))
+        final["native_result_after_cleanup"]["stop"]=14 if final['native_complete'] else 10
+        self.final = final
         self.capture["ordinal"]=86
         self.sources, encoded = [], []
         for name in registry.capture_names("Q16c", 86):
@@ -131,5 +140,114 @@ class RetainedPrefixTests(unittest.TestCase):
         authority=self.base/'authority';authority.write_bytes(b'{}')
         with self.assertRaisesRegex(current.incident.admission.AdmissionError,'consumed original authority'):
             current.prepare_original(types.SimpleNamespace(),authorization_path=authority)
+
+
+class PrivateRuntimeTests(unittest.TestCase):
+    def fixture(self, *, complete):
+        f = RetainedPrefixTests('runTest')
+        f.native_complete = complete
+        self.addCleanup(f.doCleanups)
+        f.setUp()
+        f.store.__exit__(None, None, None)
+        source = f.base / 'private-runtime'
+        source.mkdir()
+        tools = pathlib.Path(__file__).resolve().parents[1] / 'tools'
+        modules = (*MODULES, 'stage17_archive_metadata_fast_v1',
+                   'stage17_archive_metadata_fast_v2', 'stage17_archive_canonical_fast_v1')
+        for name in modules:
+            shutil.copyfile(tools / (name + '.py'), source / (name + '.py'))
+        # Same bounded-reader adapter as the stand, with independently imported
+        # archive/custody dataclasses. No native helper or measured code needed.
+        path = source / 'stage17_formal_archive_custody_v1.py'
+        with path.open('ab') as stream:
+            stream.write(b'\nfrom stage17_archive_metadata_fast_v2 import make_store_class as _private_store\n'
+                         b'ProgramStore = _private_store(base=ProgramStore)\n')
+        profile = runtime.RuntimeProfile(image(sys.executable), image(sys.executable), f.f.profile,
+            tuple(runtime.ModuleBinding(name, image(source / (name + '.py'))) for name in modules))
+        prefix = '_d273_archive_' + str(os.getpid()) + '_'
+        self.addCleanup(lambda: [sys.modules.pop(name) for name in list(sys.modules) if name.startswith(prefix)])
+        a, c = images.selected_archive_modules(profile, time.monotonic_ns() + 30 * 10**9)
+        self.assertIsNot(a.PhysicalBinding, archive.PhysicalBinding)
+        self.assertEqual(asdict(a.PhysicalBinding(1, 'a' * 64)), asdict(archive.PhysicalBinding(1, 'a' * 64)))
+        f.store = c.ProgramStore(f.root, scope_sha256=f.scope, family_id=f.family,
+                                limits=c.CustodyLimits(**asdict(f.limits)))
+        f.store.__enter__()
+        self.addCleanup(f.store.__exit__, None, None, None)
+        return f, a, c
+
+    def test_private_complete_capture_uses_native_binding_types(self):
+        f, a, c = self.fixture(complete=True)
+        with self.assertRaisesRegex(c.CustodyError, 'metadata binding differs'):
+            registry.verify_capture_metadata(store=f.store, action='Q16c', capture=f.capture,
+                checkpoint_binding=asdict(f.checkpoint), receipt_binding=asdict(f.receipt),
+                decoder_profile=f.f.profile, decoder_limits=f.f.limits)
+        verifier = current.make_capture_registry(a, c)
+        result = verifier.verify_capture_metadata(store=f.store, action='Q16c', capture=f.capture,
+            checkpoint_binding=asdict(f.checkpoint), receipt_binding=asdict(f.receipt),
+            decoder_profile=a.DecoderProfile(**asdict(f.f.profile)),
+            decoder_limits=a.DecodeLimits(**asdict(f.f.limits)))
+        self.assertEqual(len(result['artifacts']), 8)
+        self.assertFalse(result['inverse_readback_performed'])
+        self.assertEqual(result['scientific_validity'], 'NOT_ASSESSED')
+        self.assertIs(registry._bound.__globals__['custody'], custody)
+
+    def test_private_failed_diagnostic_remains_excluded_from_complete_captures(self):
+        f, a, c = self.fixture(complete=False)
+        verifier = current.make_capture_registry(a, c)
+        args = dict(store=f.store, capture=f.capture, checkpoint_binding=asdict(f.checkpoint),
+                    receipt_binding=asdict(f.receipt), decoder_profile=a.DecoderProfile(**asdict(f.f.profile)),
+                    decoder_limits=a.DecodeLimits(**asdict(f.f.limits)))
+        with self.assertRaisesRegex(c.CustodyError, 'native checkpoint completion'):
+            verifier.verify_capture_metadata(action='Q16c', **args)
+        fixed = dict(checkpoint=(f.checkpoint.size_bytes, f.checkpoint.sha256),
+                     custody=(f.receipt.size_bytes, f.receipt.sha256))
+        with patch.object(current.incident, 'FIXED', fixed), \
+                patch.object(current.incident.contract, 'PARENT_SHA256', f.family):
+            result = current.verify_failed_custody(registry=verifier, **args)
+        self.assertFalse(result['native_complete'])
+        self.assertTrue(result['retained_diagnostic_only'])
+        self.assertFalse(result['execution_authority'])
+
+    def test_private_verifier_keeps_exact_metadata_archive_and_ledger_gates(self):
+        f, a, c = self.fixture(complete=True)
+        verifier = current.make_capture_registry(a, c)
+        args = dict(store=f.store, action='Q16c', capture=f.capture,
+                    checkpoint_binding=asdict(f.checkpoint), receipt_binding=asdict(f.receipt),
+                    decoder_profile=a.DecoderProfile(**asdict(f.f.profile)),
+                    decoder_limits=a.DecodeLimits(**asdict(f.f.limits)))
+        before = {str(p.relative_to(f.root)): digest(p.read_bytes()) for p in f.root.rglob('*') if p.is_file()}
+        verifier.verify_capture_metadata(**args)
+        after = {str(p.relative_to(f.root)): digest(p.read_bytes()) for p in f.root.rglob('*') if p.is_file()}
+        self.assertEqual(before, after)
+        for field, wrong in (('sha256', '0' * 64), ('size_bytes', f.checkpoint.size_bytes + 1)):
+            with self.subTest(field=field), self.assertRaisesRegex(c.CustodyError, 'metadata binding differs'):
+                verifier.verify_capture_metadata(**{**args, 'checkpoint_binding': {
+                    **args['checkpoint_binding'], field: wrong}})
+        paths = (f.root / 'archives' / f.document['artifacts'][0]['archive_name'],
+                 f.root / 'ledger' / f.document['artifacts'][0]['released_record']['file_name'])
+        for path in paths:
+            raw = path.read_bytes()
+            try:
+                path.write_bytes(raw[:-1] + bytes([raw[-1] ^ 1]))
+                with self.subTest(path=path.name), self.assertRaises((a.ArchiveError, c.CustodyError)):
+                    verifier.verify_capture_metadata(**args)
+            finally:
+                path.write_bytes(raw)
+
+    def test_suffix_inventory_uses_its_own_public_store_without_namespace_mixing(self):
+        f = RetainedPrefixTests('runTest')
+        f.native_complete = True
+        self.addCleanup(f.doCleanups)
+        f.setUp()
+        output = daycap.make_output_registry()
+        result = output._verified_inventory(store=f.store, plan=dict(action_id='Q16c',
+            storage=dict(program_id='synthetic-program'), captures=[dict(capture=f.capture)]),
+            extent=types.SimpleNamespace(captures=[types.SimpleNamespace(ordinal=86)]),
+            report=dict(captures=[dict(checkpoint=asdict(f.checkpoint), archive_custody=asdict(f.receipt),
+                artifacts=[asdict(s.expected) for s in f.sources])],
+                native_results_after_cleanup=[f.final['native_result_after_cleanup']]),
+            profile=types.SimpleNamespace(decoder=f.f.profile), decoder_limits=f.f.limits, metadata_only=True)
+        self.assertEqual(len(result['captures']), 1)
+        self.assertFalse(result['inverse_readback_performed'])
 
 if __name__=='__main__':unittest.main()

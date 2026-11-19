@@ -20,6 +20,24 @@ import stage17_formal_archive_registry_v1 as capture_registry
 require=incident.require
 
 
+def make_capture_registry(archive,custody):
+    """Bind unchanged verifier code to the selected private archive runtime.
+
+    The store's dataclass bindings use its authenticated import namespace.
+    Clone every local helper into one scope so metadata, ledger, source and
+    physical bindings all use those exact types. Never patch a public module
+    or relax the reader's exact equality/byte/identity checks.
+    """
+    scope={**vars(capture_registry),'archive':archive,'custody':custody}
+    clones={}
+    for name,function in vars(capture_registry).items():
+        if isinstance(function,types.FunctionType) and function.__module__==capture_registry.__name__:
+            if function not in clones:
+                clones[function]=metadata._clone(function,scope)
+            scope[name]=clones[function]
+    return types.SimpleNamespace(**scope)
+
+
 def prepare_original(administration,**arguments):
     """Authenticate the consumed original authority; expose retention only.
 
@@ -68,17 +86,18 @@ class _Preparation:
             unbound_control=self._cli._unbound_control)
 
 
-def verify_failed_custody(*,store,capture,checkpoint_binding,receipt_binding,decoder_profile,decoder_limits):
+def verify_failed_custody(*,store,capture,checkpoint_binding,receipt_binding,decoder_profile,decoder_limits,
+                         registry=capture_registry):
     """Validate the original failed86 ledger/bytes, without scientific credit."""
     for bound,key in ((checkpoint_binding,'checkpoint'),(receipt_binding,'custody')):
         require((bound['size_bytes'],bound['sha256'])==incident.FIXED[key],'exact original failed diagnostic '+key)
     require(store.family_id==incident.contract.PARENT_SHA256 and capture['ordinal']==86,'exact failed diagnostic family/capture')
-    original=capture_registry._verify_capture
+    original=registry._verify_capture
     def failed_completion(actual,expected,label):
         if label=='native checkpoint completion':
             require(expected is True and actual is False,'diagnostic checkpoint must remain failed')
             return
-        capture_registry.same(actual,expected,label)
+        registry.same(actual,expected,label)
     verified=metadata._clone(original,{**original.__globals__,'same':failed_completion})(store=store,action='Q16c',
         capture=capture,checkpoint_binding=checkpoint_binding,receipt_binding=receipt_binding,
         decoder_profile=decoder_profile,decoder_limits=decoder_limits,readback=None,metadata_only=True)
@@ -116,6 +135,7 @@ def collect_metadata(prepared,facade,*,plan_binding,restoration_binding,deadline
             'exact86 completed plus one failed checkpoint; no later attempt')
         profile=prepared.archive_runtime_profile
         archive,custody=images.selected_archive_modules(profile,deadline_ns)
+        registry=make_capture_registry(archive,custody)
         decode=facade.registry._metadata_decode_limits(plan,extent,profile,deadline_ns)
         decoder=archive.DecoderProfile(**dataclasses.asdict(profile.decoder))
         decode=archive.DecodeLimits(**dataclasses.asdict(decode))
@@ -144,12 +164,13 @@ def collect_metadata(prepared,facade,*,plan_binding,restoration_binding,deadline
                         require(len(raw)==before[2] and before==archive.file_stamp(os.fstat(stream.fileno()))
                             ==archive.file_stamp(p.stat(follow_symlinks=False)),'stable original metadata')
                     return dict(file_name=name,size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest())
-                captures.append(capture_registry.verify_capture_metadata(store=store,action='Q16c',capture=item['capture'],
+                captures.append(registry.verify_capture_metadata(store=store,action='Q16c',capture=item['capture'],
                     checkpoint_binding=local_binding(f'formal-capture-{ordinal}-final-checkpoint.json',limits.max_checkpoint_bytes),
                     receipt_binding=local_binding(f'formal-capture-{ordinal}-archive-custody.json',limits.max_record_bytes),
                     decoder_profile=decoder,decoder_limits=decode))
             failed=verify_failed_custody(store=store,capture=plan['captures'][86]['capture'],
-                checkpoint_binding=checkpoint_binding,receipt_binding=receipt_binding,decoder_profile=decoder,decoder_limits=decode)
+                checkpoint_binding=checkpoint_binding,receipt_binding=receipt_binding,decoder_profile=decoder,decoder_limits=decode,
+                registry=registry)
             store._check();tip=store.ledger_binding()
             result=dict(captures=captures,retained_failed_capture=failed,program_root=str(store.root),
                 scope_bindings=dict(program_scope_sha256=store.scope_sha256,family_plan_sha256=store.family_id,

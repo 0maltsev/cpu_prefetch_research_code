@@ -1,0 +1,11 @@
+test_actual_archive_corruption_cannot_use_ledger_hash_as_readback (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_actual_archive_corruption_cannot_use_ledger_hash_as_readback) ... ok
+test_foreign_or_duplicate_logical_artifact_rejected (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_foreign_or_duplicate_logical_artifact_rejected) ... ok
+test_full_logical_physical_bijection_is_read_only_and_not_science (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_full_logical_physical_bijection_is_read_only_and_not_science) ... ok
+test_metadata_checks_original_bytes_without_decoder_or_inverse_claim (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_metadata_checks_original_bytes_without_decoder_or_inverse_claim) ... ok
+test_metadata_physical_header_must_match_exact_ledger (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_metadata_physical_header_must_match_exact_ledger) ... ok
+test_unsourced_boolean_decoder_proof_is_rejected (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_unsourced_boolean_decoder_proof_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.799s
+
+OK

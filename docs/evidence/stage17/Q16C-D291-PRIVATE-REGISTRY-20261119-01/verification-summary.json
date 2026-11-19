@@ -1,0 +1,17 @@
+{
+  "affected_tests_passed_after_environment_correction": 6,
+  "corrected_environment": "TMPDIR=$PWD/build/stage17-q16c-d291/test-tmp",
+  "environment_error": "Default /tmp tmpfs has less free space than the custody failure reserve; six pre-existing archive fixtures failed before verification.",
+  "experiment_restarted": false,
+  "focused_tests": 8,
+  "initial_environment_errors": 6,
+  "integration_tests_passed_initially": 124,
+  "integration_tests_run": 130,
+  "native_source_changes": false,
+  "new_private_boundary_tests": 4,
+  "phase18_authority": false,
+  "raw_validation_retried": false,
+  "skipped_tests": 0,
+  "stage17_complete": false,
+  "status": "SOFTWARE_REPAIR_VERIFIED_NO_EXPERIMENT_STARTED"
+}

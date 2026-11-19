@@ -1,0 +1,213 @@
+test_private_complete_capture_uses_native_binding_types (test_stage17_q16c_retained_prefix_v1.PrivateRuntimeTests.test_private_complete_capture_uses_native_binding_types) ... ok
+test_private_failed_diagnostic_remains_excluded_from_complete_captures (test_stage17_q16c_retained_prefix_v1.PrivateRuntimeTests.test_private_failed_diagnostic_remains_excluded_from_complete_captures) ... ok
+test_private_verifier_keeps_exact_metadata_archive_and_ledger_gates (test_stage17_q16c_retained_prefix_v1.PrivateRuntimeTests.test_private_verifier_keeps_exact_metadata_archive_and_ledger_gates) ... ok
+test_suffix_inventory_uses_its_own_public_store_without_namespace_mixing (test_stage17_q16c_retained_prefix_v1.PrivateRuntimeTests.test_suffix_inventory_uses_its_own_public_store_without_namespace_mixing) ... ok
+test_actual_corrupt_failed_archive_cannot_hide_behind_recorded_ledger_hash (test_stage17_q16c_retained_prefix_v1.RetainedPrefixTests.test_actual_corrupt_failed_archive_cannot_hide_behind_recorded_ledger_hash) ... ok
+test_real_failed_custody_remains_failed_and_original_scientific_gate_rejects_it (test_stage17_q16c_retained_prefix_v1.RetainedPrefixTests.test_real_failed_custody_remains_failed_and_original_scientific_gate_rejects_it) ... ok
+test_unknown_authority_is_rejected_before_private_retention_configuration (test_stage17_q16c_retained_prefix_v1.RetainedPrefixTests.test_unknown_authority_is_rejected_before_private_retention_configuration) ... ok
+test_unknown_incident_binding_or_ordinal_does_not_reach_any_decoder (test_stage17_q16c_retained_prefix_v1.RetainedPrefixTests.test_unknown_incident_binding_or_ordinal_does_not_reach_any_decoder) ... ok
+test_actual_archive_corruption_cannot_use_ledger_hash_as_readback (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_actual_archive_corruption_cannot_use_ledger_hash_as_readback) ... ERROR
+test_foreign_or_duplicate_logical_artifact_rejected (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_foreign_or_duplicate_logical_artifact_rejected) ... ERROR
+test_full_logical_physical_bijection_is_read_only_and_not_science (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_full_logical_physical_bijection_is_read_only_and_not_science) ... ERROR
+test_metadata_checks_original_bytes_without_decoder_or_inverse_claim (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_metadata_checks_original_bytes_without_decoder_or_inverse_claim) ... ERROR
+test_metadata_physical_header_must_match_exact_ledger (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_metadata_physical_header_must_match_exact_ledger) ... ERROR
+test_unsourced_boolean_decoder_proof_is_rejected (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_unsourced_boolean_decoder_proof_is_rejected) ... ERROR
+test_each_factory_call_has_an_independent_private_scope (test_stage17_archive_metadata_fast_v1.CloneTests.test_each_factory_call_has_an_independent_private_scope) ... ok
+test_executor_callbacks_share_private_globals_without_global_mutation (test_stage17_archive_metadata_fast_v1.CloneTests.test_executor_callbacks_share_private_globals_without_global_mutation) ... ok
+test_executor_historical_dispatch_and_archive_profile_gate_preserved (test_stage17_archive_metadata_fast_v1.CloneTests.test_executor_historical_dispatch_and_archive_profile_gate_preserved) ... ok
+test_open_store_uses_private_store_and_limits_callback_and_keeps_path_gate (test_stage17_archive_metadata_fast_v1.CloneTests.test_open_store_uses_private_store_and_limits_callback_and_keeps_path_gate) ... ok
+test_parse_grammar_and_error_behavior_are_exact (test_stage17_archive_metadata_fast_v1.CloneTests.test_parse_grammar_and_error_behavior_are_exact) ... ok
+test_property_staticmethod_classmethod_and_closure_preserved (test_stage17_archive_metadata_fast_v1.CloneTests.test_property_staticmethod_classmethod_and_closure_preserved) ... ok
+test_store_class_and_original_globals_are_unchanged (test_stage17_archive_metadata_fast_v1.CloneTests.test_store_class_and_original_globals_are_unchanged) ... ok
+test_allocation_pressure_hardlink_dedup_and_write_rounding (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_allocation_pressure_hardlink_dedup_and_write_rounding) ... ok
+test_bad_readback_and_published_tamper_never_release_source (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_bad_readback_and_published_tamper_never_release_source) ... ok
+test_before_each_ledger_transition_crash_retains_canonical_representation (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_before_each_ledger_transition_crash_retains_canonical_representation) ... ok
+test_chain_corruption_and_changed_root_admission_still_fail_closed (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_chain_corruption_and_changed_root_admission_still_fail_closed) ... ok
+test_deadline_quota_and_actual_reservations (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_deadline_quota_and_actual_reservations) ... ok
+test_every_ledger_record_is_reopened_without_replay_cache (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_every_ledger_record_is_reopened_without_replay_cache) ... ok
+test_failed_native_capture_archived_without_scientific_validity_or_retry (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_failed_native_capture_archived_without_scientific_validity_or_retry) ... ok
+test_missing_control_reference_and_changed_source_block_begin (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_missing_control_reference_and_changed_source_block_begin) ... ok
+test_next_capture_rejected_until_every_prior_source_released (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_next_capture_rejected_until_every_prior_source_released) ... ok
+test_no_adoption_historical_tree_missing_callback_or_false_boolean (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_no_adoption_historical_tree_missing_callback_or_false_boolean) ... ok
+test_old_ledger_record_binding_is_indexed_and_release_does_not_replay (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_old_ledger_record_binding_is_indexed_and_release_does_not_replay) ... ok
+test_one_family_two_artifacts_full_replay_and_release (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_one_family_two_artifacts_full_replay_and_release) ... ok
+test_partial_write_disk_full_and_sync_failure_preserve_sources (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_partial_write_disk_full_and_sync_failure_preserve_sources) ... ok
+test_pending_ledger_fail_closed_and_double_broker_forbidden (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_pending_ledger_fail_closed_and_double_broker_forbidden) ... ok
+test_quiescence_loss_before_publish_or_release_preserves_source (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_quiescence_loss_before_publish_or_release_preserves_source) ... ok
+test_source_changed_or_hardlinked_after_publication_cannot_be_deleted (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_source_changed_or_hardlinked_after_publication_cannot_be_deleted) ... ok
+test_source_discrepancy_preserves_expected_and_actual_failure_bindings (test_stage17_archive_metadata_fast_v1.FastCustodyRegressionTests.test_source_discrepancy_preserves_expected_and_actual_failure_bindings) ... ok
+test_bad_working_namespace_and_wrong_working_directory_type (test_stage17_archive_metadata_fast_v1.InventoryOracleTests.test_bad_working_namespace_and_wrong_working_directory_type) ... ok
+test_checked_allocated_and_logical_arithmetic_remains_bounded (test_stage17_archive_metadata_fast_v1.InventoryOracleTests.test_checked_allocated_and_logical_arithmetic_remains_bounded) ... ok
+test_no_per_entry_path_stat_and_all_accounted_entries_are_freshly_statted (test_stage17_archive_metadata_fast_v1.InventoryOracleTests.test_no_per_entry_path_stat_and_all_accounted_entries_are_freshly_statted) ... ok
+test_nonregular_inventory_objects_are_rejected_without_following_symlinks (test_stage17_archive_metadata_fast_v1.InventoryOracleTests.test_nonregular_inventory_objects_are_rejected_without_following_symlinks) ... ok
+test_original_root_and_deadline_checks_precede_inventory (test_stage17_archive_metadata_fast_v1.InventoryOracleTests.test_original_root_and_deadline_checks_precede_inventory) ... ok
+test_real_sparse_hardlinks_and_exact_directory_and_receipt_accounting (test_stage17_archive_metadata_fast_v1.InventoryOracleTests.test_real_sparse_hardlinks_and_exact_directory_and_receipt_accounting) ... ok
+test_replaced_directory_identity_is_rejected_before_inventory (test_stage17_archive_metadata_fast_v1.InventoryOracleTests.test_replaced_directory_identity_is_rejected_before_inventory) ... ok
+test_retained_receipts_keep_name_type_missing_and_dedup_checks (test_stage17_archive_metadata_fast_v1.InventoryOracleTests.test_retained_receipts_keep_name_type_missing_and_dedup_checks) ... ok
+test_working_raw_inventory_and_physical_inventory_exact_limits (test_stage17_archive_metadata_fast_v1.InventoryOracleTests.test_working_raw_inventory_and_physical_inventory_exact_limits) ... ok
+test_ancestor_lstat_error_semantics_match_original (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_ancestor_lstat_error_semantics_match_original) ... ok
+test_cached_ancestors_are_strings_and_every_read_restats_them (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_cached_ancestors_are_strings_and_every_read_restats_them) ... ok
+test_empty_exact_and_exceeded_maximum_and_wrong_bindings (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_empty_exact_and_exceeded_maximum_and_wrong_bindings) ... ok
+test_final_symlink_missing_and_nonregular_errors_match_original (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_final_symlink_missing_and_nonregular_errors_match_original) ... ok
+test_growth_shrink_and_short_read_fail_length_check (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_growth_shrink_and_short_read_fail_length_check) ... ok
+test_inplace_change_after_read_with_restored_mtime_fails_fd_stamp (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_inplace_change_after_read_with_restored_mtime_fails_fd_stamp) ... ok
+test_normalized_parent_strings_match_original_path_behavior (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_normalized_parent_strings_match_original_path_behavior) ... ok
+test_open_flags_and_all_post_open_failures_close_descriptor (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_open_flags_and_all_post_open_failures_close_descriptor) ... ok
+test_ordinary_ancestor_replacement_never_reuses_content_or_hash (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_ordinary_ancestor_replacement_never_reuses_content_or_hash) ... ok
+test_path_replacement_after_final_fd_stat_fails_pathname_stamp (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_path_replacement_after_final_fd_stat_fails_pathname_stamp) ... ok
+test_reads_observed_size_plus_one_instead_of_gib_ceiling (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_reads_observed_size_plus_one_instead_of_gib_ceiling) ... ok
+test_same_inode_mutation_with_restored_mtime_is_freshly_hashed (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_same_inode_mutation_with_restored_mtime_is_freshly_hashed) ... ok
+test_warmed_cache_rejects_replaced_symlink_ancestor (test_stage17_archive_metadata_fast_v2.BoundReadTests.test_warmed_cache_rejects_replaced_symlink_ancestor) ... ok
+test_custom_inventory_survives_factory_composition (test_stage17_archive_metadata_fast_v2.FactoryAndReplayTests.test_custom_inventory_survives_factory_composition) ... ok
+test_full_replay_state_and_all_prefix_reads_match_original_and_v1 (test_stage17_archive_metadata_fast_v2.FactoryAndReplayTests.test_full_replay_state_and_all_prefix_reads_match_original_and_v1) ... ok
+test_original_factories_globals_and_methods_are_untouched (test_stage17_archive_metadata_fast_v2.FactoryAndReplayTests.test_original_factories_globals_and_methods_are_untouched) ... ok
+test_archival_detection_preserves_old_formats_and_request_gate (test_stage17_service_daycap_execution_v1.ContractTests.test_archival_detection_preserves_old_formats_and_request_gate) ... ok
+test_every_historical_or_unsupported_document_is_delegated_by_identity (test_stage17_service_daycap_execution_v1.ContractTests.test_every_historical_or_unsupported_document_is_delegated_by_identity) ... ok
+test_historical_two_repetition_service_still_rejected_under_59_gate (test_stage17_service_daycap_execution_v1.ContractTests.test_historical_two_repetition_service_still_rejected_under_59_gate) ... ok
+test_new_bad_method_fails_without_historical_reinterpretation (test_stage17_service_daycap_execution_v1.ContractTests.test_new_bad_method_fails_without_historical_reinterpretation) ... ok
+test_new_real_fixture_has_original_bytes_and_exact_120_extent (test_stage17_service_daycap_execution_v1.ContractTests.test_new_real_fixture_has_original_bytes_and_exact_120_extent) ... ok
+test_requested_300_native_240_archive_budget_keeps_30_second_drains (test_stage17_service_daycap_execution_v1.ContractTests.test_requested_300_native_240_archive_budget_keeps_30_second_drains) ... ok
+test_new_extent_and_original_arguments_reach_wrapped_v10_and_private_hooks (test_stage17_service_daycap_execution_v1.ExecutorTests.test_new_extent_and_original_arguments_reach_wrapped_v10_and_private_hooks) ... ok
+test_ordinary_historical_call_delegates_unchanged_without_profile_access (test_stage17_service_daycap_execution_v1.ExecutorTests.test_ordinary_historical_call_delegates_unchanged_without_profile_access) ... ok
+test_wrong_profile_rejected_before_wrapped_v10_or_worker (test_stage17_service_daycap_execution_v1.ExecutorTests.test_wrong_profile_rejected_before_wrapped_v10_or_worker) ... ok
+test_unchanged_finish_binds_callbacks_to_our_private_transaction (test_stage17_service_daycap_execution_v1.FinishTests.test_unchanged_finish_binds_callbacks_to_our_private_transaction) ... ok
+test_metadata_profile_check_uses_new_extent_before_filesystem_admission (test_stage17_service_daycap_execution_v1.MetadataTests.test_metadata_profile_check_uses_new_extent_before_filesystem_admission) ... ok
+test_new_metadata_requires_exact_artifact_inventory (test_stage17_service_daycap_execution_v1.MetadataTests.test_new_metadata_requires_exact_artifact_inventory) ... ok
+test_original_metadata_body_accepts_complete_new_120_family (test_stage17_service_daycap_execution_v1.MetadataTests.test_original_metadata_body_accepts_complete_new_120_family) ... ok
+test_execute_port_changes_only_local_imports_to_private_aliases (test_stage17_service_daycap_execution_v1.NamespaceTests.test_execute_port_changes_only_local_imports_to_private_aliases) ... ok
+test_executor_worker_finish_and_registry_use_private_composed_scope (test_stage17_service_daycap_execution_v1.NamespaceTests.test_executor_worker_finish_and_registry_use_private_composed_scope) ... ok
+test_factories_do_not_change_original_globals_classes_or_sources (test_stage17_service_daycap_execution_v1.NamespaceTests.test_factories_do_not_change_original_globals_classes_or_sources) ... ok
+test_registry_clones_all_local_functions_into_one_fresh_scope (test_stage17_service_daycap_execution_v1.NamespaceTests.test_registry_clones_all_local_functions_into_one_fresh_scope) ... ok
+test_actual_eight_archive_spool_science_and_valid_full_report (test_stage17_q16c_analysis_v2.SelectedAnalysisTests.test_actual_eight_archive_spool_science_and_valid_full_report) ... ok
+test_actual_physical_core_and_aggregate_scratch_bounds (test_stage17_q16c_analysis_v2.SelectedAnalysisTests.test_actual_physical_core_and_aggregate_scratch_bounds) ... ok
+test_complete_pool_and_first_failure_cleanup_have_no_missing_reports_or_children (test_stage17_q16c_analysis_v2.SelectedAnalysisTests.test_complete_pool_and_first_failure_cleanup_have_no_missing_reports_or_children) ... ok
+test_membership_is_checked_before_any_child_and_no_generic_subset_is_allowed (test_stage17_q16c_analysis_v2.SelectedAnalysisTests.test_membership_is_checked_before_any_child_and_no_generic_subset_is_allowed) ... ok
+test_packet_admission_time_is_charged_to_the_original_analysis_phase (test_stage17_q16c_analysis_v2.SelectedAnalysisTests.test_packet_admission_time_is_charged_to_the_original_analysis_phase) ... ok
+test_actual_prepared_but_unreleased_both_phases_qualify_for_source_reuse (test_stage17_q16c_prefix_reuse_v1.IncidentTests.test_actual_prepared_but_unreleased_both_phases_qualify_for_source_reuse) ... ok
+test_one_event_one_phase_release_or_missing_failed_raw_evidence_blocks_reuse (test_stage17_q16c_prefix_reuse_v1.IncidentTests.test_one_event_one_phase_release_or_missing_failed_raw_evidence_blocks_reuse) ... ok
+test_changed_or_missing_measured_library_fails_even_with_rebound_inventory (test_stage17_q16c_prefix_compatibility_v1.CompatibilityTests.test_changed_or_missing_measured_library_fails_even_with_rebound_inventory) ... ok
+test_changed_raw_validator_or_generator_and_wrong_incident_do_not_reuse (test_stage17_q16c_prefix_compatibility_v1.CompatibilityTests.test_changed_raw_validator_or_generator_and_wrong_incident_do_not_reuse) ... ok
+test_nine_actual_libraries_full_scientific_closure_and_platform_history_are_preserved (test_stage17_q16c_prefix_compatibility_v1.CompatibilityTests.test_nine_actual_libraries_full_scientific_closure_and_platform_history_are_preserved) ... ok
+test_original_packet_reader_cannot_be_changed_or_omitted (test_stage17_q16c_prefix_compatibility_v1.CompatibilityTests.test_original_packet_reader_cannot_be_changed_or_omitted) ... ok
+test_actual_owner_signature_authenticates_the_exact_signed_packet_binding (test_stage17_q16c_prefix_compatibility_v1.OriginalScientificSignatureTests.test_actual_owner_signature_authenticates_the_exact_signed_packet_binding) ... ok
+test_non_owner_trust_does_not_authenticate_a_valid_signature (test_stage17_q16c_prefix_compatibility_v1.OriginalScientificSignatureTests.test_non_owner_trust_does_not_authenticate_a_valid_signature) ... ok
+test_rebound_corrupt_signature_is_still_rejected_by_real_crypto (test_stage17_q16c_prefix_compatibility_v1.OriginalScientificSignatureTests.test_rebound_corrupt_signature_is_still_rejected_by_real_crypto) ... ok
+test_unsigned_substitute_manifest_is_rejected (test_stage17_q16c_prefix_compatibility_v1.OriginalScientificSignatureTests.test_unsigned_substitute_manifest_is_rejected) ... ok
+test_construct_rejects_input_changes_before_any_data_dependent_read (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_construct_rejects_input_changes_before_any_data_dependent_read) ... ok
+test_final_plan_requires_all86_valid_reports_and_matching_actual_candidate (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_final_plan_requires_all86_valid_reports_and_matching_actual_candidate) ... ok
+test_original_source_or_alternative_identity_family_rejected (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_original_source_or_alternative_identity_family_rejected) ... ok
+test_parent_or_failed_incident_cannot_be_substituted (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_parent_or_failed_incident_cannot_be_substituted) ... ok
+test_retains_only94_original_positions_with_all_scientific_inputs (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_retains_only94_original_positions_with_all_scientific_inputs) ... ok
+test_forced_native_cleanup_never_claims_success (test_stage17_q16c_operator_d288.IndependentRecovery.test_forced_native_cleanup_never_claims_success) ... ok
+test_foreign_configuration_cannot_signal_processes (test_stage17_q16c_operator_d288.IndependentRecovery.test_foreign_configuration_cannot_signal_processes) ... ok
+test_live_original_root_cannot_be_recovered_or_signalled (test_stage17_q16c_operator_d288.IndependentRecovery.test_live_original_root_cannot_be_recovered_or_signalled) ... ok
+test_native_is_signalled_before_its_owner (test_stage17_q16c_operator_d288.IndependentRecovery.test_native_is_signalled_before_its_owner) ... ok
+test_real_pidfd_cleanup_and_dead_holder_lease_restoration (test_stage17_q16c_operator_d288.IndependentRecovery.test_real_pidfd_cleanup_and_dead_holder_lease_restoration) ... ok
+test_changed_bytes_fail_before_parse (test_stage17_q16c_operator_d288.OperatorIO.test_changed_bytes_fail_before_parse) ... ok
+test_exact_approved_role_ceilings_cover_42860_seconds (test_stage17_q16c_operator_d288.OperatorIO.test_exact_approved_role_ceilings_cover_42860_seconds) ... ok
+test_exclusive_durable_publication_and_readback (test_stage17_q16c_operator_d288.OperatorIO.test_exclusive_durable_publication_and_readback) ... ok
+test_fifo_and_symlink_cannot_block_or_be_accepted (test_stage17_q16c_operator_d288.OperatorIO.test_fifo_and_symlink_cannot_block_or_be_accepted) ... ok
+test_process_reuse_and_zombie_are_not_live_owned_processes (test_stage17_q16c_operator_d288.OperatorIO.test_process_reuse_and_zombie_are_not_live_owned_processes) ... ok
+test_collection_failure_stops_owner_then_restores_and_never_analyzes (test_stage17_q16c_operator_d288.SupervisorSequence.test_collection_failure_stops_owner_then_restores_and_never_analyzes) ... ok
+test_failed_restoration_blocks_suffix (test_stage17_q16c_operator_d288.SupervisorSequence.test_failed_restoration_blocks_suffix) ... ok
+test_invalid_prefix_stops_before_guard_or_qualification (test_stage17_q16c_operator_d288.SupervisorSequence.test_invalid_prefix_stops_before_guard_or_qualification) ... ok
+test_qualification_failure_prevents_construction_and_collection (test_stage17_q16c_operator_d288.SupervisorSequence.test_qualification_failure_prevents_construction_and_collection) ... ok
+test_success_preserves_order_and_restores_before_suffix (test_stage17_q16c_operator_d288.SupervisorSequence.test_success_preserves_order_and_restores_before_suffix) ... ok
+test_suffix_failure_reaps_analysis_without_restart (test_stage17_q16c_operator_d288.SupervisorSequence.test_suffix_failure_reaps_analysis_without_restart) ... ok
+test_wrong_root_unit_cannot_start_the_approved_window (test_stage17_q16c_operator_d288.SupervisorSequence.test_wrong_root_unit_cannot_start_the_approved_window) ... ok
+test_checked_in_policy_is_exact_fresh_renderer_output (test_stage17_policy_v63.PolicyAdmission.test_checked_in_policy_is_exact_fresh_renderer_output) ... ok
+test_every_old_binding_audited_and_only_reviewed_cold_sources_rebound (test_stage17_policy_v63.PolicyAdmission.test_every_old_binding_audited_and_only_reviewed_cold_sources_rebound) ... ok
+test_fresh_journal_has_no_readiness_or_execution_authority (test_stage17_policy_v63.PolicyAdmission.test_fresh_journal_has_no_readiness_or_execution_authority) ... ok
+test_packaging_audits_and_copies_actual_policy_bound_files (test_stage17_policy_v63.PolicyAdmission.test_packaging_audits_and_copies_actual_policy_bound_files) ... ok
+test_real_cli_init_status_and_real_ext001_rejection_without_stand (test_stage17_policy_v63.PolicyAdmission.test_real_cli_init_status_and_real_ext001_rejection_without_stand) ... ok
+test_rehashed_native_or_removed_runtime_does_not_weaken_old_gates (test_stage17_policy_v63.PolicyAdmission.test_rehashed_native_or_removed_runtime_does_not_weaken_old_gates) ... ok
+test_fresh_envelope_invokes_complete_policy33_and_original_semantics (test_stage17_policy_v63.PreflightPolicy.test_fresh_envelope_invokes_complete_policy33_and_original_semantics) ... ok
+test_historical_envelopes_use_their_actual_old_policy_without_relabel (test_stage17_policy_v63.PreflightPolicy.test_historical_envelopes_use_their_actual_old_policy_without_relabel) ... ok
+test_original_rules_and_exact_new_loaded_implementation_snapshot (test_stage17_policy_v63.PreflightPolicy.test_original_rules_and_exact_new_loaded_implementation_snapshot) ... ok
+test_journal_complete_core_bodies_select_only_new_semantics (test_stage17_policy_v63.PrivateScopes.test_journal_complete_core_bodies_select_only_new_semantics) ... ok
+test_preflight_uses_original_gates_in_one_private_scope (test_stage17_policy_v63.PrivateScopes.test_preflight_uses_original_gates_in_one_private_scope) ... ok
+test_preparation_failure_does_not_create_marker_or_start_transport (test_stage17_policy_v63.PrivateScopes.test_preparation_failure_does_not_create_marker_or_start_transport) ... ok
+test_qualification_failure_propagates_before_preflight_preparation (test_stage17_policy_v63.PrivateScopes.test_qualification_failure_propagates_before_preflight_preparation) ... ok
+
+======================================================================
+ERROR: test_actual_archive_corruption_cannot_use_ledger_hash_as_readback (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_actual_archive_corruption_cannot_use_ledger_hash_as_readback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_registry_v1.py", line 34, in setUp
+    working = self.store.prepare_family(self.family)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 278, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 436, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_foreign_or_duplicate_logical_artifact_rejected (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_foreign_or_duplicate_logical_artifact_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_registry_v1.py", line 34, in setUp
+    working = self.store.prepare_family(self.family)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 278, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 436, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_full_logical_physical_bijection_is_read_only_and_not_science (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_full_logical_physical_bijection_is_read_only_and_not_science)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_registry_v1.py", line 34, in setUp
+    working = self.store.prepare_family(self.family)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 278, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 436, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_metadata_checks_original_bytes_without_decoder_or_inverse_claim (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_metadata_checks_original_bytes_without_decoder_or_inverse_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_registry_v1.py", line 34, in setUp
+    working = self.store.prepare_family(self.family)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 278, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 436, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_metadata_physical_header_must_match_exact_ledger (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_metadata_physical_header_must_match_exact_ledger)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_registry_v1.py", line 34, in setUp
+    working = self.store.prepare_family(self.family)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 278, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 436, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_unsourced_boolean_decoder_proof_is_rejected (test_stage17_formal_archive_registry_v1.ArchiveRegistryTests.test_unsourced_boolean_decoder_proof_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_registry_v1.py", line 34, in setUp
+    working = self.store.prepare_family(self.family)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 278, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 436, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+----------------------------------------------------------------------
+Ran 130 tests in 80.056s
+
+FAILED (errors=6)

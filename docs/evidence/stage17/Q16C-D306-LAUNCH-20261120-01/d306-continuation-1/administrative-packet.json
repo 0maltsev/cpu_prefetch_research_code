@@ -1,0 +1,69 @@
+{
+  "administrative_source_revision": "f92c37c4fb3f735fc5a7f264ac9be5db3ff4d18e",
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "authority/owner-acceptance.json",
+      "sha256": "610751cf74bf9603d6449450e1309721c272a62f56029a0a9899c24c6c9a2cb2",
+      "size_bytes": 786
+    },
+    {
+      "path": "authority/proposal.md",
+      "sha256": "97928f7779b8d2de60a3a8c9eb6f1b67634891d7b8454683ef90d2609a16fc75",
+      "size_bytes": 4790
+    },
+    {
+      "path": "check_stage17_q16c_handoff_continuation_v1.py",
+      "sha256": "4755555117a9db91c39d7ada13cb1203cecdd69d840434ad7939634728883ce7",
+      "size_bytes": 4640
+    },
+    {
+      "path": "d306_rearm_isolation.py",
+      "sha256": "7025a8fe9b83bfee4dd436910aa4ea5f8dba73b41489576be6d183f77fb4e432",
+      "size_bytes": 1157
+    },
+    {
+      "path": "prepare_stage17_q16c_handoff_continuation_v1.py",
+      "sha256": "3967319925cedebe4167d1082ad270feb31cc1a0b2e4a7b9a8b122f3396a8134",
+      "size_bytes": 4757
+    },
+    {
+      "path": "prepare_stage17_q16c_saved_request_v1.py",
+      "sha256": "493888e2d4213e2e4f3a9887c456eb51b3a6388ebd5e885d37be01272ae9b4d2",
+      "size_bytes": 5603
+    },
+    {
+      "path": "stage17_q16c_continuation_operator_v1.py",
+      "sha256": "7c2d47859188e7e49191181427c79ba51cd5562b19f7ce910ba34533c2f8f35b",
+      "size_bytes": 18168
+    },
+    {
+      "path": "stage17_q16c_continuation_recovery_v1.py",
+      "sha256": "4398323576175f4778b90527e8a3a37a35e6d60614ae0b708a9b4c61ae9774b1",
+      "size_bytes": 10430
+    },
+    {
+      "path": "stage17_q16c_continuation_study_v1.py",
+      "sha256": "693e46465d67659cc9d4ee97742a85eb26d08fe136e065b8c093790405338541",
+      "size_bytes": 19953
+    },
+    {
+      "path": "stage17_q16c_handoff_continuation_v1.py",
+      "sha256": "7748a866cf91f4112748f39e7c0b8ff4cef3027a399ad9386c4a31fe30f421e9",
+      "size_bytes": 9374
+    },
+    {
+      "path": "stage17_q16c_qualified_continuation_v1.py",
+      "sha256": "8336c3d20f367d92cd85d36d0166d6868e0944836acf84562120e7e9dedf172f",
+      "size_bytes": 17209
+    },
+    {
+      "path": "stage17_q16c_saved_request_v1.py",
+      "sha256": "8611cfef3e36f0b35653c577f21a0341c442d0bbc5e82e24a52fd0de4007827f",
+      "size_bytes": 16606
+    }
+  ],
+  "phase18_authority": false,
+  "qualified_native_source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "schema_version": "cpu-prefetch-d306-cold-packet/1"
+}

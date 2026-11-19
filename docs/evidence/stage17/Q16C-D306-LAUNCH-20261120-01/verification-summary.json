@@ -1,0 +1,21 @@
+{
+  "administrative_source_revision": "f92c37c4fb3f735fc5a7f264ac9be5db3ff4d18e",
+  "as_of_utc": "2026-11-19T22:48:52.163970+00:00",
+  "automatic_retry": false,
+  "configuration_sha256": "bf817971e193d8e4fa1e1ba0ba947583467561aa95a6a1f64db259571c43d6c0",
+  "installed_preflight_exit_code": 0,
+  "new_scientific_validity": "NOT_ASSESSED",
+  "original_window_unchanged": true,
+  "q16a_preserved": 708,
+  "q16b_preserved": 120,
+  "q16c_new_native_complete": 2,
+  "q16c_new_native_failed": 0,
+  "q16c_preserved_validated": 86,
+  "q16c_remaining_new": 92,
+  "qualified_native_source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "raw_data_transferred": false,
+  "restoration_pending": true,
+  "stage18_authority": false,
+  "status": "D306_NATIVE_CONTINUATION_RUNNING",
+  "targeted_tests_passed": 40
+}

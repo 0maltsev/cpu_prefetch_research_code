@@ -214,8 +214,8 @@ def sign_collect(c, deadline, witness_fd):
             and all(store._families[k] == value for k, value in before.items()), 'retained families unchanged')
         save(out / 'registration.json', dict(before=tip, after=dataclasses.asdict(store.ledger_binding()),
             new_family_id=built['plan']['sha256'], execution_authority=False))
-    authroot = root / 'evidence/formal-q16c-d288-1'; authroot.mkdir(mode=0o700)
-    author = common(c, author=True); prefix = 'CPU-PREFETCH-V5-V30-Q16C'
+    authroot = root / 'evidence/formal-q16c-d292-1'; authroot.mkdir(mode=0o700)
+    author = common(c, author=True); prefix = 'CPU-PREFETCH-V5-V31-Q16C'
     req = cli.author_formal_request(**author, action_id='Q16c', action_inputs_path=Path(built['action_inputs']['path']),
         request_id=prefix+'-REQUEST-1', authorization_id=prefix+'-AUTH-1', attempt_id=prefix+'-ATTEMPT-1',
         session_id=prefix+'-SESSION-1', output_root=program/'working'/built['plan']['sha256'], destination=authroot/'request.json')

@@ -1,4 +1,4 @@
-"""D288 root-held guard readback at each qualification packet boundary."""
+"""D292 root-held guard readback at each qualification packet boundary."""
 import hashlib
 import json
 import os
@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 import time
 
-E = Path('/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30')
+E = Path('/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-31')
 OPERATORS = frozenset(('stage17_q16c_continuation_operator_v1','stage17_q16c_continuation_study_v1',
     'stage17_q16c_continuation_recovery_v1','stage17_q16c_prefix_operator_v1',
     'stage17_q16c_continuation_plan_v1','stage17_q16c_qualification_guard_v1'))
@@ -76,8 +76,8 @@ def verify():
 
 def infrastructure(configuration):
     verify()
-    window = project('stage17_q16c_execution_window_v3')
-    record = json.loads((E / 'd288-execution-window-1/window.json').read_bytes())
+    window = project('stage17_q16c_execution_window_v4')
+    record = json.loads((E / 'd292-execution-window-1/window.json').read_bytes())
     selected=release()
     return window.infrastructure(record, configuration['isolation_config'], now=time.monotonic_ns(),
         expected_source=selected['source_revision'], expected_worker=selected['worker_sha256'],

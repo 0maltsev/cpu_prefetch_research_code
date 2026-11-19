@@ -1,4 +1,4 @@
-"""Independent D288 StopPost; native-before-owner cleanup and actual restoration.
+"""Independent D292 StopPost; native-before-owner cleanup and actual restoration.
 
 No experiment, retry, qualification or window entry exists. All process signals
 use retained PID start ticks and actual candidate executable identities.
@@ -24,7 +24,7 @@ def live(h,pid,ticks):
 
 def recover(args,c,h):
     io.require(os.geteuid()==0,'independent root recovery')
-    root=study.E/'d288-study-1';output=study.E/'d288-independent-recovery-1.json'
+    root=study.E/'d292-study-1';output=study.E/'d292-independent-recovery-1.json'
     io.require(not output.exists(),'one independent recovery receipt')
     result=dict(verified=False,errors=[],signalled_native=[],signalled_owner=[],execution_authority=False,phase18_authority=False)
     try:
@@ -66,7 +66,7 @@ def recover(args,c,h):
                 io.require(bool(matches),'unrecognised root-service survivor')
                 for name in matches:io.read(scripts[name])
                 owned[pid]=ticks;owned.update(h.descendants(pid))
-        prep=study.E/'isolation-preparation-v30-1/prospective-prestate.json'
+        prep=study.E/'isolation-preparation-v31-1/prospective-prestate.json'
         cg=Path(c['cgroup']);actual_pre=None
         if prep.exists():
             actual_pre=io.document(io.binding(prep))
@@ -134,7 +134,7 @@ def recover(args,c,h):
             if (study.E/'platform-guard-1/intent.json').exists():hardware.restore(values)
             result['msr_readback']=hardware.verify(values)
         if actual_pre is not None:
-            adapter=study.module('d288_independent_isolation',c['clock_adapter'])
+            adapter=study.module('d292_independent_isolation',c['clock_adapter'])
             receipt=adapter.Q/'restoration.json'
             if not receipt.exists():adapter.restore(actual_pre['prestate'])
             io.require(io.document(io.binding(receipt))['verified'] is True and not adapter.CG.exists()

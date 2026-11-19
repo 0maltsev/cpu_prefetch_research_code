@@ -1,7 +1,7 @@
-"""D288 original86 read-only validation under the immutable D285 packet.
+"""D292 original86 read-only validation under the immutable D285 packet.
 
 Software-check loads and verifies code only. Validate requires the already
-owner-signed new D288 window and consumes its original prefix start/deadline.
+owner-signed new D292 window and consumes its original prefix start/deadline.
 No qualification, native experiment, source generation or retry entry exists.
 """
 import argparse
@@ -16,7 +16,7 @@ import types
 
 OLD_LOADER_SHA='0dbad5df57a213327b3dc22f40a01b3263db4cb242c9b6895c2f2c8becd22e7c'
 NEW_MODULES=(
- 'stage17_formal_scheduled_continuation_v1','stage17_q16c_execution_window_v3',
+ 'stage17_formal_scheduled_continuation_v1','stage17_q16c_execution_window_v3','stage17_q16c_execution_window_v4',
  'stage17_q16c_descriptive_calibration_v3','stage17_q16a_q16c_descriptive_handoff_v3',
  'stage17_q16b_q16c_descriptive_handoff_v3','stage17_q16c_admission_limits_v3',
  'stage17_q16c_source_receipts_v2','stage17_q16c_scientific_sources_v1','stage17_q16c_prefix_compatibility_v1',
@@ -24,7 +24,7 @@ NEW_MODULES=(
 
 
 def require(ok,message):
-    if not ok:raise ValueError('D288 prefix operator: '+message)
+    if not ok:raise ValueError('D292 prefix operator: '+message)
 
 
 def read(binding,maximum=32*1024**2):
@@ -52,7 +52,7 @@ def binding(path):
 
 def bootstrap(configuration):
     require(os.getresuid()==(1000,)*3,'actual evidence owner')
-    require(configuration['schema_version']=='cpu-prefetch-stage17-d288-prefix-packet/1'
+    require(configuration['schema_version']=='cpu-prefetch-stage17-d292-prefix-packet/1'
         and configuration['execution_authority'] is False and configuration['phase18_authority'] is False,
         'prefix packet is read-only')
     require(configuration['operator_source']==binding(Path(__file__).resolve()),'actual bound prefix operator')
@@ -93,7 +93,7 @@ def bootstrap(configuration):
 
 
 def validate(configuration,loader,cli,cfg,deadline_ns):
-    window=sys.modules['stage17_q16c_execution_window_v3']
+    window=sys.modules['stage17_q16c_execution_window_v4']
     proof=configuration['execution_window_proof']
     record=window.parse(window.read(proof['manifest']))
     window.validate(record,now=time.monotonic_ns(),phase='prefix_validation',
@@ -133,7 +133,7 @@ def validate(configuration,loader,cli,cfg,deadline_ns):
     for ordinal,b in enumerate(complete['reports']):
         raw=window.read(b)
         rows.append(dict(capture_ordinal=ordinal,validity='VALID',report_utf8_bytes=raw,
-            report_binding=dict(artifact_id=f'Q16C-D288-PREFIX-{ordinal:04d}',size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest())))
+            report_binding=dict(artifact_id=f'Q16C-D292-PREFIX-{ordinal:04d}',size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest())))
     accepted=composition.prefix_manifest(window.read(configuration['original_plan']),rows,
         plan_binding=configuration['original_plan'],analysis_completion=completed)
     manifest=analysis.save(output/'accepted-prefix.json',accepted)
@@ -153,7 +153,7 @@ def main():
         c=dict(document,packet_binding=packet)
     else:
         require(type(document) is dict and set(document)=={'schema_version','prefix_packet','execution_window_proof',
-            'execution_authority','phase18_authority'} and document['schema_version']=='cpu-prefetch-stage17-d288-prefix-invocation/1'
+            'execution_authority','phase18_authority'} and document['schema_version']=='cpu-prefetch-stage17-d292-prefix-invocation/1'
             and document['execution_authority'] is False and document['phase18_authority'] is False,
             'closed fresh invocation, no self-referential packet hash')
         c=dict(json.loads(read(document['prefix_packet'])),packet_binding=document['prefix_packet'],

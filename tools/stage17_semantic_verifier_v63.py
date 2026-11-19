@@ -20,7 +20,8 @@ REBIND_PATHS=predecessor.REBIND_PATHS | frozenset(reviewed.REVIEWED_COLD_SOURCES
 FORMAL_DECISIONS=(*predecessor.FORMAL_DECISIONS,*("docs/decisions/"+name+'.md' for name in (
     '0286-q16c-locked-page-compaction-proposal','0287-q16c-compaction-handshake-integration',
     '0288-q16c-retained-prefix-continuation-proposal','0289-q16c-prefix-continuation-implementation',
-    '0290-q16c-actual-scientific-source-provenance')))
+    '0290-q16c-actual-scientific-source-provenance','0291-q16c-private-custody-registry',
+    '0292-q16c-metadata-stop-continuation-proposal','0293-q16c-d292-execution-authority')))
 NEW_ROOTS=('stage17_semantic_verifier_v63','stage17_state_journal_v60',
     'stage17_read_only_preflight_executor_v37','stage17_read_only_preflight_semantic_verifier_v37',
     'stage17_operational_cli_daycap_v5','stage17_q15_session_controller_daycap_v5',
@@ -28,14 +29,16 @@ NEW_ROOTS=('stage17_semantic_verifier_v63','stage17_state_journal_v60',
     'stage17_q16c_source_execution_v2','stage17_q16c_compaction_integration_v2',
     'stage17_locked_compaction_guard_v1','stage17_q16a_q16c_descriptive_handoff_v3',
     'stage17_q16b_q16c_descriptive_handoff_v3','stage17_q16c_analysis_v2',
-    'stage17_q16c_execution_window_v3','stage17_q16c_descriptive_calibration_v3',
+    'stage17_q16c_execution_window_v3','stage17_q16c_execution_window_v4','stage17_q16c_descriptive_calibration_v3',
     'stage17_q16c_descriptive_administration_v4','stage17_q16c_retained_prefix_v1')
 SUCCESSOR_BINDINGS=(POLICY_SCHEMA.as_posix(),predecessor.POLICY_PATH.as_posix(),predecessor.POLICY_SCHEMA.as_posix(),
     preflight.POLICY_PATH,preflight.POLICY_SCHEMA_PATH,'tools/author_stage17_policy_v63.py',
     'config/schemas/stage17-formal-scheduled-plan-v4.schema.json',
     'docs/STAGE17_EXT007_Q16C_D286_ACCEPTANCE.md','docs/STAGE17_EXT007_Q16C_D288_ACCEPTANCE.md',
     'docs/evidence/stage17/Q16C-D286-ACCEPTED-20261119-01/owner-acceptance.json',
-    'docs/evidence/stage17/Q16C-D288-ACCEPTED-20261119-01/owner-acceptance.json')
+    'docs/evidence/stage17/Q16C-D288-ACCEPTED-20261119-01/owner-acceptance.json',
+    'docs/STAGE17_EXT007_Q16C_D292_ACCEPTANCE.md',
+    'docs/evidence/stage17/Q16C-D292-ACCEPTED-20261119-01/owner-acceptance.json')
 
 
 def audit_inherited_bindings(root,policy,historical):

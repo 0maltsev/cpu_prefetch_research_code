@@ -1,0 +1,18 @@
+{
+  "automatic_retry": false,
+  "decision_id": "D292",
+  "exact_decision_text_approved": true,
+  "interpretation": "Explicit approval of the pending exact D292 continuation proposal after the D288 metadata-only stop; preserve D288 scientific approval and all original evidence, with one freshly bound additional window after verified software preparation.",
+  "maximum_total_seconds": 42860,
+  "new_execution_windows": 1,
+  "owner_message": "approve",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-19T15:07:23.669885+00:00",
+  "recorded_decision_sha256": "97bb720c84699f1b2bf8c71cd9152b32d2a137a527d3e80c8455902a618bdd5a",
+  "remaining_capture_count": 94,
+  "repeat_completed_measurements": false,
+  "repeat_completed_raw_validations": false,
+  "reused_capture_count": 86,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1",
+  "window_started": false
+}

@@ -1,0 +1,70 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/dev-gcc
+      Start 257: Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets
+ 1/31 Test #257: Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets ..................   Passed    2.97 sec
+      Start 258: Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies
+ 2/31 Test #258: Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies ..........................   Passed    0.24 sec
+      Start 259: Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift
+ 3/31 Test #259: Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift ......................   Passed    0.43 sec
+      Start 260: Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily
+ 4/31 Test #260: Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily ................   Passed    0.32 sec
+      Start 261: Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput
+ 5/31 Test #261: Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput ...........................   Passed    1.24 sec
+      Start 262: Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission
+ 6/31 Test #262: Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission ...........................   Passed    1.67 sec
+      Start 263: Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges
+ 7/31 Test #263: Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges .........   Passed    0.64 sec
+      Start 264: Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions
+ 8/31 Test #264: Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions ..........................   Passed    0.15 sec
+      Start 265: Stage17FormalFamily.ScheduledContinuationPreserves94OriginalCellPositions
+ 9/31 Test #265: Stage17FormalFamily.ScheduledContinuationPreserves94OriginalCellPositions ..........   Passed    0.15 sec
+      Start 266: Stage17FormalFamily.ScheduledContinuationRejectsForgedIncidentControlOrOrder
+10/31 Test #266: Stage17FormalFamily.ScheduledContinuationRejectsForgedIncidentControlOrOrder .......   Passed    0.20 sec
+      Start 267: Stage17FormalFamily.DescriptiveScheduledCoverageAndCompleteTransportBudget
+11/31 Test #267: Stage17FormalFamily.DescriptiveScheduledCoverageAndCompleteTransportBudget .........   Passed    1.00 sec
+      Start 268: Stage17FormalFamily.ServiceContinuationMaps103RealCapturesFromOriginal17
+12/31 Test #268: Stage17FormalFamily.ServiceContinuationMaps103RealCapturesFromOriginal17 ...........   Passed    0.08 sec
+      Start 269: Stage17FormalFamily.ServiceContinuationRejectsMissingExtraOrWrongFirstRepetition
+13/31 Test #269: Stage17FormalFamily.ServiceContinuationRejectsMissingExtraOrWrongFirstRepetition ...   Passed    0.17 sec
+      Start 270: Stage17FormalFamily.ServiceContinuationRejectsDifferentIncidentOrMissingProofs
+14/31 Test #270: Stage17FormalFamily.ServiceContinuationRejectsDifferentIncidentOrMissingProofs .....   Passed    0.22 sec
+      Start 271: Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat
+15/31 Test #271: Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat .......   Passed    0.08 sec
+      Start 272: Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods
+16/31 Test #272: Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods ...........   Passed    0.40 sec
+      Start 273: Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell
+17/31 Test #273: Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell ..............   Passed    1.35 sec
+      Start 274: Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder
+18/31 Test #274: Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder ..........   Passed    0.39 sec
+      Start 275: Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup
+19/31 Test #275: Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup .........   Passed    0.96 sec
+      Start 276: Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay
+20/31 Test #276: Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay ......   Passed    0.39 sec
+      Start 277: Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks
+21/31 Test #277: Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks .............   Passed    1.18 sec
+      Start 278: Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks
+22/31 Test #278: Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks ..........   Passed    0.60 sec
+      Start 279: Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine
+23/31 Test #279: Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine .............   Passed    7.85 sec
+      Start 280: Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy
+24/31 Test #280: Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy ..........   Passed    5.93 sec
+      Start 281: Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint
+25/31 Test #281: Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint ..............   Passed    3.53 sec
+      Start 282: Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission
+26/31 Test #282: Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission ..........   Passed    2.53 sec
+      Start 283: Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily
+27/31 Test #283: Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily ................   Passed    0.82 sec
+      Start 284: Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts
+28/31 Test #284: Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts .................   Passed    0.47 sec
+      Start 285: Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules
+29/31 Test #285: Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules ........   Passed    0.55 sec
+      Start 286: Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume
+30/31 Test #286: Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume ...............   Passed    0.96 sec
+      Start 287: Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs
+31/31 Test #287: Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs ................   Passed    0.94 sec
+
+100% tests passed, 0 tests failed out of 31
+
+Label Time Summary:
+runner    =  38.39 sec*proc (31 tests)
+
+Total Test time (real) =  38.48 sec

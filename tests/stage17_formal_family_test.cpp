@@ -375,15 +375,15 @@ auto scheduled_continuation_fixture() -> Object {
           {"requested_value", number(0)},
           {"observation_policy", text("BEFORE_AUTHORIZATION_AFTER_CHECKPOINT-v1")},
           {"witness_transport", text("READ_ONLY_ROOT_LEASE_FD-v1")},
-          {"metadata_output_bytes", number(2U * 1024U * 1024U)}}));
+          {"metadata_output_bytes", number(std::uint64_t{2} * 1024U * 1024U)}}));
   auto transport = *plan.at("source_transport").as_object();
-  transport.at("source_bytes") = number(94U * 2U * 10U * 8U);
-  transport.at("owned_vector_bytes") = number(94U * 2U * 10U * 8U);
+  transport.at("source_bytes") = number(std::uint64_t{94} * 2U * 10U * 8U);
+  transport.at("owned_vector_bytes") = number(std::uint64_t{94} * 2U * 10U * 8U);
   transport.at("descriptor_count") = number(188U);
   plan.at("source_transport") = Value(std::move(transport));
   auto budget = *plan.at("budget").as_object();
   budget.at("watchdog_ns") = number(24'860'000'000'000U);
-  budget.at("metadata_output_bytes") = number(16U * 1024U * 1024U);
+  budget.at("metadata_output_bytes") = number(std::uint64_t{16} * 1024U * 1024U);
   budget.at("max_output_bytes") = number(1'000'000'000U);
   plan.at("budget") = Value(std::move(budget));
   return plan;

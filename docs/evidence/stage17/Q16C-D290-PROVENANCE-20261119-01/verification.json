@@ -1,0 +1,65 @@
+{
+  "archive_sha256": "10bf0e4cb11f178c808f947290fae2b886a3ccc4edc77e047008ff1831af3ff4",
+  "execution_authority": false,
+  "libraries": [
+    {
+      "identical_bytes": true,
+      "relative_path": "release/lib/libcpu_prefetch_queue.a",
+      "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+      "size_bytes": 51162
+    },
+    {
+      "identical_bytes": true,
+      "relative_path": "release/lib/libcpu_prefetch_calibration.a",
+      "sha256": "e109e8c810898e9704e76b4fd17a677b5f5aee0d7d2cd2060db7b74767185815",
+      "size_bytes": 2657694
+    },
+    {
+      "identical_bytes": true,
+      "relative_path": "release/lib/libcpu_prefetch_storage.a",
+      "sha256": "8d6f96255d21ea2ccd9e6c17b37ada2de310292c5d05026174f83e53e8488809",
+      "size_bytes": 837902
+    },
+    {
+      "identical_bytes": true,
+      "relative_path": "release/lib/libcpu_prefetch_timing.a",
+      "sha256": "c3820dc7d8f136f3c0f9b00fbba932b539f315df52fb9a5e65d752437aafea21",
+      "size_bytes": 31766
+    },
+    {
+      "identical_bytes": true,
+      "relative_path": "release/lib/libcpu_prefetch_workload.a",
+      "sha256": "24ffc94864ce4c373b2262dd3cd862aeeb9c97d68d998e15fb229813ed42f04c",
+      "size_bytes": 102946
+    },
+    {
+      "identical_bytes": true,
+      "relative_path": "release/lib/libcpu_prefetch_lifecycle.a",
+      "sha256": "046d94647363439f1e181046522514291cf25e84f0ba21a3a499cab1778582ff",
+      "size_bytes": 188752
+    },
+    {
+      "identical_bytes": true,
+      "relative_path": "release/lib/libcpu_prefetch_platform.a",
+      "sha256": "017f743be93ba4b15775b1edaa9f358f811fabc5fe124787c9ff0004a643bcf8",
+      "size_bytes": 1040836
+    },
+    {
+      "identical_bytes": true,
+      "relative_path": "release/lib/libcpu_prefetch_protocol.a",
+      "sha256": "4c33488c9035e4d7ca561f874cd946cdb4f6179ff5ad23bda5d918f58d194c4e",
+      "size_bytes": 1040966
+    },
+    {
+      "identical_bytes": true,
+      "relative_path": "release/lib/libcpu_prefetch_reconciliation.a",
+      "sha256": "1f2903602ad1399ccc328fd42b6d13b9102c8cab67b01e256801ca54563e739b",
+      "size_bytes": 232134
+    }
+  ],
+  "status": "SOFTWARE_PACKAGE_AND_NINE_LIBRARY_BYTE_COMPARISONS_PASS",
+  "stderr": "",
+  "stdout": "stand-bundle-check: PASS (4541 files, STAGE17-PILOT-CANDIDATE-BUNDLE-v26, protocol 2.0.0-pre.3, dynamic/pilot/confirmatory prohibited)\n",
+  "verification_exit_code": 0,
+  "window_started": false
+}

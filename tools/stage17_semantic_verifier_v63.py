@@ -19,7 +19,8 @@ pinned_binding_bytes=predecessor.pinned_binding_bytes
 REBIND_PATHS=predecessor.REBIND_PATHS | frozenset(reviewed.REVIEWED_COLD_SOURCES)
 FORMAL_DECISIONS=(*predecessor.FORMAL_DECISIONS,*("docs/decisions/"+name+'.md' for name in (
     '0286-q16c-locked-page-compaction-proposal','0287-q16c-compaction-handshake-integration',
-    '0288-q16c-retained-prefix-continuation-proposal','0289-q16c-prefix-continuation-implementation')))
+    '0288-q16c-retained-prefix-continuation-proposal','0289-q16c-prefix-continuation-implementation',
+    '0290-q16c-actual-scientific-source-provenance')))
 NEW_ROOTS=('stage17_semantic_verifier_v63','stage17_state_journal_v60',
     'stage17_read_only_preflight_executor_v37','stage17_read_only_preflight_semantic_verifier_v37',
     'stage17_operational_cli_daycap_v5','stage17_q15_session_controller_daycap_v5',

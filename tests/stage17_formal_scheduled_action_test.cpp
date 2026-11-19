@@ -289,16 +289,17 @@ public:
     const auto now = std::chrono::duration_cast<std::chrono::nanoseconds>(
                          std::chrono::steady_clock::now().time_since_epoch())
                          .count();
-    plan = Object{
-        {"schema_version",
-         Value(std::string(continuation
-                               ? "cpu-prefetch-stage17-formal-scheduled-plan/4"
-                               : "cpu-prefetch-stage17-formal-scheduled-plan/3"))},
-        {"budget", Value(Object{{"setup_ns", value(60'000'000'000U)}})},
-        {"source_transport", Value(Object{{"owned_vector_bytes", value(5760U)},
-                                          {"loader_transient_bytes", value(8208U)},
-                                          {"metadata_bytes", value(1024U * 1024U)}})},
-        {"captures", Value(std::move(captures))}};
+    plan =
+        Object{{"schema_version",
+                Value(std::string(
+                    continuation ? "cpu-prefetch-stage17-formal-scheduled-plan/4"
+                                 : "cpu-prefetch-stage17-formal-scheduled-plan/3"))},
+               {"budget", Value(Object{{"setup_ns", value(60'000'000'000U)}})},
+               {"source_transport",
+                Value(Object{{"owned_vector_bytes", value(5760U)},
+                             {"loader_transient_bytes", value(8208U)},
+                             {"metadata_bytes", value(std::uint64_t{1024} * 1024U)}})},
+               {"captures", Value(std::move(captures))}};
     context =
         Object{{"schema_version",
                 Value(std::string("cpu-prefetch-stage17-schedule-source-context/1"))},

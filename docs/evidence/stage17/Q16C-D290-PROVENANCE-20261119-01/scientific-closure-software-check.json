@@ -1,0 +1,13 @@
+{
+  "dependency_count": 198,
+  "execution_authority": false,
+  "original_manifest_sha256": "731e59e84edd1a56d1ea54d37ba055dffc990d09f88b6ea83084214c8f6f023a",
+  "original_packet_members": [
+    "tools/stage17_archive_canonical_fast_v1.py",
+    "tools/stage17_archive_metadata_fast_v1.py",
+    "tools/stage17_q16c_control_reader_v1.py"
+  ],
+  "status": "ACTUAL_SIGNED_COLD_AND_BUNDLED_SCIENTIFIC_CLOSURE_PASS",
+  "unchanged_independent_child_ast": true,
+  "window_started": false
+}

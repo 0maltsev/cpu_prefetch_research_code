@@ -9,21 +9,21 @@ from pathlib import Path
 import stage17_q16c_admission_limits_v3 as limits
 import stage17_formal_scheduled_continuation_v1 as contract
 import stage17_q16c_execution_window_v3 as window
+import stage17_q16c_scientific_sources_v1 as science
 
 admission=limits.ADMISSION
 require,same,fields=admission.require,admission.same,admission.fields
-SCHEMA='cpu-prefetch-stage17-q16c-prefix86-compatibility/1'
+SCHEMA='cpu-prefetch-stage17-q16c-prefix86-compatibility/2'
 LIBRARIES=frozenset('release/lib/libcpu_prefetch_'+name+'.a' for name in (
     'queue','calibration','storage','timing','workload','lifecycle','platform','protocol','reconciliation'))
-SCIENTIFIC_ROOTS=('generate_schedule','stage17_q16c_schedule_provenance_v2',
-    'stage17_formal_scheduled_capture_validation_v2','stage17_q16c_control_reader_v1')
+SCIENTIFIC_ROOTS=science.ROOTS
 
 
 def consume(plan,binding,*,validation,original_validation,boot_id):
     contract.validate_plan(plan)
     reader=admission.BoundReader();proof=reader.document(binding)
     fields(proof,'schema_version decision stand_id boot_id parent_plan_sha256 original current libraries source_comparisons '
-        'scientific_dependencies platform_manifests execution_authority phase18_authority','prefix compatibility')
+        'scientific_dependencies original_scientific_packet platform_manifests execution_authority phase18_authority','prefix compatibility')
     for key,value in dict(schema_version=SCHEMA,decision='D288',stand_id=plan['stand_id'],boot_id=boot_id,
             parent_plan_sha256=contract.PARENT_SHA256,execution_authority=False,phase18_authority=False).items():
         same(proof[key],value,'exact incident compatibility '+key)
@@ -46,13 +46,10 @@ def consume(plan,binding,*,validation,original_validation,boot_id):
     names=admission._source_names(releases['original'][1])
     same(sorted(names),sorted(admission._source_names(releases['current'][1])),'complete measured native source dependency closure')
     compatibility._comparison(proof['source_comparisons'],names,releases,reader,identical=False)
-    import stage17_semantic_verifier_v61 as semantic
-    dependencies=semantic.discover_python_closure(Path(releases['original'][0]),SCIENTIFIC_ROOTS)
-    require(dependencies==semantic.discover_python_closure(Path(releases['current'][0]),SCIENTIFIC_ROOTS),
-            'complete identical scientific implementation closure required')
-    dependencies|={'protocol/2.0.0-pre.3/handoff/schemas/schedule.schema.json','config/schemas/schedule-derivation-v2.schema.json',
-        'config/schemas/stage17-formal-scheduled-native-input-v2.schema.json'}
-    compatibility._comparison(proof['scientific_dependencies'],dependencies,releases,reader,identical=True)
+    packet=science.authenticate(proof['original_scientific_packet'],original_validation,reader)
+    actual=science.bindings(releases['original'][0],releases['current'][0],
+        releases['original'][1],releases['current'][1],packet,reader)
+    same(proof['scientific_dependencies'],actual,'complete actual bundled and signed-packet scientific dependency closure')
     for side,(root,_,report) in releases.items():
         compatibility.codegen.validate_report_bindings(report,binary=Path(proof[side]['worker']['path']),source_root=Path(root))
     reader.finish()

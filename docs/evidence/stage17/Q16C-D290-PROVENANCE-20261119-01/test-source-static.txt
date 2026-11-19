@@ -1,0 +1,6 @@
+[1/2] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_family_test.cpp.
+89 warnings generated.
+[2/2] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_scheduled_action_test.cpp.
+167 warnings generated.
+Suppressed 167 warnings (167 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.

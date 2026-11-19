@@ -1,10 +1,12 @@
 """D288 prospective-input and operator I/O regression checks; no experiments."""
 import copy
+import ast
 import hashlib
 import json
 from pathlib import Path
 import sys
 import tempfile
+import time
 import types
 import unittest
 from unittest.mock import patch
@@ -16,6 +18,28 @@ import stage17_q16c_continuation_operator_v1 as io
 import stage17_q16c_continuation_recovery_v1 as recovery
 import stage17_q16c_continuation_study_v1 as study
 import stage17_q16c_prefix_operator_v1 as prefix
+
+
+def actual_packet_constructor(evidence):
+    """Load the exact deployed consumer body, without executing its imports/main.
+
+    Constructor file reads, boot comparison and deadlines are real. Only native
+    action methods are replaced by the sequence harness below.
+    """
+    fixture=ROOT/'tests/fixtures/stage17/d292-qualification-handoff'
+    provenance=json.loads((fixture/'provenance.json').read_bytes())
+    raw=(fixture/provenance['test_fixture']).read_bytes();binding=provenance['source_member']
+    if len(raw)!=binding['size_bytes'] or hashlib.sha256(raw).hexdigest()!=binding['sha256']:
+        raise AssertionError('actual deployed qualification consumer fixture differs')
+    if binding['sha256']!='58845d94dbe52c3d69dd1a5c984611aea2f8667b2cb621028717d19368122025':
+        raise AssertionError('unreviewed qualification consumer fixture')
+    tree=ast.parse(raw,filename=str(fixture/provenance['test_fixture']))
+    selected=[node for node in tree.body if isinstance(node,(ast.FunctionDef,ast.ClassDef))
+              and node.name in ('require','Packet')]
+    if len(selected)!=2:raise AssertionError('actual packet constructor and require expected')
+    scope=dict(__name__='actual_deployed_qualification_consumer',json=json,time=time,E=evidence)
+    exec(compile(ast.Module(body=selected,type_ignores=[]),str(fixture/provenance['test_fixture']),'exec'),scope)
+    return scope['Packet']
 
 
 class OperatorIO(unittest.TestCase):
@@ -263,7 +287,7 @@ class SupervisorSequence(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'outside its dedicated study unit'):study.run(args,c,h)
             sign.assert_not_called()
 
-    def scenario(self,failure=None):
+    def scenario(self,failure=None,*,real_packet=False,packet_boot='software-test-boot'):
         from contextlib import ExitStack
         import stage17_hardware_recovery_v1 as hardware
         import stage17_locked_compaction_guard_v1 as controls
@@ -272,7 +296,8 @@ class SupervisorSequence(unittest.TestCase):
         e=Path(tmp.name);events=[];out=e/'prepared';out.mkdir();packet=e/'operators';packet.mkdir()
         c=dict(repository_root=str(ROOT),evidence_root=str(e),output_root=str(out),cgroup=str(e/'absent-cgroup'),
             worker=dict(size_bytes=10,sha256='c'*64),qualification_packet=str(packet),qualification_inventory=dict(sha256='a'*64))
-        io.save(packet/'finite-qualification-plan.json',dict(qualification_budget_seconds=7200))
+        io.save(packet/'finite-qualification-plan.json',dict(qualification_budget_seconds=7200,
+            release=dict(boot_id=packet_boot),q15_quiescence_seconds=2100))
         args=types.SimpleNamespace(configuration=e/'configuration.json',configuration_sha256='b'*64)
         guard_states=[]
         class Guard:
@@ -287,13 +312,19 @@ class SupervisorSequence(unittest.TestCase):
         pre=dict(prestate=dict(root={},maintenance_before={}))
         def restore(_):io.save(qroot/'restoration.json',dict(verified=True));events.append('isolation-restore')
         clock=types.SimpleNamespace(Q=qroot,CG=e/'absent-cgroup',preparation=lambda:pre,root_state=lambda:{},restore=restore)
-        class Packet:
-            def __init__(self,*args):pass
+        consumer=actual_packet_constructor(e) if real_packet else object
+        class Packet(consumer):
+            def __init__(self,*args):
+                if real_packet:
+                    super().__init__(*args)
+                    anchor=io.document(io.binding(e/'continuation-window-1.json'))
+                    assert time.monotonic()<self.deadline<=anchor['qualification_deadline_monotonic_ns']/10**9
+                    assert self.cleanup_seconds==2100 and self.session is None
             def step(self,name):events.append(name)
             def qualify(self,actual):
                 events.append('qualification');guard_states[0].assert_held()
                 if failure=='qualification':raise RuntimeError('qualification failed')
-        qualification=types.SimpleNamespace(verify_packet=lambda *a,**k:{},Packet=Packet)
+        qualification=types.SimpleNamespace(verify_packet=lambda *a,**k:dict(files=[]),Packet=Packet)
         class Process:
             pid=11
             def poll(self):return 1 if failure==self.role else 0
@@ -321,7 +352,8 @@ class SupervisorSequence(unittest.TestCase):
             Study=types.SimpleNamespace(bounded_restore=lambda state:state.restore()))
         def window(_):
             import time
-            t=time.monotonic_ns();return dict(started_monotonic_ns=t,global_deadline_ns=t+86400*10**9)
+            t=time.monotonic_ns();return dict(started_monotonic_ns=t,global_deadline_ns=t+86400*10**9,
+                boot_id='software-test-boot')
         terminal=types.SimpleNamespace(restoration_status=lambda *a,**k:dict(executor_completed=True,hardware_restoration_verified=True))
         def hardware_restore(_):
             events.append('hardware-restore')
@@ -349,6 +381,28 @@ class SupervisorSequence(unittest.TestCase):
                              ('construct','sign-collect'),('sign-collect','hardware-restore'),('isolation-restore','guard-restore'),
                              ('guard-restore','guard-unlock'),('guard-unlock','suffix')):
             self.assertLess(events.index(first),events.index(second))
+
+    def test_actual_packet_constructor_accepts_the_supervisors_published_handoff(self):
+        events,result=self.scenario(real_packet=True)
+        self.assertTrue(result['success'],result)
+        self.assertEqual(events.count('qualification'),1)
+        self.assertLess(events.index('qualification'),events.index('construct'))
+
+    def test_actual_packet_constructor_rejects_foreign_boot_and_restores_before_any_action(self):
+        events,result=self.scenario(real_packet=True,packet_boot='foreign-software-test-boot')
+        self.assertFalse(result['success'])
+        self.assertIn('global window boot changed',' '.join(result['errors']))
+        self.assertNotIn('qualification',events);self.assertNotIn('construct',events)
+        self.assertNotIn('sign-collect',events);self.assertIn('guard-restore',events)
+
+    def test_preserved_failed_handoff_reproduces_the_actual_consumer_key_error(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            original=ROOT/'docs/evidence/stage17/Q16C-D292-PREFIX-VALIDATED-STOP-20261119-01/continuation-window-1.json'
+            (root/'continuation-window-1.json').write_bytes(original.read_bytes())
+            cls=actual_packet_constructor(root)
+            with self.assertRaisesRegex(KeyError,'boot_id'):
+                cls(dict(files=[]),dict(release=dict(boot_id='software-test-boot')))
 
     def test_invalid_prefix_stops_before_guard_or_qualification(self):
         events,result=self.scenario('prefix-invalid');self.assertFalse(result['success'])

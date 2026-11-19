@@ -1,0 +1,26 @@
+{
+  "REPORT.md": {
+    "sha256": "220dd0c6a284cc7ed6c496e7e1423a1769277253efc32426d0cce196c9e651f7",
+    "size_bytes": 3408
+  },
+  "integration-tests.txt": {
+    "sha256": "50bce605da0939f3e01dee6c125b15996de9e25eaa137884976d3d0ad05bf142",
+    "size_bytes": 7766
+  },
+  "regression-after.txt": {
+    "sha256": "54926646e3a75a1031275ac4c96cf7e83e3dd358d6a78c28e3fecfddd19e8396",
+    "size_bytes": 1929
+  },
+  "regression-before.txt": {
+    "sha256": "b85acabfe1e7ef896bcc7850364955fde12b4fd6cb873a59b0a50350a3e0adfd",
+    "size_bytes": 3352
+  },
+  "stand-metadata-probe.json": {
+    "sha256": "59803b97f077cb4391d6613327d7d588aa96ad6fbfa67e7cfa78b55b811fec93",
+    "size_bytes": 563
+  },
+  "verification-summary.json": {
+    "sha256": "0bc37bdf05cf8285d6b33eb569b51a9f4def6e501792e0fb3f8b1485c39f6586",
+    "size_bytes": 644
+  }
+}

@@ -239,7 +239,8 @@ def run(args,c,h):
         try:io.save(E/'platform-guard-1/witness.json',description)
         finally:os.close(fd)
         qualification_start=time.monotonic_ns()
-        io.save(E/'continuation-window-1.json',dict(qualification_deadline_monotonic_ns=qualification_start+7200*NS,
+        io.save(E/'continuation-window-1.json',dict(boot_id=record['boot_id'],
+            qualification_deadline_monotonic_ns=qualification_start+7200*NS,
             started_monotonic_ns=start,global_deadline_ns=record['global_deadline_ns'],new_window=False))
         packet=Path(c['qualification_packet']);sys.path.insert(0,str(packet))
         import run_qualification_v31 as qualification

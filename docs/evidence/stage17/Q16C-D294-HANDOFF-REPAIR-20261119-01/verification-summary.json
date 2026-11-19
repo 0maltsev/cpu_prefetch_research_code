@@ -1,0 +1,16 @@
+{
+  "completed_prefix_reports_preserved": 86,
+  "completed_prefix_reports_reused": 0,
+  "execution_authority": false,
+  "experiment_restarted": false,
+  "native_sources_modified": false,
+  "new_window_started": false,
+  "original_regression_reproduced": true,
+  "phase18_authority": false,
+  "producer_sha256": "5c91b3284940e69b03cb6dc8ed3906c1b52f526270e37f48c39c63f943bbeeee",
+  "raw_validation_repeated": false,
+  "real_deployed_consumer_fixture_sha256": "58845d94dbe52c3d69dd1a5c984611aea2f8667b2cb621028717d19368122025",
+  "status": "QUALIFICATION_HANDOFF_REPAIR_VERIFIED",
+  "targeted_sequence_tests": 10,
+  "unique_affected_tests": 43
+}

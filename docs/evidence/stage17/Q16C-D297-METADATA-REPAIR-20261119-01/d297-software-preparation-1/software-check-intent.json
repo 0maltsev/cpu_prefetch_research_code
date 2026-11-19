@@ -1,0 +1,32 @@
+{
+  "recorded_at_utc": "2026-11-19T19:35:17.932827+00:00",
+  "argv": [
+    "systemd-run",
+    "--unit=cpu-prefetch-d297-preparation-check-1.service",
+    "--property=Type=exec",
+    "--property=RuntimeMaxSec=1200",
+    "--property=MemoryMax=16G",
+    "--property=CPUAffinity=3",
+    "--property=Restart=no",
+    "--property=UMask=0077",
+    "--property=StandardOutput=append:/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/d297-software-preparation-1/construct.log",
+    "--property=StandardError=inherit",
+    "/usr/bin/setpriv",
+    "--reuid=1000",
+    "--regid=1000",
+    "--clear-groups",
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_operator_v1.py",
+    "construct",
+    "--configuration",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/d297-software-preparation-1/configuration.json",
+    "--configuration-sha256",
+    "ab6e035d86ac88037ca27dd06d25b4c003fd47c7162a92d883ff7d1f79733d79",
+    "--deadline-ns",
+    "1554652229655698"
+  ],
+  "experiments_started": 0,
+  "new_execution_window": false,
+  "execution_authority": false
+}

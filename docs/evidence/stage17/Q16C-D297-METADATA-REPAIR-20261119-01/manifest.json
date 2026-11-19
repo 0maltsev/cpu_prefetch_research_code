@@ -1,0 +1,76 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "3ae2c9acaa2944c34c7e722808ef3907ba5c3571322eb489d9a2b299bb06a329",
+      "size_bytes": 4244
+    },
+    {
+      "path": "affected-tests.txt",
+      "sha256": "39059b733e8535a51617fa5983cc8d61196caeab073e8371cc764adb1f1a1369",
+      "size_bytes": 2955
+    },
+    {
+      "path": "d297-metadata-repair-1.py",
+      "sha256": "f0f171e1a919cbd7bc1b755c43b515a8dae53a54d0a9e97dac194bf9fa199eb8",
+      "size_bytes": 6034
+    },
+    {
+      "path": "d297-metadata-repair-2.py",
+      "sha256": "4fbba5eaf357c2c72ea59985e1e629d42d914c0b1ab1b194726b5b0257021676",
+      "size_bytes": 6426
+    },
+    {
+      "path": "d297-software-preparation-1/construct.log",
+      "sha256": "187f56592acf27f947d5679f6d05c61c147b1d7f46ba27d0ea7236a8de964e3c",
+      "size_bytes": 1857
+    },
+    {
+      "path": "d297-software-preparation-1/software-check-intent.json",
+      "sha256": "2ec9e437e5334f6ec64a969f2feb1e19d880e965a6ba3c1d25205ac7c83f4e6d",
+      "size_bytes": 1204
+    },
+    {
+      "path": "d297-software-preparation-2/construct.log",
+      "sha256": "97d5aceed8ece5eddfa828de5f9f2c268bd591cd65600b6586c1fc538c864b49",
+      "size_bytes": 244
+    },
+    {
+      "path": "d297-software-preparation-2/constructed-output/constructed.json",
+      "sha256": "5867405f24bb920ef684c9fbff296375d48f338f814137f0cb6ba2aa41719838",
+      "size_bytes": 572
+    },
+    {
+      "path": "d297-software-preparation-2/software-check-intent.json",
+      "sha256": "17e702660bc11be8ad48cbb8ca5ba9cf91a6225c4afe201f668b5231acac8fdb",
+      "size_bytes": 1204
+    },
+    {
+      "path": "focused-tests.txt",
+      "sha256": "95ddbb60d2b4a3dec7871550bf28441202fb6cd956ee83daece54980439c147f",
+      "size_bytes": 1230
+    },
+    {
+      "path": "rehearsal-input-bindings.json",
+      "sha256": "0f06a2555263bd73bcad70dc164275ee9207da82f5915e4eabfecbdb8ab2ada6",
+      "size_bytes": 972
+    },
+    {
+      "path": "software-service-lifecycle.json",
+      "sha256": "9c97cd1b541088e6342387ef6a807509f39a8b4df2bdf367cf304692c1a83ef4",
+      "size_bytes": 2016
+    },
+    {
+      "path": "stand-verification.json",
+      "sha256": "69406906aa9a55ceff421d24f242adad1a504aba633915bec084198af297d93b",
+      "size_bytes": 3853
+    },
+    {
+      "path": "verification-summary.json",
+      "sha256": "1d708c1e2370bd9e50ec9b64de5640988390fdab07a47ee21b4e07f751650af4",
+      "size_bytes": 625
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "stage17-public-evidence-manifest/1"
+}

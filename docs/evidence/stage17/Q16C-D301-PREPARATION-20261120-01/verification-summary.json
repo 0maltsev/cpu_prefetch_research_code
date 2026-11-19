@@ -1,8 +1,12 @@
 {
+  "controls_rearmed": false,
   "launch_permitted": false,
   "new_experiments": 0,
   "new_windows": 0,
+  "operational_authority_signed": false,
   "qualified_native_source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
-  "status": "D301_SOFTWARE_CHECKS_PASS_TIME_GATE_CLOSED",
-  "tests": 23
+  "registered_family_replay_verified": true,
+  "request_template_qualification_bindings_verified": true,
+  "status": "D301_INSTALLED_SOFTWARE_ADMISSION_PASS_NATIVE_TIME_GATE_CLOSED",
+  "tests": 24
 }

@@ -1,0 +1,71 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "be65598ac7fda6202d1fe21deafb46f32de681304967979509eaa7d5f9d7cf51",
+      "size_bytes": 3804
+    },
+    {
+      "path": "installed/administrative-packet.json",
+      "sha256": "4473dcf387df19e76e791059b8b5677d31a1dea0c77ddf409d26845923f30ee9",
+      "size_bytes": 1838
+    },
+    {
+      "path": "installed/authority/owner-acceptance.json",
+      "sha256": "8608b39972214d7c662aa326cf4937a135476ea3d82b1ca031662c3b2c8ae37b",
+      "size_bytes": 972
+    },
+    {
+      "path": "installed/authority/owner-acceptance.json.sig",
+      "sha256": "74fd962ecf1e41846037d2f707d9d1380217f423e724b56933d0d5457636475a",
+      "size_bytes": 322
+    },
+    {
+      "path": "installed/operator-sources.json",
+      "sha256": "5d58ed4996c3a5ac049bc0fd6cb20406f795c2845a3fb49af97aa6348c19bd9e",
+      "size_bytes": 4713
+    },
+    {
+      "path": "installed/software-authorization-draft.json",
+      "sha256": "829e37ff506f9bc4d2551095582096d8fde5cad81db26d514f75ed43ccf01866",
+      "size_bytes": 2718
+    },
+    {
+      "path": "installed/software-preflight.json",
+      "sha256": "01d076ee4b2aff1994ea62f05e77c68191419c2fedac89c9956a27189dd5f15d",
+      "size_bytes": 897
+    },
+    {
+      "path": "installed-configuration.json",
+      "sha256": "25503148776fe54199c0a51871fe8ee7846065a337abb9c4b1f411ca60a5ceea",
+      "size_bytes": 582
+    },
+    {
+      "path": "installed-preflight.txt",
+      "sha256": "14421a37a2f37296dcaf6ebbb260cb1d28d9aab7dc8d0b1708931054ed0c6040",
+      "size_bytes": 1696
+    },
+    {
+      "path": "integration-tests.txt",
+      "sha256": "f19426f9200a7e3f8385b3f001b7eb85c1a9a349abf2402037a75febb1d57972",
+      "size_bytes": 4700
+    },
+    {
+      "path": "preflight.py",
+      "sha256": "263129dd1f4656746fc6d00d30708985a99115bd859640504a9970b88a04dbef",
+      "size_bytes": 2680
+    },
+    {
+      "path": "stand-status.json",
+      "sha256": "3824c54fc085afe804e06d3615c91535a0a4091f1fa7596b58fa5e48fc22487b",
+      "size_bytes": 333
+    },
+    {
+      "path": "verification-summary.json",
+      "sha256": "583132c7c7e71981e60cc9fa51be2355f324c25bbf524925df1d09dee39b6403",
+      "size_bytes": 426
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "stage17-public-evidence-manifest/1"
+}

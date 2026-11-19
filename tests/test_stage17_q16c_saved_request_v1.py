@@ -10,6 +10,7 @@ import sys
 import textwrap
 import types
 import unittest
+from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
@@ -72,11 +73,20 @@ class ReadinessTests(unittest.TestCase):
         self.assertNotIn('command(\'prefix\'',text);self.assertNotIn('command(\'construct\'',text)
 
     def test_software_metadata_result_can_never_authorize_runtime(self):
-        source=inspect.getsource(current._metadata_function())
-        # The compiled function comes from an exact verified source; inspect its
-        # result shape in the generator and actual runtime check independently.
         self.assertIn('launch_permitted=not args.software_check',Path(current.__file__).read_text())
         self.assertIn("require(accepted['launch_permitted'] is (not software_check)",Path(current.__file__).read_text())
+
+    def test_runtime_rejects_a_software_only_child_before_hardware_readback(self):
+        import subprocess
+        import stage17_hardware_recovery_v1 as hardware
+        args=types.SimpleNamespace(configuration=Path('/software-only/configuration.json'),configuration_sha256='a'*64)
+        response=types.SimpleNamespace(returncode=0,stderr='',stdout=json.dumps(dict(
+            configuration_sha256='a'*64,verified_uid=1000,launch_permitted=False)))
+        with patch.object(current.os,'geteuid',return_value=0),patch.object(current,'check_time'), \
+                patch.object(subprocess,'run',return_value=response) as child,patch.object(hardware,'verify') as verify:
+            with self.assertRaisesRegex(ValueError,'software admission grants no launch'):
+                current.admit(args,dict(repository_root=str(ROOT)))
+            self.assertIn('--owner-journal',child.call_args.args[0]);verify.assert_not_called()
 
 
 class SequenceTests(unittest.TestCase):

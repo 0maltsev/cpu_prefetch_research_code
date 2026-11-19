@@ -2,6 +2,7 @@ test_actual_root_orders_authorize_before_collection_inside_readiness_budget (tes
 test_actual_template_refresh_changes_only_two_times_and_obeys_schema (test_stage17_q16c_saved_request_v1.ReadinessTests.test_actual_template_refresh_changes_only_two_times_and_obeys_schema) ... ok
 test_approval_retains_actual_word_and_expired_gate (test_stage17_q16c_saved_request_v1.ReadinessTests.test_approval_retains_actual_word_and_expired_gate) ... ok
 test_collect_has_no_authoring_registration_or_second_signature (test_stage17_q16c_saved_request_v1.ReadinessTests.test_collect_has_no_authoring_registration_or_second_signature) ... ok
+test_runtime_rejects_a_software_only_child_before_hardware_readback (test_stage17_q16c_saved_request_v1.ReadinessTests.test_runtime_rejects_a_software_only_child_before_hardware_readback) ... ok
 test_software_metadata_result_can_never_authorize_runtime (test_stage17_q16c_saved_request_v1.ReadinessTests.test_software_metadata_result_can_never_authorize_runtime) ... ok
 test_template_never_extends_deadline_or_weakens_one_attempt (test_stage17_q16c_saved_request_v1.ReadinessTests.test_template_never_extends_deadline_or_weakens_one_attempt) ... ok
 test_authorization_failure_stops_before_collection_and_restores (test_stage17_q16c_saved_request_v1.SequenceTests.test_authorization_failure_stops_before_collection_and_restores) ... ok
@@ -23,6 +24,6 @@ test_restoration_failure_is_retained_and_blocks_analysis (test_stage17_q16c_qual
 test_success_rearms_once_restores_before_analysis_and_never_requalifies (test_stage17_q16c_qualified_continuation_v1.SequenceTests.test_success_rearms_once_restores_before_analysis_and_never_requalifies) ... ok
 
 ----------------------------------------------------------------------
-Ran 23 tests in 0.326s
+Ran 24 tests in 0.324s
 
 OK

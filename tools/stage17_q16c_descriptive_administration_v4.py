@@ -20,7 +20,7 @@ import stage17_q16c_prefix_reuse_v1 as receipts
 import stage17_q16c_admission_limits_v3 as limits
 import stage17_daycap_administration_v1 as association
 import stage17_state_journal_v60 as journal
-import stage17_q16c_execution_window_v4 as execution_window
+import stage17_q16c_execution_window_v5 as execution_window
 
 SCHEMA = 'cpu-prefetch-stage17-q16c-descriptive-historical-inputs/2'
 CONTEXT_SCHEMA = graph.CONTEXT_SCHEMA

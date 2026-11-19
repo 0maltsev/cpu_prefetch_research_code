@@ -23,7 +23,7 @@ def require(ok,message):
 
 
 def prospective(parent_bytes,*,parent_binding,failure_binding,source_revision,implementation_profile_sha256,
-                monitor_path_replacements,id_prefix='CPU-PREFETCH-V5-V31'):
+                monitor_path_replacements,id_prefix='CPU-PREFETCH-V5-V32'):
     require(type(parent_bytes) is bytes and len(parent_bytes)==contract.PARENT_SIZE
         and hashlib.sha256(parent_bytes).hexdigest()==contract.PARENT_SHA256,'exact original incident plan')
     require(parent_binding['size_bytes']==contract.PARENT_SIZE and parent_binding['sha256']==contract.PARENT_SHA256
@@ -32,7 +32,7 @@ def prospective(parent_bytes,*,parent_binding,failure_binding,source_revision,im
     require(re.fullmatch('[0-9a-f]{40}',source_revision) and source_revision!=contract.PARENT_SOURCE,
             'actual clean new candidate source')
     require(re.fullmatch('[0-9a-f]{64}',implementation_profile_sha256),'actual prepared archive profile')
-    require(id_prefix=='CPU-PREFETCH-V5-V31','one approved fresh identity family')
+    require(id_prefix=='CPU-PREFETCH-V5-V32','one approved fresh identity family')
     parent=window.parse(parent_bytes);parent_contract.validate_plan(parent)
     replacements=paths._path_replacements(monitor_path_replacements)
     captures=copy.deepcopy(parent['captures'][86:]);used=set()
@@ -42,7 +42,7 @@ def prospective(parent_bytes,*,parent_binding,failure_binding,source_revision,im
         for key in ('capture','resources','monitoring'):item[key]['ordinal']=local
         capture=item['capture']
         for phase,letter,namespace in (('warmup','W',warmup),('measurement','M',measurement)):
-            capture[phase].update(run_id=f'C31{letter}{original:08d}',
+            capture[phase].update(run_id=f'C32{letter}{original:08d}',
                 seed_id=f'{id_prefix}-Q16C-{phase.upper()}-{original:04d}',namespace_id=namespace)
         capture['arena_seed']=copy.deepcopy(capture['measurement'])
         if capture['linked_order'] is not None:

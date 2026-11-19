@@ -1,4 +1,4 @@
-"""D292 finite prefix/qualification/94-capture/restoration/suffix supervisor.
+"""D295 finite prefix/qualification/94-capture/restoration/suffix supervisor.
 
 Only --run starts the one owner-approved day. --software-check cannot start it.
 The frozen owned-process and isolation cores remain byte-identical.
@@ -22,8 +22,8 @@ import stage17_q16c_continuation_operator_v1 as io
 NS=10**9
 CORE='47e819dbcd6110d5b356d091e706141131efa5938b0ae0740059efc4d3cb1416'
 ISOLATION='49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a'
-E=Path('/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-31')
-ROLES={'prefix':3600,'qualification':7200,'construct':1200,'sign-collect':24860,'restoration':2400,'suffix':3600}
+E=Path('/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32')
+ROLES={'prefix':120,'qualification':7200,'construct':1200,'sign-collect':24860,'restoration':2400,'suffix':3600}
 
 
 def module(name,b):
@@ -38,8 +38,8 @@ def configure(args):
     c=io.document(dict(path=str(args.configuration),size_bytes=args.configuration.stat().st_size,sha256=args.configuration_sha256))
     io.require(c['execution_authority'] is False and c['phase18_authority'] is False,'no configuration authority')
     io.require(Path(c['evidence_root'])==E and c['boot_id']==Path('/proc/sys/kernel/random/boot_id').read_text().strip(),
-        'one fresh E30 namespace and original boot')
-    io.require(c['supervisor_unit']=='cpu-prefetch-d292-v31-1.service','one dedicated finite root study unit')
+        'one fresh E32 namespace and original boot')
+    io.require(c['supervisor_unit']=='cpu-prefetch-d295-v32-1.service','one dedicated finite root study unit')
     io.require(c['operator_sources'][Path(__file__).name]==io.binding(Path(__file__).resolve()),'actual root driver')
     for b in c['operator_sources'].values():io.read(b)
     inventory=io.document(c['operator_inventory'])
@@ -56,7 +56,7 @@ def configure(args):
     inventory=io.document(c['candidate_inventory'])
     io.require(inventory['source_revision']==c['source_revision'],'actual native source identity')
     io.require(c['ownership_core']['sha256']==CORE and c['isolation_core']['sha256']==ISOLATION,'frozen recovery cores')
-    h=module('d292_owned_process_core',c['ownership_core'])
+    h=module('d295_owned_process_core',c['ownership_core'])
     return c,h
 
 
@@ -68,7 +68,7 @@ def online():
 
 
 def owner(args,c,h):
-    intent=io.document(io.binding(E/'d292-study-1/intent.json'))
+    intent=io.document(io.binding(E/'d295-study-1/intent.json'))
     io.require(os.getppid()==intent['supervisor_pid'] and h.start_ticks(os.getppid())==intent['supervisor_start_ticks']
         and intent['configuration_sha256']==args.configuration_sha256,'dedicated live root owner')
     prospective=io.document(c['prospective_inputs']);native=args.role in ('construct','sign-collect')
@@ -100,9 +100,10 @@ def owner(args,c,h):
         and resource.getrlimit(resource.RLIMIT_MEMLOCK)==(locked,)*2,'actual role placement and limits')
     io.require(time.monotonic_ns()<args.deadline_ns<=intent['complete_deadline_ns'],'original finite role deadline')
     if args.role=='prefix':
-        invocation=io.binding(E/'d292-prefix-invocation.json')
-        argv=[sys.executable,'-B',c['operator_sources']['stage17_q16c_prefix_operator_v1.py']['path'],'validate',
-            '--configuration',invocation['path'],'--configuration-sha256',invocation['sha256'],'--deadline-ns',str(args.deadline_ns)]
+        b=c['prefix_packet']
+        argv=[sys.executable,'-B',c['operator_sources']['stage17_q16c_completed_prefix_v1.py']['path'],'admit',
+            '--configuration',b['path'],'--configuration-sha256',b['sha256'],
+            '--window-proof',str(E/'execution-window-proof.json'),'--deadline-ns',str(args.deadline_ns)]
     else:
         argv=[sys.executable,'-B',c['operator_sources']['stage17_q16c_continuation_operator_v1.py']['path'],args.role,
             '--configuration',str(args.configuration),'--configuration-sha256',args.configuration_sha256,'--deadline-ns',str(args.deadline_ns)]
@@ -112,17 +113,17 @@ def owner(args,c,h):
 
 def sign_window(c):
     sys.path.insert(0,str(Path(c['repository_root'])/'tools'))
-    import stage17_q16c_execution_window_v4 as window
-    output=E/'d292-execution-window-1';io.require(not output.exists(),'one new window; no reset or retry')
+    import stage17_q16c_execution_window_v5 as window
+    output=E/'d295-execution-window-1';io.require(not output.exists(),'one new window; no reset or retry')
     output.mkdir(mode=0o700);os.chown(output,1000,1000)
     start=time.monotonic_ns()
-    record=dict(schema_version=window.SCHEMA,execution_window_id=window.IDENTITY,decision_id='D292',
+    record=dict(schema_version=window.SCHEMA,execution_window_id=window.IDENTITY,decision_id='D295',
         source_revision=c['source_revision'],worker_sha256=c['worker']['sha256'],boot_id=c['boot_id'],stand_id='CPU-PREFETCH-V5',
         started_monotonic_ns=start,global_deadline_ns=start+86400*NS,
         started_at_utc=dt.datetime.now(dt.timezone.utc).isoformat().replace('+00:00','Z'),bindings=c['window_bindings'],
         automatic_retries=0,new_windows_allowed=0,execution_authority=False,phase18_authority=False,
         **{phase+'_seconds':seconds for phase,seconds in window.PHASES})
-    window.validate(record,now=start,phase='prefix_validation',expected_source=c['source_revision'],
+    window.validate(record,now=start,phase='retained_prefix_admission',expected_source=c['source_revision'],
         expected_worker=c['worker']['sha256'],expected_boot=c['boot_id']);window.verify_bindings(record)
     path=output/'window.json'
     with path.open('xb') as f:f.write(window.canonical(record));f.flush();os.fsync(f.fileno())
@@ -133,8 +134,6 @@ def sign_window(c):
     io.require(signed.returncode==0,'actual owner window signature')
     proof=dict(manifest=io.binding(path),signature=io.binding(Path(str(path)+'.sig')))
     io.save(E/'execution-window-proof.json',proof)
-    io.save(E/'d292-prefix-invocation.json',dict(schema_version='cpu-prefetch-stage17-d292-prefix-invocation/1',
-        prefix_packet=c['prefix_packet'],execution_window_proof=proof,execution_authority=False,phase18_authority=False))
     return record
 
 
@@ -142,9 +141,9 @@ def run(args,c,h):
     io.require(os.geteuid()==0 and len(list(Path('/proc/self/task').iterdir()))==1 and not h.descendants(os.getpid()),
         'dedicated root supervisor')
     h.subreaper();os.sched_setaffinity(0,{3})
-    study=E/'d292-study-1';study.mkdir(mode=0o700);os.chown(study,1000,1000)
+    study=E/'d295-study-1';study.mkdir(mode=0o700);os.chown(study,1000,1000)
     # All static packet/resource gates precede the actual prefix clock.
-    io.require(not (E/'d292-execution-window-1').exists(),'unconsumed one-window namespace')
+    io.require(not (E/'d295-execution-window-1').exists(),'unconsumed one-window namespace')
     available=next(line for line in Path('/proc/meminfo').read_text().splitlines() if line.startswith('MemAvailable:'))
     io.require(int(available.split()[1])*1024>=112*1024**3,'actual analysis memory reserve')
     v=os.statvfs(E);io.require(v.f_bavail*v.f_frsize>=512*1024**3+256*1024**3+16*1024**3,'actual shared workspace/scratch/reserve')
@@ -161,7 +160,7 @@ def run(args,c,h):
         io.require(service.name==c['supervisor_unit'],'root process outside its dedicated study unit')
         s=service.stat(follow_symlinks=False)
         service_binding=dict(path=str(service),identity=[s.st_dev,s.st_ino])
-    record=sign_window(c);start=record['started_monotonic_ns'];complete=start+42860*NS
+    record=sign_window(c);start=record['started_monotonic_ns'];complete=start+39380*NS
     intent=dict(supervisor_pid=os.getpid(),supervisor_start_ticks=h.start_ticks(os.getpid()),configuration_sha256=args.configuration_sha256,
         started_monotonic_ns=start,complete_deadline_ns=complete,global_deadline_ns=record['global_deadline_ns'],automatic_retries=0,
         execution_authority=False,phase18_authority=False)
@@ -171,7 +170,7 @@ def run(args,c,h):
     io.save(study/'intent.json',intent)
     result=dict(success=False,errors=[],phases=[],execution_authority=False,phase18_authority=False)
     active=None;guard=None;clock=None;restored=False
-    def interrupted(n,f):raise RuntimeError('D292 supervisor signal '+str(n))
+    def interrupted(n,f):raise RuntimeError('D295 supervisor signal '+str(n))
     previous={s:signal.signal(s,interrupted) for s in (signal.SIGTERM,signal.SIGINT,signal.SIGHUP)}
     def snapshot(owned):
         rows=owned.observe()
@@ -226,12 +225,12 @@ def run(args,c,h):
         io.save(out/'partition-restoration.json',report)
         return report['verified']
     try:
-        command('prefix',start+3600*NS)
+        command('prefix',start+120*NS)
         prefix=io.document(io.binding(E/'q16c-prefix-analysis-1/accepted-prefix.json'))
         io.require(prefix['all_required_reports_valid'] is True and prefix['reused_capture_ordinals']==list(range(86)), 'all86 before qualification')
         import stage17_locked_compaction_guard_v1 as controls
         import stage17_q16c_compaction_integration_v2 as guarded
-        guard=controls.Guard(E/'platform-guard-1',deadline_ns=start+36860*NS);guard.__enter__()
+        guard=controls.Guard(E/'platform-guard-1',deadline_ns=start+33380*NS);guard.__enter__()
         # Root retains write ownership; the evidence owner can traverse only
         # to the separately published, hash-bound read-only witness.
         os.chmod(guard.root,0o711)
@@ -243,12 +242,12 @@ def run(args,c,h):
             qualification_deadline_monotonic_ns=qualification_start+7200*NS,
             started_monotonic_ns=start,global_deadline_ns=record['global_deadline_ns'],new_window=False))
         packet=Path(c['qualification_packet']);sys.path.insert(0,str(packet))
-        import run_qualification_v31 as qualification
+        import run_qualification_v32 as qualification
         inventory=qualification.verify_packet(packet,c['qualification_inventory']['sha256'],installed=True)
         finite=io.document(io.binding(packet/'finite-qualification-plan.json'))
         q=qualification.Packet(inventory,finite)
-        q.step('v31-ext001-execute.py');q.step('v31-admit-002-003-006.py')
-        import run_clock_qualification_v31 as isolation
+        q.step('v32-ext001-execute.py');q.step('v32-admit-002-003-006.py')
+        import run_clock_qualification_v32 as isolation
         clock=isolation;q.qualify(clock)
         for s in previous:signal.signal(s,interrupted)
         io.save(E/'qualification-family-complete-1.json',dict(success=True,formal_capture_started=False,isolation_retained_for_formal=True))
@@ -257,7 +256,7 @@ def run(args,c,h):
         guard.verify();command('sign-collect',min(time.monotonic_ns()+24860*NS,complete-(2400+3600)*NS))
         prepared=io.document(io.binding(Path(c['output_root'])/'prepared.json'));request=io.document(prepared['request'])
         native=Path(request['evidence_root_binding']['absolute_path'])/'stage17-q16c-completion-v6.json'
-        restoration=module('d292_terminal_recovery',c['terminal_reader'])
+        restoration=module('d295_terminal_recovery',c['terminal_reader'])
         observed=restoration.restoration_status(io.document(io.binding(native)),attempt_id=request['attempt_id'],
             request_sha256=prepared['request']['sha256'],authorization_sha256=prepared['authorization']['sha256'],
             expected_prestate=request['action_inputs']['hardware_control']['prestate'])
@@ -309,7 +308,7 @@ def run(args,c,h):
                 except BaseException as error:result['errors'].append('suffix cleanup '+repr(error))
     for s,handler in previous.items():signal.signal(s,handler)
     result['completed_monotonic_ns']=time.monotonic_ns();io.save(study/'result.json',result)
-    io.require(result['success'],'D292 stopped incomplete; no automatic retry')
+    io.require(result['success'],'D295 stopped incomplete; no automatic retry')
 
 
 def main():

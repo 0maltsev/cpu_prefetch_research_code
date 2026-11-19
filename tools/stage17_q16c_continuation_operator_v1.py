@@ -214,8 +214,8 @@ def sign_collect(c, deadline, witness_fd):
             and all(store._families[k] == value for k, value in before.items()), 'retained families unchanged')
         save(out / 'registration.json', dict(before=tip, after=dataclasses.asdict(store.ledger_binding()),
             new_family_id=built['plan']['sha256'], execution_authority=False))
-    authroot = root / 'evidence/formal-q16c-d292-1'; authroot.mkdir(mode=0o700)
-    author = common(c, author=True); prefix = 'CPU-PREFETCH-V5-V31-Q16C'
+    authroot = root / 'evidence/formal-q16c-d295-1'; authroot.mkdir(mode=0o700)
+    author = common(c, author=True); prefix = 'CPU-PREFETCH-V5-V32-Q16C'
     req = cli.author_formal_request(**author, action_id='Q16c', action_inputs_path=Path(built['action_inputs']['path']),
         request_id=prefix+'-REQUEST-1', authorization_id=prefix+'-AUTH-1', attempt_id=prefix+'-ATTEMPT-1',
         session_id=prefix+'-SESSION-1', output_root=program/'working'/built['plan']['sha256'], destination=authroot/'request.json')
@@ -253,6 +253,24 @@ def sign_collect(c, deadline, witness_fd):
         actual_request=d['request'],execution_authority=False,phase18_authority=False))
 
 
+def report_records(done,*,artifact_bindings=None):
+    """Preserve actual retained report IDs; assign fresh IDs only to new data."""
+    reports=document(done)['reports']
+    require(type(reports) is list and len(reports)==(86 if artifact_bindings is not None else 94),
+        'exact completed report set')
+    if artifact_bindings is not None:require(len(artifact_bindings)==86,'exact accepted86 identities')
+    result=[];identities=set()
+    for ordinal,b in enumerate(reports):
+        raw=read(b)
+        retained=(dict(artifact_bindings[ordinal]) if artifact_bindings is not None else
+            dict(artifact_id=f'Q16C-D295-SUFFIX-{ordinal:04d}',size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest()))
+        require(retained['size_bytes']==len(raw) and retained['sha256']==hashlib.sha256(raw).hexdigest(),
+            'accepted report bytes differ')
+        require(retained['artifact_id'] not in identities,'duplicate report identity');identities.add(retained['artifact_id'])
+        result.append(dict(capture_ordinal=ordinal,validity='VALID',report_utf8_bytes=raw,report_binding=retained))
+    return result
+
+
 def suffix(c, deadline):
     evidence = Path(c['evidence_root'])
     require(document(binding(evidence/'q16c-study-1/partition-restoration.json'))['verified'] is True,
@@ -269,15 +287,10 @@ def suffix(c, deadline):
         prepared.request['action_inputs']['hardware_control'],evidence/'q16c-analysis-1',kind='SUFFIX94',plan_binding=d['plan'],
         global_deadline_ns=deadline,retained_failed_scratch_bytes=c['retained_failed_scratch_bytes'],
         started_monotonic_ns=deadline-3600*NS)
-    def records(done,prefix):
-        result=[]
-        for ordinal,b in enumerate(document(done)['reports']):
-            raw=read(b)
-            result.append(dict(capture_ordinal=ordinal,validity='VALID',report_utf8_bytes=raw,
-                report_binding=dict(artifact_id=f'Q16C-D288-{prefix}-{ordinal:04d}',size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest())))
-        return result
-    old=records(binding(evidence/'q16c-prefix-analysis-1/complete.json'),'PREFIX')
-    new=records(completed,'SUFFIX')
+    retained=document(plan['continuation']['accepted_prefix_manifest'])
+    old=report_records(binding(evidence/'q16c-prefix-analysis-1/complete.json'),
+        artifact_bindings=retained['reports'])
+    new=report_records(completed)
     collected=document(binding(Path(c['output_root'])/'collection.json'))
     composed=composition.evaluate(read(c['original_plan']),plan,old,new,plan_binding=d['plan'],
         request_sha256=d['request']['sha256'],platform_binding=collected['platform_observations'])

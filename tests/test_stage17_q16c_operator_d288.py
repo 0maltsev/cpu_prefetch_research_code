@@ -75,10 +75,10 @@ class OperatorIO(unittest.TestCase):
             with patch.object(Path,'read_text',return_value='44 (a name with spaces) '+' '.join(fields)):
                 self.assertEqual(recovery.live(h,44,ticks),expected)
 
-    def test_exact_approved_role_ceilings_cover_42860_seconds(self):
-        self.assertEqual(study.ROLES,dict(prefix=3600,qualification=7200,construct=1200,
+    def test_exact_approved_role_ceilings_cover_39380_seconds(self):
+        self.assertEqual(study.ROLES,dict(prefix=120,qualification=7200,construct=1200,
             **{'sign-collect':24860},restoration=2400,suffix=3600))
-        self.assertEqual(sum(study.ROLES.values()),42860)
+        self.assertEqual(sum(study.ROLES.values()),39380)
 
 
 class ActualProspectivePlan(unittest.TestCase):
@@ -101,14 +101,14 @@ class ActualProspectivePlan(unittest.TestCase):
         self.assertEqual(len(actual['captures']),94)
         self.assertEqual(actual['source_transport']['descriptor_count'],188)
         self.assertEqual(actual['budget']['watchdog_ns'],24860*10**9)
-        self.assertEqual(actual['plan_id'],'CPU-PREFETCH-V5-V31-Q16C-PREFIX86-CONTINUATION-1')
+        self.assertEqual(actual['plan_id'],'CPU-PREFETCH-V5-V32-Q16C-PREFIX86-CONTINUATION-1')
         self.assertFalse(actual['execution_authority'])
         for local,(row,old) in enumerate(zip(actual['captures'],self.parent['captures'][86:],strict=True)):
             self.assertEqual(row['capture']['schedules'],old['capture']['schedules'])
             self.assertEqual(row['capture']['geometry'],old['capture']['geometry'])
             for phase,letter in (('warmup','W'),('measurement','M')):
                 self.assertEqual(row['capture'][phase]['seed_hex'],old['capture'][phase]['seed_hex'])
-                self.assertEqual(row['capture'][phase]['run_id'],f'C31{letter}{local+86:08d}')
+                self.assertEqual(row['capture'][phase]['run_id'],f'C32{letter}{local+86:08d}')
                 self.assertEqual(len(row['capture'][phase]['run_id']),len(old['capture'][phase]['run_id']))
             self.assertEqual(row['capture']['ordinal'],local)
             for key in ('warmup_ns','measurement_ns','package','rate_scale','budget'):
@@ -158,7 +158,7 @@ class ActualProspectivePlan(unittest.TestCase):
 class IndependentRecovery(unittest.TestCase):
     def scenario(self, *, hold_native=False, root_alive=False, wrong_configuration=False):
         tmp=tempfile.TemporaryDirectory();self.addCleanup(tmp.cleanup)
-        e=Path(tmp.name);root=e/'d292-study-1';root.mkdir()
+        e=Path(tmp.name);root=e/'d295-study-1';root.mkdir()
         digest='a'*64
         io.save(root/'intent.json',dict(configuration_sha256='b'*64 if wrong_configuration else digest,
             supervisor_pid=99,supervisor_start_ticks=7))
@@ -181,7 +181,7 @@ class IndependentRecovery(unittest.TestCase):
              patch.object(recovery,'live',side_effect=lambda core,pid,ticks:alive.get(pid)==ticks),\
              patch.object(recovery.time,'monotonic_ns',side_effect=lambda:next(timer)),patch.object(recovery.time,'sleep'):
             result=recovery.recover(args,c,h)
-        return result,events,io.document(io.binding(e/'d292-independent-recovery-1.json'))
+        return result,events,io.document(io.binding(e/'d295-independent-recovery-1.json'))
 
     def test_native_is_signalled_before_its_owner(self):
         result,events,retained=self.scenario()
@@ -214,7 +214,7 @@ class IndependentRecovery(unittest.TestCase):
         spec=importlib.util.spec_from_file_location('d288_test_real_pidfd_core',core)
         h=importlib.util.module_from_spec(spec);spec.loader.exec_module(h)
         with tempfile.TemporaryDirectory() as d:
-            e=Path(d);root=e/'d292-study-1';root.mkdir();control=e/'software-control';control.write_text('1')
+            e=Path(d);root=e/'d295-study-1';root.mkdir();control=e/'software-control';control.write_text('1')
             lease=e/'software-lease';guard=e/'platform-guard-1'
             class Control:
                 def boot(self):return Path('/proc/sys/kernel/random/boot_id').read_text().strip()
@@ -270,7 +270,7 @@ class SupervisorSequence(unittest.TestCase):
         from contextlib import ExitStack
         import stage17_hardware_recovery_v1 as hardware
         with tempfile.TemporaryDirectory() as d,ExitStack() as stack:
-            e=Path(d);c=dict(repository_root=str(ROOT),supervisor_unit='cpu-prefetch-d292-v31-1.service')
+            e=Path(d);c=dict(repository_root=str(ROOT),supervisor_unit='cpu-prefetch-d295-v32-1.service')
             h=types.SimpleNamespace(descendants=lambda pid:{},subreaper=lambda:None)
             args=types.SimpleNamespace(configuration_sha256='a'*64)
             original=Path.read_text
@@ -370,10 +370,10 @@ class SupervisorSequence(unittest.TestCase):
             stack.enter_context(patch.object(hardware,'_read',return_value=0));stack.enter_context(patch.object(hardware,'restore',side_effect=hardware_restore))
             stack.enter_context(patch.object(hardware,'verify',return_value=[]));stack.enter_context(patch.object(controls,'Guard',Guard))
             stack.enter_context(patch.object(guarded,'export_witness',side_effect=lambda guard:({},__import__('os').open('/dev/null',0))))
-            stack.enter_context(patch.dict(sys.modules,{'run_qualification_v31':qualification,'run_clock_qualification_v31':clock}))
+            stack.enter_context(patch.dict(sys.modules,{'run_qualification_v32':qualification,'run_clock_qualification_v32':clock}))
             try:study.run(args,c,h)
             except (RuntimeError,ValueError):pass
-        return events,io.document(io.binding(e/'d292-study-1/result.json'))
+        return events,io.document(io.binding(e/'d295-study-1/result.json'))
 
     def test_success_preserves_order_and_restores_before_suffix(self):
         events,result=self.scenario();self.assertTrue(result['success'],result)

@@ -1,0 +1,39 @@
+{"source": "src/runner/stage17_formal_family.cpp", "status": "STARTED"}
+34 warnings generated.
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp:327:68: error: performing an implicit widening conversion to type 'std::uint64_t' (aka 'unsigned long') of a multiplication performed in type 'unsigned int' [bugprone-implicit-widening-of-multiplication-result,-warnings-as-errors]
+  327 |                 input::number(control, "metadata_output_bytes") == 2U * 1024U * 1024U,
+      |                                                                    ^
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp:327:68: note: make conversion explicit to silence this warning
+    6 |                 input::number(control, "metadata_output_bytes") == 2U * 1024U * 1024U,
+      |                                                                    ^~~~~~~~~~~~~~~~~~
+      |                                                                    static_cast<std::uint64_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp:327:68: note: perform multiplication in a wider type
+  327 |                 input::number(control, "metadata_output_bytes") == 2U * 1024U * 1024U,
+      |                                                                    ^~~~~~~~~~
+      |                                                                    static_cast<std::uint64_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp:577:48: error: performing an implicit widening conversion to type 'std::uint64_t' (aka 'unsigned long') of a multiplication performed in type 'unsigned int' [bugprone-implicit-widening-of-multiplication-result,-warnings-as-errors]
+  577 |                result.metadata_output_bytes >= 2U * 1024U * 1024U),
+      |                                                ^
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp:577:48: note: make conversion explicit to silence this warning
+  577 |                result.metadata_output_bytes >= 2U * 1024U * 1024U),
+      |                                                ^~~~~~~~~~~~~~~~~~
+      |                                                static_cast<std::uint64_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp:577:48: note: perform multiplication in a wider type
+  577 |                result.metadata_output_bytes >= 2U * 1024U * 1024U),
+      |                                                ^~~~~~~~~~
+      |                                                static_cast<std::uint64_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp:597:58: error: performing an implicit widening conversion to type 'std::uint64_t' (aka 'unsigned long') of a multiplication performed in type 'unsigned int' [bugprone-implicit-widening-of-multiplication-result,-warnings-as-errors]
+  597 |                 positive(transport, "metadata_bytes") >= 1024U * 1024U &&
+      |                                                          ^
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp:597:58: note: make conversion explicit to silence this warning
+  597 |                 positive(transport, "metadata_bytes") >= 1024U * 1024U &&
+      |                                                          ^~~~~~~~~~~~~
+      |                                                          static_cast<std::uint64_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp:597:58: note: perform multiplication in a wider type
+  597 |                 positive(transport, "metadata_bytes") >= 1024U * 1024U &&
+      |                                                          ^~~~~
+      |                                                          static_cast<std::uint64_t>( )
+Suppressed 31 warnings (31 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+3 warnings treated as errors
+{"source": "src/runner/stage17_formal_family.cpp", "exit_code": 1, "elapsed_ns": 11580069260}

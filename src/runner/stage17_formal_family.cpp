@@ -324,7 +324,8 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
                     "BEFORE_AUTHORIZATION_AFTER_CHECKPOINT-v1" &&
                 input::text(control, "witness_transport") ==
                     "READ_ONLY_ROOT_LEASE_FD-v1" &&
-                input::number(control, "metadata_output_bytes") == 2U * 1024U * 1024U,
+                input::number(control, "metadata_output_bytes") ==
+                    std::uint64_t{2U} * 1024U * 1024U,
             "scheduled continuation platform declaration differs");
   }
   if (archived)
@@ -574,7 +575,7 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
   result.metadata_output_bytes = positive(family, "metadata_output_bytes");
   require(!scheduled_continuation ||
               (result.watchdog_ns == 24'860'000'000'000U &&
-               result.metadata_output_bytes >= 2U * 1024U * 1024U),
+               result.metadata_output_bytes >= std::uint64_t{2U} * 1024U * 1024U),
           "scheduled continuation time or platform metadata reservation differs");
   result.max_output_bytes = positive(family, "max_output_bytes");
   result.required_free_disk_bytes = positive(family, "required_free_disk_bytes");
@@ -594,7 +595,7 @@ auto validate(FixedAction action, const Object& plan, std::string_view revision)
                 input::number(transport, "owned_vector_bytes") == source_bytes &&
                 positive(transport, "loader_transient_bytes") >=
                     add(largest_source, 8192U) &&
-                positive(transport, "metadata_bytes") >= 1024U * 1024U &&
+                positive(transport, "metadata_bytes") >= std::uint64_t{1024U} * 1024U &&
                 positive(transport, "maximum_source_memory_bytes") >=
                     add(multiply(source_bytes, 2U),
                         add(positive(transport, "loader_transient_bytes"),

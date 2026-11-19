@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30/q16c-continuation-final-1/stage17_q16c_prefix_operator_v1.py", line 169, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30/q16c-continuation-final-1/stage17_q16c_prefix_operator_v1.py", line 166, in main
+    print(json.dumps(validate(c,loader,cli,cfg,a.deadline_ns)),flush=True)
+                     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30/q16c-continuation-final-1/stage17_q16c_prefix_operator_v1.py", line 124, in validate
+    verified,decode=retained.collect_metadata(prepared,facade,plan_binding=configuration['original_plan'],
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        restoration_binding=configuration['original_restoration'],deadline_ns=deadline_ns)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-6993313-clean-7cca27a0177f/tools/stage17_q16c_retained_prefix_v1.py", line 147, in collect_metadata
+    captures.append(capture_registry.verify_capture_metadata(store=store,action='Q16c',capture=item['capture'],
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        checkpoint_binding=local_binding(f'formal-capture-{ordinal}-final-checkpoint.json',limits.max_checkpoint_bytes),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        receipt_binding=local_binding(f'formal-capture-{ordinal}-archive-custody.json',limits.max_record_bytes),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        decoder_profile=decoder,decoder_limits=decode))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_formal_archive_registry_v1.py", line 70, in verify_capture_metadata
+    return _verify_capture(store=store, action=action, capture=capture,
+        checkpoint_binding=checkpoint_binding, receipt_binding=receipt_binding,
+        decoder_profile=decoder_profile, decoder_limits=decoder_limits, readback=None,
+        metadata_only=True)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_formal_archive_registry_v1.py", line 113, in _verify_capture
+    final = _bound(store, store.working, checkpoint_binding, store.limits.max_checkpoint_bytes)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_formal_archive_registry_v1.py", line 32, in _bound
+    raw = store._read_bound(path / value.file_name, value.binding(), maximum)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-archive-overlay-1/tools/stage17_archive_metadata_fast_v2.py", line 64, in _read_bound
+    raise CustodyError('metadata binding differs')
+_d273_archive_332336_stage17_formal_archive_custody_v1.CustodyError: metadata binding differs

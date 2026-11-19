@@ -1,0 +1,106 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "e8a2657c5205a5042ef152a29a87278a02031b835ab27ebc7e01d2b66d88349d",
+      "size_bytes": 3612
+    },
+    {
+      "path": "binding-diagnostic.json",
+      "sha256": "8835a056e7bfc0ef229a9f1b295b93798622eb8da4b97ece5f81d8a0b6395015",
+      "size_bytes": 2425
+    },
+    {
+      "path": "clock-qualification-v32-1/restoration.json",
+      "sha256": "4eb7951d270296369ab1db9fb25d02d76f885b6e8c086d4841e7a1bb3dacc304",
+      "size_bytes": 842
+    },
+    {
+      "path": "d295-independent-recovery-1.json",
+      "sha256": "ed13af5ebbf4c50f4c9847a4abfc5c48d67fbbc264b07ed03216f469f4809ba8",
+      "size_bytes": 930
+    },
+    {
+      "path": "d295-service-console-1.log",
+      "sha256": "c4ea6b22aaa5288250f1791cd735526654bcdbe409b4fd246a84969351ea7526",
+      "size_bytes": 2105
+    },
+    {
+      "path": "d295-study-1/construct-result.json",
+      "sha256": "274df322048542cbce9267280d0558ff55ca68c8b2795f92b2bd58379e9c08e1",
+      "size_bytes": 181
+    },
+    {
+      "path": "d295-study-1/construct.log",
+      "sha256": "94cb2d359474a8b4ba5b7adc9876021637d3836886668453f96de483165642af",
+      "size_bytes": 4117
+    },
+    {
+      "path": "d295-study-1/prefix-result.json",
+      "sha256": "958086287c294700989d2875e9f560557a9f76e536773f09fc98f21489aeca16",
+      "size_bytes": 178
+    },
+    {
+      "path": "d295-study-1/result.json",
+      "sha256": "600ee49e7582f496b6eb7a16dc41aa78f33c38576992157c51918b6748b86525",
+      "size_bytes": 2110
+    },
+    {
+      "path": "q16c-study-1/partition-restoration.json",
+      "sha256": "5b4f65ba974111e26695221d91355dc2c9eebf9f6399dc0b2ddbb25e0da715e8",
+      "size_bytes": 580
+    },
+    {
+      "path": "qualification-family-complete-1.json",
+      "sha256": "9361850f0e3d833d144901bb6c5e831d036a34ceaccdbfd5a220fb1f27b4dbc9",
+      "size_bytes": 84
+    },
+    {
+      "path": "run_clock_qualification_v32.py.log",
+      "sha256": "c191c9d1a87e4b1a14b9dd74753fff754791cc953317d4767fd9460aa6df1a5c",
+      "size_bytes": 195
+    },
+    {
+      "path": "status.json",
+      "sha256": "fb934495ac414bcfb88c802675dd91078e83a4babacc70ae597a6e591a1f6c64",
+      "size_bytes": 580
+    },
+    {
+      "path": "v32-admit-002-003-006.py.result.json",
+      "sha256": "fee19f1d3104b305c9fbf8d82eb836b9cdd3fcbdd330418a50a8803d5d9a55f2",
+      "size_bytes": 384
+    },
+    {
+      "path": "v32-admit-ext005.py.result.json",
+      "sha256": "0b0c794a944a196b50134615b1defc50ee84e7b50efcab5fe8d485aaf77408e8",
+      "size_bytes": 374
+    },
+    {
+      "path": "v32-author-admit-ext004.py.result.json",
+      "sha256": "03daaac26461b722e86dd3f69f76f93a8fc64fc0f61208d0b21c10b98bc2a346",
+      "size_bytes": 388
+    },
+    {
+      "path": "v32-clock-envelope-and-inventory.py.result.json",
+      "sha256": "0bb907c6b170540afa297edda974901494c178e0c608ee10e6be8c7b0dd1b508",
+      "size_bytes": 406
+    },
+    {
+      "path": "v32-ext001-execute.py.result.json",
+      "sha256": "85108a230ac52d6d9490848ef21a1486d401550f8fe6552c5c886e1667fb9c37",
+      "size_bytes": 378
+    },
+    {
+      "path": "v32-prepare-continue-q15w.py.result.json",
+      "sha256": "ef8bf4c2a30f0f02b615a4c64ba1267a78f2fbb063ea362d60d3df2825a2ea43",
+      "size_bytes": 392
+    },
+    {
+      "path": "v32-prepare-q15r.py.result.json",
+      "sha256": "37e83a52e0e63a3536d6b0c51de053b6867789b12115dd028c130bfb7ed9054c",
+      "size_bytes": 374
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "stage17-public-evidence-manifest/1"
+}

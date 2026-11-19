@@ -1,0 +1,18 @@
+{
+  "checked_at_utc": "2026-11-19T19:19:36.651245+00:00",
+  "collection_phase_started": false,
+  "output_files": [],
+  "output_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-preparation-final-1",
+  "prepared_exists": false,
+  "raw_data_transferred": false,
+  "unit": {
+    "ActiveState": "failed",
+    "ControlGroup": "",
+    "ExecMainExitTimestamp": "Thu 2026-11-19 22:07:23 MSK",
+    "ExecMainStatus": "1",
+    "InvocationID": "641abfe2caf8432c82b9d15fa54287da",
+    "MainPID": "0",
+    "Result": "exit-code",
+    "SubState": "failed"
+  }
+}

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_study_v1.py", line 328, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_study_v1.py", line 325, in main
+    else:run(args,c,h)
+         ~~~^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_study_v1.py", line 311, in run
+    io.require(result['success'],'D295 stopped incomplete; no automatic retry')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_operator_v1.py", line 23, in require
+    raise ValueError('D288 continuation operator: ' + message)
+ValueError: D288 continuation operator: D295 stopped incomplete; no automatic retry
+{"verified": true, "errors": [], "signalled_native": [], "signalled_owner": [], "execution_authority": false, "phase18_authority": false, "msr_readback": [{"cpu": 0, "expected_hex": "0000000000000000", "observed_hex": "0000000000000000", "matches": true}, {"cpu": 1, "expected_hex": "0000000000000000", "observed_hex": "0000000000000000", "matches": true}, {"cpu": 8, "expected_hex": "0000000000000000", "observed_hex": "0000000000000000", "matches": true}], "isolation_restoration": {"path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/clock-qualification-v32-1/restoration.json", "size_bytes": 842, "sha256": "4eb7951d270296369ab1db9fb25d02d76f885b6e8c086d4841e7a1bb3dacc304"}, "compaction": {"schema_version": "cpu-prefetch-locked-compaction-restoration/1", "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a", "requested_value": 1, "observed_value": 1, "verified": true, "intent_sha256": "87d5b010730cbedb98f4a56002f20bdcd8ee568ac0f685736108d780783a7936"}}

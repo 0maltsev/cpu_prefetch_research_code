@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/operator-preparation-v32-1/v32-admit-ext005.py"
+  ],
+  "completed_monotonic_ns": 1551674208813448,
+  "exit_code": 0,
+  "leader_reaped": true,
+  "operator": "v32-admit-ext005.py",
+  "retry_allowed": false,
+  "started_monotonic_ns": 1551428589371093
+}

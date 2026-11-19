@@ -4499,8 +4499,10 @@ struct PilotRunEntry final {
   const bool source_successor =
       formal_successor && action == FixedAction::q16c && formal_plan != nullptr &&
       string_member(*formal_plan, "schema_version") != nullptr &&
-      *string_member(*formal_plan, "schema_version") ==
-          "cpu-prefetch-stage17-formal-scheduled-plan/3";
+      (*string_member(*formal_plan, "schema_version") ==
+           "cpu-prefetch-stage17-formal-scheduled-plan/3" ||
+       *string_member(*formal_plan, "schema_version") ==
+           "cpu-prefetch-stage17-formal-scheduled-plan/4");
   if (formal_successor) {
     const auto* runtime = require_object(request, "runtime_binding");
     const auto* release = require_object(request, "release_binding");

@@ -254,10 +254,10 @@ public:
   Object plan;
   Object context;
   std::vector<int> readers;
-  FamilySources() {
+  explicit FamilySources(bool continuation = false) {
     Value::Array captures;
     Value::Array bindings;
-    for (std::size_t ordinal = 0U; ordinal < 180U; ++ordinal) {
+    for (std::size_t ordinal = 0U; ordinal < (continuation ? 94U : 180U); ++ordinal) {
       Value::Array sources;
       for (std::size_t phase = 0U; phase < 2U; ++phase) {
         const auto writer =
@@ -291,7 +291,9 @@ public:
                          .count();
     plan = Object{
         {"schema_version",
-         Value(std::string("cpu-prefetch-stage17-formal-scheduled-plan/3"))},
+         Value(std::string(continuation
+                               ? "cpu-prefetch-stage17-formal-scheduled-plan/4"
+                               : "cpu-prefetch-stage17-formal-scheduled-plan/3"))},
         {"budget", Value(Object{{"setup_ns", value(60'000'000'000U)}})},
         {"source_transport", Value(Object{{"owned_vector_bytes", value(5760U)},
                                           {"loader_transient_bytes", value(8208U)},
@@ -559,3 +561,20 @@ TEST(FormalScheduledNativeInput, LoadScaleUnknownFieldsAndMemoryBudgetFailClosed
   EXPECT_FALSE(bound.parse());
 }
 } // namespace
+
+TEST(FormalScheduledNativeInput, ContinuationUsesExactly188OriginalSourceDescriptors) {
+  using cpu_prefetch::runner::stage17::parse_formal_schedule_source_context;
+  FamilySources f(true);
+  const auto accepted = parse_formal_schedule_source_context(f.plan, f.context, {});
+  ASSERT_TRUE(accepted);
+  EXPECT_EQ(accepted.value().bindings.size(), 188U);
+  auto missing = f.context;
+  auto entries = *missing.at("bindings").as_array();
+  entries.pop_back();
+  missing.at("bindings") = Value(std::move(entries));
+  EXPECT_FALSE(parse_formal_schedule_source_context(f.plan, missing, {}));
+  auto legacy = f.plan;
+  legacy.at("schema_version") =
+      Value(std::string("cpu-prefetch-stage17-formal-scheduled-plan/3"));
+  EXPECT_FALSE(parse_formal_schedule_source_context(legacy, f.context, {}));
+}

@@ -28,6 +28,15 @@ def daycap_admission_tuple(profile, controller):
             and isinstance(controller, dict)
             and isinstance(controller.get("policy"), dict)
             and controller["policy"].get("path") ==
+                "config/stage17/stage17-operational-evidence-admission-policy-v63.json"):
+        return (63, 37, 37,
+                "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-DAYCAP-v5",
+                "tools/stage17_phase_controller_daycap_v5.py")
+    if (profile in {"STAGE17-PILOT-CANDIDATE-BUNDLE-v26",
+                    "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"}
+            and isinstance(controller, dict)
+            and isinstance(controller.get("policy"), dict)
+            and controller["policy"].get("path") ==
                 "config/stage17/stage17-operational-evidence-admission-policy-v62.json"):
         return (62, 36, 36,
                 "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-DAYCAP-v4",

@@ -1,0 +1,326 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 139 tests from 14 test suites.
+[----------] Global test environment set-up.
+[----------] 5 tests from RunnerQ13Policy
+[ RUN      ] RunnerQ13Policy.ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen
+[       OK ] RunnerQ13Policy.ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen (0 ms)
+[ RUN      ] RunnerQ13Policy.SoftwarePrefetchT0OnlyMappingIsFrozenAndEmitsOnlyPrefetchT0
+[       OK ] RunnerQ13Policy.SoftwarePrefetchT0OnlyMappingIsFrozenAndEmitsOnlyPrefetchT0 (0 ms)
+[ RUN      ] RunnerQ13Policy.SoftwarePrefetchMappingRegistryCoversAdr0047AndAdr0175Only
+[       OK ] RunnerQ13Policy.SoftwarePrefetchMappingRegistryCoversAdr0047AndAdr0175Only (0 ms)
+[ RUN      ] RunnerQ13Policy.AcceptedCpuPairSelectionIdsCoverAdr0043AndAdr0173Only
+[       OK ] RunnerQ13Policy.AcceptedCpuPairSelectionIdsCoverAdr0043AndAdr0173Only (0 ms)
+[ RUN      ] RunnerQ13Policy.AcceptedWorkerPairsCoverAdr0043AndAdr0173NearAndFarOnly
+[       OK ] RunnerQ13Policy.AcceptedWorkerPairsCoverAdr0043AndAdr0173NearAndFarOnly (0 ms)
+[----------] 5 tests from RunnerQ13Policy (0 ms total)
+
+[----------] 10 tests from RunnerAdmission
+[ RUN      ] RunnerAdmission.SyntheticFixtureUsingAdr0173FarPairPassesFieldValidation
+[       OK ] RunnerAdmission.SyntheticFixtureUsingAdr0173FarPairPassesFieldValidation (0 ms)
+[ RUN      ] RunnerAdmission.CompleteSyntheticFixturePassesFieldValidation
+[       OK ] RunnerAdmission.CompleteSyntheticFixturePassesFieldValidation (0 ms)
+[ RUN      ] RunnerAdmission.SealedControllerProofProducesTicketWithoutPathReread
+[       OK ] RunnerAdmission.SealedControllerProofProducesTicketWithoutPathReread (0 ms)
+[ RUN      ] RunnerAdmission.EveryEvidenceKindIsMandatoryAndUnique
+[       OK ] RunnerAdmission.EveryEvidenceKindIsMandatoryAndUnique (2 ms)
+[ RUN      ] RunnerAdmission.MissingStaleMutableOrIneligibleInputsFailClosed
+[       OK ] RunnerAdmission.MissingStaleMutableOrIneligibleInputsFailClosed (0 ms)
+[ RUN      ] RunnerAdmission.EmptyIdentityAndMalformedBinaryHashFailClosed
+[       OK ] RunnerAdmission.EmptyIdentityAndMalformedBinaryHashFailClosed (0 ms)
+[ RUN      ] RunnerAdmission.PairProfilePackageAndBuildDriftFailClosed
+[       OK ] RunnerAdmission.PairProfilePackageAndBuildDriftFailClosed (0 ms)
+[ RUN      ] RunnerAdmission.StaticDispatcherInstantiatesExactlyTheSelectedPackage
+[       OK ] RunnerAdmission.StaticDispatcherInstantiatesExactlyTheSelectedPackage (12 ms)
+[ RUN      ] RunnerAdmission.FileHashVerificationRejectsMismatchAndSymlink
+[       OK ] RunnerAdmission.FileHashVerificationRejectsMismatchAndSymlink (1 ms)
+[ RUN      ] RunnerAdmission.StrictJsonRejectsUnknownFieldsAndUnknownEvidence
+[       OK ] RunnerAdmission.StrictJsonRejectsUnknownFieldsAndUnknownEvidence (2 ms)
+[----------] 10 tests from RunnerAdmission (20 ms total)
+
+[----------] 5 tests from RunnerPreparation
+[ RUN      ] RunnerPreparation.AffinityReadbackPrecedesOwnerPrivateFirstTouch
+[       OK ] RunnerPreparation.AffinityReadbackPrecedesOwnerPrivateFirstTouch (1 ms)
+[ RUN      ] RunnerPreparation.AffinityMismatchFailsBeforePrivateFirstTouch
+[       OK ] RunnerPreparation.AffinityMismatchFailsBeforePrivateFirstTouch (0 ms)
+[ RUN      ] RunnerPreparation.T0OnlyPreparationPreservesAbsentPrfchwObservation
+[       OK ] RunnerPreparation.T0OnlyPreparationPreservesAbsentPrfchwObservation (0 ms)
+[ RUN      ] RunnerPreparation.MissingPrfchwFailsBeforePrivateFirstTouch
+[       OK ] RunnerPreparation.MissingPrfchwFailsBeforePrivateFirstTouch (0 ms)
+[ RUN      ] RunnerPreparation.AdmittedStaticPathUsesAffinedPreparationBeforeEmptyRun
+[       OK ] RunnerPreparation.AdmittedStaticPathUsesAffinedPreparationBeforeEmptyRun (0 ms)
+[----------] 5 tests from RunnerPreparation (2 ms total)
+
+[----------] 4 tests from RunnerQualification
+[ RUN      ] RunnerQualification.TypedArtifactProducersDeriveEligibilityAndCanonicalBytes
+[       OK ] RunnerQualification.TypedArtifactProducersDeriveEligibilityAndCanonicalBytes (4 ms)
+[ RUN      ] RunnerQualification.MissingCountsMigrationsAndUnavailablePagesStayIneligible
+[       OK ] RunnerQualification.MissingCountsMigrationsAndUnavailablePagesStayIneligible (1 ms)
+[ RUN      ] RunnerQualification.SoftwarePrefetchT0OnlyMappingIsEligibleWithoutPrfchw
+[       OK ] RunnerQualification.SoftwarePrefetchT0OnlyMappingIsEligibleWithoutPrfchw (0 ms)
+[ RUN      ] RunnerQualification.ActualCpuMigrationAcceptsSingleCpuSeriesBoundToProducerRole
+[       OK ] RunnerQualification.ActualCpuMigrationAcceptsSingleCpuSeriesBoundToProducerRole (0 ms)
+[----------] 4 tests from RunnerQualification (7 ms total)
+
+[----------] 11 tests from DiscoveryNativeInput
+[ RUN      ] DiscoveryNativeInput.ConvertsExactDurationsAndExplicitSeedWithoutHardwareAccess
+[       OK ] DiscoveryNativeInput.ConvertsExactDurationsAndExplicitSeedWithoutHardwareAccess (1 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsUnqualifiedLayoutSizesBeforeAnyMapping
+[       OK ] DiscoveryNativeInput.RejectsUnqualifiedLayoutSizesBeforeAnyMapping (4 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsScientificContextDriftAndNonIntegerInputs
+[       OK ] DiscoveryNativeInput.RejectsScientificContextDriftAndNonIntegerInputs (3 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsImplicitArenaSeedAndUnknownControlFields
+[       OK ] DiscoveryNativeInput.RejectsImplicitArenaSeedAndUnknownControlFields (1 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsCpuOverflowAndAbsentLimits
+[       OK ] DiscoveryNativeInput.RejectsCpuOverflowAndAbsentLimits (2 ms)
+[ RUN      ] DiscoveryNativeInput.RejectsAbsentMalformedAndDuplicateEnvironmentSources
+[       OK ] DiscoveryNativeInput.RejectsAbsentMalformedAndDuplicateEnvironmentSources (8 ms)
+[ RUN      ] DiscoveryNativeInput.SizingBindsEnvironmentalStorageWithoutAdmittingPlaceholders
+[       OK ] DiscoveryNativeInput.SizingBindsEnvironmentalStorageWithoutAdmittingPlaceholders (1 ms)
+[ RUN      ] DiscoveryNativeInput.ResolvesOnlyExactVersionAndDesignPairs
+[       OK ] DiscoveryNativeInput.ResolvesOnlyExactVersionAndDesignPairs (0 ms)
+[ RUN      ] DiscoveryNativeInput.BothDesignsPreserveAll36OrderedContextSlots
+[       OK ] DiscoveryNativeInput.BothDesignsPreserveAll36OrderedContextSlots (67 ms)
+[ RUN      ] DiscoveryNativeInput.V1DefaultRejectsTwoSecondsAndV2RejectsOldGrid
+[       OK ] DiscoveryNativeInput.V1DefaultRejectsTwoSecondsAndV2RejectsOldGrid (1 ms)
+[ RUN      ] DiscoveryNativeInput.V2RejectsBufferWarmupAndDeclaredLayoutDrift
+[       OK ] DiscoveryNativeInput.V2RejectsBufferWarmupAndDeclaredLayoutDrift (3 ms)
+[----------] 11 tests from DiscoveryNativeInput (95 ms total)
+
+[----------] 11 tests from FormalRingNativeInput
+[ RUN      ] FormalRingNativeInput.ResolvesExplicitWindowAndBothPhaseBounds
+[       OK ] FormalRingNativeInput.ResolvesExplicitWindowAndBothPhaseBounds (1 ms)
+[ RUN      ] FormalRingNativeInput.CoversTwelveContextsWithoutInventingFarCpu
+[       OK ] FormalRingNativeInput.CoversTwelveContextsWithoutInventingFarCpu (15 ms)
+[ RUN      ] FormalRingNativeInput.RejectsWrongMethodPackageWarmupAndFactorLabels
+[       OK ] FormalRingNativeInput.RejectsWrongMethodPackageWarmupAndFactorLabels (6 ms)
+[ RUN      ] FormalRingNativeInput.RejectsIncompleteOrAdditionalFields
+[       OK ] FormalRingNativeInput.RejectsIncompleteOrAdditionalFields (3 ms)
+[ RUN      ] FormalRingNativeInput.RejectsMissingWindowMinimumAndOverflow
+[       OK ] FormalRingNativeInput.RejectsMissingWindowMinimumAndOverflow (4 ms)
+[ RUN      ] FormalRingNativeInput.RejectsStaleDeclaredLayoutAndTooSmallBudget
+[       OK ] FormalRingNativeInput.RejectsStaleDeclaredLayoutAndTooSmallBudget (4 ms)
+[ RUN      ] FormalRingNativeInput.RejectsUncoveredRawCapacity
+[       OK ] FormalRingNativeInput.RejectsUncoveredRawCapacity (5 ms)
+[ RUN      ] FormalRingNativeInput.RejectsPhaseIdentityReuseAndUnexpectedArenaSeed
+[       OK ] FormalRingNativeInput.RejectsPhaseIdentityReuseAndUnexpectedArenaSeed (5 ms)
+[ RUN      ] FormalRingNativeInput.RejectsOwnerCollisionAndOrdinalDisagreement
+[       OK ] FormalRingNativeInput.RejectsOwnerCollisionAndOrdinalDisagreement (2 ms)
+[ RUN      ] FormalRingNativeInput.RejectsNoncanonicalSeedsAndOpaqueIdentities
+[       OK ] FormalRingNativeInput.RejectsNoncanonicalSeedsAndOpaqueIdentities (21 ms)
+[ RUN      ] FormalRingNativeInput.AllowsZeroOffsetButRejectsObservationAtPhaseEnd
+[       OK ] FormalRingNativeInput.AllowsZeroOffsetButRejectsObservationAtPhaseEnd (1 ms)
+[----------] 11 tests from FormalRingNativeInput (71 ms total)
+
+[----------] 8 tests from FormalServiceNativeInput
+[ RUN      ] FormalServiceNativeInput.CoversSixtyCellsAndBothPhaseBounds
+[       OK ] FormalServiceNativeInput.CoversSixtyCellsAndBothPhaseBounds (78 ms)
+[ RUN      ] FormalServiceNativeInput.RequiresExactPackageCellAndMethod
+[       OK ] FormalServiceNativeInput.RequiresExactPackageCellAndMethod (3 ms)
+[ RUN      ] FormalServiceNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel
+[       OK ] FormalServiceNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel (1 ms)
+[ RUN      ] FormalServiceNativeInput.RequiresLinkedSeedAndRejectsItForRing
+[       OK ] FormalServiceNativeInput.RequiresLinkedSeedAndRejectsItForRing (3 ms)
+[ RUN      ] FormalServiceNativeInput.RequiresR1OneLineAndR2ExplicitEvidence
+[       OK ] FormalServiceNativeInput.RequiresR1OneLineAndR2ExplicitEvidence (4 ms)
+[ RUN      ] FormalServiceNativeInput.RejectsStaleLayoutAndUncoveredCapacity
+[       OK ] FormalServiceNativeInput.RejectsStaleLayoutAndUncoveredCapacity (2 ms)
+[ RUN      ] FormalServiceNativeInput.RejectsWindowOverflowAndMissingWarmup
+[       OK ] FormalServiceNativeInput.RejectsWindowOverflowAndMissingWarmup (2 ms)
+[ RUN      ] FormalServiceNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity
+[       OK ] FormalServiceNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity (2 ms)
+[----------] 8 tests from FormalServiceNativeInput (97 ms total)
+
+[----------] 17 tests from FormalScheduledNativeInput
+[ RUN      ] FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds
+[       OK ] FormalScheduledNativeInput.CoversAllCellsAndBothPhaseBounds (279 ms)
+[ RUN      ] FormalScheduledNativeInput.SealedOriginalSourcesRequireExplicitBoundContext
+[       OK ] FormalScheduledNativeInput.SealedOriginalSourcesRequireExplicitBoundContext (3 ms)
+[ RUN      ] FormalScheduledNativeInput.WholeFamilySourceContextRejectsMissingExtraChangedAndAliasedDescriptors
+[       OK ] FormalScheduledNativeInput.WholeFamilySourceContextRejectsMissingExtraChangedAndAliasedDescriptors (142 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresExactPackageCellAndMethod
+[       OK ] FormalScheduledNativeInput.RequiresExactPackageCellAndMethod (3 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel
+[       OK ] FormalScheduledNativeInput.RequiresAcceptedSoftwareMappingForDeclaredModel (12 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing
+[       OK ] FormalScheduledNativeInput.RequiresLinkedSeedAndRejectsItForRing (5 ms)
+[ RUN      ] FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence
+[       OK ] FormalScheduledNativeInput.RequiresR1OneLineAndR2ExplicitEvidence (4 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity
+[       OK ] FormalScheduledNativeInput.RejectsStaleLayoutAndUncoveredCapacity (2 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup
+[       OK ] FormalScheduledNativeInput.RejectsWindowOverflowAndMissingWarmup (2 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity
+[       OK ] FormalScheduledNativeInput.RejectsNoncanonicalSeedAndReusedPhaseIdentity (2 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance
+[       OK ] FormalScheduledNativeInput.RejectsScheduleBoundariesCountsSeedsAndProvenance (13 ms)
+[ RUN      ] FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid
+[       OK ] FormalScheduledNativeInput.SharedMasterSeedWithDisjointScheduleNamespacesIsValid (1 ms)
+[ RUN      ] FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum
+[       OK ] FormalScheduledNativeInput.RejectsEmptyMeasurementButNotInventedWarmupMinimum (2 ms)
+[ RUN      ] FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction
+[       OK ] FormalScheduledNativeInput.OwnedDeadlinesSurviveParsedCopyMoveAndJsonDestruction (1 ms)
+[ RUN      ] FormalScheduledNativeInput.HardwarePrestateSurvivesParserScopeCopyAndMove
+[       OK ] FormalScheduledNativeInput.HardwarePrestateSurvivesParserScopeCopyAndMove (1 ms)
+[ RUN      ] FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed
+[       OK ] FormalScheduledNativeInput.LoadScaleUnknownFieldsAndMemoryBudgetFailClosed (4 ms)
+[ RUN      ] FormalScheduledNativeInput.ContinuationUsesExactly188OriginalSourceDescriptors
+[       OK ] FormalScheduledNativeInput.ContinuationUsesExactly188OriginalSourceDescriptors (32 ms)
+[----------] 17 tests from FormalScheduledNativeInput (516 ms total)
+
+[----------] 31 tests from Stage17FormalFamily
+[ RUN      ] Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets
+[       OK ] Stage17FormalFamily.CompleteProspectiveFamiliesHaveCheckedBudgets (4444 ms)
+[ RUN      ] Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies
+[       OK ] Stage17FormalFamily.RejectsIncompleteAndReorderedFamilies (331 ms)
+[ RUN      ] Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift
+[       OK ] Stage17FormalFamily.RejectsSourceMethodAndPhaseNamespaceDrift (613 ms)
+[ RUN      ] Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily
+[       OK ] Stage17FormalFamily.RejectsRepeatedRunOrSeedAcrossTheCompleteFamily (463 ms)
+[ RUN      ] Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput
+[       OK ] Stage17FormalFamily.RejectsUnbudgetedTimeMemoryAndOutput (1829 ms)
+[ RUN      ] Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission
+[       OK ] Stage17FormalFamily.RejectsOverflowAndFamilyDiskOmission (2200 ms)
+[ RUN      ] Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges
+[       OK ] Stage17FormalFamily.RejectsOutcomeAdaptiveCapacityAndPairedGeometryChanges (608 ms)
+[ RUN      ] Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions
+[       OK ] Stage17FormalFamily.RejectsExtraFieldsAndNonFormalActions (136 ms)
+[ RUN      ] Stage17FormalFamily.ScheduledContinuationPreserves94OriginalCellPositions
+[       OK ] Stage17FormalFamily.ScheduledContinuationPreserves94OriginalCellPositions (142 ms)
+[ RUN      ] Stage17FormalFamily.ScheduledContinuationRejectsForgedIncidentControlOrOrder
+[       OK ] Stage17FormalFamily.ScheduledContinuationRejectsForgedIncidentControlOrOrder (195 ms)
+[ RUN      ] Stage17FormalFamily.DescriptiveScheduledCoverageAndCompleteTransportBudget
+[       OK ] Stage17FormalFamily.DescriptiveScheduledCoverageAndCompleteTransportBudget (976 ms)
+[ RUN      ] Stage17FormalFamily.ServiceContinuationMaps103RealCapturesFromOriginal17
+[       OK ] Stage17FormalFamily.ServiceContinuationMaps103RealCapturesFromOriginal17 (76 ms)
+[ RUN      ] Stage17FormalFamily.ServiceContinuationRejectsMissingExtraOrWrongFirstRepetition
+[       OK ] Stage17FormalFamily.ServiceContinuationRejectsMissingExtraOrWrongFirstRepetition (159 ms)
+[ RUN      ] Stage17FormalFamily.ServiceContinuationRejectsDifferentIncidentOrMissingProofs
+[       OK ] Stage17FormalFamily.ServiceContinuationRejectsDifferentIncidentOrMissingProofs (207 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat
+[       OK ] Stage17FormalFamily.ServiceDaycapHasAllSixtyCellsTwiceAndLegacyCaptureFormat (75 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresExplicitFamilyAndCaptureMethods (388 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresExactlyTwoRepetitionsPerCell (1302 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresExactCoverageAndProspectiveOrder (391 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup
+[       OK ] Stage17FormalFamily.ServiceDaycapRequiresOneSecondMeasurementAndFiveWarmup (947 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay
+[       OK ] Stage17FormalFamily.ServiceDaycapWatchdogIncludesAllDeclaredTimeAndCapsOneDay (374 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks
+[       OK ] Stage17FormalFamily.ServiceDaycapRetainsArchivedStorageAndBudgetChecks (1155 ms)
+[ RUN      ] Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks
+[       OK ] Stage17FormalFamily.ServiceDaycapRetainsGeometryIdentityAndResourceChecks (590 ms)
+[ RUN      ] Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine
+[       OK ] Stage17FormalFamily.OriginalRingAndServiceVersionsKeepMinimumFiftyNine (7758 ms)
+[ RUN      ] Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy
+[       OK ] Stage17FormalFamily.ArchivedFamiliesKeepLogicalBoundsAndAddPhysicalPolicy (5736 ms)
+[ RUN      ] Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint
+[       OK ] Stage17FormalFamily.ArchiveCannotLowerApprovedStorageOrOmitCheckpoint (3468 ms)
+[ RUN      ] Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission
+[       OK ] Stage17FormalFamily.ArchiveRejectsOversizedWorkspaceAndColdBudgetOmission (2482 ms)
+[ RUN      ] Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily
+[       OK ] Stage17FormalFamily.ArchiveRequiresExplicitVersionAndCompleteFamily (790 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts
+[       OK ] Stage17FormalFamily.ContinuationExecutesOnlyNineUnfinishedContexts (452 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules
+[       OK ] Stage17FormalFamily.ContinuationKeepsExactFiftyNineAndOriginalDeadlineRules (531 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume
+[       OK ] Stage17FormalFamily.ContinuationRejectsPrefixRerunAndArbitraryResume (954 ms)
+[ RUN      ] Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs
+[       OK ] Stage17FormalFamily.ContinuationRequiresExactIncidentAndBoundProofs (936 ms)
+[----------] 31 tests from Stage17FormalFamily (40721 ms total)
+
+[----------] 7 tests from FormalRingPublication
+[ RUN      ] FormalRingPublication.RetainsEightRawStreamsAndAbsentOwnersExplicitly
+[       OK ] FormalRingPublication.RetainsEightRawStreamsAndAbsentOwnersExplicitly (16 ms)
+[ RUN      ] FormalRingPublication.CopiesAllDemandBytesWithoutWindowFiltering
+[       OK ] FormalRingPublication.CopiesAllDemandBytesWithoutWindowFiltering (7 ms)
+[ RUN      ] FormalRingPublication.PreservesFailedClockAndIncompletePrefix
+[       OK ] FormalRingPublication.PreservesFailedClockAndIncompletePrefix (5 ms)
+[ RUN      ] FormalRingPublication.StopsAtSinkFailureAndRetainsPriorArtifacts
+[       OK ] FormalRingPublication.StopsAtSinkFailureAndRetainsPriorArtifacts (0 ms)
+[ RUN      ] FormalRingPublication.NeverInfersFinalCleanupFromPrePublicationState
+[       OK ] FormalRingPublication.NeverInfersFinalCleanupFromPrePublicationState (5 ms)
+[ RUN      ] FormalRingPublication.RejectsAbsentProspectiveMinimumBeforePublishing
+[       OK ] FormalRingPublication.RejectsAbsentProspectiveMinimumBeforePublishing (0 ms)
+[ RUN      ] FormalRingPublication.PreservesIndependentPrimaryBytesAndExactDemandBindings
+[       OK ] FormalRingPublication.PreservesIndependentPrimaryBytesAndExactDemandBindings (7 ms)
+[----------] 7 tests from FormalRingPublication (44 ms total)
+
+[----------] 6 tests from FormalServicePublication
+[ RUN      ] FormalServicePublication.RetainsFourIndependentPrimaryStreams
+[       OK ] FormalServicePublication.RetainsFourIndependentPrimaryStreams (2 ms)
+[ RUN      ] FormalServicePublication.KeepsIntervalNumeratorSeparateFromDrainCount
+[       OK ] FormalServicePublication.KeepsIntervalNumeratorSeparateFromDrainCount (4 ms)
+[ RUN      ] FormalServicePublication.RetainsUnknownFailureWithoutInventingObservation
+[       OK ] FormalServicePublication.RetainsUnknownFailureWithoutInventingObservation (4 ms)
+[ RUN      ] FormalServicePublication.RetainsNodeOrderAsExactUnsignedLittleEndian
+[       OK ] FormalServicePublication.RetainsNodeOrderAsExactUnsignedLittleEndian (4 ms)
+[ RUN      ] FormalServicePublication.PreservesMissingOwnersAndStopsAtSinkFailure
+[       OK ] FormalServicePublication.PreservesMissingOwnersAndStopsAtSinkFailure (3 ms)
+[ RUN      ] FormalServicePublication.FinalCleanupRemainsSeparateEvidence
+[       OK ] FormalServicePublication.FinalCleanupRemainsSeparateEvidence (4 ms)
+[----------] 6 tests from FormalServicePublication (22 ms total)
+
+[----------] 7 tests from FormalScheduledPublication
+[ RUN      ] FormalScheduledPublication.RetainsFourIndependentPrimaryStreams
+[       OK ] FormalScheduledPublication.RetainsFourIndependentPrimaryStreams (2 ms)
+[ RUN      ] FormalScheduledPublication.PreparedSchedulesAreNotFabricatedExecution
+[       OK ] FormalScheduledPublication.PreparedSchedulesAreNotFabricatedExecution (5 ms)
+[ RUN      ] FormalScheduledPublication.RetainsActualReleaseCompletionAndDrainWithoutD211
+[       OK ] FormalScheduledPublication.RetainsActualReleaseCompletionAndDrainWithoutD211 (5 ms)
+[ RUN      ] FormalScheduledPublication.RetainsUnknownFailureWithoutInventingObservation
+[       OK ] FormalScheduledPublication.RetainsUnknownFailureWithoutInventingObservation (4 ms)
+[ RUN      ] FormalScheduledPublication.RetainsNodeOrderAsExactUnsignedLittleEndian
+[       OK ] FormalScheduledPublication.RetainsNodeOrderAsExactUnsignedLittleEndian (4 ms)
+[ RUN      ] FormalScheduledPublication.PreservesMissingOwnersAndStopsAtSinkFailure
+[       OK ] FormalScheduledPublication.PreservesMissingOwnersAndStopsAtSinkFailure (3 ms)
+[ RUN      ] FormalScheduledPublication.FinalCleanupRemainsSeparateEvidence
+[       OK ] FormalScheduledPublication.FinalCleanupRemainsSeparateEvidence (4 ms)
+[----------] 7 tests from FormalScheduledPublication (30 ms total)
+
+[----------] 12 tests from Stage17DiscoveryPublication
+[ RUN      ] Stage17DiscoveryPublication.PreservesRawCodecRunIdsAndFourVectorOffsets
+[       OK ] Stage17DiscoveryPublication.PreservesRawCodecRunIdsAndFourVectorOffsets (5 ms)
+[ RUN      ] Stage17DiscoveryPublication.MissingOwnersRetainSevenFilesAndNullFacts
+[       OK ] Stage17DiscoveryPublication.MissingOwnersRetainSevenFilesAndNullFacts (3 ms)
+[ RUN      ] Stage17DiscoveryPublication.ConsumerIdentityIsRetainedWhenProducerMissing
+[       OK ] Stage17DiscoveryPublication.ConsumerIdentityIsRetainedWhenProducerMissing (5 ms)
+[ RUN      ] Stage17DiscoveryPublication.RetainsFailedCurrentEventDrainAndSessionWithoutCompletenessClaim
+[       OK ] Stage17DiscoveryPublication.RetainsFailedCurrentEventDrainAndSessionWithoutCompletenessClaim (7 ms)
+[ RUN      ] Stage17DiscoveryPublication.SinkFailureStopsImmediatelyWithoutRetryOrSuccess
+[       OK ] Stage17DiscoveryPublication.SinkFailureStopsImmediatelyWithoutRetryOrSuccess (3 ms)
+[ RUN      ] Stage17DiscoveryPublication.InvalidOrdinalPublishesNothing
+[       OK ] Stage17DiscoveryPublication.InvalidOrdinalPublishesNothing (0 ms)
+[ RUN      ] Stage17DiscoveryPublication.FinalResultRetainsCleanupFailuresAndMissingObservations
+[       OK ] Stage17DiscoveryPublication.FinalResultRetainsCleanupFailuresAndMissingObservations (0 ms)
+[ RUN      ] Stage17DiscoveryPublication.RetainsPartialSyscallsMonitorPreparationTlsAndMappingFacts
+[       OK ] Stage17DiscoveryPublication.RetainsPartialSyscallsMonitorPreparationTlsAndMappingFacts (7 ms)
+[ RUN      ] Stage17DiscoveryPublication.RetainsPageErrorsAndArenaIntegrityAtPublication
+[       OK ] Stage17DiscoveryPublication.RetainsPageErrorsAndArenaIntegrityAtPublication (7 ms)
+[ RUN      ] Stage17DiscoveryPublication.CorruptArenaOrderRetainsControlAndRawArtifacts
+[       OK ] Stage17DiscoveryPublication.CorruptArenaOrderRetainsControlAndRawArtifacts (6 ms)
+[ RUN      ] Stage17DiscoveryPublication.EnvironmentalSnapshotsRetainBytesPartialReadsAndGroupIdentity
+[       OK ] Stage17DiscoveryPublication.EnvironmentalSnapshotsRetainBytesPartialReadsAndGroupIdentity (8 ms)
+[ RUN      ] Stage17DiscoveryPublication.EnvironmentalStorageExtentCannotBeInvented
+[       OK ] Stage17DiscoveryPublication.EnvironmentalStorageExtentCannotBeInvented (1 ms)
+[----------] 12 tests from Stage17DiscoveryPublication (57 ms total)
+
+[----------] 5 tests from Stage17FixedAction
+[ RUN      ] Stage17FixedAction.RingDistanceCaptureRequiresSealedRunnerAdmission
+[       OK ] Stage17FixedAction.RingDistanceCaptureRequiresSealedRunnerAdmission (0 ms)
+[ RUN      ] Stage17FixedAction.CalibrationAndPilotRejectPathWithoutTicketAndSchedule
+[       OK ] Stage17FixedAction.CalibrationAndPilotRejectPathWithoutTicketAndSchedule (1 ms)
+[ RUN      ] Stage17FixedAction.CalibrationPrestateMatchesNamedMapping
+[       OK ] Stage17FixedAction.CalibrationPrestateMatchesNamedMapping (2 ms)
+[ RUN      ] Stage17FixedAction.ExpandedOrMalformedScientificInputFailsClosed
+[       OK ] Stage17FixedAction.ExpandedOrMalformedScientificInputFailsClosed (0 ms)
+[ RUN      ] Stage17FixedAction.Q15OneShotDispatcherIsUnconditionallyRejected
+[       OK ] Stage17FixedAction.Q15OneShotDispatcherIsUnconditionallyRejected (0 ms)
+[----------] 5 tests from Stage17FixedAction (4 ms total)
+
+[----------] Global test environment tear-down
+[==========] 139 tests from 14 test suites ran. (41691 ms total)
+[  PASSED  ] 139 tests.

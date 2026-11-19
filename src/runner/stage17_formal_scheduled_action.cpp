@@ -255,8 +255,10 @@ auto parse_formal_schedule_source_context(const Object& plan, const Object& cont
     -> protocol::Result<PreparedFormalScheduleSources> {
   try {
     fields(context, {"schema_version", "bindings", "deadline_monotonic_ns"});
-    if (text(plan, "schema_version") !=
-            "cpu-prefetch-stage17-formal-scheduled-plan/3" ||
+    const bool continuation =
+        text(plan, "schema_version") == "cpu-prefetch-stage17-formal-scheduled-plan/4";
+    if ((!continuation && text(plan, "schema_version") !=
+                              "cpu-prefetch-stage17-formal-scheduled-plan/3") ||
         text(context, "schema_version") !=
             "cpu-prefetch-stage17-schedule-source-context/1")
       throw std::invalid_argument(
@@ -275,8 +277,9 @@ auto parse_formal_schedule_source_context(const Object& plan, const Object& cont
     if (!context_bytes ||
         context_bytes.value().size() > number(transport, "metadata_bytes"))
       throw std::invalid_argument("source context exceeds metadata reservation");
-    const auto& entries = array(context, "bindings", 360U);
-    const auto& captures = array(plan, "captures", 180U);
+    const auto source_count = continuation ? 188U : 360U;
+    const auto& entries = array(context, "bindings", source_count);
+    const auto& captures = array(plan, "captures", source_count / 2U);
     PreparedFormalScheduleSources result{
         {}, number(transport, "owned_vector_bytes"), deadline};
     const auto transient = number(transport, "loader_transient_bytes");
@@ -292,7 +295,7 @@ auto parse_formal_schedule_source_context(const Object& plan, const Object& cont
         identities.insert({info.st_dev, info.st_ino});
     }
     std::set<std::string> artifacts;
-    result.bindings.reserve(360U);
+    result.bindings.reserve(source_count);
     for (std::size_t i = 0U; i < entries.size(); ++i) {
       const auto* bound = entries[i].as_object();
       const auto* item = captures[i / 2U].as_object();

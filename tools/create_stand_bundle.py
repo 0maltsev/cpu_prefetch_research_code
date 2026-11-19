@@ -21,10 +21,10 @@ from typing import Any
 STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
 STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v26"
 STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"
-STAGE17_POLICY_PATH = "config/stage17/stage17-operational-evidence-admission-policy-v62.json"
-STAGE17_PREFLIGHT_POLICY_PATH = "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v36.json"
-STAGE17_CONTROLLER_ID = "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-DAYCAP-v4"
-STAGE17_CONTROLLER_ENTRYPOINT = "tools/stage17_phase_controller_daycap_v4.py"
+STAGE17_POLICY_PATH = "config/stage17/stage17-operational-evidence-admission-policy-v63.json"
+STAGE17_PREFLIGHT_POLICY_PATH = "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v37.json"
+STAGE17_CONTROLLER_ID = "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-DAYCAP-v5"
+STAGE17_CONTROLLER_ENTRYPOINT = "tools/stage17_phase_controller_daycap_v5.py"
 Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
 STAGE17_CODEGEN_INPUTS = {
     "formal_codegen_report.json": ("cpu_prefetch_runner", "check_formal_codegen.py"),
@@ -287,13 +287,13 @@ def current_stage17_policy(root: pathlib.Path) -> dict:
     This check grants no execution authority and does not repair stale hashes.
     Native codegen, clean-source and full extracted-bundle gates remain required.
     """
-    import stage17_semantic_verifier_v62 as semantic
+    import stage17_semantic_verifier_v63 as semantic
     import stage17_state_journal as journal
     policy = json.loads((root / STAGE17_POLICY_PATH).read_bytes())
     genesis = journal.load_json(root / "config/stage17/journal/stage17-state-journal-000000.json")
     _, _, graph, catalog, versions = journal.validate_graph_catalog(root, genesis)
     record = genesis["genesis"]["genesis_record"]
-    semantic.verify_policy_v62(root=root, policy=policy, graph_sha256=graph, catalog_sha256=catalog,
+    semantic.verify_policy_v63(root=root, policy=policy, graph_sha256=graph, catalog_sha256=catalog,
         genesis_record_sha256=journal.sha256_bytes(journal.canonical_json_bytes(record)),
         resolution_schema_sha256=versions["resolution_schema_sha256"])
     return policy

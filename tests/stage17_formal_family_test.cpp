@@ -324,6 +324,107 @@ auto descriptive_scheduled_fixture() -> Object {
   return plan;
 }
 
+auto scheduled_continuation_fixture() -> Object {
+  auto plan = descriptive_scheduled_fixture();
+  plan.at("schema_version") = text("cpu-prefetch-stage17-formal-scheduled-plan/4");
+  plan.at("method_id") = text("MATRIX-FULL-DESCRIPTIVE-CONTINUED-PLATFORM-STRATA-v1");
+  auto captures = *plan.at("captures").as_array();
+  captures.erase(captures.begin(), captures.begin() + 86);
+  for (std::size_t ordinal = 0U; ordinal < captures.size(); ++ordinal) {
+    auto item = *captures[ordinal].as_object();
+    for (const auto field : {"capture", "resources", "monitoring"}) {
+      auto part = *item.at(field).as_object();
+      part.at("ordinal") = number(ordinal);
+      item.at(field) = Value(std::move(part));
+    }
+    captures[ordinal] = Value(std::move(item));
+  }
+  plan.at("captures") = Value(std::move(captures));
+  const auto binding = [](std::string_view hash, std::uint64_t bytes) {
+    return Value(Object{{"path", text("/synthetic/evidence.json")},
+                        {"size_bytes", number(bytes)},
+                        {"sha256", text(hash)}});
+  };
+  Array reused;
+  for (std::size_t i = 0U; i < 86U; ++i)
+    reused.push_back(number(i));
+  plan.emplace(
+      "continuation",
+      Value(Object{
+          {"policy_id", text("Q16C-RETAINED-PREFIX-CONTINUATION-v1")},
+          {"parent_plan",
+           binding("36c15f402c7f20240da6b36472b9d0c56bcade8c1024604d0b1bd3deaef19a44",
+                   3321611)},
+          {"failed_family_receipt",
+           binding("17540e9e3871cd5632205f1f6bc5526acdd2d8144a987e4611f80b6cd6abe2d8",
+                   1082)},
+          {"accepted_prefix_manifest", binding(std::string(64U, 'c'), 1000)},
+          {"compatibility_manifest", binding(std::string(64U, 'd'), 1000)},
+          {"reused_capture_ordinals", Value(std::move(reused))},
+          {"original_first_ordinal", number(86)},
+          {"original_total_captures", number(180)},
+          {"remaining_capture_count", number(94)},
+          {"seed_policy", text("PRESERVE_ORIGINAL_NUMERIC_SEEDS_FRESH_IDENTITIES")},
+          {"monitor_path_replacements", Value(Array{})},
+          {"future_retries", number(0)}}));
+  plan.emplace(
+      "platform_control",
+      Value(Object{
+          {"schema_version", text("cpu-prefetch-q16c-platform-control/1")},
+          {"control_path", text("/proc/sys/vm/compact_unevictable_allowed")},
+          {"requested_value", number(0)},
+          {"observation_policy", text("BEFORE_AUTHORIZATION_AFTER_CHECKPOINT-v1")},
+          {"witness_transport", text("READ_ONLY_ROOT_LEASE_FD-v1")},
+          {"metadata_output_bytes", number(2U * 1024U * 1024U)}}));
+  auto transport = *plan.at("source_transport").as_object();
+  transport.at("source_bytes") = number(94U * 2U * 10U * 8U);
+  transport.at("owned_vector_bytes") = number(94U * 2U * 10U * 8U);
+  transport.at("descriptor_count") = number(188U);
+  plan.at("source_transport") = Value(std::move(transport));
+  auto budget = *plan.at("budget").as_object();
+  budget.at("watchdog_ns") = number(24'860'000'000'000U);
+  budget.at("metadata_output_bytes") = number(16U * 1024U * 1024U);
+  budget.at("max_output_bytes") = number(1'000'000'000U);
+  plan.at("budget") = Value(std::move(budget));
+  return plan;
+}
+
+TEST(Stage17FormalFamily, ScheduledContinuationPreserves94OriginalCellPositions) {
+  const auto plan = scheduled_continuation_fixture();
+  const auto accepted = validate(plan, Action::q16c);
+  ASSERT_TRUE(accepted) << (accepted ? "" : accepted.errors().front().message);
+  EXPECT_EQ(accepted.value().captures.size(), 94U);
+  EXPECT_EQ(accepted.value().watchdog_ns, 24'860'000'000'000U);
+  auto legacy = plan;
+  legacy.at("schema_version") = text("cpu-prefetch-stage17-formal-scheduled-plan/3");
+  EXPECT_FALSE(validate(legacy, Action::q16c));
+  auto missing = plan;
+  auto rows = *missing.at("captures").as_array();
+  rows.pop_back();
+  missing.at("captures") = Value(std::move(rows));
+  EXPECT_FALSE(validate(missing, Action::q16c));
+}
+
+TEST(Stage17FormalFamily, ScheduledContinuationRejectsForgedIncidentControlOrOrder) {
+  auto plan = scheduled_continuation_fixture();
+  auto control = *plan.at("platform_control").as_object();
+  control.at("requested_value") = number(1);
+  plan.at("platform_control") = Value(std::move(control));
+  EXPECT_FALSE(validate(plan, Action::q16c));
+  plan = scheduled_continuation_fixture();
+  auto proof = *plan.at("continuation").as_object();
+  proof.at("original_first_ordinal") = number(85);
+  plan.at("continuation") = Value(std::move(proof));
+  EXPECT_FALSE(validate(plan, Action::q16c));
+  plan = scheduled_continuation_fixture();
+  change_entry(plan, 0U, [](auto& entry) {
+    auto capture = *entry.at("capture").as_object();
+    capture.at("ordinal") = number(86);
+    entry.at("capture") = Value(std::move(capture));
+  });
+  EXPECT_FALSE(validate(plan, Action::q16c));
+}
+
 TEST(Stage17FormalFamily, DescriptiveScheduledCoverageAndCompleteTransportBudget) {
   auto plan = descriptive_scheduled_fixture();
   const auto accepted = validate(plan, Action::q16c);

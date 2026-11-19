@@ -1,0 +1,9 @@
+{
+  "archive_sha256": "b82155356716bbf4194bdca91fce23120371b07a6f9c61a4434d7da062801a33",
+  "execution_authority": false,
+  "exit_code": 0,
+  "source_revision": "c989ca84b93f532b7ee32cc1a947463e280033e9",
+  "stderr": "",
+  "stdout": "stand-bundle-check: PASS (4591 files, STAGE17-PILOT-CANDIDATE-BUNDLE-v26, protocol 2.0.0-pre.3, dynamic/pilot/confirmatory prohibited)\n",
+  "window_started": false
+}

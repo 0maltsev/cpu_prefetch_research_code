@@ -1,0 +1,18 @@
+{
+  "checked_at_utc": "2026-11-19T15:39:26.429775+00:00",
+  "console_tail": "",
+  "new_family_prepared": false,
+  "platform_guard_started": false,
+  "prefix_analysis_root_exists": false,
+  "prefix_log_tail": "",
+  "prefix_reports": 0,
+  "prefix_result_exists": false,
+  "unit": {
+    "ActiveState": "active",
+    "ExecMainStartTimestamp": "Thu 2026-11-19 18:38:07 MSK",
+    "ExecMainStatus": "0",
+    "InvocationID": "fc1bf0665f604aaaada2918d347d4d50",
+    "MainPID": "336506",
+    "SubState": "running"
+  }
+}

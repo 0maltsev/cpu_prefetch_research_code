@@ -1,0 +1,37 @@
+{
+  "checked_at_utc": "2026-11-19T22:25:26.688179+00:00",
+  "controls_rearmed": false,
+  "empty_family_verified": true,
+  "execution_started": false,
+  "family_device_inode": [
+    2307,
+    211681674
+  ],
+  "guard_value": "1",
+  "independent_restoration_verified": true,
+  "preserved_handoff": {
+    "admission-root/evidence/formal-q16c-d295-1/authorization.json": {
+      "sha256": "d79d9be2fbcd86e4aebf953fdea4ee6f4e3a4a760ec9ba1107c29e3aa42e6b70",
+      "size_bytes": 2718
+    },
+    "admission-root/evidence/formal-q16c-d295-1/authorization.json.sig": {
+      "sha256": "3a40999a3845e004c3ae7d83034649200c44cd2c4b512c416129ad286b2eb18a",
+      "size_bytes": 322
+    },
+    "d297-software-preparation-2/constructed-output/prepared.json": {
+      "sha256": "dd9a57a78c6030c0275e60ac369c294eba88b693788d13f1e29ae1239e9c402a",
+      "size_bytes": 1341
+    }
+  },
+  "raw_data_transferred": false,
+  "stopped_two_phase_result_verified": true,
+  "supervisor_restoration_verified": true,
+  "unit": {
+    "ActiveState": "failed",
+    "ControlGroup": "",
+    "ExecMainStatus": "1",
+    "InvocationID": "24c6f42bdd3e44a280d97f700953754d",
+    "MainPID": "0",
+    "SubState": "failed"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "affected_native_sanitizer_target": false,
+  "automatic_retry": false,
+  "c_or_cpp_changed": false,
+  "changes": {
+    "tests/test_stage17_q16c_saved_request_v1.py": {
+      "sha256": "1837649a7a5618598910cf42a8bba192eeb098e00b07a14e402fe7e1bf9f14f4",
+      "size_bytes": 14986
+    },
+    "tools/stage17_q16c_saved_request_v1.py": {
+      "sha256": "8611cfef3e36f0b35653c577f21a0341c442d0bbc5e82e24a52fd0de4007827f",
+      "size_bytes": 16606
+    }
+  },
+  "launch_permitted": false,
+  "log_normalization": "handoff-before-fix.txt removes terminal trailing whitespace only; exact original bytes and SHA256 retained in handoff-before-fix.original.json",
+  "new_capture_count": 0,
+  "preserved_handoff_bindings_verified": true,
+  "proposal": {
+    "approved": false,
+    "path": "docs/decisions/0306-q16c-handoff-stop-continuation-proposal.md",
+    "sha256": "97928f7779b8d2de60a3a8c9eb6f1b67634891d7b8454683ef90d2609a16fc75",
+    "size_bytes": 4790
+  },
+  "q16a_preserved_count": 708,
+  "q16b_preserved_count": 120,
+  "q16c_pending_count": 94,
+  "q16c_validated_preserved_count": 86,
+  "qualified_native_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "regression_before_fix": "one NameError plus one unresolved-auth symbol failure",
+  "signed_preparation_elapsed_ns": 119104549597,
+  "signed_preparation_status": "ACTUAL_SIGNED_FORMAL_PREPARATION_PASS_NO_EXECUTION",
+  "stage18_authority": false,
+  "status": "HANDOFF_REPAIR_SOFTWARE_VERIFIED_EXPERIMENT_STOPPED",
+  "stopped_administrative_revision": "b7a466fc4112025432280b18824e99040db8f689",
+  "targeted_test_modules": [
+    "test_stage17_q16c_saved_request_v1",
+    "test_stage17_q16c_qualified_continuation_v1"
+  ],
+  "targeted_tests_passed": 30
+}

@@ -230,6 +230,7 @@ def render(name,raw):
         a=text.index('    cli = cli_for(c, configured=True)',text.index('def sign_collect('))
         b=text.index('    import stage17_q16c_compaction_integration_v2 as guarded',a)
         text=text[:a]+'''    cli,d,args=common(c)
+    auth=Path(d['authorization']['path'])
     root,evidence=Path(c['repository_root']),Path(c['evidence_root'])
     out=Path(c['output_root']);built=document(c['preconstruction']);plan=document(built['plan'])
     program=Path(c['program_root'])

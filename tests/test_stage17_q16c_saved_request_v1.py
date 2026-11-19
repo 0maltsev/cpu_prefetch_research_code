@@ -9,6 +9,7 @@ from pathlib import Path
 import sys
 import tempfile
 import textwrap
+import time
 import types
 import unittest
 from unittest.mock import patch
@@ -160,6 +161,64 @@ class SupplementTests(unittest.TestCase):
             self.assertEqual(verify.call_args.args[2],trust)
         bad=copy.deepcopy(self.c);del bad['deadline_supplement']['signature']
         with self.assertRaises(ValueError):current.runtime_deadline(bad)
+
+
+class HandoffTests(unittest.TestCase):
+    def test_rendered_collection_uses_the_actual_prepared_authority(self):
+        import stage17_q16c_compaction_integration_v2 as guarded
+        import stage17_q16c_continuation_operator_v1 as real_io
+        raw=current.render('stage17_q16c_continuation_operator_v1.py',
+            (ROOT/'tools/stage17_q16c_continuation_operator_v1.py').read_bytes())
+        io=types.ModuleType('actual_rendered_collection');io.__file__='/software-only/operator.py'
+        exec(compile(raw,io.__file__,'exec'),io.__dict__)
+        evidence=ROOT/'docs/evidence/stage17/Q16C-D301-D302-HANDOFF-STOP-20261120-01'
+        original=json.loads((evidence/'d297-software-preparation-2/constructed-output/prepared.json').read_bytes())
+        with tempfile.TemporaryDirectory() as directory:
+            e=Path(directory);out=e/'output';out.mkdir();(e/'platform-guard-d301-1').mkdir()
+            original['authorization']=real_io.save(e/'authorization.json',{'actual_handoff_fixture':True})
+            original['signature']=real_io.save(e/'authorization.json.sig',{'software_signature_fixture':True})
+            plan=real_io.save(e/'plan.json',{'storage':{'program_scope_sha256':'c'*64}})
+            built=real_io.save(out/'constructed.json',{'plan':plan})
+            real_io.save(out/'prepared.json',original)
+            real_io.save(e/'platform-guard-d301-1/witness.json',{'software_witness_fixture':True})
+            observed=[]
+            class Observations:
+                def __init__(self,*a,**kw):
+                    self.next_ordinal=0;self.metadata_bindings=[];observed.append(self)
+                    self.assert_count=kw['capture_count']
+                def before_capture(self,ordinal):self.next_ordinal=ordinal
+            def execute(**kw):
+                self.assertEqual(kw['authorization_path'],Path(original['authorization']['path']))
+                self.assertEqual(kw['signature_path'],Path(original['signature']['path']))
+                self.assertEqual(observed[0].assert_count,94)
+                observed[0].before_capture(0);observed[0].next_ordinal=94
+                observed[0].metadata_bindings=[{'software_receipt_fixture':True}]
+                return e/'native-boundary-not-executed.json'
+            cli=types.SimpleNamespace(base=types.SimpleNamespace(latest_journal=lambda e:e/'journal.json'),
+                controller=types.SimpleNamespace(configure_platform_observations=lambda obs:None),execute_formal=execute)
+            c=dict(repository_root=str(e),evidence_root=str(e),output_root=str(out),preconstruction=built,
+                program_root=str(e/'program'),archive={'path':str(e/'candidate.tar.gz')},sidecar={'path':str(e/'candidate.sha256')})
+            with patch.object(io,'cli_for',return_value=cli),patch.object(guarded,'ReadOnlyWitness',return_value=object()), \
+                    patch.object(guarded,'Observations',Observations):
+                result=io.sign_collect(c,time.monotonic_ns()+24860*10**9,99)
+            report=real_io.document(result)
+            self.assertEqual(report['actual_request'],original['request'])
+
+    def test_rendered_scripts_have_no_unresolved_global_name_like_auth(self):
+        import builtins,symtable
+        def unresolved(raw):
+            table=symtable.symtable(raw.decode(),'rendered-operator','exec')
+            defined={s.get_name() for s in table.get_symbols() if s.is_assigned() or s.is_imported()}
+            defined|=set(dir(builtins))|{'__file__','__name__','__package__'}
+            bad=set()
+            def walk(t):
+                for s in t.get_symbols():
+                    if s.is_referenced() and s.is_global() and s.get_name() not in defined:bad.add(s.get_name())
+                for child in t.get_children():walk(child)
+            walk(table);return bad
+        for name in previous.FROZEN:
+            raw=current.render(name,(ROOT/'tools'/name).read_bytes())
+            with self.subTest(name=name):self.assertEqual(unresolved(raw),set())
 
 
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,14 @@
+{
+  "authorization_sha256": "d79d9be2fbcd86e4aebf953fdea4ee6f4e3a4a760ec9ba1107c29e3aa42e6b70",
+  "checked_at_utc": "2026-11-19T22:17:51.877902+00:00",
+  "controls_rearmed": false,
+  "elapsed_ns": 119104549597,
+  "empty_family": true,
+  "executed": false,
+  "execution_authority": false,
+  "native_attempt_started": false,
+  "new_execution_window": false,
+  "request_sha256": "38fc71fd8e6a5dc79c95284999fa51b6b42a41d7cdb6477b4886272af931851c",
+  "runtime_sha256": "bc064c13afd7eb5142ae8ee434e95962e9b3fc3095c6c159d83376c3e7e8c019",
+  "status": "ACTUAL_SIGNED_FORMAL_PREPARATION_PASS_NO_EXECUTION"
+}

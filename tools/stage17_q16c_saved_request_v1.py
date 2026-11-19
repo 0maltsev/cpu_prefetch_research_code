@@ -24,7 +24,59 @@ REQUEST_SHA='38fc71fd8e6a5dc79c95284999fa51b6b42a41d7cdb6477b4886272af931851c'
 TIP_SHA='18e4177af33e1bc5e19fdf71bc41bf087632e5ec644df2e30f3764116d588da0'
 NATIVE_SOURCE,DEADLINE,ENVELOPE,E=previous.NATIVE_SOURCE,previous.DEADLINE,previous.ENVELOPE,previous.E
 ORIGINAL_DEADLINE=DEADLINE
-require,check_time=previous.require,previous.check_time
+SUPPLEMENT_SHA='29f5dfcf84a2736aade41718a105d811c03e883ca7c0334a22ebd27d9d1f9d8e'
+SIGNED_DAY_DEADLINE=1636624784571258
+require=previous.require
+
+
+def validate_supplement(proposal,acceptance):
+    require(hashlib.sha256(proposal).hexdigest()==SUPPLEMENT_SHA,'exact D302 supplement')
+    expected=dict(decision_id='D302',owner_message='continue',exact_decision_text_approved=True,
+        recorded_decision_sha256=SUPPLEMENT_SHA,applies_to_decision='D301',new_execution_windows=0,
+        additional_manual_continuations=0,automatic_retry=False,repeat_qualification=False,
+        repeat_completed_measurements=False,repeat_completed_raw_validations=False,
+        reused_capture_count=86,remaining_capture_count=94,maximum_remaining_seconds=31460,
+        original_total_deadline_monotonic_ns=ORIGINAL_DEADLINE,
+        admitted_day_deadline_monotonic_ns=SIGNED_DAY_DEADLINE,
+        latest_start_monotonic_ns=SIGNED_DAY_DEADLINE-ENVELOPE,phase18_authority=False)
+    for key,item in expected.items():
+        require(type(acceptance.get(key)) is type(item) and acceptance[key]==item,'exact D302 approval '+key)
+
+
+def supplement_documents(c):
+    import stage17_q16c_continuation_operator_v1 as io
+    proof=c['deadline_supplement']
+    require(type(proof) is dict and set(proof)=={'proposal','acceptance','signature'},'closed D302 proof')
+    proposal=io.read(proof['proposal']);raw=io.read(proof['acceptance'])
+    validate_supplement(proposal,json.loads(raw));io.read(proof['signature'])
+    return raw,proof
+
+
+def runtime_deadline(c=None):
+    if c is None or 'deadline_supplement' not in c:return ORIGINAL_DEADLINE
+    supplement_documents(c)
+    return SIGNED_DAY_DEADLINE
+
+
+def check_time(now,c=None):
+    require(type(now) is int and 0<now<runtime_deadline(c)-ENVELOPE,
+            'complete31460s envelope must fit inside the admitted original signed day')
+
+
+def verify_supplement(c,trust):
+    if 'deadline_supplement' not in c:return
+    from stage17_phase_controller_v2 import _verify_signature
+    raw,proof=supplement_documents(c)
+    _verify_signature(raw,Path(proof['signature']['path']),trust)
+
+
+def deadline_utc(c):
+    import stage17_q16c_continuation_operator_v1 as io
+    record=io.document(c['window_proof']['manifest']);end=runtime_deadline(c)
+    if 'deadline_supplement' in c:
+        require(record['global_deadline_ns']==end,'supplement is bounded by the original signed day')
+    start=dt.datetime.fromisoformat(record['started_at_utc'].replace('Z','+00:00'))
+    return start+dt.timedelta(microseconds=(end-record['started_monotonic_ns'])//1000)
 
 
 def parent_verified():
@@ -57,8 +109,8 @@ def validate_acceptance(value):
         recorded_decision_sha256=PROPOSAL_SHA,new_execution_windows=0,manual_continuations=1,
         automatic_retry=False,repeat_qualification=False,repeat_completed_measurements=False,
         repeat_completed_raw_validations=False,reused_capture_count=86,remaining_capture_count=94,
-        maximum_remaining_seconds=31460,original_deadline_monotonic_ns=DEADLINE,
-        latest_start_monotonic_ns=DEADLINE-ENVELOPE,phase18_authority=False)
+        maximum_remaining_seconds=31460,original_deadline_monotonic_ns=ORIGINAL_DEADLINE,
+        latest_start_monotonic_ns=ORIGINAL_DEADLINE-ENVELOPE,phase18_authority=False)
     for key,item in expected.items():
         require(type(value.get(key)) is type(item) and value[key]==item,'exact D301 approval '+key)
 
@@ -112,10 +164,14 @@ def validate_saved_state(c,validation):
 def _metadata_function():
     parent_verified();text=inspect.getsource(previous.owner_metadata)
     text=text.replace('def owner_metadata(args, c):','def _metadata_impl(args, c):')
-    text=text.replace('check_time(time.monotonic_ns())','if not args.software_check: check_time(time.monotonic_ns())')
+    text=text.replace('check_time(time.monotonic_ns())','if not args.software_check: check_time(time.monotonic_ns(),c)')
     text=text.replace("c['continuation_decision'] == 'D298'","c['continuation_decision'] == 'D301'")
     text=text.replace("c['original_total_deadline_ns'] == DEADLINE","c['original_total_deadline_ns'] == ORIGINAL_DEADLINE")
     text=text.replace("record['started_monotonic_ns']+39380*10**9 == DEADLINE","record['started_monotonic_ns']+39380*10**9 == ORIGINAL_DEADLINE")
+    needle="    _verify_signature(acceptance_raw, Path(c['continuation_authority']['signature']['path']), trust)"
+    text=previous.replace_once(text,needle,needle+'\n    verify_supplement(c,trust)')
+    needle="    window.verify_bindings(record)"
+    text=previous.replace_once(text,needle,needle+"\n    if 'deadline_supplement' in c: require(record['global_deadline_ns']==runtime_deadline(c),'original signed-day endpoint')")
     a=text.index("    require(not (Path(c['program_root'])/'working'/constructed['plan']['sha256']).exists()")
     b=text.index("    rows = inputs['hardware_control']['prestate']",a)
     text=text[:a]+'    validate_saved_state(c,validation)\n'+text[b:]
@@ -134,10 +190,11 @@ def owner_journal(configuration,digest,*,software_check=False):
 def admit(args,c,*,software_check=False):
     parent_verified();text=inspect.getsource(previous.admit)
     text=text.replace('def admit(args, c, *, software_check=False):','def _root_impl(args, c, *, software_check=False):')
-    text=text.replace('    check_time(time.monotonic_ns())','    if not software_check: check_time(time.monotonic_ns())')
+    text=text.replace('    check_time(time.monotonic_ns())','    if not software_check: check_time(time.monotonic_ns(),c)')
     text=text.replace("'--owner-journal',str(args.configuration)","('--owner-journal-check' if software_check else '--owner-journal'),str(args.configuration)")
     text=text.replace("rows = accepted['prestate']","require(accepted['launch_permitted'] is (not software_check),'software admission grants no launch')\n    rows = accepted['prestate']")
     text=text.replace('d298-execution-owner-','d301-execution-owner-')
+    text=previous.replace_once(text,'str(E/(','str(Path(args.configuration).parent/(')
     exec(compile(text,__file__+':retained-root-admission','exec'),globals())
     return globals()['_root_impl'](args,c,software_check=software_check)
 
@@ -145,13 +202,12 @@ def admit(args,c,*,software_check=False):
 def prepare_authorization(c,deadline):
     import subprocess
     import stage17_q16c_continuation_operator_v1 as io
-    check_time(time.monotonic_ns())
+    check_time(time.monotonic_ns(),c)
     require(time.monotonic_ns()<deadline,'readiness600s ceiling')
     template=io.document(c['authorization_template'])
     schema=io.document(c['authorization_schema'])
     # Native admission still revalidates the current signed authority before arm.
-    original_utc=dt.datetime.fromisoformat('2026-11-20T05:37:50.487744+00:00')
-    value=finalize_template(template,dt.datetime.now(dt.timezone.utc),schema,original_utc)
+    value=finalize_template(template,dt.datetime.now(dt.timezone.utc),schema,deadline_utc(c))
     path=Path(c['saved_request']['path']).parent/'authorization.json'
     authorization=io.save(path,value)
     signed=subprocess.run(['ssh-keygen','-Y','sign','-f','/home/omaltsev/.ssh/id_ed25519',
@@ -182,6 +238,9 @@ def render(name,raw):
         text=previous.replace_once(text,"    if args.mode=='construct':result=construct(c,args.deadline_ns)",
             "    if args.mode=='authorize':\n        import stage17_q16c_saved_request_v1 as saved\n        result=saved.prepare_authorization(c,args.deadline_ns)\n    elif args.mode=='construct':result=construct(c,args.deadline_ns)")
     elif name.endswith('study_v1.py'):
+        text=previous.replace_once(text,'resume.check_time(time.monotonic_ns())','resume.check_time(time.monotonic_ns(),c)')
+        text=previous.replace_once(text,'complete=min(resume.DEADLINE,start+resume.ENVELOPE)',
+                                  'complete=min(resume.runtime_deadline(c),start+resume.ENVELOPE)')
         text=previous.replace_once(text,"native=args.role in ('construct','sign-collect')","native=args.role in ('construct','authorize','sign-collect')")
         text=previous.replace_once(text,"choices=('sign-collect','suffix')","choices=('authorize','sign-collect','suffix')")
         text=previous.replace_once(text,"        guard.verify();command('sign-collect'",

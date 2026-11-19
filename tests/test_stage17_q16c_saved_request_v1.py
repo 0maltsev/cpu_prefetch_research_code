@@ -7,6 +7,7 @@ import inspect
 import json
 from pathlib import Path
 import sys
+import tempfile
 import textwrap
 import types
 import unittest
@@ -93,6 +94,8 @@ class SequenceTests(unittest.TestCase):
     def scenario(self,failure=None):
         import test_stage17_q16c_qualified_continuation_v1 as baseline
         text=textwrap.dedent(inspect.getsource(baseline.SequenceTests.scenario)).replace('d298','d301')
+        text=text.replace("patch.object(current,'DEADLINE',t+39380*10**9)",
+                          "patch.object(current,'runtime_deadline',return_value=t+39380*10**9)")
         namespace={**baseline.SequenceTests.scenario.__globals__,'current':current}
         exec(compile(text,'D301-shared-sequence-fixture','exec'),namespace)
         return namespace['scenario'](self,failure)
@@ -109,6 +112,54 @@ class SequenceTests(unittest.TestCase):
     def test_collection_failure_restores_and_never_analyzes(self):
         events,result=self.scenario('sign-collect');self.assertFalse(result['success'])
         self.assertIn('isolation-restored',events);self.assertNotIn('suffix',events)
+
+
+class SupplementTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup);p=Path(self.tmp.name)
+        self.proposal=(ROOT/'docs/decisions/0302-q16c-d301-total-deadline-supplement-proposal.md').read_bytes()
+        self.approval=json.loads((ROOT/'docs/evidence/stage17/Q16C-D302-ACCEPTED-20261120-01/owner-acceptance.json').read_bytes())
+        import prepare_stage17_q16c_saved_request_v1 as prepare
+        self.c={'deadline_supplement':{}}
+        for name,raw in [('proposal',self.proposal),('acceptance',json.dumps(self.approval).encode()),('signature',b'software-signature-fixture')]:
+            f=p/name;f.write_bytes(raw);self.c['deadline_supplement'][name]=prepare.binding(f)
+        w=ROOT/'docs/evidence/stage17/Q16C-D295-LAUNCH-20261119-01/startup/d295-execution-window-1/window.json'
+        self.c['window_proof']={'manifest':prepare.binding(w)}
+
+    def test_no_supplement_keeps_expired_gate_and_history_unchanged(self):
+        self.assertEqual(current.runtime_deadline(),current.ORIGINAL_DEADLINE)
+        with self.assertRaises(ValueError):current.check_time(1562011030000000)
+        a=json.loads((ROOT/'docs/evidence/stage17/Q16C-D301-ACCEPTED-EXPIRED-20261120-01/owner-acceptance.json').read_bytes())
+        current.validate_acceptance(a)
+        self.assertEqual(a['original_deadline_monotonic_ns'],current.ORIGINAL_DEADLINE)
+
+    def test_exact_supplement_only_allows_existing_day_and_full_envelope(self):
+        current.validate_supplement(self.proposal,self.approval)
+        self.assertEqual(current.runtime_deadline(self.c),1636624784571258)
+        cutoff=1605164784571258
+        current.check_time(cutoff-1,self.c)
+        for now in [cutoff,cutoff+1,current.SIGNED_DAY_DEADLINE]:
+            with self.subTest(now=now),self.assertRaises(ValueError):current.check_time(now,self.c)
+        self.assertEqual(current.deadline_utc(self.c),dt.datetime(2026,11,20,18,41,30,487744,tzinfo=dt.timezone.utc))
+
+    def test_extra_day_time_counts_or_changed_owner_word_are_rejected(self):
+        for key,value in [('new_execution_windows',1),('additional_manual_continuations',1),
+                          ('admitted_day_deadline_monotonic_ns',current.SIGNED_DAY_DEADLINE+1),
+                          ('maximum_remaining_seconds',31461),('remaining_capture_count',93),
+                          ('repeat_qualification',True),('owner_message','approve')]:
+            with self.subTest(key=key),self.assertRaises(ValueError):
+                current.validate_supplement(self.proposal,{**self.approval,key:value})
+        with self.assertRaises(ValueError):current.validate_supplement(self.proposal+b'\n',self.approval)
+
+    def test_signature_is_mandatory_in_actual_owner_trust_namespace(self):
+        import stage17_phase_controller_v2 as controller
+        trust={'actual':'admitted-owner-fixture'}
+        with patch.object(controller,'_verify_signature',side_effect=ValueError('signature rejected')) as verify:
+            with self.assertRaisesRegex(ValueError,'signature rejected'):current.verify_supplement(self.c,trust)
+            self.assertEqual(verify.call_args.args[0],json.dumps(self.approval).encode())
+            self.assertEqual(verify.call_args.args[2],trust)
+        bad=copy.deepcopy(self.c);del bad['deadline_supplement']['signature']
+        with self.assertRaises(ValueError):current.runtime_deadline(bad)
 
 
 if __name__=='__main__':unittest.main()

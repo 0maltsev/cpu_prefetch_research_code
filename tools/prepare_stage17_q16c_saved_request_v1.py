@@ -67,8 +67,18 @@ def main():
         family_registration=binding(Path(c['output_root'])/'registration.json'),
         latest_result=binding(E/'d298-study-1/result.json'),latest_recovery=binding(E/'d298-independent-recovery-1.json'),
         administrative_packet=binding(ops/'administrative-packet.json'))
+    supplement=ops/'deadline-supplement'
+    if supplement.exists():
+        proposal=supplement/'proposal.md';acceptance=supplement/'owner-acceptance.json'
+        saved.validate_supplement(proposal.read_bytes(),document(acceptance))
+        sign=subprocess.run(['ssh-keygen','-Y','sign','-f','/home/omaltsev/.ssh/id_ed25519','-n',
+                             'stage17-owner-acceptance',str(acceptance)],capture_output=True,text=True,timeout=30)
+        publish(ops/'supplement-signing-result.json',dict(exit_code=sign.returncode,stdout=sign.stdout,stderr=sign.stderr))
+        saved.require(sign.returncode==0,'owner deadline-supplement signing failed')
+        c['deadline_supplement']=dict(proposal=binding(proposal),acceptance=binding(acceptance),
+                                    signature=binding(Path(str(acceptance)+'.sig')))
     result=publish(ops/'launch-configuration.json',c)
-    print(json.dumps(dict(status='D301_METADATA_PUBLISHED_TIME_GATE_CLOSED',configuration=result,
+    print(json.dumps(dict(status='D301_METADATA_PUBLISHED_WITH_D302' if 'deadline_supplement' in c else 'D301_METADATA_PUBLISHED_TIME_GATE_CLOSED',configuration=result,
         administrative_source_revision=revision,qualified_native_source_revision=saved.NATIVE_SOURCE,
         launch_permitted=False,controls_rearmed=False,operational_authority_signed=False,execution_authority=False)),flush=True)
 

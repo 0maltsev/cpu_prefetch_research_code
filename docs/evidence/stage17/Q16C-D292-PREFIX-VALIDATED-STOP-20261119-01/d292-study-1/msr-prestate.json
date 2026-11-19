@@ -1,0 +1,1 @@
+{"execution_authority":false,"mapping_id":"INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1","observed_monotonic_ns":1539221469696571,"prestate":[{"complete_value_hex":"0000000000000000","cpu":0},{"complete_value_hex":"0000000000000000","cpu":1},{"complete_value_hex":"0000000000000000","cpu":8}]}

@@ -2,8 +2,8 @@
   "files": [
     {
       "path": "REPORT.md",
-      "sha256": "2bc1e923009b6b79f009b4f4a61acf886198eee0cd4bd42fffa6046db7b5a7d4",
-      "size_bytes": 3197
+      "sha256": "b2eca9df69b7cc89e995bc25cffa4fb76dfafd38de9f9cbac1907d45fd370ee6",
+      "size_bytes": 3594
     },
     {
       "path": "d306-continuation-1/acceptance-signing-result.json",
@@ -74,6 +74,11 @@
       "path": "d306-study-1/intent.json",
       "sha256": "8f6a01fd95e093a145a4b9ff24da6d587f7b3c837b2670e0d12e6ad0fbae3c27",
       "size_bytes": 842
+    },
+    {
+      "path": "progress-20261120T020004-Moscow.json",
+      "sha256": "52b6472493e21488391e23434bcfdaf2fd68a70edaff7872c121abbfbd5e60a7",
+      "size_bytes": 973
     },
     {
       "path": "startup-status-1.json",

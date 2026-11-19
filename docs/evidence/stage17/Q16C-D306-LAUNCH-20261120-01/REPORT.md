@@ -48,3 +48,9 @@ First-failure stop/reap/restore and independent StopPost recovery remain active;
 there is no automatic retry or further manual-attempt authority. All raw data
 stays on the stand under D233. Only small public receipts/status were transferred.
 EXT007/Stage17 remain incomplete; Stage18 remains prohibited.
+
+Progress check at **02:00:04 Moscow**: same service/invocation and qualified worker
+remain active; **8/94 new native-complete checkpoints, 0 failed**, an increase of
+6 since startup verification. Independent validation and restoration are pending;
+86 new captures remain. The 86 original validated reports remain preserved.
+The 05:42–08:42 Moscow estimate is unchanged; it remains an estimate.

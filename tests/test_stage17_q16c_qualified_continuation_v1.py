@@ -22,6 +22,15 @@ def functions(raw):
 
 
 class RenderTests(unittest.TestCase):
+    def test_actual_isolation_binding_shape_is_read_as_bound_metadata(self):
+        import prepare_stage17_q16c_qualified_continuation_v1 as prepare
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'isolation.json';path.write_bytes(b'{"evidence_root":"original"}')
+            expected=prepare.binding(path)
+            self.assertEqual(prepare.document(expected),prepare.document(path))
+            path.write_bytes(b'{"evidence_root":"modified"}')
+            with self.assertRaisesRegex(ValueError,'bound metadata differs'):prepare.document(expected)
+
     def test_only_observation_and_restoration_paths_change_in_scientific_operator(self):
         name='stage17_q16c_continuation_operator_v1.py'
         raw=(ROOT/'tools'/name).read_bytes();new=current.render(name,raw).decode()

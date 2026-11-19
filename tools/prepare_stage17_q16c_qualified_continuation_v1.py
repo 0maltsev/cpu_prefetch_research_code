@@ -10,7 +10,7 @@ import subprocess
 import stage17_q16c_qualified_continuation_v1 as resume
 
 E=resume.E
-OPS=E/'d298-continuation-1'
+OPS=Path(__file__).resolve().parent
 
 
 def binding(path):
@@ -19,7 +19,15 @@ def binding(path):
     return dict(path=str(p),size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest())
 
 
-def document(path):return json.loads(Path(path).read_bytes())
+def document(path):
+    if isinstance(path,dict):
+        resume.require(set(path)=={'path','size_bytes','sha256'},'closed metadata binding')
+        raw=Path(path['path']).read_bytes()
+        resume.require(len(raw)==path['size_bytes'] and hashlib.sha256(raw).hexdigest()==path['sha256'],
+                       'bound metadata differs')
+    else:
+        raw=Path(path).read_bytes()
+    return json.loads(raw)
 
 
 def save(path,value):
@@ -30,6 +38,7 @@ def save(path,value):
 
 def main():
     resume.require(os.getresuid()==(1000,)*3 and os.getresgid()==(1000,)*3 and not os.getgroups(), 'actual evidence owner')
+    resume.require(OPS.parent==E and OPS.name.startswith('d298-continuation-'), 'exclusive administrative packet scope')
     resume.check_time(__import__('time').monotonic_ns())
     frozen=E/'q16c-continuation-final-1/launch-configuration.json'
     rehearsal=E/'d297-software-preparation-2/configuration.json'

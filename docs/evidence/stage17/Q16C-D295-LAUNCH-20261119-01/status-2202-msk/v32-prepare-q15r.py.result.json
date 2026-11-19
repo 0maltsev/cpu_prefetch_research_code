@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/operator-preparation-v32-1/v32-prepare-q15r.py"
+  ],
+  "completed_monotonic_ns": 1550930479103652,
+  "exit_code": 0,
+  "leader_reaped": true,
+  "operator": "v32-prepare-q15r.py",
+  "retry_allowed": false,
+  "started_monotonic_ns": 1550766749982405
+}

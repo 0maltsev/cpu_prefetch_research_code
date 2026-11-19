@@ -1,0 +1,43 @@
+{
+  "source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "reference_source": "c989ca84b93f532b7ee32cc1a947463e280033e9",
+  "actual_bytes_compared": true,
+  "libraries": [
+    {
+      "name": "queue",
+      "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6"
+    },
+    {
+      "name": "calibration",
+      "sha256": "e109e8c810898e9704e76b4fd17a677b5f5aee0d7d2cd2060db7b74767185815"
+    },
+    {
+      "name": "storage",
+      "sha256": "8d6f96255d21ea2ccd9e6c17b37ada2de310292c5d05026174f83e53e8488809"
+    },
+    {
+      "name": "timing",
+      "sha256": "c3820dc7d8f136f3c0f9b00fbba932b539f315df52fb9a5e65d752437aafea21"
+    },
+    {
+      "name": "workload",
+      "sha256": "24ffc94864ce4c373b2262dd3cd862aeeb9c97d68d998e15fb229813ed42f04c"
+    },
+    {
+      "name": "lifecycle",
+      "sha256": "046d94647363439f1e181046522514291cf25e84f0ba21a3a499cab1778582ff"
+    },
+    {
+      "name": "platform",
+      "sha256": "017f743be93ba4b15775b1edaa9f358f811fabc5fe124787c9ff0004a643bcf8"
+    },
+    {
+      "name": "protocol",
+      "sha256": "4c33488c9035e4d7ca561f874cd946cdb4f6179ff5ad23bda5d918f58d194c4e"
+    },
+    {
+      "name": "reconciliation",
+      "sha256": "1f2903602ad1399ccc328fd42b6d13b9102c8cab67b01e256801ca54563e739b"
+    }
+  ]
+}

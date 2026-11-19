@@ -1,0 +1,17 @@
+{
+  "actual_installed_constructor_passed": true,
+  "actual_owner_signing_verified": true,
+  "checked_at_utc": "2026-11-19T18:36:23.778198+00:00",
+  "configuration_sha256": "3359f96629594f46b7bd4b362a7ae5485c1480c7fb159cf40a5040ef633458d2",
+  "execution_authority": false,
+  "foreign_boot_rejected": true,
+  "measured_libraries": 9,
+  "original_report_ids_preserved": true,
+  "qualification_started": false,
+  "raw_validation_repeated": false,
+  "retained_process_receipts_verified": 86,
+  "retained_reports_verified": 86,
+  "scientific_dependencies": 198,
+  "status": "D295_ACTUAL_PRELAUNCH_METADATA_AND_HANDOFF_PASS",
+  "window_started": false
+}

@@ -1,0 +1,151 @@
+{
+  "files": [
+    {
+      "path": "release/build-facts.json",
+      "sha256": "78dcc6f21758db964fb08c6d08b6747468a7addedc926d6637cd7ec3d59de84f",
+      "size_bytes": 8737
+    },
+    {
+      "path": "release/codegen-facts.json",
+      "sha256": "896c438d5b16ca770d6f26c01e259d816d07c5e74bda807d3b9deb081073042f",
+      "size_bytes": 1662
+    },
+    {
+      "path": "release/measured-libraries-unchanged.json",
+      "sha256": "11516b65e4f87693b5a2d511e872d0d95e8ae416a2aa1fed0f186273d7432634",
+      "size_bytes": 1290
+    },
+    {
+      "path": "release/native-geometry/native-geometry.json",
+      "sha256": "d24b4961699e879187a1092421bcea7dca66d2fe62477f10b120b580509523a1",
+      "size_bytes": 785
+    },
+    {
+      "path": "release/release-bindings.json",
+      "sha256": "b6054a91b99ca33b70b5eb34eb236632ba3733abf5c6e5d1c6bf1b7a2e36dca8",
+      "size_bytes": 533
+    },
+    {
+      "path": "startup/continuation-window-1.json",
+      "sha256": "c3462c763b8c19559d5730da9a21d93d837a94890634d6a825370ba5e261d16d",
+      "size_bytes": 202
+    },
+    {
+      "path": "startup/d295-execution-window-1/window.json",
+      "sha256": "690615df0cdc257670cfa792e42813aa38b20970bddfe65a7d27abc79e9c3c16",
+      "size_bytes": 9158
+    },
+    {
+      "path": "startup/d295-execution-window-1/window.json.sig",
+      "sha256": "d79d62fee2f0d71273b1938f0f9aa35579d1860718f6a19c6b54a904e4a0f5ed",
+      "size_bytes": 322
+    },
+    {
+      "path": "startup/d295-root-launch-intent-1.json",
+      "sha256": "ba4f475968e90f20c7883e9b17632548f9588b1f03edbf08ebe65fda089d27e4",
+      "size_bytes": 3165
+    },
+    {
+      "path": "startup/d295-root-launch-result-1.json",
+      "sha256": "85580c62557b854e253bde38d50f632b40b400493c8486e03961ef073e230239",
+      "size_bytes": 208
+    },
+    {
+      "path": "startup/d295-study-1/intent.json",
+      "sha256": "4ed8a72036bc7c8698d68084996dd42956612d0b13147fef9d46bcc570ec3391",
+      "size_bytes": 854
+    },
+    {
+      "path": "startup/d295-study-1/prefix-result.json",
+      "sha256": "958086287c294700989d2875e9f560557a9f76e536773f09fc98f21489aeca16",
+      "size_bytes": 178
+    },
+    {
+      "path": "startup/observation.json",
+      "sha256": "4722b02b13c577fa88cb92a914340453458af211ba954c0715d4b349eaf55c84",
+      "size_bytes": 1287
+    },
+    {
+      "path": "startup/package-preparation-2/execution-owner-check.json",
+      "sha256": "cb887901face4dce0aaab2c3f8ee2c63440ae3c42e9a544fe10d705ffffa642a",
+      "size_bytes": 799
+    },
+    {
+      "path": "startup/package-preparation-2/verification.json",
+      "sha256": "614ef920403c236c8ee6cbcd26fde4b6e4680440624631a6b3e7f708ad570967",
+      "size_bytes": 312
+    },
+    {
+      "path": "startup/q16c-continuation-final-1/prelaunch-check.json",
+      "sha256": "1b9960caa97de033ccbebc3ea87d27bd9f0308eac303580a4207c73696c024e7",
+      "size_bytes": 646
+    },
+    {
+      "path": "startup/q16c-prefix-analysis-1/accepted-prefix.json",
+      "sha256": "5fcb47af34943777bb60ca9cf1900d22f609bfd3d20ae147119151cd9a135f3a",
+      "size_bytes": 12698
+    },
+    {
+      "path": "startup/q16c-prefix-analysis-1/complete.json",
+      "sha256": "3bba1f5820a2a238f818f07234bd641aa18e252330ef93e08e51d6d739469b2a",
+      "size_bytes": 19637
+    },
+    {
+      "path": "startup/v32-ext001-execute.py.result.json",
+      "sha256": "85108a230ac52d6d9490848ef21a1486d401550f8fe6552c5c886e1667fb9c37",
+      "size_bytes": 378
+    },
+    {
+      "path": "status-2202-msk/d295-service-console-1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "status-2202-msk/d295-study-1/prefix-result.json",
+      "sha256": "958086287c294700989d2875e9f560557a9f76e536773f09fc98f21489aeca16",
+      "size_bytes": 178
+    },
+    {
+      "path": "status-2202-msk/observation.json",
+      "sha256": "42de129e14cd2b3de8bf27f82d7215ac3959b6ac210404b8b9cc68cb5ebaa3ee",
+      "size_bytes": 297
+    },
+    {
+      "path": "status-2202-msk/run_clock_qualification_v32.py.log",
+      "sha256": "c191c9d1a87e4b1a14b9dd74753fff754791cc953317d4767fd9460aa6df1a5c",
+      "size_bytes": 195
+    },
+    {
+      "path": "status-2202-msk/v32-admit-002-003-006.py.result.json",
+      "sha256": "fee19f1d3104b305c9fbf8d82eb836b9cdd3fcbdd330418a50a8803d5d9a55f2",
+      "size_bytes": 384
+    },
+    {
+      "path": "status-2202-msk/v32-author-admit-ext004.py.result.json",
+      "sha256": "03daaac26461b722e86dd3f69f76f93a8fc64fc0f61208d0b21c10b98bc2a346",
+      "size_bytes": 388
+    },
+    {
+      "path": "status-2202-msk/v32-clock-envelope-and-inventory.py.result.json",
+      "sha256": "0bb907c6b170540afa297edda974901494c178e0c608ee10e6be8c7b0dd1b508",
+      "size_bytes": 406
+    },
+    {
+      "path": "status-2202-msk/v32-ext001-execute.py.result.json",
+      "sha256": "85108a230ac52d6d9490848ef21a1486d401550f8fe6552c5c886e1667fb9c37",
+      "size_bytes": 378
+    },
+    {
+      "path": "status-2202-msk/v32-prepare-continue-q15w.py.result.json",
+      "sha256": "ef8bf4c2a30f0f02b615a4c64ba1267a78f2fbb063ea362d60d3df2825a2ea43",
+      "size_bytes": 392
+    },
+    {
+      "path": "status-2202-msk/v32-prepare-q15r.py.result.json",
+      "sha256": "37e83a52e0e63a3536d6b0c51de053b6867789b12115dd028c130bfb7ed9054c",
+      "size_bytes": 374
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "stage17-public-evidence-manifest/1"
+}

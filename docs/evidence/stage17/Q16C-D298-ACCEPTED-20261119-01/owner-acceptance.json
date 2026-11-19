@@ -1,0 +1,22 @@
+{
+  "automatic_retry": false,
+  "decision_id": "D298",
+  "exact_decision_text_approved": true,
+  "interpretation": "Affirmative reply to the immediately preceding exact D298 approval question; actual owner wording retained.",
+  "latest_start_monotonic_ns": 1558144784571258,
+  "manual_continuations": 1,
+  "maximum_remaining_seconds": 31460,
+  "new_execution_windows": 0,
+  "original_deadline_monotonic_ns": 1589604784571258,
+  "owner_message": "continue",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-19T19:47:39.112903+00:00",
+  "recorded_decision_sha256": "016c459cce17ce7be881fb62a9079e01913ef13f9cc61dad531d609dcb002888",
+  "remaining_capture_count": 94,
+  "repeat_completed_measurements": false,
+  "repeat_completed_raw_validations": false,
+  "repeat_qualification": false,
+  "reused_capture_count": 86,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1",
+  "window_started": false
+}

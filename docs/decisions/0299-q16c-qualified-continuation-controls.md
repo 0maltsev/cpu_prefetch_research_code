@@ -13,6 +13,13 @@ their original paths. It compares all9 measured libraries and audits the complet
 qualified deployment as actual UID1000, without running its worker. It verifies
 the current three-CPU MSR prestate and unused formal family/identities.
 
+The private SSH transport identity and six-input journal are validated in a
+separate actual UID1000 child with cleared groups. The root controller receives
+only the configuration-bound state, qualified release identifiers and admitted
+owner trust. It retains hardware readback and recovery privileges. Root never
+validates the owner's private identity as its own credential; key ownership and
+permission checks remain unchanged. Installed preflight exercises this boundary.
+
 The administrative generator accepts only exact frozen source hashes. The I/O
 operator changes only the witness, observation and restoration receipt paths.
 All scientific functions, numerical inputs, source/history checks, signing,

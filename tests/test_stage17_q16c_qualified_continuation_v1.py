@@ -31,6 +31,16 @@ class RenderTests(unittest.TestCase):
             path.write_bytes(b'{"evidence_root":"modified"}')
             with self.assertRaisesRegex(ValueError,'bound metadata differs'):prepare.document(expected)
 
+    def test_journal_admission_is_explicitly_under_the_actual_evidence_owner(self):
+        functions_=functions(Path(current.__file__).read_bytes())
+        owner=ast.get_source_segment(Path(current.__file__).read_text(),functions_['owner_journal'])
+        self.assertIn('os.getresuid() == (1000,)*3',owner)
+        self.assertIn('cli._validation',owner)
+        root=ast.get_source_segment(Path(current.__file__).read_text(),functions_['admit'])
+        self.assertNotIn('cli._validation',root)
+        self.assertIn("'--reuid=1000','--regid=1000','--clear-groups'",root)
+        self.assertIn("current['configuration_sha256'] == args.configuration_sha256",root)
+
     def test_only_observation_and_restoration_paths_change_in_scientific_operator(self):
         name='stage17_q16c_continuation_operator_v1.py'
         raw=(ROOT/'tools'/name).read_bytes();new=current.render(name,raw).decode()

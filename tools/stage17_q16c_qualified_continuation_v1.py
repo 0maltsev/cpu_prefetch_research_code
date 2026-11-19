@@ -134,6 +134,24 @@ def validate_acceptance(acceptance):
         require(type(acceptance.get(key)) is type(value) and acceptance[key] == value, 'actual owner approval ' + key)
 
 
+def owner_journal(configuration, digest):
+    """Run the unchanged private-identity/journal admission as its actual owner."""
+    import stage17_q16c_continuation_operator_v1 as io
+    require(os.getresuid() == (1000,)*3 and os.getresgid() == (1000,)*3 and not os.getgroups(),
+            'actual journal evidence owner')
+    c = io.document(dict(path=str(configuration),size_bytes=Path(configuration).stat().st_size,sha256=digest))
+    cli = io.cli_for(c, configured=True)
+    validation = cli._validation(Path(c['repository_root']), E,
+        pilot_archive=Path(c['archive']['path']), pilot_sidecar=Path(c['sidecar']['path']))
+    require(validation.current_state == 'READY_FOR_STAGE17_PHASE_AUTHORIZATION'
+            and set(validation.resolutions) == {f'S17-EXT-{i:03d}' for i in range(1,7)}, 'six passed actual qualifications')
+    release = validation.resolutions['S17-EXT-006'].semantic_context
+    return dict(configuration_sha256=digest,verified_uid=os.geteuid(),current_state=validation.current_state,
+                source_revision=release['source_revision'],release_artifact_sha256=release['release_artifact_sha256'],
+                inventory_sha256=release['inventory_sha256'],
+                trust=validation.resolutions['S17-EXT-003'].semantic_context['trust'])
+
+
 def admit(args, c, *, software_check=False):
     """Authenticate actual approval, historical qualification and fixed inputs."""
     import stage17_q16c_continuation_operator_v1 as io
@@ -150,16 +168,19 @@ def admit(args, c, *, software_check=False):
     require(hashlib.sha256(proposal).hexdigest() == PROPOSAL_SHA, 'exact approved D298 proposal')
     acceptance_raw = io.read(c['continuation_authority']['acceptance'])
     validate_acceptance(json.loads(acceptance_raw))
-    cli = io.cli_for(c, configured=True)
-    validation = cli._validation(Path(c['repository_root']), E,
-        pilot_archive=Path(c['archive']['path']), pilot_sidecar=Path(c['sidecar']['path']))
-    require(validation.current_state == 'READY_FOR_STAGE17_PHASE_AUTHORIZATION'
-            and set(validation.resolutions) == {f'S17-EXT-{i:03d}' for i in range(1,7)}, 'six passed actual qualifications')
-    current = validation.resolutions['S17-EXT-006'].semantic_context
+    import subprocess
+    owner = subprocess.run(['/usr/bin/setpriv','--reuid=1000','--regid=1000','--clear-groups',sys.executable,'-B',
+        str(Path(__file__).resolve()),'--owner-journal',str(args.configuration),args.configuration_sha256],
+        capture_output=True,text=True,timeout=240)
+    require(owner.returncode == 0, 'actual owner journal admission failed: '+owner.stderr[-1500:])
+    current = json.loads(owner.stdout)
+    require(current['configuration_sha256'] == args.configuration_sha256 and current['verified_uid'] == 1000,
+            'actual owner validation configuration')
+    io.cli_for(c, configured=True)
     require(current['source_revision'] == NATIVE_SOURCE and current['release_artifact_sha256'] == c['worker']['sha256']
             and current['inventory_sha256'] == c['candidate_inventory']['sha256'], 'unchanged actual qualified release')
     from stage17_phase_controller_v2 import _verify_signature
-    trust = validation.resolutions['S17-EXT-003'].semantic_context['trust']
+    trust = current['trust']
     io.read(c['continuation_authority']['signature'])
     _verify_signature(acceptance_raw, Path(c['continuation_authority']['signature']['path']), trust)
     import stage17_q16c_execution_window_v5 as window
@@ -220,3 +241,8 @@ def admit(args, c, *, software_check=False):
         check=True,timeout=120)
     check_time(time.monotonic_ns())
     return record
+
+
+if __name__ == '__main__':
+    require(len(sys.argv) == 4 and sys.argv[1] == '--owner-journal', 'metadata-only owner journal entry')
+    print(json.dumps(owner_journal(Path(sys.argv[2]),sys.argv[3])),flush=True)

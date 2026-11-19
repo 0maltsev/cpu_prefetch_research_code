@@ -1,0 +1,106 @@
+{
+  "control_readback": "1",
+  "disk_available_bytes": 6301935214592,
+  "experiments_started": 0,
+  "files": [
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-final-integration-tests-1/integration-tests-final.txt",
+      "sha256": "51d0e43bc8f0e1eb3541be14ed88bfc0fa0b33497e3e2c29e154fc26b62dd77a",
+      "size_bytes": 2928
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-final-integration-tests-1/stage17_q16c_compaction_integration_v1.py",
+      "sha256": "ef7b8cbd684f2f357a681ae6bc77fc9fea0a23a2739c800184e85fc0d86cd038",
+      "size_bytes": 13702
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-final-integration-tests-1/test_stage17_q16c_compaction_integration_v1.py",
+      "sha256": "89d0eb3dcaaae59e6b13b448d08265325a45c701add165ec69c1906914dcd069",
+      "size_bytes": 15890
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/check/intent.json",
+      "sha256": "f4ba9e08a8e58c8ba7ac732995856f0c52f3557d9f36f2f3275099564ea9506c",
+      "size_bytes": 303
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/check/prepared.json",
+      "sha256": "992bedaab8ae0981a9a662cb916ba7bb3051956dcad5ba21a03c5a7e481670c5",
+      "size_bytes": 105
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/check/restoration.json",
+      "sha256": "2ec733f0dafe28e854ce150848e5a7f519b68bb6ed1ffa5e9187e8394e0289e8",
+      "size_bytes": 252
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/fault-intent.json",
+      "sha256": "404cabaab5b012c0739325e75a96c10deac97657d2e6f813731814d30713bd4e",
+      "size_bytes": 788
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/integration-tests.txt",
+      "sha256": "b360477cfcdaf4fa0af2aa847b75268537dae850e90e750f20623a8b6191c00b",
+      "size_bytes": 2737
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/owner-observations-parent/observations/capture-0-after-native-checkpoint.json",
+      "sha256": "bbee9c682cf2ff941d892c471a0d52685ff4daedc69dbf77ca96cda8d4db5012",
+      "size_bytes": 576
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/owner-observations-parent/observations/capture-0-before-native-authorization.json",
+      "sha256": "189db40a19a8bc6f3d8e94ab91a192319ff034486c2b0b5020a06f57f7065f8f",
+      "size_bytes": 562
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/remaining-budget-source.json",
+      "sha256": "7228a9441e67d8c544d93a5b82891c65b0721564edf1bc0b45aac53be21ca3ef",
+      "size_bytes": 3508
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/result.json",
+      "sha256": "17a927ed10a66ea7c60fd818fbfb0fff8dea2380a9cc84c00a2b0919f68d61f4",
+      "size_bytes": 1403
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/run_owner_death_check.py",
+      "sha256": "0d4251cdba7319efc0b12795a8528e4878356915d24829162c9b4676a80ec081",
+      "size_bytes": 3006
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/stage17_locked_compaction_guard_v1.py",
+      "sha256": "7c5ce9583855cf74becf85210dfb5704e45c22ab81c7a15fb48f13e1207240ab",
+      "size_bytes": 8738
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/stage17_q16c_compaction_integration_v1.py",
+      "sha256": "94ef0160802fc33f3a5524850ac3478d367190b91e78c797d76c3a5f8ae79d82",
+      "size_bytes": 13141
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/stdout.txt",
+      "sha256": "00c110304504993d1fd699671660c29387e54b83725fe37c70e164efd9d5abef",
+      "size_bytes": 1098
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/test_stage17_archive_channel_v1.py",
+      "sha256": "be041c29167d7d8bb6d2d32608462ce922cf5873b51e81c6fd2f20a7abe2ff28",
+      "size_bytes": 6693
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/d287-guard-integration-check-1/test_stage17_q16c_compaction_integration_v1.py",
+      "sha256": "37daa1ed0c37f32a93aa7c1ca2ad8b0042d4e08c496ef5f71f07de37c687f3d6",
+      "size_bytes": 14586
+    }
+  ],
+  "lease_size_bytes": 0,
+  "research_services": "Id=cpu-prefetch-q16c-d285-continuation-v29-1.service\nActiveState=failed\nMainPID=0\n\nId=cpu-prefetch-recovery-v29-qualified-1.service\nActiveState=inactive\nMainPID=0\n",
+  "schema_version": "cpu-prefetch-d287-stand-evidence/1",
+  "utc": "2026-11-19T07:08:31Z"
+}

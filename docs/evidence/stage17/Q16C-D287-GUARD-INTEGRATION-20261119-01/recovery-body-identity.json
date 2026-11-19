@@ -1,0 +1,18 @@
+{
+  "byte_identical_source_segments": [
+    "process_identity",
+    "check_readonly",
+    "locked_elsewhere",
+    "export_witness",
+    "ReadOnlyWitness.verify",
+    "ReadOnlyWitness.__init__",
+    "Observations.observe",
+    "Observations.before_capture",
+    "Observations.after_capture",
+    "Observations.complete"
+  ],
+  "final_source_sha256": "ef7b8cbd684f2f357a681ae6bc77fc9fea0a23a2739c800184e85fc0d86cd038",
+  "limitation": "Actual supervisor-death check used the retained old snapshot. Final change adds public request/plan/count binding only; final source separately passed all17 stand tests.",
+  "old_source_sha256": "94ef0160802fc33f3a5524850ac3478d367190b91e78c797d76c3a5f8ae79d82",
+  "schema_version": "cpu-prefetch-d287-recovery-body-identity/1"
+}

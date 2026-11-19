@@ -66,7 +66,7 @@ def render(name, raw):
             text = replace_once(text, "    io.require(not (E/'d295-execution-window-1').exists(),'unconsumed one-window namespace')",
                                 "    resume.check_time(time.monotonic_ns())")
             text = replace_once(text, "record=sign_window(c);start=record['started_monotonic_ns'];complete=start+39380*NS",
-                                "start=time.monotonic_ns();record=resume.admit(args,c);complete=resume.DEADLINE")
+                                "start=time.monotonic_ns();record=resume.admit(args,c);complete=min(resume.DEADLINE,start+resume.ENVELOPE)")
             a = text.index("        command('prefix',start+120*NS)")
             b = text.index("        guard.verify();command('sign-collect'", a)
             rearm = '''        import stage17_locked_compaction_guard_v1 as controls
@@ -135,24 +135,16 @@ def validate_acceptance(acceptance):
 
 
 def owner_journal(configuration, digest):
-    """Run the unchanged private-identity/journal admission as its actual owner."""
+    """Run all owner-bound metadata and signature admission as UID1000."""
     import stage17_q16c_continuation_operator_v1 as io
     require(os.getresuid() == (1000,)*3 and os.getresgid() == (1000,)*3 and not os.getgroups(),
             'actual journal evidence owner')
     c = io.document(dict(path=str(configuration),size_bytes=Path(configuration).stat().st_size,sha256=digest))
-    cli = io.cli_for(c, configured=True)
-    validation = cli._validation(Path(c['repository_root']), E,
-        pilot_archive=Path(c['archive']['path']), pilot_sidecar=Path(c['sidecar']['path']))
-    require(validation.current_state == 'READY_FOR_STAGE17_PHASE_AUTHORIZATION'
-            and set(validation.resolutions) == {f'S17-EXT-{i:03d}' for i in range(1,7)}, 'six passed actual qualifications')
-    release = validation.resolutions['S17-EXT-006'].semantic_context
-    return dict(configuration_sha256=digest,verified_uid=os.geteuid(),current_state=validation.current_state,
-                source_revision=release['source_revision'],release_artifact_sha256=release['release_artifact_sha256'],
-                inventory_sha256=release['inventory_sha256'],
-                trust=validation.resolutions['S17-EXT-003'].semantic_context['trust'])
+    import types
+    return owner_metadata(types.SimpleNamespace(configuration_sha256=digest), c)
 
 
-def admit(args, c, *, software_check=False):
+def owner_metadata(args, c):
     """Authenticate actual approval, historical qualification and fixed inputs."""
     import stage17_q16c_continuation_operator_v1 as io
     check_time(time.monotonic_ns())
@@ -168,19 +160,16 @@ def admit(args, c, *, software_check=False):
     require(hashlib.sha256(proposal).hexdigest() == PROPOSAL_SHA, 'exact approved D298 proposal')
     acceptance_raw = io.read(c['continuation_authority']['acceptance'])
     validate_acceptance(json.loads(acceptance_raw))
-    import subprocess
-    owner = subprocess.run(['/usr/bin/setpriv','--reuid=1000','--regid=1000','--clear-groups',sys.executable,'-B',
-        str(Path(__file__).resolve()),'--owner-journal',str(args.configuration),args.configuration_sha256],
-        capture_output=True,text=True,timeout=240)
-    require(owner.returncode == 0, 'actual owner journal admission failed: '+owner.stderr[-1500:])
-    current = json.loads(owner.stdout)
-    require(current['configuration_sha256'] == args.configuration_sha256 and current['verified_uid'] == 1000,
-            'actual owner validation configuration')
-    io.cli_for(c, configured=True)
+    cli = io.cli_for(c, configured=True)
+    validation = cli._validation(Path(c['repository_root']), E,
+        pilot_archive=Path(c['archive']['path']), pilot_sidecar=Path(c['sidecar']['path']))
+    require(validation.current_state == 'READY_FOR_STAGE17_PHASE_AUTHORIZATION'
+            and set(validation.resolutions) == {f'S17-EXT-{i:03d}' for i in range(1,7)}, 'six passed actual qualifications')
+    current = validation.resolutions['S17-EXT-006'].semantic_context
     require(current['source_revision'] == NATIVE_SOURCE and current['release_artifact_sha256'] == c['worker']['sha256']
             and current['inventory_sha256'] == c['candidate_inventory']['sha256'], 'unchanged actual qualified release')
     from stage17_phase_controller_v2 import _verify_signature
-    trust = current['trust']
+    trust = validation.resolutions['S17-EXT-003'].semantic_context['trust']
     io.read(c['continuation_authority']['signature'])
     _verify_signature(acceptance_raw, Path(c['continuation_authority']['signature']['path']), trust)
     import stage17_q16c_execution_window_v5 as window
@@ -226,9 +215,26 @@ def admit(args, c, *, software_check=False):
     require(not (Path(c['program_root'])/'working'/constructed['plan']['sha256']).exists()
             and not (Path(c['repository_root'])/'evidence/formal-q16c-d295-1').exists()
             and not (Path(c['output_root'])/'prepared.json').exists(), 'unused formal family and identities')
-    import stage17_hardware_recovery_v1 as hardware
     rows = inputs['hardware_control']['prestate']
     require([r['cpu'] for r in rows] == [0,1,8], 'actual three-CPU qualified prestate')
+    return dict(configuration_sha256=args.configuration_sha256,verified_uid=os.geteuid(),record=record,prestate=rows)
+
+
+def admit(args, c, *, software_check=False):
+    """Keep metadata under its owner and hardware readback under root."""
+    require(os.geteuid() == 0, 'actual root hardware controller')
+    check_time(time.monotonic_ns())
+    import subprocess
+    owner = subprocess.run(['/usr/bin/setpriv','--reuid=1000','--regid=1000','--clear-groups',sys.executable,'-B',
+        str(Path(__file__).resolve()),'--owner-journal',str(args.configuration),args.configuration_sha256],
+        capture_output=True,text=True,timeout=240)
+    require(owner.returncode == 0, 'actual owner metadata admission failed: '+owner.stderr[-1800:])
+    accepted = json.loads(owner.stdout)
+    require(accepted['configuration_sha256'] == args.configuration_sha256 and accepted['verified_uid'] == 1000,
+            'actual owner validation configuration')
+    sys.path.insert(0,str(Path(c['repository_root'])/'tools'))
+    import stage17_hardware_recovery_v1 as hardware
+    rows = accepted['prestate']
     hardware.verify(tuple((r['cpu'],int(r['complete_value_hex'],16)) for r in rows))
     # Inventory/source ownership admission is executed as UID1000, never root.
     import subprocess
@@ -240,7 +246,7 @@ def admit(args, c, *, software_check=False):
                                                               else 'd298-execution-owner-admission-1.json'))],
         check=True,timeout=120)
     check_time(time.monotonic_ns())
-    return record
+    return accepted['record']
 
 
 if __name__ == '__main__':

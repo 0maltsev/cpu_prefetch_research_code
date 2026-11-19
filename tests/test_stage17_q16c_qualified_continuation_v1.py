@@ -35,11 +35,15 @@ class RenderTests(unittest.TestCase):
         functions_=functions(Path(current.__file__).read_bytes())
         owner=ast.get_source_segment(Path(current.__file__).read_text(),functions_['owner_journal'])
         self.assertIn('os.getresuid() == (1000,)*3',owner)
-        self.assertIn('cli._validation',owner)
+        self.assertIn('return owner_metadata',owner)
+        metadata=ast.get_source_segment(Path(current.__file__).read_text(),functions_['owner_metadata'])
+        self.assertIn('cli._validation',metadata)
+        self.assertIn('_verify_signature',metadata)
         root=ast.get_source_segment(Path(current.__file__).read_text(),functions_['admit'])
         self.assertNotIn('cli._validation',root)
         self.assertIn("'--reuid=1000','--regid=1000','--clear-groups'",root)
-        self.assertIn("current['configuration_sha256'] == args.configuration_sha256",root)
+        self.assertNotIn('_verify_signature',root)
+        self.assertIn("accepted['configuration_sha256'] == args.configuration_sha256",root)
 
     def test_only_observation_and_restoration_paths_change_in_scientific_operator(self):
         name='stage17_q16c_continuation_operator_v1.py'
@@ -76,7 +80,7 @@ class RenderTests(unittest.TestCase):
             before=ast.dump(old[name]);after=ast.dump(f[name]).replace('d298-study-1','d295-study-1')
             self.assertEqual(before,after,name)
         run=ast.get_source_segment(out.decode(),f['run'])
-        self.assertIn('complete=resume.DEADLINE',run)
+        self.assertIn('complete=min(resume.DEADLINE,start+resume.ENVELOPE)',run)
         self.assertIn('start+600*NS',run)
         self.assertIn('clock.ISO.prepare',run)
         self.assertLess(run.index('resume.admit'),run.index('guard=controls.Guard'))

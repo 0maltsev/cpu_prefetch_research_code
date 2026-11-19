@@ -14,9 +14,10 @@ qualified deployment as actual UID1000, without running its worker. It verifies
 the current three-CPU MSR prestate and unused formal family/identities.
 
 The private SSH transport identity and six-input journal are validated in a
-separate actual UID1000 child with cleared groups. The root controller receives
-only the configuration-bound state, qualified release identifiers and admitted
-owner trust. It retains hardware readback and recovery privileges. Root never
+separate actual UID1000 child with cleared groups, along with all owner-bound
+signature and retained-input checks. The root controller receives only the
+configuration-bound admitted window and hardware prestate. It retains hardware
+readback and recovery privileges. Root never
 validates the owner's private identity as its own credential; key ownership and
 permission checks remain unchanged. Installed preflight exercises this boundary.
 
@@ -35,6 +36,8 @@ clock or Q15 command. Its former new-window function explicitly raises. It reuse
 the exact original signed window and fixed total deadline1589604784571258ns,
 requires the full31460s remaining envelope before the strict original cutoff,
 and measures the600s admission/rearm budget from before evidence admission.
+The continuation also has a tighter start+31460s total budget, bounded by that
+original deadline; it never uses spare original-window time as an extension.
 No resetting clock is introduced. Collection24860s, restoration2400s and
 analysis3600s limits remain unchanged; every failure stops further phases.
 

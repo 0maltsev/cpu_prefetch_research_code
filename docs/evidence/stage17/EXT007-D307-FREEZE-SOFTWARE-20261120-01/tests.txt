@@ -1,0 +1,14 @@
+test_actual_1008_reports_preserve_methods_strata_and_failed_zero_loss (test_stage17_descriptive_freeze_v1.FreezeTests.test_actual_1008_reports_preserve_methods_strata_and_failed_zero_loss) ... ok
+test_actual_publisher_writes_and_signs_the_separate_data_record (test_stage17_descriptive_freeze_v1.FreezeTests.test_actual_publisher_writes_and_signs_the_separate_data_record) ... ok
+test_actual_source_bytes_and_all_three_compositions_are_mandatory (test_stage17_descriptive_freeze_v1.FreezeTests.test_actual_source_bytes_and_all_three_compositions_are_mandatory) ... ok
+test_authority_legacy_status_confidence_or_feasibility_cannot_be_promoted (test_stage17_descriptive_freeze_v1.FreezeTests.test_authority_legacy_status_confidence_or_feasibility_cannot_be_promoted) ... ok
+test_missing_duplicate_and_cross_family_run_identities_are_rejected (test_stage17_descriptive_freeze_v1.FreezeTests.test_missing_duplicate_and_cross_family_run_identities_are_rejected) ... ok
+test_provenance_must_bind_the_actual_sources_and_six_predecessors (test_stage17_descriptive_freeze_v1.FreezeTests.test_provenance_must_bind_the_actual_sources_and_six_predecessors) ... ok
+test_scoped_schema_and_legacy_export_remain_distinct (test_stage17_descriptive_freeze_v1.FreezeTests.test_scoped_schema_and_legacy_export_remain_distinct) ... ok
+test_strata_guarantees_observed_counts_and_rational_minima_are_checked (test_stage17_descriptive_freeze_v1.FreezeTests.test_strata_guarantees_observed_counts_and_rational_minima_are_checked) ... ok
+test_symlink_cannot_replace_an_audited_source_locator (test_stage17_descriptive_freeze_v1.FreezeTests.test_symlink_cannot_replace_an_audited_source_locator) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.290s
+
+OK

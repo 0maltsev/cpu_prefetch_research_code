@@ -1,0 +1,29 @@
+{
+  "actual_completed_compositions_used": true,
+  "affected_native_sanitizer_target": false,
+  "ext007_admitted": false,
+  "native_changes": false,
+  "new_measurements": 0,
+  "phase18_authority": false,
+  "qualified_preparation_in_software_test": "EXPLICIT_BOUNDARY_FIXTURE",
+  "raw_decoding_repeated": false,
+  "signed_publication_test": true,
+  "source_files": {
+    "config/schemas/stage17-ext007-descriptive-freeze-v1.schema.json": {
+      "sha256": "e26c1a2292b4aff77c776190e2db2b35873dabef8c579b52504cd40911fb812d",
+      "size_bytes": 12313
+    },
+    "tools/prepare_stage17_descriptive_freeze_v1.py": {
+      "sha256": "5eaaeae71134936f8bc84cc392d5e8e2566f7db374ff4ff76b61573c8f639859",
+      "size_bytes": 13683
+    },
+    "tools/stage17_descriptive_freeze_v1.py": {
+      "sha256": "b18470ec154b2777ac7bd388f9b7193de89ca61318a99812e55bb1534f6a89d9",
+      "size_bytes": 12276
+    }
+  },
+  "stage17_complete": false,
+  "stand_metadata_job_seconds": 900,
+  "status": "SOFTWARE_VERIFIED_STAND_PUBLICATION_PENDING",
+  "tests_passed": 9
+}

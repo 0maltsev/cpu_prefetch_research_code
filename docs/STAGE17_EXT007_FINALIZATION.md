@@ -22,7 +22,10 @@ No completed measurement or raw validation was repeated.
    identity/coverage and composition from the already validated report bytes.
    Do not decode the raw data again. Keep FULL and low-N_eff data valid, with
    zero-loss gates reported separately.
-3. **Pending — descriptive freeze/handoff.** Produce the separately versioned Stage17 descriptive calibration handoff
+3. **In progress — descriptive freeze/handoff.** D307 format and finite owner-only
+   publisher pass9 targeted tests using the actual completed compositions, including
+   real signature/file publication with the qualification boundary replaced only
+   in software tests. Actual stand preparation/publication remains required. Produce the separately versioned Stage17 descriptive calibration handoff
    permitted by accepted D270, scientific design item5. Bind the actual Q16a,
    Q16b and Q16c source populations, plans, reports, signed lifecycles, custody,
    qualification/compatibility and analysis-code provenance independently.

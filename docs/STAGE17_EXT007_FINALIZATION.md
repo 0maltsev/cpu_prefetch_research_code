@@ -1,25 +1,28 @@
 # EXT007 finalization after the completed measurements
 
-Checkpoint: 20 November 2026, 04:48 Moscow. All 94 D306 captures are collected,
-the collection process exited0/reaped, and full stand restoration is verified.
-Independent suffix validation has 12/94 VALID/reaped process receipts and no
-failed receipt. Its existing deadline is 05:40:18 Moscow. The completed 86-report
-prefix is reused; no completed raw validation or measurement is repeated.
+Checkpoint: 20 November 2026, 06:36 Moscow. D306 finished05:03:24Moscow.
+All94 new reports independently passed; all86 original reports were reused. The
+full180 composition has0 invalid/missing reports. Root and independent recovery
+passed, all phases exited0/reaped, and the stand is restored/quiescent. A separate
+metadata-only audit verified all180 report hashes and exact whole composition.
+[Final results and evidence](evidence/stage17/Q16C-D306-COMPLETE-20261120-01/REPORT.md).
+No completed measurement or raw validation was repeated.
 
 ## Required sequence
 
-1. Let the existing D306 suffix finish. Require all94 original report bindings,
+1. **Complete — D306 suffix and composition.** Verified all94 original report bindings,
    all94 VALID/reaped process receipts, completion `ALL_SELECTED_VALID`, exact
    full180 composition `DESCRIPTIVE_COMPLETE`, root success with no errors,
    native completion/restoration and independent StopPost recovery. Preserve
    the two platform strata and every failed historical artifact. A new failure
    retains the stop rule; this document grants no retry.
-2. Preserve the final report/manifest hashes on this PC; raw archives and any
+2. **Complete — final report preservation and independent metadata audit.**
+   Final report/manifest hashes are preserved on this PC; raw archives and any
    failed scratch remain on the stand under D233. Independently check report
    identity/coverage and composition from the already validated report bytes.
    Do not decode the raw data again. Keep FULL and low-N_eff data valid, with
    zero-loss gates reported separately.
-3. Produce the separately versioned Stage17 descriptive calibration handoff
+3. **Pending — descriptive freeze/handoff.** Produce the separately versioned Stage17 descriptive calibration handoff
    permitted by accepted D270, scientific design item5. Bind the actual Q16a,
    Q16b and Q16c source populations, plans, reports, signed lifecycles, custody,
    qualification/compatibility and analysis-code provenance independently.
@@ -28,7 +31,7 @@ prefix is reused; no completed raw validation or measurement is repeated.
    descriptive method, 86 UNRECORDED / 94 VERIFIED_ZERO platform strata and
    absent homogeneous-platform inference. Final matrix feasibility/exposure
    and scale remain NOT_EVALUATED. No new scientific estimator is authorized.
-4. Connect this approved scoped representation to bounded operational EXT007
+4. **Pending — operational EXT007 admission.** Connect this approved scoped representation to bounded operational EXT007
    verification, with targeted provenance/schema/lineage rejection checks and
    an explicit version. Preserve the legacy verifier and qualified native
    release. Only an actual accepted operational EXT007 resolution closes that
@@ -58,7 +61,7 @@ verification; no new experiment is implied.
 |---|---:|---|
 | Q16a | 708, already complete | Accepted formal distance calibration; preserve both source histories and separate zero-loss gates |
 | Q16b | 120, already complete | D254 descriptive minimum of two runs in each of60 cells; observed global minimum1670571 events/s; no95/95 tolerance claim |
-| Q16c | 180, validation in progress | D270 descriptive full matrix at scale1; preserve86 original reports plus94 new reports and their actual platform strata; no D036 confidence/feasibility claim |
+| Q16c | 180, complete | D270 descriptive full matrix at scale1; preserve86 original reports plus94 new reports and their actual platform strata; no D036 confidence/feasibility claim |
 
 References: [D254](decisions/0254-stage17-one-day-service-calibration.md),
 [accepted D270](evidence/stage17/Q16C-D270-ACCEPTED-20261117-01/owner-acceptance.json),

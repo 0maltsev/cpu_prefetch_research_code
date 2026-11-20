@@ -86,3 +86,11 @@ running under the unchanged05:40:18 deadline. The existing scoped freeze and
 operational admission integration requirements are recorded in
 [the finalization checklist](../../../STAGE17_EXT007_FINALIZATION.md).
 No new action, retry or qualification was launched.
+
+**Completed checkpoint:** D306 finished05:03:24Moscow20November. All94 new
+reports passed; the full180-report composition is valid with0 missing/invalid.
+All phases exited0/reaped, root success/errors[] and independent recovery passed.
+At06:36Moscow, all180 report hashes and exact recomposition passed a separate
+metadata-only audit. Full results, separate FULL/zero-loss gates, actual platform
+strata and remaining EXT007 gates are retained in
+[the final report](../Q16C-D306-COMPLETE-20261120-01/REPORT.md).

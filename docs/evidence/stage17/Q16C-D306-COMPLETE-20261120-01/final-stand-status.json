@@ -1,0 +1,21 @@
+{
+  "checked_at_utc": "2026-11-20T03:34:15.962946+00:00",
+  "checked_monotonic_ns": 1582190259805518,
+  "family_entry_count": 194,
+  "guard_value": "1",
+  "native_attempt_present": true,
+  "native_complete_checkpoints": 94,
+  "native_failed_checkpoints": 0,
+  "native_workers": [],
+  "raw_data_transferred": false,
+  "unit": {
+    "ActiveState": "inactive",
+    "ControlGroup": "",
+    "ExecMainExitTimestamp": "",
+    "ExecMainStartTimestamp": "",
+    "ExecMainStatus": "0",
+    "InvocationID": "",
+    "MainPID": "0",
+    "SubState": "dead"
+  }
+}

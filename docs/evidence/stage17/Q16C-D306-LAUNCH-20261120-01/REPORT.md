@@ -60,3 +60,21 @@ worker remain active; **40/94 new native-complete checkpoints, 0 failed**, up32
 since02:00. There are54 new captures left; restoration and independent validation
 are pending. The86 original validated reports remain preserved. Estimate remains
 05:42–08:42 Moscow. No retry, qualification or raw-data transfer occurred.
+
+Collection check at **04:44:41 Moscow**: **94/94 new captures native-complete,
+0 failed checkpoints**. Collection exited0/reaped around04:40. The native worker
+is gone; the supervisor remains active. Full MSR readbacks on CPUs0/1/8, isolation,
+root/maintenance and compaction restoration are verified with errors[], guard1.
+The actual isolation restoration receipt SHA256 is
+`5a8457ac1f9775e78698ed461dd822ec878f97d66c32b62e5bf97221eab15fae`.
+
+At **04:45:35 Moscow**, signed retention/custody preparation has passed and the
+12-worker SUFFIX94 independent analysis is running. It has0 completed report/process
+receipts and0 failed process receipts at this early point. It began raw analysis
+around04:43; the original one-hour suffix budget began04:40:18 and ends
+**05:40:18 Moscow**. Aggregate admitted scratch is77,880,833,288bytes, including
+37,485,663,884bytes of retained failed scratch, within256GiB. All86 original
+reports are reused without repeating their raw validation. New scientific validity
+and full180-report composition remain pending. This tighter current phase deadline
+supersedes the broad startup ETA; it is a limit, not a successful-completion promise.
+No new run, retry or qualification was started.

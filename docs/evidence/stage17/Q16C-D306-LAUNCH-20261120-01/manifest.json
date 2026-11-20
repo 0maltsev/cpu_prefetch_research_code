@@ -2,8 +2,18 @@
   "files": [
     {
       "path": "REPORT.md",
-      "sha256": "43f4a5ee4901368b8280f35ea21f0aaf8675039a3dd4dd8235497f43ea675da1",
-      "size_bytes": 3985
+      "sha256": "a45930c7721645e49d314c576fd60b7e2c44e04ab80c878eba73c958fd54b7ce",
+      "size_bytes": 5206
+    },
+    {
+      "path": "analysis-progress-20261120T044535-Moscow.json",
+      "sha256": "d0dec379f7435c9a5dd494682c1c733a199e38eca379953d8c7244d0274f59aa",
+      "size_bytes": 894
+    },
+    {
+      "path": "clock-rearm-d306-1/restoration.json",
+      "sha256": "5a8457ac1f9775e78698ed461dd822ec878f97d66c32b62e5bf97221eab15fae",
+      "size_bytes": 842
     },
     {
       "path": "d306-continuation-1/acceptance-signing-result.json",
@@ -76,6 +86,11 @@
       "size_bytes": 842
     },
     {
+      "path": "d306-study-1/sign-collect-result.json",
+      "sha256": "5995a30b4e36148d3fc8373762c443e9000d691a9c6ac6233d9dcd7eed9740c6",
+      "size_bytes": 184
+    },
+    {
       "path": "progress-20261120T020004-Moscow.json",
       "sha256": "52b6472493e21488391e23434bcfdaf2fd68a70edaff7872c121abbfbd5e60a7",
       "size_bytes": 973
@@ -84,6 +99,16 @@
       "path": "progress-20261120T025906-Moscow.json",
       "sha256": "9787b14ac0d045624dffd1b199653f868267c437c3951a7de891d98bec9c6911",
       "size_bytes": 974
+    },
+    {
+      "path": "progress-20261120T044441-Moscow.json",
+      "sha256": "fd576660046b592d444555ca44682e61743155d086bd5b376670eb3efe39b52c",
+      "size_bytes": 659
+    },
+    {
+      "path": "q16c-study-d306-1/partition-restoration.json",
+      "sha256": "02d43629ff1275e32f0745d30d6c81e79cc7b3ab5e00491473cb765556470c25",
+      "size_bytes": 573
     },
     {
       "path": "startup-status-1.json",
@@ -109,6 +134,11 @@
       "path": "verification/local-administrative-packet.json",
       "sha256": "cb2cece3526b727e3b744e0a0bef8703153921cf219f4c1b6b77e81d1b9ae3e9",
       "size_bytes": 2419
+    },
+    {
+      "path": "verification/read_only_analysis_status.py",
+      "sha256": "2ba6576c84ffadc67e80045089b267b8a667b4b917b32489d8fafabc4bbdf205",
+      "size_bytes": 1571
     },
     {
       "path": "verification/read_only_public_status.py",

@@ -61,21 +61,24 @@ struct ScratchOffsets final {
   std::size_t affinity;
 };
 
-template <typename Layout, typename Plan>
+template <std::size_t RegionCount = kNativeDiscoveryRegions, typename Layout,
+          typename Plan>
 void allocate_monitor_layout(Layout& result, const Plan& plan, std::size_t page) {
+  constexpr auto region_count = RegionCount;
+  const auto observation_count = region_count * 6U;
   Builder monitor;
   static_cast<void>(monitor.array<Monitor>(1U, page));
   result.regions = monitor.array<DiscoveryResidencyRegion>(
-      kNativeDiscoveryRegions, alignof(DiscoveryResidencyRegion));
+      region_count, alignof(DiscoveryResidencyRegion));
   result.controls =
       monitor.array<DiscoveryControlSample>(6U, alignof(DiscoveryControlSample));
   result.queries = monitor.array<platform::PreparedPageResidencyQuery>(
-      kNativeDiscoveryObservations, alignof(platform::PreparedPageResidencyQuery));
+      observation_count, alignof(platform::PreparedPageResidencyQuery));
   result.residency = monitor.array<DiscoveryResidencySample>(
-      kNativeDiscoveryObservations, alignof(DiscoveryResidencySample));
-  for (std::size_t index = 0U; index < kNativeDiscoveryObservations; ++index) {
-    const auto region = index % kNativeDiscoveryRegions;
-    const auto during = (index / kNativeDiscoveryRegions) % 3U == 1U;
+      observation_count, alignof(DiscoveryResidencySample));
+  for (std::size_t index = 0U; index < observation_count; ++index) {
+    const auto region = index % region_count;
+    const auto during = (index / region_count) % 3U == 1U;
     const auto count = during ? plan.during_page_count[region]
                               : result.public_layout.region_bytes[region] / page;
     result.pointers[index] = monitor.array<void*>(count, alignof(void*));

@@ -1,0 +1,157 @@
+{
+  "schema_version": "cpu-prefetch-engineering-evidence/1",
+  "scope": "SOFTWARE_CORRECTNESS_ONLY",
+  "experimental_runs_started": 0,
+  "operational_window_started": false,
+  "related_ctest_passes": 61,
+  "pilot_cases": 22,
+  "source_files": [
+    {
+      "path": "CMakeLists.txt",
+      "size_bytes": 186278,
+      "sha256": "7dd1312aac909398571160fe3881d2165c589537fb3319336fe41620b3c5f9dd"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/mapped_pilot_data.hpp",
+      "size_bytes": 8970,
+      "sha256": "6646000e13493f4346c6bc181bde2ff6cd2f9b1913c39ddde6db50068dc0a846"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/mapped_pilot_capture.hpp",
+      "size_bytes": 15297,
+      "sha256": "1fa42094b9b60cf26871eb770d4b866965e0249d4850812223110c5c0f926d6a"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/native_pilot_capture.hpp",
+      "size_bytes": 2511,
+      "sha256": "b887b1e915e707f1871670f5448d32b109cf269de63e5d8ba449aab0ad6e5c6c"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/detail/native_capture_monitor.hpp",
+      "size_bytes": 8940,
+      "sha256": "83d615e85de4170edae4c5acc38e6c36ec004d5386d12ed1f5cb78251fa7da7c"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/detail/native_service_envelope.hpp",
+      "size_bytes": 27509,
+      "sha256": "696c5ab872f99e2b7b53f04936d54d0bd7413f6f3b8baac70ab9d86fd6ed837a"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/pilot_scheduled_capture.hpp",
+      "size_bytes": 13145,
+      "sha256": "8edb84ae15a9fb8bb6f51bc1719b20452cfb9b0edb55cf0a14b9dae05c3056d2"
+    },
+    {
+      "path": "src/calibration/native_pilot_capture.cpp",
+      "size_bytes": 5546,
+      "sha256": "92d7b645311c74905337200e4335adc47f5fdbe853a9d4f3b58883ba510b61c0"
+    },
+    {
+      "path": "tests/calibration_mapped_pilot_data_test.cpp",
+      "size_bytes": 7021,
+      "sha256": "09a63698aade602075139f6337220014941339d1f9fa091c4404edae5172a50a"
+    },
+    {
+      "path": "tests/calibration_mapped_pilot_capture_test.cpp",
+      "size_bytes": 14972,
+      "sha256": "5061e56a95064f69b6dcb8e5a2e65927e8d24a0608a770fd7f5e38b59cf15839"
+    }
+  ],
+  "verification_files": [
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/asan-ubsan-clang-build.txt",
+      "size_bytes": 945,
+      "sha256": "be1634126926cc77bf2bcfcad5b245f5f45bdc11048ba33381a73823a9204f45"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/asan-ubsan-clang-configure.txt",
+      "size_bytes": 184,
+      "sha256": "234de695853fdc112c283d4fffebf7170a6cc8c07621cb1c152822d0e03bd650"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/asan-ubsan-clang-tests.txt",
+      "size_bytes": 4876,
+      "sha256": "7e94daec189e2cf9100876de0e4a49edc3f81c8f84960b0d311206c3aaad0589"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/asan-ubsan-gcc-build.txt",
+      "size_bytes": 945,
+      "sha256": "62c388e299483132806440ec47904d5c928f2e82a880afa0cba66a0f49501ebb"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/asan-ubsan-gcc-configure.txt",
+      "size_bytes": 182,
+      "sha256": "ccecd182979cf3acd755ac1234a88cc5ea7a39d1e1d274ca6694a069690f8ef1"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/asan-ubsan-gcc-tests.txt",
+      "size_bytes": 4807,
+      "sha256": "322968d787c94b9452031c7e583bd05b61efed84e08ad1637b520a5f8e425d33"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/build_matrix.py",
+      "size_bytes": 1703,
+      "sha256": "05a7eff1e16b472c53b79a888ee266d25f7c91cc5b945ad0141463a152a52bf4"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/pilot-final-build.txt",
+      "size_bytes": 249,
+      "sha256": "e22a84b2d85d1d0508815f02ca4ef8ae504b01bdd45376c0e0a41c3741bcccf2"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/pilot-integration-ctest.txt",
+      "size_bytes": 15113,
+      "sha256": "293851fc90b71f8122fc5c82e59665a477a70966578f7219e1ed1f420c3edc8c"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/pilot-integration-format.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/pilot-integration-tidy.txt",
+      "size_bytes": 634,
+      "sha256": "9179a164c44cf388587283f949e2300e0962846409df549b8f1717fa56238171"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/pilot-protocol-checks.txt",
+      "size_bytes": 576,
+      "sha256": "24ed5d8138d0288a6bbd5bc9b4becd91b5e05f341169e9e022efc2f91c4c3fcf"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/tsan-clang-build.txt",
+      "size_bytes": 945,
+      "sha256": "41fa7e575518a2d7e26cc6544affa6d3789006ef32d25dbe2fa5ceb493da7543"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/tsan-clang-configure.txt",
+      "size_bytes": 321,
+      "sha256": "395c51cb57c34f176362ceef8c0863fa4eeee8e4a7362c52d27b382d62a3ab8c"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/tsan-clang-tests.txt",
+      "size_bytes": 5192,
+      "sha256": "8feefb028ebded19e59da2dcc27ae6a4a3d396bd8a883395f26fbd5c7b869878"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/tsan-gcc-build.txt",
+      "size_bytes": 945,
+      "sha256": "62c388e299483132806440ec47904d5c928f2e82a880afa0cba66a0f49501ebb"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/tsan-gcc-configure.txt",
+      "size_bytes": 176,
+      "sha256": "999ff458e1632d67a0ae3273f8b49e89030f2f7c0fab5d2d98309128507fdecb"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D313-MAPPED-20261120-01/verification/tsan-gcc-tests.txt",
+      "size_bytes": 4807,
+      "sha256": "f9f44b12dfdc350b6308fa26636165abfcef5cc8fa715fc9c46f732c75a31c53"
+    }
+  ],
+  "unchanged_qualified_entry": {
+    "path": "src/runner/stage17_fixed_action.cpp",
+    "size_bytes": 267565,
+    "sha256": "03130e61fcd1b61b4cb7b2d1bfc564f1420e87eebcbff428a2b3f7ff4eec764e"
+  }
+}

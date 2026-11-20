@@ -10,6 +10,15 @@ namespace cpu_prefetch::calibration::native_capture_detail {
 // bind storage/lifecycle/publication; no package choice enters worker loops.
 // Existing diagnostic dispatch remains independent. No helper grants admission.
 template <typename Traits> struct ServiceEnvelope final {
+  static constexpr std::size_t extra_regions = [] {
+    if constexpr (requires { Traits::extra_region_count; })
+      return Traits::extra_region_count;
+    else
+      return std::size_t{0U};
+  }();
+  static constexpr std::size_t region_count = kNativeCaptureRegions + extra_regions;
+  static constexpr std::size_t observation_count = 6U * region_count;
+
   using Plan = typename Traits::Plan;
   using PublicLayout = typename Traits::Layout;
   using Result = typename Traits::Result;
@@ -47,8 +56,8 @@ template <typename Traits> struct ServiceEnvelope final {
     std::size_t controls;
     std::size_t queries;
     std::size_t residency;
-    std::array<std::size_t, kNativeDiscoveryObservations> pointers;
-    std::array<std::size_t, kNativeDiscoveryObservations> statuses;
+    std::array<std::size_t, observation_count> pointers;
+    std::array<std::size_t, observation_count> statuses;
     std::array<ScratchOffsets, 14U> thread_scratch;
     struct FileOffsets final {
       std::size_t path;
@@ -75,7 +84,7 @@ template <typename Traits> struct ServiceEnvelope final {
         plan.controls.thread_affinity_words >
             std::numeric_limits<unsigned int>::max() / sizeof(unsigned long) ||
         plan.controls.observer_wait_poll_limit == 0U ||
-        plan.controls.control_region_index >= kNativeDiscoveryRegions ||
+        plan.controls.control_region_index >= region_count ||
         plan.controls.during_offset_ticks[0U] >= session.phases[0U].duration_ticks ||
         plan.controls.during_offset_ticks[1U] >= session.phases[1U].duration_ticks ||
         plan.controls.workers.producer_stack.owner_cpu ==
@@ -141,7 +150,13 @@ template <typename Traits> struct ServiceEnvelope final {
                                          plan.controls.workers.consumer_stack.bytes,
                                          result.public_layout.core_bytes,
                                          plan.controls.controller_stack.bytes};
-    for (std::size_t index = 0U; index < kNativeDiscoveryRegions; ++index) {
+    if constexpr (extra_regions != 0U) {
+      const auto shared = Traits::extra_regions(plan);
+      for (std::size_t i = 0U; i < extra_regions; ++i)
+        result.public_layout.region_bytes[kNativeCaptureRegions + i] =
+            shared[i].mapping.size();
+    }
+    for (std::size_t index = 0U; index < region_count; ++index) {
       const auto pages = result.public_layout.region_bytes[index] / page;
       if (plan.controls.during_page_count[index] == 0U ||
           plan.controls.during_first_page[index] >= pages ||
@@ -151,7 +166,7 @@ template <typename Traits> struct ServiceEnvelope final {
             "native formal capture during query exceeds declared region");
       }
     }
-    allocate_monitor_layout(result, plan.controls, page);
+    allocate_monitor_layout<region_count>(result, plan.controls, page);
     Builder total;
     for (const auto bytes : result.public_layout.region_bytes) {
       static_cast<void>(total.reserve({bytes, page}));
@@ -200,6 +215,11 @@ template <typename Traits> struct ServiceEnvelope final {
       const auto node = core.plan.controls.controller_stack.requested_node;
       monitor.regions[5U] = {core_bytes, node};
       monitor.regions[6U] = {controller_stack, node};
+      if constexpr (extra_regions != 0U) {
+        const auto shared = Traits::extra_regions(core.plan);
+        std::copy(shared.begin(), shared.end(),
+                  monitor.regions.begin() + kNativeCaptureRegions);
+      }
       std::array<int, 2U> ids{};
       const auto& owner_snapshots = core.runtime.tls_before_warmup();
       const std::array owners{&monitor.producer, &monitor.consumer};
@@ -217,9 +237,9 @@ template <typename Traits> struct ServiceEnvelope final {
         }
       }
       const auto page = Traits::capture_plan(core.plan).arena.base_page_bytes;
-      for (std::size_t index = 0U; index < kNativeDiscoveryObservations; ++index) {
-        const auto region = index % kNativeDiscoveryRegions;
-        const auto group = index / kNativeDiscoveryRegions;
+      for (std::size_t index = 0U; index < observation_count; ++index) {
+        const auto region = index % region_count;
+        const auto group = index / region_count;
         const auto phase = static_cast<DiscoverySessionPhase>(group / 3U);
         const auto moment = static_cast<DiscoveryResidencyMoment>(group % 3U);
         const bool during = moment == DiscoveryResidencyMoment::during;
@@ -350,14 +370,14 @@ template <typename Traits> struct ServiceEnvelope final {
                 std::construct_at(reinterpret_cast<Monitor*>(monitor_bytes.data()));
             monitor->regions =
                 mapped_discovery_detail::initialize_array<DiscoveryResidencyRegion>(
-                    monitor_bytes, layout.regions, kNativeDiscoveryRegions);
+                    monitor_bytes, layout.regions, region_count);
             monitor->controls =
                 mapped_discovery_detail::initialize_array<DiscoveryControlSample>(
                     monitor_bytes, layout.controls, 6U);
             monitor->prepared_pages = storage<platform::PreparedPageResidencyQuery>(
-                monitor_bytes, layout.queries, kNativeDiscoveryObservations);
+                monitor_bytes, layout.queries, observation_count);
             monitor->residency = storage<DiscoveryResidencySample>(
-                monitor_bytes, layout.residency, kNativeDiscoveryObservations);
+                monitor_bytes, layout.residency, observation_count);
             for (std::size_t role = 0U; role < 2U; ++role) {
               monitor->initial_scratch[role] = scratch(
                   monitor_bytes, layout.thread_scratch[role], core->plan.controls);
@@ -468,6 +488,11 @@ template <typename Traits> struct ServiceEnvelope final {
                              plan.controls.controller_stack.requested_node};
       monitor.regions[6U] = {stack.body(),
                              plan.controls.controller_stack.requested_node};
+      if constexpr (extra_regions != 0U) {
+        const auto shared = Traits::extra_regions(core.plan);
+        std::copy(shared.begin(), shared.end(),
+                  monitor.regions.begin() + kNativeCaptureRegions);
+      }
       NativeCaptureObservationView view{
           monitor.regions,
           monitor.residency.first(monitor.constructed_samples),

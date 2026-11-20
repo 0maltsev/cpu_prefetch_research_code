@@ -33,6 +33,26 @@ struct PilotScheduledCaptureResult final {
 };
 
 namespace pilot_detail {
+// Shared cold controller bridge, also used by mapped pilot runtimes. Reset is
+// reached only after one-shot claim, both owner preparations and source checks.
+template <typename Reset, typename Observer> struct WarmupResetObserver final {
+  Reset reset;
+  Observer& observer;
+  bool initial_queue_reset{false};
+  auto before_phase(ServicePhase phase) -> bool {
+    if (phase == ServicePhase::warmup) {
+      initial_queue_reset = reset();
+      if (!initial_queue_reset)
+        return false;
+    }
+    return observer.before_phase(phase);
+  }
+  auto during_phase(ServicePhase phase, ServiceWindow window,
+                    const std::atomic<std::uint32_t>& finished) -> bool {
+    return observer.during_phase(phase, window, finished);
+  }
+  auto after_phase(ServicePhase phase) -> bool { return observer.after_phase(phase); }
+};
 template <protocol::QueuePackage Kind, typename Emitter> struct PackageType final {
   static_assert(Kind == protocol::QueuePackage::r0 ||
                 Kind == protocol::QueuePackage::r1 ||
@@ -239,24 +259,8 @@ run_pilot_scheduled_capture(const ScheduledSessionPlan& plan, Clock& clock,
     throw std::invalid_argument("pilot session changed its bound plan");
   FormalServiceSessionBackend<Clock, Preparation, FormalCapturePurpose::scheduled>
       backend(plan.bounds, clock, preparation);
-  struct PilotObserver final {
-    Preparation& preparation;
-    Observer& observer;
-    bool initial_queue_reset{false};
-    auto before_phase(ServicePhase phase) -> bool {
-      if (phase == ServicePhase::warmup) {
-        initial_queue_reset = preparation.reset_before_warmup();
-        if (!initial_queue_reset)
-          return false;
-      }
-      return observer.before_phase(phase);
-    }
-    auto during_phase(ServicePhase phase, ServiceWindow window,
-                      const std::atomic<std::uint32_t>& finished) -> bool {
-      return observer.during_phase(phase, window, finished);
-    }
-    auto after_phase(ServicePhase phase) -> bool { return observer.after_phase(phase); }
-  } checked_observer{preparation, observer};
+  pilot_detail::WarmupResetObserver checked_observer{
+      [&]() noexcept { return preparation.reset_before_warmup(); }, observer};
   const auto result = run_scheduled_session(plan, clock, backend, preparation, relax,
                                             checked_observer, threads, storage);
   return {result, preparation.raw_after_join(), checked_observer.initial_queue_reset};

@@ -1,0 +1,4 @@
+[1/4] Linking CXX static library libcpu_prefetch_calibration.a
+[2/4] Linking CXX executable cpu_prefetch_service_session_tests
+[3/4] Linking CXX executable cpu_prefetch_pilot_capture_tests
+[4/4] Linking CXX executable cpu_prefetch_calibration_tests

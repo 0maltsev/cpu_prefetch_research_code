@@ -1,0 +1,65 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 22 tests from 5 test suites.
+[----------] Global test environment set-up.
+[----------] 10 tests from PilotScheduledCapture
+[ RUN      ] PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext
+[       OK ] PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext (28 ms)
+[ RUN      ] PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes
+[       OK ] PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes (4 ms)
+[ RUN      ] PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement
+[       OK ] PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement (4 ms)
+[ RUN      ] PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases
+[       OK ] PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases (5 ms)
+[ RUN      ] PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers
+[       OK ] PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers (1 ms)
+[ RUN      ] PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement
+[       OK ] PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement (26 ms)
+[ RUN      ] PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence
+[       OK ] PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence (2 ms)
+[ RUN      ] PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup
+[       OK ] PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup (4 ms)
+[ RUN      ] PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry
+[       OK ] PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry (0 ms)
+[ RUN      ] PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent
+[       OK ] PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent (2 ms)
+[----------] 10 tests from PilotScheduledCapture (81 ms total)
+
+[----------] 2 tests from PilotSharedData
+[ RUN      ] PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey
+[       OK ] PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey (3 ms)
+[ RUN      ] PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases
+[       OK ] PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases (1 ms)
+[----------] 2 tests from PilotSharedData (4 ms total)
+
+[----------] 5 tests from MappedPilotData
+[ RUN      ] MappedPilotData.RetainsOneMappedArenaAndBothQueuesAcrossPairedResets
+[       OK ] MappedPilotData.RetainsOneMappedArenaAndBothQueuesAcrossPairedResets (12 ms)
+[ RUN      ] MappedPilotData.OwnershipOrReadOnlyFailureCannotExposeAReadyContext
+[       OK ] MappedPilotData.OwnershipOrReadOnlyFailureCannotExposeAReadyContext (6 ms)
+[ RUN      ] MappedPilotData.InvalidGeometryAndNamespaceDriftFailCold
+[       OK ] MappedPilotData.InvalidGeometryAndNamespaceDriftFailCold (0 ms)
+[ RUN      ] MappedPilotData.NodeOrderUsesTheExistingGeneratorWithNoRegenerationDuringReset
+[       OK ] MappedPilotData.NodeOrderUsesTheExistingGeneratorWithNoRegenerationDuringReset (9 ms)
+[ RUN      ] MappedPilotData.ReleaseBeforePreparationNeverReopensMappings
+[       OK ] MappedPilotData.ReleaseBeforePreparationNeverReopensMappings (0 ms)
+[----------] 5 tests from MappedPilotData (29 ms total)
+
+[----------] 3 tests from MappedPilotCapture
+[ RUN      ] MappedPilotCapture.AllFivePackagesRetainTheSameDataAcrossTenCaptures
+[       OK ] MappedPilotCapture.AllFivePackagesRetainTheSameDataAcrossTenCaptures (133 ms)
+[ RUN      ] MappedPilotCapture.FailedMeasurementRetainsOriginalWarmupAndSharedData
+[       OK ] MappedPilotCapture.FailedMeasurementRetainsOriginalWarmupAndSharedData (20 ms)
+[ RUN      ] MappedPilotCapture.ChangedSeedLayoutOrReleasedDataRejectCold
+[       OK ] MappedPilotCapture.ChangedSeedLayoutOrReleasedDataRejectCold (6 ms)
+[----------] 3 tests from MappedPilotCapture (159 ms total)
+
+[----------] 2 tests from NativePilotCapture
+[ RUN      ] NativePilotCapture.LayoutIncludesBothPersistentMappingsAndRejectsMissingCoverage
+[       OK ] NativePilotCapture.LayoutIncludesBothPersistentMappingsAndRejectsMissingCoverage (45 ms)
+[ RUN      ] NativePilotCapture.ModelMappingAndOwnerDriftRejectBeforeNativeAccess
+[       OK ] NativePilotCapture.ModelMappingAndOwnerDriftRejectBeforeNativeAccess (45 ms)
+[----------] 2 tests from NativePilotCapture (91 ms total)
+
+[----------] Global test environment tear-down
+[==========] 22 tests from 5 test suites ran. (367 ms total)
+[  PASSED  ] 22 tests.

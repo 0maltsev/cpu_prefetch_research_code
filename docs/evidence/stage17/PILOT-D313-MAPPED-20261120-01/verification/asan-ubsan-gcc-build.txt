@@ -1,0 +1,9 @@
+[1/9] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_formal_ring_capture.cpp.o
+[2/9] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_discovery_capture.cpp.o
+[3/9] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_formal_service_capture.cpp.o
+[4/9] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_formal_scheduled_capture.cpp.o
+[5/9] Building CXX object CMakeFiles/cpu_prefetch_pilot_capture_tests.dir/tests/calibration_mapped_pilot_data_test.cpp.o
+[6/9] Building CXX object CMakeFiles/cpu_prefetch_pilot_capture_tests.dir/tests/calibration_mapped_pilot_capture_test.cpp.o
+[7/9] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_pilot_capture.cpp.o
+[8/9] Linking CXX static library libcpu_prefetch_calibration.a
+[9/9] Linking CXX executable cpu_prefetch_pilot_capture_tests

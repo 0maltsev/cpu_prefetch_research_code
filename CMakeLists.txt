@@ -307,7 +307,8 @@ add_library(cpu_prefetch_calibration STATIC src/calibration/calibration.cpp
   src/calibration/native_discovery_capture.cpp
   src/calibration/native_formal_ring_capture.cpp
   src/calibration/native_formal_service_capture.cpp
-  src/calibration/native_formal_scheduled_capture.cpp)
+  src/calibration/native_formal_scheduled_capture.cpp
+  src/calibration/native_pilot_capture.cpp)
 add_library(cpu_prefetch::calibration ALIAS cpu_prefetch_calibration)
 target_link_libraries(
   cpu_prefetch_calibration
@@ -1856,7 +1857,7 @@ if(BUILD_TESTING)
     PREFIX "calibration."
     PROPERTIES LABELS "calibration;synthetic")
 
-  add_executable(cpu_prefetch_pilot_capture_tests tests/calibration_pilot_capture_test.cpp)
+  add_executable(cpu_prefetch_pilot_capture_tests tests/calibration_pilot_capture_test.cpp tests/calibration_mapped_pilot_data_test.cpp tests/calibration_mapped_pilot_capture_test.cpp)
   target_link_libraries(cpu_prefetch_pilot_capture_tests
     PRIVATE cpu_prefetch::calibration cpu_prefetch_project_options GTest::gtest_main)
   if(CPU_PREFETCH_SANITIZER STREQUAL "THREAD" AND
@@ -2269,6 +2270,9 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/formal_service_session.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/scheduled_session.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/pilot_shared_data.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_pilot_data.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/mapped_pilot_capture.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/native_pilot_capture.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/pilot_scheduled_capture.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/detail/scheduled_session_impl.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/service_interval_count.hpp"
@@ -2336,6 +2340,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_ring_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_service_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_scheduled_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_pilot_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/service_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/scheduled_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/ring_demand_window.cpp"
@@ -2411,6 +2416,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_formal_service_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_scheduled_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_pilot_capture_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_pilot_data_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_pilot_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_ring_demand_window_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
@@ -2531,6 +2538,7 @@ set(
   "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_ring_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_service_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/native_formal_scheduled_capture.cpp"
+  "${PROJECT_SOURCE_DIR}/src/calibration/native_pilot_capture.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/service_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/scheduled_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/calibration/ring_demand_window.cpp"
@@ -2606,6 +2614,8 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_formal_service_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_scheduled_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_pilot_capture_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_pilot_data_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_mapped_pilot_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_ring_demand_window_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"

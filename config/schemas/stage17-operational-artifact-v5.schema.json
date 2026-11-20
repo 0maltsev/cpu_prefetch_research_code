@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-artifact:v5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_id",
+    "role",
+    "media_type",
+    "locator",
+    "size_bytes",
+    "sha256",
+    "schema_identity",
+    "schema_binding",
+    "lineage"
+  ],
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "enum": [
+        "CALIBRATION_FREEZE",
+        "CALIBRATION_FREEZE_SIGNATURE"
+      ]
+    },
+    "media_type": {
+      "enum": [
+        "application/json",
+        "application/octet-stream",
+        "application/sshsig"
+      ]
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "size_bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "schema_identity": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "schema_binding": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/file"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lineage": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/hash"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "size_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "hash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sha256"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  }
+}

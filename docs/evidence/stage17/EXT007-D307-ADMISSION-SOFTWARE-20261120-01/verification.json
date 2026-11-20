@@ -1,0 +1,34 @@
+{
+  "actual_operational_resolution_published": false,
+  "affected_native_sanitizer_target": false,
+  "code_files": {
+    "tools/admit_stage17_descriptive_freeze_v1.py": {
+      "sha256": "cec8958a9d12202d2a030abbdb3f112967acdad4b696bc1c52ca7912cc851b86",
+      "size_bytes": 10064
+    },
+    "tools/stage17_operational_semantics_v18.py": {
+      "sha256": "9f22d8cac35779f97e0ab8c9a3eb405a1c335e83687457ce2a2e6879f6657a53",
+      "size_bytes": 8488
+    },
+    "tools/stage17_semantic_verifier_v64.py": {
+      "sha256": "dddbf8d199b11cbbd7212fafa4a4328a39f1ef2226909a3957f57cefdbe2ba64",
+      "size_bytes": 4891
+    },
+    "tools/stage17_state_journal_v61.py": {
+      "sha256": "2a32e17b7cd000aaa7ab9c6f361957ca733d602c9f8b7bddaf805c02fd3d9653",
+      "size_bytes": 1329
+    }
+  },
+  "current_descriptive_freeze_published": true,
+  "inherited_bindings_preserved": true,
+  "journal_version": 61,
+  "legacy_dispatch_preserved": true,
+  "manifest_version": 5,
+  "native_sources_changed": false,
+  "new_measurements": 0,
+  "phase18_authority": false,
+  "policy_version": 64,
+  "raw_decoding_repeated": false,
+  "status": "SCOPED_EXT007_SOFTWARE_VERIFIED_STAND_ADMISSION_PENDING",
+  "tests_passed": 19
+}

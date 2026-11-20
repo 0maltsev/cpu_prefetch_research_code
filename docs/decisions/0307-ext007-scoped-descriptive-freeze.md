@@ -37,3 +37,21 @@ identities, changed method/guarantee/strata, incorrect rational outputs, source
 relabeling, false zero-loss promotion and authority/status promotion. Actual stand
 publication and admission require fresh evidence after software checks. No
 C/C++ or affected native sanitizer target changes in this metadata-only work.
+
+The implementation uses manifest/artifact v5 with an exact freeze/signature pair,
+operational semantics18, semantic policy64 and the private journal61 runtime.
+Policy64 preserves every inherited policy63 binding and native source byte.
+Its accepted-bindings table is the reviewed actual06:59Moscow publication,
+including freeze cdf85bf5 and provenance b17d0d14 from source4d86d6a.
+The operational verifier authenticates the real owner signature, exact three
+audited compositions, six predecessor identities, original journal/release,
+producer source bytes and disclosed lower evidence strength. EXT008–010 are
+rejected when the predecessor is this descriptive-only context.
+
+Deployment adds only new source/schema/policy/evidence files to the mutable
+admission copy, without overwriting its existing files or the qualified bundle.
+Check the inherited bindings before and after installation. The owner-only
+admission job verifies all six existing resolutions, the new manifest and a
+separate full journal preview before canonical append. The ordinary append-only
+CLI then validates/publishes the successor, followed by a complete replay.
+Both metadata jobs have900s/8GiB ceilings and grant no measurement authority.

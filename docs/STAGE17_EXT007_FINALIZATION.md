@@ -22,10 +22,10 @@ No completed measurement or raw validation was repeated.
    identity/coverage and composition from the already validated report bytes.
    Do not decode the raw data again. Keep FULL and low-N_eff data valid, with
    zero-loss gates reported separately.
-3. **In progress — descriptive freeze/handoff.** D307 format and finite owner-only
-   publisher pass9 targeted tests using the actual completed compositions, including
-   real signature/file publication with the qualification boundary replaced only
-   in software tests. Actual stand preparation/publication remains required. Produce the separately versioned Stage17 descriptive calibration handoff
+3. **Complete — signed descriptive freeze publication.** The actual finite
+   metadata job passed and published the owner-signed separately scoped record
+   at06:59Moscow. [Publication and provenance](evidence/stage17/EXT007-D307-FREEZE-PUBLISHED-20261120-01/REPORT.md).
+   All original sources, methods, exact outputs and limits below are retained. The format is
    permitted by accepted D270, scientific design item5. Bind the actual Q16a,
    Q16b and Q16c source populations, plans, reports, signed lifecycles, custody,
    qualification/compatibility and analysis-code provenance independently.
@@ -34,7 +34,10 @@ No completed measurement or raw validation was repeated.
    descriptive method, 86 UNRECORDED / 94 VERIFIED_ZERO platform strata and
    absent homogeneous-platform inference. Final matrix feasibility/exposure
    and scale remain NOT_EVALUATED. No new scientific estimator is authorized.
-4. **Pending — operational EXT007 admission.** Connect this approved scoped representation to bounded operational EXT007
+4. **In progress — operational EXT007 admission.** Policy64/journal61 and the
+   new v5 freeze/signature manifest pass19 integrated tests, preserving all
+   inherited policy63 bindings. Actual installation, preview, append and full
+   replay remain pending. Connect this approved scoped representation to bounded operational EXT007
    verification, with targeted provenance/schema/lineage rejection checks and
    an explicit version. Preserve the legacy verifier and qualified native
    release. Only an actual accepted operational EXT007 resolution closes that

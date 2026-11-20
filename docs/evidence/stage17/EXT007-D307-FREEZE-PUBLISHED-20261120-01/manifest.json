@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "5f2d00bbe1a5d303345bee7af5bb2d1ba80a49aa3a08b71ab6d5209c3db1d6d8",
+      "size_bytes": 1770
+    },
+    {
+      "path": "accepted-bindings.json",
+      "sha256": "591a7ea1a0d6392e5879a6dea52d0c6b89ef469686f6c895f102c139d9202186",
+      "size_bytes": 995
+    },
+    {
+      "path": "descriptive-calibration-freeze-1/calibration-freeze.json",
+      "sha256": "cdf85bf585c997e079f432f904d93849fa5f69757440c7cefcf61ca7e06d742c",
+      "size_bytes": 27985
+    },
+    {
+      "path": "descriptive-calibration-freeze-1/calibration-freeze.json.sig",
+      "sha256": "02e40450d5e413e295b6ed812d5c32f7a6ebc59f95bb44bcb1905b46977b9693",
+      "size_bytes": 322
+    },
+    {
+      "path": "descriptive-calibration-freeze-1/complete.json",
+      "sha256": "97d00123faecbc34d9451c00b72274b884d5e523f81583e7fdb9d03f623e72ee",
+      "size_bytes": 1051
+    },
+    {
+      "path": "descriptive-calibration-freeze-1/provenance.json",
+      "sha256": "b17d0d14fd1fa2e8e06400b3e1db5addb5141c3c05d95b9772f75e425615f834",
+      "size_bytes": 6612
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "cpu-prefetch-public-evidence-manifest/1"
+}

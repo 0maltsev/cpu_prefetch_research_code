@@ -1,0 +1,79 @@
+{
+  "files": [
+    {
+      "path": "tools/stage17_operational_semantics_v18.py",
+      "sha256": "9f22d8cac35779f97e0ab8c9a3eb405a1c335e83687457ce2a2e6879f6657a53",
+      "size_bytes": 8488
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v64.py",
+      "sha256": "dddbf8d199b11cbbd7212fafa4a4328a39f1ef2226909a3957f57cefdbe2ba64",
+      "size_bytes": 4891
+    },
+    {
+      "path": "tools/stage17_state_journal_v61.py",
+      "sha256": "2a32e17b7cd000aaa7ab9c6f361957ca733d602c9f8b7bddaf805c02fd3d9653",
+      "size_bytes": 1329
+    },
+    {
+      "path": "tools/author_stage17_policy_v64.py",
+      "sha256": "a9d04aaff6e6fa3c414897c35a58a581706ff66606401a6159c6a6ae790f5f99",
+      "size_bytes": 2016
+    },
+    {
+      "path": "tools/admit_stage17_descriptive_freeze_v1.py",
+      "sha256": "cec8958a9d12202d2a030abbdb3f112967acdad4b696bc1c52ca7912cc851b86",
+      "size_bytes": 10064
+    },
+    {
+      "path": "tools/stage17_descriptive_freeze_v1.py",
+      "sha256": "b18470ec154b2777ac7bd388f9b7193de89ca61318a99812e55bb1534f6a89d9",
+      "size_bytes": 12276
+    },
+    {
+      "path": "tools/prepare_stage17_descriptive_freeze_v1.py",
+      "sha256": "5eaaeae71134936f8bc84cc392d5e8e2566f7db374ff4ff76b61573c8f639859",
+      "size_bytes": 13683
+    },
+    {
+      "path": "config/schemas/stage17-ext007-descriptive-freeze-v1.schema.json",
+      "sha256": "e26c1a2292b4aff77c776190e2db2b35873dabef8c579b52504cd40911fb812d",
+      "size_bytes": 12313
+    },
+    {
+      "path": "config/schemas/stage17-operational-artifact-v5.schema.json",
+      "sha256": "3d108b6dbb007d12c20d8e5d782fcd6c3a170294f8271b4312502379ad58fc34",
+      "size_bytes": 2120
+    },
+    {
+      "path": "config/schemas/stage17-operational-input-manifest-v5.schema.json",
+      "sha256": "46c0cc518631539dc854c74396a52b26a15ab8351d0c3ed69942b655caf6c860",
+      "size_bytes": 1625
+    },
+    {
+      "path": "config/schemas/stage17-operational-evidence-admission-policy-v64.schema.json",
+      "sha256": "3a02539fc493563511ed7f5e04e00c628a258e5719dc41b76f4097c91a7f13a9",
+      "size_bytes": 3955
+    },
+    {
+      "path": "docs/decisions/0307-ext007-scoped-descriptive-freeze.md",
+      "sha256": "02a431d77bbdcf3dfe9c083a985702b7f0fefc3448a44a9cb36277502b5e42cd",
+      "size_bytes": 3787
+    },
+    {
+      "path": "docs/evidence/stage17/EXT007-D307-FREEZE-PUBLISHED-20261120-01/accepted-bindings.json",
+      "sha256": "591a7ea1a0d6392e5879a6dea52d0c6b89ef469686f6c895f102c139d9202186",
+      "size_bytes": 995
+    },
+    {
+      "path": "config/stage17/stage17-operational-evidence-admission-policy-v64.json",
+      "sha256": "efb76da5a6c665cf9fe22e28ffae449ed1ff26d6b5ad9a979f93cba92f501be3",
+      "size_bytes": 239321
+    }
+  ],
+  "new_measurements": 0,
+  "overwrite_existing": false,
+  "phase18_authority": false,
+  "schema_version": "software-d307-additive-admission-packet/1",
+  "source_revision": "241b844cabcc58fee869ed186779a726705855ae"
+}

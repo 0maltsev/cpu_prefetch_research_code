@@ -11,6 +11,11 @@
       "size_bytes": 995
     },
     {
+      "path": "d307-freeze-packet-1/manifest.json",
+      "sha256": "9fb5b2a4c985933f204555ce893849276fe70c2ec143db14922d335c9ba308f9",
+      "size_bytes": 740
+    },
+    {
       "path": "descriptive-calibration-freeze-1/calibration-freeze.json",
       "sha256": "cdf85bf585c997e079f432f904d93849fa5f69757440c7cefcf61ca7e06d742c",
       "size_bytes": 27985

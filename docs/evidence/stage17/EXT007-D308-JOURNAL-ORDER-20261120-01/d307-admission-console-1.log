@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/admit_stage17_descriptive_freeze_v1.py", line 124, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/admit_stage17_descriptive_freeze_v1.py", line 63, in main
+    checked = scoped.verify_manifest_v18(repository_root=root,manifest_path=Path(manifest_binding['path']),
+        admitted_resolutions=before.resolutions,expected_input_id='S17-EXT-007',allow_synthetic=False,pinned_repository_bytes=pinned)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v18.py", line 105, in verify_manifest_v18
+    exact([r['sha256'] for r in journal['resolution_records']],[p['sha256'] for p in predecessors],
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          'actual original journal qualification record hashes')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v18.py", line 21, in exact
+    require(freeze.canonical(value) == freeze.canonical(expected), label+' differs')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v17.py", line 38, in require
+    raise OperationalSemanticError(message)
+stage17_operational_semantics_v4.OperationalSemanticError: actual original journal qualification record hashes differs

@@ -13,9 +13,9 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
 import stage17_descriptive_freeze_v1 as freeze
-import stage17_operational_semantics_v18 as semantics
-import stage17_semantic_verifier_v64 as semantic
-import author_stage17_policy_v64 as policy_author
+import stage17_operational_semantics_v19 as semantics
+import stage17_semantic_verifier_v65 as semantic
+import author_stage17_policy_v65 as policy_author
 from test_stage17_descriptive_freeze_v1 import PATHS,binding
 
 
@@ -29,7 +29,7 @@ class AdmissionTests(unittest.TestCase):
         self.predecessors = [dict(input_id=f'S17-EXT-{i:03d}',resolution_id=f'SOFTWARE-QUALIFICATION-FIXTURE-{i}',sha256=str(i)*64) for i in range(1,7)]
         actual = json.loads((ROOT/semantics.ACCEPTED_PATH).read_bytes())
         source,worker,inventory = actual['qualified_release']
-        journal = save(self.p/'historical-journal.json',dict(resolution_records=[dict(sha256=p['sha256']) for p in self.predecessors]))
+        journal = save(self.p/'historical-journal.json',dict(resolution_records=[dict(sha256=self.predecessors[i]['sha256']) for i in (0,1,2,5,3,4)]))
         packet = save(self.p/'packet.json',dict(administrative_source_revision=actual['publisher_source_revision']))
         code = {n:binding(ROOT/'tools'/n) for n in semantics.CODE_MEMBERS}
         proof = dict(schema_version='cpu-prefetch-stage17-descriptive-freeze-provenance/1',
@@ -131,10 +131,40 @@ class AdmissionTests(unittest.TestCase):
 
 
 class PolicyTests(unittest.TestCase):
+    def test_successor_actual_cli_renders_every_seam_before_parsing(self):
+        import contextlib,io
+        import admit_stage17_descriptive_freeze_v2 as entry
+        with patch.object(sys,'argv',['software-successor','--help']),contextlib.redirect_stdout(io.StringIO()),self.assertRaises(SystemExit) as ended:
+            entry.main()
+        self.assertEqual(ended.exception.code,0)
+
+    def test_actual_original_journal_has_chronological_order_and_exact_membership(self):
+        p = ROOT/'docs/evidence/stage17/EXT007-D308-JOURNAL-ORDER-20261120-01/original-journal-000009.json'
+        raw = p.read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(),'2fab0d69e3350dea0106a1fd5a0aa0ddd04dab8bae1956815e66ad47a378f5aa')
+        proof = json.loads((ROOT/'docs/evidence/stage17/EXT007-D307-FREEZE-PUBLISHED-20261120-01/descriptive-calibration-freeze-1/provenance.json').read_bytes())
+        chronological = [r['sha256'] for r in json.loads(raw)['resolution_records']]
+        categorical = [r['sha256'] for r in proof['predecessor_resolutions']]
+        ids = {r['sha256']:r['input_id'] for r in proof['predecessor_resolutions']}
+        self.assertEqual([ids[h] for h in chronological],['S17-EXT-001','S17-EXT-002','S17-EXT-003','S17-EXT-006','S17-EXT-004','S17-EXT-005'])
+        self.assertNotEqual(chronological,categorical)
+        self.assertEqual(sorted(chronological),sorted(categorical))
+
+    def test_successor_reuses_only_the_exact_retained_manifest(self):
+        import admit_stage17_descriptive_freeze_v2 as entry
+        import stage17_q16c_continuation_operator_v1 as io
+        original = (ROOT/'docs/evidence/stage17/EXT007-D308-JOURNAL-ORDER-20261120-01/descriptive-calibration-freeze-1/ext007-manifest-v5.json').read_bytes()
+        with tempfile.TemporaryDirectory() as directory:
+            data = Path(directory); p = data/'ext007-manifest-v5.json'; p.write_bytes(original)
+            self.assertEqual(entry.retained_manifest(io,data,json.loads(original)),binding(p))
+            bad = json.loads(original); bad['stand_id'] += '-CHANGED'
+            with self.assertRaises(ValueError): entry.retained_manifest(io,data,bad)
+            self.assertEqual(p.read_bytes(),original)
+
     def test_new_admission_entry_and_helpers_have_no_unresolved_global_names(self):
         import builtins,symtable
-        names = ('admit_stage17_descriptive_freeze_v1','stage17_operational_semantics_v18',
-                 'stage17_semantic_verifier_v64','stage17_state_journal_v61','author_stage17_policy_v64')
+        names = ('admit_stage17_descriptive_freeze_v2','stage17_operational_semantics_v19',
+                 'stage17_semantic_verifier_v65','stage17_state_journal_v62','author_stage17_policy_v65')
         for name in names:
             table = symtable.symtable((ROOT/'tools'/(name+'.py')).read_text(),name,'exec')
             defined = {s.get_name() for s in table.get_symbols() if s.is_assigned() or s.is_imported()}
@@ -152,13 +182,13 @@ class PolicyTests(unittest.TestCase):
         old = json.loads((ROOT/semantic.predecessor.POLICY_PATH).read_bytes())
         for group in ('bindings','runtime_closure'):
             for key,value in old[group].items(): self.assertEqual(new[group][key],value)
-        self.assertEqual(new['policy_version'],'64')
-        self.assertTrue(all(p['verifier_version']=='64' for p in new['entries']))
+        self.assertEqual(new['policy_version'],'65')
+        self.assertTrue(all(p['verifier_version']=='65' for p in new['entries']))
         self.assertEqual(len(new['entries']),10)
 
     def test_journal_scope_is_private_and_does_not_rebind_previous_runtimes(self):
-        import stage17_state_journal_v61 as current
-        import stage17_state_journal_v60 as prior
+        import stage17_state_journal_v62 as current
+        import stage17_state_journal_v61 as prior
         original = current.core.semantic
         new = current.activate(); old = prior.activate()
         self.assertIs(new._resolutions.__globals__['semantic'],semantic)
@@ -166,7 +196,7 @@ class PolicyTests(unittest.TestCase):
         self.assertIs(current.core.semantic,original)
 
     def test_actual_append_cli_uses_the_new_private_journal_in_both_paths(self):
-        import admit_stage17_descriptive_freeze_v1 as entry
+        import admit_stage17_descriptive_freeze_v2 as entry
         view = entry.cloning._clone_module(entry.original_cli,dict(journal_runtime=entry.journal))
         self.assertIs(view.append_resolution.__globals__['journal_runtime'],entry.journal)
         self.assertIs(view.validate_journal.__globals__['journal_runtime'],entry.journal)

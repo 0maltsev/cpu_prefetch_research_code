@@ -1,0 +1,29 @@
+test_real_signature_and_actual_report_arithmetic_admit_only_scoped_data (test_stage17_descriptive_admission_v1.AdmissionTests.test_real_signature_and_actual_report_arithmetic_admit_only_scoped_data) ... ERROR
+
+======================================================================
+ERROR: test_real_signature_and_actual_report_arithmetic_admit_only_scoped_data (test_stage17_descriptive_admission_v1.AdmissionTests.test_real_signature_and_actual_report_arithmetic_admit_only_scoped_data)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_descriptive_admission_v1.py", line 83, in test_real_signature_and_actual_report_arithmetic_admit_only_scoped_data
+    context = self.verify()
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_descriptive_admission_v1.py", line 79, in verify
+    return semantics.verify_manifest_v18(repository_root=ROOT,manifest_path=path,admitted_resolutions=self.resolutions,
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        expected_input_id='S17-EXT-007',allow_synthetic=False,pinned_repository_bytes=self.pinned)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_operational_semantics_v18.py", line 105, in verify_manifest_v18
+    exact([r['sha256'] for r in journal['resolution_records']],[p['sha256'] for p in predecessors],
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          'actual original journal qualification record hashes')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_operational_semantics_v18.py", line 21, in exact
+    require(freeze.canonical(value) == freeze.canonical(expected), label+' differs')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_operational_semantics_v17.py", line 38, in require
+    raise OperationalSemanticError(message)
+stage17_operational_semantics_v4.OperationalSemanticError: actual original journal qualification record hashes differs
+
+----------------------------------------------------------------------
+Ran 1 test in 0.173s
+
+FAILED (errors=1)

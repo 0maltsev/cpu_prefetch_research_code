@@ -2,8 +2,13 @@
   "files": [
     {
       "path": "REPORT.md",
-      "sha256": "350cbca8e765f68fc6f5e8df7909dcdd1f4627b55e1d2ab26feadeb6351524ea",
-      "size_bytes": 1287
+      "sha256": "7155c11ddf598f5aaf1f401a62c2122d7d3e46c648a13e3466d17e8c93d40dde",
+      "size_bytes": 5076
+    },
+    {
+      "path": "final-metadata-check.json",
+      "sha256": "49c969470464eab0c7ffbda1f95ab63d1cc8a0eab3588a4964330c096208eebc",
+      "size_bytes": 791
     },
     {
       "path": "install_additions.py",
@@ -24,6 +29,76 @@
       "path": "integrated-tests.txt",
       "sha256": "04c095acf3cdf49ba5d40431e9b52133097275825d9c4e70b1f7623aa78d65e1",
       "size_bytes": 4831
+    },
+    {
+      "path": "local-verification.json",
+      "sha256": "c3188e0a8cd55629a241af84223652b5dfb5524946fef7f67d9b9541381ca07e",
+      "size_bytes": 429
+    },
+    {
+      "path": "post-recovery/d308-admission-install-1.json",
+      "sha256": "bece8c6b0c918519b868914a4bbd7a0669f2e8bb47d63b4210e115a5c0dc82ad",
+      "size_bytes": 2243
+    },
+    {
+      "path": "post-recovery/d308-ext007-admission-1/preview-verified.json",
+      "sha256": "c175ce8a59812dfdf8c9b39b8ea48279a957c17a4a369604079caa2ec9f35fdf",
+      "size_bytes": 1233
+    },
+    {
+      "path": "post-recovery/d309-ext007-final-replay-1/complete.json",
+      "sha256": "119f1c7978ec75a30fdab16acd1be267355784c40cf7e248b1976e0fba6bfdd2",
+      "size_bytes": 2157
+    },
+    {
+      "path": "post-recovery/d309-ext007-final-replay-1/preserved-preview.json",
+      "sha256": "3dfcbdfb3efdf7b5d9c26ad5b8cc32dcd672473e1088bb288ae652e63da7d935",
+      "size_bytes": 3838
+    },
+    {
+      "path": "post-recovery/d309-ext007-final-replay-1/relocation-intent.json",
+      "sha256": "bf93ab395cb0453340ec30f65ff242a175433614e62cc489d4ca3420ad19a716",
+      "size_bytes": 1210
+    },
+    {
+      "path": "post-recovery/d309-ext007-final-replay-1/relocation.json",
+      "sha256": "d53186792ecbe86d4389d80c1ac2071ca52a29710051c7516b0af268c170fc4e",
+      "size_bytes": 482
+    },
+    {
+      "path": "post-recovery/d309-final-replay-console-1.log",
+      "sha256": "d6e1c40395c0708c6ae351bf3ceea5acebcf0c13640c4c5b24a83abb789e1e9d",
+      "size_bytes": 2241
+    },
+    {
+      "path": "post-recovery/d309-final-replay-packet-1/manifest.json",
+      "sha256": "2fa698bdb0fe785e316025b7a04a31ca938c1f2266ccd610c226c3caee64ddcc",
+      "size_bytes": 587
+    },
+    {
+      "path": "post-recovery/descriptive-calibration-freeze-1/ext007-manifest-v5.json",
+      "sha256": "6cb01eb507a8c02070c7b3970356f8ce91d92b52233bc2f1734672875037ce85",
+      "size_bytes": 2126
+    },
+    {
+      "path": "post-recovery/journal/stage17-state-journal-000010.json",
+      "sha256": "9a7766e806b872133dbd0f6a746d75ae315dae69bc8c5e7b9bad9f95c9c003e0",
+      "size_bytes": 3838
+    },
+    {
+      "path": "post-recovery/receipts/d308-ext007-descriptive-freeze-1.json",
+      "sha256": "4b5d57a048eb6d8c522b7ea1f1fa8bc598a0fb8cc47b9f8207ef918d898e5387",
+      "size_bytes": 1535
+    },
+    {
+      "path": "post-recovery/records/d308-preview-resolution-007.json",
+      "sha256": "60c9395536481603fddb0bf7a26a0252f441523c37a7cf8d4d2e35316f9b19b4",
+      "size_bytes": 1427
+    },
+    {
+      "path": "post-recovery/records/resolution-007-s17-ext-007.json",
+      "sha256": "fd4a2b1a1c0c9cf0ab6ecf47fa838de81e67746c67caebad8b15779f4c70f104",
+      "size_bytes": 1428
     },
     {
       "path": "pre-recovery/d308-admission-console-1.log",
@@ -119,6 +194,32 @@
       "path": "preview-recovery-tests.txt",
       "sha256": "f975284ed73ac7bd892c35dad5e203ac646fc581df1619e4e2d84a4333a19b77",
       "size_bytes": 713
+    },
+    {
+      "path": "recovery-packet-installation.json",
+      "sha256": "561b6b306eaa42c1b96bbf6c0415edb77bc2b3ea0e058fd26f2672401b8f98aa",
+      "size_bytes": 175
+    },
+    {
+      "path": "recovery-packet-manifest.json",
+      "sha256": "2fa698bdb0fe785e316025b7a04a31ca938c1f2266ccd610c226c3caee64ddcc",
+      "size_bytes": 587
+    },
+    {
+      "path": "verification/check_local_joins.py",
+      "sha256": "415f639301fa99c95aa7a050817f2a0249f6717a27d7c52200bf2ee44ad679c5",
+      "size_bytes": 3463
+    },
+    {
+      "path": "verification/export_final_metadata.py",
+      "sha256": "6c3489d498fd295eeb385fb026414c53a74961a4680717b3f6b51a4f08550821",
+      "size_bytes": 3645
+    },
+    {
+      "path": "verification/finalize_stage17_descriptive_admission_v1.py",
+      "sha256": "62068a0296ca8c601422f51e6d3713a8c9d55ecabcc3705bdedced9e860ad860",
+      "size_bytes": 6784
     }
-  ]
+  ],
+  "schema_version": "stage17-public-evidence-manifest/1"
 }

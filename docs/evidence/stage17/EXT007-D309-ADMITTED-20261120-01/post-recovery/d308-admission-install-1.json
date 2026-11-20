@@ -1,0 +1,59 @@
+{
+  "added_files": [
+    {
+      "path": "tools/stage17_operational_semantics_v19.py",
+      "sha256": "910f0c42746fb5936dc559aad6f0a25db91754e2fccea549c67e9db71ae5e22b",
+      "size_bytes": 1160
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v65.py",
+      "sha256": "c878302d910b5ee31ec4d0a3095bf269ac49955394736e54bfbe57bffe97c688",
+      "size_bytes": 3004
+    },
+    {
+      "path": "tools/stage17_state_journal_v62.py",
+      "sha256": "98bfd2aa0dbd85201dd36d350688f6808359eaabeddbed21f49c2e26a2d35414",
+      "size_bytes": 1329
+    },
+    {
+      "path": "tools/author_stage17_policy_v65.py",
+      "sha256": "f34545ddb33c12dd177764e26918d68bca1e2ad997a1336a3711678eddef8e82",
+      "size_bytes": 2016
+    },
+    {
+      "path": "tools/admit_stage17_descriptive_freeze_v2.py",
+      "sha256": "b4f131086f069bc9d5cd94fb97237f08371f4bdf83c909f685033071b2e944db",
+      "size_bytes": 2031
+    },
+    {
+      "path": "config/schemas/stage17-operational-evidence-admission-policy-v65.schema.json",
+      "sha256": "f6d7fd6ad0f837c82ac23d2de369f02dd35c72ac58e810d5c6c64fbd04c4831e",
+      "size_bytes": 3955
+    },
+    {
+      "path": "docs/decisions/0308-ext007-chronological-qualification-membership.md",
+      "sha256": "cd234c9c95388997079f5efd0e6165bdbf9bf5051133f04344f3cff6410ccdb5",
+      "size_bytes": 1854
+    },
+    {
+      "path": "docs/evidence/stage17/EXT007-D308-JOURNAL-ORDER-20261120-01/original-journal-000009.json",
+      "sha256": "2fab0d69e3350dea0106a1fd5a0aa0ddd04dab8bae1956815e66ad47a378f5aa",
+      "size_bytes": 3710
+    },
+    {
+      "path": "config/stage17/stage17-operational-evidence-admission-policy-v65.json",
+      "sha256": "e802b351a5ba673aed60665ba7b91d0054e7f0d2a94790f27c2a056e3715b8f6",
+      "size_bytes": 241371
+    }
+  ],
+  "checked_at_utc": "2026-11-20T04:27:44.970824+00:00",
+  "inherited_aggregate_sha256": "822923dd288ffd4f8c46d99898bf459d5a40fdd838a1dc86709102ca4fd398fe",
+  "inherited_file_count": 984,
+  "inherited_files_unchanged": true,
+  "new_measurements": 0,
+  "phase18_authority": false,
+  "qualified_bundle_modified": false,
+  "raw_data_read": false,
+  "source_revision": "9bbf94edce70e9189bebab0dd666bf02ecf5f1d7",
+  "status": "D308_ADDITIVE_ADMISSION_FILES_INSTALLED"
+}

@@ -1,0 +1,449 @@
+{
+  "backtraceGraph" : 
+  {
+    "commands" : [],
+    "files" : [],
+    "nodes" : []
+  },
+  "kind" : "ctestInfo",
+  "tests" : 
+  [
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:326"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:335"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:352"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:367"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:386"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:438"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:457"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:492"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:529"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:565"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:414"
+        }
+      ]
+    },
+    {
+      "command" : 
+      [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_pilot_capture_tests",
+        "--gtest_filter=PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "name" : "calibration.pilot.PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases",
+      "properties" : 
+      [
+        {
+          "name" : "SKIP_REGULAR_EXPRESSION",
+          "value" : 
+          [
+            "\\[  SKIPPED \\]"
+          ]
+        },
+        {
+          "name" : "LABELS",
+          "value" : 
+          [
+            "calibration",
+            "pilot",
+            "synthetic"
+          ]
+        },
+        {
+          "name" : "WORKING_DIRECTORY",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16"
+        },
+        {
+          "name" : "DEF_SOURCE_LINE",
+          "value" : "/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:546"
+        }
+      ]
+    }
+  ],
+  "version" : 
+  {
+    "major" : 1,
+    "minor" : 0
+  }
+}

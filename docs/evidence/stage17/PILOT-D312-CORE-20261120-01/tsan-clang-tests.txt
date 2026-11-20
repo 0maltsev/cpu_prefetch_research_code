@@ -1,0 +1,41 @@
+Running main() from /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/sources/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 12 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 10 tests from PilotScheduledCapture
+[ RUN      ] PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext
+[       OK ] PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext (24 ms)
+[ RUN      ] PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes
+[       OK ] PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes (2 ms)
+[ RUN      ] PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement
+[       OK ] PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement (2 ms)
+[ RUN      ] PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases
+[       OK ] PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases (3 ms)
+[ RUN      ] PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers
+[       OK ] PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers (0 ms)
+[ RUN      ] PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement
+/home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp:452: Skipped
+Clang TSan owns allocation interceptors; other matrices prove this gate
+
+[  SKIPPED ] PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement (0 ms)
+[ RUN      ] PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence
+[       OK ] PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence (1 ms)
+[ RUN      ] PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup
+[       OK ] PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup (5 ms)
+[ RUN      ] PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry
+[       OK ] PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry (0 ms)
+[ RUN      ] PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent
+[       OK ] PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent (1 ms)
+[----------] 10 tests from PilotScheduledCapture (44 ms total)
+
+[----------] 2 tests from PilotSharedData
+[ RUN      ] PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey
+[       OK ] PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey (2 ms)
+[ RUN      ] PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases
+[       OK ] PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases (1 ms)
+[----------] 2 tests from PilotSharedData (4 ms total)
+
+[----------] Global test environment tear-down
+[==========] 12 tests from 2 test suites ran. (48 ms total)
+[  PASSED  ] 11 tests.
+[  SKIPPED ] 1 test, listed below:
+[  SKIPPED ] PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement

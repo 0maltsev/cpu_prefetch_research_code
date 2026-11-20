@@ -1,0 +1,4 @@
+tests/calibration_pilot_capture_test.cpp:1:10: fatal error: cpu_prefetch/calibration/pilot_scheduled_capture.hpp: No such file or directory
+    1 | #include "cpu_prefetch/calibration/pilot_scheduled_capture.hpp"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.

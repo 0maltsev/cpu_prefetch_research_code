@@ -9,7 +9,7 @@ it does not promote descriptive evidence into the legacy statistical contract.
 |---|---|---|
 | 1. Inspect actual handoff and next contracts | Complete | Seven accepted resolutions, explicit descriptive scope, EXT008–010 blocked; current stand restored with6.28TB free; legacy stand-v2 plan is not reusable as a current plan |
 | 2. Select prospective scientific/storage amendment | Complete — S180 selected | [D310](decisions/0310-stage17-pilot-from-descriptive-calibration-proposal.md): S180 or R540, full matrix,5s warmup/1s measurement, descriptive initial rates, explicitly extended stand-only raw custody |
-| 3. Implement and verify the scoped pilot route | Blueprint/schema complete; native integration pending | 8 new tests and25 existing regressions pass. Port sealed source transport, six paired persistent contexts, full warmup raw retention and allocation-free reset; then prove observation/resource gates and qualify actual new native bytes |
+| 3. Implement and verify the scoped pilot route | Blueprint and native capture core verified; worker integration pending | [D312 proof](evidence/stage17/PILOT-D312-CORE-20261120-01/REPORT.md):47 related CTest passes; GCC/Clang sanitizer checks. Connect monitored mapped owners/control, sealed sources and complete publication/archive, then exact scoped plan/admission, codegen, qualified native bytes and compatibility |
 | 4. Resolve EXT008 and EXT009 | Pending | Exact prospective plan, fresh identities/seed provenance, buffers, finite duration/storage, existing archive usage, recovery and accepted scoped evidence |
 | 5. Admit EXT010 and execute one pilot family | Pending | Present actual estimated duration first; complete bounded request/signature/admission; fit one24h operational envelope; stop and restore on first failure |
 | 6. Preserve results and validate Stage17 exit | Pending | Complete original result lineage, retained FULL/low-effective-count outcomes, custody, independent validation, restoration/quiescence and actual scoped exit proof |
@@ -24,3 +24,5 @@ Q16a/Q16b/Q16c measurements and raw validation will not be repeated.
 [Current audit, evidence and unresolved gates](evidence/stage17/PILOT-PREPARATION-20261120-01/REPORT.md).
 
 [Exact S180 approval](evidence/stage17/PILOT-D310-ACCEPTED-20261120-01/owner-acceptance.json) binds the original proposal bytes. R540 is not authorized. No operational window has started.
+
+The core now preserves independent original warmup/measurement raw views through failure and uses one worker pair per capture. This does not yet activate the production pilot entry or begin a stand window.

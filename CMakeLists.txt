@@ -1856,6 +1856,18 @@ if(BUILD_TESTING)
     PREFIX "calibration."
     PROPERTIES LABELS "calibration;synthetic")
 
+  add_executable(cpu_prefetch_pilot_capture_tests tests/calibration_pilot_capture_test.cpp)
+  target_link_libraries(cpu_prefetch_pilot_capture_tests
+    PRIVATE cpu_prefetch::calibration cpu_prefetch_project_options GTest::gtest_main)
+  if(CPU_PREFETCH_SANITIZER STREQUAL "THREAD" AND
+     CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    target_compile_definitions(cpu_prefetch_pilot_capture_tests
+      PRIVATE CPU_PREFETCH_PILOT_ALLOCATION_HOOK=0)
+  endif()
+  gtest_discover_tests(cpu_prefetch_pilot_capture_tests
+    TEST_PREFIX "calibration.pilot."
+    PROPERTIES LABELS "calibration\;pilot\;synthetic")
+
   add_test(
     NAME calibration.python_statistics
     COMMAND "${Python3_EXECUTABLE}"
@@ -2256,6 +2268,8 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/formal_ring_session.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/formal_service_session.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/scheduled_session.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/pilot_shared_data.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/pilot_scheduled_capture.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/detail/scheduled_session_impl.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/service_interval_count.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/calibration/ring_demand_window.hpp"
@@ -2396,6 +2410,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_formal_ring_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_formal_service_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_scheduled_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_pilot_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_ring_demand_window_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"
@@ -2590,6 +2605,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/calibration_formal_ring_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_formal_service_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_scheduled_session_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/calibration_pilot_capture_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_ring_demand_window_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_discovery_consumer_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/calibration_caller_owned_trace_test.cpp"

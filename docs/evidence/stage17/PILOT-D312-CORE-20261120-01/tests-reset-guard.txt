@@ -1,0 +1,36 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 12 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 10 tests from PilotScheduledCapture
+[ RUN      ] PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext
+[       OK ] PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext (4 ms)
+[ RUN      ] PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes
+[       OK ] PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes (0 ms)
+[ RUN      ] PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement
+[       OK ] PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement (0 ms)
+[ RUN      ] PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases
+[       OK ] PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases (0 ms)
+[ RUN      ] PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers
+[       OK ] PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers (0 ms)
+[ RUN      ] PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement
+[       OK ] PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement (2 ms)
+[ RUN      ] PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence
+[       OK ] PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence (0 ms)
+[ RUN      ] PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup
+[       OK ] PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup (0 ms)
+[ RUN      ] PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry
+[       OK ] PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry (0 ms)
+[ RUN      ] PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent
+[       OK ] PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent (0 ms)
+[----------] 10 tests from PilotScheduledCapture (10 ms total)
+
+[----------] 2 tests from PilotSharedData
+[ RUN      ] PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey
+[       OK ] PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey (0 ms)
+[ RUN      ] PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases
+[       OK ] PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases (0 ms)
+[----------] 2 tests from PilotSharedData (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 12 tests from 2 test suites ran. (11 ms total)
+[  PASSED  ] 12 tests.

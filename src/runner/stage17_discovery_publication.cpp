@@ -1698,6 +1698,14 @@ auto pilot_shared(const calibration::PreparedPilotDataView& v) -> Value {
 }
 } // namespace
 
+auto s180_context_cleanup_json(
+    std::span<const std::array<const platform::OwnerMappingEvidence*, 2U>> contexts)
+    -> Value {
+  return sequence(contexts, [](const auto& c) {
+    return Value(Object{{"records", c[0U] ? mapping(*c[0U]) : Value()},
+                        {"queues", c[1U] ? mapping(*c[1U]) : Value()}});
+  });
+}
 auto s180_capture_result_json(const calibration::NativePilotCaptureResult& r) -> Value {
   return Value(Object{
       {"stop", scalar(r.stop)},

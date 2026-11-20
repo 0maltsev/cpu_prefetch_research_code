@@ -9,6 +9,10 @@ inline constexpr std::string_view kS180ControlSchema =
 [[nodiscard]] auto
 s180_capture_result_json(const calibration::NativePilotCaptureResult&)
     -> protocol::json::Value;
+// Owner objects remain live while their actual post-release facts are encoded.
+[[nodiscard]] auto s180_context_cleanup_json(
+    std::span<const std::array<const platform::OwnerMappingEvidence*, 2U>>)
+    -> protocol::json::Value;
 // Cold synchronous publication before private cleanup. Retains original P/C
 // for both phases, actual mapped sources/order and all nine-region controls.
 // Does not establish validity, archive custody or final family cleanup.

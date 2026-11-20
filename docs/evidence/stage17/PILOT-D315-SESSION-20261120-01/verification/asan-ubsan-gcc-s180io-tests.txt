@@ -1,0 +1,53 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 19 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from S180Sources
+[ RUN      ] S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+[       OK ] S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset (46 ms)
+[ RUN      ] S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+[       OK ] S180Sources.AggregateRetainedAndTransientMemoryIsMandatory (41 ms)
+[ RUN      ] S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+[       OK ] S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject (42 ms)
+[ RUN      ] S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+[       OK ] S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject (42 ms)
+[----------] 4 tests from S180Sources (173 ms total)
+
+[----------] 4 tests from S180Publication
+[ RUN      ] S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+[       OK ] S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication (151 ms)
+[ RUN      ] S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+[       OK ] S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops (146 ms)
+[ RUN      ] S180Publication.UnobservedPreparationIsNeverInvented
+[       OK ] S180Publication.UnobservedPreparationIsNeverInvented (67 ms)
+[ RUN      ] S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts
+[       OK ] S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts (44 ms)
+[----------] 4 tests from S180Publication (410 ms total)
+
+[----------] 11 tests from S180Session
+[ RUN      ] S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate
+[       OK ] S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate (819 ms)
+[ RUN      ] S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold
+[       OK ] S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold (5067 ms)
+[ RUN      ] S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd
+[       OK ] S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd (811 ms)
+[ RUN      ] S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence
+[       OK ] S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence (1511 ms)
+[ RUN      ] S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance
+[       OK ] S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance (2212 ms)
+[ RUN      ] S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture
+[       OK ] S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture (1836 ms)
+[ RUN      ] S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete
+[       OK ] S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete (1118 ms)
+[ RUN      ] S180Session.RegressedClockAndSourceDeadlineCannotReachHardware
+[       OK ] S180Session.RegressedClockAndSourceDeadlineCannotReachHardware (1497 ms)
+[ RUN      ] S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold
+[       OK ] S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold (1112 ms)
+[ RUN      ] S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData
+[       OK ] S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData (787 ms)
+[ RUN      ] S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation
+[       OK ] S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation (2128 ms)
+[----------] 11 tests from S180Session (18903 ms total)
+
+[----------] Global test environment tear-down
+[==========] 19 tests from 3 test suites ran. (19487 ms total)
+[  PASSED  ] 19 tests.

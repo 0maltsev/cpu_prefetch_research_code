@@ -1,0 +1,5 @@
+[1/5] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_session.cpp.o
+[2/5] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_native_session.cpp.o
+[3/5] Linking CXX static library libcpu_prefetch_runner_core.a
+[4/5] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_session_test.cpp.o
+[5/5] Linking CXX executable cpu_prefetch_s180_io_tests

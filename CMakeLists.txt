@@ -190,6 +190,8 @@ add_library(
   src/runner/stage17_formal_checkpoint.cpp
   src/runner/stage17_schedule_source.cpp
   src/runner/stage17_s180_sources.cpp
+  src/runner/stage17_s180_session.cpp
+  src/runner/stage17_s180_native_session.cpp
   src/runner/stage17_archive_channel.cpp
   src/runner/stage17_formal_scheduled_action.cpp
   src/runner/stage17_discovery_publication.cpp
@@ -740,7 +742,8 @@ if(BUILD_TESTING)
     PREFIX "runner."
     PROPERTIES LABELS "runner;pre-pilot;synthetic")
 
-  add_executable(cpu_prefetch_s180_io_tests tests/stage17_s180_io_test.cpp)
+  add_executable(cpu_prefetch_s180_io_tests tests/stage17_s180_io_test.cpp tests/stage17_s180_session_test.cpp)
+  target_compile_definitions(cpu_prefetch_s180_io_tests PRIVATE CPU_PREFETCH_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
   target_link_libraries(cpu_prefetch_s180_io_tests PRIVATE
     cpu_prefetch::runner cpu_prefetch_project_options GTest::gtest_main)
   gtest_discover_tests(cpu_prefetch_s180_io_tests
@@ -2243,6 +2246,7 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_scheduled_publication.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_s180_publication.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_s180_sources.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_s180_session.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_discovery_action.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_ring_action.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_service_action.hpp"
@@ -2394,6 +2398,8 @@ set(
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_checkpoint.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_schedule_source.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_sources.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_session.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_native_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_archive_channel.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
@@ -2476,6 +2482,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_service_publication_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_scheduled_publication_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_io_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_s180_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_ring_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_service_action_test.cpp"
@@ -2594,6 +2601,8 @@ set(
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_checkpoint.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_schedule_source.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_sources.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_session.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_native_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_archive_channel.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/common.cpp"
   "${PROJECT_SOURCE_DIR}/src/queue/linked_spsc.cpp"
@@ -2673,6 +2682,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_service_publication_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_scheduled_publication_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_io_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_s180_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_ring_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_service_action_test.cpp"

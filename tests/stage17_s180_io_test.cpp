@@ -455,4 +455,25 @@ TEST(S180Publication, UnobservedPreparationIsNeverInvented) {
   EXPECT_TRUE(sink.artifacts[5U].bytes.empty());
   EXPECT_TRUE(sink.artifacts[6U].bytes.empty());
 }
+TEST(S180Publication, FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts) {
+  Fixture f;
+  std::array<std::array<const platform::OwnerMappingEvidence*, 2U>, 6U> views{};
+  views[0U] = {&f.data.records_evidence(), &f.data.queues_evidence()};
+  const auto before = r::s180_context_cleanup_json(views);
+  ASSERT_TRUE(before.as_array());
+  EXPECT_FALSE(
+      *member(member(before.as_array()->at(0U), "records"), "cleanup_attempted")
+           .as_bool());
+  ASSERT_TRUE(f.data.release());
+  const auto after = r::s180_context_cleanup_json(views);
+  ASSERT_TRUE(after.as_array());
+  for (const auto role : {"records", "queues"}) {
+    const auto& m = member(after.as_array()->at(0U), role);
+    EXPECT_TRUE(*member(m, "cleanup_attempted").as_bool());
+    EXPECT_FALSE(member(m, "unlock").is_null());
+    EXPECT_FALSE(member(m, "unmap").is_null());
+  }
+  EXPECT_TRUE(member(after.as_array()->at(1U), "records").is_null());
+}
+
 } // namespace

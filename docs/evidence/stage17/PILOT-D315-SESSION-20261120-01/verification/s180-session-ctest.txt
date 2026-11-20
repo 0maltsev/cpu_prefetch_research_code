@@ -1,0 +1,58 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+      Start 161: runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+      Start 160: runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+ 1/24 Test #161: runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops ..............   Passed    0.04 sec
+ 2/24 Test #160: runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication ...............   Passed    0.04 sec
+      Start 162: runner.s180.S180Publication.UnobservedPreparationIsNeverInvented
+      Start 156: runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+ 3/24 Test #156: runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset .......................   Passed    0.01 sec
+      Start 159: runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+ 4/24 Test #162: runner.s180.S180Publication.UnobservedPreparationIsNeverInvented ......................................   Passed    0.02 sec
+      Start 157: runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+ 5/24 Test #159: runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject .........................   Passed    0.02 sec
+      Start 158: runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+ 6/24 Test #157: runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory ................................   Passed    0.02 sec
+      Start 179: runner.schedule_source.Stage17ScheduleSource.AllowsExactEmptyArtifactWithItsOriginalHash
+ 7/24 Test #179: runner.schedule_source.Stage17ScheduleSource.AllowsExactEmptyArtifactWithItsOriginalHash ..............   Passed    0.00 sec
+      Start 177: runner.schedule_source.Stage17ScheduleSource.LoadsExactBigEndianGoldenWithoutMutatingBorrowedOffset
+ 8/24 Test #177: runner.schedule_source.Stage17ScheduleSource.LoadsExactBigEndianGoldenWithoutMutatingBorrowedOffset ...   Passed    0.00 sec
+      Start 178: runner.schedule_source.Stage17ScheduleSource.PreservesUnsignedHighBitValues
+ 9/24 Test #158: runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject ................................   Passed    0.01 sec
+      Start 180: runner.schedule_source.Stage17ScheduleSource.RejectsUnsealedWritableWrongSizeOrWrongHash
+10/24 Test #178: runner.schedule_source.Stage17ScheduleSource.PreservesUnsignedHighBitValues ...........................   Passed    0.00 sec
+      Start 181: runner.schedule_source.Stage17ScheduleSource.RejectsWindowOrderMemoryAndDeadlineFailures
+11/24 Test #180: runner.schedule_source.Stage17ScheduleSource.RejectsUnsealedWritableWrongSizeOrWrongHash ..............   Passed    0.00 sec
+      Start 163: runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts
+12/24 Test #181: runner.schedule_source.Stage17ScheduleSource.RejectsWindowOrderMemoryAndDeadlineFailures ..............   Passed    0.00 sec
+      Start 164: runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate
+13/24 Test #163: runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts ..................   Passed    0.02 sec
+      Start 165: runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold
+14/24 Test #164: runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate ......................   Passed    0.12 sec
+      Start 166: runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd
+15/24 Test #166: runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd ...................   Passed    0.12 sec
+      Start 167: runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence
+16/24 Test #167: runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence ...................   Passed    0.22 sec
+      Start 168: runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance
+17/24 Test #165: runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold ................   Passed    0.71 sec
+      Start 169: runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture
+18/24 Test #168: runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance ........................   Passed    0.35 sec
+      Start 170: runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete
+19/24 Test #170: runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete ..........................   Passed    0.21 sec
+      Start 171: runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware
+20/24 Test #169: runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture .........................   Passed    0.31 sec
+      Start 172: runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold
+21/24 Test #172: runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold .................   Passed    0.21 sec
+      Start 173: runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData
+22/24 Test #171: runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware ............................   Passed    0.27 sec
+      Start 174: runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation
+23/24 Test #173: runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData ...............   Passed    0.15 sec
+24/24 Test #174: runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation .....................   Passed    0.36 sec
+
+100% tests passed, 0 tests failed out of 24
+
+Label Time Summary:
+pilot        =   3.22 sec*proc (19 tests)
+runner       =   3.24 sec*proc (24 tests)
+synthetic    =   3.22 sec*proc (19 tests)
+
+Total Test time (real) =   1.77 sec

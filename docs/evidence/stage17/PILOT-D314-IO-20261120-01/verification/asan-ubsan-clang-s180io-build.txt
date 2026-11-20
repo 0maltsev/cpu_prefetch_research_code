@@ -1,0 +1,20 @@
+[1/20] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/20] Linking CXX static library libcpu_prefetch_foundation.a
+[3/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/qualification.cpp.o
+[4/20] Building CXX object CMakeFiles/cpu_prefetch_reconciliation.dir/src/reconciliation/reconciliation.cpp.o
+[5/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/runner.cpp.o
+[6/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_discovery_action.cpp.o
+[7/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_ring_action.cpp.o
+[8/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_service_action.cpp.o
+[9/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_family.cpp.o
+[10/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_checkpoint.cpp.o
+[11/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_schedule_source.cpp.o
+[12/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_sources.cpp.o
+[13/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_archive_channel.cpp.o
+[14/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_scheduled_action.cpp.o
+[15/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_discovery_publication.cpp.o
+[16/20] Linking CXX static library libcpu_prefetch_reconciliation.a
+[17/20] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_io_test.cpp.o
+[18/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_fixed_action.cpp.o
+[19/20] Linking CXX static library libcpu_prefetch_runner_core.a
+[20/20] Linking CXX executable cpu_prefetch_s180_io_tests

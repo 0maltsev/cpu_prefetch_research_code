@@ -2,6 +2,7 @@
 #include "cpu_prefetch/runner/stage17_formal_ring_publication.hpp"
 #include "cpu_prefetch/runner/stage17_formal_scheduled_publication.hpp"
 #include "cpu_prefetch/runner/stage17_formal_service_publication.hpp"
+#include "cpu_prefetch/runner/stage17_s180_publication.hpp"
 #include "stage17_formal_input_detail.hpp"
 
 #include <algorithm>
@@ -1472,10 +1473,11 @@ auto schedule_words(std::span<const std::uint64_t> words) -> std::vector<std::by
       result.push_back(static_cast<std::byte>((word >> shift) & 255U));
   return result;
 }
+template <typename View>
 auto scheduled_sources(Publisher& publisher, const std::string& base,
-                       const Object& prospective,
-                       const calibration::NativeFormalScheduledPublicationView& view)
-    -> Value {
+                       const Object& prospective, const View& view,
+                       const calibration::ScheduledSessionResult* session,
+                       const char* artifact_role) -> Value {
   const auto& inputs = formal_input_detail::array(prospective, "schedules", 2U);
   Array result;
   for (std::size_t index = 0U; index < 2U; ++index) {
@@ -1489,10 +1491,9 @@ auto scheduled_sources(Publisher& publisher, const std::string& base,
     const auto& prepared = view.schedules[index];
     auto binding = publisher.publish(
         base + (index == 0U ? "-warmup" : "-measurement") + "-schedule.bin",
-        "Q16C_PREPARED_SCHEDULE", "SCHEDULE-DEADLINES-U64LE-v1",
+        artifact_role, "SCHEDULE-DEADLINES-U64LE-v1",
         prepared ? schedule_words(prepared->deadline_ticks) : std::vector<std::byte>{},
         "application/octet-stream");
-    const auto* session = view.result.session ? &*view.result.session : nullptr;
     Object row{
         {"prospective", Value(std::move(metadata))},
         {"prepared_available", scalar(prepared.has_value())},
@@ -1566,7 +1567,10 @@ auto publish_formal_scheduled_capture(
     auto order_binding = publisher.publish(base + "-node-order.bin", "Q16C_NODE_ORDER",
                                            "NODEORDER-U64LE-v1", std::move(order),
                                            "application/octet-stream");
-    auto schedules = scheduled_sources(publisher, base, prospective_capture, view);
+    auto schedules =
+        scheduled_sources(publisher, base, prospective_capture, view,
+                          view.result.session ? &*view.result.session : nullptr,
+                          "Q16C_PREPARED_SCHEDULE");
     auto document = observation_document(view.observations);
     document.emplace("schedules", std::move(schedules));
     document.emplace("schema_version",
@@ -1614,6 +1618,187 @@ auto publish_formal_scheduled_capture(
     return protocol::Result<std::vector<ArtifactBinding>>::failure(
         {protocol::ErrorCategory::cross_field, "$/formal/scheduled_publication",
          "S17-FORMAL-SCHEDULED-PUBLICATION", error.what()});
+  }
+}
+
+namespace {
+auto pilot_lifecycle(const calibration::PilotLifecycleResult& r) -> Value {
+  return Value(Object{{"initial_queue_reset", scalar(r.initial_queue_reset)},
+                      {"scheduled", scheduled_session(r.session)}});
+}
+auto pilot_private_layout(const calibration::PilotPrivateLayout& v) -> Value {
+  return Value(Object{{"records_bytes", scalar(v.records_bytes)},
+                      {"producer_bytes", scalar(v.producer_bytes)},
+                      {"consumer_bytes", scalar(v.consumer_bytes)},
+                      {"schedule_offsets",
+                       sequence(v.schedule_offsets, [](auto n) { return scalar(n); })},
+                      {"emitter_object", scalar(v.emitter_object)},
+                      {"package_object", scalar(v.package_object)},
+                      {"phases", sequence(v.phases, [](const auto& p) {
+                         return Value(Object{
+                             {"producer_object", scalar(p.producer_object)},
+                             {"consumer_object", scalar(p.consumer_object)},
+                             {"producer_raw", scalar(p.producer_raw)},
+                             {"consumer_raw", scalar(p.consumer_raw)},
+                             {"producer_raw_bytes", scalar(p.raw.producer_bytes)},
+                             {"consumer_raw_bytes", scalar(p.raw.consumer_bytes)}});
+                       })}});
+}
+auto pilot_shared(const calibration::PreparedPilotDataView& v) -> Value {
+  Array maps;
+  for (const auto* evidence : v.mappings)
+    maps.push_back(evidence ? mapping(*evidence) : Value());
+  Object result{{"available", scalar(v.data != nullptr)},
+                {"mappings", Value(std::move(maps))},
+                {"lifetime", scalar("ENTIRE_FAMILY_NOT_PER_CAPTURE")},
+                {"final_family_cleanup_observed", scalar(false)}};
+  if (v.data != nullptr) {
+    const auto id = v.data->identity();
+    const auto key = calibration::pilot_context_index(v.data->key());
+    if (!key.has_value())
+      throw std::invalid_argument("published pilot context key is invalid");
+    constexpr std::array<const char*, 3U> classes{"L2_RESIDENT", "LLC_RESIDENT",
+                                                  "BEYOND_LLC"};
+    result.emplace("placement", scalar(*key < 3U ? "NEAR" : "FAR"));
+    result.emplace("working_set_class", scalar(classes[*key % 3U]));
+    result.emplace("stable_identity", scalar(v.data->stable()));
+    result.emplace("arena_object",
+                   scalar(reinterpret_cast<std::uintptr_t>(id.arena_object)));
+    result.emplace("ring_object",
+                   scalar(reinterpret_cast<std::uintptr_t>(id.ring_object)));
+    result.emplace("linked_object",
+                   scalar(reinterpret_cast<std::uintptr_t>(id.linked_object)));
+    result.emplace("node_bytes",
+                   scalar(reinterpret_cast<std::uintptr_t>(id.node_bytes)));
+  }
+  if (v.plan != nullptr) {
+    result.emplace("arena_namespace", scalar(v.plan->arena.seed_namespace));
+    result.emplace("node_order_namespace", scalar(v.plan->node_order.seed_namespace));
+  }
+  if (v.data == nullptr) {
+    result.emplace("node_pattern", Value());
+    return Value(std::move(result));
+  }
+  const auto& p = v.node_pattern;
+  result.emplace(
+      "node_pattern",
+      Value(Object{
+          {"transition_count", scalar(p.transition_count)},
+          {"distinct_line_count", scalar(p.distinct_line_count)},
+          {"distinct_page_count", scalar(p.distinct_page_count)},
+          {"shortest_period", scalar(p.shortest_period)},
+          {"adjacent_line_transition_count", scalar(p.adjacent_line_transition_count)},
+          {"modal_nonzero_delta_count", scalar(p.modal_nonzero_delta_count)},
+          {"modal_nonzero_delta", scalar(p.modal_nonzero_delta)},
+          {"adjacent_fraction_at_most_one_percent",
+           scalar(p.adjacent_fraction_at_most_one_percent)},
+          {"modal_fraction_at_most_one_percent",
+           scalar(p.modal_fraction_at_most_one_percent)}}));
+  return Value(std::move(result));
+}
+} // namespace
+
+auto s180_capture_result_json(const calibration::NativePilotCaptureResult& r) -> Value {
+  return Value(Object{
+      {"stop", scalar(r.stop)},
+      {"session", maybe(r.session, pilot_lifecycle)},
+      {"clock_origin", maybe(r.clock_origin,
+                             [](const auto& o) {
+                               return Value(
+                                   Object{{"status", scalar(o.status)},
+                                          {"absolute_nanoseconds",
+                                           o.status == timing::ClockReadStatus::ok
+                                               ? scalar(o.absolute_nanoseconds)
+                                               : Value()}});
+                             })},
+      {"core_mapping", mapping(r.core_mapping)},
+      {"monitor_mapping", mapping(r.monitor_mapping)},
+      {"controller_stack", stack(r.controller_stack)},
+      {"worker_mappings",
+       maybe(r.worker_mappings, [](const auto& x) { return sequence(x, mapping); })},
+      {"worker_stacks",
+       maybe(r.worker_stacks, [](const auto& x) { return sequence(x, stack); })},
+      {"cleanup_scope",
+       scalar("PRIVATE_CAPTURE_ONLY_SHARED_DATA_REMAINS_FAMILY_OWNED")},
+      {"publication_attempted", scalar(r.publication_attempted)},
+      {"publication_succeeded", scalar(r.publication_succeeded)}});
+}
+auto publish_s180_capture(ArtifactSink& sink, std::size_t ordinal,
+                          const Object& prospective,
+                          const calibration::NativePilotPublicationView& view)
+    -> protocol::Result<std::vector<ArtifactBinding>> {
+  try {
+    if (ordinal >= 180U)
+      throw std::invalid_argument("S180 execution ordinal is outside the fixed family");
+    Publisher publisher(sink);
+    const auto base = "s180-e" + std::to_string(ordinal);
+    Array phases;
+    for (std::size_t i = 0U; i < 2U; ++i)
+      phases.push_back(service_phase_raw(
+          publisher, base + (i == 0U ? "-warmup" : "-measurement"), view.producer[i],
+          view.consumer[i], "S180_PRIMARY_RAW", false));
+    if (view.shared.node_order.size() >
+        std::numeric_limits<std::size_t>::max() / sizeof(std::uint64_t))
+      throw std::overflow_error("pilot node-order byte extent overflows");
+    std::vector<std::byte> order;
+    order.reserve(view.shared.node_order.size() * sizeof(std::uint64_t));
+    for (const auto node : view.shared.node_order)
+      for (unsigned int shift = 0U; shift < 64U; shift += 8U)
+        order.push_back(
+            static_cast<std::byte>((static_cast<std::uint64_t>(node) >> shift) & 255U));
+    auto order_binding = publisher.publish(base + "-node-order.bin", "S180_NODE_ORDER",
+                                           "NODEORDER-U64LE-v1", std::move(order),
+                                           "application/octet-stream");
+    const auto* session = view.result.session ? &view.result.session->session : nullptr;
+    auto schedules = scheduled_sources(publisher, base, prospective, view, session,
+                                       "S180_PREPARED_SCHEDULE");
+    auto document = observation_document(view.observations);
+    document.emplace("schema_version", scalar(kS180ControlSchema));
+    document.emplace("method_id", scalar(kS180MethodId));
+    document.emplace("execution_ordinal", scalar(ordinal));
+    Object identity_metadata;
+    for (const auto& [key, value] : prospective)
+      if (key != "schedules")
+        identity_metadata.emplace(key, value);
+    document.emplace("prospective_capture", Value(std::move(identity_metadata)));
+    document.emplace("completion_rule",
+                     scalar("SCHEDULE-ONCE-IMMEDIATE-FINISHED-NORMAL-DRAIN-D036-v1"));
+    document.emplace("native_result_before_publication_returns",
+                     s180_capture_result_json(view.result));
+    document.emplace(
+        "cleanup_observation_scope",
+        scalar("BEFORE_PRIVATE_CLEANUP_FAMILY_CLEANUP_REQUIRES_SEPARATE_EVIDENCE"));
+    document.emplace("shared_data", pilot_shared(view.shared));
+    document.emplace("arena",
+                     arena(view.shared.data ? &view.shared.data->arena() : nullptr));
+    document.emplace("phases", Value(std::move(phases)));
+    document.emplace("node_order", std::move(order_binding));
+    document.emplace("node_order_count", scalar(view.shared.node_order.size()));
+    document.emplace("schedules", std::move(schedules));
+    document.emplace(
+        "layout",
+        Value(Object{{"core_bytes", scalar(view.layout.core_bytes)},
+                     {"monitor_bytes", scalar(view.layout.monitor_bytes)},
+                     {"total_mapping_bytes", scalar(view.layout.total_mapping_bytes)},
+                     {"workers", pilot_private_layout(view.layout.workers)},
+                     {"region_bytes", sequence(view.layout.region_bytes,
+                                               [](auto n) { return scalar(n); })}}));
+    document.emplace("execution_authority", scalar(false));
+    document.emplace("inferential_validity_established", scalar(false));
+    document.emplace("repeated_temporal_block_covariance_claim", scalar(false));
+    document.emplace("phase18_authority", scalar(false));
+    auto canonical = protocol::json::canonicalize(Value(std::move(document)));
+    if (!canonical)
+      return protocol::Result<std::vector<ArtifactBinding>>::failure(
+          canonical.errors());
+    static_cast<void>(publisher.publish(base + "-control.json", "S180_CAPTURE_CONTROL",
+                                        std::string(kS180ControlSchema),
+                                        bytes(canonical.value()), "application/json"));
+    return protocol::Result<std::vector<ArtifactBinding>>::success(publisher.bindings);
+  } catch (const std::exception& error) {
+    return protocol::Result<std::vector<ArtifactBinding>>::failure(
+        {protocol::ErrorCategory::cross_field, "$/s180/publication",
+         "S17-S180-PUBLICATION", error.what()});
   }
 }
 

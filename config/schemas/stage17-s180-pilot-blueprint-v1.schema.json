@@ -1,0 +1,454 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:s180-pilot-blueprint:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "blueprint_id",
+    "protocol_version",
+    "method_id",
+    "selected_profile",
+    "stand_id",
+    "master_seed_hex",
+    "approval",
+    "calibration_freeze",
+    "ext007_resolution",
+    "observed_geometry_metadata",
+    "source_geometry_plan",
+    "geometry_evidence_status",
+    "requested_whole_plot_order",
+    "repetitions_per_setting",
+    "settings",
+    "captures",
+    "physical_schedule_sources_generated",
+    "namespace_reservation_verified",
+    "storage",
+    "operational_cap_ns",
+    "operational_window_started",
+    "repeated_temporal_block_covariance_claim",
+    "legacy_statistical_freeze_satisfied",
+    "final_matrix_feasibility",
+    "final_scale_selection",
+    "launch_ready",
+    "execution_authority",
+    "phase18_authority",
+    "blockers",
+    "calibration_admission"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-s180-pilot-blueprint/1"
+    },
+    "blueprint_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "protocol_version": {
+      "const": "2.0.0-pre.3"
+    },
+    "method_id": {
+      "const": "STAGE17-PILOT-S180-DESCRIPTIVE-v1"
+    },
+    "selected_profile": {
+      "const": "S180"
+    },
+    "stand_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "master_seed_hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "approval": {
+      "$ref": "#/$defs/binding"
+    },
+    "calibration_freeze": {
+      "$ref": "#/$defs/binding"
+    },
+    "ext007_resolution": {
+      "$ref": "#/$defs/binding"
+    },
+    "observed_geometry_metadata": {
+      "$ref": "#/$defs/binding"
+    },
+    "source_geometry_plan": {
+      "$ref": "#/$defs/binding"
+    },
+    "geometry_evidence_status": {
+      "const": "SOURCE_DECLARATION_PENDING_CURRENT_ADMISSION"
+    },
+    "requested_whole_plot_order": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "H0",
+          "H1"
+        ]
+      }
+    },
+    "repetitions_per_setting": {
+      "const": 1
+    },
+    "settings": {
+      "const": 180
+    },
+    "captures": {
+      "type": "array",
+      "minItems": 180,
+      "maxItems": 180,
+      "items": {
+        "$ref": "#/$defs/capture"
+      }
+    },
+    "physical_schedule_sources_generated": {
+      "const": false
+    },
+    "namespace_reservation_verified": {
+      "const": false
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_id",
+        "independent_raw_backup",
+        "archive_quota_bytes",
+        "workspace_bytes",
+        "analysis_scratch_bytes",
+        "reserve_bytes"
+      ],
+      "properties": {
+        "policy_id": {
+          "const": "D310-S180-LOSSLESS-STAND-PRIMARY-v1"
+        },
+        "independent_raw_backup": {
+          "const": false
+        },
+        "archive_quota_bytes": {
+          "const": 6000000000000
+        },
+        "workspace_bytes": {
+          "const": 549755813888
+        },
+        "analysis_scratch_bytes": {
+          "const": 274877906944
+        },
+        "reserve_bytes": {
+          "const": 17179869184
+        }
+      }
+    },
+    "operational_cap_ns": {
+      "const": 86400000000000
+    },
+    "operational_window_started": {
+      "const": false
+    },
+    "repeated_temporal_block_covariance_claim": {
+      "const": false
+    },
+    "legacy_statistical_freeze_satisfied": {
+      "const": false
+    },
+    "final_matrix_feasibility": {
+      "const": "NOT_EVALUATED"
+    },
+    "final_scale_selection": {
+      "const": null
+    },
+    "launch_ready": {
+      "const": false
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "phase18_authority": {
+      "const": false
+    },
+    "blockers": {
+      "type": "array",
+      "minItems": 9,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "calibration_admission": {
+      "$ref": "#/$defs/binding"
+    }
+  },
+  "$defs": {
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "size_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capacity",
+        "cache_line_bytes",
+        "base_page_bytes",
+        "producer_cpu",
+        "consumer_cpu",
+        "producer_node",
+        "consumer_node",
+        "shared_node"
+      ],
+      "properties": {
+        "capacity": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cache_line_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "base_page_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "producer_cpu": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "consumer_cpu": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "producer_node": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "consumer_node": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "shared_node": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "distance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cap_lines",
+        "consumer_distance_slots",
+        "d1_slots",
+        "d2_cache_lines",
+        "producer_distance_slots",
+        "raw_lines",
+        "raw_slots"
+      ],
+      "properties": {
+        "cap_lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "consumer_distance_slots": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "d1_slots": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "d2_cache_lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "producer_distance_slots": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "raw_lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "raw_slots": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cell_ordinal",
+        "repetition_ordinal",
+        "execution_ordinal",
+        "temporal_block_ordinal",
+        "hardware_whole_plot_ordinal",
+        "package",
+        "requested_hardware_state",
+        "verified_hardware_state",
+        "placement",
+        "working_set_class",
+        "load_level",
+        "run_id",
+        "warmup_run_id",
+        "warmup_regime",
+        "warmup_ns",
+        "measurement_ns",
+        "arena_namespace",
+        "node_order_namespace",
+        "warmup_schedule_namespace",
+        "measurement_schedule_namespace",
+        "requested_geometry",
+        "distance",
+        "nominal_rate"
+      ],
+      "properties": {
+        "cell_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 179
+        },
+        "repetition_ordinal": {
+          "const": 0
+        },
+        "execution_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 179
+        },
+        "temporal_block_ordinal": {
+          "const": 0
+        },
+        "hardware_whole_plot_ordinal": {
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "package": {
+          "enum": [
+            "R0",
+            "R1",
+            "R2",
+            "L0",
+            "L1"
+          ]
+        },
+        "requested_hardware_state": {
+          "enum": [
+            "H0",
+            "H1"
+          ]
+        },
+        "verified_hardware_state": {
+          "const": null
+        },
+        "placement": {
+          "enum": [
+            "NEAR",
+            "FAR"
+          ]
+        },
+        "working_set_class": {
+          "enum": [
+            "L2_RESIDENT",
+            "LLC_RESIDENT",
+            "BEYOND_LLC"
+          ]
+        },
+        "load_level": {
+          "enum": [
+            "L025",
+            "L050",
+            "L075"
+          ]
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "warmup_run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "warmup_regime": {
+          "const": "PRE_FREEZE_BOOTSTRAP"
+        },
+        "warmup_ns": {
+          "const": 5000000000
+        },
+        "measurement_ns": {
+          "const": 1000000000
+        },
+        "arena_namespace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "node_order_namespace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "warmup_schedule_namespace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measurement_schedule_namespace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requested_geometry": {
+          "$ref": "#/$defs/geometry"
+        },
+        "distance": {
+          "$ref": "#/$defs/distance"
+        },
+        "nominal_rate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "numerator",
+            "denominator",
+            "unit"
+          ],
+          "properties": {
+            "numerator": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "denominator": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "unit": {
+              "const": "EVENTS_PER_SECOND"
+            }
+          }
+        }
+      }
+    }
+  }
+}

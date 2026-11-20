@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "e441cee2888e1024a8cedaa2d12482d6400031cf141306bc0eac348096a73d5e",
+      "size_bytes": 4606
+    },
+    {
+      "path": "guard-check.txt",
+      "sha256": "ca52612b415451b9a86116379f7733421f0fa8a30119c79515c0ec833a2cf99a",
+      "size_bytes": 253
+    },
+    {
+      "path": "planning-comparison.json",
+      "sha256": "f378798609cbe68b7c1a4484b07323a2b5969fe09bb020ae0c98b59cf62e78dc",
+      "size_bytes": 2337
+    },
+    {
+      "path": "proposal-binding.json",
+      "sha256": "7a1a62f68bb01654d792382af9b5e553a46970f4112904a21e974cbcabaf2b8a",
+      "size_bytes": 277
+    },
+    {
+      "path": "stand-readonly-status.json",
+      "sha256": "e93e6b532a420bab4e0cb53e633dca0099af26f50e13b1c861a5cb9f1a29bcea",
+      "size_bytes": 372
+    }
+  ]
+}

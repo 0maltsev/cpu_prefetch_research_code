@@ -1,0 +1,26 @@
+{
+  "amendment": "AMEND-2.0.0-pre.3-STAGE17-DESCRIPTIVE-PILOT-v1",
+  "date": "2026-11-20",
+  "decision": "D310",
+  "global_scale": "1/1",
+  "independent_raw_backup": false,
+  "launch_ready": false,
+  "measurement_captures": 180,
+  "measurement_seconds": 1,
+  "new_measurements": 0,
+  "operational_cap_seconds": 86400,
+  "operational_window_started": false,
+  "owner_answer": "Approve S180 \u2014 180 captures, about 6.4 hours plus overhead; no repeated-block covariance estimate (recommended for shorter pilot)",
+  "phase18_authority": false,
+  "proposal": {
+    "path": "docs/decisions/0310-stage17-pilot-from-descriptive-calibration-proposal.md",
+    "sha256": "99691bea2569b0dde018d37c330c00c09bbc245d1dad7fb34392ae4e99a5f979",
+    "size_bytes": 9189
+  },
+  "repeated_temporal_block_covariance_claim": false,
+  "repetitions_per_setting": 1,
+  "selected_profile": "S180",
+  "settings": 180,
+  "stand_only_lossless_pilot_storage_approved": true,
+  "warmup_seconds": 5
+}

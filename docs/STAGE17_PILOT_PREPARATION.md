@@ -1,0 +1,26 @@
+# Next Stage17 steps after completed EXT007
+
+Current state: **S180_AND_STORAGE_EXTENSION_APPROVED; SCOPED_PILOT_IMPLEMENTATION_IN_PROGRESS**.
+EXT007 remains complete for its signed descriptive data scope. The new owner
+instruction to continue initiates preparation of the remaining Stage17 work;
+it does not promote descriptive evidence into the legacy statistical contract.
+
+| Step | Status | Result or required gate |
+|---|---|---|
+| 1. Inspect actual handoff and next contracts | Complete | Seven accepted resolutions, explicit descriptive scope, EXT008–010 blocked; current stand restored with6.28TB free; legacy stand-v2 plan is not reusable as a current plan |
+| 2. Select prospective scientific/storage amendment | Complete — S180 selected | [D310](decisions/0310-stage17-pilot-from-descriptive-calibration-proposal.md): S180 or R540, full matrix,5s warmup/1s measurement, descriptive initial rates, explicitly extended stand-only raw custody |
+| 3. Implement and verify the scoped pilot route | Blueprint/schema complete; native integration pending | 8 new tests and25 existing regressions pass. Port sealed source transport, six paired persistent contexts, full warmup raw retention and allocation-free reset; then prove observation/resource gates and qualify actual new native bytes |
+| 4. Resolve EXT008 and EXT009 | Pending | Exact prospective plan, fresh identities/seed provenance, buffers, finite duration/storage, existing archive usage, recovery and accepted scoped evidence |
+| 5. Admit EXT010 and execute one pilot family | Pending | Present actual estimated duration first; complete bounded request/signature/admission; fit one24h operational envelope; stop and restore on first failure |
+| 6. Preserve results and validate Stage17 exit | Pending | Complete original result lineage, retained FULL/low-effective-count outcomes, custody, independent validation, restoration/quiescence and actual scoped exit proof |
+| 7. Review Stage18 requirements | Deferred | Separate scientific freezes, precision, access/sealing chronology and authority; no Stage18 execution follows from this plan |
+
+The timing comparison is about6.39h for180 or19.18h for540 collection/validation
+by analogy with Q16c, before pilot preparation and other overhead. Neither is
+a verified whole-pilot ETA. The next experimental run cannot start until the
+chosen profile and exact total budget pass the conditions above. Completed
+Q16a/Q16b/Q16c measurements and raw validation will not be repeated.
+
+[Current audit, evidence and unresolved gates](evidence/stage17/PILOT-PREPARATION-20261120-01/REPORT.md).
+
+[Exact S180 approval](evidence/stage17/PILOT-D310-ACCEPTED-20261120-01/owner-acceptance.json) binds the original proposal bytes. R540 is not authorized. No operational window has started.

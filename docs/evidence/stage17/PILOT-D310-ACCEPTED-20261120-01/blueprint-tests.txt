@@ -1,0 +1,13 @@
+test_all_factors_one_repetition_and_two_whole_plots (test_stage17_s180_blueprint_v1.BlueprintTests.test_all_factors_one_repetition_and_two_whole_plots) ... ok
+test_changed_coverage_rates_order_storage_or_authority_are_rejected (test_stage17_s180_blueprint_v1.BlueprintTests.test_changed_coverage_rates_order_storage_or_authority_are_rejected) ... ok
+test_current_source_geometry_and_distance_without_verified_promotion (test_stage17_s180_blueprint_v1.BlueprintTests.test_current_source_geometry_and_distance_without_verified_promotion) ... ok
+test_local_blueprint_reuses_prior_admission_without_remote_repreparation (test_stage17_s180_blueprint_v1.BlueprintTests.test_local_blueprint_reuses_prior_admission_without_remote_repreparation) ... ok
+test_repository_evidence_bindings_are_portable_to_the_stand (test_stage17_s180_blueprint_v1.BlueprintTests.test_repository_evidence_bindings_are_portable_to_the_stand) ... ok
+test_reproducible_design_and_changed_seed_requires_changed_full_order (test_stage17_s180_blueprint_v1.BlueprintTests.test_reproducible_design_and_changed_seed_requires_changed_full_order) ... ok
+test_shared_paired_arenas_and_schedules_and_disjoint_phases (test_stage17_s180_blueprint_v1.BlueprintTests.test_shared_paired_arenas_and_schedules_and_disjoint_phases) ... ok
+test_source_drift_and_unsupported_identity_fail (test_stage17_s180_blueprint_v1.BlueprintTests.test_source_drift_and_unsupported_identity_fail) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.154s
+
+OK

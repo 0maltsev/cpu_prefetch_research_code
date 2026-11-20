@@ -1,0 +1,12 @@
+{
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "checked_at_utc": "2026-11-20T04:43:53.069942+00:00",
+  "filesystem_device": 2307,
+  "filesystem_free_bytes": 6276444192768,
+  "filesystem_total_bytes": 7601879351296,
+  "filesystem_used_bytes": 942245117952,
+  "guard_value": "1",
+  "native_cgroup_absent": true,
+  "new_measurements": 0,
+  "raw_data_read": false
+}

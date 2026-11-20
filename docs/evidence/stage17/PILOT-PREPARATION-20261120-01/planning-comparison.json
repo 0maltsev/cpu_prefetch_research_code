@@ -1,0 +1,62 @@
+{
+  "approval_state": "PENDING_OWNER_SCIENTIFIC_AND_STORAGE_DECISION",
+  "assumptions": [
+    "Q16c per-capture collection/archive/validation costs transfer to pilot only as an analogy",
+    "pilot schedule preparation, hardware whole plots, source adaptation, qualification, buffers, summaries and recovery need actual finite budgets",
+    "no compression-ratio or effective-count guarantee inferred",
+    "software development and correctness checks precede operational window"
+  ],
+  "execution_authority": false,
+  "new_measurements": 0,
+  "observed_source": {
+    "captures": 94,
+    "collection_ns": 10633335880375,
+    "path": "docs/evidence/stage17/Q16C-D306-COMPLETE-20261120-01/d306-study-1/result.json",
+    "sha256": "79186e000e5e77ebe93dbfb3142a63c0e29720d2cf359c7c6901f076a16d92af",
+    "size_bytes": 2263,
+    "validation_ns": 1385771647076
+  },
+  "operational_cap_seconds": 86400,
+  "phase18_authority": false,
+  "profiles": [
+    {
+      "analog_collection_seconds": 20361.707004973403,
+      "analog_collection_validation_hours": 6.393142301835638,
+      "analog_validation_seconds": 2653.605281634894,
+      "expanded_schedule_appearance_expectation": 902108340,
+      "launch_ready": false,
+      "measurement_captures": 180,
+      "measurement_seconds": 1,
+      "profile_id": "S180",
+      "repeated_temporal_blocks_planned": false,
+      "repetitions_per_setting": 1,
+      "schedule_expectation_is_not_generated_count": true,
+      "scheduled_phase_seconds": 1080,
+      "settings": 180,
+      "warmup_seconds": 5
+    },
+    {
+      "analog_collection_seconds": 61085.121014920216,
+      "analog_collection_validation_hours": 19.179426905506915,
+      "analog_validation_seconds": 7960.8158449046805,
+      "expanded_schedule_appearance_expectation": 2706325020,
+      "launch_ready": false,
+      "measurement_captures": 540,
+      "measurement_seconds": 1,
+      "profile_id": "R540",
+      "repeated_temporal_blocks_planned": true,
+      "repetitions_per_setting": 3,
+      "schedule_expectation_is_not_generated_count": true,
+      "scheduled_phase_seconds": 3240,
+      "settings": 180,
+      "warmup_seconds": 5
+    }
+  ],
+  "schema_version": "stage17-prospective-pilot-comparison/1",
+  "selected_profile": null,
+  "source_rates_events_per_second": [
+    "1670571/4",
+    "1670571/2",
+    "5011713/4"
+  ]
+}

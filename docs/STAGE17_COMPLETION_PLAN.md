@@ -1,6 +1,6 @@
 # Stage 17 completion plan
 
-**Current EXT007 checkpoint (2026-11-20,04:45 Moscow): D306 COLLECTION COMPLETE; restoration VERIFIED; independent validation RUNNING.** All94 new captures have native-complete checkpoints and0 failed checkpoints. Collection exited0/reaped around04:40; the native worker is gone. Full three-CPU MSR, CPU/isolation/maintenance and guard restoration passed with errors[], guard returned1. The12-worker SUFFIX94 analysis is running:0 completed reports and0 failed process receipts at04:45:35, after signed retention/custody admission. The existing one-hour validation/composition deadline is05:40:18 Moscow. [Progress and restoration evidence](evidence/stage17/Q16C-D306-LAUNCH-20261120-01/REPORT.md). Original86 validated Q16c reports and Q16a708/Q16b120 remain preserved. Validate94 once and compose180 with actual strata; new scientific validity remains NOT_ASSESSED until that finishes. Same qualified native/source, request, full matrix, original signed day and first-failure stop; no automatic retry, repeated completed measurement/raw validation or new qualification. All raw stays on the stand. Calibration freeze and EXT007/Stage17 admission remain; Stage18 prohibited.
+**Current EXT007 checkpoint (2026-11-20,04:48 Moscow): D306 COLLECTION COMPLETE; restoration VERIFIED; independent validation RUNNING.** All94 new captures have native-complete checkpoints and0 failed checkpoints. Collection exited0/reaped around04:40; the native worker is gone. Full three-CPU MSR, CPU/isolation/maintenance and guard restoration passed with errors[], guard returned1. The12-worker SUFFIX94 analysis is running:12 VALID/reaped process receipts and0 failed process receipts at04:48:08, after signed retention/custody admission. The existing one-hour validation/composition deadline is05:40:18 Moscow. [Progress and restoration evidence](evidence/stage17/Q16C-D306-LAUNCH-20261120-01/REPORT.md). Original86 validated Q16c reports and Q16a708/Q16b120 remain preserved. Validate94 once and compose180 with actual strata; new scientific validity remains NOT_ASSESSED until that finishes. Same qualified native/source, request, full matrix, original signed day and first-failure stop; no automatic retry, repeated completed measurement/raw validation or new qualification. All raw stays on the stand. Calibration freeze and EXT007/Stage17 admission remain; Stage18 prohibited. [Concrete finalization requirements and existing admission gap](STAGE17_EXT007_FINALIZATION.md).
 
 **Historical stopped-family checkpoint:** **Current EXT007 checkpoint (2026-11-18,18:34Moscow): Q16c STOPPED after86 completed captures; restoration VERIFIED.** The87th capture (ordinal86, FAR/L1/capacity65536/L075) failed its mandatory observation gate before warmup: neither phase released and zero events attempted. All86completed captures and the failed capture evidence are archived/released (87sets,8artifacts each). Independent scientific validity remains NOT_ASSESSED; analysis did not start. Native workers are reaped, process group gone, exact three-CPU MSR recovery and CPU/maintenance restoration verified; owned services are stopped. No retry or new window occurred. Q16a708/Q16b120 remain preserved. Previous ETA withdrawn; original D282 deadline unchanged. [Failure and actual preserved progress](evidence/stage17/Q16C-D285-NATIVE-STOP-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
 
@@ -166,6 +166,24 @@ credit for the unchanged formal EXT007 requirements.
       Original708 Q16a and all qualification/data histories remain preserved.
       Both separate zero-loss gates FAIL due to valid FULL outcomes; no59-run
       tolerance claim. No measurement or raw validation is to be repeated.
+   9. **Complete — Q16c retained-prefix validation and continuation collection:**
+      All86 original completed captures passed independent validation and remain
+      preserved. D306 reused the existing request/registered family and collected
+      only94 pending positions. All94 new native checkpoints are complete with0
+      failed checkpoints; collection exited0/reaped around04:40Moscow20November.
+      Full MSR, CPU/isolation/maintenance and guard restoration is verified.
+   10. **Running — independent94-capture validation and180-report composition:**
+       At04:48Moscow,12/94 suffix process receipts are VALID/reaped with0 failures.
+       The existing one-hour phase ends05:40:18Moscow. Reuse the86 validated
+       reports and preserve both actual platform strata. No raw validation repeat.
+   11. **Pending — scoped descriptive freeze and operational EXT007 admission:**
+       Follow [the finalization requirements](STAGE17_EXT007_FINALIZATION.md).
+       Existing v17 archival admission remains closed pending scoped integration;
+       its legacy-only export cannot silently accept the approved descriptive
+       methods. Preserve all false inferential/authority flags and final feasibility
+       NOT_EVALUATED. EXT008–010/pilot and Stage18 remain deferred.
+
+   **Historical Q16c stop and recovery preparation, superseded by steps9–11:**
    9. **Stopped/restored —86 completed Q16c captures preserved:**
       D285 collected ordinals0–85 before ordinal86 failed a mandatory observation
       before warmup. Neither phase of that failed setting released; zero events

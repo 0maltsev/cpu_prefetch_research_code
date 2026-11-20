@@ -1,0 +1,38 @@
+{
+  "current_archival_ext007_admission_implemented": false,
+  "descriptive_scoped_representation_permitted_by_accepted_d270": true,
+  "new_experiment_started": false,
+  "sources": [
+    {
+      "path": "tools/stage17_semantic_verifier_v63.py",
+      "sha256": "8be77c669edd80e8e7d2175f9a0485ade7af8120b101e18460ab0d62107ff100",
+      "size_bytes": 5680
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v58.py",
+      "sha256": "0433127a3050383ac19c8a5dd9703c7b52c41c3347b2927bd9324d4eed72d71c",
+      "size_bytes": 11990
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v17.py",
+      "sha256": "086d930214da8cac90c3b3027384ce5cc2a4edaf2d5d04832925d929e5b2a25f",
+      "size_bytes": 21116
+    },
+    {
+      "path": "tools/stage17_calibration_export_v1.py",
+      "sha256": "7d4f5af5a6438218568789d7a9b5ddfe5d11710e28c5be27a12fb0f6269d7224",
+      "size_bytes": 17877
+    },
+    {
+      "path": "tools/stage17_calibration_export_v2.py",
+      "sha256": "83c0e6fede59b8c03869e80283c9db2924cc805b66edae952ec69b5dab707464",
+      "size_bytes": 2185
+    },
+    {
+      "path": "docs/STAGE17_EXT007_FINALIZATION.md",
+      "sha256": "d448d14c0c27b76bf302086a8b60584216e1b0c01a180404357013788a283a5c",
+      "size_bytes": 4613
+    }
+  ],
+  "status": "READ_ONLY_REQUIREMENTS_INSPECTION"
+}

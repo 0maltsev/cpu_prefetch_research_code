@@ -2,13 +2,18 @@
   "files": [
     {
       "path": "REPORT.md",
-      "sha256": "a45930c7721645e49d314c576fd60b7e2c44e04ab80c878eba73c958fd54b7ce",
-      "size_bytes": 5206
+      "sha256": "7f9263bab717500f532592b01e60006f8a898edb256a72bb96f434d7490ac097",
+      "size_bytes": 5705
     },
     {
       "path": "analysis-progress-20261120T044535-Moscow.json",
       "sha256": "d0dec379f7435c9a5dd494682c1c733a199e38eca379953d8c7244d0274f59aa",
       "size_bytes": 894
+    },
+    {
+      "path": "analysis-progress-20261120T044808-Moscow.json",
+      "sha256": "0cf8ca45784f0127176e6edf94fe06edaa60d1f1ecdfdd3b767eafe558c231e8",
+      "size_bytes": 3957
     },
     {
       "path": "clock-rearm-d306-1/restoration.json",
@@ -91,6 +96,11 @@
       "size_bytes": 184
     },
     {
+      "path": "finalization-source-inspection.json",
+      "sha256": "1503f137b31bd0b5ca5032a458d653c80493068e1b565d5fffde67707f5d609c",
+      "size_bytes": 1308
+    },
+    {
       "path": "progress-20261120T020004-Moscow.json",
       "sha256": "52b6472493e21488391e23434bcfdaf2fd68a70edaff7872c121abbfbd5e60a7",
       "size_bytes": 973
@@ -103,6 +113,11 @@
     {
       "path": "progress-20261120T044441-Moscow.json",
       "sha256": "fd576660046b592d444555ca44682e61743155d086bd5b376670eb3efe39b52c",
+      "size_bytes": 659
+    },
+    {
+      "path": "progress-20261120T044756-Moscow.json",
+      "sha256": "8e39ecac03f64aa75825f9ac06697bb033c3df7c9c442e46a9c35e73852806d5",
       "size_bytes": 659
     },
     {

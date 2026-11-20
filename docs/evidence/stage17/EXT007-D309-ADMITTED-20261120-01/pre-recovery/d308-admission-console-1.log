@@ -1,0 +1,36 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/admit_stage17_descriptive_freeze_v2.py", line 40, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/admit_stage17_descriptive_freeze_v2.py", line 37, in main
+    return namespace['main']()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/admit_stage17_descriptive_freeze_v2.py:preserved-admission", line 83, in main
+    # Validate a separate preview before writing the canonical resolution.
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_cli_v11.py", line 382, in validate_journal
+    return journal_runtime.validate_operational_journal(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        repository_root=repository_root, evidence_root=evidence_root,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        allow_synthetic_test_evidence=allow_synthetic,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v62.py", line 28, in validate_operational_journal
+    return activate().validate_operational_journal(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v12.py", line 485, in validate_operational_journal
+    lineage, latest = _lineage(
+                      ~~~~~~~~^
+        evidence_root=evidence, latest_path=latest_journal,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        schema_path=repository / SCHEMA_PATHS["journal_schema_sha256"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        journal_directory=journal_directory,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v12.py", line 225, in _lineage
+    raise JournalError("journal fork detected")
+stage17_state_journal.JournalError: journal fork detected

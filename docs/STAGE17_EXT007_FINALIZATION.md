@@ -38,7 +38,7 @@ No completed measurement or raw validation was repeated.
    check stopped at journal ordering before canonical publication. D308 supplies
    semantics19/policy65/journal62 and a fresh metadata entry with22 passing
    integrated tests; all old policies, the signed freeze and original data are
-   preserved. Actual successor installation, preview, append and replay remain pending. Connect this approved scoped representation to bounded operational EXT007
+   preserved. Actual policy65 installation preserved984 inherited files; preview and canonical append succeeded. Final replay correctly blocked the saved preview in the live journal directory as a fork. D309 narrowly preserves that preview outside the live directory and replays the existing canonical resolution; recovery remains pending. Connect this approved scoped representation to bounded operational EXT007
    verification, with targeted provenance/schema/lineage rejection checks and
    an explicit version. Preserve the legacy verifier and qualified native
    release. Only an actual accepted operational EXT007 resolution closes that

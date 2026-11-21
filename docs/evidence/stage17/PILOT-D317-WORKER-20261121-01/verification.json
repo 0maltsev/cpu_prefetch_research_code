@@ -1,0 +1,51 @@
+{
+  "authority": {
+    "actual_qualified_parent_admission_completed": false,
+    "operational_window_started": false,
+    "pilot_started": false,
+    "qualification_started": false,
+    "scientific_validity": "NOT_ASSESSED",
+    "signatures_verified_by_native_worker": false,
+    "stage17_complete": false,
+    "stage18_authority": false,
+    "stand_read_only_observed": true,
+    "stand_schedule_preparation_started": false
+  },
+  "baseline_revision": "87bfd3f9d80aa99ef479e690a64b5abd1ec230e1",
+  "checks": {
+    "broader_ctest_entries_before_final_rounding_review": 49,
+    "final_current_ctest_entries": 34,
+    "final_current_native_cases": 33,
+    "final_current_production_cli_cases": 3,
+    "format_protocol_fixtures_canonical_provenance_runner_qualification_schemas": "PASS",
+    "original_runner_cases": 139,
+    "original_source_cases": 5,
+    "sanitizers": {
+      "CLANG_LIBCXX_ASAN_UBSAN": {
+        "final_affected_epoch_and_dispatch_cases": 3,
+        "full_baseline_cases_before_final_rounding_review": 32,
+        "status": "PASS"
+      },
+      "CLANG_LIBCXX_TSAN": {
+        "final_affected_epoch_and_dispatch_cases": 3,
+        "full_baseline_cases_before_final_rounding_review": 32,
+        "status": "PASS"
+      },
+      "GCC_ASAN_UBSAN": {
+        "final_affected_epoch_and_dispatch_cases": 3,
+        "full_baseline_cases_before_final_rounding_review": 32,
+        "status": "PASS"
+      },
+      "GCC_TSAN": {
+        "final_affected_epoch_and_dispatch_cases": 3,
+        "full_baseline_cases_before_final_rounding_review": 32,
+        "status": "PASS"
+      }
+    },
+    "static_analysis": "PASS"
+  },
+  "decision": "D317",
+  "native_entry": "--execute-stage17-s180-session-v1",
+  "runtime_profile": "STAGE17-S180-NATIVE-WORKER-v1",
+  "schema_version": "cpu-prefetch-stage17-software-verification/1"
+}

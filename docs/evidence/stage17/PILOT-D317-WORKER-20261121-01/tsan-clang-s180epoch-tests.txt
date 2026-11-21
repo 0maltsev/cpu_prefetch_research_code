@@ -1,0 +1,16 @@
+Running main() from /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/sources/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Worker.WholeSecond*:S180Worker.ActualSealed*:S180Worker.Window*
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from S180Worker
+[ RUN      ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+[       OK ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend (7939 ms)
+[ RUN      ] S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow
+[       OK ] S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow (0 ms)
+[ RUN      ] S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted
+[       OK ] S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted (55740 ms)
+[----------] 3 tests from S180Worker (63690 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (63690 ms total)
+[  PASSED  ] 3 tests.

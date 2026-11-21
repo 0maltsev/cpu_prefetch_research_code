@@ -1,0 +1,88 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 32 tests from 6 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from S180Sources
+[ RUN      ] S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+[       OK ] S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset (193 ms)
+[ RUN      ] S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+[       OK ] S180Sources.AggregateRetainedAndTransientMemoryIsMandatory (178 ms)
+[ RUN      ] S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+[       OK ] S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject (183 ms)
+[ RUN      ] S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+[       OK ] S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject (177 ms)
+[----------] 4 tests from S180Sources (733 ms total)
+
+[----------] 4 tests from S180Publication
+[ RUN      ] S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+[       OK ] S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication (524 ms)
+[ RUN      ] S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+[       OK ] S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops (502 ms)
+[ RUN      ] S180Publication.UnobservedPreparationIsNeverInvented
+[       OK ] S180Publication.UnobservedPreparationIsNeverInvented (278 ms)
+[ RUN      ] S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts
+[       OK ] S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts (172 ms)
+[----------] 4 tests from S180Publication (1478 ms total)
+
+[----------] 11 tests from S180Session
+[ RUN      ] S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate
+[       OK ] S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate (3199 ms)
+[ RUN      ] S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold
+[       OK ] S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold (16654 ms)
+[ RUN      ] S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd
+[       OK ] S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd (2026 ms)
+[ RUN      ] S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence
+[       OK ] S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence (4005 ms)
+[ RUN      ] S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance
+[       OK ] S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance (5880 ms)
+[ RUN      ] S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture
+[       OK ] S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture (4813 ms)
+[ RUN      ] S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete
+[       OK ] S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete (2968 ms)
+[ RUN      ] S180Session.RegressedClockAndSourceDeadlineCannotReachHardware
+[       OK ] S180Session.RegressedClockAndSourceDeadlineCannotReachHardware (3951 ms)
+[ RUN      ] S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold
+[       OK ] S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold (3241 ms)
+[ RUN      ] S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData
+[       OK ] S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData (2513 ms)
+[ RUN      ] S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation
+[       OK ] S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation (6338 ms)
+[----------] 11 tests from S180Session (55595 ms total)
+
+[----------] 4 tests from S180Channel
+[ RUN      ] S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+[       OK ] S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt (13 ms)
+[ RUN      ] S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue
+[       OK ] S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue (22 ms)
+[ RUN      ] S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+[       OK ] S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication (2 ms)
+[ RUN      ] S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+[       OK ] S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange (0 ms)
+[----------] 4 tests from S180Channel (39 ms total)
+
+[----------] 4 tests from S180Input
+[ RUN      ] S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove
+[       OK ] S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove (6150 ms)
+[ RUN      ] S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject
+[       OK ] S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject (20166 ms)
+[ RUN      ] S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject
+[       OK ] S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject (12630 ms)
+[ RUN      ] S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution
+[       OK ] S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution (13184 ms)
+[----------] 4 tests from S180Input (52132 ms total)
+
+[----------] 5 tests from S180Worker
+[ RUN      ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+[       OK ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend (14120 ms)
+[ RUN      ] S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput
+[       OK ] S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput (62883 ms)
+[ RUN      ] S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted
+[       OK ] S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted (73928 ms)
+[ RUN      ] S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation
+[       OK ] S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation (19355 ms)
+[ RUN      ] S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+[       OK ] S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck (22770 ms)
+[----------] 5 tests from S180Worker (193069 ms total)
+
+[----------] Global test environment tear-down
+[==========] 32 tests from 6 test suites ran. (303048 ms total)
+[  PASSED  ] 32 tests.

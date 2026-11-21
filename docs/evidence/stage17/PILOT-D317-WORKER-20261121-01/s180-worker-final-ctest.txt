@@ -1,0 +1,110 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+      Start 646: runner.s180_archive_broker_v1
+      Start 645: runner.formal_archive_broker_v1
+ 1/49 Test #645: runner.formal_archive_broker_v1 ......................................................................   Passed   29.74 sec
+      Start 647: runner.formal_archive_jobs_v1
+ 2/49 Test #647: runner.formal_archive_jobs_v1 ........................................................................   Passed   28.63 sec
+      Start 644: runner.formal_archive_runtime_v1
+ 3/49 Test #644: runner.formal_archive_runtime_v1 .....................................................................   Passed   11.10 sec
+      Start 165: runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold
+ 4/49 Test #165: runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold ...............   Passed    2.05 sec
+      Start 195: runner.archive_channel.Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects
+ 5/49 Test #195: runner.archive_channel.Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects ...   Passed    0.71 sec
+      Start 653: runner.archive_channel_v1
+ 6/49 Test #653: runner.archive_channel_v1 ............................................................................   Passed    1.36 sec
+      Start 564: runner.formal_archive_custody_v1
+ 7/49 Test #564: runner.formal_archive_custody_v1 .....................................................................   Passed    1.20 sec
+      Start 194: runner.archive_channel.Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill
+ 8/49 Test #194: runner.archive_channel.Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill .....................   Passed    0.52 sec
+      Start 655: runner.s180_archive_channel_v1
+ 9/49 Test #655: runner.s180_archive_channel_v1 .......................................................................   Passed    1.55 sec
+      Start 174: runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation
+10/49 Test #174: runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation ....................   Passed    0.91 sec
+      Start 168: runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance
+11/49 Test #168: runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance .......................   Passed    0.79 sec
+      Start 169: runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture
+12/49 Test #169: runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture ........................   Passed    0.73 sec
+      Start 171: runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware
+13/49 Test #171: runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware ...........................   Passed    0.57 sec
+      Start 167: runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence
+14/49 Test #167: runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence ..................   Passed    0.57 sec
+      Start 650: runner.formal_checkpoint_v1
+15/49 Test #650: runner.formal_checkpoint_v1 ..........................................................................   Passed    0.80 sec
+      Start 172: runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold
+16/49 Test #646: runner.s180_archive_broker_v1 ........................................................................   Passed   81.42 sec
+      Start 170: runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete
+17/49 Test #172: runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold ................   Passed    0.45 sec
+      Start 654: runner.s180_checkpoint_v1
+18/49 Test #170: runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete .........................   Passed    0.43 sec
+      Start 173: runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData
+19/49 Test #173: runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData ..............   Passed    0.30 sec
+      Start 164: runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate
+20/49 Test #654: runner.s180_checkpoint_v1 ............................................................................   Passed    0.53 sec
+      Start 166: runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd
+21/49 Test #164: runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate .....................   Passed    0.29 sec
+      Start 161: runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+22/49 Test #166: runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd ..................   Passed    0.29 sec
+      Start 160: runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+23/49 Test #161: runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops .............   Passed    0.13 sec
+      Start 162: runner.s180.S180Publication.UnobservedPreparationIsNeverInvented
+24/49 Test #160: runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication ..............   Passed    0.09 sec
+      Start 159: runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+25/49 Test #162: runner.s180.S180Publication.UnobservedPreparationIsNeverInvented .....................................   Passed    0.07 sec
+      Start 156: runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+26/49 Test #156: runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset ......................   Passed    0.04 sec
+      Start 157: runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+27/49 Test #159: runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject ........................   Passed    0.07 sec
+      Start 163: runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts
+28/49 Test #157: runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory ...............................   Passed    0.06 sec
+      Start 158: runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+29/49 Test #163: runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts .................   Passed    0.05 sec
+      Start 192: runner.archive_channel.Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed
+30/49 Test #192: runner.archive_channel.Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed .............   Passed    0.02 sec
+      Start 176: runner.s180.S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue
+31/49 Test #176: runner.s180.S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue ............................   Passed    0.01 sec
+      Start 175: runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+32/49 Test #158: runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject ...............................   Passed    0.03 sec
+      Start 190: runner.archive_channel.Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath
+33/49 Test #175: runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt ........................   Passed    0.01 sec
+      Start 177: runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+34/49 Test #190: runner.archive_channel.Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath ........   Passed    0.01 sec
+      Start 191: runner.archive_channel.Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields
+35/49 Test #177: runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication ........................   Passed    0.00 sec
+      Start 193: runner.archive_channel.Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner
+36/49 Test #191: runner.archive_channel.Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields ....   Passed    0.02 sec
+      Start 189: runner.archive_channel.Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt
+37/49 Test #193: runner.archive_channel.Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner .....   Passed    0.02 sec
+      Start 178: runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+38/49 Test #189: runner.archive_channel.Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt ....   Passed    0.01 sec
+      Start 179: runner.s180.S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove
+39/49 Test #178: runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange ...........................   Passed    0.01 sec
+      Start 180: runner.s180.S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject
+40/49 Test #179: runner.s180.S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove ...........   Passed    0.86 sec
+      Start 181: runner.s180.S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject
+41/49 Test #181: runner.s180.S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject .....................   Passed    1.92 sec
+      Start 182: runner.s180.S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution
+42/49 Test #180: runner.s180.S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject ........................   Passed    3.06 sec
+      Start 183: runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+43/49 Test #182: runner.s180.S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution .............   Passed    2.20 sec
+      Start 184: runner.s180.S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput
+44/49 Test #183: runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend ..............   Passed    3.24 sec
+      Start 185: runner.s180.S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted
+45/49 Test #184: runner.s180.S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput ................   Passed   19.71 sec
+      Start 186: runner.s180.S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation
+46/49 Test #185: runner.s180.S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted ..................   Passed   22.09 sec
+      Start 187: runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+47/49 Test #186: runner.s180.S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation ....................   Passed    5.85 sec
+      Start 656: runner.s180_worker_cli
+48/49 Test #656: runner.s180_worker_cli ...............................................................................   Passed    0.46 sec
+49/49 Test #187: runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck .................   Passed    5.79 sec
+
+100% tests passed, 0 tests failed out of 49
+
+Label Time Summary:
+archive      = 152.08 sec*proc (5 tests)
+pilot        = 156.61 sec*proc (36 tests)
+python       = 156.79 sec*proc (10 tests)
+runner       = 230.75 sec*proc (49 tests)
+synthetic    = 229.45 sec*proc (42 tests)
+
+Total Test time (real) = 117.04 sec

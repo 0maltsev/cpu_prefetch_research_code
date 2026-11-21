@@ -2,6 +2,7 @@
 #include "cpu_prefetch/runner/runner.hpp"
 #include "cpu_prefetch/runner/stage17_discovery_action.hpp"
 #include "cpu_prefetch/runner/stage17_fixed_action.hpp"
+#include "cpu_prefetch/runner/stage17_s180_worker.hpp"
 
 #include <exception>
 #include <filesystem>
@@ -17,6 +18,7 @@ namespace {
 void usage(std::ostream& output) {
   output << "Usage:\n"
          << "  cpu_prefetch_runner --self-test\n"
+         << "  cpu_prefetch_runner --stage17-s180-runtime-identity-v1\n"
          << "  cpu_prefetch_runner --describe-stage17-discovery-layout-v1 FILE\n"
          << "  cpu_prefetch_runner --describe-stage17-discovery-layout-v2 FILE\n"
          << "  cpu_prefetch_runner --execute-fixed-stage17-action-v4 ACTION "
@@ -29,6 +31,9 @@ void usage(std::ostream& output) {
             "--q15-r-request-fd FD --q15-r-context-fd FD "
             "--q15-w-control-fd FD --output-dir-fd FD --fixed-dispatch-end\n"
          << "  cpu_prefetch_runner --execute-stage17-pilot-session-v1 "
+            "--request-fd FD --context-fd FD --output-dir-fd FD "
+            "--fixed-dispatch-end\n"
+         << "  cpu_prefetch_runner --execute-stage17-s180-session-v1 "
             "--request-fd FD --context-fd FD --output-dir-fd FD "
             "--fixed-dispatch-end\n"
          << "  cpu_prefetch_runner --validate-admission FILE --stand-id ID "
@@ -59,6 +64,25 @@ void print_errors(std::span<const cpu_prefetch::protocol::ValidationError> error
 }
 
 int run(int argc, char** argv) {
+  if (argc == 2 && std::string_view(argv[1]) == "--stage17-s180-runtime-identity-v1") {
+    const auto repository = cpu_prefetch::foundation::repository_info();
+    const auto identity = cpu_prefetch::runner::stage17::inspect_s180_executable();
+    if (!identity) {
+      print_errors(identity.errors());
+      return 1;
+    }
+    std::cout << "{\"schema_version\":\"cpu-prefetch-stage17-s180-runtime-identity/1\","
+                 "\"role\":\""
+              << cpu_prefetch::runner::stage17::kS180WorkerRole << "\",\"profile\":\""
+              << cpu_prefetch::runner::stage17::kS180WorkerProfile << "\",\"sha256\":\""
+              << identity.value().sha256
+              << "\",\"size_bytes\":" << identity.value().size_bytes
+              << ",\"source_revision\":\"" << repository.source_revision
+              << "\",\"source_dirty\":" << (repository.source_dirty ? "true" : "false")
+              << ",\"synthetic_test_only\":false,\"execution_authority\":false,"
+                 "\"phase18_authority\":false}\n";
+    return 0;
+  }
   if (argc == 3 &&
       (std::string_view(argv[1]) == "--describe-stage17-discovery-layout-v1" ||
        std::string_view(argv[1]) == "--describe-stage17-discovery-layout-v2")) {
@@ -168,6 +192,11 @@ int run(int argc, char** argv) {
     cpu_prefetch::runner::stage17::LinuxFixedActionOperations operations;
     return cpu_prefetch::runner::stage17::run_pilot_session_worker(argc, argv,
                                                                    operations);
+  }
+  if (argc >= 2 && std::string_view(argv[1]) == "--execute-stage17-s180-session-v1") {
+    cpu_prefetch::runner::stage17::LinuxS180WorkerOperations operations;
+    return cpu_prefetch::runner::stage17::run_s180_session_worker(argc, argv,
+                                                                  operations);
   }
   if (argc == 2 && std::string_view(argv[1]) == "--self-test") {
     const auto repository = cpu_prefetch::foundation::repository_info();

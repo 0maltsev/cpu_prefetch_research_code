@@ -190,6 +190,8 @@ add_library(
   src/runner/stage17_formal_checkpoint.cpp
   src/runner/stage17_schedule_source.cpp
   src/runner/stage17_s180_sources.cpp
+  src/runner/stage17_s180_input.cpp
+  src/runner/stage17_s180_worker.cpp
   src/runner/stage17_s180_session.cpp
   src/runner/stage17_s180_native_session.cpp
   src/runner/stage17_s180_channel_sink.cpp
@@ -743,7 +745,7 @@ if(BUILD_TESTING)
     PREFIX "runner."
     PROPERTIES LABELS "runner;pre-pilot;synthetic")
 
-  add_executable(cpu_prefetch_s180_io_tests tests/stage17_s180_io_test.cpp tests/stage17_s180_session_test.cpp tests/stage17_s180_channel_test.cpp)
+  add_executable(cpu_prefetch_s180_io_tests tests/stage17_s180_io_test.cpp tests/stage17_s180_session_test.cpp tests/stage17_s180_channel_test.cpp tests/stage17_s180_input_test.cpp)
   target_compile_definitions(cpu_prefetch_s180_io_tests PRIVATE CPU_PREFETCH_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
   target_link_libraries(cpu_prefetch_s180_io_tests PRIVATE
     cpu_prefetch::runner cpu_prefetch_project_options GTest::gtest_main)
@@ -1798,6 +1800,11 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_archive_channel_v1.py")
   set_tests_properties(runner.s180_checkpoint_v1 runner.s180_archive_channel_v1 PROPERTIES
     LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.s180_worker_cli
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_worker_cli.py"
+      --worker "$<TARGET_FILE:cpu_prefetch_runner>")
+  set_tests_properties(runner.s180_worker_cli PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
 
   file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/stage17-registry-tmp")
   add_test(NAME runner.formal_archive_registry_v1
@@ -2265,6 +2272,8 @@ set(
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_formal_scheduled_publication.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_s180_publication.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_s180_sources.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_s180_worker.hpp"
+  "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_s180_input.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_s180_session.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_s180_channel_sink.hpp"
   "${PROJECT_SOURCE_DIR}/include/cpu_prefetch/runner/stage17_discovery_action.hpp"
@@ -2418,6 +2427,8 @@ set(
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_checkpoint.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_schedule_source.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_sources.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_worker.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_input.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_native_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_channel_sink.cpp"
@@ -2484,6 +2495,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/platform_thread_monitor_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_prepared_file_snapshot_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/platform_prepared_prefetch_readback_test.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/s180_session_test_support.hpp"
   "${PROJECT_SOURCE_DIR}/tests/worker_stack_test_support.hpp"
   "${PROJECT_SOURCE_DIR}/tests/p4_k_a_controller_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/q15_probe_test.cpp"
@@ -2505,6 +2517,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_io_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_channel_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_channel_fixture.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_s180_input_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_ring_action_test.cpp"
@@ -2624,6 +2637,8 @@ set(
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_formal_checkpoint.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_schedule_source.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_sources.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_worker.cpp"
+  "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_input.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_native_session.cpp"
   "${PROJECT_SOURCE_DIR}/src/runner/stage17_s180_channel_sink.cpp"
@@ -2708,6 +2723,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_io_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_channel_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_channel_fixture.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_s180_input_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_formal_ring_action_test.cpp"

@@ -50,6 +50,7 @@ def qualified_closure():
 class S180BrokerTests(unittest.TestCase):
     encoder = None
     channel_fixture = None
+    reserve_before_admission = False
 
     def setUp(self):
         if self.encoder is None:
@@ -79,8 +80,15 @@ class S180BrokerTests(unittest.TestCase):
         self.request = dict(schema_version="cpu-prefetch-stage17-s180-session-request/1", session_id="software-only-s180", plan=plan,
             prerequisite_bindings=dict(ext009_resolution_sha256="a"*64))
         self.family = digest(archive.canonical(plan))
-        with self.store() as store:
-            self.working = store.prepare_family(self.family)
+        if self.reserve_before_admission:
+            with self.store(ext009_resolution_sha256=None) as store:
+                self.directory_reservation = store.reserve_family()
+            with self.store() as store:
+                store.bind_admission()
+                self.working = store.prepare_family(self.family)
+        else:
+            with self.store() as store:
+                self.working = store.prepare_family(self.family)
         self.original_scope = (self.root / "scope.json").read_bytes()
         self.document, _ = fixture()
         self.document.update(plan_sha256=self.family, program_scope_sha256=self.scope)
@@ -337,6 +345,23 @@ class S180BrokerTests(unittest.TestCase):
         raw = self.originals[name]
         (self.working / name).write_bytes(raw[:-1])
         self.native_exchange(successful=False)
+
+
+class ReservedS180BrokerTests(S180BrokerTests):
+    reserve_before_admission = True
+
+    def test_changed_admission_blocks_retained_custody_verification(self):
+        outcome = self.live()
+        path = self.root / "metadata" / f"s180-admission-{self.family}.json"
+        original = path.read_bytes()
+        with self.store() as store:
+            store.prepare_family(self.family)
+            try:
+                path.write_bytes(original.replace(b'a'*64, b'f'*64))
+                with self.assertRaisesRegex(custody.CustodyError, "storage admission absent.*EXT009"):
+                    self.verify_metadata(store, outcome.receipt)
+            finally:
+                path.write_bytes(original)
 
 
 if __name__ == "__main__":

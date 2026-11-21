@@ -1,0 +1,118 @@
+{
+  "baseline_revision": "81c4838c0e75f18087ab771406af49d99f303e95",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/COMMANDS.md": {
+      "sha256": "4280453c4e622d863abb6ecf5ac056d686508979caf2e6926de8c47c1a39a537",
+      "size_bytes": 2629
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/REPORT.md": {
+      "sha256": "02ef7e5275f42e694ecd809c04cf7163b8d18ba3e607e4cfdaf9505eff3af052",
+      "size_bytes": 4925
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/log-normalization.json": {
+      "sha256": "c9b525b2b37c0669f4ca29df603248bee976e6ef7b96d60213beccb14bb336d6",
+      "size_bytes": 262
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/pc-cleanup.json": {
+      "sha256": "763e84e62bf3ec56fe728f481c6c0ad245e9fe4292f27a3418fb10b4003f9660",
+      "size_bytes": 132
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/registered-related-test-output.txt": {
+      "sha256": "68c07495a8eae400e04104495a8b5a21071d081e6eae3e7b638cfdd35580d29d",
+      "size_bytes": 10105
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-admission-drift-final.txt": {
+      "sha256": "3628ab7141c8ce5385f7983d77d6668bc9f81aea5cb5deabe32262d4b2808432",
+      "size_bytes": 98
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-authority-tests.txt": {
+      "sha256": "6ea1ce5ba57fbcb43a4c4b2155bc22c271111e3bf06b727aefe9175479618b62",
+      "size_bytes": 111
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-broker-tests.txt": {
+      "sha256": "3acf153a407ca420bb4426b9522fee6828b1e6f33ea15a7429f0101e22829b01",
+      "size_bytes": 118
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-original-stop.json": {
+      "sha256": "ff52905a6b9a633ab92bb497c70591080db3d1a0cb16e29d28861f48954c77dd",
+      "size_bytes": 294
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-related-ctest.txt": {
+      "sha256": "8e88c33b0483b31afd894af9dea69fc0e9b2d65f42d2f3816aab98fabb780ca0",
+      "size_bytes": 1842
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-repository-checks.txt": {
+      "sha256": "dfa48433d0d4282b66ee30d58960facaddeb50715302d3dedd8863a485b105d8",
+      "size_bytes": 6228
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-source-boundaries.json": {
+      "sha256": "cd86b129ec89af89efae3ed685e21803f38f0539fa9cbd818658f30e352df9c5",
+      "size_bytes": 614
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-tests-final.txt": {
+      "sha256": "e6f4bbec8d122b880996518428ff336ac6e841ae24c1d7c84ef1d64b8ca01d71",
+      "size_bytes": 106
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-tests-first.txt": {
+      "sha256": "cf3f9f8f9fdacc788b522a99c6e8dfe3d368e99deae16de093bd0e450aac8fc4",
+      "size_bytes": 7857
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/s180-reservation-tests.txt": {
+      "sha256": "8c3f53767c90c94d98497b61bab562e57fe58b9a91836272b6c6e082c2b18527",
+      "size_bytes": 105
+    },
+    "docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/verification.json": {
+      "sha256": "1d436ebfd0c2daa473cb18cedb6b6671c7d0d591ae14cc1c50cb09dca3b0ba7e",
+      "size_bytes": 1025
+    }
+  },
+  "manifest_self_excluded": true,
+  "native_source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "schema_version": "cpu-prefetch-stage17-software-evidence-manifest/1",
+  "source_files": {
+    "CMakeLists.txt": {
+      "sha256": "64a888dddd47c941d3eb543b3e880a31f70e9f502dc9489951aa4fa87f1506ad",
+      "size_bytes": 192130
+    },
+    "PLAN.md": {
+      "sha256": "acae750dc614cd64ce86a1b4e8a57204932911c6d0705ba75315edb8b54fa24a",
+      "size_bytes": 114361
+    },
+    "README.md": {
+      "sha256": "6534b22b4e515821155790f1412e63e7a609ae45a404c5e54a470dc15fee086a",
+      "size_bytes": 121814
+    },
+    "STATUS.md": {
+      "sha256": "ca4414ffd5eb3292ec141f451d81e2ae2076c605ac9b368fda7f368151791243",
+      "size_bytes": 140731
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "4f3ad77041b8be0b91734db99fab030baf462057bcff479c39eb5f798cb305fb",
+      "size_bytes": 9663
+    },
+    "docs/decisions/0321-s180-directory-before-resource-admission.md": {
+      "sha256": "649764855e0121ffd67c148ef89cc8f9b83c0d6674400e65a33c0508d7c3f046",
+      "size_bytes": 5922
+    },
+    "tests/test_stage17_s180_archive_broker_v1.py": {
+      "sha256": "7b6bee298b10998b5a7ad21ab5bd586500bb07639e967f2244c2405127ee0187",
+      "size_bytes": 21315
+    },
+    "tests/test_stage17_s180_archive_reservation_v1.py": {
+      "sha256": "b4aba35726eb6219605da9034419e9e3b045729bd88290bcd9b85c27eeaf1756",
+      "size_bytes": 8158
+    },
+    "tests/test_stage17_s180_authority_v1.py": {
+      "sha256": "9946eef03d44462becc56ce87359b7a3de97489385f7d40ad3c7f9491f36ca98",
+      "size_bytes": 17692
+    },
+    "tools/stage17_s180_archive_custody_v1.py": {
+      "sha256": "b12a52a3e6e69fe0c6515dc41af0b5b3923e5c08dad1c275ca7ec5e6f2ac9894",
+      "size_bytes": 6926
+    },
+    "tools/stage17_s180_archive_reservation_v1.py": {
+      "sha256": "ca5900c3ba7f455918506b2f4f04fd48bcfce54efddeee978391b4388b229017",
+      "size_bytes": 7980
+    }
+  }
+}

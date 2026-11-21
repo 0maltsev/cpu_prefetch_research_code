@@ -1,0 +1,8 @@
+{
+  "original_revision": "81c4838",
+  "original_store_sha256": "b3df7012a21c82331b6b2019b7d5df5cf1c3b78552c60dfa48cfdaea0a65ca48",
+  "pre_ext009_directory_route": "REJECTED",
+  "original_error": "S180 EXT009 binding: invalid SHA256",
+  "stand_accessed": false,
+  "execution_authority": false
+}

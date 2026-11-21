@@ -255,6 +255,42 @@ class AuthorityTests(unittest.TestCase):
             with self.assertRaises(authority.AuthorityError):
                 self.verify(raw, signature)
 
+    def test_real_directory_can_precede_resource_record_and_then_bind_signed_authority(self):
+        import stage17_s180_archive_custody_v1 as storage
+        import stage17_formal_archive_custody_v1 as custody
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory(prefix="s180-authority-reservation-", dir=root / "build") as temporary:
+            program = Path(temporary) / "program"
+            scope = custody.ProgramStore.initialize(program, program_id="synthetic-s180",
+                storage_domain_id="synthetic-disk", prospective_admission_sha256="e"*64)
+            plan = copy.deepcopy(self.plan)
+            plan["storage"]["program_scope_sha256"] = scope
+            family = authority.sha(authority.archive.canonical(plan))
+            limits = custody.CustodyLimits(131072, 1024, 4096, 131072, self.deadline())
+            args = dict(scope_sha256=scope, family_id=family, limits=limits)
+            with storage.ProgramStore(program, ext009_resolution_sha256=None, **args) as store:
+                reserved = store.reserve_family()["document"]
+                with self.assertRaises(custody.CustodyError):
+                    store.prepare_family(family)
+            # Replay views remain explicitly synthetic. The filesystem/ledger,
+            # inode and SSHSIG operations in this integration are actual.
+            for context in (self.plan_context, self.resource_context, self.authorization):
+                context["plan_sha256"] = family
+                context["evidence_root_binding"] = reserved["evidence_root_binding"]
+            with storage.ProgramStore(program,
+                    ext009_resolution_sha256=self.resolutions["S17-EXT-009"].sha256, **args) as store:
+                store.bind_admission()
+                store.prepare_family(family)
+                raw, signature = self.sign()
+                verified = self.verify(raw, signature, plan=plan)
+                self.assertEqual(authority.archive.parse_json(verified.request_bytes)["plan"], plan)
+                self.assertEqual(store.working.stat().st_ino,
+                    self.authorization["evidence_root_binding"]["inode"])
+
+    @staticmethod
+    def deadline():
+        return time.monotonic_ns()+30_000_000_000
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

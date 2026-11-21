@@ -1,0 +1,35 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+      Start 651: runner.formal_archive_broker_v1
+      Start 653: runner.formal_archive_jobs_v1
+ 1/11 Test #651: runner.formal_archive_broker_v1 ......   Passed    8.59 sec
+      Start 664: runner.s180_authority_v1
+ 2/11 Test #653: runner.formal_archive_jobs_v1 ........   Passed    9.28 sec
+      Start 650: runner.formal_archive_runtime_v1
+ 3/11 Test #650: runner.formal_archive_runtime_v1 .....   Passed    3.28 sec
+      Start 659: runner.archive_channel_v1
+ 4/11 Test #659: runner.archive_channel_v1 ............   Passed    0.64 sec
+      Start 661: runner.s180_archive_channel_v1
+ 5/11 Test #661: runner.s180_archive_channel_v1 .......   Passed    0.45 sec
+      Start 570: runner.formal_archive_custody_v1
+ 6/11 Test #570: runner.formal_archive_custody_v1 .....   Passed    0.35 sec
+      Start 656: runner.formal_checkpoint_v1
+ 7/11 Test #656: runner.formal_checkpoint_v1 ..........   Passed    0.26 sec
+      Start 660: runner.s180_checkpoint_v1
+ 8/11 Test #660: runner.s180_checkpoint_v1 ............   Passed    0.20 sec
+      Start 665: runner.s180_archive_reservation_v1
+ 9/11 Test #665: runner.s180_archive_reservation_v1 ...   Passed    0.24 sec
+      Start 666: runner.formal_archive_registry_v1
+10/11 Test #666: runner.formal_archive_registry_v1 ....   Passed    2.19 sec
+11/11 Test #664: runner.s180_authority_v1 .............   Passed    9.65 sec
+
+100% tests passed, 0 tests failed out of 11
+
+Label Time Summary:
+archive          =  21.50 sec*proc (4 tests)
+pilot            =  10.53 sec*proc (4 tests)
+python           =  35.11 sec*proc (11 tests)
+qualification    =   2.19 sec*proc (1 test)
+runner           =  35.11 sec*proc (11 tests)
+synthetic        =  35.11 sec*proc (11 tests)
+
+Total Test time (real) =  18.26 sec

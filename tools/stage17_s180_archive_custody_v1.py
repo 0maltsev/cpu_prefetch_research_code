@@ -9,6 +9,7 @@ import re
 import stage17_formal_archive_custody_v1 as base
 import stage17_formal_archive_v1 as archive
 import stage17_s180_checkpoint_v1 as contract
+import stage17_s180_archive_reservation_v1 as reservation
 
 EXTENSION_SCHEMA = "cpu-prefetch-stage17-s180-storage-extension/1"
 
@@ -16,12 +17,28 @@ EXTENSION_SCHEMA = "cpu-prefetch-stage17-s180-storage-extension/1"
 class ProgramStore(base.ProgramStore):
     def __init__(self, *args, ext009_resolution_sha256, **kwargs):
         super().__init__(*args, **kwargs)
-        self.ext009_resolution_sha256 = archive.sha(ext009_resolution_sha256, "S180 EXT009 binding")
+        self.ext009_resolution_sha256 = (None if ext009_resolution_sha256 is None else
+            archive.sha(ext009_resolution_sha256, "S180 EXT009 binding"))
         self._extension_binding = None
+        self._reserving_directory = False
+
+    def reserve_family(self):
+        return reservation.reserve_family(self)
+
+    def inspect_reservation(self):
+        return reservation.inspect_reservation(self)
+
+    def bind_admission(self):
+        return reservation.bind_admission(self)
 
     def prepare_family(self, family_id):
+        self._check()
         if archive.sha(family_id, "S180 family") != self.family_id:
             raise base.CustodyError("S180 family differs before extension publication")
+        if reservation.is_reserved_family(self):
+            return reservation.prepare_reserved_family(self, family_id)
+        if self.ext009_resolution_sha256 is None:
+            raise base.CustodyError("S180 EXT009 is absent; only directory reservation is permitted")
         if any(key != self.family_id and value.get("storage_extension") is not None
                for key, value in self._families.items()):
             raise base.CustodyError("D310 permits only one S180 family in the shared program")
@@ -57,6 +74,11 @@ class ProgramStore(base.ProgramStore):
             raise base.CustodyError("S180 storage extension is not bound")
         self._read_bound(self.root / "metadata" / self._extension_binding.file_name,
                          self._extension_binding.binding(), self.limits.max_record_bytes)
+        if not self._reserving_directory:
+            if reservation.is_reserved_family(self):
+                reservation.verify_admission(self)
+            elif self.ext009_resolution_sha256 is None:
+                raise base.CustodyError("S180 capture has no EXT009 admission")
         return dict(storage_extension=asdict(self._extension_binding))
 
     def _checkpoint_contract(self, document):

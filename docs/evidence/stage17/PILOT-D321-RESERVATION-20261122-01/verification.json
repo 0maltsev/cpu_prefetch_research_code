@@ -1,0 +1,29 @@
+{
+  "authority": {
+    "actual_scoped_admission": false,
+    "new_administrative_closure_qualification_required": true,
+    "operational_window_started": false,
+    "pilot_started": false,
+    "qualified_parent_complete": false,
+    "scientific_validity": "NOT_ASSESSED",
+    "stage17_complete": false,
+    "stage18_authority": false,
+    "stand_accessed": false,
+    "stand_directory_reserved": false
+  },
+  "baseline_revision": "81c4838c0e75f18087ab771406af49d99f303e95",
+  "checks": {
+    "additional_post_archive_admission_drift_cases": 1,
+    "authority_cases": 12,
+    "combined_original_and_reserved_broker_cases": 18,
+    "directory_cases": 8,
+    "formal_base_store_unchanged": true,
+    "format_protocol_fixtures_canonical_provenance_runner_qualification_schemas": "PASS",
+    "native_sanitizers": "NOT_REPEATED_NO_NATIVE_CHANGE",
+    "native_unchanged": true,
+    "python_ast": "PASS",
+    "related_ctest_entries": 11
+  },
+  "decision": "D321",
+  "schema_version": "cpu-prefetch-stage17-software-verification/1"
+}

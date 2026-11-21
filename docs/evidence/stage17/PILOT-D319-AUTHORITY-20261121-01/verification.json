@@ -1,0 +1,25 @@
+{
+  "authority": {
+    "actual_scoped_semantic_admission_complete": false,
+    "attempt_consumed": false,
+    "operational_window_started": false,
+    "pilot_started": false,
+    "qualified_parent_complete": false,
+    "real_owner_authorization_issued": false,
+    "scientific_validity": "NOT_ASSESSED",
+    "stage17_complete": false,
+    "stage18_authority": false,
+    "stand_accessed": false
+  },
+  "baseline_revision": "5a90210684881f06a4f858b317a92844fecf6d21",
+  "checks": {
+    "build_format_protocol_fixtures_canonical_provenance_runner_qualification_schemas": "PASS",
+    "final_focused_ctest_entries": 57,
+    "final_updated_schema_integrity": "PASS",
+    "new_actual_crypto_and_contract_cases": 11,
+    "python_ast": "PASS",
+    "sanitizers": "NOT_REPEATED_NO_CPP_OR_MEASUREMENT_LOOP_CHANGE"
+  },
+  "decision": "D319",
+  "schema_version": "cpu-prefetch-stage17-software-verification/1"
+}

@@ -1,0 +1,57 @@
+{
+  "accepted_owner_sha256": "3673f215a10cac54577acb5fa85b5adabc4262eb63bcf260c6ec15143e822ab7",
+  "actual_process_boundary": {
+    "broker": "actual sealed Python",
+    "broker_and_codec_processes_per_full_capture": 25,
+    "encoder_decoder": "actual bounded children",
+    "full_capture_codec_children": 24,
+    "host_sudo_used": false,
+    "native_endpoint": "test-only compiled C++",
+    "testing_namespace": "isolated user/PID namespace and visible session",
+    "transport": "AF_UNIX SOCK_SEQPACKET SCM_CREDENTIALS"
+  },
+  "authority": {
+    "authenticated_entry_activated": false,
+    "operational_window_started": false,
+    "pilot_started": false,
+    "qualification_started": false,
+    "scientific_validity": "NOT_ASSESSED",
+    "stage17_complete": false,
+    "stage18_authority": false,
+    "stand_accessed": false
+  },
+  "baseline_revision": "f82113dd34a37fc4fa1dfa30f58da6484d0d6621",
+  "blueprint_sha256": "e95183365023a06b9da0d6cdff042bce556b9eb60c701dfb0f9e6df6ca22685c",
+  "decision": "D316",
+  "profile": "S180",
+  "schema_version": "cpu-prefetch-stage17-software-verification/1",
+  "verification": {
+    "format_protocol_fixtures_canonical_provenance": "PASS",
+    "original_source_cases": 5,
+    "registered_cpp_cases": 30,
+    "registered_ctest_entries": 39,
+    "registered_python_cases": 72,
+    "runner_cases": 139,
+    "s180_cpp_cases": 23,
+    "s180_python_cases": 19,
+    "sanitizers": {
+      "CLANG_LIBCXX_ASAN_UBSAN": {
+        "cases": 23,
+        "status": "PASS"
+      },
+      "CLANG_LIBCXX_TSAN": {
+        "cases": 23,
+        "status": "PASS"
+      },
+      "GCC_ASAN_UBSAN": {
+        "cases": 23,
+        "status": "PASS"
+      },
+      "GCC_TSAN": {
+        "cases": 23,
+        "status": "PASS"
+      }
+    },
+    "static_analysis": "PASS"
+  }
+}

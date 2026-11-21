@@ -72,6 +72,9 @@ if mode=='decode':
 elif mode=='broker':
     import stage17_formal_archive_broker_v1 as broker
     broker._broker_child(requestfd,resultfd,inputlimit,resultlimit)
+elif mode=='s180_broker':
+    import stage17_s180_archive_broker_v1 as broker
+    broker._broker_child(requestfd,resultfd,inputlimit,resultlimit)
 else:raise RuntimeError('unknown fixed sealed entrypoint')
 '''
 
@@ -585,14 +588,9 @@ class ColdArchiveRuntime:
                 expected_logical=asdict(source.expected),failure_receipt=asdict(source.failure_receipt) if source.failure_receipt else None,
                 artifact_id=source.artifact_id,released_record=asdict(self.store.ledger_binding(state)),
                 archive_name=state["payload"]["archive_name"],physical=state["payload"]["physical"]))
-        status=("ARCHIVED_FAILED_EVIDENCE" if any(s.actual!=s.expected.binding() for s in sources)
-                else "ARCHIVED_AND_RELEASED")
-        ordinal=self.store._checkpoint[2]["capture_ordinal"]
-        receipt=dict(schema_version="cpu-prefetch-stage17-formal-archive-custody/1",
-            program_scope_sha256=self.store.scope_sha256,plan_sha256=self.store.family_id,capture_ordinal=ordinal,
-            checkpoint=asdict(checkpoint),ledger_tip=asdict(self.store.ledger_binding()),artifacts=artifacts,status=status,
-            scientific_validity="NOT_ASSESSED",execution_authority=False)
-        binding=self.store.retain_custody_receipt(f"formal-capture-{ordinal}-archive-custody.json",archive.canonical(receipt))
+        status=self.store.capture_archive_status(sources)
+        receipt_name,receipt=self.store.capture_archive_receipt(checkpoint,artifacts,status)
+        binding=self.store.retain_custody_receipt(receipt_name,archive.canonical(receipt))
         self.limits.before_spawn()  # no normal continuation at/after authority deadline
         return CaptureArchiveOutcome(binding,status,self.store.ledger_binding())
 

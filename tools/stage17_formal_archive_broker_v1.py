@@ -189,12 +189,16 @@ def _profile(document):
 
 
 class _Client:
+    request_schema = REQUEST_SCHEMA
+    result_schema = RESULT_SCHEMA
+    entry_mode = "broker"
+    entry_module = "stage17_formal_archive_broker_v1"
     def __init__(self,*,profile,limits,identity_model=None,native_worker=None):
         _client_limits(limits)
         self.profile,self.limits=profile,limits
         self.identity_model,self.native_worker=identity_model,native_worker
         self.closure=runtime._closure_bytes(profile,limits.final_deadline_ns)
-        if "stage17_formal_archive_broker_v1" not in self.closure:
+        if self.entry_module not in self.closure:
             raise BrokerError("qualified source closure omits broker entrypoint")
         self.jobs=0
         self.actual_processes=0
@@ -213,7 +217,7 @@ class _Client:
         if self.jobs>=self.limits.max_children:raise BrokerError("broker job budget exhausted")
         _client_limits(self.limits)
         self.jobs+=1
-        raw=archive.canonical(dict(schema_version=REQUEST_SCHEMA,mode=mode,
+        raw=archive.canonical(dict(schema_version=self.request_schema,mode=mode,
             profile=runtime._jsonable(asdict(self.profile)),limits=asdict(self.limits),parameters=parameters))
         if len(raw)>self.limits.max_input_bytes:raise BrokerError("broker sealed request byte bound")
         with contextlib.ExitStack() as stack:
@@ -234,7 +238,7 @@ class _Client:
             map_fd=runtime._sealed_input(map_raw,"stage17-broker-source-map")
             stack.callback(os.close,map_fd)
             native_fds=() if self.native_worker is None else (self.native_worker.descriptor,)
-            argv=[f"/proc/self/fd/{executable}","-I","-B","-c",runtime._BOOTSTRAP,"broker",
+            argv=[f"/proc/self/fd/{executable}","-I","-B","-c",runtime._BOOTSTRAP,self.entry_mode,
                 str(map_fd),str(self.limits.max_input_bytes),str(request_fd),"-1",str(result_fd),
                 str(self.limits.max_input_bytes),str(self.limits.max_result_bytes)]
             cleanup=_supervise_broker(argv,(executable,request_fd,result_fd,map_fd,*source_fds,*native_fds),
@@ -244,7 +248,7 @@ class _Client:
             fcntl.fcntl(result_fd,fcntl.F_ADD_SEALS,runtime._SEALS)
             result=archive.parse_json(runtime._read_sealed(result_fd,self.limits.max_result_bytes))
             if (set(result)!={"schema_version","mode","request_sha256","result","codec_children"}
-                    or result["schema_version"]!=RESULT_SCHEMA or result["mode"]!=mode
+                    or result["schema_version"]!=self.result_schema or result["mode"]!=mode
                     or result["request_sha256"]!=hashlib.sha256(raw).hexdigest()):
                 raise BrokerError("actual sealed broker result binding differs")
             children=archive.uint(result["codec_children"],"broker codec child count")

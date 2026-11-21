@@ -1,0 +1,241 @@
+{
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/COMMANDS.md": {
+      "sha256": "3e54628029985508c9e236a1a1dbef4c603cfdd86146e3e17a2ea258cd0be692",
+      "size_bytes": 2349
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/REPORT.md": {
+      "sha256": "dc856fef237a6937d8c28c9ef20176b0140b87384473b5d7a8e7ab4a139d1f8d",
+      "size_bytes": 5622
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/asan-ubsan-clang-s180io-build.txt": {
+      "sha256": "3bf36e39ee7ae085df9f181a0ba521d7be5fc6528de35f200c83b326ca953382",
+      "size_bytes": 809
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/asan-ubsan-clang-s180io-configure.txt": {
+      "sha256": "4ca154b042c9d0cc3553c51782eb72520ec64dfb9d924eeedc66dd268306e25c",
+      "size_bytes": 184
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/asan-ubsan-clang-s180io-tests.txt": {
+      "sha256": "de453f17be23c6578d975e088a114fe058fe742b2cf3d2f92f0149a5f5db01a3",
+      "size_bytes": 4675
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/asan-ubsan-gcc-s180io-build.txt": {
+      "sha256": "20d9326494a4ebc14e8949b9a2aabfca6b58dfac2c7a6e23ea1612c1c33001e5",
+      "size_bytes": 809
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/asan-ubsan-gcc-s180io-configure.txt": {
+      "sha256": "ccecd182979cf3acd755ac1234a88cc5ea7a39d1e1d274ca6694a069690f8ef1",
+      "size_bytes": 182
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/asan-ubsan-gcc-s180io-tests.txt": {
+      "sha256": "b027bdae10549deac7b3c198c03a4e97234016816a71598966e74552992c93a8",
+      "size_bytes": 4607
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/build-s180-io-matrix.py": {
+      "sha256": "6377ce29357660e6b17b75a1a2bc5ef84e512bef11db0d4b4b7e6ca67bd5815d",
+      "size_bytes": 1698
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/pc-cleanup.json": {
+      "sha256": "708942b94eb5b2aa855e8f8a90314ad2ee66b22bc8dac4a0678a321feea369a0",
+      "size_bytes": 187
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/registered-test-output.txt": {
+      "sha256": "bae364a5208e8df1aef9a3f8b01be399f0e3687ff179c912fc9d5bb054dd6795",
+      "size_bytes": 61917
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-archive-final-ctest.txt": {
+      "sha256": "9c60b5de643e7ef53b7666c30858d3a599428b4363f255b19fbace8ba724938c",
+      "size_bytes": 9331
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-archive-repository-checks.txt": {
+      "sha256": "32ddffd548c400cc0ee8617b9b399ff705156293d207d17ff97056a303263545",
+      "size_bytes": 606
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-archive-runner-tests.txt": {
+      "sha256": "b8b689256de791796fb7593e8454647e33d575153c98985e7090adafd72014c8",
+      "size_bytes": 25914
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-archive-source-tests.txt": {
+      "sha256": "d48bc0a444baed0ff3a4e3c00030b92bf64b26a2c4f11b2d1e679789bf974715",
+      "size_bytes": 1238
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-archive-static-analysis.txt": {
+      "sha256": "48a21dfe5d8abec872f11dc50aae23197e3314ecd43db7981d1215f7f1773cd9",
+      "size_bytes": 893
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-channel-cpp-tests.txt": {
+      "sha256": "6b071194e63e8c37a182ac8747f9423c53bc843ab68739feae504102782ac530",
+      "size_bytes": 4594
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-channel-legacy-cpp-tests.txt": {
+      "sha256": "9bb83dc2755ae88e9af8ffcbdbe7c22d1f91f33909589df7f417a3980517dc7b",
+      "size_bytes": 1764
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-channel-legacy-python-tests.txt": {
+      "sha256": "948850b768322601636e85de4cd02fc432bd16e12963f456be23ca48ec101375",
+      "size_bytes": 104
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-channel-python-tests.txt": {
+      "sha256": "f2caaf2ce56e7ec9845752c216e97cc9529b77da139b49295b5469e07d30c749",
+      "size_bytes": 103
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-checkpoint-custody-final-tests.txt": {
+      "sha256": "7fcedb146876ecc84e98595344a3b9ab85d7e18f2d5650e5c9babbb50cd22533",
+      "size_bytes": 129
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-final-build.txt": {
+      "sha256": "b7cdb42b68016ba96ecd5d16b496b420743864ddbb58e9d3de7a25ab3d9d30bf",
+      "size_bytes": 501
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-integrated-broker-namespace-tests.txt": {
+      "sha256": "618fd26f30bb359cbb576bf546be9ba817b60875d2e6a426da1a062981bf0d8a",
+      "size_bytes": 8437
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-integrated-broker-tests.txt": {
+      "sha256": "5dee83528f60a7c395ec87353de58bec214d735aafc13fb7ab7e93559eef3bf4",
+      "size_bytes": 10567
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/s180-single-channel-diagnostic.txt": {
+      "sha256": "4d6fa0d4ec746efcd2f669eb208fa63a7fd76ddef5e9b596e5978cc0469fd346",
+      "size_bytes": 1746
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/tsan-clang-s180io-build.txt": {
+      "sha256": "3bf36e39ee7ae085df9f181a0ba521d7be5fc6528de35f200c83b326ca953382",
+      "size_bytes": 809
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/tsan-clang-s180io-configure.txt": {
+      "sha256": "395c51cb57c34f176362ceef8c0863fa4eeee8e4a7362c52d27b382d62a3ab8c",
+      "size_bytes": 321
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/tsan-clang-s180io-tests.txt": {
+      "sha256": "c8fd2ac0207fe9012730d3c15d91a97cf80b085dfb33370ddd57c2c0ae6da39d",
+      "size_bytes": 4675
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/tsan-gcc-s180io-build.txt": {
+      "sha256": "3bf36e39ee7ae085df9f181a0ba521d7be5fc6528de35f200c83b326ca953382",
+      "size_bytes": 809
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/tsan-gcc-s180io-configure.txt": {
+      "sha256": "35b87b55cc9e7a99b355b58ccd25363504974a7308fa17aed440765c17a0cbe0",
+      "size_bytes": 176
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/tsan-gcc-s180io-tests.txt": {
+      "sha256": "fc6601d90251ee4318e092a0ad50853b1188be27c1e77bea9ebec1f9706d517e",
+      "size_bytes": 4605
+    },
+    "docs/evidence/stage17/PILOT-D316-ARCHIVE-20261121-01/verification.json": {
+      "sha256": "d67145e767cae31561b6900ac07a730aaf129d4c6d7d52441c238da88aac72af",
+      "size_bytes": 1788
+    }
+  },
+  "evidence_manifest_self_excluded": true,
+  "schema_version": "cpu-prefetch-stage17-software-evidence-manifest/1",
+  "source_files": {
+    "CMakeLists.txt": {
+      "sha256": "0a3b6472709e942089dfbb633feea33916f025dba56c0359cfa87f4daf725797",
+      "size_bytes": 189490
+    },
+    "PLAN.md": {
+      "sha256": "a9c997b627aa55ff9b90d21b78c4e9512e82f14d78499ce10939e10f94737260",
+      "size_bytes": 113059
+    },
+    "README.md": {
+      "sha256": "3b494eebc79fe6e15d69a237894160918a51b46be3b9c6db9cc2567dfebf23bf",
+      "size_bytes": 120512
+    },
+    "STATUS.md": {
+      "sha256": "7fd7f9a8375b7f825e3ea571658be7b9eb294539f080772793e8516978b39981",
+      "size_bytes": 139429
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "facf8fb5b06280e07bb311b6f91f2e4c09186d2857307a543f71995fadd83929",
+      "size_bytes": 4651
+    },
+    "docs/decisions/0316-s180-lossless-archive-handoff.md": {
+      "sha256": "b282cefe11a3c79b08f575ad203a1d249d2fbfd90f70f78aabb8160184563ad1",
+      "size_bytes": 6810
+    },
+    "include/cpu_prefetch/runner/stage17_archive_channel.hpp": {
+      "sha256": "349fea046cf5e63b2cc837c3b66ebf18e07f0bf510989eee8f702e7e335937c4",
+      "size_bytes": 2444
+    },
+    "include/cpu_prefetch/runner/stage17_s180_channel_sink.hpp": {
+      "sha256": "c80aa5c362feed6cb2c7e964c49fe3344d90c4181364bde6958066d1d04d23da",
+      "size_bytes": 1463
+    },
+    "src/runner/stage17_archive_channel.cpp": {
+      "sha256": "b9f799a0f68a4fa8c54ed253871733dce44458af3a38b79204ca153db2cdd833",
+      "size_bytes": 13249
+    },
+    "src/runner/stage17_s180_channel_sink.cpp": {
+      "sha256": "a3bfaf25ae846cd6342be12858cefcb866f7ea164be5af2f3e9757acef362fc1",
+      "size_bytes": 2472
+    },
+    "src/runner/stage17_s180_native_session.cpp": {
+      "sha256": "1d68854bd4a694aad7f703a25827cb50ebe751b4379fd2edc728eed77acc27ad",
+      "size_bytes": 20471
+    },
+    "tests/stage17_s180_channel_fixture.cpp": {
+      "sha256": "dd4aa9414119af8e3f39f48b6a06be5d9633e398dfed327bf810b4a882248aab",
+      "size_bytes": 3232
+    },
+    "tests/stage17_s180_channel_test.cpp": {
+      "sha256": "2d9107935e5bb1ff7625a78f9e5368440da8d049916e9b3348837221d2929f63",
+      "size_bytes": 5678
+    },
+    "tests/test_stage17_s180_archive_broker_v1.py": {
+      "sha256": "74032395a999e350eb6042c5707aa67088eb2b18e6d495c52e653f1799bf6294",
+      "size_bytes": 20227
+    },
+    "tests/test_stage17_s180_archive_channel_v1.py": {
+      "sha256": "dce27415a8552a01edb99fba31c0d2bd01b87e8206b14fd1669174f40a0fdecb",
+      "size_bytes": 7455
+    },
+    "tests/test_stage17_s180_checkpoint_v1.py": {
+      "sha256": "93bd6558f0e612b340496a6ba08031086615afc5f1cd9654f095b4244da4fa3d",
+      "size_bytes": 4414
+    },
+    "tools/stage17_archive_channel_v1.py": {
+      "sha256": "8a93bc71667f80570775cd02c185239672ede7c18fc85de7b012decd392306ec",
+      "size_bytes": 10028
+    },
+    "tools/stage17_formal_archive_broker_v1.py": {
+      "sha256": "f8f672d9337dc16f103026ad9d75a0d9f3fa9cc028109720a2cafd62d9c5ef79",
+      "size_bytes": 22684
+    },
+    "tools/stage17_formal_archive_custody_v1.py": {
+      "sha256": "a71a3784a73adffb462802a3ca1c5d8b2f6aa0b1f805d1c55b5dcb50714435ed",
+      "size_bytes": 47023
+    },
+    "tools/stage17_formal_archive_jobs_v1.py": {
+      "sha256": "8e509b0a4d2bb79b9f5835cff62d8b5ce75efe1f5ef50a8d3414cbf9690b1f2d",
+      "size_bytes": 7666
+    },
+    "tools/stage17_formal_archive_runtime_v1.py": {
+      "sha256": "fecc8b915a6184be24695770a081ca2ceac418ca750c54c451abf232aeda9744",
+      "size_bytes": 36150
+    },
+    "tools/stage17_s180_archive_broker_v1.py": {
+      "sha256": "57988e5391e5d3f0518a1a2c01aadd3996285757f35ee9ad2cf8e3dd1e76fd4b",
+      "size_bytes": 8785
+    },
+    "tools/stage17_s180_archive_channel_v1.py": {
+      "sha256": "457c59ef849f3fa933f69cd545f697aa85faeba3f2d305c752be65e707fdf19c",
+      "size_bytes": 3838
+    },
+    "tools/stage17_s180_archive_custody_v1.py": {
+      "sha256": "b3df7012a21c82331b6b2019b7d5df5cf1c3b78552c60dfa48cfdaea0a65ca48",
+      "size_bytes": 5942
+    },
+    "tools/stage17_s180_archive_registry_v1.py": {
+      "sha256": "3f0451edf422f46a34aa790afa80d2146a6dbfe4181635e3288194e152de309f",
+      "size_bytes": 7900
+    },
+    "tools/stage17_s180_checkpoint_v1.py": {
+      "sha256": "81e161f2b5cef490078fe401f1f6bf431efb7722e733b0ef77208e237bd664c8",
+      "size_bytes": 8271
+    }
+  },
+  "unchanged_fixed_action_sha256": "03130e61fcd1b61b4cb7b2d1bfc564f1420e87eebcbff428a2b3f7ff4eec764e"
+}

@@ -1,0 +1,19 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 5 tests from Stage17ScheduleSource
+[ RUN      ] Stage17ScheduleSource.LoadsExactBigEndianGoldenWithoutMutatingBorrowedOffset
+[       OK ] Stage17ScheduleSource.LoadsExactBigEndianGoldenWithoutMutatingBorrowedOffset (1 ms)
+[ RUN      ] Stage17ScheduleSource.PreservesUnsignedHighBitValues
+[       OK ] Stage17ScheduleSource.PreservesUnsignedHighBitValues (0 ms)
+[ RUN      ] Stage17ScheduleSource.AllowsExactEmptyArtifactWithItsOriginalHash
+[       OK ] Stage17ScheduleSource.AllowsExactEmptyArtifactWithItsOriginalHash (0 ms)
+[ RUN      ] Stage17ScheduleSource.RejectsUnsealedWritableWrongSizeOrWrongHash
+[       OK ] Stage17ScheduleSource.RejectsUnsealedWritableWrongSizeOrWrongHash (0 ms)
+[ RUN      ] Stage17ScheduleSource.RejectsWindowOrderMemoryAndDeadlineFailures
+[       OK ] Stage17ScheduleSource.RejectsWindowOrderMemoryAndDeadlineFailures (0 ms)
+[----------] 5 tests from Stage17ScheduleSource (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 5 tests.

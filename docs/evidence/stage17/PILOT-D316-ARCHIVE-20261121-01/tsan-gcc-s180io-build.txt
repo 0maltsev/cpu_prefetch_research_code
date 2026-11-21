@@ -1,0 +1,9 @@
+[1/9] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/9] Linking CXX static library libcpu_prefetch_foundation.a
+[3/9] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_channel_sink.cpp.o
+[4/9] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_native_session.cpp.o
+[5/9] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_archive_channel.cpp.o
+[6/9] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_channel_test.cpp.o
+[7/9] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_fixed_action.cpp.o
+[8/9] Linking CXX static library libcpu_prefetch_runner_core.a
+[9/9] Linking CXX executable cpu_prefetch_s180_io_tests

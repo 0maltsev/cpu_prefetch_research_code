@@ -258,6 +258,9 @@ class ProgramStore:
             if not stat.S_ISDIR(st.st_mode) or (st.st_dev, st.st_ino) != self._family_identity:
                 raise CustodyError("family working directory changed")
 
+    def _family_scope_fields(self):
+        return {}
+
     def prepare_family(self, family_id: str) -> Path:
         """Select/create only the constructor-bound admitted plan namespace.
 
@@ -271,6 +274,8 @@ class ProgramStore:
             raise CustodyError("previous capture custody not released; explicit recovery required")
         if family_id in self._families:
             facts = self._families[family_id]
+            if facts.get("storage_extension") != self._family_scope_fields().get("storage_extension"):
+                raise CustodyError("family storage scope extension differs")
             st = self.working.stat(follow_symlinks=False)
             if not stat.S_ISDIR(st.st_mode) or (st.st_dev, st.st_ino) != (facts["device"], facts["inode"]):
                 raise CustodyError("existing family identity differs")
@@ -281,7 +286,7 @@ class ProgramStore:
             _sync_dir(self.working.parent)
             st = self.working.stat(follow_symlinks=False)
             self.append("FAMILY", None, dict(family_id=family_id, working_relative_path="working/"+family_id,
-                        device=st.st_dev, inode=st.st_ino))
+                        device=st.st_dev, inode=st.st_ino, **self._family_scope_fields()))
         self._family_identity = (st.st_dev, st.st_ino)
         return self.working
 
@@ -390,7 +395,7 @@ class ProgramStore:
             for child in path.iterdir():
                 count+=1
                 if count>self.limits.max_inventory_files:raise CustodyError("working inventory limit")
-                if re.fullmatch(r"formal-capture-[0-9]+-(final-checkpoint|archive-custody)\.json",child.name):
+                if re.fullmatch(r"(?:formal-capture-[0-9]+-(?:final-checkpoint|archive-custody)|s180-e[0-9]+-(?:checkpoint|archive-custody))\.json",child.name):
                     account(child)
         for path in (self.root / "scope.json", self.root / "broker.lock"):
             account(path)
@@ -463,6 +468,26 @@ class ProgramStore:
         self._record_bindings.append(binding)
         return binding
 
+    def _checkpoint_contract(self, document):
+        if (document.get("schema_version") != CHECKPOINT_SCHEMA
+                or document.get("plan_sha256") != self.family_id
+                or document.get("scientific_validity") != "NOT_ASSESSED"
+                or document.get("execution_authority") is not False):
+            raise CustodyError("checkpoint cannot assert archive scientific validity or authority")
+        return document.get("artifacts")
+
+    def capture_archive_status(self, sources):
+        return ("ARCHIVED_FAILED_EVIDENCE" if any(s.actual != s.expected.binding() for s in sources)
+                else "ARCHIVED_AND_RELEASED")
+
+    def capture_archive_receipt(self, checkpoint, artifacts, status):
+        ordinal = self._checkpoint[2]["capture_ordinal"]
+        document = dict(schema_version="cpu-prefetch-stage17-formal-archive-custody/1",
+            program_scope_sha256=self.scope_sha256, plan_sha256=self.family_id, capture_ordinal=ordinal,
+            checkpoint=asdict(checkpoint), ledger_tip=asdict(self.ledger_binding()), artifacts=artifacts,
+            status=status, scientific_validity="NOT_ASSESSED", execution_authority=False)
+        return f"formal-capture-{ordinal}-archive-custody.json", document
+
     def begin_capture(self, checkpoint: BoundFile, sources: tuple[SourceBinding, ...], *,
                       verify_checkpoint: Callable[[dict, tuple[SourceBinding, ...]], None]):
         """Required callback validates original cleanup fields AND current quiescence.
@@ -480,12 +505,7 @@ class ProgramStore:
         raw = self._read_bound(self.working / _name(checkpoint.file_name),
                                checkpoint.binding(), self.limits.max_checkpoint_bytes)
         document = archive.parse_json(raw)
-        if (document.get("schema_version") != CHECKPOINT_SCHEMA
-                or document.get("plan_sha256") != self.family_id
-                or document.get("scientific_validity") != "NOT_ASSESSED"
-                or document.get("execution_authority") is not False):
-            raise CustodyError("checkpoint cannot assert archive scientific validity or authority")
-        references = document.get("artifacts")
+        references = self._checkpoint_contract(document)
         if not isinstance(references, list) or archive.canonical(references) != archive.canonical([asdict(s.expected) for s in sources]):
             raise CustodyError("checkpoint does not bind every original source in exact order")
         if len({s.artifact_id for s in sources}) != len(sources) or len({s.expected.file_name for s in sources}) != len(sources):
@@ -691,13 +711,10 @@ class ProgramStore:
         raw=self._read_bound(self.root/"ledger"/binding.file_name,binding.binding(),self.limits.max_record_bytes)
         return archive.parse_json(raw)
 
-    def retain_custody_receipt(self, file_name: str, raw: bytes) -> BoundFile:
-        self._quiescent()
-        if not re.fullmatch(r"formal-capture-[0-9]+-archive-custody\.json",file_name):
-            raise CustodyError("custody receipt filename")
-        if any(self._states[s]["kind"]!="RELEASED" for s in self._sources):
-            raise CustodyError("all source releases required before custody receipt")
-        document=archive.parse_json(raw)
+    def _custody_filename(self, name):
+        return re.fullmatch(r"formal-capture-[0-9]+-archive-custody\.json", name) is not None
+
+    def _custody_contract(self, document):
         expected_status=("ARCHIVED_FAILED_EVIDENCE" if any(s.actual!=s.expected.binding() for s in self._sources.values())
                          else "ARCHIVED_AND_RELEASED")
         if (document.get("program_scope_sha256")!=self.scope_sha256 or document.get("plan_sha256")!=self.family_id
@@ -707,6 +724,15 @@ class ProgramStore:
                 or document.get("capture_ordinal")!=self._checkpoint[2]["capture_ordinal"]
                 or document.get("status")!=expected_status):
             raise CustodyError("custody receipt checkpoint/program binding differs")
+
+    def retain_custody_receipt(self, file_name: str, raw: bytes) -> BoundFile:
+        self._quiescent()
+        if not self._custody_filename(file_name):
+            raise CustodyError("custody receipt filename")
+        if any(self._states[s]["kind"]!="RELEASED" for s in self._sources):
+            raise CustodyError("all source releases required before custody receipt")
+        document=archive.parse_json(raw)
+        self._custody_contract(document)
         self._before_write(len(raw))
         binding=BoundFile(file_name,len(raw),hashlib.sha256(raw).hexdigest())
         _write_new(self.working/file_name,raw)

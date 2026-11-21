@@ -245,6 +245,8 @@ public:
           s180_capture_result_json(native_result_)},
          {"artifacts", references(capture_artifacts_)},
          {"shared_data_still_family_owned", V(true)},
+         {"scientific_validity", text("NOT_ASSESSED")},
+         {"execution_authority", V(false)},
          {"phase18_authority", V(false)}});
     if (!checkpoint)
       return false;

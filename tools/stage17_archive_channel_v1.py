@@ -61,6 +61,20 @@ class PendingCheckpoint:
 
 
 class ArchiveChannel:
+    request_schema = REQUEST_SCHEMA
+    ack_schema = ACK_SCHEMA
+    custody_schema = "cpu-prefetch-stage17-formal-archive-custody/1"
+    receipt_ordinal_field = "capture_ordinal"
+
+    @staticmethod
+    def checkpoint_name(ordinal): return f"formal-capture-{ordinal}-final-checkpoint.json"
+    @staticmethod
+    def custody_name(ordinal): return f"formal-capture-{ordinal}-archive-custody.json"
+    def _receipt_status(self, receipt, pending):
+        if receipt.get("status") != "ARCHIVED_AND_RELEASED":
+            raise ArchiveError("custody receipt cannot authorize continuation")
+        return "ARCHIVED_AND_RELEASED"
+    def _after_ack(self, status): pass
     def __init__(self, channel, *, worker: PinnedWorker, directory_fd,
                  request_sha256, program_scope_sha256, captures,
                  maximum_checkpoint_bytes, maximum_custody_receipt_bytes,
@@ -110,7 +124,7 @@ class ArchiveChannel:
         message = parse_json(raw)
         if (set(message) != {"schema_version", "request_sha256", "program_scope_sha256",
                              "capture_ordinal", "checkpoint", "deadline_monotonic_ns"}
-                or message["schema_version"] != REQUEST_SCHEMA
+                or message["schema_version"] != self.request_schema
                 or message["request_sha256"] != self.request_sha256
                 or message["program_scope_sha256"] != self.program_scope_sha256
                 or type(message["capture_ordinal"]) is not int
@@ -122,7 +136,7 @@ class ArchiveChannel:
             raise ArchiveError("native cold deadline expired or exceeds the admitted interval")
         binding = message["checkpoint"]
         if (type(binding) is not dict or set(binding) != {"file_name", "size_bytes", "sha256"}
-                or binding["file_name"] != f"formal-capture-{self.ordinal}-final-checkpoint.json"):
+                or binding["file_name"] != self.checkpoint_name(self.ordinal)):
             raise ArchiveError("checkpoint original receipt name differs")
         sha(binding["sha256"], "checkpoint hash")
         uint(binding["size_bytes"], "checkpoint size", positive=True)
@@ -147,30 +161,31 @@ class ArchiveChannel:
             raise ArchiveError("original archive deadline expired before acknowledgement")
         if (type(receipt_binding) is not dict
                 or set(receipt_binding) != {"file_name", "size_bytes", "sha256"}
-                or receipt_binding["file_name"] != f"formal-capture-{pending.ordinal}-archive-custody.json"):
+                or receipt_binding["file_name"] != self.custody_name(pending.ordinal)):
             raise ArchiveError("custody receipt binding differs")
         sha(receipt_binding["sha256"], "custody hash")
         uint(receipt_binding["size_bytes"], "custody size", positive=True)
         self._root()
         receipt = _bound_report(self.directory_fd, receipt_binding, self.maximum_custody_receipt_bytes)
-        if (receipt.get("schema_version") != "cpu-prefetch-stage17-formal-archive-custody/1"
+        if (receipt.get("schema_version") != self.custody_schema
                 or receipt.get("program_scope_sha256") != self.program_scope_sha256
-                or receipt.get("capture_ordinal") != pending.ordinal
+                or receipt.get(self.receipt_ordinal_field) != pending.ordinal
                 or receipt.get("plan_sha256") != pending.document.get("plan_sha256")
                 or canonical(receipt.get("checkpoint")) != canonical(pending.binding)
-                or receipt.get("status") != "ARCHIVED_AND_RELEASED"
                 or receipt.get("scientific_validity") != "NOT_ASSESSED"
                 or receipt.get("execution_authority") is not False):
             raise ArchiveError("custody receipt is incomplete, failed or belongs to another checkpoint")
         self.worker.observe_quiescence()
-        packet = canonical(dict(schema_version=ACK_SCHEMA, request_sha256=self.request_sha256,
+        status = self._receipt_status(receipt, pending)
+        packet = canonical(dict(schema_version=self.ack_schema, request_sha256=self.request_sha256,
             program_scope_sha256=self.program_scope_sha256, capture_ordinal=pending.ordinal,
-            checkpoint_sha256=pending.binding["sha256"], status="ARCHIVED_AND_RELEASED",
+            checkpoint_sha256=pending.binding["sha256"], status=status,
             custody_receipt=receipt_binding))
         if len(packet) > PACKET_LIMIT:
             raise ArchiveError("archive acknowledgement exceeds packet bound")
         _wait(self.channel, select.POLLOUT, deadline_ns)
         if self.channel.send(packet, socket.MSG_NOSIGNAL) != len(packet):
             raise ArchiveError("archive acknowledgement was not sent atomically")
+        self._after_ack(status)
         self.ordinal += 1
         self.pending = None

@@ -1,0 +1,26 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 7 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from Stage17ArchiveChannel
+[ RUN      ] Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt
+[       OK ] Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt (0 ms)
+[ RUN      ] Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath
+[       OK ] Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath (1 ms)
+[ RUN      ] Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields
+[       OK ] Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields (1 ms)
+[ RUN      ] Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed
+[       OK ] Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed (10 ms)
+[----------] 4 tests from Stage17ArchiveChannel (14 ms total)
+
+[----------] 3 tests from Stage17ArchiveDeadline
+[ RUN      ] Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner
+[       OK ] Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner (1 ms)
+[ RUN      ] Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill
+[       OK ] Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill (502 ms)
+[ RUN      ] Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects
+[       OK ] Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects (702 ms)
+[----------] 3 tests from Stage17ArchiveDeadline (1207 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 2 test suites ran. (1221 ms total)
+[  PASSED  ] 7 tests.

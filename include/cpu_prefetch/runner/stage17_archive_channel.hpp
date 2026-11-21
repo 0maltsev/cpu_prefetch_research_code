@@ -52,5 +52,11 @@ validate_formal_archive_channel(const FormalArchiveChannelContext& channel)
     const FormalArchiveChannelContext& channel, const ArtifactBinding& checkpoint,
     FormalArchiveExchangeLimits limits) -> protocol::Result<ArtifactBinding>;
 
+// Separate S180 wire/schema/role contract; the formal exchange remains closed.
+[[nodiscard]] auto exchange_s180_archive_checkpoint(const FormalArchiveChannelContext&,
+                                                    const ArtifactBinding&,
+                                                    FormalArchiveExchangeLimits)
+    -> protocol::Result<ArtifactBinding>;
+
 } // namespace cpu_prefetch::runner::stage17
 #endif

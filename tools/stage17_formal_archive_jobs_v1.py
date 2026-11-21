@@ -33,8 +33,13 @@ def build_capture_jobs(*, store, action, capture, document, profile, storage,
         raise custody.CustodyError("archive jobs differ from admitted program/profile")
     archive.uint(maximum_capture_bytes, "capture canonical byte bound", positive=True)
     archive.uint(deadline_ns, "cold job deadline", positive=True)
-    names = capture_names(action, capture["ordinal"])
-    references = document.get("artifacts")
+    if action == "S180":
+        import stage17_s180_checkpoint_v1 as s180
+        names = s180.capture_names(capture["execution_ordinal"])
+        references = s180.original_references(document)
+    else:
+        names = capture_names(action, capture["ordinal"])
+        references = document.get("artifacts")
     if (type(references) is not list or len(references) > len(names)
             or [r.get("file_name") for r in references] != list(names[:len(references)])):
         raise custody.CustodyError("native artifacts are not the original publication prefix")
@@ -55,7 +60,7 @@ def build_capture_jobs(*, store, action, capture, document, profile, storage,
         failure = None
         if actual != expected.binding():
             raw = archive.canonical(dict(schema_version="cpu-prefetch-stage17-source-discrepancy/1",
-                artifact_id=artifact_id, plan_sha256=store.family_id, capture_ordinal=capture["ordinal"],
+                artifact_id=artifact_id, plan_sha256=store.family_id, capture_ordinal=capture["execution_ordinal"] if action == "S180" else capture["ordinal"],
                 expected=asdict(expected), observed=asdict(actual),
                 scientific_validity="NOT_ASSESSED", execution_authority=False))
             if len(raw) > store.limits.max_checkpoint_bytes:
@@ -64,9 +69,10 @@ def build_capture_jobs(*, store, action, capture, document, profile, storage,
         source = custody.SourceBinding(artifact_id, expected, actual, failure)
         sources.append(source)
         name = expected.file_name
-        role = role_profile(action, name)
+        role = s180.role_profile(capture["execution_ordinal"], name) if action == "S180" else role_profile(action, name)
         phase = next((p for p in ("warmup", "measurement") if f"-{p}-" in name), None)
-        run_id = capture[phase]["run_id"] if phase else None
+        run_id = (capture["warmup_run_id" if phase == "warmup" else "run_id"] if action == "S180"
+                  else capture[phase]["run_id"]) if phase else None
         worker = next((w for w in ("producer", "consumer") if f"-{w}" in name), None)
         width = role.row_bytes(run_id)
         fallback = None
@@ -105,7 +111,11 @@ def build_capture_jobs(*, store, action, capture, document, profile, storage,
             maximum_archive_bytes=staging, maximum_observed_context_bytes=CONTEXT_BYTES,
             io_chunk_bytes=IO_CHUNK_BYTES, maximum_io_calls=io_calls, deadline_monotonic_ns=deadline_ns)
         jobs.append(runtime.ArchiveJob(artifact_id, header, role, encoder_limits, limits))
-    validate_checkpoint(document, action=action, plan_sha256=store.family_id,
-                        capture=capture, sources=tuple(sources))
+    if action == "S180":
+        s180.validate_checkpoint(document, plan_sha256=store.family_id, program_scope_sha256=store.scope_sha256,
+            session_id=capture["session_id"], ordinal=capture["execution_ordinal"], sources=tuple(sources))
+    else:
+        validate_checkpoint(document, action=action, plan_sha256=store.family_id,
+                            capture=capture, sources=tuple(sources))
     verify_quiescence()
     return tuple(sources), tuple(jobs)

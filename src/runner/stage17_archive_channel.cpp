@@ -144,24 +144,37 @@ auto validate_formal_archive_channel(const FormalArchiveChannelContext& channel)
   }
 }
 
-auto exchange_formal_archive_checkpoint(const FormalArchiveChannelContext& channel,
-                                        const ArtifactBinding& checkpoint,
-                                        FormalArchiveExchangeLimits limits)
+namespace {
+auto exchange_checkpoint(const FormalArchiveChannelContext& channel,
+                         const ArtifactBinding& checkpoint,
+                         FormalArchiveExchangeLimits limits, bool s180)
     -> protocol::Result<ArtifactBinding> {
   try {
+    const auto checkpoint_name =
+        s180 ? "s180-e" + std::to_string(limits.ordinal) + "-checkpoint.json"
+             : "formal-capture-" + std::to_string(limits.ordinal) +
+                   "-final-checkpoint.json";
+    const auto receipt_name =
+        s180 ? "s180-e" + std::to_string(limits.ordinal) + "-archive-custody.json"
+             : "formal-capture-" + std::to_string(limits.ordinal) +
+                   "-archive-custody.json";
+    require(!s180 || limits.ordinal < 180U,
+            "S180 checkpoint ordinal is outside the family");
     require(hash(channel.request_sha256) && hash(channel.program_scope_sha256) &&
                 hash(checkpoint.sha256) && checkpoint.size_bytes > 0U &&
-                checkpoint.role == "FORMAL_CAPTURE_FINAL_CHECKPOINT" &&
+                checkpoint.role == (s180 ? "S180_CAPTURE_CHECKPOINT"
+                                         : "FORMAL_CAPTURE_FINAL_CHECKPOINT") &&
                 checkpoint.schema_identity ==
-                    "cpu-prefetch-stage17-formal-capture-checkpoint/1" &&
+                    (s180 ? "cpu-prefetch-stage17-s180-capture-checkpoint/1"
+                          : "cpu-prefetch-stage17-formal-capture-checkpoint/1") &&
                 checkpoint.media_type == "application/json" &&
-                checkpoint.file_name == "formal-capture-" +
-                                            std::to_string(limits.ordinal) +
-                                            "-final-checkpoint.json",
+                checkpoint.file_name == checkpoint_name,
             "archive channel checkpoint binding is malformed");
     peer(channel);
     auto request = protocol::json::canonicalize(Value(Object{
-        {"schema_version", text("cpu-prefetch-stage17-archive-checkpoint-request/1")},
+        {"schema_version",
+         text(s180 ? "cpu-prefetch-stage17-s180-archive-checkpoint-request/1"
+                   : "cpu-prefetch-stage17-archive-checkpoint-request/1")},
         {"request_sha256", text(channel.request_sha256)},
         {"program_scope_sha256", text(channel.program_scope_sha256)},
         {"capture_ordinal", number(limits.ordinal)},
@@ -213,7 +226,8 @@ auto exchange_formal_archive_checkpoint(const FormalArchiveChannelContext& chann
                              "capture_ordinal", "checkpoint_sha256", "status",
                              "custody_receipt"});
     require(input::text(response, "schema_version") ==
-                    "cpu-prefetch-stage17-archive-checkpoint-ack/1" &&
+                    (s180 ? "cpu-prefetch-stage17-s180-archive-checkpoint-ack/1"
+                          : "cpu-prefetch-stage17-archive-checkpoint-ack/1") &&
                 input::text(response, "request_sha256") == channel.request_sha256 &&
                 input::text(response, "program_scope_sha256") ==
                     channel.program_scope_sha256 &&
@@ -223,23 +237,36 @@ auto exchange_formal_archive_checkpoint(const FormalArchiveChannelContext& chann
             "archive acknowledgement differs from this exact checkpoint");
     const auto& receipt = input::object(response, "custody_receipt");
     input::fields(receipt, {"file_name", "size_bytes", "sha256"});
-    require(input::text(receipt, "file_name") == "formal-capture-" +
-                                                     std::to_string(limits.ordinal) +
-                                                     "-archive-custody.json" &&
+    require(input::text(receipt, "file_name") == receipt_name &&
                 input::number(receipt, "size_bytes") > 0U &&
                 hash(input::text(receipt, "sha256")),
             "archive custody receipt binding is malformed");
     peer(channel);
     static_cast<void>(remaining_time(limits.deadline_monotonic_ns));
     return protocol::Result<ArtifactBinding>::success(
-        {"FORMAL_CAPTURE_ARCHIVE_CUSTODY",
-         "cpu-prefetch-stage17-formal-archive-custody/1", "application/json",
-         input::text(receipt, "file_name"), input::number(receipt, "size_bytes"),
-         input::text(receipt, "sha256")});
+        {s180 ? "S180_ARCHIVE_CUSTODY" : "FORMAL_CAPTURE_ARCHIVE_CUSTODY",
+         s180 ? "cpu-prefetch-stage17-s180-archive-custody/1"
+              : "cpu-prefetch-stage17-formal-archive-custody/1",
+         "application/json", input::text(receipt, "file_name"),
+         input::number(receipt, "size_bytes"), input::text(receipt, "sha256")});
   } catch (const std::exception& exception) {
     return protocol::Result<ArtifactBinding>::failure(
         {protocol::ErrorCategory::cross_field, "$/formal/archive_channel",
          "S17-ARCHIVE-CHECKPOINT-CHANNEL", exception.what()});
   }
 }
+} // namespace
+auto exchange_formal_archive_checkpoint(const FormalArchiveChannelContext& c,
+                                        const ArtifactBinding& b,
+                                        FormalArchiveExchangeLimits limits)
+    -> protocol::Result<ArtifactBinding> {
+  return exchange_checkpoint(c, b, limits, false);
+}
+auto exchange_s180_archive_checkpoint(const FormalArchiveChannelContext& c,
+                                      const ArtifactBinding& b,
+                                      FormalArchiveExchangeLimits limits)
+    -> protocol::Result<ArtifactBinding> {
+  return exchange_checkpoint(c, b, limits, true);
+}
+
 } // namespace cpu_prefetch::runner::stage17

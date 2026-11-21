@@ -49,6 +49,11 @@ struct NativePilotPublication final {
 };
 [[nodiscard]] auto native_pilot_layout(const NativePilotCapturePlan&)
     -> NativePilotCaptureLayout;
+// Size from explicit declared metadata only. No live view, memory mapping,
+// source-vector allocation, address-pattern verification or hardware claim.
+[[nodiscard]] auto prospective_native_pilot_layout(const NativePilotCapturePlan&,
+                                                   const MappedPilotDataPlan&)
+    -> NativePilotCaptureLayout;
 [[nodiscard]] auto run_native_pilot_capture(const NativePilotCapturePlan&,
                                             NativePilotPublication)
     -> NativePilotCaptureResult;

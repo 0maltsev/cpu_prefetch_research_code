@@ -109,14 +109,47 @@ void validate_sources(
   }
   shape.retained_vector_bytes = retained;
 }
-} // namespace
-auto validate_s180_session(const S180SessionInput& input)
+auto planned_source_limit(
+    const S180SessionInput& input,
+    const std::array<const calibration::MappedFormalScheduledPlan*, 18U>& groups,
+    S180SessionShape& shape) -> std::uint64_t {
+  std::array<bool, 18U> visited{};
+  std::set<std::string> schedules, namespaces, artifacts;
+  std::uint64_t retained = 0U, peak = 0U;
+  for (const auto group : shape.source_groups) {
+    if (visited[group])
+      continue;
+    visited[group] = true;
+    require(groups[group] != nullptr, "S180 declared source group is missing");
+    for (std::size_t phase = 0U; phase < 2U; ++phase) {
+      const auto& source = groups[group]->phases[phase];
+      require(schedules.insert(std::string(source.schedule_id.value())).second &&
+                  namespaces.insert(std::string(source.namespace_id.value())).second,
+              "S180 independent declared schedule identity is reused");
+      const auto& binding = input.source_artifacts[group][phase];
+      if (!binding.artifact_id.empty() || !binding.sha256.empty())
+        require(!binding.artifact_id.empty() &&
+                    protocol::Sha256::parse(binding.sha256, "$s180").has_value() &&
+                    artifacts.insert(binding.artifact_id).second,
+                "S180 declared source binding malformed or reused");
+      require(source.offered_count <= std::numeric_limits<std::uint64_t>::max() / 16U,
+              "S180 declared source count overflows");
+      auto transient = retained;
+      add(transient, source.offered_count * 16U);
+      peak = std::max(peak, transient);
+      add(retained, source.offered_count * 8U);
+    }
+  }
+  shape.retained_vector_bytes = retained;
+  return peak;
+}
+auto validate_session(const S180SessionInput& input, bool physical_sources)
     -> protocol::Result<S180SessionShape> {
   try {
     const auto canonical = protocol::json::canonicalize(Value(input.blueprint));
     require(canonical.has_value() && hash(canonical.value()) == kS180BlueprintSha256,
             "S180 requires the exact approved frozen blueprint");
-    require(input.sources.deadline_monotonic_ns > 0U,
+    require(!physical_sources || input.sources.deadline_monotonic_ns > 0U,
             "S180 source deadline is missing");
     require(input.contexts.size() == 6U && input.captures.size() == 180U,
             "S180 requires six retained contexts and 180 captures");
@@ -261,6 +294,8 @@ auto validate_s180_session(const S180SessionInput& input)
                                   ? 1U
                                   : number(object(row, "distance"), "d2_cache_lines");
         require(d->cache_lines == expected &&
+                    (service.package != protocol::QueuePackage::r1 ||
+                     d->calibration_evidence_id.empty()) &&
                     (service.package != protocol::QueuePackage::r2 ||
                      !d->calibration_evidence_id.empty()),
                 "S180 accepted prefetch distance differs");
@@ -327,10 +362,13 @@ auto validate_s180_session(const S180SessionInput& input)
       const auto shared_bytes = layout.region_bytes[7U] + layout.region_bytes[8U];
       max_private = std::max(max_private, observed - shared_bytes);
     }
-    validate_sources(input, groups, out);
+    const auto vectors = physical_sources ? input.sources.maximum_vector_bytes
+                                          : planned_source_limit(input, groups, out);
+    if (physical_sources)
+      validate_sources(input, groups, out);
     std::uint64_t memory = out.shared_mapping_bytes;
     add(memory, max_private);
-    add(memory, input.sources.maximum_vector_bytes);
+    add(memory, vectors);
     add(memory, max_payload);
     add(memory, input.final_metadata_bytes);
     require(memory <= input.memory_bytes && total_output <= input.max_output_bytes &&
@@ -342,6 +380,15 @@ auto validate_s180_session(const S180SessionInput& input)
         {protocol::ErrorCategory::cross_field, "$/s180/session", "S17-S180-SESSION",
          e.what()});
   }
+}
+} // namespace
+auto validate_s180_session(const S180SessionInput& input)
+    -> protocol::Result<S180SessionShape> {
+  return validate_session(input, true);
+}
+auto validate_s180_prospective_declaration(const S180SessionInput& input)
+    -> protocol::Result<S180SessionShape> {
+  return validate_session(input, false);
 }
 auto run_s180_session(const S180SessionInput& input,
                       const S180SessionAuthority& authority, S180SessionOperations& ops)

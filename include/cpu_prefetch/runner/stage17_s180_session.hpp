@@ -42,6 +42,10 @@ struct S180SessionShape final {
 // It does not authenticate an input or qualify any requested platform value.
 [[nodiscard]] auto validate_s180_session(const S180SessionInput&)
     -> protocol::Result<S180SessionShape>;
+// The same declaration/budget checks without a physical source context. Used
+// only for prospective sizing; no source bytes, descriptors or authority checked.
+[[nodiscard]] auto validate_s180_prospective_declaration(const S180SessionInput&)
+    -> protocol::Result<S180SessionShape>;
 struct S180SessionAuthority final {
   std::string session_id;
   std::string plan_sha256;

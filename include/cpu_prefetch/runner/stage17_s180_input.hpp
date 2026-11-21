@@ -16,6 +16,10 @@ private:
                                        const protocol::json::Value::Object&,
                                        std::span<const int>)
       -> protocol::Result<ParsedS180Input>;
+  friend auto describe_s180_session_layouts(protocol::json::Value::Object)
+      -> protocol::Result<protocol::json::Value::Object>;
+  static auto parse(protocol::json::Value::Object, const protocol::json::Value::Object*,
+                    std::span<const int>) -> protocol::Result<ParsedS180Input>;
   std::shared_ptr<const protocol::json::Value::Object> document_;
   std::vector<platform::HardwarePrefetchMsrValue> prestate_;
   std::vector<FormalScheduleSourceBinding> bindings_;
@@ -27,5 +31,9 @@ parse_s180_session_input(protocol::json::Value::Object plan,
                          const protocol::json::Value::Object& source_context,
                          std::span<const int> reserved_descriptors)
     -> protocol::Result<ParsedS180Input>;
+// Separate non-executing sizing document, without expected layouts or source
+// descriptors. Returns declared arithmetic only, never an executable ticket.
+[[nodiscard]] auto describe_s180_session_layouts(protocol::json::Value::Object)
+    -> protocol::Result<protocol::json::Value::Object>;
 } // namespace cpu_prefetch::runner::stage17
 #endif

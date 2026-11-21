@@ -1,0 +1,501 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 213 tests from 23 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from CalibrationExactArithmetic
+[ RUN      ] CalibrationExactArithmetic.ReducesComparesAndFailsOnOverflow
+[       OK ] CalibrationExactArithmetic.ReducesComparesAndFailsOnOverflow (14 ms)
+[----------] 1 test from CalibrationExactArithmetic (14 ms total)
+
+[----------] 3 tests from CalibrationServiceRate
+[ RUN      ] CalibrationServiceRate.ResolvesExactSixtyCellMinimumAndCandidateLoads
+[       OK ] CalibrationServiceRate.ResolvesExactSixtyCellMinimumAndCandidateLoads (200 ms)
+[ RUN      ] CalibrationServiceRate.InvalidRunIsRetainedButCannotBeToppedUp
+[       OK ] CalibrationServiceRate.InvalidRunIsRetainedButCannotBeToppedUp (206 ms)
+[ RUN      ] CalibrationServiceRate.RejectsConfirmatoryOrContextMismatchedEvidence
+[       OK ] CalibrationServiceRate.RejectsConfirmatoryOrContextMismatchedEvidence (101 ms)
+[----------] 3 tests from CalibrationServiceRate (509 ms total)
+
+[----------] 3 tests from CalibrationRingTrace
+[ RUN      ] CalibrationRingTrace.BracketsAcquireAndIssuesOnlyForAdvancingOperations
+[       OK ] CalibrationRingTrace.BracketsAcquireAndIssuesOnlyForAdvancingOperations (10 ms)
+[ RUN      ] CalibrationRingTrace.ExplicitCapacityFailsWithoutDynamicGrowth
+[       OK ] CalibrationRingTrace.ExplicitCapacityFailsWithoutDynamicGrowth (0 ms)
+[ RUN      ] CalibrationRingTrace.RejectsMissingPhysicalCapacityWithoutGrowingCopiedTrace
+[       OK ] CalibrationRingTrace.RejectsMissingPhysicalCapacityWithoutGrowingCopiedTrace (0 ms)
+[----------] 3 tests from CalibrationRingTrace (10 ms total)
+
+[----------] 6 tests from CalibrationRingDistance
+[ RUN      ] CalibrationRingDistance.UsesConservativeMaxMinAndCommonDistance
+[       OK ] CalibrationRingDistance.UsesConservativeMaxMinAndCommonDistance (16 ms)
+[ RUN      ] CalibrationRingDistance.AppliesQuarterCapAndDetectsCollapse
+[       OK ] CalibrationRingDistance.AppliesQuarterCapAndDetectsCollapse (27 ms)
+[ RUN      ] CalibrationRingDistance.WindowedMethodRequiresItsOwnIdentity
+[       OK ] CalibrationRingDistance.WindowedMethodRequiresItsOwnIdentity (15 ms)
+[ RUN      ] CalibrationRingDistance.WindowedMethodPreservesValidityAndNoTopUpRules
+[       OK ] CalibrationRingDistance.WindowedMethodPreservesValidityAndNoTopUpRules (22 ms)
+[ RUN      ] CalibrationRingDistance.InvalidCellAndForbiddenOutcomeFailClosed
+[       OK ] CalibrationRingDistance.InvalidCellAndForbiddenOutcomeFailClosed (32 ms)
+[ RUN      ] CalibrationRingDistance.InverseEcdfUsesExactCeilingRank
+[       OK ] CalibrationRingDistance.InverseEcdfUsesExactCeilingRank (0 ms)
+[----------] 6 tests from CalibrationRingDistance (115 ms total)
+
+[----------] 18 tests from DiscoveryCaptureWindow
+[ RUN      ] DiscoveryCaptureWindow.StopsAtDeadlineWithoutRequestingAnotherAttempt
+[       OK ] DiscoveryCaptureWindow.StopsAtDeadlineWithoutRequestingAnotherAttempt (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.AlreadyExpiredWindowMakesNoAttempt
+[       OK ] DiscoveryCaptureWindow.AlreadyExpiredWindowMakesNoAttempt (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.TraceCapacityStopsBeforeAnOverflowingAttempt
+[       OK ] DiscoveryCaptureWindow.TraceCapacityStopsBeforeAnOverflowingAttempt (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.DeadlineWinsWhenTraceIsExactlyFullAtHorizon
+[       OK ] DiscoveryCaptureWindow.DeadlineWinsWhenTraceIsExactlyFullAtHorizon (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.InvalidAndOverflowingPlansFailBeforeClockOrQueueWork
+[       OK ] DiscoveryCaptureWindow.InvalidAndOverflowingPlansFailBeforeClockOrQueueWork (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.ClockFailureRetainsPartialCountsAndTheActualStatus
+[       OK ] DiscoveryCaptureWindow.ClockFailureRetainsPartialCountsAndTheActualStatus (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.BackwardOrBeforeOriginClockStopsWithoutAnotherAttempt
+[       OK ] DiscoveryCaptureWindow.BackwardOrBeforeOriginClockStopsWithoutAnotherAttempt (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.CancellationDoesNotFabricateClockEvidence
+[       OK ] DiscoveryCaptureWindow.CancellationDoesNotFabricateClockEvidence (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.CaptureFailureAndWrongWorkerOutcomeStopPeers
+[       OK ] DiscoveryCaptureWindow.CaptureFailureAndWrongWorkerOutcomeStopPeers (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.ClockFailureRetainsTheAlreadyCompletedQueueAdvance
+[       OK ] DiscoveryCaptureWindow.ClockFailureRetainsTheAlreadyCompletedQueueAdvance (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.TraceFailureRetainsTheAlreadyCompletedQueueAdvance
+[       OK ] DiscoveryCaptureWindow.TraceFailureRetainsTheAlreadyCompletedQueueAdvance (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.ClockFailureRetainsFullAndEmptyWithoutInventingAnAdvance
+[       OK ] DiscoveryCaptureWindow.ClockFailureRetainsFullAndEmptyWithoutInventingAnAdvance (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.RealRingTraceRetainsFullAttemptsWithoutGrowingStorage
+[       OK ] DiscoveryCaptureWindow.RealRingTraceRetainsFullAttemptsWithoutGrowingStorage (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.PreparationTouchesOnlyOwnerBuffersAndCannotEraseData
+[       OK ] DiscoveryCaptureWindow.PreparationTouchesOnlyOwnerBuffersAndCannotEraseData (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.UnpreparedOrMismatchedTraceCannotStart
+[       OK ] DiscoveryCaptureWindow.UnpreparedOrMismatchedTraceCannotStart (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.ClaimedAttemptsWithoutMatchingTraceFailClosed
+[       OK ] DiscoveryCaptureWindow.ClaimedAttemptsWithoutMatchingTraceFailClosed (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.NonpositiveObservationsFailWithoutDeletingTheirEvidence
+[       OK ] DiscoveryCaptureWindow.NonpositiveObservationsFailWithoutDeletingTheirEvidence (0 ms)
+[ RUN      ] DiscoveryCaptureWindow.ConcurrentRealQueueWorkersStopAndReconcileAfterDrain
+[       OK ] DiscoveryCaptureWindow.ConcurrentRealQueueWorkersStopAndReconcileAfterDrain (2 ms)
+[----------] 18 tests from DiscoveryCaptureWindow (2 ms total)
+
+[----------] 7 tests from DiscoveryDrain
+[ RUN      ] DiscoveryDrain.ReconcilesAcceptedEventsBeforeResettingTheSameRing
+[       OK ] DiscoveryDrain.ReconcilesAcceptedEventsBeforeResettingTheSameRing (0 ms)
+[ RUN      ] DiscoveryDrain.ConsumerFailureRetainsTheDequeueAndPreventsReset
+[       OK ] DiscoveryDrain.ConsumerFailureRetainsTheDequeueAndPreventsReset (0 ms)
+[ RUN      ] DiscoveryDrain.CountMismatchCannotResetEvenWhenTheQueueBecameEmpty
+[       OK ] DiscoveryDrain.CountMismatchCannotResetEvenWhenTheQueueBecameEmpty (0 ms)
+[ RUN      ] DiscoveryDrain.ResourceAndClockStopsRetainPartialDrainWithoutReset
+[       OK ] DiscoveryDrain.ResourceAndClockStopsRetainPartialDrainWithoutReset (0 ms)
+[ RUN      ] DiscoveryDrain.InvalidBudgetsMakeNoQueueOrClockAttempt
+[       OK ] DiscoveryDrain.InvalidBudgetsMakeNoQueueOrClockAttempt (0 ms)
+[ RUN      ] DiscoveryDrain.ExhaustedBudgetDoesNotInferAnObservedEmptyFromCounts
+[       OK ] DiscoveryDrain.ExhaustedBudgetDoesNotInferAnObservedEmptyFromCounts (0 ms)
+[ RUN      ] DiscoveryDrain.FinalDrainPreservesCursorsWhenResetWasNotRequested
+[       OK ] DiscoveryDrain.FinalDrainPreservesCursorsWhenResetWasNotRequested (0 ms)
+[----------] 7 tests from DiscoveryDrain (0 ms total)
+
+[----------] 20 tests from DiscoverySession
+[ RUN      ] DiscoverySession.PersistentWorkersWarmupDrainResetMeasureAndReconcile
+[       OK ] DiscoverySession.PersistentWorkersWarmupDrainResetMeasureAndReconcile (5 ms)
+[ RUN      ] DiscoverySession.CallerStorageRetainsResultsAndRejectsReuseWithoutMutation
+[       OK ] DiscoverySession.CallerStorageRetainsResultsAndRejectsReuseWithoutMutation (3 ms)
+[ RUN      ] DiscoverySession.InvalidPlanConsumesItsStorageWithoutStartingWorkers
+[       OK ] DiscoverySession.InvalidPlanConsumesItsStorageWithoutStartingWorkers (0 ms)
+[ RUN      ] DiscoverySession.MappedWorkersPersistAcrossBothPhases
+[       OK ] DiscoverySession.MappedWorkersPersistAcrossBothPhases (6 ms)
+[ RUN      ] DiscoverySession.StackPreparationFailureCancelsBeforeBackendAndPhaseRelease
+[       OK ] DiscoverySession.StackPreparationFailureCancelsBeforeBackendAndPhaseRelease (4 ms)
+[ RUN      ] DiscoverySession.SecondThreadLaunchFailureCancelsAndJoinsFirstWorker
+[       OK ] DiscoverySession.SecondThreadLaunchFailureCancelsAndJoinsFirstWorker (1 ms)
+[ RUN      ] DiscoverySession.RejectedOrThrowingPreparationCannotStartEitherPhase
+[       OK ] DiscoverySession.RejectedOrThrowingPreparationCannotStartEitherPhase (1 ms)
+[ RUN      ] DiscoverySession.OriginClockFailureCancelsBothPreparedWorkers
+[       OK ] DiscoverySession.OriginClockFailureCancelsBothPreparedWorkers (0 ms)
+[ RUN      ] DiscoverySession.FailedWarmupValidationOrPrivateResetCannotStartMeasurement
+[       OK ] DiscoverySession.FailedWarmupValidationOrPrivateResetCannotStartMeasurement (4 ms)
+[ RUN      ] DiscoverySession.MeasurementClockFailureRetainsWarmupAndFailureEvidence
+[       OK ] DiscoverySession.MeasurementClockFailureRetainsWarmupAndFailureEvidence (2 ms)
+[ RUN      ] DiscoverySession.ExhaustedMeasurementCapacityIsRetainedWithoutAnExtension
+[       OK ] DiscoverySession.ExhaustedMeasurementCapacityIsRetainedWithoutAnExtension (2 ms)
+[ RUN      ] DiscoverySession.InvalidPlanDoesNotPrepareOrStartWorkers
+[       OK ] DiscoverySession.InvalidPlanDoesNotPrepareOrStartWorkers (0 ms)
+[ RUN      ] DiscoverySession.ProducerResetFailureCancelsTheWaitingConsumer
+[       OK ] DiscoverySession.ProducerResetFailureCancelsTheWaitingConsumer (3 ms)
+[ RUN      ] DiscoverySession.WarmupDrainClockFailurePreventsResetAndMeasurement
+[       OK ] DiscoverySession.WarmupDrainClockFailurePreventsResetAndMeasurement (3 ms)
+[ RUN      ] DiscoverySession.OverflowRetainsTheObservedClockWithoutReleasingWorkers
+[       OK ] DiscoverySession.OverflowRetainsTheObservedClockWithoutReleasingWorkers (0 ms)
+[ RUN      ] DiscoverySession.PostCaptureExceptionJoinsWorkersAndRetainsTheirResults
+[       OK ] DiscoverySession.PostCaptureExceptionJoinsWorkersAndRetainsTheirResults (4 ms)
+[ RUN      ] DiscoverySession.ControllerObservesBothFixedPhasesAndRetainsActualHookStatus
+[       OK ] DiscoverySession.ControllerObservesBothFixedPhasesAndRetainsActualHookStatus (4 ms)
+[ RUN      ] DiscoverySession.EveryRejectedOrThrowingObservationBlocksSuccessAndRetainsDrain
+[       OK ] DiscoverySession.EveryRejectedOrThrowingObservationBlocksSuccessAndRetainsDrain (33 ms)
+[ RUN      ] DiscoverySession.EarlyControllerRejectionStopsCaptureWithoutSkippingBoundedDrain
+[       OK ] DiscoverySession.EarlyControllerRejectionStopsCaptureWithoutSkippingBoundedDrain (3 ms)
+[ RUN      ] DiscoverySession.PreparationAndInvalidPlanFailuresDoNotInventObservations
+[       OK ] DiscoverySession.PreparationAndInvalidPlanFailuresDoNotInventObservations (0 ms)
+[----------] 20 tests from DiscoverySession (86 ms total)
+
+[----------] 13 tests from ServiceIntervalCount
+[ RUN      ] ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow
+[       OK ] ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow (0 ms)
+[ RUN      ] ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows
+[       OK ] ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows (0 ms)
+[ RUN      ] ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator
+[       OK ] ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator (0 ms)
+[ RUN      ] ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration
+[       OK ] ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration (0 ms)
+[ RUN      ] ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount
+[       OK ] ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount (0 ms)
+[ RUN      ] ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption
+[       OK ] ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption (0 ms)
+[ RUN      ] ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout
+[       OK ] ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout (0 ms)
+[ RUN      ] ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal
+[       OK ] ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal (0 ms)
+[ RUN      ] ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale
+[       OK ] ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale (0 ms)
+[ RUN      ] ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow
+[       OK ] ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow (0 ms)
+[ RUN      ] ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream
+[       OK ] ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream (0 ms)
+[ RUN      ] ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows
+[       OK ] ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows (0 ms)
+[ RUN      ] ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal
+[       OK ] ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal (0 ms)
+[----------] 13 tests from ServiceIntervalCount (0 ms total)
+
+[----------] 10 tests from FormalRingSession
+[ RUN      ] FormalRingSession.PersistentRealCaptureJoinsDrainsAndResetsWithoutChangingArena
+[       OK ] FormalRingSession.PersistentRealCaptureJoinsDrainsAndResetsWithoutChangingArena (2 ms)
+[ RUN      ] FormalRingSession.ConsumerContinuouslyCapturesThroughDrainAfterProducerDeadline
+[       OK ] FormalRingSession.ConsumerContinuouslyCapturesThroughDrainAfterProducerDeadline (1 ms)
+[ RUN      ] FormalRingSession.RetainsFullEmptyAndExactPrimaryDemandBoundaries
+[       OK ] FormalRingSession.RetainsFullEmptyAndExactPrimaryDemandBoundaries (0 ms)
+[ RUN      ] FormalRingSession.PreAcquireFailureRetainsCurrentWithoutInventingDemand
+[       OK ] FormalRingSession.PreAcquireFailureRetainsCurrentWithoutInventingDemand (3 ms)
+[ RUN      ] FormalRingSession.FailedProducerDemandClocksRetainActualOperationAndStop
+[       OK ] FormalRingSession.FailedProducerDemandClocksRetainActualOperationAndStop (1 ms)
+[ RUN      ] FormalRingSession.ConsumerClockFailureStillRunsImmutableActionAndRetainsDemand
+[       OK ] FormalRingSession.ConsumerClockFailureStillRunsImmutableActionAndRetainsDemand (4 ms)
+[ RUN      ] FormalRingSession.RawCapacityFailureKeepsCommittedPrimaryAndFailedCurrent
+[       OK ] FormalRingSession.RawCapacityFailureKeepsCommittedPrimaryAndFailedCurrent (0 ms)
+[ RUN      ] FormalRingSession.PrimaryCapacityFailureKeepsRawAndActualCurrent
+[       OK ] FormalRingSession.PrimaryCapacityFailureKeepsRawAndActualCurrent (0 ms)
+[ RUN      ] FormalRingSession.MeasurementPreparationFailurePreservesCompletedWarmup
+[       OK ] FormalRingSession.MeasurementPreparationFailurePreservesCompletedWarmup (1 ms)
+[ RUN      ] FormalRingSession.InvalidPreparedIdentityAndBoundsCannotStartCapture
+[       OK ] FormalRingSession.InvalidPreparedIdentityAndBoundsCannotStartCapture (0 ms)
+[----------] 10 tests from FormalRingSession (16 ms total)
+
+[----------] 10 tests from FormalServiceSession
+[ RUN      ] FormalServiceSession.AllFivePackagesUsePersistentOwnersJoinAndD211Count
+[       OK ] FormalServiceSession.AllFivePackagesUsePersistentOwnersJoinAndD211Count (6 ms)
+[ RUN      ] FormalServiceSession.ExistingPrefetchPrimitivesAndPrimaryRowsAreUnchanged
+[       OK ] FormalServiceSession.ExistingPrefetchPrimitivesAndPrimaryRowsAreUnchanged (4 ms)
+[ RUN      ] FormalServiceSession.ColdIntervalUsesActionCompletionAndKeepsZeroThroughputValid
+[       OK ] FormalServiceSession.ColdIntervalUsesActionCompletionAndKeepsZeroThroughputValid (2 ms)
+[ RUN      ] FormalServiceSession.ProducerClockFailureRetainsExactCurrentWithoutGuessingOutcome
+[       OK ] FormalServiceSession.ProducerClockFailureRetainsExactCurrentWithoutGuessingOutcome (2 ms)
+[ RUN      ] FormalServiceSession.ExistingConsumerClockFailureBeforeChecksumIsPreserved
+[       OK ] FormalServiceSession.ExistingConsumerClockFailureBeforeChecksumIsPreserved (0 ms)
+[ RUN      ] FormalServiceSession.AppendFailurePreservesIndependentCurrentAndPrimaryPrefix
+[       OK ] FormalServiceSession.AppendFailurePreservesIndependentCurrentAndPrimaryPrefix (0 ms)
+[ RUN      ] FormalServiceSession.FailedWarmupResetPreventsMeasurementAndKeepsWarmupBytes
+[       OK ] FormalServiceSession.FailedWarmupResetPreventsMeasurementAndKeepsWarmupBytes (1 ms)
+[ RUN      ] FormalServiceSession.FailedObservationPreventsColdIntervalClaim
+[       OK ] FormalServiceSession.FailedObservationPreventsColdIntervalClaim (1 ms)
+[ RUN      ] FormalServiceSession.FailedJoinAndMalformedOriginNeverProduceIntervalCount
+[       OK ] FormalServiceSession.FailedJoinAndMalformedOriginNeverProduceIntervalCount (1 ms)
+[ RUN      ] FormalServiceSession.RejectsDirtyPhaseStateAndBoundsBeforeCapture
+[       OK ] FormalServiceSession.RejectsDirtyPhaseStateAndBoundsBeforeCapture (0 ms)
+[----------] 10 tests from FormalServiceSession (23 ms total)
+
+[----------] 7 tests from ScheduledSession
+[ RUN      ] ScheduledSession.AllFivePackagesPreserveOneAttemptLateDrainAndNoD211Filter
+[       OK ] ScheduledSession.AllFivePackagesPreserveOneAttemptLateDrainAndNoD211Filter (1 ms)
+[ RUN      ] ScheduledSession.EmptyMeasurementRejectedBeforePreparingOrStartingWorkers
+[       OK ] ScheduledSession.EmptyMeasurementRejectedBeforePreparingOrStartingWorkers (0 ms)
+[ RUN      ] ScheduledSession.SparseOrEmptyWarmupCannotWaiveMandatoryDuringObservation
+[       OK ] ScheduledSession.SparseOrEmptyWarmupCannotWaiveMandatoryDuringObservation (0 ms)
+[ RUN      ] ScheduledSession.ColdMappedSourceMismatchStopsBeforeAnyPhaseRelease
+[       OK ] ScheduledSession.ColdMappedSourceMismatchStopsBeforeAnyPhaseRelease (0 ms)
+[ RUN      ] ScheduledSession.PlanIdentityBootstrapAndResourceBoundsAreExplicit
+[       OK ] ScheduledSession.PlanIdentityBootstrapAndResourceBoundsAreExplicit (0 ms)
+[ RUN      ] ScheduledSession.ResetFailureAndStorageReuseNeverStartAnotherMeasurement
+[       OK ] ScheduledSession.ResetFailureAndStorageReuseNeverStartAnotherMeasurement (0 ms)
+[ RUN      ] ScheduledSession.CheckedSourceTranslationPreservesHalfOpenDeadlineTies
+[       OK ] ScheduledSession.CheckedSourceTranslationPreservesHalfOpenDeadlineTies (0 ms)
+[----------] 7 tests from ScheduledSession (2 ms total)
+
+[----------] 15 tests from RingDemandWindow
+[ RUN      ] RingDemandWindow.ExactWireBytesAndFailedClockRoundTrip
+[       OK ] RingDemandWindow.ExactWireBytesAndFailedClockRoundTrip (0 ms)
+[ RUN      ] RingDemandWindow.HalfOpenStartCrossingBracketAndUninterruptedAdvancePairs
+[       OK ] RingDemandWindow.HalfOpenStartCrossingBracketAndUninterruptedAdvancePairs (0 ms)
+[ RUN      ] RingDemandWindow.ConsumerEmptyDoesNotBreakPairsAndExactEndIsExcluded
+[       OK ] RingDemandWindow.ConsumerEmptyDoesNotBreakPairsAndExactEndIsExcluded (0 ms)
+[ RUN      ] RingDemandWindow.WarmupValidatesRawButDoesNotInferOrRequirePositiveSeries
+[       OK ] RingDemandWindow.WarmupValidatesRawButDoesNotInferOrRequirePositiveSeries (0 ms)
+[ RUN      ] RingDemandWindow.ExplicitPhaseAndMinimumContracts
+[       OK ] RingDemandWindow.ExplicitPhaseAndMinimumContracts (0 ms)
+[ RUN      ] RingDemandWindow.EligibleZeroIsNotFilteredAndOneAdvanceHasNoIssue
+[       OK ] RingDemandWindow.EligibleZeroIsNotFilteredAndOneAdvanceHasNoIssue (0 ms)
+[ RUN      ] RingDemandWindow.InvalidExcludedDrainIsNeverDiscarded
+[       OK ] RingDemandWindow.InvalidExcludedDrainIsNeverDiscarded (0 ms)
+[ RUN      ] RingDemandWindow.RejectsPreOriginReversedAndCrossRowClocks
+[       OK ] RingDemandWindow.RejectsPreOriginReversedAndCrossRowClocks (0 ms)
+[ RUN      ] RingDemandWindow.OrdinalsAndRoleAreCheckedAcrossAllAttempts
+[       OK ] RingDemandWindow.OrdinalsAndRoleAreCheckedAcrossAllAttempts (0 ms)
+[ RUN      ] RingDemandWindow.PhysicalShapePrefixPaddingAndIdentityAreMandatory
+[       OK ] RingDemandWindow.PhysicalShapePrefixPaddingAndIdentityAreMandatory (0 ms)
+[ RUN      ] RingDemandWindow.ExplicitClockDomainOriginAndCheckedEndpoints
+[       OK ] RingDemandWindow.ExplicitClockDomainOriginAndCheckedEndpoints (0 ms)
+[ RUN      ] RingDemandWindow.OutputBudgetsDoNotPartiallyPublishOrOverwriteEvidence
+[       OK ] RingDemandWindow.OutputBudgetsDoNotPartiallyPublishOrOverwriteEvidence (0 ms)
+[ RUN      ] RingDemandWindow.PreparationCapacitySealingAndIncompleteEvidence
+[       OK ] RingDemandWindow.PreparationCapacitySealingAndIncompleteEvidence (0 ms)
+[ RUN      ] RingDemandWindow.OutputCannotAliasBorrowedFormatOrClockMetadata
+[       OK ] RingDemandWindow.OutputCannotAliasBorrowedFormatOrClockMetadata (0 ms)
+[ RUN      ] RingDemandWindow.SetupRejectsOverflowMisalignmentAndWrongSize
+[       OK ] RingDemandWindow.SetupRejectsOverflowMisalignmentAndWrongSize (0 ms)
+[----------] 15 tests from RingDemandWindow (0 ms total)
+
+[----------] 4 tests from DiscoveryConsumerCapture
+[ RUN      ] DiscoveryConsumerCapture.RetainsTheActualImmutableRecordForChecksumAction
+[       OK ] DiscoveryConsumerCapture.RetainsTheActualImmutableRecordForChecksumAction (0 ms)
+[ RUN      ] DiscoveryConsumerCapture.EmptyPollDoesNotInventAnEvent
+[       OK ] DiscoveryConsumerCapture.EmptyPollDoesNotInventAnEvent (0 ms)
+[ RUN      ] DiscoveryConsumerCapture.FailedClockRetainsTheEventAlreadyRemovedFromTheRing
+[       OK ] DiscoveryConsumerCapture.FailedClockRetainsTheEventAlreadyRemovedFromTheRing (0 ms)
+[ RUN      ] DiscoveryConsumerCapture.ExhaustedTraceRetainsTheSecondActualEvent
+[       OK ] DiscoveryConsumerCapture.ExhaustedTraceRetainsTheSecondActualEvent (0 ms)
+[----------] 4 tests from DiscoveryConsumerCapture (0 ms total)
+
+[----------] 7 tests from CallerOwnedDemandTrace
+[ RUN      ] CallerOwnedDemandTrace.MatchesExistingDemandAndAdvancingIssueDefinitions
+[       OK ] CallerOwnedDemandTrace.MatchesExistingDemandAndAdvancingIssueDefinitions (0 ms)
+[ RUN      ] CallerOwnedDemandTrace.RejectsBadGeometryBeforeTouchingSampleStorage
+[       OK ] CallerOwnedDemandTrace.RejectsBadGeometryBeforeTouchingSampleStorage (0 ms)
+[ RUN      ] CallerOwnedDemandTrace.PreparationAndFailuresPreserveIndependentPartialState
+[       OK ] CallerOwnedDemandTrace.PreparationAndFailuresPreserveIndependentPartialState (0 ms)
+[ RUN      ] CallerOwnedDemandTrace.ExhaustionDoesNotWriteOrGrowBuffers
+[       OK ] CallerOwnedDemandTrace.ExhaustionDoesNotWriteOrGrowBuffers (0 ms)
+[ RUN      ] CallerOwnedDemandTrace.RealCapturePreservesEventActionAndFailedTraceDequeue
+[       OK ] CallerOwnedDemandTrace.RealCapturePreservesEventActionAndFailedTraceDequeue (0 ms)
+[ RUN      ] CallerOwnedDemandTrace.PreparedWindowAndValidatorUseTheSameCallerBuffers
+[       OK ] CallerOwnedDemandTrace.PreparedWindowAndValidatorUseTheSameCallerBuffers (0 ms)
+[ RUN      ] CallerOwnedDemandTrace.ConcurrentOwnerPreparationAndRecordingRemainIndependent
+[       OK ] CallerOwnedDemandTrace.ConcurrentOwnerPreparationAndRecordingRemainIndependent (0 ms)
+[----------] 7 tests from CallerOwnedDemandTrace (0 ms total)
+
+[----------] 8 tests from DiscoveryEventCapture
+[ RUN      ] DiscoveryEventCapture.RetainsExactPrimaryBoundariesAndSameAcquireDemand
+[       OK ] DiscoveryEventCapture.RetainsExactPrimaryBoundariesAndSameAcquireDemand (0 ms)
+[ RUN      ] DiscoveryEventCapture.FullAndEmptyKeepActualOutcomesWithoutInventedBoundaries
+[       OK ] DiscoveryEventCapture.FullAndEmptyKeepActualOutcomesWithoutInventedBoundaries (0 ms)
+[ RUN      ] DiscoveryEventCapture.EveryProducerClockFailureRetainsItsActualOperationState
+[       OK ] DiscoveryEventCapture.EveryProducerClockFailureRetainsItsActualOperationState (0 ms)
+[ RUN      ] DiscoveryEventCapture.EveryConsumerClockFailureStillActsOnAnActualDequeuedRecord
+[       OK ] DiscoveryEventCapture.EveryConsumerClockFailureStillActsOnAnActualDequeuedRecord (0 ms)
+[ RUN      ] DiscoveryEventCapture.PreOperationFailureDoesNotCountAnAttemptOrReuseOldClockFacts
+[       OK ] DiscoveryEventCapture.PreOperationFailureDoesNotCountAnAttemptOrReuseOldClockFacts (0 ms)
+[ RUN      ] DiscoveryEventCapture.WorkerRetainsCountsAndOuterClockFailureAfterQueueAdvance
+[       OK ] DiscoveryEventCapture.WorkerRetainsCountsAndOuterClockFailureAfterQueueAdvance (0 ms)
+[ RUN      ] DiscoveryEventCapture.TraceExhaustionRetainsPrimaryRowsAndOrdinaryAction
+[       OK ] DiscoveryEventCapture.TraceExhaustionRetainsPrimaryRowsAndOrdinaryAction (0 ms)
+[ RUN      ] DiscoveryEventCapture.InvalidDequeuedPointerIsAnExplicitRecordFailure
+[       OK ] DiscoveryEventCapture.InvalidDequeuedPointerIsAnExplicitRecordFailure (0 ms)
+[----------] 8 tests from DiscoveryEventCapture (0 ms total)
+
+[----------] 14 tests from DiscoveryRingBackend
+[ RUN      ] DiscoveryRingBackend.PersistentRealArenaStreamsDrainAndExactSequenceJoin
+[       OK ] DiscoveryRingBackend.PersistentRealArenaStreamsDrainAndExactSequenceJoin (18 ms)
+[ RUN      ] DiscoveryRingBackend.PreparationAndPrivateResetRejectionDoNotReleaseMeasurement
+[       OK ] DiscoveryRingBackend.PreparationAndPrivateResetRejectionDoNotReleaseMeasurement (21 ms)
+[ RUN      ] DiscoveryRingBackend.LateObservationFailureRetainsExactRawButBlocksPhaseValidity
+[       OK ] DiscoveryRingBackend.LateObservationFailureRetainsExactRawButBlocksPhaseValidity (26 ms)
+[ RUN      ] DiscoveryRingBackend.FullAttemptsAndRepeatedIndicesJoinOnlyByActualOrdinals
+[       OK ] DiscoveryRingBackend.FullAttemptsAndRepeatedIndicesJoinOnlyByActualOrdinals (0 ms)
+[ RUN      ] DiscoveryRingBackend.ObservedDrainRetainsPrimaryBoundariesBeforeReset
+[       OK ] DiscoveryRingBackend.ObservedDrainRetainsPrimaryBoundariesBeforeReset (0 ms)
+[ RUN      ] DiscoveryRingBackend.FailedFinalChecksumLeavesQueueCursorsWithoutReset
+[       OK ] DiscoveryRingBackend.FailedFinalChecksumLeavesQueueCursorsWithoutReset (0 ms)
+[ RUN      ] DiscoveryRingBackend.PrefixJoinAllowsOnlyThePendingAcceptedSuffix
+[       OK ] DiscoveryRingBackend.PrefixJoinAllowsOnlyThePendingAcceptedSuffix (0 ms)
+[ RUN      ] DiscoveryRingBackend.PrimaryMutantsRejectWithoutRenumberingOrHashOnlyMatching
+[       OK ] DiscoveryRingBackend.PrimaryMutantsRejectWithoutRenumberingOrHashOnlyMatching (0 ms)
+[ RUN      ] DiscoveryRingBackend.EmptyShapeIdentityAndOverflowChecksRemainMandatory
+[       OK ] DiscoveryRingBackend.EmptyShapeIdentityAndOverflowChecksRemainMandatory (0 ms)
+[ RUN      ] DiscoveryRingBackend.DrainClockFailureRetainsActualItemActionAndPartialRow
+[       OK ] DiscoveryRingBackend.DrainClockFailureRetainsActualItemActionAndPartialRow (0 ms)
+[ RUN      ] DiscoveryRingBackend.FailedPrimaryPrefixAndLaterDrainKeepRealConsumedOrdinals
+[       OK ] DiscoveryRingBackend.FailedPrimaryPrefixAndLaterDrainKeepRealConsumedOrdinals (0 ms)
+[ RUN      ] DiscoveryRingBackend.FiniteTraceExhaustionKeepsIncompleteHorizonAndExactActualData
+[       OK ] DiscoveryRingBackend.FiniteTraceExhaustionKeepsIncompleteHorizonAndExactActualData (8 ms)
+[ RUN      ] DiscoveryRingBackend.PreparedReaderRejectsGeometryAndTruncationBeforeReadingBody
+[       OK ] DiscoveryRingBackend.PreparedReaderRejectsGeometryAndTruncationBeforeReadingBody (0 ms)
+[ RUN      ] DiscoveryRingBackend.CrossRowClockRegressionCannotPassLocallyOrderedRows
+[       OK ] DiscoveryRingBackend.CrossRowClockRegressionCannotPassLocallyOrderedRows (0 ms)
+[----------] 14 tests from DiscoveryRingBackend (75 ms total)
+
+[----------] 15 tests from DiscoveryResidency
+[ RUN      ] DiscoveryResidency.KeepsEveryRawSnapshotAndExplicitPartialDuringCoverage
+[       OK ] DiscoveryResidency.KeepsEveryRawSnapshotAndExplicitPartialDuringCoverage (0 ms)
+[ RUN      ] DiscoveryResidency.BadPlansCannotMutateOutputOrHideMissingCoverage
+[       OK ] DiscoveryResidency.BadPlansCannotMutateOutputOrHideMissingCoverage (0 ms)
+[ RUN      ] DiscoveryResidency.QueryAliasAndPartialPreRunCoverageAreRejected
+[       OK ] DiscoveryResidency.QueryAliasAndPartialPreRunCoverageAreRejected (0 ms)
+[ RUN      ] DiscoveryResidency.FailedQueryKeepsErrnoStatusesAndIndependentEarlierAndLaterSnapshots
+[       OK ] DiscoveryResidency.FailedQueryKeepsErrnoStatusesAndIndependentEarlierAndLaterSnapshots (0 ms)
+[ RUN      ] DiscoveryResidency.WrongNodeAndUnwrittenPageStatusCannotPass
+[       OK ] DiscoveryResidency.WrongNodeAndUnwrittenPageStatusCannotPass (0 ms)
+[ RUN      ] DiscoveryResidency.EveryClockFailureAndClockRegressionRemainActualPartialFacts
+[       OK ] DiscoveryResidency.EveryClockFailureAndClockRegressionRemainActualPartialFacts (0 ms)
+[ RUN      ] DiscoveryResidency.LateObservationAndLateQueryCannotMasqueradeAsDuringCapture
+[       OK ] DiscoveryResidency.LateObservationAndLateQueryCannotMasqueradeAsDuringCapture (0 ms)
+[ RUN      ] DiscoveryResidency.WorkerCompletionBeforeOrDuringQueryIsRetainedAndRejected
+[       OK ] DiscoveryResidency.WorkerCompletionBeforeOrDuringQueryIsRetainedAndRejected (0 ms)
+[ RUN      ] DiscoveryResidency.FiniteWaitExhaustionRetainsLastClockWithoutSamplingOrExtending
+[       OK ] DiscoveryResidency.FiniteWaitExhaustionRetainsLastClockWithoutSamplingOrExtending (0 ms)
+[ RUN      ] DiscoveryResidency.EveryDeclaredRegionRequiresCompletePhaseCoverage
+[       OK ] DiscoveryResidency.EveryDeclaredRegionRequiresCompletePhaseCoverage (0 ms)
+[ RUN      ] DiscoveryResidency.WrongPageReadbackBlocksRealSessionBeforeAnyQueueAttempt
+[       OK ] DiscoveryResidency.WrongPageReadbackBlocksRealSessionBeforeAnyQueueAttempt (10 ms)
+[ RUN      ] DiscoveryResidency.ControlsShareExactRequestAndRetainIndependentPageEvidence
+[       OK ] DiscoveryResidency.ControlsShareExactRequestAndRetainIndependentPageEvidence (0 ms)
+[ RUN      ] DiscoveryResidency.ControlTimeIsIncludedInTheDuringWindowCheck
+[       OK ] DiscoveryResidency.ControlTimeIsIncludedInTheDuringWindowCheck (0 ms)
+[ RUN      ] DiscoveryResidency.PriorControlResultCannotBeReusedAsFreshEvidence
+[       OK ] DiscoveryResidency.PriorControlResultCannotBeReusedAsFreshEvidence (0 ms)
+[ RUN      ] DiscoveryResidency.MissingMandatoryControlGroupPreventsPhaseAcceptance
+[       OK ] DiscoveryResidency.MissingMandatoryControlGroupPreventsPhaseAcceptance (0 ms)
+[----------] 15 tests from DiscoveryResidency (10 ms total)
+
+[----------] 9 tests from DiscoveryControls
+[ RUN      ] DiscoveryControls.RetainsSixScheduledGroupsAndIndependentPageQuery
+[       OK ] DiscoveryControls.RetainsSixScheduledGroupsAndIndependentPageQuery (0 ms)
+[ RUN      ] DiscoveryControls.MissingScheduledRequestIsNotCompleteAndReuseIsRejected
+[       OK ] DiscoveryControls.MissingScheduledRequestIsNotCompleteAndReuseIsRejected (0 ms)
+[ RUN      ] DiscoveryControls.InvalidEnumsCannotAliasAnotherGroup
+[       OK ] DiscoveryControls.InvalidEnumsCannotAliasAnotherGroup (0 ms)
+[ RUN      ] DiscoveryControls.FailedOwnerStillRetainsOtherOwnerAndHardware
+[       OK ] DiscoveryControls.FailedOwnerStillRetainsOtherOwnerAndHardware (0 ms)
+[ RUN      ] DiscoveryControls.RejectsWrongCpuAffinityAndIdentity
+[       OK ] DiscoveryControls.RejectsWrongCpuAffinityAndIdentity (0 ms)
+[ RUN      ] DiscoveryControls.RejectsHardwareMismatchWithoutLosingThreadFacts
+[       OK ] DiscoveryControls.RejectsHardwareMismatchWithoutLosingThreadFacts (0 ms)
+[ RUN      ] DiscoveryControls.UsesExplicitPhaseLimitsAndRetainsUnboundedObservations
+[       OK ] DiscoveryControls.UsesExplicitPhaseLimitsAndRetainsUnboundedObservations (0 ms)
+[ RUN      ] DiscoveryControls.RejectsCounterRegressionAgainstMostRecentGroup
+[       OK ] DiscoveryControls.RejectsCounterRegressionAgainstMostRecentGroup (0 ms)
+[ RUN      ] DiscoveryControls.RejectsAliasedScratchAndPriorEvidenceBeforeSampling
+[       OK ] DiscoveryControls.RejectsAliasedScratchAndPriorEvidenceBeforeSampling (0 ms)
+[----------] 9 tests from DiscoveryControls (0 ms total)
+
+[----------] 15 tests from NativeDiscovery
+[ RUN      ] NativeDiscovery.LayoutAccountsForEveryMappingAndAllThreeGuards
+[       OK ] NativeDiscovery.LayoutAccountsForEveryMappingAndAllThreeGuards (0 ms)
+[ RUN      ] NativeDiscovery.AdditionalCallerBudgetsIncreaseDeclaredStorage
+[       OK ] NativeDiscovery.AdditionalCallerBudgetsIncreaseDeclaredStorage (0 ms)
+[ RUN      ] NativeDiscovery.RejectsInvalidFinitePlansBeforeMapping
+[       OK ] NativeDiscovery.RejectsInvalidFinitePlansBeforeMapping (0 ms)
+[ RUN      ] NativeDiscovery.RejectsDuringOffsetsAndRangesOutsideTheirExactRegions
+[       OK ] NativeDiscovery.RejectsDuringOffsetsAndRangesOutsideTheirExactRegions (0 ms)
+[ RUN      ] NativeDiscovery.RejectsOverflowAndUnacceptedHardwareWithoutNativeAccess
+[       OK ] NativeDiscovery.RejectsOverflowAndUnacceptedHardwareWithoutNativeAccess (0 ms)
+[ RUN      ] NativeDiscovery.NativeEntrypointRejectsBeforeLaunchingOrPublishing
+[       OK ] NativeDiscovery.NativeEntrypointRejectsBeforeLaunchingOrPublishing (0 ms)
+[ RUN      ] NativeDiscovery.TlsCoverageRejectsUnallocatedOutsideAndOverflowingPayloads
+[       OK ] NativeDiscovery.TlsCoverageRejectsUnallocatedOutsideAndOverflowingPayloads (0 ms)
+[ RUN      ] NativeDiscovery.EnvironmentLayoutChargesAllSixGroupsIncludingUnrequested
+[       OK ] NativeDiscovery.EnvironmentLayoutChargesAllSixGroupsIncludingUnrequested (0 ms)
+[ RUN      ] NativeDiscovery.InvalidEnvironmentAndSummedOverflowRejectBeforeNativeAccess
+[       OK ] NativeDiscovery.InvalidEnvironmentAndSummedOverflowRejectBeforeNativeAccess (0 ms)
+[ RUN      ] NativeDiscovery.EnvironmentSharesControlsBeforePageQueryAndRetainsSixGroups
+[       OK ] NativeDiscovery.EnvironmentSharesControlsBeforePageQueryAndRetainsSixGroups (0 ms)
+[ RUN      ] NativeDiscovery.EnvironmentStillReadsAllSourcesWhenControlsAndEarlierFileFail
+[       OK ] NativeDiscovery.EnvironmentStillReadsAllSourcesWhenControlsAndEarlierFileFail (0 ms)
+[ RUN      ] NativeDiscovery.EnvironmentRejectsIncompleteRequiredFileWithoutSamplingOtherRows
+[       OK ] NativeDiscovery.EnvironmentRejectsIncompleteRequiredFileWithoutSamplingOtherRows (0 ms)
+[ RUN      ] NativeDiscovery.MeasurementTraceCapacityIsDistinctRetainedInsufficientData
+[       OK ] NativeDiscovery.MeasurementTraceCapacityIsDistinctRetainedInsufficientData (0 ms)
+[ RUN      ] NativeDiscovery.TraceCapacityRequiresCompletedMandatorySessionEvidence
+[       OK ] NativeDiscovery.TraceCapacityRequiresCompletedMandatorySessionEvidence (0 ms)
+[ RUN      ] NativeDiscovery.MandatoryCleanupFailureOverridesRetainedCapacityClassification
+[       OK ] NativeDiscovery.MandatoryCleanupFailureOverridesRetainedCapacityClassification (0 ms)
+[----------] 15 tests from NativeDiscovery (1 ms total)
+
+[----------] 4 tests from NativeFormalRing
+[ RUN      ] NativeFormalRing.MappedOwnersKeepRawStreamsAndJoinBeforeRelease
+[       OK ] NativeFormalRing.MappedOwnersKeepRawStreamsAndJoinBeforeRelease (4 ms)
+[ RUN      ] NativeFormalRing.OwnerPreparationFailureRetainsRejectedSessionAndCleanup
+[       OK ] NativeFormalRing.OwnerPreparationFailureRetainsRejectedSessionAndCleanup (3 ms)
+[ RUN      ] NativeFormalRing.ExactLayoutChargesIndependentRawCapacitiesAndBorrowedControls
+[       OK ] NativeFormalRing.ExactLayoutChargesIndependentRawCapacitiesAndBorrowedControls (0 ms)
+[ RUN      ] NativeFormalRing.InvalidBoundsRejectBeforeHardwareOrPublication
+[       OK ] NativeFormalRing.InvalidBoundsRejectBeforeHardwareOrPublication (0 ms)
+[----------] 4 tests from NativeFormalRing (7 ms total)
+
+[----------] 6 tests from MappedFormalService
+[ RUN      ] MappedFormalService.R0PreservesMapsAndPrimaryJoin
+[       OK ] MappedFormalService.R0PreservesMapsAndPrimaryJoin (9 ms)
+[ RUN      ] MappedFormalService.R1KeepsExactTwoSiteVectors
+[       OK ] MappedFormalService.R1KeepsExactTwoSiteVectors (6 ms)
+[ RUN      ] MappedFormalService.R2UsesExplicitPriorDistance
+[       OK ] MappedFormalService.R2UsesExplicitPriorDistance (5 ms)
+[ RUN      ] MappedFormalService.L0MapsNodesRecyclerAndBothOrders
+[       OK ] MappedFormalService.L0MapsNodesRecyclerAndBothOrders (5 ms)
+[ RUN      ] MappedFormalService.L1KeepsOneSuccessorSite
+[       OK ] MappedFormalService.L1KeepsOneSuccessorSite (5 ms)
+[ RUN      ] MappedFormalService.RejectsWrongPackageDistanceAndLinkedBindingsBeforeMapping
+[       OK ] MappedFormalService.RejectsWrongPackageDistanceAndLinkedBindingsBeforeMapping (0 ms)
+[----------] 6 tests from MappedFormalService (32 ms total)
+
+[----------] 3 tests from MappedFormalScheduled
+[ RUN      ] MappedFormalScheduled.AllFivePackagesExecuteOnlyMappedSchedulesAndDrain
+[       OK ] MappedFormalScheduled.AllFivePackagesExecuteOnlyMappedSchedulesAndDrain (25 ms)
+[ RUN      ] MappedFormalScheduled.OverflowingSourceExtentRejectsBeforeReading
+[       OK ] MappedFormalScheduled.OverflowingSourceExtentRejectsBeforeReading (0 ms)
+[ RUN      ] MappedFormalScheduled.SourceMismatchAndUnorderedOrEndpointInputRejectCold
+[       OK ] MappedFormalScheduled.SourceMismatchAndUnorderedOrEndpointInputRejectCold (0 ms)
+[----------] 3 tests from MappedFormalScheduled (25 ms total)
+
+[----------] 15 tests from MappedDiscovery
+[ RUN      ] MappedDiscovery.MappedControllerOwnsContextAndRetainedCoordinationStorage
+[       OK ] MappedDiscovery.MappedControllerOwnsContextAndRetainedCoordinationStorage (4 ms)
+[ RUN      ] MappedDiscovery.RuntimeCompositionRunsOnMappedControllerAndRetainsOwnerTls
+[       OK ] MappedDiscovery.RuntimeCompositionRunsOnMappedControllerAndRetainsOwnerTls (5 ms)
+[ RUN      ] MappedDiscovery.RuntimeRejectsAliasedTlsStorageAndDisagreedGeometry
+[       OK ] MappedDiscovery.RuntimeRejectsAliasedTlsStorageAndDisagreedGeometry (0 ms)
+[ RUN      ] MappedDiscovery.RuntimePreservesPreparationFailureWithoutWarmupOrRetry
+[       OK ] MappedDiscovery.RuntimePreservesPreparationFailureWithoutWarmupOrRetry (2 ms)
+[ RUN      ] MappedDiscovery.RuntimeCloseRetainsEveryCleanupAndCannotRunAgain
+[       OK ] MappedDiscovery.RuntimeCloseRetainsEveryCleanupAndCannotRunAgain (6 ms)
+[ RUN      ] MappedDiscovery.RuntimeCanCloseWithoutStartingWorkers
+[       OK ] MappedDiscovery.RuntimeCanCloseWithoutStartingWorkers (0 ms)
+[ RUN      ] MappedDiscovery.RuntimeRetainsWorkersThroughFinalControlReadback
+[       OK ] MappedDiscovery.RuntimeRetainsWorkersThroughFinalControlReadback (6 ms)
+[ RUN      ] MappedDiscovery.RealOwnerMappingsAndStacksCompleteBothPhasesAndExactJoin
+[       OK ] MappedDiscovery.RealOwnerMappingsAndStacksCompleteBothPhasesAndExactJoin (3 ms)
+[ RUN      ] MappedDiscovery.ColdStatusRejectsUnknownOwnerWithoutTerminating
+[       OK ] MappedDiscovery.ColdStatusRejectsUnknownOwnerWithoutTerminating (0 ms)
+[ RUN      ] MappedDiscovery.FailedOwnerMappingOrProtectionCancelsPeerBeforeWarmup
+[       OK ] MappedDiscovery.FailedOwnerMappingOrProtectionCancelsPeerBeforeWarmup (14 ms)
+[ RUN      ] MappedDiscovery.AlreadyFailedPeerPreventsNewMappingOrOwnerMutation
+[       OK ] MappedDiscovery.AlreadyFailedPeerPreventsNewMappingOrOwnerMutation (0 ms)
+[ RUN      ] MappedDiscovery.MissingPeerHasFinitePreparationBudgetAndCannotBeRetried
+[       OK ] MappedDiscovery.MissingPeerHasFinitePreparationBudgetAndCannotBeRetried (0 ms)
+[ RUN      ] MappedDiscovery.CallerCannotChangeFrozenGeometryOrControlsAfterConstruction
+[       OK ] MappedDiscovery.CallerCannotChangeFrozenGeometryOrControlsAfterConstruction (1 ms)
+[ RUN      ] MappedDiscovery.LayoutRejectsInvalidOrOverflowingProspectiveInputs
+[       OK ] MappedDiscovery.LayoutRejectsInvalidOrOverflowingProspectiveInputs (0 ms)
+[ RUN      ] MappedDiscovery.RegionSizeAndProducerHomeMismatchRejectBeforePreparation
+[       OK ] MappedDiscovery.RegionSizeAndProducerHomeMismatchRejectBeforePreparation (0 ms)
+[----------] 15 tests from MappedDiscovery (47 ms total)
+
+[----------] Global test environment tear-down
+[==========] 213 tests from 23 test suites ran. (982 ms total)
+[  PASSED  ] 213 tests.

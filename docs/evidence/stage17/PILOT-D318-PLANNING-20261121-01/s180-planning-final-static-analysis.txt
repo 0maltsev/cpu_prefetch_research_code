@@ -1,0 +1,48 @@
+[1/6] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_pilot_capture.cpp.
+67 warnings generated.
+[2/6] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_input.cpp.
+98 warnings generated.
+[3/6] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_session.cpp.
+129 warnings generated.
+[4/6] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_io_test.cpp.
+201 warnings generated.
+[5/6] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_input_test.cpp.
+279 warnings generated.
+[6/6] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tools/runner_main.cpp.
+347 warnings generated.
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_input_test.cpp:334:19: error: unchecked access to optional value [bugprone-unchecked-optional-access,-warnings-as-errors]
+  334 |       EXPECT_TRUE(service.ring_distance.value().calibration_evidence_id.empty());
+      |                   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/include/gtest/gtest.h:1823:50: note: expanded from macro 'EXPECT_TRUE'
+ 1823 | #define EXPECT_TRUE(condition) GTEST_EXPECT_TRUE(condition)
+      |                                                  ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/include/gtest/gtest.h:1808:23: note: expanded from macro 'GTEST_EXPECT_TRUE'
+ 1808 |   GTEST_TEST_BOOLEAN_(condition, #condition, false, true, \
+      |                       ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/include/gtest/internal/gtest-internal.h:1450:38: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1450 |           ::testing::AssertionResult(expression))                     \
+      |                                      ^~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_input_test.cpp:336:9: error: unchecked access to optional value [bugprone-unchecked-optional-access,-warnings-as-errors]
+  336 |         service.ring_distance.value().calibration_evidence_id =
+      |         ^~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_input_test.cpp:339:9: error: unchecked access to optional value [bugprone-unchecked-optional-access,-warnings-as-errors]
+  339 |         service.ring_distance.value().calibration_evidence_id.clear();
+      |         ^~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_input_test.cpp:347:11: error: unchecked access to optional value [bugprone-unchecked-optional-access,-warnings-as-errors]
+  347 |           service.ring_distance.value().calibration_evidence_id,
+      |           ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/include/gtest/gtest.h:1885:63: note: expanded from macro 'EXPECT_EQ'
+ 1885 |   EXPECT_PRED_FORMAT2(::testing::internal::EqHelper::Compare, val1, val2)
+      |                                                               ^~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/include/gtest/gtest_pred_impl.h:144:36: note: expanded from macro 'EXPECT_PRED_FORMAT2'
+  144 |   GTEST_PRED_FORMAT2_(pred_format, v1, v2, GTEST_NONFATAL_FAILURE_)
+      |                                    ^~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/include/gtest/gtest_pred_impl.h:134:39: note: expanded from macro 'GTEST_PRED_FORMAT2_'
+  134 |   GTEST_ASSERT_(pred_format(#v1, #v2, v1, v2), on_failure)
+      |                                       ^~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/include/gtest/gtest_pred_impl.h:79:52: note: expanded from macro 'GTEST_ASSERT_'
+   79 |   if (const ::testing::AssertionResult gtest_ar = (expression)) \
+      |                                                    ^~~~~~~~~~
+Suppressed 345 warnings (343 in non-user code, 2 NOLINT).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+4 warnings treated as errors

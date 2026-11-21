@@ -71,9 +71,24 @@ template <typename Traits> struct ServiceEnvelope final {
   };
 
   static auto make_layout(const Plan& plan) -> Layout {
+    const auto workers = Traits::worker_layout(plan);
+    std::array<std::size_t, extra_regions> sizes{};
+    if constexpr (extra_regions != 0U) {
+      const auto shared = Traits::extra_regions(plan);
+      for (std::size_t i = 0U; i < extra_regions; ++i)
+        sizes[i] = shared[i].mapping.size();
+    }
+    return size_layout(plan, workers, sizes);
+  }
+  // The same arithmetic is used for cold prospective sizing. Execution always
+  // enters through make_layout and its strict live worker/shared-view guards.
+  static auto size_layout(const Plan& plan,
+                          const decltype(PublicLayout::workers)& workers,
+                          const std::array<std::size_t, extra_regions>& extra_sizes)
+      -> Layout {
     Layout result{};
     const auto page = Traits::capture_plan(plan).arena.base_page_bytes;
-    result.public_layout.workers = Traits::worker_layout(plan);
+    result.public_layout.workers = workers;
     const auto& session = Traits::capture_plan(plan).session;
     if (session.phases[0U].duration_ticks == 0U ||
         session.phases[1U].duration_ticks == 0U || !valid_service_plan(session) ||
@@ -151,10 +166,8 @@ template <typename Traits> struct ServiceEnvelope final {
                                          result.public_layout.core_bytes,
                                          plan.controls.controller_stack.bytes};
     if constexpr (extra_regions != 0U) {
-      const auto shared = Traits::extra_regions(plan);
       for (std::size_t i = 0U; i < extra_regions; ++i)
-        result.public_layout.region_bytes[kNativeCaptureRegions + i] =
-            shared[i].mapping.size();
+        result.public_layout.region_bytes[kNativeCaptureRegions + i] = extra_sizes[i];
     }
     for (std::size_t index = 0U; index < region_count; ++index) {
       const auto pages = result.public_layout.region_bytes[index] / page;

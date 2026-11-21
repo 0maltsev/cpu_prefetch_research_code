@@ -476,4 +476,85 @@ TEST(S180Publication, FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts) 
   EXPECT_TRUE(member(after.as_array()->at(1U), "records").is_null());
 }
 
+TEST(S180ProspectiveLayout, MatchesLiveLayoutForEveryPackageWithoutInventingAMapping) {
+  Fixture f;
+  for (const auto pkg : {protocol::QueuePackage::r0, protocol::QueuePackage::r1,
+                         protocol::QueuePackage::r2, protocol::QueuePackage::l0,
+                         protocol::QueuePackage::l1}) {
+    auto p = f.input();
+    const auto shared = *p.capture.shared.plan;
+    auto& service = p.capture.scheduled.service;
+    service.package = pkg;
+    service.linked_order.reset();
+    service.ring_distance.reset();
+    if (pkg == protocol::QueuePackage::l0 || pkg == protocol::QueuePackage::l1)
+      service.linked_order = shared.node_order;
+    if (pkg == protocol::QueuePackage::r1)
+      service.ring_distance = c::FormalRingDistancePlan{1U, ""};
+    if (pkg == protocol::QueuePackage::r2)
+      service.ring_distance = c::FormalRingDistancePlan{2U, "software-only-prior-d2"};
+    p.capture.shared = {};
+    const auto planned = c::prospective_native_pilot_layout(p, shared);
+    EXPECT_THROW(static_cast<void>(c::native_pilot_layout(p)), std::invalid_argument);
+    p.capture.shared = f.data.view();
+    p.capture.scheduled.deadlines = {f.values.warmup, f.values.measured};
+    const auto observed = c::native_pilot_layout(p);
+    EXPECT_EQ(planned.region_bytes, observed.region_bytes);
+    EXPECT_EQ(planned.core_bytes, observed.core_bytes);
+    EXPECT_EQ(planned.monitor_bytes, observed.monitor_bytes);
+    EXPECT_EQ(planned.total_mapping_bytes, observed.total_mapping_bytes);
+    const auto& a = planned.workers;
+    const auto& b = observed.workers;
+    EXPECT_EQ(a.records_bytes, b.records_bytes);
+    EXPECT_EQ(a.producer_bytes, b.producer_bytes);
+    EXPECT_EQ(a.consumer_bytes, b.consumer_bytes);
+    EXPECT_EQ(a.schedule_offsets, b.schedule_offsets);
+    EXPECT_EQ(a.emitter_object, b.emitter_object);
+    EXPECT_EQ(a.package_object, b.package_object);
+    for (std::size_t i = 0U; i < 2U; ++i) {
+      EXPECT_EQ(a.phases[i].producer_object, b.phases[i].producer_object);
+      EXPECT_EQ(a.phases[i].consumer_object, b.phases[i].consumer_object);
+      EXPECT_EQ(a.phases[i].producer_raw, b.phases[i].producer_raw);
+      EXPECT_EQ(a.phases[i].consumer_raw, b.phases[i].consumer_raw);
+      EXPECT_EQ(a.phases[i].raw.producer_bytes, b.phases[i].raw.producer_bytes);
+      EXPECT_EQ(a.phases[i].raw.consumer_bytes, b.phases[i].raw.consumer_bytes);
+    }
+  }
+}
+TEST(S180ProspectiveLayout, HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays) {
+  Fixture f;
+  auto p = f.input();
+  const auto shared = *p.capture.shared.plan;
+  p.capture.shared = {};
+  for (std::size_t i = 0U; i < 2U; ++i) {
+    p.capture.scheduled.phases[i].offered_count = 1'000'000'000U;
+    p.capture.scheduled.service.session.phases[i].producer_attempt_limit =
+        1'000'000'000U;
+    p.capture.scheduled.service.capacity[i] = {1'000'000'000U, 1'000'000'000U};
+  }
+  const auto planned = c::prospective_native_pilot_layout(p, shared);
+  EXPECT_GE(planned.workers.records_bytes, std::uint64_t{16U} * 1'000'000'000U);
+}
+TEST(S180ProspectiveLayout, LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject) {
+  Fixture f;
+  auto p = f.input();
+  const auto shared = *p.capture.shared.plan;
+  EXPECT_THROW(static_cast<void>(c::prospective_native_pilot_layout(p, shared)),
+               std::invalid_argument);
+  p.capture.shared = {};
+  p.capture.scheduled.deadlines = {f.values.warmup, f.values.measured};
+  EXPECT_THROW(static_cast<void>(c::prospective_native_pilot_layout(p, shared)),
+               std::invalid_argument);
+  p.capture.scheduled.deadlines = {};
+  p.capture.scheduled.service.package = protocol::QueuePackage::r1;
+  p.capture.scheduled.service.ring_distance =
+      c::FormalRingDistancePlan{1U, "wrong-calibration-credit"};
+  EXPECT_THROW(static_cast<void>(c::prospective_native_pilot_layout(p, shared)),
+               std::invalid_argument);
+  p.capture.scheduled.service.ring_distance = c::FormalRingDistancePlan{1U, ""};
+  EXPECT_NO_THROW(static_cast<void>(c::prospective_native_pilot_layout(p, shared)));
+  p.capture.scheduled.phases[1U].offered_count = 0U;
+  EXPECT_THROW(static_cast<void>(c::prospective_native_pilot_layout(p, shared)),
+               std::invalid_argument);
+}
 } // namespace

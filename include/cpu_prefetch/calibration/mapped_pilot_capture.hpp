@@ -76,22 +76,27 @@ inline void validate_pilot_shared_view(const MappedPilotCapturePlan& plan) {
     throw std::invalid_argument("pilot capture changed its persistent node order");
 }
 template <protocol::QueuePackage Kind, typename Emitter>
-auto mapped_pilot_capture_layout(const MappedPilotCapturePlan& plan)
+auto prospective_pilot_private_layout(const MappedFormalScheduledPlan& plan)
     -> PilotPrivateLayout {
-  validate_pilot_shared_view(plan);
-  validate_mapped_scheduled_plan(plan.scheduled);
-  // Reuse the unchanged formal plan/package checks; its allocation layout is
-  // not used. Shared event/queue memory is retained by the outer family.
-  static_cast<void>(mapped_formal_scheduled_layout<Kind, Emitter>(plan.scheduled));
-  const auto& service = plan.scheduled.service;
+  if (!valid_scheduled_plan({plan.service.session, plan.phases}))
+    throw std::invalid_argument("prospective pilot source windows/counts are invalid");
+  // Validate the same package/arena/raw-buffer rules without inventing spans or
+  // allocating the represented schedules. This helper establishes size only.
+  static_cast<void>(mapped_formal_service_layout<Kind, Emitter>(plan.service));
+  const auto& service = plan.service;
   using Types = pilot_detail::PackageType<Kind, Emitter>;
   mapped_discovery_detail::LayoutBuilder records, producer, consumer;
   PilotPrivateLayout out{};
   const auto line = service.arena.cache_line_bytes,
              page = service.arena.base_page_bytes;
-  for (std::size_t i = 0U; i < 2U; ++i)
-    out.schedule_offsets[i] =
-        records.array<std::uint64_t>(plan.scheduled.deadlines[i].size(), line);
+  for (std::size_t i = 0U; i < 2U; ++i) {
+    if (plan.phases[i].offered_count > std::numeric_limits<std::size_t>::max() ||
+        plan.phases[i].offered_count > service.session.phases[i].producer_attempt_limit)
+      throw std::invalid_argument(
+          "prospective pilot source count exceeds finite bounds");
+    out.schedule_offsets[i] = records.array<std::uint64_t>(
+        static_cast<std::size_t>(plan.phases[i].offered_count), line);
+  }
   // OwnerMapping requires a nonempty page even for two empty source arrays.
   if (records.bytes == 0U)
     static_cast<void>(records.reserve({1U, page}));
@@ -113,6 +118,13 @@ auto mapped_pilot_capture_layout(const MappedPilotCapturePlan& plan)
   out.producer_bytes = producer.reserve({0U, page});
   out.consumer_bytes = consumer.reserve({0U, page});
   return out;
+}
+template <protocol::QueuePackage Kind, typename Emitter>
+auto mapped_pilot_capture_layout(const MappedPilotCapturePlan& plan)
+    -> PilotPrivateLayout {
+  validate_pilot_shared_view(plan);
+  validate_mapped_scheduled_plan(plan.scheduled);
+  return prospective_pilot_private_layout<Kind, Emitter>(plan.scheduled);
 }
 
 template <protocol::QueuePackage Kind, typename Emitter, typename Operations,

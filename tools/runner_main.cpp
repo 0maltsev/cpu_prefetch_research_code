@@ -4,6 +4,7 @@
 #include "cpu_prefetch/runner/stage17_fixed_action.hpp"
 #include "cpu_prefetch/runner/stage17_s180_worker.hpp"
 
+#include <array>
 #include <exception>
 #include <filesystem>
 #include <fstream>
@@ -19,6 +20,7 @@ void usage(std::ostream& output) {
   output << "Usage:\n"
          << "  cpu_prefetch_runner --self-test\n"
          << "  cpu_prefetch_runner --stage17-s180-runtime-identity-v1\n"
+         << "  cpu_prefetch_runner --describe-stage17-s180-layouts-v1 FILE\n"
          << "  cpu_prefetch_runner --describe-stage17-discovery-layout-v1 FILE\n"
          << "  cpu_prefetch_runner --describe-stage17-discovery-layout-v2 FILE\n"
          << "  cpu_prefetch_runner --execute-fixed-stage17-action-v4 ACTION "
@@ -64,6 +66,58 @@ void print_errors(std::span<const cpu_prefetch::protocol::ValidationError> error
 }
 
 int run(int argc, char** argv) {
+  if (argc == 3 && std::string_view(argv[1]) == "--describe-stage17-s180-layouts-v1") {
+    std::ifstream stream(argv[2], std::ios::binary);
+    if (!stream)
+      throw std::runtime_error("cannot open S180 sizing input");
+    constexpr auto maximum = std::size_t{16U} * 1024U * 1024U;
+    std::string raw;
+    std::array<char, 8192U> buffer{};
+    while (stream) {
+      stream.read(buffer.data(), static_cast<std::streamsize>(buffer.size()));
+      const auto count = static_cast<std::size_t>(stream.gcount());
+      if (count > maximum - raw.size())
+        throw std::runtime_error("S180 sizing input exceeds fixed bound");
+      raw.append(buffer.data(), count);
+    }
+    if (!stream.eof())
+      throw std::runtime_error("S180 sizing input read failed");
+    const auto parsed = cpu_prefetch::protocol::json::parse(raw);
+    if (!parsed || !parsed.value().as_object())
+      throw std::runtime_error("S180 sizing input must be an object");
+    auto result = cpu_prefetch::runner::stage17::describe_s180_session_layouts(
+        *parsed.value().as_object());
+    if (!result) {
+      print_errors(result.errors());
+      return 1;
+    }
+    const auto identity = cpu_prefetch::runner::stage17::inspect_s180_executable();
+    if (!identity) {
+      print_errors(identity.errors());
+      return 1;
+    }
+    const auto source = cpu_prefetch::foundation::repository_info();
+    auto& output = result.value();
+    output["binary_sha256"] =
+        cpu_prefetch::protocol::json::Value(identity.value().sha256);
+    output["source_revision"] =
+        cpu_prefetch::protocol::json::Value(std::string(source.source_revision));
+    output["source_dirty"] = cpu_prefetch::protocol::json::Value(source.source_dirty);
+    const auto canonical = cpu_prefetch::protocol::json::canonicalize(parsed.value());
+    if (!canonical)
+      throw std::runtime_error("S180 sizing canonicalization failed");
+    output["sizing_plan_sha256"] = cpu_prefetch::protocol::json::Value(
+        cpu_prefetch::workload::sha256(
+            std::as_bytes(
+                std::span(canonical.value().data(), canonical.value().size())))
+            .hex());
+    const auto encoded = cpu_prefetch::protocol::json::canonicalize(
+        cpu_prefetch::protocol::json::Value(output));
+    if (!encoded)
+      throw std::runtime_error("S180 sizing result canonicalization failed");
+    std::cout << encoded.value() << '\n';
+    return 0;
+  }
   if (argc == 2 && std::string_view(argv[1]) == "--stage17-s180-runtime-identity-v1") {
     const auto repository = cpu_prefetch::foundation::repository_info();
     const auto identity = cpu_prefetch::runner::stage17::inspect_s180_executable();

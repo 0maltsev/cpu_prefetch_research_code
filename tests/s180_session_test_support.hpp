@@ -145,7 +145,8 @@ struct Fixture final {
                 ? 1U
                 : static_cast<std::size_t>(
                       number(*at(row, "distance").as_object(), "d2_cache_lines")),
-            "accepted-descriptive-calibration"};
+            pkg == protocol::QueuePackage::r1 ? ""
+                                              : "accepted-descriptive-calibration"};
       const auto group = ctx * 3U + load;
       c::MappedFormalScheduledPlan scheduled{
           std::move(service),

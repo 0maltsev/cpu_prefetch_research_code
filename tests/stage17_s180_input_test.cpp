@@ -289,6 +289,71 @@ TEST(S180Input, HardwareStorageOverflowAndObservationContractRejectBeforeExecuti
     EXPECT_FALSE(r::parse_s180_session_input(std::move(d.plan), d.source, {})) << mode;
   }
 }
+auto sizing_plan(O plan) -> O {
+  plan["schema_version"] = t("cpu-prefetch-stage17-s180-sizing-plan/1");
+  plan["source_count_basis"] = t("EXACT_DECLARED_COUNTS");
+  auto rows = *plan.at("captures").as_array();
+  for (auto& value : rows) {
+    auto row = *value.as_object();
+    row.erase("expected_layout");
+    value = V(std::move(row));
+  }
+  plan["captures"] = V(std::move(rows));
+  return plan;
+}
+TEST(S180Input, PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket) {
+  Fixture f;
+  Documents d(f);
+  auto plan = sizing_plan(d.plan);
+  const auto result = r::describe_s180_session_layouts(plan);
+  ASSERT_TRUE(result) << result.errors().front().message;
+  EXPECT_EQ(result.value().at("contexts").as_array()->size(), 6U);
+  const auto& rows = *result.value().at("captures").as_array();
+  ASSERT_EQ(rows.size(), 180U);
+  for (const auto& value : rows)
+    EXPECT_GT(number(*value.as_object()->at("expected_layout").as_object(),
+                     "total_mapping_bytes"),
+              0U);
+  EXPECT_FALSE(*result.value().at("execution_authority").as_bool());
+  EXPECT_FALSE(*result.value().at("session_admission_performed").as_bool());
+  EXPECT_FALSE(r::parse_s180_session_input(plan, d.source, {}));
+  EXPECT_FALSE(r::describe_s180_session_layouts(d.plan));
+}
+TEST(S180Input, RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze) {
+  Fixture f;
+  Documents d(f);
+  auto parsed = r::parse_s180_session_input(d.plan, d.source, {});
+  ASSERT_TRUE(parsed);
+  auto input = parsed.value().input();
+  bool r1 = false, r2 = false, checked_rejection = false;
+  for (auto& capture : input.captures) {
+    auto& service = capture.native.capture.scheduled.service;
+    if (service.package == protocol::QueuePackage::r1) {
+      r1 = true;
+      if (!service.ring_distance.has_value())
+        throw std::logic_error("expected ring distance missing");
+      auto& distance = service.ring_distance.value();
+      EXPECT_TRUE(distance.calibration_evidence_id.empty());
+      if (!checked_rejection) {
+        distance.calibration_evidence_id = "wrong-calibration-credit";
+        EXPECT_FALSE(r::validate_s180_session(input));
+        distance.calibration_evidence_id.clear();
+        checked_rejection = true;
+      }
+    }
+    if (service.package == protocol::QueuePackage::r2) {
+      r2 = true;
+      if (!service.ring_distance.has_value())
+        throw std::logic_error("expected ring distance missing");
+      auto& distance = service.ring_distance.value();
+      EXPECT_EQ(
+          distance.calibration_evidence_id,
+          text(*at(f.input.blueprint, "calibration_freeze").as_object(), "sha256"));
+    }
+  }
+  EXPECT_TRUE(r1 && r2);
+  EXPECT_TRUE(r::validate_s180_session(input));
+}
 auto encode(const O& o) -> std::string {
   return protocol::json::canonicalize(V(o)).value();
 }

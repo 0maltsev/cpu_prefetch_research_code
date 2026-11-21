@@ -9,6 +9,9 @@ template <protocol::QueuePackage Kind, typename Emitter> struct PilotTraits fina
   using Layout = NativePilotCaptureLayout;
   using Result = NativePilotCaptureResult;
   using Publication = NativePilotPublication;
+  static auto prospective_worker_layout(const Plan& p) -> PilotPrivateLayout {
+    return prospective_pilot_private_layout<Kind, Emitter>(p.capture.scheduled);
+  }
   static constexpr std::size_t extra_region_count = 2U;
   template <typename Clock, typename Relax>
   using Runtime = MappedServiceRuntime<Clock, Relax, PilotRuntimePolicy<Kind, Emitter>>;
@@ -104,6 +107,43 @@ template <typename F> auto dispatch(const NativePilotCapturePlan& p, F f) {
 auto native_pilot_layout(const NativePilotCapturePlan& p) -> NativePilotCaptureLayout {
   return dispatch(p, [&]<typename T> {
     return native_capture_detail::ServiceEnvelope<T>::make_layout(p).public_layout;
+  });
+}
+auto prospective_native_pilot_layout(const NativePilotCapturePlan& p,
+                                     const MappedPilotDataPlan& data)
+    -> NativePilotCaptureLayout {
+  const auto& v = p.capture.shared;
+  if (v.data || v.plan || v.mappings[0U] || v.mappings[1U] || !v.node_order.empty() ||
+      !v.regions[0U].mapping.empty() || !v.regions[1U].mapping.empty() ||
+      !p.capture.scheduled.deadlines[0U].empty() ||
+      !p.capture.scheduled.deadlines[1U].empty())
+    throw std::invalid_argument("prospective pilot sizing requires unbound views, not "
+                                "live mappings or inline sources");
+  const auto& service = p.capture.scheduled.service;
+  const auto& arena = service.arena;
+  if (arena.capacity != data.arena.capacity ||
+      arena.cache_line_bytes != data.arena.cache_line_bytes ||
+      arena.base_page_bytes != data.arena.base_page_bytes ||
+      arena.master_seed != data.arena.master_seed ||
+      arena.seed_namespace != data.arena.seed_namespace ||
+      p.controls.workers.producer_stack.owner_cpu != data.producer_cpu ||
+      p.controls.workers.producer_stack.requested_node != data.shared_node)
+    throw std::invalid_argument("prospective pilot data/worker request differs");
+  const bool linked = service.package == protocol::QueuePackage::l0 ||
+                      service.package == protocol::QueuePackage::l1;
+  if (linked &&
+      (!service.linked_order ||
+       service.linked_order->master_seed != data.node_order.master_seed ||
+       service.linked_order->seed_namespace != data.node_order.seed_namespace ||
+       service.linked_order->arena_alignment_bytes !=
+           data.node_order.arena_alignment_bytes))
+    throw std::invalid_argument("prospective pilot shared node-order request differs");
+  const auto shared = mapped_pilot_data_layout(data);
+  return dispatch(p, [&]<typename T> {
+    return native_capture_detail::ServiceEnvelope<T>::size_layout(
+               p, T::prospective_worker_layout(p),
+               {shared.records_bytes, shared.queues_bytes})
+        .public_layout;
   });
 }
 auto run_native_pilot_capture(const NativePilotCapturePlan& p,

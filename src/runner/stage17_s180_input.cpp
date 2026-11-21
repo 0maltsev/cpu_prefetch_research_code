@@ -174,13 +174,23 @@ auto ParsedS180Input::input() const -> S180SessionInput {
 }
 auto ParsedS180Input::document() const noexcept -> const Object& { return *document_; }
 
-auto parse_s180_session_input(Object plan, const Object& source_context,
-                              std::span<const int> reserved)
+auto ParsedS180Input::parse(Object plan, const Object* source_context_ptr,
+                            std::span<const int> reserved)
     -> protocol::Result<ParsedS180Input> {
   try {
-    fields(plan, {"schema_version", "source_revision", "blueprint", "hardware",
-                  "captures", "budget", "storage"});
-    require(text(plan, "schema_version") == "cpu-prefetch-stage17-s180-session-plan/1",
+    if (source_context_ptr)
+      fields(plan, {"schema_version", "source_revision", "blueprint", "hardware",
+                    "captures", "budget", "storage"});
+    else {
+      fields(plan, {"schema_version", "source_revision", "blueprint", "hardware",
+                    "captures", "budget", "storage", "source_count_basis"});
+      require(text(plan, "source_count_basis") == "EXACT_DECLARED_COUNTS" ||
+                  text(plan, "source_count_basis") == "PROSPECTIVE_UPPER_CEILINGS",
+              "S180 sizing count basis is missing");
+    }
+    require(text(plan, "schema_version") ==
+                (source_context_ptr ? "cpu-prefetch-stage17-s180-session-plan/1"
+                                    : "cpu-prefetch-stage17-s180-sizing-plan/1"),
             "S180 plan version differs");
     ParsedS180Input out;
     out.document_ = std::make_shared<const Object>(std::move(plan));
@@ -211,26 +221,29 @@ auto parse_s180_session_input(Object plan, const Object& source_context,
       fields(p, {"cpu", "value"});
       out.prestate_.push_back({word(p, "cpu"), number(p, "value")});
     }
-    fields(source_context, {"schema_version", "maximum_vector_bytes",
-                            "deadline_monotonic_ns", "bindings"});
-    require(text(source_context, "schema_version") ==
-                "cpu-prefetch-stage17-s180-schedule-source-context/1",
-            "S180 source context version differs");
-    for (const auto& value : array(source_context, "bindings", 36U)) {
-      const auto& b = item(value);
-      fields(b, {"artifact_id", "canonical_sha256", "size_bytes", "descriptor"});
-      const auto fd = number(b, "descriptor");
-      require(fd > 2U &&
-                  fd <= static_cast<std::uint64_t>(std::numeric_limits<int>::max()),
-              "S180 source descriptor invalid");
-      out.bindings_.push_back({opaque_text(b, "artifact_id"),
-                               hash(b, "canonical_sha256"), number(b, "size_bytes"),
-                               static_cast<int>(fd)});
+    if (source_context_ptr) {
+      const auto& source_context = *source_context_ptr;
+      fields(source_context, {"schema_version", "maximum_vector_bytes",
+                              "deadline_monotonic_ns", "bindings"});
+      require(text(source_context, "schema_version") ==
+                  "cpu-prefetch-stage17-s180-schedule-source-context/1",
+              "S180 source context version differs");
+      for (const auto& value : array(source_context, "bindings", 36U)) {
+        const auto& b = item(value);
+        fields(b, {"artifact_id", "canonical_sha256", "size_bytes", "descriptor"});
+        const auto fd = number(b, "descriptor");
+        require(fd > 2U &&
+                    fd <= static_cast<std::uint64_t>(std::numeric_limits<int>::max()),
+                "S180 source descriptor invalid");
+        out.bindings_.push_back({opaque_text(b, "artifact_id"),
+                                 hash(b, "canonical_sha256"), number(b, "size_bytes"),
+                                 static_cast<int>(fd)});
+      }
+      out.reserved_.assign(reserved.begin(), reserved.end());
+      input.sources = {out.bindings_, number(source_context, "maximum_vector_bytes"),
+                       number(source_context, "deadline_monotonic_ns")};
+      input.reserved_descriptors = out.reserved_;
     }
-    out.reserved_.assign(reserved.begin(), reserved.end());
-    input.sources = {out.bindings_, number(source_context, "maximum_vector_bytes"),
-                     number(source_context, "deadline_monotonic_ns")};
-    input.reserved_descriptors = out.reserved_;
     const auto& budget = object(doc, "budget");
     fields(budget, {"setup_ns", "whole_plot_transition_ns", "whole_plot_recovery_ns",
                     "finalization_ns", "final_metadata_bytes", "memory_bytes",
@@ -278,8 +291,12 @@ auto parse_s180_session_input(Object plan, const Object& source_context,
     const auto& captures = array(doc, "captures", 180U);
     for (std::size_t i = 0U; i < 180U; ++i) {
       const auto& entry = item(captures[i]);
-      fields(entry, {"execution_ordinal", "cell_ordinal", "resources", "monitoring",
-                     "phases", "expected_layout", "execution_budget"});
+      if (source_context_ptr)
+        fields(entry, {"execution_ordinal", "cell_ordinal", "resources", "monitoring",
+                       "phases", "expected_layout", "execution_budget"});
+      else
+        fields(entry, {"execution_ordinal", "cell_ordinal", "resources", "monitoring",
+                       "phases", "execution_budget"});
       const auto& row = *order[i];
       require(number(entry, "execution_ordinal") == i &&
                   number(entry, "cell_ordinal") == number(row, "cell_ordinal"),
@@ -326,9 +343,19 @@ auto parse_s180_session_input(Object plan, const Object& source_context,
             pkg == protocol::QueuePackage::r1
                 ? 1U
                 : size(object(row, "distance"), "d2_cache_lines"),
-            hash(object(input.blueprint, "calibration_freeze"), "sha256")};
+            pkg == protocol::QueuePackage::r1
+                ? std::string{}
+                : hash(object(input.blueprint, "calibration_freeze"), "sha256")};
       auto schedule = [&](std::size_t phase) -> c::ScheduledPhasePlan {
         const auto& p = item(phases[phase]);
+        if (!source_context_ptr && member(p, "source_artifact").is_null())
+          return c::ScheduledPhasePlan{
+              number(p, "source_origin_ticks"), number(p, "source_horizon_ticks"),
+              number(p, "offered_count"),
+              identity<protocol::ScheduleId>(text(p, "schedule_id")),
+              identity<protocol::NamespaceId>(
+                  text(row, phase == 0U ? "warmup_schedule_namespace"
+                                        : "measurement_schedule_namespace"))};
         const auto& b = object(p, "source_artifact");
         fields(b, {"artifact_id", "sha256"});
         S180SourceArtifact source{opaque_text(b, "artifact_id"), hash(b, "sha256")};
@@ -352,16 +379,21 @@ auto parse_s180_session_input(Object plan, const Object& source_context,
                              .value();
       auto ctl = controls({resources, object(entry, "monitoring"), hardware}, state);
       ctl.hardware_prestate = out.prestate_;
-      input.captures.push_back({{{std::move(scheduled), {}},
-                                 std::move(ctl),
-                                 text(hardware, "software_prefetch_mapping_id")},
-                                layout(object(entry, "expected_layout")),
-                                number(eb, "watchdog_ns"),
+      c::NativePilotCapturePlan native{{std::move(scheduled), {}},
+                                       std::move(ctl),
+                                       text(hardware, "software_prefetch_mapping_id")};
+      const auto expected =
+          source_context_ptr
+              ? layout(object(entry, "expected_layout"))
+              : c::prospective_native_pilot_layout(native, input.contexts[slot(row)]);
+      input.captures.push_back({std::move(native), expected, number(eb, "watchdog_ns"),
                                 number(eb, "archive_ns"),
                                 number(eb, "max_output_bytes"),
                                 number(eb, "metadata_bytes")});
     }
-    const auto valid = validate_s180_session(input);
+    const auto valid = source_context_ptr
+                           ? validate_s180_session(input)
+                           : validate_s180_prospective_declaration(input);
     if (!valid)
       return protocol::Result<ParsedS180Input>::failure(valid.errors());
     return protocol::Result<ParsedS180Input>::success(out);
@@ -370,5 +402,77 @@ auto parse_s180_session_input(Object plan, const Object& source_context,
         {protocol::ErrorCategory::cross_field, "$s180/input", "S17-S180-INPUT",
          e.what()});
   }
+}
+auto parse_s180_session_input(Object plan, const Object& source_context,
+                              std::span<const int> reserved)
+    -> protocol::Result<ParsedS180Input> {
+  return ParsedS180Input::parse(std::move(plan), &source_context, reserved);
+}
+namespace {
+auto numeric(std::uint64_t value) -> Value {
+  return Value(protocol::json::Number{protocol::json::Number::Kind::unsigned_integer,
+                                      std::to_string(value), value});
+}
+template <typename Range> auto numeric_array(const Range& values) -> Value {
+  Value::Array out;
+  for (auto value : values)
+    out.push_back(numeric(value));
+  return Value(std::move(out));
+}
+auto layout_json(const c::NativePilotCaptureLayout& p) -> Value {
+  const auto& w = p.workers;
+  Value::Array phases;
+  for (const auto& v : w.phases)
+    phases.emplace_back(Object{
+        {"producer_object", numeric(v.producer_object)},
+        {"producer_raw", numeric(v.producer_raw)},
+        {"consumer_object", numeric(v.consumer_object)},
+        {"consumer_raw", numeric(v.consumer_raw)},
+        {"raw", Value(Object{{"producer_bytes", numeric(v.raw.producer_bytes)},
+                             {"consumer_bytes", numeric(v.raw.consumer_bytes)}})}});
+  return Value(Object{
+      {"core_bytes", numeric(p.core_bytes)},
+      {"monitor_bytes", numeric(p.monitor_bytes)},
+      {"total_mapping_bytes", numeric(p.total_mapping_bytes)},
+      {"region_bytes", numeric_array(p.region_bytes)},
+      {"workers", Value(Object{{"records_bytes", numeric(w.records_bytes)},
+                               {"producer_bytes", numeric(w.producer_bytes)},
+                               {"consumer_bytes", numeric(w.consumer_bytes)},
+                               {"schedule_offsets", numeric_array(w.schedule_offsets)},
+                               {"emitter_object", numeric(w.emitter_object)},
+                               {"package_object", numeric(w.package_object)},
+                               {"phases", Value(std::move(phases))}})}});
+}
+} // namespace
+auto describe_s180_session_layouts(Object plan) -> protocol::Result<Object> {
+  const auto parsed = ParsedS180Input::parse(std::move(plan), nullptr, {});
+  if (!parsed)
+    return protocol::Result<Object>::failure(parsed.errors());
+  const auto input = parsed.value().input();
+  const auto& entries = array(parsed.value().document(), "captures", 180U);
+  Value::Array captures, contexts;
+  for (std::size_t i = 0U; i < input.captures.size(); ++i)
+    captures.emplace_back(
+        Object{{"execution_ordinal", numeric(i)},
+               {"cell_ordinal", member(item(entries[i]), "cell_ordinal")},
+               {"expected_layout", layout_json(input.captures[i].expected_layout)}});
+  for (std::size_t i = 0U; i < input.contexts.size(); ++i) {
+    const auto layout = c::mapped_pilot_data_layout(input.contexts[i]);
+    contexts.emplace_back(Object{{"context_ordinal", numeric(i)},
+                                 {"records_bytes", numeric(layout.records_bytes)},
+                                 {"queues_bytes", numeric(layout.queues_bytes)}});
+  }
+  return protocol::Result<Object>::success(Object{
+      {"schema_version",
+       Value(std::string("cpu-prefetch-stage17-s180-prospective-layouts/1"))},
+      {"geometry_status", Value(std::string("REQUESTED_NOT_VERIFIED"))},
+      {"source_status",
+       Value(std::string("DECLARED_COUNTS_ONLY_ORIGINAL_BYTES_NOT_CHECKED"))},
+      {"source_count_basis", member(parsed.value().document(), "source_count_basis")},
+      {"session_admission_performed", Value(false)},
+      {"execution_authority", Value(false)},
+      {"phase18_authority", Value(false)},
+      {"contexts", Value(std::move(contexts))},
+      {"captures", Value(std::move(captures))}});
 }
 } // namespace cpu_prefetch::runner::stage17

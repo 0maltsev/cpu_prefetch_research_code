@@ -1,0 +1,9 @@
+[0/1] Re-running CMake...
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+[1/4] Checking shared JCS-I64-v1 cross-language fixtures
+canonical-check: PASS (3 shared JCS-I64-v1 cases)
+[2/4] Checking C++ formatting
+[3/4] Checking imported protocol integrity and schemas
+protocol-check: PASS (3 snapshots, 54 artifacts, 12 authoritative hashes, 21 imported and 451 implementation Draft 2020-12 schemas)

@@ -1,0 +1,88 @@
+{
+  "schema_version": "cpu-prefetch-storage-codegen/1",
+  "scope": "correctness-only; no performance observation",
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_storage_codegen_probe",
+    "sha256": "15d709b691784c445a71b9116ae6deef980abe6b870b48b7cfb8e1ff3b9e8d21"
+  },
+  "mutant": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_storage_codegen_mutant",
+    "sha256": "a3a11a3bb6d6643406b404acd21ec029413fe5100f54ca74417b8d036859a6ee"
+  },
+  "rule_set_sha256": "a8759a82ac69c513f54097e133201889ee13940dbfdda07f1e1bff5e5725b211",
+  "tools": {
+    "GNU_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/objdump",
+      "version": "GNU Binutils 2.46.0",
+      "append_bodies": {
+        "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)": {
+          "status": "PASS",
+          "body_sha256": "d71e3522c1c5389db20ffde53aaee0370851ebbfb1d9f414355efc514def09a3",
+          "forbidden_operations": [],
+          "allowed_fail_closed_calls": [
+            "__stack_chk_fail"
+          ]
+        },
+        "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)": {
+          "status": "PASS",
+          "body_sha256": "2c5a477bd67285a7b44b518f41dd13249a148425f7e385b041cbdc5f3ed46664",
+          "forbidden_operations": [],
+          "allowed_fail_closed_calls": [
+            "__stack_chk_fail"
+          ]
+        }
+      },
+      "negative_mutant": {
+        "status": "EXPECTED_REJECTION",
+        "detected": [
+          "6514:\tcall   c790 <cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)>",
+          "651c:\tcall   6500 <cpu_prefetch_forbidden_storage_observer>"
+        ]
+      },
+      "full_disassembly_sha256": "edd2f8fccc3fb572f552992a640784c82ccdf50f281a3c77f664ab3d0bf1f4ca"
+    },
+    "LLVM_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/llvm-objdump",
+      "version": "LLVM 22.1.6",
+      "append_bodies": {
+        "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)": {
+          "status": "PASS",
+          "body_sha256": "7a4327cf1bc93b7e62aecad778141c9bbd1a8492fdd96e0dc0b29926d4367402",
+          "forbidden_operations": [],
+          "allowed_fail_closed_calls": [
+            "__stack_chk_fail"
+          ]
+        },
+        "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)": {
+          "status": "PASS",
+          "body_sha256": "11152b2a56bc6816c7aed02b4d525028f1972be8953e72a8d08ff99988cbc65a",
+          "forbidden_operations": [],
+          "allowed_fail_closed_calls": [
+            "__stack_chk_fail"
+          ]
+        }
+      },
+      "negative_mutant": {
+        "status": "EXPECTED_REJECTION",
+        "detected": [
+          "6514:      \tcallq\t0xc790 <cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)>",
+          "651c:      \tcallq\t0x6500 <cpu_prefetch_forbidden_storage_observer>"
+        ]
+      },
+      "full_disassembly_sha256": "a53c928b28b504ba8ba2255b0e1f27b79b5d98c8487394a7813706edd5c88889"
+    }
+  },
+  "source_evidence": {
+    "status": "PASS",
+    "files": {
+      "include/cpu_prefetch/storage/raw_observations.hpp": "d95022bddda7e20a44f3c870a44cef1394dbd44535c39b9e1ec92cbb1d4f809c",
+      "src/storage/raw_observations.cpp": "e0f38f893a328674e776ba8e69c40a03a57657df520eafc2647bbebee4658acb",
+      "tools/storage_codegen_probe.cpp": "19bad6f51aa77267b017979091271434e4b798d7d7e39092f336ad9f49bf69d3",
+      "tools/storage_codegen_mutant.cpp": "46d16f13978c2869945d6fe536081e2cfbc448ec4be98e74ea5b065fb15fe8ec"
+    }
+  },
+  "status": "PASS",
+  "missing_tools": []
+}

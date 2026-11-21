@@ -2981,6 +2981,21 @@ add_custom_target(
   DEPENDS cpu_prefetch_runner
   COMMENT "Requiring both disassemblers to audit actual formal native active-phase code")
 add_custom_target(
+  s180-codegen-check
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tools/check_s180_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_runner>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+    --output "${PROJECT_BINARY_DIR}/s180_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  COMMAND "${Python3_EXECUTABLE}" -B
+    "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_codegen.py"
+    --report "${PROJECT_BINARY_DIR}/s180_codegen_report.json"
+    --binary "$<TARGET_FILE:cpu_prefetch_runner>"
+    --source-root "${PROJECT_SOURCE_DIR}"
+  DEPENDS cpu_prefetch_runner
+  COMMENT "Auditing all20 actual pilot and42 formal workers with both disassemblers and machine mutants")
+add_custom_target(
   q15-probe-codegen-check
   COMMAND
     "${Python3_EXECUTABLE}"

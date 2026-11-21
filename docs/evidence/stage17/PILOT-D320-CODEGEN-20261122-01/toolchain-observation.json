@@ -1,0 +1,241 @@
+{
+  "complete_queue_probe": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_queue_codegen_probe",
+    "sha256": "84551849f1244cd0c7e9d1b05fbb9f55e74e4ab6fa7d6058fdb6fa97baec840c",
+    "size_bytes": 16016
+  },
+  "filtered_binutils_libraries": {
+    "libbfd-2.46.0.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libbfd-2.46.0.so",
+      "sha256": "c439106ef394488bd955cf3f65682c5576b1674ff717599afa81e6c0b6423a71",
+      "size_bytes": 1409688
+    },
+    "libbfd.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libbfd.so",
+      "sha256": "b9dec3c289938f1bb2e5309548e411c49e35993def42bc7d1e3efaa1135936a5",
+      "size_bytes": 82
+    },
+    "libctf-nobfd.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libctf-nobfd.so.0.0.0",
+      "sha256": "37275bd057d4086a47c83f617ef82f6f399f72766994548b2e3672213975f19f",
+      "size_bytes": 235552
+    },
+    "libctf-nobfd.so.0": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libctf-nobfd.so.0.0.0",
+      "sha256": "37275bd057d4086a47c83f617ef82f6f399f72766994548b2e3672213975f19f",
+      "size_bytes": 235552
+    },
+    "libctf-nobfd.so.0.0.0": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libctf-nobfd.so.0.0.0",
+      "sha256": "37275bd057d4086a47c83f617ef82f6f399f72766994548b2e3672213975f19f",
+      "size_bytes": 235552
+    },
+    "libctf.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libctf.so.0.0.0",
+      "sha256": "ae6ed41fa5b3edf539f51020ae7274bd6be4208e7efbf4cb1d1d9382d0464998",
+      "size_bytes": 235544
+    },
+    "libctf.so.0": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libctf.so.0.0.0",
+      "sha256": "ae6ed41fa5b3edf539f51020ae7274bd6be4208e7efbf4cb1d1d9382d0464998",
+      "size_bytes": 235544
+    },
+    "libctf.so.0.0.0": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libctf.so.0.0.0",
+      "sha256": "ae6ed41fa5b3edf539f51020ae7274bd6be4208e7efbf4cb1d1d9382d0464998",
+      "size_bytes": 235544
+    },
+    "libjansson.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libjansson.so.4.15.0",
+      "sha256": "f3026827518c7f3d7d4ffc9678051fc75d52502960ef394167e7187518c0dc02",
+      "size_bytes": 92272
+    },
+    "libjansson.so.4": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libjansson.so.4.15.0",
+      "sha256": "f3026827518c7f3d7d4ffc9678051fc75d52502960ef394167e7187518c0dc02",
+      "size_bytes": 92272
+    },
+    "libjansson.so.4.15.0": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libjansson.so.4.15.0",
+      "sha256": "f3026827518c7f3d7d4ffc9678051fc75d52502960ef394167e7187518c0dc02",
+      "size_bytes": 92272
+    },
+    "libopcodes-2.46.0.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libopcodes-2.46.0.so",
+      "sha256": "05fef90dcde5789a0c038cc122ebf150cb8796ce1acfa7f471f1938fbce8d962",
+      "size_bytes": 800720
+    },
+    "libopcodes.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libopcodes.so",
+      "sha256": "3805090b5280848e7d92945234626946ec87e4f22e368d30d08eabec8b0f645c",
+      "size_bytes": 58
+    },
+    "libsframe.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libsframe.so.3.0.0",
+      "sha256": "50eb9594541f9b243c1362f2e038ed74134f089a8c07a23cf610becdac90aaea",
+      "size_bytes": 43032
+    },
+    "libsframe.so.3": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libsframe.so.3.0.0",
+      "sha256": "50eb9594541f9b243c1362f2e038ed74134f089a8c07a23cf610becdac90aaea",
+      "size_bytes": 43032
+    },
+    "libsframe.so.3.0.0": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libsframe.so.3.0.0",
+      "sha256": "50eb9594541f9b243c1362f2e038ed74134f089a8c07a23cf610becdac90aaea",
+      "size_bytes": 43032
+    },
+    "libz.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libz.so.1.3.2",
+      "sha256": "9ba92a0b85dc9b659e8f5e596a69452cec801def6ece0883a8a2c1f032e52397",
+      "size_bytes": 104464
+    },
+    "libz.so.1": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libz.so.1.3.2",
+      "sha256": "9ba92a0b85dc9b659e8f5e596a69452cec801def6ece0883a8a2c1f032e52397",
+      "size_bytes": 104464
+    },
+    "libz.so.1.3.2": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libz.so.1.3.2",
+      "sha256": "9ba92a0b85dc9b659e8f5e596a69452cec801def6ece0883a8a2c1f032e52397",
+      "size_bytes": 104464
+    },
+    "libzstd.so": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libzstd.so.1.5.7",
+      "sha256": "f023d49e85fb22057bfdd21857263d2638b73356c06f3b342f678a75212379f8",
+      "size_bytes": 939976
+    },
+    "libzstd.so.1": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libzstd.so.1.5.7",
+      "sha256": "f023d49e85fb22057bfdd21857263d2638b73356c06f3b342f678a75212379f8",
+      "size_bytes": 939976
+    },
+    "libzstd.so.1.5.7": {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libzstd.so.1.5.7",
+      "sha256": "f023d49e85fb22057bfdd21857263d2638b73356c06f3b342f678a75212379f8",
+      "size_bytes": 939976
+    }
+  },
+  "host_python_binding": {
+    "path": "/usr/bin/python3.14",
+    "sha256": "122ce07db306cd111fd10e27125460362610452983a64903c470afd66b6403bd",
+    "size_bytes": 14424
+  },
+  "native_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "native_runtime_identity": {
+    "execution_authority": false,
+    "phase18_authority": false,
+    "profile": "STAGE17-S180-NATIVE-WORKER-v1",
+    "role": "STAGE17_S180_NATIVE_WORKER",
+    "schema_version": "cpu-prefetch-stage17-s180-runtime-identity/1",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832,
+    "source_dirty": false,
+    "source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+    "synthetic_test_only": false
+  },
+  "startup": {
+    "Scrt1.o": {
+      "accepted_full_prefix": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.1/../../../../lib/Scrt1.o",
+        "sha256": "cc366b3e0d3dd36119896f2351452d63ab103dce5e4db9e618b02b32e51515c7",
+        "size_bytes": 2048
+      },
+      "initial_incomplete_prefix": {
+        "path": "/lib/../lib/Scrt1.o",
+        "sha256": "98d76691c6d97233c9e1a062f32ea2d7a89f047632156d1bf7b811727fb19921",
+        "size_bytes": 2048
+      }
+    },
+    "crtbeginS.o": {
+      "accepted_full_prefix": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.1/crtbeginS.o",
+        "sha256": "2121a998fa7f4c8c19e0a7032df0301dc7ae9e9c2700aa298817732da4beb6d6",
+        "size_bytes": 2768
+      },
+      "initial_incomplete_prefix": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.1/crtbeginS.o",
+        "sha256": "2121a998fa7f4c8c19e0a7032df0301dc7ae9e9c2700aa298817732da4beb6d6",
+        "size_bytes": 2768
+      }
+    },
+    "crtendS.o": {
+      "accepted_full_prefix": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.1/crtendS.o",
+        "sha256": "415d56b63e7fc163d19ac1886597ed369d03e1a3b07c203456a68ee705fe492b",
+        "size_bytes": 1168
+      },
+      "initial_incomplete_prefix": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.1/crtendS.o",
+        "sha256": "415d56b63e7fc163d19ac1886597ed369d03e1a3b07c203456a68ee705fe492b",
+        "size_bytes": 1168
+      }
+    },
+    "crti.o": {
+      "accepted_full_prefix": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.1/../../../../lib/crti.o",
+        "sha256": "8c1507e22ab4137ac5c5d984b7d8d44156f2d61617e5774bebea6e3299f68adf",
+        "size_bytes": 1240
+      },
+      "initial_incomplete_prefix": {
+        "path": "/lib/../lib/crti.o",
+        "sha256": "caf7f0c99019735e97e9bfabf52c376e86e1ef92d1b53a63c36a5bc2688e8fcc",
+        "size_bytes": 1240
+      }
+    },
+    "crtn.o": {
+      "accepted_full_prefix": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.1/../../../../lib/crtn.o",
+        "sha256": "225270dc2c7f8fb4603441e5dd501497de53a8d38f60d680a5d4e7cad6bf4801",
+        "size_bytes": 808
+      },
+      "initial_incomplete_prefix": {
+        "path": "/lib/../lib/crtn.o",
+        "sha256": "71236f0a232a3686adf2319f3ae172831e8fd8166b9f0764ed184bc4df11be3c",
+        "size_bytes": 808
+      }
+    }
+  },
+  "tools": {
+    "cmake": {
+      "binding": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/cmake",
+        "sha256": "4142cb2f568f0e439cd0d7ae4302eb5c067aedaa0ab16b1e5d8ffb1104add6c6",
+        "size_bytes": 11504664
+      },
+      "version": "cmake version 4.3.3"
+    },
+    "compiler": {
+      "binding": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/g++",
+        "sha256": "f1ed0991022368fbb1b9c3fc4e56a5f6c44d45158589308cdbe7f56fdf07cb82",
+        "size_bytes": 1746264
+      },
+      "version": "g++ (GCC) 16.1.1 20260430"
+    },
+    "gnu_objdump": {
+      "binding": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/objdump",
+        "sha256": "4091f00ac8152a721fdd348a45613ddf54f606266dfc988dd198428020e7f31b",
+        "size_bytes": 395096
+      },
+      "version": "GNU objdump (GNU Binutils) 2.46.0"
+    },
+    "ld": {
+      "binding": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/ld",
+        "sha256": "9ef8358831d2bd065dd9fcf66c4d30a2f45096049af70939eaa36aafe5bfa387",
+        "size_bytes": 1616176
+      },
+      "version": "GNU ld (GNU Binutils) 2.46.0"
+    },
+    "llvm_objdump": {
+      "binding": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/llvm-objdump",
+        "sha256": "40a416684d9c60b9f1ca88352a71c9c60888fb4b61234d9f24848bd75edde78b",
+        "size_bytes": 1067312
+      },
+      "version": "LLVM (http://llvm.org/):"
+    }
+  }
+}

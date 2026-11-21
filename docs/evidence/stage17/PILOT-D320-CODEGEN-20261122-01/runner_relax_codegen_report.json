@@ -1,0 +1,53 @@
+{
+  "schema_version": "cpu-prefetch-runner-relax-codegen/1",
+  "scope": "correctness-only; no timing or performance observation",
+  "mapping_id": "X86-PAUSE-ONE-PER-RELAX-SITE-v1",
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_runner_codegen_probe",
+    "sha256": "f6259b964f913e4ee333d325c5fe4fc937fcf2c1c8286bc5a1fcda01fefbbdc2"
+  },
+  "mutant": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_runner_codegen_mutant",
+    "sha256": "a07c30f8b6e277faf5a1684f2448e89149e3e19746ad00b8241336b04d31082c"
+  },
+  "rule_set": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tools/check_runner_codegen.py",
+    "sha256": "a85c129ada308d6bbbdfb8454fbdbc89c86e3b48f7dac59a87b188f4ea2cd097"
+  },
+  "tools": {
+    "GNU_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/objdump",
+      "version": "GNU Binutils 2.46.0",
+      "relax": {
+        "status": "PASS",
+        "pause_count": 1,
+        "body_sha256": "22422ce4a67dc773ddff742a0b63a71e596808cea1111b4194aee8c22a6c664e"
+      },
+      "mutant": {
+        "status": "EXPECTED_REJECTION",
+        "pause_count": 2,
+        "scheduler_call_count": 1,
+        "body_sha256": "c1dcdac7471c99449e640ec1fb01144b31858c8a50bf3c66d76385f2dfccae59"
+      }
+    },
+    "LLVM_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/llvm-objdump",
+      "version": "LLVM 22.1.6",
+      "relax": {
+        "status": "PASS",
+        "pause_count": 1,
+        "body_sha256": "6467cb486e645a0181cebf136d2272a183565522ff0c290e543188c7e0187ef6"
+      },
+      "mutant": {
+        "status": "EXPECTED_REJECTION",
+        "pause_count": 2,
+        "scheduler_call_count": 1,
+        "body_sha256": "ac898aedcc087f778895175491fe8f45dc5d1ba81e25f322859e6dbc5f684496"
+      }
+    }
+  },
+  "status": "PASS",
+  "missing_tools": []
+}

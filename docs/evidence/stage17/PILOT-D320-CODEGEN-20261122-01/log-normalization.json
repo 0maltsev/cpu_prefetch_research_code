@@ -1,0 +1,27 @@
+{
+  "build-codegen.txt": {
+    "operation": "REMOVE_TRAILING_HORIZONTAL_WHITESPACE_AND_SURPLUS_EOF_NEWLINES_ONLY",
+    "original_sha256": "ffee95b4efaf792e2e77a803801917f2131a8d002635681f1fca777b7cbd57f3",
+    "original_size_bytes": 12081
+  },
+  "initial-host-linker/build-codegen.txt": {
+    "operation": "REMOVE_TRAILING_HORIZONTAL_WHITESPACE_AND_SURPLUS_EOF_NEWLINES_ONLY",
+    "original_sha256": "ffee95b4efaf792e2e77a803801917f2131a8d002635681f1fca777b7cbd57f3",
+    "original_size_bytes": 12081
+  },
+  "pinned-build-codegen-filtered.txt": {
+    "operation": "REMOVE_TRAILING_HORIZONTAL_WHITESPACE_AND_SURPLUS_EOF_NEWLINES_ONLY",
+    "original_sha256": "7eb5c7653972dc904ee9e8e4c75a1eb85858b176dcc495bf9420084d1bba208f",
+    "original_size_bytes": 1794
+  },
+  "pinned-build-codegen-full-runtime-failure.txt": {
+    "operation": "REMOVE_TRAILING_HORIZONTAL_WHITESPACE_AND_SURPLUS_EOF_NEWLINES_ONLY",
+    "original_sha256": "e792eff284965f1f75f350a632383d118318858d6ac50a0f39c452d435e1690a",
+    "original_size_bytes": 3795
+  },
+  "pinned-build-codegen.txt": {
+    "operation": "REMOVE_TRAILING_HORIZONTAL_WHITESPACE_AND_SURPLUS_EOF_NEWLINES_ONLY",
+    "original_sha256": "e792eff284965f1f75f350a632383d118318858d6ac50a0f39c452d435e1690a",
+    "original_size_bytes": 3795
+  }
+}

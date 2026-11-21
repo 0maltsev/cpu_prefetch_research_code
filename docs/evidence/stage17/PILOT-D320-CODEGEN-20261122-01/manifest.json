@@ -1,0 +1,234 @@
+{
+  "baseline_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/COMMANDS.md": {
+      "sha256": "588b514c90c2bf5064224e2ffb1a4cc36d601aab4d4032e1101b1a389c36acc1",
+      "size_bytes": 3925
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/REPORT.md": {
+      "sha256": "50ce5e154b5dc84e7e2bdb720a363e407a0e99a17012feae2d59147cc0d5b6c5",
+      "size_bytes": 5150
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/build-codegen.txt": {
+      "sha256": "fc24900e8ac0ec1ce55a073e19a0fe7e185dfe1e5839873fa3d7be6b24f0103d",
+      "size_bytes": 12080
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/configure.txt": {
+      "sha256": "d864a40d0fa8a9af677e722a19f1d9f34142a726302962adf305d3b4fecf6e64",
+      "size_bytes": 1302
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/discovery_codegen_report.json": {
+      "sha256": "41a8bad6976ed534c5492b5abeb8843e42b37db5c4872e066bc2e04197917860",
+      "size_bytes": 130563
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/first-rule-byte-snapshot.json": {
+      "sha256": "f9f754fcf76174f739afc3597f36a4b67a276a5b2f6962cd5c883b238e609ea7",
+      "size_bytes": 19050
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/formal-codegen-final-legacy.json": {
+      "sha256": "b5e37c21e0d300f388d68f869306be714cb978f226eb9de885f73bc164d47e16",
+      "size_bytes": 7181
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/formal-codegen-final-legacy.txt": {
+      "sha256": "cdfbbcf01ab368507e3094fa7d98f474665c24f849993d860fd08680b94230f1",
+      "size_bytes": 61
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/formal-codegen-initial.json": {
+      "sha256": "05f277736035174997c0d9f1a8202552a3bbef4c91a65464c3d0d682c59f5949",
+      "size_bytes": 7181
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/formal-codegen-initial.txt": {
+      "sha256": "cdfbbcf01ab368507e3094fa7d98f474665c24f849993d860fd08680b94230f1",
+      "size_bytes": 61
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/full-compiler-build-codegen.txt": {
+      "sha256": "9ff87d26cd9cfd1d40c1e1d689a26a1b1ae8c12304308f7f822a9cd25660e5f4",
+      "size_bytes": 12277
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/full-compiler-configure.txt": {
+      "sha256": "409f8555dfb41dd33cc8b518c82e7490623df870a709bf38e5e76d8a662fe70c",
+      "size_bytes": 1935
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/full-compiler-reconfigure.txt": {
+      "sha256": "fbd22552e5e2af00d2ba3d047c9943002698662445bf787b7058f4a761de344c",
+      "size_bytes": 425
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/initial-host-linker/build-codegen.txt": {
+      "sha256": "fc24900e8ac0ec1ce55a073e19a0fe7e185dfe1e5839873fa3d7be6b24f0103d",
+      "size_bytes": 12080
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/initial-host-linker/formal-codegen-initial.json": {
+      "sha256": "05f277736035174997c0d9f1a8202552a3bbef4c91a65464c3d0d682c59f5949",
+      "size_bytes": 7181
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/initial-host-linker/queue_codegen_report.json": {
+      "sha256": "d69c94285c8489c9af0ca2caae4344185ba4edd309ce330041e7fa85e2f5fc68",
+      "size_bytes": 4261
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/log-normalization.json": {
+      "sha256": "45c964dbbbeed873e50eb3ce683b4b5465de00ff5d4014eecedaace53aaf3ad7",
+      "size_bytes": 1281
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/managed-ipc-diagnostic.json": {
+      "sha256": "80f66f56f42cc3164da70ce1bbdced661a083812c270bc8fb5dfa13486c2ae1b",
+      "size_bytes": 174
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/pc-cleanup.json": {
+      "sha256": "4b748a3fc19fc0b090fec02996ea99d0b4558b6b6aa08a0e31d7a689731c9155",
+      "size_bytes": 142
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/pin-binutils-configure.txt": {
+      "sha256": "d570597bbdff7c84db6996e5e8ce7c38b3c6e40d3c4d63dbd76a24d5ff6b1731",
+      "size_bytes": 306
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/pinned-build-codegen-filtered.txt": {
+      "sha256": "298194331d2ae8cd01f2e3cf2a6ac7f4096895c1bbbed4aa7a34278ea1f088ef",
+      "size_bytes": 1793
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/pinned-build-codegen-full-runtime-failure.txt": {
+      "sha256": "8c014e8f2f8e84957ab2fa097ae6baa1f52331d82ccaa4156a79807d88c29a3a",
+      "size_bytes": 3794
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/pinned-build-codegen.txt": {
+      "sha256": "8c014e8f2f8e84957ab2fa097ae6baa1f52331d82ccaa4156a79807d88c29a3a",
+      "size_bytes": 3794
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/q15_runtime_codegen_report.json": {
+      "sha256": "a0bfee9ee44cd01a42fdd07a2843c8dfb9ca62d337ff614fe842fc9d76cd6acf",
+      "size_bytes": 4145
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/queue_codegen_report.json": {
+      "sha256": "9cdca5a9eca659d96eb863ecd13a581d81ab5ea854dd13abfb0a486628381e43",
+      "size_bytes": 4140
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/release-runtime-identity.json": {
+      "sha256": "73bd877e824cc30263130ee3d25b20f40fcacdae17688d6ac6d0c28d95cd208b",
+      "size_bytes": 405
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/release-s180-ctest.txt": {
+      "sha256": "8c415c11cfb1321fc52f8a2db9e66c6a9110d870da9bdd160405d28193b4d806",
+      "size_bytes": 15433
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/release-s180-ipc-final.txt": {
+      "sha256": "46123077900d7d35487fddc5c6952a7acb8bae201bb60b9f4380ac9cfaaa2a19",
+      "size_bytes": 1695
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/repository-final-checks.txt": {
+      "sha256": "445569c87f26b3a23c7251a65b9a40c541d397f7e485900982d460a005f4ec6b",
+      "size_bytes": 527
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/runner_combined_codegen_report.json": {
+      "sha256": "10a42a1178ec3a901b8a74129fb619f69633677d67944e30e0bb54ed44b034c4",
+      "size_bytes": 38571
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/runner_relax_codegen_report.json": {
+      "sha256": "93bcdac2b5f1419f94d5f19a11340eb45e48edea1e24668b0abde0d80b8d9dc8",
+      "size_bytes": 2143
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180-codegen-final-report-tests.txt": {
+      "sha256": "303939bb575fc4bb73e2b6b468cae69bc5843d37b408cc43b435e3f203204d1d",
+      "size_bytes": 104
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180-codegen-final.txt": {
+      "sha256": "1e1d96870a0ee9d3cc0e43dfc35db4f9b6276be2c345656cfb7613814984abcf",
+      "size_bytes": 25
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180-codegen-first.txt": {
+      "sha256": "1e1d96870a0ee9d3cc0e43dfc35db4f9b6276be2c345656cfb7613814984abcf",
+      "size_bytes": 25
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180-codegen-missing-tools-final.json": {
+      "sha256": "e08b18c792b10ae480473284abad0982e89e8b26bb90ca15cccd8323cd3a3f06",
+      "size_bytes": 9561
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180-codegen-missing-tools-final.txt": {
+      "sha256": "04fa8a97c51f0cffb8be872e7181ffcc853695a5fddc1e70bff173d3724338de",
+      "size_bytes": 53
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180-codegen-missing-tools.json": {
+      "sha256": "2479cd3f2857efe8dde0d48a54e1e0471695f7bac8dc3d0d0d52f637fb89e50b",
+      "size_bytes": 9561
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180-codegen-missing-tools.txt": {
+      "sha256": "04fa8a97c51f0cffb8be872e7181ffcc853695a5fddc1e70bff173d3724338de",
+      "size_bytes": 53
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180-codegen-report-tests.txt": {
+      "sha256": "cefdb2d6a8eed4c826f2303b6b84162f34921ad5ddb6632c70f223c50d237090",
+      "size_bytes": 104
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180_codegen_report-final.json": {
+      "sha256": "5d00594e43480da6e7ee5f4b5a22ff410e1107d70ff72dccc1043ef8053b7be3",
+      "size_bytes": 4010028
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180_codegen_report-first.json": {
+      "sha256": "6b713844983b52ba7958b24b77d5ae60a77b616d39d6ae32c81163608b8909d9",
+      "size_bytes": 4010028
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/stand-read-only-observation.json": {
+      "sha256": "6ca6ba92b3fa49302b0a43b142509460e080dc9e2034806fee11bc8b5486f0bb",
+      "size_bytes": 352
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/storage_codegen_report.json": {
+      "sha256": "e4fcc043e5d6f79e9b82bc09b7a9e8c2e66fd4b9cb2a965bc23d33889d344f59",
+      "size_bytes": 4106
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/target-command-binding.json": {
+      "sha256": "6c4190b086b104f4ac87a7cfa1277d360ab68e02704a1a31c129d2478c0845a7",
+      "size_bytes": 1087
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/timing_codegen_report.json": {
+      "sha256": "6a020f830082c4ffb626f5dba54623d64dc544caed8fe9b88568769c8fd76966",
+      "size_bytes": 11721
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/toolchain-observation.json": {
+      "sha256": "d36a2be6d98d94b1a88def71aa5ac2d926ce6df26263a49ed27b8a43f3bdd3b3",
+      "size_bytes": 11673
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/verification.json": {
+      "sha256": "e7e798c8821223ea9abf6460c77565546a3197a28c6cb921104247b8146cde9f",
+      "size_bytes": 1361
+    },
+    "docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/workload_codegen_report.json": {
+      "sha256": "e8d66ae8f624a8e05bfb26a419494dc62dce9b1757ad4b7a194dd1b1bc351c03",
+      "size_bytes": 4710
+    }
+  },
+  "manifest_self_excluded": true,
+  "native_source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "schema_version": "cpu-prefetch-stage17-software-evidence-manifest/1",
+  "source_files": {
+    "CMakeLists.txt": {
+      "sha256": "40a1a89429e8c61ba1fef1e4b12be7879b6c9e814851d954b847475ea0c183da",
+      "size_bytes": 191840
+    },
+    "PLAN.md": {
+      "sha256": "e46cae3e5734dea5c2db93973b69f73de765cbb5e4200eb3958025e504684506",
+      "size_bytes": 113744
+    },
+    "README.md": {
+      "sha256": "a00b8a018b9fb86a9ae187991d5dc001f15572c13656c09ef3f06fac032ea4aa",
+      "size_bytes": 121197
+    },
+    "STATUS.md": {
+      "sha256": "e745a3e596d11296e5e624aeb54e26bc87fa55f9108eee706782199ef86af3ae",
+      "size_bytes": 140114
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "6ddfe62aee90730d3124a9bf6ae2425f763c86d35fef5ad20eedb6bb5737d1d4",
+      "size_bytes": 8718
+    },
+    "docs/decisions/0320-s180-native-codegen-and-clean-release.md": {
+      "sha256": "d491ccc29e8ad35e6f1fe383e0422115c1c8f16281d2bc7a125472c97764e8a5",
+      "size_bytes": 7322
+    },
+    "tests/test_stage17_s180_codegen.py": {
+      "sha256": "cee8ddc5f141e6906917b47d76def7cfeecf54daca06910329ef1cff0976822a",
+      "size_bytes": 4129
+    },
+    "tools/check_s180_codegen.py": {
+      "sha256": "f2d002f10ac00a4f70ec6f0db587a32c0869d9c66a72be9ad952cba4e3460fd4",
+      "size_bytes": 17918
+    }
+  }
+}

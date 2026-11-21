@@ -1,0 +1,36 @@
+{
+  "authority": {
+    "actual_scoped_semantic_admission": false,
+    "actual_stand_qualification": false,
+    "native_source_clean": true,
+    "operational_window_started": false,
+    "pilot_started": false,
+    "qualified_parent_complete": false,
+    "scientific_validity": "NOT_ASSESSED",
+    "stage17_complete": false,
+    "stage18_authority": false,
+    "stand_read_only_observed": true
+  },
+  "baseline_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "checks": {
+    "final_retained_report_cases": 6,
+    "final_rule_byte_binding": "PASS_AFTER_EOF_FORMATTING",
+    "formal_machine_mutants_rejected_per_tool": 12,
+    "formal_workers_per_tool": 42,
+    "format_protocol_canonical_ast": "PASS",
+    "missing_tools_status": "BLOCKED_MISSING_TOOL_EXIT3",
+    "new_aggregate_target_executed": false,
+    "original_codegen_gates_passed": 8,
+    "pilot_machine_mutants_rejected_per_tool": 12,
+    "pilot_workers_per_tool": 20,
+    "release_ctest_initial_entries": 41,
+    "release_ctest_initial_ipc_failures": 5,
+    "release_ctest_initial_passed": 36,
+    "release_targeted_ipc_cases_passed_outside_managed_boundary": 6,
+    "retained_report_cases": 6,
+    "rule_ast_unchanged": true
+  },
+  "decision": "D320",
+  "native_source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "schema_version": "cpu-prefetch-stage17-software-verification/1"
+}

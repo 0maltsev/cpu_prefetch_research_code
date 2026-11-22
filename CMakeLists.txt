@@ -1760,6 +1760,14 @@ if(BUILD_TESTING)
     set_tests_properties(runner.s180_archive_broker_v1 PROPERTIES
       LABELS "runner;pilot;archive;synthetic;python" TIMEOUT 180
       ENVIRONMENT "TMPDIR=${PROJECT_BINARY_DIR}/stage17-archive-jobs-tmp")
+    add_test(NAME runner.s180_parent_v1
+      COMMAND "${Python3_EXECUTABLE}" -B
+        "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_parent_v1.py"
+        --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>"
+        --channel-fixture "$<TARGET_FILE:cpu_prefetch_s180_channel_fixture>")
+    set_tests_properties(runner.s180_parent_v1 PROPERTIES
+      LABELS "runner;pilot;archive;synthetic;python" TIMEOUT 180
+      ENVIRONMENT "TMPDIR=${PROJECT_BINARY_DIR}/stage17-archive-jobs-tmp")
     add_test(NAME runner.formal_archive_jobs_v1
       COMMAND "${Python3_EXECUTABLE}" -B
         "${PROJECT_SOURCE_DIR}/tests/test_stage17_formal_archive_jobs_v1.py"

@@ -1,0 +1,35 @@
+test_actual_native_broker_independent_ledger_parent_receipt_and_ack (__main__.ParentTests.test_actual_native_broker_independent_ledger_parent_receipt_and_ack) ... ERROR
+
+======================================================================
+ERROR: test_actual_native_broker_independent_ledger_parent_receipt_and_ack (__main__.ParentTests.test_actual_native_broker_independent_ledger_parent_receipt_and_ack)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 103, in _namespace_inode
+    target = os.readlink(path)
+PermissionError: [Errno 13] Permission denied: '/proc/1/ns/pid'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_parent_v1.py", line 158, in test_actual_native_broker_independent_ledger_parent_receipt_and_ack
+    self.exchange(expected=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_parent_v1.py", line 96, in exchange
+    lease.enter()
+    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v3.py", line 132, in enter
+    self.identity_model = ProcfsIdentityModel()
+                          ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 149, in __init__
+    self.snapshot = self._capture_self()
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 170, in _capture_self
+    procfs_namespace_inode = _namespace_inode(self.proc_root / "1/ns/pid")
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 105, in _namespace_inode
+    raise SupervisorError(f"cannot read PID namespace identity: {exception}") from exception
+stage17_process_group_supervisor_v2.SupervisorError: cannot read PID namespace identity: [Errno 13] Permission denied: '/proc/1/ns/pid'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.395s
+
+FAILED (errors=1)

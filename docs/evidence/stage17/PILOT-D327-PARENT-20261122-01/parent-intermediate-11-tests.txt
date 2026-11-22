@@ -1,0 +1,16 @@
+test_actual_native_broker_independent_ledger_parent_receipt_and_ack (__main__.ParentTests.test_actual_native_broker_independent_ledger_parent_receipt_and_ack) ... ok
+test_actual_wrong_worker_image_is_rejected_before_any_codec (__main__.ParentTests.test_actual_wrong_worker_image_is_rejected_before_any_codec) ... ok
+test_attempt_is_exclusive_durable_and_charged_to_existing_shared_quota (__main__.ParentTests.test_attempt_is_exclusive_durable_and_charged_to_existing_shared_quota) ... ok
+test_broker_input_bound_failure_keeps_originals_and_sends_no_ack (__main__.ParentTests.test_broker_input_bound_failure_keeps_originals_and_sends_no_ack) ... ok
+test_changed_archive_profile_is_rejected_before_any_codec (__main__.ParentTests.test_changed_archive_profile_is_rejected_before_any_codec) ... ok
+test_changed_attempt_stops_before_broker_and_keeps_all_originals (__main__.ParentTests.test_changed_attempt_stops_before_broker_and_keeps_all_originals) ... ok
+test_expired_window_or_foreign_output_does_not_consume_attempt (__main__.ParentTests.test_expired_window_or_foreign_output_does_not_consume_attempt) ... ok
+test_failed_capture_is_retained_and_receives_only_stop_ack (__main__.ParentTests.test_failed_capture_is_retained_and_receives_only_stop_ack) ... ok
+test_independent_ledger_failure_after_real_broker_sends_no_ack (__main__.ParentTests.test_independent_ledger_failure_after_real_broker_sends_no_ack) ... ok
+test_partial_attempt_and_native_entry_prevent_another_consumption (__main__.ParentTests.test_partial_attempt_and_native_entry_prevent_another_consumption) ... ok
+test_partial_failed_prefix_is_archived_without_deleting_unlisted_files (__main__.ParentTests.test_partial_failed_prefix_is_archived_without_deleting_unlisted_files) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 14.770s
+
+OK

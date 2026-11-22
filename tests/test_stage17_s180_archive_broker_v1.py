@@ -72,7 +72,7 @@ class S180BrokerTests(unittest.TestCase):
         order = sorted(blueprint["captures"], key=lambda row: row["execution_ordinal"])
         plan = dict(schema_version="cpu-prefetch-stage17-s180-session-plan/1", blueprint=blueprint,
             captures=[dict(execution_ordinal=i, cell_ordinal=row["cell_ordinal"],
-                execution_budget=dict(max_output_bytes=4*1024**2)) for i, row in enumerate(order)],
+                execution_budget=dict(max_output_bytes=4*1024**2,archive_ns=90_000_000_000)) for i, row in enumerate(order)],
             storage=dict(pilot_policy_id="D310-S180-LOSSLESS-STAND-PRIMARY-v1", approval_sha256=contract.APPROVAL_SHA256,
                 program_id="synthetic-s180", program_scope_sha256=self.scope,
                 implementation_profile_sha256=self.profile.decoder.implementation_profile_sha256,

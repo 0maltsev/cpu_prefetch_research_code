@@ -1,0 +1,72 @@
+[
+  {
+    "normalized_sha256": "6ddd24769cd5ec1ec35eee8888807d272567ad70f61e8b160e3ce7d5201efe8c",
+    "original_sha256": "6ddd24769cd5ec1ec35eee8888807d272567ad70f61e8b160e3ce7d5201efe8c",
+    "original_size_bytes": 2256,
+    "path": "initial-managed-interruption.txt",
+    "source": "build/stage17-s180-native/d327-initial-managed-interruption.txt"
+  },
+  {
+    "normalized_sha256": "f96eaaddd21126935c7b5ad65181f0f0333e61c61de1c524e7e428646e6514b4",
+    "original_sha256": "f96eaaddd21126935c7b5ad65181f0f0333e61c61de1c524e7e428646e6514b4",
+    "original_size_bytes": 2366,
+    "path": "host-pid-namespace-rejection.txt",
+    "source": "build/stage17-s180-native/d327-host-pid-namespace-rejection.txt"
+  },
+  {
+    "normalized_sha256": "eff78feb9599f36993cc67afa7051249da77a81b4f267c14f33ff421f875d8b7",
+    "original_sha256": "eff78feb9599f36993cc67afa7051249da77a81b4f267c14f33ff421f875d8b7",
+    "original_size_bytes": 1541,
+    "path": "parent-initial-9-tests.txt",
+    "source": "build/stage17-s180-native/d327-parent-tests.txt"
+  },
+  {
+    "normalized_sha256": "98857d97cc926e35f20e261100c758f3f07ff6ef724405723ebe68174070612c",
+    "original_sha256": "98857d97cc926e35f20e261100c758f3f07ff6ef724405723ebe68174070612c",
+    "original_size_bytes": 1848,
+    "path": "parent-intermediate-11-tests.txt",
+    "source": "build/stage17-s180-native/d327-parent-tests-final.txt"
+  },
+  {
+    "normalized_sha256": "f76a8435c6288688722d3265c750965205cef4d5b4b5d03030e081202bf33f5a",
+    "original_sha256": "f76a8435c6288688722d3265c750965205cef4d5b4b5d03030e081202bf33f5a",
+    "original_size_bytes": 1229,
+    "path": "registered-intermediate-75-cases.txt",
+    "source": "build/stage17-s180-native/d327-registered-tests-initial75.txt"
+  },
+  {
+    "normalized_sha256": "b634780efd43eaa4d5319091d0667024c3065cdfa2d68a6a9fee05c15811cff7",
+    "original_sha256": "b634780efd43eaa4d5319091d0667024c3065cdfa2d68a6a9fee05c15811cff7",
+    "original_size_bytes": 1229,
+    "path": "registered-final-76-cases.txt",
+    "source": "build/stage17-s180-native/d327-registered-tests-final.txt"
+  },
+  {
+    "normalized_sha256": "8661c9a3e8ec5093013a64960c5d50e37e345cfac50d67dc86251ac1e42797c5",
+    "original_sha256": "d208eb63d283c03a25f7a3ae16d7e554e52233c20c9cec091228c18a3448c5e3",
+    "original_size_bytes": 6870,
+    "path": "registered-final-details.txt",
+    "source": "build/stage17-s180-native/dev-gcc16/Testing/Temporary/LastTest.log"
+  },
+  {
+    "normalized_sha256": "987fcf6d5f323ece45d50abe2818307d2d76d1808a018f617bf93916af732715",
+    "original_sha256": "987fcf6d5f323ece45d50abe2818307d2d76d1808a018f617bf93916af732715",
+    "original_size_bytes": 112,
+    "path": "python-debug-final-12-tests.txt",
+    "source": "build/stage17-s180-native/d327-python-debug-tests-final.txt"
+  },
+  {
+    "normalized_sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f",
+    "original_sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f",
+    "original_size_bytes": 6025,
+    "path": "repository-checks.txt",
+    "source": "build/stage17-s180-native/d327-repository-checks.txt"
+  },
+  {
+    "normalized_sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+    "original_sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+    "original_size_bytes": 177,
+    "path": "configure.txt",
+    "source": "build/stage17-s180-native/d327-configure.txt"
+  }
+]

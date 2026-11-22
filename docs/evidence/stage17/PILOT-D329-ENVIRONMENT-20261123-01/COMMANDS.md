@@ -43,3 +43,8 @@ placement failures are retained independently of passing final logs.
 The read-only stand observation records actual file metadata/hash, current
 boot/online CPUs, root cpuset controls, apt unit states, Python executable and
 filesystem free bytes. It performs no qualification or hardware/system changes.
+
+The first staged whitespace check exposed the preserved core’s extra EOF blank
+line and the retained CTest log’s EOF blank line. Normalize the log and apply
+only a file-specific blank-at-EOF exception to the hash-bound frozen helper;
+its original bytes remain unchanged. The final full-checkpoint check passes.

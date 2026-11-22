@@ -3,8 +3,8 @@
   "baseline_revision": "ce2bf227a330b147379926a8b69a971583e59132",
   "evidence_files": {
     "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/COMMANDS.md": {
-      "sha256": "1508af4f3b7cbecacf2f64884e8fe6d39244ba8575c1b0eedc5235ff97f2b389",
-      "size_bytes": 2867
+      "sha256": "62769a7307c58b7cb50b55cd11f6fe7046b89afe9fa3d5bd6a1aea7fa520671b",
+      "size_bytes": 3183
     },
     "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/REPORT.md": {
       "sha256": "aa357f6ca19e1f75335ea8de21f84b03f2e74b224199bad0daa3fd7982506461",
@@ -39,7 +39,7 @@
       "size_bytes": 3120
     },
     "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/log-normalization.json": {
-      "sha256": "3d676036374abc3a1093fe6feab32f348c8be36d05ca1232d8025a8bf76292c2",
+      "sha256": "4809ef04dc1ecdfcae4ffb5851e370ad0204358e2ea14151f9bd8e2fb5a4e689",
       "size_bytes": 6213
     },
     "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/managed-native-description-v2.json": {
@@ -79,8 +79,8 @@
       "size_bytes": 2788
     },
     "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/registered-final-details.txt": {
-      "sha256": "fd6f45e91f09083d5d42eb6581abf1e60fb7e09a41bf5ddc5e04baefe74ca7ac",
-      "size_bytes": 9781
+      "sha256": "ad4d89a5f2ddd86c492281b55445b65951864c41939b794f97c2a0a253e3ed50",
+      "size_bytes": 9780
     },
     "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/registered-final.txt": {
       "sha256": "b7140d028f0d1aee598e1985e29de67026693f1c1f092c6cea615d7acaddc089",
@@ -97,6 +97,10 @@
   },
   "execution_authority": false,
   "implementation_files": {
+    ".gitattributes": {
+      "sha256": "b7afa582353a943174c9da3b5b002fd09a362dac530e3fb443bdb2ee498cb0f9",
+      "size_bytes": 306
+    },
     "CMakeLists.txt": {
       "sha256": "14acc33577ee7a45df3bc5d9afd08a4fe34e50ba438570c631f8217f33dfa6d7",
       "size_bytes": 195269

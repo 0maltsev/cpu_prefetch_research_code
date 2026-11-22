@@ -1,0 +1,47 @@
+COMMAND: /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/ctest --test-dir build/stage17-s180-native/dev-gcc16 --output-on-failure -R ^runner\.s180_(journal|authority|archive_reservation|archive_channel|checkpoint)_v1$
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+    Start 660: runner.s180_checkpoint_v1
+1/5 Test #660: runner.s180_checkpoint_v1 ............   Passed    0.20 sec
+    Start 661: runner.s180_archive_channel_v1
+2/5 Test #661: runner.s180_archive_channel_v1 .......   Passed    0.45 sec
+    Start 664: runner.s180_authority_v1
+3/5 Test #664: runner.s180_authority_v1 .............   Passed    9.58 sec
+    Start 665: runner.s180_archive_reservation_v1
+4/5 Test #665: runner.s180_archive_reservation_v1 ...   Passed    0.25 sec
+    Start 666: runner.s180_journal_v1
+5/5 Test #666: runner.s180_journal_v1 ...............***Failed   12.84 sec
+......E........
+======================================================================
+ERROR: test_lock_inode_replacement_and_nonobject_payload_reject (__main__.JournalTests.test_lock_inode_replacement_and_nonobject_payload_reject)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_journal_v1.py", line 248, in test_lock_inode_replacement_and_nonobject_payload_reject
+    obj.prepare_record(input_id='S17-EXT-008',resolution_id='software-8',payload=[])
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_journal_v1.py", line 386, in prepare_record
+    payload = archive.parse_json(payload_raw)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 90, in parse_json
+    raise ArchiveError("JSON is not exact JCS-I64-v1 object bytes")
+stage17_formal_archive_v1.ArchiveError: JSON is not exact JCS-I64-v1 object bytes
+
+----------------------------------------------------------------------
+Ran 15 tests in 12.582s
+
+FAILED (errors=1)
+
+
+80% tests passed, 1 tests failed out of 5
+
+Label Time Summary:
+pilot        =  23.32 sec*proc (5 tests)
+python       =  23.32 sec*proc (5 tests)
+runner       =  23.32 sec*proc (5 tests)
+synthetic    =  23.32 sec*proc (5 tests)
+
+Total Test time (real) =  23.34 sec
+
+The following tests FAILED:
+	666 - runner.s180_journal_v1 (Failed)                   pilot python runner synthetic
+Errors while running CTest
+
+EXIT_CODE=8 ELAPSED_SECONDS=23.345

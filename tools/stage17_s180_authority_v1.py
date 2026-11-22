@@ -82,20 +82,27 @@ def _resolutions(validation):
     return result
 
 
-def _sample_window(authorization):
+def _window_shape(authorization):
     window = authorization["window_binding"]
     fields(window, ("boot_id", "start_monotonic_ns", "end_monotonic_ns"), "window")
-    require(window["boot_id"] == Path("/proc/sys/kernel/random/boot_id").read_text().strip(),
-            "original window belongs to another boot")
+    opaque(window["boot_id"], "window boot")
     start = archive.uint(window["start_monotonic_ns"], "window start", positive=True)
     end = archive.uint(window["end_monotonic_ns"], "window end", positive=True)
     require(end > start and end - start == DAY_NS, "original window is not exactly24h")
+    issued = archive.uint(authorization["issued_at_epoch_seconds"], "issued", positive=True)
+    expires = archive.uint(authorization["expires_at_epoch_seconds"], "expires", positive=True)
+    require(expires > issued, "authority expiry does not follow issue")
+    return start, end, issued, expires
+
+
+def _sample_window(authorization):
+    start, end, issued, expires = _window_shape(authorization)
+    require(authorization["window_binding"]["boot_id"] == Path("/proc/sys/kernel/random/boot_id").read_text().strip(),
+            "original window belongs to another boot")
     # Match the native conservative whole-second epoch rule. Missing fractional
     # seconds cannot prove authority coverage at equality after rounding.
     epoch = time.time_ns() // 1_000_000_000
     current = time.monotonic_ns()
-    issued = archive.uint(authorization["issued_at_epoch_seconds"], "issued", positive=True)
-    expires = archive.uint(authorization["expires_at_epoch_seconds"], "expires", positive=True)
     require(start <= current < end and issued <= epoch < expires,
             "authority/window future or expired")
     require((expires - epoch - 1) * 1_000_000_000 >= end - current,
@@ -123,7 +130,7 @@ class VerifiedRequest:
             execution_authority=False, launch_ready=False, phase18_authority=False)
 
 
-def verify_authorization(*, authorization_bytes, signature_path, plan, validation):
+def _verify_authorization(*, authorization_bytes, signature_path, plan, validation, live):
     """Verify the exact owner signature and deterministically build its request.
 
     No authorization hash cycle: the owner signs the plan, identities, runtime,
@@ -160,7 +167,9 @@ def verify_authorization(*, authorization_bytes, signature_path, plan, validatio
          "ext003_resolution": binding(resolutions["S17-EXT-003"])}, "admitted trust ancestry")
     same(authorization["actor"], trust["measurements"]["principal"], "admitted signer")
     signatures._verify_signature(authorization_bytes, Path(signature_path), trust)
-    _sample_window(authorization)
+    _window_shape(authorization)
+    if live:
+        _sample_window(authorization)
     prereq = authorization["prerequisite_bindings"]
     fields(prereq, PREREQUISITES, "prerequisites")
     for key, digest in prereq.items():
@@ -219,6 +228,22 @@ def verify_authorization(*, authorization_bytes, signature_path, plan, validatio
     raw = archive.canonical(request)
     require(len(raw) <= LIMIT, "derived request exceeds native16MiB limit")
     return VerifiedRequest(authorization_bytes, raw)
+
+
+def verify_authorization(*, authorization_bytes, signature_path, plan, validation):
+    """Current admission; callers cannot select a historical mode in input data."""
+    return _verify_authorization(authorization_bytes=authorization_bytes,
+        signature_path=signature_path, plan=plan, validation=validation, live=True)
+
+
+def verify_historical_authorization(*, authorization_bytes, signature_path, plan, validation):
+    """Signature/static lineage only, after expiry/reboot; returns no native request."""
+    verified = _verify_authorization(authorization_bytes=authorization_bytes,
+        signature_path=signature_path, plan=plan, validation=validation, live=False)
+    return dict(schema_version="cpu-prefetch-stage17-s180-historical-signature-proof/1",
+        authorization_sha256=verified.authorization_sha256, signature_verified=True,
+        current_window_checked=False, execution_authority=False, launch_ready=False,
+        phase18_authority=False)
 
 
 def verify_admitted_authorization(**arguments):

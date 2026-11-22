@@ -1819,6 +1819,11 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_archive_reservation_v1.py")
   set_tests_properties(runner.s180_archive_reservation_v1 PROPERTIES
     LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.s180_journal_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_journal_v1.py"
+      --worker "$<TARGET_FILE:cpu_prefetch_runner>")
+  set_tests_properties(runner.s180_journal_v1 PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
 
   file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/stage17-registry-tmp")
   add_test(NAME runner.formal_archive_registry_v1

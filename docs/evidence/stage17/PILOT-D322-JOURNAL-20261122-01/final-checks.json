@@ -1,0 +1,20 @@
+{
+  "actual_semantic_producers_qualified": false,
+  "frozen_worker_journal_cases_passed": 15,
+  "python_ast_checked": [
+    "tools/stage17_s180_journal_v1.py",
+    "tools/stage17_s180_authority_v1.py",
+    "tests/test_stage17_s180_journal_v1.py"
+  ],
+  "registered_cases_passed": 45,
+  "registered_suites_passed": 5,
+  "stand_operational_window_started": false,
+  "tracked_diff_whitespace_passed": true,
+  "unchanged_source_sha256": {
+    "config/stage17/d310-s180-blueprint-v1.json": "e95183365023a06b9da0d6cdff042bce556b9eb60c701dfb0f9e6df6ca22685c",
+    "tools/stage17_formal_archive_v1.py": "31cd041dba72d185e63d73fa6b28af0816d944328745e57217f4e14d5568457a",
+    "tools/stage17_semantic_verifier_v65.py": "c878302d910b5ee31ec4d0a3095bf269ac49955394736e54bfbe57bffe97c688",
+    "tools/stage17_state_journal_v12.py": "650912a904356c26904da48ecf04c1531a6f6cd4f1c4aa4661db01787c12f0f7",
+    "tools/stage17_state_journal_v62.py": "98bfd2aa0dbd85201dd36d350688f6808359eaabeddbed21f49c2e26a2d35414"
+  }
+}

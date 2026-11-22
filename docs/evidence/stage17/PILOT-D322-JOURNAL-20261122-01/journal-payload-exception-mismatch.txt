@@ -1,0 +1,18 @@
+......E........
+======================================================================
+ERROR: test_lock_inode_replacement_and_nonobject_payload_reject (__main__.JournalTests.test_lock_inode_replacement_and_nonobject_payload_reject)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_journal_v1.py", line 248, in test_lock_inode_replacement_and_nonobject_payload_reject
+    obj.prepare_record(input_id='S17-EXT-008',resolution_id='software-8',payload=[])
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_journal_v1.py", line 386, in prepare_record
+    payload = archive.parse_json(payload_raw)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 90, in parse_json
+    raise ArchiveError("JSON is not exact JCS-I64-v1 object bytes")
+stage17_formal_archive_v1.ArchiveError: JSON is not exact JCS-I64-v1 object bytes
+
+----------------------------------------------------------------------
+Ran 15 tests in 12.085s
+
+FAILED (errors=1)

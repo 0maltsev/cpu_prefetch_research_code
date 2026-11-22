@@ -1,0 +1,51 @@
+[
+  {
+    "path": "initial-profile-tests.txt",
+    "source": "build/stage17-s180-profile-prep/initial-profile-tests.txt",
+    "original_size_bytes": 5449,
+    "original_sha256": "9f165178e68a930f2b94e63a93fef1b6d19c1abb3c0c871cc748603c4c5c3486",
+    "normalized_sha256": "9f165178e68a930f2b94e63a93fef1b6d19c1abb3c0c871cc748603c4c5c3486"
+  },
+  {
+    "path": "profile-debug-final.txt",
+    "source": "build/stage17-s180-profile-prep/profile-debug-final.txt",
+    "original_size_bytes": 1745,
+    "original_sha256": "0d98648ca3998fa5fc524b729d722ae80215c3e17004e44896095fb3c859dcdd",
+    "normalized_sha256": "0d98648ca3998fa5fc524b729d722ae80215c3e17004e44896095fb3c859dcdd"
+  },
+  {
+    "path": "configure.txt",
+    "source": "build/stage17-s180-profile-prep/configure.txt",
+    "original_size_bytes": 177,
+    "original_sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+    "normalized_sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e"
+  },
+  {
+    "path": "repository-checks.txt",
+    "source": "build/stage17-s180-profile-prep/repository-checks.txt",
+    "original_size_bytes": 6307,
+    "original_sha256": "8cc35fc9724e20bfa7f61fd61358c49b2a0117594e11273f2e7b1e21c8d1ee2a",
+    "normalized_sha256": "08af62ef70679ddc4fc6ea701c4fd332bbf179f91ebd9836c0270cceba695666"
+  },
+  {
+    "path": "repository-checks-final.txt",
+    "source": "build/stage17-s180-profile-prep/repository-checks-final.txt",
+    "original_size_bytes": 6025,
+    "original_sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f",
+    "normalized_sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f"
+  },
+  {
+    "path": "registered-final.txt",
+    "source": "build/stage17-s180-profile-prep/registered-final.txt",
+    "original_size_bytes": 1800,
+    "original_sha256": "a48261fba3f7cdc3bdfd4026f87749453f4194c41aea9dad308e0e3c26719cc6",
+    "normalized_sha256": "a48261fba3f7cdc3bdfd4026f87749453f4194c41aea9dad308e0e3c26719cc6"
+  },
+  {
+    "path": "registered-final-details.txt",
+    "source": "build/stage17-s180-native/dev-gcc16/Testing/Temporary/LastTest.log",
+    "original_size_bytes": 11142,
+    "original_sha256": "7eb6883ee54e964459923be99c3f327ddc866e1608c1f5aa6217f257fd8ed2dd",
+    "normalized_sha256": "4841951b0924c0855788540b0c3e26d2c97efbbbba5ba846684056ddd9bb778a"
+  }
+]

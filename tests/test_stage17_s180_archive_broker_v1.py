@@ -59,8 +59,8 @@ class S180BrokerTests(unittest.TestCase):
         self.addCleanup(temp.cleanup)
         self.base = Path(temp.name)
         codec = ArchiveFixture(self.base).profile
-        self.profile = runtime.RuntimeProfile(image(self.encoder), image(sys.executable),
-            replace(codec, encoder_sha256=image(self.encoder).sha256), qualified_closure())
+        self.profile = self.configure_profile(runtime.RuntimeProfile(image(self.encoder), image(sys.executable),
+            replace(codec, encoder_sha256=image(self.encoder).sha256), qualified_closure()))
         self.deadline = time.monotonic_ns() + 90_000_000_000
         self.limits = runtime.RuntimeLimits(2*1024**3, 2*1024**3, 2*1024**2, 131072, 131072,
             2_000_000_000, self.deadline, self.deadline, 24)
@@ -119,6 +119,9 @@ class S180BrokerTests(unittest.TestCase):
 
     def configure_plan(self,plan):
         return plan
+
+    def configure_profile(self,profile):
+        return profile
 
     def store(self, **changes):
         args = dict(scope_sha256=self.scope, family_id=self.family, limits=self.custody_limits,

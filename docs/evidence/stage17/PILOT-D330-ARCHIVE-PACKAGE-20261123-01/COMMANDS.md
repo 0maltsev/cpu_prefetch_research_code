@@ -33,3 +33,19 @@ AST and preservation checks cover all changed Python files, unchanged original
 archive profile/materializer/runtime/custody, frozen core, native source/protocol,
 approved blueprint and identity manifest. Text-log retention normalizes trailing
 whitespace/EOF only and records original hashes. Initial failures remain visible.
+
+After the clean local source commit, build the actual component (no execution):
+
+```sh
+python3 -B tools/stage17_s180_archive_bundle_profile_v1.py \
+  --repository-root "$PWD" \
+  --output "$PWD/build/stage17-s180-archive-package-0f1b962" \
+  --runtime-root "$PWD/build/ext007-runtime-20261101/root" \
+  --encoder "$PWD/build/stage17-s180-release-34247ce/cpu_prefetch_stage17_archive_encoder" \
+  --window-log 22
+```
+
+Fresh replay verifies the external manifest binding, every actual file and exact
+profile, then uses load_profile with the actual recorded runtime and30s deadline.
+The resulting29-module closure and independently bound encoder/profile are retained
+in clean-component-verification.json. The native worker SHA is checked unchanged.

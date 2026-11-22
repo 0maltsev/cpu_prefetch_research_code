@@ -40,8 +40,14 @@ or policy relaxed. Format, protocol, schema, canonical, provenance, AST and
 whitespace checks pass. There is no production C++ change or new native sanitizer
 claim; existing native sanitizer/codegen proof remains preserved.
 
-The clean actual component build is the next verification after source commit;
-it cannot qualify the outer operator, live semantic/resource facts or scientific
-validator. Full Stage17 remains incomplete and Stage18 remains deferred. The
+The clean actual component is built from0f1b962cad0f3e6984c893cebd885ff1e84c9aef:
+35 files/1652966 bytes,29 runtime modules, manifest SHA
+`d10af9b024ae698f5f2bcd91375d8078e34746ad6dc8623807ab8756636be8a4`,
+profile SHA`d8f76febf134a9df9ca2ca9104be05604caf773e664354c82a2e8f8810ce7f4c`.
+Actual package replay and original runtime loader pass with the explicitly
+provisioned runtime and existing291424-byte release encoder. The component
+remains in the build directory for later qualified assembly. It cannot qualify
+the outer operator, full interpreter/shared-library runtime, live semantic/resource
+facts or scientific validator. Full Stage17 remains incomplete and Stage18 remains deferred. The
 complete whole-run ETA must precede actual preparation/qualification. Raw stays
 on the stand; no stand access or raw transfer occurred in this checkpoint.

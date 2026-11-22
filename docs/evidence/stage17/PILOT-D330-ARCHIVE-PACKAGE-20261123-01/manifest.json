@@ -2,12 +2,28 @@
   "baseline_revision": "6e390845c38a8f842b95ae3376f747178124ac14",
   "evidence_files": {
     "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/COMMANDS.md": {
-      "sha256": "2ac920945d03c68d680ceb8175851ad8e553e029d839ad3f64196e46431279d9",
-      "size_bytes": 2274
+      "sha256": "44f95569ef4107b874a1f9b194e4980a1a80c207fc53f455dc7e06ef368d76cf",
+      "size_bytes": 3021
     },
     "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/REPORT.md": {
-      "sha256": "ce5a1c9effd939b942522a2e215cf5e36c04ca82a2cfc2aef64a61985d03f86c",
-      "size_bytes": 3108
+      "sha256": "94ca59cccd9275c8756df3f09b9ab1c9af8374124e8cd4a8f8410360d477e5db",
+      "size_bytes": 3566
+    },
+    "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/clean-component-build.txt": {
+      "sha256": "d2ea9b0f0a0c987e80d717215014fc3b685b9062d3a4f0d98b06404315194643",
+      "size_bytes": 389
+    },
+    "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/clean-component-manifest.json": {
+      "sha256": "d10af9b024ae698f5f2bcd91375d8078e34746ad6dc8623807ab8756636be8a4",
+      "size_bytes": 5939
+    },
+    "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/clean-component-profile.json": {
+      "sha256": "d8f76febf134a9df9ca2ca9104be05604caf773e664354c82a2e8f8810ce7f4c",
+      "size_bytes": 7056
+    },
+    "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/clean-component-verification.json": {
+      "sha256": "b965edfe09af735e3ef05c4b73e8ac99f41007b1217c6ae31a30ca415230dc97",
+      "size_bytes": 1026
     },
     "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/configure.txt": {
       "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
@@ -24,6 +40,10 @@
     "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/log-normalization.json": {
       "sha256": "5ba0c684d2a26734951b0763860f52fe236b14dc9d5f01292287a00fa77739b6",
       "size_bytes": 2360
+    },
+    "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/pc-cleanup.json": {
+      "sha256": "9b9245fa407e0d2de7be7b15fa335926014236bb94df118981cf6151904b4332",
+      "size_bytes": 1825
     },
     "docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/profile-debug-final.txt": {
       "sha256": "0d98648ca3998fa5fc524b729d722ae80215c3e17004e44896095fb3c859dcdd",
@@ -53,20 +73,20 @@
       "size_bytes": 195646
     },
     "PLAN.md": {
-      "sha256": "46127e1e7ab548276ab49f1566cf565899fe24be2c3d4633bab28c275d04d5e7",
-      "size_bytes": 120043
+      "sha256": "a729bb90c58d4432733f00be25d324f2a55173ada68ae774c3aebf96f131621b",
+      "size_bytes": 120134
     },
     "README.md": {
-      "sha256": "774ef3b84b3a4bc03e0705db53696646404190f9e45ced76c04a7e73762b67fa",
-      "size_bytes": 127496
+      "sha256": "e67c48f4addbff320a32e82bafe96d70415679ae8e7c394de2733cdad6e27db9",
+      "size_bytes": 127587
     },
     "STATUS.md": {
-      "sha256": "f09bb10dc32656b8d43bfab4ae796126fc6c9a12d9920bb5ba0ca98bcf318127",
-      "size_bytes": 146413
+      "sha256": "1f6b40da8ef1c6a972801fe68f5007d21fb782ac51cba39106c8c132e39ec2d7",
+      "size_bytes": 146504
     },
     "docs/STAGE17_PILOT_PREPARATION.md": {
-      "sha256": "81f7db8711c1ecb423ceadc66520abf0949731b2f5b3b7724104b8fc2331b5c4",
-      "size_bytes": 19285
+      "sha256": "c0d9b74253b17a99cbb80368e135625a68be3833cb813e18a9457502575c7dad",
+      "size_bytes": 19629
     },
     "docs/decisions/0330-s180-archive-package-and-closed-profile.md": {
       "sha256": "56c2abad1b1f481ae866046cd9e97e5af1f0081fcedce9ca4874bcb9b6d2a408",

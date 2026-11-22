@@ -1,0 +1,82 @@
+{
+  "actual_source_admission": false,
+  "baseline_revision": "7fcadaba028ef68a4b963d9642d0e2723c2deaab",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/COMMANDS.md": {
+      "sha256": "41e1a001106d40a0b600af1f60b8d914d3d5bcc9d5a0bd20d2dc9da5701bdf76",
+      "size_bytes": 1474
+    },
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/REPORT.md": {
+      "sha256": "d66e472b09528ad9434815c088b1f49f2c21d69e59bdd068c9e1350254a2905a",
+      "size_bytes": 4899
+    },
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/final-checks.json": {
+      "sha256": "9396fea22e07b5c02f7038d4059445c6dd079c9e14ff26cdb2bef642cf6f5e74",
+      "size_bytes": 1336
+    },
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/log-normalization.json": {
+      "sha256": "d676d3097247c4578ac38693057fc8a2499f154093285dc7fa32076b0fe4ed4c",
+      "size_bytes": 243
+    },
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/registered-details.txt": {
+      "sha256": "b5c05389a678e7ceb3373065d1c5e5cc0120fdb64d263f52cd0676868581c35c",
+      "size_bytes": 2934
+    },
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/registered-tests.txt": {
+      "sha256": "5a003b079892ac62270ea90c6d184c3a64007f7f7727d2c8add0cd8142864ccd",
+      "size_bytes": 1070
+    },
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/repository-checks.txt": {
+      "sha256": "8994825bde671513b3a9d533df0823ae7394af835696e6fb63702374dfa5eb8e",
+      "size_bytes": 6563
+    },
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/source-13-tests.txt": {
+      "sha256": "fefc0fba2b3de7936d5bf30d0b4c1dcd6bc3787b4783246a2329ddd349123c00",
+      "size_bytes": 112
+    },
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/source-first-9-tests.txt": {
+      "sha256": "e716874962b9b9b46f4d97f9264aa84a14e15bfa15d346f7735fbdd7a058e39a",
+      "size_bytes": 107
+    },
+    "docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/source-float-fixture-failure.txt": {
+      "sha256": "514d84b9fc2c001bf1b53d59f0e49aea3d4dfe311a69943b1ea6a4f447061800",
+      "size_bytes": 796
+    }
+  },
+  "execution_authority": false,
+  "phase18_authority": false,
+  "source_files": {
+    "CMakeLists.txt": {
+      "sha256": "f1c6711f1beee3b92d191502326b5dc5f05507ce256c41705a1a69d1e37a2666",
+      "size_bytes": 192720
+    },
+    "PLAN.md": {
+      "sha256": "7926eab6c1beda4cfa15148383ab09dea680537d9de7f955d966f6e0ca8406c3",
+      "size_bytes": 115471
+    },
+    "README.md": {
+      "sha256": "a3ae6bb5294b61e8f856ba717b0db1d123311c641771d060a46dc06099f1b8e1",
+      "size_bytes": 122924
+    },
+    "STATUS.md": {
+      "sha256": "a8ad117599ed672ef52a26a3ce194c8a0508920ea47b9c9d653e8a613d45e257",
+      "size_bytes": 141841
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "003e5dd6fcb1147a12701b3e84931a20d266491fe55bfde651426c7282131bf9",
+      "size_bytes": 11531
+    },
+    "docs/decisions/0323-s180-original-source-provenance.md": {
+      "sha256": "b1eadc2cdf54180b7ae1903d2e5ba78e4aae6bcc3502c39dfe7d197e3bb2d571",
+      "size_bytes": 5366
+    },
+    "tests/test_stage17_s180_source_provenance_v1.py": {
+      "sha256": "dd18cd772581a57259ceb75d35c0de727d1e8e206807a411eed9a06ec3371d4f",
+      "size_bytes": 14761
+    },
+    "tools/stage17_s180_source_provenance_v1.py": {
+      "sha256": "b4f58e87e8c9ab9e6e58f04ac2af4d7e583b52a17a1aced98e9994908ddb6863",
+      "size_bytes": 14663
+    }
+  }
+}

@@ -66,6 +66,13 @@ def _family_ns(plan):
         *(e['execution_budget']['watchdog_ns'] for e in plan['captures']))
 
 
+def _check_membership(raw,relative_path):
+    # The unified cpuset hierarchy may coexist with an unrelated legacy
+    # hierarchy (for example net_cls). Require exactly one exact v2 entry.
+    require(len(raw)<=4096 and [line for line in raw.splitlines() if line.startswith('0::')]==['0::'+relative_path],
+        'native cgroup placement readback differs')
+
+
 def _context(verified,source_context,child_socket,directory_fd):
     authorization,request=parent._documents(verified)
     parent._root(directory_fd,authorization)
@@ -158,10 +165,11 @@ def _restore_result(restorer,*,verified,cleanup,deadline_ns):
 
 
 def _execute_verified(*,verified,source_owner,native_image,archive_profile,program_root,
-                      broker_limits,custody_limits,decoder_limits,limits,restore_environment):
+                      broker_limits,custody_limits,decoder_limits,limits,restore_environment,native_partition=None):
     """Private transport seam. Production calls only through launch()."""
     limits.validate();require(callable(restore_environment),'qualified environment restoration is mandatory')
-    require(threading.current_thread() is threading.main_thread() and threading.active_count()==1,
+    require(threading.current_thread() is threading.main_thread() and threading.active_count()==1
+        and len(list(Path('/proc/self/task').iterdir()))==1,
         'owned launch requires a single-threaded main process')
     authorization,request=parent._documents(verified);plan=request['plan'];window=authorization['window_binding']
     family=authorization['plan_sha256'];family_ns=_family_ns(plan)
@@ -201,6 +209,7 @@ def _execute_verified(*,verified,source_owner,native_image,archive_profile,progr
                 context_raw=archive.canonical(context);require(len(context_raw)<=1024**2,'native context exceeds1MiB')
                 context_fd=runtime._sealed_input(context_raw,'s180-owned-context');stack.callback(os.close,context_fd)
                 inherited=(executable,request_fd,context_fd,directory,child.fileno(),*source_fds)
+                if native_partition is not None:inherited=(*inherited,native_partition['descriptor'])
                 require(len(set(inherited))==len(inherited) and max(inherited)<limits.native_open_files,
                     'inherited native descriptors alias or exceed configured ceiling')
                 marker=store.root/'metadata'/parent._attempt_name(family)
@@ -218,6 +227,14 @@ def _execute_verified(*,verified,source_owner,native_image,archive_profile,progr
                 resource.setrlimit(resource.RLIMIT_FSIZE,(limits.native_file_bytes,)*2)
                 resource.setrlimit(resource.RLIMIT_NOFILE,(limits.native_open_files,)*2)
                 resource.setrlimit(resource.RLIMIT_CORE,(0,0))
+                if native_partition is not None:
+                    fd=native_partition['descriptor'];raw=str(os.getpid()).encode('ascii')
+                    require(os.write(fd,raw)==len(raw),'native cgroup placement write failed')
+                    os.close(fd)
+                    with open('/proc/self/cgroup','r',encoding='ascii') as stream:membership=stream.read(4097)
+                    _check_membership(membership,native_partition['relative_path'])
+                    os.sched_setaffinity(0,{native_partition['controller_cpu']})
+                    require(os.sched_getaffinity(0)=={native_partition['controller_cpu']},'native initial affinity readback differs')
                 require(resource.getrlimit(resource.RLIMIT_AS)==(limits.native_address_space_bytes,)*2
                     and resource.getrlimit(resource.RLIMIT_MEMLOCK)==(limits.native_memlock_bytes,)*2
                     and resource.getrlimit(resource.RLIMIT_NOFILE)==(limits.native_open_files,)*2
@@ -312,6 +329,9 @@ def _execute_verified(*,verified,source_owner,native_image,archive_profile,progr
                 attempt_file_name=parent._attempt_name(family),requested_native_limits=asdict(limits),
                 native_child_rlimits_verified=process is not None,
                 native_spawned=process is not None,native_cleanup=None if cleanup is None else runtime._jsonable(asdict(cleanup)),
+                native_pid=None if process is None else process.pid,
+                native_start_ticks=None if worker is None else worker.start_ticks,
+                native_partition_placement_verified=process is not None and native_partition is not None,
                 acknowledged_captures=0 if driver is None else driver.ordinal,native_result=final,environment_restoration=restore,
                 environment_restoration_failure=restore_failure,
                 quarantined=restore is None or restore_failure is not None or attempt is None
@@ -346,6 +366,17 @@ def launch(*,journal,authorization_bytes,signature_path,source_owner,native_imag
     a journal or source bank, and there is no synthetic/command/plugin switch.
     """
     require(type(journal) is journals.ScopedJournal and journal.mode is False,'actual production scoped journal required')
+    from stage17_s180_environment_v1 import _PreparedEnvironment
+    require(type(restore_environment) is _PreparedEnvironment,'actual owned stand environment required')
+    with restore_environment:
+        return _launch_in_environment(journal=journal,authorization_bytes=authorization_bytes,signature_path=signature_path,
+            source_owner=source_owner,native_image=native_image,archive_profile=archive_profile,program_root=program_root,
+            broker_limits=broker_limits,custody_limits=custody_limits,decoder_limits=decoder_limits,
+            limits=limits,restore_environment=restore_environment)
+
+
+def _launch_in_environment(*,journal,authorization_bytes,signature_path,source_owner,native_image,archive_profile,
+                           program_root,broker_limits,custody_limits,decoder_limits,limits,restore_environment):
     view=journal.inspect(for_execution=True)
     require(view.scoped_inputs_complete and not view.synthetic_test_only,'complete production scoped inputs required')
     verified=authority.verify_admitted_authorization(authorization_bytes=authorization_bytes,
@@ -364,6 +395,8 @@ def launch(*,journal,authorization_bytes,signature_path,source_owner,native_imag
         import json
         identity=json.loads(result.stdout)
         _check_identity(identity,request)
-    return _execute_verified(verified=verified,source_owner=source_owner,native_image=native_image,
-        archive_profile=archive_profile,program_root=program_root,broker_limits=broker_limits,
-        custody_limits=custody_limits,decoder_limits=decoder_limits,limits=limits,restore_environment=restore_environment)
+    with restore_environment.native_entry(plan_sha256=authorization['plan_sha256']) as partition:
+        return _execute_verified(verified=verified,source_owner=source_owner,native_image=native_image,
+            archive_profile=archive_profile,program_root=program_root,broker_limits=broker_limits,
+            custody_limits=custody_limits,decoder_limits=decoder_limits,limits=limits,
+            restore_environment=restore_environment,native_partition=partition)

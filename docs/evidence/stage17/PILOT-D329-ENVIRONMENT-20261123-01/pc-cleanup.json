@@ -1,0 +1,37 @@
+{
+  "verified_metadata_duplicates_removed": [
+    {
+      "path": "build/stage17-s180-operator-prep/managed-packet-summary.json",
+      "size_bytes": 744,
+      "sha256": "598d32a33d41b4cd0ad897f5a0d8b2e5fec47ac78bfdcac73b26114b46860213"
+    },
+    {
+      "path": "build/stage17-s180-operator-prep/managed-sizing-v2.json",
+      "size_bytes": 3071698,
+      "sha256": "0269ca1d6fd598d41d3bfce0d7139f7852591a8affe5deb1203789fea7e35448"
+    },
+    {
+      "path": "build/stage17-s180-operator-prep/managed-native-description-v2.json",
+      "size_bytes": 131888,
+      "sha256": "61bd81a06966676ac4d322a4f39b04fa0987ba89cc8755bc8a999cce8c9edfbd"
+    },
+    {
+      "path": "build/stage17-s180-operator-prep/managed-resource-envelope-v2.json",
+      "size_bytes": 92256,
+      "sha256": "ad12c97ad81b3eb4526aa10eca33409d2a18f773ecc7c012c2c9f8b40879618d"
+    },
+    {
+      "path": "build/stage17-s180-operator-prep/managed-process-envelope-v2.json",
+      "size_bytes": 1317,
+      "sha256": "8a354beb3835481093f150aa2b6a05089add1161cf46469fd962404f7d510d89"
+    },
+    {
+      "path": "build/stage17-s180-operator-prep/managed-time-envelope-v2.json",
+      "size_bytes": 575,
+      "sha256": "5d7bb367536f51aaae88fb9d4a32afe52071b9303920b12632f8ee77b061a346"
+    }
+  ],
+  "total_bytes": 3298478,
+  "stand_raw_deleted": false,
+  "raw_transferred_to_pc": false
+}

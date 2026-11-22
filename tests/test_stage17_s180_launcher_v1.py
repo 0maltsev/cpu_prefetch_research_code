@@ -121,6 +121,7 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(resource.getrlimit(resource.RLIMIT_NOFILE),before['files'])
         for s,h in before['handlers'].items():self.assertEqual(launch.signal.getsignal(s),h)
         doc=result['document'];self.assertEqual(doc['status'],'STOPPED')
+        self.assertIsNotNone(doc['native_cleanup'],doc['failure'])
         self.assertTrue(doc['native_cleanup']['leader_reaped'] and doc['native_cleanup']['process_group_gone'])
         self.assertEqual(doc['automatic_retries'],0);self.assertEqual(doc['scientific_validity'],'NOT_ASSESSED')
         raw=(self.f.root/'metadata'/result['terminal']['file_name']).read_bytes()
@@ -135,6 +136,52 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual((self.f.working/'software-launcher-started.txt').read_text(),'36 sealed sources read\n')
         self.assertIn(b'test-only early exit',bytes.fromhex(result['document']['console_hex']))
         self.assertEqual(result['document']['acknowledged_captures'],0)
+
+    def test_preexec_placement_writes_only_child_pid_verifies_membership_and_affinity(self):
+        # A regular-file control double avoids touching the host cgroup tree.
+        # The real child must read back its actual existing kernel membership.
+        membership=Path('/proc/self/cgroup').read_text().strip().split('::',1)[1]
+        path=self.f.base/'software-placement-control';path.write_bytes(b'')
+        fd=os.open(path,os.O_WRONLY|os.O_CLOEXEC)
+        diagnostic=self.f.base/'software-preexec-error.txt';real_popen=subprocess.Popen
+        def traced_popen(*args,**kwargs):
+            original=kwargs['preexec_fn']
+            def traced():
+                try:original()
+                except BaseException:
+                    import traceback
+                    diagnostic.write_text(traceback.format_exc()+'\n'+Path('/proc/self/cgroup').read_text())
+                    raise
+            kwargs['preexec_fn']=traced
+            return real_popen(*args,**kwargs)
+        try:
+            try:
+                with mock.patch.object(launch.subprocess,'Popen',side_effect=traced_popen):
+                    result=self.run_case('exit',native_partition=dict(descriptor=fd,relative_path=membership,
+                        controller_cpu=min(os.sched_getaffinity(0))))
+            except BaseException:
+                if diagnostic.exists():self.fail(diagnostic.read_text())
+                raise
+            self.assertEqual(path.read_text(),str(result['document']['native_pid']))
+            self.assertTrue(result['document']['native_partition_placement_verified'])
+        finally:os.close(fd)
+
+    def test_preexec_membership_mismatch_never_executes_native_endpoint(self):
+        path=self.f.base/'software-placement-control';path.write_bytes(b'')
+        fd=os.open(path,os.O_WRONLY|os.O_CLOEXEC)
+        try:
+            args=self.arguments();args['native_partition']=dict(descriptor=fd,relative_path='/wrong-membership',controller_cpu=min(os.sched_getaffinity(0)))
+            result=launch._execute_verified(**args)
+            self.assertFalse(result['document']['native_spawned'])
+            self.assertFalse(result['document']['native_partition_placement_verified'])
+            self.assertFalse((self.f.working/'software-launcher-started.txt').exists())
+            self.assertEqual(len(self.restores),1)
+        finally:os.close(fd)
+
+    def test_unified_membership_allows_legacy_net_cls_but_rejects_wrong_or_duplicate_v2(self):
+        launch._check_membership('1:net_cls:/\n0::/owned/reserved\n','/owned/reserved')
+        for raw in ('1:net_cls:/\n0::/foreign\n','0::/owned/reserved\n0::/owned/reserved\n','1:net_cls:/\n'):
+            with self.assertRaises(launch.LaunchError):launch._check_membership(raw,'/owned/reserved')
 
     def test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization(self):
         self.f.document['native_complete']=False

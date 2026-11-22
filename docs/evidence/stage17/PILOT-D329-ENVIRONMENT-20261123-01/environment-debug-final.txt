@@ -1,0 +1,21 @@
+test_already_restored_hardware_is_read_only (__main__.EnvironmentTests.test_already_restored_hardware_is_read_only) ... ok
+test_context_exit_restores_before_authorization_and_cannot_be_reused (__main__.EnvironmentTests.test_context_exit_restores_before_authorization_and_cannot_be_reused) ... ok
+test_expired_preparation_allows_core_internal_restoration_commands (__main__.EnvironmentTests.test_expired_preparation_allows_core_internal_restoration_commands) ... ok
+test_expired_window_blocks_entry_but_still_unwinds_without_extending_authority (__main__.EnvironmentTests.test_expired_window_blocks_entry_but_still_unwinds_without_extending_authority) ... ok
+test_frozen_core_is_exact_original_source_with_no_import_actions (__main__.EnvironmentTests.test_frozen_core_is_exact_original_source_with_no_import_actions) ... ok
+test_legacy_cpu_mapping_and_provisional_cgroup_paths_reject_before_actions (__main__.EnvironmentTests.test_legacy_cpu_mapping_and_provisional_cgroup_paths_reject_before_actions) ... ok
+test_live_cgroup_blocks_hardware_writes (__main__.EnvironmentTests.test_live_cgroup_blocks_hardware_writes) ... ok
+test_native_handoff_is_single_use_and_closes_control_before_removal (__main__.EnvironmentTests.test_native_handoff_is_single_use_and_closes_control_before_removal) ... ok
+test_one_device_failure_does_not_skip_other_cpus_or_environment (__main__.EnvironmentTests.test_one_device_failure_does_not_skip_other_cpus_or_environment) ... ok
+test_post_prepare_keeper_overrun_rolls_back_environment_and_affinity (__main__.EnvironmentTests.test_post_prepare_keeper_overrun_rolls_back_environment_and_affinity) ... ok
+test_preparation_factory_pins_actual_msr_prestate_before_actions (__main__.EnvironmentTests.test_preparation_factory_pins_actual_msr_prestate_before_actions) ... ok
+test_prospective_config_uses_managed_unit_and_cannot_extend_window (__main__.EnvironmentTests.test_prospective_config_uses_managed_unit_and_cannot_extend_window) ... ok
+test_real_fixed_offset_restore_changes_only_expected_cpu_values (__main__.EnvironmentTests.test_real_fixed_offset_restore_changes_only_expected_cpu_values) ... ok
+test_serialized_report_cannot_construct_handle (__main__.EnvironmentTests.test_serialized_report_cannot_construct_handle) ... ok
+test_unrelated_msr_bits_are_not_overwritten_and_other_cpus_restore (__main__.EnvironmentTests.test_unrelated_msr_bits_are_not_overwritten_and_other_cpus_restore) ... ok
+test_wrong_plan_window_and_unreaped_process_cannot_restore (__main__.EnvironmentTests.test_wrong_plan_window_and_unreaped_process_cannot_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 5.124s
+
+OK

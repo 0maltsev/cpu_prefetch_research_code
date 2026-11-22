@@ -1,0 +1,42 @@
+test_preexec_placement_writes_only_child_pid_verifies_membership_and_affinity (__main__.LauncherTests.test_preexec_placement_writes_only_child_pid_verifies_membership_and_affinity) ... FAIL
+
+======================================================================
+FAIL: test_preexec_placement_writes_only_child_pid_verifies_membership_and_affinity (__main__.LauncherTests.test_preexec_placement_writes_only_child_pid_verifies_membership_and_affinity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_launcher_v1.py", line 160, in test_preexec_placement_writes_only_child_pid_verifies_membership_and_affinity
+    result=self.run_case('exit',native_partition=dict(descriptor=fd,relative_path=membership,
+        controller_cpu=min(os.sched_getaffinity(0))))
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_launcher_v1.py", line 124, in run_case
+    self.assertIsNotNone(doc['native_cleanup'],doc['failure'])
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : Exception occurred in preexec_fn.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_launcher_v1.py", line 163, in test_preexec_placement_writes_only_child_pid_verifies_membership_and_affinity
+    if diagnostic.exists():self.fail(diagnostic.read_text())
+                           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_launcher_v1.py", line 150, in traced
+    try:original()
+        ~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_launcher_v1.py", line 227, in constrain
+    require(len(membership)<=4096 and membership.strip()=='0::'+native_partition['relative_path'],
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'native cgroup placement readback differs')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_launcher_v1.py", line 41, in require
+    if not value:raise LaunchError('S180 launcher: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_launcher_v1.LaunchError: S180 launcher: native cgroup placement readback differs
+
+1:net_cls:/
+0::/user.slice/user-1000.slice/user@1000.service/kitty-3890-0.scope
+
+
+----------------------------------------------------------------------
+Ran 1 test in 1.497s
+
+FAILED (failures=1)

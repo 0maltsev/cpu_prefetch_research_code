@@ -1,0 +1,23 @@
+test_attempt_cannot_dispatch_twice (__main__.LauncherTests.test_attempt_cannot_dispatch_twice) ... ok
+test_bad_independent_restoration_never_promotes_success (__main__.LauncherTests.test_bad_independent_restoration_never_promotes_success) ... ok
+test_escaped_descendant_is_reaped_before_environment_restoration (__main__.LauncherTests.test_escaped_descendant_is_reaped_before_environment_restoration) ... ok
+test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization (__main__.LauncherTests.test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization) ... ok
+test_failure_after_marker_publication_restores_without_dispatch_or_retry (__main__.LauncherTests.test_failure_after_marker_publication_restores_without_dispatch_or_retry) ... ok
+test_insufficient_original_window_fails_before_attempt (__main__.LauncherTests.test_insufficient_original_window_fails_before_attempt) ... ok
+test_missing_restorer_and_serialized_source_report_fail_before_attempt (__main__.LauncherTests.test_missing_restorer_and_serialized_source_report_fail_before_attempt) ... ok
+test_native_completion_requires_all_actual_acknowledgements_and_shared_cleanup (__main__.LauncherTests.test_native_completion_requires_all_actual_acknowledgements_and_shared_cleanup) ... ok
+test_native_console_exhaustion_stops_and_reaps_owned_group (__main__.LauncherTests.test_native_console_exhaustion_stops_and_reaps_owned_group) ... ok
+test_native_entry_result_and_attempt_metadata_are_charged_in_shared_quota (__main__.LauncherTests.test_native_entry_result_and_attempt_metadata_are_charged_in_shared_quota) ... ok
+test_preexec_membership_mismatch_never_executes_native_endpoint (__main__.LauncherTests.test_preexec_membership_mismatch_never_executes_native_endpoint) ... ok
+test_preexec_placement_writes_only_child_pid_verifies_membership_and_affinity (__main__.LauncherTests.test_preexec_placement_writes_only_child_pid_verifies_membership_and_affinity) ... ok
+test_public_entry_rejects_serialized_or_synthetic_admission (__main__.LauncherTests.test_public_entry_rejects_serialized_or_synthetic_admission) ... ok
+test_real_fixed_dispatch_reads_all36_sources_and_retains_nonzero_exit (__main__.LauncherTests.test_real_fixed_dispatch_reads_all36_sources_and_retains_nonzero_exit) ... ok
+test_real_fixture_identity_cannot_pass_production_gate (__main__.LauncherTests.test_real_fixture_identity_cannot_pass_production_gate) ... ok
+test_sigterm_runs_cleanup_and_restoration_then_restores_handlers (__main__.LauncherTests.test_sigterm_runs_cleanup_and_restoration_then_restores_handlers) ... ok
+test_unified_membership_allows_legacy_net_cls_but_rejects_wrong_or_duplicate_v2 (__main__.LauncherTests.test_unified_membership_allows_legacy_net_cls_but_rejects_wrong_or_duplicate_v2) ... ok
+test_unsafe_native_metadata_is_rejected_without_following_aliases (__main__.LauncherTests.test_unsafe_native_metadata_is_rejected_without_following_aliases) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 29.768s
+
+OK

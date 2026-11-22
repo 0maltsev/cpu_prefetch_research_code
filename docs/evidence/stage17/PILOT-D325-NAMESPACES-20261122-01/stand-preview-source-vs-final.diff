@@ -1,0 +1,24 @@
+--- tested-stand-preview-auditor
++++ final-local-wrapper-aware-auditor
+@@ -21,0 +22 @@
++LEGACY_STDOUT_SHA256 = "37d26cfb0208d17f521f57ac7a208304b792c8c0062911d6c517a542fb764f30"
+@@ -67,0 +69 @@
++        self.legacy_wrapped_stdout = set()
+@@ -83,0 +86,10 @@
++        trailer_matches=set()
++        if hashlib.sha256(raw).hexdigest() == LEGACY_STDOUT_SHA256:
++            # One exact historical diagnostic stdout artifact, not permission
++            # to ignore trailing data in JSON or hide an unrecognized wrapper.
++            parts=raw.splitlines()
++            public.require(not lines and len(parts)==2 and parts[1]==b"scratch_roots 10",
++                           "legacy diagnostic stdout framing differs")
++            trailer_matches=self.text(parts[1].decode("ascii"))
++            raw=parts[0]
++            self.legacy_wrapped_stdout.add(LEGACY_STDOUT_SHA256)
+@@ -86 +98 @@
+-        found, plans, nodes, count = set(), set(), 0, 0
++        found, plans, nodes, count = set(trailer_matches), set(), 0, 0
+@@ -179,0 +192,3 @@
++        accepted_legacy_stdout_wrappers=[dict(path=r["path"],sha256=r["sha256"],
++            format="EXACT-Q16C-PREQUALIFICATION-JSON-PLUS-SCRATCH-COUNT-v1",full_original_bytes_inspected=True)
++            for r in result["checked_inventory"] if r["sha256"] in matcher.legacy_wrapped_stdout],

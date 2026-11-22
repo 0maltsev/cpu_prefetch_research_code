@@ -1,0 +1,29 @@
+{
+  "additional_q16c_cases_passed": 3,
+  "namespace_cases_passed": 14,
+  "namespace_registration_performed": false,
+  "native_binary_sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+  "native_source_worktree_clean": true,
+  "operational_window_started": false,
+  "original_legacy_diagnostic_unchanged": true,
+  "prospective_identities_sha256": "a45a0182454be2fb77c59852502d4815cdbdfdd94b643a51494a5a8dc59b5b96",
+  "python_ast_checked": [
+    "tools/stage17_s180_namespace_audit_v1.py",
+    "tests/test_stage17_s180_namespace_audit_v1.py"
+  ],
+  "registered_cases_passed": 21,
+  "registered_suites_passed": 2,
+  "stand_actual_captures": 0,
+  "temporary_fixture_paths_remaining": [],
+  "unchanged_source_sha256": {
+    "config/stage17/d310-s180-blueprint-v1.json": "e95183365023a06b9da0d6cdff042bce556b9eb60c701dfb0f9e6df6ca22685c",
+    "tools/generate_schedule.py": "2997834dbe2018dd75843b9446e09b0ab9f0c17f423e5522c433a6cb41cc919f",
+    "tools/stage17_public_namespace_audit_v1.py": "36ead49e065ef401589942f177e5205b4ae3a2f16c8490dfc32ff14a2ebf83a2",
+    "tools/stage17_q16c_namespace_audit_v1.py": "7cbc597144cb41a487e8dcdcb9111552ef6f857f1ef957cb1b435d59c55f6c1d",
+    "tools/stage17_q16c_namespace_audit_v2.py": "c439072c7946cb571e99122e4d7d1eea02dc292faef627cbdc3945c5bbca151c",
+    "tools/stage17_s180_journal_v1.py": "e3841c6a75a0de9bc43351d32529754e43781033e6e7deab832889e5a0bc23f0",
+    "tools/stage17_s180_source_provenance_v1.py": "b4f58e87e8c9ab9e6e58f04ac2af4d7e583b52a17a1aced98e9994908ddb6863",
+    "tools/stage17_s180_verified_sources_v1.py": "273bd5a620b43235ab8b04e34341c8afb7142aebbb5bbe9a3629e0606b2d4f6a",
+    "tools/stage17_service_continuation_namespace_v1.py": "bdf0bd58edbc7a19dedd8d9e03787b24a137982163ec3835759bebe39d633668"
+  }
+}

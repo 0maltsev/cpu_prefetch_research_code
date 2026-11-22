@@ -1,0 +1,187 @@
+"""Bounded read-only S180 identity/history audit; no registration or authority."""
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+import re
+import time
+import types
+
+import stage17_public_namespace_audit_v1 as public
+
+BLUEPRINT_SHA256 = "e95183365023a06b9da0d6cdff042bce556b9eb60c701dfb0f9e6df6ca22685c"
+SCHEMA = "cpu-prefetch-stage17-s180-prospective-identities/1"
+AUDIT_SCHEMA = "cpu-prefetch-stage17-s180-namespace-audit/1"
+LEDGER_SCHEMA = "cpu-prefetch-stage17-formal-representation-ledger/1"
+REQUIRED_PLANS = (*public.FAMILIES, public.PLAN_SHA,
+    "4a0eb6531c93141b1215a5aa5c18bae0831a0d6f4d6e80f949856c77d9b9fda8",
+    "36c15f402c7f20240da6b36472b9d0c56bcade8c1024604d0b1bd3deaef19a44")
+EXTRA_PREPARATION_PREFIXES = ("q16c-configuration", "q16c-preparation", "d260-collection-preparation")
+LOCAL_HISTORY_PREFIXES = ("stage17-q16c-", "stage17-d260-")
+
+
+def sha(value):
+    return hashlib.sha256(public.canonical(value)).hexdigest()
+
+
+def planned_identities(blueprint):
+    public.require(sha(blueprint) == BLUEPRINT_SHA256, "exact frozen S180 blueprint required")
+    root = blueprint["blueprint_id"] + "/PILOT"
+    master = blueprint["blueprint_id"] + ":MASTER"
+    rows = sorted(blueprint["captures"], key=lambda r:r["execution_ordinal"])
+    arena, node, schedules, source_rows, seen = set(), set(), set(), [], set()
+    runs = []
+    for row in rows:
+        arena.add(row["arena_namespace"]);node.add(row["node_order_namespace"])
+        runs.append(dict(cell_ordinal=row["cell_ordinal"],execution_ordinal=row["execution_ordinal"],
+            measurement_run_id=row["run_id"],warmup_run_id=row["warmup_run_id"]))
+        key = row["placement"],row["working_set_class"],row["load_level"]
+        if key in seen:
+            continue
+        seen.add(key)
+        for phase in ("warmup","measurement"):
+            namespace = row[phase+"_schedule_namespace"]
+            schedules.add(namespace)
+            source_rows.append(dict(placement=key[0],working_set_class=key[1],load_level=key[2],phase=phase,
+                namespace_id=namespace,parent_namespace_id=root,seed_id=master,schedule_id=namespace,
+                artifact_id=namespace+"/ORIGINAL-U64BE",envelope_artifact_id=namespace+"/ENVELOPE",
+                derivation_artifact_id=namespace+"/DERIVATION",derivation_record_id=namespace+"/DERIVATION-RECORD"))
+    ordering = [root+"/repetition-0/hardware-order",root+"/repetition-0/H0/cell-order",root+"/repetition-0/H1/cell-order"]
+    public.require(len(arena) == len(node) == 6 and len(schedules) == 36 and len(runs) == 180,
+                   "complete S180 identities required")
+    return dict(schema_version=SCHEMA,blueprint_sha256=BLUEPRINT_SHA256,stand_id=blueprint["stand_id"],
+        namespace_root=root,master_seed=dict(seed_id=master,seed_hex=blueprint["master_seed_hex"]),
+        namespaces=dict(arena=sorted(arena),node_order=sorted(node),schedule=sorted(schedules),ordering=ordering),
+        runs=runs,sources=source_rows,registration_performed=False,source_generation_performed=False,
+        execution_authority=False,phase18_authority=False)
+
+
+class Matcher:
+    def __init__(self, blueprint, limits):
+        self.identities = planned_identities(blueprint)
+        self.prefix = blueprint["blueprint_id"]
+        self.seed = blueprint["master_seed_hex"]
+        self.number = int(self.seed,16)
+        self.numbers = re.compile(r"(?<![A-Za-z0-9_])(?:0[xX][0-9a-fA-F]{1,64}|[0-9a-fA-F]{64}|[0-9]{1,78})(?![A-Za-z0-9_])")
+        self.registered_plans = set()
+        self.deadline = time.monotonic()+limits.wall_seconds
+
+    def _before(self):
+        public.require(time.monotonic() < self.deadline, "namespace matcher wall deadline")
+
+    def text(self,value):
+        self._before()
+        found = {"identity_family:"+self.prefix} if self.prefix in value else set()
+        for i, match in enumerate(self.numbers.finditer(value)):
+            if i % 256 == 0:self._before()
+            token = match.group()
+            bases = (16,) if token.lower().startswith("0x") or re.search("[a-fA-F]",token) else (10,16)
+            if any(int(token,base) == self.number for base in bases):found.add("numeric_seed:"+self.seed)
+        return found
+
+    def inspect(self,raw,lines=False,limits=public.Limits()):
+        text = raw.decode("utf-8",errors="strict")
+        records = (line for line in text.splitlines() if line.strip()) if lines else (text,)
+        found, plans, nodes, count = set(), set(), 0, 0
+        for record in records:
+            self._before();count += 1
+            pending = [(public.parse(record),0)]
+            while pending:
+                value, depth = pending.pop();nodes += 1
+                if nodes % 256 == 0:self._before()
+                public.require(nodes <= limits.max_json_nodes and depth <= limits.max_depth,"JSON node/depth bound")
+                if type(value) is str:
+                    found.update(self.text(value))
+                    # Decode an embedded JSON document too; escaped keys/values
+                    # in serialized originals cannot hide an identity or seed.
+                    if value.lstrip().startswith(("{","[")):
+                        try:embedded = public.parse(value)
+                        except (ValueError,RecursionError):continue
+                        pending.append((embedded,depth+1))
+                elif type(value) is int and value == self.number:
+                    found.add("numeric_seed:"+self.seed)
+                elif type(value) is dict:
+                    version = value.get("schema_version","")
+                    if (value.get("action_id") in ("Q16a","Q16b","Q16c","Q17")
+                            and type(value.get("captures")) is list and type(version) is str
+                            and version.startswith("cpu-prefetch-stage17-formal-")):
+                        plans.add(sha(value))
+                    if version == LEDGER_SCHEMA and value.get("kind") == "FAMILY":
+                        payload=value.get("payload")
+                        public.require(type(payload) is dict and type(payload.get("family_id")) is str
+                            and re.fullmatch("[0-9a-f]{64}",payload["family_id"]),"malformed archive FAMILY metadata")
+                        self.registered_plans.add(payload["family_id"])
+                    pending.extend((v,depth+1) for pair in value.items() for v in pair)
+                elif type(value) is list:
+                    pending.extend((v,depth+1) for v in value)
+        public.require(count > 0,"empty JSONL")
+        return sorted(found),sorted(plans)
+
+
+def _clone(function,scope):
+    result=types.FunctionType(function.__code__,scope,function.__name__,function.__defaults__,function.__closure__)
+    result.__kwdefaults__=function.__kwdefaults__
+    return result
+
+
+def audit(mode,base,blueprint,*,limits=public.Limits()):
+    """All selected public history, no caller exclusions or unused assertions.
+
+    This is a bounded history observation, not namespace registration, a global
+    no-collision proof or a substitute for the qualified producer/profile.
+    """
+    matcher=Matcher(blueprint,limits)
+    snapshots={}
+    def snapshot(path):
+        public.absolute(path)
+        st=path.lstat()
+        value=(*public.stamp(st),st.st_mode,st.st_uid)
+        public.require(snapshots.setdefault(path,value) == value,"public metadata changed between references")
+    def children(path,maximum):
+        snapshot(path)
+        result=public.bounded_children(path,maximum)
+        snapshot(path)
+        return result
+    def read_metadata(path,maximum):
+        snapshot(path)
+        result=public.read_metadata(path,maximum)
+        snapshot(path)
+        return result
+    scope={**vars(public),"FAMILIES":REQUIRED_PLANS,"LOCAL_EXCLUSIONS":(),"STAND_EXCLUSIONS":(),
+        "PREPARATION_PREFIXES":(*public.PREPARATION_PREFIXES,*EXTRA_PREPARATION_PREFIXES),
+        "bounded_children":children,"read_metadata":read_metadata}
+    original_roots=_clone(public.selected_roots,scope)
+    def selected_roots(selected_mode,selected_base,selected_limits):
+        roots=original_roots(selected_mode,selected_base,selected_limits)
+        if selected_mode == "local":
+            build=Path(selected_base)/"build"
+            if build.exists():
+                roots.extend(p for p in children(build,selected_limits.max_entries)
+                    if p.name.startswith(LOCAL_HISTORY_PREFIXES))
+        public.require(0 < len(set(roots)) <= selected_limits.max_roots,"metadata root bound")
+        return sorted(set(roots))
+    scope["selected_roots"]=selected_roots
+    scope["exclusions"]=_clone(public.exclusions,scope)
+    result=_clone(public.audit,scope)(mode,Path(base),matcher,limits)
+    try:
+        for i,path in enumerate(tuple(snapshots)):
+            if i % 256 == 0:matcher._before()
+            snapshot(path)
+    except (ValueError,OSError) as error:
+        result["errors"].append(dict(path="<final-public-metadata-snapshot>",reason=str(error)))
+    required=set(REQUIRED_PLANS)|matcher.registered_plans
+    missing=sorted(required-set(result["historical_plan_sha256"]))
+    if missing and not any(e.get("missing") == missing for e in result["errors"]):
+        result["errors"].append(dict(path="<all-observed-archive-families>",reason="missing original registered plans",missing=missing))
+    result.update(schema_version=AUDIT_SCHEMA,blueprint_sha256=BLUEPRINT_SHA256,
+        prospective_identities_sha256=sha(matcher.identities),plan_sha256=None,
+        final_snapshot_objects=len(snapshots),
+        required_history_plan_sha256=sorted(required),observed_archive_family_sha256=sorted(matcher.registered_plans),
+        planned_phase_identities=360,planned_source_identities=36,planned_numeric_seeds=1,
+        planned_namespaces_including_root=52,planned_linked_order_identities=6,
+        scope="Finite selected public JSON/JSONL history; all-E stand contexts; no raw reads or whole-disk proof",
+        namespace_registration_performed=False,source_generation_performed=False,
+        resource_admission_performed=False,execution_authority=False,phase18_authority=False)
+    result["status"]="PASS_SCOPED_HISTORY_AUDIT" if not result["errors"] and not result["matches"] else "FAIL"
+    return result

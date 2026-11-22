@@ -1,0 +1,16 @@
+{
+  "checked_files": [
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/final-checks.json",
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/historical-plan-transfer.json",
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/local-namespace-final.json",
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/local-namespace-initial-failure.json",
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/log-normalization.json",
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/source-kernel-planning-estimate.json",
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-generator-kernel-timing.json",
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-namespace-preview.json",
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-program-extents.json",
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-readonly-status.json"
+  ],
+  "identity_collisions": [],
+  "scope": "new evidence JSON only; not a replacement for full history audit"
+}

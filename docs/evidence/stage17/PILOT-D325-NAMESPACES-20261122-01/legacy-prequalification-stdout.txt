@@ -1,0 +1,2 @@
+{"schema_version": "cpu-prefetch-stage17-q16c-prequalification-resources/1", "observed_monotonic_ns": 1370125748244389, "retained_failed_scratch_bytes": 37485663884, "conservative_12_capture_scratch_bytes": 79202425428, "available_memory_bytes": 262144647168, "plan_family_memory_bytes": 55287206384, "filesystem_free_bytes": 6323499503616, "online_cpus": "0-31", "raw_bytes_read": 0, "hardware_qualified": false, "execution_authority": false, "phase18_authority": false}
+scratch_roots 10

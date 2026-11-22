@@ -1,0 +1,27 @@
+{
+  "historical_plan_metadata_retained": true,
+  "original_legacy_diagnostic_retained": true,
+  "reclaimed_bytes": 47036719,
+  "removed_verified_duplicate_reports": [
+    {
+      "path": "build/stage17-s180-native/s180-stand-namespace-preview.json",
+      "sha256": "939a9c2d6d1c7210dfcaadbe331e8ed42b8174644dbeb85966c6a3b6fb221217",
+      "size_bytes": 22329999,
+      "verified_copy": "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-namespace-preview.json"
+    },
+    {
+      "path": "build/stage17-s180-native/s180-local-namespace-preview.json",
+      "sha256": "2002d65707e64869b33ed585679057f860e54fa1ccbff227c0d1b4c0be0e5f7b",
+      "size_bytes": 12353052,
+      "verified_copy": "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/local-namespace-initial-failure.json"
+    },
+    {
+      "path": "build/stage17-s180-native/s180-local-namespace-preview-final.json",
+      "sha256": "3f27df630ab19beff209fbd78ee7a109fd16e300f9a977f33cd8aecc8eee5ac0",
+      "size_bytes": 12353668,
+      "verified_copy": "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/local-namespace-final.json"
+    }
+  ],
+  "research_raw_transferred": false,
+  "stand_data_deleted": false
+}

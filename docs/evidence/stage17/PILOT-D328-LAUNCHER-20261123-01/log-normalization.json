@@ -1,0 +1,107 @@
+[
+  {
+    "normalized_sha256": "ae583679a8bca644fecaef702a831360ad8eb46e4307644532ddc5a857278ec2",
+    "original_sha256": "07460aa170b9355bdd9cc6a5f41609b042d8b367314e862fee74217cb698c7e5",
+    "original_size_bytes": 1767,
+    "path": "initial-fixture-compile-error.txt",
+    "source": "build/stage17-s180-native/d328-fixture-initial-build-failure.txt"
+  },
+  {
+    "normalized_sha256": "66f1ad966d7f3615471a892da9a7b3699aea9cd86baee94954deac8a20f90584",
+    "original_sha256": "66f1ad966d7f3615471a892da9a7b3699aea9cd86baee94954deac8a20f90584",
+    "original_size_bytes": 3274,
+    "path": "initial-fixture-tests.txt",
+    "source": "build/stage17-s180-native/d328-initial-fixture-tests.txt"
+  },
+  {
+    "normalized_sha256": "073007fd7ec088da1bd6ded341a7a98aaba29b56cfb15db0771c1971c0761f42",
+    "original_sha256": "073007fd7ec088da1bd6ded341a7a98aaba29b56cfb15db0771c1971c0761f42",
+    "original_size_bytes": 1143,
+    "path": "initial-archive-deadline-rejection.txt",
+    "source": "build/stage17-s180-native/d328-stop-diagnostic.txt"
+  },
+  {
+    "normalized_sha256": "e0884f7a7bc9cd20b3acb34452c4f9f040154487e72d36f9365e864345c67210",
+    "original_sha256": "e0884f7a7bc9cd20b3acb34452c4f9f040154487e72d36f9365e864345c67210",
+    "original_size_bytes": 3906,
+    "path": "initial-fixture-static-errors.txt",
+    "source": "build/stage17-s180-native/d328-fixture-initial-static-errors.txt"
+  },
+  {
+    "normalized_sha256": "641cf7e79bac490283bfe5d2856edd2f276ea3d675437864ec8cac30f63a6bc0",
+    "original_sha256": "641cf7e79bac490283bfe5d2856edd2f276ea3d675437864ec8cac30f63a6bc0",
+    "original_size_bytes": 385,
+    "path": "fixture-build-final.txt",
+    "source": "build/stage17-s180-native/d328-fixture-build-final.txt"
+  },
+  {
+    "normalized_sha256": "3f78c431cb2018cb67cb7a58578e605fc01e88b74e38a3c063e6557059aa1467",
+    "original_sha256": "3f78c431cb2018cb67cb7a58578e605fc01e88b74e38a3c063e6557059aa1467",
+    "original_size_bytes": 390,
+    "path": "asan-build-final.txt",
+    "source": "build/stage17-s180-native/d328-asan-build-final.txt"
+  },
+  {
+    "normalized_sha256": "b9750c3c6401ea5e48ee59552439389125d235fbad8003b03186a0cde5a1a402",
+    "original_sha256": "b9750c3c6401ea5e48ee59552439389125d235fbad8003b03186a0cde5a1a402",
+    "original_size_bytes": 182,
+    "path": "asan-configure.txt",
+    "source": "build/stage17-s180-native/d328-asan-configure.txt"
+  },
+  {
+    "normalized_sha256": "cd915a8917c3d82c6015402ebe1e99d5eb2f71462b2af951d1b459f71bfaaaf5",
+    "original_sha256": "cd915a8917c3d82c6015402ebe1e99d5eb2f71462b2af951d1b459f71bfaaaf5",
+    "original_size_bytes": 271,
+    "path": "asan-sealed-input-final.txt",
+    "source": "build/stage17-s180-native/d328-asan-tests-final.txt"
+  },
+  {
+    "normalized_sha256": "900a52ea5da7bcabc9e77f9cf6ede26e77f606e711534d2d64615a5f1fb97c45",
+    "original_sha256": "900a52ea5da7bcabc9e77f9cf6ede26e77f606e711534d2d64615a5f1fb97c45",
+    "original_size_bytes": 228,
+    "path": "fixture-static-analysis-final.txt",
+    "source": "build/stage17-s180-native/d328-fixture-static-analysis-final.txt"
+  },
+  {
+    "normalized_sha256": "a12b7c084629ffd511c751ffcf478ab75e1ca668fe623c3d4143f8e1adf82f00",
+    "original_sha256": "a12b7c084629ffd511c751ffcf478ab75e1ca668fe623c3d4143f8e1adf82f00",
+    "original_size_bytes": 2502,
+    "path": "launcher-intermediate-15-cases.txt",
+    "source": "build/stage17-s180-native/d328-launcher-tests-final.txt"
+  },
+  {
+    "normalized_sha256": "4c2c8c47d02f359fbdbde2fd5e02e90729fa7f3b59ec4e525a623144719a943a",
+    "original_sha256": "4c2c8c47d02f359fbdbde2fd5e02e90729fa7f3b59ec4e525a623144719a943a",
+    "original_size_bytes": 115,
+    "path": "python-debug-final-15-cases.txt",
+    "source": "build/stage17-s180-native/d328-python-debug-tests-final.txt"
+  },
+  {
+    "normalized_sha256": "de09a442120b1f6e0a723169f17c1d6508d1789a1acef80cc24b92426a8587db",
+    "original_sha256": "de09a442120b1f6e0a723169f17c1d6508d1789a1acef80cc24b92426a8587db",
+    "original_size_bytes": 1465,
+    "path": "registered-final-106-cases.txt",
+    "source": "build/stage17-s180-native/d328-registered-tests-final.txt"
+  },
+  {
+    "normalized_sha256": "9c5ea6b86aea50964c5dace604ab8ef32fbf858f8357c30a2f09665c7b72fe7b",
+    "original_sha256": "7a9484aafaff7c623521100f1d30810e82538bb7c49f4479a889d50814f14cc3",
+    "original_size_bytes": 8945,
+    "path": "registered-final-details.txt",
+    "source": "build/stage17-s180-native/dev-gcc16/Testing/Temporary/LastTest.log"
+  },
+  {
+    "normalized_sha256": "c92b7acfe6bff6e0100c68557ccc01e448c5483ba1d59de45e637cb6a0acb823",
+    "original_sha256": "c92b7acfe6bff6e0100c68557ccc01e448c5483ba1d59de45e637cb6a0acb823",
+    "original_size_bytes": 6025,
+    "path": "repository-checks-final.txt",
+    "source": "build/stage17-s180-native/d328-repository-checks-final.txt"
+  },
+  {
+    "normalized_sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+    "original_sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+    "original_size_bytes": 177,
+    "path": "configure.txt",
+    "source": "build/stage17-s180-native/d328-configure-final.txt"
+  }
+]

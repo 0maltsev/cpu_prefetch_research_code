@@ -1,0 +1,10 @@
+[1/4] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/4] Linking CXX static library libcpu_prefetch_foundation.a
+[3/4] Building CXX object CMakeFiles/cpu_prefetch_s180_launcher_fixture.dir/tests/stage17_s180_launcher_fixture.cpp.o
+FAILED: [code=1] CMakeFiles/cpu_prefetch_s180_launcher_fixture.dir/tests/stage17_s180_launcher_fixture.cpp.o
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/g++  -I/home/omaltsev/research/cpu_prefetch_research_code/include -I/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/generated/include -g -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wformat=2 -Wundef -Werror -MD -MT CMakeFiles/cpu_prefetch_s180_launcher_fixture.dir/tests/stage17_s180_launcher_fixture.cpp.o -MF CMakeFiles/cpu_prefetch_s180_launcher_fixture.dir/tests/stage17_s180_launcher_fixture.cpp.o.d -o CMakeFiles/cpu_prefetch_s180_launcher_fixture.dir/tests/stage17_s180_launcher_fixture.cpp.o -c /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp: In function ‘uint64_t {anonymous}::number(const O&, const char*)’:
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:22:83: error: ‘const struct cpu_prefetch::protocol::json::Number’ has no member named ‘unsigned_integer’
+   22 | auto number(const O& o,const char* k)->std::uint64_t {return o.at(k).as_number()->unsigned_integer;}
+      |                                                                                   ^~~~~~~~~~~~~~~~
+ninja: build stopped: subcommand failed.

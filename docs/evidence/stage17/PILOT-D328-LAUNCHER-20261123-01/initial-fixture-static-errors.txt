@@ -1,0 +1,37 @@
+50 warnings generated.
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:101:39: error: performing an implicit widening conversion to type 'std::size_t' (aka 'unsigned long') of a multiplication performed in type 'unsigned int' [bugprone-implicit-widening-of-multiplication-result,-warnings-as-errors]
+  101 |     const auto raw = read(request_fd, 16U * 1024U * 1024U);
+      |                                       ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:101:39: note: make conversion explicit to silence this warning
+   11 |     const auto raw = read(request_fd, 16U * 1024U * 1024U);
+      |                                       ^~~~~~~~~~~~~~~~~~~
+      |                                       static_cast<std::size_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:101:39: note: perform multiplication in a wider type
+  101 |     const auto raw = read(request_fd, 16U * 1024U * 1024U);
+      |                                       ^~~~~~~~~~~
+      |                                       static_cast<std::size_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:102:71: error: performing an implicit widening conversion to type 'std::size_t' (aka 'unsigned long') of a multiplication performed in type 'unsigned int' [bugprone-implicit-widening-of-multiplication-result,-warnings-as-errors]
+  102 |     const auto request = parse(raw), context = parse(read(context_fd, 1024U * 1024U));
+      |                                                                       ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:102:71: note: make conversion explicit to silence this warning
+  102 |     const auto request = parse(raw), context = parse(read(context_fd, 1024U * 1024U));
+      |                                                                       ^~~~~~~~~~~~~
+      |                                                                       static_cast<std::size_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:102:71: note: perform multiplication in a wider type
+  102 |     const auto request = parse(raw), context = parse(read(context_fd, 1024U * 1024U));
+      |                                                                       ^~~~~
+      |                                                                       static_cast<std::size_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:117:42: error: performing an implicit widening conversion to type 'std::size_t' (aka 'unsigned long') of a multiplication performed in type 'unsigned int' [bugprone-implicit-widening-of-multiplication-result,-warnings-as-errors]
+  117 |       const auto bytes = read(source_fd, 1024U * 1024U);
+      |                                          ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:117:42: note: make conversion explicit to silence this warning
+  117 |       const auto bytes = read(source_fd, 1024U * 1024U);
+      |                                          ^~~~~~~~~~~~~
+      |                                          static_cast<std::size_t>( )
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp:117:42: note: perform multiplication in a wider type
+  117 |       const auto bytes = read(source_fd, 1024U * 1024U);
+      |                                          ^~~~~
+      |                                          static_cast<std::size_t>( )
+Suppressed 47 warnings (47 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+3 warnings treated as errors

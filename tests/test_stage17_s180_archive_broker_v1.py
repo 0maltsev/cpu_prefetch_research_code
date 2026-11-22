@@ -77,6 +77,7 @@ class S180BrokerTests(unittest.TestCase):
                 program_id="synthetic-s180", program_scope_sha256=self.scope,
                 implementation_profile_sha256=self.profile.decoder.implementation_profile_sha256,
                 archive_staging_bytes=4*1024**2))
+        plan=self.configure_plan(plan)
         self.request = dict(schema_version="cpu-prefetch-stage17-s180-session-request/1", session_id="software-only-s180", plan=plan,
             prerequisite_bindings=dict(ext009_resolution_sha256="a"*64))
         self.family = digest(archive.canonical(plan))
@@ -115,6 +116,9 @@ class S180BrokerTests(unittest.TestCase):
             self.document["artifacts"].append(dict(role=r, schema_identity=fmt, media_type=media,
                 file_name=name, size_bytes=len(data), sha256=digest(data)))
         self.write_checkpoint()
+
+    def configure_plan(self,plan):
+        return plan
 
     def store(self, **changes):
         args = dict(scope_sha256=self.scope, family_id=self.family, limits=self.custody_limits,

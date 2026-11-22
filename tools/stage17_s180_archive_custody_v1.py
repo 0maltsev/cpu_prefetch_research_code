@@ -5,6 +5,7 @@ its exact binding and the already accepted owner approval; it grants no run.
 """
 from dataclasses import asdict
 import re
+import stat
 
 import stage17_formal_archive_custody_v1 as base
 import stage17_formal_archive_v1 as archive
@@ -15,6 +16,37 @@ EXTENSION_SCHEMA = "cpu-prefetch-stage17-s180-storage-extension/1"
 
 
 class ProgramStore(base.ProgramStore):
+    def physical_accounting(self):
+        """Charge original S180 native administrative metadata too.
+
+        The base raw-working exemption predates these names. Their retained
+        entry/result/per-capture attempt records are metadata, not raw buffers.
+        Historical programmes/families and the base accounting are unchanged.
+        """
+        usage=super().physical_accounting()
+        logical,allocated=usage.logical_size_bytes,usage.allocated_bytes
+        quota,objects=usage.quota_bytes,usage.unique_objects
+        for family,record in self._families.items():
+            if record.get('storage_extension') is None:continue
+            directory=self.root/'working'/family;before=directory.stat(follow_symlinks=False)
+            if (not stat.S_ISDIR(before.st_mode) or (before.st_dev,before.st_ino)!=(record['device'],record['inode'])):
+                raise base.CustodyError('S180 native metadata family identity differs')
+            names=['s180-session-entry.json','s180-session-result.json',*(f's180-e{i}-attempt.json' for i in range(180))]
+            for name in names:
+                try:st=(directory/name).stat(follow_symlinks=False)
+                except FileNotFoundError:continue
+                if (not stat.S_ISREG(st.st_mode) or st.st_nlink!=1 or st.st_dev!=before.st_dev
+                        or st.st_uid!=before.st_uid or st.st_mode&0o022):
+                    raise base.CustodyError('unsafe retained S180 native metadata')
+                disk=archive.checked_product(st.st_blocks,512)
+                logical=archive.checked_sum(logical,st.st_size);allocated=archive.checked_sum(allocated,disk)
+                quota=archive.checked_sum(quota,max(st.st_size,disk));objects=archive.checked_sum(objects,1)
+            after=directory.stat(follow_symlinks=False)
+            if (before.st_dev,before.st_ino)!=(after.st_dev,after.st_ino):
+                raise base.CustodyError('S180 native metadata directory changed')
+        self._check()
+        return base.PhysicalUsage(logical,allocated,quota,objects)
+
     def __init__(self, *args, ext009_resolution_sha256, **kwargs):
         super().__init__(*args, **kwargs)
         self.ext009_resolution_sha256 = (None if ext009_resolution_sha256 is None else

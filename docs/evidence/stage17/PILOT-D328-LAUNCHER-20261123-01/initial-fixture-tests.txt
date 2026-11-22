@@ -1,0 +1,27 @@
+test_actual_broker_reconstructs_all_eight_sources_and_preserves_shared_quota (__main__.FullFixture.test_actual_broker_reconstructs_all_eight_sources_and_preserves_shared_quota) ... skipped 'requires actual compiled encoder'
+test_actual_native_channel_broker_ledger_and_success_ack (__main__.FullFixture.test_actual_native_channel_broker_ledger_and_success_ack) ... skipped 'requires actual compiled encoder'
+test_actual_native_channel_retains_failed_evidence_and_rejects_continuation (__main__.FullFixture.test_actual_native_channel_retains_failed_evidence_and_rejects_continuation) ... skipped 'requires actual compiled encoder'
+test_actual_native_partial_prefix_preserves_unlisted_files_and_stops (__main__.FullFixture.test_actual_native_partial_prefix_preserves_unlisted_files_and_stops) ... skipped 'requires actual compiled encoder'
+test_actual_native_source_discrepancy_preserved_without_continuation (__main__.FullFixture.test_actual_native_source_discrepancy_preserved_without_continuation) ... skipped 'requires actual compiled encoder'
+test_failed_native_capture_is_archived_as_failed_evidence (__main__.FullFixture.test_failed_native_capture_is_archived_as_failed_evidence) ... skipped 'requires actual compiled encoder'
+test_frozen_order_and_profile_scope_drift_reject_before_broker (__main__.FullFixture.test_frozen_order_and_profile_scope_drift_reject_before_broker) ... skipped 'requires actual compiled encoder'
+test_live_private_mapping_blocks_codecs_and_preserves_original_files (__main__.FullFixture.test_live_private_mapping_blocks_codecs_and_preserves_original_files) ... skipped 'requires actual compiled encoder'
+test_one_family_extension_cannot_be_reused_or_adopted_by_legacy (__main__.FullFixture.test_one_family_extension_cannot_be_reused_or_adopted_by_legacy) ... skipped 'requires actual compiled encoder'
+test_attempt_cannot_dispatch_twice (__main__.LauncherTests.test_attempt_cannot_dispatch_twice) ... ok
+test_bad_independent_restoration_never_promotes_success (__main__.LauncherTests.test_bad_independent_restoration_never_promotes_success) ... ok
+test_escaped_descendant_is_reaped_before_environment_restoration (__main__.LauncherTests.test_escaped_descendant_is_reaped_before_environment_restoration) ... ok
+test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization (__main__.LauncherTests.test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization) ... FAIL
+
+======================================================================
+FAIL: test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization (__main__.LauncherTests.test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_launcher_v1.py", line 136, in test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization
+    self.assertEqual(result['document']['acknowledged_captures'],1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 13 tests in 7.783s
+
+FAILED (failures=1, skipped=9)

@@ -1,0 +1,156 @@
+{
+  "actual_scoped_admission": false,
+  "baseline_revision": "75ed830292ce819ddfd0e0307c6e9511891beda6",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/COMMANDS.md": {
+      "sha256": "488e768d99fed652f04d413ee0f9aa676b78fefdfff4cd43c49d721f32a6a5fa",
+      "size_bytes": 3500
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/REPORT.md": {
+      "sha256": "82c6fff3a1b01a32d95164b8d3a5f231dde0428aefd7f541b0d8cd98fd50215a",
+      "size_bytes": 4933
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/bounded-native-description.json": {
+      "sha256": "c79b5597d502a51e4bad783ba6d6592dec4eee4ef5a7a867aa7bbd18bc6d2b08",
+      "size_bytes": 131888
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/bounded-sizing.json": {
+      "sha256": "f7d1f971f49fd1efbda1a4a83eab88fa85c5377d00c194a3242c4bedcdf3088f",
+      "size_bytes": 3061798
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/configure.txt": {
+      "sha256": "3a1cb68dded010d50c6d86540bde1c8a1b1e9c40bc82885aa4a80be0a77e0c0c",
+      "size_bytes": 177
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/final-checks.json": {
+      "sha256": "b2fbc367b6e8128da5f782ef19c013ff2507e12daff9fba378b034a1bed06da4",
+      "size_bytes": 673
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/initial-cold-rejection.json": {
+      "sha256": "e4991b852c68c08c346277df153a833497d8c546394f0ec52486350aeedc3950",
+      "size_bytes": 331
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/initial-native-description.json": {
+      "sha256": "bb3f07450c3bccf223cc824cbdbd556938635cca63e15e60d8a97b26b244891b",
+      "size_bytes": 131888
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/initial-synthetic-blueprint-rejection.txt": {
+      "sha256": "abf73664d9826352c07f16bc5361e0165c4b641b0a81d95332ac1a171e42f1da",
+      "size_bytes": 1718
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/initial-test-path-assertion.txt": {
+      "sha256": "add479519dc4efce07035eda2ddfead5d699face415e5c118fd9c0d1df6bd9a8",
+      "size_bytes": 958
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/log-normalization.json": {
+      "sha256": "961510d02ce597c1776dbd6a829964543b6fe8f052bc566ef5d55d6cd5765421",
+      "size_bytes": 1582
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/original-control-plan.json": {
+      "sha256": "36c15f402c7f20240da6b36472b9d0c56bcade8c1024604d0b1bd3deaef19a44",
+      "size_bytes": 3321611
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/pc-cleanup.json": {
+      "sha256": "cfd2e57de853d1201fafdd3ee095e8821f99ee080839730467c8df5241ed97d0",
+      "size_bytes": 2338
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/process-envelope.json": {
+      "sha256": "df522fbccaa10bf8b3ee01f31ec649b6f0b4ce21604824f08ecc1408cca3ab90",
+      "size_bytes": 1317
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/prospective-resource-8-tests.txt": {
+      "sha256": "0e90c820175472601d9b466bcbec63831576a08176947a36e189d8af2ab49f18",
+      "size_bytes": 107
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/readonly-ledger-probe.py": {
+      "sha256": "c8991d63c515d1929afa200f2d92b0df227536da6479560fc4c4da24a9b3d5b6",
+      "size_bytes": 92652
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/registered-details.txt": {
+      "sha256": "f35f3ba87a39d76f8542f1177bf425d3b236ae51f406ee0b4759f3adc067ac04",
+      "size_bytes": 5725
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/registered-tests.txt": {
+      "sha256": "f5ab9e7eda32dfb6789a198ed0353a11f7359d3885ab5a31725633c930d88440",
+      "size_bytes": 1064
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/repository-checks.txt": {
+      "sha256": "c92b7acfe6bff6e0100c68557ccc01e448c5483ba1d59de45e637cb6a0acb823",
+      "size_bytes": 6025
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/resource-envelope.json": {
+      "sha256": "2ee0063ddd386aaf68f22e2c2f9e0d0af75027e53271062cbcf12f5bfef5e569",
+      "size_bytes": 92256
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/source-deadline-15-tests.txt": {
+      "sha256": "1f8efd5d184a1bfd38e234b9388285c8736d19eb24038fdceb02cdba34fb0e99",
+      "size_bytes": 115
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/space-preview.json": {
+      "sha256": "1b10fc3626a79ce83ea012d53637f6b8bca4cb186c8217231a464ec2e8d95b9c",
+      "size_bytes": 379
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/stand-hardware-readonly.json": {
+      "sha256": "e57d187184994dc11a154c85a7e18999c9268a2053a15756c17f69f4b7081485",
+      "size_bytes": 785
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/stand-ledger-readonly.json": {
+      "sha256": "8b2b1677b6522d3a4cb7c4999fe5525988f1c308de3cf09cac07dc348484bafc",
+      "size_bytes": 1197
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/stand-memlock-process-probe.json": {
+      "sha256": "dc3964361146ad0956fb8792cd52f002b5ad1fd31c1f65aa3b3f1f77cd575395",
+      "size_bytes": 392
+    },
+    "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/time-envelope.json": {
+      "sha256": "5d7bb367536f51aaae88fb9d4a32afe52071b9303920b12632f8ee77b061a346",
+      "size_bytes": 575
+    }
+  },
+  "execution_authority": false,
+  "implementation_files": {
+    "CMakeLists.txt": {
+      "sha256": "dabc14b00cf5f50d02f237db30f81682f393007aaeba835325f7e0805672c06b",
+      "size_bytes": 193603
+    },
+    "PLAN.md": {
+      "sha256": "8566c79bb3bf6d0f0a67f4c863547fbc69dc097ca67f2e06b257a54ff199bd14",
+      "size_bytes": 117329
+    },
+    "README.md": {
+      "sha256": "8e5aec970f85baea09ef694757c809c0c76739d2718a3521fdce334b71a7b972",
+      "size_bytes": 124782
+    },
+    "STATUS.md": {
+      "sha256": "ec47f825c9bf89d048179934dc4af935d427415724faf09f3bf17e65170ef870",
+      "size_bytes": 143699
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "849dacf5b76aea0761300b74f074e2a6b41bc1edaaedbd20bd8322339f50aeac",
+      "size_bytes": 14837
+    },
+    "docs/decisions/0326-s180-prospective-resource-envelope-and-source-loading.md": {
+      "sha256": "ea81b8f440fb7532a75ccc4d3884c11fae24dfc4ebd0d20fbcb97586bc073039",
+      "size_bytes": 5804
+    },
+    "tests/test_stage17_s180_resource_plan_v1.py": {
+      "sha256": "85230261ea1532b20a2c570e050b77354e23dd0898622a5fbec2fc486a1ba3f0",
+      "size_bytes": 8312
+    },
+    "tests/test_stage17_s180_verified_sources_v1.py": {
+      "sha256": "b00a01c6d47ec2f4dd96dbe2cd8a61f9a2b5286bf3b6fd94570e6649421c036b",
+      "size_bytes": 17375
+    },
+    "tools/stage17_s180_resource_plan_v1.py": {
+      "sha256": "c153d092e057dec8f82f9145b530899c660c7ffc59ab7d946ebabd3240763954",
+      "size_bytes": 17440
+    },
+    "tools/stage17_s180_verified_sources_v1.py": {
+      "sha256": "49431e8281291889966711ef181038ad062d8cdd25f0ccc520b07e15b26a6e0b",
+      "size_bytes": 10775
+    }
+  },
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "source_preparation_started": false
+}

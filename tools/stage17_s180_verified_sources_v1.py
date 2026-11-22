@@ -122,7 +122,8 @@ def _pin(binding, *, deadline):
 
 
 class _VerifiedSources:
-    def __init__(self, *, token, report, bindings, originals, maximum_vector_bytes, valid_until_ns):
+    def __init__(self, *, token, report, bindings, originals, maximum_vector_bytes, valid_until_ns,
+                 maximum_loading_ns):
         require(token is _TOKEN, "only actual verification constructs an owned source bank")
         self._report = archive.canonical(report)
         self._bindings = archive.canonical(bindings)
@@ -130,6 +131,7 @@ class _VerifiedSources:
         self._identity = {b["descriptor"]:_fd_identity(b["descriptor"]) for b in bindings}
         self._vector = maximum_vector_bytes
         self._until = valid_until_ns
+        self._loading_limit = archive.uint(maximum_loading_ns,"native source setup budget",positive=True)
         self._pid = os.getpid()
         self._boot = Path("/proc/sys/kernel/random/boot_id").read_text().strip()
         self._closed = False
@@ -151,12 +153,16 @@ class _VerifiedSources:
         self._check(plan_sha256)
         return self._report
 
-    def native_inputs(self, *, plan_sha256):
+    def native_inputs(self, *, plan_sha256, loading_deadline_ns):
         """Exact existing native context and inherited FDs; not a launch ticket."""
         self._check(plan_sha256)
+        now=time.monotonic_ns()
+        require(type(loading_deadline_ns) is int and now < loading_deadline_ns <= self._until
+                and loading_deadline_ns-now <= self._loading_limit,
+                "native source loading deadline exceeds setup or owner lifetime")
         bindings = archive.parse_json(b'{"bindings":'+self._bindings+b'}')["bindings"]
         context = dict(schema_version="cpu-prefetch-stage17-s180-schedule-source-context/1",
-            maximum_vector_bytes=self._vector, deadline_monotonic_ns=self._until, bindings=bindings)
+            maximum_vector_bytes=self._vector, deadline_monotonic_ns=loading_deadline_ns, bindings=bindings)
         return context, tuple(b["descriptor"] for b in bindings)
 
     def proof(self, *, plan_sha256):
@@ -165,6 +171,7 @@ class _VerifiedSources:
             plan_sha256=plan_sha256, generation_report_sha256=hashlib.sha256(self._report).hexdigest(),
             source_count=36, sealed_source_bytes=sum(v[2] for v in self._identity.values()),
             owner_pid=self._pid, boot_id=self._boot, valid_until_monotonic_ns=self._until,
+            maximum_native_source_loading_ns=self._loading_limit,
             namespace_freshness_verified=False, resource_admission_performed=False,
             execution_authority=False, phase18_authority=False)
 
@@ -215,7 +222,8 @@ def verified_sources(*, plan, seed_id, records, maximum_source_bytes, maximum_ve
         _check_originals(originals)
         _before(verification_deadline_ns)
         owner = _VerifiedSources(token=_TOKEN,report=report,bindings=bindings,originals=originals,
-            maximum_vector_bytes=maximum_vector_bytes,valid_until_ns=valid_until_ns)
+            maximum_vector_bytes=maximum_vector_bytes,valid_until_ns=valid_until_ns,
+            maximum_loading_ns=plan['budget']['setup_ns'])
         owner._check(report["plan_sha256"])
         yield owner
     finally:

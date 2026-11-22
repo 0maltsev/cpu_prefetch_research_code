@@ -44,13 +44,17 @@ class VerifiedTests(unittest.TestCase):
         args.update(changes)
         return owned.verified_sources(**args)
 
+    def inputs(self,bank):
+        deadline=min(bank._until,time.monotonic_ns()+self.f.p['budget']['setup_ns'])
+        return bank.native_inputs(plan_sha256=self.sha,loading_deadline_ns=deadline)
+
     def test_actual_generation_runs_once_and_fast_reads_keep_all36_exact_sealed_sources(self):
         real=owned.provenance.verify_source_bank
         with mock.patch.object(owned.provenance,'verify_source_bank',wraps=real) as verify:
             with self.bank() as bank:
                 first=bank.generation_report(plan_sha256=self.sha)
                 for _ in range(3):
-                    context,fds=bank.native_inputs(plan_sha256=self.sha)
+                    context,fds=self.inputs(bank)
                     self.assertEqual(bank.generation_report(plan_sha256=self.sha),first)
                     proof=bank.proof(plan_sha256=self.sha)
                     self.assertFalse(proof['execution_authority'])
@@ -65,7 +69,7 @@ class VerifiedTests(unittest.TestCase):
                     self.assertEqual(fcntl.fcntl(fd,fcntl.F_GET_SEALS)&owned.SEALS,owned.SEALS)
                     with self.assertRaises(OSError):os.write(fd,b'x')
                 context['bindings'][0]['canonical_sha256']='f'*64
-                self.assertNotEqual(bank.native_inputs(plan_sha256=self.sha)[0]['bindings'][0]['canonical_sha256'],'f'*64)
+                self.assertNotEqual(self.inputs(bank)[0]['bindings'][0]['canonical_sha256'],'f'*64)
                 alias=os.open(f'/proc/self/fd/{fds[0]}',os.O_RDWR|os.O_CLOEXEC)
                 try:
                     with self.assertRaises(OSError):os.pwrite(alias,b'x',0)
@@ -76,7 +80,7 @@ class VerifiedTests(unittest.TestCase):
 
     def test_real_child_reads_exact_inherited_native_context_sources(self):
         with self.bank() as bank:
-            context,fds=bank.native_inputs(plan_sha256=self.sha)
+            context,fds=self.inputs(bank)
             script='''import json,os,sys,fcntl,hashlib
 c=json.load(sys.stdin)
 assert c['schema_version']=='cpu-prefetch-stage17-s180-schedule-source-context/1'
@@ -133,7 +137,7 @@ print(len(c['bindings']))
                     self.assertEqual(input_id,'S17-EXT-008')
                     actual=hashlib.sha256(bank.generation_report(plan_sha256=self.sha)).hexdigest()
                     owned.require(payload==dict(generation_report_sha256=actual),'journal source proof differs')
-                    bank.native_inputs(plan_sha256=self.sha)
+                    self.inputs(bank)
                     return context
                 obj=journal.ScopedJournal(scratch/'journal',base_validation=validation,plan=self.f.p,
                     semantic_policy_sha256='f'*64,semantic_replay=semantic,synthetic_test_only=True)
@@ -163,7 +167,19 @@ print(len(c['bindings']))
         with self.assertRaises(TypeError):self.bank(verified_report={'accepted_generation_verified':True})
         with self.assertRaises(owned.SourcesError):
             owned._VerifiedSources(token=object(),report={},bindings=[],originals={},
-                maximum_vector_bytes=1,valid_until_ns=time.monotonic_ns()+1)
+                maximum_vector_bytes=1,valid_until_ns=time.monotonic_ns()+1,maximum_loading_ns=1)
+
+    def test_loading_deadline_is_short_even_when_verified_bank_lives_for_a_day(self):
+        with self.bank(valid_until_ns=time.monotonic_ns()+owned.DAY_NS) as bank:
+            deadline=time.monotonic_ns()+self.f.p['budget']['setup_ns']
+            context,_=bank.native_inputs(plan_sha256=self.sha,loading_deadline_ns=deadline)
+            self.assertEqual(context['deadline_monotonic_ns'],deadline)
+            self.assertLessEqual(deadline-time.monotonic_ns(),self.f.p['budget']['setup_ns'])
+            self.assertGreater(bank.proof(plan_sha256=self.sha)['valid_until_monotonic_ns'],deadline)
+            for invalid in (0,bank._until,bank._until+1):
+                with self.assertRaisesRegex(owned.SourcesError,'loading deadline'):
+                    bank.native_inputs(plan_sha256=self.sha,loading_deadline_ns=invalid)
+            with self.assertRaises(TypeError):bank.native_inputs(plan_sha256=self.sha)
 
     def test_all_limits_fail_before_generator_or_source_pinning(self):
         for changes in (dict(maximum_source_bytes=1),dict(maximum_vector_bytes=1),
@@ -218,7 +234,7 @@ print(len(c['bindings']))
         with self.bank() as bank:
             path=Path(self.f.r[0]['envelope']['path']);path.write_bytes(path.read_bytes()+b' ')
             with self.assertRaisesRegex(owned.SourcesError,'changed since generation verification'):
-                bank.native_inputs(plan_sha256=self.sha)
+                self.inputs(bank)
         self.assertEqual(descriptors(),self.before)
 
     def test_real_short_writes_are_completed_before_sealing(self):
@@ -226,7 +242,7 @@ print(len(c['bindings']))
         def short(fd,data):return real(fd,data[:max(1,len(data)//2)])
         with mock.patch.object(owned.os,'write',side_effect=short):
             with self.bank() as bank:
-                context,_=bank.native_inputs(plan_sha256=self.sha)
+                context,_=self.inputs(bank)
                 for binding in context['bindings']:
                     raw=os.pread(binding['descriptor'],binding['size_bytes']+1,0)
                     self.assertEqual(hashlib.sha256(raw).hexdigest(),binding['canonical_sha256'])
@@ -252,10 +268,10 @@ print(len(c['bindings']))
 
     def test_wrong_plan_other_process_and_expiry_cannot_reuse_owner(self):
         with self.bank() as bank:
-            for getter in (bank.proof,bank.native_inputs,bank.generation_report):
+            for getter in (bank.proof,lambda **kw:bank.native_inputs(**kw,loading_deadline_ns=time.monotonic_ns()+1),bank.generation_report):
                 with self.assertRaisesRegex(owned.SourcesError,'plan differs'):getter(plan_sha256='f'*64)
             with mock.patch.object(owned.os,'getpid',return_value=os.getpid()+1):
-                with self.assertRaisesRegex(owned.SourcesError,'another process'):bank.native_inputs(plan_sha256=self.sha)
+                with self.assertRaisesRegex(owned.SourcesError,'another process'):self.inputs(bank)
             with mock.patch.object(owned.time,'monotonic_ns',return_value=time.monotonic_ns()+owned.DAY_NS):
                 with self.assertRaisesRegex(owned.SourcesError,'deadline expired'):bank.proof(plan_sha256=self.sha)
 
@@ -264,13 +280,13 @@ print(len(c['bindings']))
         try:
             with self.assertRaisesRegex(owned.SourcesError,'replaced or failed cleanup'):
                 with self.bank() as bank:
-                    _,fds=bank.native_inputs(plan_sha256=self.sha);replacement=fds[0];others=fds[1:]
+                    _,fds=self.inputs(bank);replacement=fds[0];others=fds[1:]
                     os.close(replacement)
                     foreign=os.open('/dev/null',os.O_RDONLY|os.O_CLOEXEC)
                     if foreign!=replacement:
                         os.dup2(foreign,replacement);os.close(foreign)
                     with self.assertRaisesRegex(owned.SourcesError,'descriptor changed'):
-                        bank.native_inputs(plan_sha256=self.sha)
+                        self.inputs(bank)
             os.fstat(replacement)
             for fd in others:
                 with self.assertRaises(OSError):os.fstat(fd)

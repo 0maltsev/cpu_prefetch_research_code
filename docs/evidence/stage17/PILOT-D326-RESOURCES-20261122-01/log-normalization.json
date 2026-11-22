@@ -1,0 +1,38 @@
+[
+  {
+    "normalized_sha256": "0e90c820175472601d9b466bcbec63831576a08176947a36e189d8af2ab49f18",
+    "original_sha256": "0e90c820175472601d9b466bcbec63831576a08176947a36e189d8af2ab49f18",
+    "original_size_bytes": 107,
+    "path": "prospective-resource-8-tests.txt"
+  },
+  {
+    "normalized_sha256": "1f8efd5d184a1bfd38e234b9388285c8736d19eb24038fdceb02cdba34fb0e99",
+    "original_sha256": "1f8efd5d184a1bfd38e234b9388285c8736d19eb24038fdceb02cdba34fb0e99",
+    "original_size_bytes": 115,
+    "path": "source-deadline-15-tests.txt"
+  },
+  {
+    "normalized_sha256": "f5ab9e7eda32dfb6789a198ed0353a11f7359d3885ab5a31725633c930d88440",
+    "original_sha256": "f5ab9e7eda32dfb6789a198ed0353a11f7359d3885ab5a31725633c930d88440",
+    "original_size_bytes": 1064,
+    "path": "registered-tests.txt"
+  },
+  {
+    "normalized_sha256": "f35f3ba87a39d76f8542f1177bf425d3b236ae51f406ee0b4759f3adc067ac04",
+    "original_sha256": "cf36bb06de266d963e95ebcb61fae6a4fa16364763dd2c2665d8d4d5b7b39f0e",
+    "original_size_bytes": 5726,
+    "path": "registered-details.txt"
+  },
+  {
+    "normalized_sha256": "c92b7acfe6bff6e0100c68557ccc01e448c5483ba1d59de45e637cb6a0acb823",
+    "original_sha256": "c92b7acfe6bff6e0100c68557ccc01e448c5483ba1d59de45e637cb6a0acb823",
+    "original_size_bytes": 6025,
+    "path": "repository-checks.txt"
+  },
+  {
+    "normalized_sha256": "3a1cb68dded010d50c6d86540bde1c8a1b1e9c40bc82885aa4a80be0a77e0c0c",
+    "original_sha256": "3a1cb68dded010d50c6d86540bde1c8a1b1e9c40bc82885aa4a80be0a77e0c0c",
+    "original_size_bytes": 177,
+    "path": "configure.txt"
+  }
+]

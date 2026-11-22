@@ -1,0 +1,6 @@
+{
+  "experiment_started": false,
+  "invalid_input_sha256": "cff4611603dfae7efe077fc311e63c513c1167790308e70856e9a949e8b3d0dc",
+  "invalid_input_size_bytes": 3069898,
+  "reason": "Strict native monitoring schema rejected legacy hardware_identity; valid packet independently checks hardware and whitelists seven monitoring fields"
+}

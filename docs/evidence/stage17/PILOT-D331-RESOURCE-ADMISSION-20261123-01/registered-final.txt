@@ -1,0 +1,34 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+      Start 652: runner.s180_archive_broker_v1
+      Start 654: runner.s180_launcher_v1
+ 1/11 Test #654: runner.s180_launcher_v1 ..............   Passed   40.23 sec
+      Start 675: runner.s180_resource_plan_v1
+ 2/11 Test #652: runner.s180_archive_broker_v1 ........   Passed   57.54 sec
+      Start 653: runner.s180_parent_v1
+ 3/11 Test #675: runner.s180_resource_plan_v1 .........   Passed   24.32 sec
+      Start 668: runner.s180_journal_v1
+ 4/11 Test #653: runner.s180_parent_v1 ................   Passed   16.89 sec
+      Start 670: runner.s180_verified_sources_v1
+ 5/11 Test #668: runner.s180_journal_v1 ...............   Passed   13.37 sec
+      Start 666: runner.s180_authority_v1
+ 6/11 Test #670: runner.s180_verified_sources_v1 ......   Passed    8.64 sec
+      Start 671: runner.s180_environment_v1
+ 7/11 Test #666: runner.s180_authority_v1 .............   Passed    9.87 sec
+      Start 665: runner.s180_plan_prepare_v1
+ 8/11 Test #671: runner.s180_environment_v1 ...........   Passed    5.04 sec
+      Start 667: runner.s180_archive_reservation_v1
+ 9/11 Test #667: runner.s180_archive_reservation_v1 ...   Passed    0.27 sec
+      Start 673: runner.s180_resource_admission_v1
+10/11 Test #665: runner.s180_plan_prepare_v1 ..........   Passed    2.68 sec
+11/11 Test #673: runner.s180_resource_admission_v1 ....   Passed   43.01 sec
+
+100% tests passed, 0 tests failed out of 11
+
+Label Time Summary:
+archive      = 114.65 sec*proc (3 tests)
+pilot        = 221.85 sec*proc (11 tests)
+python       = 221.85 sec*proc (11 tests)
+runner       = 221.85 sec*proc (11 tests)
+synthetic    = 221.85 sec*proc (11 tests)
+
+Total Test time (real) = 131.40 sec

@@ -160,6 +160,32 @@ class _PreparedEnvironment:
         require(planning.sha(plan)==plan_sha256,'environment belongs to another plan')
         _window(window,cleanup=cleanup);return plan,window
 
+    def admission_observation(self,*,plan_sha256):
+        """Independent current prestate/isolation facts, without native placement."""
+        plan,window=self._guard(plan_sha256)
+        pre=archive.parse_json(self._preparation)['prestate']
+        self._core.verify_remaining_lifetime(pre,_work_ns(plan)
+            -resources.EXTERNAL_TIME['qualification_ns']-resources.EXTERNAL_TIME['restoration_and_exit_ns'],
+            resources.EXTERNAL_TIME['restoration_and_exit_ns'])
+        observed=self._core.isolated_state()
+        require(self._core.identity(CG)==pre['partition_identity']
+            and self._core.read(CG/'cgroup.procs')==''
+            and 'populated 0' in self._core.read(CG/'cgroup.events').splitlines(),
+            'admission requires the original empty owned partition')
+        rows=[]
+        for expected in plan['hardware']['prestate']:
+            fd,identity=_open_msr(expected['cpu'])
+            try:
+                value=_read_msr(fd)
+                require(identity==self._devices[expected['cpu']] and value==expected['value'],
+                    'actual MSR prestate/device changed before admission')
+                rows.append(dict(cpu=expected['cpu'],observed_value=value))
+            finally:os.close(fd)
+        self._guard(plan_sha256)
+        return dict(boot_id=window['boot_id'],window_binding=window,plan_sha256=plan_sha256,
+            partition_identity=pre['partition_identity'],hardware_readbacks=rows,isolation=observed,
+            native_placement_performed=False,execution_authority=False)
+
     @contextlib.contextmanager
     def native_entry(self,*,plan_sha256):
         """One actual cgroup.procs FD, used only by the native child pre-exec."""

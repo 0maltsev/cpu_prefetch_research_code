@@ -1,0 +1,14 @@
+test_actual_native_layout_and_complete_exact_count_bounds (__main__.ResourceTests.test_actual_native_layout_and_complete_exact_count_bounds) ... ok
+test_actual_platform_observation_is_read_only_and_keeps_requested_state_separate (__main__.ResourceTests.test_actual_platform_observation_is_read_only_and_keeps_requested_state_separate) ... ok
+test_consumed_attempt_or_native_evidence_blocks_admission (__main__.ResourceTests.test_consumed_attempt_or_native_evidence_blocks_admission) ... ok
+test_future_ledger_inventory_full_family_quota_and_free_space (__main__.ResourceTests.test_future_ledger_inventory_full_family_quota_and_free_space) ... ok
+test_live_handle_cannot_be_constructed_from_a_report_or_fake_owner (__main__.ResourceTests.test_live_handle_cannot_be_constructed_from_a_report_or_fake_owner) ... ok
+test_parent_limit_lock_inheritance_fd_and_geometry_fail_closed (__main__.ResourceTests.test_parent_limit_lock_inheritance_fd_and_geometry_fail_closed) ... ok
+test_physical_memory_and_every_finite_ancestor_are_required (__main__.ResourceTests.test_physical_memory_and_every_finite_ancestor_are_required) ... ok
+test_real_locked_reservation_and_unchanged_ledger (__main__.ResourceTests.test_real_locked_reservation_and_unchanged_ledger) ... ok
+test_wrong_layout_foreign_report_and_insufficient_bound_reject (__main__.ResourceTests.test_wrong_layout_foreign_report_and_insufficient_bound_reject) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 7.637s
+
+OK

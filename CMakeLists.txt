@@ -1861,6 +1861,11 @@ if(BUILD_TESTING)
       --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>")
   set_tests_properties(runner.s180_archive_bundle_profile_v1 PROPERTIES
     LABELS "runner;pilot;archive;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.s180_resource_admission_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_resource_admission_v1.py"
+      --worker "$<TARGET_FILE:cpu_prefetch_runner>")
+  set_tests_properties(runner.s180_resource_admission_v1 PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
   add_test(NAME runner.s180_namespace_audit_v1
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_namespace_audit_v1.py")
   set_tests_properties(runner.s180_namespace_audit_v1 PROPERTIES

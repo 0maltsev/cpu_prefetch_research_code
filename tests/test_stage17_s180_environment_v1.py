@@ -123,6 +123,22 @@ class EnvironmentTests(unittest.TestCase):
             result=self.restore(self.guard())
         self.assertTrue(result['hardware_restoration_verified'])
 
+    def test_admission_observes_actual_prestate_without_placement_or_writes(self):
+        with self.io(),mock.patch.object(env.os,'pwrite',side_effect=AssertionError('admission is read-only')):
+            guard=self.guard();observed=guard.admission_observation(plan_sha256=self.sha)
+            self.assertEqual(observed['hardware_readbacks'],[dict(cpu=c,observed_value=0) for c in env.CPUS])
+            self.assertFalse(observed['native_placement_performed']);self.assertFalse(guard._entry_used)
+            self.set_value(8,15)
+            with self.assertRaisesRegex(env.EnvironmentError,'prestate/device changed'):
+                guard.admission_observation(plan_sha256=self.sha)
+            self.assertEqual(self.value(8),15)
+
+    def test_admission_rejects_live_or_replaced_partition(self):
+        with self.io():
+            guard=self.guard();(self.cg/'cgroup.procs').write_text('555\n')
+            with self.assertRaisesRegex(env.EnvironmentError,'empty owned partition'):
+                guard.admission_observation(plan_sha256=self.sha)
+
     def test_unrelated_msr_bits_are_not_overwritten_and_other_cpus_restore(self):
         for cpu in env.CPUS:self.set_value(cpu,15)
         self.set_value(8,(1<<20)|15)

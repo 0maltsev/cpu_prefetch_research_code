@@ -1,0 +1,75 @@
+"""Software-only accepted-builder bridge; never stand qualification evidence."""
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+from jsonschema import Draft202012Validator, FormatChecker
+
+ROOT=Path(__file__).resolve().parents[2]
+sys.path[:0]=[str(ROOT/'tools'),str(ROOT/'tests')]
+import check_software_prefetch_mapping_codegen as audit
+from test_stage17_s180_q15_session_v1 import templates
+
+work=ROOT/'build/stage17-s180-prefetch-t0'
+reports={}
+for compiler,identity in (('gcc','GNU'),('clang','Clang')):
+    folder=work/compiler
+    report=json.loads((folder/'software_prefetch_t0_mapping_codegen_report.json').read_bytes())
+    audit.validate_t0_report(report,binary=folder/'cpu_prefetch_software_prefetch_mapping_codegen_probe',
+        mutant=folder/'cpu_prefetch_software_prefetch_mapping_codegen_mutant',source_root=ROOT)
+    metadata=json.loads((folder/'generated/version_metadata.json').read_bytes())
+    assert metadata['source_dirty'] is False and metadata['compiler']['id']==identity
+    assert metadata['source_revision']=='d024758bc8c9436d55dcb2bfb530d9c098410cab'
+    reports[compiler]=report
+helper=ROOT/'build/stage17-qualification-helper-release-3266ed3/cpu_prefetch_q15_qualification_evidence_tool'
+assert hashlib.sha256(helper.read_bytes()).hexdigest()=='6b8898238157e4d589615cbc6c57ced54aa143b403ef66bd337cab4960f3a918'
+schema=Draft202012Validator(json.loads((ROOT/'config/schemas/qualification-evidence-v3.schema.json').read_bytes()),format_checker=FormatChecker())
+names={'RUNTIME_ATOMIC_LAYOUT':'q15-r-atomic-layout-raw-v1.json','ACTUAL_CPU_MIGRATION':'q15-r-cpu-migration-raw-v1.json',
+    'ADDRESS_RESIDENCY':'q15-r-address-residency-raw-v1.json','SOFTWARE_PREFETCH_MAPPING':'q15-r-software-prefetch-raw-v1.json'}
+flags={'--gcc-codegen-passed':reports['gcc']['status']=='PASS','--clang-codegen-passed':reports['clang']['status']=='PASS',
+    '--gnu-objdump-passed':all(r['tools']['GNU_OBJDUMP']['status']=='PASS' for r in reports.values()),
+    '--llvm-objdump-passed':all(r['tools']['LLVM_OBJDUMP']['status']=='PASS' for r in reports.values())}
+results=[]
+with tempfile.TemporaryDirectory(prefix='s180-software-envelope-') as temp:
+    folder=Path(temp);raws=templates()
+    for pair in ('near','far'):
+        clock=dict(schema_version='cpu-prefetch-stage17-q15-clock-pair-raw/1',pair=pair,producer_cpu=0,
+            consumer_cpu=1 if pair=='near' else 8,producer_pinned=True,consumer_pinned=True,
+            producer_prime_read_count=100000,consumer_prime_read_count=100000,producer_delta_count=10000000,
+            consumer_delta_count=10000000,producer_to_consumer_window_count=3,consumer_to_producer_window_count=3,
+            exchanges_per_window=100000,producer_per_core_passed=True,consumer_per_core_passed=True,cross_core_passed=True)
+        for kind,name in list(names.items())+[('SELECTED_PAIR_CLOCK','software-clock.json')]:
+            raw=clock if kind=='SELECTED_PAIR_CLOCK' else raws[name]
+            raw_path=folder/(pair+'-'+name);raw_bytes=json.dumps(raw,sort_keys=True,separators=(',',':')).encode();raw_path.write_bytes(raw_bytes)
+            output=folder/(pair+'-'+kind+'.json')
+            command=[str(helper),'--kind',kind,'--raw',str(raw_path),'--output',str(output),
+                '--artifact-id','SOFTWARE-'+pair+'-'+kind,'--stand-id','SOFTWARE-NOT-A-STAND',
+                '--binding-id','SOFTWARE-'+pair,'--source-revision','SOFTWARE-NO-HARDWARE',
+                '--binary-sha256','0'*64,'--captured-at-utc','2026-11-23T00:00:00Z',
+                '--worker-pair',pair,'--cpu-pair-selection-id','CPU-PREFETCH-V5-P0-NEAR-0-1-FAR-0-8-v1',
+                '--source-artifact-id','SOFTWARE-'+pair+'-'+name]
+            if kind=='SOFTWARE_PREFETCH_MAPPING':
+                for flag,value in flags.items():command.extend((flag,'true' if value else 'false'))
+            completed=subprocess.run(command,capture_output=True,text=True,timeout=10)
+            assert completed.returncode==0,(kind,completed.stderr)
+            value=json.loads(output.read_bytes());schema.validate(value)
+            assert value['eligible'] is True and value['kind']==kind and value['stand_id']=='SOFTWARE-NOT-A-STAND'
+            assert value['producer_cpu']==0 and value['consumer_cpu']==(1 if pair=='near' else 8)
+            assert value['sources'][0]['sha256']==hashlib.sha256(raw_bytes).hexdigest()
+            results.append(dict(pair=pair,kind=kind,status='SOFTWARE_BUILDER_VERIFIED'))
+            if kind=='SOFTWARE_PREFETCH_MAPPING':
+                assert value['details']['mapping_id']==audit.T0_MAPPING
+                for key in ('ring_producer_instruction','ring_consumer_instruction','linked_consumer_instruction'):
+                    assert value['details'][key]=='PREFETCHT0'
+                failed=command.copy();failed[failed.index('--output')+1]=str(folder/(pair+'-negative.json'))
+                failed[failed.index('--clang-codegen-passed')+1]='false'
+                negative=subprocess.run(failed,capture_output=True,text=True,timeout=10)
+                assert negative.returncode==1
+                rejected=json.loads(Path(failed[failed.index('--output')+1]).read_bytes());schema.validate(rejected)
+                assert rejected['eligible'] is False
+                results.append(dict(pair=pair,kind=kind,status='MISSING_CLANG_PROOF_REJECTED'))
+print(json.dumps(dict(scope='SOFTWARE_ONLY',builder_cases=len(results),results=results,
+    helper_sha256=hashlib.sha256(helper.read_bytes()).hexdigest(),stand_access=False,
+    qualification_performed=False,execution_authority=False),sort_keys=True,separators=(',',':')))

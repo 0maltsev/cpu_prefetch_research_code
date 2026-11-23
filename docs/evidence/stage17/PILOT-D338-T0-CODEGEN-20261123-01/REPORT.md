@@ -12,9 +12,13 @@ ASan/UBSan T0-only self-tests and targeted static/repository checks pass.
 The accepted emitter header is byte-identical to frozen34247ce. New functions
 exist only in software probes; no measurement implementation, original audit
 record or completed calibration changes. The frozen worker has not been rebuilt.
-These initial probe builds were from the active working tree. A subsequent
-clean-source support build/record is required before the qualified operator
-consumes their compiler-axis proof; this does not reopen measurement codegen.
+The initial probe builds were from the active working tree and remain
+retained as software verification. Both probes were then rebuilt from clean
+`d024758bc8c9436d55dcb2bfb530d9c098410cab`; actual generated metadata records
+source_dirty=false for both compilers. The clean-support-build record binds
+actual compiler images/versions, both compile commands and resulting binaries.
+Both original and T0 mapping targets pass again. This does not reopen the
+frozen measurement worker or its separate D320 full-call-graph evidence.
 
 Initial configuration diagnostics are retained: the accepted RapidCheck revision
 was omitted, and BUILD_TESTING=OFF exposes pre-existing generator references to
@@ -36,3 +40,18 @@ live admission. Stage17 remains incomplete; Stage18 execution remains deferred.
 
 Logs preserve diagnostic content with only extra EOF newlines removed. Probe
 binaries and experimental raw data are not copied into repository evidence.
+
+The unchanged clean3266ed3 qualification evidence helper also passes the
+software-only bridge: five accepted evidence kinds for each near/far pair
+(10 schema-valid envelopes), plus two missing-Clang-proof rejections. The
+PREFETCHT0 instruction fields, actual raw-input hashes and CPU pair identities
+are checked. Raw observations, binary identity and stand name are deliberately
+SOFTWARE-only fixtures; no actual eligibility is admitted. Temporary fixture
+files are deleted. The exact verification script and results are retained; to
+replay it, restore the script at
+`build/stage17-s180-prefetch-t0/verify-envelope-bridge.py`, use the recorded
+clean support builds and helper path, and run with provisioned PYTHONPATH and
+LD_LIBRARY_PATH. Its literal source commit is intentional. Metadata collection
+initially omitted the compiler runtime path for --version; repeating metadata
+collection with the provisioned LD_LIBRARY_PATH succeeds without rebuilding
+probes or repeating any qualification.

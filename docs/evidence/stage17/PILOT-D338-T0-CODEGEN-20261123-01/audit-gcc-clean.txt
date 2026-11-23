@@ -1,0 +1,10 @@
+[1/1] Cleaning all built files...
+Cleaning... 4 files.
+[1/6] Building CXX object CMakeFiles/cpu_prefetch_software_prefetch_mapping_codegen_mutant.dir/tools/software_prefetch_mapping_codegen_mutant.cpp.o
+[2/6] Linking CXX executable cpu_prefetch_software_prefetch_mapping_codegen_mutant
+[3/6] Building CXX object CMakeFiles/cpu_prefetch_software_prefetch_mapping_codegen_probe.dir/tools/software_prefetch_mapping_codegen_probe.cpp.o
+[4/6] Linking CXX executable cpu_prefetch_software_prefetch_mapping_codegen_probe
+[5/6] Requiring dual-disassembler D-047 PREFETCHW/PREFETCHT0 mapping evidence
+software-prefetch-mapping-codegen-check: PASS (two disassemblers, three mapped sites, 2 mutants)
+[6/6] Requiring dual-disassembler ADR-0175 T0-only mapping evidence
+software-prefetch-mapping-codegen-check: PASS (two disassemblers, three mapped sites, 5 mutants)

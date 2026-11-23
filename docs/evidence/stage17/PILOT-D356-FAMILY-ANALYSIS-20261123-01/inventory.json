@@ -1,0 +1,61 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/LastTest.log",
+      "sha256": "3b822e21785380609c6eac9243a95c54a204f57ee43285ebe7ab4b81baa30b2c",
+      "size_bytes": 4945
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/REPORT.md",
+      "sha256": "99af34553b7fa48e32347e3534b1b878a75e72b455f615dbc36188e4166b50a2",
+      "size_bytes": 2288
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/contract-checks.txt",
+      "sha256": "ad0bf80897c8f303cef1ec9fefd9ef18682c3af4eee76ad82a11ec89f7ac3ca0",
+      "size_bytes": 462
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/final-debug.txt",
+      "sha256": "9a727c3328fb121cb4d98118cbfb02b40949a6062af3d107352b826ee4611023",
+      "size_bytes": 106
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/first-tests.txt",
+      "sha256": "66626608ed488660bbd98e901acbb33389ba970dec49e60beee437a11a35b36b",
+      "size_bytes": 2248
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/pc-cleanup.json",
+      "sha256": "07a3873182f5b9598bd5dd89979f4ce2c25fe6b2cdfbc64de2cb540c0e3578eb",
+      "size_bytes": 1486
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/registered.txt",
+      "sha256": "4254551dc2b05dc6b20bef9f605b3668e82223fd8eec157afd190600f7c72bb9",
+      "size_bytes": 986
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/second-tests.txt",
+      "sha256": "e15d8d51e60795c36169ab8110eaadbfee51f1dab5a8dd454047c993d98fa54e",
+      "size_bytes": 105
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/source-bindings.json",
+      "sha256": "0aa85a9f900cce23a1a510038f817f31a1b093ad73172c253e14612756e34a52",
+      "size_bytes": 1933
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/verification-summary.json",
+      "sha256": "2661cdf3fa82cf58eff386cc2909a6cfdb0ebf7db6b44c71cfb6f33026c39df1",
+      "size_bytes": 1086
+    }
+  ],
+  "recorded_at_utc": "2026-11-23T19:03:30.767789+00:00"
+}

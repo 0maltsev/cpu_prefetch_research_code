@@ -30,7 +30,7 @@ import stage17_s180_resource_plan_v1 as prospective
 import stage17_s180_verified_sources_v1 as sources
 import stage17_s180_admission_custody_v1 as admission_custody
 
-SCHEMA='cpu-prefetch-stage17-s180-live-resource-evidence/3'
+SCHEMA='cpu-prefetch-stage17-s180-live-resource-evidence/4'
 NATIVE_SHA='7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc'
 NATIVE_SIZE=6151832
 GIB=1024**3

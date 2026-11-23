@@ -70,7 +70,7 @@ class _AnalysisPhase:
         require(token is _TOKEN,'only actual owned transition constructs an analysis phase')
         self.source_owner=source_owner;self.environment_owner=environment_owner;self.lease=lease
         self.plan_sha256=plan_sha256;self.window=archive.canonical(window);self.deadline_ns=deadline
-        self.cpus=tuple(cpus);self.pid=os.getpid();self.closed=False;self.failed=False
+        self.cpus=tuple(cpus);self.pid=os.getpid();self.closed=False;self.failed=False;self._pool_consumed=False
         self._report=archive.canonical(dict(schema_version=SCHEMA,plan_sha256=plan_sha256,window_binding=window,
             started_monotonic_ns=started,deadline_monotonic_ns=deadline,physical_cpus=cpus,
             worker_count=bounds.ANALYSIS_WORKERS,worker_address_space_bytes=bounds.ANALYSIS_CHILD_AS,

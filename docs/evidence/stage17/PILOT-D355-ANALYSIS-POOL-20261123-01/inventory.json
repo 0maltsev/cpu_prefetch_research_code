@@ -1,0 +1,96 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/LastTest.log",
+      "sha256": "2a5145b05a7a7ae0a7c21a49cb763fd2a7ff3ad62b3861902f7e897db45528c1",
+      "size_bytes": 7369
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/REPORT.md",
+      "sha256": "19964ed80a3add0a3eaf1ae9cc2fd319f409e73a71e7ac03daff261a60e56b80",
+      "size_bytes": 2567
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/contract-checks.txt",
+      "sha256": "d9eea11aa8051dfb6c1e1f9f6d3b5687ae339d5c31c93a415ee591e381b6384d",
+      "size_bytes": 598
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/final-contract-checks.txt",
+      "sha256": "d9eea11aa8051dfb6c1e1f9f6d3b5687ae339d5c31c93a415ee591e381b6384d",
+      "size_bytes": 598
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/final-contract-debug.txt",
+      "sha256": "063726521b1a629369467cb0b333f4640c1e33fbaf606469965a2cfa8c263a81",
+      "size_bytes": 115
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/final-debug.txt",
+      "sha256": "68fc94f2b810b1ca9391ee07bdb6e88dc37b3553c10096dc9e8e7b61b12e929c",
+      "size_bytes": 114
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/final-registered.txt",
+      "sha256": "380acffa378db8fe6513165c25417a81b876471cc813a5f23c86ee9db44098a0",
+      "size_bytes": 1356
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/first-tests.txt",
+      "sha256": "95107ded7d8e90fe43beeeeccd03e0247ca4cd84ea7477212eff6fdf5b6b6963",
+      "size_bytes": 4059
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/fourth-tests.txt",
+      "sha256": "077e9510013cf63498c828be28f7ec0d2d12b9634f18aaafb1bd9a28d0497a30",
+      "size_bytes": 113
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/pc-cleanup.json",
+      "sha256": "8bd8d9461c6f80d482b4f7234f1e74098431f286955b1624c418fbb97c1839e3",
+      "size_bytes": 2866
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/prospective-budget.json",
+      "sha256": "9c9b64802f9e523d790398a65a681ccf9459da7ac173aaa8b63926bbb7d7821b",
+      "size_bytes": 924
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/registered.txt",
+      "sha256": "ea2cb52c5163526119751ba84fbead44d663e6d5a56bead9d9c6441cb3775d34",
+      "size_bytes": 1356
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/second-tests.txt",
+      "sha256": "06e8b1c645be8e322c937e9fd56686a80f0d64ddc05dd9a0a41934f001ba0d2b",
+      "size_bytes": 106
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/source-bindings.json",
+      "sha256": "5e869660c0d3f140c358763a3dac6d9d25c1a69daf1e99e64ef6aeedead4922a",
+      "size_bytes": 2314
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/stand-idle-check.json",
+      "sha256": "16bb765e7174f04750386fe02ce262eda889b0d7908c8775d1583eec6dd48842",
+      "size_bytes": 854
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/third-tests.txt",
+      "sha256": "5142bc74d06f4a4837e8285aa5b391436c3fb55954902096922a6e5085d5b378",
+      "size_bytes": 2146
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/verification-summary.json",
+      "sha256": "a6ffa2040de3f65137647a674fc725633fb1182bea7488b9a24bda4258b4826d",
+      "size_bytes": 1437
+    }
+  ],
+  "recorded_at_utc": "2026-11-23T18:47:24.433588+00:00"
+}

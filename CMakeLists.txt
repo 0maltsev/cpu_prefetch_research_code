@@ -1943,6 +1943,10 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_archive_analysis_v1.py")
   set_tests_properties(runner.s180_archive_analysis_v1 PROPERTIES
     LABELS "runner;pilot;archive;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.s180_analysis_pool_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_analysis_pool_v1.py")
+  set_tests_properties(runner.s180_analysis_pool_v1 PROPERTIES
+    LABELS "runner;pilot;archive;synthetic;python" TIMEOUT 240)
   add_test(NAME runner.software_prefetch_t0_codegen
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_software_prefetch_t0_codegen.py")
   set_tests_properties(runner.software_prefetch_t0_codegen PROPERTIES

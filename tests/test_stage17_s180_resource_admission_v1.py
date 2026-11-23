@@ -72,7 +72,7 @@ class ResourceTests(unittest.TestCase):
         self.assertEqual(analysis['captures'],180)
         self.assertGreaterEqual(analysis['required_inodes'],180*18)
         self.assertFalse(analysis['resource_admission_performed'])
-        self.assertEqual(sum(r['maximum_output_bytes'] for r in analysis['capture_bounds']),
+        self.assertEqual(sum(r['maximum_output_bytes'] for r in analysis['capture_bounds'])+analysis['family_metadata_reserve_bytes'],
             analysis['workspace_bytes_upper'])
         space,_,_=gate.capacity_plan(self.plan,self.envelope,self.custody,
             workspace_committed_bytes=0,scratch_committed_bytes=0)

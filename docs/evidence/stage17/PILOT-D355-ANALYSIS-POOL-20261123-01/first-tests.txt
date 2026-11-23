@@ -1,0 +1,52 @@
+.F...EF
+======================================================================
+ERROR: test_real_twelve_worker_sessions_decode_validate_and_reap_before_success (__main__.PoolTests.test_real_twelve_worker_sessions_decode_validate_and_reap_before_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_pool_v1.py", line 41, in test_real_twelve_worker_sessions_decode_validate_and_reap_before_success
+    records,report=self.run_core()
+                   ~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_pool_v1.py", line 31, in run_core
+    return pool._run_pool(owner,[self.job],self.a.profile,self.a.limits,self.root)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_analysis_pool_v1.py", line 254, in _run_pool
+    if failure is not None:owner.failed=True;raise failure
+                                             ^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_analysis_pool_v1.py", line 233, in _run_pool
+    require(cleanup['leader_reaped'] and cleanup['process_group_gone']
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and not cleanup['cleanup_deadline_overrun'] and not cleanup['leader_wait_timed_out']
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and not cleanup['descendants_detected_after_leader_exit'],'abnormal analysis worker cleanup')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_analysis_phase_v1.py", line 28, in require
+    if not ok:raise resources.ResourceError('S180 analysis phase: '+message)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_resource_admission_v1.ResourceError: S180 analysis phase: abnormal analysis worker cleanup
+
+======================================================================
+FAIL: test_escaped_descendant_is_reaped_and_invalidates_worker_success (__main__.PoolTests.test_escaped_descendant_is_reaped_and_invalidates_worker_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_pool_v1.py", line 86, in test_escaped_descendant_is_reaped_and_invalidates_worker_success
+    self.assertTrue(any(r['cleanup'].get('descendants_detected_after_leader_exit') for r in report['cleanup']))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_success_messages_never_override_actual_nonzero_worker_exit (__main__.PoolTests.test_success_messages_never_override_actual_nonzero_worker_exit)
+----------------------------------------------------------------------
+stage17_s180_resource_admission_v1.ResourceError: S180 analysis phase: abnormal analysis worker cleanup
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_pool_v1.py", line 61, in test_success_messages_never_override_actual_nonzero_worker_exit
+    with self.assertRaisesRegex(pool.phase.resources.ResourceError,'nonzero exit'):self.run_core()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "nonzero exit" does not match "S180 analysis phase: abnormal analysis worker cleanup"
+
+----------------------------------------------------------------------
+Ran 7 tests in 17.486s
+
+FAILED (failures=2, errors=1)

@@ -1,0 +1,9 @@
+[1/5] Checking shared JCS-I64-v1 cross-language fixtures
+canonical-check: PASS (3 shared JCS-I64-v1 cases)
+[2/5] Checking the v1, Q14 v2, and Q15-P0 v3 runner-admission schemas
+runner-schema-check: PASS (Draft 2020-12; 3 positive, 6 negative)
+[3/5] Checking positive and negative protocol schema fixtures
+protocol-fixtures: PASS (2 snapshots, 14 schemas, 35 positive, 32 negative)
+[4/5] Checking C++ formatting
+[5/5] Checking imported protocol integrity and schemas
+protocol-check: PASS (3 snapshots, 54 artifacts, 12 authoritative hashes, 21 imported and 453 implementation Draft 2020-12 schemas)

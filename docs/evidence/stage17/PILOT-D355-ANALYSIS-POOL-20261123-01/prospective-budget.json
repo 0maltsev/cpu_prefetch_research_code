@@ -1,0 +1,24 @@
+{
+  "actual_census_performed": false,
+  "actual_resource_admission": false,
+  "execution_authority": false,
+  "family_metadata_reserve_bytes": 4194304,
+  "hypothetical_other_commitments_bytes": 0,
+  "operational_window_started": false,
+  "output_envelope_version": "cpu-prefetch-stage17-s180-analysis-output-envelope/2",
+  "phase18_authority": false,
+  "resource_evidence_version": "cpu-prefetch-stage17-s180-live-resource-evidence/4",
+  "space_plan": {
+    "analysis_spool_bytes": 76036838756,
+    "archive_staging_bytes": 4836679680,
+    "canonical_capture_bytes": 4815268979,
+    "control_and_final_bytes": 433527931392,
+    "publication_staging_bytes": 4815268979,
+    "required_inodes": 29976,
+    "retained_metadata_bytes": 2464415744
+  },
+  "whole_pipeline_timing": false,
+  "whole_run_eta_verified": false,
+  "workspace_remaining_for_other_commitments_bytes": 101760664858,
+  "workspace_total_bytes": 447995149030
+}

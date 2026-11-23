@@ -23,6 +23,7 @@ TIB=1024**4
 NATIVE_CAP=64*GIB
 ANALYSIS_WORKERS=12
 ANALYSIS_CHILD_AS=16*GIB
+ANALYSIS_FAMILY_METADATA=4*MIB
 CAPTURE_NS=260*NS
 ARCHIVE_NS=140*NS
 EXTERNAL_TIME=dict(public_preflight_ns=600*NS,qualification_ns=1800*NS,
@@ -247,9 +248,10 @@ def analysis_output_envelope(plan):
         bounds.append(dict(execution_ordinal=row['execution_ordinal'],joined_logical_bytes_upper=joined,
             metadata_reserve_bytes=MIB,allocation_allowance_bytes=MIB,maximum_output_bytes=maximum))
         total=archive.checked_sum(total,joined);workspace=archive.checked_sum(workspace,maximum)
-    return dict(schema_version='cpu-prefetch-stage17-s180-analysis-output-envelope/1',
+    return dict(schema_version='cpu-prefetch-stage17-s180-analysis-output-envelope/2',
         captures=180,count_basis='ALL_ORIGINAL_OFFERED_EVENTS_ACCEPTED_NO_COMPRESSION_CREDIT',
-        joined_logical_bytes_upper=total,workspace_bytes_upper=workspace,
+        joined_logical_bytes_upper=total,workspace_bytes_upper=archive.checked_sum(workspace,ANALYSIS_FAMILY_METADATA),
+        family_metadata_reserve_bytes=ANALYSIS_FAMILY_METADATA,
         required_inodes=180*18+64+ANALYSIS_WORKERS*11,capture_bounds=bounds,resource_admission_performed=False,
         actual_allocation_observed=False,execution_authority=False,phase18_authority=False)
 

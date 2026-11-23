@@ -1,0 +1,33 @@
+{
+  "actual_qualification": false,
+  "actual_scientific_raw_read": false,
+  "actual_source_generation": false,
+  "analysis_pool_implemented": false,
+  "archive_to_analysis_adapter_implemented": true,
+  "coherent_header_gap_reproduced_exit": 1,
+  "contract_checks_exit": 0,
+  "execution_authority": false,
+  "final_debug_cases": 9,
+  "final_debug_exit": 0,
+  "initial_fixture_errors": 1,
+  "initial_fixture_failures": 3,
+  "initial_fixture_reasons": [
+    "TMP_FILESYSTEM_BELOW_REAL_16GIB_RESERVE",
+    "INVALID_SOFTWARE_FIXTURE_FIELD"
+  ],
+  "initial_fixture_run_exit": 1,
+  "intermediate_eight_cases_exit": 0,
+  "native_code_changed": false,
+  "native_sanitizer_relevance": "NO_CHANGED_NATIVE_PATH",
+  "operational_window_started": false,
+  "original_archives_inverted_per_valid_synthetic_capture": 8,
+  "phase18_authority": false,
+  "python_sanitizer_mode": "-X dev WITH PYTHONMALLOC=debug",
+  "real_encoder_execution_credit": false,
+  "recorded_at_utc": "2026-11-23T18:03:59.266330+00:00",
+  "registered_cases": 105,
+  "registered_exit": 0,
+  "registered_suites": 7,
+  "whole_pipeline_timing": false,
+  "whole_run_eta_verified": false
+}

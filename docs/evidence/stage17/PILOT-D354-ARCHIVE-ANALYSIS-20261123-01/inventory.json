@@ -1,0 +1,66 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/LastTest.log",
+      "sha256": "3ded70cd47d5d536a8f6ae966151466215fd5376f1b7f411b77208b22d140be2",
+      "size_bytes": 6197
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/REPORT.md",
+      "sha256": "cf9763e5a7c759b0ebe608a474c850904a2465a6190a69a7d16731f5c496a672",
+      "size_bytes": 2007
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/contract-checks.txt",
+      "sha256": "ca441af802a614e7de576f0677ed9be966b9ae9fa58f949ce9e98dc9ce812113",
+      "size_bytes": 432
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/final-debug.txt",
+      "sha256": "c684297dcb03075b40857f101bd37ffdeee761fea7cd5c7e96621f50bf83ac2e",
+      "size_bytes": 107
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/first-tests.txt",
+      "sha256": "24310c308e9f505f58972a653b7225d2330ce811350fa4f1510c34e8e7d63af6",
+      "size_bytes": 3516
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/header-gap.txt",
+      "sha256": "b15777691fb191c82297c1db875ee8f274279df5730e7a930930adaebbb3c9c9",
+      "size_bytes": 4307
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/pc-cleanup.json",
+      "sha256": "32825e691d524b305d8cd998fdc433c972219207766ceb071a045b5a973c397c",
+      "size_bytes": 1680
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/registered.txt",
+      "sha256": "bb09f5fda687df4d8c85c1ae60fa5c2f37ce930e48b276b4a35e7f61eca424d4",
+      "size_bytes": 1239
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/second-tests.txt",
+      "sha256": "3c6dec9be2ba928da3364754d9f5c4a17a6fcd9151fb73c2533d131ed33666a4",
+      "size_bytes": 106
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/source-bindings.json",
+      "sha256": "fac61cd2e7ae803bcbb4742e74a15020461d37230a4caffc3762d0759a527b31",
+      "size_bytes": 2120
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/verification-summary.json",
+      "sha256": "76a2451ac78fa8bfcfa9b9e06c8376365ece343013eccdb7c367025e54f53fb6",
+      "size_bytes": 1140
+    }
+  ],
+  "recorded_at_utc": "2026-11-23T18:03:59.266330+00:00"
+}

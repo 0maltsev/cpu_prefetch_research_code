@@ -1,0 +1,45 @@
+{
+  "raw_copied_from_stand": false,
+  "recorded_at_utc": "2026-11-23T18:03:59.266330+00:00",
+  "removed_bytes": 9884,
+  "required_namespace_audit_preserved": true,
+  "stand_raw_deleted": false,
+  "temporary_synthetic_files_removed_by_test_finalizers": true,
+  "verified_duplicate_software_logs_removed": [
+    {
+      "path": "build/stage17-s180-archive-analysis-prep/first-tests.txt",
+      "sha256": "24310c308e9f505f58972a653b7225d2330ce811350fa4f1510c34e8e7d63af6",
+      "size_bytes": 3516
+    },
+    {
+      "path": "build/stage17-s180-archive-analysis-prep/second-tests.txt",
+      "sha256": "3c6dec9be2ba928da3364754d9f5c4a17a6fcd9151fb73c2533d131ed33666a4",
+      "size_bytes": 106
+    },
+    {
+      "path": "build/stage17-s180-archive-analysis-prep/header-gap.txt",
+      "sha256": "b15777691fb191c82297c1db875ee8f274279df5730e7a930930adaebbb3c9c9",
+      "size_bytes": 4307
+    },
+    {
+      "path": "build/stage17-s180-archive-analysis-prep/final-debug.txt",
+      "sha256": "c684297dcb03075b40857f101bd37ffdeee761fea7cd5c7e96621f50bf83ac2e",
+      "size_bytes": 107
+    },
+    {
+      "path": "build/stage17-s180-archive-analysis-prep/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "build/stage17-s180-archive-analysis-prep/registered.txt",
+      "sha256": "bb09f5fda687df4d8c85c1ae60fa5c2f37ce930e48b276b4a35e7f61eca424d4",
+      "size_bytes": 1239
+    },
+    {
+      "path": "build/stage17-s180-archive-analysis-prep/contract-checks.txt",
+      "sha256": "ca441af802a614e7de576f0677ed9be966b9ae9fa58f949ce9e98dc9ce812113",
+      "size_bytes": 432
+    }
+  ]
+}

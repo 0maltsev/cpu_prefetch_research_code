@@ -1,0 +1,24 @@
+from fractions import Fraction
+from itertools import product
+import hashlib,json
+from pathlib import Path
+checked=degenerate=0
+for n in range(1,11):
+ for bits in product((0,1),repeat=n):
+  k=sum(bits)
+  if k in (0,n):degenerate+=1;continue
+  mean=Fraction(k,n);variance=sum((Fraction(x)-mean)**2 for x in bits)
+  for lag in range(n):
+   direct=sum((Fraction(bits[i])-mean)*(Fraction(bits[i+lag])-mean) for i in range(n-lag))/variance
+   pairs=sum(bits[i]*bits[i+lag] for i in range(n-lag));a=sum(bits[:n-lag]);b=sum(bits[lag:])
+   numerator=n*n*pairs-n*k*(a+b)+(n-lag)*k*k;denominator=n*k*(n-k)
+   assert direct==Fraction(numerator,denominator)
+   # The exact threshold test derives by squaring two nonnegative sides.
+   threshold=625*n*numerator*numerator<2401*denominator*denominator
+   assert threshold==(n*direct*direct<Fraction(49,25)**2)
+   checked+=1
+proposal=Path('docs/decisions/0346-s180-prospective-tail-numerical-conventions-proposal.md')
+print(json.dumps(dict(scope='PROPOSED_EQUATION_SOFTWARE_CHECK_ONLY',binary_sequences_lengths=[1,10],
+ exact_lag_comparisons=checked,degenerate_sequences_explicitly_not_estimated=degenerate,
+ proposal_sha256=hashlib.sha256(proposal.read_bytes()).hexdigest(),research_sources_generated=False,
+ scientific_method_approved=False,execution_authority=False),sort_keys=True))

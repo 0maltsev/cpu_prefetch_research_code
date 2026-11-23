@@ -1,0 +1,31 @@
+E
+======================================================================
+ERROR: test_both_requests_satisfy_the_existing_compiled_entry_schema (__main__.AuthorityTests.test_both_requests_satisfy_the_existing_compiled_entry_schema)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_q15_authority_v1.py", line 99, in test_both_requests_satisfy_the_existing_compiled_entry_schema
+    Draft202012Validator(schema).validate(request)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/python/lib/python3.14/site-packages/jsonschema/validators.py", line 450, in validate
+    raise error
+jsonschema.exceptions.ValidationError: 'owner_uid' is a required property
+
+Failed validating 'required' in schema['properties']['evidence_root_binding']:
+    {'type': 'object',
+     'additionalProperties': False,
+     'required': ['absolute_path', 'device', 'inode', 'owner_uid', 'mode'],
+     'properties': {'absolute_path': {'type': 'string', 'pattern': '^/'},
+                    'device': {'type': 'integer', 'minimum': 1},
+                    'inode': {'type': 'integer', 'minimum': 1},
+                    'owner_uid': {'type': 'integer', 'minimum': 0},
+                    'mode': {'const': '0700'}}}
+
+On instance['evidence_root_binding']:
+    {'absolute_path': '/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/s180-d310-1/q15-qualification',
+     'device': 1,
+     'inode': 2}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.031s
+
+FAILED (errors=1)

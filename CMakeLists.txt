@@ -1873,6 +1873,10 @@ if(BUILD_TESTING)
       --endpoint "$<TARGET_FILE:cpu_prefetch_s180_clock_fixture>")
   set_tests_properties(runner.s180_clock_qualification_v1 PROPERTIES
     LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.s180_q15_authority_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_q15_authority_v1.py")
+  set_tests_properties(runner.s180_q15_authority_v1 PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 120)
   add_test(NAME runner.s180_archive_bundle_profile_v1
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_archive_bundle_profile_v1.py"
       --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>")

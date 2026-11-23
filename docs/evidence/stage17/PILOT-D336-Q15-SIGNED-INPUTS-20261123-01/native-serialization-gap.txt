@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_native_carrier_matches_original_result_validator_serialization (__main__.AuthorityTests.test_native_carrier_matches_original_result_validator_serialization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_q15_authority_v1.py", line 107, in test_native_carrier_matches_original_result_validator_serialization
+    self.assertEqual(verified.request_bytes,original.canonical(request))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'{"a[2297 chars]on","stand_id":"SOFTWARE-STAND","synthetic_test_only":false}' != b'{"a[2297 chars]on","stand_id":"SOFTWARE-STAND","synthetic_test_only":false}\n'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.027s
+
+FAILED (failures=1)

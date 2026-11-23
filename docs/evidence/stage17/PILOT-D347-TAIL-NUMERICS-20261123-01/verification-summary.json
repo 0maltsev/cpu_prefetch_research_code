@@ -1,0 +1,24 @@
+{
+  "execution_authority": false,
+  "operational_window_started": false,
+  "original_raw_analyzed": false,
+  "recorded_at_utc": "2026-11-23T15:33:42.733879+00:00",
+  "registered_exit_code": 0,
+  "relevant_sanitizers": "PYTHON_DEVELOPMENT_AND_DEBUG_ALLOCATOR; NO_CHANGED_NATIVE_PATH",
+  "repository_checks": {
+    "command_exit_code": 254,
+    "completed": [
+      "format-check",
+      "protocol-check",
+      "schema-fixture-check",
+      "canonical-check",
+      "queue-provenance-check",
+      "runner-schema-check",
+      "qualification-schema-check"
+    ],
+    "reason": "Additional whole-repository C++ lint is unrelated to this Python-only change; preserve original output.",
+    "static_analysis": "INTENTIONALLY_INTERRUPTED_AFTER_86_OF_197_UNCHANGED_CPP_FILES; NOT_A_PASS"
+  },
+  "targeted_cases": 16,
+  "targeted_debug_exit_code": 0
+}

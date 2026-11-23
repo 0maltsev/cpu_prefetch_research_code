@@ -1,0 +1,74 @@
+Start testing: Nov 23 18:30 MSK
+----------------------------------------------------------
+616/711 Testing: runner.formal_scheduled_capture_validation_v2
+616/711 Test: runner.formal_scheduled_capture_validation_v2
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_scheduled_capture_validation_v2.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.formal_scheduled_capture_validation_v2" start time: Nov 23 18:30 MSK
+Output:
+----------------------------------------------------------
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.268s
+
+OK
+<end of output>
+Test time =   0.59 sec
+----------------------------------------------------------
+Test Passed.
+"runner.formal_scheduled_capture_validation_v2" end time: Nov 23 18:30 MSK
+"runner.formal_scheduled_capture_validation_v2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+684/711 Testing: runner.s180_tail_numerics_v1
+684/711 Test: runner.s180_tail_numerics_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_tail_numerics_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_tail_numerics_v1" start time: Nov 23 18:30 MSK
+Output:
+----------------------------------------------------------
+................
+----------------------------------------------------------------------
+Ran 16 tests in 2.119s
+
+OK
+<end of output>
+Test time =   2.24 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_tail_numerics_v1" end time: Nov 23 18:30 MSK
+"runner.s180_tail_numerics_v1" time elapsed: 00:00:02
+----------------------------------------------------------
+
+685/711 Testing: runner.s180_raw_join_v1
+685/711 Test: runner.s180_raw_join_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_raw_join_v1" start time: Nov 23 18:30 MSK
+Output:
+----------------------------------------------------------
+................
+----------------------------------------------------------------------
+Ran 16 tests in 0.016s
+
+OK
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_raw_join_v1" end time: Nov 23 18:30 MSK
+"runner.s180_raw_join_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 23 18:30 MSK
+
+archive =   0.59 sec*proc
+
+pilot =   2.45 sec*proc
+
+python =   3.04 sec*proc
+
+runner =   3.04 sec*proc
+
+synthetic =   2.45 sec*proc
+

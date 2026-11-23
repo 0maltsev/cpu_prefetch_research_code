@@ -1,0 +1,61 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "c6fd4dd06fdc2bb2dc05b9e3636d1d9b8f6ee57981e18a49a6481d1667ad2330",
+      "size_bytes": 202034
+    },
+    {
+      "path": "tools/stage17_raw_stream_decoder_v1.py",
+      "sha256": "6a393bbd7c6721f715cd7b23c5a5c59368365ad3e77d950f2337d52089bfcab3",
+      "size_bytes": 15706
+    },
+    {
+      "path": "tools/stage17_raw_stream_decoder_v2.py",
+      "sha256": "a2349a5443debb051b7cb524bc86724ed6ba966dcb4a18582ed0248052b0fdca",
+      "size_bytes": 13067
+    },
+    {
+      "path": "tools/stage17_discovery_validation_v3.py",
+      "sha256": "661613aedbc77fd538970b8c5e79a4bbaa3d2acb7f503cb802725239b25e94bf",
+      "size_bytes": 69410
+    },
+    {
+      "path": "tools/stage17_s180_tail_numerics_v1.py",
+      "sha256": "41bd1a22443537fe9cc4301d589e3521e12ee3dde3d7ddb7c0428c5dec9ccbd1",
+      "size_bytes": 11549
+    },
+    {
+      "path": "tests/test_stage17_s180_tail_numerics_v1.py",
+      "sha256": "e71716b9a5bbb86b6f3f3996a76018f1b855f322f4111cd3338c04c340d590bf",
+      "size_bytes": 12352
+    },
+    {
+      "path": "config/schemas/stage17-s180-tail-numerics-v1.schema.json",
+      "sha256": "c6d5f914e7ce2ee67249abdb388c68733d115db403cc171ff77d342ab47a8f97",
+      "size_bytes": 10735
+    },
+    {
+      "path": "docs/decisions/0346-s180-prospective-tail-numerical-conventions-proposal.md",
+      "sha256": "3563546e9267a92c3e52de9b95ef06ffbb54883a4a091525cd9515e932fb0a10",
+      "size_bytes": 6544
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D346-ACCEPTED-20261123-01/owner-acceptance.json",
+      "sha256": "b0ef439778d94cb9dd905d5117ed0565771c5e75eaeb7857dd29dee8a1540bf1",
+      "size_bytes": 1095
+    },
+    {
+      "path": "docs/decisions/0347-s180-exact-approved-tail-numerics.md",
+      "sha256": "6c58f8b8666a2e1c987ddbb5a48ceb06150053acf082703e4340535efc0250d7",
+      "size_bytes": 4082
+    }
+  ],
+  "frozen_native": {
+    "path": "build/stage17-s180-release-34247ce/cpu_prefetch_runner",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832
+  },
+  "recorded_at_utc": "2026-11-23T15:33:42.733879+00:00"
+}

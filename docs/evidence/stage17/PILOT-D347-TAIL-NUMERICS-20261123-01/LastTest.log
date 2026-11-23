@@ -1,0 +1,32 @@
+Start testing: Nov 23 18:07 MSK
+----------------------------------------------------------
+684/710 Testing: runner.s180_tail_numerics_v1
+684/710 Test: runner.s180_tail_numerics_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_tail_numerics_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_tail_numerics_v1" start time: Nov 23 18:07 MSK
+Output:
+----------------------------------------------------------
+................
+----------------------------------------------------------------------
+Ran 16 tests in 7.162s
+
+OK
+<end of output>
+Test time =   7.48 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_tail_numerics_v1" end time: Nov 23 18:07 MSK
+"runner.s180_tail_numerics_v1" time elapsed: 00:00:07
+----------------------------------------------------------
+
+End testing: Nov 23 18:07 MSK
+
+pilot =   7.48 sec*proc
+
+python =   7.48 sec*proc
+
+runner =   7.48 sec*proc
+
+synthetic =   7.48 sec*proc
+

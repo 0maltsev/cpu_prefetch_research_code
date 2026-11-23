@@ -1,0 +1,248 @@
+[1/30] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/30] Linking CXX static library libcpu_prefetch_foundation.a
+[3/30] Building CXX object CMakeFiles/cpu_prefetch_smoke.dir/tools/smoke_main.cpp.o
+[4/30] Linking CXX executable cpu_prefetch_smoke
+[5/30] Building CXX object CMakeFiles/cpu_prefetch_q15_controller.dir/tools/q15_controller_main.cpp.o
+[6/30] Checking positive and negative protocol schema fixtures
+protocol-fixtures: PASS (2 snapshots, 14 schemas, 35 positive, 32 negative)
+[7/30] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_controller.cpp.o
+[8/30] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_trust_anchor_adapter.cpp.o
+[9/30] Checking shared JCS-I64-v1 cross-language fixtures
+canonical-check: PASS (3 shared JCS-I64-v1 cases)
+[10/30] Checking queue provenance, source hashes, mode, and license boundary
+queue-provenance-check: PASS (2 independent no-source-reuse records)
+[11/30] Checking the v1, Q14 v2, and Q15-P0 v3 runner-admission schemas
+runner-schema-check: PASS (Draft 2020-12; 3 positive, 6 negative)
+[12/30] Building CXX object CMakeFiles/cpu_prefetch_q15_prestate_collector.dir/tools/q15_prestate_collector_main.cpp.o
+[13/30] Building CXX object CMakeFiles/cpu_prefetch_preflight.dir/tools/stand_preflight_main.cpp.o
+[14/30] Linking CXX executable cpu_prefetch_runner
+[15/30] Building CXX object CMakeFiles/cpu_prefetch_qualification.dir/tools/qualification_main.cpp.o
+[16/30] Linking CXX executable cpu_prefetch_preflight
+[17/30] Building CXX object CMakeFiles/cpu_prefetch_q15_tool.dir/tools/q15_qualification_tool_main.cpp.o
+[18/30] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/p4_k_a_controller.cpp.o
+[19/30] Linking CXX executable cpu_prefetch_qualification
+[20/30] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_prestate.cpp.o
+[21/30] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_clock_pair_qualification.cpp.o
+[22/30] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_collectors.cpp.o
+[23/30] Linking CXX static library libcpu_prefetch_q15_qualification.a
+[24/30] Linking CXX executable cpu_prefetch_q15_controller
+[25/30] Linking CXX executable cpu_prefetch_q15_prestate_collector
+[26/30] Checking C++ formatting
+[27/30] Linking CXX executable cpu_prefetch_q15_tool
+[28/30] Checking imported protocol integrity and schemas
+protocol-check: PASS (3 snapshots, 54 artifacts, 12 authoritative hashes, 21 imported and 453 implementation Draft 2020-12 schemas)
+[29/30] Checking Q14, Q15-P0, split Q15-R/Q15-W, Q15-R decisions, and probe contracts
+hardware-prefetch-schema-check: PASS (3 synthetic positive, 6 negative, no MSR access)
+qualification-schema-check: PASS (5 synthetic positive, 4 negative)
+stage17-authorization-check: PASS (1 legacy + 4 current execution positive, 1 superseded Q15, 9 negative, 144 semantic-admission schemas, no authority issued)
+stage17-operational-successor-check: PASS (legacy_template=true; state=PREPARED; transitions=0; external_inputs=10; pilot_ready=false; semantic_policy=v18; preflight_policy=v14; controller=v8; all_ten_verifiers=IMPLEMENTED; Stage17/Stage18 complete=false; stand=NOT_ACCESSED)
+stage17-historical-fixture: PASS revision=05035cec1d1c1c88a08e9012996e5a6e4ccfd2a5 preserved_current_inputs=VERIFIED current_policy_qualified=false authority=NONE
+stage17-state-journal-check: PASS state=PREPARED resolved=0 missing=10 pilot_ready=false semantic_positive=1/1 mechanics_positive=10/3 runtime_positive=2 stage17a4_positive=7 stage17a4_negative=5 negative=79 nonexistent_evidence=REJECTED generic_evidence=REJECTED reload=PASS Stage18=false stand=NOT_ACCESSED
+stage17-historical-fixture: PASS revision=05035cec1d1c1c88a08e9012996e5a6e4ccfd2a5 preserved_current_inputs=VERIFIED current_policy_qualified=false authority=NONE
+q15-authorization-check: PASS (3 synthetic authorizations, 10 negative, 2 blocked preparations, no authority issued)
+q15-r-decision-input-check: PASS (D-057..D-060, 5 negative, no authority issued)
+q15-r-operational-prerequisite-check: PASS (D-061..D-064 proposed, 20 setup argv, 24 access probes/18 deny, 10 rollback argv, 6 negative, record-only, authority=NONE)
+q15-r-p2-acceptance-check: PASS (D-061..D-064 accepted, 4 records synchronized, 3 negative, authority=REPOSITORY_LOCAL_ONLY)
+q15-trust-anchor-adapter-profile-check: PASS (FDs=3/4/5, 5 negative, fakeable, authority=NONE)
+q15-r-stand-setup-preparation-check: PASS (20 setup, 24 access, 10 quarantine, 6 unresolved, authority=NONE)
+q15-r-operational-release-decision-check: PASS (D-065 proposed, 5 unresolved, 5 negative, authority=NONE)
+q15-r-p3-acceptance-check: PASS (D-065 accepted, successor hash-bound, 4 negative, authority=NONE)
+q15-r-stand-setup-preparation-v2-check: PASS (1 release group resolved, 5 external unresolved, 20/24/10, 7 negative, authority=NONE)
+q15-r-external-input-acquisition-check: PASS (D-066..D-070 proposed, 5 unresolved, 9 negative, authority=NONE)
+q15-r-p4-d-implementation-check: PASS (D-066..D-070 accepted, 25 commands, 2 synthetic artifacts, 12 negative, P4-R/P4-K unissued, authority=NONE)
+q15-r-p4-r-collector-release-decision-check: PASS (D-071 proposed, 7 P4-R + 8 P4-K unresolved, 6 negative, authority=NONE)
+q15-r-p4-e-acceptance-check: PASS (D-071 accepted, successor hash-bound, P4-K preserved, 5 negative, authority=NONE)
+q15-r-p4-r-preparation-v2-check: PASS (1 collector-release group resolved, 7 P4-R + 8 P4-K unresolved, 25 commands, 8 negative, authority=NONE)
+q15-r-p4-r-staging-authorization-decision-check: PASS (D-072..D-075 proposed, split I/C gates unissued, 7 unresolved, 15 negative, authority=NONE)
+q15-r-p4-f-acceptance-check: PASS (D-072..D-075 accepted, 7 negative, operational authority=NONE)
+q15-r-p4-r-successor-templates-check: PASS (P4-R-I/P4-R-C split, 6+6 null inputs, 12 negative, issued=NO, operational authority=NONE)
+q15-r-p4-k-decision-input-check: PASS (D-076..D-079 proposed, 8 inputs null, 3 owner questions open, 12 negative, key/stand/execution authority=NONE)
+q15-r-p4-k-d-acceptance-check: PASS (D-076..D-079 accepted, logical custody only, 10 negative, key/stand/execution authority=NONE)
+q15-r-p4-k-successor-templates-check: PASS (P4-K-A/P4-K-R split, 13+9 null fields, 14 negative, issued=NO, key/stand/execution authority=NONE)
+q15-r-p4-k-a-operational-input-decision-check: PASS (D-080..D-085 proposed, 7 inputs null, 5 owner questions open, 15 negative, key/signer/stand/execution authority=NONE)
+q15-r-p4-k-a-d-acceptance-check: PASS (D-080..D-085 policy accepted, Q4=BLOCKED, 19 negative, controller/key/trust/stand/execution authority=NONE)
+q15-r-p4-k-a-controller-profile-check: PASS (10 fixed steps, 14 profile + 6 admission negative, 7 inputs null, OS/key/trust/stand authority=NONE)
+q15-r-bootstrap-governance-root-decision-check: PASS (D-087..D-092 proposed, 8 inputs null, 6 questions open, 14 negative, key/trust/stand/execution authority=NONE)
+d093-bootstrap-authorization-check: PASS (1 create-exclusive action, 13 negative, no key generated, P4-K/stand/Q15/pilot authority=NONE)
+d093-bootstrap-evidence-check: PASS (CREATED, not active, 11 negative, later authority=NONE)
+d094-bootstrap-activation-check: PASS (CREATED->ACTIVE, bootstrap input 1/7 resolved, 6 remain, 12 negative, signing/P4-K/stand/pilot authority=NONE)
+q15-authorization-v2-check: PASS (2 synthetic envelope, 12 negative, no authorization issued)
+q15-controller-profile-check: PASS (controller + unapplied setup, 8 negative, authority=NONE)
+q15-probe-collector-contract-check: PASS (1 frozen contract, 18 negative, no collector/probe execution)
+q15-probe-implementation-check: PASS (1 D-053 profile, 10 negative, stand/PMU not accessed)
+q15-dynamic-implementation-check: PASS (D-054..D-056, 7 collectors, 4 negative mutations, no authority)
+[30/30] Running clang-tidy over repository C++ targets
+FAILED: [code=254] CMakeFiles/static-analysis /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/CMakeFiles/static-analysis 
+cd /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16 && /usr/bin/python3.14 /home/omaltsev/research/cpu_prefetch_research_code/tools/run_clang_tidy.py --clang-tidy /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/clang-tidy --build-directory /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16 /home/omaltsev/research/cpu_prefetch_research_code/src/repository_info.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/analysis/analysis.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/orchestration/access.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/orchestration/block_planning.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/orchestration/precision.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/calibration.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_discovery_capture.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_formal_ring_capture.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_formal_service_capture.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_formal_scheduled_capture.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_pilot_capture.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/service_session.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/scheduled_session.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/ring_demand_window.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/service_interval_count.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/lifecycle/runtime.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/lifecycle/state_machine.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/linux_inventory.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/platform.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/q15_counted_region.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/q15_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/q15_msr.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/q15_runtime.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/prepared_residency.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/owner_mapping.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/worker_stack.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/thread_tls.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/thread_monitor.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/prepared_file_snapshot.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/platform/prepared_prefetch_readback.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/p4_k_a_controller.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_clock_pair_qualification.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_collectors.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_controller.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_prestate.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_trust_anchor_adapter.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/json.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/load.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/model.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/semantic.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/validation.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/reconciliation/reconciliation.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/qualification.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/runner.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_fixed_action.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_discovery_publication.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_discovery_action.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_ring_action.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_service_action.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_scheduled_action.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_checkpoint.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_schedule_source.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_sources.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_worker.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_input.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_session.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_native_session.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_channel_sink.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_archive_channel.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/queue/common.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/queue/linked_spsc.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/queue/ring_spsc.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/schedule/schedule.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/storage/artifact_store.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/storage/artifacts.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/storage/budget.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/storage/finalization.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/storage/raw_observations.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/storage/post_measure_archive.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/timing/capture.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/timing/clock.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/timing/cross_core_exchange.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/timing/intervals.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/timing/qualification.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/workload/deterministic.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/workload/packages.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/workload/records.cpp /home/omaltsev/research/cpu_prefetch_research_code/src/workload/working_set.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/queue_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/queue_linked_storage_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/analysis_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/orchestration_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_discovery_capture_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_discovery_session_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_session_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_service_interval_count_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_formal_ring_session_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_formal_service_session_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_scheduled_session_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_pilot_capture_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_mapped_pilot_data_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_mapped_pilot_capture_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_ring_demand_window_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_discovery_consumer_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_caller_owned_trace_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_discovery_event_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_discovery_backend_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_discovery_residency_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_discovery_control_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_mapped_discovery_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_native_discovery_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_native_formal_ring_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_mapped_service_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_mapped_scheduled_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/lifecycle_concurrency_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/lifecycle_borrowed_termination_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/lifecycle_state_machine_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/queue_stress.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/rapidcheck_smoke.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/protocol_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/platform_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/platform_prepared_residency_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/platform_owner_mapping_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/platform_worker_stack_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/platform_thread_tls_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/platform_thread_monitor_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/platform_prepared_file_snapshot_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/platform_prepared_prefetch_readback_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/p4_k_a_controller_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/q15_probe_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/q15_runtime_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/q15_runtime_noalloc_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/q15_collectors_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/q15_clock_pair_qualification_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/q15_controller_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/q15_prestate_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/q15_msr_tool_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/repository_info_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/reconciliation_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/runner_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_fixed_action_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_publication_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_ring_publication_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_service_publication_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_scheduled_publication_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_io_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_channel_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_channel_fixture.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_launcher_fixture.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_clock_fixture.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_q15_fixture.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_input_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_session_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_ring_action_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_service_action_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_scheduled_action_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_family_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_formal_checkpoint_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_schedule_source_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_archive_channel_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/schedule_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/storage_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/storage_post_measure_archive_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/storage_noalloc_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/storage_stress.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/timing_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/workload_model_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tests/workload_noalloc_test.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/queue_codegen_mutant.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/queue_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/timing_codegen_mutant.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/timing_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/storage_codegen_mutant.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/storage_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/storage_fixture_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/storage_large_smoke.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/stand_preflight_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/runner_codegen_mutant.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/runner_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/runner_combined_codegen_mutant.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/runner_combined_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/formal_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/runner_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_archive_encoder_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_discovery_fixture_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_ring_fixture_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_no_result_worker_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_test_worker_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/qualification_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_probe_codegen_mutant.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_probe_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_runtime_codegen_mutant.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_runtime_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_controller_codegen_mutant.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_controller_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_qualification_tool_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_clock_qualification_tool_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_qualification_evidence_tool_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/clock_vdso_probe_tool_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_controller_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/q15_prestate_collector_main.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/workload_codegen_mutant.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/workload_codegen_probe.cpp /home/omaltsev/research/cpu_prefetch_research_code/tools/smoke_main.cpp
+[1/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/repository_info.cpp.
+26 warnings generated.
+[2/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/analysis/analysis.cpp.
+59 warnings generated.
+[3/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/orchestration/access.cpp.
+90 warnings generated.
+[4/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/orchestration/block_planning.cpp.
+121 warnings generated.
+[5/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/orchestration/precision.cpp.
+152 warnings generated.
+[6/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/calibration.cpp.
+183 warnings generated.
+[7/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_discovery_capture.cpp.
+250 warnings generated.
+[8/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_formal_ring_capture.cpp.
+317 warnings generated.
+[9/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_formal_service_capture.cpp.
+384 warnings generated.
+[10/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_formal_scheduled_capture.cpp.
+451 warnings generated.
+[11/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/native_pilot_capture.cpp.
+518 warnings generated.
+[12/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/service_session.cpp.
+549 warnings generated.
+[13/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/scheduled_session.cpp.
+580 warnings generated.
+[14/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/ring_demand_window.cpp.
+611 warnings generated.
+[15/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/calibration/service_interval_count.cpp.
+642 warnings generated.
+[16/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/lifecycle/runtime.cpp.
+673 warnings generated.
+[17/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/lifecycle/state_machine.cpp.
+704 warnings generated.
+[18/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/linux_inventory.cpp.
+751 warnings generated.
+[19/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/platform.cpp.
+783 warnings generated.
+[20/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/q15_counted_region.cpp.
+814 warnings generated.
+[21/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/q15_probe.cpp.
+843 warnings generated.
+[22/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/q15_msr.cpp.
+888 warnings generated.
+[23/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/q15_runtime.cpp.
+933 warnings generated.
+[24/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/prepared_residency.cpp.
+971 warnings generated.
+[25/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/owner_mapping.cpp.
+1010 warnings generated.
+[26/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/worker_stack.cpp.
+1037 warnings generated.
+[27/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/thread_tls.cpp.
+1076 warnings generated.
+[28/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/thread_monitor.cpp.
+1116 warnings generated.
+[29/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/prepared_file_snapshot.cpp.
+1156 warnings generated.
+[30/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/platform/prepared_prefetch_readback.cpp.
+1201 warnings generated.
+[31/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/p4_k_a_controller.cpp.
+1234 warnings generated.
+[32/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_clock_pair_qualification.cpp.
+1301 warnings generated.
+[33/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_collectors.cpp.
+1368 warnings generated.
+[34/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_controller.cpp.
+1399 warnings generated.
+[35/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_prestate.cpp.
+1446 warnings generated.
+[36/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/qualification/q15_trust_anchor_adapter.cpp.
+1477 warnings generated.
+[37/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/json.cpp.
+1508 warnings generated.
+[38/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/load.cpp.
+1539 warnings generated.
+[39/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/model.cpp.
+1570 warnings generated.
+[40/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/semantic.cpp.
+1601 warnings generated.
+[41/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/protocol/validation.cpp.
+1630 warnings generated.
+[42/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/reconciliation/reconciliation.cpp.
+1661 warnings generated.
+[43/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/qualification.cpp.
+1728 warnings generated.
+[44/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/runner.cpp.
+1866 warnings generated.
+[45/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_fixed_action.cpp.
+2018 warnings generated.
+[46/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_discovery_publication.cpp.
+2049 warnings generated.
+[47/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_discovery_action.cpp.
+2080 warnings generated.
+[48/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_ring_action.cpp.
+2111 warnings generated.
+[49/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_service_action.cpp.
+2142 warnings generated.
+[50/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_scheduled_action.cpp.
+2178 warnings generated.
+[51/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_family.cpp.
+2209 warnings generated.
+[52/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_formal_checkpoint.cpp.
+2240 warnings generated.
+[53/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_schedule_source.cpp.
+2353 warnings generated.
+[54/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_sources.cpp.
+2386 warnings generated.
+[55/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_worker.cpp.
+2504 warnings generated.
+[56/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_input.cpp.
+2535 warnings generated.
+[57/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_session.cpp.
+2566 warnings generated.
+[58/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_native_session.cpp.
+2599 warnings generated.
+[59/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_channel_sink.cpp.
+2632 warnings generated.
+[60/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_archive_channel.cpp.
+2674 warnings generated.
+[61/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/queue/common.cpp.
+2702 warnings generated.
+[62/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/queue/linked_spsc.cpp.
+2731 warnings generated.
+[63/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/queue/ring_spsc.cpp.
+2760 warnings generated.
+[64/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/schedule/schedule.cpp.
+2861 warnings generated.
+[65/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/storage/artifact_store.cpp.
+2980 warnings generated.
+[66/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/storage/artifacts.cpp.
+3013 warnings generated.
+[67/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/storage/budget.cpp.
+3044 warnings generated.
+[68/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/storage/finalization.cpp.
+3079 warnings generated.
+[69/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/storage/raw_observations.cpp.
+3110 warnings generated.
+[70/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/storage/post_measure_archive.cpp.
+3225 warnings generated.
+[71/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/timing/capture.cpp.
+3256 warnings generated.
+[72/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/timing/clock.cpp.
+3285 warnings generated.
+[73/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/timing/cross_core_exchange.cpp.
+3316 warnings generated.
+[74/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/timing/intervals.cpp.
+3347 warnings generated.
+[75/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/timing/qualification.cpp.
+3373 warnings generated.
+[76/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/workload/deterministic.cpp.
+3472 warnings generated.
+[77/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/workload/packages.cpp.
+3503 warnings generated.
+[78/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/workload/records.cpp.
+3602 warnings generated.
+[79/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/workload/working_set.cpp.
+3633 warnings generated.
+[80/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/queue_model_test.cpp.
+3709 warnings generated.
+[81/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/queue_linked_storage_test.cpp.
+3779 warnings generated.
+[82/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/analysis_model_test.cpp.
+3850 warnings generated.
+[83/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/orchestration_model_test.cpp.
+3921 warnings generated.
+[84/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_model_test.cpp.
+3992 warnings generated.
+[85/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_discovery_capture_test.cpp.
+4075 warnings generated.
+[86/197] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/calibration_discovery_session_test.cpp.
+ninja: build stopped: subcommand failed.

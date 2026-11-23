@@ -1,0 +1,31 @@
+{
+  "actual_original_raw_analyzed": false,
+  "actual_qualification_performed": false,
+  "actual_source_generation_performed": false,
+  "aggregate_resource_admission_performed": false,
+  "contract_check_exit_code": 0,
+  "durable_per_capture_publication_implemented": true,
+  "earlier_related_python_debug_cases": 71,
+  "earlier_related_python_debug_exit_code": 0,
+  "execution_authority": false,
+  "full_family_validity_implemented": false,
+  "integrated_python_debug_exit_code": 0,
+  "integrated_tests": 21,
+  "native_code_changed": false,
+  "native_sanitizer_relevance": "NO_CHANGED_NATIVE_PATH",
+  "normative_stream_envelopes_checked_per_capture": 6,
+  "operational_window_started": false,
+  "original_byte_capture_pipeline_implemented": true,
+  "phase18_authority": false,
+  "production_streaming_parser_exercised": true,
+  "protocol_and_schema_checks": [
+    "protocol-check",
+    "schema-fixture-check",
+    "canonical-check"
+  ],
+  "python_sanitizer_mode": "-X dev WITH PYTHONMALLOC=debug",
+  "recorded_at_utc": "2026-11-23T16:42:26.148815+00:00",
+  "registered_cases": 104,
+  "registered_exit_code": 0,
+  "registered_suites": 7
+}

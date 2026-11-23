@@ -1,0 +1,22 @@
+{
+  "actual_sources_generated": false,
+  "aggregate_scratch_admitted": false,
+  "all_accepted_joined_row_ceiling": 1804216800,
+  "approved_workspace_ceiling_bytes": 549755813888,
+  "captures": 180,
+  "count_basis": "UNCHANGED_D334_CONSERVATIVE_OFFERED_CEILINGS_NOT_OBSERVATIONS",
+  "execution_authority": false,
+  "historical_and_active_workspace_usage_admitted": false,
+  "largest_capture_joined_bytes_upper": 3608433600,
+  "measurements_performed": false,
+  "metadata_reserve_bytes": 188743680,
+  "schema_version": "cpu-prefetch-stage17-s180-prospective-joined-output-sizing/1",
+  "sizing_source": {
+    "path": "docs/evidence/stage17/PILOT-D334-COMPACTION-INTEGRATION-20261123-01/d333-sizing-v3.json",
+    "sha256": "2f33f33a070be20f2c6a00f86a51f52c1912bb4393113178a95431b247e1cc86",
+    "size_bytes": 3098878
+  },
+  "total_joined_bytes_upper": 433012032000,
+  "total_joined_plus_metadata_upper_bytes": 433200775680,
+  "workspace_remaining_for_other_commitments_bytes": 116555038208
+}

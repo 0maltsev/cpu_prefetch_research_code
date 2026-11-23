@@ -1,0 +1,1 @@
+q15-controller-self-test: PASS profile=Q15-R-STATIC-CONTROLLER-v1 graph_steps=15 adapter=LOCAL_FAKEABLE_NO_AUTHORITY stand=NOT_ACCESSED signature=NOT_VERIFIED authority=NONE execution=NOT_STARTED

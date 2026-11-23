@@ -782,6 +782,12 @@ if(BUILD_TESTING)
       PASS_REGULAR_EXPRESSION
         "qualification-self-test: PASS.*stand=NOT_ACCESSED.*authority=Q15_REQUIRED")
   add_test(NAME q15.tool_self_test COMMAND cpu_prefetch_q15_tool --self-test)
+  add_test(NAME q15.qualification_evidence_tool_self_test
+    COMMAND cpu_prefetch_q15_qualification_evidence_tool --self-test)
+  set_tests_properties(q15.qualification_evidence_tool_self_test PROPERTIES
+    LABELS "runner;qualification;synthetic" TIMEOUT 30
+    PASS_REGULAR_EXPRESSION
+      "q15-qualification-evidence-tool-self-test: PASS.*device=NOT_OPENED.*stand=NOT_ACCESSED.*clock=NOT_READ")
   set_tests_properties(
     q15.tool_self_test
     PROPERTIES

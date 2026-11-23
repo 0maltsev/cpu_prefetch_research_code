@@ -1,0 +1,1 @@
+clock-vdso-probe-self-test: PASS device=NOT_OPENED clock=NOT_READ tracer=NOT_INVOKED

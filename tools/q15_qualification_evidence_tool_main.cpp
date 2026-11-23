@@ -513,7 +513,7 @@ auto self_test() -> int {
   const auto repository = cpu_prefetch::foundation::repository_info();
   if (repository.protocol_version != cpu_prefetch::protocol::kProtocolVersion ||
       runner::kQualificationEvidenceSchemaVersion !=
-          "cpu-prefetch-qualification-evidence/2") {
+          "cpu-prefetch-qualification-evidence/3") {
     std::cerr << "q15-qualification-evidence-tool-self-test: FAIL build/profile "
                  "mismatch\n";
     return 1;

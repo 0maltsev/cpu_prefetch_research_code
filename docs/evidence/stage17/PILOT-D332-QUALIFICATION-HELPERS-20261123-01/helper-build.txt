@@ -1,0 +1,15 @@
+[1/15] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_clock_pair_qualification.cpp.o
+[2/15] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/p4_k_a_controller.cpp.o
+[3/15] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_controller.cpp.o
+[4/15] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_collectors.cpp.o
+[5/15] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_prestate.cpp.o
+[6/15] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_trust_anchor_adapter.cpp.o
+[7/15] Linking CXX static library libcpu_prefetch_q15_qualification.a
+[8/15] Building CXX object CMakeFiles/cpu_prefetch_q15_tool.dir/tools/q15_qualification_tool_main.cpp.o
+[9/15] Building CXX object CMakeFiles/cpu_prefetch_clock_vdso_probe_tool.dir/tools/clock_vdso_probe_tool_main.cpp.o
+[10/15] Building CXX object CMakeFiles/cpu_prefetch_q15_clock_qualification_tool.dir/tools/q15_clock_qualification_tool_main.cpp.o
+[11/15] Linking CXX executable cpu_prefetch_q15_tool
+[12/15] Linking CXX executable cpu_prefetch_q15_clock_qualification_tool
+[13/15] Linking CXX executable cpu_prefetch_clock_vdso_probe_tool
+[14/15] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification_evidence_tool.dir/tools/q15_qualification_evidence_tool_main.cpp.o
+[15/15] Linking CXX executable cpu_prefetch_q15_qualification_evidence_tool

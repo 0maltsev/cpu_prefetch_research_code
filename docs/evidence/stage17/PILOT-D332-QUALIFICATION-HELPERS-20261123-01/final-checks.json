@@ -1,0 +1,13 @@
+{
+  "registered_regression_passed": true,
+  "gcc_asan_ubsan_passed": true,
+  "helper_software_self_tests": 6,
+  "repository_checks_passed": true,
+  "native_binary_unchanged": true,
+  "frozen_source_unchanged": true,
+  "actual_stand_qualification_performed": false,
+  "clean_corrected_helper_release_pending": true,
+  "operational_window_started": false,
+  "execution_authority": false,
+  "phase18_authority": false
+}

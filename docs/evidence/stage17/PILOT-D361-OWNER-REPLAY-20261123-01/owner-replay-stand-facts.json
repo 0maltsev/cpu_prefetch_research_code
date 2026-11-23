@@ -1,0 +1,5 @@
+{
+  "error": "S180 owner replay: actual reader result differs from original journal resolution bytes",
+  "report": null,
+  "status": "OWNED_REPLAY_DIAGNOSTIC_FAILURE"
+}

@@ -1,0 +1,42 @@
+{
+  "actual_resgid": [
+    1000,
+    1000,
+    1000
+  ],
+  "actual_resuid": [
+    1000,
+    1000,
+    1000
+  ],
+  "elapsed_ns": 40747719424,
+  "execution_authority": false,
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "pilot_ready": false,
+  "qualification_performed": false,
+  "resolution_count": 7,
+  "resolution_sha256": {
+    "S17-EXT-001": "7a6119a95334f3526fd28bfe05e78b06ffadf2c9210e1203cfe19e4445db8668",
+    "S17-EXT-002": "a260dc4464195902810cf9f30401a23afdd3c243db95042bc5db517139c5bad3",
+    "S17-EXT-003": "b7b64d2be119b07c906718ca0811a71d26b44c22a2527b70727368f01d11040e",
+    "S17-EXT-004": "df4bcac1985bab99716d91042f612ec1a59f7670706e6d1a354c2c34d56a16bf",
+    "S17-EXT-005": "9e162cfefc240eefa15d3c28c7a80af2a00f5dd5586f58967593129163c5b5d3",
+    "S17-EXT-006": "0c45b4f94cd6229adea3a76ff9735c414f951e9fd088a7edaae88c04e28ac115",
+    "S17-EXT-007": "fd4a2b1a1c0c9cf0ab6ecf47fa838de81e67746c67caebad8b15779f4c70f104"
+  },
+  "source_preparation_performed": false,
+  "status": "ACTUAL_ORIGINAL_SEVEN_OWNER_PROCESS_REPLAY_PASS",
+  "trust_measurements": {
+    "allowed_signers_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/ext002-authoring-1/ext002-allowed-signers",
+    "allowed_signers_sha256": "13071fb005c65eaaacd25bd1bf935a6edab0ea1d13a275f8ef09d91223ad0d48",
+    "allowed_signers_size_bytes": 106,
+    "principal": "maltsev.oiu@phystech.edu",
+    "reviewer_role": "OWNER",
+    "signer_role": "OWNER",
+    "sshsig_namespace": "stage17-owner-acceptance",
+    "stand_anchor_sha256": "523d3c206222458532d2a8bb3f8299057f93b785282c6cd609e16ba1f4a2701b",
+    "stand_id": "CPU-PREFETCH-V5"
+  },
+  "utc": "2026-11-23T20:14:38.289349+00:00"
+}

@@ -1,0 +1,99 @@
+-- Configuring done (0.3s)
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_test_worker>
+
+  No target "cpu_prefetch_stage17_test_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_test_worker>
+
+  No target "cpu_prefetch_stage17_test_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_test_worker>
+
+  No target "cpu_prefetch_stage17_test_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>
+
+  No target "cpu_prefetch_stage17_no_result_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_test_worker>
+
+  No target "cpu_prefetch_stage17_test_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_test_worker>
+
+  No target "cpu_prefetch_stage17_test_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_test_worker>
+
+  No target "cpu_prefetch_stage17_test_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>
+
+  No target "cpu_prefetch_stage17_no_result_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_test_worker>
+
+  No target "cpu_prefetch_stage17_test_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_test_worker>
+
+  No target "cpu_prefetch_stage17_test_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_test_worker>
+
+  No target "cpu_prefetch_stage17_test_worker"
+
+
+CMake Error at CMakeLists.txt:4170 (add_custom_target):
+  Error evaluating generator expression:
+
+    $<TARGET_FILE:cpu_prefetch_stage17_no_result_worker>
+
+  No target "cpu_prefetch_stage17_no_result_worker"
+
+
+-- Generating done (0.1s)
+CMake Generate step failed.  Build files cannot be regenerated correctly.

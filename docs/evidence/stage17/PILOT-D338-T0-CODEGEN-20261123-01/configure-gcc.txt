@@ -1,0 +1,22 @@
+-- The CXX compiler identification is GNU 16.1.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Git: /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/git (found suitable version "2.54.0", minimum required is "2.54")
+-- Found OpenSSL: /usr/lib/libcrypto.so (found suitable version "3.6.5", required range is "3.0...<4.0") found components: Crypto
+-- Found Python3: /usr/bin/python3.14 (found suitable version "3.14.9", minimum required is "3.14") found components: Interpreter
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test CPU_PREFETCH_USES_LIBSTDCXX
+-- Performing Test CPU_PREFETCH_USES_LIBSTDCXX - Success
+CMake Error at cmake/VersionPolicy.cmake:36 (message):
+  Set CPU_PREFETCH_RAPIDCHECK_REVISION=ff6af6f for the accepted dependency
+  input.
+Call Stack (most recent call first):
+  CMakeLists.txt:2363 (cpu_prefetch_enforce_tool_versions)
+
+
+-- Configuring incomplete, errors occurred!

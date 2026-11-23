@@ -1,0 +1,4 @@
+[1/2] Requiring dual-disassembler D-047 PREFETCHW/PREFETCHT0 mapping evidence
+software-prefetch-mapping-codegen-check: PASS (two disassemblers, three mapped sites, 2 mutants)
+[2/2] Requiring dual-disassembler ADR-0175 T0-only mapping evidence
+software-prefetch-mapping-codegen-check: PASS (two disassemblers, three mapped sites, 5 mutants)

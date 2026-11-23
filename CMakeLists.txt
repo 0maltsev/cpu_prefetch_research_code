@@ -1885,6 +1885,10 @@ if(BUILD_TESTING)
       --endpoint "$<TARGET_FILE:cpu_prefetch_s180_q15_fixture>")
   set_tests_properties(runner.s180_q15_session_v1 PROPERTIES
     LABELS "runner;pilot;synthetic;python" TIMEOUT 300)
+  add_test(NAME runner.software_prefetch_t0_codegen
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_software_prefetch_t0_codegen.py")
+  set_tests_properties(runner.software_prefetch_t0_codegen PROPERTIES
+    LABELS "runner;codegen;synthetic;python" TIMEOUT 60)
   add_test(NAME runner.s180_archive_bundle_profile_v1
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_archive_bundle_profile_v1.py"
       --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>")
@@ -2293,7 +2297,9 @@ add_executable(
   tools/software_prefetch_mapping_codegen_probe.cpp)
 target_link_libraries(
   cpu_prefetch_software_prefetch_mapping_codegen_probe
-  PRIVATE cpu_prefetch::runner cpu_prefetch_project_options)
+  PRIVATE cpu_prefetch_project_options)
+target_include_directories(cpu_prefetch_software_prefetch_mapping_codegen_probe
+  PRIVATE "${PROJECT_SOURCE_DIR}/include")
 add_executable(
   cpu_prefetch_software_prefetch_mapping_codegen_mutant EXCLUDE_FROM_ALL
   tools/software_prefetch_mapping_codegen_mutant.cpp)
@@ -3027,6 +3033,19 @@ add_custom_target(
     cpu_prefetch_software_prefetch_mapping_codegen_probe
     cpu_prefetch_software_prefetch_mapping_codegen_mutant
   COMMENT "Requiring dual-disassembler D-047 PREFETCHW/PREFETCHT0 mapping evidence")
+add_custom_target(
+  software-prefetch-t0-mapping-codegen-check
+  COMMAND
+    "${Python3_EXECUTABLE}"
+    "${PROJECT_SOURCE_DIR}/tools/check_software_prefetch_mapping_codegen.py"
+    --binary "$<TARGET_FILE:cpu_prefetch_software_prefetch_mapping_codegen_probe>"
+    --mutant "$<TARGET_FILE:cpu_prefetch_software_prefetch_mapping_codegen_mutant>"
+    --source-root "${PROJECT_SOURCE_DIR}" --mapping-id X86-64-PREFETCHT0-ONLY-v1
+    --output "${PROJECT_BINARY_DIR}/software_prefetch_t0_mapping_codegen_report.json"
+    --gnu-objdump "${CPU_PREFETCH_GNU_OBJDUMP}"
+  DEPENDS cpu_prefetch_software_prefetch_mapping_codegen_probe
+    cpu_prefetch_software_prefetch_mapping_codegen_mutant
+  COMMENT "Requiring dual-disassembler ADR-0175 T0-only mapping evidence")
 add_custom_target(
   runner-combined-codegen-audit
   COMMAND

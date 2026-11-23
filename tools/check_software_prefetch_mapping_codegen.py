@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit the D-047 PREFETCHW/PREFETCHT0 software-prefetch mapping.
+"""Audit D-047's mapping or the separately selected ADR-0175 T0-only mapping.
 
 Mirrors check_runner_codegen.py's dual-disassembler probe/mutant pattern
 (one compiler's binary, checked with both objdump tools). The compiler
@@ -33,6 +33,21 @@ PREFETCH_MNEMONICS: Final = (
     "prefetcht1",
     "prefetcht2",
     "prefetchnta",
+)
+ORIGINAL_MAPPING: Final = "X86-64-PREFETCHW-PREFETCHT0-v1"
+T0_MAPPING: Final = "X86-64-PREFETCHT0-ONLY-v1"
+T0_SYMBOLS: Final = {
+    "ring_producer_write": "cpu_prefetch_software_prefetch_t0_ring_producer_write",
+    "ring_consumer_read": "cpu_prefetch_software_prefetch_t0_ring_consumer_read",
+    "successor_header": "cpu_prefetch_software_prefetch_t0_successor_header",
+}
+T0_MUTANTS: Final = tuple("cpu_prefetch_software_prefetch_t0_" + suffix for suffix in (
+    "producer_wrong", "consumer_wrong", "successor_wrong", "duplicate", "missing"))
+T0_SOURCES: Final = (
+    "include/cpu_prefetch/runner/software_prefetch.hpp",
+    "tools/software_prefetch_mapping_codegen_probe.cpp",
+    "tools/software_prefetch_mapping_codegen_mutant.cpp",
+    "tools/check_software_prefetch_mapping_codegen.py",
 )
 
 
@@ -140,6 +155,60 @@ def inspect_mutant(disassembly: str) -> dict[str, object]:
     }
 
 
+def inspect_t0_probe(disassembly: str) -> dict[str, object]:
+    return {role: require_exactly_one(symbol_body(disassembly, symbol), symbol, "prefetcht0")
+            for role, symbol in T0_SYMBOLS.items()}
+
+
+def inspect_t0_mutants(disassembly: str) -> dict[str, object]:
+    result = {}
+    for symbol in T0_MUTANTS:
+        body = symbol_body(disassembly, symbol)
+        try:
+            require_exactly_one(body, symbol, "prefetcht0")
+        except RuntimeError:
+            result[symbol] = {"status": "REJECTED", "counts": mnemonic_counts(body),
+                              "body_sha256": hashlib.sha256(body.encode()).hexdigest()}
+        else:
+            raise RuntimeError("T0 mutant unexpectedly accepted: " + symbol)
+    return result
+
+
+def validate_t0_report(report: dict, *, binary: pathlib.Path, mutant: pathlib.Path,
+                       source_root: pathlib.Path) -> None:
+    """Replay retained software bindings; caller authenticates the report/builds.
+
+    Does not establish compiler identity, report authenticity, full native
+    call-graph coverage, stand capability or qualification permission.
+    """
+    if (report["schema_version"] != "cpu-prefetch-software-prefetch-mapping-codegen/1"
+            or report["mapping_id"] != T0_MAPPING or report["status"] != "PASS"
+            or report["missing_tools"] != [] or set(report["tools"]) != {"GNU_OBJDUMP", "LLVM_OBJDUMP"}):
+        raise RuntimeError("complete T0 dual-disassembler report required")
+    for name, path in (("binary", binary), ("mutant", mutant)):
+        if report[name]["sha256"] != file_sha256(path):
+            raise RuntimeError("actual T0 " + name + " bytes differ")
+    if report["source_evidence"] != {p: file_sha256(source_root / p) for p in T0_SOURCES}:
+        raise RuntimeError("actual T0 source/rule bytes differ")
+    if report["rule_set"]["sha256"] != file_sha256(source_root / T0_SOURCES[-1]):
+        raise RuntimeError("actual T0 audit rule differs")
+    for kind, tool in report["tools"].items():
+        if (tool["status"] != "PASS" or (kind == "LLVM_OBJDUMP" and not tool["version"].startswith("LLVM 22."))
+                or (kind == "GNU_OBJDUMP" and not tool["version"].startswith("GNU Binutils "))
+                or set(tool["mapping"]) != set(T0_SYMBOLS) or set(tool["mutant"]) != set(T0_MUTANTS)):
+            raise RuntimeError("T0 tool/site/mutant family differs")
+        for row in tool["mapping"].values():
+            if row["status"] != "PASS" or row["instruction"] != "PREFETCHT0":
+                raise RuntimeError("T0 physical mapping differs")
+        for row in tool["mutant"].values():
+            if (set(row["counts"]) != set(PREFETCH_MNEMONICS)
+                    or any(type(v) is not int or v < 0 for v in row["counts"].values())):
+                raise RuntimeError("T0 mutant count vector differs")
+            if row["status"] != "REJECTED" or (row["counts"]["prefetcht0"] == 1
+                    and all(v == 0 for k, v in row["counts"].items() if k != "prefetcht0")):
+                raise RuntimeError("T0 rejected mutant differs")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--binary", type=pathlib.Path, required=True)
@@ -147,7 +216,11 @@ def main() -> int:
     parser.add_argument("--output", type=pathlib.Path, required=True)
     parser.add_argument("--gnu-objdump", default="objdump")
     parser.add_argument("--llvm-objdump", default="llvm-objdump")
+    parser.add_argument("--mapping-id", choices=(ORIGINAL_MAPPING, T0_MAPPING), default=ORIGINAL_MAPPING)
+    parser.add_argument("--source-root", type=pathlib.Path)
     args = parser.parse_args()
+    if args.mapping_id == T0_MAPPING and args.source_root is None:
+        parser.error("T0 mapping requires --source-root for actual emitter/probe/rule bindings")
 
     tools = {
         "GNU_OBJDUMP": shutil.which(args.gnu_objdump),
@@ -156,7 +229,7 @@ def main() -> int:
     report: dict[str, object] = {
         "schema_version": "cpu-prefetch-software-prefetch-mapping-codegen/1",
         "scope": "correctness-only; no timing or performance observation",
-        "mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",
+        "mapping_id": args.mapping_id,
         "binary": {"path": str(args.binary), "sha256": file_sha256(args.binary)},
         "mutant": {"path": str(args.mutant), "sha256": file_sha256(args.mutant)},
         "rule_set": {
@@ -165,6 +238,8 @@ def main() -> int:
         },
         "tools": {},
     }
+    if args.mapping_id == T0_MAPPING:
+        report["source_evidence"] = {p: file_sha256(args.source_root / p) for p in T0_SOURCES}
     missing = [name for name, path in tools.items() if path is None]
     try:
         for name, tool in tools.items():
@@ -173,15 +248,20 @@ def main() -> int:
                 continue
             probe = disassemble(tool, args.binary)
             mutant = disassemble(tool, args.mutant)
+            version = tool_version(tool)
+            if args.mapping_id == T0_MAPPING and name == "LLVM_OBJDUMP" and not version.startswith("LLVM 22."):
+                raise RuntimeError("T0 audit requires accepted LLVM 22")
             report["tools"][name] = {
                 "status": "PASS",
                 "path": tool,
-                "version": tool_version(tool),
-                "mapping": inspect_probe(probe),
-                "mutant": inspect_mutant(mutant),
+                "version": version,
+                "mapping": inspect_t0_probe(probe) if args.mapping_id == T0_MAPPING else inspect_probe(probe),
+                "mutant": inspect_t0_mutants(mutant) if args.mapping_id == T0_MAPPING else inspect_mutant(mutant),
             }
         report["status"] = "BLOCKED_MISSING_TOOL" if missing else "PASS"
         report["missing_tools"] = missing
+        if args.mapping_id == T0_MAPPING and not missing:
+            validate_t0_report(report, binary=args.binary, mutant=args.mutant, source_root=args.source_root)
     except RuntimeError as error:
         report["status"] = "FAIL"
         report["error"] = str(error)
@@ -201,7 +281,7 @@ def main() -> int:
         return 3
     print(
         "software-prefetch-mapping-codegen-check: PASS "
-        "(two disassemblers, three mapped sites, two mutants)"
+        f"(two disassemblers, three mapped sites, {5 if args.mapping_id == T0_MAPPING else 2} mutants)"
     )
     return 0
 

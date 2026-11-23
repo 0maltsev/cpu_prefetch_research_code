@@ -48,6 +48,26 @@ class VerifiedTests(unittest.TestCase):
         deadline=min(bank._until,time.monotonic_ns()+self.f.p['budget']['setup_ns'])
         return bank.native_inputs(plan_sha256=self.sha,loading_deadline_ns=deadline)
 
+    def test_owned_release_proof_requires_complete_close_and_no_remaining_alias(self):
+        with self.bank() as bank:
+            with self.assertRaisesRegex(owned.SourcesError,'complete owned source release'):
+                bank.released_proof(plan_sha256=self.sha)
+            report=bank.generation_report(plan_sha256=self.sha)
+        proof=bank.released_proof(plan_sha256=self.sha)
+        self.assertEqual(proof['generation_report_sha256'],hashlib.sha256(report).hexdigest())
+        self.assertTrue(proof['all_owned_source_descriptors_released'])
+        self.assertFalse(proof['execution_authority'])
+
+    def test_duplicate_descriptor_is_detected_by_actual_owned_release_proof(self):
+        alias=None
+        try:
+            with self.bank() as bank:
+                _,fds=self.inputs(bank);alias=os.dup(fds[0])
+            with self.assertRaisesRegex(owned.SourcesError,'descriptor alias'):
+                bank.released_proof(plan_sha256=self.sha)
+        finally:
+            if alias is not None:os.close(alias)
+
     def test_actual_generation_runs_once_and_fast_reads_keep_all36_exact_sealed_sources(self):
         real=owned.provenance.verify_source_bank
         with mock.patch.object(owned.provenance,'verify_source_bank',wraps=real) as verify:

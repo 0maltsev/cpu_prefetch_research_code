@@ -21,6 +21,8 @@ MIB=1024**2
 GIB=1024**3
 TIB=1024**4
 NATIVE_CAP=64*GIB
+ANALYSIS_WORKERS=12
+ANALYSIS_CHILD_AS=16*GIB
 CAPTURE_NS=260*NS
 ARCHIVE_NS=140*NS
 EXTERNAL_TIME=dict(public_preflight_ns=600*NS,qualification_ns=1800*NS,
@@ -248,7 +250,7 @@ def analysis_output_envelope(plan):
     return dict(schema_version='cpu-prefetch-stage17-s180-analysis-output-envelope/1',
         captures=180,count_basis='ALL_ORIGINAL_OFFERED_EVENTS_ACCEPTED_NO_COMPRESSION_CREDIT',
         joined_logical_bytes_upper=total,workspace_bytes_upper=workspace,
-        required_inodes=180*18+64,capture_bounds=bounds,resource_admission_performed=False,
+        required_inodes=180*18+64+ANALYSIS_WORKERS*11,capture_bounds=bounds,resource_admission_performed=False,
         actual_allocation_observed=False,execution_authority=False,phase18_authority=False)
 
 
@@ -256,8 +258,11 @@ def process_envelope(sizing,native_report,envelope):
     """Requested process ceilings, not observed limits or an RSS certificate.
 
     Source memfd pages are charged independently of native vector ownership.
-    All processes are summed conservatively even across sequential stages.
-    The qualified caller must still bind current cgroups/rlimits and live RAM.
+    Sum all collection-stage caps and all analysis-stage caps separately.
+    The analysis stage requires actual owned native/environment/source release
+    before its larger pool may exist. Decode runs in those same workers under
+    a temporary2GiB soft limit, never in an additional simultaneous child.
+    Requested caps alone cannot supply the mandatory transition/readbacks.
     """
     require(envelope['bounded_sizing_plan_sha256']==planning.sha(sizing),
             'resource envelope belongs to another bounded packet')
@@ -268,13 +273,19 @@ def process_envelope(sizing,native_report,envelope):
             'native mappings, payload and cold heap exceed requested limit')
     groups,order=planning.source_groups(sizing)
     source_pages=sum((p['offered_count']*8+4095)//4096*4096 for key in order for p in groups[key])
-    caps=dict(native=sizing['budget']['memory_bytes'],parent=4*GIB,
+    collection=dict(native=sizing['budget']['memory_bytes'],parent=4*GIB,
         source_generation_or_verification_child=8*GIB,archive_broker=2*GIB,
-        archive_codec=2*GIB,independent_validation_children=4*16*GIB,
-        independent_decode_children=4*2*GIB,sealed_source_pages=source_pages)
-    return dict(schema_version='cpu-prefetch-stage17-s180-requested-process-envelope/1',
+        archive_codec=2*GIB,sealed_source_pages=source_pages)
+    analysis=dict(parent=4*GIB,independent_validation_children=ANALYSIS_WORKERS*ANALYSIS_CHILD_AS)
+    caps=dict(collection,independent_validation_children=analysis['independent_validation_children'],
+        independent_decode_children=0)
+    stage_totals={name:archive.checked_sum(*values.values()) for name,values in
+        dict(collection=collection,analysis=analysis).items()}
+    return dict(schema_version='cpu-prefetch-stage17-s180-requested-process-envelope/2',
         sizing_plan_sha256=planning.sha(sizing),requested_address_or_page_caps_bytes=caps,
-        conservative_total_bytes=archive.checked_sum(*caps.values()),
+        stage_caps_bytes=dict(collection=collection,analysis=analysis),stage_total_bytes=stage_totals,
+        conservative_total_bytes=max(stage_totals.values()),analysis_worker_count=ANALYSIS_WORKERS,
+        analysis_requires_owned_quiescence=True,in_process_decode_limit_readback_required=True,
         native_minimum_plus_cold_heap_bytes=native_with_heap,native_resource_minima=minima,
         memory_lock_requested_bytes=sizing['budget']['memory_bytes'],
         memory_lock_limits_verified=False,whole_process_tree_limits_verified=False,

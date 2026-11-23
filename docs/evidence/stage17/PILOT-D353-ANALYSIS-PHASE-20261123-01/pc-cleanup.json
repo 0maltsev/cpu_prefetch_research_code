@@ -1,0 +1,95 @@
+{
+  "raw_copied_to_pc": false,
+  "recorded_at_utc": "2026-11-23T17:51:02.297502+00:00",
+  "removed_bytes": 1788541,
+  "required_namespace_audit_preserved": true,
+  "stand_raw_deleted": false,
+  "synthetic_stand_fixture_cleanup_verified": true,
+  "verified_duplicate_or_reconstructible_software_staging_removed": [
+    {
+      "path": "build/stage17-s180-analysis-phase-prep/first-tests.txt",
+      "sha256": "d05cbefc11e37fdf4682f04b37a3a759f977f6e42f5c8b5c63aca9d6e351df24",
+      "size_bytes": 15671
+    },
+    {
+      "path": "build/stage17-s180-analysis-phase-prep/second-tests.txt",
+      "sha256": "2036d3d32841470b5416ac4fdd4c338478556fc15ae62885200f922909c52abd",
+      "size_bytes": 112
+    },
+    {
+      "path": "build/stage17-s180-analysis-phase-prep/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "build/stage17-s180-analysis-phase-prep/registered.txt",
+      "sha256": "86261656a96b2dfc7a7aa466e163bab921ab6e6a94bc415ff6a4a2f5fb914a19",
+      "size_bytes": 1299
+    },
+    {
+      "path": "build/stage17-s180-analysis-phase-prep/contract-checks.txt",
+      "sha256": "e1e0cd197ef7b60d12811312b636d19e5244077051c2974c6bea4f7b4c948f07",
+      "size_bytes": 5881
+    },
+    {
+      "path": "build/stage17-s180-analysis-phase-prep/final-debug.txt",
+      "sha256": "54268a0c1852aa23d6be2504d727796345174e65c800352d1f557801d08a1e30",
+      "size_bytes": 147
+    },
+    {
+      "path": "build/stage17-s180-analysis-phase-prep/prospective-budget.json",
+      "sha256": "971bf2513caa1a8554038d551370e48478afa98ce18f559221564af9d756602f",
+      "size_bytes": 3238
+    },
+    {
+      "path": "build/stage17-s180-analysis-phase-prep/stand-idle-check.json",
+      "sha256": "876114ab4796c3eac31b2a7ca1eb7f0c3de8f449bf928cd8a2234b70dd0faf4e",
+      "size_bytes": 972
+    },
+    {
+      "path": "build/stage17-s180-join-timing-prep/benchmark.py",
+      "sha256": "7c307bb99f43cd2ab542ce9b65fadd186983c18fa10693e111f9168649acf6e2",
+      "size_bytes": 5791
+    },
+    {
+      "path": "build/stage17-s180-join-timing-prep/concurrency.py",
+      "sha256": "bdb96a4714751016b0f0317d4a9b355fc2954e26ab810c4cb854f9b71015d205",
+      "size_bytes": 4854
+    },
+    {
+      "path": "build/stage17-s180-join-timing-prep/closure.json",
+      "sha256": "a89a347200e3d20863acea9ddd6fa1b0844362a762249177d503eeae0e13e8f2",
+      "size_bytes": 32389
+    },
+    {
+      "path": "build/stage17-s180-join-timing-prep/stand-timing.json",
+      "sha256": "83494ccaf4e91784be4900a169a19030424b52360d3d23160904a942906a7f71",
+      "size_bytes": 2473
+    },
+    {
+      "path": "build/stage17-s180-join-timing-prep/stand-timing.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-join-timing-prep/stand-concurrency.json",
+      "sha256": "2c4b3f7bd051cbcbd1927388b770258b7af23fc7f8c0733bac52e1abc2804289",
+      "size_bytes": 9492
+    },
+    {
+      "path": "build/stage17-s180-join-timing-prep/stand-concurrency.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-join-timing-prep/transport.py",
+      "sha256": "237dba81e3b0578df69d84dab0ba3e2ba63708304430ed7c7de6c0a6949987ce",
+      "size_bytes": 851509
+    },
+    {
+      "path": "build/stage17-s180-join-timing-prep/concurrency-transport.py",
+      "sha256": "9c01956a7bd0bc7a8f8135f772f83dd36ee109667d285fbe26c3bc11e91e6043",
+      "size_bytes": 854536
+    }
+  ]
+}

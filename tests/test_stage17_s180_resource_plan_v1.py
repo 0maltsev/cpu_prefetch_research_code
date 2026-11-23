@@ -119,6 +119,12 @@ class ResourceTests(unittest.TestCase):
         self.assertGreater(result['conservative_total_bytes'],64*1024**3)
         self.assertLessEqual(result['native_minimum_plus_cold_heap_bytes'],64*1024**3)
         self.assertFalse(result['whole_process_tree_limits_verified'])
+        self.assertEqual(result['schema_version'],'cpu-prefetch-stage17-s180-requested-process-envelope/2')
+        self.assertEqual(result['stage_total_bytes']['analysis'],196*resource_plan.GIB)
+        self.assertEqual(result['analysis_worker_count'],12)
+        self.assertTrue(result['analysis_requires_owned_quiescence'])
+        self.assertTrue(result['in_process_decode_limit_readback_required'])
+        self.assertEqual(result['conservative_total_bytes'],max(result['stage_total_bytes'].values()))
 
     def test_budget_caps_fit_one_day_but_do_not_assert_measured_eta(self):
         result=resource_plan.time_envelope(self.bounded,self.final_report)

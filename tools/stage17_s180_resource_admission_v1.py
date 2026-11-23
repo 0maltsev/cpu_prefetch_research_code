@@ -30,7 +30,7 @@ import stage17_s180_resource_plan_v1 as prospective
 import stage17_s180_verified_sources_v1 as sources
 import stage17_s180_admission_custody_v1 as admission_custody
 
-SCHEMA='cpu-prefetch-stage17-s180-live-resource-evidence/2'
+SCHEMA='cpu-prefetch-stage17-s180-live-resource-evidence/3'
 NATIVE_SHA='7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc'
 NATIVE_SIZE=6151832
 GIB=1024**3
@@ -123,7 +123,7 @@ def capacity_plan(plan,envelope,limits,*,workspace_committed_bytes,scratch_commi
         plan['budget']['entry_metadata_bytes'],16*limits.max_record_bytes)
     files=records+180*(8+6)+16+analysis['required_inodes']
     peak=envelope['maximum_capture_workspace_bytes']
-    scratch=archive.checked_sum(4*peak,17*GIB,scratch_committed_bytes)
+    scratch=archive.checked_sum(prospective.ANALYSIS_WORKERS*peak,17*GIB,scratch_committed_bytes)
     retained_output=archive.checked_sum(plan['budget']['final_metadata_bytes'],
         analysis['workspace_bytes_upper'],workspace_committed_bytes)
     space=custody.SpacePlan(peak,retained_output,peak,

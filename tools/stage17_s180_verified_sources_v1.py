@@ -135,6 +135,7 @@ class _VerifiedSources:
         self._pid = os.getpid()
         self._boot = Path("/proc/sys/kernel/random/boot_id").read_text().strip()
         self._closed = False
+        self._release_complete = False
 
     def _check(self, plan_sha256):
         require(not self._closed and os.getpid() == self._pid, "source owner is closed or belongs to another process")
@@ -178,6 +179,23 @@ class _VerifiedSources:
     def _close(self):
         self._closed = True
         _release(self._identity.items())
+        self._release_complete = True
+
+    def released_proof(self, *, plan_sha256):
+        """Owned same-process release, never a serialized source success claim."""
+        require(self._closed and self._release_complete and self._pid==os.getpid(),
+            'complete owned source release required')
+        require(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==self._boot,
+            'released sources belong to another boot')
+        require(archive.parse_json(self._report)['plan_sha256']==plan_sha256,'released source plan differs')
+        originals={(v[0],v[1]) for v in self._identity.values()}
+        for path in Path('/proc/self/fd').iterdir():
+            try:s=os.fstat(int(path.name))
+            except OSError:continue
+            require((s.st_dev,s.st_ino) not in originals,'released source still has a descriptor alias')
+        return dict(plan_sha256=plan_sha256,owner_pid=self._pid,boot_id=self._boot,
+            source_count=36,generation_report_sha256=hashlib.sha256(self._report).hexdigest(),
+            all_owned_source_descriptors_released=True,execution_authority=False)
 
 
 @contextlib.contextmanager

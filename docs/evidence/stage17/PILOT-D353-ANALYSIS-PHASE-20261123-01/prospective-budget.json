@@ -1,0 +1,85 @@
+{
+  "actual_resource_admission": false,
+  "complete_offered_row_ceiling": 1804216800,
+  "execution_authority": false,
+  "fixed_analysis_cap_ns": 5400000000000,
+  "four_worker_idealized_join_only_projection_ns": 8878216097730,
+  "hypothetical_other_workspace_and_scratch_commitments_bytes": 0,
+  "not_an_actual_census": true,
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "phase_row_ceilings": {
+    "MEASUREMENT": 300702840,
+    "WARMUP": 1503513960
+  },
+  "process_envelope": {
+    "allocator_rss_certified": false,
+    "analysis_requires_owned_quiescence": true,
+    "analysis_worker_count": 12,
+    "conservative_total_bytes": 210453397504,
+    "execution_authority": false,
+    "in_process_decode_limit_readback_required": true,
+    "memory_lock_limits_verified": false,
+    "memory_lock_requested_bytes": 68719476736,
+    "native_minimum_plus_cold_heap_bytes": 18061586771,
+    "native_resource_minima": {
+      "complete_external_resources_included": false,
+      "declared_native_output_bytes": 582167294860,
+      "minimum_native_memory_bytes": 11475047251,
+      "minimum_source_vector_limit_bytes": 1496831712,
+      "native_and_archive_process_count_upper": 4501,
+      "native_family_watchdog_ns": 47281000000000,
+      "peak_private_mapping_bytes": 4651937792,
+      "retained_source_vector_bytes": 1443373440,
+      "sealed_source_bytes_not_in_native_vector_minimum": 1443373440,
+      "shared_mapping_bytes": 376791040,
+      "whole_operational_eta_verified": false
+    },
+    "phase18_authority": false,
+    "requested_address_or_page_caps_bytes": {
+      "archive_broker": 2147483648,
+      "archive_codec": 2147483648,
+      "independent_decode_children": 0,
+      "independent_validation_children": 206158430208,
+      "native": 68719476736,
+      "parent": 4294967296,
+      "sealed_source_pages": 1443471360,
+      "source_generation_or_verification_child": 8589934592
+    },
+    "resource_admission_performed": false,
+    "schema_version": "cpu-prefetch-stage17-s180-requested-process-envelope/2",
+    "sizing_plan_sha256": "2f33f33a070be20f2c6a00f86a51f52c1912bb4393113178a95431b247e1cc86",
+    "stage_caps_bytes": {
+      "analysis": {
+        "independent_validation_children": 206158430208,
+        "parent": 4294967296
+      },
+      "collection": {
+        "archive_broker": 2147483648,
+        "archive_codec": 2147483648,
+        "native": 68719476736,
+        "parent": 4294967296,
+        "sealed_source_pages": 1443471360,
+        "source_generation_or_verification_child": 8589934592
+      }
+    },
+    "stage_total_bytes": {
+      "analysis": 210453397504,
+      "collection": 87342817280
+    },
+    "whole_process_tree_limits_verified": false
+  },
+  "remaining_of_5400s_for_all_other_analysis_ns": 1070121017752,
+  "space_plan": {
+    "analysis_spool_bytes": 76036838756,
+    "archive_staging_bytes": 4836679680,
+    "canonical_capture_bytes": 4815268979,
+    "control_and_final_bytes": 433523737088,
+    "publication_staging_bytes": 4815268979,
+    "required_inodes": 29976,
+    "retained_metadata_bytes": 2464415744
+  },
+  "twelve_worker_join_projection_including_synthetic_generation_ns": 4329878982248,
+  "whole_pipeline_timing": false,
+  "whole_run_eta_verified": false
+}

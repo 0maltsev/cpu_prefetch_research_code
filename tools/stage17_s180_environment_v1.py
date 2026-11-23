@@ -145,6 +145,8 @@ class _PreparedEnvironment:
         self._compaction=None
         self._qualification_roles=[]
         self._qualification_failed=False
+        self._restoration_result=None
+        self._analysis_phase_consumed=False
 
     def __enter__(self):
         require(not self._closed,'environment already closed');return self
@@ -156,6 +158,23 @@ class _PreparedEnvironment:
             require(not result['errors'] and all(result[k] is True for k in
                 ('hardware_restoration_verified','cpu_isolation_restoration_verified','maintenance_restoration_verified')),
                 'unstarted/aborted environment restoration failed')
+
+    def restored_proof(self,*,plan_sha256):
+        """Owned completed restoration, with fresh partition/affinity readback."""
+        require(self._pid==os.getpid() and self._closed and self._restoration_result is not None,
+            'same-process completed environment restoration required')
+        require(planning.sha(archive.parse_json(self._plan))==plan_sha256,'restored environment plan differs')
+        result=archive.parse_json(self._restoration_result)
+        require(not result['errors'] and all(result[k] is True for k in
+            ('hardware_restoration_verified','cpu_isolation_restoration_verified',
+             'maintenance_restoration_verified','compaction_restoration_verified')),
+            'successful owned environment restoration required')
+        window=archive.parse_json(self._window)
+        require(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==window['boot_id'],
+            'restored environment belongs to another boot')
+        require(not CG.exists() and not CG.is_symlink(),'native reserved partition remains')
+        require(set(os.sched_getaffinity(0))==set(self._affinity),'restored controller affinity changed')
+        return result
 
     def _guard(self,plan_sha256,*,cleanup=False):
         require(not self._closed and self._pid==os.getpid(),'environment is closed or belongs to another process')
@@ -337,11 +356,13 @@ class _PreparedEnvironment:
                 compaction_restoration_verified=compaction,
                 scientific_validity='NOT_ASSESSED',execution_authority=False,phase18_authority=False))
         finally:self._closed=True
-        return dict(schema_version='cpu-prefetch-stage17-s180-environment-restoration/2',
+        result=dict(schema_version='cpu-prefetch-stage17-s180-environment-restoration/2',
             plan_sha256=planning.sha(plan),boot_id=window['boot_id'],
             hardware_restoration_verified=len(hardware)==3 and all(r['verified'] for r in hardware),
             cpu_isolation_restoration_verified=isolation,maintenance_restoration_verified=maintenance,
             compaction_restoration_verified=compaction,errors=errors)
+        self._restoration_result=archive.canonical(result)
+        return result
 
 
 def prepare_environment(*,plan,window,operator_config):

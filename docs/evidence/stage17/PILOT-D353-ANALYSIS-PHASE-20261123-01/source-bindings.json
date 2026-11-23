@@ -1,0 +1,68 @@
+{
+  "benchmark_closure_clean_revision": "6d2969bab1a47c51b827270157463e5f261c5f04",
+  "benchmark_closure_git_blobs_verified": 179,
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "f61de184d3ea6bcc71437013447f4446b35e2fc849ef5e01661ed5e54af27a9c",
+      "size_bytes": 203161
+    },
+    {
+      "path": "tools/stage17_s180_analysis_phase_v1.py",
+      "sha256": "6d748ba385050d8731b6e5b941aef0b1682c7c9512f1e145107639a2934fbeb6",
+      "size_bytes": 7484
+    },
+    {
+      "path": "tests/test_stage17_s180_analysis_phase_v1.py",
+      "sha256": "484d476d0c5db94fa4c55e3d4058efb317c43c2478534da181ab87ce658169ef",
+      "size_bytes": 8739
+    },
+    {
+      "path": "tools/stage17_s180_environment_v1.py",
+      "sha256": "f3b5c9f786b81f7d599ae87837194f9c8574bdb0af9ab00645a7ec340af08610",
+      "size_bytes": 25190
+    },
+    {
+      "path": "tools/stage17_s180_verified_sources_v1.py",
+      "sha256": "b9740903d956326b59db61a763b9fd08ccee0473ba93fd9f11ca1d7dd09ee233",
+      "size_bytes": 11936
+    },
+    {
+      "path": "tools/stage17_s180_resource_plan_v1.py",
+      "sha256": "427871cf3708f419555df68ca8ff2421acc5a5fc15e2009930c3fb579023f132",
+      "size_bytes": 20189
+    },
+    {
+      "path": "tools/stage17_s180_resource_admission_v1.py",
+      "sha256": "f0c00a3a71c73e1017defbba96c1112c6330c9ed97c92e94f8a668209df6f0c4",
+      "size_bytes": 22533
+    },
+    {
+      "path": "tests/test_stage17_s180_resource_plan_v1.py",
+      "sha256": "314fe5fce7743dc0c03650c31dcbd9ce48b1ca3d591f6781b45882f124f8a72f",
+      "size_bytes": 8819
+    },
+    {
+      "path": "tests/test_stage17_s180_verified_sources_v1.py",
+      "sha256": "ff6819cd9222e0c4292c2d873ddf5069651e8efc0a2cc27d73df733c75e8938d",
+      "size_bytes": 18409
+    },
+    {
+      "path": "tools/stage17_s180_raw_join_v1.py",
+      "sha256": "4afb09b46b722d9eb11b92c774d0343e3ddb7699cbbcdfbc8862a21dbc2e4f61",
+      "size_bytes": 11647
+    },
+    {
+      "path": "docs/decisions/0353-s180-post-restoration-analysis-resource-phase.md",
+      "sha256": "61e71287f9bca57381ec44e60a64a32a053da165d612ee721390668c472d9e2d",
+      "size_bytes": 6000
+    }
+  ],
+  "frozen_native": {
+    "path": "build/stage17-s180-release-34247ce/cpu_prefetch_runner",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832
+  },
+  "recorded_at_utc": "2026-11-23T17:51:02.297502+00:00"
+}

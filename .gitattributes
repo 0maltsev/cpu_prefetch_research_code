@@ -7,3 +7,6 @@ docs/evidence/stage17/PILOT-D334-COMPACTION-INTEGRATION-20261123-01/integrated-l
 # Preserve original diagnostic tool output, including its trailing spaces.
 docs/evidence/stage17/PILOT-D335-CLOCK-QUALIFICATION-20261123-01/asan-fixture.txt whitespace=-blank-at-eol
 docs/evidence/stage17/PILOT-D335-CLOCK-QUALIFICATION-20261123-01/repository-checks.txt whitespace=-blank-at-eol
+# Preserve the two original D337 diagnostic transcripts' trailing spaces.
+docs/evidence/stage17/PILOT-D337-Q15-SESSION-20261123-01/initial-build-failure.txt whitespace=-blank-at-eol
+docs/evidence/stage17/PILOT-D337-Q15-SESSION-20261123-01/initial-sanitizer-harness-failure.txt whitespace=-blank-at-eol

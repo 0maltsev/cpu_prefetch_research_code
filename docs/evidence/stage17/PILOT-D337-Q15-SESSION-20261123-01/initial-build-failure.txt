@@ -1,0 +1,14 @@
+[1/4] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/4] Linking CXX static library libcpu_prefetch_foundation.a
+[3/4] Building CXX object CMakeFiles/cpu_prefetch_s180_q15_fixture.dir/tests/stage17_s180_q15_fixture.cpp.o
+FAILED: [code=1] CMakeFiles/cpu_prefetch_s180_q15_fixture.dir/tests/stage17_s180_q15_fixture.cpp.o 
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/g++  -I/home/omaltsev/research/cpu_prefetch_research_code/include -I/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/generated/include -g -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wformat=2 -Wundef -Werror -MD -MT CMakeFiles/cpu_prefetch_s180_q15_fixture.dir/tests/stage17_s180_q15_fixture.cpp.o -MF CMakeFiles/cpu_prefetch_s180_q15_fixture.dir/tests/stage17_s180_q15_fixture.cpp.o.d -o CMakeFiles/cpu_prefetch_s180_q15_fixture.dir/tests/stage17_s180_q15_fixture.cpp.o -c /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_q15_fixture.cpp
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_q15_fixture.cpp: In function ‘int main(int, char**)’:
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_q15_fixture.cpp:105:7: error: this ‘if’ clause does not guard... [-Werror=misleading-indentation]
+  105 |       if(i>500)return 92;static_cast<void>(::usleep(10000));
+      |       ^~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_q15_fixture.cpp:105:26: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  105 |       if(i>500)return 92;static_cast<void>(::usleep(10000));
+      |                          ^~~~~~~~~~~
+cc1plus: all warnings being treated as errors
+ninja: build stopped: subcommand failed.

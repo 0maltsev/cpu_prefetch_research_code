@@ -29,6 +29,7 @@ UNIT='cpu-prefetch-s180-operator-1.service'
 RECOVERY_SCRIPT=Path('/run/cpu-prefetch-s180-operator-1/stop_post.py')
 PYTHON=Path('/usr/bin/python3.14')
 NATIVE_SHA='7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc'
+NATIVE_SIZE=6151832
 CLOCK_SHA='cb6422db0be2c3ff3b20897bc58ff4b892ba04e34e9f16f93a8b6d5a04caad69'
 CLOCK_SIZE=478632
 OWNER_LIMIT=16*1024**2
@@ -208,7 +209,7 @@ class _OwnedCompaction:
         require(_membership(worker.pid)=='/'+environment.UNIT+'/reserved','worker not in original reserved partition')
         fd=os.open(f'/proc/{worker.pid}/exe',os.O_RDONLY|os.O_CLOEXEC)
         try:
-            require(os.fstat(fd).st_size==(CLOCK_SIZE if role in ('near','far') else 6151832),'worker image extent differs')
+            require(os.fstat(fd).st_size==(CLOCK_SIZE if role in ('near','far') else NATIVE_SIZE),'worker image extent differs')
             digest=hashlib.sha256()
             while block:=os.read(fd,1024**2):
                 require(time.monotonic_ns()<self.guard.deadline_ns,'worker registration deadline expired')
@@ -324,7 +325,7 @@ def _recover(owner,raw,*,deadline):
                 expected=CLOCK_SHA if rows[0]['role'] in ('near','far') else NATIVE_SHA
                 require(rows[0]['sha256']==expected,'worker witness image differs')
                 with open(f'/proc/{pid}/exe','rb') as stream:
-                    require(os.fstat(stream.fileno()).st_size==(CLOCK_SIZE if rows[0]['role'] in ('near','far') else 6151832),
+                    require(os.fstat(stream.fileno()).st_size==(CLOCK_SIZE if rows[0]['role'] in ('near','far') else NATIVE_SIZE),
                         'live worker image extent differs')
                     digest=hashlib.file_digest(stream,'sha256').hexdigest()
                 require(digest==expected,'live worker executable differs')

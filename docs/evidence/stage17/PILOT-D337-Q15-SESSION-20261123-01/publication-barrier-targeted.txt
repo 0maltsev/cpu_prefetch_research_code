@@ -1,0 +1,7 @@
+test_existing_incomplete_ready_file_waits_for_actual_pipe_barrier (__main__.SessionTests.test_existing_incomplete_ready_file_waits_for_actual_pipe_barrier) ... ok
+test_one_native_buffer_separate_signed_write_and_verified_restoration (__main__.SessionTests.test_one_native_buffer_separate_signed_write_and_verified_restoration) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 17.628s
+
+OK

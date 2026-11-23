@@ -53,8 +53,8 @@ class ResourceTests(unittest.TestCase):
         self.custody=gate.custody.CustodyLimits(131072,500000,500000,2*1024**2,time.monotonic_ns()+120*10**9)
         self.observed=dict(base_page_bytes=4096,memory_available_bytes=256*gate.GIB,memory_ancestors=[],
             rlimit_as=[4*gate.GIB,-1],rlimit_memlock=[8388608,64*gate.GIB],rlimit_nofile=[1024,1024],highest_observed_fd=100)
-        self.unrelated=dict(reserved_bytes=compaction.METADATA_RESERVE_BYTES,
-            reserved_inodes=compaction.METADATA_RESERVE_INODES,declaration_sha256='d'*64)
+        self.unrelated=dict(reserved_bytes=compaction.METADATA_RESERVE_BYTES+4*1024**2,
+            reserved_inodes=compaction.METADATA_RESERVE_INODES+40,declaration_sha256='d'*64)
 
     def assess(self,observed=None):
         gate.assess_platform(self.observed if observed is None else observed,process_envelope=self.process,native_limits=self.limits)
@@ -230,6 +230,11 @@ class ResourceTests(unittest.TestCase):
         observed['memory_available_bytes']=256*gate.GIB
         with self.assertRaisesRegex(gate.ResourceError,'no automatic retry'):
             owner('S17-EXT-009',payload,view,for_execution=True)
+
+    def test_q15_external_metadata_cannot_be_omitted_from_admission(self):
+        self.unrelated.update(reserved_bytes=compaction.METADATA_RESERVE_BYTES,
+            reserved_inodes=compaction.METADATA_RESERVE_INODES)
+        with self.assertRaisesRegex(gate.ResourceError,'recovery/Q15 metadata'):self.live_fixture()
 
     def test_foreign_evidence_and_prior_binding_cannot_admit_or_supply_historical_context(self):
         owner,payload,view,_,_,_=self.live_fixture()

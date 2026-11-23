@@ -1,0 +1,2 @@
+[1/1] Checking imported protocol integrity and schemas
+protocol-check: PASS (3 snapshots, 54 artifacts, 12 authoritative hashes, 21 imported and 451 implementation Draft 2020-12 schemas)

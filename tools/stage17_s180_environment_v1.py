@@ -143,6 +143,8 @@ class _PreparedEnvironment:
         self._command_state=command_state
         self._placement_fd=None
         self._compaction=None
+        self._qualification_roles=[]
+        self._qualification_failed=False
 
     def __enter__(self):
         require(not self._closed,'environment already closed');return self
@@ -159,6 +161,7 @@ class _PreparedEnvironment:
         require(not self._closed and self._pid==os.getpid(),'environment is closed or belongs to another process')
         plan=archive.parse_json(self._plan);window=archive.parse_json(self._window)
         require(planning.sha(plan)==plan_sha256,'environment belongs to another plan')
+        require(cleanup or not self._qualification_failed,'qualification failed; restoration only')
         if not cleanup and self._compaction is not None:
             self.compaction_guard().check(boundary='ADMISSION')
         _window(window,cleanup=cleanup);return plan,window
@@ -197,6 +200,38 @@ class _PreparedEnvironment:
             partition_identity=pre['partition_identity'],hardware_readbacks=rows,isolation=observed,
             compaction=None if self._compaction is None else self.compaction_guard().check(boundary='ADMISSION'),
             native_placement_performed=False,execution_authority=False)
+
+    @contextlib.contextmanager
+    def qualification_entry(self,*,plan_sha256,role):
+        """Ordered, once-only placement for the qualified near/far/Q15 caller.
+
+        Entry consumption is not a qualification result. The qualified producer
+        still checks the actual child, raw outputs, cleanup and stage deadline.
+        """
+        self._guard(plan_sha256);self.compaction_guard().check(boundary='FAMILY_ENTRY')
+        require(not self._entry_used and self._placement_fd is None,'native placement is active or consumed')
+        roles=('near','far','q15')
+        require(len(self._qualification_roles)<len(roles)
+            and role==roles[len(self._qualification_roles)],'qualification order differs or role already consumed')
+        self._qualification_roles.append(role)
+        try:
+            pre=archive.parse_json(self._preparation)['prestate']
+            self._core.isolated_state()
+            require(self._core.identity(CG)==pre['partition_identity'] and self._core.read(CG/'cgroup.procs')=='',
+                'actual owned qualification partition is not empty')
+            fd=os.open(CG/'cgroup.procs',os.O_WRONLY|os.O_NOFOLLOW|os.O_CLOEXEC)
+            self._placement_fd=fd
+            try:
+                require(self._core.identity(CG)==pre['partition_identity'],'qualification partition changed while opening')
+                yield dict(descriptor=fd,relative_path='/'+UNIT+'/reserved',controller_cpu=2)
+                self._guard(plan_sha256)
+                require(self._core.identity(CG)==pre['partition_identity'] and self._core.read(CG/'cgroup.procs')=='',
+                    'qualification did not leave an empty owned partition')
+            finally:
+                if self._placement_fd==fd:os.close(fd);self._placement_fd=None
+        except BaseException:
+            self._qualification_failed=True
+            raise
 
     @contextlib.contextmanager
     def native_entry(self,*,plan_sha256):

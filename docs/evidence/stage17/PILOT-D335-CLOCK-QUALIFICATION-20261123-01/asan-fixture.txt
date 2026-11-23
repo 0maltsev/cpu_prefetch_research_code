@@ -1,0 +1,3 @@
+near 0  
+far 0  
+PASS: separate synthetic endpoint under GCC ASan/UBSan; no hardware or accepted qualification

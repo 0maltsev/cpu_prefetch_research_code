@@ -759,6 +759,8 @@ if(BUILD_TESTING)
   add_executable(cpu_prefetch_s180_launcher_fixture tests/stage17_s180_launcher_fixture.cpp)
   target_link_libraries(cpu_prefetch_s180_launcher_fixture PRIVATE
     cpu_prefetch::runner cpu_prefetch_project_options)
+  add_executable(cpu_prefetch_s180_clock_fixture tests/stage17_s180_clock_fixture.cpp)
+  target_link_libraries(cpu_prefetch_s180_clock_fixture PRIVATE cpu_prefetch_project_options)
 
   # Separate test-linked backend: production cpu_prefetch_runner has no CLI
   # switch, environment variable, plugin path, or linkage that can select it.
@@ -1866,6 +1868,11 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_compaction_v1.py")
   set_tests_properties(runner.s180_compaction_v1 PROPERTIES
     LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.s180_clock_qualification_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_clock_qualification_v1.py"
+      --endpoint "$<TARGET_FILE:cpu_prefetch_s180_clock_fixture>")
+  set_tests_properties(runner.s180_clock_qualification_v1 PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
   add_test(NAME runner.s180_archive_bundle_profile_v1
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_archive_bundle_profile_v1.py"
       --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>")
@@ -2598,6 +2605,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_channel_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_channel_fixture.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_launcher_fixture.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_s180_clock_fixture.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_input_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"
@@ -2805,6 +2813,7 @@ set(
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_channel_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_channel_fixture.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_launcher_fixture.cpp"
+  "${PROJECT_SOURCE_DIR}/tests/stage17_s180_clock_fixture.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_input_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_s180_session_test.cpp"
   "${PROJECT_SOURCE_DIR}/tests/stage17_discovery_action_test.cpp"

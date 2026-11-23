@@ -82,6 +82,34 @@ def _contract(contract):
     return c,pb,cb,jb
 
 
+def _rows(stream,row_bytes,run,words):
+    """Bounded blocks, full per-row identity/padding, original stream hashing."""
+    encoded=run.encode();prefix_bytes=row_bytes-words*8
+    expected=struct.pack('<I',len(encoded))+encoded+bytes(prefix_bytes-4-len(encoded))
+    decoder=struct.Struct('<'+'Q'*words)
+    remaining=stream.binding['row_count'];batch=max(1,65536//row_bytes)
+    while remaining:
+        count=min(remaining,batch);size=count*row_bytes;block=stream.read(size)
+        require(len(block)==size,'short primary block')
+        for offset in range(0,size,row_bytes):
+            require(block[offset:offset+prefix_bytes]==expected,'primary run_id prefix/padding drift')
+            yield decoder.unpack_from(block,offset+prefix_bytes)
+        remaining-=count
+
+
+def _clocks(words,offsets,origin):
+    """Exact conversion for words already decoded as unsigned64 by Struct.
+
+    An equal product fits uint64 because the stored relative word does. This
+    retains the old origin and overflow conditions without rechecking Python
+    integer types/bounds for every timestamp returned by the binary decoder.
+    """
+    for offset in offsets:
+        absolute=words[offset]
+        require(absolute>=origin and (absolute-origin)*1000==words[offset+1],
+            'clock-domain conversion mismatch/overflow or timestamp before origin')
+
+
 def _derive(root,c,order,payloads,schedule,candidate,deadline,pb,cb,jb):
     start=c['phase_origin_relative_picoseconds'];end=start+c['duration_ticks'];drain=c['drain_deadline_ticks']
     origin=c['clock_origin_absolute_nanoseconds'];source_origin=c['source_origin_ticks'];run=c['run_id']
@@ -101,6 +129,7 @@ def _derive(root,c,order,payloads,schedule,candidate,deadline,pb,cb,jb):
         fd=os.open(root,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW|os.O_CLOEXEC);stack.callback(os.close,fd)
         root_before=os.fstat(fd)
         streams={role:raw._open_stream(stack,fd,binding,role) for role,binding in bindings.items()}
+        producers=_rows(streams['producer'],pb,run,15);consumers=_rows(streams['consumer'],cb,run,10)
         identities={(s.before.st_dev,s.before.st_ino) for s in streams.values()}
         require(len(identities)==2 and (output_before.st_dev,output_before.st_ino) not in identities,'physical input/output alias')
         for logical,source_tick in enumerate(schedule):
@@ -108,22 +137,22 @@ def _derive(root,c,order,payloads,schedule,candidate,deadline,pb,cb,jb):
             due=start+source_tick-source_origin
             require(previous_due<=due<end and source_tick>=source_origin,'source schedule order/window differs')
             previous_due=due
-            p=codec._row(streams['producer'],pb,run,15,'producer')
+            p=next(producers)
             require(p[0]==logical and p[14] in (codec.ACCEPTED_FLAGS,codec.FULL_FLAGS),'producer sequence/flags differ')
             require(p[1]==order[logical%len(order)],'repeating record sequence differs')
             require(p[2]==due,'actual arrival differs from original source translation')
-            for off in (3,5,7,11):raw._clock_pair(p[off],p[off+1],origin,'producer')
+            _clocks(p,(3,5,7,11),origin)
             require(due<=p[4]<=p[6]<=p[8]<=p[12]<drain and previous_p<=p[4],'producer timestamp order/drain differs')
             previous_p=p[12]
             if p[14]==codec.FULL_FLAGS:
                 require(p[9]==p[10]==p[13]==0,'FULL contains accepted-only fields')
                 full+=1;continue
-            raw._clock_pair(p[9],p[10],origin,'publication')
+            _clocks(p,(9,),origin)
             require(p[13]==accepted and p[8]<=p[10]<=p[12],'accepted ordinal/publication bracket differs')
             require(accepted<bindings['consumer']['row_count'],'accepted event lacks consumer row')
-            q=codec._row(streams['consumer'],cb,run,10,'consumer')
+            q=next(consumers)
             require(q[0]==accepted and q[1]==p[1],'independent accepted-ordinal/record join differs')
-            for off in (2,4,6,8):raw._clock_pair(q[off],q[off+1],origin,'consumer')
+            _clocks(q,(2,4,6,8),origin)
             require(previous_c<=q[3]<=q[5]<=q[7]<=q[9]<drain and p[10]<=q[5],'consumer order/publication/drain differs')
             previous_c=q[9];checksum=mix(checksum,q[1],payloads[q[1]])
             joined=(accepted,p[0],p[1],logical,accepted,

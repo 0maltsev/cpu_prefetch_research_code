@@ -1,0 +1,54 @@
+{
+  "elapsed_seconds": 0.7701674380805343,
+  "existing_provisioned_candidates": [
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/verification-extract-1/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/unpack-d260-static-1/thin-archive/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-22/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-22/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-c962fd7-clean-aba9b921f5fc/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/daycap-native-archive-bundle-1/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-aa3285f-clean-d3967bde5f12/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-31/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-31/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30/software-initialization-721d018-1/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-721d018-clean-c1ca6a2d0380/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-486f7b7-clean-032782d74cfc/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-30/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-6993313-clean-7cca27a0177f/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-archive-inverse-overlay-1/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-archive-overlay-1/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/daycap-native-archive-bundle-1/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-native-archive-bundle-1/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-native-archive-bundle-2/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/archive-overhead-bench-1/candidate-2/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/archive-overhead-bench-1/candidate-1/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/q16b-native-archive-bundle-3/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-dd981b4-clean-d9e61e67bfa8/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-24/admission-root/release/runtime/lib/libzstd.so.1",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-24/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-e58b180-clean-710b86b43eb5/release/runtime/lib/libzstd.so.1"
+  ],
+  "metadata_files_scanned": 194669,
+  "system_candidates": [
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libzstd.so.1.5.7",
+      "version": 10507
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libzstd.so.1.5.7",
+      "version": 10507
+    }
+  ]
+}

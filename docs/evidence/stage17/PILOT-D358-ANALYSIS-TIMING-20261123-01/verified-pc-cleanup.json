@@ -1,0 +1,193 @@
+{
+  "removed": [
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/benchmark.py",
+      "sha256": "c800df90ee75136cb22d9583ab57e88a53ee2272723f33c6cfd937839eb4e5da",
+      "size_bytes": 9699
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/concurrency.py",
+      "sha256": "133b846807bb622bbf35c10adbc482d0bc13da6d9803d9d23cc11c84e1755f09",
+      "size_bytes": 4944
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/final-local.json",
+      "sha256": "4b46d4630e1224e193dcd6e47675f8f0ad92a0a85193f8a575d9f486787c1121",
+      "size_bytes": 1181
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/final-local.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/initial-local.json",
+      "sha256": "e81dd8c4d402dfbc12bcb8d58805f63b60eef5a953b436b00b9211d38be1b82c",
+      "size_bytes": 1173
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/initial-local.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/scaled-local.json",
+      "sha256": "19d9a35e3b8a584d9eece10be20ed65121001503602124034ef7251da2b9dd88",
+      "size_bytes": 1181
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/scaled-local.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "kind": "REGENERABLE_SOFTWARE_TRANSPORT_AFTER_ALL_MEMBER_HASHES_VERIFIED_ON_STAND",
+      "path": "build/stage17-s180-full-analysis-timing-prep/software-packet.tar",
+      "sha256": "3b55ee6ce8a42f7f0a48fb9fc42094e4e1bd03f7bd4a884c200e0c2d2b60288a",
+      "size_bytes": 9256960
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/source-closure.json",
+      "sha256": "31d1a54bf1047e4cebc2235e80696fb51ece972cf8339c51c9b746fcf905c76e",
+      "size_bytes": 151586
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-100k.json",
+      "sha256": "80c2d34bd448bc03ca7352c97ab6726b99818423e4da4ef8331451f44b13d4ca",
+      "size_bytes": 1187
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-100k.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-1m.json",
+      "sha256": "7ef64b13e8c6ae17c11761bdc944e4eba083a8775a6ee6bf01103c0cf952481d",
+      "size_bytes": 1192
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-1m.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-check-corrected.json",
+      "sha256": "4490d1b058a2801a5105a993e6e9fd256c2085cab46efa977a9be021dad4adf3",
+      "size_bytes": 1162
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-check-corrected.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-check.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-check.stderr.log",
+      "sha256": "0174ba73247933d974b327e78886c35406fb9a001d7d6266a75f44e93ef117eb",
+      "size_bytes": 1373
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-codec-locations.json",
+      "sha256": "574e4a8bb3d0988adae72bd220e8ae6a9ae2ff616e8a8c2b967299830f466f6e",
+      "size_bytes": 6315
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-concurrency.json",
+      "sha256": "c85758a62087be708013c5f12c5391c1866508c8eb85e8d3932225db21f47fde",
+      "size_bytes": 10447
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-concurrency.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-profile-run.json",
+      "sha256": "43abcc4f88364a546e2154010a196eecdd66036128ea56e1e3b52b6a8e06147f",
+      "size_bytes": 1180
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-profile-run.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-profile-summary.json",
+      "sha256": "870b296923d6e49a5c3fd983af85394b1ab22835f127e072846475f47bb032d5",
+      "size_bytes": 13793
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-full-analysis-timing-prep/stand-runtime-binding.json",
+      "sha256": "67a8bdf892fdb46d138706c671f33989ae4e9be322e4bf615fa3d39f7bf415b1",
+      "size_bytes": 878
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-join-optimization-prep/contract.log",
+      "sha256": "ad0bf80897c8f303cef1ec9fefd9ef18682c3af4eee76ad82a11ec89f7ac3ca0",
+      "size_bytes": 462
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-join-optimization-prep/final-both-roles-debug.log",
+      "sha256": "90d7f8cdc9c30dabbf7929bace08040cf605b617c8e5b948ca3285826a7b5587",
+      "size_bytes": 117
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-join-optimization-prep/final-debug.log",
+      "sha256": "7724ad2bf18e436061d2fa53e37f3cda2f78b2d008fb672f650c9aa757ccb9c4",
+      "size_bytes": 117
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-join-optimization-prep/initial-debug.log",
+      "sha256": "491591edf4400eceefb9dec79a6ab9d5501f4d5249d52f25d26d58d3581f3295",
+      "size_bytes": 117
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-join-optimization-prep/local-10k.json",
+      "sha256": "9d93eec13324803df9eab4fde5190fc1fbad9cfb93ed0b06294fd607385b663a",
+      "size_bytes": 706
+    },
+    {
+      "kind": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "path": "build/stage17-s180-join-optimization-prep/registered.log",
+      "sha256": "d0227059c8ae0fdae137b90a9f1f7491b2cb07ed9b8963274ed978e88395abe2",
+      "size_bytes": 1242
+    }
+  ],
+  "removed_bytes": 9467012,
+  "required_local_audit_preserved": true,
+  "stand_research_raw_deleted": false
+}

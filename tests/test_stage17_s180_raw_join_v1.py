@@ -4,6 +4,7 @@ import copy
 import hashlib
 import io
 import os
+import random
 from pathlib import Path
 import struct
 import tempfile
@@ -99,16 +100,51 @@ class JoinTests(unittest.TestCase):
         self.assertEqual(list(values),[7000])
 
     def test_same_byte_primary_mutation_during_read_fails_stamp_check(self):
-        original=join.codec._row;changed=False;path=self.root/'producer.bin'
-        def mutate(*args):
+        original=join.raw._HashedStream.read;changed=False;path=self.root/'producer.bin'
+        def mutate(stream,size):
             nonlocal changed
-            result=original(*args)
-            if not changed:
+            result=original(stream,size)
+            if stream.label=='producer' and not changed:
                 changed=True
                 with path.open('r+b',buffering=0) as stream:first=stream.read(1);stream.seek(0);stream.write(first)
             return result
         self.candidate()
-        with mock.patch.object(join.codec,'_row',side_effect=mutate):self.fails('changed during read')
+        with mock.patch.object(join.raw._HashedStream,'read',new=mutate):self.fails('changed during read')
+
+    def test_block_decoder_matches_original_decoder_across_boundaries_and_utf8_padding(self):
+        for words,run in ((w,r) for w in (15,10) for r in ('X','µ'*22,'X'*512)):
+            width=join.codec.row_layout(run)[1 if words==15 else 2];prefix=width-words*8;encoded=run.encode()
+            header=struct.pack('<I',len(encoded))+encoded+bytes(prefix-4-len(encoded))
+            count=2*(65536//width)+3
+            data=b''.join(header+struct.pack('<'+'Q'*words,i,*([join.U64-i]*(words-1))) for i in range(count))
+            original=io.BytesIO(data)
+            stream=io.BytesIO(data);stream.binding={'row_count':count}
+            actual=list(join._rows(stream,width,run,words))
+            expected=[join.codec._row(original,width,run,words,'independent original decoder') for _ in range(count)]
+            self.assertEqual(actual,expected);self.assertEqual(stream.tell(),len(data))
+            for offset in (len(data)-width,65536//width*width):
+                bad=bytearray(data);bad[offset]^=1;stream=io.BytesIO(bad);stream.binding={'row_count':count}
+                with self.assertRaises(join.JoinError):list(join._rows(stream,width,run,words))
+            stream=io.BytesIO(data[:-1]);stream.binding={'row_count':count}
+            with self.assertRaisesRegex(join.JoinError,'short primary block'):list(join._rows(stream,width,run,words))
+
+    def test_packed_clock_conversion_matches_original_checked_uint64_oracle(self):
+        rng=random.Random(348358);cases=[]
+        for origin in (0,1,join.U64//1000,join.U64):
+            for absolute in (0,origin,join.U64//1000,join.U64):
+                for relative in (0,1000,join.U64):cases.append((absolute,relative,origin))
+        for _ in range(2000):
+            origin=rng.randrange(join.U64+1)
+            delta=rng.randrange(min(join.U64//1000,join.U64-origin)+1);absolute=origin+delta;relative=delta*1000
+            cases.extend(((absolute,relative,origin),(absolute,relative+1,origin)))
+            cases.append((rng.randrange(join.U64+1),rng.randrange(join.U64+1),origin))
+        for absolute,relative,origin in cases:
+            if relative>join.U64:continue
+            try:join.raw._clock_pair(absolute,relative,origin,'original uint64 oracle');expected=True
+            except join.raw.DecodeError:expected=False
+            try:join._clocks((absolute,relative),(0,),origin);actual=True
+            except join.JoinError:actual=False
+            self.assertEqual(actual,expected,(absolute,relative,origin))
 
     def test_empty_and_all_full_remain_correct_separate_zero_loss_data(self):
         for full,count in (((),0),((0,1,2,3),4)):

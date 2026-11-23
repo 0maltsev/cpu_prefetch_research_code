@@ -1,0 +1,441 @@
+{
+  "primitive_calls": 30427657,
+  "top_cumulative": [
+    {
+      "cumulative_seconds": 19.680564367000002,
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.exec>",
+      "primitive_calls": 1,
+      "self_seconds": 0.076350052,
+      "total_calls": 566
+    },
+    {
+      "cumulative_seconds": 19.680554588,
+      "file": "benchmark.py",
+      "line": 1,
+      "name": "<module>",
+      "primitive_calls": 1,
+      "self_seconds": 0.005773833000000001,
+      "total_calls": 1
+    },
+    {
+      "cumulative_seconds": 18.520758386,
+      "file": "benchmark.py",
+      "line": 74,
+      "name": "run",
+      "primitive_calls": 1,
+      "self_seconds": 0.000139058,
+      "total_calls": 1
+    },
+    {
+      "cumulative_seconds": 11.627641270000002,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_s180_archive_analysis_v1.py",
+      "line": 58,
+      "name": "analyze_capture",
+      "primitive_calls": 1,
+      "self_seconds": 0.00036657700000000004,
+      "total_calls": 1
+    },
+    {
+      "cumulative_seconds": 9.536971626000001,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_s180_capture_validation_v1.py",
+      "line": 344,
+      "name": "validate_and_publish_capture",
+      "primitive_calls": 1,
+      "self_seconds": 0.0006506000000000001,
+      "total_calls": 1
+    },
+    {
+      "cumulative_seconds": 9.518069551,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_s180_capture_validation_v1.py",
+      "line": 284,
+      "name": "validate_capture",
+      "primitive_calls": 1,
+      "self_seconds": 0.0008184500000000001,
+      "total_calls": 1
+    },
+    {
+      "cumulative_seconds": 8.618720102000001,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_s180_capture_validation_v1.py",
+      "line": 240,
+      "name": "_phase",
+      "primitive_calls": 2,
+      "self_seconds": 0.000129822,
+      "total_calls": 2
+    },
+    {
+      "cumulative_seconds": 8.617735381000001,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_s180_raw_join_v1.py",
+      "line": 171,
+      "name": "derive_phase",
+      "primitive_calls": 2,
+      "self_seconds": 0.000548526,
+      "total_calls": 2
+    },
+    {
+      "cumulative_seconds": 8.616432141,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_s180_raw_join_v1.py",
+      "line": 85,
+      "name": "_derive",
+      "primitive_calls": 2,
+      "self_seconds": 2.441256645,
+      "total_calls": 2
+    },
+    {
+      "cumulative_seconds": 5.8453355600000005,
+      "file": "benchmark.py",
+      "line": 12,
+      "name": "scale",
+      "primitive_calls": 1,
+      "self_seconds": 1.326222368,
+      "total_calls": 1
+    },
+    {
+      "cumulative_seconds": 3.221851499,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tests/test_stage17_s180_archive_analysis_v1.py",
+      "line": 61,
+      "name": "make_inventory",
+      "primitive_calls": 2,
+      "self_seconds": 0.005911808,
+      "total_calls": 2
+    },
+    {
+      "cumulative_seconds": 2.998599139,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tests/test_stage17_formal_archive_v1.py",
+      "line": 92,
+      "name": "encode",
+      "primitive_calls": 16,
+      "self_seconds": 1.8206576700000001,
+      "total_calls": 16
+    },
+    {
+      "cumulative_seconds": 2.654306632,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_raw_stream_decoder_v1.py",
+      "line": 60,
+      "name": "_row",
+      "primitive_calls": 400002,
+      "self_seconds": 0.9460267870000001,
+      "total_calls": 400002
+    },
+    {
+      "cumulative_seconds": 2.287452849,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_raw_stream_decoder_v2.py",
+      "line": 48,
+      "name": "_clock_pair",
+      "primitive_calls": 1800004,
+      "self_seconds": 1.415944931,
+      "total_calls": 1800004
+    },
+    {
+      "cumulative_seconds": 2.1182175,
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.next>",
+      "primitive_calls": 8215,
+      "self_seconds": 0.002213491,
+      "total_calls": 8215
+    },
+    {
+      "cumulative_seconds": 2.081950665,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_formal_archive_custody_v1.py",
+      "line": 782,
+      "name": "capture_spool",
+      "primitive_calls": 2,
+      "self_seconds": 0.000411568,
+      "total_calls": 2
+    },
+    {
+      "cumulative_seconds": 2.077961551,
+      "file": "/usr/lib/python3.14/contextlib.py",
+      "line": 136,
+      "name": "__enter__",
+      "primitive_calls": 2,
+      "self_seconds": 2.6710000000000003e-06,
+      "total_calls": 2
+    },
+    {
+      "cumulative_seconds": 1.9432844610000002,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_formal_archive_v1.py",
+      "line": 401,
+      "name": "verify_archive",
+      "primitive_calls": 8,
+      "self_seconds": 0.001689528,
+      "total_calls": 8
+    },
+    {
+      "cumulative_seconds": 1.440526511,
+      "file": "~",
+      "line": 0,
+      "name": "<method 'update' of '_hashlib.HASH' objects>",
+      "primitive_calls": 1122706,
+      "self_seconds": 1.440526511,
+      "total_calls": 1122706
+    },
+    {
+      "cumulative_seconds": 1.3850131700000001,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_formal_archive_v1.py",
+      "line": 370,
+      "name": "inverse_columns",
+      "primitive_calls": 79,
+      "self_seconds": 1.377603986,
+      "total_calls": 79
+    },
+    {
+      "cumulative_seconds": 1.069439142,
+      "file": "<frozen importlib._bootstrap>",
+      "line": 1360,
+      "name": "_find_and_load",
+      "primitive_calls": 10,
+      "self_seconds": 0.002846677,
+      "total_calls": 497
+    },
+    {
+      "cumulative_seconds": 1.0690211280000002,
+      "file": "<frozen importlib._bootstrap>",
+      "line": 1308,
+      "name": "_find_and_load_unlocked",
+      "primitive_calls": 10,
+      "self_seconds": 0.001806995,
+      "total_calls": 496
+    },
+    {
+      "cumulative_seconds": 1.067418664,
+      "file": "<frozen importlib._bootstrap>",
+      "line": 914,
+      "name": "_load_unlocked",
+      "primitive_calls": 10,
+      "self_seconds": 0.001718749,
+      "total_calls": 477
+    },
+    {
+      "cumulative_seconds": 1.066911683,
+      "file": "<frozen importlib._bootstrap_external>",
+      "line": 753,
+      "name": "exec_module",
+      "primitive_calls": 8,
+      "self_seconds": 0.001236712,
+      "total_calls": 440
+    }
+  ],
+  "top_self": [
+    {
+      "cumulative_seconds": 8.616432141,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_s180_raw_join_v1.py",
+      "line": 85,
+      "name": "_derive",
+      "primitive_calls": 2,
+      "self_seconds": 2.441256645,
+      "total_calls": 2
+    },
+    {
+      "cumulative_seconds": 2.998599139,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tests/test_stage17_formal_archive_v1.py",
+      "line": 92,
+      "name": "encode",
+      "primitive_calls": 16,
+      "self_seconds": 1.8206576700000001,
+      "total_calls": 16
+    },
+    {
+      "cumulative_seconds": 1.440526511,
+      "file": "~",
+      "line": 0,
+      "name": "<method 'update' of '_hashlib.HASH' objects>",
+      "primitive_calls": 1122706,
+      "self_seconds": 1.440526511,
+      "total_calls": 1122706
+    },
+    {
+      "cumulative_seconds": 2.287452849,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_raw_stream_decoder_v2.py",
+      "line": 48,
+      "name": "_clock_pair",
+      "primitive_calls": 1800004,
+      "self_seconds": 1.415944931,
+      "total_calls": 1800004
+    },
+    {
+      "cumulative_seconds": 1.3850131700000001,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_formal_archive_v1.py",
+      "line": 370,
+      "name": "inverse_columns",
+      "primitive_calls": 79,
+      "self_seconds": 1.377603986,
+      "total_calls": 79
+    },
+    {
+      "cumulative_seconds": 5.8453355600000005,
+      "file": "benchmark.py",
+      "line": 12,
+      "name": "scale",
+      "primitive_calls": 1,
+      "self_seconds": 1.326222368,
+      "total_calls": 1
+    },
+    {
+      "cumulative_seconds": 2.654306632,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_raw_stream_decoder_v1.py",
+      "line": 60,
+      "name": "_row",
+      "primitive_calls": 400002,
+      "self_seconds": 0.9460267870000001,
+      "total_calls": 400002
+    },
+    {
+      "cumulative_seconds": 0.907995159,
+      "file": "~",
+      "line": 0,
+      "name": "<method 'append' of 'list' objects>",
+      "primitive_calls": 7725506,
+      "self_seconds": 0.907995159,
+      "total_calls": 7725506
+    },
+    {
+      "cumulative_seconds": 0.871525604,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_raw_stream_decoder_v2.py",
+      "line": 42,
+      "name": "_uint",
+      "primitive_calls": 3600052,
+      "self_seconds": 0.871525604,
+      "total_calls": 3600052
+    },
+    {
+      "cumulative_seconds": 0.779144542,
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.compile>",
+      "primitive_calls": 374,
+      "self_seconds": 0.779144542,
+      "total_calls": 374
+    },
+    {
+      "cumulative_seconds": 0.460186083,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_discovery_validation_v3.py",
+      "line": 289,
+      "name": "mix",
+      "primitive_calls": 400022,
+      "self_seconds": 0.460186083,
+      "total_calls": 400022
+    },
+    {
+      "cumulative_seconds": 0.44208424100000004,
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method _hashlib.openssl_sha256>",
+      "primitive_calls": 1265,
+      "self_seconds": 0.44208424100000004,
+      "total_calls": 1265
+    },
+    {
+      "cumulative_seconds": 0.413071024,
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method _struct.pack>",
+      "primitive_calls": 739879,
+      "self_seconds": 0.413071024,
+      "total_calls": 739879
+    },
+    {
+      "cumulative_seconds": 0.367859941,
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method posix.fsync>",
+      "primitive_calls": 48,
+      "self_seconds": 0.367859941,
+      "total_calls": 48
+    },
+    {
+      "cumulative_seconds": 0.365248169,
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.len>",
+      "primitive_calls": 3054192,
+      "self_seconds": 0.36486659600000004,
+      "total_calls": 3055496
+    },
+    {
+      "cumulative_seconds": 0.327560742,
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method _struct.unpack_from>",
+      "primitive_calls": 800004,
+      "self_seconds": 0.327560742,
+      "total_calls": 800004
+    },
+    {
+      "cumulative_seconds": 0.815431982,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_raw_stream_decoder_v2.py",
+      "line": 110,
+      "name": "read",
+      "primitive_calls": 400552,
+      "self_seconds": 0.32235734400000005,
+      "total_calls": 400552
+    },
+    {
+      "cumulative_seconds": 0.284228659,
+      "file": "benchmark.py",
+      "line": 36,
+      "name": "clock",
+      "primitive_calls": 1800000,
+      "self_seconds": 0.284228659,
+      "total_calls": 1800000
+    },
+    {
+      "cumulative_seconds": 1.066341006,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_raw_stream_decoder_v1.py",
+      "line": 53,
+      "name": "_read_exact",
+      "primitive_calls": 400541,
+      "self_seconds": 0.213712857,
+      "total_calls": 400541
+    },
+    {
+      "cumulative_seconds": 0.21312623700000002,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_s180_raw_join_v1.py",
+      "line": 41,
+      "name": "require",
+      "primitive_calls": 2202878,
+      "self_seconds": 0.21312623700000002,
+      "total_calls": 2202878
+    },
+    {
+      "cumulative_seconds": 0.571868612,
+      "file": "/home/omaltsev/stage17-owner-evidence/s180-software-capture-timing-764c45a-1/tools/stage17_discovery_validation_v3.py",
+      "line": 162,
+      "name": "value",
+      "primitive_calls": 1,
+      "self_seconds": 0.20509327600000002,
+      "total_calls": 21762
+    },
+    {
+      "cumulative_seconds": 0.154048087,
+      "file": "~",
+      "line": 0,
+      "name": "<method 'read' of '_io.BufferedReader' objects>",
+      "primitive_calls": 401483,
+      "self_seconds": 0.154048087,
+      "total_calls": 401483
+    },
+    {
+      "cumulative_seconds": 0.284660638,
+      "file": "/usr/lib/python3.14/ast.py",
+      "line": 280,
+      "name": "iter_child_nodes",
+      "primitive_calls": 251026,
+      "self_seconds": 0.144862199,
+      "total_calls": 251026
+    },
+    {
+      "cumulative_seconds": 0.11912844900000001,
+      "file": "~",
+      "line": 0,
+      "name": "<method 'write' of '_io.BufferedWriter' objects>",
+      "primitive_calls": 400064,
+      "self_seconds": 0.11912844900000001,
+      "total_calls": 400064
+    }
+  ],
+  "total_calls": 30522826,
+  "total_seconds": 19.668468466000018
+}

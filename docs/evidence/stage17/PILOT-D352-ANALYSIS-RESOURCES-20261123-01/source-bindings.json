@@ -1,0 +1,46 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "tools/stage17_s180_resource_plan_v1.py",
+      "sha256": "992c0850e2e54fca6fa1892d9d59a35598b4780185c1fe7017bacabe6b7b6f32",
+      "size_bytes": 19365
+    },
+    {
+      "path": "tools/stage17_s180_resource_admission_v1.py",
+      "sha256": "ceac09e5ad318466823094940574790d4b9ed25e7a423feb64ed5f94e9bf5e90",
+      "size_bytes": 22506
+    },
+    {
+      "path": "tests/test_stage17_s180_resource_admission_v1.py",
+      "sha256": "c907d09cb6b7147a81ec477d96bdd4a7c93f2cba42c7a00aac77ffcf99e74869",
+      "size_bytes": 22968
+    },
+    {
+      "path": "tools/stage17_formal_archive_custody_v1.py",
+      "sha256": "a71a3784a73adffb462802a3ca1c5d8b2f6aa0b1f805d1c55b5dcb50714435ed",
+      "size_bytes": 47023
+    },
+    {
+      "path": "tools/stage17_raw_stream_decoder_v1.py",
+      "sha256": "6a393bbd7c6721f715cd7b23c5a5c59368365ad3e77d950f2337d52089bfcab3",
+      "size_bytes": 15706
+    },
+    {
+      "path": "tools/stage17_s180_capture_validation_v1.py",
+      "sha256": "cfd9c0dc75b673c85fd3ce999e0f1db83af2d2055c90d1c46cd1e4304b42b1b7",
+      "size_bytes": 33107
+    },
+    {
+      "path": "docs/decisions/0352-s180-retained-analysis-resource-accounting.md",
+      "sha256": "ff7048a9b4eaf725a549468e9cba7a0a7cf182231fe4f6dc4bf10e2550328bb8",
+      "size_bytes": 3844
+    }
+  ],
+  "frozen_native": {
+    "path": "build/stage17-s180-release-34247ce/cpu_prefetch_runner",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832
+  },
+  "recorded_at_utc": "2026-11-23T17:29:11.850034+00:00"
+}

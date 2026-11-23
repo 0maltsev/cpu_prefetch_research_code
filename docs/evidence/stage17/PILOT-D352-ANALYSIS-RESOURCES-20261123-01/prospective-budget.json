@@ -1,0 +1,1301 @@
+{
+  "actual_admission": false,
+  "analysis": {
+    "actual_allocation_observed": false,
+    "capture_bounds": [
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 0,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 1,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 2,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 3,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 4,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 5,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 6,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 7,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 8,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 9,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 10,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 11,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 12,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 13,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 14,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 15,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 16,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 17,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 18,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 19,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 20,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 21,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 22,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 23,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 24,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 25,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 26,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 27,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 28,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 29,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 30,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 31,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 32,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 33,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 34,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 35,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 36,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 37,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 38,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 39,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 40,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 41,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 42,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 43,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 44,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 45,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 46,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 47,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 48,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 49,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 50,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 51,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 52,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 53,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 54,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 55,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 56,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 57,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 58,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 59,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 60,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 61,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 62,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 63,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 64,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 65,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 66,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 67,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 68,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 69,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 70,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 71,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 72,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 73,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 74,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 75,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 76,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 77,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 78,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 79,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 80,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 81,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 82,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 83,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 84,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 85,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 86,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 87,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 88,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 89,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 90,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 91,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 92,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 93,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 94,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 95,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 96,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 97,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 98,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 99,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 100,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 101,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 102,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 103,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 104,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 105,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 106,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 107,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 108,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 109,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 110,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 111,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 112,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 113,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 114,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 115,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 116,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 117,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 118,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 119,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 120,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 121,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 122,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 123,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 124,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 125,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 126,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 127,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 128,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 129,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 130,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 131,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 132,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 133,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 134,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 135,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 136,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 137,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 138,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 139,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 140,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 141,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 142,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 143,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 144,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 145,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 146,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 147,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 148,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 149,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 150,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 151,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 152,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 153,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 154,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 155,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 156,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 157,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 158,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 159,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 160,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 161,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 162,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 163,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 164,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 165,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 166,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 167,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 168,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 169,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 170,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 171,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 172,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 173,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 174,
+        "joined_logical_bytes_upper": 2405622240,
+        "maximum_output_bytes": 2407719392,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 175,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 176,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 177,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 178,
+        "joined_logical_bytes_upper": 3608433600,
+        "maximum_output_bytes": 3610530752,
+        "metadata_reserve_bytes": 1048576
+      },
+      {
+        "allocation_allowance_bytes": 1048576,
+        "execution_ordinal": 179,
+        "joined_logical_bytes_upper": 1202811360,
+        "maximum_output_bytes": 1204908512,
+        "metadata_reserve_bytes": 1048576
+      }
+    ],
+    "captures": 180,
+    "count_basis": "ALL_ORIGINAL_OFFERED_EVENTS_ACCEPTED_NO_COMPRESSION_CREDIT",
+    "execution_authority": false,
+    "joined_logical_bytes_upper": 433012032000,
+    "phase18_authority": false,
+    "required_inodes": 3304,
+    "resource_admission_performed": false,
+    "schema_version": "cpu-prefetch-stage17-s180-analysis-output-envelope/1",
+    "workspace_bytes_upper": 433389519360
+  },
+  "execution_authority": false,
+  "future_inventory_objects": 14856,
+  "future_records": 9016,
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "schema_version": "cpu-prefetch-stage17-s180-prospective-analysis-budget/1",
+  "scratch_remaining_for_other_commitments_bytes": 237363220020,
+  "source": {
+    "path": "docs/evidence/stage17/PILOT-D334-COMPACTION-INTEGRATION-20261123-01/d333-sizing-v3.json",
+    "sha256": "2f33f33a070be20f2c6a00f86a51f52c1912bb4393113178a95431b247e1cc86",
+    "size_bytes": 3098878
+  },
+  "space_plan": {
+    "analysis_spool_bytes": 37514686924,
+    "archive_staging_bytes": 4836679680,
+    "canonical_capture_bytes": 4815268979,
+    "control_and_final_bytes": 433523737088,
+    "publication_staging_bytes": 4815268979,
+    "required_inodes": 29712,
+    "retained_metadata_bytes": 2464415744
+  },
+  "workspace_remaining_for_other_commitments_bytes": 101764859162,
+  "workspace_total_bytes": 447990954726,
+  "zero_other_commitments_is_calculation_only_not_census": true
+}

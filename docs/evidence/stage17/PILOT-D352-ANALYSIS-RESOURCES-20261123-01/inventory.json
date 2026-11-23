@@ -1,0 +1,61 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/LastTest.log",
+      "sha256": "7fcdc3e528f96ffebe1ac54721aaa4c4863848ff7df663025313b34efa9b4c97",
+      "size_bytes": 4777
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/REPORT.md",
+      "sha256": "ead5fcc17a6ed674775330228395e04044ad66e0c843962320744ff6f23d2b24",
+      "size_bytes": 2440
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/contract-checks.txt",
+      "sha256": "ca441af802a614e7de576f0677ed9be966b9ae9fa58f949ce9e98dc9ce812113",
+      "size_bytes": 432
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/debug-tests.txt",
+      "sha256": "460102f8133cffab707e89fc42068ca55efbead3658893bdbef29523ff5d2a5a",
+      "size_bytes": 11471
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/final-debug.txt",
+      "sha256": "fbbd0f0b9e4a3d30ee2d190675f4352a90e3104b1fb0eb482e345707b35d96bd",
+      "size_bytes": 117
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/gap-reproduction.txt",
+      "sha256": "34d87acf567c1ab2b2ef5fd581232f21ec6196ef26dd0d63816dd217eb7bd677",
+      "size_bytes": 842
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/pc-cleanup.json",
+      "sha256": "3a92310aac3688e8c941cdc8471833b0d7b9bb7cb926a7d7ce6a70acf2ddf6c4",
+      "size_bytes": 1440
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/prospective-budget.json",
+      "sha256": "3e14c91bd3109ca1a6bb14fe13effe32fde3613e86c2ca5c50e91149bddad4c9",
+      "size_bytes": 43563
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/registered.txt",
+      "sha256": "22793cab48d67f5ca5e7dc40fa2f9ac3ccdf32a2bae1d1cf9e07f118b7bfa7c3",
+      "size_bytes": 955
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/source-bindings.json",
+      "sha256": "21cc9a759e99ad39beaf619c90015dd40c81ebe24dda1e963ed099d4ee92ea36",
+      "size_bytes": 1616
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/verification-summary.json",
+      "sha256": "6b46762e07b11934c7ef50d97e565d71ceb74fb5b103e4b8eeece2de6774181b",
+      "size_bytes": 834
+    }
+  ],
+  "recorded_at_utc": "2026-11-23T17:29:11.850034+00:00"
+}

@@ -222,6 +222,36 @@ def bound_packet(sizing,report,*,compress_bound):
         resource_admission_performed=False,whole_operational_eta_verified=False,execution_authority=False,phase18_authority=False)
 
 
+def analysis_output_envelope(plan):
+    """Retained joined output, not a disposable inverse spool or admission.
+
+    Reserve every offered event as accepted; no compression or loss credit.
+    One MiB per capture is the existing D350 metadata bound. Another MiB is
+    an engineering allocation allowance, not an observed filesystem property.
+    Actual publishers/supervision must enforce allocated as well as logical
+    charges and fail if either this bound or an aggregate policy is exceeded.
+    """
+    planning.source_groups(dict(plan,schema_version=planning.SIZING))
+    rows=sorted(plan['blueprint']['captures'],key=lambda r:r['execution_ordinal'])
+    bounds=[];total=0;workspace=0
+    for row,entry in zip(rows,plan['captures'],strict=True):
+        joined=0
+        for i,phase in enumerate(entry['phases']):
+            count=archive.uint(phase['offered_count'],'original offered count')
+            run=row['warmup_run_id' if i==0 else 'run_id']
+            joined=archive.checked_sum(joined,count*archive.row_layout(run)[3])
+        maximum=archive.checked_sum(joined,2*MIB)
+        require(maximum<=256*GIB,'per-capture result exceeds existing publication bound')
+        bounds.append(dict(execution_ordinal=row['execution_ordinal'],joined_logical_bytes_upper=joined,
+            metadata_reserve_bytes=MIB,allocation_allowance_bytes=MIB,maximum_output_bytes=maximum))
+        total=archive.checked_sum(total,joined);workspace=archive.checked_sum(workspace,maximum)
+    return dict(schema_version='cpu-prefetch-stage17-s180-analysis-output-envelope/1',
+        captures=180,count_basis='ALL_ORIGINAL_OFFERED_EVENTS_ACCEPTED_NO_COMPRESSION_CREDIT',
+        joined_logical_bytes_upper=total,workspace_bytes_upper=workspace,
+        required_inodes=180*18+64,capture_bounds=bounds,resource_admission_performed=False,
+        actual_allocation_observed=False,execution_authority=False,phase18_authority=False)
+
+
 def process_envelope(sizing,native_report,envelope):
     """Requested process ceilings, not observed limits or an RSS certificate.
 

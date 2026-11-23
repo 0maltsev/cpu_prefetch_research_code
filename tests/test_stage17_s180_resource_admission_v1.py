@@ -54,7 +54,71 @@ class ResourceTests(unittest.TestCase):
         self.observed=dict(base_page_bytes=4096,memory_available_bytes=256*gate.GIB,memory_ancestors=[],
             rlimit_as=[4*gate.GIB,-1],rlimit_memlock=[8388608,64*gate.GIB],rlimit_nofile=[1024,1024],highest_observed_fd=100)
         self.unrelated=dict(reserved_bytes=compaction.METADATA_RESERVE_BYTES+4*1024**2,
-            reserved_inodes=compaction.METADATA_RESERVE_INODES+40,declaration_sha256='d'*64)
+            reserved_inodes=compaction.METADATA_RESERVE_INODES+40,declaration_sha256='d'*64,
+            workspace_committed_bytes=0,scratch_committed_bytes=0)
+
+    def test_all_retained_joined_outputs_are_reserved_in_workspace(self):
+        analysis=gate.prospective.analysis_output_envelope(self.plan)
+        rows=sorted(self.plan['blueprint']['captures'],key=lambda r:r['execution_ordinal'])
+        expected=0
+        for row,entry in zip(rows,self.plan['captures'],strict=True):
+            for i,phase in enumerate(entry['phases']):
+                run=row['warmup_run_id' if i==0 else 'run_id']
+                # Independent physical record equation:24 U64 fields after
+                # length-prefixed UTF-8 run identity, rounded to whole words.
+                row_bytes=((4+len(run.encode('utf-8'))+7)//8)*8+24*8
+                expected+=phase['offered_count']*row_bytes
+        self.assertEqual(analysis['joined_logical_bytes_upper'],expected)
+        self.assertEqual(analysis['captures'],180)
+        self.assertGreaterEqual(analysis['required_inodes'],180*18)
+        self.assertFalse(analysis['resource_admission_performed'])
+        self.assertEqual(sum(r['maximum_output_bytes'] for r in analysis['capture_bounds']),
+            analysis['workspace_bytes_upper'])
+        space,_,_=gate.capacity_plan(self.plan,self.envelope,self.custody,
+            workspace_committed_bytes=0,scratch_committed_bytes=0)
+        self.assertGreaterEqual(space.control_and_final_bytes,expected)
+
+    def test_joined_output_and_old_workspace_scratch_cannot_exceed_policy(self):
+        analysis=gate.prospective.analysis_output_envelope(self.plan)
+        space,_,_=gate.capacity_plan(self.plan,self.envelope,self.custody,
+            workspace_committed_bytes=0,scratch_committed_bytes=0)
+        snapshot=gate.custody.CapacitySnapshot(10**13,1000000,0,0,0,0)
+        gate.custody.check_capacity(snapshot,space)
+        used=space.canonical_capture_bytes+space.control_and_final_bytes+space.publication_staging_bytes+space.archive_staging_bytes
+        old_work=gate.custody.WORKSPACE-used+1
+        bad,_,_=gate.capacity_plan(self.plan,self.envelope,self.custody,
+            workspace_committed_bytes=old_work,scratch_committed_bytes=0)
+        with self.assertRaisesRegex(gate.custody.CustodyError,'workspace'):
+            gate.custody.check_capacity(snapshot,bad)
+        bad,_,_=gate.capacity_plan(self.plan,self.envelope,self.custody,
+            workspace_committed_bytes=0,scratch_committed_bytes=gate.custody.SCRATCH-space.analysis_spool_bytes+1)
+        with self.assertRaisesRegex(gate.custody.CustodyError,'spool'):
+            gate.custody.check_capacity(snapshot,bad)
+        # Isolate precisely the old omission: everything except joined output
+        # fits W, but retaining every analysis result takes it over W by1 byte.
+        baseline=gate.custody.WORKSPACE-analysis['workspace_bytes_upper']+1
+        envelope=dict(self.envelope,maximum_capture_workspace_bytes=baseline//2)
+        altered=dict(self.plan,budget=dict(self.plan['budget'],final_metadata_bytes=baseline%2),
+            storage=dict(self.plan['storage'],archive_staging_bytes=0))
+        bad,_,_=gate.capacity_plan(altered,envelope,self.custody,
+            workspace_committed_bytes=0,scratch_committed_bytes=0)
+        with self.assertRaisesRegex(gate.custody.CustodyError,'workspace'):
+            gate.custody.check_capacity(snapshot,bad)
+
+    def test_analysis_reservation_requires_original_order_and_explicit_usage(self):
+        changed=copy.deepcopy(self.plan);changed['captures'][0],changed['captures'][1]=changed['captures'][1],changed['captures'][0]
+        with self.assertRaises((gate.prospective.ResourcePlanError,gate.planning.PlanError)):
+            gate.prospective.analysis_output_envelope(changed)
+        for key in ('workspace_committed_bytes','scratch_committed_bytes'):
+            values=dict(workspace_committed_bytes=0,scratch_committed_bytes=0);values[key]=-1
+            with self.assertRaises(gate.archive.ArchiveError):
+                gate.capacity_plan(self.plan,self.envelope,self.custody,**values)
+        root,_=self.store_fixture()
+        old=dict(self.unrelated);del old['workspace_committed_bytes'];del old['scratch_committed_bytes']
+        with self.assertRaisesRegex(gate.ResourceError,'explicit other workspace and scratch'):
+            self.storage(root,unrelated=old)
+        with self.assertRaisesRegex(gate.custody.CustodyError,'workspace'):
+            self.storage(root,unrelated=dict(self.unrelated,workspace_committed_bytes=gate.custody.WORKSPACE))
 
     def assess(self,observed=None):
         gate.assess_platform(self.observed if observed is None else observed,process_envelope=self.process,native_limits=self.limits)

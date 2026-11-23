@@ -30,7 +30,7 @@ import stage17_s180_resource_plan_v1 as prospective
 import stage17_s180_verified_sources_v1 as sources
 import stage17_s180_admission_custody_v1 as admission_custody
 
-SCHEMA='cpu-prefetch-stage17-s180-live-resource-evidence/1'
+SCHEMA='cpu-prefetch-stage17-s180-live-resource-evidence/2'
 NATIVE_SHA='7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc'
 NATIVE_SIZE=6151832
 GIB=1024**3
@@ -104,8 +104,16 @@ def assess_platform(observed,*,process_envelope,native_limits):
         'native descriptor inheritance/control reserve cannot fit')
 
 
-def capacity_plan(plan,envelope,limits):
-    """Full family quota + peak workspace; separate all future metadata/inodes."""
+def capacity_plan(plan,envelope,limits,*,workspace_committed_bytes,scratch_committed_bytes):
+    """Full family plus retained output and explicit other W/S commitments.
+
+    Commitments include old failed evidence and unrelated future usage inside
+    the same W/S ceilings. They require authenticated census/declaration in the
+    qualified caller; there is no zero default or claim of measurement here.
+    """
+    archive.uint(workspace_committed_bytes,'other committed workspace')
+    archive.uint(scratch_committed_bytes,'other committed scratch')
+    analysis=prospective.analysis_output_envelope(plan)
     # Each eight-artifact capture uses CHECKPOINT, 6 transitions/artifact and
     # CUSTODY_RECEIPT. Reserve16 extra records for first-failure/terminal evidence.
     records=180*(2+6*8)+16
@@ -113,10 +121,12 @@ def capacity_plan(plan,envelope,limits):
         180*(2*limits.max_checkpoint_bytes+plan['storage']['maximum_custody_receipt_bytes']
             +parent.PARENT_RECORD_LIMIT),plan['budget']['final_metadata_bytes'],
         plan['budget']['entry_metadata_bytes'],16*limits.max_record_bytes)
-    files=records+180*(8+6)+16
+    files=records+180*(8+6)+16+analysis['required_inodes']
     peak=envelope['maximum_capture_workspace_bytes']
-    scratch=archive.checked_sum(4*peak,17*GIB)
-    space=custody.SpacePlan(peak,plan['budget']['final_metadata_bytes'],peak,
+    scratch=archive.checked_sum(4*peak,17*GIB,scratch_committed_bytes)
+    retained_output=archive.checked_sum(plan['budget']['final_metadata_bytes'],
+        analysis['workspace_bytes_upper'],workspace_committed_bytes)
+    space=custody.SpacePlan(peak,retained_output,peak,
         plan['storage']['archive_staging_bytes'],metadata,scratch,2*files)
     return space,records,files
 
@@ -142,7 +152,11 @@ def _storage(plan,envelope,limits,program_root,unrelated_reservations,programme_
         require(not store._capture_pending and all(row['kind']=='RELEASED' for row in store._states.values())
             and store.reserved_bytes()==0,'prior programme custody/reservations incomplete')
         usage=store.physical_accounting();fs=os.statvfs(store.root)
-        space,records,files=capacity_plan(plan,envelope,limits)
+        require({'workspace_committed_bytes','scratch_committed_bytes'}<=set(unrelated_reservations),
+            'explicit other workspace and scratch commitments required')
+        space,records,files=capacity_plan(plan,envelope,limits,
+            workspace_committed_bytes=unrelated_reservations['workspace_committed_bytes'],
+            scratch_committed_bytes=unrelated_reservations['scratch_committed_bytes'])
         require(store._sequence+records<=limits.max_ledger_records,'future ledger records exceed replay ceiling')
         require(usage.unique_objects+files<=limits.max_inventory_files,'future physical inventory exceeds ceiling')
         snapshot=custody.CapacitySnapshot(fs.f_bavail*fs.f_frsize,fs.f_favail,usage.quota_bytes,0,
@@ -153,6 +167,7 @@ def _storage(plan,envelope,limits,program_root,unrelated_reservations,programme_
         return dict(evidence_root_binding=reservation['evidence_root_binding'],snapshot=asdict(snapshot),
             physical_usage=asdict(usage),space_plan=asdict(space),ledger_records=store._sequence,
             prospective_ledger_records=records,prospective_files=files,
+            analysis_output_envelope=prospective.analysis_output_envelope(plan),
             unrelated_reservations_declaration=unrelated_reservations,
             original_scope_sha256=store.scope_sha256,ledger_tip=asdict(store.ledger_binding()))
 
@@ -300,9 +315,11 @@ def verify_resources(*,plan,environment_owner,source_owner,worker,archive_profil
     require(type(archive_profile) is runtime.RuntimeProfile
         and archive_profile.decoder.implementation_profile_sha256==plan['storage']['implementation_profile_sha256'],
         'actual archive profile differs from exact plan')
-    authority.fields(unrelated_reservations,{'reserved_bytes','reserved_inodes','declaration_sha256'},
+    authority.fields(unrelated_reservations,{'reserved_bytes','reserved_inodes','declaration_sha256',
+        'workspace_committed_bytes','scratch_committed_bytes'},
         'authenticated unrelated-reservations declaration')
-    for name in ('reserved_bytes','reserved_inodes'):archive.uint(unrelated_reservations[name],name)
+    for name in ('reserved_bytes','reserved_inodes','workspace_committed_bytes','scratch_committed_bytes'):
+        archive.uint(unrelated_reservations[name],name)
     archive.sha(unrelated_reservations['declaration_sha256'],'reservation declaration')
     require(unrelated_reservations['reserved_bytes']>=METADATA_RESERVE_BYTES+Q15_BYTES
         and unrelated_reservations['reserved_inodes']>=METADATA_RESERVE_INODES+Q15_INODES,

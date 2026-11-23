@@ -1,0 +1,23 @@
+{
+  "actual_raw_reanalyzed": false,
+  "actual_resource_admission": false,
+  "actual_sources_generated": false,
+  "actual_workspace_census_performed": false,
+  "contract_check_exit": 0,
+  "execution_authority": false,
+  "final_debug_cases": 17,
+  "final_debug_exit": 0,
+  "initial_full_debug_errors": 5,
+  "initial_full_debug_exit": 1,
+  "initial_full_debug_reason": "EXISTING_PROTECTED_ROOT_FIXTURE_OWNERSHIP",
+  "initial_gap_reproduction_exit": 1,
+  "native_code_changed": false,
+  "native_sanitizer_relevance": "NO_CHANGED_NATIVE_PATH",
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "python_sanitizer_mode": "-X dev WITH PYTHONMALLOC=debug IN ISOLATED_USER_PID_NAMESPACE",
+  "recorded_at_utc": "2026-11-23T17:29:11.850034+00:00",
+  "registered_cases": 72,
+  "registered_exit": 0,
+  "registered_suites": 5
+}

@@ -1,0 +1,14 @@
+E
+======================================================================
+ERROR: test_all_retained_joined_outputs_are_reserved_in_workspace (__main__.ResourceTests.test_all_retained_joined_outputs_are_reserved_in_workspace)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 61, in test_all_retained_joined_outputs_are_reserved_in_workspace
+    analysis=gate.prospective.analysis_output_envelope(self.plan)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'stage17_s180_resource_plan_v1' has no attribute 'analysis_output_envelope'
+
+----------------------------------------------------------------------
+Ran 1 test in 6.670s
+
+FAILED (errors=1)

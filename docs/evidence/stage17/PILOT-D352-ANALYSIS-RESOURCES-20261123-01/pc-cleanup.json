@@ -1,0 +1,39 @@
+{
+  "raw_copied_to_pc": false,
+  "recorded_at_utc": "2026-11-23T17:29:11.850034+00:00",
+  "removed_bytes": 57380,
+  "required_namespace_audit_preserved": true,
+  "stand_raw_deleted": false,
+  "verified_duplicate_metadata_removed": [
+    {
+      "path": "build/stage17-s180-analysis-resources-prep/gap-reproduction.txt",
+      "sha256": "34d87acf567c1ab2b2ef5fd581232f21ec6196ef26dd0d63816dd217eb7bd677",
+      "size_bytes": 842
+    },
+    {
+      "path": "build/stage17-s180-analysis-resources-prep/debug-tests.txt",
+      "sha256": "460102f8133cffab707e89fc42068ca55efbead3658893bdbef29523ff5d2a5a",
+      "size_bytes": 11471
+    },
+    {
+      "path": "build/stage17-s180-analysis-resources-prep/final-debug.txt",
+      "sha256": "fbbd0f0b9e4a3d30ee2d190675f4352a90e3104b1fb0eb482e345707b35d96bd",
+      "size_bytes": 117
+    },
+    {
+      "path": "build/stage17-s180-analysis-resources-prep/registered.txt",
+      "sha256": "22793cab48d67f5ca5e7dc40fa2f9ac3ccdf32a2bae1d1cf9e07f118b7bfa7c3",
+      "size_bytes": 955
+    },
+    {
+      "path": "build/stage17-s180-analysis-resources-prep/contract-checks.txt",
+      "sha256": "ca441af802a614e7de576f0677ed9be966b9ae9fa58f949ce9e98dc9ce812113",
+      "size_bytes": 432
+    },
+    {
+      "path": "build/stage17-s180-analysis-resources-prep/prospective-budget.json",
+      "sha256": "3e14c91bd3109ca1a6bb14fe13effe32fde3613e86c2ca5c50e91149bddad4c9",
+      "size_bytes": 43563
+    }
+  ]
+}

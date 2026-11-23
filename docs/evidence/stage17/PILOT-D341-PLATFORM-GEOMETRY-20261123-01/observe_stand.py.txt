@@ -1,0 +1,233 @@
+"""Fresh fixed-stand topology/cache admission under D310; no hardware writes.
+
+The collector reads kernel metadata only. Current qualification, owned isolation,
+original calibration compatibility and prospective requests are separate inputs.
+Neither a snapshot nor this component grants full EXT008 or execution authority.
+"""
+from __future__ import annotations
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import stat
+import time
+
+SCHEMA='cpu-prefetch-stage17-s180-platform-observation/1'
+REQUEST_SCHEMA='cpu-prefetch-stage17-s180-platform-request/1'
+PROOF_SCHEMA='cpu-prefetch-stage17-s180-platform-admission/1'
+BLUEPRINT_SHA='e95183365023a06b9da0d6cdff042bce556b9eb60c701dfb0f9e6df6ca22685c'
+FOOTPRINT='docs/evidence/stage17/DISCOVERY-RECOVERY-V19-20261103-01/frozen-preparation/preparation/footprint-stand-stdout.json'
+FOOTPRINT_SHA='f1f607f1bce28f1c465db0d691e494168bbfc80924aca2e7479c0dcc5d8b9f6b'
+CPUS=(0,1,2,8)
+MAX_REPORT_BYTES=128*1024
+METADATA_NS=120*10**9
+_TOKEN=object()
+
+
+class PlatformError(ValueError):pass
+
+
+def require(value,message):
+    if not value:raise PlatformError('S180 platform: '+message)
+
+
+def _canonical(value):
+    return json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False).encode()
+
+
+def _sha(value):return hashlib.sha256(_canonical(value)).hexdigest()
+
+
+def _before(deadline):
+    require(type(deadline) is int and time.monotonic_ns()<deadline,'original metadata deadline expired')
+
+
+def _cpus(value):
+    require(type(value) is str and bool(re.fullmatch(r'[0-9]+(?:-[0-9]+)?(?:,[0-9]+(?:-[0-9]+)?)*',value)),
+        'canonical bounded CPU list required')
+    result=set()
+    for part in value.split(','):
+        ends=part.split('-');first,last=int(ends[0]),int(ends[-1])
+        require(0<=first<=last<4096,'CPU range exceeded')
+        values=set(range(first,last+1));require(not result&values,'duplicate CPU list entry');result.update(values)
+    return sorted(result)
+
+
+def _number(value):
+    require(type(value) is str and bool(re.fullmatch(r'0|[1-9][0-9]*',value)),'unsigned decimal kernel value required')
+    result=int(value);require(result<2**64,'kernel integer exceeded');return result
+
+
+def _size(value):
+    require(bool(re.fullmatch(r'[1-9][0-9]*K',value)),'explicit kernel KiB cache size required')
+    result=int(value[:-1])*1024;require(result<2**64,'cache size exceeded');return result
+
+
+def _selected(value):
+    tokens=value.split();selected=[t[1:-1] for t in tokens if t.startswith('[') and t.endswith(']')]
+    require(len(selected)==1 and all(re.fullmatch(r'\[?[a-z+]+\]?',t) for t in tokens),
+        'actual selected kernel policy required')
+    return selected[0]
+
+
+def observe(*,deadline_ns):
+    """Bounded read-only kernel collector; intentionally has no fixture backend."""
+    _before(deadline_ns);require(deadline_ns-time.monotonic_ns()<=METADATA_NS,'short metadata lease required')
+    started=time.monotonic_ns();bindings=[]
+    def read(path,maximum=4096):
+        _before(deadline_ns)
+        fd=os.open(path,os.O_RDONLY|os.O_CLOEXEC|os.O_NONBLOCK|os.O_NOFOLLOW)
+        try:
+            require(stat.S_ISREG(os.fstat(fd).st_mode),'regular kernel attribute required')
+            raw=bytearray()
+            while True:
+                _before(deadline_ns);part=os.read(fd,min(65536,maximum+1-len(raw)))
+                if not part:break
+                raw.extend(part);require(len(raw)<=maximum,'kernel attribute byte bound exceeded')
+        finally:os.close(fd)
+        bindings.append(dict(path=path,size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest()))
+        require(len(bindings)<=128,'kernel read count exceeded')
+        return raw.decode('ascii').strip()
+    boot=read('/proc/sys/kernel/random/boot_id',128)
+    online=_cpus(read('/sys/devices/system/cpu/online'))
+    raw_cpu=read('/proc/cpuinfo',2*1024**2);inventory={}
+    for block in raw_cpu.split('\n\n'):
+        row={k.strip():v.strip() for line in block.splitlines() if ':' in line for k,v in [line.split(':',1)]}
+        if row.get('processor') not in {str(cpu) for cpu in CPUS}:continue
+        cpu=_number(row['processor']);require(cpu not in inventory,'duplicate processor inventory')
+        inventory[cpu]=dict(vendor=row['vendor_id'],family=_number(row['cpu family']),model=_number(row['model']),
+            microcode=row['microcode'],flags=sorted(row['flags'].split()))
+    require(set(inventory)==set(CPUS),'complete four-CPU inventory required')
+    cpus=[]
+    for cpu in CPUS:
+        prefix=f'/sys/devices/system/cpu/cpu{cpu}'
+        topology={name:read(prefix+'/topology/'+name) for name in
+            ('physical_package_id','core_id','thread_siblings_list','core_siblings_list')}
+        caches={}
+        for index in (2,3):
+            values={name:read(prefix+f'/cache/index{index}/'+name) for name in
+                ('level','type','size','coherency_line_size','shared_cpu_list')}
+            require(values['level']==str(index) and values['type']=='Unified','actual unified L2/L3 identity required')
+            caches[str(index)]=dict(size_bytes=_size(values['size']),cache_line_bytes=_number(values['coherency_line_size']),
+                shared_cpus=_cpus(values['shared_cpu_list']))
+        policy={name:read(prefix+'/cpufreq/'+name) for name in
+            ('scaling_driver','scaling_governor','scaling_min_freq','scaling_max_freq')}
+        for name in ('scaling_min_freq','scaling_max_freq'):policy[name]=_number(policy[name])
+        require(policy['scaling_driver'] and policy['scaling_governor'] and 0<policy['scaling_min_freq']<=policy['scaling_max_freq'],
+            'actual frequency-policy metadata required')
+        cpus.append(dict(cpu=cpu,**inventory[cpu],package_id=_number(topology['physical_package_id']),
+            core_id=_number(topology['core_id']),thread_siblings=_cpus(topology['thread_siblings_list']),
+            package_cpus=_cpus(topology['core_siblings_list']),caches=caches,frequency_policy=policy))
+    nodes=[]
+    for node in (0,1):
+        prefix=f'/sys/devices/system/node/node{node}'
+        nodes.append(dict(node=node,cpus=_cpus(read(prefix+'/cpulist')),
+            distances=[_number(v) for v in read(prefix+'/distance').split()]))
+    mounts=read('/proc/self/mountinfo',128*1024)
+    controls=dict(numa_balancing=_number(read('/proc/sys/kernel/numa_balancing')),
+        thp_enabled=_selected(read('/sys/kernel/mm/transparent_hugepage/enabled')),
+        thp_defrag=_selected(read('/sys/kernel/mm/transparent_hugepage/defrag')),
+        clocksource=read('/sys/devices/system/clocksource/clocksource0/current_clocksource'))
+    static=dict(base_page_bytes=os.sysconf('SC_PAGE_SIZE'),online_cpus=online,cpus=cpus,nodes=nodes,
+        controls=controls,resctrl_mounted=any(' - resctrl ' in line for line in mounts.splitlines()))
+    require(boot==read('/proc/sys/kernel/random/boot_id',128),'boot changed during platform reads')
+    _before(deadline_ns)
+    result=dict(schema_version=SCHEMA,boot_id=boot,started_monotonic_ns=started,
+        completed_monotonic_ns=time.monotonic_ns(),static_platform=static,kernel_readings=bindings,
+        qualification_performed=False,execution_authority=False,phase18_authority=False)
+    require(len(_canonical(result))<=MAX_REPORT_BYTES//2,'platform observation byte bound exceeded')
+    return result
+
+
+def request_from_observation(observation,*,stand_id):
+    """Prospective request only; the qualified operator must bind its custody."""
+    require(observation['schema_version']==SCHEMA and type(stand_id) is str and stand_id,'actual observation and stand required')
+    return dict(schema_version=REQUEST_SCHEMA,stand_id=stand_id,blueprint_sha256=BLUEPRINT_SHA,
+        observed_boot_id=observation['boot_id'],observed_snapshot_sha256=_sha(observation),
+        requested_static_platform=json.loads(_canonical(observation['static_platform'])),
+        source_is_read_only_observation=True,execution_authority=False,phase18_authority=False)
+
+
+def _footprints():
+    path=Path(__file__).resolve().parents[1]/FOOTPRINT
+    with path.open('rb') as stream:raw=stream.read(3537)
+    require(len(raw)==3536 and hashlib.sha256(raw).hexdigest()==FOOTPRINT_SHA,'exact accepted footprint observation required')
+    return json.loads(raw)
+
+
+def assess(observation,*,blueprint,platform_request):
+    """Pure comparisons for the fixed design, never proof of fresh collection."""
+    require(observation['schema_version']==SCHEMA and _sha(blueprint)==BLUEPRINT_SHA,'exact platform/blueprint scope required')
+    request=platform_request
+    require(set(request)==set(('schema_version stand_id blueprint_sha256 observed_boot_id observed_snapshot_sha256 '
+        'requested_static_platform source_is_read_only_observation execution_authority phase18_authority').split())
+        and request['schema_version']==REQUEST_SCHEMA and request['stand_id']==blueprint['stand_id']
+        and request['blueprint_sha256']==BLUEPRINT_SHA and request['observed_boot_id']==observation['boot_id']
+        and request['source_is_read_only_observation'] is True and request['execution_authority'] is False
+        and request['phase18_authority'] is False,'prospective platform request scope differs')
+    require(type(request['observed_snapshot_sha256']) is str and re.fullmatch('[0-9a-f]{64}',request['observed_snapshot_sha256']),
+        'original prospective observation digest required')
+    current=observation['static_platform']
+    require(_canonical(request['requested_static_platform'])==_canonical(current),'requested and actual platform differ')
+    require(current['base_page_bytes']==4096 and current['online_cpus']==list(range(32)),
+        'actual page/online topology differs from fixed stand')
+    rows=current['cpus'];require([r['cpu'] for r in rows]==list(CPUS),'exact CPU0/1/2/8 roles required')
+    require(all(r['vendor']=='GenuineIntel' and r['family']==6 and r['model']==62 for r in rows),
+        'actual four-CPU Intel06_3EH identity differs')
+    require(len({(r['package_id'],r['core_id']) for r in rows})==4,'roles share an actual physical core')
+    require([r['thread_siblings'] for r in rows]==[[0,16],[1,17],[2,18],[8,24]],
+        'actual SMT reservations differ from fixed isolation')
+    require(rows[0]['package_id']==rows[1]['package_id']==rows[2]['package_id']!=rows[3]['package_id'],
+        'actual socket placements differ')
+    nodes=current['nodes'];require([n['node'] for n in nodes]==[0,1],'actual two NUMA nodes required')
+    require(not set(nodes[0]['cpus'])&set(nodes[1]['cpus'])
+        and sorted(nodes[0]['cpus']+nodes[1]['cpus'])==current['online_cpus']
+        and {0,1,2}<=set(nodes[0]['cpus']) and 8 in nodes[1]['cpus'],'actual CPU-to-NUMA mapping differs')
+    for i,node in enumerate(nodes):
+        require(len(node['distances'])==2 and 0<node['distances'][i]<node['distances'][1-i],
+            'actual NUMA distance relation differs')
+    require(not current['resctrl_mounted'] and not any(set(r['flags'])&{'cat_l3','cat_l2','cdp_l3','cdp_l2'} for r in rows),
+        'cache-allocation regime differs from accepted nominal-cache interpretation')
+    for row in rows:
+        for level in ('2','3'):
+            cache=row['caches'][level]
+            require(cache['size_bytes']>0 and cache['cache_line_bytes']==64 and row['cpu'] in cache['shared_cpus'],
+                'actual cache geometry differs')
+        require(row['caches']['2']['shared_cpus']==row['thread_siblings'],'actual private L2 sharing differs')
+        require(row['caches']['3']['shared_cpus']==row['package_cpus'],'actual LLC/socket sharing differs')
+    require(rows[0]['caches']['3']==rows[1]['caches']['3']==rows[2]['caches']['3']
+        and not set(rows[0]['caches']['3']['shared_cpus'])&set(rows[3]['caches']['3']['shared_cpus']),
+        'actual near/controller shared LLC or disjoint far LLC differs')
+    native=_footprints();require(native['cache_line_bytes']==64 and native['page_bytes']==4096,
+        'accepted native ABI geometry differs')
+    candidates=native['candidates'];require(len(candidates)==22 and all(r['capacity']==1<<i for i,r in enumerate(candidates)),
+        'complete accepted power-of-two boundary table required')
+    derived=[]
+    for placement,consumer in (('NEAR',rows[1]),('FAR',rows[3])):
+        l2=min(rows[0]['caches']['2']['size_bytes'],consumer['caches']['2']['size_bytes'])
+        llc=rows[0]['caches']['3']['size_bytes']
+        for working in ('L2_RESIDENT','LLC_RESIDENT','BEYOND_LLC'):
+            def matches(r):
+                values=(r['ring_full_bytes'],r['linked_full_bytes'])
+                return all(4*64<x<=l2//2 if working=='L2_RESIDENT' else
+                    2*l2<x<=llc//2 if working=='LLC_RESIDENT' else x>=2*llc for x in values)
+            eligible=[r for r in candidates if matches(r)];require(eligible,'no common full-footprint capacity')
+            selected=(min if working=='BEYOND_LLC' else max)(eligible,key=lambda r:r['capacity'])
+            index=candidates.index(selected);neighbor=index-1 if working=='BEYOND_LLC' else index+1
+            require(0<=neighbor<len(candidates) and not matches(candidates[neighbor]),'adjacent exact boundary unverified')
+            captures=[r for r in blueprint['captures'] if (r['placement'],r['working_set_class'])==(placement,working)]
+            geometry=dict(capacity=selected['capacity'],cache_line_bytes=64,base_page_bytes=4096,
+                producer_cpu=0,producer_node=0,consumer_cpu=consumer['cpu'],consumer_node=0 if placement=='NEAR' else 1,shared_node=0)
+            require(len(captures)==30 and all(r['requested_geometry']==geometry for r in captures),
+                'frozen requested capacity/topology differs from actual full-footprint boundary')
+            derived.append(dict(placement=placement,working_set_class=working,verified_geometry=geometry,
+                nominal_smaller_l2_bytes=l2,nominal_producer_home_llc_bytes=llc,
+                footprint=selected,adjacent_boundary=candidates[neighbor]))
+    return dict(contexts=derived,footprint_source_sha256=FOOTPRINT_SHA,
+        footprint_source_is_retained_software_evidence=True,instantaneous_residency_guaranteed=False,
+        remote_llc_added=False,shared_home_llc_explicit=True,calibration_platform_strata_merged=False)
+
+
+
+print(json.dumps(observe(deadline_ns=time.monotonic_ns()+30*10**9),sort_keys=True))

@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_admission_v1.py", line 174, in <module>
+    class SourceBindingTests(unittest.TestCase):
+    ...<64 lines>...
+                self.assertEqual((admission.ROOT/'sources'/'unexpected').read_bytes(),b'retain')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_admission_v1.py", line 179, in SourceBindingTests
+    @contextlib.contextmanager
+     ^^^^^^^^^^
+NameError: name 'contextlib' is not defined. Did you forget to import 'contextlib'?

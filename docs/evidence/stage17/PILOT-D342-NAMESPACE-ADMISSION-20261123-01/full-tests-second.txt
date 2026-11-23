@@ -1,0 +1,74 @@
+..............EEE
+======================================================================
+ERROR: test_actual_generated_verified_sealed_bank_binds_all_reserved_identities (__main__.SourceBindingTests.test_actual_generated_verified_sealed_bank_binds_all_reserved_identities)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_admission_v1.py", line 221, in test_actual_generated_verified_sealed_bank_binds_all_reserved_identities
+    with self.bank(owner,permit) as (bank,plan):
+         ~~~~~~~~~^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_admission_v1.py", line 213, in bank
+    with admission.sources.verified_sources(plan=plan,seed_id=identities['master_seed']['seed_id'],records=records,
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            maximum_source_bytes=1024**2,maximum_vector_bytes=2*1024**2,verification_deadline_ns=permit.deadline_ns,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            valid_until_ns=self.window['end_monotonic_ns'],maximum_loading_ns=plan['budget']['setup_ns']) as source_owner:
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/contextlib.py", line 305, in helper
+    return _GeneratorContextManager(func, args, kwds)
+  File "/usr/lib/python3.14/contextlib.py", line 109, in __init__
+    self.gen = func(*args, **kwds)
+               ~~~~^^^^^^^^^^^^^^^
+TypeError: verified_sources() got an unexpected keyword argument 'maximum_loading_ns'
+
+======================================================================
+ERROR: test_other_valid_generator_derivation_does_not_substitute_for_registered_identity (__main__.SourceBindingTests.test_other_valid_generator_derivation_does_not_substitute_for_registered_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_admission_v1.py", line 229, in test_other_valid_generator_derivation_does_not_substitute_for_registered_identity
+    with self.bank(owner,permit,wrong_derivation=True) as (bank,plan):
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_admission_v1.py", line 213, in bank
+    with admission.sources.verified_sources(plan=plan,seed_id=identities['master_seed']['seed_id'],records=records,
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            maximum_source_bytes=1024**2,maximum_vector_bytes=2*1024**2,verification_deadline_ns=permit.deadline_ns,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            valid_until_ns=self.window['end_monotonic_ns'],maximum_loading_ns=plan['budget']['setup_ns']) as source_owner:
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/contextlib.py", line 305, in helper
+    return _GeneratorContextManager(func, args, kwds)
+  File "/usr/lib/python3.14/contextlib.py", line 109, in __init__
+    self.gen = func(*args, **kwds)
+               ~~~~^^^^^^^^^^^^^^^
+TypeError: verified_sources() got an unexpected keyword argument 'maximum_loading_ns'
+
+======================================================================
+ERROR: test_unregistered_extra_file_in_the_bank_is_retained_and_rejected (__main__.SourceBindingTests.test_unregistered_extra_file_in_the_bank_is_retained_and_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_admission_v1.py", line 236, in test_unregistered_extra_file_in_the_bank_is_retained_and_rejected
+    with self.bank(owner,permit) as (bank,plan):
+         ~~~~~~~~~^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_admission_v1.py", line 213, in bank
+    with admission.sources.verified_sources(plan=plan,seed_id=identities['master_seed']['seed_id'],records=records,
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            maximum_source_bytes=1024**2,maximum_vector_bytes=2*1024**2,verification_deadline_ns=permit.deadline_ns,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            valid_until_ns=self.window['end_monotonic_ns'],maximum_loading_ns=plan['budget']['setup_ns']) as source_owner:
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/contextlib.py", line 305, in helper
+    return _GeneratorContextManager(func, args, kwds)
+  File "/usr/lib/python3.14/contextlib.py", line 109, in __init__
+    self.gen = func(*args, **kwds)
+               ~~~~^^^^^^^^^^^^^^^
+TypeError: verified_sources() got an unexpected keyword argument 'maximum_loading_ns'
+
+----------------------------------------------------------------------
+Ran 17 tests in 3.160s
+
+FAILED (errors=3)

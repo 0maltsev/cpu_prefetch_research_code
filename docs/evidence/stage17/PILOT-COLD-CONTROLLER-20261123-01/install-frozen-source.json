@@ -1,0 +1,11 @@
+{
+  "elapsed_ns": 967884788,
+  "execution_authority": false,
+  "files": 1005,
+  "manifest_sha256": "bd86f1b81686ab119607868cb64f94f6617e620fa82e93750b9877e6ba1c578b",
+  "operational_window_started": false,
+  "qualification_performed": false,
+  "root": "/opt/cpu-prefetch-s180-native-sources-34247ce-1",
+  "source_preparation_performed": false,
+  "status": "FROZEN_NATIVE_SOURCE_AND_TOOL_CLOSURE_INSTALLED"
+}

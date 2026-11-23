@@ -1,0 +1,181 @@
+{
+  "original_needed_frozen_builds_and_D342_local_audit_preserved": true,
+  "pc_research_raw_deleted": false,
+  "removed": [
+    {
+      "path": "build/stage17-s180-cold-operator-prep/package-0919b87-1",
+      "payload_bytes": 251879061,
+      "reason": "ALL_PAYLOAD_BYTES_VERIFIED_AGAINST_RETAINED_AND_STAND_VERIFIED_MANIFEST",
+      "regular_files": 6287
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/frozen-source-34247ce-1",
+      "payload_bytes": 13029925,
+      "reason": "ALL_PAYLOAD_BYTES_VERIFIED_AGAINST_RETAINED_AND_STAND_VERIFIED_MANIFEST",
+      "regular_files": 1006
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/package-0919b87-1.tar.gz",
+      "reason": "STAND_SOFTWARE_INSTALL_VERIFIED",
+      "sha256": "425d6b3679f669c1172a5d58f789b3df7891ebfba4a91f426221e21230c2bc57",
+      "size_bytes": 64307039
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/frozen-source-34247ce-1.tar.gz",
+      "reason": "STAND_SOFTWARE_INSTALL_VERIFIED",
+      "sha256": "f4aee69461d45a9cb0cbae657cf35e58dde08a095091ebbe00259d085b833837",
+      "size_bytes": 2957874
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/install-file-diagnostic.json",
+      "reason": "ALL_FIELDS_REVIEWED_AND_COMPACT_FAILURE_PROOF_RETAINED",
+      "sha256": "d92751f29d2abf0384d9807e9b38a464cf8750792381b319acba2880cb4a3723",
+      "size_bytes": 1706945
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/common-readonly-accepted-locator.stderr",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/finalize-stand.stderr",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/common-readonly-accepted-locator.json",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "180313e6be449b4ed99f95059509309406987d2d94a6b96e856072f260de6f67",
+      "size_bytes": 3546
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/install-stand.py",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "326b05715d97af527a5afc6c9b53d2e323ecea42f887b7b8f2db9696d611e806",
+      "size_bytes": 2442
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/common-readonly-check.py",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "b22950af94e94ee3d96d7c916c8e2437be1f86e29a5e058a0245eba4ad36de3e",
+      "size_bytes": 3302
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/common-readonly-full-source.json",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "2bec2c6b70164aff20fe491ee5b2b721a61a3074208061e6adb2875fdc667b83",
+      "size_bytes": 121731
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/assembly.stderr",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/common-readonly-full-source.stderr",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/frozen-source-assembly.stderr",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/common-readonly-accepted-locator.py",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "6f0ae6db455103e29fef76a319ea170c10318f0d153cd6b0f4fed73b670ff9d6",
+      "size_bytes": 3353
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/assembly.json",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "37eed962ee8e504b539b2422c3381c9e4f1a17d026886ff633d1862c98facccf",
+      "size_bytes": 593
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/finalize-stand.json",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "98e5db3444d88e62b2a3d76ca4e0d946e1a916d2f53195fee485f17649ff6311",
+      "size_bytes": 646
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/frozen-source-assembly.json",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "a1075988cfe911dc07493fcd8deeb16a1d47f7638394ef40a5190cde8f5e93db",
+      "size_bytes": 263
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/install-stand.stderr",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "be24f0bf65dac18011bfc17ca1b01ecb0b520265e31652e84ca6038e58f5eca3",
+      "size_bytes": 89
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/final-stand-status.json",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "a902f6250775f26c7438c73384f28333b7fc8caf1974a87296632a0a885b39a5",
+      "size_bytes": 847
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/common-readonly-full-source.py",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "81a7125483cd54d2a042612053e8b35f8dbaf718dc5f3c1246f3b1b29b3a965a",
+      "size_bytes": 3789
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/assemble.py",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "61e5fb7d758000d49c856744868546e5d05aafa48b6567203a40bb22be55c4e7",
+      "size_bytes": 3926
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/finalize-stand.py",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "6f9cb0f163cea13488e932126df648ab5f19e19903457ef591342093d0f51499",
+      "size_bytes": 2425
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/install-frozen-source.py",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "5b86ee2e01b4bfa2c85c7ad853974b0ad9c8e71920b16caa0fc7385e9dc1eab6",
+      "size_bytes": 2005
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/assemble-frozen-source.py",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "c1da58dea8a984655b15984f2481198aacea3b171b30dfeb7b00e8cb7364a9ef",
+      "size_bytes": 1442
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/common-readonly-check.json",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "e51616b120ba915f4d545b3461b7bee27054ee04c169174c3ae8bc3b0dc09653",
+      "size_bytes": 2725
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/common-readonly-check.stderr",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/install-frozen-source.stderr",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-cold-operator-prep/install-frozen-source.json",
+      "reason": "BYTE_IDENTICAL_PC_EVIDENCE_STAGING",
+      "sha256": "3db4cf0ea11bae0679def8c5ea5189e8270ed0bd88b50172439a9e866bd3ab19",
+      "size_bytes": 408
+    }
+  ],
+  "stand_original_research_data_deleted": false
+}

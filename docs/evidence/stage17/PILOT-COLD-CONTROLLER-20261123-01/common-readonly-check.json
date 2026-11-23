@@ -1,0 +1,97 @@
+{
+  "completed_proof": {
+    "actual_frozen_native_identity": {
+      "execution_authority": false,
+      "phase18_authority": false,
+      "profile": "STAGE17-S180-NATIVE-WORKER-v1",
+      "role": "STAGE17_S180_NATIVE_WORKER",
+      "schema_version": "cpu-prefetch-stage17-s180-runtime-identity/1",
+      "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+      "size_bytes": 6151832,
+      "source_dirty": false,
+      "source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+      "synthetic_test_only": false
+    },
+    "owned_original_replay": {
+      "actual_owner_reader_completed": true,
+      "cleanup": {
+        "cleanup_deadline_overrun": false,
+        "cleanup_diagnostics": [],
+        "descendants_detected_after_leader_exit": false,
+        "leader_reaped": true,
+        "leader_wait_timed_out": false,
+        "maximum_descendant_count": 0,
+        "namespace_snapshot": {
+          "local_pgid": 391459,
+          "local_pid": 391459,
+          "namespace_inode": "4026531836",
+          "nspgid": [
+            391459
+          ],
+          "nspid": [
+            391459
+          ],
+          "procfs_namespace_inode": "4026531836",
+          "visible_pgid": 391459,
+          "visible_pid": 391459
+        },
+        "process_group_gone": true,
+        "returncode": 0,
+        "terminal_cleanup_outcome": "NORMAL_LEADER_REAPED_GROUP_QUIESCENT"
+      },
+      "completed_monotonic_ns": 1904736206562958,
+      "console_prefix": "",
+      "deadline_monotonic_ns": 1905295144241618,
+      "execution_authority": false,
+      "failure": null,
+      "observed_reader": {
+        "actual_gid_fields": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "actual_uid_fields": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "address_space_bytes": [
+          8589934592,
+          8589934592
+        ],
+        "file_size_bytes": [
+          268435456,
+          268435456
+        ],
+        "gid": 1000,
+        "session_id": 391461,
+        "start_ticks": 190469514,
+        "uid": 1000
+      },
+      "phase18_authority": false,
+      "pid": 391461,
+      "root_parent_credentials_preserved": true,
+      "root_uids_after": [
+        0,
+        0,
+        0
+      ],
+      "root_uids_before": [
+        0,
+        0,
+        0
+      ],
+      "schema_version": "cpu-prefetch-stage17-s180-owned-original-replay/1",
+      "started_monotonic_ns": 1904695146746420
+    }
+  },
+  "error": "",
+  "error_type": "AssertionError",
+  "operational_window_started": false,
+  "process_report": null,
+  "qualification_performed": false,
+  "status": "COLD_COMMON_READONLY_VERIFICATION_FAILED",
+  "subprocess_stderr": ""
+}

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_calibration_compatibility_v1.py", line 45, in _review
+    value=archive.parse_json(raw);reader.finish()
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 90, in parse_json
+    raise ArchiveError("JSON is not exact JCS-I64-v1 object bytes")
+stage17_formal_archive_v1.ArchiveError: JSON is not exact JCS-I64-v1 object bytes

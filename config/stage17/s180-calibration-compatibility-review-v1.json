@@ -1,0 +1,550 @@
+{
+  "calibration_freeze_sha256": "cdf85bf585c997e079f432f904d93849fa5f69757440c7cefcf61ca7e06d742c",
+  "changed_native_sources": [
+    {
+      "current_sha256": "83d615e85de4170edae4c5acc38e6c36ec004d5386d12ed1f5cb78251fa7da7c",
+      "original_sha256": "0fa0c50147d0daa17531b24a3ac07a66a2e876ec65525f058145ed81babadd5f",
+      "path": "include/cpu_prefetch/calibration/detail/native_capture_monitor.hpp"
+    },
+    {
+      "current_sha256": "ded21dd842f9836ab77e61375699a6879673a1af71ed4c30aab8dc867c082670",
+      "original_sha256": "28dc44fa1e0b3ada3ce1713981b1db3560644d7666e44478aa4be4f2abea37f4",
+      "path": "include/cpu_prefetch/calibration/detail/native_service_envelope.hpp"
+    },
+    {
+      "current_sha256": "19da86114085b1958032f4b04c42873728dbaaf6baf23eec9116df0fe6c4e395",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/calibration/mapped_pilot_capture.hpp"
+    },
+    {
+      "current_sha256": "6646000e13493f4346c6bc181bde2ff6cd2f9b1913c39ddde6db50068dc0a846",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/calibration/mapped_pilot_data.hpp"
+    },
+    {
+      "current_sha256": "bead9bc1d5911fe1950a428e7c9ba27ea96cf8e19fc17aeb4cf39d0379c95ed6",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/calibration/native_pilot_capture.hpp"
+    },
+    {
+      "current_sha256": "8edb84ae15a9fb8bb6f51bc1719b20452cfb9b0edb55cf0a14b9dae05c3056d2",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/calibration/pilot_scheduled_capture.hpp"
+    },
+    {
+      "current_sha256": "7d758c7ce02cf0a31de5a8d76c8d1d57fddbcc7ebce4cfb406da71316acc7f7c",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/calibration/pilot_shared_data.hpp"
+    },
+    {
+      "current_sha256": "349fea046cf5e63b2cc837c3b66ebf18e07f0bf510989eee8f702e7e335937c4",
+      "original_sha256": "800f25452badaff887c11fdd827b23f3a712ab73754c01b2f17f9fa62d8f2649",
+      "path": "include/cpu_prefetch/runner/stage17_archive_channel.hpp"
+    },
+    {
+      "current_sha256": "c80aa5c362feed6cb2c7e964c49fe3344d90c4181364bde6958066d1d04d23da",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/runner/stage17_s180_channel_sink.hpp"
+    },
+    {
+      "current_sha256": "fde223280cc4c07c8bf95751fa13073e5ca9f25e7a4406813ca634d6e8475b2a",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/runner/stage17_s180_input.hpp"
+    },
+    {
+      "current_sha256": "5caac9e9b8856328282103c19cf3b5207c1c2d8e3c13b8732abcfe4a01582c4d",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/runner/stage17_s180_publication.hpp"
+    },
+    {
+      "current_sha256": "e6bb6d65037a4f33f70a5837943b35857929f81a72f5a5efc0f4db9fc23187f3",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/runner/stage17_s180_session.hpp"
+    },
+    {
+      "current_sha256": "c34471d97ee699545f0a3c4733615cdff58341893d55c4e60e14503a413a67fb",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/runner/stage17_s180_sources.hpp"
+    },
+    {
+      "current_sha256": "ff400f9b0e5a6695ba555a5e8330d7c54d49a6357f86c662fd94a10df89b9921",
+      "original_sha256": null,
+      "path": "include/cpu_prefetch/runner/stage17_s180_worker.hpp"
+    },
+    {
+      "current_sha256": "e20cc30087ff0203e545270982db6f326f0fd6d0b729307acd2750bcf1c3be9d",
+      "original_sha256": null,
+      "path": "src/calibration/native_pilot_capture.cpp"
+    },
+    {
+      "current_sha256": "b9f799a0f68a4fa8c54ed253871733dce44458af3a38b79204ca153db2cdd833",
+      "original_sha256": "79aa5950259a5c92c6f4b447f9d5b6ac28329edd7c984eb1597243449105fe82",
+      "path": "src/runner/stage17_archive_channel.cpp"
+    },
+    {
+      "current_sha256": "27faf8bf3d16d7566f4d10e266a4a6a46ddf638691dba747a0a4c9cc57d11413",
+      "original_sha256": "d8c481693d1616b8fe6626428af1ba93060adf26f146b89294c27b3c2822ad8e",
+      "path": "src/runner/stage17_discovery_publication.cpp"
+    },
+    {
+      "current_sha256": "a3bfaf25ae846cd6342be12858cefcb866f7ea164be5af2f3e9757acef362fc1",
+      "original_sha256": null,
+      "path": "src/runner/stage17_s180_channel_sink.cpp"
+    },
+    {
+      "current_sha256": "8ef4b95f32753faaed7d910726532bea7e5764960be6fe6825f5e97bed41790c",
+      "original_sha256": null,
+      "path": "src/runner/stage17_s180_input.cpp"
+    },
+    {
+      "current_sha256": "1d68854bd4a694aad7f703a25827cb50ebe751b4379fd2edc728eed77acc27ad",
+      "original_sha256": null,
+      "path": "src/runner/stage17_s180_native_session.cpp"
+    },
+    {
+      "current_sha256": "e21d2bd2a02e7716d7319125b22f60b38126131ab88119f6baf935752f12c1c7",
+      "original_sha256": null,
+      "path": "src/runner/stage17_s180_session.cpp"
+    },
+    {
+      "current_sha256": "93809d290f1066e1fa62696e75a9ae8304310bfcfdd0c49a5ad0f24efd09f0df",
+      "original_sha256": null,
+      "path": "src/runner/stage17_s180_sources.cpp"
+    },
+    {
+      "current_sha256": "bdfb20eb443c03db24389fd8df71738a83bc398c4d86683b58612a7f21f9fdf4",
+      "original_sha256": null,
+      "path": "src/runner/stage17_s180_worker.cpp"
+    }
+  ],
+  "current_build_metadata": {
+    "path": "generated/version_metadata.json",
+    "sha256": "7ded5282835e04d3222ec33ee7f59b8f5c06d3b7882a9bc12d2f32afbab6ea30",
+    "size_bytes": 401
+  },
+  "current_codegen": {
+    "path": "s180_codegen_report-final.json",
+    "sha256": "5d00594e43480da6e7ee5f4b5a22ff410e1107d70ff72dccc1043ef8053b7be3",
+    "size_bytes": 4010028
+  },
+  "current_source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "current_worker": {
+    "path": "cpu_prefetch_runner",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832
+  },
+  "libraries": [
+    {
+      "current": {
+        "path": "libcpu_prefetch_queue.a",
+        "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+        "size_bytes": 51162
+      },
+      "identical": true,
+      "library": "queue",
+      "original": {
+        "path": "release/lib/libcpu_prefetch_queue.a",
+        "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+        "size_bytes": 51162
+      }
+    },
+    {
+      "current": {
+        "path": "libcpu_prefetch_workload.a",
+        "sha256": "24ffc94864ce4c373b2262dd3cd862aeeb9c97d68d998e15fb229813ed42f04c",
+        "size_bytes": 102946
+      },
+      "identical": true,
+      "library": "workload",
+      "original": {
+        "path": "release/lib/libcpu_prefetch_workload.a",
+        "sha256": "24ffc94864ce4c373b2262dd3cd862aeeb9c97d68d998e15fb229813ed42f04c",
+        "size_bytes": 102946
+      }
+    },
+    {
+      "current": {
+        "path": "libcpu_prefetch_timing.a",
+        "sha256": "c3820dc7d8f136f3c0f9b00fbba932b539f315df52fb9a5e65d752437aafea21",
+        "size_bytes": 31766
+      },
+      "identical": true,
+      "library": "timing",
+      "original": {
+        "path": "release/lib/libcpu_prefetch_timing.a",
+        "sha256": "c3820dc7d8f136f3c0f9b00fbba932b539f315df52fb9a5e65d752437aafea21",
+        "size_bytes": 31766
+      }
+    },
+    {
+      "current": {
+        "path": "libcpu_prefetch_calibration.a",
+        "sha256": "7b16762990d4ca82c06c517fafdfa0bed3cdf1c4c36f62e8d23a2fe707ef308d",
+        "size_bytes": 3873820
+      },
+      "identical": false,
+      "library": "calibration",
+      "original": {
+        "path": "release/lib/libcpu_prefetch_calibration.a",
+        "sha256": "e109e8c810898e9704e76b4fd17a677b5f5aee0d7d2cd2060db7b74767185815",
+        "size_bytes": 2657694
+      }
+    },
+    {
+      "current": {
+        "path": "libcpu_prefetch_storage.a",
+        "sha256": "8d6f96255d21ea2ccd9e6c17b37ada2de310292c5d05026174f83e53e8488809",
+        "size_bytes": 837902
+      },
+      "identical": true,
+      "library": "storage",
+      "original": {
+        "path": "release/lib/libcpu_prefetch_storage.a",
+        "sha256": "8d6f96255d21ea2ccd9e6c17b37ada2de310292c5d05026174f83e53e8488809",
+        "size_bytes": 837902
+      }
+    },
+    {
+      "current": {
+        "path": "libcpu_prefetch_lifecycle.a",
+        "sha256": "046d94647363439f1e181046522514291cf25e84f0ba21a3a499cab1778582ff",
+        "size_bytes": 188752
+      },
+      "identical": true,
+      "library": "lifecycle",
+      "original": {
+        "path": "release/lib/libcpu_prefetch_lifecycle.a",
+        "sha256": "046d94647363439f1e181046522514291cf25e84f0ba21a3a499cab1778582ff",
+        "size_bytes": 188752
+      }
+    },
+    {
+      "current": {
+        "path": "libcpu_prefetch_platform.a",
+        "sha256": "017f743be93ba4b15775b1edaa9f358f811fabc5fe124787c9ff0004a643bcf8",
+        "size_bytes": 1040836
+      },
+      "identical": true,
+      "library": "platform",
+      "original": {
+        "path": "release/lib/libcpu_prefetch_platform.a",
+        "sha256": "017f743be93ba4b15775b1edaa9f358f811fabc5fe124787c9ff0004a643bcf8",
+        "size_bytes": 1040836
+      }
+    },
+    {
+      "current": {
+        "path": "libcpu_prefetch_protocol.a",
+        "sha256": "4c33488c9035e4d7ca561f874cd946cdb4f6179ff5ad23bda5d918f58d194c4e",
+        "size_bytes": 1040966
+      },
+      "identical": true,
+      "library": "protocol",
+      "original": {
+        "path": "release/lib/libcpu_prefetch_protocol.a",
+        "sha256": "4c33488c9035e4d7ca561f874cd946cdb4f6179ff5ad23bda5d918f58d194c4e",
+        "size_bytes": 1040966
+      }
+    },
+    {
+      "current": {
+        "path": "libcpu_prefetch_reconciliation.a",
+        "sha256": "1f2903602ad1399ccc328fd42b6d13b9102c8cab67b01e256801ca54563e739b",
+        "size_bytes": 232134
+      },
+      "identical": true,
+      "library": "reconciliation",
+      "original": {
+        "path": "release/lib/libcpu_prefetch_reconciliation.a",
+        "sha256": "1f2903602ad1399ccc328fd42b6d13b9102c8cab67b01e256801ca54563e739b",
+        "size_bytes": 232134
+      }
+    }
+  ],
+  "original_ext006_sha256": "0c45b4f94cd6229adea3a76ff9735c414f951e9fd088a7edaae88c04e28ac115",
+  "original_ext007_sha256": "fd4a2b1a1c0c9cf0ab6ecf47fa838de81e67746c67caebad8b15779f4c70f104",
+  "original_inventory": {
+    "path": "BUNDLE_INVENTORY.json",
+    "sha256": "828fe1a3482b4b6c9d7249582648be43e920051033f103808e0fc7644362bf8a",
+    "size_bytes": 880437
+  },
+  "original_source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "original_unbundled_native_sources": [
+    {
+      "path": "include/cpu_prefetch/analysis/analysis.hpp",
+      "sha256": "5530c9c9dae7065da65c55ead447ab6668fcae79636ff3f9925144ce3756e940",
+      "size_bytes": 12508
+    },
+    {
+      "path": "include/cpu_prefetch/lifecycle/state_machine.hpp",
+      "sha256": "264e7396fb09b72731df11f419326b7e7cfe1dbc140e6d68771ef456aa38650b",
+      "size_bytes": 4877
+    },
+    {
+      "path": "include/cpu_prefetch/orchestration/access.hpp",
+      "sha256": "8bd26bcafb67911bd3fe636296ae95ebfda115b5f76bbb232ba4da3be6c2c485",
+      "size_bytes": 4897
+    },
+    {
+      "path": "include/cpu_prefetch/orchestration/block_planning.hpp",
+      "sha256": "8c3d714e9d16db71864e91e83ff062bb735901b85b7bbbf2c69c79f2ac435c0d",
+      "size_bytes": 4269
+    },
+    {
+      "path": "include/cpu_prefetch/orchestration/precision.hpp",
+      "sha256": "858d703aa9e79827c71221c814420d34fa0b36d89c1e4cbf745793e1e934170b",
+      "size_bytes": 2904
+    },
+    {
+      "path": "include/cpu_prefetch/platform/linux_inventory.hpp",
+      "sha256": "3721912c9150b0e068089f8a25b477f249704d38dae45a36f7fcb2a8f16d57c7",
+      "size_bytes": 1069
+    },
+    {
+      "path": "include/cpu_prefetch/qualification/p4_k_a_controller.hpp",
+      "sha256": "634d61a221ba730066c06cde04ebba7266847917032ee04799255e91145d3112",
+      "size_bytes": 8992
+    },
+    {
+      "path": "include/cpu_prefetch/qualification/q15_clock_pair_qualification.hpp",
+      "sha256": "52351324d0b17206b7829b2853a512866fcc0d9b55229a80215f9a24e8f05bdd",
+      "size_bytes": 2698
+    },
+    {
+      "path": "include/cpu_prefetch/qualification/q15_collectors.hpp",
+      "sha256": "57f2aecb0260b8cce7b44e41948cc9cef5f9fe059cdfd40b321fa015953fb311",
+      "size_bytes": 5054
+    },
+    {
+      "path": "include/cpu_prefetch/qualification/q15_controller.hpp",
+      "sha256": "2b58f48dda6c76dc8eefb917f1bf9670f03f2578638f1ab06f2c84e5669698de",
+      "size_bytes": 7763
+    },
+    {
+      "path": "include/cpu_prefetch/qualification/q15_prestate.hpp",
+      "sha256": "e16491836baf6be30b99d56e6b019aa6a0a8ffb733f4311dc8daee68bf270b9a",
+      "size_bytes": 4863
+    },
+    {
+      "path": "include/cpu_prefetch/qualification/q15_trust_anchor_adapter.hpp",
+      "sha256": "60be11e0e75e842639932118e38dce9a4fab9351020e3a78a56b479130fae386",
+      "size_bytes": 3751
+    },
+    {
+      "path": "include/cpu_prefetch/queue/adapters.hpp",
+      "sha256": "1a7a28562be0ab2ab7e8f608b52470702e038b8d79d1fa738e6a5dc28ae14e49",
+      "size_bytes": 2495
+    },
+    {
+      "path": "include/cpu_prefetch/schedule/schedule.hpp",
+      "sha256": "6c8aa343a0f2dbf4386e6d5651081fad4fff69bf97f9bbec4cc59b9ee6d39707",
+      "size_bytes": 3942
+    },
+    {
+      "path": "include/cpu_prefetch/timing/cross_core_exchange.hpp",
+      "sha256": "b845cffd785fc60ed7972313152035bf83ff52cd34921c90353499c9a812f136",
+      "size_bytes": 9080
+    },
+    {
+      "path": "include/cpu_prefetch/timing/intervals.hpp",
+      "sha256": "b3687085ef85a1336265f1039b6c0557bd4b42513e3c9635741c5a8065565c08",
+      "size_bytes": 630
+    },
+    {
+      "path": "include/cpu_prefetch/timing/qualification.hpp",
+      "sha256": "1c5e4caeb5ecee394c7ed5128d9a144d362e0a519db4d7b998dbd98279387133",
+      "size_bytes": 4749
+    },
+    {
+      "path": "src/analysis/analysis.cpp",
+      "sha256": "12a1cea082b6ec1c367e3c40e2462b32e7abe4f633b28849024c1e242e9d6ecf",
+      "size_bytes": 99738
+    },
+    {
+      "path": "src/lifecycle/state_machine.cpp",
+      "sha256": "08eb817863911b32762d52fa4105d8917ef442f1dc65630c6ce9e25a08b2cf2b",
+      "size_bytes": 18224
+    },
+    {
+      "path": "src/orchestration/access.cpp",
+      "sha256": "07d33f592019a7f30e57bc2543bfc1195b8dbfa99fa3e7910dfb435787483d81",
+      "size_bytes": 64917
+    },
+    {
+      "path": "src/orchestration/block_planning.cpp",
+      "sha256": "3414866ad95a8db7c9e5bf005de5ddf07882302c17d40922c9507aa00c2f7dfa",
+      "size_bytes": 35585
+    },
+    {
+      "path": "src/orchestration/precision.cpp",
+      "sha256": "867754d8e738b7c29830a00f3d8bc1d0c381f89cd37b683768d668e00861cd1a",
+      "size_bytes": 10409
+    },
+    {
+      "path": "src/platform/linux_inventory.cpp",
+      "sha256": "5ab1b55b72ed9a4ea6bae12f4ff58967c3857a34126c62aea38822bf1af9960d",
+      "size_bytes": 28352
+    },
+    {
+      "path": "src/platform/owner_mapping.cpp",
+      "sha256": "c36770e9b7354ccb1a7a9aa78dc911bf14d1c4d9e10a1b29d30cc3b2464cf55b",
+      "size_bytes": 5570
+    },
+    {
+      "path": "src/platform/platform.cpp",
+      "sha256": "6acdfadff91f11ca831023888338fb4b5aa20fd4b5b480cbe521958da0634d2e",
+      "size_bytes": 68661
+    },
+    {
+      "path": "src/platform/prepared_prefetch_readback.cpp",
+      "sha256": "6afeb235c8bee61536ef7a080cad82b15bc4d5572e4485048c5de9d789e19dd4",
+      "size_bytes": 7099
+    },
+    {
+      "path": "src/platform/prepared_residency.cpp",
+      "sha256": "fe1a505e31a08f7cba9dc1e033dad4bbb8e2b15d0039291c01a9646188b18532",
+      "size_bytes": 691
+    },
+    {
+      "path": "src/platform/q15_counted_region.cpp",
+      "sha256": "99094e85e030dfd3fae3e62640b9c4074ab2a6c0b7b367682dec4770ffdaea3b",
+      "size_bytes": 1185
+    },
+    {
+      "path": "src/platform/q15_probe.cpp",
+      "sha256": "8fa9f79d7cbeb3524c7dda5bc744e0f1e41a8fcb4f0f07933e5ac9cd6119d879",
+      "size_bytes": 8107
+    },
+    {
+      "path": "src/platform/q15_runtime.cpp",
+      "sha256": "c6a55edd4e849611bcd50a93dfdad73d611ad5acabcbadbfe8077212ce657f6c",
+      "size_bytes": 43143
+    },
+    {
+      "path": "src/platform/worker_stack.cpp",
+      "sha256": "08ca857092f52d3a0a5b4eb23e35dabf555840e86e7c44a79cf7eaeefdbb3003",
+      "size_bytes": 1415
+    },
+    {
+      "path": "src/protocol/json.cpp",
+      "sha256": "b572dacfac16ab37533b60f8a99976ebf5584ccfd16a2f6e9ed4445be1413d99",
+      "size_bytes": 26104
+    },
+    {
+      "path": "src/protocol/load.cpp",
+      "sha256": "5d5542ab61d727320b62a51388e771f2f27034ce2485dab721b0c2c357875eb6",
+      "size_bytes": 77391
+    },
+    {
+      "path": "src/protocol/model.cpp",
+      "sha256": "2d5dce21f0b3f4a59aabc5604993332e1e20c1c9cc2258cca5c2a6a1021c9e8a",
+      "size_bytes": 11414
+    },
+    {
+      "path": "src/protocol/semantic.cpp",
+      "sha256": "efb91112bce27ca0eb700f4f14a17a37032423841952b879d6c9d09537dbe12b",
+      "size_bytes": 34555
+    },
+    {
+      "path": "src/protocol/validation.cpp",
+      "sha256": "934d9a987eb8201da88c8db8e6b0797c0d5632adf2792e8d3c9356fb8a4796aa",
+      "size_bytes": 1340
+    },
+    {
+      "path": "src/qualification/p4_k_a_controller.cpp",
+      "sha256": "bb3075b523e82cf1c435f7ae98e1a656ac64b83c1a12bd325bd77496c7cb46b8",
+      "size_bytes": 19184
+    },
+    {
+      "path": "src/qualification/q15_clock_pair_qualification.cpp",
+      "sha256": "dbcba524172c0dc7d87c92c92062db98798a3be86b4723ac8ec4c164a01d70fb",
+      "size_bytes": 11098
+    },
+    {
+      "path": "src/qualification/q15_collectors.cpp",
+      "sha256": "bcf23cf5e85d1b77e604bf77562c0e047a57f0c9984f07f90cb3d82765f7bff6",
+      "size_bytes": 26872
+    },
+    {
+      "path": "src/qualification/q15_controller.cpp",
+      "sha256": "6e1d5f3b0b4fedb10ef1f91b7fbe3e5fde53bf070ad8ff7695be491c3618e50f",
+      "size_bytes": 13294
+    },
+    {
+      "path": "src/qualification/q15_prestate.cpp",
+      "sha256": "715f8965b8cb68a71dfbfc6e13a5593e33c9d8c1156194ab052193f1bab52e8a",
+      "size_bytes": 31638
+    },
+    {
+      "path": "src/qualification/q15_trust_anchor_adapter.cpp",
+      "sha256": "fea7f72ec0a503fe69eee1f9db25e348ad8b5371ac121b9489f6b76d00fa6002",
+      "size_bytes": 11621
+    },
+    {
+      "path": "src/queue/common.cpp",
+      "sha256": "c3fd566fe9c4de12f2a2e06075e4fdd9e23e495ffbd3798d1e6648ddf7fbd524",
+      "size_bytes": 2497
+    },
+    {
+      "path": "src/queue/ring_spsc.cpp",
+      "sha256": "1a218f6a1933435db4538ea9992158a17c608b4d8a27fbc9c9d3b8700c5c43c3",
+      "size_bytes": 5497
+    },
+    {
+      "path": "src/reconciliation/reconciliation.cpp",
+      "sha256": "d267e7da389350235480e4468ddfe83785743d96d31f51b02503d0d3d7fe9a50",
+      "size_bytes": 49788
+    },
+    {
+      "path": "src/repository_info.cpp",
+      "sha256": "0aa98298070cb3377fbe5c34fe84a6af0cf92020698e12f3d58fefa00864a8d3",
+      "size_bytes": 596
+    },
+    {
+      "path": "src/schedule/schedule.cpp",
+      "sha256": "76fb51eb88883b6f879710eee092b73ed3670f53d770fe527616e7010a116a65",
+      "size_bytes": 24303
+    },
+    {
+      "path": "src/timing/capture.cpp",
+      "sha256": "4c05b02f7bc30832e039a7ed78c531aedb008507b4d23840423eedc02e870960",
+      "size_bytes": 1662
+    },
+    {
+      "path": "src/timing/cross_core_exchange.cpp",
+      "sha256": "597322384672d27a9908ebc6e5571bdeb5f33f9574cfacf4548a9bc403d1458b",
+      "size_bytes": 500
+    },
+    {
+      "path": "src/timing/intervals.cpp",
+      "sha256": "a3a3da99dd1a8ad856637c14b58d79040d1c40d09b72ee571777a8185ceef5c1",
+      "size_bytes": 4643
+    },
+    {
+      "path": "src/timing/qualification.cpp",
+      "sha256": "b2b51817956859f705dda9e8da802d0482e4f7c68e2bd2c7a1a609e49a7ae660",
+      "size_bytes": 10671
+    },
+    {
+      "path": "src/workload/deterministic.cpp",
+      "sha256": "cbdc034b63ea29c471ad755e292363e58967fced7dbd8c593752cbf1bec95e01",
+      "size_bytes": 8004
+    },
+    {
+      "path": "src/workload/packages.cpp",
+      "sha256": "f93943e2df2c65f60139d1409ff34dd3b55db131b866d6c1e71b03c2cff24f6b",
+      "size_bytes": 2214
+    },
+    {
+      "path": "src/workload/working_set.cpp",
+      "sha256": "11004ee08119232bcc01b6d87b8e00f57ab3f762368b515b72ac4b17633cbc37",
+      "size_bytes": 8073
+    }
+  ],
+  "original_worker": {
+    "path": "release/bin/cpu_prefetch_runner",
+    "sha256": "bc064c13afd7eb5142ae8ee434e95962e9b3fc3095c6c159d83376c3e7e8c019",
+    "size_bytes": 5052696
+  },
+  "schema_version": "cpu-prefetch-stage17-s180-calibration-compatibility-review/1"
+}

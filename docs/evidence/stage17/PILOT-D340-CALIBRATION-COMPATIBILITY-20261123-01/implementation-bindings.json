@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "2d6844808cc1954816734d2492bc9a94eb48c2b284abf86cc23af03fba0a75eb",
+      "size_bytes": 200127
+    },
+    {
+      "path": "README.md",
+      "sha256": "31b776c91f52daf520ac65678b19e800ad3e7514c669bff76db522039bf0316f",
+      "size_bytes": 136069
+    },
+    {
+      "path": "STATUS.md",
+      "sha256": "297f39dbf6d6396372a29024756826635b54c7d6e28bbf3b3e5ae1ebc1b96c64",
+      "size_bytes": 154986
+    },
+    {
+      "path": "PLAN.md",
+      "sha256": "cefcefa8f93ce4415680e45dd53f6de4090c9dcc17b2561827d0f50771eccb20",
+      "size_bytes": 128616
+    },
+    {
+      "path": "docs/STAGE17_PILOT_PREPARATION.md",
+      "sha256": "a5b7461ceab7389516f592608cd901753cc3ae97f6e2ea59354d6f02949ad213",
+      "size_bytes": 29883
+    },
+    {
+      "path": "docs/decisions/0340-s180-exact-calibration-software-compatibility.md",
+      "sha256": "bbaf1337a8d8915718054eaa342871adef55f71ecfd12470874e6c2354ab942a",
+      "size_bytes": 6434
+    },
+    {
+      "path": "config/stage17/s180-calibration-compatibility-review-v1.json",
+      "sha256": "ef5c5868499f9b57be7c90ef92c27cc37185d3c36ff15e79077059d50dfd7642",
+      "size_bytes": 20141
+    },
+    {
+      "path": "tools/stage17_s180_calibration_compatibility_v1.py",
+      "sha256": "5dc21796383df9ab452ac61f8f71f04f285636928cd6f907f4929d7fdb63280d",
+      "size_bytes": 12346
+    },
+    {
+      "path": "tests/test_stage17_s180_calibration_compatibility_v1.py",
+      "sha256": "a0789951ed23c9ede78331327a1db540eb87fecd33309ccb93cd3de4c9373836",
+      "size_bytes": 14454
+    }
+  ]
+}

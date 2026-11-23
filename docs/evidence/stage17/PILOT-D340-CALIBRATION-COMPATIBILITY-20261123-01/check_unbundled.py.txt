@@ -1,0 +1,12 @@
+"""Read-only Git-blob audit for original native files omitted from the bundle."""
+import hashlib,json,subprocess
+from pathlib import Path
+root=Path.cwd();review=root/'config/stage17/s180-calibration-compatibility-review-v1.json'
+d=json.loads(review.read_bytes());rows=[]
+for row in d['original_unbundled_native_sources']:
+ values=[subprocess.check_output(['git','show',d[k]+':'+row['path']],timeout=10) for k in ('original_source_revision','current_source_revision')]
+ values.append((root/'build/stage17-s180-release-source-34247ce'/row['path']).read_bytes())
+ assert values[0]==values[1]==values[2]
+ assert len(values[0])==row['size_bytes'] and hashlib.sha256(values[0]).hexdigest()==row['sha256']
+ rows.append(row)
+print(json.dumps(dict(original_source_revision=d['original_source_revision'],current_source_revision=d['current_source_revision'],source_count=len(rows),files=rows,original_and_current_git_blobs_and_current_frozen_files_identical=True,execution_authority=False),sort_keys=True,indent=2))

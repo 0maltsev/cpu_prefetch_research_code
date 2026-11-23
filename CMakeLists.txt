@@ -1891,6 +1891,10 @@ if(BUILD_TESTING)
       --helper "$<TARGET_FILE:cpu_prefetch_q15_qualification_evidence_tool>")
   set_tests_properties(runner.s180_qualification_evidence_v1 PROPERTIES
     LABELS "runner;pilot;synthetic;python" TIMEOUT 420)
+  add_test(NAME runner.s180_calibration_compatibility_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_calibration_compatibility_v1.py")
+  set_tests_properties(runner.s180_calibration_compatibility_v1 PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 120)
   add_test(NAME runner.software_prefetch_t0_codegen
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_software_prefetch_t0_codegen.py")
   set_tests_properties(runner.software_prefetch_t0_codegen PROPERTIES

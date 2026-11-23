@@ -1,0 +1,15 @@
+"""Read-only actual software artifacts; explicitly synthetic replay projection."""
+import datetime,hashlib,json,sys,time
+from pathlib import Path
+from types import SimpleNamespace
+root=Path(__file__).resolve().parents[2];sys.path.insert(0,str(root/'tools'))
+import stage17_s180_calibration_compatibility_v1 as c
+rules=c._review();old=root/'build/stage17-q16c-d295/verified/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b'
+base=SimpleNamespace(resolutions={f'S17-EXT-{i:03d}':SimpleNamespace(input_id=f'S17-EXT-{i:03d}',resolution_id=f'software-only-{i}',sha256=str(i)*64,semantic_context={}) for i in range(1,8)})
+base.resolutions['S17-EXT-006'].sha256=rules['original_ext006_sha256'];base.resolutions['S17-EXT-007'].sha256=rules['original_ext007_sha256']
+# This local locator is a declared fixture. It is not a derived stand context.
+base.resolutions['S17-EXT-006'].semantic_context=dict(source_revision=rules['original_source_revision'],archive_bundle_root=str(old),release_artifact_path=str(old/rules['original_worker']['path']),release_artifact_sha256=rules['original_worker']['sha256'],release_artifact_size_bytes=rules['original_worker']['size_bytes'],inventory_sha256=rules['original_inventory']['sha256'])
+base.resolutions['S17-EXT-007'].semantic_context=dict(calibration_scope=c.CALIBRATION_SCOPE,data_provenance_accepted=True,legacy_statistical_freeze_satisfied=False)
+start=time.monotonic();owner=c.verify(base_validation=base,plan_sha256='d'*64,original_bundle=old,source_root=root/'build/stage17-s180-release-source-34247ce',release_root=root/'build/stage17-s180-release-34247ce',codegen_report=root/'docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180_codegen_report-final.json')
+proof=owner.proof(base_validation=base,plan_sha256='d'*64)
+print(json.dumps(dict(observed_at_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),software_compatibility_verified=proof['software_compatibility_verified'],metadata_files=len(proof['files']),metadata_bytes=sum(r['size_bytes'] for r in proof['files']),seconds=time.monotonic()-start,review_sha256=c.REVIEW_SHA,current_native_source_files=len(proof['current_native_sources']),reviewed_shared_sources=proof['reviewed_shared_changes'],added_sources=proof['new_native_sources'],full_ext008_admission=False,original_journal_replay_performed=False,synthetic_replay_projection=True,qualification_performed=False,operational_window_started=False,execution_authority=False),sort_keys=True))

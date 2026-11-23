@@ -1,0 +1,54 @@
+"""Read-only artifact comparison; this does not admit calibration compatibility."""
+import datetime
+import hashlib
+import json
+from pathlib import Path
+import shutil
+import subprocess
+
+old_revision='7b7c263cb850690cf333df0d196b18c875b4a53c'
+current_revision='34247cedab4abe4b44732daae8fdac1700eccffd'
+old=Path('build/stage17-q16c-d295/verified/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b')
+current=Path('build/stage17-s180-release-34247ce')
+
+def binding(path):
+    raw=path.read_bytes();return dict(path=str(path),size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest())
+
+inventory_path=old/'BUNDLE_INVENTORY.json';inventory=json.loads(inventory_path.read_bytes())
+assert inventory['source_revision']==old_revision
+index={r['path']:r for r in inventory['files']};assert len(index)==len(inventory['files'])
+libraries=[];members=[]
+tool=Path(shutil.which('ar')).resolve(strict=True)
+for name in ('queue','workload','timing','calibration','storage','lifecycle','platform','protocol','reconciliation'):
+    relative='release/lib/libcpu_prefetch_'+name+'.a';before=binding(old/relative);after=binding(current/Path(relative).name)
+    assert before['size_bytes']==index[relative]['size_bytes'] and before['sha256']==index[relative]['sha256']
+    libraries.append(dict(library=name,original=before,current=after,identical=before['sha256']==after['sha256']))
+    if name=='calibration':
+        old_members=subprocess.check_output([str(tool),'t',before['path']],text=True,timeout=10).splitlines()
+        new_members=subprocess.check_output([str(tool),'t',after['path']],text=True,timeout=10).splitlines()
+        assert len(set(old_members))==len(old_members) and len(set(new_members))==len(new_members)
+        assert set(old_members)<=set(new_members)
+        for member in old_members:
+            values=[subprocess.check_output([str(tool),'p',row['path'],member],timeout=10) for row in (before,after)]
+            hashes=[hashlib.sha256(raw).hexdigest() for raw in values]
+            members.append(dict(member=member,identical=hashes[0]==hashes[1],original_sha256=hashes[0],current_sha256=hashes[1]))
+        added=sorted(set(new_members)-set(old_members))
+changed=subprocess.check_output(['git','diff','--name-only',old_revision,current_revision,'--','include/cpu_prefetch','src'],text=True,timeout=10).splitlines()
+sources=[]
+for name in changed:
+    row=dict(path=name)
+    for side,revision in [('original',old_revision),('current',current_revision)]:
+        found=subprocess.run(['git','show',revision+':'+name],capture_output=True,timeout=10)
+        row[side+'_sha256']=hashlib.sha256(found.stdout).hexdigest() if found.returncode==0 else None
+    sources.append(row)
+assert sum(r['identical'] for r in libraries)==8
+assert {r['member'] for r in members if not r['identical']}=={
+    'native_formal_ring_capture.cpp.o','native_formal_service_capture.cpp.o','native_formal_scheduled_capture.cpp.o'}
+assert added==['native_pilot_capture.cpp.o']
+print(json.dumps(dict(schema_version='cpu-prefetch-stage17-s180-calibration-edge-audit/1',
+    observed_at_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),scope='READ_ONLY_LOCAL_ARTIFACT_AUDIT',
+    original_source_revision=old_revision,current_source_revision=current_revision,original_inventory=binding(inventory_path),
+    original_inventory_members_match=True,ar_tool=dict(**binding(tool),version=subprocess.check_output([str(tool),'--version'],text=True,timeout=10).splitlines()[0]),
+    libraries=libraries,calibration_existing_members=members,calibration_added_members=added,changed_native_sources=sources,
+    compatibility_admission_performed=False,original_journal_replay_performed=False,
+    stand_access_performed=False,qualification_performed=False,execution_authority=False),sort_keys=True,separators=(',',':')))

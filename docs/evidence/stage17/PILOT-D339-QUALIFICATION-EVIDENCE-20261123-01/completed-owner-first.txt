@@ -1,0 +1,6 @@
+test_one_native_buffer_separate_signed_write_and_verified_restoration (__main__.SessionTests.test_one_native_buffer_separate_signed_write_and_verified_restoration) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 11.444s
+
+OK

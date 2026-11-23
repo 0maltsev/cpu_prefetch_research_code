@@ -1,0 +1,18 @@
+test_actual_ten_typed_envelopes_keep_source_producer_identities_and_limits (__main__.EvidenceTests.test_actual_ten_typed_envelopes_keep_source_producer_identities_and_limits) ... ok
+test_author_deadline_failure_retains_pid_and_quiescence (__main__.EvidenceTests.test_author_deadline_failure_retains_pid_and_quiescence) ... ok
+test_changed_clock_raw_is_rejected_before_any_export (__main__.EvidenceTests.test_changed_clock_raw_is_rejected_before_any_export) ... ok
+test_changed_export_directory_and_unexpected_file_reject (__main__.EvidenceTests.test_changed_export_directory_and_unexpected_file_reject) ... ok
+test_changed_export_latches_without_republishing (__main__.EvidenceTests.test_changed_export_latches_without_republishing) ... ok
+test_changed_original_signature_latches_completed_owner_even_if_restored (__main__.EvidenceTests.test_changed_original_signature_latches_completed_owner_even_if_restored) ... ok
+test_completed_evidence_survives_action_expiry_without_run_authority (__main__.EvidenceTests.test_completed_evidence_survives_action_expiry_without_run_authority) ... ok
+test_existing_export_directory_is_never_adopted_or_modified (__main__.EvidenceTests.test_existing_export_directory_is_never_adopted_or_modified) ... ok
+test_helper_failure_retains_partial_output_stops_and_proves_cleanup (__main__.EvidenceTests.test_helper_failure_retains_partial_output_stops_and_proves_cleanup) ... ok
+test_late_export_cannot_reset_original_qualification_deadline (__main__.EvidenceTests.test_late_export_cannot_reset_original_qualification_deadline) ... ok
+test_report_or_unexecuted_preparation_cannot_construct_completion_or_export (__main__.EvidenceTests.test_report_or_unexecuted_preparation_cannot_construct_completion_or_export) ... ok
+test_wrong_builder_binding_is_rejected_without_namespace (__main__.EvidenceTests.test_wrong_builder_binding_is_rejected_without_namespace) ... ok
+test_changed_pinned_support_record_cannot_supply_flags (__main__.SupportTests.test_changed_pinned_support_record_cannot_supply_flags) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 244.706s
+
+OK

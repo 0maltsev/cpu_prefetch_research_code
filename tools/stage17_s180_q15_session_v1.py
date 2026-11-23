@@ -194,6 +194,7 @@ class _PreparedQ15:
         self.owner=owner;self.clock_owner=clock_owner;self.base=copy.deepcopy(base)
         self._context=archive.canonical(context);self.validators=validators;self.preparation=preparation
         self.pid=os.getpid();self.failed=False;self.used=False
+        self._completion=None
 
     def _guard(self):
         try:return self._checked_guard()
@@ -237,6 +238,75 @@ class _PreparedQ15:
         artifact-selected command/plugin. Both phases are reverified here.
         """
         return _execute(self,native_image=native_image,signer=signer)
+
+    def completed(self):
+        require(type(self._completion) is _CompletedQ15,'successful owned Q15 completion required')
+        self._completion.proof(plan_sha256=archive.parse_json(self._context)['plan_sha256'])
+        return self._completion
+
+
+class _CompletedQ15:
+    """Original successful execution, usable after its action deadline, not a retry.
+
+    The original parent retains ownership; every proof rechecks all exact files
+    and the original live operational window. No request bytes or launch method.
+    """
+    def __init__(self,*,token,prepared,image,bindings):
+        require(token is _TOKEN,'actual successful Q15 execution required')
+        self.prepared=prepared;self.image=image;self.pid=os.getpid();self.failed=False
+        self._bindings=archive.canonical(dict(files=bindings))
+        self._context=bytes(prepared._context)
+        self._base=archive.canonical([authority.pilot.binding(prepared.base.resolutions[f'S17-EXT-{i:03d}']) for i in range(1,8)])
+
+    def proof(self,*,plan_sha256):
+        try:return self._proof(plan_sha256)
+        except BaseException:
+            self.failed=True;self.prepared.failed=True;self.prepared.owner._qualification_failed=True
+            raise
+
+    def _proof(self,family):
+        p=self.prepared;context=archive.parse_json(self._context)
+        require(self.pid==os.getpid() and not self.failed and p.used and not p.failed,
+            'completed Q15 ownership failed; no retry')
+        require(p._context==self._context and family==context['plan_sha256'],'completed Q15 plan/context changed')
+        require(archive.canonical([authority.pilot.binding(p.base.resolutions[f'S17-EXT-{i:03d}']) for i in range(1,8)])==self._base,
+            'completed Q15 original base lineage changed')
+        p.owner._guard(family)
+        require(p.owner._qualification_roles==['near','far','q15'],'completed Q15 qualification order differs')
+        clock=p.clock_owner.proof(plan_sha256=family)
+        require(all(clock[k]==context[k] for k in ('qualification_started_monotonic_ns','qualification_deadline_monotonic_ns','window_binding')),
+            'completed Q15 original clock/window differs')
+        st=ROOT.stat(follow_symlinks=False);original=context['evidence_root_binding']
+        require(str(ROOT)==original['absolute_path'] and stat.S_ISDIR(st.st_mode) and st.st_uid==0
+            and stat.S_IMODE(st.st_mode)==0o700 and [st.st_dev,st.st_ino]==[original['device'],original['inode']],
+            'completed Q15 directory identity differs')
+        rows=archive.parse_json(self._bindings)['files'];observed={}
+        require({str(path) for path in ROOT.iterdir()}=={r['path'] for r in rows},'completed Q15 inventory changed')
+        for row in rows:
+            path=Path(row['path']);require(path.parent==ROOT,'completed Q15 locator escaped original root')
+            raw=compaction._root_file(path,FILE_BYTES)
+            require(len(raw)==row['size_bytes'] and hashlib.sha256(raw).hexdigest()==row['sha256'],
+                'completed Q15 original evidence changed')
+            observed[path.name]=row
+        terminal,_=_read(ROOT/'terminal.json')
+        require(terminal['status']=='Q15_RW_VERIFIED' and terminal['failure'] is None
+            and terminal['clock_and_q15_evidence_complete'] is True
+            and context['qualification_started_monotonic_ns']<=terminal['completed_monotonic_ns']<context['qualification_deadline_monotonic_ns'],
+            'completed Q15 did not finish inside its original qualification budget')
+        require(archive.hash_file(self.image.path,max_bytes=self.image.size_bytes,
+            deadline_ns=min(context['window_binding']['end_monotonic_ns'],time.monotonic_ns()+60*10**9))
+            ==archive.PhysicalBinding(self.image.size_bytes,self.image.sha256),'completed Q15 native image changed')
+        p.owner._guard(family)
+        return dict(schema_version='cpu-prefetch-stage17-s180-q15-completed-proof/1',plan_sha256=family,
+            window_binding=context['window_binding'],session_id=context['session_id'],stand_id=context['stand_id'],
+            qualification_id=context['qualification_id'],qualification_started_monotonic_ns=context['qualification_started_monotonic_ns'],
+            qualification_deadline_monotonic_ns=context['qualification_deadline_monotonic_ns'],
+            qualification_completed_monotonic_ns=terminal['completed_monotonic_ns'],
+            runtime_binding=context['runtime_binding'],release_binding=context['release_binding'],
+            original_msr_readbacks=terminal['original_msr_readbacks'],files=observed,clock_proof=clock,
+            base_resolutions=json.loads(self._base),
+            q15_verified=True,original_action_deadline_extended=False,full_qualification=False,
+            execution_authority=False,phase18_authority=False)
 
 
 def prepare(*,environment_owner,clock_owner,base_validation,operator_profile_sha256):
@@ -523,4 +593,20 @@ def _execute(prepared,*,native_image,signer):
             if failure is not None:raise failure from error
             raise
         if failure is not None:raise failure
+        # Only this actual successful dispatch can construct a completed owner.
+        # Bind signed inputs, attempts, barriers/results and original raw files,
+        # including the durable terminal receipt, before the original deadline.
+        try:
+            held=[]
+            for path in sorted(ROOT.iterdir()):
+                raw=compaction._root_file(path,FILE_BYTES)
+                held.append(dict(path=str(path),size_bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest()))
+            require(len(held)==21,'closed successful Q15 file family differs')
+            _before(deadline)
+            completed=_CompletedQ15(token=_TOKEN,prepared=prepared,image=native_image,bindings=held)
+            completed.proof(plan_sha256=context['plan_sha256']);_before(deadline)
+            prepared._completion=completed
+        except BaseException:
+            prepared.failed=True;prepared.owner._qualification_failed=True
+            raise
         return dict(terminal=receipt,document=terminal,raw_bindings=bindings,execution_authority=False)

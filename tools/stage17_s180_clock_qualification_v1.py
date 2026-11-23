@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import contextlib
 from dataclasses import asdict
+import datetime
 import hashlib
 import os
 from pathlib import Path
@@ -50,6 +51,9 @@ def require(value,message):
 
 def _check_capture_deadline(deadline):
     require(time.monotonic_ns()<deadline,'original clock capture deadline expired')
+
+
+def _utc():return datetime.datetime.now(datetime.UTC).isoformat().replace('+00:00','Z')
 
 
 def verify_raw(value,pair):
@@ -113,7 +117,7 @@ def _capture(*,owner,image,pair,deadline,window):
     guard=owner.compaction_guard();guard.check(boundary='FAMILY_ENTRY')
     directory=ROOT/pair;_mkdir(directory)
     raw_path=directory/'clock-raw.json'
-    now=time.monotonic_ns();end=min(deadline-CLEANUP_NS,now+PAIR_NS)
+    started_utc=_utc();now=time.monotonic_ns();end=min(deadline-CLEANUP_NS,now+PAIR_NS)
     require(end>now,'original qualification budget omits cleanup')
     before=owner.admission_observation(plan_sha256=guard.owner['plan_sha256'])
     _record(directory/'intent.json',dict(pair=pair,worker_sha256=image.sha256,
@@ -185,6 +189,7 @@ def _capture(*,owner,image,pair,deadline,window):
             except BaseException as error:failure=failure or error
         result=dict(schema_version=SCHEMA,pair=pair,plan_sha256=guard.owner['plan_sha256'],window_binding=window,
             started_monotonic_ns=now,completed_monotonic_ns=time.monotonic_ns(),
+            started_at_utc=started_utc,completed_at_utc=_utc(),
             worker_sha256=image.sha256,worker_size_bytes=image.size_bytes,raw=raw_binding,
             native_pid=None if process is None else process.pid,native_start_ticks=None if worker is None else worker.start_ticks,
             cleanup=None if cleanup is None else runtime._jsonable(asdict(cleanup)),console_hex=console.hex(),

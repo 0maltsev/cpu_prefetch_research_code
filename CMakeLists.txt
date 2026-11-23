@@ -1885,6 +1885,12 @@ if(BUILD_TESTING)
       --endpoint "$<TARGET_FILE:cpu_prefetch_s180_q15_fixture>")
   set_tests_properties(runner.s180_q15_session_v1 PROPERTIES
     LABELS "runner;pilot;synthetic;python" TIMEOUT 300)
+  add_test(NAME runner.s180_qualification_evidence_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_qualification_evidence_v1.py"
+      --endpoint "$<TARGET_FILE:cpu_prefetch_s180_q15_fixture>"
+      --helper "$<TARGET_FILE:cpu_prefetch_q15_qualification_evidence_tool>")
+  set_tests_properties(runner.s180_qualification_evidence_v1 PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 420)
   add_test(NAME runner.software_prefetch_t0_codegen
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_software_prefetch_t0_codegen.py")
   set_tests_properties(runner.software_prefetch_t0_codegen PROPERTIES

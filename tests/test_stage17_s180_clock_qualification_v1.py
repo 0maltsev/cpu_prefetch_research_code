@@ -65,6 +65,7 @@ class ClockTests(unittest.TestCase):
         self.assertFalse(proof['execution_authority']);self.assertEqual(self.owner._qualification_roles,['near','far'])
         for pair in ('near','far'):
             value=self.result(pair);self.assertEqual(value['status'],'CLOCK_PAIR_QUALIFIED')
+            self.assertTrue(value['started_at_utc'].endswith('Z') and value['completed_at_utc'].endswith('Z'))
             self.assertTrue(value['cleanup']['leader_reaped'] and value['cleanup']['process_group_gone'])
             self.assertEqual(value['worker_sha256'],self.image.sha256)
             self.assertTrue((clock.compaction.ROOT/f'worker-{pair}.json').is_file())

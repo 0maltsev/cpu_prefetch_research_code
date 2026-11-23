@@ -131,7 +131,7 @@ class SessionTests(unittest.TestCase):
         self.assertTrue(self.hardware.restore(self.owner)['compaction_restoration_verified'])
 
     def test_one_native_buffer_separate_signed_write_and_verified_restoration(self):
-        result=self.execute();value=result['document']
+        prepared=self.prepare();result=self.execute(prepared);value=result['document']
         self.assertEqual(value['status'],'Q15_RW_VERIFIED');self.assertFalse(value['execution_authority'])
         self.assertEqual(self.signed,['q15-r-authorization.json','q15-w-authorization.json'])
         self.assertEqual(value['original_msr_readbacks'],[dict(cpu=c,complete_value_hex='0000000000000000') for c in (0,1,8)])
@@ -139,6 +139,9 @@ class SessionTests(unittest.TestCase):
         self.assertEqual(len(result['raw_bindings']),9);self.assertFalse(self.owner._entry_used)
         self.assertTrue(value['cleanup']['leader_reaped'] and value['cleanup']['process_group_gone'])
         self.assertEqual(self.owner._qualification_roles,['near','far','q15'])
+        completed=prepared.completed();proof=completed.proof(plan_sha256=self.hardware.sha)
+        self.assertTrue(proof['q15_verified']);self.assertFalse(proof['execution_authority'])
+        self.assertEqual(len(proof['files']),21);self.assertIs(completed.prepared.owner,self.owner)
         for key in ('read_barrier','write_barrier'):
             self.assertEqual(value[key]['pid'],value['native_pid'])
             self.assertEqual(value[key]['quiescence']['task_ids'],[value['native_pid']])

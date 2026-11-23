@@ -63,6 +63,19 @@ class CompactionTests(unittest.TestCase):
         self.assertTrue(self.hardware.restore(self.environment)['compaction_restoration_verified'])
         self.assertEqual(control.read_text().strip(),'0')
 
+    def test_failed_platform_restoration_keeps_control_and_lease_quarantined(self):
+        owned,control,_=self.attach()
+        error=dict(stage='hardware',cpu=8,error='independent original MSR readback failed')
+        with mock.patch.object(self.environment,'_restore_hardware',return_value=([],[error])):
+            result=self.hardware.restore(self.environment)
+        self.assertFalse(result['hardware_restoration_verified'])
+        self.assertFalse(result['compaction_restoration_verified'])
+        self.assertIn(error,result['errors'])
+        self.assertFalse(owned.closed)
+        self.assertEqual(control.read_text().strip(),'0')
+        self.assertTrue(compaction.original.LEASE.read_bytes())
+        self.assertFalse((compaction.ROOT/'normal-platform.json').exists())
+
     def test_changed_control_latches_and_cannot_continue_after_it_recovers(self):
         owned,control,_=self.attach();control.write_text('1\n')
         with self.assertRaisesRegex(RuntimeError,'became enabled'):owned.check(boundary='AFTER_CAPTURE',ordinal=0)

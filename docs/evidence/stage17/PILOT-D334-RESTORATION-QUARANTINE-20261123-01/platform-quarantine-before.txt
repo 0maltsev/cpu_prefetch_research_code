@@ -1,0 +1,31 @@
+E
+======================================================================
+ERROR: test_failed_platform_restoration_keeps_control_and_lease_quarantined (__main__.CompactionTests.test_failed_platform_restoration_keeps_control_and_lease_quarantined)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 67, in test_failed_platform_restoration_keeps_control_and_lease_quarantined
+    owned,control,_=self.attach()
+                    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 237, in prepare
+    supervision.check()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 133, in check
+    require(hashlib.sha256(_root_file(self.script.path,1024**2)).hexdigest()==self.script.sha256,
+                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 86, in _root_file
+    require(s.st_uid==0 and s.st_nlink==1 and not s.st_mode&0o022,'root-owned protected record required')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 44, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: root-owned protected record required
+
+----------------------------------------------------------------------
+Ran 1 test in 0.451s
+
+FAILED (errors=1)

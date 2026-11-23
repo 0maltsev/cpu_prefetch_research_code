@@ -224,6 +224,11 @@ class _OwnedCompaction:
         require(not environment.CG.exists() or environment.CG.joinpath('cgroup.procs').read_text().strip()=='',
             'native partition is live before compaction restoration')
         if platform_proof is not None:
+            require(type(platform_proof) is dict and set(platform_proof)=={'hardware_restoration_verified',
+                'cpu_isolation_restoration_verified','maintenance_restoration_verified','errors'}
+                and platform_proof['errors']==[] and all(platform_proof[k] is True for k in
+                    ('hardware_restoration_verified','cpu_isolation_restoration_verified','maintenance_restoration_verified')),
+                'platform restoration is incomplete; leave compaction lease occupied')
             _save(ROOT/'normal-platform.json',dict(owner_sha256=hashlib.sha256(self.owner_raw).hexdigest(),
                 platform=platform_proof,execution_authority=False))
         result=self.guard.restore();self.guard.unlock();self.closed=True

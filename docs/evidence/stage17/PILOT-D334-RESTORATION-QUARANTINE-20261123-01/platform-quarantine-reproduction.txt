@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_failed_platform_restoration_keeps_control_and_lease_quarantined (__main__.CompactionTests.test_failed_platform_restoration_keeps_control_and_lease_quarantined)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 72, in test_failed_platform_restoration_keeps_control_and_lease_quarantined
+    self.assertFalse(result['compaction_restoration_verified'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 1.663s
+
+FAILED (failures=1)

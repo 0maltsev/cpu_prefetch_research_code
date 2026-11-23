@@ -80,6 +80,15 @@ These are software evidence, not actual stand supervision or qualification.
 Initial canonicalization and fixture failures remain retained. No production
 C++ or frozen measurement/guard/core/protocol source changes.
 
+A subsequent targeted review reproduced an incomplete normal restoration
+clearing the lease despite a failed independent hardware readback. Require all
+three actual platform restoration flags and an empty error list before
+publishing normal completion or restoring/clearing the guard. Otherwise preserve
+control zero, the occupied lease and original restoration errors for supervised
+recovery. The new regression fails on1d02c9b and passes with this correction;
+all22 guard cases also pass Python development/debug allocation. This strengthens
+the approved quarantine rule without changing the scientific design.
+
 Remaining: qualified outer operator/profile and EXT008 producer, authenticated
 external commitments, independent pilot scientific validation (including phase
 control readbacks), exact live admissions and full ETA, fresh qualification and

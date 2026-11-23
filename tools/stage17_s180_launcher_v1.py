@@ -150,11 +150,16 @@ def _restore_result(restorer,*,verified,cleanup,deadline_ns):
     """
     require(callable(restorer),'qualified environment restoration is mandatory')
     result=restorer(verified=verified,native_cleanup=cleanup,deadline_ns=deadline_ns)
-    require(type(result) is dict and set(result)=={'schema_version','plan_sha256','boot_id',
-        'hardware_restoration_verified','cpu_isolation_restoration_verified','maintenance_restoration_verified','errors'},
+    from stage17_s180_environment_v1 import _PreparedEnvironment
+    real=type(restorer) is _PreparedEnvironment
+    fields={'schema_version','plan_sha256','boot_id',
+        'hardware_restoration_verified','cpu_isolation_restoration_verified','maintenance_restoration_verified','errors'}
+    if real:fields.add('compaction_restoration_verified')
+    require(type(result) is dict and set(result)==fields,
         'environment restoration evidence fields differ')
     authorization=archive.parse_json(verified.authorization_bytes)
-    require(result['schema_version']=='cpu-prefetch-stage17-s180-environment-restoration/1'
+    require(result['schema_version']=='cpu-prefetch-stage17-s180-environment-restoration/'+('2' if real else '1')
+        and (not real or result['compaction_restoration_verified'] is True)
         and result['plan_sha256']==authorization['plan_sha256']
         and result['boot_id']==authorization['window_binding']['boot_id']
         and result['errors']==[] and all(result[k] is True for k in ('hardware_restoration_verified',
@@ -165,7 +170,7 @@ def _restore_result(restorer,*,verified,cleanup,deadline_ns):
 
 
 def _execute_verified(*,verified,source_owner,native_image,archive_profile,program_root,
-                      broker_limits,custody_limits,decoder_limits,limits,restore_environment,native_partition=None):
+                      broker_limits,custody_limits,decoder_limits,limits,restore_environment,native_partition=None,platform_guard=None):
     """Private transport seam. Production calls only through launch()."""
     limits.validate();require(callable(restore_environment),'qualified environment restoration is mandatory')
     require(threading.current_thread() is threading.main_thread() and threading.active_count()==1
@@ -246,6 +251,7 @@ def _execute_verified(*,verified,source_owner,native_image,archive_profile,progr
                 shell=False,close_fds=True,pass_fds=inherited,start_new_session=True,preexec_fn=constrain,
                 env={'PATH':'/usr/bin:/bin','LANG':'C','LC_ALL':'C','TZ':'UTC'})
             child.close();worker=PinnedWorker(process.pid)
+            if platform_guard is not None:platform_guard.register_worker(worker,role='pilot')
             driver=channels.ArchiveChannel(endpoint,worker=worker,directory_fd=directory,
                 request_sha256=verified.request_sha256,program_scope_sha256=storage['program_scope_sha256'],captures=180,
                 maximum_checkpoint_bytes=custody_limits.max_checkpoint_bytes,
@@ -254,7 +260,8 @@ def _execute_verified(*,verified,source_owner,native_image,archive_profile,progr
                 session_id=request['session_id'],plan_sha256=family)
             component=parent.CheckpointParent(verified=verified,channel=driver,program_root=program_root,
                 profile=archive_profile,limits=replace(broker_limits,deadline_ns=min(native_deadline,broker_limits.deadline_ns)),
-                custody_limits=custody_limits,decoder_limits=decoder_limits,identity_model=lease.identity_model)
+                custody_limits=custody_limits,decoder_limits=decoder_limits,identity_model=lease.identity_model,
+                platform_guard=platform_guard)
             selector.register(endpoint,selectors.EVENT_READ,'channel');selector.register(worker.descriptor,selectors.EVENT_READ,'exit')
             for stream in (process.stdout,process.stderr):
                 os.set_blocking(stream.fileno(),False);selector.register(stream,selectors.EVENT_READ,'console')
@@ -369,6 +376,7 @@ def launch(*,journal,authorization_bytes,signature_path,source_owner,native_imag
     from stage17_s180_environment_v1 import _PreparedEnvironment
     require(type(restore_environment) is _PreparedEnvironment,'actual owned stand environment required')
     with restore_environment:
+        restore_environment.compaction_guard().check(boundary='FAMILY_ENTRY')
         return _launch_in_environment(journal=journal,authorization_bytes=authorization_bytes,signature_path=signature_path,
             source_owner=source_owner,native_image=native_image,archive_profile=archive_profile,program_root=program_root,
             broker_limits=broker_limits,custody_limits=custody_limits,decoder_limits=decoder_limits,
@@ -399,4 +407,5 @@ def _launch_in_environment(*,journal,authorization_bytes,signature_path,source_o
         return _execute_verified(verified=verified,source_owner=source_owner,native_image=native_image,
             archive_profile=archive_profile,program_root=program_root,broker_limits=broker_limits,
             custody_limits=custody_limits,decoder_limits=decoder_limits,limits=limits,
-            restore_environment=restore_environment,native_partition=partition)
+            restore_environment=restore_environment,native_partition=partition,
+            platform_guard=restore_environment.compaction_guard())

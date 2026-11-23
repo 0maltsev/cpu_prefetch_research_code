@@ -123,8 +123,12 @@ class CheckpointParent:
     actual native image, then performs the full broker/ledger/ACK sequence.
     """
     def __init__(self,*,verified,channel,program_root,profile,limits,custody_limits,
-                 decoder_limits,identity_model):
+                 decoder_limits,identity_model,platform_guard=None):
+        self.platform_guard=platform_guard
         try:
+            if platform_guard is not None:
+                from stage17_s180_compaction_v1 import _OwnedCompaction
+                require(type(platform_guard) is _OwnedCompaction,'owned D333 guard required')
             self._initialize(verified=verified,channel=channel,program_root=program_root,profile=profile,
                 limits=limits,custody_limits=custody_limits,decoder_limits=decoder_limits,identity_model=identity_model)
         except BaseException:
@@ -135,6 +139,10 @@ class CheckpointParent:
     def _initialize(self,*,verified,channel,program_root,profile,limits,custody_limits,
                     decoder_limits,identity_model):
         authorization,request=_documents(verified)
+        if self.platform_guard is not None:
+            require(self.platform_guard.owner['plan_sha256']==authorization['plan_sha256']
+                and self.platform_guard.owner['window']==authorization['window_binding'],
+                'guard belongs to another admitted family/window')
         require(type(channel) is channels.ArchiveChannel,'fixed S180 archive channel required')
         require(type(profile) is runtime.RuntimeProfile and type(limits) is runtime.RuntimeLimits
             and type(custody_limits) is custody.CustodyLimits and type(decoder_limits) is archive.DecodeLimits,
@@ -201,6 +209,8 @@ class CheckpointParent:
             deadline=min(archive.uint(deadline_ns,'checkpoint deadline',positive=True),
                 self.limits.final_deadline_ns,self.authorization['window_binding']['end_monotonic_ns'])
             pending=self.channel.receive(deadline_ns=deadline)
+            platform_after=(None if self.platform_guard is None else
+                self.platform_guard.check(boundary='AFTER_CAPTURE',ordinal=pending.ordinal))
             entry=self.request['plan']['captures'][pending.ordinal]
             require(pending.deadline_ns-time.monotonic_ns()<=entry['execution_budget']['archive_ns'],
                 'capture archive deadline exceeds its admitted interval')
@@ -238,13 +248,19 @@ class CheckpointParent:
                 expected_status='ARCHIVED_AND_RELEASED' if proof['continuation_allowed'] else 'ARCHIVED_FAILED_EVIDENCE'
                 require(outcome.status==expected_status,'broker/independent registry status differs')
                 self._guard()
+                platform_release=(None if self.platform_guard is None else
+                    self.platform_guard.check(boundary='BEFORE_RELEASE',ordinal=pending.ordinal))
                 document=dict(schema_version=RECEIPT_SCHEMA,request_sha256=self.verified.request_sha256,
                     plan_sha256=family,execution_ordinal=pending.ordinal,checkpoint=pending.binding,
                     custody_receipt=asdict(outcome.receipt),custody_registration=asdict(outcome.receipt_ledger_record),
                     broker_processes=processes,broker_cleanup=runtime._jsonable(asdict(cleanup)),
                     status=outcome.status,scientific_validity='NOT_ASSESSED',execution_authority=False,phase18_authority=False)
+                if self.platform_guard is not None:
+                    document['platform_guard']=dict(after_capture=platform_after,before_release=platform_release)
                 parent_receipt=store.retain_metadata(f's180-parent-{family}-e{pending.ordinal}.json',_record_bytes(document))
             require(time.monotonic_ns()<deadline,'custody replay/publication exceeded original archive deadline')
+            if self.platform_guard is not None:
+                self.platform_guard.check(boundary='BEFORE_RELEASE',ordinal=pending.ordinal)
             self.channel.acknowledge(asdict(outcome.receipt),deadline_ns=deadline)
             self.stopped=not proof['continuation_allowed']
             return dict(parent_receipt=asdict(parent_receipt),status=outcome.status,

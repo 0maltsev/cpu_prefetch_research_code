@@ -21,6 +21,8 @@ import stage17_s180_resource_admission_v1 as gate
 from test_stage17_s180_plan_prepare_v1 import fixture
 import test_stage17_s180_environment_v1 as environment_tests
 import test_stage17_s180_archive_broker_v1 as broker_tests
+import stage17_s180_compaction_v1 as compaction
+import s180_compaction_fixture
 
 
 class ResourceTests(unittest.TestCase):
@@ -35,6 +37,7 @@ class ResourceTests(unittest.TestCase):
             entry['monitoring']['environment_sources']=[dict(path=str(gate.environment.CG/name),byte_capacity=8192,
                 chunk_bytes=4096,max_data_reads=18,requested=[True]*6) for name in ('cpuset.cpus','cpuset.cpus.effective',
                 'cpuset.cpus.exclusive','cpuset.cpus.partition','cpuset.mems.effective')]
+        sizing=compaction.monitored_plan(sizing)
         sizing['budget'].update(memory_bytes=64*gate.GIB,max_output_bytes=2*1024**4)
         cls.lib=ctypes.CDLL(str(Path(os.environ.get('STAGE17_TEST_ZSTD_LIBRARY','/usr/lib64/libzstd.so.1.5.7')).resolve()))
         cls.lib.ZSTD_compressBound.argtypes=[ctypes.c_size_t];cls.lib.ZSTD_compressBound.restype=ctypes.c_size_t
@@ -50,7 +53,8 @@ class ResourceTests(unittest.TestCase):
         self.custody=gate.custody.CustodyLimits(131072,500000,500000,2*1024**2,time.monotonic_ns()+120*10**9)
         self.observed=dict(base_page_bytes=4096,memory_available_bytes=256*gate.GIB,memory_ancestors=[],
             rlimit_as=[4*gate.GIB,-1],rlimit_memlock=[8388608,64*gate.GIB],rlimit_nofile=[1024,1024],highest_observed_fd=100)
-        self.unrelated=dict(reserved_bytes=0,reserved_inodes=0,declaration_sha256='d'*64)
+        self.unrelated=dict(reserved_bytes=compaction.METADATA_RESERVE_BYTES,
+            reserved_inodes=compaction.METADATA_RESERVE_INODES,declaration_sha256='d'*64)
 
     def assess(self,observed=None):
         gate.assess_platform(self.observed if observed is None else observed,process_envelope=self.process,native_limits=self.limits)
@@ -159,7 +163,8 @@ class ResourceTests(unittest.TestCase):
         """
         hardware=environment_tests.EnvironmentTests();hardware.setUp();self.addCleanup(hardware.doCleanups)
         for entry in self.plan['captures']:
-            for row in entry['monitoring']['environment_sources']:row['path']=str(hardware.cg/Path(row['path']).name)
+            for row in entry['monitoring']['environment_sources']:
+                if '/cpuset.' in row['path']:row['path']=str(hardware.cg/Path(row['path']).name)
         root=hardware.root
         codec=broker_tests.ArchiveFixture(root).profile
         image=broker_tests.image
@@ -184,6 +189,7 @@ class ResourceTests(unittest.TestCase):
             maximum_loading_ns=self.plan['budget']['setup_ns'])
         self.addCleanup(lambda:None if source._closed else source._close())
         io=hardware.io();self.addCleanup(io.close);io.__enter__()
+        s180_compaction_fixture.attach(self,environment,root)
         for name,value in (('NATIVE_SHA',self.image.sha256),('NATIVE_SIZE',self.image.size_bytes)):
             patch=mock.patch.object(gate,name,value);patch.start();self.addCleanup(patch.stop)
         patch=mock.patch.object(gate.environment,'NATIVE_REVISION',self.revision);patch.start();self.addCleanup(patch.stop)

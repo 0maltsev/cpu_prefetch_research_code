@@ -142,6 +142,7 @@ class _PreparedEnvironment:
         self._deadline=window['end_monotonic_ns']
         self._command_state=command_state
         self._placement_fd=None
+        self._compaction=None
 
     def __enter__(self):
         require(not self._closed,'environment already closed');return self
@@ -158,7 +159,17 @@ class _PreparedEnvironment:
         require(not self._closed and self._pid==os.getpid(),'environment is closed or belongs to another process')
         plan=archive.parse_json(self._plan);window=archive.parse_json(self._window)
         require(planning.sha(plan)==plan_sha256,'environment belongs to another plan')
+        if not cleanup and self._compaction is not None:
+            self.compaction_guard().check(boundary='ADMISSION')
         _window(window,cleanup=cleanup);return plan,window
+
+    def compaction_guard(self):
+        from stage17_s180_compaction_v1 import _OwnedCompaction
+        require(type(self._compaction) is _OwnedCompaction
+            and self._compaction.owner['plan_sha256']==planning.sha(archive.parse_json(self._plan))
+            and archive.canonical(self._compaction.owner['window'])==self._window,
+            'actual approved D333 guard is not bound to this environment')
+        return self._compaction
 
     def admission_observation(self,*,plan_sha256):
         """Independent current prestate/isolation facts, without native placement."""
@@ -184,6 +195,7 @@ class _PreparedEnvironment:
         self._guard(plan_sha256)
         return dict(boot_id=window['boot_id'],window_binding=window,plan_sha256=plan_sha256,
             partition_identity=pre['partition_identity'],hardware_readbacks=rows,isolation=observed,
+            compaction=None if self._compaction is None else self.compaction_guard().check(boundary='ADMISSION'),
             native_placement_performed=False,execution_authority=False)
 
     @contextlib.contextmanager
@@ -250,7 +262,7 @@ class _PreparedEnvironment:
         pre=archive.parse_json(self._preparation)
         errors=([dict(stage='operational_deadline',error='original window exhausted; emergency unwind grants no collection authority')]
             if overrun else [])
-        hardware=[];isolation=False;maintenance=False
+        hardware=[];isolation=False;maintenance=False;quiescent=False;compaction=False
         try:
             # Kernel membership is independent of the supplied process proof.
             if CG.exists():
@@ -258,6 +270,7 @@ class _PreparedEnvironment:
                     and self._core.read(CG/'cgroup.procs')==''
                     and 'populated 0' in self._core.read(CG/'cgroup.events').splitlines(),'live/replaced native partition; do not change MSRs')
             else:require(not CG.parent.exists(),'owned partition vanished with an uncertain unit')
+            quiescent=True
             hardware,hardware_errors=self._restore_hardware(plan);errors.extend(hardware_errors)
         except BaseException as error:errors.append(dict(stage='hardware_quiescence',error=str(error)))
         try:
@@ -271,18 +284,29 @@ class _PreparedEnvironment:
             require(set(os.sched_getaffinity(0))==set(self._affinity),'operator affinity restoration differs')
         except BaseException as error:
             isolation=False;errors.append(dict(stage='affinity',error=str(error)))
+        if self._compaction is not None:
+            try:
+                require(quiescent,'native quiescence is uncertain; leave compaction lease occupied')
+                compaction=self._compaction.restore(platform_proof=dict(hardware_restoration_verified=
+                    len(hardware)==3 and all(r['verified'] for r in hardware),
+                    cpu_isolation_restoration_verified=isolation,maintenance_restoration_verified=maintenance,
+                    errors=list(errors)))['verified'] is True
+                require(compaction,'compaction restoration readback failed')
+            except BaseException as error:errors.append(dict(stage='compaction',error=str(error)))
         try:
             self._core.retain(self._core.Q/'s180-restoration.json',dict(plan_sha256=planning.sha(plan),
                 boot_id=window['boot_id'],hardware_readbacks=hardware,errors=errors,
                 window_binding=window,operational_deadline_overrun=overrun,
                 cleanup_deadline_monotonic_ns=self._deadline,collection_authority_extended=False,
                 cpu_isolation_restoration_verified=isolation,maintenance_restoration_verified=maintenance,
+                compaction_restoration_verified=compaction,
                 scientific_validity='NOT_ASSESSED',execution_authority=False,phase18_authority=False))
         finally:self._closed=True
-        return dict(schema_version='cpu-prefetch-stage17-s180-environment-restoration/1',
+        return dict(schema_version='cpu-prefetch-stage17-s180-environment-restoration/2',
             plan_sha256=planning.sha(plan),boot_id=window['boot_id'],
             hardware_restoration_verified=len(hardware)==3 and all(r['verified'] for r in hardware),
-            cpu_isolation_restoration_verified=isolation,maintenance_restoration_verified=maintenance,errors=errors)
+            cpu_isolation_restoration_verified=isolation,maintenance_restoration_verified=maintenance,
+            compaction_restoration_verified=compaction,errors=errors)
 
 
 def prepare_environment(*,plan,window,operator_config):

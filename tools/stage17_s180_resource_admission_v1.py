@@ -281,6 +281,8 @@ def verify_resources(*,plan,environment_owner,source_owner,worker,archive_profil
     require(deadline_ns<=custody_limits.deadline_ns and deadline_ns-time.monotonic_ns()<=journal.METADATA_NS,
         'resource gate exceeds original short metadata lease')
     environment._plan(plan)
+    from stage17_s180_compaction_v1 import require_monitored, METADATA_RESERVE_BYTES, METADATA_RESERVE_INODES
+    require_monitored(plan);environment_owner.compaction_guard().check(boundary='ADMISSION')
     require(native_limits.native_address_space_bytes==native_limits.native_memlock_bytes==plan['budget']['memory_bytes']
         and native_limits.native_file_bytes==plan['budget']['max_output_bytes']
         and native_limits.post_native_reserve_ns>=prospective.EXTERNAL_TIME['independent_validation_ns']
@@ -292,6 +294,9 @@ def verify_resources(*,plan,environment_owner,source_owner,worker,archive_profil
         'authenticated unrelated-reservations declaration')
     for name in ('reserved_bytes','reserved_inodes'):archive.uint(unrelated_reservations[name],name)
     archive.sha(unrelated_reservations['declaration_sha256'],'reservation declaration')
+    require(unrelated_reservations['reserved_bytes']>=METADATA_RESERVE_BYTES
+        and unrelated_reservations['reserved_inodes']>=METADATA_RESERVE_INODES,
+        'declared external commitments omit bounded D333 recovery metadata')
     report=planning.native_layouts(_sizing(plan),worker=worker,deadline_ns=deadline_ns)
     library=archive_profile.decoder.zstd_library_path
     require(0<library.stat().st_size<=16*1024**2,'bounded actual codec library required')

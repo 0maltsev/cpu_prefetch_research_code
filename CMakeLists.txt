@@ -1862,6 +1862,10 @@ if(BUILD_TESTING)
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_environment_v1.py")
   set_tests_properties(runner.s180_environment_v1 PROPERTIES
     LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.s180_compaction_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_compaction_v1.py")
+  set_tests_properties(runner.s180_compaction_v1 PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
   add_test(NAME runner.s180_archive_bundle_profile_v1
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_archive_bundle_profile_v1.py"
       --encoder "$<TARGET_FILE:cpu_prefetch_stage17_archive_encoder>")

@@ -1,0 +1,36 @@
+test_actual_durable_prestate_and_extended_lease_are_published_before_control_write (__main__.CompactionTests.test_actual_durable_prestate_and_extended_lease_are_published_before_control_write) ... ok
+test_actual_script_hash_and_loaded_systemd_command_are_required (__main__.CompactionTests.test_actual_script_hash_and_loaded_systemd_command_are_required) ... ok
+test_changed_control_latches_and_cannot_continue_after_it_recovers (__main__.CompactionTests.test_changed_control_latches_and_cannot_continue_after_it_recovers) ... ok
+test_exact_approval_and_monitored_plan_preserve_all_scientific_inputs (__main__.CompactionTests.test_exact_approval_and_monitored_plan_preserve_all_scientific_inputs) ... ok
+test_expired_guard_does_not_renew_deadline_but_can_restore_after_quiescence (__main__.CompactionTests.test_expired_guard_does_not_renew_deadline_but_can_restore_after_quiescence) ... ok
+test_foreign_recovery_lease_never_overwrites_a_control (__main__.CompactionTests.test_foreign_recovery_lease_never_overwrites_a_control) ... ok
+test_live_native_partition_prevents_compaction_restoration (__main__.CompactionTests.test_live_native_partition_prevents_compaction_restoration) ... ok
+test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained (__main__.CompactionTests.test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained) ... FAIL
+test_missing_supervision_or_monitored_input_blocks_before_control (__main__.CompactionTests.test_missing_supervision_or_monitored_input_blocks_before_control) ... ok
+test_native_placement_and_capture_permission_are_not_issued_by_guard_preparation (__main__.CompactionTests.test_native_placement_and_capture_permission_are_not_issued_by_guard_preparation) ... ok
+test_normal_environment_restores_exact_sysctl_and_returns_version_two (__main__.CompactionTests.test_normal_environment_restores_exact_sysctl_and_returns_version_two) ... ok
+test_normal_exit_stop_post_independently_confirms_completed_restoration_without_writes (__main__.CompactionTests.test_normal_exit_stop_post_independently_confirms_completed_restoration_without_writes) ... ok
+test_owner_record_change_is_not_accepted_as_a_report (__main__.CompactionTests.test_owner_record_change_is_not_accepted_as_a_report) ... ok
+test_recovery_restores_hardware_then_control_after_verified_quiescence (__main__.CompactionTests.test_recovery_restores_hardware_then_control_after_verified_quiescence) ... ok
+test_stop_post_restoration_requires_real_service_context (__main__.CompactionTests.test_stop_post_restoration_requires_real_service_context) ... ok
+test_unknown_live_task_is_quarantined_before_any_stop_or_control_write (__main__.CompactionTests.test_unknown_live_task_is_quarantined_before_any_stop_or_control_write) ... ok
+test_wrong_process_or_cgroup_cannot_supply_supervision (__main__.CompactionTests.test_wrong_process_or_cgroup_cannot_supply_supervision) ... ok
+test_wrong_worker_image_cannot_get_a_recovery_witness (__main__.CompactionTests.test_wrong_worker_image_cannot_get_a_recovery_witness) ... ok
+
+======================================================================
+FAIL: test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained (__main__.CompactionTests.test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained)
+----------------------------------------------------------------------
+stage17_s180_compaction_v1.CompactionError: S180 compaction: fixed isolation recovery configuration differs
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 122, in test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained
+    with self.assertRaisesRegex(compaction.CompactionError,'owner remains live'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "owner remains live" does not match "S180 compaction: fixed isolation recovery configuration differs"
+
+----------------------------------------------------------------------
+Ran 18 tests in 23.680s
+
+FAILED (failures=1)

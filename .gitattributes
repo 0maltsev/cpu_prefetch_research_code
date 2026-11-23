@@ -2,3 +2,5 @@
 protocol/2.0.0-pre.3/handoff/HANDOFF_READINESS_REPORT.md -whitespace
 # Preserve the exact hash-bound original stand isolation helper, including its EOF.
 tools/stage17_recovery_isolation_core_v1.py whitespace=-blank-at-eof
+# Retain the original CTest transcript bytes, including its final blank line.
+docs/evidence/stage17/PILOT-D334-COMPACTION-INTEGRATION-20261123-01/integrated-last-test.log whitespace=-blank-at-eof

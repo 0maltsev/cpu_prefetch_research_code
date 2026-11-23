@@ -20,6 +20,9 @@ from unittest import mock
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 import stage17_s180_parent_v1 as parent
 import test_stage17_s180_archive_broker_v1 as fixtures
+import stage17_s180_compaction_v1 as compaction
+import test_stage17_s180_environment_v1 as hardware_tests
+import s180_compaction_fixture
 
 
 class ParentTests(unittest.TestCase):
@@ -207,6 +210,46 @@ class ParentTests(unittest.TestCase):
         with self.assertRaises(parent.archive.ArchiveError):
             self.exchange(constructor_changes=dict(limits=replace(self.f.limits,max_input_bytes=100)))
         for name,raw in self.f.originals.items():self.assertEqual((self.f.working/name).read_bytes(),raw)
+
+    def guarded_fixture(self):
+        def monitored(plan):
+            for row in plan['captures']:row['monitoring']=dict(environment_sources=[])
+            return compaction.monitored_plan(plan)
+        with mock.patch.object(fixtures.S180BrokerTests,'configure_plan',side_effect=monitored):
+            fixture=ParentTests();fixture.encoder=self.encoder;fixture.channel_fixture=self.channel_fixture;fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        hardware=hardware_tests.EnvironmentTests();hardware.setUp();self.addCleanup(hardware.doCleanups)
+        io=hardware.io();io.__enter__();self.addCleanup(io.close)
+        owner=compaction.environment._PreparedEnvironment(token=compaction.environment._TOKEN,plan=fixture.request['plan'],
+            window=fixture.authorization['window_binding'],core=hardware.core,preparation=hardware.pre,
+            devices=hardware.devices,affinity=hardware.affinity,
+            command_state=dict(deadline=fixture.authorization['window_binding']['end_monotonic_ns']))
+        guard,control,_=s180_compaction_fixture.attach(self,owner,hardware.root)
+        return fixture,guard,control
+
+    def test_guard_receipts_precede_real_native_ack_and_remain_in_parent_metadata(self):
+        fixture,guard,_=self.guarded_fixture()
+        proof=fixture.exchange(expected=True,constructor_changes=dict(platform_guard=guard))
+        self.assertEqual(proof['platform_guard']['after_capture']['boundary'],'AFTER_CAPTURE')
+        self.assertEqual(proof['platform_guard']['before_release']['observed_value'],0)
+        self.assertEqual(proof['platform_guard']['before_release']['approval_sha256'],compaction.APPROVAL_SHA)
+
+    def test_guard_failure_after_real_custody_retains_archives_and_sends_no_ack(self):
+        fixture,guard,control=self.guarded_fixture();verify=parent.registry.verify_capture_metadata
+        def changed(**args):
+            result=verify(**args);control.write_text('1\n');return result
+        with mock.patch.object(parent.registry,'verify_capture_metadata',side_effect=changed):
+            with self.assertRaisesRegex(RuntimeError,'became enabled'):
+                fixture.exchange(constructor_changes=dict(platform_guard=guard))
+        self.assertTrue(list((fixture.f.root/'archives').iterdir()))
+        self.assertFalse(list((fixture.f.root/'metadata').glob('s180-parent-*-e0.json')))
+        self.assertTrue(guard.failed)
+
+    def test_guard_for_another_family_is_rejected_before_codecs(self):
+        fixture,guard,_=self.guarded_fixture();guard.owner['plan_sha256']='f'*64
+        with self.assertRaisesRegex(parent.ParentError,'another admitted family'):
+            fixture.exchange(constructor_changes=dict(platform_guard=guard))
+        self.assertFalse(list((fixture.f.root/'archives').iterdir()))
 
 
 if __name__=='__main__':

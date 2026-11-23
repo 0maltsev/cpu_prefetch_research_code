@@ -1,0 +1,24 @@
+E
+======================================================================
+ERROR: test_actual_forked_generation_native_plan_and_single_owned_verification (__main__.AuthorTests.test_actual_forked_generation_native_plan_and_single_owned_verification)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 98, in test_actual_forked_generation_native_plan_and_single_owned_verification
+    with self.prepare() as owner:
+         ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 347, in prepare_sources
+    _run_child(budget,sizing['blueprint']['master_seed_hex'],namespaces.ROOT/'sources',deadline_ns)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 275, in _run_child
+    if failure is not None:raise failure
+                           ^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 224, in _run_child
+    raise AuthorError('source child failed before readiness'+detail)
+stage17_s180_source_author_v1.AuthorError: source child failed before readiness: ArchiveError: symlink path component
+
+----------------------------------------------------------------------
+Ran 1 test in 0.194s
+
+FAILED (errors=1)

@@ -1,0 +1,77 @@
+EE....E..............
+======================================================================
+ERROR: test_actual_forked_generation_native_plan_and_single_owned_verification (__main__.AuthorTests.test_actual_forked_generation_native_plan_and_single_owned_verification)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 98, in test_actual_forked_generation_native_plan_and_single_owned_verification
+    with self.prepare() as owner:
+         ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 350, in prepare_sources
+    plan,preparation=planning.prepare(exact,worker=native_image,deadline_ns=deadline_ns)
+                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 180, in prepare
+    report = native_layouts(sizing, worker=worker, deadline_ns=deadline_ns)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 112, in native_layouts
+    require(time.monotonic_ns() < deadline_ns and result.returncode == 0,
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "native description failed or expired: " + result.stderr[:1024].decode(errors="replace"))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 33, in require
+    raise PlanError("S180 planning: " + message)
+stage17_s180_plan_prepare_v1.PlanError: S180 planning: native description failed or expired: CROSS_FIELD S17-S180-INPUT $s180/input: S180 exact approved blueprint differs
+
+
+======================================================================
+ERROR: test_changed_original_and_completion_latch_ownership_failure (__main__.AuthorTests.test_changed_original_and_completion_latch_ownership_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 177, in test_changed_original_and_completion_latch_ownership_failure
+    with self.prepare() as owner:
+         ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 350, in prepare_sources
+    plan,preparation=planning.prepare(exact,worker=native_image,deadline_ns=deadline_ns)
+                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 180, in prepare
+    report = native_layouts(sizing, worker=worker, deadline_ns=deadline_ns)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 112, in native_layouts
+    require(time.monotonic_ns() < deadline_ns and result.returncode == 0,
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "native description failed or expired: " + result.stderr[:1024].decode(errors="replace"))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 33, in require
+    raise PlanError("S180 planning: " + message)
+stage17_s180_plan_prepare_v1.PlanError: S180 planning: native description failed or expired: CROSS_FIELD S17-S180-INPUT $s180/input: S180 exact approved blueprint differs
+
+
+======================================================================
+ERROR: test_replaced_author_directory_is_not_used_for_failure_evidence (__main__.AuthorTests.test_replaced_author_directory_is_not_used_for_failure_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 185, in test_replaced_author_directory_is_not_used_for_failure_evidence
+    with self.prepare() as owner:
+         ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 350, in prepare_sources
+    plan,preparation=planning.prepare(exact,worker=native_image,deadline_ns=deadline_ns)
+                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 180, in prepare
+    report = native_layouts(sizing, worker=worker, deadline_ns=deadline_ns)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 112, in native_layouts
+    require(time.monotonic_ns() < deadline_ns and result.returncode == 0,
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "native description failed or expired: " + result.stderr[:1024].decode(errors="replace"))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 33, in require
+    raise PlanError("S180 planning: " + message)
+stage17_s180_plan_prepare_v1.PlanError: S180 planning: native description failed or expired: CROSS_FIELD S17-S180-INPUT $s180/input: S180 exact approved blueprint differs
+
+
+----------------------------------------------------------------------
+Ran 21 tests in 7.886s
+
+FAILED (errors=3)

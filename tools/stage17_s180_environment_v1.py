@@ -147,6 +147,7 @@ class _PreparedEnvironment:
         self._qualification_failed=False
         self._restoration_result=None
         self._analysis_phase_consumed=False
+        self._final_check_consumed=False
 
     def __enter__(self):
         require(not self._closed,'environment already closed');return self
@@ -175,6 +176,75 @@ class _PreparedEnvironment:
         require(not CG.exists() and not CG.is_symlink(),'native reserved partition remains')
         require(set(os.sched_getaffinity(0))==set(self._affinity),'restored controller affinity changed')
         return result
+
+    def final_restoration_observation(self,*,plan_sha256,deadline_ns):
+        """Once-only fresh readbacks after owned analysis; no repair or retry.
+
+        This proves current environment facts, not signed operational exit or
+        termination of the outer operator. Original restoration alone cannot
+        certify controls that may have changed during the analysis interval.
+        """
+        require(self._pid==os.getpid() and not self._final_check_consumed,
+            'final environment check already consumed or belongs to another process')
+        self._final_check_consumed=True
+        self.restored_proof(plan_sha256=plan_sha256)
+        from stage17_process_group_supervisor_v3 import ProcfsIdentityModel
+        model=ProcfsIdentityModel();model.verify_stable()
+        require(not model.direct_children(),'owned descendants remain at final environment check')
+        plan=archive.parse_json(self._plan);window=archive.parse_json(self._window)
+        _window(window)
+        require(type(deadline_ns) is int and deadline_ns<=window['end_monotonic_ns'],
+            'final check deadline exceeds original window')
+        started=time.monotonic_ns();deadline=min(deadline_ns,started+120*10**9);_before(deadline)
+        previous=self._command_state['deadline'];self._command_state['deadline']=deadline
+        try:
+            pre=archive.parse_json(self._preparation)['prestate']
+            require(not CG.parent.exists() and not CG.parent.is_symlink(),
+                'owned recovery unit cgroup remains at final readback')
+            unit_file=Path('/run/systemd/system')/UNIT
+            require(not unit_file.exists() and not unit_file.is_symlink(),
+                'owned recovery unit file remains at final readback')
+            observed_root=self._core.root_state()
+            require(observed_root==pre['root'],'actual restored CPU root state changed')
+            maintenance={}
+            for name,expected in pre['maintenance_before'].items():
+                _before(deadline);row=self._core.systemd_state(name);maintenance[name]=row
+                require(row['UnitFileState']==expected['UnitFileState']
+                    and (name not in self._core.TIMER_SERVICES or row['ActiveState']==expected['ActiveState']),
+                    'actual restored maintenance state changed')
+            raw=self._core.command('systemctl','show',UNIT,'--property=ActiveState',
+                '--property=SubState','--property=MainPID')
+            unit=dict(line.split('=',1) for line in raw.splitlines())
+            require(unit==dict(ActiveState='inactive',SubState='dead',MainPID='0'),
+                'owned recovery service remains live or failed')
+            rows=[]
+            for expected in plan['hardware']['prestate']:
+                _before(deadline);fd,identity=_open_msr(expected['cpu'])
+                try:
+                    observed=_read_msr(fd)
+                    require(identity==self._devices[expected['cpu']] and observed==expected['value'],
+                        'actual restored MSR value/device changed')
+                    rows.append(dict(cpu=expected['cpu'],expected_value=expected['value'],observed_value=observed))
+                finally:os.close(fd)
+            from stage17_s180_compaction_v1 import _OwnedCompaction
+            require(type(self._compaction) is _OwnedCompaction
+                and self._compaction.owner['plan_sha256']==plan_sha256
+                and archive.canonical(self._compaction.owner['window'])==self._window,
+                'actual original restored compaction owner required')
+            compaction=self._compaction.restored_observation()
+            self.restored_proof(plan_sha256=plan_sha256);model.verify_stable()
+            require(not model.direct_children(),'owned descendants appeared during final readback')
+            _before(deadline);finished=time.monotonic_ns()
+            return dict(schema_version='cpu-prefetch-stage17-s180-final-environment/1',
+                plan_sha256=plan_sha256,boot_id=window['boot_id'],window_binding=window,
+                started_monotonic_ns=started,finished_monotonic_ns=finished,deadline_monotonic_ns=deadline,
+                root=observed_root,maintenance=maintenance,recovery_service=unit,hardware_readbacks=rows,
+                compaction=compaction,controller_affinity=sorted(os.sched_getaffinity(0)),
+                owned_children_absent=True,hardware_restoration_verified=True,
+                cpu_isolation_restoration_verified=True,maintenance_restoration_verified=True,
+                compaction_restoration_verified=True,read_only=True,operational_exit_verified=False,
+                execution_authority=False,phase18_authority=False)
+        finally:self._command_state['deadline']=previous
 
     def _guard(self,plan_sha256,*,cleanup=False):
         require(not self._closed and self._pid==os.getpid(),'environment is closed or belongs to another process')

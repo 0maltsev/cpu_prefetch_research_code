@@ -1,0 +1,36 @@
+{
+  "available_bytes": 6276433997824,
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "compact_unevictable_allowed": "1",
+  "elapsed_seconds": 0.050197659060359,
+  "execution_authority": false,
+  "journal_sha256": "9a7766e806b872133dbd0f6a746d75ae315dae69bc8c5e7b9bad9f95c9c003e0",
+  "journal_size": 3838,
+  "native_runner_pids": [],
+  "operational_preparation_performed": false,
+  "python_executable": "/usr/bin/python3.14",
+  "python_version": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "qualification_performed": false,
+  "s180_directory_exists": false,
+  "units": {
+    "cpu-prefetch-recovery-s180-1.service": {
+      "properties": {
+        "ActiveState": "inactive",
+        "LoadState": "not-found",
+        "MainPID": "0",
+        "SubState": "dead"
+      },
+      "returncode": 0
+    },
+    "cpu-prefetch-s180-operator-1.service": {
+      "properties": {
+        "ActiveState": "inactive",
+        "LoadState": "not-found",
+        "MainPID": "0",
+        "SubState": "dead"
+      },
+      "returncode": 0
+    }
+  },
+  "utc": "2026-11-23T19:11:58.628508+00:00"
+}

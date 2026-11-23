@@ -6,6 +6,7 @@ Unknown ownership remains quarantined; this is never an experiment launcher.
 """
 from __future__ import annotations
 import contextlib
+import fcntl
 import hashlib
 import json
 import os
@@ -235,6 +236,42 @@ class _OwnedCompaction:
                 platform=platform_proof,execution_authority=False))
         result=self.guard.restore();self.guard.unlock();self.closed=True
         return result
+
+    def restored_observation(self):
+        """Read actual post-analysis controls; never reacquire or repair a guard."""
+        require(self.closed and self.pid==os.getpid() and self.guard.fd is None,
+            'same-process completed compaction restoration required')
+        require(_root_file(ROOT/'owner.json',OWNER_LIMIT)==self.owner_raw
+            and archive.canonical(self.owner)==self.owner_raw,'original restored owner record changed')
+        intent=self.guard.intent
+        require(_root_file(self.guard.root/'intent.json',4096)==original.canonical(intent),
+            'original restored intent changed')
+        expected=dict(schema_version='cpu-prefetch-locked-compaction-restoration/1',
+            boot_id=intent['boot_id'],requested_value=intent['observed_prestate'],
+            observed_value=intent['observed_prestate'],verified=True,
+            intent_sha256=self.guard.expected_lease()['intent_sha256'])
+        require(_root_file(self.guard.root/'restoration.json',4096)==original.canonical(expected),
+            'actual original compaction restoration receipt changed')
+        fd=os.open(original.LEASE,os.O_RDONLY|os.O_CLOEXEC|os.O_NOFOLLOW)
+        try:
+            # A shared nonblocking lock detects a new holder without creating,
+            # truncating or adopting the old lease. Keep it across readback.
+            fcntl.flock(fd,fcntl.LOCK_SH|fcntl.LOCK_NB)
+            st=os.fstat(fd)
+            require(stat.S_ISREG(st.st_mode) and st.st_uid==0 and st.st_nlink==1
+                and not st.st_mode&0o022 and [st.st_dev,st.st_ino]==self.lease_identity
+                and _identity(original.LEASE)==self.lease_identity and st.st_size==0
+                and os.pread(fd,1,0)==b'','actual compaction lease replaced or occupied')
+            require(self.guard.control.boot()==intent['boot_id']==self.owner['window']['boot_id'],
+                'restored compaction belongs to another boot')
+            observed=self.guard.control.read()
+            require(observed==intent['observed_prestate'],'actual restored compaction value changed')
+            require(archive.file_stamp(os.fstat(fd))==archive.file_stamp(st)
+                and _identity(original.LEASE)==self.lease_identity,'restored lease changed during readback')
+            return dict(approval_sha256=APPROVAL_SHA,owner_sha256=hashlib.sha256(self.owner_raw).hexdigest(),
+                original_value=intent['observed_prestate'],observed_value=observed,
+                lease_identity=self.lease_identity,lease_empty=True,verified=True)
+        finally:os.close(fd)
 
 
 def prepare(*,environment_owner,supervision):

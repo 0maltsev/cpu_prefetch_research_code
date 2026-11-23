@@ -19,7 +19,7 @@ import stage17_s180_parent_v1 as parent
 archive=pool.archive
 require=pool.require
 exact=pool.worker.exact
-SCHEMA='cpu-prefetch-stage17-s180-validated-family-analysis/1'
+SCHEMA='cpu-prefetch-stage17-s180-validated-family-analysis/2'
 
 
 def _binding(reference):
@@ -174,12 +174,16 @@ def analyze_family(*,phase_owner,verified_request,terminal_binding,program_root,
                 window_binding=authorization['window_binding'],deadline_ns=phase_owner.deadline_ns)
             exact(asdict(store.ledger_binding()),tip,'original custody unchanged through analysis')
             phase_owner.check()
+            final_environment=phase_owner.environment_owner.final_restoration_observation(
+                plan_sha256=store.family_id,deadline_ns=phase_owner.deadline_ns)
+            phase_owner.check()
             report=dict(schema_version=SCHEMA,status='VALIDATED_DESCRIPTIVE_FAMILY_PENDING_OPERATIONAL_EXIT',
                 plan_sha256=store.family_id,request_sha256=verified_request.request_sha256,terminal_binding=terminal_binding,
                 original_ledger_tip=tip,archive_originals_inversely_verified=1440,actual_worker_completion_verified=True,
                 original_archive_custody_verified=True,family_data_consistency=consistency,
                 original_generation_binding=phase_owner.source_owner.released_proof(plan_sha256=store.family_id),
-                prior_owned_environment_restoration_verified=True,final_live_restoration_verified=False,
+                prior_owned_environment_restoration_verified=True,final_live_restoration_verified=True,
+                final_environment_observation=final_environment,
                 operational_exit_verified=False,inferential_freeze_established=False,
                 execution_authority=False,phase18_authority=False)
             return _publish(Path(output_directory),report,phase_owner.check)

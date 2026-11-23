@@ -148,7 +148,7 @@ class ResourceTests(unittest.TestCase):
         with self.assertRaisesRegex(gate.ResourceError,'actual owned'):
             gate.verify_resources(plan=self.plan,environment_owner={},source_owner={},worker=self.image,
                 archive_profile={},program_root=Path('/unused'),native_limits=self.limits,custody_limits=self.custody,
-                unrelated_reservations=self.unrelated,deadline_ns=time.monotonic_ns()+10**9)
+                unrelated_reservations=self.unrelated,deadline_ns=time.monotonic_ns()+10**9,programme_owner=None)
         with self.assertRaisesRegex(gate.ResourceError,'only actual resource'):
             gate._VerifiedResources(token=object(),plan={},environment_owner=None,source_owner=None,worker=None,
                 archive_profile=None,program_root='/unused',native_limits=None,custody_limits=None,deadline=1,
@@ -198,9 +198,13 @@ class ResourceTests(unittest.TestCase):
         platform.start();self.addCleanup(platform.stop)
         fs=mock.patch.object(gate.os,'statvfs',return_value=SimpleNamespace(f_bavail=10**13,f_frsize=1,f_favail=1000000))
         fs.start();self.addCleanup(fs.stop)
+        programme=self.enterContext(gate.admission_custody.own_programme(plan=self.plan,window_binding=hardware.window,
+            program_root=program,custody_limits=self.custody,deadline_ns=self.custody.deadline_ns,
+            preparation_deadline_ns=self.custody.deadline_ns))
         owner=gate.verify_resources(plan=self.plan,environment_owner=environment,source_owner=source,worker=self.image,
             archive_profile=profile,program_root=program,native_limits=self.limits,custody_limits=self.custody,
-            unrelated_reservations=self.unrelated,deadline_ns=min(self.custody.deadline_ns,time.monotonic_ns()+60*10**9))
+            unrelated_reservations=self.unrelated,deadline_ns=min(self.custody.deadline_ns,time.monotonic_ns()+60*10**9),
+            programme_owner=programme)
         prior=dict(scope_id=gate.authority.PLAN_SCOPE,plan_sha256=family,window_binding=hardware.window,
             evidence_root_binding=dict(absolute_path=str(program/'working'/family),device=program.stat().st_dev,
                 inode=(program/'working'/family).stat().st_ino),

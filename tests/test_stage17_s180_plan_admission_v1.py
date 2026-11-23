@@ -37,6 +37,9 @@ class PlanAdmissionTests(unittest.TestCase):
         with gate.resources.stores.ProgramStore(self.program,scope_sha256=scope,family_id=self.family,
                 limits=self.limits,ext009_resolution_sha256=None) as store:store.reserve_family()
         self.working=self.program/'working'/self.family
+        self.programme=self.stack.enter_context(gate.resources.admission_custody.own_programme(plan=self.plan,
+            window_binding=self.fixture.window,program_root=self.program,custody_limits=self.limits,
+            deadline_ns=self.limits.deadline_ns,preparation_deadline_ns=self.limits.deadline_ns))
         self.root=self.fixture.root/'plan-admission';self.stack.enter_context(mock.patch.object(gate,'ROOT',self.root))
         # These producers have their own real-process and real-artifact tests.
         # Here their typed live proof boundary is explicit software fixture data.
@@ -71,7 +74,7 @@ class PlanAdmissionTests(unittest.TestCase):
     def verify(self,**changes):
         args=dict(authored_sources=self.authored,qualification_owner=self.qualified,platform_owner=self.platform,
             compatibility_owner=self.software,base_validation=self.base,program_root=self.program,custody_limits=self.limits,
-            operator_profile_sha256=self.profile,deadline_ns=time.monotonic_ns()+60*10**9)
+            operator_profile_sha256=self.profile,deadline_ns=time.monotonic_ns()+60*10**9,programme_owner=self.programme)
         args.update(changes);return gate.verify_plan(**args)
 
     def replay(self,owner,**changes):
@@ -117,7 +120,7 @@ class PlanAdmissionTests(unittest.TestCase):
 
     def test_nonempty_original_family_and_different_programme_cannot_admit(self):
         path=self.working/'partial';path.write_bytes(b'keep')
-        with self.assertRaisesRegex(gate.PlanAdmissionError,'nonempty'):self.verify()
+        with self.assertRaisesRegex(gate.resources.admission_custody.ProgrammeError,'inventory or file stamp changed'):self.verify()
         self.assertEqual(path.read_bytes(),b'keep');self.assertFalse(self.root.exists())
 
     def test_live_expiry_stops_and_historical_inspection_cannot_revalidate(self):
@@ -166,6 +169,7 @@ class PlanAdmissionTests(unittest.TestCase):
     def test_fixed_router_delegates_only_owned_plan_resource_and_leaves_ext010_to_journal(self):
         plan=self.verify();resource=object.__new__(gate.resources._VerifiedResources)
         resource._environment=self.environment;resource._sources=self.authored.source_owner;resource._family=self.family
+        resource._programme=self.programme
         router=gate.ScopedSemantics(plan_owner=plan,resource_owner=resource)
         self.assertEqual(router.policy_sha256,gate.POLICY_SHA)
         self.assertEqual(router('S17-EXT-008',plan.payload,self.view,for_execution=True),self.replay(plan))
@@ -202,6 +206,56 @@ class PlanAdmissionTests(unittest.TestCase):
                 self.assertFalse(view.pilot_ready);self.assertFalse(view.execution_authority);self.assertFalse(view.phase18_authority)
                 for name,original in self.base.resolutions.items():
                     self.assertEqual(vars(view.resolutions[name]),vars(original))
+
+    def test_launcher_checks_actual_frozen_identity_then_releases_programme_before_relocking(self):
+        launch=gate.resources.launcher;plan=self.verify();context=self.replay(plan)
+        resource=object.__new__(gate.resources._VerifiedResources)
+        resource._environment=self.environment;resource._sources=self.authored.source_owner
+        resource._family=self.family;resource._programme=self.programme
+        router=gate.ScopedSemantics(plan_owner=plan,resource_owner=resource)
+        rows=self.view.resolutions
+        rows['S17-EXT-008']=SimpleNamespace(input_id='S17-EXT-008',resolution_id='SOFTWARE-EXT008',sha256='8'*64,semantic_context=context)
+        resource_context={k:context[k] for k in ('plan_sha256','window_binding','evidence_root_binding','phase18_authority')}
+        resource_context.update(scope_id=gate.authority.RESOURCE_SCOPE,resource_admission_status='ADMITTED')
+        rows['S17-EXT-009']=SimpleNamespace(input_id='S17-EXT-009',resolution_id='SOFTWARE-EXT009',sha256='9'*64,semantic_context=resource_context)
+        self.programme.bind_resource_admission(view=gate.journal.JournalView(rows,'c'*64,2,False))
+        common=dict(session_id='SOFTWARE-SESSION',request_id='SOFTWARE-REQUEST',attempt_id='SOFTWARE-ATTEMPT',
+            authorization_id='SOFTWARE-AUTHORIZATION',stand_id=self.plan['blueprint']['stand_id'],
+            runtime_binding=context['runtime_binding'],release_binding=context['release_binding'],
+            synthetic_test_only=False,phase18_authority=False)
+        authorization=dict(common,schema_version=gate.authority.SCHEMA,plan_sha256=self.family,
+            window_binding=self.fixture.window,evidence_root_binding=context['evidence_root_binding'],
+            issued_at_epoch_seconds=time.time_ns()//10**9-1,expires_at_epoch_seconds=time.time_ns()//10**9+86410,
+            prerequisite_bindings=dict(ext009_resolution_sha256='9'*64))
+        raw=gate.archive.canonical(authorization)
+        request=dict(common,schema_version=gate.authority.REQUEST_SCHEMA,plan=self.plan,
+            prerequisite_bindings=dict(authorization['prerequisite_bindings'],ext010_authorization_sha256=gate.authority.sha(raw)))
+        verified=gate.authority.VerifiedRequest(raw,gate.archive.canonical(request))
+        rows['S17-EXT-010']=SimpleNamespace(semantic_context=dict(authorization_sha256=verified.authorization_sha256))
+        view=gate.journal.JournalView(rows,'c'*64,3,False)
+        journal=SimpleNamespace(plan=self.plan,semantic_replay=router,inspect=lambda **kwargs:view)
+        @gate.author.contextlib.contextmanager
+        def native_entry(**kwargs):
+            self.assertTrue(self.programme.released);yield {'SOFTWARE-PARTITION':True}
+        restorer=SimpleNamespace(native_entry=native_entry,compaction_guard=lambda:None)
+        def dispatch(**kwargs):
+            self.assertTrue(self.programme.released)
+            with gate.resources.stores.ProgramStore(self.program,scope_sha256=self.plan['storage']['program_scope_sha256'],
+                    family_id=self.family,limits=self.limits,ext009_resolution_sha256='9'*64) as store:
+                store.inspect_reservation();store._family_scope_fields();self.assertEqual(store._sequence,1)
+            return {'SOFTWARE-STOP-BEFORE-NATIVE-EXECUTION':True}
+        limits=launch.LaunchLimits(self.plan['budget']['memory_bytes'],self.plan['budget']['memory_bytes'],
+            self.plan['budget']['max_output_bytes'],1024,16384,10*10**9,7200*10**9)
+        # Only upstream signature result and final hardware/dispatch boundaries
+        # are explicit doubles. The actual frozen sealed image's identity query
+        # and the owned lock release/reacquisition execute unchanged.
+        with mock.patch.object(gate.authority,'verify_admitted_authorization',return_value=verified):
+            with mock.patch.object(launch,'_execute_verified',side_effect=dispatch):
+                result=launch._launch_in_environment(journal=journal,authorization_bytes=raw,signature_path=Path('/SOFTWARE-SIGNATURE'),
+                    source_owner=self.authored.source_owner,native_image=self.fixture.image,archive_profile=None,
+                    program_root=self.program,broker_limits=None,custody_limits=self.limits,decoder_limits=None,
+                    limits=limits,restore_environment=restorer)
+        self.assertTrue(result['SOFTWARE-STOP-BEFORE-NATIVE-EXECUTION'])
 
 
 if __name__=='__main__':unittest.main()

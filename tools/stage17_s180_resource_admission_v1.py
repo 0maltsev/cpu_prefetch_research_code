@@ -28,6 +28,7 @@ import stage17_s180_parent_v1 as parent
 import stage17_s180_plan_prepare_v1 as planning
 import stage17_s180_resource_plan_v1 as prospective
 import stage17_s180_verified_sources_v1 as sources
+import stage17_s180_admission_custody_v1 as admission_custody
 
 SCHEMA='cpu-prefetch-stage17-s180-live-resource-evidence/1'
 NATIVE_SHA='7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc'
@@ -120,10 +121,16 @@ def capacity_plan(plan,envelope,limits):
     return space,records,files
 
 
-def _storage(plan,envelope,limits,program_root,unrelated_reservations):
+def _storage(plan,envelope,limits,program_root,unrelated_reservations,programme_owner=None):
     family=planning.sha(plan)
-    with stores.ProgramStore(Path(program_root),scope_sha256=plan['storage']['program_scope_sha256'],
-        family_id=family,limits=limits,ext009_resolution_sha256=None) as store:
+    if programme_owner is None:
+        context=stores.ProgramStore(Path(program_root),scope_sha256=plan['storage']['program_scope_sha256'],
+            family_id=family,limits=limits,ext009_resolution_sha256=None)
+    else:
+        require(type(programme_owner) is admission_custody._OwnedProgramme and programme_owner.root==Path(program_root)
+            and programme_owner._store.limits==limits,'actual original programme/limits owner required')
+        context=programme_owner.inspect(plan_sha256=family)
+    with context as store:
         require(store.scope['program_id']==plan['storage']['program_id'],'original programme differs')
         device=store.root.stat().st_dev
         require(all((store.root/name).stat().st_dev==device for name in store.DIRECTORIES),
@@ -180,7 +187,7 @@ def _arithmetic(plan,report,*,compress_bound):
 
 class _VerifiedResources:
     def __init__(self,*,token,plan,environment_owner,source_owner,worker,archive_profile,program_root,
-                 native_limits,custody_limits,deadline,envelope,process,timing,initial,unrelated_reservations):
+                 native_limits,custody_limits,deadline,envelope,process,timing,initial,unrelated_reservations,programme_owner=None):
         require(token is _TOKEN,'only actual resource verification constructs the handle')
         self._plan=archive.canonical(plan);self._family=planning.sha(plan)
         self._environment=environment_owner;self._sources=source_owner;self._worker=worker
@@ -189,6 +196,7 @@ class _VerifiedResources:
         self._pid=os.getpid();self._last=archive.canonical(initial)
         self._failed=False;self._context=None;self._prior=None
         self._unrelated=archive.canonical(unrelated_reservations)
+        self._programme=programme_owner
         self._report=archive.canonical(dict(schema_version=SCHEMA,plan_sha256=self._family,
             source_proof=source_owner.proof(plan_sha256=self._family),envelope=envelope,
             process_envelope=process,time_envelope=timing,initial_observation=initial,
@@ -217,7 +225,7 @@ class _VerifiedResources:
         require(archive.hash_file(library,max_bytes=16*1024**2,deadline_ns=self._deadline).sha256
             ==self._profile.decoder.zstd_library_sha256,'actual codec library changed')
         with contextlib.ExitStack() as stack:runtime._pin_image(self._worker,self._deadline,stack)
-        storage=_storage(plan,self._envelope,self._custody,self._program,archive.parse_json(self._unrelated))
+        storage=_storage(plan,self._envelope,self._custody,self._program,archive.parse_json(self._unrelated),self._programme)
         self._sources.proof(plan_sha256=self._family)
         hardware=self._environment.admission_observation(plan_sha256=self._family)
         platform=platform_observation();assess_platform(platform,process_envelope=self._process,native_limits=self._limits)
@@ -264,7 +272,7 @@ class _VerifiedResources:
 
 
 def verify_resources(*,plan,environment_owner,source_owner,worker,archive_profile,program_root,
-                     native_limits,custody_limits,unrelated_reservations,deadline_ns):
+                     native_limits,custody_limits,unrelated_reservations,deadline_ns,programme_owner):
     """The qualified outer operator authenticates profile and reservation ancestry.
 
     Future unrelated reservations are an explicit externally authenticated
@@ -273,6 +281,7 @@ def verify_resources(*,plan,environment_owner,source_owner,worker,archive_profil
     """
     require(type(environment_owner) is environment._PreparedEnvironment
         and type(source_owner) is sources._VerifiedSources,'actual owned environment and sources required')
+    require(type(programme_owner) is admission_custody._OwnedProgramme,'actual held programme required before short resource admission')
     require(type(worker) is runtime.ImageBinding and worker.sha256==NATIVE_SHA and worker.size_bytes==NATIVE_SIZE,
         'exact frozen production native required')
     require(type(native_limits) is launcher.LaunchLimits and type(custody_limits) is custody.CustodyLimits,
@@ -311,7 +320,7 @@ def verify_resources(*,plan,environment_owner,source_owner,worker,archive_profil
     owner=_VerifiedResources(token=_TOKEN,plan=plan,environment_owner=environment_owner,source_owner=source_owner,
         worker=worker,archive_profile=archive_profile,program_root=program_root,native_limits=native_limits,
         custody_limits=custody_limits,deadline=deadline_ns,envelope=envelope,process=process,timing=timing,initial={},
-        unrelated_reservations=unrelated_reservations)
+        unrelated_reservations=unrelated_reservations,programme_owner=programme_owner)
     initial=owner._observe();owner._last=archive.canonical(initial)
     evidence=archive.parse_json(owner._report);evidence['initial_observation']=initial;owner._report=archive.canonical(evidence)
     return owner

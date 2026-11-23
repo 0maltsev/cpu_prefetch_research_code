@@ -403,6 +403,13 @@ def _launch_in_environment(*,journal,authorization_bytes,signature_path,source_o
         import json
         identity=json.loads(result.stdout)
         _check_identity(identity,request)
+    # Actual scoped semantics holds one replayed programme lock across short
+    # admission. Release it once, only after the exact signed launch request and
+    # actual native identity pass. The original launcher then takes its own lock
+    # and replays custody before consuming the durable attempt.
+    from stage17_s180_plan_admission_v1 import ScopedSemantics
+    if type(journal.semantic_replay) is ScopedSemantics:
+        journal.semantic_replay.release_for_launch(view=view,verified=verified)
     with restore_environment.native_entry(plan_sha256=authorization['plan_sha256']) as partition:
         return _execute_verified(verified=verified,source_owner=source_owner,native_image=native_image,
             archive_profile=archive_profile,program_root=program_root,broker_limits=broker_limits,

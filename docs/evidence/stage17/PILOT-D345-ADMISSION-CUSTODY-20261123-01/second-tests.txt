@@ -1,0 +1,7 @@
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 2.087s
+
+OK
+Exception ignored while finalizing file <_io.BufferedReader name=3>:
+OSError: [Errno 9] Bad file descriptor

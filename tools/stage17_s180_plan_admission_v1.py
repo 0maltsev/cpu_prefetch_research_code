@@ -57,10 +57,12 @@ def _policy():
 def _original(base,bp):return author.namespaces._base(base,bp)
 
 
-def _reserved(plan,program_root,limits):
+def _reserved(plan,program_root,limits,programme_owner):
     family=author.planning.sha(plan)
-    with resources.stores.ProgramStore(Path(program_root),scope_sha256=plan['storage']['program_scope_sha256'],
-            family_id=family,limits=limits,ext009_resolution_sha256=None) as store:
+    require(type(programme_owner) is resources.admission_custody._OwnedProgramme
+        and programme_owner.root==Path(program_root) and programme_owner._store.limits==limits,
+        'actual held programme/limits owner required')
+    with programme_owner.inspect(plan_sha256=family) as store:
         require(store.scope['program_id']==plan['storage']['program_id'],'original programme identity differs')
         reservation,binding=store.inspect_reservation()
         require(not any(store.working.iterdir()) and not store._capture_pending
@@ -72,7 +74,7 @@ def _reserved(plan,program_root,limits):
 
 
 class _VerifiedPlan:
-    def __init__(self,*,token,authored,qualified,platform_owner,compatibility_owner,base,program,limits,profile,deadline):
+    def __init__(self,*,token,authored,qualified,platform_owner,compatibility_owner,base,program,limits,profile,deadline,programme):
         require(token is _TOKEN,'actual owned prerequisite composition required')
         self.authored=authored;self.qualification=qualified;self.platform=platform_owner
         self.compatibility=compatibility_owner;self.base=base;self.program=Path(program);self.limits=limits
@@ -80,6 +82,7 @@ class _VerifiedPlan:
         self._plan=archive.canonical(authored.plan);self.family=hashlib.sha256(self._plan).hexdigest()
         self.pid=os.getpid();self.failed=False;self._context=None;self._report=None;self._compatibility=None;self._metadata=None
         self._directory_identity=None
+        self.programme=programme
 
     @property
     def payload(self):
@@ -132,7 +135,7 @@ class _VerifiedPlan:
         # inventory claim or retroactive homogeneity of calibration strata.
         raw=self.platform.report();require(hashlib.sha256(raw).hexdigest()==hardware['platform_evidence_sha256'],
             'original platform evidence binding differs')
-        output=_reserved(plan,self.program,self.limits);_before(self.deadline)
+        output=_reserved(plan,self.program,self.limits,self.programme);_before(self.deadline)
         return dict(plan=plan,original=original,source=source,namespace=namespace,qualified=qualified,
             hardware=hardware,software=software,platform_raw=raw,output=output,window=window)
 
@@ -176,7 +179,7 @@ class _VerifiedPlan:
 
 
 def verify_plan(*,authored_sources,qualification_owner,platform_owner,compatibility_owner,base_validation,
-                program_root,custody_limits,operator_profile_sha256,deadline_ns):
+                program_root,custody_limits,operator_profile_sha256,deadline_ns,programme_owner):
     """The outer operator authenticates its actual profile and base replay first."""
     require(type(authored_sources) is author._AuthoredSources
         and type(qualification_owner) is qualification._VerifiedEvidence
@@ -187,7 +190,7 @@ def verify_plan(*,authored_sources,qualification_owner,platform_owner,compatibil
     require(type(custody_limits) is resources.custody.CustodyLimits,'actual finite custody replay limits required')
     owner=_VerifiedPlan(token=_TOKEN,authored=authored_sources,qualified=qualification_owner,platform_owner=platform_owner,
         compatibility_owner=compatibility_owner,base=base_validation,program=program_root,limits=custody_limits,
-        profile=operator_profile_sha256,deadline=deadline_ns)
+        profile=operator_profile_sha256,deadline=deadline_ns,programme=programme_owner)
     created=None
     try:
         facts=owner._facts();ROOT.mkdir(mode=0o700);author.namespaces._sync_directory(ROOT.parent)
@@ -233,10 +236,14 @@ class ScopedSemantics:
         require(type(plan_owner) is _VerifiedPlan and type(resource_owner) is resources._VerifiedResources,
             'actual owned scoped plan/resources required')
         require(resource_owner._environment is plan_owner.environment and resource_owner._sources is plan_owner.authored.source_owner
-            and resource_owner._family==plan_owner.family,'scoped plan/resources use different live owners')
+            and resource_owner._family==plan_owner.family and resource_owner._programme is plan_owner.programme,
+            'scoped plan/resources use different live owners')
         _policy();self.plan=plan_owner;self.resources=resource_owner;self.policy_sha256=POLICY_SHA
 
     def __call__(self,input_id,payload,view,*,for_execution):
         require(input_id in ('S17-EXT-008','S17-EXT-009'),'EXT010 must use original signed journal authorization')
         owner=self.plan if input_id=='S17-EXT-008' else self.resources
         return owner(input_id,payload,view,for_execution=for_execution)
+
+    def release_for_launch(self,*,view,verified):
+        self.plan.programme.release_for_launch(view=view,verified=verified)

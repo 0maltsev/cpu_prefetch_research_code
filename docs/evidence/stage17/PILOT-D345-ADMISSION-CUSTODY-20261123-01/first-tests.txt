@@ -1,0 +1,145 @@
+EEEEEEEEEE
+======================================================================
+ERROR: test_closed_expired_and_forged_programme_handles_fail (__main__.ProgrammeTests.test_closed_expired_and_forged_programme_handles_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_complete_authorization_handoff_releases_once_without_consuming_native_attempt (__main__.ProgrammeTests.test_complete_authorization_handoff_releases_once_without_consuming_native_attempt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_new_unregistered_object_is_detected_and_never_deleted (__main__.ProgrammeTests.test_new_unregistered_object_is_detected_and_never_deleted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_one_real_replay_stays_locked_through_many_checked_metadata_uses (__main__.ProgrammeTests.test_one_real_replay_stays_locked_through_many_checked_metadata_uses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_ordinary_writes_are_forbidden_without_affecting_original_ledger (__main__.ProgrammeTests.test_ordinary_writes_are_forbidden_without_affecting_original_ledger)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_replaced_root_and_original_lock_are_rejected_without_unknown_writes (__main__.ProgrammeTests.test_replaced_root_and_original_lock_are_rejected_without_unknown_writes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_reused_lock_fd_is_not_closed_by_cleanup_or_python_stream_destructor (__main__.ProgrammeTests.test_reused_lock_fd_is_not_closed_by_cleanup_or_python_stream_destructor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_same_size_old_record_change_rejects_and_restored_bytes_cannot_revive_owner (__main__.ProgrammeTests.test_same_size_old_record_change_rejects_and_restored_bytes_cannot_revive_owner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_single_scoped_resource_binding_updates_only_exact_owned_file_and_directory (__main__.ProgrammeTests.test_single_scoped_resource_binding_updates_only_exact_owned_file_and_directory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_wrong_scoped_profile_output_window_and_incomplete_view_cannot_bind (__main__.ProgrammeTests.test_wrong_scoped_profile_output_window_and_incomplete_view_cannot_bind)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_admission_custody_v1.py", line 31, in setUp
+    for i in range(10):store.append('FAILURE',None,dict(software_history=i))
+                       ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 454, in append
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.541s
+
+FAILED (errors=10)

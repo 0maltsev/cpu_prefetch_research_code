@@ -1,0 +1,76 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "86506ecee7b01d37d85ae7d3e8ed816ab02e73e80e528d63e4cae804ee36601b",
+      "size_bytes": 202886
+    },
+    {
+      "path": "tools/stage17_s180_family_validation_v1.py",
+      "sha256": "2d25e356dfb0dd372ae63b692e59fbab80950ab1e8834d89822085179df52e55",
+      "size_bytes": 29761
+    },
+    {
+      "path": "tests/test_stage17_s180_family_validation_v1.py",
+      "sha256": "2f6a9dea9336abbc87cf08463973a753bd204f7bfeb811700d2a9e35d08bbf43",
+      "size_bytes": 26826
+    },
+    {
+      "path": "tools/stage17_s180_capture_validation_v1.py",
+      "sha256": "cfd9c0dc75b673c85fd3ce999e0f1db83af2d2055c90d1c46cd1e4304b42b1b7",
+      "size_bytes": 33107
+    },
+    {
+      "path": "tools/stage17_s180_capture_controls_v1.py",
+      "sha256": "3e18e7a81f2a7c7965c4802669c06aaa48dec053b295a744b8c24e426b3e3afa",
+      "size_bytes": 18618
+    },
+    {
+      "path": "tools/stage17_s180_checkpoint_v1.py",
+      "sha256": "81e161f2b5cef490078fe401f1f6bf431efb7722e733b0ef77208e237bd664c8",
+      "size_bytes": 8271
+    },
+    {
+      "path": "tools/stage17_s180_tail_numerics_v1.py",
+      "sha256": "41bd1a22443537fe9cc4301d589e3521e12ee3dde3d7ddb7c0428c5dec9ccbd1",
+      "size_bytes": 11549
+    },
+    {
+      "path": "src/runner/stage17_s180_native_session.cpp",
+      "sha256": "1d68854bd4a694aad7f703a25827cb50ebe751b4379fd2edc728eed77acc27ad",
+      "size_bytes": 20471
+    },
+    {
+      "path": "src/runner/stage17_s180_session.cpp",
+      "sha256": "e21d2bd2a02e7716d7319125b22f60b38126131ab88119f6baf935752f12c1c7",
+      "size_bytes": 25711
+    },
+    {
+      "path": "src/platform/q15_msr.cpp",
+      "sha256": "2337cac3873971fbd3cb98c738e1b0da0fe263c84b3e449233805dbc5f3c8e08",
+      "size_bytes": 12123
+    },
+    {
+      "path": "protocol/2.0.0-pre.3/handoff/schemas/raw-observation.schema.json",
+      "sha256": "053ce37bcbde0baf27452262b59a28fe331f81f3a5288a73b814deb8d31db7ab",
+      "size_bytes": 9452
+    },
+    {
+      "path": "config/schemas/stage17-s180-tail-numerics-v1.schema.json",
+      "sha256": "c6d5f914e7ce2ee67249abdb388c68733d115db403cc171ff77d342ab47a8f97",
+      "size_bytes": 10735
+    },
+    {
+      "path": "docs/decisions/0351-s180-whole-family-data-consistency.md",
+      "sha256": "553db061ad10dce0e953f95c40a8ebb1409fdeabe6b3cf1066ba31ea4efcea5a",
+      "size_bytes": 3950
+    }
+  ],
+  "frozen_native": {
+    "path": "build/stage17-s180-release-34247ce/cpu_prefetch_runner",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832
+  },
+  "recorded_at_utc": "2026-11-23T17:18:36.651327+00:00"
+}

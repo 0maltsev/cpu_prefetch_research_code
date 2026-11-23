@@ -1,0 +1,45 @@
+{
+  "only_verified_duplicate_staging_metadata_removed": true,
+  "original_namespace_audit_preserved": true,
+  "raw_copied_to_pc": false,
+  "recorded_at_utc": "2026-11-23T17:18:36.651327+00:00",
+  "removed": [
+    {
+      "path": "build/stage17-s180-family-validation-prep/initial-tests.txt",
+      "sha256": "f52aaec3515134372464d0c3cb6e75407a722b2389adf1b3d559eba64203ee4d",
+      "size_bytes": 111
+    },
+    {
+      "path": "build/stage17-s180-family-validation-prep/semantic-debug.txt",
+      "sha256": "e33b2bf22a4d9c3ac1f4996a493d65064cd378cc70711d4c17ca56fade789ba3",
+      "size_bytes": 113
+    },
+    {
+      "path": "build/stage17-s180-family-validation-prep/final-debug.txt",
+      "sha256": "0d439666c48cb69aed7594a74f14f164311aab17d31c7ffdc7e574d336d2410c",
+      "size_bytes": 114
+    },
+    {
+      "path": "build/stage17-s180-family-validation-prep/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "build/stage17-s180-family-validation-prep/registered.txt",
+      "sha256": "70741f024f7d611b9ccf9ef02c706f65ec6c31ca84f2728b154c3b57f0f74113",
+      "size_bytes": 963
+    },
+    {
+      "path": "build/stage17-s180-family-validation-prep/contract-checks.txt",
+      "sha256": "ca441af802a614e7de576f0677ed9be966b9ae9fa58f949ce9e98dc9ce812113",
+      "size_bytes": 432
+    },
+    {
+      "path": "build/stage17-s180-family-validation-prep/stand-idle-check.json",
+      "sha256": "8529219c7c1d3df85e9ca2afdf950c7bd5c7fab7ebd956e1a612857473e8385c",
+      "size_bytes": 826
+    }
+  ],
+  "removed_bytes": 2736,
+  "stand_raw_deleted": false
+}

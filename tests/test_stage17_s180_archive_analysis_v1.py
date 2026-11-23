@@ -121,6 +121,29 @@ class ArchivedTests(unittest.TestCase):
                     self.assertEqual(envelope['compression'],analysis.archive.RAW_CODEC)
                 else:self.assertEqual(uri,(output/phase['artifact']['file_name']).as_uri())
 
+    def pending_input(self):
+        self.args['registry_proof'].update(schema_version=analysis.analysis_input.SCHEMA,continuation_allowed=False,
+            original_collection_release_verified=True,physical_sha256_verification_pending=True,
+            independent_inverse_required=True,execution_authority=False,phase18_authority=False)
+
+    def test_pending_input_requires_actual_complete_inverse_before_publication(self):
+        self.pending_input();result=self.invoke()
+        self.assertEqual(result['status'],'PASSED',result)
+        self.assertEqual(result['result']['original_archives_inversely_verified'],8)
+        self.assertTrue((self.args['output_directory']/'complete.json').exists())
+
+    def test_pending_payload_damage_is_rejected_by_actual_inverse_and_keeps_evidence(self):
+        self.pending_input();path=self.archives/self.args['registry_proof']['artifacts'][-1]['archive_name']
+        data=bytearray(path.read_bytes());data[-1]^=1;path.write_bytes(data)
+        result=self.invoke();self.assertEqual(result['status'],'REJECTED',result)
+        self.assertTrue(result['codec_failed']);self.assertFalse((self.args['output_directory']/'complete.json').exists())
+        self.assertTrue(any(p.is_dir() for p in self.scratch.iterdir()));self.assertEqual(path.read_bytes(),data)
+
+    def test_pending_proof_cannot_disable_inverse_or_claim_native_continuation(self):
+        self.pending_input();self.args['registry_proof']['independent_inverse_required']=False
+        result=self.invoke();self.assertEqual(result['status'],'REJECTED',result)
+        self.assertFalse(self.args['output_directory'].exists())
+
     def test_all_full_is_valid_data_with_empty_derived_output_and_undefined_tail(self):
         self.fixture=primary.Fixture(self.original,all_full=True);self.make_inventory();result=self.invoke()
         self.assertEqual(result['status'],'PASSED',result)

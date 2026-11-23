@@ -15,11 +15,12 @@ import stage17_s180_archive_custody_v1 as stores
 import stage17_s180_archive_registry_v1 as registry
 import stage17_s180_archive_broker_v1 as broker
 import stage17_s180_parent_v1 as parent
+import stage17_s180_analysis_input_v1 as analysis_input
 
 archive=pool.archive
 require=pool.require
 exact=pool.worker.exact
-SCHEMA='cpu-prefetch-stage17-s180-validated-family-analysis/2'
+SCHEMA='cpu-prefetch-stage17-s180-validated-family-analysis/3'
 
 
 def _binding(reference):
@@ -35,7 +36,7 @@ def _read(store,directory,reference,maximum):
     return value
 
 
-def _capture(store,request,native_result,ordinal,profile,decoder_limits):
+def _capture(store,request,native_result,ordinal,profile,decoder_limits,phase_owner=None):
     """Read one complete original from the locked ledger, never report-only."""
     require(store.family_id in store._families,'original admitted family missing; never create/adopt in analysis')
     if store._extension_binding is None:store.prepare_family(store.family_id)
@@ -52,10 +53,12 @@ def _capture(store,request,native_result,ordinal,profile,decoder_limits):
     checkpoint=_read(store,store.working,checkpoint_ref,store.limits.max_checkpoint_bytes)
     exact(checkpoint['artifacts'],references[1:9],'original eight-file native publication')
     receipt=_read(store,store.working,custody_ref,store.limits.max_record_bytes)
-    verified=registry.verify_capture_metadata(store=store,capture=broker.capture_contract(request,ordinal),
+    reader=registry.verify_capture_metadata if phase_owner is None else analysis_input.verify_original
+    owner={} if phase_owner is None else dict(phase_owner=phase_owner)
+    verified=reader(**owner,store=store,capture=broker.capture_contract(request,ordinal),
         checkpoint_binding=asdict(_binding(checkpoint_ref)),receipt_binding=asdict(_binding(custody_ref)),
         decoder_profile=profile.decoder,decoder_limits=decoder_limits)
-    exact(verified['continuation_allowed'],True,'original capture/registry completion')
+    analysis_input.check(verified)
     name=f's180-parent-{family}-e{ordinal}.json'
     raw=store._read_bound(store.root/'metadata'/name,None,parent.PARENT_RECORD_LIMIT)
     parent_receipt=archive.parse_json(raw);exact(archive.canonical(parent_receipt),raw,'original parent receipt canonical bytes')
@@ -161,7 +164,7 @@ def analyze_family(*,phase_owner,verified_request,terminal_binding,program_root,
             tip=asdict(store.ledger_binding());records=[]
             for ordinal in range(180):
                 phase_owner.check()
-                record=_capture(store,request,native,ordinal,archive_profile,decoder_limits)
+                record=_capture(store,request,native,ordinal,archive_profile,decoder_limits,phase_owner=phase_owner)
                 exact(record['parent_receipt']['request_sha256'],verified_request.request_sha256,'actual original request receipt')
                 records.append(record)
             result=pool.run_analysis(phase_owner=phase_owner,inputs=[dict(checkpoint=r['checkpoint'],registry_proof=r['registry_proof']) for r in records],
@@ -181,6 +184,7 @@ def analyze_family(*,phase_owner,verified_request,terminal_binding,program_root,
                 plan_sha256=store.family_id,request_sha256=verified_request.request_sha256,terminal_binding=terminal_binding,
                 original_ledger_tip=tip,archive_originals_inversely_verified=1440,actual_worker_completion_verified=True,
                 original_archive_custody_verified=True,family_data_consistency=consistency,
+                archive_verification_order='ORIGINAL_LEDGER_HEADERS_THEN_OWNED_PARALLEL_FULL_PHYSICAL_AND_CANONICAL_INVERSE',
                 original_generation_binding=phase_owner.source_owner.released_proof(plan_sha256=store.family_id),
                 prior_owned_environment_restoration_verified=True,final_live_restoration_verified=True,
                 final_environment_observation=final_environment,

@@ -15,6 +15,7 @@ from fractions import Fraction
 
 from jsonschema import Draft202012Validator,ValidationError as SchemaError
 import stage17_s180_capture_validation_v1 as capture
+import stage17_s180_analysis_input_v1 as analysis_input
 import stage17_s180_plan_prepare_v1 as planning
 
 common=capture.common
@@ -105,7 +106,7 @@ def _custody(item,ordinal,plan,plan_sha,session_id,request_sha256,window):
     exact(proof['execution_ordinal'],ordinal,'registry ordinal')
     exact(proof['checkpoint'],cp_binding,'registry checkpoint')
     exact(proof['custody_receipt'],receipt_binding,'registry custody receipt')
-    exact(proof['continuation_allowed'],True,'custody permitted native continuation')
+    analysis_input.check(proof)
     for original,row,verified in zip(refs,rows,proof['artifacts'],strict=True):
         artifact_id=plan_sha+':'+original['file_name']
         exact(row['artifact_id'],artifact_id,'native artifact identity')

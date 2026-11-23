@@ -331,7 +331,8 @@ def _jobs(plan,native_result,inputs,*,program,scratch,captures,session_id,output
             and checkpoint['session_id']==session_id and checkpoint['plan_sha256']==plan_sha
             and checkpoint['program_scope_sha256']==plan['storage']['program_scope_sha256'],'original ordered input lineage differs')
         originals=worker.capture.checkpoint_contract.original_references(checkpoint)
-        require(len(originals)==8 and proof['continuation_allowed'] is True,'complete originals and actual original custody required')
+        require(len(originals)==8,'complete original capture required')
+        worker.analysis_input.check(proof)
         canonical_bytes=archive.checked_sum(*(r['size_bytes'] for r in originals))
         require(canonical_bytes<=entry['execution_budget']['max_output_bytes'],'original source bytes exceed admitted capture bound')
         cleanup=native_result['contexts_after_family_release'][_CONTEXTS.index((row['placement'],row['working_set_class']))]

@@ -1,0 +1,32 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+      Start 653: runner.s180_archive_broker_v1
+ 1/10 Test #653: runner.s180_archive_broker_v1 ...........   Passed   55.23 sec
+      Start 654: runner.s180_parent_v1
+ 2/10 Test #654: runner.s180_parent_v1 ...................   Passed   25.46 sec
+      Start 685: runner.s180_tail_numerics_v1
+ 3/10 Test #685: runner.s180_tail_numerics_v1 ............   Passed    2.25 sec
+      Start 686: runner.s180_raw_join_v1
+ 4/10 Test #686: runner.s180_raw_join_v1 .................   Passed    0.26 sec
+      Start 688: runner.s180_capture_validation_v1
+ 5/10 Test #688: runner.s180_capture_validation_v1 .......   Passed    4.94 sec
+      Start 689: runner.s180_family_validation_v1
+ 6/10 Test #689: runner.s180_family_validation_v1 ........   Passed   43.26 sec
+      Start 691: runner.s180_archive_analysis_v1
+ 7/10 Test #691: runner.s180_archive_analysis_v1 .........   Passed    6.44 sec
+      Start 692: runner.s180_analysis_pool_v1
+ 8/10 Test #692: runner.s180_analysis_pool_v1 ............   Passed   25.01 sec
+      Start 693: runner.s180_family_analysis_v1
+ 9/10 Test #693: runner.s180_family_analysis_v1 ..........   Passed   30.10 sec
+      Start 695: runner.s180_archive_bundle_profile_v1
+10/10 Test #695: runner.s180_archive_bundle_profile_v1 ...   Passed   17.41 sec
+
+100% tests passed, 0 tests failed out of 10
+
+Label Time Summary:
+archive      = 159.65 sec*proc (6 tests)
+pilot        = 210.37 sec*proc (10 tests)
+python       = 210.37 sec*proc (10 tests)
+runner       = 210.37 sec*proc (10 tests)
+synthetic    = 210.37 sec*proc (10 tests)
+
+Total Test time (real) = 210.38 sec

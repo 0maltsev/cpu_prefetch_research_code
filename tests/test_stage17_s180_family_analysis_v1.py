@@ -7,6 +7,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 import stage17_s180_family_analysis_v1 as analysis
@@ -40,10 +41,50 @@ class OriginalTests(unittest.TestCase):
 
     def write_parent(self):self.parent_path.write_bytes(analysis.archive.canonical(self.parent))
 
-    def load(self):
+    def load(self,phase_owner=None):
         with self.f.store() as store:
             return analysis._capture(store,self.request,self.native,0,self.f.profile,
-                analysis.archive.DecodeLimits(32768,4*1024**2,4*1024**2,8*1024**2,4*1024**2,100,1<<22,self.f.deadline))
+                analysis.archive.DecodeLimits(32768,4*1024**2,4*1024**2,8*1024**2,4*1024**2,100,1<<22,self.f.deadline),
+                phase_owner=phase_owner)
+
+    def software_phase(self):
+        # Explicit typed-owner boundary double; actual phase ownership is
+        # independently covered by its source/restoration/process tests.
+        owner=object.__new__(analysis.analysis_input.phase._AnalysisPhase)
+        owner.plan_sha256=self.f.family;owner.deadline_ns=self.f.deadline;owner._pool_consumed=False
+        owner.failed=False;owner.check=lambda:{}
+        return owner
+
+    def test_analysis_input_keeps_original_custody_but_never_grants_continuation(self):
+        with mock.patch.object(analysis.registry,'_physical_metadata',side_effect=AssertionError('no duplicate full archive pass')):
+            proof=self.load(self.software_phase())['registry_proof']
+        self.assertEqual(proof['schema_version'],analysis.analysis_input.SCHEMA)
+        self.assertFalse(proof['continuation_allowed']);self.assertTrue(proof['physical_sha256_verification_pending'])
+        self.assertTrue(proof['independent_inverse_required']);self.assertFalse(proof['execution_authority'])
+
+    def test_payload_damage_stays_pending_and_original_collection_route_still_rejects_it(self):
+        receipt=json.loads((self.f.working/self.outcome.receipt.file_name).read_bytes())
+        path=self.f.root/'archives'/receipt['artifacts'][0]['archive_name'];raw=bytearray(path.read_bytes());raw[-1]^=1;path.write_bytes(raw)
+        proof=self.load(self.software_phase())['registry_proof']
+        self.assertFalse(proof['continuation_allowed']);self.assertTrue(proof['physical_sha256_verification_pending'])
+        with self.assertRaisesRegex(ValueError,'hash differs'):self.load()
+
+    def test_serialized_foreign_consumed_or_expired_phase_cannot_prepare_inputs(self):
+        with self.assertRaisesRegex(ValueError,'actual post-restoration'):self.load({})
+        owner=self.software_phase();owner._pool_consumed=True
+        with self.assertRaisesRegex(ValueError,'unconsumed analysis'):self.load(owner)
+        owner=self.software_phase();owner.plan_sha256='f'*64
+        with self.assertRaisesRegex(ValueError,'unconsumed analysis'):self.load(owner)
+        owner=self.software_phase();owner.deadline_ns=self.f.deadline-1
+        with self.assertRaisesRegex(ValueError,'deadline exceeds'):self.load(owner)
+        self.assertTrue(owner.failed)
+
+    def test_missing_physical_archive_still_fails_pending_header_preparation(self):
+        receipt=json.loads((self.f.working/self.outcome.receipt.file_name).read_bytes())
+        path=self.f.root/'archives'/receipt['artifacts'][0]['archive_name'];path.unlink()
+        owner=self.software_phase()
+        with self.assertRaises((ValueError,OSError)):self.load(owner)
+        self.assertTrue(owner.failed)
 
     def test_actual_registered_eight_originals_are_read_without_raw_decode_or_ledger_write(self):
         before={p.name:p.read_bytes() for p in (self.f.root/'ledger').iterdir()}

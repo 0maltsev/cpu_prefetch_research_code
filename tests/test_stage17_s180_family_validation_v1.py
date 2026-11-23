@@ -223,6 +223,16 @@ class FamilyTests(unittest.TestCase):
         self.assertEqual(r['measurement_zero_loss_failed_ordinals'],list(range(180)))
         self.assertEqual(r['block_length_candidate']['status'],'UNRESOLVED')
 
+    def test_pending_inputs_preserve_consistency_without_claiming_physical_validity_or_continuation(self):
+        for item in self.f['records']:
+            item['registry_proof'].update(schema_version=v.analysis_input.SCHEMA,continuation_allowed=False,
+                original_collection_release_verified=True,physical_sha256_verification_pending=True,
+                independent_inverse_required=True,inverse_readback_performed=False,scientific_validity='NOT_ASSESSED',
+                execution_authority=False,phase18_authority=False)
+        r=self.run_family();self.assertEqual(r['status'],'PASSED')
+        self.assertFalse(r['original_archive_custody_verified']);self.assertFalse(r['execution_authority'])
+        self.f['records'][0]['registry_proof']['independent_inverse_required']=False;self.fails()
+
     def test_missing_duplicate_reordered_capture_or_changed_frozen_design_reject(self):
         for mutation in ('missing','duplicate','order','blueprint'):
             self.f=copy.deepcopy(self.pristine)

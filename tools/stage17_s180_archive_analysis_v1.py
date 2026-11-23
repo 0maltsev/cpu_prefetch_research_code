@@ -16,6 +16,7 @@ import stage17_s180_capture_validation_v1 as capture
 import stage17_s180_resource_plan_v1 as bounds
 import stage17_formal_archive_runtime_v1 as runtime
 import stage17_q16c_archive_scope_v1 as images
+import stage17_s180_analysis_input_v1 as analysis_input
 
 archive=runtime.archive
 require=capture.require
@@ -80,7 +81,7 @@ def analyze_capture(*,codec,program_root,scratch_root,output_directory,registry_
         originals=capture.checkpoint_contract.original_references(checkpoint)
         require(len(originals)==8 and [r['file_name'] for r in originals]==list(names),'all eight original references required')
         exact(registry_proof['execution_ordinal'],ordinal,'original registry ordinal')
-        exact(registry_proof['continuation_allowed'],True,'original native custody continuation')
+        analysis_input.check(registry_proof)
         exact(registry_proof['inverse_readback_performed'],False,'fresh complete inverse required')
         exact(registry_proof['scientific_validity'],'NOT_ASSESSED','original custody validity scope')
         cp_raw=archive.canonical(checkpoint)

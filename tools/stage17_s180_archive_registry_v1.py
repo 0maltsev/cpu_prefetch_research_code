@@ -14,6 +14,13 @@ import stage17_s180_checkpoint_v1 as contract
 
 def verify_capture_metadata(*, store, capture, checkpoint_binding, receipt_binding,
                             decoder_profile, decoder_limits):
+    return _verify_capture_metadata(store=store,capture=capture,checkpoint_binding=checkpoint_binding,
+        receipt_binding=receipt_binding,decoder_profile=decoder_profile,decoder_limits=decoder_limits,
+        physical_metadata=_physical_metadata)
+
+
+def _verify_capture_metadata(*,store,capture,checkpoint_binding,receipt_binding,
+                             decoder_profile,decoder_limits,physical_metadata):
     store._check()
     ordinal = archive.uint(capture["execution_ordinal"], "S180 execution ordinal")
     contract.capture_names(ordinal)
@@ -89,7 +96,7 @@ def verify_capture_metadata(*, store, capture, checkpoint_binding, receipt_bindi
         same(header["run_id"], run_id, "S180 archive run")
         worker = next((w for w in ("producer", "consumer") if f"-{w}" in name), None)
         same(header["worker"], worker, "S180 archive worker")
-        physical = _physical_metadata(store.root / "archives" / archive_name,
+        physical = physical_metadata(store.root / "archives" / archive_name,
             expected_header=header, role=role, physical=archive.PhysicalBinding(**row["physical"]),
             profile=decoder_profile, limits=decoder_limits)
         inventory.append(dict(artifact_id=artifact_id, logical=asdict(logical), archive_name=archive_name,

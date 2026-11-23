@@ -1,0 +1,81 @@
+[1/81] Building CXX object CMakeFiles/cpu_prefetch_protocol.dir/src/protocol/json.cpp.o
+[2/81] Building CXX object CMakeFiles/cpu_prefetch_protocol.dir/src/protocol/model.cpp.o
+[3/81] Building CXX object CMakeFiles/cpu_prefetch_protocol.dir/src/protocol/semantic.cpp.o
+[4/81] Building CXX object CMakeFiles/cpu_prefetch_protocol.dir/src/protocol/validation.cpp.o
+[5/81] Building CXX object CMakeFiles/cpu_prefetch_queue.dir/src/queue/common.cpp.o
+[6/81] Building CXX object CMakeFiles/cpu_prefetch_protocol.dir/src/protocol/load.cpp.o
+[7/81] Building CXX object CMakeFiles/cpu_prefetch_queue.dir/src/queue/linked_spsc.cpp.o
+[8/81] Building CXX object CMakeFiles/cpu_prefetch_queue.dir/src/queue/ring_spsc.cpp.o
+[9/81] Linking CXX static library libcpu_prefetch_protocol.a
+[10/81] Linking CXX static library libcpu_prefetch_queue.a
+[11/81] Building CXX object CMakeFiles/cpu_prefetch_workload.dir/src/workload/deterministic.cpp.o
+[12/81] Building CXX object CMakeFiles/cpu_prefetch_workload.dir/src/workload/packages.cpp.o
+[13/81] Building CXX object CMakeFiles/cpu_prefetch_workload.dir/src/workload/records.cpp.o
+[14/81] Building CXX object CMakeFiles/cpu_prefetch_workload.dir/src/workload/working_set.cpp.o
+[15/81] Linking CXX static library libcpu_prefetch_workload.a
+[16/81] Building CXX object CMakeFiles/cpu_prefetch_timing.dir/src/timing/clock.cpp.o
+[17/81] Building CXX object CMakeFiles/cpu_prefetch_timing.dir/src/timing/capture.cpp.o
+[18/81] Building CXX object CMakeFiles/cpu_prefetch_timing.dir/src/timing/cross_core_exchange.cpp.o
+[19/81] Building CXX object CMakeFiles/cpu_prefetch_timing.dir/src/timing/intervals.cpp.o
+[20/81] Building CXX object CMakeFiles/cpu_prefetch_timing.dir/src/timing/qualification.cpp.o
+[21/81] Building CXX object CMakeFiles/cpu_prefetch_lifecycle.dir/src/lifecycle/runtime.cpp.o
+[22/81] Linking CXX static library libcpu_prefetch_timing.a
+[23/81] Building CXX object CMakeFiles/cpu_prefetch_lifecycle.dir/src/lifecycle/state_machine.cpp.o
+[24/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/linux_inventory.cpp.o
+[25/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/q15_counted_region.cpp.o
+[26/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/q15_probe.cpp.o
+[27/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/q15_msr.cpp.o
+[28/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/platform.cpp.o
+[29/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/prepared_residency.cpp.o
+[30/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/owner_mapping.cpp.o
+[31/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/worker_stack.cpp.o
+[32/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/thread_tls.cpp.o
+[33/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/thread_monitor.cpp.o
+[34/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/prepared_file_snapshot.cpp.o
+[35/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/q15_runtime.cpp.o
+[36/81] Linking CXX static library libcpu_prefetch_lifecycle.a
+[37/81] Building CXX object CMakeFiles/cpu_prefetch_platform.dir/src/platform/prepared_prefetch_readback.cpp.o
+[38/81] Building CXX object CMakeFiles/cpu_prefetch_storage.dir/src/storage/artifact_store.cpp.o
+[39/81] Building CXX object CMakeFiles/cpu_prefetch_storage.dir/src/storage/artifacts.cpp.o
+[40/81] Building CXX object CMakeFiles/cpu_prefetch_storage.dir/src/storage/budget.cpp.o
+[41/81] Building CXX object CMakeFiles/cpu_prefetch_storage.dir/src/storage/finalization.cpp.o
+[42/81] Building CXX object CMakeFiles/cpu_prefetch_storage.dir/src/storage/raw_observations.cpp.o
+[43/81] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[44/81] Linking CXX static library libcpu_prefetch_platform.a
+[45/81] Building CXX object CMakeFiles/cpu_prefetch_storage.dir/src/storage/post_measure_archive.cpp.o
+[46/81] Linking CXX static library libcpu_prefetch_storage.a
+[47/81] Building CXX object CMakeFiles/cpu_prefetch_reconciliation.dir/src/reconciliation/reconciliation.cpp.o
+[48/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/calibration.cpp.o
+[49/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/service_session.cpp.o
+[50/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/scheduled_session.cpp.o
+[51/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/ring_demand_window.cpp.o
+[52/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/service_interval_count.cpp.o
+[53/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_formal_ring_capture.cpp.o
+[54/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_discovery_capture.cpp.o
+[55/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_formal_service_capture.cpp.o
+[56/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_formal_scheduled_capture.cpp.o
+[57/81] Linking CXX static library libcpu_prefetch_foundation.a
+[58/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/qualification.cpp.o
+[59/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/runner.cpp.o
+[60/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_discovery_action.cpp.o
+[61/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_ring_action.cpp.o
+[62/81] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_pilot_capture.cpp.o
+[63/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_service_action.cpp.o
+[64/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_checkpoint.cpp.o
+[65/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_schedule_source.cpp.o
+[66/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_family.cpp.o
+[67/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_sources.cpp.o
+[68/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_input.cpp.o
+[69/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_worker.cpp.o
+[70/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_session.cpp.o
+[71/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_channel_sink.cpp.o
+[72/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_native_session.cpp.o
+[73/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_archive_channel.cpp.o
+[74/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_formal_scheduled_action.cpp.o
+[75/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_discovery_publication.cpp.o
+[76/81] Linking CXX static library libcpu_prefetch_reconciliation.a
+[77/81] Linking CXX static library libcpu_prefetch_calibration.a
+[78/81] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification_evidence_tool.dir/tools/q15_qualification_evidence_tool_main.cpp.o
+[79/81] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_fixed_action.cpp.o
+[80/81] Linking CXX static library libcpu_prefetch_runner_core.a
+[81/81] Linking CXX executable cpu_prefetch_q15_qualification_evidence_tool

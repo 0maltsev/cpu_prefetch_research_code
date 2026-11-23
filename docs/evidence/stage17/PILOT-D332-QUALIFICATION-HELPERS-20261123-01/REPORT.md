@@ -17,8 +17,11 @@ excluded from this stand's hardware route; actual Q15 uses the frozen runner's
 model-aware persistent session.
 
 The corrected development/sanitized images are software verification only.
-A clean release build of the corrected helper is the next step, with its source
-and image bound separately from the unchanged native34247ce. No frozen source
+The corrected helper now has a clean Release build from3266ed3a425da3345743c3a462a75ab1e71cc589;
+its registered regression passes. The700568-byte image has SHA
+`6b8898238157e4d589615cbc6c57ced54aa143b403ef66bd337cab4960f3a918`.
+Actual generated metadata records source_dirty=false. Its source/image remain
+bound separately from unchanged native34247ce. No frozen source
 tree was edited. Format, protocol/schema, canonical/provenance and whitespace
 checks pass. The native SHA7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc
 remains unchanged.

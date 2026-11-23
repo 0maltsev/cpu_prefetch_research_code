@@ -51,3 +51,10 @@ helper for its broken frozen counterpart. It captures every exit code and SHA,
 then verifies the native binary unchanged. These are not release-qualified or
 empirical results. LSan is disabled under the managed ptrace boundary as required
 by the repository; ASan and UBSan remain active.
+
+The clean corrected helper release uses source3266ed3, the D320 full-runtime
+compiler/startup/linker and explicit provisioned GTest/RapidCheck prefixes.
+Configure a fresh build/stage17-qualification-helper-release-3266ed3 and build
+only cpu_prefetch_q15_qualification_evidence_tool, then run the same registered
+self-test. helper-clean-configure/build/ctest.txt and generated metadata verification
+record the result. No native worker is built in that directory.

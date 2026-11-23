@@ -3,12 +3,12 @@
   "baseline_revision": "6375b305e9bd7d7a39d4cf84ae40bb0ff49def50",
   "evidence_files": {
     "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/COMMANDS.md": {
-      "sha256": "18fbeb563e3929a5240c4f429436ee2dac32841c994d541e0c378d06b0597afb",
-      "size_bytes": 2988
+      "sha256": "196c47141caef3ce0de41eeb934005621e2503e9218eb1fc03f2a62bcf15a346",
+      "size_bytes": 3451
     },
     "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/REPORT.md": {
-      "sha256": "430c74404815e9ab0ab94854f81ed0fdeb99d7a366d11ec6b3a59b404e7499d9",
-      "size_bytes": 1859
+      "sha256": "fec0dc3aaaf0b77aaa1b6eee65e4860b32027fb0fe8a7759db95a7b58c565087",
+      "size_bytes": 2071
     },
     "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/cpu_prefetch_clock_vdso_probe_tool-self-test-final.txt": {
       "sha256": "9ae67e51620b254e5355c78c8e7a2bcec67047b0af8fbb4144e245e73a15b467",
@@ -59,8 +59,8 @@
       "size_bytes": 141
     },
     "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/final-checks.json": {
-      "sha256": "de6fe06c6c6b909e5c53501f57b7c2aaf252988b90d87a76155e82f83b49ee2b",
-      "size_bytes": 417
+      "sha256": "20b8aca9ece9779fcd094877f59dd932de7494c3737fddbe14265a40ce1d8668",
+      "size_bytes": 557
     },
     "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/helper-asan-build.txt": {
       "sha256": "45fc8282e4b40478bd764017f0de2453e3df272232a0d7edcdd01f1b4c6330ad",
@@ -77,6 +77,22 @@
     "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/helper-build.txt": {
       "sha256": "17617a33f087184e838b27f2769f51e2634b0d2b45470d5247d36e88b111d9c3",
       "size_bytes": 1523
+    },
+    "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/helper-clean-build.txt": {
+      "sha256": "4f496a7e7feb096c0ca5b0436fa8ac3f5a4fdca38f0cca4be58e3c6434059054",
+      "size_bytes": 7782
+    },
+    "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/helper-clean-configure.txt": {
+      "sha256": "3e92f759c3f93d5c769e75c991854d7f303ac4fcefe978da1060e7473d08f89a",
+      "size_bytes": 1397
+    },
+    "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/helper-clean-ctest.txt": {
+      "sha256": "55f86ca696e5951037bee61243aafc366c8815f9565baf11d69ce675d5f8e6dc",
+      "size_bytes": 486
+    },
+    "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/helper-clean-verification.json": {
+      "sha256": "5b29be546f494ea5ecef8750f08e894a82d61e4173dc0406611742cf6251007b",
+      "size_bytes": 648
     },
     "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/helper-controller-build.txt": {
       "sha256": "863487ba995e279c815dc8ef0a3deb58c2adf84020747774ea239c1a231c58a2",
@@ -109,6 +125,10 @@
     "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/log-normalization.json": {
       "sha256": "888a59fccb7568c871af37fea4570efe0ccbc98f7438216266540ae5b63df9fc",
       "size_bytes": 8557
+    },
+    "docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/pc-cleanup.json": {
+      "sha256": "cb7639abca73ea236070006edb348dd818d54c90920e6dad16e92998f2ea85ba",
+      "size_bytes": 8335
     }
   },
   "execution_authority": false,
@@ -118,20 +138,20 @@
       "size_bytes": 196384
     },
     "PLAN.md": {
-      "sha256": "ed828c670346321d5c80572a2b034e7483642c693958733af199cc9895bee18e",
-      "size_bytes": 121544
+      "sha256": "c1057c9c313c8820194ce6d9e62689514f53c0a976c9c057eb1695be13c010c9",
+      "size_bytes": 122158
     },
     "README.md": {
-      "sha256": "b122cfcaa2244a5a655240e1136e4e85ba793a4ce59782c8b9742a35f35c4591",
-      "size_bytes": 128997
+      "sha256": "5d30d5db7c34f3c96aefcce17e356c179cd383a8fa46db8a1a633ee82984fc30",
+      "size_bytes": 129611
     },
     "STATUS.md": {
-      "sha256": "f12a1300c85fe720d69060b8862a7d32bcaeffc9b1ae416c3720120b5517de28",
-      "size_bytes": 147914
+      "sha256": "5c29310a109246aad6b9073a79490fd7df88dc39f9948aba3a072485f59634b2",
+      "size_bytes": 148528
     },
     "docs/STAGE17_PILOT_PREPARATION.md": {
-      "sha256": "7a493d66783b11b08e4b19517813389c86883629caf1d9fe026e9ed920edebf2",
-      "size_bytes": 21583
+      "sha256": "0ba2d1706416447d2996b67d2b2d703b3a4002086c7cfc2c27a54e2e5179577b",
+      "size_bytes": 22083
     },
     "docs/decisions/0332-q15-evidence-helper-v3-self-test.md": {
       "sha256": "27647ece48df267b53804595da96d568858985d4d008d2c28d317cddd9cfa3e4",

@@ -1,0 +1,56 @@
+Start testing: Nov 23 19:03 MSK
+----------------------------------------------------------
+479/712 Testing: calibration.discovery_v3_retained_validation
+479/712 Test: calibration.discovery_v3_retained_validation
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_stage17_discovery_validation_v3.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"calibration.discovery_v3_retained_validation" start time: Nov 23 19:03 MSK
+Output:
+----------------------------------------------------------
+......................
+----------------------------------------------------------------------
+Ran 22 tests in 19.939s
+
+OK
+<end of output>
+Test time =  20.24 sec
+----------------------------------------------------------
+Test Passed.
+"calibration.discovery_v3_retained_validation" end time: Nov 23 19:04 MSK
+"calibration.discovery_v3_retained_validation" time elapsed: 00:00:20
+----------------------------------------------------------
+
+686/712 Testing: runner.s180_capture_controls_v1
+686/712 Test: runner.s180_capture_controls_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_capture_controls_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_capture_controls_v1" start time: Nov 23 19:04 MSK
+Output:
+----------------------------------------------------------
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 2.655s
+
+OK
+<end of output>
+Test time =   2.97 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_capture_controls_v1" end time: Nov 23 19:04 MSK
+"runner.s180_capture_controls_v1" time elapsed: 00:00:02
+----------------------------------------------------------
+
+End testing: Nov 23 19:04 MSK
+
+calibration =  20.24 sec*proc
+
+diagnostic =  20.24 sec*proc
+
+pilot =   2.97 sec*proc
+
+python =   2.97 sec*proc
+
+runner =   2.97 sec*proc
+
+synthetic =  23.20 sec*proc
+

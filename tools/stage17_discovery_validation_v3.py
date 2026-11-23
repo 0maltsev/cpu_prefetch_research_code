@@ -805,8 +805,17 @@ def validate_tls(control, regions, resources, tids):
             exact(snapshots[first][name],snapshots[second][name],'persistent TLS '+name)
 
 
-def validate_controls(control, final, capture, resources, monitoring, hardware_control):
-    """Validate actual six control groups and 42 page-query observations."""
+def validate_controls(control, final, capture, resources, monitoring, hardware_control, *, s180_shared_regions=None):
+    """Six groups: original42 queries, or explicit S18054 including shared data.
+
+    The S180 adapter independently checks its persistent mapping observations and
+    actual phase lifecycle before supplying the two extra bound regions here.
+    """
+    pilot=s180_shared_regions is not None
+    if pilot:
+        exact(control['schema_version'],'cpu-prefetch-stage17-s180-capture-control/1','S180 control identity')
+        require(type(s180_shared_regions) is list and len(s180_shared_regions)==2,'two independently bound shared regions')
+    region_count=9 if pilot else 7
     g = capture.geometry; page = g.base_page_bytes
     session = control['session']; origins=session['origins']
     clock_origin = control['clock_origin']['absolute_nanoseconds']
@@ -817,7 +826,9 @@ def validate_controls(control, final, capture, resources, monitoring, hardware_c
     exact(final['publication_succeeded'],True,'final publication succeeded')
     exact(control['publication_attempted'],True,'publication callback entered')
     exact(control['publication_succeeded'],False,'publication callback not yet returned')
-    exact(control['cleanup_observation_scope'],'BEFORE_PUBLICATION_RETURNS_FINAL_CLEANUP_REQUIRES_RETURNED_NATIVE_RESULT','cleanup scope')
+    exact(control['cleanup_observation_scope'],
+        'BEFORE_PRIVATE_CLEANUP_FAMILY_CLEANUP_REQUIRES_SEPARATE_EVIDENCE' if pilot else
+        'BEFORE_PUBLICATION_RETURNS_FINAL_CLEANUP_REQUIRES_RETURNED_NATIVE_RESULT','cleanup scope')
     expected_plans = []
     cpus=(g.producer_cpu,g.producer_cpu,g.consumer_cpu)
     nodes=(g.shared_node,g.producer_node,g.consumer_node)
@@ -854,9 +865,11 @@ def validate_controls(control, final, capture, resources, monitoring, hardware_c
     require(len(set(tids))==3,'owner thread identities overlap')
     exact(mapping_tids,[tids[0],tids[0],tids[1]],'actual first-touch owners')
     exact(controller_tids,[tids[2],tids[2]],'actual controller mapping owners')
-    exact(control['regions'],regions,'actual seven regions')
+    if pilot:regions.extend(s180_shared_regions)
+    exact(control['regions'],regions,'actual bound regions')
     for i,region in enumerate([*regions,monitor_region]):
-        if i<7:exact(region['bytes'],resources['region_bytes'][i],'bound region size')
+        if i<region_count:exact(region['bytes'],resources['region_bytes'][i],'bound region size')
+        if pilot:require(region['address']+region['bytes']<=U64,'S180 region address extent overflows')
         for prior in regions[:i]:
             require(region['address']+region['bytes'] <= prior['address'] or
                     prior['address']+prior['bytes'] <= region['address'],'overlapping regions')
@@ -933,10 +946,10 @@ def validate_controls(control, final, capture, resources, monitoring, hardware_c
             require(isinstance(raw,list) and len(raw)==8 and all(type(v)is int and 0<=v<256 for v in raw),'MSR raw bytes')
             observed=int.from_bytes(bytes(raw),'little')
             exact(observed,expected,'raw MSR readback');exact(cpu['observed_value'],observed,'parsed MSR');exact(cpu['expected_value'],expected,'expected MSR');exact(cpu['matches'],True,'MSR match flag')
-    residency=control['residency'];require(len(residency)==42,'42 residency observations required')
+    residency=control['residency'];require(len(residency)==6*region_count,f'{6*region_count} residency observations required')
     prior_tick=0
     for ordinal,row in enumerate(residency):
-        phase,rest=divmod(ordinal,21);moment,region_index=divmod(rest,7)
+        phase,rest=divmod(ordinal,3*region_count);moment,region_index=divmod(rest,region_count)
         expected=dict(phase=phase,moment=moment,region_index=region_index,
                       offset_ticks=monitoring['during_offset_ticks'][phase] if moment==1 else 0)
         exact(row['request'],expected,'residency request');exact(row['stop'],8,'residency sampled')
@@ -964,7 +977,8 @@ def validate_controls(control, final, capture, resources, monitoring, hardware_c
             require(origins[phase]<=first_tick<=last_tick==begin,'during wait clock')
             require(1<=uint(row['wait_polls'],'wait polls')<=monitoring['observer_wait_poll_limit'],'wait poll bound')
             exact(row['finished_before'],0,'workers alive before');exact(row['finished_after'],0,'workers alive after')
-    environment.validate_environment(control,monitoring['environment_sources'],regions,base_page_bytes=page)
+    decoder=environment.validate_s180_environment if pilot else environment.validate_environment
+    decoder(control,monitoring['environment_sources'],regions,base_page_bytes=page)
     return regions
 
 

@@ -1,0 +1,33 @@
+"""Reproduce the predecessor's seven-region boundary without editing sources."""
+import copy
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+import types
+from test_stage17_s180_capture_controls_v1 import Fixture
+import stage17_discovery_environment_v1 as current
+
+revision=subprocess.check_output(['git','rev-parse','ee91187'],text=True).strip()
+source=subprocess.check_output(['git','show',revision+':tools/stage17_discovery_environment_v1.py'])
+legacy=types.ModuleType('d349_retained_predecessor_environment')
+sys.modules[legacy.__name__]=legacy
+exec(compile(source,'retained-predecessor-environment.py','exec'),legacy.__dict__)
+with tempfile.TemporaryDirectory(prefix='s180-predecessor-software-') as name:
+    f=Fixture(Path(name));view=copy.deepcopy(f.control)
+    # This is an explicit test-only projection, reproducing the old formal
+    # adapter boundary. The new public route requires the actual S180 identity.
+    view['schema_version']=legacy.CONTROL_VERSION
+    try:
+        legacy.validate_environment(view,f.monitoring['environment_sources'],f.control['regions'],base_page_bytes=4096)
+    except legacy.EnvironmentEvidenceError as error:
+        reason=str(error);assert 'seven declared regions' in reason
+    else:raise AssertionError('the predecessor unexpectedly admitted nine regions')
+    report=current.validate_s180_environment(f.control,f.monitoring['environment_sources'],f.control['regions'],base_page_bytes=4096)
+    assert all(len(group['regions'])==9 for group in report['smaps_groups'])
+    print(json.dumps(dict(predecessor_revision=revision,predecessor_source_sha256=hashlib.sha256(source).hexdigest(),
+        predecessor_nine_region_rejection=reason,current_nine_region_status=report['status'],
+        current_schema=report['schema_version'],groups=6,regions_per_group=9,
+        synthetic_software_only=True,stand_accessed=False,operational_window_started=False,execution_authority=False),sort_keys=True))

@@ -1,0 +1,39 @@
+{
+  "actual_preparation_performed": false,
+  "actual_qualification_performed": false,
+  "contract_checks": [
+    "protocol-check",
+    "schema-fixture-check",
+    "canonical-check"
+  ],
+  "contract_checks_exit_code": 0,
+  "control_validation_component_implemented": true,
+  "earlier_related_python_debug_cases": 82,
+  "earlier_related_python_debug_exit_code": 0,
+  "execution_authority": false,
+  "final_new_cases": 18,
+  "final_new_python_debug_exit_code": 0,
+  "final_registered_cases": 40,
+  "final_registered_exit_code": 0,
+  "final_registered_suites": 2,
+  "full_capture_validator_implemented": false,
+  "initial_issues": [
+    "Normalize original raw-codec clock errors to the public validation exception.",
+    "Keep declared and observed layout fixture objects independent so mutation checks exercise real drift."
+  ],
+  "initial_new_cases": 12,
+  "initial_new_exit_code": 1,
+  "initial_registered_cases": 100,
+  "initial_registered_exit_code": 0,
+  "initial_registered_suites": 7,
+  "native_code_changed": false,
+  "native_sanitizer_relevance": "NO_CHANGED_NATIVE_PATH",
+  "operational_window_started": false,
+  "original_seven_region_contract_preserved": true,
+  "phase18_authority": false,
+  "predecessor_gap_reproduced": true,
+  "python_sanitizer_mode": "-X dev WITH PYTHONMALLOC=debug",
+  "recorded_at_utc": "2026-11-23T16:09:00.300260+00:00",
+  "unique_registered_cases": 123,
+  "unique_registered_suites": 8
+}

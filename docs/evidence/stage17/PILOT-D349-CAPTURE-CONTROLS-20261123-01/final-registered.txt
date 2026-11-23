@@ -1,0 +1,17 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+    Start 479: calibration.discovery_v3_retained_validation
+1/2 Test #479: calibration.discovery_v3_retained_validation ...   Passed   20.24 sec
+    Start 686: runner.s180_capture_controls_v1
+2/2 Test #686: runner.s180_capture_controls_v1 ................   Passed    2.97 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Label Time Summary:
+calibration    =  20.24 sec*proc (1 test)
+diagnostic     =  20.24 sec*proc (1 test)
+pilot          =   2.97 sec*proc (1 test)
+python         =   2.97 sec*proc (1 test)
+runner         =   2.97 sec*proc (1 test)
+synthetic      =  23.20 sec*proc (2 tests)
+
+Total Test time (real) =  23.23 sec

@@ -223,9 +223,9 @@ def parse_smaps(raw: bytes) -> tuple[SmapsVma, ...]:
     return tuple(output)
 
 
-def _regions(value: Any, base_page_bytes: int, path: str) -> list[dict[str, int]]:
-    if not isinstance(value, list) or len(value) != 7:
-        _fail(path, "requires exactly seven declared regions")
+def _regions(value: Any, base_page_bytes: int, path: str, *, count: int = 7) -> list[dict[str, int]]:
+    if not isinstance(value, list) or len(value) != count:
+        _fail(path, f"requires exactly {count} declared regions")
     result = []
     for index, item in enumerate(value):
         row = _object(item, "address bytes expected_node", f"{path}[{index}]")
@@ -279,6 +279,24 @@ def _page_policy(vmas: tuple[SmapsVma, ...], regions: list[dict[str, int]], page
 def validate_environment(control: dict[str, Any], source_plans: list[dict[str, Any]],
                          expected_regions: list[dict[str, int]], *,
                          base_page_bytes: int) -> dict[str, Any]:
+    """Original seven-region discovery/formal decoder; contract unchanged."""
+    return _validate_environment(control, source_plans, expected_regions,
+        base_page_bytes=base_page_bytes, region_count=7, control_version=CONTROL_VERSION,
+        report_version=SCHEMA_VERSION)
+
+
+def validate_s180_environment(control: dict[str, Any], source_plans: list[dict[str, Any]],
+                              expected_regions: list[dict[str, int]], *,
+                              base_page_bytes: int) -> dict[str, Any]:
+    """Nine-region S180 decoder with its actual native identity and all pages."""
+    return _validate_environment(control, source_plans, expected_regions,
+        base_page_bytes=base_page_bytes, region_count=9,
+        control_version='cpu-prefetch-stage17-s180-capture-control/1',
+        report_version='cpu-prefetch-s180-environment-validation/1')
+
+
+def _validate_environment(control, source_plans, expected_regions, *,
+                          base_page_bytes, region_count, control_version, report_version):
     """Verify delivery/page policy; raise EnvironmentEvidenceError on any gap.
 
     Accept the publisher's decoded native control, frozen monitoring source
@@ -301,10 +319,10 @@ def validate_environment(control: dict[str, Any], source_plans: list[dict[str, A
         _fail("expected.base_page_bytes", "requires power-of-two verified geometry")
     if not isinstance(control, dict):
         _fail("$", "requires native control object")
-    _equal(control.get("schema_version"), CONTROL_VERSION, "$.schema_version")
+    _equal(control.get("schema_version"), control_version, "$.schema_version")
     _equal(control.get("environment_group_order"), list(GROUP_ORDER), "$.environment_group_order")
-    regions = _regions(expected_regions, page, "expected.regions")
-    observed_regions = _regions(control.get("regions"), page, "$.regions")
+    regions = _regions(expected_regions, page, "expected.regions", count=region_count)
+    observed_regions = _regions(control.get("regions"), page, "$.regions", count=region_count)
     if observed_regions != regions:
         _fail("$.regions", "declared regions differ from independently bound geometry")
     if not isinstance(source_plans, list) or not source_plans:
@@ -343,7 +361,7 @@ def validate_environment(control: dict[str, Any], source_plans: list[dict[str, A
                 smaps_groups.append({"group_index": group,
                                      "regions": _page_policy(parse_smaps(raw), regions, page)})
         sources.append({"source_index": source, "path_bytes": plan["path_bytes"], "groups": groups})
-    return {"schema_version": SCHEMA_VERSION, "status": "VERIFIED_DELIVERY_AND_PAGE_POLICY",
+    return {"schema_version": report_version, "status": "VERIFIED_DELIVERY_AND_PAGE_POLICY",
             "environmental_limits": "UNFROZEN_LIMITS", "scientific_validity": "NOT_ASSESSED",
             "execution_authority": False, "base_page_bytes": page,
             "sources": sources, "smaps_groups": smaps_groups,

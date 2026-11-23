@@ -1,0 +1,21 @@
+E
+======================================================================
+ERROR: test_actual_frozen_ceiling_packet_has36_streams_without_generation (__main__.RequirementTests.test_actual_frozen_ceiling_packet_has36_streams_without_generation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 42, in test_actual_frozen_ceiling_packet_has36_streams_without_generation
+    budget=author.requirements(self.sizing)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 58, in requirements
+    require(planning.sha(sizing)==SIZING_SHA and sizing['source_count_basis']=='PROSPECTIVE_UPPER_CEILINGS',
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'exact verified D334 prospective packet required')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 50, in require
+    if not value:raise AuthorError('S180 source author: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_source_author_v1.AuthorError: S180 source author: exact verified D334 prospective packet required
+
+----------------------------------------------------------------------
+Ran 1 test in 0.263s
+
+FAILED (errors=1)

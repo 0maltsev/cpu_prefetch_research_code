@@ -30,7 +30,8 @@ archive=namespaces.archive
 planning=namespaces.environment.planning
 generator=namespaces.sources.provenance.generator
 ROOT=namespaces.ROOT.parent/'source-author'
-SIZING_SHA='2f33f33a070be20f2c6a00f86a51f52c1912bb4393113178a95431b247e1cc86'
+SIZING_PATH='config/stage17/d362-s180-stand-sizing-v1.json'
+SIZING_SHA='ece6975ba86ea0b18547915df4817b11661c9e3cc6603f95d24d4b230f1f97f5'
 SCHEMA='cpu-prefetch-stage17-s180-source-author/1'
 SOURCE_CPU=3
 CHILD_AS=8*1024**3
@@ -56,7 +57,7 @@ def _before(deadline):require(time.monotonic_ns()<deadline,'original source dead
 def requirements(sizing):
     """Exact fixed ceilings, never generated counts or statistical guarantees."""
     require(planning.sha(sizing)==SIZING_SHA and sizing['source_count_basis']=='PROSPECTIVE_UPPER_CEILINGS',
-        'exact verified D334 prospective packet required')
+        'exact verified D362 stand-runtime prospective packet required')
     groups,order=planning.source_groups(sizing)
     identities=namespaces.audit.planned_identities(sizing['blueprint'])
     by_key={tuple(r[k] for k in ('placement','working_set_class','load_level','phase')):r for r in identities['sources']}

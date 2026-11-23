@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "path": "tools/stage17_s180_source_author_v1.py",
+      "sha256": "890cf51b85943aea356588decb44bb8972554735be97b7a38ec84173bb943173",
+      "size_bytes": 27185
+    },
+    {
+      "path": "tests/test_stage17_s180_source_author_v1.py",
+      "sha256": "7148de88b45ba6a5c82b5300cdc0937f3eefdbeddeb744fbec026ecc43db01fa",
+      "size_bytes": 16092
+    },
+    {
+      "path": "config/stage17/d362-s180-stand-sizing-v1.json",
+      "sha256": "ece6975ba86ea0b18547915df4817b11661c9e3cc6603f95d24d4b230f1f97f5",
+      "size_bytes": 3098878
+    },
+    {
+      "path": "config/stage17/d362-s180-storage-commitments-v1.json",
+      "sha256": "a87db70744a25ffa98361c430e6f486e009960b7f7468e052b336b415093ef7a",
+      "size_bytes": 1532
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "excluded_scope_hardlink_paths": 0,
+  "no_cross_exclusion_dedup_understatement": true,
+  "non_single_link_regular_paths": 47,
+  "status": "NO_HARDLINK_PATH_IN_EXCLUDED_RAW_OR_SHARED_PROGRAMME"
+}

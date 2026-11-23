@@ -1,0 +1,98 @@
+{
+  "needed_source_configurations_preserved": true,
+  "original_stand_evidence_deleted": false,
+  "raw_payload_deleted": false,
+  "removed_bytes": 1117423,
+  "verified_identical_pc_staging_removed": [
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-resource-envelope.json",
+      "sha256": "fc455c7cae08f384960d1a279ebda86c940fedde4a2962d451de2a0fcaecd342",
+      "size_bytes": 92256
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-storage-scope-probe.json",
+      "sha256": "e9fc0d47ee55b44519b002d9866c408d04f6a12d0ff3088372240a23cd8916f3",
+      "size_bytes": 866689
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-process-envelope.json",
+      "sha256": "faaf0d69abcaf39ff9623804621b4de7c2553ad3ee6f90742ffe7a156f11e9f3",
+      "size_bytes": 1796
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-final-dev-debug.log",
+      "sha256": "d4ebcc5c62ed169d0cc1e361cfa764967f2c185f1133bbcb28e5d81d4bed2004",
+      "size_bytes": 115
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-native-description.json",
+      "sha256": "a10ead256e5d55e6944deee5aeec55c55250b8fbb43bad073e7023fe0516479f",
+      "size_bytes": 131888
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-registered.log",
+      "sha256": "05a793d8510e3cd394cdc7c2dab06aca1fcbf20875bf7a441931c1f39cc3d978",
+      "size_bytes": 1091
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-programme-pool-extents.json",
+      "sha256": "b8cae7520dfcb462c67e4ca1ce717d3fc5e85bfd59fd1a5c36f0bf1ca13030b5",
+      "size_bytes": 667
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-gap.log",
+      "sha256": "cc6e9e1c53fdbb680b66ef78718f334c56df50d92c25eddab6ca4a6cfe794ec1",
+      "size_bytes": 1514
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-time-envelope.json",
+      "sha256": "5d7bb367536f51aaae88fb9d4a32afe52071b9303920b12632f8ee77b061a346",
+      "size_bytes": 575
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-cold-check.json",
+      "sha256": "7cc45b9806a20f34ea01ae319bb5952fcf550058ece82a1f9bd0230bba8b205d",
+      "size_bytes": 636
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/original-custody-limit-declarations.json",
+      "sha256": "a3f9dd95966a5be0d74ab4a0e650c029100456f40f9b96e05d367f57646c5b97",
+      "size_bytes": 2042
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-storage-scope-probe.py",
+      "sha256": "754adcb769522bf0b5c6bdbf0ea878eae0d4dd3dd7e2865ae88e2fdb43544379",
+      "size_bytes": 2076
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-retained-hardlinks.json",
+      "sha256": "131dc88935f3128202c3733204708b88f6b63e8b80c78a48c680bdf75e250ec6",
+      "size_bytes": 11407
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-storage-prospective-arithmetic.json",
+      "sha256": "48c9e7d2b53261df4b892c26a0645d696dcabd57ad0dbdea1eb6dba5e2b7a263",
+      "size_bytes": 1841
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-contract.log",
+      "sha256": "ad0bf80897c8f303cef1ec9fefd9ef18682c3af4eee76ad82a11ec89f7ac3ca0",
+      "size_bytes": 462
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-cold-check.py",
+      "sha256": "a4a07b8e8fc74310dcc04bf915afda0b8c16ad11224ff4e14a049cf001091bc8",
+      "size_bytes": 2368
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-packet-cold-check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-operator-integration-prep/stand-storage-scope-probe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "all_scientific_fields_and_limits_preserved": true,
+  "ast_whitespace_exit": 0,
+  "cold_frozen_native_description_exit": 0,
+  "cold_packet_rebinding_only": "storage.implementation_profile_sha256",
+  "contract_checks_exit": 0,
+  "execution_authority": false,
+  "live_operational_resource_admission": false,
+  "native_code_changed": false,
+  "native_sanitizer_relevance": "NO_CHANGED_NATIVE_PATH",
+  "operational_window_started": false,
+  "original_raw_payload_bytes_read": 0,
+  "phase18_authority": false,
+  "qualified_outer_operator_complete": false,
+  "recorded_at_utc": "2026-11-23T21:00:38.938311+00:00",
+  "registered_cases": 75,
+  "registered_elapsed_seconds": "155.28",
+  "registered_exit": 0,
+  "registered_suite_cases": [
+    3,
+    18,
+    15,
+    14,
+    17,
+    8
+  ],
+  "registered_suites": 6,
+  "stand_data_deleted": false,
+  "targeted_python_development_cases": 15,
+  "targeted_python_development_exit": 0,
+  "whole_run_eta_verified": false
+}

@@ -27,7 +27,15 @@ REPO=Path(__file__).resolve().parents[1]
 
 class RequirementTests(unittest.TestCase):
     def setUp(self):
-        self.sizing=json.loads((REPO/'docs/evidence/stage17/PILOT-D334-COMPACTION-INTEGRATION-20261123-01/d333-sizing-v3.json').read_bytes())
+        self.sizing=json.loads((REPO/'config/stage17/d362-s180-stand-sizing-v1.json').read_bytes())
+
+    def test_stand_packet_changes_only_the_accepted_archive_implementation_binding(self):
+        old=json.loads((REPO/'docs/evidence/stage17/PILOT-D334-COMPACTION-INTEGRATION-20261123-01/d333-sizing-v3.json').read_bytes())
+        with self.assertRaisesRegex(author.AuthorError,'exact verified'):author.requirements(old)
+        self.assertEqual(self.sizing['storage']['implementation_profile_sha256'],
+            '23fac285def38a913d4fbb2727eebdb4cda0a18a8f9352bfa9aafa6bee3ca9f6')
+        old['storage']['implementation_profile_sha256']=self.sizing['storage']['implementation_profile_sha256']
+        self.assertEqual(self.sizing,old)
 
     def test_actual_frozen_ceiling_packet_has36_streams_without_generation(self):
         with mock.patch.object(author.generator,'generate_schedule',side_effect=AssertionError('must remain cold')):

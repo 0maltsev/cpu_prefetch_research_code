@@ -1,0 +1,386 @@
+{
+  "elapsed_ns": 5263182630,
+  "file_paths_scanned": 285064,
+  "non_single_link_regular_paths": [
+    {
+      "allocated_bytes": 80531456,
+      "device": 2307,
+      "inode": 208994564,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-dd981b4-clean-d9e61e67bfa8.tar.gz",
+      "size_bytes": 80530880
+    },
+    {
+      "allocated_bytes": 84918272,
+      "device": 2307,
+      "inode": 209191173,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955.tar.gz",
+      "size_bytes": 84910246
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209059984,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-e58b180-clean-710b86b43eb5.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 84033536,
+      "device": 2307,
+      "inode": 209126626,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-aa3285f-clean-d3967bde5f12.tar.gz",
+      "size_bytes": 84032596
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209338529,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-6993313-clean-7cca27a0177f.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 89677824,
+      "device": 2307,
+      "inode": 209459294,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b.tar.gz",
+      "size_bytes": 89677071
+    },
+    {
+      "allocated_bytes": 89473024,
+      "device": 2307,
+      "inode": 209399950,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110.tar.gz",
+      "size_bytes": 89471151
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 208935231,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-c962fd7-clean-aba9b921f5fc.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 80920576,
+      "device": 2307,
+      "inode": 209066605,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz",
+      "size_bytes": 80917212
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 208994565,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-dd981b4-clean-d9e61e67bfa8.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209066606,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 87781376,
+      "device": 2307,
+      "inode": 209205170,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e.tar.gz",
+      "size_bytes": 87774997
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209126627,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-aa3285f-clean-d3967bde5f12.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209191175,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 80474112,
+      "device": 2307,
+      "inode": 208935230,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-c962fd7-clean-aba9b921f5fc.tar.gz",
+      "size_bytes": 80472363
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209330915,
+      "links": 3,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-721d018-clean-c1ca6a2d0380.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 80838656,
+      "device": 2307,
+      "inode": 209059983,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-e58b180-clean-710b86b43eb5.tar.gz",
+      "size_bytes": 80836578
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209459295,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 89354240,
+      "device": 2307,
+      "inode": 209330914,
+      "links": 3,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-721d018-clean-c1ca6a2d0380.tar.gz",
+      "size_bytes": 89347067
+    },
+    {
+      "allocated_bytes": 89399296,
+      "device": 2307,
+      "inode": 209338528,
+      "links": 3,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-6993313-clean-7cca27a0177f.tar.gz",
+      "size_bytes": 89397522
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209399951,
+      "links": 2,
+      "path": "cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209059984,
+      "links": 2,
+      "path": "v24-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-e58b180-clean-710b86b43eb5.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 80838656,
+      "device": 2307,
+      "inode": 209059983,
+      "links": 2,
+      "path": "v24-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-e58b180-clean-710b86b43eb5.tar.gz",
+      "size_bytes": 80836578
+    },
+    {
+      "allocated_bytes": 84918272,
+      "device": 2307,
+      "inode": 209191173,
+      "links": 2,
+      "path": "v27-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955.tar.gz",
+      "size_bytes": 84910246
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209191175,
+      "links": 2,
+      "path": "v27-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209195530,
+      "links": 2,
+      "path": "v27-bootstrap-1/continuation-window-1.json",
+      "size_bytes": 1116
+    },
+    {
+      "allocated_bytes": 80531456,
+      "device": 2307,
+      "inode": 208994564,
+      "links": 2,
+      "path": "v23-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-dd981b4-clean-d9e61e67bfa8.tar.gz",
+      "size_bytes": 80530880
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 208994565,
+      "links": 2,
+      "path": "v23-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-dd981b4-clean-d9e61e67bfa8.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 89473024,
+      "device": 2307,
+      "inode": 209399950,
+      "links": 2,
+      "path": "v31-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110.tar.gz",
+      "size_bytes": 89471151
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209399951,
+      "links": 2,
+      "path": "v31-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 80920576,
+      "device": 2307,
+      "inode": 209066605,
+      "links": 2,
+      "path": "v25-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz",
+      "size_bytes": 80917212
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209066606,
+      "links": 2,
+      "path": "v25-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209330915,
+      "links": 3,
+      "path": "v30-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-721d018-clean-c1ca6a2d0380.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 89354240,
+      "device": 2307,
+      "inode": 209330914,
+      "links": 3,
+      "path": "v30-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-721d018-clean-c1ca6a2d0380.tar.gz",
+      "size_bytes": 89347067
+    },
+    {
+      "allocated_bytes": 84033536,
+      "device": 2307,
+      "inode": 209126626,
+      "links": 2,
+      "path": "v26-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-aa3285f-clean-d3967bde5f12.tar.gz",
+      "size_bytes": 84032596
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209126627,
+      "links": 2,
+      "path": "v26-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-aa3285f-clean-d3967bde5f12.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209338529,
+      "links": 2,
+      "path": "local-authoring-cpuprefetchv5-30/cpu-prefetch-pilot-candidate-2.0.0-6993313-clean-7cca27a0177f.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 89399296,
+      "device": 2307,
+      "inode": 209338528,
+      "links": 3,
+      "path": "local-authoring-cpuprefetchv5-30/cpu-prefetch-pilot-candidate-2.0.0-6993313-clean-7cca27a0177f.tar.gz",
+      "size_bytes": 89397522
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209330915,
+      "links": 3,
+      "path": "local-authoring-cpuprefetchv5-30/package-preparation-2/cpu-prefetch-pilot-candidate-2.0.0-721d018-clean-c1ca6a2d0380.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 89354240,
+      "device": 2307,
+      "inode": 209330914,
+      "links": 3,
+      "path": "local-authoring-cpuprefetchv5-30/package-preparation-2/cpu-prefetch-pilot-candidate-2.0.0-721d018-clean-c1ca6a2d0380.tar.gz",
+      "size_bytes": 89347067
+    },
+    {
+      "allocated_bytes": 89399296,
+      "device": 2307,
+      "inode": 209338528,
+      "links": 3,
+      "path": "local-authoring-cpuprefetchv5-30/package-preparation-3/cpu-prefetch-pilot-candidate-2.0.0-6993313-clean-7cca27a0177f.tar.gz",
+      "size_bytes": 89397522
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209195530,
+      "links": 2,
+      "path": "local-authoring-cpuprefetchv5-27/continuation-window-1.json",
+      "size_bytes": 1116
+    },
+    {
+      "allocated_bytes": 87781376,
+      "device": 2307,
+      "inode": 209205170,
+      "links": 2,
+      "path": "v28-bootstrap-1/release-919c486.tar.gz",
+      "size_bytes": 87774997
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 208935231,
+      "links": 2,
+      "path": "v22-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-c962fd7-clean-aba9b921f5fc.tar.gz.sha256",
+      "size_bytes": 135
+    },
+    {
+      "allocated_bytes": 80474112,
+      "device": 2307,
+      "inode": 208935230,
+      "links": 2,
+      "path": "v22-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-c962fd7-clean-aba9b921f5fc.tar.gz",
+      "size_bytes": 80472363
+    },
+    {
+      "allocated_bytes": 89677824,
+      "device": 2307,
+      "inode": 209459294,
+      "links": 2,
+      "path": "v32-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b.tar.gz",
+      "size_bytes": 89677071
+    },
+    {
+      "allocated_bytes": 4096,
+      "device": 2307,
+      "inode": 209459295,
+      "links": 2,
+      "path": "v32-bootstrap-1/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b.tar.gz.sha256",
+      "size_bytes": 135
+    }
+  ],
+  "payload_bytes_read": 0,
+  "read_only": true,
+  "root": "/home/omaltsev/stage17-owner-evidence",
+  "utc": "2026-11-23T21:00:44.062733+00:00"
+}

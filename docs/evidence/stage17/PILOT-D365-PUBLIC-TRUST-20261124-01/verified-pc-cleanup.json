@@ -1,0 +1,8 @@
+{
+  "deleted_path": "build/stage17-s180-service-prep/software-tests.tar",
+  "reason": "VERIFIED_REDUNDANT_SOFTWARE_TEST_TRANSPORT; regenerable from committed bfeaa37; metadata results and driver retained",
+  "research_data_deleted": false,
+  "sha256": "f6822acbffaff13a9d8fdd981a9d9fe0a618bc4b0442e8683dfe8ecbd7ffb9c8",
+  "size_bytes": 3880960,
+  "utc": "2026-11-24T07:56:11.970064+00:00"
+}

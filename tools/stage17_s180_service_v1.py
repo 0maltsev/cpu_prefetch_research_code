@@ -39,6 +39,7 @@ RELOCATED=('tools/stage17_s180_qualification_evidence_v1.py',
 HEADER='include/cpu_prefetch/runner/software_prefetch.hpp'
 MEMBERS=frozenset(('stage17_s180_service_v1.py','tools/stage17_s180_execution_v1.py',
     'tools/stage17_s180_family_analysis_v1.py','tools/stage17_s180_exit_v1.py','stop_post.py',
+    'tools/stage17_s180_authority_v1.py','tools/stage17_s180_journal_v1.py','tools/stage17_s180_signature_v1.py',
     'metadata-timing.json',HEADER,*RELOCATED,*('support/'+name for name in SUPPORT)))
 NS=10**9
 GIB=1024**3
@@ -114,7 +115,8 @@ def authenticate(expected):
     sys.path[:0]=[str(PACKAGE/'tools'),str(COMMON/'tools')]
     import stage17_s180_execution_v1 as execution
     import stage17_s180_exit_v1 as exit_check
-    for module in (execution,execution.analysis,execution.qualification,exit_check):
+    for module in (execution,execution.analysis,execution.qualification,execution.authority,
+            execution.journal,execution.authority.signatures,exit_check):
         require(Path(module.__file__).resolve(strict=True).parent==PACKAGE/'tools','controller overlay was not loaded')
     require(execution.SCHEMA.endswith('/2') and execution.analysis.SCHEMA.endswith('/4'),
         'qualified current controller/epoch versions required')

@@ -1,0 +1,21 @@
+{
+  "actual_changed_payload_rejected": true,
+  "actual_qualification_performed": false,
+  "actual_uid1000_stand_verification_exit": 0,
+  "archive_component_changed": false,
+  "ast_exit": 0,
+  "ast_files": 5,
+  "contracts_exit": 0,
+  "execution_authority": false,
+  "native_source_changed": false,
+  "operational_window_started": false,
+  "original_trust_owner_bytes_and_mode_unchanged": true,
+  "phase18_authority": false,
+  "python_debug": "PYTHONMALLOC=debug / isolated user+PID namespace; dedicated signature suite also -X dev",
+  "recorded_at_utc": "2026-11-24T07:57:13.503991+00:00",
+  "registered_cases": 134,
+  "registered_exit": 0,
+  "registered_suites": 9,
+  "signature_debug_cases": 7,
+  "signature_debug_exit": 0
+}

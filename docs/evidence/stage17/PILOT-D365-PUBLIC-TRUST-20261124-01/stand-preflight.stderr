@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py", line 323, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py", line 314, in main
+    inputs,result=preflight(execution,profile)
+                  ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py", line 247, in preflight
+    _signer_check(execution,base.view(),deadline)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py", line 185, in _signer_check
+    execution.authority.signatures._verify_signature(path.read_bytes(),Path(str(path)+'.sig'),
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        base.resolutions['S17-EXT-003'].semantic_context['trust'])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cpu-prefetch-s180-common-0919b87-1/tools/stage17_phase_controller_v2.py", line 187, in _verify_signature
+    _, allowed_payload = _read_binding(binding, "admitted allowed-signers")
+                         ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cpu-prefetch-s180-common-0919b87-1/tools/stage17_phase_controller_v2.py", line 92, in _read_binding
+    raise ControllerError(f"{label} is not an owner regular file")
+stage17_phase_controller_v2.ControllerError: admitted allowed-signers is not an owner regular file

@@ -14,7 +14,7 @@ import re
 import time
 
 import stage17_formal_archive_v1 as archive
-import stage17_phase_controller_v2 as signatures
+import stage17_s180_signature_v1 as signatures
 from stage17_s180_checkpoint_v1 import BLUEPRINT_SHA256
 
 SCHEMA = "cpu-prefetch-stage17-s180-authorization/1"
